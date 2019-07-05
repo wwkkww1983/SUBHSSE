@@ -1,0 +1,92 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace BLL
+{
+    /// <summary>
+    /// 班前会
+    /// </summary>
+    public static class ClassMeetingService
+    {
+        public static Model.SUBHSSEDB db = Funs.DB;
+
+        /// <summary>
+        /// 根据主键获取班前会
+        /// </summary>
+        /// <param name="classMeetingId"></param>
+        /// <returns></returns>
+        public static Model.Meeting_ClassMeeting GetClassMeetingById(string classMeetingId)
+        {
+            return Funs.DB.Meeting_ClassMeeting.FirstOrDefault(e => e.ClassMeetingId == classMeetingId);
+        }
+
+        /// <summary>
+        /// 添加班前会
+        /// </summary>
+        /// <param name="classMeeting"></param>
+        public static void AddClassMeeting(Model.Meeting_ClassMeeting classMeeting)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.Meeting_ClassMeeting newClassMeeting = new Model.Meeting_ClassMeeting
+            {
+                ClassMeetingId = classMeeting.ClassMeetingId,
+                ProjectId = classMeeting.ProjectId,
+                ClassMeetingCode = classMeeting.ClassMeetingCode,
+                ClassMeetingName = classMeeting.ClassMeetingName,
+                ClassMeetingDate = classMeeting.ClassMeetingDate,
+                ClassMeetingContents = classMeeting.ClassMeetingContents,
+                CompileMan = classMeeting.CompileMan,
+                CompileDate = classMeeting.CompileDate,
+                States = classMeeting.States
+            };
+            db.Meeting_ClassMeeting.InsertOnSubmit(newClassMeeting);
+            db.SubmitChanges();
+            ////增加一条编码记录
+            BLL.CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(BLL.Const.ProjectClassMeetingMenuId, classMeeting.ProjectId, null, classMeeting.ClassMeetingId, classMeeting.CompileDate);
+        }
+
+        /// <summary>
+        /// 修改班前会
+        /// </summary>
+        /// <param name="classMeeting"></param>
+        public static void UpdateClassMeeting(Model.Meeting_ClassMeeting classMeeting)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.Meeting_ClassMeeting newClassMeeting = db.Meeting_ClassMeeting.FirstOrDefault(e => e.ClassMeetingId == classMeeting.ClassMeetingId);
+            if (newClassMeeting != null)
+            {
+               // newClassMeeting.ProjectId = classMeeting.ProjectId;
+                newClassMeeting.ClassMeetingCode = classMeeting.ClassMeetingCode;
+                newClassMeeting.ClassMeetingName = classMeeting.ClassMeetingName;
+                newClassMeeting.ClassMeetingDate = classMeeting.ClassMeetingDate;
+                newClassMeeting.ClassMeetingContents = classMeeting.ClassMeetingContents;
+                newClassMeeting.CompileMan = classMeeting.CompileMan;
+                newClassMeeting.CompileDate = classMeeting.CompileDate;
+                newClassMeeting.States = classMeeting.States;
+                db.SubmitChanges();
+            }
+        }
+
+        /// <summary>
+        /// 根据主键删除班前会
+        /// </summary>
+        /// <param name="classMeetingId"></param>
+        public static void DeleteClassMeetingById(string classMeetingId)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.Meeting_ClassMeeting classMeeting = db.Meeting_ClassMeeting.FirstOrDefault(e => e.ClassMeetingId == classMeetingId);
+            if (classMeeting != null)
+            {
+                ///删除编码表记录
+                BLL.CodeRecordsService.DeleteCodeRecordsByDataId(classMeetingId);
+                BLL.CommonService.DeleteAttachFileById(classMeetingId);
+                ////删除审核流程表
+                BLL.CommonService.DeleteFlowOperateByID(classMeetingId);
+                db.Meeting_ClassMeeting.DeleteOnSubmit(classMeeting);
+                db.SubmitChanges();
+            }
+        }
+    }
+}

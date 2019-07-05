@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Tree>
+  <TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0002" Text="单位设置" NavigateUrl="SysManage/Unit.aspx" Icon="Layers">
+  </TreeNode>
+<TreeNode id="EBAD373C-8EB4-49A1-91F6-6794FFCAF9B6" Text="角色管理" NavigateUrl="SysManage/RoleList.aspx" Icon="GroupGear"></TreeNode>
+<TreeNode id="E6F0167E-B0FD-4A32-9C47-25FB9E0FDC4E" Text="用户信息" NavigateUrl="SysManage/UserList.aspx" Icon="User"></TreeNode>
+<TreeNode id="BAB254FA-C879-4463-B9DE-387C241A8623" Text="修改密码" NavigateUrl="SysManage/UpdatePassword.aspx" Icon="PageKey"></TreeNode>
+<TreeNode id="2231022B-3519-42FC-A2E6-1DB9A98039DD" Text="角色授权" NavigateUrl="SysManage/RolePower.aspx" Icon="UserKey"></TreeNode>
+<TreeNode id="0C67F4A8-1BE7-40BE-9621-B02A28FD13ED" Text="报表设计" NavigateUrl="ReportPrint/PrintDesigner.aspx" Icon="PageWhiteExcel"></TreeNode>
+<TreeNode id="E4BFDCFD-2B1F-49C5-B02B-1C91BFFAAC6E" Text="环境设置" NavigateUrl="SysManage/SysConstSet.aspx" Icon="Cog"></TreeNode>
+<TreeNode id="6EDFBE24-9419-4E73-AC2E-CAD30A754A73" Text="数据同步" NavigateUrl="SysManage/Synchronization.aspx" Icon="DatabaseRefresh"></TreeNode>
+</Tree>

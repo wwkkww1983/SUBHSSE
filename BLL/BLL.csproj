@@ -1,0 +1,478 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BBC7282A-9E2B-4BD6-9C6D-333CEFC6F332}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BLL</RootNamespace>
+    <AssemblyName>BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FineUIPro, Version=3.1.0.2, Culture=neutral, PublicKeyToken=9cbe753c029f291a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FineUIPro\FineUIPro.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SQLServer.ManagedDTS, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Microsoft.SQLServer.ManagedDTS.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FineUIPro\Net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Accident\AccidentHandleService.cs" />
+    <Compile Include="Accident\AccidentPersonRecordService.cs" />
+    <Compile Include="Accident\AccidentReport2Service.cs" />
+    <Compile Include="Accident\AccidentReportOtherItemService.cs" />
+    <Compile Include="Accident\AccidentReportOtherService.cs" />
+    <Compile Include="Accident\NoFourLetoffService.cs" />
+    <Compile Include="ActionPlan\ActionPlanListService.cs" />
+    <Compile Include="ActionPlan\ActionPlan_ManagerRuleService.cs" />
+    <Compile Include="ActionPlan\ActionPlanSummaryService.cs" />
+    <Compile Include="Administrative\CarManagerService.cs" />
+    <Compile Include="Administrative\CheckTypeSetService.cs" />
+    <Compile Include="Administrative\HealthManageService.cs" />
+    <Compile Include="Administrative\ManageCheckItemService.cs" />
+    <Compile Include="Administrative\ManageCheckService.cs" />
+    <Compile Include="Administrative\DriverManagerService.cs" />
+    <Compile Include="BaseInfo\AccidentTypeService.cs" />
+    <Compile Include="BaseInfo\CertificateService.cs" />
+    <Compile Include="BaseInfo\ContentTypeService.cs" />
+    <Compile Include="BaseInfo\CostTypeService.cs" />
+    <Compile Include="BaseInfo\DepartService.cs" />
+    <Compile Include="BaseInfo\EmergencyTypeService.cs" />
+    <Compile Include="BaseInfo\ExpertTypeService.cs" />
+    <Compile Include="BaseInfo\GasCylinderService.cs" />
+    <Compile Include="BaseInfo\GoodsDefService.cs" />
+    <Compile Include="BaseInfo\GoodsTypeService.cs" />
+    <Compile Include="BaseInfo\HSSEStandardListTypeService.cs" />
+    <Compile Include="BaseInfo\LawsRegulationsTypeService.cs" />
+    <Compile Include="BaseInfo\LicenseTypeService.cs" />
+    <Compile Include="BaseInfo\ManageRuleTypeService.cs" />
+    <Compile Include="BaseInfo\PersonSpecialtyService.cs" />
+    <Compile Include="BaseInfo\PositionService.cs" />
+    <Compile Include="BaseInfo\PostTitleService.cs" />
+    <Compile Include="BaseInfo\SolutionTempleteTypeService.cs" />
+    <Compile Include="BaseInfo\TrainLevelService.cs" />
+    <Compile Include="BaseInfo\TrainTypeService.cs" />
+    <Compile Include="BaseInfo\ViolationRuleService.cs" />
+    <Compile Include="BaseInfo\WorkStageService.cs" />
+    <Compile Include="BaseInfo\GoodsCategoryService.cs" />
+    <Compile Include="Check\Check_CheckColligationDetailService.cs" />
+    <Compile Include="Check\Check_CheckColligationService.cs" />
+    <Compile Include="Check\Check_CheckDayDetailService.cs" />
+    <Compile Include="Check\Check_CheckDayService.cs" />
+    <Compile Include="Check\Check_CheckDayXAService.cs" />
+    <Compile Include="Check\Check_CheckHolidayDetailService.cs" />
+    <Compile Include="Check\Check_CheckHolidayService.cs" />
+    <Compile Include="Check\Check_CheckSpecialDetailService.cs" />
+    <Compile Include="Check\Check_CheckSpecialService.cs" />
+    <Compile Include="Check\Check_CheckWorkDetailService.cs" />
+    <Compile Include="Check\Check_CheckWorkService.cs" />
+    <Compile Include="Check\Check_PauseNoticeService.cs" />
+    <Compile Include="Check\Check_ProjectCheckItemDetailService.cs" />
+    <Compile Include="Check\Check_ProjectCheckItemSetService.cs" />
+    <Compile Include="Check\Check_RectifyNoticeDetailService.cs" />
+    <Compile Include="Check\Check_RectifyNoticeService.cs" />
+    <Compile Include="Check\HSECertificateService.cs" />
+    <Compile Include="Check\IncentiveNoticeService.cs" />
+    <Compile Include="Check\ContactListService.cs" />
+    <Compile Include="Check\PunishNoticeService.cs" />
+    <Compile Include="Check\RectifyNoticesService.cs" />
+    <Compile Include="Check\RegistrationRecordService.cs" />
+    <Compile Include="Check\RegistrationService.cs" />
+    <Compile Include="Check\ViolationPersonService.cs" />
+    <Compile Include="Check\SupervisionNoticeService.cs" />
+    <Compile Include="Common\CodeRecordsService.cs" />
+    <Compile Include="CostGoods\CostManageItemService.cs" />
+    <Compile Include="CostGoods\CostManageService.cs" />
+    <Compile Include="CostGoods\CostSmallDetailItemService.cs" />
+    <Compile Include="CostGoods\CostSmallDetailService.cs" />
+    <Compile Include="CostGoods\CostStatisticDetailService.cs" />
+    <Compile Include="CostGoods\CostStatisticService.cs" />
+    <Compile Include="CostGoods\ExpenseDetailService.cs" />
+    <Compile Include="CostGoods\ExpenseService.cs" />
+    <Compile Include="CostGoods\GoodsIn2Service.cs" />
+    <Compile Include="CostGoods\GoodsManageService.cs" />
+    <Compile Include="CostGoods\GoodsOut2Service.cs" />
+    <Compile Include="CostGoods\MeasuresPlanService.cs" />
+    <Compile Include="CostGoods\PayRegistrationService.cs" />
+    <Compile Include="DynamicTHeaderHepler.cs" />
+    <Compile Include="EduTrain\EduTrain_TrainRecordDetailService.cs" />
+    <Compile Include="EduTrain\EduTrain_TrainRecordService.cs" />
+    <Compile Include="Emergency\EmergencyListService.cs" />
+    <Compile Include="Emergency\DrillRecordListService.cs" />
+    <Compile Include="Emergency\EmergencySupplyService.cs" />
+    <Compile Include="Emergency\EmergencyTeamAndTrainService.cs" />
+    <Compile Include="Emergency\EmergencyResponseRecordService.cs" />
+    <Compile Include="Environmental\EnvironmentalMonitoringService.cs" />
+    <Compile Include="Environmental\UnexpectedEnvironmentalService.cs" />
+    <Compile Include="Environmental\EnvironmentalEmergencyPlanService.cs" />
+    <Compile Include="Environmental\EIAReportService.cs" />
+    <Compile Include="FinalFileManage\OwnerFinalFileService.cs" />
+    <Compile Include="FinalFileManage\FinalFileListService.cs" />
+    <Compile Include="FinalFileManage\OtherDocumentListService.cs" />
+    <Compile Include="FinalFileManage\HSEFinalFileListService.cs" />
+    <Compile Include="Hazard\Hazard_EnvironmentalRiskItemService.cs" />
+    <Compile Include="Hazard\Hazard_EnvironmentalRiskListService.cs" />
+    <Compile Include="Hazard\Hazard_HazardListService.cs" />
+    <Compile Include="Hazard\Hazard_HazardSelectedItemService.cs" />
+    <Compile Include="HSSESystem\ServerSafetyInstitutionService.cs" />
+    <Compile Include="InformationProject\ExposureService.cs" />
+    <Compile Include="ManagementReport\SafeReportService.cs" />
+    <Compile Include="ManagementReport\SafeReportItemService.cs" />
+    <Compile Include="Manager\AccidentDesciptionCService.cs" />
+    <Compile Include="Manager\AccidentDesciptionItemCService.cs" />
+    <Compile Include="Manager\AccidentDetailSortBService.cs" />
+    <Compile Include="Manager\AccidentSortBService.cs" />
+    <Compile Include="Manager\AccidentSortCService.cs" />
+    <Compile Include="Manager\ActivitiesCService.cs" />
+    <Compile Include="Manager\ActivityDesCService.cs" />
+    <Compile Include="Manager\CheckCService.cs" />
+    <Compile Include="Manager\CheckDetailSortCService.cs" />
+    <Compile Include="Manager\CheckSortBService.cs" />
+    <Compile Include="Manager\CheckSortCService.cs" />
+    <Compile Include="Manager\CostAnalyseService.cs" />
+    <Compile Include="Manager\CostInvestmentPlanCService.cs" />
+    <Compile Include="Manager\DrillSortCService.cs" />
+    <Compile Include="Manager\EmergencyExercisesCService.cs" />
+    <Compile Include="Manager\EmergencyPlanCService.cs" />
+    <Compile Include="Manager\EmergencySortCService.cs" />
+    <Compile Include="Manager\FileManageCService.cs" />
+    <Compile Include="Manager\FiveExpenseCService.cs" />
+    <Compile Include="Manager\HazardCService.cs" />
+    <Compile Include="Manager\HazardSortCService.cs" />
+    <Compile Include="Manager\HeadMonthReportBService.cs" />
+    <Compile Include="Manager\HseCostBService.cs" />
+    <Compile Include="Manager\HseCostCService.cs" />
+    <Compile Include="Manager\IncentiveSortBService.cs" />
+    <Compile Include="Manager\IncentiveSortCService.cs" />
+    <Compile Include="Manager\ManageDocPlanCService.cs" />
+    <Compile Include="Manager\ManagerTotalMonthItemService.cs" />
+    <Compile Include="Manager\ManhoursSortBService.cs" />
+    <Compile Include="Manager\MeetingCService.cs" />
+    <Compile Include="Manager\MeetingSortBService.cs" />
+    <Compile Include="Manager\MeetingSortCService.cs" />
+    <Compile Include="Manager\MonthReportBService.cs" />
+    <Compile Include="Manager\MonthReportCService.cs" />
+    <Compile Include="Manager\MonthReportDService.cs" />
+    <Compile Include="Manager\OtherActiveSortCService.cs" />
+    <Compile Include="Manager\OtherManagementCService.cs" />
+    <Compile Include="Manager\OtherWorkCService.cs" />
+    <Compile Include="Manager\OtherWorkPlanCService.cs" />
+    <Compile Include="Manager\PersonSortCService.cs" />
+    <Compile Include="Manager\PlanCService.cs" />
+    <Compile Include="Manager\PromotionalActiviteSortCService.cs" />
+    <Compile Include="Manager\ReportRemindService.cs" />
+    <Compile Include="Manager\ResetManHoursService.cs" />
+    <Compile Include="Manager\ReviewRecordCService.cs" />
+    <Compile Include="Manager\SafetyDataDService.cs" />
+    <Compile Include="Manager\SubExpenseCService.cs" />
+    <Compile Include="Manager\TrainActivitySortCService.cs" />
+    <Compile Include="Manager\TrainCService.cs" />
+    <Compile Include="Manager\TrainSortBService.cs" />
+    <Compile Include="Manager\HSSELogService.cs" />
+    <Compile Include="Manager\HSSELogMonthService.cs" />
+    <Compile Include="Manager\TrainSortCService.cs" />
+    <Compile Include="Manager\ViolationRecordDService.cs" />
+    <Compile Include="ProjectData\ProjectSateService.cs" />
+    <Compile Include="QualityAudit\EquipmentQualityAuditDetailService.cs" />
+    <Compile Include="QualityAudit\SubUnitQualityAuditDetailService.cs" />
+    <Compile Include="SafetyActivities\ThemeActivitiesService.cs" />
+    <Compile Include="SafetyActivities\MonthlyRatingService.cs" />
+    <Compile Include="SafetyActivities\SafetyMonthService.cs" />
+    <Compile Include="SafetyActivities\FireActivitiesService.cs" />
+    <Compile Include="SafetyActivities\OtherActivitiesService.cs" />
+    <Compile Include="SecuritySystem\SafetyOrganizationService.cs" />
+    <Compile Include="SecuritySystem\SafetySystemService.cs" />
+    <Compile Include="SecuritySystem\SafetyInstitutionService.cs" />
+    <Compile Include="SecuritySystem\SafetyManageOrganizationService.cs" />
+    <Compile Include="SiteConstruction\ConstructionDynamicService.cs" />
+    <Compile Include="SiteConstruction\MonthPlanService.cs" />
+    <Compile Include="SitePerson\PersonInOutService.cs" />
+    <Compile Include="Solution\ExpertArgumentService.cs" />
+    <Compile Include="Solution\LargerHazardService.cs" />
+    <Compile Include="Hazard\Hazard_OtherHazardService.cs" />
+    <Compile Include="Hazard\Hazard_RegistrationService.cs" />
+    <Compile Include="InApproveManager\CarInItemService.cs" />
+    <Compile Include="InApproveManager\CarInService.cs" />
+    <Compile Include="InApproveManager\EquipmentInItemService.cs" />
+    <Compile Include="InApproveManager\EquipmentInService.cs" />
+    <Compile Include="InApproveManager\EquipmentOutItemService.cs" />
+    <Compile Include="InApproveManager\EquipmentOutService.cs" />
+    <Compile Include="InApproveManager\EquipmentQualityInItemService.cs" />
+    <Compile Include="InApproveManager\EquipmentQualityInService.cs" />
+    <Compile Include="InApproveManager\GasCylinderInItemService.cs" />
+    <Compile Include="InApproveManager\GasCylinderInService.cs" />
+    <Compile Include="InApproveManager\GasCylinderOutItemService.cs" />
+    <Compile Include="InApproveManager\GasCylinderOutService.cs" />
+    <Compile Include="InApproveManager\GeneralCarInItemService.cs" />
+    <Compile Include="InApproveManager\GeneralCarInService.cs" />
+    <Compile Include="InApproveManager\GeneralEquipmentInItemService.cs" />
+    <Compile Include="InApproveManager\GeneralEquipmentInService.cs" />
+    <Compile Include="InApproveManager\GeneralEquipmentOutItemService.cs" />
+    <Compile Include="InApproveManager\GeneralEquipmentOutService.cs" />
+    <Compile Include="InApproveManager\GoodsInService.cs" />
+    <Compile Include="InApproveManager\GoodsOutService.cs" />
+    <Compile Include="InformationProject\ConstructionStandardIdentifyService.cs" />
+    <Compile Include="InformationProject\ConstructionStandardSelectedItemService.cs" />
+    <Compile Include="InformationProject\LawRegulationIdentifyService.cs" />
+    <Compile Include="InformationProject\LawRegulationSelectedItemService.cs" />
+    <Compile Include="InformationProject\PictureService.cs" />
+    <Compile Include="InformationProject\ProjectAccidentCauseReportItemService.cs" />
+    <Compile Include="InformationProject\ProjectAccidentCauseReportService.cs" />
+    <Compile Include="InformationProject\ProjectDrillConductedQuarterlyReportItemService.cs" />
+    <Compile Include="InformationProject\ProjectDrillConductedQuarterlyReportService.cs" />
+    <Compile Include="InformationProject\ProjectDrillPlanHalfYearReportItemService.cs" />
+    <Compile Include="InformationProject\ProjectDrillPlanHalfYearReportService.cs" />
+    <Compile Include="InformationProject\ProjectFolderItemService.cs" />
+    <Compile Include="InformationProject\ProjectFolderService.cs" />
+    <Compile Include="InformationProject\FileCabinetAItemService.cs" />
+    <Compile Include="InformationProject\FileCabinetAService.cs" />
+    <Compile Include="InformationProject\NoticeService.cs" />
+    <Compile Include="InformationProject\ProjectMillionsMonthlyReportService.cs" />
+    <Compile Include="InformationProject\ProjectSafetyQuarterlyReportService.cs" />
+    <Compile Include="InformationProject\PromotionalActivitiesService.cs" />
+    <Compile Include="InformationProject\ReceiveFileManagerService.cs" />
+    <Compile Include="License\EquipmentSafetyListService.cs" />
+    <Compile Include="License\HSETechnicalService.cs" />
+    <Compile Include="License\LicenseManagerService.cs" />
+    <Compile Include="License\SecurityLicenseService.cs" />
+    <Compile Include="Manager\AccidentSortService.cs" />
+    <Compile Include="Manager\CheckSortService.cs" />
+    <Compile Include="Manager\CompletionReportService.cs" />
+    <Compile Include="SafetyData\SafetyDataItemService.cs" />
+    <Compile Include="SafetyData\SafetyDataService.cs" />
+    <Compile Include="Manager\HealthService.cs" />
+    <Compile Include="Manager\HseCostService.cs" />
+    <Compile Include="Manager\IncentiveSortService.cs" />
+    <Compile Include="Manager\ManagerPerformanceService.cs" />
+    <Compile Include="Manager\ManagerQuarterlyService.cs" />
+    <Compile Include="Manager\ManagerTotalService.cs" />
+    <Compile Include="Manager\ManagerWeekService.cs" />
+    <Compile Include="Manager\ManagerTotalMonthService.cs" />
+    <Compile Include="Manager\MeetingSortService.cs" />
+    <Compile Include="Manager\MonthReportService.cs" />
+    <Compile Include="Manager\SubManagerMonthService.cs" />
+    <Compile Include="Manager\SubManagerWeekService.cs" />
+    <Compile Include="Manager\TrainSortService.cs" />
+    <Compile Include="SafetyData\SafetyDataCheckService.cs" />
+    <Compile Include="SafetyData\SafetyDataCheckItemService.cs" />
+    <Compile Include="Meeting\AttendMeetingService.cs" />
+    <Compile Include="Meeting\ClassMeetingService.cs" />
+    <Compile Include="Meeting\MonthMeetingService.cs" />
+    <Compile Include="Meeting\SpecialMeetingService.cs" />
+    <Compile Include="Meeting\WeekMeetingService.cs" />
+    <Compile Include="OccupationHealth\HazardDetectionService.cs" />
+    <Compile Include="OccupationHealth\PhysicalExaminationService.cs" />
+    <Compile Include="OccupationHealth\OccupationalDiseaseAccidentService.cs" />
+    <Compile Include="Perfomance\PerfomanceRecordService.cs" />
+    <Compile Include="Perfomance\PersonPerfomanceService.cs" />
+    <Compile Include="Personal\PersonalFolderService.cs" />
+    <Compile Include="Personal\PersonalFolderItemService.cs" />
+    <Compile Include="ProjectData\ProjectService.cs" />
+    <Compile Include="BaseInfo\RulesRegulationsTypeService.cs" />
+    <Compile Include="BaseInfo\SpecialEquipmentService.cs" />
+    <Compile Include="BaseInfo\SpecialSchemeTypeService.cs" />
+    <Compile Include="BaseInfo\ViolationSortService.cs" />
+    <Compile Include="BaseInfo\WorkPostService.cs" />
+    <Compile Include="QualityAudit\EquipmentQualityService.cs" />
+    <Compile Include="QualityAudit\GeneralEquipmentQualityService.cs" />
+    <Compile Include="QualityAudit\InUnitService.cs" />
+    <Compile Include="QualityAudit\ManagePersonQualityService.cs" />
+    <Compile Include="QualityAudit\PersonQualityService.cs" />
+    <Compile Include="QualityAudit\ProjectRecordService.cs" />
+    <Compile Include="QualityAudit\SafePersonQualityService.cs" />
+    <Compile Include="QualityAudit\SubUnitQualityService.cs" />
+    <Compile Include="SafetyData\SafetyDataPlanService.cs" />
+    <Compile Include="ServerCheck\CheckRectifyItemService.cs" />
+    <Compile Include="ServerCheck\CheckRectifyService.cs" />
+    <Compile Include="Common\TimeDataInService.cs" />
+    <Compile Include="Common\ChartControlService.cs" />
+    <Compile Include="Common\ConstValue.cs" />
+    <Compile Include="Common\UploadAttachmentService.cs" />
+    <Compile Include="Common\CreateMenuXML.cs" />
+    <Compile Include="EduTrain\AccidentCaseItemService.cs" />
+    <Compile Include="EduTrain\AccidentCaseService.cs" />
+    <Compile Include="EduTrain\KnowledgeItemService.cs" />
+    <Compile Include="EduTrain\KnowledgeService.cs" />
+    <Compile Include="OnlineCheck\BuildTestService.cs" />
+    <Compile Include="OnlineCheck\ExamineeService.cs" />
+    <Compile Include="OnlineCheck\TestDBService.cs" />
+    <Compile Include="EduTrain\TrainTestDBItemService.cs" />
+    <Compile Include="EduTrain\TrainTestDBService.cs" />
+    <Compile Include="Exchange\ContentService.cs" />
+    <Compile Include="Exchange\ReContentService.cs" />
+    <Compile Include="HSSESystem\HSSEMainDutyService.cs" />
+    <Compile Include="HSSESystem\HSSEManageItemService.cs" />
+    <Compile Include="HSSESystem\HSSEManageService.cs" />
+    <Compile Include="HSSESystem\HSSEOrganizeService.cs" />
+    <Compile Include="Information\AccidentCauseReportItemService.cs" />
+    <Compile Include="Information\AccidentCauseReportService.cs" />
+    <Compile Include="Information\DrillConductedQuarterlyReportItemService.cs" />
+    <Compile Include="Information\DrillConductedQuarterlyReportService.cs" />
+    <Compile Include="Information\DrillPlanHalfYearReportItemService.cs" />
+    <Compile Include="Information\DrillPlanHalfYearReportService.cs" />
+    <Compile Include="Information\MillionsMonthlyReportItemService.cs" />
+    <Compile Include="Information\MillionsMonthlyReportService.cs" />
+    <Compile Include="Information\ProjectDataFlowSetService.cs" />
+    <Compile Include="Information\SafetyQuarterlyReportService.cs" />
+    <Compile Include="Information\AnalyseResourceService.cs" />
+    <Compile Include="OpenFileService\FileInsertService.cs" />
+    <Compile Include="OpenFileService\FileStructService.cs" />
+    <Compile Include="ProjectAccident\AccidentAnalysisItemService.cs" />
+    <Compile Include="ProjectAccident\AccidentAnalysisService.cs" />
+    <Compile Include="ProjectAccident\AccidentReportService.cs" />
+    <Compile Include="ProjectAccident\AccidentStatisticsService.cs" />
+    <Compile Include="ProjectData\ProjectUnitService.cs" />
+    <Compile Include="ProjectData\ProjectUserService.cs" />
+    <Compile Include="ProjectData\ProjectData_CodeTemplateRuleService.cs" />
+    <Compile Include="ProjectData\TeamGroupService.cs" />
+    <Compile Include="ProjectData\WorkAreaService.cs" />
+    <Compile Include="ProjectEvaluation\ProjectEvaluationService.cs" />
+    <Compile Include="Resources\ProblemAnswerService.cs" />
+    <Compile Include="Resources\SignManageService.cs" />
+    <Compile Include="Resources\ResourcesDataService.cs" />
+    <Compile Include="SitePerson\PersonService.cs" />
+    <Compile Include="SitePerson\SitePerson_CheckingService.cs" />
+    <Compile Include="SitePerson\SitePerson_DayReportDetailService.cs" />
+    <Compile Include="SitePerson\SitePerson_DayReportService.cs" />
+    <Compile Include="SitePerson\SitePerson_DayReportUnitDetailService.cs" />
+    <Compile Include="SitePerson\SitePerson_MonthReportDetailService.cs" />
+    <Compile Include="SitePerson\SitePerson_MonthReportService.cs" />
+    <Compile Include="SitePerson\SitePerson_MonthReportUnitDetailService.cs" />
+    <Compile Include="Solution\ConstructSolutionService.cs" />
+    <Compile Include="Solution\SolutionTemplateService.cs" />
+    <Compile Include="Supervise\SubUnitCheckRectifyItemService.cs" />
+    <Compile Include="Supervise\SubUnitCheckRectifyService.cs" />
+    <Compile Include="Supervise\SubUnitReportItemService.cs" />
+    <Compile Include="ServerCheck\SubUnitReportService.cs" />
+    <Compile Include="Supervise\SuperviseCheckRectifyItemService.cs" />
+    <Compile Include="Supervise\SuperviseCheckRectifyService.cs" />
+    <Compile Include="Supervise\SuperviseCheckReportItemService.cs" />
+    <Compile Include="Supervise\SuperviseCheckReportService.cs" />
+    <Compile Include="ServerCheck\UpCheckReportService.cs" />
+    <Compile Include="SysManage\MenuFlowOperateService.cs" />
+    <Compile Include="SysManage\ButtonToMenuService.cs" />
+    <Compile Include="SysManage\UnitService.cs" />
+    <Compile Include="BaseInfo\UnitTypeService.cs" />
+    <Compile Include="Common\CommonService.cs" />
+    <Compile Include="EduTrain\TrainingItemService.cs" />
+    <Compile Include="EduTrain\TrainingService.cs" />
+    <Compile Include="Law\HSSEStandardsListService.cs" />
+    <Compile Include="Law\LawRegulationListService.cs" />
+    <Compile Include="Law\ManageRuleService.cs" />
+    <Compile Include="Law\RulesRegulationsService.cs" />
+    <Compile Include="SysManage\SysConstSetService.cs" />
+    <Compile Include="Common\Const.cs" />
+    <Compile Include="ErrLogInfo.cs" />
+    <Compile Include="FriendlyException.cs" />
+    <Compile Include="Common\Funs.cs" />
+    <Compile Include="MethodRefelect.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportPrint\ReportPrintService.cs" />
+    <Compile Include="SessionName.cs" />
+    <Compile Include="SoftRegeditService.cs" />
+    <Compile Include="SQLHelper.cs" />
+    <Compile Include="SysManage\ButtonPowerService.cs" />
+    <Compile Include="SysManage\LogService.cs" />
+    <Compile Include="SysManage\RolePowerService.cs" />
+    <Compile Include="SysManage\RoleService.cs" />
+    <Compile Include="SysManage\SysMenuService.cs" />
+    <Compile Include="SysManage\UserService.cs" />
+    <Compile Include="Common\UploadFileService.cs" />
+    <Compile Include="Technique\AppraiseService.cs" />
+    <Compile Include="Technique\EmergencyService.cs" />
+    <Compile Include="Technique\ExpertService.cs" />
+    <Compile Include="Technique\HazardListService.cs" />
+    <Compile Include="Technique\HazardListTypeService.cs" />
+    <Compile Include="Technique\HAZOPService.cs" />
+    <Compile Include="Technique\ProjectSolutionTempleteService.cs" />
+    <Compile Include="Technique\RectifyItemService.cs" />
+    <Compile Include="Technique\RectifyService.cs" />
+    <Compile Include="Technique\SpecialSchemeService.cs" />
+    <Compile Include="LoginService.cs" />
+    <Compile Include="Technique\Technique_CheckItemDetailService.cs" />
+    <Compile Include="Technique\Technique_CheckItemSetService.cs" />
+    <Compile Include="Technique\Technique_EnvironmentalService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{FD1E1931-1688-4B4A-BCD6-335A81465343}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Scripts\jquery-3.1.0.min.map" />
+    <None Include="Scripts\jquery-3.1.0.slim.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\jquery-3.1.0-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.1.0.js" />
+    <Content Include="Scripts\jquery-3.1.0.min.js" />
+    <Content Include="Scripts\jquery-3.1.0.slim.js" />
+    <Content Include="Scripts\jquery-3.1.0.slim.min.js" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

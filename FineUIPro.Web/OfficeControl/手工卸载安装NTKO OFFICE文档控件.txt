@@ -1,0 +1,9 @@
+2、手工卸载NTKO OFFICE文档控件的步骤：
+1）执行如下步骤之前最好重新启动计算机。如果不重新启动，请确保关闭所有浏览器以及可能使用控件的开发工具，比如Visual Studio.Net.如果任务管理器中存在iexplorer.exe进程，则终止它。这样做可以保证系统中不存在使用控件的进程，以避免卸载/删除失败。
+2）删除c:\windows(winnt)\downloaded program files目录下的 NTKO OFFICE文档控件(未授权演示版)。
+3）将officecontrol.cab中的officecontrol.ocx解开，拷贝到比如：c:\officecontrol.ocx
+4）从命令行运行： regsvr32 /u c:\officecontrol.ocx
+就可以彻底卸载控件。
+3、手工安装NTKO OFFICE文档控件的步骤： 
+1） 将officecontrol.cab中的officecontrol.ocx解开，拷贝到比如：c:\officecontrol.ocx
+2）从命令行运行： regsvr32 c:\officecontrol.ocx 

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Tree>
+  <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="单位类别" NavigateUrl="BaseInfo/UnitType.aspx" Icon="PageHeaderFooter">
+  </TreeNode>
+<TreeNode id="D9F1F0BD-D48F-4C5B-AF26-7F4C561D1352" Text="部门信息" NavigateUrl="BaseInfo/Depart.aspx" Icon="StatusBeRightBack"></TreeNode>
+<TreeNode id="D4FC3583-31A7-49B3-8F32-007E9756D678" Text="岗位信息*" NavigateUrl="BaseInfo/WorkPost.aspx" Icon="Vcard"></TreeNode>
+<TreeNode id="1E81DF97-809E-479F-1111-508F2043BA69" Text="职务信息" NavigateUrl="BaseInfo/Position.aspx" Icon="GroupEdit"></TreeNode>
+<TreeNode id="2E424093-81B8-421A-963F-D85D17B1E82A" Text="职称信息" NavigateUrl="BaseInfo/PostTitle.aspx" Icon="PagePortrait"></TreeNode>
+<TreeNode id="3A40AF0B-C9B8-4AF9-A683-FEADD8CC3A1C" Text="特岗证书*" NavigateUrl="BaseInfo/Certificate.aspx" Icon="BookOpenMark"></TreeNode>
+<TreeNode id="B7926494-8CCD-40BD-1111-6BD10176DA0D" Text="机具设备*" NavigateUrl="BaseInfo/SpecialEquipment.aspx" Icon="WrenchOrange"></TreeNode>
+<TreeNode id="000F8328-AB84-4235-95F8-E826DB292D83" Text="费用类型*" NavigateUrl="BaseInfo/CostType.aspx" Icon="Money"></TreeNode>
+<TreeNode id="F6C0E3DE-84CB-45CE-A46A-84DD51B8FBCB" Text="事故类型*" NavigateUrl="BaseInfo/AccidentType.aspx" Icon="DiskError"></TreeNode>
+<TreeNode id="87F312AD-8611-49F9-8487-66B5240568E0" Text="货物类型" NavigateUrl="BaseInfo/GoodsType.aspx" Icon="CartFull"></TreeNode>
+<TreeNode id="9922D495-76ED-4951-AC61-7559C00597DF" Text="气瓶类型" NavigateUrl="BaseInfo/GasCylinder.aspx" Icon="Drink"></TreeNode>
+<TreeNode id="B3FF303D-1A3E-40A3-8E9C-DDE4F32FFA91" Text="违章种类" NavigateUrl="BaseInfo/ViolationSort.aspx" Icon="JoystickError"></TreeNode>
+<TreeNode id="4C86AEA0-5D8A-4677-8F53-D1C757141CD3" Text="许可证类型*" NavigateUrl="BaseInfo/LicenseType.aspx" Icon="ScriptKey"></TreeNode>
+<TreeNode id="724E082C-EDDA-40FF-B396-F5441C5F6B15" Text="专业信息" NavigateUrl="BaseInfo/PersonSpecialty.aspx" Icon="PageRed"></TreeNode>
+<TreeNode id="45EBF358-F03D-4A85-848C-0C59766D3CC8" Text="专家类别" NavigateUrl="BaseInfo/ExpertType.aspx" Icon="PagePortraitShot"></TreeNode>
+<TreeNode id="871A4DA2-2CE0-4049-8255-3759A269110E" Text="法律法规类型" NavigateUrl="BaseInfo/LawsRegulationsType.aspx" Icon="ReportPicture"></TreeNode>
+<TreeNode id="ACA1906A-4A68-4632-A13A-342DECE32D3E" Text="标准规范类型" NavigateUrl="BaseInfo/HSSEStandardListType.aspx" Icon="PageWhiteVector"></TreeNode>
+<TreeNode id="5DAADE2B-C2D2-4765-A47A-A1C3139775DC" Text="管理规定分类" NavigateUrl="BaseInfo/ManageRuleType.aspx" Icon="PageWhiteWrench"></TreeNode>
+<TreeNode id="F7B600D2-999C-4C60-96D4-B7CB7129C0B5" Text="规章制度类别" NavigateUrl="BaseInfo/RulesRegulationsType.aspx" Icon="PageWorld"></TreeNode>
+<TreeNode id="CD5D9B58-4313-4463-BAE6-481A0D3775D9" Text="应急预案类型" NavigateUrl="BaseInfo/EmergencyType.aspx" Icon="PageWhiteError"></TreeNode>
+<TreeNode id="2181FB42-22F2-4342-B604-96F5770FE892" Text="专项方案类别" NavigateUrl="BaseInfo/SpecialSchemeType.aspx" Icon="PageWhiteFreehand"></TreeNode>
+<TreeNode id="F416839E-A37B-4DA0-AA50-8B06EBEF3139" Text="交流话题类型" NavigateUrl="BaseInfo/ContentType.aspx" Icon="Map"></TreeNode>
+<TreeNode id="CCF9E615-78C9-4085-BCFE-0F9907D3FA0A" Text="物资类别*" NavigateUrl="BaseInfo/GoodsCategory.aspx" Icon="Paintcan"></TreeNode>
+<TreeNode id="7C07BCB4-5D51-4061-BB71-60AD25F6F21D" Text="物资名称*" NavigateUrl="BaseInfo/GoodsDef.aspx" Icon="Basket"></TreeNode>
+<TreeNode id="091322A8-4FFB-472C-91EB-ABB3E491262A" Text="培训类别*" NavigateUrl="BaseInfo/TrainType.aspx" Icon="TextListBullets"></TreeNode>
+<TreeNode id="B27A0196-06A0-412D-B734-FB348AA6E312" Text="培训级别*" NavigateUrl="BaseInfo/TrainLevel.aspx" Icon="ReportEdit"></TreeNode>
+<TreeNode id="7353F3C1-0EAF-4DB7-86B4-93E3B96805F8" Text="行政管理检查类别" NavigateUrl="Administrative/CheckTypeSet.aspx" Icon="PageHeaderFooter"></TreeNode>
+<TreeNode id="38143A01-D17C-4234-A1A1-D90A3F887438" Text="工作阶段" NavigateUrl="BaseInfo/WorkStage.aspx" Icon="Clock"></TreeNode>
+<TreeNode id="179F286B-6DF8-414E-947F-82267076D4C8" Text="施工方案类型*" NavigateUrl="BaseInfo/SolutionTempleteType.aspx" Icon="BookNext"></TreeNode>
+</Tree>

@@ -1,0 +1,209 @@
+﻿using System;
+using System.Linq;
+using BLL;
+
+namespace FineUIPro.Web.QualityAudit
+{
+    public partial class SafePersonQualityEdit : PageBase
+    {
+        #region 定义项
+        /// <summary>
+        /// 人员主键
+        /// </summary>
+        private string PersonId
+        {
+            get
+            {
+                return (string)ViewState["PersonId"];
+            }
+            set
+            {
+                ViewState["PersonId"] = value;
+            }
+        }
+
+        /// <summary>
+        /// 资质主键
+        /// </summary>
+        private string SafePersonQualityId
+        {
+            get
+            {
+                return (string)ViewState["SafePersonQualityId"];
+            }
+            set
+            {
+                ViewState["SafePersonQualityId"] = value;
+            }
+        }
+        /// <summary>
+        /// 项目主键
+        /// </summary>
+        private string ProjectId
+        {
+            get
+            {
+                return (string)ViewState["ProjectId"];
+            }
+            set
+            {
+                ViewState["ProjectId"] = value;
+            }
+        }
+        #endregion
+
+        #region 加载
+        /// <summary>
+        /// 加载页面
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                this.btnClose.OnClientClick = ActiveWindow.GetHideReference();               
+                this.PersonId = Request.Params["PersonId"];
+                this.ProjectId = this.CurrUser.LoginProjectId;
+                if (!string.IsNullOrEmpty(this.PersonId))
+                {
+                    var person = BLL.PersonService.GetPersonById(this.PersonId);
+                    if (person != null)
+                    {
+                        this.ProjectId = person.ProjectId;
+                        var unit = BLL.UnitService.GetUnitByUnitId(person.UnitId);
+                        if (unit != null)
+                        {
+                            this.txtUnitCode.Text = unit.UnitCode;
+                            this.txtUnitName.Text = unit.UnitName;
+                        }
+                        this.txtPersonName.Text = person.PersonName;
+                        var workPost = BLL.WorkPostService.GetWorkPostById(person.WorkPostId);
+                        if (workPost != null)
+                        {
+                            this.txtWorkPostName.Text = workPost.WorkPostName;
+                        }
+                    }
+
+                    var SafePersonQuality = BLL.SafePersonQualityService.GetSafePersonQualityByPersonId(this.PersonId);
+                    if (SafePersonQuality != null)
+                    {
+                        this.SafePersonQualityId = SafePersonQuality.SafePersonQualityId;
+                        this.txtCertificateNo.Text = SafePersonQuality.CertificateNo;
+                        this.txtCertificateName.Text = SafePersonQuality.CertificateName;
+                        this.txtGrade.Text = SafePersonQuality.Grade;
+                        this.txtSendUnit.Text = SafePersonQuality.SendUnit;
+                        this.txtSendDate.Text = string.Format("{0:yyyy-MM-dd}", SafePersonQuality.SendDate);
+                        this.txtLimitDate.Text = string.Format("{0:yyyy-MM-dd}", SafePersonQuality.LimitDate);
+                        this.txtLateCheckDate.Text = string.Format("{0:yyyy-MM-dd}", SafePersonQuality.LateCheckDate);
+                        this.txtApprovalPerson.Text = SafePersonQuality.ApprovalPerson;
+                        this.txtRemark.Text = SafePersonQuality.Remark;
+                        this.txtAuditDate.Text = string.Format("{0:yyyy-MM-dd}", SafePersonQuality.AuditDate);
+                    }
+                }
+                else
+                {
+                    this.txtSendDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
+                    this.txtLimitDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);                   
+                }
+            }
+        }
+        #endregion
+        
+        #region 附件上传
+        /// <summary>
+        /// 上传附件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnAttachUrl_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.SafePersonQualityId))
+            {
+                SaveData(false);
+            }
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SafePersonQualityAttachUrl&menuId={1}", SafePersonQualityId, BLL.Const.SafePersonQualityMenuId)));
+        }
+
+        #endregion
+
+        #region 保存
+        /// <summary>
+        /// 保存按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            SaveData(true);
+        }
+
+        /// <summary>
+        /// 保存数据
+        /// </summary>
+        /// <param name="isClose"></param>
+        private void SaveData(bool isClose)
+        {
+            if (!String.IsNullOrEmpty(this.PersonId))
+            {
+                Model.QualityAudit_SafePersonQuality SafePersonQuality = new Model.QualityAudit_SafePersonQuality
+                {
+                    PersonId = this.PersonId,
+                    CertificateNo = this.txtCertificateNo.Text.Trim(),
+                    CertificateName = this.txtCertificateName.Text.Trim(),
+                    Grade = this.txtGrade.Text.Trim(),
+                    SendUnit = this.txtSendUnit.Text.Trim(),
+                    SendDate = Funs.GetNewDateTime(this.txtSendDate.Text.Trim()),
+                    LimitDate = Funs.GetNewDateTime(this.txtLimitDate.Text.Trim()),
+                    LateCheckDate = Funs.GetNewDateTime(this.txtLateCheckDate.Text.Trim()),
+                    ApprovalPerson = this.txtApprovalPerson.Text.Trim(),
+                    Remark = this.txtRemark.Text.Trim(),
+                    CompileMan = this.CurrUser.UserId,
+                    CompileDate = DateTime.Now,
+                    AuditDate = Funs.GetNewDateTime(this.txtAuditDate.Text.Trim())
+                };
+                if (!string.IsNullOrEmpty(this.SafePersonQualityId))
+                {
+                    SafePersonQuality.SafePersonQualityId = this.SafePersonQualityId;
+                    BLL.SafePersonQualityService.UpdateSafePersonQuality(SafePersonQuality);
+                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改安全人员资质", SafePersonQuality.SafePersonQualityId);
+                }
+                else
+                {
+                    var updateSafe = BLL.SafePersonQualityService.GetSafePersonQualityByPersonId(this.PersonId);
+                    if (updateSafe != null)
+                    {
+                        SafePersonQuality.SafePersonQualityId = updateSafe.SafePersonQualityId;
+                        BLL.SafePersonQualityService.UpdateSafePersonQuality(SafePersonQuality);
+                        BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改安全人员资质", SafePersonQuality.SafePersonQualityId);
+                    }
+                    else
+                    {
+                        this.SafePersonQualityId = SQLHelper.GetNewID(typeof(Model.QualityAudit_SafePersonQuality));
+                        SafePersonQuality.SafePersonQualityId = this.SafePersonQualityId;
+                        BLL.SafePersonQualityService.AddSafePersonQuality(SafePersonQuality);
+                        BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加安全人员资质", SafePersonQuality.SafePersonQualityId);
+                    }
+                }
+
+                if (isClose)
+                {
+                    var thisUnit = BLL.CommonService.GetIsThisUnit();
+                    if (thisUnit != null && thisUnit.UnitId == BLL.Const.UnitId_ECEC)
+                    {
+                        ////判断单据是否 加入到企业管理资料
+                        string menuId = BLL.Const.SafePersonQualityMenuId;
+                        var safeData = Funs.DB.SafetyData_SafetyData.FirstOrDefault(x => x.MenuId == menuId);
+                        if (safeData != null)
+                        {
+                            BLL.SafetyDataService.AddSafetyData(menuId, this.PersonId, this.txtPersonName.Text + "：安全人员资质", "../QualityAudit/SafePersonQualityEdit.aspx?PersonId={0}", this.ProjectId);
+                        }
+                    }
+
+                    PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
+                }
+            }
+        }
+        #endregion
+    }
+}

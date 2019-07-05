@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Tree>
+  <TreeNode id="FDVXFGDS-5THM-CCDE-DCS2-TGHNO48F7UKM" Text="安全合规" NavigateUrl="" Icon="Bookmark">
+    <TreeNode id="F4B02718-0616-4623-ABCE-885698DDBEB1" Text="安全法律法规" NavigateUrl="Law/LawRegulationList.aspx" Icon="Page">
+    </TreeNode>
+<TreeNode id="EFDSFVDE-RTHN-7UMG-4THA-5TGED48F8IOL" Text="安全标准规范" NavigateUrl="Law/HSSEStandardList.aspx" Icon="Page"></TreeNode>
+<TreeNode id="DF1413F3-4CE5-40B3-A574-E01CE64FEA25" Text="政府部门安全规章制度" NavigateUrl="Law/RulesRegulations.aspx" Icon="Page"></TreeNode>
+<TreeNode id="56960940-81A8-43D1-9565-C306EC7AFD12" Text="安全管理规定" NavigateUrl="Law/ManageRule.aspx" Icon="Page"></TreeNode>
+</TreeNode>
+<TreeNode id="8IDKGJE2-09B1-4607-DCS2-DCC3O48F080F" Text="安全体系" NavigateUrl="" Icon="LayoutContent"><TreeNode id="3ACE25CE-C5CE-4CEC-AD27-0D5CF1DF2F01" Text="安全主体责任" NavigateUrl="HSSESystem/HSSEMainDuty.aspx" Icon="Page"></TreeNode>
+</TreeNode>
+<TreeNode id="E26D223B-4CA2-4A6D-82D0-224CC9C8676D" Text="安全教育" NavigateUrl="" Icon="PagePortraitShot"><TreeNode id="9D99A981-7380-4085-84FA-8C3B1AFA6202" Text="培训教材库" NavigateUrl="EduTrain/TrainDB.aspx" Icon="Page"></TreeNode>
+<TreeNode id="F58EE8ED-9EB5-47C7-9D7F-D751EFEA44CA" Text="安全试题库" NavigateUrl="EduTrain/TrainTestDB.aspx" Icon="Page"></TreeNode>
+<TreeNode id="D86917DB-D00A-4E18-9793-C290B5BBA84C" Text="事故案例库" NavigateUrl="EduTrain/AccidentCase.aspx" Icon="Page"></TreeNode>
+<TreeNode id="AB7A3D78-2D89-4488-97E3-8F8616BDDE30" Text="应知应会库" NavigateUrl="EduTrain/KnowledgeDB.aspx" Icon="Page"></TreeNode>
+</TreeNode>
+<TreeNode id="D1A8637F-D2D2-40D9-89A6-10C428D0C90E" Text="学习考核" NavigateUrl="" Icon="BookOpenMark"><TreeNode id="C7454B8C-017F-4C8A-B9C7-D9D2F46F3CB1" Text="试题库维护" NavigateUrl="OnlineCheck/TestDB.aspx" Icon="Page"></TreeNode>
+<TreeNode id="86E75631-BB9B-432E-BE5C-0F8C7C58BDE3" Text="生成试卷" NavigateUrl="OnlineCheck/BuildTest.aspx" Icon="Page"></TreeNode>
+<TreeNode id="F62D1C56-8FB0-480D-9702-84B168D0A89F" Text="查看试卷" NavigateUrl="OnlineCheck/SeeTest.aspx" Icon="Page"></TreeNode>
+<TreeNode id="8787A0B6-9F9B-40A6-B122-E8A8287A84B9" Text="考生信息" NavigateUrl="OnlineCheck/Examinee.aspx" Icon="Page"></TreeNode>
+<TreeNode id="C91CD0C5-6609-40BD-B5E6-C2DF148B198B" Text="考试系统" NavigateUrl="OnlineCheck/TestSystem.aspx" Icon="Page"></TreeNode>
+</TreeNode>
+<TreeNode id="F3B157B7-9BEE-4150-80CB-087828F1C51D" Text="安全技术" NavigateUrl="" Icon="PagePaste"><TreeNode id="66A76F90-96A7-4C1F-B8D9-125DDEACEF52" Text="危险源清单" NavigateUrl="Technique/HazardList.aspx" Icon="Page"></TreeNode>
+<TreeNode id="C0018E8C-C88B-4E25-BCFC-F0BF3CACC63A" Text="公司危险源清单" NavigateUrl="Technique/CompanyHazardList.aspx" Icon="Page"></TreeNode>
+<TreeNode id="773B59F9-61F9-4F5E-9D68-A1BF9322AFFA" Text="环境因素危险源" NavigateUrl="Technique/Environmental.aspx" Icon="Page"></TreeNode>
+<TreeNode id="DC2AA8C2-82A8-4F7A-832D-9889C65AA228" Text="公司环境因素危险源" NavigateUrl="Technique/CompanyEnvironmental.aspx" Icon="Page"></TreeNode>
+<TreeNode id="88CDDC68-54DE-4E24-9524-A33B80EC0E12" Text="安全隐患" NavigateUrl="Technique/Rectify.aspx" Icon="Page"></TreeNode>
+<TreeNode id="4D92095C-8222-49D2-AF96-CD1972D4F4F8" Text="项目安全检查项" NavigateUrl="Technique/CheckItemSet.aspx" Icon="Page"></TreeNode>
+<TreeNode id="41C22E63-36B7-4C44-89EC-F765BFBB7C55" Text="HAZOP管理" NavigateUrl="Technique/HAZOP.aspx" Icon="Page"></TreeNode>
+<TreeNode id="0ADD01FB-8088-4595-BB40-6A73F332A229" Text="安全评价" NavigateUrl="Technique/Appraise.aspx" Icon="Page"></TreeNode>
+<TreeNode id="05495F29-B583-43D9-89D3-3384D6783A3F" Text="安全专家" NavigateUrl="Technique/Expert.aspx" Icon="Page"></TreeNode>
+<TreeNode id="575C5154-A135-4737-8682-A129EA717660" Text="应急预案" NavigateUrl="Technique/Emergency.aspx" Icon="Page"></TreeNode>
+<TreeNode id="3E2F2FFD-ED2E-4914-8370-D97A68398814" Text="施工方案" NavigateUrl="Technique/SpecialScheme.aspx" Icon="Page"></TreeNode>
+<TreeNode id="5FE00FAB-8191-4AA9-B8B2-BFDC91200B24" Text="现场施工方案模板" NavigateUrl="Technique/ProjectSolutionTemplete.aspx" Icon="Page"></TreeNode>
+</TreeNode>
+<TreeNode id="1B688B07-AEF4-43D8-BF31-1907522967ED" Text="标牌管理" NavigateUrl="" Icon="Image"><TreeNode id="022CA9C1-70F0-4C07-996C-0736D32B442A" Text="标牌管理" NavigateUrl="Resources/SignManage.aspx" Icon="Page"></TreeNode>
+</TreeNode>
+<TreeNode id="E32BAB38-E9BF-4AB9-A10D-5E7D20011D6E" Text="参考资料" NavigateUrl="" Icon="Book"><TreeNode id="EC1BED24-CDA6-4041-9B2A-BEB5E354D58F" Text="参考资料" NavigateUrl="Resources/ResourcesData.aspx" Icon="Page"></TreeNode>
+<TreeNode id="37EB5621-A9D3-405A-854B-4722B045CC1E" Text="问题及答案" NavigateUrl="Resources/ProblemAnswer.aspx" Icon="Page"></TreeNode>
+</TreeNode>
+<TreeNode id="3EF14145-E349-48B9-BB25-6CA209B485BB" Text="安全交流" NavigateUrl="" Icon="CommentsAdd"><TreeNode id="8FA7237E-DB0C-436C-9BC6-8C3A560EE688" Text="注册管理" NavigateUrl="Exchange/Register.aspx" Icon="Page"></TreeNode>
+<TreeNode id="7CCD36CB-6BFE-4FD7-8497-4DACB565298E" Text="内容管理" NavigateUrl="Exchange/Content.aspx" Icon="Page"></TreeNode>
+</TreeNode>
+</Tree>

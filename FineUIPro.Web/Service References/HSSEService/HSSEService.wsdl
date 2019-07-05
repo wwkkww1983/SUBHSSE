@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://www.localhost.com" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:i0="http://tempuri.org/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="HSSEService" targetNamespace="http://www.localhost.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:import namespace="http://tempuri.org/" location="http://localhost/cncechsse/HSSEService.svc?wsdl=wsdl0" />
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.localhost.com/Imports">
+      <xsd:import schemaLocation="http://localhost/cncechsse/HSSEService.svc?xsd=xsd0" namespace="http://www.localhost.com" />
+      <xsd:import schemaLocation="http://localhost/cncechsse/HSSEService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost/cncechsse/HSSEService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService" />
+      <xsd:import schemaLocation="http://localhost/cncechsse/HSSEService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="HSSEService_GetSys_VersionToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSys_VersionToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetSys_VersionToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSys_VersionToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetBase_UnitToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBase_UnitToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetBase_UnitToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBase_UnitToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetInformation_UrgeReportToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInformation_UrgeReportToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetInformation_UrgeReportToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInformation_UrgeReportToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetLaw_LawRegulationListToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLaw_LawRegulationListToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetLaw_LawRegulationListToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLaw_LawRegulationListToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetLaw_HSSEStandardsListToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLaw_HSSEStandardsListToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetLaw_HSSEStandardsListToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLaw_HSSEStandardsListToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetLaw_RulesRegulationsToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLaw_RulesRegulationsToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetLaw_RulesRegulationsToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLaw_RulesRegulationsToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetLaw_ManageRuleToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLaw_ManageRuleToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetLaw_ManageRuleToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLaw_ManageRuleToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTechnique_HAZOPToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTechnique_HAZOPToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTechnique_HAZOPToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTechnique_HAZOPToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTechnique_AppraiseToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTechnique_AppraiseToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTechnique_AppraiseToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTechnique_AppraiseToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTechnique_EmergencyToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTechnique_EmergencyToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTechnique_EmergencyToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTechnique_EmergencyToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTechnique_SpecialSchemeToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTechnique_SpecialSchemeToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTechnique_SpecialSchemeToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTechnique_SpecialSchemeToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTraining_TrainingListToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTraining_TrainingListToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTraining_TrainingListToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTraining_TrainingListToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTraining_TrainingItemListToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTraining_TrainingItemListToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTraining_TrainingItemListToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTraining_TrainingItemListToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTraining_TrainTestDBListToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTraining_TrainTestDBListToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTraining_TrainTestDBListToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTraining_TrainTestDBListToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTraining_TrainTestDBItemListToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTraining_TrainTestDBItemListToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTraining_TrainTestDBItemListToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTraining_TrainTestDBItemListToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetEduTrain_AccidentCaseListToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEduTrain_AccidentCaseListToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetEduTrain_AccidentCaseListToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEduTrain_AccidentCaseListToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetEduTrain_AccidentCaseItemListToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEduTrain_AccidentCaseItemListToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetEduTrain_AccidentCaseItemListToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEduTrain_AccidentCaseItemListToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTraining_KnowledgeListToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTraining_KnowledgeListToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTraining_KnowledgeListToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTraining_KnowledgeListToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTraining_KnowledgeItemListToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTraining_KnowledgeItemListToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTraining_KnowledgeItemListToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTraining_KnowledgeItemListToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTechnique_HazardListTypeListToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTechnique_HazardListTypeListToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTechnique_HazardListTypeListToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTechnique_HazardListTypeListToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTechnique_HazardListListToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTechnique_HazardListListToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTechnique_HazardListListToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTechnique_HazardListListToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTechnique_RectifyListToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTechnique_RectifyListToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTechnique_RectifyListToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTechnique_RectifyListToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTechnique_RectifyItemListToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTechnique_RectifyItemListToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTechnique_RectifyItemListToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTechnique_RectifyItemListToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTechnique_ExpertListToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTechnique_ExpertListToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetTechnique_ExpertListToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTechnique_ExpertListToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetSupervise_SuperviseCheckRectifyListToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSupervise_SuperviseCheckRectifyListToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetSupervise_SuperviseCheckRectifyListToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSupervise_SuperviseCheckRectifyListToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetSupervise_SubUnitReportListToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSupervise_SubUnitReportListToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetSupervise_SubUnitReportListToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSupervise_SubUnitReportListToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetSupervise_SubUnitReportItemListToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSupervise_SubUnitReportItemListToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetSupervise_SubUnitReportItemListToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSupervise_SubUnitReportItemListToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetCheck_CheckRectifyListToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCheck_CheckRectifyListToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetCheck_CheckRectifyListToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCheck_CheckRectifyListToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetCheck_CheckInfo_Table8ItemListToSUB_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCheck_CheckInfo_Table8ItemListToSUB" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_GetCheck_CheckInfo_Table8ItemListToSUB_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCheck_CheckInfo_Table8ItemListToSUBResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertLaw_LawRegulationListTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertLaw_LawRegulationListTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertLaw_LawRegulationListTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertLaw_LawRegulationListTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertLaw_HSSEStandardsListTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertLaw_HSSEStandardsListTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertLaw_HSSEStandardsListTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertLaw_HSSEStandardsListTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertLaw_RulesRegulationsTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertLaw_RulesRegulationsTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertLaw_RulesRegulationsTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertLaw_RulesRegulationsTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertLaw_ManageRuleTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertLaw_ManageRuleTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertLaw_ManageRuleTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertLaw_ManageRuleTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertTechnique_HAZOPTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertTechnique_HAZOPTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertTechnique_HAZOPTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertTechnique_HAZOPTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertTechnique_AppraiseTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertTechnique_AppraiseTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertTechnique_AppraiseTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertTechnique_AppraiseTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertTechnique_EmergencyTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertTechnique_EmergencyTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertTechnique_EmergencyTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertTechnique_EmergencyTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertTechnique_SpecialSchemeTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertTechnique_SpecialSchemeTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertTechnique_SpecialSchemeTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertTechnique_SpecialSchemeTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertInformation_AccidentCauseReportTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertInformation_AccidentCauseReportTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertInformation_AccidentCauseReportTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertInformation_AccidentCauseReportTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertInformation_DrillConductedQuarterlyReportTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertInformation_DrillConductedQuarterlyReportTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertInformation_DrillConductedQuarterlyReportTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertInformation_DrillConductedQuarterlyReportTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertInformation_DrillPlanHalfYearReportTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertInformation_DrillPlanHalfYearReportTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertInformation_DrillPlanHalfYearReportTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertInformation_DrillPlanHalfYearReportTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertInformation_MillionsMonthlyReportTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertInformation_MillionsMonthlyReportTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertInformation_MillionsMonthlyReportTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertInformation_MillionsMonthlyReportTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertInformation_SafetyQuarterlyReportTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertInformation_SafetyQuarterlyReportTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertInformation_SafetyQuarterlyReportTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertInformation_SafetyQuarterlyReportTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertTraining_TrainingItemTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertTraining_TrainingItemTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertTraining_TrainingItemTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertTraining_TrainingItemTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertTraining_TrainTestDBItemTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertTraining_TrainTestDBItemTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertTraining_TrainTestDBItemTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertTraining_TrainTestDBItemTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertEduTrain_AccidentCaseItemTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertEduTrain_AccidentCaseItemTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertEduTrain_AccidentCaseItemTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertEduTrain_AccidentCaseItemTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertTraining_KnowledgeItemTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertTraining_KnowledgeItemTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertTraining_KnowledgeItemTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertTraining_KnowledgeItemTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertTechnique_HazardListTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertTechnique_HazardListTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertTechnique_HazardListTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertTechnique_HazardListTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertTechnique_RectifyItemTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertTechnique_RectifyItemTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertTechnique_RectifyItemTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertTechnique_RectifyItemTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertTechnique_ExpertTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertTechnique_ExpertTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertTechnique_ExpertTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertTechnique_ExpertTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertSupervise_SuperviseCheckRectifyTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertSupervise_SuperviseCheckRectifyTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertSupervise_SuperviseCheckRectifyTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertSupervise_SuperviseCheckRectifyTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertHSSESystem_HSSEManageItemTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertHSSESystem_HSSEManageItemTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertHSSESystem_HSSEManageItemTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertHSSESystem_HSSEManageItemTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertSupervise_UpCheckReportTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertSupervise_UpCheckReportTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertSupervise_UpCheckReportTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertSupervise_UpCheckReportTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertSupervise_SubUnitReportItemItemTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertSupervise_SubUnitReportItemItemTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertSupervise_SubUnitReportItemItemTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertSupervise_SubUnitReportItemItemTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertCheck_CheckRectifyTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertCheck_CheckRectifyTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertCheck_CheckRectifyTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertCheck_CheckRectifyTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertHSSESystem_HSSEOrganizeTable_InputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertHSSESystem_HSSEOrganizeTable" />
+  </wsdl:message>
+  <wsdl:message name="HSSEService_DataInsertHSSESystem_HSSEOrganizeTable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DataInsertHSSESystem_HSSEOrganizeTableResponse" />
+  </wsdl:message>
+  <wsdl:portType name="HSSEService">
+    <wsdl:operation name="GetSys_VersionToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetSys_VersionToSUB" message="tns:HSSEService_GetSys_VersionToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetSys_VersionToSUBResponse" message="tns:HSSEService_GetSys_VersionToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBase_UnitToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetBase_UnitToSUB" message="tns:HSSEService_GetBase_UnitToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetBase_UnitToSUBResponse" message="tns:HSSEService_GetBase_UnitToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInformation_UrgeReportToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetInformation_UrgeReportToSUB" message="tns:HSSEService_GetInformation_UrgeReportToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetInformation_UrgeReportToSUBResponse" message="tns:HSSEService_GetInformation_UrgeReportToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLaw_LawRegulationListToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetLaw_LawRegulationListToSUB" message="tns:HSSEService_GetLaw_LawRegulationListToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetLaw_LawRegulationListToSUBResponse" message="tns:HSSEService_GetLaw_LawRegulationListToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLaw_HSSEStandardsListToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetLaw_HSSEStandardsListToSUB" message="tns:HSSEService_GetLaw_HSSEStandardsListToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetLaw_HSSEStandardsListToSUBResponse" message="tns:HSSEService_GetLaw_HSSEStandardsListToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLaw_RulesRegulationsToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetLaw_RulesRegulationsToSUB" message="tns:HSSEService_GetLaw_RulesRegulationsToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetLaw_RulesRegulationsToSUBResponse" message="tns:HSSEService_GetLaw_RulesRegulationsToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLaw_ManageRuleToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetLaw_ManageRuleToSUB" message="tns:HSSEService_GetLaw_ManageRuleToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetLaw_ManageRuleToSUBResponse" message="tns:HSSEService_GetLaw_ManageRuleToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTechnique_HAZOPToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetTechnique_HAZOPToSUB" message="tns:HSSEService_GetTechnique_HAZOPToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetTechnique_HAZOPToSUBResponse" message="tns:HSSEService_GetTechnique_HAZOPToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTechnique_AppraiseToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetTechnique_AppraiseToSUB" message="tns:HSSEService_GetTechnique_AppraiseToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetTechnique_AppraiseToSUBResponse" message="tns:HSSEService_GetTechnique_AppraiseToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTechnique_EmergencyToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetTechnique_EmergencyToSUB" message="tns:HSSEService_GetTechnique_EmergencyToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetTechnique_EmergencyToSUBResponse" message="tns:HSSEService_GetTechnique_EmergencyToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTechnique_SpecialSchemeToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetTechnique_SpecialSchemeToSUB" message="tns:HSSEService_GetTechnique_SpecialSchemeToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetTechnique_SpecialSchemeToSUBResponse" message="tns:HSSEService_GetTechnique_SpecialSchemeToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTraining_TrainingListToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetTraining_TrainingListToSUB" message="tns:HSSEService_GetTraining_TrainingListToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetTraining_TrainingListToSUBResponse" message="tns:HSSEService_GetTraining_TrainingListToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTraining_TrainingItemListToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetTraining_TrainingItemListToSUB" message="tns:HSSEService_GetTraining_TrainingItemListToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetTraining_TrainingItemListToSUBResponse" message="tns:HSSEService_GetTraining_TrainingItemListToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTraining_TrainTestDBListToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetTraining_TrainTestDBListToSUB" message="tns:HSSEService_GetTraining_TrainTestDBListToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetTraining_TrainTestDBListToSUBResponse" message="tns:HSSEService_GetTraining_TrainTestDBListToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTraining_TrainTestDBItemListToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetTraining_TrainTestDBItemListToSUB" message="tns:HSSEService_GetTraining_TrainTestDBItemListToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetTraining_TrainTestDBItemListToSUBResponse" message="tns:HSSEService_GetTraining_TrainTestDBItemListToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEduTrain_AccidentCaseListToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetEduTrain_AccidentCaseListToSUB" message="tns:HSSEService_GetEduTrain_AccidentCaseListToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetEduTrain_AccidentCaseListToSUBResponse" message="tns:HSSEService_GetEduTrain_AccidentCaseListToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEduTrain_AccidentCaseItemListToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetEduTrain_AccidentCaseItemListToSUB" message="tns:HSSEService_GetEduTrain_AccidentCaseItemListToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetEduTrain_AccidentCaseItemListToSUBResponse" message="tns:HSSEService_GetEduTrain_AccidentCaseItemListToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTraining_KnowledgeListToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetTraining_KnowledgeListToSUB" message="tns:HSSEService_GetTraining_KnowledgeListToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetTraining_KnowledgeListToSUBResponse" message="tns:HSSEService_GetTraining_KnowledgeListToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTraining_KnowledgeItemListToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetTraining_KnowledgeItemListToSUB" message="tns:HSSEService_GetTraining_KnowledgeItemListToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetTraining_KnowledgeItemListToSUBResponse" message="tns:HSSEService_GetTraining_KnowledgeItemListToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTechnique_HazardListTypeListToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetTechnique_HazardListTypeListToSUB" message="tns:HSSEService_GetTechnique_HazardListTypeListToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetTechnique_HazardListTypeListToSUBResponse" message="tns:HSSEService_GetTechnique_HazardListTypeListToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTechnique_HazardListListToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetTechnique_HazardListListToSUB" message="tns:HSSEService_GetTechnique_HazardListListToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetTechnique_HazardListListToSUBResponse" message="tns:HSSEService_GetTechnique_HazardListListToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTechnique_RectifyListToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetTechnique_RectifyListToSUB" message="tns:HSSEService_GetTechnique_RectifyListToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetTechnique_RectifyListToSUBResponse" message="tns:HSSEService_GetTechnique_RectifyListToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTechnique_RectifyItemListToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetTechnique_RectifyItemListToSUB" message="tns:HSSEService_GetTechnique_RectifyItemListToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetTechnique_RectifyItemListToSUBResponse" message="tns:HSSEService_GetTechnique_RectifyItemListToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTechnique_ExpertListToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetTechnique_ExpertListToSUB" message="tns:HSSEService_GetTechnique_ExpertListToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetTechnique_ExpertListToSUBResponse" message="tns:HSSEService_GetTechnique_ExpertListToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSupervise_SuperviseCheckRectifyListToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetSupervise_SuperviseCheckRectifyListToSUB" message="tns:HSSEService_GetSupervise_SuperviseCheckRectifyListToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetSupervise_SuperviseCheckRectifyListToSUBResponse" message="tns:HSSEService_GetSupervise_SuperviseCheckRectifyListToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSupervise_SubUnitReportListToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetSupervise_SubUnitReportListToSUB" message="tns:HSSEService_GetSupervise_SubUnitReportListToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetSupervise_SubUnitReportListToSUBResponse" message="tns:HSSEService_GetSupervise_SubUnitReportListToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSupervise_SubUnitReportItemListToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetSupervise_SubUnitReportItemListToSUB" message="tns:HSSEService_GetSupervise_SubUnitReportItemListToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetSupervise_SubUnitReportItemListToSUBResponse" message="tns:HSSEService_GetSupervise_SubUnitReportItemListToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCheck_CheckRectifyListToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetCheck_CheckRectifyListToSUB" message="tns:HSSEService_GetCheck_CheckRectifyListToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetCheck_CheckRectifyListToSUBResponse" message="tns:HSSEService_GetCheck_CheckRectifyListToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCheck_CheckInfo_Table8ItemListToSUB">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/GetCheck_CheckInfo_Table8ItemListToSUB" message="tns:HSSEService_GetCheck_CheckInfo_Table8ItemListToSUB_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/GetCheck_CheckInfo_Table8ItemListToSUBResponse" message="tns:HSSEService_GetCheck_CheckInfo_Table8ItemListToSUB_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertLaw_LawRegulationListTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertLaw_LawRegulationListTable" message="tns:HSSEService_DataInsertLaw_LawRegulationListTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertLaw_LawRegulationListTableResponse" message="tns:HSSEService_DataInsertLaw_LawRegulationListTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertLaw_HSSEStandardsListTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertLaw_HSSEStandardsListTable" message="tns:HSSEService_DataInsertLaw_HSSEStandardsListTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertLaw_HSSEStandardsListTableResponse" message="tns:HSSEService_DataInsertLaw_HSSEStandardsListTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertLaw_RulesRegulationsTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertLaw_RulesRegulationsTable" message="tns:HSSEService_DataInsertLaw_RulesRegulationsTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertLaw_RulesRegulationsTableResponse" message="tns:HSSEService_DataInsertLaw_RulesRegulationsTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertLaw_ManageRuleTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertLaw_ManageRuleTable" message="tns:HSSEService_DataInsertLaw_ManageRuleTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertLaw_ManageRuleTableResponse" message="tns:HSSEService_DataInsertLaw_ManageRuleTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertTechnique_HAZOPTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertTechnique_HAZOPTable" message="tns:HSSEService_DataInsertTechnique_HAZOPTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertTechnique_HAZOPTableResponse" message="tns:HSSEService_DataInsertTechnique_HAZOPTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertTechnique_AppraiseTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertTechnique_AppraiseTable" message="tns:HSSEService_DataInsertTechnique_AppraiseTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertTechnique_AppraiseTableResponse" message="tns:HSSEService_DataInsertTechnique_AppraiseTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertTechnique_EmergencyTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertTechnique_EmergencyTable" message="tns:HSSEService_DataInsertTechnique_EmergencyTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertTechnique_EmergencyTableResponse" message="tns:HSSEService_DataInsertTechnique_EmergencyTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertTechnique_SpecialSchemeTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertTechnique_SpecialSchemeTable" message="tns:HSSEService_DataInsertTechnique_SpecialSchemeTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertTechnique_SpecialSchemeTableResponse" message="tns:HSSEService_DataInsertTechnique_SpecialSchemeTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertInformation_AccidentCauseReportTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertInformation_AccidentCauseReportTable" message="tns:HSSEService_DataInsertInformation_AccidentCauseReportTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertInformation_AccidentCauseReportTableResponse" message="tns:HSSEService_DataInsertInformation_AccidentCauseReportTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertInformation_DrillConductedQuarterlyReportTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertInformation_DrillConductedQuarterlyReportTable" message="tns:HSSEService_DataInsertInformation_DrillConductedQuarterlyReportTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertInformation_DrillConductedQuarterlyReportTableResponse" message="tns:HSSEService_DataInsertInformation_DrillConductedQuarterlyReportTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertInformation_DrillPlanHalfYearReportTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertInformation_DrillPlanHalfYearReportTable" message="tns:HSSEService_DataInsertInformation_DrillPlanHalfYearReportTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertInformation_DrillPlanHalfYearReportTableResponse" message="tns:HSSEService_DataInsertInformation_DrillPlanHalfYearReportTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertInformation_MillionsMonthlyReportTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertInformation_MillionsMonthlyReportTable" message="tns:HSSEService_DataInsertInformation_MillionsMonthlyReportTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertInformation_MillionsMonthlyReportTableResponse" message="tns:HSSEService_DataInsertInformation_MillionsMonthlyReportTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertInformation_SafetyQuarterlyReportTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertInformation_SafetyQuarterlyReportTable" message="tns:HSSEService_DataInsertInformation_SafetyQuarterlyReportTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertInformation_SafetyQuarterlyReportTableResponse" message="tns:HSSEService_DataInsertInformation_SafetyQuarterlyReportTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertTraining_TrainingItemTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertTraining_TrainingItemTable" message="tns:HSSEService_DataInsertTraining_TrainingItemTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertTraining_TrainingItemTableResponse" message="tns:HSSEService_DataInsertTraining_TrainingItemTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertTraining_TrainTestDBItemTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertTraining_TrainTestDBItemTable" message="tns:HSSEService_DataInsertTraining_TrainTestDBItemTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertTraining_TrainTestDBItemTableResponse" message="tns:HSSEService_DataInsertTraining_TrainTestDBItemTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertEduTrain_AccidentCaseItemTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertEduTrain_AccidentCaseItemTable" message="tns:HSSEService_DataInsertEduTrain_AccidentCaseItemTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertEduTrain_AccidentCaseItemTableResponse" message="tns:HSSEService_DataInsertEduTrain_AccidentCaseItemTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertTraining_KnowledgeItemTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertTraining_KnowledgeItemTable" message="tns:HSSEService_DataInsertTraining_KnowledgeItemTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertTraining_KnowledgeItemTableResponse" message="tns:HSSEService_DataInsertTraining_KnowledgeItemTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertTechnique_HazardListTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertTechnique_HazardListTable" message="tns:HSSEService_DataInsertTechnique_HazardListTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertTechnique_HazardListTableResponse" message="tns:HSSEService_DataInsertTechnique_HazardListTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertTechnique_RectifyItemTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertTechnique_RectifyItemTable" message="tns:HSSEService_DataInsertTechnique_RectifyItemTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertTechnique_RectifyItemTableResponse" message="tns:HSSEService_DataInsertTechnique_RectifyItemTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertTechnique_ExpertTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertTechnique_ExpertTable" message="tns:HSSEService_DataInsertTechnique_ExpertTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertTechnique_ExpertTableResponse" message="tns:HSSEService_DataInsertTechnique_ExpertTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertSupervise_SuperviseCheckRectifyTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertSupervise_SuperviseCheckRectifyTable" message="tns:HSSEService_DataInsertSupervise_SuperviseCheckRectifyTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertSupervise_SuperviseCheckRectifyTableResponse" message="tns:HSSEService_DataInsertSupervise_SuperviseCheckRectifyTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertHSSESystem_HSSEManageItemTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertHSSESystem_HSSEManageItemTable" message="tns:HSSEService_DataInsertHSSESystem_HSSEManageItemTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertHSSESystem_HSSEManageItemTableResponse" message="tns:HSSEService_DataInsertHSSESystem_HSSEManageItemTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertSupervise_UpCheckReportTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertSupervise_UpCheckReportTable" message="tns:HSSEService_DataInsertSupervise_UpCheckReportTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertSupervise_UpCheckReportTableResponse" message="tns:HSSEService_DataInsertSupervise_UpCheckReportTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertSupervise_SubUnitReportItemItemTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertSupervise_SubUnitReportItemItemTable" message="tns:HSSEService_DataInsertSupervise_SubUnitReportItemItemTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertSupervise_SubUnitReportItemItemTableResponse" message="tns:HSSEService_DataInsertSupervise_SubUnitReportItemItemTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertCheck_CheckRectifyTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertCheck_CheckRectifyTable" message="tns:HSSEService_DataInsertCheck_CheckRectifyTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertCheck_CheckRectifyTableResponse" message="tns:HSSEService_DataInsertCheck_CheckRectifyTable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DataInsertHSSESystem_HSSEOrganizeTable">
+      <wsdl:input wsaw:Action="http://www.localhost.com/HSSEService/DataInsertHSSESystem_HSSEOrganizeTable" message="tns:HSSEService_DataInsertHSSESystem_HSSEOrganizeTable_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.localhost.com/HSSEService/DataInsertHSSESystem_HSSEOrganizeTableResponse" message="tns:HSSEService_DataInsertHSSESystem_HSSEOrganizeTable_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:service name="HSSEService">
+    <wsdl:port name="HSSEServiceEndpoint" binding="i0:HSSEServiceEndpoint">
+      <soap12:address location="http://localhost/cncechsse/HSSEService.svc" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>http://localhost/cncechsse/HSSEService.svc</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
