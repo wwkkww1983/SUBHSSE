@@ -135,14 +135,14 @@ namespace FineUIPro.Web.SafetyActivities
             {
                 newSafetyMonth.SafetyMonthId = this.SafetyMonthId;
                 BLL.SafetyMonthService.UpdateSafetyMonth(newSafetyMonth);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改全国安全月活动", newSafetyMonth.SafetyMonthId);
+                BLL.LogService.AddSys_Log(this.CurrUser, newSafetyMonth.Title, newSafetyMonth.SafetyMonthId, BLL.Const.ProjectSafetyMonthMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.SafetyMonthId = SQLHelper.GetNewID(typeof(Model.SafetyActivities_SafetyMonth));
                 newSafetyMonth.SafetyMonthId = this.SafetyMonthId;
                 BLL.SafetyMonthService.AddSafetyMonth(newSafetyMonth);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加全国安全月活动", newSafetyMonth.SafetyMonthId);
+                BLL.LogService.AddSys_Log(this.CurrUser, newSafetyMonth.Title, newSafetyMonth.SafetyMonthId, BLL.Const.ProjectSafetyMonthMenuId, BLL.Const.BtnAdd);
             }
         }
         #endregion

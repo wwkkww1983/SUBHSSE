@@ -188,7 +188,7 @@ namespace FineUIPro.Web.EduTrain
                         UpKnowledgeItem(rowID, unit.UnitId);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "审核应知应会库");
+                BLL.LogService.AddSys_Log(this.CurrUser, "审核应知应会库", null, BLL.Const.KnowledgeDBMenuId, BLL.Const.BtnAuditing);
                 BindGrid();
                 ShowNotify("操作成功!");
                 if (isPass)
@@ -245,11 +245,11 @@ namespace FineUIPro.Web.EduTrain
                         BLL.KnowledgeItemService.UpdateKnowledgeItemIsPass(knowledgeItem);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应知应会明细】上报到集团公司" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【应知应会明细】上报到集团公司" + idList.Count.ToString() + "条数据；", null, BLL.Const.KnowledgeDBMenuId, BLL.Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应知应会明细】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【应知应会明细】上报到集团公司失败；", null, BLL.Const.KnowledgeDBMenuId, BLL.Const.BtnUploadResources);
             }
         }
 

@@ -149,14 +149,14 @@ namespace FineUIPro.Web.InformationProject
             {
                 exposure.ExposureId = this.ExposureId;
                 BLL.ExposureService.UpdateExposure(exposure);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改违章曝光台");
+                BLL.LogService.AddSys_Log(this.CurrUser, exposure.ExposureCode, exposure.ExposureId,BLL.Const.ProjectExposureMenuId,BLL.Const.BtnModify);
             }
             else
             {
                 this.ExposureId = SQLHelper.GetNewID(typeof(Model.InformationProject_Exposure));
                 exposure.ExposureId = this.ExposureId;
                 BLL.ExposureService.AddExposure(exposure);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加违章曝光台");
+                BLL.LogService.AddSys_Log(this.CurrUser, exposure.ExposureCode, exposure.ExposureId, BLL.Const.ProjectExposureMenuId, BLL.Const.BtnAdd);
             }
         }
         #endregion

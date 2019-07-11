@@ -66,6 +66,7 @@ namespace BLL
                 MainUnitPerson = checkWork.MainUnitPerson,
                 SubUnits = checkWork.SubUnits,
                 SubUnitPerson = checkWork.SubUnitPerson,
+                PartInPersonNames = checkWork.PartInPersonNames,
                 MainUnitDeputy = checkWork.MainUnitDeputy,
                 SubUnitDeputy = checkWork.SubUnitDeputy,
                 MainUnitDeputyDate = checkWork.MainUnitDeputyDate,
@@ -98,6 +99,7 @@ namespace BLL
                 newCheckWork.MainUnitPerson = checkWork.MainUnitPerson;
                 newCheckWork.SubUnits = checkWork.SubUnits;
                 newCheckWork.SubUnitPerson = checkWork.SubUnitPerson;
+                newCheckWork.PartInPersonNames = checkWork.PartInPersonNames;
                 newCheckWork.MainUnitDeputy = checkWork.MainUnitDeputy;
                 newCheckWork.SubUnitDeputy = checkWork.SubUnitDeputy;
                 newCheckWork.MainUnitDeputyDate = checkWork.MainUnitDeputyDate;

@@ -48,28 +48,28 @@
                         SortField="ProjectName" FieldType="String" HeaderText="项目名称" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="110px" ColumnID="ThisUnitPersonNum" DataField="ThisUnitPersonNum"
+                    <f:RenderField Width="120px" ColumnID="ThisUnitPersonNum" DataField="ThisUnitPersonNum"
                         SortField="ThisUnitPersonNum" FieldType="String" HeaderText="公司现场人数"
                         HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="160px" ColumnID="ThisUnitHSEPersonNum" DataField="ThisUnitHSEPersonNum"
-                        SortField="ThisUnitHSEPersonNum" FieldType="String" HeaderText="公司现场HSE管理人数"
+                    <f:RenderField Width="120px" ColumnID="ThisUnitHSEPersonNum" DataField="ThisUnitHSEPersonNum"
+                        SortField="ThisUnitHSEPersonNum" FieldType="String" HeaderText="公司现场</br>HSE管理人数"
                         HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="SubUnitPersonNum" DataField="SubUnitPersonNum"
+                    <f:RenderField Width="120px" ColumnID="SubUnitPersonNum" DataField="SubUnitPersonNum"
                         SortField="SubUnitPersonNum" FieldType="String" HeaderText="分包现场人数"
                         HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="130px" ColumnID="SubUnitHSEPersonNum" DataField="SubUnitHSEPersonNum"
-                        SortField="SubUnitHSEPersonNum" FieldType="String" HeaderText="分包HSE管理人数"
+                        SortField="SubUnitHSEPersonNum" FieldType="String" HeaderText="分包</br>HSE管理人数"
                         HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                     <f:RenderField Width="80px" ColumnID="ManHours" DataField="ManHours"
+                     <f:RenderField Width="90px" ColumnID="ManHours" DataField="ManHours"
                         SortField="ManHours" FieldType="String" HeaderText="人工时数"
                         HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="125px" ColumnID="HSEManHours" DataField="HSEManHours"
-                        SortField="HSEManHours" FieldType="String" HeaderText="安全生产人工时数"
+                    <f:RenderField Width="120px" ColumnID="HSEManHours" DataField="HSEManHours"
+                        SortField="HSEManHours" FieldType="String" HeaderText="安全生产</br>人工时数"
                         HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                 </Columns>

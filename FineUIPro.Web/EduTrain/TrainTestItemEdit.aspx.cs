@@ -51,6 +51,7 @@ namespace FineUIPro.Web.EduTrain
                     Model.Training_TrainTestDBItem trainTestDBItem = BLL.TrainTestDBItemService.GetTrainTestDBItemById(this.TrainTestItemId);
                     if (trainTestDBItem!=null)
                     {
+                        this.TrainTestId = trainTestDBItem.TrainTestId;
                         this.txtTrainTestItemCode.Text = trainTestDBItem.TrainTestItemCode;
                         this.txtTrainTestItemName.Text = trainTestDBItem.TraiinTestItemName;
                         if (!string.IsNullOrEmpty(trainTestDBItem.AttachUrl))
@@ -87,7 +88,7 @@ namespace FineUIPro.Web.EduTrain
                 trainTestDBItem.TrainTestItemId = SQLHelper.GetNewID(typeof(Model.Training_TrainTestDBItem));
                 TrainTestItemId = trainTestDBItem.TrainTestItemId;
                 BLL.TrainTestDBItemService.AddTrainTestDBItem(trainTestDBItem);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加安全试题库");
+                BLL.LogService.AddSys_Log(this.CurrUser, trainTestDBItem.TrainTestItemCode, trainTestDBItem.TrainTestItemId, BLL.Const.TrainTestDBMenuId, BLL.Const.BtnAdd);
             }
             else
             {
@@ -98,7 +99,7 @@ namespace FineUIPro.Web.EduTrain
                 }
                 trainTestDBItem.TrainTestItemId = this.TrainTestItemId;
                 BLL.TrainTestDBItemService.UpdateTrainTestDBItem(trainTestDBItem);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改安全试题库");
+                BLL.LogService.AddSys_Log(this.CurrUser, trainTestDBItem.TrainTestItemCode, trainTestDBItem.TrainTestItemId, BLL.Const.TrainTestDBMenuId, BLL.Const.BtnModify);
             }
             if (isClose)
             {
@@ -183,11 +184,11 @@ namespace FineUIPro.Web.EduTrain
                         BLL.TrainTestDBItemService.UpdateTrainTestDBItemIsPass(trainTestDBItem);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全试题明细】上报到集团公司" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全试题明细】上报到集团公司" + idList.Count.ToString() + "条数据；",null, BLL.Const.TrainTestDBMenuId, BLL.Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全试题明细】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全试题明细】上报到集团公司失败；", null, BLL.Const.TrainTestDBMenuId, BLL.Const.BtnUploadResources);
             }
         }
         #endregion        
@@ -200,6 +201,10 @@ namespace FineUIPro.Web.EduTrain
         /// <returns></returns>
         private void GetButtonPower()
         {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
             var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.TrainTestDBMenuId);
             if (buttonList.Count() > 0)
             {
@@ -242,11 +247,18 @@ namespace FineUIPro.Web.EduTrain
         /// <param name="e"></param>
         protected void btnUploadResources_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.TrainTestItemId))
+            if (this.btnSave.Hidden)
             {
-                SaveData(BLL.Const.UpState_1, false);
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/TrainTestDB&type=-1", TrainTestItemId)));
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/TrainTestDB&menuId=F58EE8ED-9EB5-47C7-9D7F-D751EFEA44CA", TrainTestItemId)));
+            else
+            {
+                if (string.IsNullOrEmpty(this.TrainTestItemId))
+                {
+                    SaveData(BLL.Const.UpState_1, false);
+                }
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/TrainTestDB&menuId={1}", TrainTestItemId, BLL.Const.TrainTestDBMenuId)));
+            }
         }
     }
 }

@@ -170,14 +170,14 @@ namespace FineUIPro.Web.Check
             {
                 newContactList.ContactListId = this.ContactListId;
                 BLL.ContactListService.UpdateContactList(newContactList);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改联系单", newContactList.ContactListId);
+                BLL.LogService.AddSys_Log(this.CurrUser, newContactList.Code, newContactList.ContactListId,BLL.Const.ProjectContactListMenuId,BLL.Const.BtnModify);
             }
             else
             {
                 this.ContactListId = SQLHelper.GetNewID(typeof(Model.Check_ContactList));
                 newContactList.ContactListId = this.ContactListId;
                 BLL.ContactListService.AddContactList(newContactList);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加联系单", newContactList.ContactListId);
+                BLL.LogService.AddSys_Log(this.CurrUser, newContactList.Code, newContactList.ContactListId, BLL.Const.ProjectContactListMenuId, BLL.Const.BtnAdd);
             }
         }
         #endregion

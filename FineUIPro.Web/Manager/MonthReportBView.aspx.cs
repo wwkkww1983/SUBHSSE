@@ -549,11 +549,20 @@ namespace FineUIPro.Web.Manager
         /// <returns></returns>
         protected string ConvertUnitName(object unitId)
         {
+            string unitName = string.Empty;
             if (unitId != null)
             {
-                return BLL.UnitService.GetUnitNameByUnitId(unitId.ToString());
+                Model.Project_ProjectUnit projectUnit = BLL.ProjectUnitService.GetProjectUnitByUnitIdProjectId(this.CurrUser.LoginProjectId, unitId.ToString());
+                if (projectUnit.OutTime != null && projectUnit.OutTime.Value <= DateTime.Now)   //离场单位
+                {
+                    unitName = BLL.UnitService.GetUnitNameByUnitId(unitId.ToString()) + "(退场)";
+                }
+                else      //在场单位
+                {
+                    unitName = BLL.UnitService.GetUnitNameByUnitId(unitId.ToString());
+                }
             }
-            return "";
+            return unitName;
         }
 
         /// <summary>

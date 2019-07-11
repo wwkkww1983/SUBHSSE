@@ -156,14 +156,14 @@ namespace FineUIPro.Web.Manager
             {
                 managerPerformance.ManagerPerformanceId = this.ManagerPerformanceId;
                 BLL.ManagerPerformanceService.UpdateManagerPerformance(managerPerformance);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "修改管理顾客评价");
+                BLL.LogService.AddSys_Log(this.CurrUser, managerPerformance.ManagerPerformanceCode, managerPerformance.ManagerPerformanceId, BLL.Const.ProjectManagerPerformanceMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.ManagerPerformanceId = SQLHelper.GetNewID(typeof(Model.Manager_ManagerPerformance));
                 managerPerformance.ManagerPerformanceId = this.ManagerPerformanceId;
                 BLL.ManagerPerformanceService.AddManagerPerformance(managerPerformance);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "添加管理顾客评价");
+                BLL.LogService.AddSys_Log(this.CurrUser, managerPerformance.ManagerPerformanceCode, managerPerformance.ManagerPerformanceId, BLL.Const.ProjectManagerPerformanceMenuId, BLL.Const.BtnModify);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectManagerPerformanceMenuId, this.ManagerPerformanceId, (type == BLL.Const.BtnSubmit ? true : false), managerPerformance.ManagerPerformanceName, "../Manager/ManagerPerformanceView.aspx?ManagerPerformanceId={0}");

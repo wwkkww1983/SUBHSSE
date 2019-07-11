@@ -23,19 +23,23 @@
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
                             <f:TextBox runat="server" Label="事故类型" ID="txtAccidentTypeName" EmptyText="输入查询条件"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px"
+                                Width="250px" LabelWidth="80px"
                                 LabelAlign="right">
                             </f:TextBox>
-                            <f:DatePicker ID="txtStartDate" runat="server" Label="发生时间" AutoPostBack="true" OnTextChanged="TextBox_TextChanged"
+                            <f:DatePicker ID="txtStartDate" runat="server" Label="发生时间" 
                                 Width="250px" EmptyText="开始时间" LabelAlign="Right">
                             </f:DatePicker>
                             <f:Label ID="lblTo" runat="server" Text="至">
                             </f:Label>
-                            <f:DatePicker ID="txtEndDate" runat="server" AutoPostBack="true" OnTextChanged="TextBox_TextChanged"
+                            <f:DatePicker ID="txtEndDate" runat="server" 
                                 Width="150px" EmptyText="结束时间">
                             </f:DatePicker>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
+                            
+                            <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch" EnablePostBack="true" 	
+                                OnClick="TextBox_TextChanged" runat="server" >
+                            </f:Button>
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" Hidden="true"
                                 runat="server">
                             </f:Button>
@@ -115,7 +119,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="HSE事故(对人员)记录" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="1024px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1024px"
         Height="620px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
@@ -123,7 +127,7 @@
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server"
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server"
             Text="删除">
         </f:MenuButton>
     </f:Menu>

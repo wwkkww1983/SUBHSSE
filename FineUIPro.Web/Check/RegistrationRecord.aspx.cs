@@ -240,10 +240,16 @@ namespace FineUIPro.Web.Check
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, isShow))
                     {
-                        BLL.RegistrationRecordService.DeleteRegisterRecordByRegisterRecordId(rowID);
-                        BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除隐患巡检记录", rowID);
-                        BindGrid();
-                        ShowNotify("删除数据成功!（表格数据已重新绑定）", MessageBoxIcon.Success);
+                        var RegistrationRecord = BLL.RegistrationRecordService.GetRegisterRecordByRegisterRecordId(rowID);
+                        if (RegistrationRecord != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, null, RegistrationRecord.RegistrationRecordId, BLL.Const.RegistrationRecordMenuId, BLL.Const.BtnDelete);
+
+                            BLL.RegistrationRecordService.DeleteRegisterRecordByRegisterRecordId(rowID);
+
+                            BindGrid();
+                            ShowNotify("删除数据成功!（表格数据已重新绑定）", MessageBoxIcon.Success);
+                        }
                     }
                 }
             }

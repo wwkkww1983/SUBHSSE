@@ -217,7 +217,8 @@ namespace FineUIPro.Web.Information
                     drillPlanHalfYearReport.HandleMan = this.CurrUser.UserId;
                     drillPlanHalfYearReport.HandleState = BLL.Const.HandleState_1;
                     BLL.DrillPlanHalfYearReportService.AddDrillPlanHalfYearReport(drillPlanHalfYearReport);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "增加应急演练工作计划半年报表");
+                    BLL.LogService.AddSys_Log(this.CurrUser, drillPlanHalfYearReport.YearId.ToString() + "-" + drillPlanHalfYearReport.HalfYearId.ToString(),
+                        drillPlanHalfYearReport.DrillPlanHalfYearReportId, BLL.Const.DrillPlanHalfYearReportMenuId, BLL.Const.BtnAdd);
                 }
             }
             else
@@ -231,7 +232,8 @@ namespace FineUIPro.Web.Information
                 drillPlanHalfYearReport.DrillPlanHalfYearReportId = this.DrillPlanHalfYearReportId;
                 drillPlanHalfYearReport.UpState = BLL.Const.UpState_2;
                 BLL.DrillPlanHalfYearReportService.UpdateDrillPlanHalfYearReport(drillPlanHalfYearReport);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改应急演练工作计划半年报表");
+                BLL.LogService.AddSys_Log(this.CurrUser, drillPlanHalfYearReport.YearId.ToString() + "-" + drillPlanHalfYearReport.HalfYearId.ToString(),
+                        drillPlanHalfYearReport.DrillPlanHalfYearReportId, BLL.Const.DrillPlanHalfYearReportMenuId, BLL.Const.BtnModify);
                 BLL.DrillPlanHalfYearReportItemService.DeleteDrillPlanHalfYearReportItemList(drillPlanHalfYearReport.DrillPlanHalfYearReportId);
             }
             GetItems(drillPlanHalfYearReport.DrillPlanHalfYearReportId);
@@ -397,11 +399,11 @@ namespace FineUIPro.Web.Information
                         }
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应急演练工作计划半年报表】上传到服务器" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【应急演练工作计划半年报表】上传到服务器" + idList.Count.ToString() + "条数据；", null, BLL.Const.DrillPlanHalfYearReportMenuId, BLL.Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应急演练工作计划半年报表】上传到服务器失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【应急演练工作计划半年报表】上传到服务器失败；", null, BLL.Const.DrillPlanHalfYearReportMenuId, BLL.Const.BtnUploadResources);
             }
         }
         #endregion

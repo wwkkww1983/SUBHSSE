@@ -110,8 +110,13 @@ namespace FineUIPro.Web.BaseInfo
         {
             if (judgementDelete(hfFormID.Text, true))
             {
-                BLL.ExpertTypeService.DeleteExpertTypeById(hfFormID.Text);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除专家类别");
+                var expertType = BLL.ExpertTypeService.GetExpertTypeById(hfFormID.Text);
+                if (expertType != null)
+                {
+                    BLL.LogService.AddSys_Log(this.CurrUser, expertType.ExpertTypeCode, expertType.ExpertTypeId,BLL.Const.ExpertTypeMenuId,BLL.Const.BtnDelete);
+                    BLL.ExpertTypeService.DeleteExpertTypeById(hfFormID.Text);
+                }               
+               
                 // 重新绑定表格，并模拟点击[新增按钮]
                 BindGrid();
                 PageContext.RegisterStartupScript("onNewButtonClick();");
@@ -132,8 +137,12 @@ namespace FineUIPro.Web.BaseInfo
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (judgementDelete(rowID, true))
                     {
-                        BLL.ExpertTypeService.DeleteExpertTypeById(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除专家类别");
+                        var expertType = BLL.ExpertTypeService.GetExpertTypeById(hfFormID.Text);
+                        if (expertType != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, expertType.ExpertTypeCode, expertType.ExpertTypeId, BLL.Const.ExpertTypeMenuId, BLL.Const.BtnDelete);
+                            BLL.ExpertTypeService.DeleteExpertTypeById(rowID);
+                        }
                     }
                 }
                 BindGrid();
@@ -205,7 +214,7 @@ namespace FineUIPro.Web.BaseInfo
         protected void btnSave_Click(object sender, EventArgs e)
         {
             string strRowID = hfFormID.Text;
-            Model.Base_ExpertType depart = new Model.Base_ExpertType
+            Model.Base_ExpertType expertType = new Model.Base_ExpertType
             {
                 ExpertTypeCode = this.txtExpertTypeCode.Text.Trim(),
                 ExpertTypeName = this.txtExpertTypeName.Text.Trim(),
@@ -213,20 +222,20 @@ namespace FineUIPro.Web.BaseInfo
             };
             if (string.IsNullOrEmpty(strRowID))
             {
-                depart.ExpertTypeId = SQLHelper.GetNewID(typeof(Model.Base_ExpertType));
-                BLL.ExpertTypeService.AddExpertType(depart);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加专家类别");
+                expertType.ExpertTypeId = SQLHelper.GetNewID(typeof(Model.Base_ExpertType));
+                BLL.ExpertTypeService.AddExpertType(expertType);
+                BLL.LogService.AddSys_Log(this.CurrUser, expertType.ExpertTypeCode, expertType.ExpertTypeId, BLL.Const.ExpertTypeMenuId, BLL.Const.BtnAdd);
             }
             else
             {
-                depart.ExpertTypeId = strRowID;
-                BLL.ExpertTypeService.UpdateExpertType(depart);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改专家类别");
+                expertType.ExpertTypeId = strRowID;
+                BLL.ExpertTypeService.UpdateExpertType(expertType);
+                BLL.LogService.AddSys_Log(this.CurrUser, expertType.ExpertTypeCode, expertType.ExpertTypeId, BLL.Const.ExpertTypeMenuId, BLL.Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行
             BindGrid();
-            PageContext.RegisterStartupScript(String.Format("F('{0}').selectRow('{1}');", Grid1.ClientID, depart.ExpertTypeId));
+            PageContext.RegisterStartupScript(String.Format("F('{0}').selectRow('{1}');", Grid1.ClientID, expertType.ExpertTypeId));
         }
         #endregion
 

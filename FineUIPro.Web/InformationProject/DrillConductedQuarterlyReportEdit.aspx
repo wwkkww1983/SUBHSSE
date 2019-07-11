@@ -35,9 +35,9 @@
                         ClicksToEdit="1" DataIDField="DrillConductedQuarterlyReportItemId" EnableColumnLines="true"
                         OnRowCommand="Grid1_RowCommand" EnableHeaderMenu="false" Width="1300px" Height="380px">
                         <Columns>
-                            <f:LinkButtonField Width="40px" ConfirmTarget="Top" CommandName="Add" Icon="Add"
+                            <f:LinkButtonField Width="40px" ConfirmTarget="Parent" CommandName="Add" Icon="Add"
                                 TextAlign="Center" />
-                            <f:LinkButtonField Width="40px" ConfirmText="删除选中行？" ConfirmTarget="Top" CommandName="Delete"
+                            <f:LinkButtonField Width="40px" ConfirmText="删除选中行？" ConfirmTarget="Parent" CommandName="Delete"
                                 Icon="Delete" TextAlign="Center" />
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
                                 TextAlign="Center" />

@@ -54,14 +54,7 @@ namespace FineUIPro.Web.SysManage
                     this.UnitId = unit.UnitId;
                     this.UnitName = unit.UnitName;
                 }
-
-                var sysSet = BLL.ConstValue.drpConstItemList(BLL.ConstValue.Group_Synchronization).FirstOrDefault();
-                if (sysSet != null && sysSet.ConstValue == "1")
-                {
-                    this.StartMonitor();
-                    this.StartMonitorEve();
-                }                
-            }
+            }            
         }
 
         #region 全选事件
@@ -173,6 +166,7 @@ namespace FineUIPro.Web.SysManage
             /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
             #region 从集团公司到企业提取
+            
             if (this.cbFromVersion.Checked) ///版本信息
             {
                 poxy.GetSys_VersionToSUBCompleted += new EventHandler<HSSEService.GetSys_VersionToSUBCompletedEventArgs>(poxy_GetSys_VersionToSUBCompleted);
@@ -1147,7 +1141,7 @@ namespace FineUIPro.Web.SysManage
                 {
                     poxy.DataInsertCheck_CheckRectifyTableCompleted += new EventHandler<HSSEService.DataInsertCheck_CheckRectifyTableCompletedEventArgs>(poxy_DataInsertCheck_CheckRectifyTableCompleted);
                     var rectify = from x in Funs.DB.View_CheckRectifyListFromSUB
-                                  where x.RealEndDate != null 
+                                  where x.RealEndDate.HasValue && x.HandleState == "2"
                                   select new HSSEService.Check_CheckRectify
                                   {
                                       CheckRectifyId = x.CheckRectifyId,
@@ -1174,6 +1168,7 @@ namespace FineUIPro.Web.SysManage
                                       ////附件转为字节传送
                                       FileContext = FileStructService.GetMoreFileStructByAttachUrl(x.AttachUrl2),
                                   };
+
                     poxy.DataInsertCheck_CheckRectifyTableAsync(rectify.ToList());
                 }
                 #endregion
@@ -1273,14 +1268,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【版本信息】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【版本信息】从集团提取失败；");
-            }
+
+            SetLog("版本信息", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
         #endregion        
 
@@ -1338,14 +1327,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【单位信息】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【单位信息】从集团提取失败；");
-            }
+
+            SetLog("单位信息", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
         #endregion        
 
@@ -1393,14 +1376,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【催报信息】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【催报信息】从集团提取失败；");
-            }
+
+            SetLog("催报信息", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
         #endregion
 
@@ -1481,14 +1458,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【法律法规】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【法律法规】从集团提取失败；");
-            }
+
+            SetLog("法律法规", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
         #endregion
 
@@ -1615,14 +1586,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【标准规范】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【标准规范】从集团提取失败；");
-            }
+
+            SetLog("标准规范", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
 
         #endregion
@@ -1701,14 +1666,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全生产规章制度】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全生产规章制度】从集团提取失败；");
-            }
+
+            SetLog("安全生产规章制度", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
 
         #endregion
@@ -1786,14 +1745,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全管理规定】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全管理规定】从集团提取失败；");
-            }
+
+            SetLog("安全管理规定", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
 
         #endregion
@@ -1851,14 +1804,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【HAZOP管理】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【HAZOP管理】从集团提取失败；");
-            }
+
+            SetLog("HAZOP管理", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
 
         #endregion
@@ -1922,14 +1869,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全评价】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全评价】从集团提取失败；");
-            }
+
+            SetLog("安全评价", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
 
         #endregion
@@ -2006,14 +1947,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应急预案】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应急预案】从集团提取失败；");
-            }
+
+            SetLog("应急预案", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
 
         #endregion
@@ -2090,14 +2025,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【专项方案】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【专项方案】从集团提取失败；");
-            }
+
+            SetLog("专项方案", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
 
         #endregion
@@ -2148,14 +2077,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【培训教材库类别】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【培训教材库类别】从集团提取失败；");
-            }
+
+            SetLog("培训教材库类别", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
         #endregion
 
@@ -2225,14 +2148,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【培训教材库明细】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【培训教材库明细】从集团提取失败；");
-            }
+
+            SetLog("培训教材库明细", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
         #endregion
 
@@ -2282,14 +2199,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全试题库类别】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全试题库类别】从集团提取失败；");
-            }
+
+            SetLog("安全试题库类别", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
         #endregion
 
@@ -2348,14 +2259,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全试题库明细】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全试题库明细】从集团提取失败；");
-            }
+
+            SetLog("安全试题库明细", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
         #endregion
 
@@ -2405,14 +2310,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【事故案例库类别】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【事故案例库类别】从集团提取失败；");
-            }
+
+            SetLog("事故案例库类别", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
         #endregion
 
@@ -2473,14 +2372,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【事故案例库明细】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【事故案例库明细】从集团提取失败；");
-            }
+
+            SetLog("事故案例库明细", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
         #endregion
 
@@ -2530,14 +2423,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应知应会库类别】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应知应会库类别】从集团提取失败；");
-            }
+
+            SetLog("应知应会库类别", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
         #endregion
 
@@ -2596,14 +2483,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应知应会库明细】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应知应会库明细】从集团提取失败；");
-            }
+
+            SetLog("应知应会库明细", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
         #endregion
 
@@ -2653,14 +2534,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【危险源清单类别】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【危险源清单类别】从集团提取失败；");
-            }
+
+            SetLog("危险源清单类别", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
         #endregion
 
@@ -2735,14 +2610,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【危险源清单明细】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【危险源清单明细】从集团提取失败；");
-            }
+
+            SetLog("危险源清单明细", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
         #endregion
 
@@ -2792,14 +2661,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全隐患类别】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全隐患类别】从集团提取失败；");
-            }
+
+            SetLog("安全隐患类别", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
         #endregion
 
@@ -2860,160 +2723,11 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全隐患明细】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全隐患明细】从集团提取失败；");
-            }
+
+            SetLog("安全隐患明细", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
         #endregion
-
-        #region 安全专家信息从集团公司提取
-        ///// <summary>
-        ///// 安全专家从集团公司提取
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        //private void poxy_GetTechnique_ExpertListToSUBCompleted(object sender, HSSEService.GetTechnique_ExpertListToSUBCompletedEventArgs e)
-        //{
-        //    int count = 0;
-        //    if (e.Error == null && e.Result != null)
-        //    {
-        //        var items = e.Result;
-        //        if (items.Count() > 0)
-        //        {
-        //            count = items.Count();
-        //            foreach (var item in items)
-        //            {
-        //                //判断专家类型
-        //                if (!string.IsNullOrEmpty(item.ExpertTypeId))
-        //                {
-        //                    var type = BLL.ExpertTypeService.GetExpertTypeById(item.ExpertTypeId);
-        //                    if (type == null)
-        //                    {
-        //                        Model.Base_ExpertType newExpertType = new Model.Base_ExpertType();
-        //                        newExpertType.ExpertTypeId = item.ExpertTypeId;
-        //                        newExpertType.ExpertTypeCode = item.ExpertTypeCode;
-        //                        newExpertType.ExpertTypeName = item.ExpertTypeName;
-
-        //                        Funs.DB.Base_ExpertType.InsertOnSubmit(newExpertType);
-        //                        Funs.DB.SubmitChanges();
-        //                    }
-        //                }
-        //                //判断专业
-        //                if (!string.IsNullOrEmpty(item.PersonSpecialtyId))
-        //                {
-        //                    var personSpecialty = BLL.PersonSpecialtyService.GetPersonSpecialtyById(item.PersonSpecialtyId);
-        //                    if (personSpecialty == null)
-        //                    {
-        //                        Model.Base_PersonSpecialty newPersonSpecialty = new Model.Base_PersonSpecialty();
-        //                        newPersonSpecialty.PersonSpecialtyId = item.PersonSpecialtyId;
-        //                        newPersonSpecialty.PersonSpecialtyCode = item.PersonSpecialtyCode;
-        //                        newPersonSpecialty.PersonSpecialtyName = item.PersonSpecialtyName;
-
-        //                        Funs.DB.Base_PersonSpecialty.InsertOnSubmit(newPersonSpecialty);
-        //                        Funs.DB.SubmitChanges();
-        //                    }
-        //                }
-        //                //判断职称
-        //                if (!string.IsNullOrEmpty(item.PostTitleId))
-        //                {
-        //                    var postTitle = BLL.PostTitleService.GetPostTitleById(item.PostTitleId);
-        //                    if (postTitle == null)
-        //                    {
-        //                        Model.Base_PostTitle newPostTitle = new Model.Base_PostTitle();
-        //                        newPostTitle.PostTitleId = item.PostTitleId;
-        //                        newPostTitle.PostTitleCode = item.PostTitleCode;
-        //                        newPostTitle.PostTitleName = item.PostTitleName;
-
-        //                        Funs.DB.Base_PostTitle.InsertOnSubmit(newPostTitle);
-        //                        Funs.DB.SubmitChanges();
-        //                    }
-        //                }
-
-        //                var newExp = Funs.DB.Technique_Expert.FirstOrDefault(x => x.ExpertId == item.ExpertId);
-        //                if (newExp == null)
-        //                {                            
-        //                    Model.Technique_Expert newExpert = new Model.Technique_Expert();
-        //                    newExpert.ExpertId = item.ExpertId;
-        //                    newExpert.ExpertCode = item.ExpertCode;
-        //                    newExpert.ExpertName = item.ExpertName;
-        //                    newExpert.Sex = item.Sex;
-        //                    newExpert.Age = item.Age;
-        //                    newExpert.Birthday = item.Birthday;
-        //                    newExpert.Marriage = item.Marriage;
-        //                    newExpert.Nation = item.Nation;
-        //                    newExpert.IdentityCard = item.IdentityCard;
-        //                    newExpert.Email = item.Email;
-        //                    newExpert.Telephone = item.Telephone;
-        //                    newExpert.Education = item.Education;
-        //                    newExpert.Hometown = item.Hometown;
-        //                    newExpert.UnitId = item.UnitId;
-        //                    newExpert.ExpertTypeId = item.ExpertTypeId;
-        //                    newExpert.PersonSpecialtyId = item.PersonSpecialtyId;
-        //                    newExpert.PostTitleId = item.PostTitleId;
-        //                    newExpert.Performance = item.Performance;
-        //                    newExpert.EffectiveDate = item.EffectiveDate;
-        //                    newExpert.CompileMan = item.CompileMan;
-        //                    newExpert.CompileDate = item.CompileDate;
-        //                    newExpert.PhotoUrl = item.PhotoUrl;
-        //                    newExpert.IsPass = null;
-        //                    newExpert.UnitName = item.UnitName;
-        //                    newExpert.IsBuild = true;
-
-        //                    Funs.DB.Technique_Expert.InsertOnSubmit(newExpert);
-        //                    Funs.DB.SubmitChanges();
-        //                }
-        //                else
-        //                {
-        //                    if (newExp.IsPass == null)
-        //                    {                                
-        //                        newExp.ExpertCode = item.ExpertCode;
-        //                        newExp.ExpertName = item.ExpertName;
-        //                        newExp.Sex = item.Sex;
-        //                        newExp.Age = item.Age;
-        //                        newExp.Birthday = item.Birthday;
-        //                        newExp.Marriage = item.Marriage;
-        //                        newExp.Nation = item.Nation;
-        //                        newExp.IdentityCard = item.IdentityCard;
-        //                        newExp.Email = item.Email;
-        //                        newExp.Telephone = item.Telephone;
-        //                        newExp.Education = item.Education;
-        //                        newExp.Hometown = item.Hometown;
-        //                        newExp.UnitId = item.UnitId;
-        //                        newExp.ExpertTypeId = item.ExpertTypeId;
-        //                        newExp.PersonSpecialtyId = item.PersonSpecialtyId;
-        //                        newExp.PostTitleId = item.PostTitleId;
-        //                        newExp.Performance = item.Performance;
-        //                        newExp.EffectiveDate = item.EffectiveDate;
-        //                        newExp.CompileMan = item.CompileMan;
-        //                        newExp.CompileDate = item.CompileDate;
-        //                        newExp.PhotoUrl = item.PhotoUrl;
-        //                        newExp.IsPass = null;
-        //                        newExp.UnitName = item.UnitName;
-        //                        newExp.IsBuild = true;
-        //                        Funs.DB.SubmitChanges();
-        //                    }
-        //                }
-        //                ////上传附件
-        //                BLL.FileInsertService.InsertAttachFile(item.AttachFileId, item.ExpertId, item.AttachSource, item.AttachUrl, item.AttachUrlFileContext);
-        //            }
-        //        }
-        //    }
-        //    if (e.Error == null)
-        //    {
-        //        BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全专家】从集团提取" + count.ToString() + "条数据；");
-        //    }
-        //    else
-        //    {
-        //        BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全专家】从集团提取失败；");
-        //    }
-        //}
-        #endregion
-
+        
         #region 安全监督检查整改信息从集团公司提取
         /// <summary>
         /// 安全监督检查整改从集团公司提取
@@ -3103,14 +2817,7 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【集团检查整改】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【集团检查整改】从集团提取失败；" + e.Error.Message);
-            }
+            SetLog("集团检查整改", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
         #endregion
         
@@ -3236,14 +2943,7 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【集团检查报告】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【集团检查报告】从集团提取失败；" + e.Error.Message);
-            }
+            SetLog("集团检查报告", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
         #endregion
 
@@ -3291,14 +2991,7 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【企业安全文件上报】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【企业安全文件上报】从集团提取失败；");
-            }
+            SetLog("企业安全文件上报", BLL.Const.BtnDownload, count.ToString(), e.Error);
         }
         #endregion
 
@@ -3349,14 +3042,8 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
             }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【企业安全文件上报明细】从集团提取" + count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【企业安全文件上报明细】从集团提取失败；");
-            }
+
+            SetLog("企业安全文件上报明细", BLL.Const.BtnDownload, count.ToString(), e.Error);           
         }
         #endregion
         #endregion
@@ -3382,12 +3069,14 @@ namespace FineUIPro.Web.SysManage
                         BLL.LawRegulationListService.UpdateLawRegulationList(law);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【法律法规】上报到集团公司" + idList.Count() + "条数据；");
             }
-            else
+            int count = 0;
+            if (e.Error == null)
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【法律法规】上报到集团公司失败；");
+                count = e.Result.Count;
             }
+
+            SetLog("法律法规", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
 
@@ -3411,12 +3100,14 @@ namespace FineUIPro.Web.SysManage
                         BLL.HSSEStandardsListService.UpdateHSSEStandardsList(standardsList);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【标准规范】上报到集团公司" + idList.Count.ToString() + "条数据；");
             }
-            else
+            int count = 0;
+            if (e.Error == null)
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【标准规范】上报到集团公司失败；");
+                count = e.Result.Count;
             }
+
+            SetLog("标准规范", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
 
@@ -3440,12 +3131,14 @@ namespace FineUIPro.Web.SysManage
                         BLL.RulesRegulationsService.UpdateRulesRegulations(rulesRegulations);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全生产规章制度】上报到集团公司" + idList.Count.ToString() + "条数据；");
             }
-            else
+            int count = 0;
+            if (e.Error == null)
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全生产规章制度】上报到集团公司失败；");
+                count = e.Result.Count;
             }
+
+            SetLog("安全生产规章制度", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
 
@@ -3469,12 +3162,14 @@ namespace FineUIPro.Web.SysManage
                         BLL.ManageRuleService.UpdateManageRule(manageRule);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全管理规定】上报到集团公司" + idList.Count.ToString() + "条数据；");
             }
-            else
+            int count = 0;
+            if (e.Error == null)
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全管理规定】上报到集团公司失败；");
+                count = e.Result.Count;
             }
+
+            SetLog("安全管理规定", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
 
@@ -3506,12 +3201,14 @@ namespace FineUIPro.Web.SysManage
                         }
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【职工伤亡事故原因分析报表】上传到服务器" + idList.Count.ToString() + "条数据；");
             }
-            else
+            int count = 0;
+            if (e.Error == null)
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【职工伤亡事故原因分析报表】上传到服务器失败；");
+                count = e.Result.Count;
             }
+
+            SetLog("职工伤亡事故原因分析报表", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
 
@@ -3543,12 +3240,14 @@ namespace FineUIPro.Web.SysManage
                         }
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应急演练开展情况季报表】上传到服务器" + idList.Count.ToString() + "条数据；");
             }
-            else
+            int count = 0;
+            if (e.Error == null)
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应急演练开展情况季报表】上传到服务器失败；");
+                count = e.Result.Count;
             }
+
+            SetLog("应急演练开展情况季报表", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
 
@@ -3580,12 +3279,14 @@ namespace FineUIPro.Web.SysManage
                         }
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应急演练工作计划半年报表】上传到服务器" + idList.Count.ToString() + "条数据；");
             }
-            else
+            int count = 0;
+            if (e.Error == null)
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应急演练工作计划半年报表】上传到服务器失败；");
+                count = e.Result.Count;
             }
+
+            SetLog("应急演练工作计划半年报表", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
 
@@ -3617,12 +3318,14 @@ namespace FineUIPro.Web.SysManage
                         }
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【百万工时安全统计月报表】上传到服务器" + idList.Count.ToString() + "条数据；");
             }
-            else
+            int count = 0;
+            if (e.Error == null)
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【百万工时安全统计月报表】上传到服务器失败；");
+                count = e.Result.Count;
             }
+
+            SetLog("百万工时安全统计月报表", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
 
@@ -3653,13 +3356,15 @@ namespace FineUIPro.Web.SysManage
                             Funs.DB.SubmitChanges();
                         }
                     }
-                }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全生产数据季报】上传到服务器" + idList.Count.ToString() + "条数据；");
+                }              
             }
-            else
+            int count = 0;
+            if (e.Error == null)
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全生产数据季报】上传到服务器失败；");
+                count = e.Result.Count;
             }
+
+            SetLog("安全生产数据季报", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
 
@@ -3683,12 +3388,14 @@ namespace FineUIPro.Web.SysManage
                         BLL.HAZOPService.UpdateHAZOP(hazop);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【HAZOP管理】上报到集团公司" + idList.Count.ToString() + "条数据；");
             }
-            else
+            int count = 0;
+            if (e.Error == null)
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【HAZOP管理】上报到集团公司失败；");
+                count = e.Result.Count;
             }
+
+            SetLog("HAZOP管理", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
 
@@ -3712,12 +3419,14 @@ namespace FineUIPro.Web.SysManage
                         BLL.AppraiseService.UpdateAppraise(appraise);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全评价】上报到集团公司" + idList.Count.ToString() + "条数据；");
             }
-            else
+            int count = 0;
+            if (e.Error == null)
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全评价】上报到集团公司失败；");
+                count = e.Result.Count;
             }
+
+            SetLog("安全评价", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
 
@@ -3741,12 +3450,14 @@ namespace FineUIPro.Web.SysManage
                         BLL.EmergencyService.UpdateEmergencyList(emergency);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应急预案】上报到集团公司" + idList.Count.ToString() + "条数据；");
             }
-            else
+            int count = 0;
+            if (e.Error == null)
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应急预案】上报到集团公司失败；");
+                count = e.Result.Count;
             }
+
+            SetLog("应急预案", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
 
@@ -3770,12 +3481,14 @@ namespace FineUIPro.Web.SysManage
                         BLL.SpecialSchemeService.UpdateSpecialSchemeList(specialScheme);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【专项方案】上报到集团公司" + idList.Count.ToString() + "条数据；");
             }
-            else
+            int count = 0;
+            if (e.Error == null)
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【专项方案】上报到集团公司失败；");
+                count = e.Result.Count;
             }
+
+            SetLog("专项方案", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
 
@@ -3799,12 +3512,14 @@ namespace FineUIPro.Web.SysManage
                         BLL.TrainingItemService.UpdateTrainingItemIsPass(trainingItem);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【培训教材明细】上报到集团公司" + idList.Count.ToString() + "条数据；");
             }
-            else
+            int count = 0;
+            if (e.Error == null)
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【培训教材明细】上报到集团公司失败；");
+                count = e.Result.Count;
             }
+
+            SetLog("培训教材明细", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
 
@@ -3828,12 +3543,15 @@ namespace FineUIPro.Web.SysManage
                         BLL.TrainTestDBItemService.UpdateTrainTestDBItemIsPass(trainTestDBItem);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全试题明细】上报到集团公司" + idList.Count.ToString() + "条数据；");
+                
             }
-            else
+            int count = 0;
+            if (e.Error == null)
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全试题明细】上报到集团公司失败；");
+                count = e.Result.Count;
             }
+
+            SetLog("安全试题明细", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
 
@@ -3857,12 +3575,15 @@ namespace FineUIPro.Web.SysManage
                         BLL.AccidentCaseItemService.UpdateAccidentCaseItemIsPass(accidentCaseItem);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【事故案例明细】上报到集团公司" + idList.Count.ToString() + "条数据；");
             }
-            else
+
+            int count = 0;
+            if (e.Error == null)
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【事故案例明细】上报到集团公司失败；");
+                count = e.Result.Count;
             }
+
+            SetLog("事故案例明细", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
 
@@ -3886,12 +3607,15 @@ namespace FineUIPro.Web.SysManage
                         BLL.KnowledgeItemService.UpdateKnowledgeItemIsPass(knowledgeItem);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应知应会明细】上报到集团公司" + idList.Count.ToString() + "条数据；");
             }
-            else
+
+            int count = 0;
+            if (e.Error == null)
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应知应会明细】上报到集团公司失败；");
+                count = e.Result.Count;
             }
+
+            SetLog("应知应会明细", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
 
@@ -3915,12 +3639,15 @@ namespace FineUIPro.Web.SysManage
                         BLL.HazardListService.UpdateHazardListIsPass(hazardList);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【危险源清单明细】上报到集团公司" + idList.Count.ToString() + "条数据；");
             }
-            else
+
+            int count = 0;
+            if (e.Error == null)
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【危险源清单明细】上报到集团公司失败；");
+                count = e.Result.Count;
             }
+
+            SetLog("危险源清单明细", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
 
@@ -3944,12 +3671,14 @@ namespace FineUIPro.Web.SysManage
                         BLL.RectifyItemService.UpdateRectifyItemIsPass(rectifyItem);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全隐患明细】上报到集团公司" + idList.Count.ToString() + "条数据；");
             }
-            else
+            int count = 0;
+            if (e.Error == null)
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全隐患明细】上报到集团公司失败；");
+                count = e.Result.Count;
             }
+
+            SetLog("安全隐患明细", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
 
@@ -3973,11 +3702,11 @@ namespace FineUIPro.Web.SysManage
         //                BLL.ExpertService.UpdateExpertIsPass(expert);
         //            }
         //        }
-        //        BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全专家】上报到集团公司" + idList.Count.ToString() + "条数据；");
+        //        BLL.LogService.AddSys_Log(this.CurrUser,, "【安全专家】上报到集团公司" + idList.Count.ToString() + "条数据；");
         //    }
         //    else
         //    {
-        //        BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全专家】上报到集团公司失败；");
+        //        BLL.LogService.AddSys_Log(this.CurrUser,, "【安全专家】上报到集团公司失败；");
         //    }
         //}
         #endregion
@@ -3989,16 +3718,28 @@ namespace FineUIPro.Web.SysManage
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void poxy_DataInsertCheck_CheckRectifyTableCompleted(object sender, HSSEService.DataInsertCheck_CheckRectifyTableCompletedEventArgs e)
-        {
+        {           
+            int count = 0;
             if (e.Error == null)
             {
                 var idList = e.Result;
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【集团检查整改】上传到服务器" + idList.Count.ToString() + "条数据；");
+                count = e.Result.Count;
+                foreach (var item in idList)
+                {
+                    var getCheckRectify = BLL.CheckRectifyService.GetCheckRectifyByCheckRectifyId(item);
+                    if (getCheckRectify != null)
+                    {
+                        var itesm = Funs.DB.Check_CheckRectifyItem.FirstOrDefault(x => x.CheckRectifyId == item && !x.RealEndDate.HasValue);
+                        if (itesm == null)
+                        {
+                            getCheckRectify.HandleState = BLL.Const.State_3;    //已签发但未完成
+                            BLL.CheckRectifyService.UpdateCheckRectify(getCheckRectify);
+                        }
+                    }
+                }
             }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【集团检查整改】上传到服务器失败；");
-            }
+
+            SetLog("集团检查整改", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
 
@@ -4010,9 +3751,11 @@ namespace FineUIPro.Web.SysManage
         /// <param name="e"></param>
         private void poxy_DataInsertSupervise_SubUnitReportItemTableCompleted(object sender, HSSEService.DataInsertSupervise_SubUnitReportItemItemTableCompletedEventArgs e)
         {
+            int count = 0;
             if (e.Error == null)
             {
                 var idList = e.Result;
+                count = e.Result.Count;
                 foreach (var item in idList)
                 {
                     var subUnitReportItem = BLL.SubUnitReportItemService.GetSubUnitReportItemById(item);
@@ -4023,12 +3766,9 @@ namespace FineUIPro.Web.SysManage
                         BLL.SubUnitReportItemService.UpdateSubUnitReportItem(subUnitReportItem);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【企业安全文件上报】上报到集团公司" + idList.Count.ToString() + "条数据；");
             }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【企业安全文件上报】上报到集团公司失败；");
-            }
+
+            SetLog("企业安全文件上报", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
 
@@ -4040,196 +3780,218 @@ namespace FineUIPro.Web.SysManage
         /// <param name="e"></param>
         private void poxy_DataInsertHSSESystem_HSSEManageItemTableCompleted(object sender, HSSEService.DataInsertHSSESystem_HSSEManageItemTableCompletedEventArgs e)
         {
+            int count = 0;
             if (e.Error == null)
             {
-                var idList = e.Result;
-                //foreach (var item in idList)
-                //{
-                //    var subUnitReportItem = BLL.SubUnitReportItemService.GetSubUnitReportItemById(item);
-                //    if (subUnitReportItem != null)
-                //    {
-                //        subUnitReportItem.UpState = BLL.Const.UpState_3;
-                //        BLL.SubUnitReportItemService.UpdateSubUnitReportItem(subUnitReportItem);
-                //    }
-                //}
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全管理机构】上报到集团公司" + idList.Count.ToString() + "条数据；");
+                count = e.Result.Count;
             }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全管理机构】上报到集团公司失败；");
-            }
+
+            SetLog("安全管理机构", BLL.Const.BtnUploadResources, count.ToString(), e.Error);
         }
         #endregion
         #endregion
 
-        #region 启动监视器 系统启动5分钟
         /// <summary>
-        /// 监视组件
+        /// 
         /// </summary>
-        private static System.Timers.Timer messageTimer;
-
-        /// <summary>
-        /// 启动监视器,不一定能成功，根据系统设置决定对监视器执行的操作 系统启动5分钟
-        /// </summary>
-        public void StartMonitor()
+        /// <param name="pageName"></param>
+        /// <param name="count"></param>
+        /// <param name="type"></param>
+        /// <param name="error"></param>
+        private void SetLog(string pageName,string count,string type, System.Exception error)
         {
-            int adTimeJ = 1; /// 5分钟
-            if (messageTimer != null)
+            if (type == BLL.Const.BtnDownload)
             {
-                messageTimer.Stop();
-                messageTimer.Dispose();
-                messageTimer = null;
-            }
-
-            messageTimer = new System.Timers.Timer
-            {
-                AutoReset = true
-            };
-            messageTimer.Elapsed += new ElapsedEventHandler(AdUserInProcess);
-
-            messageTimer.Interval = 6000 * adTimeJ;
-            messageTimer.Start();
-
-        }
-
-        /// <summary>
-        /// 流程确认 定时执行 系统启动5分钟
-        /// </summary>
-        /// <param name="sender">Timer组件</param>
-        /// <param name="e">事件参数</param>
-        private  void AdUserInProcess(object sender, ElapsedEventArgs e)
-        {
-            if (messageTimer != null)
-            {
-                messageTimer.Stop();
-            }
-          
-            ///自动同步      
-            this.SynchDataTime();         
-            if (messageTimer != null)
-            {
-                messageTimer.Dispose();
-                messageTimer = null;
-            }
-        }
-        #endregion
-
-        #region 启动监视器 定时23:00执行
-        /// <summary>
-        /// 监视组件
-        /// </summary>
-        private static System.Timers.Timer messageTimerEve;
-
-        /// <summary>
-        /// 启动监视器,不一定能成功，根据系统设置决定对监视器执行的操作 定时
-        /// </summary>
-        public  void StartMonitorEve()
-        {
-            if (messageTimerEve != null)
-            {
-                messageTimerEve.Stop();
-                messageTimerEve.Dispose();
-                messageTimerEve = null;
-            }
-
-            messageTimerEve = new System.Timers.Timer
-            {
-                AutoReset = true
-            };
-            messageTimerEve.Elapsed += new ElapsedEventHandler(ColligateFormConfirmProcessEve);
-            messageTimerEve.Interval = GetMessageTimerEveNextInterval();
-            messageTimerEve.Start();
-        }
-
-        /// <summary>
-        ///  流程确认 定时执行 定时00:05 执行
-        /// </summary>
-        /// <param name="sender">Timer组件</param>
-        /// <param name="e">事件参数</param>
-        private void ColligateFormConfirmProcessEve(object sender, ElapsedEventArgs e)
-        {
-            try
-            {
-                if (messageTimerEve != null)
+                if (error == null)
                 {
-                    messageTimerEve.Stop();
+                    BLL.LogService.AddSys_Log(this.CurrUser, "【" + pageName + "】从集团提取" + count + "条数据；", string.Empty, BLL.Const.SynchronizationMenuId, BLL.Const.BtnDownload);
                 }
-                       
-                ///自动同步    
-                this.SynchDataTime();         
-            }
-            catch (Exception ex)
-            {
-                ErrLogInfo.WriteLog("定时执行失败！", ex);
-            }
-            finally
-            {
-                messageTimerEve.Interval = GetMessageTimerEveNextInterval();
-                messageTimerEve.Start();
-            }
-        }
-
-        /// <summary>
-        /// 计算MessageTimerEve定时器的执行间隔
-        /// </summary>
-        /// <returns>执行间隔</returns>
-        private static double GetMessageTimerEveNextInterval()
-        {
-            double returnValue = 0;
-            TimeSpan curentTime = DateTime.Now.TimeOfDay;
-            int hour = 23;
-            //if (!String.IsNullOrEmpty(Funs.AdTimeD))
-            //{
-            //    hour = int.Parse(Funs.AdTimeD);
-            //}
-            TimeSpan triggerTime = new TimeSpan(hour, 00, 0);
-            if (curentTime > triggerTime)
-            {
-                // 超过了执行时间
-                returnValue = (new TimeSpan(23, 59, 59) - curentTime + triggerTime.Add(new TimeSpan(0, 0, 1))).TotalMilliseconds;
+                else
+                {
+                    BLL.LogService.AddSys_Log(this.CurrUser, "【" + pageName + "】从集团提取失败；", string.Empty, BLL.Const.SynchronizationMenuId, BLL.Const.BtnDownload);
+                }
             }
             else
             {
-                returnValue = (triggerTime - curentTime).TotalMilliseconds;
+                if (error == null)
+                {
+                    BLL.LogService.AddSys_Log(this.CurrUser, "【" + pageName + "】从集团提取" + count + "条数据；", string.Empty, BLL.Const.SynchronizationMenuId, BLL.Const.BtnUploadResources);
+                }
+                else
+                {
+                    BLL.LogService.AddSys_Log(this.CurrUser, "【" + pageName + "】从集团提取失败；", string.Empty, BLL.Const.SynchronizationMenuId, BLL.Const.BtnUploadResources);
+                }
             }
-
-            if (returnValue <= 0)
-            {
-                // 误差纠正
-                returnValue = 1;
-            }
-
-            return returnValue;
         }
-        #endregion    
+
+        //#region 启动监视器 系统启动5分钟
+        ///// <summary>
+        ///// 监视组件
+        ///// </summary>
+        //private static System.Timers.Timer messageTimer;
+
+        ///// <summary>
+        ///// 启动监视器,不一定能成功，根据系统设置决定对监视器执行的操作 系统启动5分钟
+        ///// </summary>
+        //public void StartMonitor()
+        //{
+        //    int adTimeJ = 1; /// 5分钟
+        //    if (messageTimer != null)
+        //    {
+        //        messageTimer.Stop();
+        //        messageTimer.Dispose();
+        //        messageTimer = null;
+        //    }
+
+        //    messageTimer = new System.Timers.Timer
+        //    {
+        //        AutoReset = true
+        //    };
+        //    messageTimer.Elapsed += new ElapsedEventHandler(AdUserInProcess);
+
+        //    messageTimer.Interval = 6000 * adTimeJ;
+        //    messageTimer.Start();
+
+        //}
+
+        ///// <summary>
+        ///// 流程确认 定时执行 系统启动5分钟
+        ///// </summary>
+        ///// <param name="sender">Timer组件</param>
+        ///// <param name="e">事件参数</param>
+        //private  void AdUserInProcess(object sender, ElapsedEventArgs e)
+        //{
+        //    if (messageTimer != null)
+        //    {
+        //        messageTimer.Stop();
+        //    }
+          
+        //    ///自动同步      
+        //    this.SynchDataTime();         
+        //    if (messageTimer != null)
+        //    {
+        //        messageTimer.Dispose();
+        //        messageTimer = null;
+        //    }
+        //}
+        //#endregion
+
+        //#region 启动监视器 定时23:00执行
+        ///// <summary>
+        ///// 监视组件
+        ///// </summary>
+        //private static System.Timers.Timer messageTimerEve;
+
+        ///// <summary>
+        ///// 启动监视器,不一定能成功，根据系统设置决定对监视器执行的操作 定时
+        ///// </summary>
+        //public  void StartMonitorEve()
+        //{
+        //    if (messageTimerEve != null)
+        //    {
+        //        messageTimerEve.Stop();
+        //        messageTimerEve.Dispose();
+        //        messageTimerEve = null;
+        //    }
+
+        //    messageTimerEve = new System.Timers.Timer
+        //    {
+        //        AutoReset = true
+        //    };
+        //    messageTimerEve.Elapsed += new ElapsedEventHandler(ColligateFormConfirmProcessEve);
+        //    messageTimerEve.Interval = GetMessageTimerEveNextInterval();
+        //    messageTimerEve.Start();
+        //}
+
+        ///// <summary>
+        /////  流程确认 定时执行 定时00:05 执行
+        ///// </summary>
+        ///// <param name="sender">Timer组件</param>
+        ///// <param name="e">事件参数</param>
+        //private void ColligateFormConfirmProcessEve(object sender, ElapsedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (messageTimerEve != null)
+        //        {
+        //            messageTimerEve.Stop();
+        //        }
+                       
+        //        ///自动同步    
+        //        this.SynchDataTime();         
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ErrLogInfo.WriteLog("定时执行失败！", ex);
+        //    }
+        //    finally
+        //    {
+        //        messageTimerEve.Interval = GetMessageTimerEveNextInterval();
+        //        messageTimerEve.Start();
+        //    }
+        //}
+
+        ///// <summary>
+        ///// 计算MessageTimerEve定时器的执行间隔
+        ///// </summary>
+        ///// <returns>执行间隔</returns>
+        //private static double GetMessageTimerEveNextInterval()
+        //{
+        //    double returnValue = 0;
+        //    TimeSpan curentTime = DateTime.Now.TimeOfDay;
+        //    int hour = 23;
+        //    //if (!String.IsNullOrEmpty(Funs.AdTimeD))
+        //    //{
+        //    //    hour = int.Parse(Funs.AdTimeD);
+        //    //}
+        //    TimeSpan triggerTime = new TimeSpan(hour, 00, 0);
+        //    if (curentTime > triggerTime)
+        //    {
+        //        // 超过了执行时间
+        //        returnValue = (new TimeSpan(23, 59, 59) - curentTime + triggerTime.Add(new TimeSpan(0, 0, 1))).TotalMilliseconds;
+        //    }
+        //    else
+        //    {
+        //        returnValue = (triggerTime - curentTime).TotalMilliseconds;
+        //    }
+
+        //    if (returnValue <= 0)
+        //    {
+        //        // 误差纠正
+        //        returnValue = 1;
+        //    }
+
+        //    return returnValue;
+        //}
+        //#endregion    
    
-        #region 自动
-        /// <summary>
-        /// 同步方法
-        /// </summary>
-        private void SynchDataTime()
-        {
-            /////创建客户端服务
-            var poxy = Web.ServiceProxy.CreateServiceClient();
-            ///版本信息
-            poxy.GetSys_VersionToSUBCompleted += new EventHandler<HSSEService.GetSys_VersionToSUBCompletedEventArgs>(poxy_GetSys_VersionToSUBCompleted);
-            poxy.GetSys_VersionToSUBAsync();
-            ///催报信息
-            poxy.GetInformation_UrgeReportToSUBCompleted += new EventHandler<HSSEService.GetInformation_UrgeReportToSUBCompletedEventArgs>(poxy_GetInformation_UrgeReportToSUBCompleted);
-            poxy.GetInformation_UrgeReportToSUBAsync(this.UnitId);
-            ///安全监督检查整改
-            poxy.GetCheck_CheckRectifyListToSUBCompleted += new EventHandler<HSSEService.GetCheck_CheckRectifyListToSUBCompletedEventArgs>(poxy_GetCheck_CheckRectifyListToSUBCompleted);
-            poxy.GetCheck_CheckRectifyListToSUBAsync(this.UnitId);
-            ///安全监督检查报告
-            poxy.GetCheck_CheckInfo_Table8ItemListToSUBCompleted += new EventHandler<HSSEService.GetCheck_CheckInfo_Table8ItemListToSUBCompletedEventArgs>(poxy_GetCheck_CheckInfo_Table8ItemListToSUBCompleted);
-            poxy.GetCheck_CheckInfo_Table8ItemListToSUBAsync(this.UnitId);
-            ////企业安全文件上报
-            poxy.GetSupervise_SubUnitReportListToSUBCompleted += new EventHandler<HSSEService.GetSupervise_SubUnitReportListToSUBCompletedEventArgs>(poxy_GetSupervise_SubUnitReportListToSUBCompleted);
-            poxy.GetSupervise_SubUnitReportListToSUBAsync();
-            ///企业安全文件上报明细
-            poxy.GetSupervise_SubUnitReportItemListToSUBCompleted += new EventHandler<HSSEService.GetSupervise_SubUnitReportItemListToSUBCompletedEventArgs>(poxy_GetSupervise_SubUnitReportItemListToSUBCompleted);
-            poxy.GetSupervise_SubUnitReportItemListToSUBAsync(this.UnitId);      
-        }
-        #endregion
+        //#region 自动
+        ///// <summary>
+        ///// 同步方法
+        ///// </summary>
+        //private void SynchDataTime()
+        //{
+        //    /////创建客户端服务
+        //    var poxy = Web.ServiceProxy.CreateServiceClient();
+        //    ///版本信息
+        //    poxy.GetSys_VersionToSUBCompleted += new EventHandler<HSSEService.GetSys_VersionToSUBCompletedEventArgs>(poxy_GetSys_VersionToSUBCompleted);
+        //    poxy.GetSys_VersionToSUBAsync();
+        //    ///催报信息
+        //    poxy.GetInformation_UrgeReportToSUBCompleted += new EventHandler<HSSEService.GetInformation_UrgeReportToSUBCompletedEventArgs>(poxy_GetInformation_UrgeReportToSUBCompleted);
+        //    poxy.GetInformation_UrgeReportToSUBAsync(this.UnitId);
+        //    ///安全监督检查整改
+        //    poxy.GetCheck_CheckRectifyListToSUBCompleted += new EventHandler<HSSEService.GetCheck_CheckRectifyListToSUBCompletedEventArgs>(poxy_GetCheck_CheckRectifyListToSUBCompleted);
+        //    poxy.GetCheck_CheckRectifyListToSUBAsync(this.UnitId);
+        //    ///安全监督检查报告
+        //    poxy.GetCheck_CheckInfo_Table8ItemListToSUBCompleted += new EventHandler<HSSEService.GetCheck_CheckInfo_Table8ItemListToSUBCompletedEventArgs>(poxy_GetCheck_CheckInfo_Table8ItemListToSUBCompleted);
+        //    poxy.GetCheck_CheckInfo_Table8ItemListToSUBAsync(this.UnitId);
+        //    ////企业安全文件上报
+        //    poxy.GetSupervise_SubUnitReportListToSUBCompleted += new EventHandler<HSSEService.GetSupervise_SubUnitReportListToSUBCompletedEventArgs>(poxy_GetSupervise_SubUnitReportListToSUBCompleted);
+        //    poxy.GetSupervise_SubUnitReportListToSUBAsync();
+        //    ///企业安全文件上报明细
+        //    poxy.GetSupervise_SubUnitReportItemListToSUBCompleted += new EventHandler<HSSEService.GetSupervise_SubUnitReportItemListToSUBCompletedEventArgs>(poxy_GetSupervise_SubUnitReportItemListToSUBCompleted);
+        //    poxy.GetSupervise_SubUnitReportItemListToSUBAsync(this.UnitId);      
+        //}
+        //#endregion
     }
 }

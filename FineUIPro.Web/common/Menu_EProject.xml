@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Tree>
+  <TreeNode id="E82B690B-F662-4B4E-8340-6C4B8ECA44CC" Text="项目设置" NavigateUrl="" Icon="LorryGo">
+    <TreeNode id="0C3386D2-8F86-40AC-94F6-EE0100324FDD" Text="项目信息" NavigateUrl="ProjectData/ProjectSet.aspx" Icon="PageHeaderFooter">
+    </TreeNode>
+<TreeNode id="D24ACD3C-086C-4AC8-9AFA-16D48893215E" Text="项目状态及软件关闭" NavigateUrl="ProjectData/ProjectShutdown.aspx" Icon="PageHeaderFooter"></TreeNode>
+<TreeNode id="64690369-3049-4009-82EE-437DF2E606BA" Text="项目单位" NavigateUrl="ProjectData/ProjectUnit.aspx" Icon="PageHeaderFooter"></TreeNode>
+<TreeNode id="CDB80E91-61A8-4E4D-BA97-3ADDC3208B66" Text="项目用户" NavigateUrl="ProjectData/ProjectUser.aspx" Icon="PageHeaderFooter"></TreeNode>
+</TreeNode>
+</Tree>

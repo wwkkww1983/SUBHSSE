@@ -155,7 +155,7 @@ namespace FineUIPro.Web.DataIn
                         result += "第" + (i + 2).ToString() + "行," + "半年度" + "," + "此项为必填项！" + "|";
                     }
 
-                    ////判断是否 已存在该季度数据
+                    ////判断是否 已存在该半年数据
                     var drillPlanHalfYearReport = BLL.DrillPlanHalfYearReportService.GetDrillPlanHalfYearReportByUnitIdAndYearAndHalfYear(unitId, Funs.GetNewIntOrZero(row2.Trim()), Funs.GetNewIntOrZero(row3.Trim()));
                     if (drillPlanHalfYearReport != null)
                     {

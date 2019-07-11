@@ -4,6 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using ThoughtWorks.QRCode.Codec;
+using ThoughtWorks.QRCode.Codec.Data;
+using System.Text;
+using System.IO;
 using BLL;
 
 namespace FineUIPro.Web.QualityAudit
@@ -23,6 +27,20 @@ namespace FineUIPro.Web.QualityAudit
             set
             {
                 ViewState["EquipmentQualityId"] = value;
+            }
+        }
+        /// <summary>
+        /// 二维码路径id
+        /// </summary>
+        public string QRCodeAttachUrl
+        {
+            get
+            {
+                return (string)ViewState["QRCodeAttachUrl"];
+            }
+            set
+            {
+                ViewState["QRCodeAttachUrl"] = value;
             }
         }
         #endregion
@@ -90,6 +108,11 @@ namespace FineUIPro.Web.QualityAudit
                     ////自动生成编码
                     this.txtEquipmentQualityCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.EquipmentQualityMenuId, this.CurrUser.LoginProjectId, this.CurrUser.UnitId);
                 }
+
+                if (Request.Params["value"] == "0")
+                {
+                    this.btnSave.Hidden = true;
+                }
             }
         }
         #endregion
@@ -151,14 +174,14 @@ namespace FineUIPro.Web.QualityAudit
             {
                 equipmentQuality.EquipmentQualityId = this.EquipmentQualityId;
                 BLL.EquipmentQualityService.UpdateEquipmentQuality(equipmentQuality);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改特殊机具设备资质", equipmentQuality.EquipmentQualityId);
+                BLL.LogService.AddSys_Log(this.CurrUser, equipmentQuality.EquipmentQualityCode, equipmentQuality.EquipmentQualityId,BLL.Const.EquipmentQualityMenuId,BLL.Const.BtnModify);
             }
             else
             {
                 this.EquipmentQualityId = SQLHelper.GetNewID(typeof(Model.QualityAudit_EquipmentQuality));
                 equipmentQuality.EquipmentQualityId = this.EquipmentQualityId;
                 BLL.EquipmentQualityService.AddEquipmentQuality(equipmentQuality);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加特殊机具设备资质", equipmentQuality.EquipmentQualityId);
+                BLL.LogService.AddSys_Log(this.CurrUser, equipmentQuality.EquipmentQualityCode, equipmentQuality.EquipmentQualityId, BLL.Const.EquipmentQualityMenuId, BLL.Const.BtnAdd);
             }
             if (isClose)
             {
@@ -175,6 +198,43 @@ namespace FineUIPro.Web.QualityAudit
         /// <param name="e"></param>
         protected void btnAttachUrl_Click(object sender, EventArgs e)
         {
+            if (this.btnSave.Hidden)
+            {
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/EquipmentQualityAttachUrl&menuId={1}type=-1", EquipmentQualityId, BLL.Const.EquipmentQualityMenuId)));
+            }
+            else
+            {
+                if (this.drpUnitId.SelectedValue == BLL.Const._Null)
+                {
+                    Alert.ShowInTop("请选择单位名称", MessageBoxIcon.Warning);
+                    return;
+                }
+                if (this.drpSpecialEquipmentId.SelectedValue == BLL.Const._Null)
+                {
+                    Alert.ShowInTop("请选择特种机具设备类型", MessageBoxIcon.Warning);
+                    return;
+                }
+                if (string.IsNullOrEmpty(this.EquipmentQualityId))
+                {
+                    SaveData(false);
+                }
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/EquipmentQualityAttachUrl&menuId={1}", EquipmentQualityId, BLL.Const.EquipmentQualityMenuId)));
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnQR_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.txtFactoryCode.Text.Trim()))
+            {
+                Alert.ShowInTop("出厂编号不能为空！", MessageBoxIcon.Warning);
+                return;
+            }
             if (this.drpUnitId.SelectedValue == BLL.Const._Null)
             {
                 Alert.ShowInTop("请选择单位名称", MessageBoxIcon.Warning);
@@ -187,10 +247,58 @@ namespace FineUIPro.Web.QualityAudit
             }
             if (string.IsNullOrEmpty(this.EquipmentQualityId))
             {
-                SaveData(false);
+                this.SaveData(false);
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/EquipmentQualityAttachUrl&menuId={1}", EquipmentQualityId, BLL.Const.EquipmentQualityMenuId)));
+            this.CreateCode_Simple(this.txtFactoryCode.Text.Trim());
         }
-        #endregion
+
+        //生成二维码方法一
+        private void CreateCode_Simple(string nr)
+        {
+            var equipmentQuality = BLL.EquipmentQualityService.GetEquipmentQualityById(this.EquipmentQualityId);
+            if (equipmentQuality != null)
+            {
+                BLL.UploadFileService.DeleteFile(Funs.RootPath, equipmentQuality.QRCodeAttachUrl);//删除二维码
+                string imageUrl = string.Empty;
+                QRCodeEncoder qrCodeEncoder = new QRCodeEncoder();
+                qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
+                qrCodeEncoder.QRCodeScale = nr.Length;
+                qrCodeEncoder.QRCodeVersion = 0;
+                qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.M;
+                System.Drawing.Image image = qrCodeEncoder.Encode(nr, Encoding.UTF8);
+
+                string filepath = Server.MapPath("~/") + BLL.UploadFileService.QRCodeImageFilePath;
+
+                //如果文件夹不存在，则创建
+                if (!Directory.Exists(filepath))
+                {
+                    Directory.CreateDirectory(filepath);
+                }
+
+                string filename = DateTime.Now.ToString("yyyymmddhhmmssfff").ToString() + ".jpg";
+                imageUrl = filepath + filename;
+
+                System.IO.FileStream fs = new System.IO.FileStream(imageUrl, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write);
+                image.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                fs.Close();
+                image.Dispose();
+                this.QRCodeAttachUrl = BLL.UploadFileService.QRCodeImageFilePath + filename;
+                equipmentQuality.QRCodeAttachUrl = this.QRCodeAttachUrl;
+                BLL.EquipmentQualityService.UpdateEquipmentQuality(equipmentQuality);
+                this.btnQR.Hidden = false;
+                this.btnQR.Text = "二维码重新生成";
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../Controls/SeeQRImage.aspx?EquipmentQualityId={0}", this.EquipmentQualityId), "二维码查看", 400, 400));
+            }
+            else
+            {
+                Alert.ShowInTop("操作有误，重新生成！", MessageBoxIcon.Warning);
+            }
+
+            //二维码解码
+            //var codeDecoder = CodeDecoder(filepath);
+
+            //this.Image1.ImageUrl = "~/image/" + filename + ".jpg";
+        }
     }
 }

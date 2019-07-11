@@ -22,7 +22,7 @@
                                     <f:Grid ID="gvAccidentDesciption" ShowBorder="true" ShowHeader="false" Title="管理绩效数据统计"
                                         runat="server" AllowCellEditing="true" ClicksToEdit="1" DataIDField="AccidentDesId"
                                         DataKeyNames="AccidentDesId" EnableMultiSelect="false" ShowGridHeader="true"
-                                        Height="220px" EnableColumnLines="true" AutoScroll="true">
+                                        Height="220px" EnableColumnLines="true" >
                                         <Columns>
                                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
                                                 TextAlign="Center" />
@@ -57,7 +57,7 @@
                                     <f:Grid ID="gvAccidentDesciptionItem" ShowBorder="true" ShowHeader="false" Title="管理绩效数据统计"
                                         runat="server" AllowCellEditing="true" ClicksToEdit="1" DataIDField="AccidentDesItemId"
                                         DataKeyNames="AccidentDesItemId" EnableMultiSelect="false" ShowGridHeader="true"
-                                        Height="220px" EnableColumnLines="true" AutoScroll="true">
+                                        Height="220px" EnableColumnLines="true" >
                                         <Columns>
                                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
                                                 TextAlign="Center" />

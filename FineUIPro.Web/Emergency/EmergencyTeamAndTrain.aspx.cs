@@ -216,12 +216,16 @@ namespace FineUIPro.Web.Emergency
         protected void btnMenuDelete_Click(object sender, EventArgs e)
         {
             if (Grid1.SelectedRowIndexArray.Length > 0)
-            {               
+            {
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除应急队伍/培训", rowID);
-                    BLL.EmergencyTeamAndTrainService.DeleteEmergencyTeamAndTrainById(rowID);
+                    var EmergencyTeamAndTrain = BLL.EmergencyTeamAndTrainService.GetEmergencyTeamAndTrainById(rowID);
+                    if (EmergencyTeamAndTrain != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, EmergencyTeamAndTrain.FileCode, EmergencyTeamAndTrain.FileId, BLL.Const.ProjectEmergencyTeamAndTrainMenuId, BLL.Const.BtnDelete);
+                        BLL.EmergencyTeamAndTrainService.DeleteEmergencyTeamAndTrainById(rowID);
+                    }
                 }
 
                 this.BindGrid();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -6,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web.UI;
-using BLL;
 
 namespace FineUIPro.Web.Technique
 {
@@ -168,6 +168,7 @@ namespace FineUIPro.Web.Technique
 
                 if (q != null && BLL.HazardListTypeService.IsDeleteHazardListType(this.trHazardListType.SelectedNode.NodeID))
                 {
+                    BLL.LogService.AddSys_Log(this.CurrUser, q.HazardListTypeCode, q.HazardListTypeId, BLL.Const.CompanyHazardListMenuId, Const.BtnDelete);
                     BLL.HazardListTypeService.DeleteHazardListTypeById(this.trHazardListType.SelectedNode.NodeID);
                     InitTreeMenu();
                 }
@@ -392,14 +393,20 @@ namespace FineUIPro.Web.Technique
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    if (BLL.Hazard_HazardSelectedItemService.GetHazardSelectedItemByHazardId(rowID) != null)
+                    var getV = BLL.HazardListService.GetHazardListById(rowID);
+                    if (getV != null)
                     {
-                        Alert.ShowInTop("在项目级危险源评价清单中已使用该资源，无法删除！", MessageBoxIcon.Warning);
-                        return;
+                        if (BLL.Hazard_HazardSelectedItemService.GetHazardSelectedItemByHazardId(rowID) != null)
+                        {
+                            Alert.ShowInTop("在项目级危险源评价清单中已使用该资源，无法删除！", MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.HazardCode, getV.HazardId, BLL.Const.CompanyHazardListMenuId, Const.BtnDelete);
+                        BLL.HazardListService.DeleteHazardListById(rowID);
                     }
-                    BLL.HazardListService.DeleteHazardListById(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除危险源清单");
                 }
+
                 BindGrid();
                 ShowNotify("删除数据成功!");
             }
@@ -588,6 +595,7 @@ namespace FineUIPro.Web.Technique
         protected void Text_TextChanged(object sender, EventArgs e)
         {
             InitTreeMenu();
+            BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.CompanyHazardListMenuId, Const.BtnQuery);
         }
         #endregion
     }

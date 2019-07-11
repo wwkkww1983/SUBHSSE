@@ -24,13 +24,13 @@
     <f:Panel ID="Panel1" runat="server" ShowBorder="false" ShowHeader="false" Layout="Region">
         <Items>
             <f:Panel runat="server" ID="panelLeftRegion" RegionPosition="Left" RegionSplit="true"
-                EnableCollapse="true" Width="340" Title="检查项" TitleToolTip="右键点击添加、修改、删除" ShowBorder="true"
+                EnableCollapse="true" Width="350" Title="检查项" TitleToolTip="右键点击添加、修改、删除" ShowBorder="true"
                 ShowHeader="false" AutoScroll="true" BodyPadding="5px" IconFont="ArrowCircleLeft">
                 <Toolbars>
                     <f:Toolbar ID="Toolbar1" Position="Top" ToolbarAlign="Right" runat="server">
                         <Items>
                             <f:RadioButtonList ID="ckType" runat="server" AutoPostBack="true" ColumnNumber="3" 
-                                AutoColumnWidth="true" Width="320px" OnSelectedIndexChanged="ckType_SelectedIndexChanged">
+                                AutoColumnWidth="true"  OnSelectedIndexChanged="ckType_SelectedIndexChanged">
                                 <f:RadioItem Value="1" Text="日常检查"/>
                                 <f:RadioItem Value="2" Text="专项检查" />
                                 <f:RadioItem Value="3" Text="综合检查" />
@@ -68,8 +68,8 @@
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" EnableCollapse="true" runat="server"
                         BoxFlex="1" DataKeyNames="CheckItemDetailId" AllowCellEditing="true" ClicksToEdit="2"
                         DataIDField="CheckItemDetailId" AllowSorting="true" SortField="SortIndex" SortDirection="ASC"
-                        OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true"
-                        PageSize="12" AllowColumnLocking="true" OnPageIndexChange="Grid1_PageIndexChange"
+                        OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true" EnableColumnLines="true"
+                        PageSize="15"  OnPageIndexChange="Grid1_PageIndexChange"
                         EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True">
                         <Toolbars>
                             <f:Toolbar ID="Toolbar3" Position="Top" ToolbarAlign="Right" runat="server">

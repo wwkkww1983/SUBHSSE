@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using BLL;
+using System;
 using System.Data;
 using System.Data.SqlClient;
-using BLL;
-using System.IO;
+using System.Linq;
+using System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.Technique
 {
@@ -168,7 +164,8 @@ namespace FineUIPro.Web.Technique
                     }
                 }
 
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "审核应急预案");
+                BLL.LogService.AddSys_Log(this.CurrUser, string.Empty,string.Empty, BLL.Const.EmergencyMenuId, Const.BtnAuditing);
+
                 BindGrid();
                 ShowNotify("操作成功!");
                 if (isPass)
@@ -232,11 +229,12 @@ namespace FineUIPro.Web.Technique
                         BLL.EmergencyService.UpdateEmergencyList(emergency);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应急预案】上报到集团公司" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【应急预案】上报到集团公司" + idList.Count.ToString() + "条数据；",
+                    string.Empty, BLL.Const.EmergencyMenuId, Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应急预案】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【应急预案】上报到集团公司失败；", string.Empty, BLL.Const.EmergencyMenuId, Const.BtnUploadResources);
             }
         }
         #endregion

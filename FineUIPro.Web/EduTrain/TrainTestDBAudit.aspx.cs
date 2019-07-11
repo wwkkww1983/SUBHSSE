@@ -194,7 +194,9 @@ namespace FineUIPro.Web.EduTrain
                         UpTrainTestDBItem(rowID, unit.UnitId);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "审核安全试题库");
+
+                BLL.LogService.AddSys_Log(this.CurrUser, "审核安全试题库", null, BLL.Const.TrainTestDBMenuId, BLL.Const.BtnAuditing);
+                
                 BindGrid();
                 ShowNotify("操作成功!");
                 if (isPass)
@@ -257,11 +259,11 @@ namespace FineUIPro.Web.EduTrain
                         BLL.TrainTestDBItemService.UpdateTrainTestDBItemIsPass(trainTestDBItem);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【培训教材明细】上报到集团公司" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全试题明细】上传到服务器" + idList.Count.ToString() + "条数据；", null, BLL.Const.TrainTestDBMenuId, BLL.Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【培训教材明细】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全试题明细】上传到服务器失败；", null, BLL.Const.TrainTestDBMenuId, BLL.Const.BtnUploadResources);
             }
         }
 

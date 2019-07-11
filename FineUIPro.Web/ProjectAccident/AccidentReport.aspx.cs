@@ -131,8 +131,12 @@ namespace FineUIPro.Web.ProjectAccident
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.AccidentReportService.DeleteAccidentReportById(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除事故快报信息");
+                    var getD = BLL.AccidentReportService.GetAccidentReportById(rowID);
+                    if (getD != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, null, getD.AccidentReportId, BLL.Const.ServerAccidentReportMenuId, BLL.Const.BtnDelete);
+                        BLL.AccidentReportService.DeleteAccidentReportById(rowID);
+                    }
                 }
                 BindGrid();
                 ShowNotify("删除数据成功!");

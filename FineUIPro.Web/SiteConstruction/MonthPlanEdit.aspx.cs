@@ -152,7 +152,7 @@ namespace FineUIPro.Web.SiteConstruction
             {
                 newMonthPlan.MonthPlanId = this.MonthPlanId;
                 BLL.MonthPlanService.UpdateMonthPlan(newMonthPlan);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改现场动态", newMonthPlan.MonthPlanId);
+                BLL.LogService.AddSys_Log(this.CurrUser, this.drpUnit.SelectedText, newMonthPlan.MonthPlanId,BLL.Const.ProjectMonthPlanMenuId,BLL.Const.BtnModify );
             }
             else
             {
@@ -160,7 +160,7 @@ namespace FineUIPro.Web.SiteConstruction
                 newMonthPlan.CompileMan = this.CurrUser.UserId;
                 newMonthPlan.MonthPlanId = this.MonthPlanId;
                 BLL.MonthPlanService.AddMonthPlan(newMonthPlan);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加现场动态", newMonthPlan.MonthPlanId);
+                BLL.LogService.AddSys_Log(this.CurrUser, this.drpUnit.SelectedText, newMonthPlan.MonthPlanId, BLL.Const.ProjectMonthPlanMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectMonthPlanMenuId, this.MonthPlanId, (type == BLL.Const.BtnSubmit ? true : false), this.txtCompileDate.Text.Trim(), "../SiteConstruction/MonthPlanView.aspx?MonthPlanId={0}");

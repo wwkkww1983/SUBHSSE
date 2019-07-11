@@ -84,17 +84,14 @@ namespace FineUIPro.Web.InApproveManager
                     + @" LEFT JOIN Sys_User AS OperateUser ON FlowOperate.OperaterId=OperateUser.UserId"
                     + @" LEFT JOIN Sys_User AS Users ON EquipmentIn.CompileMan = Users.UserId WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
-            strSql += " AND EquipmentIn.ProjectId = @ProjectId";
+            strSql += " AND EquipmentIn.ProjectId = '" + this.ProjectId + "'";
             if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
             {
-                listStr.Add(new SqlParameter("@ProjectId", Request.Params["projectId"]));
+              
                 strSql += " AND EquipmentIn.State = @States";  ///状态为已完成
                 listStr.Add(new SqlParameter("@States", BLL.Const.State_2));
             }
-            else
-            {
-                listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
-            }
+
             if (BLL.ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.ProjectId, this.CurrUser.UnitId))
             {
                 strSql += " AND EquipmentIn.UnitId = @UnitId";  ///状态为已完成
@@ -233,9 +230,13 @@ namespace FineUIPro.Web.InApproveManager
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除特种设备机具入场报批", rowID);
-                    BLL.EquipmentInItemService.DeleteEquipmentInItemByEquipmentInId(rowID);
-                    BLL.EquipmentInService.DeleteEquipmentInById(rowID);
+                    var equipmentIn = BLL.EquipmentInService.GetEquipmentInById(rowID);
+                    if (equipmentIn != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, equipmentIn.EquipmentInCode, equipmentIn.EquipmentInId, BLL.Const.EquipmentInMenuId, BLL.Const.BtnDelete);
+                        BLL.EquipmentInItemService.DeleteEquipmentInItemByEquipmentInId(rowID);
+                        BLL.EquipmentInService.DeleteEquipmentInById(rowID);
+                    }
                 }
 
                 this.BindGrid();

@@ -45,7 +45,10 @@ namespace FineUIPro.Web.License
                 {
                     this.ProjectId = Request.Params["projectId"];
                 }
+
                 BLL.UnitService.InitUnitDropDownList(this.drpUnit, this.ProjectId, true);
+                BLL.LicenseTypeService.InitLicenseTypeDropDownList(this.drpLicenseType, true);
+
                 if (BLL.ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.ProjectId, this.CurrUser.UnitId))
                 {
                     this.drpUnit.SelectedValue = this.CurrUser.UnitId;
@@ -105,16 +108,11 @@ namespace FineUIPro.Web.License
                 listStr.Add(new SqlParameter("@EndDate", endDate));
             }
 
-            //if (!string.IsNullOrEmpty(this.txtLicenseManagerCode.Text.Trim()))
-            //{
-            //    strSql += " AND LicenseManager.LicenseManagerCode LIKE @LicenseManagerCode";
-            //    listStr.Add(new SqlParameter("@LicenseManagerCode", "%" + this.txtLicenseManagerCode.Text.Trim() + "%"));
-            //}
-            if (!string.IsNullOrEmpty(this.txtLicenseTypeName.Text.Trim()))
+            if (!string.IsNullOrEmpty(this.drpLicenseType.SelectedValue) && this.drpLicenseType.SelectedValue != BLL.Const._Null)
             {
-                strSql += " AND LicenseManager.LicenseTypeName LIKE @LicenseTypeName";
-                listStr.Add(new SqlParameter("@LicenseTypeName", "%" + this.txtLicenseTypeName.Text.Trim() + "%"));
-            }
+                strSql += " AND LicenseManager.LicenseTypeId = @LicenseTypeId";
+                listStr.Add(new SqlParameter("@LicenseTypeId", this.drpLicenseType.SelectedValue));
+            }           
             if (this.drpUnit.SelectedValue != BLL.Const._Null)
             {
                 strSql += " AND LicenseManager.UnitId = @UnitId2";
@@ -248,8 +246,12 @@ namespace FineUIPro.Web.License
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除安全许可证", rowID);
-                    BLL.LicenseManagerService.DeleteLicenseManagerById(rowID);
+                    var licenseManager = BLL.LicenseManagerService.GetLicenseManagerById(rowID);
+                    if (licenseManager != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, licenseManager.LicenseManagerCode, licenseManager.LicenseManagerId, BLL.Const.ProjectLicenseManagerMenuId, BLL.Const.BtnDelete);
+                        BLL.LicenseManagerService.DeleteLicenseManagerById(rowID);
+                    }
                 }
 
                 this.BindGrid();

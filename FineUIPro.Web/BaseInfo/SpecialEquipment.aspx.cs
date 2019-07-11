@@ -83,12 +83,15 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            BLL.SpecialEquipmentService.DeleteSpecialEquipmentById(hfFormID.Text);
-            BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除机具设备");
-            // 重新绑定表格，并模拟点击[新增按钮]
-            BindGrid();
-            PageContext.RegisterStartupScript("onNewButtonClick();");
-
+            var getD = BLL.SpecialEquipmentService.GetSpecialEquipmentById(hfFormID.Text);
+            if (getD != null)
+            {
+                BLL.LogService.AddSys_Log(this.CurrUser, getD.SpecialEquipmentCode, getD.SpecialEquipmentId, BLL.Const.SpecialEquipmentMenuId, BLL.Const.BtnDelete);
+                BLL.SpecialEquipmentService.DeleteSpecialEquipmentById(hfFormID.Text);                
+                // 重新绑定表格，并模拟点击[新增按钮]
+                BindGrid();
+                PageContext.RegisterStartupScript("onNewButtonClick();");
+            }
         }
 
         /// <summary>
@@ -111,9 +114,12 @@ namespace FineUIPro.Web.BaseInfo
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-
-                    BLL.SpecialEquipmentService.DeleteSpecialEquipmentById(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除机具设备");
+                    var getD = BLL.SpecialEquipmentService.GetSpecialEquipmentById(rowID);
+                    if (getD != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getD.SpecialEquipmentCode, getD.SpecialEquipmentId, BLL.Const.SpecialEquipmentMenuId, BLL.Const.BtnDelete);
+                        BLL.SpecialEquipmentService.DeleteSpecialEquipmentById(rowID);
+                    }
                 }
 
                 BindGrid();
@@ -187,13 +193,13 @@ namespace FineUIPro.Web.BaseInfo
             {
                 specialEquipment.SpecialEquipmentId = SQLHelper.GetNewID(typeof(Model.Base_SpecialEquipment));
                 BLL.SpecialEquipmentService.AddSpecialEquipment(specialEquipment);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加机具设备");
+                BLL.LogService.AddSys_Log(this.CurrUser, specialEquipment.SpecialEquipmentCode, specialEquipment.SpecialEquipmentId, BLL.Const.SpecialEquipmentMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 specialEquipment.SpecialEquipmentId = strRowID;
                 BLL.SpecialEquipmentService.UpdateSpecialEquipment(specialEquipment);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改机具设备");
+                BLL.LogService.AddSys_Log(this.CurrUser, specialEquipment.SpecialEquipmentCode, specialEquipment.SpecialEquipmentId, BLL.Const.SpecialEquipmentMenuId, BLL.Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行

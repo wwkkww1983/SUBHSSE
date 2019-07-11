@@ -112,8 +112,9 @@ namespace FineUIPro.Web.ProjectData
             {               
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
+                    BLL.LogService.AddSys_Log(this.CurrUser, "删除项目用户！", null, BLL.Const.ProjectUserMenuId,BLL.Const.BtnDelete);
                     BLL.ProjectUserService.DeleteProjectUserById(Grid1.DataKeys[rowIndex][0].ToString());
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除项目用户！");
+                    
                 }
 
                 BindGrid();

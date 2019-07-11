@@ -190,7 +190,7 @@ namespace FineUIPro.Web.Technique
                     }
                 }
 
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "审核HAZOP管理");
+                BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.HAZOPMenuId, BLL.Const.BtnAuditing);
                 BindGrid();
                 ShowNotify("操作成功!", MessageBoxIcon.Success);
                 if (isPass)
@@ -257,11 +257,11 @@ namespace FineUIPro.Web.Technique
                         BLL.HAZOPService.UpdateHAZOP(hazop);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【HAZOP管理】上报到集团公司" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【HAZOP管理】上报到集团公司" + idList.Count.ToString() + "条数据；", string.Empty, BLL.Const.HAZOPMenuId, BLL.Const.BtnUploadResources);                
             }
             else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【HAZOP管理】上报到集团公司失败；");
+            {                
+                BLL.LogService.AddSys_Log(this.CurrUser, "【HAZOP管理】上报到集团公司失败；", string.Empty, BLL.Const.HAZOPMenuId, BLL.Const.BtnUploadResources);
             }
         }
         #endregion

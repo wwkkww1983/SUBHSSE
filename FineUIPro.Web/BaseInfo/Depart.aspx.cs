@@ -1,10 +1,8 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using BLL;
 
 namespace FineUIPro.Web.BaseInfo
 {
@@ -108,12 +106,16 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            BLL.DepartService.DeleteDepartById(hfFormID.Text);
-            BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除部门信息");
+            var getV = BLL.DepartService.GetDepartById(hfFormID.Text);
+            if (getV != null)
+            {
+                BLL.LogService.AddSys_Log(this.CurrUser, getV.DepartCode, getV.DepartId, BLL.Const.DepartTypeMenuId, BLL.Const.BtnDelete);
+                BLL.DepartService.DeleteDepartById(hfFormID.Text);
+            
             // 重新绑定表格，并模拟点击[新增按钮]
             BindGrid();
             PageContext.RegisterStartupScript("onNewButtonClick();");
-
+            }
         }
         /// <summary>
         /// 右键删除事件
@@ -135,9 +137,12 @@ namespace FineUIPro.Web.BaseInfo
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-
-                    BLL.DepartService.DeleteDepartById(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除部门信息");
+                    var getV = BLL.DepartService.GetDepartById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.DepartCode, getV.DepartId, BLL.Const.DepartTypeMenuId, BLL.Const.BtnDelete);
+                        BLL.DepartService.DeleteDepartById(rowID);
+                    }
                 }
 
                 BindGrid();
@@ -199,13 +204,13 @@ namespace FineUIPro.Web.BaseInfo
             {
                 depart.DepartId = SQLHelper.GetNewID(typeof(Model.Base_Depart));
                 BLL.DepartService.AddDepart(depart);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加部门信息");
+                BLL.LogService.AddSys_Log(this.CurrUser, depart.DepartCode, depart.DepartId, BLL.Const.DepartTypeMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 depart.DepartId = strRowID;
                 BLL.DepartService.UpdateDepart(depart);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改部门信息");
+                BLL.LogService.AddSys_Log(this.CurrUser, depart.DepartCode, depart.DepartId, BLL.Const.DepartTypeMenuId, BLL.Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行

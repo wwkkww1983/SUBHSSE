@@ -110,8 +110,12 @@ namespace FineUIPro.Web.BaseInfo
         {
             if (judgementDelete(hfFormID.Text, true))
             {
-                BLL.EmergencyTypeService.DeleteEmergencyTypeById(hfFormID.Text);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除应急预案类型");
+                var getType = BLL.EmergencyTypeService.GetEmergencyTypeById(hfFormID.Text);
+                if (getType != null)
+                {
+                    BLL.LogService.AddSys_Log(this.CurrUser, getType.EmergencyTypeCode, getType.EmergencyTypeId, BLL.Const.EmergencyTypeMenuId, BLL.Const.BtnDelete);
+                    BLL.EmergencyTypeService.DeleteEmergencyTypeById(hfFormID.Text);
+                }
                 // 重新绑定表格，并模拟点击[新增按钮]
                 BindGrid();
                 PageContext.RegisterStartupScript("onNewButtonClick();");
@@ -130,10 +134,14 @@ namespace FineUIPro.Web.BaseInfo
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    if (judgementDelete(rowID, true))
+                    var getType = BLL.EmergencyTypeService.GetEmergencyTypeById(rowID);
+                    if (getType != null)
                     {
-                        BLL.EmergencyTypeService.DeleteEmergencyTypeById(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除应急预案类型");
+                        if (judgementDelete(rowID, true))
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getType.EmergencyTypeCode, getType.EmergencyTypeId, BLL.Const.EmergencyTypeMenuId, BLL.Const.BtnDelete);
+                            BLL.EmergencyTypeService.DeleteEmergencyTypeById(rowID);
+                        }
                     }
                 }
                 BindGrid();
@@ -204,7 +212,7 @@ namespace FineUIPro.Web.BaseInfo
         protected void btnSave_Click(object sender, EventArgs e)
         {
             string strRowID = hfFormID.Text;
-            Model.Base_EmergencyType depart = new Model.Base_EmergencyType
+            Model.Base_EmergencyType newEmergencyType = new Model.Base_EmergencyType
             {
                 EmergencyTypeCode = this.txtEmergencyTypeCode.Text.Trim(),
                 EmergencyTypeName = this.txtEmergencyTypeName.Text.Trim(),
@@ -212,20 +220,20 @@ namespace FineUIPro.Web.BaseInfo
             };
             if (string.IsNullOrEmpty(strRowID))
             {
-                depart.EmergencyTypeId = SQLHelper.GetNewID(typeof(Model.Base_EmergencyType));
-                BLL.EmergencyTypeService.AddEmergencyType(depart);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加应急预案类型");
+                newEmergencyType.EmergencyTypeId = SQLHelper.GetNewID(typeof(Model.Base_EmergencyType));
+                BLL.EmergencyTypeService.AddEmergencyType(newEmergencyType);
+                BLL.LogService.AddSys_Log(this.CurrUser, newEmergencyType.EmergencyTypeCode, newEmergencyType.EmergencyTypeId, BLL.Const.EmergencyTypeMenuId, BLL.Const.BtnAdd);
             }
             else
             {
-                depart.EmergencyTypeId = strRowID;
-                BLL.EmergencyTypeService.UpdateEmergencyType(depart);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改应急预案类型");
+                newEmergencyType.EmergencyTypeId = strRowID;
+                BLL.EmergencyTypeService.UpdateEmergencyType(newEmergencyType);
+                BLL.LogService.AddSys_Log(this.CurrUser, newEmergencyType.EmergencyTypeCode, newEmergencyType.EmergencyTypeId, BLL.Const.EmergencyTypeMenuId, BLL.Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行
             BindGrid();
-            PageContext.RegisterStartupScript(String.Format("F('{0}').selectRow('{1}');", Grid1.ClientID, depart.EmergencyTypeId));
+            PageContext.RegisterStartupScript(String.Format("F('{0}').selectRow('{1}');", Grid1.ClientID, newEmergencyType.EmergencyTypeId));
         }
         #endregion
 

@@ -267,9 +267,13 @@ namespace FineUIPro.Web.Check
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.Check_CheckWorkDetailService.DeleteCheckWorkDetails(rowID);
-                    BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "删除开工前检查", rowID);
-                    BLL.Check_CheckWorkService.DeleteCheckWork(rowID);
+                    var checkWork = BLL.Check_CheckWorkService.GetCheckWorkByCheckWorkId(rowID);
+                    if (checkWork != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, checkWork.CheckWorkCode, checkWork.CheckWorkId, BLL.Const.ProjectCheckWorkMenuId, BLL.Const.BtnDelete);
+                        BLL.Check_CheckWorkDetailService.DeleteCheckWorkDetails(rowID);
+                        BLL.Check_CheckWorkService.DeleteCheckWork(rowID);
+                    }
                 }
                 BindGrid();
                 ShowNotify("删除数据成功!（表格数据已重新绑定）");
@@ -295,6 +299,7 @@ namespace FineUIPro.Web.Check
                 if (buttonList.Contains(BLL.Const.BtnAdd))
                 {
                     this.btnNew.Hidden = false;
+                    this.btnPrint.Hidden = false;
                 }
                 if (buttonList.Contains(BLL.Const.BtnModify))
                 {
@@ -365,5 +370,15 @@ namespace FineUIPro.Web.Check
             return sb.ToString();
         }
         #endregion
+
+        protected void btnPrint_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckWorkPrint.aspx?CheckWorkId={0}", Grid1.SelectedRowID, "打印 - ")));
+        }
     }
 }

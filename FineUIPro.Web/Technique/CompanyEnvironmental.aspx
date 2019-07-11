@@ -31,22 +31,25 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar1" Position="Top" runat="server">
                         <Items>
-                            <f:DropDownList ID="drpSmallType" runat="server" Label="危险源类型" AutoPostBack="true"
-                                EnableEdit="true" LabelWidth="120px" Width="230px" LabelAlign="right" OnSelectedIndexChanged="TextBox_TextChanged">
+                            <f:DropDownList ID="drpSmallType" runat="server" Label="危险源类型"
+                                EnableEdit="true" LabelWidth="120px" Width="230px" LabelAlign="right" >
                             </f:DropDownList>
-                            <f:DropDownList ID="drpEType" runat="server" Label="环境类型" AutoPostBack="true" EnableEdit="true"
-                                LabelWidth="100px" Width="210px" LabelAlign="right" OnSelectedIndexChanged="TextBox_TextChanged">
+                            <f:DropDownList ID="drpEType" runat="server" Label="环境类型" EnableEdit="true"
+                                LabelWidth="100px" Width="210px" LabelAlign="right" >
                             </f:DropDownList>
                             <f:TextBox ID="txtActivePoint" runat="server" Label="分项工程/活动点" EmptyText="输入查询名称"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="115px"
+                                Width="210px" LabelWidth="115px"
                                 LabelAlign="Right">
                             </f:TextBox>
                             <f:TextBox ID="txtEnvironmentalFactors" runat="server" Label="环境因素" EmptyText="输入查询名称"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="200px" LabelWidth="80px"
+                                 Width="200px" LabelWidth="80px"
                                 LabelAlign="Right">
                             </f:TextBox>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
+                            <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch" EnablePostBack="true" 	
+                                OnClick="TextBox_TextChanged" runat="server" >
+                            </f:Button>
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" runat="server"
                                 Hidden="true">
                             </f:Button>
@@ -149,15 +152,15 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="编辑公司环境因素危险源" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="1024px" Height="420px">
     </f:Window>
     <f:Window ID="Window2" Title="导入公司环境因素危险源" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="1024px" Height="600px">
     </f:Window>
     <f:Window ID="Window5" Title="选择需要导出的列" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window5_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window5_Close" IsModal="true"
         Width="500px" Height="400px" EnableAjax="false">
     </f:Window>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
@@ -169,7 +172,7 @@
             runat="server" Text="编辑" Icon="Pencil" Hidden="true">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除" Icon="Delete"
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除" Icon="Delete"
             Hidden="true">
         </f:MenuButton>
     </f:Menu>

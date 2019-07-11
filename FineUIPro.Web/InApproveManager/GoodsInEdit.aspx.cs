@@ -179,14 +179,14 @@ namespace FineUIPro.Web.InApproveManager
             {
                 goodsIn.GoodsInId = this.GoodsInId;
                 BLL.GoodsInService.UpdateGoodsIn(goodsIn);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改普通货物入场报批",goodsIn.GoodsInId);
+                BLL.LogService.AddSys_Log(this.CurrUser, goodsIn.GoodsInCode, goodsIn.GoodsInId, BLL.Const.GoodsInMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.GoodsInId = SQLHelper.GetNewID(typeof(Model.InApproveManager_GoodsIn));
                 goodsIn.GoodsInId = this.GoodsInId;
                 BLL.GoodsInService.AddGoodsIn(goodsIn);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加普通货物入场报批",goodsIn.GoodsInId);
+                BLL.LogService.AddSys_Log(this.CurrUser, goodsIn.GoodsInCode, goodsIn.GoodsInId,BLL.Const.GoodsInMenuId,BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.GoodsInMenuId, this.GoodsInId, (type == BLL.Const.BtnSubmit ? true : false), goodsIn.GoodsInResult, "../InApproveManager/GoodsInView.aspx?GoodsInId={0}");

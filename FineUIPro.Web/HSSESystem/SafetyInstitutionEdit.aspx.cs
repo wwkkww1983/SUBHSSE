@@ -95,14 +95,14 @@ namespace FineUIPro.Web.HSSESystem
             {
                 newSafetyInstitution.SafetyInstitutionId = this.SafetyInstitutionId;
                 BLL.ServerSafetyInstitutionService.UpdateSafetyInstitution(newSafetyInstitution);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改安全制度", newSafetyInstitution.SafetyInstitutionId);
+                BLL.LogService.AddSys_Log(this.CurrUser, newSafetyInstitution.SafetyInstitutionName, newSafetyInstitution.SafetyInstitutionId,BLL.Const.ServerSafetyInstitutionMenuId,BLL.Const.BtnModify);
             }
             else
             {
                 this.SafetyInstitutionId = SQLHelper.GetNewID(typeof(Model.HSSESystem_SafetyInstitution));
                 newSafetyInstitution.SafetyInstitutionId = this.SafetyInstitutionId;
                 BLL.ServerSafetyInstitutionService.AddSafetyInstitution(newSafetyInstitution);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加安全制度", newSafetyInstitution.SafetyInstitutionId);
+                BLL.LogService.AddSys_Log(this.CurrUser, newSafetyInstitution.SafetyInstitutionName, newSafetyInstitution.SafetyInstitutionId, BLL.Const.ServerSafetyInstitutionMenuId, BLL.Const.BtnAdd);
             }
         }
 

@@ -201,7 +201,7 @@ namespace FineUIPro.Web.Law
                     }
                 }
 
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "审核政府部门安全规章");
+                BLL.LogService.AddSys_Log(this.CurrUser, null, null, BLL.Const.RulesRegulationsMenuId, BLL.Const.BtnAuditing);
                 BindGrid();
                 ShowNotify("操作成功!");
                 if (isPass)
@@ -273,11 +273,11 @@ namespace FineUIPro.Web.Law
                         BLL.RulesRegulationsService.UpdateRulesRegulations(rulesRegulations);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【政府部门安全规章】上报到集团公司" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【政府部门安全规章】上报到集团公司" + idList.Count.ToString() + "条数据；", null, BLL.Const.RulesRegulationsMenuId, BLL.Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【政府部门安全规章】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【政府部门安全规章】上报到集团公司失败；", null, BLL.Const.RulesRegulationsMenuId, BLL.Const.BtnUploadResources);
             }
         }
         #endregion

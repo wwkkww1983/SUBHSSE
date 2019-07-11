@@ -6,17 +6,24 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>安全管理机构</title>
     <link href="../res/css/common.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .f-grid-row .f-grid-cell-inner
+        {
+            white-space: normal;
+            word-break: break-all;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
     <f:PageManager ID="PageManager1" AutoSizePanelID="Panel1" runat="server" />
     <f:Panel ID="Panel1" runat="server" ShowBorder="false" ShowHeader="false" Layout="Region">
         <Items>
-            <f:Panel runat="server" ID="panelLeftRegion" RegionPosition="Left" RegionSplit="true" Layout="HBox"
-                EnableCollapse="true" Width="300" Title="安全管理机构" TitleToolTip="安全管理机构" ShowBorder="true"
-                ShowHeader="true" AutoScroll="true" BodyPadding="5px" IconFont="ArrowCircleLeft">
+            <f:Panel runat="server" ID="panelLeftRegion" RegionPosition="Left" RegionSplit="true" Layout="Fit"
+                EnableCollapse="true" Width="260px" Title="安全管理机构" TitleToolTip="安全管理机构" ShowBorder="true"
+                ShowHeader="false" AutoScroll="true" BodyPadding="2px" IconFont="ArrowCircleLeft">
                 <Items>                   
-                    <f:Tree ID="trHSSEManage" EnableCollapse="true" ShowHeader="true" MinWidth="280px"
+                    <f:Tree ID="trHSSEManage" EnableCollapse="true" ShowHeader="true" 
                         Title="安全管理机构" OnNodeCommand="trHSSEManage_NodeCommand" AutoLeafIdentification="true"
                         runat="server" EnableTextSelection="True">
                     </f:Tree>
@@ -41,7 +48,7 @@
                 Layout="VBox" ShowHeader="false" BodyPadding="5px" IconFont="PlusCircle" Title="安全管理机构"
                 TitleToolTip="安全管理机构" AutoScroll="true">
                 <Items>
-                    <f:Grid ID="Grid1" Width="870px" ShowBorder="true" ShowHeader="false" EnableCollapse="true"
+                    <f:Grid ID="Grid1"  ShowBorder="true" ShowHeader="false" EnableCollapse="true"
                         runat="server" BoxFlex="1" DataKeyNames="HSSEManageItemId" AllowSorting="true" OnSort="Grid1_Sort"
                         SortField="SortIndex" SortDirection="ASC" AllowCellEditing="true" ClicksToEdit="2" EnableColumnLines="true"
                         DataIDField="HSSEManageItemId" AllowPaging="true" IsDatabasePaging="true" PageSize="10"
@@ -67,28 +74,28 @@
                         </Toolbars>
                         <Columns>
                             <f:TemplateField ColumnID="tfNumber" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
-                        TextAlign="Center">
-                        <ItemTemplate>
-                            <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>
-                            <f:RenderField Width="100px" ColumnID="Post" DataField="Post" SortField="Post" FieldType="String"
-                                HeaderTextAlign="Center" TextAlign="Center" HeaderText="职务">
-                            </f:RenderField>
+                                TextAlign="Center">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
+                                </ItemTemplate>
+                            </f:TemplateField>
                             <f:RenderField Width="80px" ColumnID="Names" DataField="Names" SortField="Names"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Center" HeaderText="姓名">
                             </f:RenderField>
+                             <f:RenderField Width="170px" ColumnID="Post" DataField="Post" SortField="Post" FieldType="String"
+                                HeaderTextAlign="Center" TextAlign="Left" HeaderText="职务">
+                            </f:RenderField>
+                             <f:RenderField Width="220px" ColumnID="Duty" DataField="Duty" SortField="Duty" FieldType="String"
+                                HeaderTextAlign="Center" TextAlign="Left" HeaderText="职责">
+                            </f:RenderField>
                             <f:RenderField Width="120px" ColumnID="Telephone" DataField="Telephone" SortField="Telephone"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Center" HeaderText="电话">
+                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="电话">
                             </f:RenderField>
-                            <f:RenderField Width="120px" ColumnID="MobilePhone" DataField="MobilePhone" SortField="MobilePhone"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Center" HeaderText="手机">
+                            <f:RenderField Width="110px" ColumnID="MobilePhone" DataField="MobilePhone" SortField="MobilePhone"
+                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="手机">
                             </f:RenderField>
-                            <f:RenderField Width="150px" ColumnID="EMail" DataField="EMail" SortField="EMail"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Center" HeaderText="邮箱">
-                            </f:RenderField>
-                            <f:RenderField Width="150px" ColumnID="Duty" DataField="Duty" SortField="Duty" FieldType="String"
-                                HeaderTextAlign="Center" TextAlign="Center" HeaderText="职责" ExpandUnusedSpace="true">
+                            <f:RenderField Width="170px" ColumnID="EMail" DataField="EMail" SortField="EMail"
+                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="邮箱">
                             </f:RenderField>
                         </Columns>
                         <Listeners>
@@ -126,7 +133,7 @@
             runat="server" Text="编辑" Hidden="true" Icon="TableEdit">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" Icon="Delete"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除" Hidden="true">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除" Hidden="true">
         </f:MenuButton>
     </f:Menu>
     </form>

@@ -1,12 +1,9 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Data.SqlClient;
-using BLL;
 using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 using AspNet = System.Web.UI.WebControls;
 
@@ -174,8 +171,12 @@ namespace FineUIPro.Web.CostGoods
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除物资入库管理", rowID);
-                    BLL.GoodsIn2Service.DeleteGoodsInById(rowID);
+                    var GoodsIn = BLL.GoodsIn2Service.GetGoodsInById(rowID);
+                    if (GoodsIn != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, GoodsIn.GoodsInCode, GoodsIn.GoodsInId, BLL.Const.GoodsIn2MenuId, BLL.Const.BtnDelete);
+                        BLL.GoodsIn2Service.DeleteGoodsInById(rowID);
+                    }
                 }
 
                 this.BindGrid();
@@ -227,47 +228,10 @@ namespace FineUIPro.Web.CostGoods
             Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("物资入库管理" + filename, System.Text.Encoding.UTF8) + ".xls");
             Response.ContentType = "application/excel";
             Response.ContentEncoding = System.Text.Encoding.UTF8;
-            this.Grid1.PageSize = 500;
+            this.Grid1.PageSize = 50000;
             this.BindGrid();
             Response.Write(GetGridTableHtml(Grid1));
             Response.End();
-        }
-
-        /// <summary>
-        /// 导出方法
-        /// </summary>
-        /// <param name="grid"></param>
-        /// <returns></returns>
-        private string GetGridTableHtml(Grid grid)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
-            sb.Append("<table cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;\">");
-            sb.Append("<tr>");
-            foreach (GridColumn column in grid.Columns)
-            {
-                sb.AppendFormat("<td>{0}</td>", column.HeaderText);
-            }
-            sb.Append("</tr>");
-            foreach (GridRow row in grid.Rows)
-            {
-                sb.Append("<tr>");
-                foreach (GridColumn column in grid.Columns)
-                {
-                    string html = row.Values[column.ColumnIndex].ToString();
-                    if (column.ColumnID == "tfNumber")
-                    {
-                        html = (row.FindControl("lblNumber") as AspNet.Label).Text;
-                    }
-                    sb.AppendFormat("<td>{0}</td>", html);
-                }
-
-                sb.Append("</tr>");
-            }
-
-            sb.Append("</table>");
-
-            return sb.ToString();
         }
         #endregion        
     }

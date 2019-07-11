@@ -161,39 +161,40 @@ namespace FineUIPro.Web.SafetyData
                     var noMenu = BLL.Const.noSysSetMenusList.FirstOrDefault(x => x == item.MenuId);
                     if (noMenu == null)
                     {
-                        var safeDataMenu = Funs.DB.SafetyData_SafetyData.FirstOrDefault(x => x.MenuId == item.MenuId);
-                        if (!string.IsNullOrEmpty(this.SafetyDataId))
-                        {
-                            safeDataMenu = Funs.DB.SafetyData_SafetyData.FirstOrDefault(x => x.MenuId == item.MenuId && x.SafetyDataId != this.SafetyDataId);
-                        }
+                        //var safeDataMenu = Funs.DB.SafetyData_SafetyData.FirstOrDefault(x => x.MenuId == item.MenuId);
+                        //if (!string.IsNullOrEmpty(this.SafetyDataId))
+                        //{
+                        //    safeDataMenu = Funs.DB.SafetyData_SafetyData.FirstOrDefault(x => x.MenuId == item.MenuId && x.SafetyDataId != this.SafetyDataId);
+                        //}
 
-                        if (safeDataMenu == null)
+                        //if (safeDataMenu == null)
+                        //{
+
+                        //}
+                        TreeNode newNode = new TreeNode
                         {
-                            TreeNode newNode = new TreeNode
-                            {
-                                Text = item.MenuName,
-                                NodeID = item.MenuId
-                            };
-                            if (item.IsEnd == true)
-                            {
-                                newNode.Selectable = true;
-                            }
-                            else
-                            {
-                                newNode.Selectable = false;
-                            }
-                            if (node == null)
-                            {
-                                this.treeMenu.Nodes.Add(newNode);
-                            }
-                            else
-                            {
-                                node.Nodes.Add(newNode);
-                            }
-                            if (!item.IsEnd.HasValue || item.IsEnd == false)
-                            {
-                                InitTreeMenu(menusList, newNode);
-                            }
+                            Text = item.MenuName,
+                            NodeID = item.MenuId
+                        };
+                        if (item.IsEnd == true)
+                        {
+                            newNode.Selectable = true;
+                        }
+                        else
+                        {
+                            newNode.Selectable = false;
+                        }
+                        if (node == null)
+                        {
+                            this.treeMenu.Nodes.Add(newNode);
+                        }
+                        else
+                        {
+                            node.Nodes.Add(newNode);
+                        }
+                        if (!item.IsEnd.HasValue || item.IsEnd == false)
+                        {
+                            InitTreeMenu(menusList, newNode);
                         }
                     }
                 }
@@ -320,17 +321,15 @@ namespace FineUIPro.Web.SafetyData
                     {
                         newSafetyData.SafetyDataId = SQLHelper.GetNewID(typeof(Model.SafetyData_SafetyData));
                         BLL.SafetyDataService.AddSafetyData(newSafetyData);
-                        BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "增加企业安全管理资料", newSafetyData.Code);
                     }
                     else
                     {
                         newSafetyData.SafetyDataId = this.SafetyDataId;
                         BLL.SafetyDataService.UpdateSafetyData(newSafetyData);
-                        BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改企业安全管理资料", newSafetyData.Code);
                     }
 
                     ////根据项目和安全资料项生成企业安全管理资料计划总表
-                    BLL.SafetyDataPlanService.GetSafetyDataPlanByProjectInfo(string.Empty, newSafetyData.SafetyDataId);
+                    BLL.SafetyDataPlanService.GetSafetyDataPlanByProjectInfo(string.Empty, newSafetyData.SafetyDataId, null, null);
                     PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
                 }
                 else

@@ -19,8 +19,8 @@
                         <Items>
                             <f:Grid ID="gvHSEDay" ShowBorder="true" ShowHeader="false" Title="本月项目现场HSE人工日统计" 
                                 runat="server" AllowCellEditing="true" ClicksToEdit="1" DataIDField="MonthHSEDay" Width="1200px"
-                                DataKeyNames="MonthHSEDay" EnableMultiSelect="false" ShowGridHeader="true" Height="420px"
-                                EnableColumnLines="true" AutoScroll="true">
+                                DataKeyNames="MonthHSEDay" EnableMultiSelect="false" ShowGridHeader="true" Height="320px"
+                                EnableColumnLines="true" >
                                 <Columns>
                                     <f:GroupField EnableLock="true" HeaderText="连续安全工作天数" TextAlign="Center">
                                         <Columns>
@@ -73,7 +73,7 @@
                                             <f:GroupField EnableLock="true" HeaderText="本月安全人工时" TextAlign="Center">
                                                 <Columns>
                                                     <f:RenderField Width="100px" ColumnID="HseManhours" DataField="HseManhours" FieldType="Int"
-                                                        HeaderText="本单位" HeaderTextAlign="Center" TextAlign="Left">
+                                                        HeaderText="五环" HeaderTextAlign="Center" TextAlign="Left">
                                                         <Editor>
                                                             <f:NumberBox ID="nbHseManhours" NoDecimal="true" NoNegative="true" MinValue="0" runat="server">
                                                             </f:NumberBox>

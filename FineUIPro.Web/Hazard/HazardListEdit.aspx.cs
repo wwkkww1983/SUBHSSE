@@ -984,14 +984,14 @@ namespace FineUIPro.Web.Hazard
                 hazardList.HazardListId = HazardListId;
                 BLL.Hazard_HazardListService.UpdateHazardList(hazardList);
                 BLL.Hazard_HazardSelectedItemService.DeleteHazardSelectedItemByHazardListId(HazardListId);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改危险源辨识与评价清单", hazardList.HazardListId);
+                BLL.LogService.AddSys_Log(this.CurrUser, hazardList.HazardListCode, hazardList.HazardListId, BLL.Const.ProjectHazardListMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 hazardList.HazardListId = SQLHelper.GetNewID(typeof(Model.Hazard_HazardList));
                 this.HazardListId = hazardList.HazardListId;
                 BLL.Hazard_HazardListService.AddHazardList(hazardList);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加危险源辨识与评价清单", hazardList.HazardListId);
+                BLL.LogService.AddSys_Log(this.CurrUser, hazardList.HazardListCode, hazardList.HazardListId, BLL.Const.ProjectHazardListMenuId, BLL.Const.BtnAdd);
             }
             #endregion
             JArray mergedData = Grid1.GetMergedData();

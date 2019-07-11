@@ -66,7 +66,7 @@
                         SortField="WorkArea" FieldType="String" HeaderText="区域" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
+                    <f:RenderField Width="100px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="时间"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
@@ -102,7 +102,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="编辑事故快报" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
         Width="1024px" Height="500px">
     </f:Window>
       <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true"
@@ -114,7 +114,7 @@
             runat="server" Text="编辑" Icon="TableEdit">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" Hidden="true"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除" Icon="Delete">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除" Icon="Delete">
         </f:MenuButton>
     </f:Menu>
     </form>

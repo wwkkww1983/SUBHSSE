@@ -51,13 +51,11 @@ namespace FineUIPro.Web.Technique
             var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HAZOPMenuId);
             if (buttonList.Count() > 0)
             {
-
                 if (buttonList.Contains(BLL.Const.BtnOut))
                 {
                     this.btnImport.Hidden = false;
 
                 }
-
             }
         }
         #endregion

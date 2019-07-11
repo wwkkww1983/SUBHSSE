@@ -20,7 +20,7 @@
         Layout="HBox">
         <Items>
             <f:Grid ID="Grid1" Title="许可证类型" ShowHeader="true" EnableCollapse="false" PageSize="10"   EnableColumnLines="true"  
-                ShowBorder="true" AllowPaging="true" IsDatabasePaging="true" runat="server" Width="450px"
+                ShowBorder="true" AllowPaging="true" IsDatabasePaging="true" runat="server" Width="450px" 
                 DataKeyNames="LicenseTypeId" DataIDField="LicenseTypeId" OnPageIndexChange="Grid1_PageIndexChange"
                 AllowFilters="true" OnFilterChange="Grid1_FilterChange" EnableTextSelection="True" EnableRowClickEvent="true" 
                 OnRowClick="Grid1_RowClick" >
@@ -97,7 +97,7 @@
             runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

@@ -120,8 +120,12 @@
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.ResourcesDataService.DeleteResourcesData(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除参考资料");
+                    var getV= BLL.ResourcesDataService.GetResourcesDataByResourcesDataId(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.FileCode, getV.ResourcesDataId, BLL.Const.ResourcesDataMenuId, BLL.Const.BtnDelete);
+                        BLL.ResourcesDataService.DeleteResourcesData(rowID);
+                    }
                 }
                 BindGrid();
                 ShowNotify("删除数据成功!");

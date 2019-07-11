@@ -35,21 +35,22 @@ namespace BLL
         /// <summary>
         /// 增加开工前检查明细信息
         /// </summary>
-        /// <param name="CheckWorkDetail"></param>
-        public static void AddCheckWorkDetail(Model.Check_CheckWorkDetail CheckWorkDetail)
+        /// <param name="checkWorkDetail"></param>
+        public static void AddCheckWorkDetail(Model.Check_CheckWorkDetail checkWorkDetail)
         {
             Model.SUBHSSEDB db = Funs.DB;
             Model.Check_CheckWorkDetail newCheckWorkDetail = new Model.Check_CheckWorkDetail
             {
-                CheckWorkDetailId = CheckWorkDetail.CheckWorkDetailId,
-                CheckWorkId = CheckWorkDetail.CheckWorkId,
-                CheckItem = CheckWorkDetail.CheckItem,
-                CheckResult = CheckWorkDetail.CheckResult,
-                CheckOpinion = CheckWorkDetail.CheckOpinion,
-                CheckStation = CheckWorkDetail.CheckStation,
-                HandleResult = CheckWorkDetail.HandleResult,
-                CheckContent = CheckWorkDetail.CheckContent,
-                WorkArea = CheckWorkDetail.WorkArea
+                CheckWorkDetailId = checkWorkDetail.CheckWorkDetailId,
+                CheckWorkId = checkWorkDetail.CheckWorkId,
+                CheckItem = checkWorkDetail.CheckItem,
+                CheckResult = checkWorkDetail.CheckResult,
+                CheckOpinion = checkWorkDetail.CheckOpinion,
+                CheckStation = checkWorkDetail.CheckStation,
+                HandleResult = checkWorkDetail.HandleResult,
+                CheckContent = checkWorkDetail.CheckContent,
+                WorkArea = checkWorkDetail.WorkArea,
+                SortIndex = checkWorkDetail.SortIndex,
             };
             db.Check_CheckWorkDetail.InsertOnSubmit(newCheckWorkDetail);
             db.SubmitChanges();

@@ -27,10 +27,13 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
-                            <f:TextBox runat="server" Label="项目编号" ID="txtProjectCode" EmptyText="输入查询条件" 
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px"></f:TextBox> 
                             <f:TextBox runat="server" Label="项目名称" ID="txtProjectName" EmptyText="输入查询条件" 
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px"></f:TextBox>                                                    
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px"></f:TextBox>  
+                            <f:TextBox runat="server" Label="项目编号" ID="txtProjectCode" EmptyText="输入查询条件" 
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px"></f:TextBox>                             
+                            <f:DropDownList ID="drpUnit" Label="所属单位" runat="server" EnableEdit="true" Width="360px" LabelWidth="120px"
+                                AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged">
+                            </f:DropDownList>                                                  
                             <f:ToolbarFill runat="server"></f:ToolbarFill> 
                              <f:CheckBoxList runat="server" ID="cbIsState" ShowLabel="false" Width="200px"  LabelAlign="Right"
                                 OnSelectedIndexChanged="TextBox_TextChanged"  AutoPostBack="true">
@@ -47,18 +50,21 @@
                     <f:RenderField Width="300px" ColumnID="ProjectName" DataField="ProjectName" SortField="ProjectName"
                         FieldType="String" HeaderText="项目名称"  HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="StartDate" DataField="StartDate" SortField="StartDate"
+                    <f:RenderField Width="100px" ColumnID="StartDate" DataField="StartDate" SortField="StartDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="开工日期"
                          HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="EndDate" DataField="EndDate" SortField="EndDate"
+                    <f:RenderField Width="100px" ColumnID="EndDate" DataField="EndDate" SortField="EndDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="竣工日期"
                        HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="ProjectStateName" DataField="ProjectStateName" SortField="ProjectStateName"
+                    <f:RenderField Width="80px" ColumnID="ProjectTypeName" DataField="ProjectTypeName" SortField="ProjectTypeName"
+                        FieldType="String" HeaderText="项目类型"  HeaderTextAlign="Center" TextAlign="Left">
+                    </f:RenderField>
+                    <f:RenderField Width="80px" ColumnID="ProjectStateName" DataField="ProjectStateName" SortField="ProjectStateName"
                         FieldType="String" HeaderText="项目状态"  HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="ProjectRoleName" DataField="ProjectRoleName" SortField="ProjectRoleName"
+                    <f:RenderField Width="110px" ColumnID="ProjectRoleName" DataField="ProjectRoleName" SortField="ProjectRoleName"
                         FieldType="String" HeaderText="所任角色"  HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>                  
                                   

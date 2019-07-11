@@ -30,20 +30,66 @@ namespace FineUIPro.Web.InformationProject
                 }
                 this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
 
-                BLL.ProjectService.InitAllProjectDropDownList(this.drpProject, false);
+                this.BindGrid2();
                 if (!string.IsNullOrEmpty(this.CurrUser.LoginProjectId))
                 {
-                    this.drpProject.SelectedValue = this.CurrUser.LoginProjectId;
+                    this.drpProject.Value = this.CurrUser.LoginProjectId;
                     this.drpProject.Enabled = false;
                 }
                 if (!string.IsNullOrEmpty(Request.Params["projectId"]))
                 {
-                    this.drpProject.SelectedValue = Request.Params["projectId"];
+                    this.drpProject.Value = Request.Params["projectId"];
                     this.drpProject.Enabled = false;
                 }
-
+              
                 // 绑定表格
                 this.BindGrid();
+            }
+        }
+        #endregion
+
+        #region 项目下拉框绑定数据
+        /// <summary>
+        /// 绑定数据
+        /// </summary>
+        private void BindGrid2()
+        {
+            string strSql = @"SELECT * FROM Base_Project WHERE ProjectType != '5'";
+
+            if (!string.IsNullOrEmpty(strSql))
+            {
+                List<SqlParameter> listStr = new List<SqlParameter>();
+                if (this.cbType.SelectedValue == "1")
+                {
+                    strSql += " AND (ProjectState IS NULL OR ProjectState = '" + BLL.Const.ProjectState_1 + "')";
+                }
+                else
+                {
+                    strSql += " AND (ProjectState = '" + BLL.Const.ProjectState_2 + "' OR ProjectState = '" + BLL.Const.ProjectState_3 + "')";
+                }
+                if (!string.IsNullOrEmpty(this.txtProjectName.Text.Trim()))
+                {
+                    strSql += " AND ProjectName LIKE @ProjectName";
+                    listStr.Add(new SqlParameter("@ProjectName", "%" + this.txtProjectName.Text.Trim() + "%"));
+                }
+                if (!string.IsNullOrEmpty(this.txtProjectCode.Text.Trim()))
+                {
+                    strSql += " AND ProjectCode LIKE @ProjectCode";
+                    listStr.Add(new SqlParameter("@ProjectCode", "%" + this.txtProjectCode.Text.Trim() + "%"));
+                }
+                SqlParameter[] parameter = listStr.ToArray();
+                DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+
+                Grid2.RecordCount = tb.Rows.Count;
+                tb = GetFilteredTable(Grid2.FilteredData, tb);
+                var table = this.GetPagedDataTable(Grid2, tb);
+                Grid2.DataSource = table;
+                Grid2.DataBind();
+            }
+            else
+            {
+                Grid2.DataSource = null;
+                Grid2.DataBind();
             }
         }
         #endregion
@@ -54,43 +100,47 @@ namespace FineUIPro.Web.InformationProject
         /// </summary>
         private void BindGrid()
         {
-            if (this.drpProject.Items.Count() > 0)
+            string strSql = "SELECT Picture.PictureId, Picture.ProjectId,Picture.Title,Picture.ContentDef, Picture.PictureType,Picture.UploadDate,Picture.States,Picture.AttachUrl,CodeRecords.Code,"
+                        + @" (CASE WHEN LEN(Picture.ContentDef) > 40 THEN LEFT(Picture.ContentDef,40)+'...' ELSE Picture.ContentDef END) AS ShortContentDef, Users.UserName AS CompileManName,"
+                        + @" (CASE WHEN Picture.States = " + BLL.Const.State_0 + " OR Picture.States IS NULL THEN '待['+OperateUser.UserName+']提交' WHEN Picture.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName "
+                        + @" FROM InformationProject_Picture AS Picture "
+                        + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON Picture.PictureId=CodeRecords.DataId  "
+                        + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON Picture.PictureId=FlowOperate.DataId AND FlowOperate.IsClosed <> 1 "
+                        + @" LEFT JOIN Sys_User AS OperateUser ON FlowOperate.OperaterId=OperateUser.UserId "
+                        + @" LEFT JOIN Sys_User AS Users ON Picture.CompileMan=Users.UserId WHERE 1=1 ";
+            List<SqlParameter> listStr = new List<SqlParameter>();
+            strSql += " AND Picture.ProjectId = @ProjectId";
+            if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
             {
-                string strSql = "SELECT Picture.PictureId, Picture.ProjectId,Picture.Title,Picture.ContentDef, Picture.PictureType,Picture.UploadDate,Picture.States,Picture.AttachUrl,CodeRecords.Code,"
-                            + @" (CASE WHEN LEN(Picture.ContentDef) > 40 THEN LEFT(Picture.ContentDef,40)+'...' ELSE Picture.ContentDef END) AS ShortContentDef, Users.UserName AS CompileManName,"
-                            + @" (CASE WHEN Picture.States = " + BLL.Const.State_0 + " OR Picture.States IS NULL THEN '待['+OperateUser.UserName+']提交' WHEN Picture.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName "
-                            + @" FROM InformationProject_Picture AS Picture "
-                            + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON Picture.PictureId=CodeRecords.DataId  "
-                            + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON Picture.PictureId=FlowOperate.DataId AND FlowOperate.IsClosed <> 1 "
-                            + @" LEFT JOIN Sys_User AS OperateUser ON FlowOperate.OperaterId=OperateUser.UserId "
-                            + @" LEFT JOIN Sys_User AS Users ON Picture.CompileMan=Users.UserId WHERE 1=1 ";
-                List<SqlParameter> listStr = new List<SqlParameter>();
-                strSql += " AND Picture.ProjectId = @ProjectId";
-                if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
+                listStr.Add(new SqlParameter("@ProjectId", Request.Params["projectId"]));
+                strSql += " AND Picture.States = @States";  ///状态为已完成
+                listStr.Add(new SqlParameter("@States", BLL.Const.State_2));
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(this.drpProject.Value))
                 {
-                    listStr.Add(new SqlParameter("@ProjectId", Request.Params["projectId"]));
-                    strSql += " AND Picture.States = @States";  ///状态为已完成
-                    listStr.Add(new SqlParameter("@States", BLL.Const.State_2));
+                    listStr.Add(new SqlParameter("@ProjectId", this.drpProject.Value));
                 }
                 else
                 {
-                    listStr.Add(new SqlParameter("@ProjectId", this.drpProject.SelectedValue));
+                    listStr.Add(new SqlParameter("@ProjectId", BLL.Const._Null));
                 }
-
-                if (!string.IsNullOrEmpty(this.txtTitle.Text.Trim()))
-                {
-                    strSql += " AND Picture.Title LIKE @Title";
-                    listStr.Add(new SqlParameter("@Title", "%" + this.txtTitle.Text.Trim() + "%"));
-                }
-                SqlParameter[] parameter = listStr.ToArray();
-                DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
-
-                Grid1.RecordCount = tb.Rows.Count;
-                tb = GetFilteredTable(Grid1.FilteredData, tb);
-                var table = this.GetPagedDataTable(Grid1, tb);
-                Grid1.DataSource = table;
-                Grid1.DataBind();
             }
+
+            if (!string.IsNullOrEmpty(this.txtTitle.Text.Trim()))
+            {
+                strSql += " AND Picture.Title LIKE @Title";
+                listStr.Add(new SqlParameter("@Title", "%" + this.txtTitle.Text.Trim() + "%"));
+            }
+            SqlParameter[] parameter = listStr.ToArray();
+            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+
+            Grid1.RecordCount = tb.Rows.Count;
+            tb = GetFilteredTable(Grid1.FilteredData, tb);
+            var table = this.GetPagedDataTable(Grid1, tb);
+            Grid1.DataSource = table;
+            Grid1.DataBind();
         }
         #endregion
 
@@ -206,8 +256,12 @@ namespace FineUIPro.Web.InformationProject
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, isShow))
                     {
-                        BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除项目图片", rowID);
-                        BLL.PictureService.deletePictureById(rowID);
+                        var p = BLL.PictureService.GetPictureById(rowID);
+                        if (p != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, p.Title, p.PictureId, BLL.Const.ProjectPictureMenuId, BLL.Const.BtnDelete);
+                            BLL.PictureService.deletePictureById(rowID);
+                        }
                     }
                 }
                 BindGrid();
@@ -383,6 +437,12 @@ namespace FineUIPro.Web.InformationProject
 
             return sb.ToString();
         }
-        #endregion        
+        #endregion
+
+        protected void cbType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindGrid2();            
+            this.BindGrid();
+        }
     }
 }

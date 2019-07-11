@@ -206,8 +206,13 @@ namespace FineUIPro.Web.Manager
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, isShow))
                     {
-                        BLL.ManagerTotalService.DeleteManagerTotalById(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除管理工作总结");
+                        var getD = BLL.ManagerTotalService.GetManagerTotalById(rowID);
+                        if (getD != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getD.ManagerTotalCode, getD.ManagerTotalId, BLL.Const.ProjectManagerTotalMenuId, BLL.Const.BtnDelete);
+
+                            BLL.ManagerTotalService.DeleteManagerTotalById(rowID);
+                        }
                     }
                 }
                 BindGrid();

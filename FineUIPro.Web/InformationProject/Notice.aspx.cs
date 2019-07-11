@@ -23,7 +23,7 @@ namespace FineUIPro.Web.InformationProject
             {
                 ////权限按钮方法
                 this.GetButtonPower();
-                this.btnNew.OnClientClick = Window1.GetShowReference("NoticeEdit.aspx") + "return false;";
+                this.btnNew.OnClientClick = Window2.GetShowReference("NoticeEdit.aspx") + "return false;";
                 this.SddlPageSize.SelectedValue = SGrid.PageSize.ToString();
                 this.AddlPageSize.SelectedValue = AGrid.PageSize.ToString();
                 // 绑定表格
@@ -216,6 +216,7 @@ namespace FineUIPro.Web.InformationProject
         protected void STextBox_TextChanged(object sender, EventArgs e)
         {
             this.SBindGrid();
+            BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ServerNoticeMenuId, Const.BtnQuery);
         }
 
         /// <summary>
@@ -270,7 +271,7 @@ namespace FineUIPro.Web.InformationProject
                 }
                 else
                 {
-                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("NoticeEdit.aspx?NoticeId={0}", id, "编辑 - ")));
+                    PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("NoticeEdit.aspx?NoticeId={0}", id, "编辑 - ")));
                 }
             }            
         }
@@ -293,7 +294,7 @@ namespace FineUIPro.Web.InformationProject
                     {
                         if ((notice.IsRelease == false || !notice.IsRelease.HasValue))
                         {
-                            BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除通知管理", notice.NoticeCode);
+                            BLL.LogService.AddSys_Log(this.CurrUser, notice.NoticeCode, notice.NoticeId, BLL.Const.ServerNoticeMenuId, Const.BtnDelete);
                             BLL.NoticeService.DeleteNoticeById(rowID);
                         }
                         showNot += notice.NoticeCode + ";";
@@ -333,7 +334,7 @@ namespace FineUIPro.Web.InformationProject
                             notice.IsRelease = true;
                             notice.ReleaseDate = System.DateTime.Now;
                             BLL.NoticeService.UpdateNotice(notice);
-                            BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "发布通知", notice.NoticeCode);
+                            BLL.LogService.AddSys_Log(this.CurrUser, notice.NoticeCode, notice.NoticeId, BLL.Const.ServerNoticeMenuId, Const.BtnIssuance);
                         }
                         else
                         {
@@ -428,6 +429,7 @@ namespace FineUIPro.Web.InformationProject
             this.SBindGrid();
             Response.Write(GetGridTableHtml(SGrid));
             Response.End();
+            BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ServerNoticeMenuId, Const.BtnQuery);
         }
 
         protected void btnOut_Click(object sender, EventArgs e)
@@ -441,6 +443,7 @@ namespace FineUIPro.Web.InformationProject
             this.ABindGrid();
             Response.Write(GetGridTableHtml(AGrid));
             Response.End();
+            BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ServerNoticeMenuId, Const.BtnQuery);
         }
 
         /// <summary>

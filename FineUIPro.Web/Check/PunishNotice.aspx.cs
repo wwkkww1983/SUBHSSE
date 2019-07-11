@@ -259,8 +259,13 @@ namespace FineUIPro.Web.Check
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除处罚通知单", rowID);
-                    BLL.PunishNoticeService.DeletePunishNoticeById(rowID);
+                    var punishNotice = BLL.PunishNoticeService.GetPunishNoticeById(rowID);
+                    if (punishNotice != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, punishNotice.PunishNoticeCode, punishNotice.PunishNoticeId, BLL.Const.ProjectPunishNoticeMenuId, BLL.Const.BtnDelete);
+
+                        BLL.PunishNoticeService.DeletePunishNoticeById(rowID);
+                    }
                 }
 
                 this.BindGrid();

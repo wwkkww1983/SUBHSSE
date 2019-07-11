@@ -304,7 +304,7 @@ namespace FineUIPro.Web.InformationProject
             {
                 drillPlanHalfYearReport.DrillPlanHalfYearReportId = this.DrillPlanHalfYearReportId;
                 BLL.ProjectDrillPlanHalfYearReportService.UpdateDrillPlanHalfYearReport(drillPlanHalfYearReport);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "修改应急演练工作计划半年报");
+                BLL.LogService.AddSys_Log(this.CurrUser, drillPlanHalfYearReport.YearId.ToString() + "-" + drillPlanHalfYearReport.HalfYearId.ToString(), drillPlanHalfYearReport.DrillPlanHalfYearReportId, BLL.Const.ProjectDrillPlanHalfYearReportMenuId, BLL.Const.BtnModify);
                 BLL.ProjectDrillPlanHalfYearReportItemService.DeleteDrillPlanHalfYearReportItemList(this.DrillPlanHalfYearReportId);
             }
             else
@@ -317,7 +317,7 @@ namespace FineUIPro.Web.InformationProject
                     this.DrillPlanHalfYearReportId = SQLHelper.GetNewID(typeof(Model.InformationProject_DrillPlanHalfYearReport));
                     drillPlanHalfYearReport.DrillPlanHalfYearReportId = this.DrillPlanHalfYearReportId;
                     BLL.ProjectDrillPlanHalfYearReportService.AddDrillPlanHalfYearReport(drillPlanHalfYearReport);
-                    BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "添加应急演练工作计划半年报");
+                    BLL.LogService.AddSys_Log(this.CurrUser, drillPlanHalfYearReport.YearId.ToString() + "-" + drillPlanHalfYearReport.HalfYearId.ToString(), drillPlanHalfYearReport.DrillPlanHalfYearReportId, BLL.Const.ProjectDrillPlanHalfYearReportMenuId, BLL.Const.BtnAdd);
                     //删除未上报月报信息
                     Model.ManagementReport_ReportRemind reportRemind = (from x in Funs.DB.ManagementReport_ReportRemind
                                                                         where x.ProjectId == this.ProjectId && x.Year == drillPlanHalfYearReport.YearId && x.HalfYear == drillPlanHalfYearReport.HalfYearId && x.ReportName == "应急演练工作计划半年报"

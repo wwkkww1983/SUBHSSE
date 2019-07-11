@@ -178,6 +178,24 @@ namespace FineUIPro.Web.CostGoods
         }
         #endregion
 
+        #region 查看当月总投入登记表
+        /// <summary>
+        /// 查看当月总投入登记表事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnMenuView_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            string id = Grid1.SelectedRowID;
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("TotalPayRegistrationView.aspx?PayRegistrationId={0}", id, "编辑 - ")));
+        }
+        #endregion
+
         #region 删除
         /// <summary>
         /// 右键删除事件
@@ -191,9 +209,14 @@ namespace FineUIPro.Web.CostGoods
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除安全费用投入登记", rowID);
-                    BLL.PayRegistrationService.DeletePayRegistrationById(rowID);
+                    var getD = BLL.PayRegistrationService.GetPayRegistrationById(rowID);
+                    if (getD != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, string.Format("{0:yyyy-MM-dd}", getD.PayDate), rowID, BLL.Const.ProjectPayRegistrationMenuId, BLL.Const.BtnDelete);
+                        BLL.PayRegistrationService.DeletePayRegistrationById(rowID);
+                    }
                 }
+
                 this.BindGrid();
                 ShowNotify("删除数据成功!", MessageBoxIcon.Success);
             }
@@ -218,6 +241,7 @@ namespace FineUIPro.Web.CostGoods
                 if (buttonList.Contains(BLL.Const.BtnAdd))
                 {
                     this.btnNew.Hidden = false;
+                    this.btnMenuView.Hidden = false;
                 }
                 if (buttonList.Contains(BLL.Const.BtnModify))
                 {

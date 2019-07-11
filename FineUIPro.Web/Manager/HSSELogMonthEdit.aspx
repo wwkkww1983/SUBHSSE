@@ -27,30 +27,30 @@
     <f:Panel ID="Panel2" runat="server" Height="80px" Width="980px" ShowBorder="false"
         Title="HSE经理暨HSE工程师细则表头" Layout="Table" TableConfigColumns="3" ShowHeader="false" BodyPadding="1px">
         <Items>
-            <f:Panel ID="Panel1" Title="Panel1" Width="350px" Height="80px" MarginRight="0" TableRowspan="3"
+            <f:Panel ID="Panel1" Title="Panel1" Width="200px" Height="80px" MarginRight="0" TableRowspan="3"
                 runat="server" BodyPadding="1px" ShowBorder="false" ShowHeader="false">
                 <Items>
                     <f:Image ID="Image1" runat="server" ImageUrl="../Images/Null.jpg" LabelAlign="right"></f:Image>
                 </Items>
             </f:Panel>
-            <f:Panel ID="Panel3" Title="Panel1" Width="350px" Height="30px" runat="server" BodyPadding="1px"
+            <f:Panel ID="Panel3" Title="Panel1" Width="500px" Height="30px" runat="server" BodyPadding="1px"
                 ShowBorder="false" ShowHeader="false">
                 <Items>
-                    <f:Label ID="lblProjectName" runat="server" CssClass="titler" Margin="5 0 0 40">
+                    <f:Label ID="lblProjectName" runat="server" CssClass="titler" Margin="5 0 0 10">
                     </f:Label>
                 </Items>
             </f:Panel>
             <f:Panel ID="Panel5" Title="Panel1"  Height="30px" runat="server" BodyPadding="1px"
                 ShowBorder="false" ShowHeader="false">
                 <Items>
-                    <f:TextBox ID="lblProjectCode" runat="server" LabelAlign="Right" Label="项目号" Readonly="true" LabelWidth="60px" Width="200px">
+                    <f:TextBox ID="lblProjectCode" runat="server" LabelAlign="Right" Label="项目号" Readonly="true" LabelWidth="80px" Width="200px">
                     </f:TextBox>
                 </Items>
             </f:Panel>
             <f:Panel ID="Panel4" Title="Panel1" Width="350px" Height="30px" TableRowspan="2"
                 runat="server" BodyPadding="1px" ShowBorder="false" ShowHeader="false">
                 <Items>
-                    <f:Label ID="lbTitleName" runat="server" CssClass="titler" Margin="5 0 0 5">
+                    <f:Label ID="lbTitleName" runat="server" CssClass="titler" Margin="5 0 0 40">
                     </f:Label>
                 </Items>
             </f:Panel>

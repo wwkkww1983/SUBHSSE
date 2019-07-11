@@ -137,7 +137,7 @@ namespace FineUIPro.Web.SysManage
             }
 
             ShowNotify("保存成功！", MessageBoxIcon.Success);
-            BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改系统环境设置！", string.Empty);
+            BLL.LogService.AddSys_Log(this.CurrUser, "修改系统环境设置！", string.Empty, BLL.Const.SysConstSetMenuId, BLL.Const.BtnModify);
         }
 
 
@@ -624,7 +624,7 @@ namespace FineUIPro.Web.SysManage
 
                 BLL.MenuFlowOperateService.SetSortIndex(this.drpMenu.Value);
                 BindGrid();
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除审批流程信息");
+                BLL.LogService.AddSys_Log(this.CurrUser, "删除审批流程信息！", null, BLL.Const.SysConstSetMenuId, BLL.Const.BtnDelete);
                 ShowNotify("删除数据成功!");
             }
         }
@@ -655,7 +655,7 @@ namespace FineUIPro.Web.SysManage
             if (sysMenu != null && sysMenu.IsEnd == true)
             {
                 this.SaveData2(sysMenu.MenuId);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改菜单编码模板设置！");
+                BLL.LogService.AddSys_Log(this.CurrUser, "修改菜单编码模板设置！", null, BLL.Const.SysConstSetMenuId, BLL.Const.BtnModify);
                 ShowNotify("保存成功！", MessageBoxIcon.Success);
             }
             else

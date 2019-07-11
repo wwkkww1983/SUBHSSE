@@ -72,15 +72,15 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="参考资料" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Self" EnableResize="true" runat="server" IsModal="true"
-        Width="800px" Height="500px">
+        Target="Parent" EnableResize="true" runat="server" IsModal="true"
+        Width="800px" Height="560px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true" Hidden="true"
             runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" Hidden="true"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

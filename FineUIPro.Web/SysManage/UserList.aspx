@@ -54,31 +54,28 @@
                     <f:RenderField Width="80px" ColumnID="UserName" DataField="UserName" SortField="UserName"
                         FieldType="String" HeaderText="姓名" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="220px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
-                        FieldType="String" HeaderText="单位" HeaderTextAlign="Center" TextAlign="Left">
+                    <f:RenderField Width="210px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
+                        FieldType="String" HeaderText="单位" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
                     </f:RenderField>
-                    <f:RenderField Width="75px" ColumnID="Account" DataField="Account" SortField="Account"
-                        FieldType="String" HeaderText="登录账号" HeaderTextAlign="Center" TextAlign="Left">
+                    <f:RenderField Width="140px" ColumnID="Account" DataField="Account" SortField="Account"
+                        FieldType="String" HeaderText="账号" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="160px" ColumnID="IdentityCard" DataField="IdentityCard" SortField="IdentityCard"
-                        FieldType="String" HeaderText="身份证号码" HeaderTextAlign="Center" TextAlign="Right" ExpandUnusedSpace="true">
+                        FieldType="String" HeaderText="身份证号码" HeaderTextAlign="Center" TextAlign="Right" Hidden="true">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="RoleName" DataField="RoleName" SortField="RoleName"
+                    <f:RenderField Width="150px" ColumnID="RoleName" DataField="RoleName" SortField="RoleName"
                         FieldType="String" HeaderText="角色" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="85px" ColumnID="RoleTypeName" DataField="RoleTypeName" SortField="RoleTypeName"
-                        FieldType="String" HeaderText="角色类型" HeaderTextAlign="Center" TextAlign="Left">
-                    </f:RenderField>
-                    <f:RenderField Width="110px" ColumnID="Telephone" DataField="Telephone" SortField="Telephone"
+                    <f:RenderField Width="120px" ColumnID="Telephone" DataField="Telephone" SortField="Telephone"
                         FieldType="String" HeaderText="手机号码" HeaderTextAlign="Center" TextAlign="Right">
                     </f:RenderField>
                     <f:CheckBoxField Width="50px" SortField="IsPost" RenderAsStaticField="true" DataField="IsPost"
                         HeaderText="在岗" HeaderTextAlign="Center" TextAlign="Center">
                     </f:CheckBoxField>
-                    <f:CheckBoxField Width="75px" SortField="IsOffice" RenderAsStaticField="true" DataField="IsOffice"
+                    <f:CheckBoxField Width="80px" SortField="IsOffice" RenderAsStaticField="true" DataField="IsOffice"
                         HeaderText="本部人员" HeaderTextAlign="Center" TextAlign="Center">
                     </f:CheckBoxField>
-                    <f:TemplateField Width="75px" ColumnID="UserId" HeaderText="参与项目" TextAlign="Center">
+                    <f:TemplateField Width="80px" ColumnID="UserId" HeaderText="参与项目" TextAlign="Center">
                         <ItemTemplate>
                             <asp:LinkButton ID="lbtnPro" runat="server" Text="查看" OnClick="lbtnPro_Click" ></asp:LinkButton>
                         </ItemTemplate>
@@ -105,7 +102,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="用户信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="800px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="800px"
         Height="360px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
@@ -113,7 +110,7 @@
             Hidden="true" runat="server" Text="编辑" Icon="TableEdit">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除"
+            Hidden="true" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除"
             Icon="Delete">
         </f:MenuButton>
     </f:Menu>

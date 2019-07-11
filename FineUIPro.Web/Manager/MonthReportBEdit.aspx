@@ -125,7 +125,7 @@
                             <f:Grid ID="GridManhoursSort" ShowBorder="true" ShowHeader="false" Title="项目施工现场人工时分类统计"
                                 runat="server" ClicksToEdit="1" DataIDField="ManhoursSortId" DataKeyNames="ManhoursSortId,UnitId"
                                 EnableMultiSelect="false" ShowGridHeader="true" Height="220px" EnableColumnLines="true"
-                                EnableSummary="true" SummaryPosition="Flow" AutoScroll="true">
+                                EnableSummary="true" SummaryPosition="Flow" >
                                 <Columns>
                                     <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
                                         TextAlign="Center" />
@@ -829,7 +829,7 @@
                 <Items>
                     <f:Grid ID="GridAccidentDetailSort" ShowBorder="true" ShowHeader="false" Title="事故台账" runat="server"
                         ClicksToEdit="1" DataIDField="AccidentDetailSortId" DataKeyNames="AccidentDetailSortId" EnableMultiSelect="false"
-                        ShowGridHeader="true" Height="220px" EnableColumnLines="true" AutoScroll="true">
+                        ShowGridHeader="true" Height="220px" EnableColumnLines="true" >
                         <Columns>
                             <f:RowNumberField HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center" />
                             <f:TemplateField Width="100px" HeaderText="项目代码" HeaderTextAlign="Center" TextAlign="Center" ColumnID="ProjectCode"
@@ -925,7 +925,7 @@
                     <f:Grid ID="GridHSECostSort" ShowBorder="true" ShowHeader="false" Title="项目安全生产及文明施工措施费统计汇总表"
                         runat="server" ClicksToEdit="1" DataIDField="HseCostId" DataKeyNames="HseCostId,UnitId"
                         EnableMultiSelect="false" ShowGridHeader="true" Height="220px" EnableColumnLines="true"
-                        EnableSummary="true" SummaryPosition="Flow" AutoScroll="true">
+                        EnableSummary="true" SummaryPosition="Flow" >
                         <Columns>
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
                                         TextAlign="Center" />
@@ -989,7 +989,7 @@
                     <f:Grid ID="GridTrainSort" ShowBorder="true" ShowHeader="false" Title="项目施工现场HSE培训情况统计"
                         runat="server" ClicksToEdit="1" DataIDField="TrainSortId" DataKeyNames="TrainSortId"
                         EnableMultiSelect="false" ShowGridHeader="true" Height="220px" EnableColumnLines="true"
-                        EnableSummary="true" SummaryPosition="Flow" AutoScroll="true">
+                        EnableSummary="true" SummaryPosition="Flow" >
                         <Columns>
                             <f:RenderField Width="150px" ColumnID="TrainType" DataField="TrainType" SortField="TrainType"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="培 训 课 程 类 型">

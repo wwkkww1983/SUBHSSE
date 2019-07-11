@@ -100,7 +100,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="编辑安全生产月报" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close" CloseAction="HidePostBack"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close" CloseAction="HidePostBack"
         Width="1300px" Height="600px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

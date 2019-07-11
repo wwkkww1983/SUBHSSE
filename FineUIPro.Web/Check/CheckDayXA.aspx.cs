@@ -272,8 +272,11 @@ namespace FineUIPro.Web.Check
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "删除日常巡检", rowID);
-                    BLL.Check_CheckDayXAService.DeleteCheckDay(rowID);
+                    var getV = BLL.Check_CheckDayXAService.GetCheckDayByCheckDayId(rowID);
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.CheckDayCode, getV.CheckDayId, BLL.Const.ProjectCheckDayXAMenuId, BLL.Const.BtnDelete);
+                        BLL.Check_CheckDayXAService.DeleteCheckDay(rowID);
+                    }
                 }
                 BindGrid();
                 ShowNotify("删除数据成功!（表格数据已重新绑定）");

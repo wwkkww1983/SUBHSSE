@@ -25,6 +25,21 @@ namespace FineUIPro.Web.License
                 ViewState["SecurityLicenseId"] = value;
             }
         }
+
+        /// <summary>
+        /// 项目主键
+        /// </summary>
+        public string ProjectId
+        {
+            get
+            {
+                return (string)ViewState["ProjectId"];
+            }
+            set
+            {
+                ViewState["ProjectId"] = value;
+            }
+        }
         #endregion
 
         #region 加载
@@ -38,24 +53,16 @@ namespace FineUIPro.Web.License
             if (!IsPostBack)
             {
                 btnClose.OnClientClick = ActiveWindow.GetHideReference();
-                this.drpUnitId.DataValueField = "UnitId";
-                this.drpUnitId.DataTextField = "UnitName";
-                this.drpUnitId.DataSource = BLL.UnitService.GetUnitByProjectIdList(this.CurrUser.LoginProjectId);
-                this.drpUnitId.DataBind();
-                Funs.FineUIPleaseSelect(this.drpUnitId);
-
-                this.drpSignMan.DataValueField = "UserId";
-                this.drpSignMan.DataTextField = "UserName";
-                this.drpSignMan.DataSource = BLL.UserService.GetProjectUserListByProjectId(this.CurrUser.LoginProjectId);
-                this.drpSignMan.DataBind();
-                Funs.FineUIPleaseSelect(this.drpSignMan);
-
+                this.ProjectId = this.CurrUser.LoginProjectId;
+                this.SetDrop();
                 this.SecurityLicenseId = Request.Params["SecurityLicenseId"];
                 if (!string.IsNullOrEmpty(this.SecurityLicenseId))
                 {
                     Model.License_SecurityLicense securityLicense = BLL.SecurityLicenseService.GetSecurityLicenseById(this.SecurityLicenseId);
                     if (securityLicense != null)
                     {
+                        this.ProjectId = securityLicense.ProjectId;
+                        this.SetDrop();
                         this.txtSecurityLicenseCode.Text = BLL.CodeRecordsService.ReturnCodeByDataId(this.SecurityLicenseId);
                         this.txtSecurityLicenseName.Text = securityLicense.SecurityLicenseName;
                         this.txtNewProjectName.Text = securityLicense.SecurityLicenseName;
@@ -84,18 +91,32 @@ namespace FineUIPro.Web.License
                     this.drpSignMan.SelectedValue = this.CurrUser.UserId;
                     this.txtSignDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
 
-                    var pcodeTemplateRule = BLL.ProjectData_CodeTemplateRuleService.GetProjectData_CodeTemplateRuleByMenuIdProjectId(BLL.Const.ProjectSecurityLicenseMenuId, this.CurrUser.LoginProjectId);
+                    var pcodeTemplateRule = BLL.ProjectData_CodeTemplateRuleService.GetProjectData_CodeTemplateRuleByMenuIdProjectId(BLL.Const.ProjectSecurityLicenseMenuId, this.ProjectId);
                     if (pcodeTemplateRule != null)
                     {
                         this.txtSecurityLicenseContents.Text = HttpUtility.HtmlDecode(pcodeTemplateRule.Template);
                     }
 
                     ////自动生成编码
-                    this.txtSecurityLicenseCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectSecurityLicenseMenuId, this.CurrUser.LoginProjectId, this.CurrUser.UnitId);
+                    this.txtSecurityLicenseCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectSecurityLicenseMenuId, this.ProjectId, this.CurrUser.UnitId);
+                }
+
+                if (Request.Params["value"] == "0")
+                {
+                    this.btnSave.Hidden = true;
                 }
             }
         }
         #endregion
+
+        /// <summary>
+        /// 下拉框
+        /// </summary>
+        private void SetDrop()
+        {
+            BLL.UnitService.InitUnitDropDownList(this.drpUnitId, this.ProjectId, true);
+            BLL.UserService.InitUserDropDownList(this.drpSignMan, this.ProjectId, true);
+        }
 
         #region 保存
         /// <summary>
@@ -116,7 +137,7 @@ namespace FineUIPro.Web.License
         {
             Model.License_SecurityLicense securityLicense = new Model.License_SecurityLicense
             {
-                ProjectId = this.CurrUser.LoginProjectId,
+                ProjectId = this.ProjectId,
                 SecurityLicenseCode = this.txtSecurityLicenseCode.Text.Trim(),
                 SecurityLicenseName = this.txtSecurityLicenseName.Text.Trim(),
                 NewProjectName = this.txtNewProjectName.Text.Trim(),
@@ -141,14 +162,14 @@ namespace FineUIPro.Web.License
             {
                 securityLicense.SecurityLicenseId = this.SecurityLicenseId;
                 BLL.SecurityLicenseService.UpdateSecurityLicense(securityLicense);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改新开项目作业许可证");
+                BLL.LogService.AddSys_Log(this.CurrUser, securityLicense.SecurityLicenseCode, securityLicense.SecurityLicenseId, BLL.Const.ProjectSecurityLicenseMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.SecurityLicenseId = SQLHelper.GetNewID(typeof(Model.License_SecurityLicense));
                 securityLicense.SecurityLicenseId = this.SecurityLicenseId;
                 BLL.SecurityLicenseService.AddSecurityLicense(securityLicense);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加新开项目作业许可证");
+                BLL.LogService.AddSys_Log(this.CurrUser, securityLicense.SecurityLicenseCode, securityLicense.SecurityLicenseId, BLL.Const.ProjectSecurityLicenseMenuId, BLL.Const.BtnAdd);
             }
             if (isClose)
             {
@@ -165,11 +186,18 @@ namespace FineUIPro.Web.License
         /// <param name="e"></param>
         protected void btnAttachUrl_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.SecurityLicenseId))
+            if (this.btnSave.Hidden)
             {
-                SaveData(false);
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SecurityLicenseAttachUrl&type=-1", SecurityLicenseId, BLL.Const.ProjectSecurityLicenseMenuId)));
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SecurityLicenseAttachUrl&menuId={1}", SecurityLicenseId, BLL.Const.ProjectSecurityLicenseMenuId)));
+            else
+            {
+                if (string.IsNullOrEmpty(this.SecurityLicenseId))
+                {
+                    SaveData(false);
+                }
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SecurityLicenseAttachUrl&menuId={1}", SecurityLicenseId, BLL.Const.ProjectSecurityLicenseMenuId)));
+            }
         }
         #endregion
     }

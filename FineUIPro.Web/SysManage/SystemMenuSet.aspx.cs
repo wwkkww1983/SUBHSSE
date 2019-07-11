@@ -85,7 +85,6 @@ namespace FineUIPro.Web.SysManage
 
             this.SaveMenuAndGetXML();
             ShowNotify("保存成功！", MessageBoxIcon.Success);
-            BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改功能菜单设置！");
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }
         #endregion
@@ -273,7 +272,6 @@ namespace FineUIPro.Web.SysManage
 
                 this.SaveMenuAndGetXML();
                 ShowNotify("保存成功！", MessageBoxIcon.Success);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改功能菜单设置！");
             }
         }
         #endregion

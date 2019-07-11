@@ -119,9 +119,14 @@
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LawRegulationListService.DeleteLawRegulationListById(rowID);
+                    var law = BLL.LawRegulationListService.GetLawRegulationListById(rowID);
+                    if (law != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, law.LawRegulationCode, law.LawRegulationId, BLL.Const.LawRegulationListMenuId, BLL.Const.BtnModify);
+                        BLL.LawRegulationListService.DeleteLawRegulationListById(rowID);
+                    }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除安全法律法规");
+
                 BindGrid();
                 ShowNotify("删除数据成功!");
             }

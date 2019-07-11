@@ -25,13 +25,13 @@
     <f:Panel ID="Panel1" runat="server" ShowBorder="false" ShowHeader="false" Layout="Region">
         <Items>
             <f:Panel runat="server" ID="panelLeftRegion" RegionPosition="Left" RegionSplit="true"
-                EnableCollapse="true" Width="340" Title="检查项目设置" TitleToolTip="右键点击添加、修改、删除"
+                EnableCollapse="true" Width="350" Title="检查项目设置" TitleToolTip="右键点击添加、修改、删除"
                 ShowBorder="true" ShowHeader="false" AutoScroll="true" BodyPadding="5px" IconFont="ArrowCircleLeft">
                 <Toolbars>
                     <f:Toolbar ID="Toolbar1" Position="Top" ToolbarAlign="Right" runat="server">
                         <Items>
                             <f:RadioButtonList ID="ckType" runat="server" AutoPostBack="true" ColumnNumber="3"
-                                AutoColumnWidth="true" Width="320px" OnSelectedIndexChanged="ckType_SelectedIndexChanged">
+                                AutoColumnWidth="true" Width="340px" OnSelectedIndexChanged="ckType_SelectedIndexChanged">
                                 <f:RadioItem Value="1" Selected="true" Text="日常检查" />
                                 <f:RadioItem Value="2" Text="专项检查" />
                                 <f:RadioItem Value="3" Text="综合检查" />
@@ -44,7 +44,7 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Bottom" ToolbarAlign="Right" runat="server">
                         <Items>
-                            <f:TextBox ID="txtCheckItemSet" runat="server" Label="检查项" LabelAlign="Left" LabelWidth="58px" AutoPostBack="true" OnTextChanged="Text_TextChanged" EmptyText="输入查询条件">
+                            <f:TextBox ID="txtCheckItemSet" runat="server" Label="检查项" LabelAlign="Left" LabelWidth="70px" AutoPostBack="true" OnTextChanged="Text_TextChanged" EmptyText="输入查询条件">
                             </f:TextBox>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
@@ -75,7 +75,7 @@
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" EnableCollapse="true" runat="server"
                         BoxFlex="1" DataKeyNames="CheckItemDetailId" AllowCellEditing="true" ClicksToEdit="2"
                         DataIDField="CheckItemDetailId" AllowSorting="true" SortField="SortIndex" SortDirection="ASC"
-                        OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true" PageSize="12"
+                        OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true" PageSize="12" EnableColumnLines="true"
                         AllowColumnLocking="true" OnPageIndexChange="Grid1_PageIndexChange" EnableRowDoubleClickEvent="true"
                         OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True">
                         <Toolbars>

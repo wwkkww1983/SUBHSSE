@@ -2,8 +2,8 @@
 // <自动生成>
 //     此代码由工具生成。
 //
-//     对此文件的更改可能会导致不正确的行为，并且如果
-//     重新生成代码，这些更改将会丢失。 
+//     对此文件的更改可能导致不正确的行为，如果
+//     重新生成代码，则所做更改将丢失。
 // </自动生成>
 //------------------------------------------------------------------------------
 
@@ -139,13 +139,13 @@ namespace FineUIPro.Web {
         protected global::FineUIPro.MenuButton MenuButton1;
         
         /// <summary>
-        /// MenuSeparator1 控件。
+        /// msSysMenuSet 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.MenuSeparator MenuSeparator1;
+        protected global::FineUIPro.MenuSeparator msSysMenuSet;
         
         /// <summary>
         /// SysMenuSet 控件。
@@ -155,6 +155,24 @@ namespace FineUIPro.Web {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.MenuButton SysMenuSet;
+        
+        /// <summary>
+        /// msCustomQuery 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.MenuSeparator msCustomQuery;
+        
+        /// <summary>
+        /// CustomQuery 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.MenuButton CustomQuery;
         
         /// <summary>
         /// leftPanel 控件。
@@ -506,6 +524,15 @@ namespace FineUIPro.Web {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Window windowProject;
+        
+        /// <summary>
+        /// windowCustomQuery 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Window windowCustomQuery;
         
         /// <summary>
         /// XmlDataSource1 控件。

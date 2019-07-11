@@ -112,15 +112,6 @@ namespace FineUIPro.Web.ManagementReport {
         protected global::FineUIPro.Panel panelCenterRegion;
         
         /// <summary>
-        /// Grid1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Grid Grid1;
-        
-        /// <summary>
         /// Toolbar3 控件。
         /// </summary>
         /// <remarks>
@@ -137,6 +128,42 @@ namespace FineUIPro.Web.ManagementReport {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox txtName;
+        
+        /// <summary>
+        /// btnItemAdd 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnItemAdd;
+        
+        /// <summary>
+        /// TabStrip 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TabStrip TabStrip;
+        
+        /// <summary>
+        /// formTab 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Tab formTab;
+        
+        /// <summary>
+        /// Grid1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Grid Grid1;
         
         /// <summary>
         /// ToolbarSeparator1 控件。
@@ -164,6 +191,51 @@ namespace FineUIPro.Web.ManagementReport {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.DropDownList ddlPageSize;
+        
+        /// <summary>
+        /// toTab 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Tab toTab;
+        
+        /// <summary>
+        /// Grid2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Grid Grid2;
+        
+        /// <summary>
+        /// ToolbarSeparator2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.ToolbarSeparator ToolbarSeparator2;
+        
+        /// <summary>
+        /// ToolbarText2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.ToolbarText ToolbarText2;
+        
+        /// <summary>
+        /// ddlPageSize2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList ddlPageSize2;
         
         /// <summary>
         /// Window1 控件。
@@ -200,5 +272,14 @@ namespace FineUIPro.Web.ManagementReport {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.MenuButton btnMenuEdit;
+        
+        /// <summary>
+        /// btnMenuDelete 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.MenuButton btnMenuDelete;
     }
 }

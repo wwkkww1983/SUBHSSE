@@ -147,7 +147,7 @@ namespace FineUIPro.Web.OccupationHealth
             {
                 HazardDetection.FileId = this.FileId;
                 BLL.HazardDetectionService.UpdateHazardDetection(HazardDetection);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改危害检测", HazardDetection.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, HazardDetection.FileCode, HazardDetection.FileId, BLL.Const.HazardDetectionMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -155,7 +155,7 @@ namespace FineUIPro.Web.OccupationHealth
                 HazardDetection.FileId = this.FileId;
                 HazardDetection.ProjectId = this.ProjectId;
                 BLL.HazardDetectionService.AddHazardDetection(HazardDetection);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加危害检测", HazardDetection.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, HazardDetection.FileCode, HazardDetection.FileId, BLL.Const.HazardDetectionMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.HazardDetectionMenuId, this.FileId, (type == BLL.Const.BtnSubmit ? true : false), this.txtFileName.Text.Trim(), "../OccupationHealth/HazardDetectionView.aspx?FileId={0}");       

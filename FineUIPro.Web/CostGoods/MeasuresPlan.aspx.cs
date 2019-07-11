@@ -202,9 +202,14 @@ namespace FineUIPro.Web.CostGoods
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除安全措施费使用计划", rowID);
-                    BLL.MeasuresPlanService.DeleteMeasuresPlanById(rowID);
+                    var getD = BLL.MeasuresPlanService.GetMeasuresPlanById(rowID);
+                    if (getD != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getD.MeasuresPlanCode, rowID, BLL.Const.ProjectMeasuresPlanMenuId, BLL.Const.BtnDelete);
+                        BLL.MeasuresPlanService.DeleteMeasuresPlanById(rowID);
+                    }
                 }
+
                 this.BindGrid();
                 ShowNotify("删除数据成功!", MessageBoxIcon.Success);
             }

@@ -32,10 +32,10 @@
                         HeaderText="职称编号" HeaderTextAlign="Center" TextAlign="Center" Width="150px">
                     </f:RenderField>
                     <f:RenderField  ColumnID="PostTitleName" DataField="PostTitleName" FieldType="String"
-                        HeaderText="职称名称" HeaderTextAlign="Center" TextAlign="Center" Width="200px">
+                        HeaderText="职称名称" HeaderTextAlign="Center" TextAlign="Left" Width="200px">
                     </f:RenderField>
                     <f:RenderField ColumnID="Remark" DataField="Remark" FieldType="String"
-                        HeaderText="备注" HeaderTextAlign="Center" TextAlign="Center" Width="350px">
+                        HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left" Width="350px">
                     </f:RenderField>
                 </Columns>
                 <Listeners>
@@ -62,10 +62,10 @@
                 <Items>
                     <f:HiddenField ID="hfFormID" runat="server">
                     </f:HiddenField>
-                    <f:TextBox ID="txtPostTitleCode" Label="职称编号" ShowRedStar="true" Required="true" runat="server"   MaxLength="50"
+                    <f:TextBox ID="txtPostTitleCode" Label="编号" ShowRedStar="true" Required="true" runat="server"   MaxLength="50"
                         LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
-                    <f:TextBox ID="txtPostTitleName" Label="职称名称" ShowRedStar="true" Required="true" runat="server"  MaxLength="100"
+                    <f:TextBox ID="txtPostTitleName" Label="名称" ShowRedStar="true" Required="true" runat="server"  MaxLength="100"
                         LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
                     <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="right"  MaxLength="200">
@@ -98,7 +98,7 @@
             runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" Hidden="true"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

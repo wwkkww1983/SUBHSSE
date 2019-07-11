@@ -106,11 +106,16 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            BLL.TrainLevelService.DeleteTrainLevelById(hfFormID.Text);
-            BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除培训级别信息");
-            // 重新绑定表格，并模拟点击[新增按钮]
-            BindGrid();
-            PageContext.RegisterStartupScript("onNewButtonClick();");
+            var trainLevel= BLL.TrainLevelService.GetTrainLevelById(hfFormID.Text);
+            if (trainLevel != null)
+            {
+                BLL.LogService.AddSys_Log(this.CurrUser, trainLevel.TrainLevelCode, trainLevel.TrainLevelId, BLL.Const.TrainLevelMenuId, BLL.Const.BtnDelete);
+                BLL.TrainLevelService.DeleteTrainLevelById(hfFormID.Text);
+
+                // 重新绑定表格，并模拟点击[新增按钮]
+                BindGrid();
+                PageContext.RegisterStartupScript("onNewButtonClick();");
+            }
 
         }
 
@@ -134,9 +139,12 @@ namespace FineUIPro.Web.BaseInfo
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-
-                    BLL.TrainLevelService.DeleteTrainLevelById(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除培训级别信息");
+                    var trainLevel = BLL.TrainLevelService.GetTrainLevelById(rowID);
+                    if (trainLevel != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, trainLevel.TrainLevelCode, trainLevel.TrainLevelId, BLL.Const.TrainLevelMenuId, BLL.Const.BtnDelete);
+                        BLL.TrainLevelService.DeleteTrainLevelById(rowID);
+                    }
                 }
 
                 BindGrid();
@@ -198,13 +206,13 @@ namespace FineUIPro.Web.BaseInfo
             {
                 trainLevel.TrainLevelId = SQLHelper.GetNewID(typeof(Model.Base_TrainLevel));
                 BLL.TrainLevelService.AddTrainLevel(trainLevel);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加培训级别信息");
+                BLL.LogService.AddSys_Log(this.CurrUser, trainLevel.TrainLevelCode, trainLevel.TrainLevelId,BLL.Const.TrainLevelMenuId,BLL.Const.BtnAdd);
             }
             else
             {
                 trainLevel.TrainLevelId = strRowID;
                 BLL.TrainLevelService.UpdateTrainLevel(trainLevel);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改培训级别信息");
+                BLL.LogService.AddSys_Log(this.CurrUser, trainLevel.TrainLevelCode, trainLevel.TrainLevelId, BLL.Const.TrainLevelMenuId, BLL.Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行

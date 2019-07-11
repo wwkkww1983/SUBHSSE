@@ -147,7 +147,7 @@ namespace FineUIPro.Web.Environmental
             {
                 EnvironmentalEmergencyPlan.FileId = this.FileId;
                 BLL.EnvironmentalEmergencyPlanService.UpdateEnvironmentalEmergencyPlan(EnvironmentalEmergencyPlan);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改环境事件应急预案", EnvironmentalEmergencyPlan.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, EnvironmentalEmergencyPlan.FileCode, EnvironmentalEmergencyPlan.FileId, BLL.Const.EnvironmentalEmergencyPlanMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -155,7 +155,7 @@ namespace FineUIPro.Web.Environmental
                 EnvironmentalEmergencyPlan.FileId = this.FileId;
                 EnvironmentalEmergencyPlan.ProjectId = this.ProjectId;
                 BLL.EnvironmentalEmergencyPlanService.AddEnvironmentalEmergencyPlan(EnvironmentalEmergencyPlan);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加环境事件应急预案", EnvironmentalEmergencyPlan.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, EnvironmentalEmergencyPlan.FileCode, EnvironmentalEmergencyPlan.FileId, BLL.Const.EnvironmentalEmergencyPlanMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.EnvironmentalEmergencyPlanMenuId, this.FileId, (type == BLL.Const.BtnSubmit ? true : false), this.txtFileName.Text.Trim(), "../Environmental/EnvironmentalEmergencyPlanView.aspx?FileId={0}");       

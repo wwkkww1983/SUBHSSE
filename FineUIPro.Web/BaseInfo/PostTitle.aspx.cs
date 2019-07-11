@@ -103,8 +103,9 @@ namespace FineUIPro.Web.BaseInfo
         {
             if (judgementDelete(hfFormID.Text, true))
             {
+                BLL.LogService.AddSys_Log(this.CurrUser, this.txtPostTitleCode.Text, hfFormID.Text, BLL.Const.PostTitleMenuId, BLL.Const.BtnDelete);
                 BLL.PostTitleService.DeletePostTitleById(hfFormID.Text);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除专家职称");
+               
                 // 重新绑定表格，并模拟点击[新增按钮]
                 BindGrid();
                 PageContext.RegisterStartupScript("onNewButtonClick();");
@@ -125,10 +126,15 @@ namespace FineUIPro.Web.BaseInfo
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (judgementDelete(rowID, true))
                     {
-                        BLL.PostTitleService.DeletePostTitleById(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除专家职称");
+                        var getV = BLL.PostTitleService.GetPostTitleById(rowID);
+                        if (getV != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getV.PostTitleCode, getV.PostTitleId, BLL.Const.PostTitleMenuId, BLL.Const.BtnDelete);
+                            BLL.PostTitleService.DeletePostTitleById(rowID);
+                        }
                     }
                 }
+
                 BindGrid();
                 PageContext.RegisterStartupScript("onNewButtonClick();");
             }
@@ -197,7 +203,7 @@ namespace FineUIPro.Web.BaseInfo
         protected void btnSave_Click(object sender, EventArgs e)
         {
             string strRowID = hfFormID.Text;
-            Model.Base_PostTitle depart = new Model.Base_PostTitle
+            Model.Base_PostTitle newPostTitle = new Model.Base_PostTitle
             {
                 PostTitleCode = this.txtPostTitleCode.Text.Trim(),
                 PostTitleName = this.txtPostTitleName.Text.Trim(),
@@ -205,20 +211,20 @@ namespace FineUIPro.Web.BaseInfo
             };
             if (string.IsNullOrEmpty(strRowID))
             {
-                depart.PostTitleId = SQLHelper.GetNewID(typeof(Model.Base_PostTitle));
-                BLL.PostTitleService.AddPostTitle(depart);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加专家职称");
+                newPostTitle.PostTitleId = SQLHelper.GetNewID(typeof(Model.Base_PostTitle));
+                BLL.PostTitleService.AddPostTitle(newPostTitle);
+                BLL.LogService.AddSys_Log(this.CurrUser, newPostTitle.PostTitleCode, newPostTitle.PostTitleId, BLL.Const.PostTitleMenuId, BLL.Const.BtnAdd);
             }
             else
             {
-                depart.PostTitleId = strRowID;
-                BLL.PostTitleService.UpdatePostTitle(depart);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改专家职称");
+                newPostTitle.PostTitleId = strRowID;
+                BLL.PostTitleService.UpdatePostTitle(newPostTitle);
+                BLL.LogService.AddSys_Log(this.CurrUser, newPostTitle.PostTitleCode, newPostTitle.PostTitleId, BLL.Const.PostTitleMenuId, BLL.Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行
             BindGrid();
-            PageContext.RegisterStartupScript(String.Format("F('{0}').selectRow('{1}');", Grid1.ClientID, depart.PostTitleId));
+            PageContext.RegisterStartupScript(String.Format("F('{0}').selectRow('{1}');", Grid1.ClientID, newPostTitle.PostTitleId));
         }
         #endregion
 

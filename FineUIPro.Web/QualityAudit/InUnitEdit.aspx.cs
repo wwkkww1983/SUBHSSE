@@ -165,6 +165,16 @@ namespace FineUIPro.Web.QualityAudit
                     ////自动生成编码
                     this.txtInUnitCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.InUnitMenuId, this.CurrUser.LoginProjectId, this.CurrUser.UnitId);
                 }
+
+                if (Request.Params["value"] == "0")
+                {
+                    this.btnSave.Hidden = true;
+                    this.btnTrainRecordsUrl.Enabled = false;
+                    this.btnPlanUrl.Enabled = false;
+                    this.btnTemporaryPersonUrl.Enabled = false;
+                    this.btnInPersonTrainUrl.Enabled = false;
+                    this.btnHSEAgreementUrl.Enabled = false;
+                }
             }
         }
         #endregion
@@ -205,14 +215,14 @@ namespace FineUIPro.Web.QualityAudit
             {
                 inUnit.InUnitId = this.InUnitId;
                 BLL.InUnitService.UpdateInUnit(inUnit);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改采购供货厂家管理", inUnit.InUnitId);
+                BLL.LogService.AddSys_Log(this.CurrUser, inUnit.InUnitCode, inUnit.InUnitId, BLL.Const.InUnitMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.InUnitId = SQLHelper.GetNewID(typeof(Model.QualityAudit_InUnit));
                 inUnit.InUnitId = this.InUnitId;
                 BLL.InUnitService.AddInUnit(inUnit);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加采购供货厂家管理", inUnit.InUnitId);
+                BLL.LogService.AddSys_Log(this.CurrUser, inUnit.InUnitCode, inUnit.InUnitId, BLL.Const.InUnitMenuId, BLL.Const.BtnAdd);
             }
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }

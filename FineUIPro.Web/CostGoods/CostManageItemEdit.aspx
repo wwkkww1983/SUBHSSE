@@ -16,41 +16,35 @@
         <Rows>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtInvestCostProject" runat="server" Label="投入费用项目" LabelAlign="Right"
-                        MaxLength="50">
-                    </f:TextBox>
+                    <f:DropDownList ID="drpInvestCostProject" runat="server" Label="投入费用项目" Required="true" ShowRedStar="true"
+                        LabelAlign="Right" EnableEdit="true" LabelWidth="150px">
+                    </f:DropDownList>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtUseReason" runat="server" Label="费用使用原因" LabelAlign="Right" MaxLength="50">
+                    <f:TextBox ID="txtUseReason" runat="server" Label="费用使用明细及描述" LabelAlign="Right" MaxLength="50" LabelWidth="150px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:NumberBox ID="txtCount" runat="server" Label="数量" LabelAlign="Right" NoDecimal="true"
-                        NoNegative="true" AutoPostBack="true" OnTextChanged="Text_TextChanged">
+                        NoNegative="true" AutoPostBack="true" OnTextChanged="Text_TextChanged" LabelWidth="150px">
                     </f:NumberBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:NumberBox ID="txtPriceMoney" runat="server" Label="单价（元）" LabelAlign="Right" NoNegative="true"
-                        AutoPostBack="true" OnTextChanged="Text_TextChanged">
+                        AutoPostBack="true" OnTextChanged="Text_TextChanged" LabelWidth="150px">
                     </f:NumberBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtTotalMoney" runat="server" Label="总价（元）" LabelAlign="Right" Readonly="true">
+                    <f:TextBox ID="txtTotalMoney" runat="server" Label="总价（元）" LabelAlign="Right" Readonly="true" LabelWidth="150px">
                     </f:TextBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="Right" MaxLength="150">
-                    </f:TextArea>
                 </Items>
             </f:FormRow>
         </Rows>

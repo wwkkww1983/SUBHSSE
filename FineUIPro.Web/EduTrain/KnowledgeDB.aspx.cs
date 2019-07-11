@@ -136,6 +136,7 @@ namespace FineUIPro.Web.EduTrain
 
                 if (q != null && BLL.KnowledgeService.IsDeleteKnowledge(this.trKnowledgeDB.SelectedNode.NodeID))
                 {
+                    BLL.LogService.AddSys_Log(this.CurrUser, q.KnowledgeCode, q.KnowledgeId, BLL.Const.KnowledgeDBMenuId, BLL.Const.BtnDelete);
                     BLL.KnowledgeItemService.DeleteKnowledgeItemList(this.trKnowledgeDB.SelectedNode.NodeID);
                     BLL.KnowledgeService.DeleteKnowledge(this.trKnowledgeDB.SelectedNode.NodeID);
                     InitTreeMenu();
@@ -163,10 +164,14 @@ namespace FineUIPro.Web.EduTrain
 
         private void BindGrid()
         {
-            string strSql = "select * from View_Training_KnowledgeItem where KnowledgeId=@KnowledgeId and IsPass=@IsPass";
-            List<SqlParameter> listStr = new List<SqlParameter>();
-            listStr.Add(new SqlParameter("@KnowledgeId", this.trKnowledgeDB.SelectedNode.NodeID));
-            listStr.Add(new SqlParameter("@IsPass", true));
+            string strSql = "SELECT KnowledgeItemId,KnowledgeId,KnowledgeItemCode,KnowledgeItemName,Remark,CompileMan,CompileDate,AuditMan,AuditDate,IsPass,CompileManName,AuditManName  " +
+                " FROM dbo.View_Training_KnowledgeItem " +
+                " WHERE KnowledgeId=@KnowledgeId and IsPass=@IsPass";
+            List<SqlParameter> listStr = new List<SqlParameter>
+            {
+                new SqlParameter("@KnowledgeId", this.trKnowledgeDB.SelectedNode.NodeID),
+                new SqlParameter("@IsPass", true)
+            };
             if (!string.IsNullOrEmpty(this.KnowledgeItemName.Text.Trim()))
             {
                 strSql += " AND KnowledgeItemName LIKE @KnowledgeItemName";
@@ -291,8 +296,12 @@ namespace FineUIPro.Web.EduTrain
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.KnowledgeItemService.DeleteKnowledgeItem(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除应知应会库");
+                    var knowledgeItem = BLL.KnowledgeItemService.GetKnowledgeItemById(rowID);
+                    if (knowledgeItem != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, knowledgeItem.KnowledgeItemCode, knowledgeItem.KnowledgeItemId, BLL.Const.KnowledgeDBMenuId, BLL.Const.BtnDelete);
+                        BLL.KnowledgeItemService.DeleteKnowledgeItem(rowID);
+                    }
                 }
 
                 BindGrid();

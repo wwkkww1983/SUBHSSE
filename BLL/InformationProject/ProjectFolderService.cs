@@ -75,6 +75,7 @@ namespace BLL
         {
             Model.SUBHSSEDB db = Funs.DB;
             Model.InformationProject_ProjectFolder ProjectFolder = db.InformationProject_ProjectFolder.FirstOrDefault(e => e.ProjectFolderId == projectFolderId);
+            if(ProjectFolder != null)
             {
                 db.InformationProject_ProjectFolder.DeleteOnSubmit(ProjectFolder);
                 db.SubmitChanges();

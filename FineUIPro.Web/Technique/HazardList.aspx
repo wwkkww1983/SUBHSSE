@@ -24,10 +24,14 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
                         <Items>
-                            <f:TextBox ID="txtHazardListType" runat="server" Label="危险源类别" LabelAlign="Right" LabelWidth="90px" AutoPostBack="true" OnTextChanged="Text_TextChanged" EmptyText="输入查询条件">
+                            <f:TextBox ID="txtHazardListType" runat="server" Label="危险源类别" LabelAlign="Right" LabelWidth="90px" 
+                               EmptyText="输入查询条件">
                             </f:TextBox>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
+                            <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch" EnablePostBack="true" 	
+                                OnClick="Text_TextChanged" runat="server" >
+                            </f:Button>
                         </Items>
                     </f:Toolbar>
                 </Toolbars>
@@ -54,14 +58,16 @@
                         <Toolbars>
                             <f:Toolbar ID="Toolbar3" Position="Top" runat="server">
                                 <Items>
-                                    <f:TextBox ID="HazardCode" runat="server" Label="危险源代码" EmptyText="输入查询危险源代码" AutoPostBack="true"
-                                        OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="90px" LabelAlign="Right">
+                                    <f:TextBox ID="HazardCode" runat="server" Label="代码" EmptyText="输入查询条件"  Width="210px" LabelWidth="80px" LabelAlign="Right">
                                     </f:TextBox>
-                                    <f:TextBox ID="HazardListTypeCode" runat="server" Label="类别编号" EmptyText="输入查询类别编号"
-                                        AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="90px"
+                                    <f:TextBox ID="HazardListTypeCode" runat="server" Label="类别编号" EmptyText="输入查询条件"
+                                       Width="210px" LabelWidth="90px"
                                         LabelAlign="Right">
                                     </f:TextBox>
                                     <f:ToolbarFill runat="server"></f:ToolbarFill>
+                                    <f:Button ID="btnQuery2" ToolTip="查询" Icon="SystemSearch" EnablePostBack="true" 	
+                                        OnClick="TextBox_TextChanged" runat="server" >
+                                    </f:Button>
                                      <f:Button ID="btnNewDetail" ToolTip="新增" Icon="Add" runat="server" OnClick="btnNewDetail_Click"
                                         Hidden="true">
                                     </f:Button>
@@ -175,7 +181,7 @@
     </f:Window>
     <f:Window ID="Window2" Title="编辑危险源清单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Self" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="true"
-        Width="700px" Height="350px">
+        Width="800px" Height="460px">
     </f:Window>
     <f:Window ID="Window3" Title="上传资源" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Self" EnableResize="true" runat="server" IsModal="true" Width="1024px"
@@ -186,11 +192,11 @@
         Width="1024px" Height="500px">
     </f:Window>
     <f:Window ID="Window5" Title="选择需要导出的列" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window5_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window5_Close" IsModal="true"
         Width="450px" Height="250px" EnableAjax="false">
     </f:Window>
     <f:Window ID="Window6" Title="导入危险源与评价清单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close" 
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close" 
         Width="1000px" Height="600px" EnableAjax="false">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
@@ -198,7 +204,7 @@
             Hidden="true" runat="server" Text="编辑" Icon="TableEdit">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"  Icon="Delete"
-            Hidden="true" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            Hidden="true" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     <f:Menu ID="Menu2" runat="server">
@@ -209,7 +215,7 @@
             Hidden="true" runat="server" Icon="TableEdit" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete2" OnClick="btnMenuDelete2_Click" EnablePostBack="true"
-            Hidden="true" ConfirmText="删除选中行？" Icon="Delete" ConfirmTarget="Top" runat="server" Text="删除">
+            Hidden="true" ConfirmText="删除选中行？" Icon="Delete" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

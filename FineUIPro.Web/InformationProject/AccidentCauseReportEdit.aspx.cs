@@ -378,7 +378,7 @@ namespace FineUIPro.Web.InformationProject
             {
                 accidentCauseReport.AccidentCauseReportId = this.AccidentCauseReportId;
                 BLL.ProjectAccidentCauseReportService.UpdateAccidentCauseReport(accidentCauseReport);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改职工伤亡事故原因分析报", accidentCauseReport.AccidentCauseReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, accidentCauseReport.AccidentCauseReportCode, accidentCauseReport.AccidentCauseReportId, BLL.Const.ProjectAccidentCauseReportMenuId, BLL.Const.BtnModify);
                 BLL.ProjectAccidentCauseReportItemService.DeleteAccidentCauseReportItemByAccidentCauseReportId(this.AccidentCauseReportId);
             }
             else
@@ -391,7 +391,7 @@ namespace FineUIPro.Web.InformationProject
                     this.AccidentCauseReportId = SQLHelper.GetNewID(typeof(Model.InformationProject_AccidentCauseReport));
                     accidentCauseReport.AccidentCauseReportId = this.AccidentCauseReportId;
                     BLL.ProjectAccidentCauseReportService.AddAccidentCauseReport(accidentCauseReport);
-                    BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加职工伤亡事故原因分析报", accidentCauseReport.AccidentCauseReportId);
+                    BLL.LogService.AddSys_Log(this.CurrUser, accidentCauseReport.AccidentCauseReportCode, accidentCauseReport.AccidentCauseReportId, BLL.Const.ProjectAccidentCauseReportMenuId, BLL.Const.BtnAdd);
                     //删除未上报月报信息
                     Model.ManagementReport_ReportRemind reportRemind = (from x in Funs.DB.ManagementReport_ReportRemind
                                                                         where x.ProjectId == this.ProjectId && x.Year == accidentCauseReport.Year && x.Month == accidentCauseReport.Month && x.ReportName == "职工伤亡事故原因分析报"

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
-using BLL;
 using AspNet = System.Web.UI.WebControls;
-
 
 namespace FineUIPro.Web.Supervise
 {
@@ -43,11 +43,16 @@ namespace FineUIPro.Web.Supervise
             string strSql = @"SELECT S.SuperviseCheckReportId,S.SuperviseCheckReportCode,S.CheckDate,S.ProjectId,P.ProjectName,S.UnitId,u.UnitName,S.CheckTeam,S.EvaluationResult,S.AttachUrl,S.IsIssued"
                             + @" FROM dbo.Supervise_SuperviseCheckReport AS S"
                             + @" LEFT JOIN dbo.Base_Project AS P ON P.ProjectId=S.ProjectId"
-                            + @" LEFT JOIN dbo.Base_Unit AS U ON U.UnitId=S.UnitId";
-            DataTable tb = SQLHelper.GetDataTableRunText(strSql);
-
-            // 2.获取当前分页数据
-            //var table = this.GetPagedDataTable(Grid1, tb1);
+                            + @" LEFT JOIN dbo.Base_Unit AS U ON U.UnitId=S.UnitId"
+                            + @" WHERE 1=1 ";
+            List<SqlParameter> listStr = new List<SqlParameter>();          
+            if (!string.IsNullOrEmpty(this.txtName.Text.Trim())) 
+            {
+                strSql += " AND (S.SuperviseCheckReportCode like @name OR P.ProjectName like @name OR u.UnitName like @name OR S.CheckTeam like @name OR S.EvaluationResult like @name)";
+                listStr.Add(new SqlParameter("@name", "%" + this.txtName.Text.Trim() + "%"));
+            }
+            SqlParameter[] parameter = listStr.ToArray();
+            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 
             Grid1.RecordCount = tb.Rows.Count;
             tb = GetFilteredTable(Grid1.FilteredData, tb);
@@ -71,13 +76,14 @@ namespace FineUIPro.Web.Supervise
                         {
                             code = rectify.SuperviseCheckRectifyCode;
                         }
-                        lblRectify.Text = "已下发，整改单编号为：" + code;
+                        lblRectify.Text = "已下发：" + code;
 
                     }
                     else
                     {
                         lbtnRectify.Visible = true;
                         lblRectify.Text = string.Empty;
+                        Grid1.Rows[i].RowCssClass = "red";
                     }
 
                     Model.Supervise_SubUnitCheckRectify sub = BLL.SubUnitCheckRectifyService.GetSubUnitCheckRectifyBySuperviseCheckReportId(lbtnRectify.CommandArgument);
@@ -384,7 +390,7 @@ namespace FineUIPro.Web.Supervise
             Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("安全监督检查报告" + filename, System.Text.Encoding.UTF8) + ".xls");
             Response.ContentType = "application/excel";
             Response.ContentEncoding = System.Text.Encoding.UTF8;
-            Response.Write(GetGridTableHtml(Grid1));
+            Response.Write(GetGridTableHtmlThis(Grid1));
             Response.End();
 
         }
@@ -394,7 +400,7 @@ namespace FineUIPro.Web.Supervise
         /// </summary>
         /// <param name="grid"></param>
         /// <returns></returns>
-        private string GetGridTableHtml(Grid grid)
+        private string GetGridTableHtmlThis(Grid grid)
         {
             StringBuilder sb = new StringBuilder();
             MultiHeaderTable mht = new MultiHeaderTable();
@@ -572,6 +578,17 @@ namespace FineUIPro.Web.Supervise
             }
         }
         #endregion
+
         #endregion
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void txtName_TextChanged(object sender, EventArgs e)
+        {
+            this.BindGrid();
+        }
     }
 }

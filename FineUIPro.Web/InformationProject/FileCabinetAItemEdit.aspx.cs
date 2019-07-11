@@ -99,13 +99,13 @@ namespace FineUIPro.Web.InformationProject
                     newFileCabinetAItem.IsMenu = false;
                     this.FileCabinetAItemId = newFileCabinetAItem.FileCabinetAItemId = SQLHelper.GetNewID(typeof(Model.InformationProject_FileCabinetAItem));
                     BLL.FileCabinetAItemService.AddFileCabinetAItem(newFileCabinetAItem);
-                    BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "增加项目文件", newFileCabinetAItem.Code);
+                    BLL.LogService.AddSys_Log(this.CurrUser, newFileCabinetAItem.Code, newFileCabinetAItem.FileCabinetAItemId, BLL.Const.ProjectFileCabinetAMenuId, Const.BtnAdd);
                 }
                 else
                 {
                     newFileCabinetAItem.FileCabinetAItemId = this.FileCabinetAItemId;
                     BLL.FileCabinetAItemService.UpdateFileCabinetAItem(newFileCabinetAItem);
-                    BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改项目文件", newFileCabinetAItem.Code);
+                    BLL.LogService.AddSys_Log(this.CurrUser, newFileCabinetAItem.Code, newFileCabinetAItem.FileCabinetAItemId, BLL.Const.ProjectFileCabinetAMenuId, Const.BtnModify);
                 }
 
                 if (isClose)

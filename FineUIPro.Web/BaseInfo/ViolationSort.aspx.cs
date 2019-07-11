@@ -85,8 +85,8 @@ namespace FineUIPro.Web.BaseInfo
         {
             var violation = BLL.ViolationSortService.GetViolationSortById(hfFormID.Text);
             if (violation != null)
-            {
-                BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除违章种类", violation.ViolationSortCode);
+            {                
+                BLL.LogService.AddSys_Log(this.CurrUser, violation.ViolationSortCode, hfFormID.Text, BLL.Const.ViolationSortMenuId, Const.BtnDelete);
                 BLL.ViolationSortService.DeleteViolationSortById(hfFormID.Text);                
                 // 重新绑定表格，并模拟点击[新增按钮]
                 BindGrid();
@@ -116,7 +116,7 @@ namespace FineUIPro.Web.BaseInfo
                     var violation = BLL.ViolationSortService.GetViolationSortById(rowID);
                     if (violation != null)
                     {
-                        BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除违章种类", violation.ViolationSortCode);
+                        BLL.LogService.AddSys_Log(this.CurrUser, violation.ViolationSortCode, hfFormID.Text, BLL.Const.ViolationSortMenuId, Const.BtnDelete);
                         BLL.ViolationSortService.DeleteViolationSortById(rowID);
                     }
                 }
@@ -176,13 +176,14 @@ namespace FineUIPro.Web.BaseInfo
             {
                 violationSort.ViolationSortId = SQLHelper.GetNewID(typeof(Model.Base_ViolationSort));
                 BLL.ViolationSortService.AddViolationSort(violationSort);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加违章种类");
+                
+                BLL.LogService.AddSys_Log(this.CurrUser, violationSort.ViolationSortCode, violationSort.ViolationSortId, BLL.Const.ViolationSortMenuId, Const.BtnAdd);
             }
             else
             {
                 violationSort.ViolationSortId = strRowID;
                 BLL.ViolationSortService.UpdateViolationSort(violationSort);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改违章种类");
+                BLL.LogService.AddSys_Log(this.CurrUser, violationSort.ViolationSortCode, violationSort.ViolationSortId, BLL.Const.ViolationSortMenuId, Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行

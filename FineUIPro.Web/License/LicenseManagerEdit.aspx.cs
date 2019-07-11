@@ -80,7 +80,7 @@ namespace FineUIPro.Web.License
                         this.txtLicenseManageContents.Text = HttpUtility.HtmlDecode(licenseManager.LicenseManageContents);
                         if (!string.IsNullOrEmpty(licenseManager.WorkAreaId))
                         {
-                            this.drpWorkAreaId.SelectedValue = licenseManager.WorkAreaId;
+                            this.drpWorkAreaId.SelectedValueArray = licenseManager.WorkAreaId.Split(',');
                         }
                         this.txtStartDate.Text = string.Format("{0:yyyy-MM-dd}", licenseManager.StartDate);
                         this.txtEndDate.Text = string.Format("{0:yyyy-MM-dd}", licenseManager.EndDate);
@@ -124,7 +124,7 @@ namespace FineUIPro.Web.License
             this.drpLicenseTypeId.DataBind();
             Funs.FineUIPleaseSelect(this.drpLicenseTypeId);
 
-            BLL.WorkAreaService.InitWorkAreaDropDownList(this.drpWorkAreaId, this.ProjectId, true);
+            BLL.WorkAreaService.InitWorkAreaDropDownList(this.drpWorkAreaId, this.ProjectId, false);
         }
 
         #region 保存
@@ -188,9 +188,15 @@ namespace FineUIPro.Web.License
             }
             
             licenseManager.ApplicantMan = this.txtApplicantMan.Text.Trim();
-            if (this.drpWorkAreaId.SelectedValue != BLL.Const._Null)
+            if (!string.IsNullOrEmpty(this.drpWorkAreaId.SelectedValue))
             {
-                licenseManager.WorkAreaId = this.drpWorkAreaId.SelectedValue;
+                string workAreaIds = string.Empty;
+                var workAreas = this.drpWorkAreaId.SelectedValueArray;
+                foreach (var item in workAreas)
+                {
+                    workAreaIds += item + ",";
+                }
+                licenseManager.WorkAreaId = workAreaIds;
             }
             licenseManager.StartDate = Funs.GetNewDateTime(this.txtStartDate.Text);
             licenseManager.EndDate = Funs.GetNewDateTime(this.txtEndDate.Text);
@@ -205,7 +211,7 @@ namespace FineUIPro.Web.License
             {
                 licenseManager.LicenseManagerId = this.LicenseManagerId;
                 BLL.LicenseManagerService.UpdateLicenseManager(licenseManager);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改现场作业许可证", licenseManager.LicenseManagerId);
+                BLL.LogService.AddSys_Log(this.CurrUser, licenseManager.LicenseManagerCode, licenseManager.LicenseManagerId, BLL.Const.ProjectLicenseManagerMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -213,7 +219,7 @@ namespace FineUIPro.Web.License
                 this.LicenseManagerId = SQLHelper.GetNewID(typeof(Model.License_LicenseManager));
                 licenseManager.LicenseManagerId = this.LicenseManagerId;
                 BLL.LicenseManagerService.AddLicenseManager(licenseManager);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加现场作业许可证", licenseManager.LicenseManagerId);
+                BLL.LogService.AddSys_Log(this.CurrUser, licenseManager.LicenseManagerCode, licenseManager.LicenseManagerId, BLL.Const.ProjectLicenseManagerMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectLicenseManagerMenuId, this.LicenseManagerId, (type == BLL.Const.BtnSubmit ? true : false), licenseManager.LicenseManageName, "../License/LicenseManagerView.aspx?LicenseManagerId={0}");

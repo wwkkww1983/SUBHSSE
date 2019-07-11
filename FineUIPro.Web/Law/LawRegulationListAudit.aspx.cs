@@ -214,11 +214,11 @@
                         BLL.LawRegulationListService.UpdateLawRegulationList(law);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【法律法规】上报到集团公司" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【法律法规】上传到服务器" + idList.Count.ToString() + "条数据；", null, BLL.Const.LawRegulationListMenuId, BLL.Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【法律法规】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【法律法规】上传到服务器失败；", null, BLL.Const.LawRegulationListMenuId, BLL.Const.BtnUploadResources);
             }
         }
 
@@ -260,7 +260,7 @@
                     }
                 }
 
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "审核安全法律法规");
+                BLL.LogService.AddSys_Log(this.CurrUser, null, null, BLL.Const.LawRegulationListMenuId, BLL.Const.BtnAuditing);
                 BindGrid();
                 ShowNotify("操作成功!");
                 if (isPass)

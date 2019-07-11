@@ -136,13 +136,13 @@ namespace FineUIPro.Web.ProjectAccident
             {
                 this.AccidentStatisticsId = accidentStatistics.AccidentStatisticsId = SQLHelper.GetNewID(typeof(Model.ProjectAccident_AccidentStatistics));
                 BLL.AccidentStatisticsService.AddAccidentStatistics(accidentStatistics);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加事故处理");
+                BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ServerAccidentStatisticsMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 accidentStatistics.AccidentStatisticsId = this.AccidentStatisticsId;
                 BLL.AccidentStatisticsService.UpdateAccidentStatistics(accidentStatistics);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加事故处理");
+                BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ServerAccidentStatisticsMenuId, BLL.Const.BtnAdd);
             }
 
             //保存流程审核数据         

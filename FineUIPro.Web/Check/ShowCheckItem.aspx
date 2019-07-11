@@ -30,7 +30,7 @@
                 <Items>
                     <f:Tree ID="tvCheckItemSet" Width="250px" Height="450px" KeepCurrentSelection="true"
                         ShowHeader="false" OnNodeCommand="tvCheckItemSet_NodeCommand" runat="server"
-                        ShowBorder="false" EnableSingleClickExpand="true">
+                        ShowBorder="false" EnableSingleClickExpand="true" EnableCheckBox="true">
                     </f:Tree>
                 </Items>
             </f:Panel>

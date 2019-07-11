@@ -24,13 +24,13 @@
                 <Items>
                     <f:TextBox ID="txtAddress" runat="server" Label="地点" MaxLength="50" >
                     </f:TextBox>
-                    <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="预计施工时间" ID="txtExpectedTime">
+                    <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="预计施工" ID="txtExpectedTime">
                     </f:DatePicker>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:RadioButtonList ID="rblIsArgument" runat="server" Label="需要专家论证" LabelWidth="100px" >
+                    <f:RadioButtonList ID="rblIsArgument" runat="server" Label="专家论证" LabelWidth="100px" >
                     </f:RadioButtonList>
                     <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="编制时间" ID="txtRecordTime">
                     </f:DatePicker>

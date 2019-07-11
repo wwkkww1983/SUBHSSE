@@ -99,7 +99,8 @@ namespace FineUIPro.Web.Check
                         {
                             this.drpSubUnitPerson.SelectedValueArray = checkHoliday.SubUnitPerson.Split(',');
                         }
-                    }                             
+                    }
+                    this.txtPartInPersonNames.Text = checkHoliday.PartInPersonNames;
                     if (!String.IsNullOrEmpty(checkHoliday.Evaluate))
                     {
                         this.drpEvaluate.SelectedValue = checkHoliday.Evaluate;
@@ -230,6 +231,8 @@ namespace FineUIPro.Web.Check
                 {
                     checkHoliday.SubUnitPerson = subUnitPerson.Substring(0, subUnitPerson.LastIndexOf(","));
                 }
+
+                checkHoliday.PartInPersonNames = this.txtPartInPersonNames.Text.Trim();
                 //if (this.ckbIsCompleted.Checked)
                 //{
                 //    checkHoliday.IsCompleted = true;
@@ -243,7 +246,7 @@ namespace FineUIPro.Web.Check
                 checkHoliday.States = BLL.Const.State_0;
                 this.CheckHolidayId = checkHoliday.CheckHolidayId;
                 BLL.Check_CheckHolidayService.AddCheckHoliday(checkHoliday);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "增加季节性/节假日检查信息");
+                BLL.LogService.AddSys_Log(this.CurrUser, checkHoliday.CheckHolidayCode, checkHoliday.CheckHolidayId, BLL.Const.ProjectCheckHolidayMenuId, BLL.Const.BtnAdd);
             }
         }
 
@@ -371,6 +374,7 @@ namespace FineUIPro.Web.Check
             {
                 checkHoliday.SubUnitPerson = subUnitPerson.Substring(0, subUnitPerson.LastIndexOf(","));
             }
+            checkHoliday.PartInPersonNames = this.txtPartInPersonNames.Text.Trim();
             //if (this.ckbIsCompleted.Checked)
             //{
             //    checkHoliday.IsCompleted = true;
@@ -389,7 +393,7 @@ namespace FineUIPro.Web.Check
             {
                 checkHoliday.CheckHolidayId = this.CheckHolidayId;
                 BLL.Check_CheckHolidayService.UpdateCheckHoliday(checkHoliday);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改季节性/节假日检查", checkHoliday.CheckHolidayId);
+                BLL.LogService.AddSys_Log(this.CurrUser, checkHoliday.CheckHolidayCode, checkHoliday.CheckHolidayId, BLL.Const.ProjectCheckHolidayMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -397,7 +401,7 @@ namespace FineUIPro.Web.Check
                 this.CheckHolidayId = checkHoliday.CheckHolidayId;
                 checkHoliday.CompileMan = this.CurrUser.UserId;
                 BLL.Check_CheckHolidayService.AddCheckHoliday(checkHoliday);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加季节性/节假日检查", checkHoliday.CheckHolidayId);
+                BLL.LogService.AddSys_Log(this.CurrUser, checkHoliday.CheckHolidayCode, checkHoliday.CheckHolidayId, BLL.Const.ProjectCheckHolidayMenuId, BLL.Const.BtnAdd);
             }
 
             ////保存流程审核数据         
@@ -463,7 +467,12 @@ namespace FineUIPro.Web.Check
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.Check_CheckHolidayDetailService.DeleteCheckHolidayDetailById(rowID);
+                    var getV = BLL.Check_CheckHolidayDetailService.GetCheckHolidayDetailByCheckHolidayDetailId(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.CheckItem, getV.CheckHolidayDetailId, BLL.Const.ProjectCheckHolidayMenuId, BLL.Const.BtnDelete);
+                        BLL.Check_CheckHolidayDetailService.DeleteCheckHolidayDetailById(rowID);
+                    }
                 }
                 checkHolidayDetails = (from x in Funs.DB.View_Check_CheckHolidayDetail where x.CheckHolidayId == this.CheckHolidayId orderby x.CheckItem select x).ToList();
                 Grid1.DataSource = checkHolidayDetails;
@@ -570,6 +579,21 @@ namespace FineUIPro.Web.Check
             InitDropDownList();
             this.drpMainUnitPerson.SelectedIndex = 0;
             this.txtMainUnitDeputy.Text = BLL.UnitService.GetUnitNameByUnitId(this.drpThisUnit.SelectedValue);
+        }
+
+        /// <summary>
+        /// 导入
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnImport_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.CheckHolidayId))
+            {
+                this.SaveData(BLL.Const.BtnSave);
+            }
+
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckHolidayDetailIn.aspx?CheckHolidayId={0}", this.CheckHolidayId, "导入 - "), "导入", 1024, 560));
         }
     }
 }

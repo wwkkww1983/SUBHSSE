@@ -187,9 +187,9 @@ namespace FineUIPro.Web.Technique
 
                 if (q != null && BLL.RectifyService.IsDeleteRectify(this.trRectify.SelectedNode.NodeID))
                 {
+                    BLL.LogService.AddSys_Log(this.CurrUser, q.RectifyName, q.RectifyId, BLL.Const.RectifyMenuId, Const.BtnDelete);
                     BLL.RectifyItemService.DeleteRectifyItemByRectifyId(this.trRectify.SelectedNode.NodeID);
                     BLL.RectifyService.DeleteRectify(this.trRectify.SelectedNode.NodeID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId,  this.CurrUser.UserId, "删除安全隐患");
                     InitTreeMenu();
                 }
                 else
@@ -225,6 +225,7 @@ namespace FineUIPro.Web.Technique
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
             this.BindGrid();
+            BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.RectifyMenuId, Const.BtnQuery);
         }
         #endregion
 
@@ -325,10 +326,14 @@ namespace FineUIPro.Web.Technique
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (judgementDelete(rowID, true))
                     {
-                        BLL.RectifyItemService.DeleteRectifyItem(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除安全隐患详情");
-                        BindGrid();
-                        ShowNotify("删除数据成功!");
+                        var rectifyItem = BLL.RectifyItemService.GetRectifyItemById(rowID);
+                        if (rectifyItem != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, rectifyItem.HazardSourcePoint, rectifyItem.RectifyItemId, BLL.Const.RectifyMenuId, Const.BtnDelete);
+                            BLL.RectifyItemService.DeleteRectifyItem(rowID);
+                            BindGrid();
+                            ShowNotify("删除数据成功!");
+                        }
                     }
                 }
             }

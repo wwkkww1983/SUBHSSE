@@ -93,5 +93,24 @@ namespace BLL
         {
             return (from x in Funs.DB.Base_TrainType where x.IsAboutSendCard == true orderby x.TrainTypeCode select x).ToList();
         }
+
+        #region 培训类型下拉框
+        /// <summary>
+        /// 培训类型下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitTrainTypeDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "TrainTypeId";
+            dropName.DataTextField = "TrainTypeName";
+            dropName.DataSource = GetTrainTypeList();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+        #endregion
     }
 }

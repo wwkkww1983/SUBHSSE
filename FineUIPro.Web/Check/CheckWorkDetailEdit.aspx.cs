@@ -38,20 +38,26 @@ namespace FineUIPro.Web.Check
                 this.CheckWorkDetailId = Request.Params["CheckWorkDetailId"];
                 if (!string.IsNullOrEmpty(this.CheckWorkDetailId))
                 {
-                    var checkWorkDetail = BLL.Check_CheckWorkDetailService.GetCheckWorkDetailByCheckWorkDetailId(this.CheckWorkDetailId);
-                    if (checkWorkDetail != null)
+                    var detail = BLL.Check_CheckWorkDetailService.GetCheckWorkDetailByCheckWorkDetailId(this.CheckWorkDetailId);
+                    if (detail != null)
                     {
-                        this.txtCheckItemType.Text = BLL.Check_ProjectCheckItemSetService.ConvertCheckItemType(checkWorkDetail.CheckItem);
-                        Model.Check_ProjectCheckItemDetail checkItemDetail = BLL.Check_ProjectCheckItemDetailService.GetCheckItemDetailById(checkWorkDetail.CheckItem);
-                        if (checkItemDetail != null)
+                        this.txtCheckItemType.Text = BLL.Check_ProjectCheckItemSetService.ConvertCheckItemType(detail.CheckItem);                        
+                        if (detail != null)
                         {
-                            this.txtCheckItem.Text = checkItemDetail.CheckContent;                            
+                            if (!string.IsNullOrEmpty(detail.CheckContent))
+                            {
+                                this.txtCheckItem.Text = detail.CheckContent;
+                            }
+                            else
+                            {
+                                this.txtCheckItem.Text = this.txtCheckItemType.Text;
+                            }                     
                         }
-                        this.txtCheckItem.Text = checkWorkDetail.CheckContent;
-                        this.txtCheckResult.Text = checkWorkDetail.CheckResult;
-                        this.txtCheckOpinion.Text = checkWorkDetail.CheckOpinion;
-                        this.txtHandleResult.Text = checkWorkDetail.HandleResult;
-                        this.txtCheckStation.Text = checkWorkDetail.CheckStation;
+
+                        this.txtCheckResult.Text = detail.CheckResult;
+                        this.txtCheckOpinion.Text = detail.CheckOpinion;
+                        this.txtHandleResult.Text = detail.HandleResult;
+                        this.txtCheckStation.Text = detail.CheckStation;
                     }
                 }
             }

@@ -206,8 +206,12 @@ namespace FineUIPro.Web.Manager
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, isShow))
                     {
-                        BLL.ManagerPerformanceService.DeleteManagerPerformanceById(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除现场HSE工作顾客评价");
+                        var getD = BLL.ManagerPerformanceService.GetManagerPerformanceById(rowID);
+                        if (getD != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getD.ManagerPerformanceCode, getD.ManagerPerformanceId, BLL.Const.ProjectManagerPerformanceMenuId, BLL.Const.BtnDelete);
+                            BLL.ManagerPerformanceService.DeleteManagerPerformanceById(rowID);
+                        }
                     }
                 }
                 BindGrid();

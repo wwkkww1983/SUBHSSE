@@ -26,10 +26,14 @@
                         <Toolbars>
                             <f:Toolbar ID="Toolbar3" Position="Top" runat="server">
                                 <Items>
-                                    <f:TextBox ID="HAZOPTitle" runat="server" Label="标题" EmptyText="输入查询标题" AutoPostBack="true"
-                                        OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="90px" LabelAlign="Right">
+                                    <f:TextBox ID="HAZOPTitle" runat="server" Label="标题" EmptyText="输入查询标题" 
+                                        Width="250px" LabelWidth="90px" LabelAlign="Right">
                                     </f:TextBox>
                                     <f:ToolbarFill runat="server"></f:ToolbarFill>
+                                    
+                                    <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch" EnablePostBack="true" 	
+                                        OnClick="TextBox_TextChanged" runat="server" >
+                                    </f:Button>
                                     <f:Button ID="btnNew" ToolTip="新增" Icon="Add" runat="server" OnClick="btnNew_Click"
                                         Hidden="true">
                                     </f:Button>
@@ -112,7 +116,7 @@
         Width="1024px" Height="500px">
     </f:Window>
     <f:Window ID="Window4" Title="选择需要导出的列" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window4_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window4_Close" IsModal="true"
         Width="450px" Height="250px" EnableAjax="false">
     </f:Window>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
@@ -124,7 +128,7 @@
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            Hidden="true" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

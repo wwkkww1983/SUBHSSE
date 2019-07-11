@@ -17,7 +17,7 @@
                                     </f:TextArea>
                                 </Items>
                             </f:FormRow>
-                            <f:FormRow ColumnWidths="15% 35% 35% 15%">
+                            <f:FormRow ColumnWidths="15% 25% 50% 10%">
                                 <Items>
                                     <f:DropDownList ID="rblFlowOperate" runat="server" MarginLeft="35px" OnSelectedIndexChanged="rblFlowOperate_SelectedIndexChanged" AutoPostBack="true">
                                         <f:ListItem Value="1" Text="下一步" Selected="true" />
@@ -26,7 +26,7 @@
                                     <f:TextBox runat="server" Label="办理步骤" ID="txtAuditFlowName"></f:TextBox>                                                           
                                     <f:DropDownList ID="drpPerson" runat="server" Label="办理人员" EnableEdit="true">
                                     </f:DropDownList>                                                                  
-                                    <f:CheckBox ID="IsFileCabinetA" Hidden="true" runat="server" Text="【文件柜A】" Width="300px"></f:CheckBox>
+                                    <f:CheckBox ID="IsFileCabinetA" Hidden="true" runat="server" Text="【文件柜A】" ></f:CheckBox>
                                 </Items>
                             </f:FormRow>
                         </Rows>

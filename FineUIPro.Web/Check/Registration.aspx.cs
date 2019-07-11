@@ -25,7 +25,7 @@ namespace FineUIPro.Web.Check
                 this.GetButtonPower();
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
-                BindGrid();
+                BindGrid();                
             }
         }
 
@@ -371,8 +371,12 @@ namespace FineUIPro.Web.Check
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.RegistrationService.DeleteRegistrationById(rowID);
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除隐患巡检（手机端）", rowID);
+                    var Registration = BLL.RegistrationService.GetRegistrationById(rowID);
+                    if (Registration != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, null, Registration.RegistrationId, BLL.Const.RegistrationMenuId, BLL.Const.BtnDelete);
+                        BLL.RegistrationService.DeleteRegistrationById(rowID);
+                    }
                 }
                 BindGrid();
                 ShowNotify("删除数据成功!（表格数据已重新绑定）");

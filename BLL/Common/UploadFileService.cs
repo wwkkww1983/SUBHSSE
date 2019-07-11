@@ -120,6 +120,10 @@ namespace BLL
         /// </summary>
         public static string RulesRegulationsFilePath = "FileUpload\\RulesRegulations\\";
         /// <summary>
+        /// 二维码上传路径
+        /// </summary>
+        public const string QRCodeImageFilePath = "FileUpload\\QRCodeFile\\";
+        /// <summary>
         /// 培训教材库-附件路径
         /// </summary>
         public static string TrainingFilePath = "FileUpload\\Training\\";

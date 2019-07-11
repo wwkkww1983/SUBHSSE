@@ -46,6 +46,30 @@ namespace BLL
         }
 
         /// <summary>
+        /// 根据时间段获取HSE应急演练
+        /// </summary>
+        /// <param name="startTime">开始时间</param>
+        /// <param name="endTime">结束时间</param>
+        /// <param name="projectId">项目Id</param>
+        /// <returns>时间段内的HSE应急演练数量</returns>
+        public static int GetCountByDate2(DateTime startTime, DateTime endTime, string projectId)
+        {
+            return (from x in Funs.DB.Emergency_DrillRecordList where x.DrillRecordDate >= startTime && x.DrillRecordDate < endTime && x.ProjectId == projectId select x).Count();
+        }
+
+        /// <summary>
+        /// 获取HSE应急演练
+        /// </summary>
+        /// <param name="startTime">开始时间</param>
+        /// <param name="endTime">结束时间</param>
+        /// <param name="projectId">项目Id</param>
+        /// <returns>时间段内的HSE应急演练数量</returns>
+        public static int GetCount(string projectId)
+        {
+            return (from x in Funs.DB.Emergency_DrillRecordList where x.ProjectId == projectId select x).Count();
+        }
+
+        /// <summary>
         /// 添加应急演练
         /// </summary>
         /// <param name="DrillRecordList"></param>

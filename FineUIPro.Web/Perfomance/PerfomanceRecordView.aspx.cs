@@ -1,47 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BLL;
+﻿using BLL;
+using System;
 
 namespace FineUIPro.Web.Perfomance
 {
     public partial class PerfomanceRecordView : PageBase
     {
-        #region 定义项
-        /// <summary>
-        /// 主键
-        /// </summary>
-        private string PerfomanceRecordId
-        {
-            get
-            {
-                return (string)ViewState["PerfomanceRecordId"];
-            }
-            set
-            {
-                ViewState["PerfomanceRecordId"] = value;
-            }
-        }
-
-        /// <summary>
-        /// 附件路径1
-        /// </summary>
-        public string AttachUrl1
-        {
-            get
-            {
-                return (string)ViewState["AttachUrl1"];
-            }
-            set
-            {
-                ViewState["AttachUrl1"] = value;
-            }
-        }
-        #endregion
-
         #region 加载
         /// <summary>
         /// 加载页面
@@ -54,13 +17,13 @@ namespace FineUIPro.Web.Perfomance
             {
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
 
-                this.PerfomanceRecordId = Request.Params["PerfomanceRecordId"];
-                if (!string.IsNullOrEmpty(this.PerfomanceRecordId))
+                string perfomanceRecordId = Request.Params["PerfomanceRecordId"];
+                if (!string.IsNullOrEmpty(perfomanceRecordId))
                 {
-                    Model.Perfomance_PerfomanceRecord perfomanceRecord = BLL.PerfomanceRecordService.GetPerfomanceRecordById(this.PerfomanceRecordId);
+                    Model.Perfomance_PerfomanceRecord perfomanceRecord = BLL.PerfomanceRecordService.GetPerfomanceRecordById(perfomanceRecordId);
                     if (perfomanceRecord != null)
                     {
-                        this.txtPerfomanceRecordCode.Text = CodeRecordsService.ReturnCodeByDataId(this.PerfomanceRecordId);
+                        this.txtPerfomanceRecordCode.Text = CodeRecordsService.ReturnCodeByDataId(perfomanceRecordId);
                         if (!string.IsNullOrEmpty(perfomanceRecord.UnitId))
                         {
                             var unit = BLL.UnitService.GetUnitByUnitId(perfomanceRecord.UnitId);
@@ -133,13 +96,12 @@ namespace FineUIPro.Web.Perfomance
                         this.txtScore_20.Text = Convert.ToString(perfomanceRecord.Score_20);
                         this.txtTotalJudging.Text = perfomanceRecord.TotalJudging;
                         this.txtTotalScore.Text = Convert.ToString(perfomanceRecord.TotalScore);
-                        this.AttachUrl1 = perfomanceRecord.AttachUrl;
-                        this.divFile1.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../", this.AttachUrl1);
+                        this.divFile1.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../", perfomanceRecord.AttachUrl);
                     }
                 }
                 ///初始化审核菜单
                 this.ctlAuditFlow.MenuId = BLL.Const.PerfomanceRecordMenuId;
-                this.ctlAuditFlow.DataId = this.PerfomanceRecordId;
+                this.ctlAuditFlow.DataId = perfomanceRecordId;
             }
         }
         #endregion

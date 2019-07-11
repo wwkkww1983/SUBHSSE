@@ -5,8 +5,7 @@
     <title></title>
     <link rel="stylesheet" type="text/css" href="css/chinaexcel.css"/>
     <script charset="gb2312" language="javascript" type="text/javascript" src="js/Common.js" ></script>
-    <script src="js/functions.vbs" language="vbscript" type="text/vbscript"></script>
-    
+    <script src="js/functions.vbs" language="vbscript" type="text/vbscript"></script>    
         <script language="javascript" type="text/javascript">
 
             function InitFontname() {
@@ -123,35 +122,36 @@
                      <a  href="#" class="tbButton" id="cmdThousand"  name="cbButton" title="千分位"><img alt="" style="vertical-align:middle" src="images/thousand.gif" width="16" height="16"/></a>
                   </td>
                   <td>
-                     <a  href="#" class="tbButton" onclick="OnSetCellShowStyle()"  title="设置单元样式"><img alt="" style="vertical-align:middle" src="images/cellstyle.gif" width="16" height="16"/></a>
+                     <a  href="#" class="tbButton" onclick="OnSetCellShowStyle()"  title="设置单元样式">
+                         <img alt="" style="vertical-align:middle" src="images/cellstyle.gif" width="16" height="16"/></a>
                   </td>
                   <td><a class="tbButton" id="cmdChartWzd" title="图表向导" href="#" name="cbButton"><img alt="" style="vertical-align:middle" src="images/chartw.gif" width="16" height="16" /></a></td>
                    
                   <td>
                       <a href="#" class="tbButton"  onclick="SlashSet()" title="单元斜线设置"><img alt="" style="vertical-align:middle" src="images/slashset.gif" width="16" height="16"/></a>
                   </td>
-                  <td >
+                 <%-- <td >
                       <asp:ImageButton ID="undo" runat="server" class="tbButton"  OnClientClick="return confirm(&quot;确定要恢复初始设置吗？&quot;);" 
                            ImageUrl="images/undo.gif" ToolTip="恢复初始设置" 
                            style="vertical-align:middle"  width="16" height="16" onclick="undo_Click" />
-                  </td>
-                   <td>
+                  </td>--%>
+                   <td runat="server" >
                       <asp:ImageButton ID="imgReturn" runat="server" class="tbButton"
-                           ImageUrl="images/return.gif" ToolTip="返回" 
+                           ImageUrl="images/undo.gif" ToolTip="返回" 
                            style="vertical-align:middle"  width="16px" height="16px" 
                            onclick="imgReturn_Click"/>
                   </td>
-                <td style="width:100%">
+                <td style="width:100%" align="right">
+                    <asp:Label runat="server" ID="lbReportName" style="font-size:14px;font-weight:bold;" ForeColor="Red"></asp:Label>
                    <%--<a  href="#" class="tbButton" onclick="DefineField('<%=reportName %>')" title="定义字段" ><img alt="" style="vertical-align:middle" src="images/export.gif" width="16" height="16"/></a>--%>
                 </td>
             </tr>
          </table>
-        
     </form>
     <table class="cbToolbar" id="idTBFormat" cellpadding='0' cellspacing='0' width="100%">
             <tr>
                 <td id="cmdFontName" title="字体">
-                    <select name="FontNameSelect" style="width: 225px; height: 23px" onchange="changeFontName(FontNameSelect.value)"
+                    <select name="FontNameSelect" style="width: 220px; height: 23px" onchange="changeFontName(FontNameSelect.value)"
                         accesskey="v" size="1">
                     </select>
                 </td>
@@ -275,11 +275,11 @@
     </table>       
     <script type="text/javascript" language="javascript">
          function init() {
-             setInit('ReadExReportFile.aspx?reportId='+<%=reportId %>);
+             setInit('ReadExReportFile.aspx?reportId=' + " <%=reportId %>");                   
              ChinaExcel.SetOnlyShowTipMessage(false);
          }
     </script>
-     <script language="vbscript">
+     <script language="vbscript" type="text/vbscript">
         Sub ChinaExcel_ShowCellChanged(Row, Col)
 	      FontSizeSelect.Value = ChinaExcel.CellFontSize
 	      FontNameSelect.value = ChinaExcel.CellFontName

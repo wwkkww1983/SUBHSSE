@@ -38,12 +38,7 @@ namespace FineUIPro.Web.Resources
             {  
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 this.SignManageId = Request.Params["SignManageId"];
-                this.drpSignType.DataTextField = "ConstText";
-                this.drpSignType.DataValueField = "ConstValue";
-                this.drpSignType.DataSource = BLL.ConstValue.drpConstItemList(ConstValue.Group_SignType);
-                this.drpSignType.DataBind();
-                Funs.FineUIPleaseSelect(this.drpSignType);
-
+                BLL.ConstValue.InitConstValueDropDownList(this.drpSignType, ConstValue.Group_SignType, true);
                 if (!string.IsNullOrEmpty(this.SignManageId))
                 {
                     var signManage = BLL.SignManageService.GetSignManageBySignManageId(this.SignManageId);
@@ -63,6 +58,10 @@ namespace FineUIPro.Web.Resources
                         }
                         this.txtSignImage.Text = HttpUtility.HtmlDecode(signManage.SignImage);
                     }
+                }
+                if (Request.Params["value"] == "0")
+                {
+                    this.btnSave.Hidden = true;
                 }
             }
         }
@@ -105,13 +104,13 @@ namespace FineUIPro.Web.Resources
                 this.SignManageId = SQLHelper.GetNewID(typeof(Model.Resources_SignManage));
                 newSignManage.SignManageId = this.SignManageId;
                 BLL.SignManageService.AddSignManage(newSignManage);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加标牌信息");
+                BLL.LogService.AddSys_Log(this.CurrUser, newSignManage.SignCode, newSignManage.SignManageId,BLL.Const.SignManageMenuId,BLL.Const.BtnAdd);
             }
             else
             {
                 newSignManage.SignManageId = this.SignManageId;
                 BLL.SignManageService.UpdateSignManage(newSignManage);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改标牌信息");
+                BLL.LogService.AddSys_Log(this.CurrUser, newSignManage.SignCode, newSignManage.SignManageId, BLL.Const.SignManageMenuId, BLL.Const.BtnModify);
             }
             if (isClose)
             {
@@ -127,11 +126,18 @@ namespace FineUIPro.Web.Resources
         /// <param name="e"></param>
         protected void btnAttachUrl_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.SignManageId))
+            if (this.btnSave.Hidden)
             {
-                this.SaveData(false);
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SignManageAttachUrl&type=-1", this.SignManageId)));
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SignManageAttachUrl&menuId={1}", this.SignManageId, BLL.Const.SignManageMenuId)));
+            else
+            {
+                if (string.IsNullOrEmpty(this.SignManageId))
+                {
+                    this.SaveData(false);
+                }
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SignManageAttachUrl&menuId={1}", this.SignManageId, BLL.Const.SignManageMenuId)));
+            }
         }
         #endregion
     }

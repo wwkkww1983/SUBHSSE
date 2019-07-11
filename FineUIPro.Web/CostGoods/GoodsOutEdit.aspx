@@ -73,7 +73,7 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="800px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="800px"
         Height="500px" OnClose="Window1_Close">
     </f:Window>
     </form>

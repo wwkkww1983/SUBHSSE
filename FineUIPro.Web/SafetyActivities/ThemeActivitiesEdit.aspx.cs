@@ -135,14 +135,14 @@ namespace FineUIPro.Web.SafetyActivities
             {
                 newThemeActivities.ThemeActivitiesId = this.ThemeActivitiesId;
                 BLL.ThemeActivitiesService.UpdateThemeActivities(newThemeActivities);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改主题安全活动", newThemeActivities.ThemeActivitiesId);
+                BLL.LogService.AddSys_Log(this.CurrUser, newThemeActivities.Title, newThemeActivities.ThemeActivitiesId,BLL.Const.ProjectThemeActivitiesMenuId,BLL.Const.BtnModify );
             }
             else
             {
                 this.ThemeActivitiesId = SQLHelper.GetNewID(typeof(Model.SafetyActivities_ThemeActivities));
                 newThemeActivities.ThemeActivitiesId = this.ThemeActivitiesId;
                 BLL.ThemeActivitiesService.AddThemeActivities(newThemeActivities);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加主题安全活动", newThemeActivities.ThemeActivitiesId);
+                BLL.LogService.AddSys_Log(this.CurrUser, newThemeActivities.Title, newThemeActivities.ThemeActivitiesId, BLL.Const.ProjectThemeActivitiesMenuId, BLL.Const.BtnAdd);
             }
         }
         #endregion

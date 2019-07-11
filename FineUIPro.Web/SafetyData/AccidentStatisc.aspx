@@ -99,7 +99,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="事故查看页面" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="1024px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1024px"
         Height="650px">
     </f:Window>
     </form>

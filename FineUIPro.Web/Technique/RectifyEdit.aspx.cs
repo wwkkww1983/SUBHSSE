@@ -109,7 +109,8 @@ namespace FineUIPro.Web.Technique
                 rectify.SupRectifyId = this.SupRectifyId;
                 rectify.RectifyId = SQLHelper.GetNewID(typeof(Model.Technique_Rectify));
                 BLL.RectifyService.AddRectify(rectify);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加安全隐患类型");
+                
+                BLL.LogService.AddSys_Log(this.CurrUser, rectify.RectifyName, rectify.RectifyId, BLL.Const.RectifyMenuId, Const.BtnAdd);
             }
             else
             {
@@ -120,7 +121,8 @@ namespace FineUIPro.Web.Technique
                 }
                 rectify.RectifyId = this.RectifyId;
                 BLL.RectifyService.UpdateRectify(rectify);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改安全隐患类型");
+                
+                BLL.LogService.AddSys_Log(this.CurrUser, rectify.RectifyName, rectify.RectifyId, BLL.Const.RectifyMenuId, Const.BtnModify);
             }
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }

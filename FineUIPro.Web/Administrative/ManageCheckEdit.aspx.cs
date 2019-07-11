@@ -169,14 +169,14 @@ namespace FineUIPro.Web.Administrative
             {
                 manageCheck.ManageCheckId = this.ManageCheckId;
                 BLL.ManageCheckService.UpdateManageCheck(manageCheck);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "修改行政管理检查记录");
+                BLL.LogService.AddSys_Log(this.CurrUser, manageCheck.ManageCheckCode, manageCheck.ManageCheckId, BLL.Const.ManageCheckMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.ManageCheckId = SQLHelper.GetNewID(typeof(Model.Administrative_ManageCheck));
                 manageCheck.ManageCheckId = this.ManageCheckId;
                 BLL.ManageCheckService.AddManageCheck(manageCheck);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "添加行政管理检查记录");
+                BLL.LogService.AddSys_Log(this.CurrUser, manageCheck.ManageCheckCode, manageCheck.ManageCheckId, BLL.Const.ManageCheckMenuId, BLL.Const.BtnAdd);
             }
             GetGvManageCheck(this.ManageCheckId);
             ////保存流程审核数据         

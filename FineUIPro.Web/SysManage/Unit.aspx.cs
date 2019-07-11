@@ -31,8 +31,8 @@ namespace FineUIPro.Web.SysManage
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT UnitId,UnitCode,UnitName,ProjectRange,Corporate,Address,Telephone,Fax,EMail,UnitType.UnitTypeId,UnitType.UnitTypeCode,UnitType.UnitTypeName,Unit.IsThisUnit,Unit.IsHide"
-                          +@" From dbo.Base_Unit AS Unit "
+            string strSql = @"SELECT UnitId,UnitCode,UnitName,ProjectRange,Corporate,Address,Telephone,Fax,EMail,UnitType.UnitTypeId,UnitType.UnitTypeCode,UnitType.UnitTypeName,Unit.IsThisUnit,Unit.IsHide,Unit.IsBranch"
+                          + @" From dbo.Base_Unit AS Unit "
                           +@" LEFT JOIN Base_UnitType AS UnitType ON UnitType.UnitTypeId=Unit.UnitTypeId"
                           +@" WHERE (IsHide IS NULL OR IsHide = 0) AND 1= 1";
             List<SqlParameter> listStr = new List<SqlParameter>();           
@@ -111,27 +111,28 @@ namespace FineUIPro.Web.SysManage
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                      var unit = BLL.UnitService.GetUnitByUnitId(rowID);
-                      if (unit != null)
-                      {
-                          if (BLL.CommonService.IsMainUnitOrAdmin(this.CurrUser.UserId) )
-                          {
-                              string cont = judgementDelete(rowID);
-                              if (string.IsNullOrEmpty(cont))
-                              {
-                                  BLL.UnitService.DeleteUnitById(rowID);
-                                  BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除单位设置");
-                              }
-                              else
-                              {
-                                  strShowNotify += "单位：" + unit.UnitName + cont;
-                              }
-                          }
-                          else
-                          {
-                              strShowNotify += "单位：" + unit.UnitName + "非本单位人员不能删除单位信息";
-                          }
-                      }
+                    var unit = BLL.UnitService.GetUnitByUnitId(rowID);
+                    if (unit != null)
+                    {
+                        if (BLL.CommonService.IsMainUnitOrAdmin(this.CurrUser.UserId))
+                        {
+                            string cont = judgementDelete(rowID);
+                            if (string.IsNullOrEmpty(cont))
+                            {
+                                BLL.LogService.AddSys_Log(this.CurrUser, unit.UnitCode, unit.UnitId, BLL.Const.UnitMenuId, BLL.Const.BtnDelete);
+                                BLL.UnitService.DeleteUnitById(rowID);
+
+                            }
+                            else
+                            {
+                                strShowNotify += "单位：" + unit.UnitName + cont;
+                            }
+                        }
+                        else
+                        {
+                            strShowNotify += "单位：" + unit.UnitName + "非本单位人员不能删除单位信息";
+                        }
+                    }
                 }
 
                 BindGrid();

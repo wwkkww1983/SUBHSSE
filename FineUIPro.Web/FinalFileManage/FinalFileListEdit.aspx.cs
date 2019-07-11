@@ -167,14 +167,14 @@ namespace FineUIPro.Web.FinalFileManage
             {
                 FinalFileList.FileId = this.FileId;
                 BLL.FinalFileListService.UpdateFinalFileList(FinalFileList);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改监理管理文档", FinalFileList.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, FinalFileList.FileCode, FinalFileList.FileId,BLL.Const.FinalFileListMenuId,BLL.Const.BtnModify);
             }
             else
             {
                 this.FileId = SQLHelper.GetNewID(typeof(Model.FinalFileManage_FinalFileList));
                 FinalFileList.FileId = this.FileId;
                 BLL.FinalFileListService.AddFinalFileList(FinalFileList);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加监理管理文档", FinalFileList.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, FinalFileList.FileCode, FinalFileList.FileId, BLL.Const.FinalFileListMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.FinalFileListMenuId, this.FileId, (type == BLL.Const.BtnSubmit ? true : false), FinalFileList.FileName, "../FinalFileManage/FinalFileListView.aspx?FileId={0}");

@@ -82,7 +82,7 @@ namespace FineUIPro.Web.HSSESystem
                 this.HSSEManageItemId = SQLHelper.GetNewID(typeof(Model.HSSESystem_HSSEManageItem));
                 newItem.HSSEManageItemId = this.HSSEManageItemId;
                 BLL.HSSEManageItemService.AddHSSEManageItem(newItem);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加安全管理机构", this.HSSEManageItemId);
+                BLL.LogService.AddSys_Log(this.CurrUser, null, newItem.HSSEManageItemId, BLL.Const.HSSEManageMenuId, BLL.Const.BtnAdd);
             }
             else
             {
@@ -93,7 +93,7 @@ namespace FineUIPro.Web.HSSESystem
                 }
                 newItem.HSSEManageItemId = this.HSSEManageItemId;
                 BLL.HSSEManageItemService.UpdateHSSEManageItem(newItem);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改安全管理机构", this.HSSEManageItemId);
+                BLL.LogService.AddSys_Log(this.CurrUser, null, newItem.HSSEManageItemId, BLL.Const.HSSEManageMenuId, BLL.Const.BtnModify);
             }
 
             ///更新集团组织机构
@@ -164,11 +164,11 @@ namespace FineUIPro.Web.HSSESystem
         {
             if (e.Error == null)
             {               
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【组织机构】上报到集团公司成功；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【组织机构】上报到集团公司成功；", null, BLL.Const.HSSEManageMenuId, BLL.Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【组织机构】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【组织机构】上报到集团公司失败；", null, BLL.Const.HSSEManageMenuId, BLL.Const.BtnUploadResources);
             }
         }
         #endregion

@@ -234,9 +234,13 @@ namespace FineUIPro.Web.InApproveManager
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除气瓶出场报批", rowID);
-                    BLL.GasCylinderOutItemService.DeleteGasCylinderOutItemByGasCylinderOutId(rowID);
-                    BLL.GasCylinderOutService.DeleteGasCylinderOutById(rowID);
+                    var gasCylinderOut = BLL.GasCylinderOutService.GetGasCylinderOutById(rowID);
+                    if (gasCylinderOut != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, gasCylinderOut.GasCylinderOutCode, gasCylinderOut.GasCylinderOutId, BLL.Const.GasCylinderOutMenuId, BLL.Const.BtnDelete);
+                        BLL.GasCylinderOutItemService.DeleteGasCylinderOutItemByGasCylinderOutId(rowID);
+                        BLL.GasCylinderOutService.DeleteGasCylinderOutById(rowID);
+                    }
                 }
 
                 this.BindGrid();

@@ -183,7 +183,7 @@ namespace FineUIPro.Web.Technique
                 HazardId = hazardList.HazardId;
                 hazardList.HazardListTypeId = this.HazardListTypeId;
                 BLL.HazardListService.AddHazardList(hazardList);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加危险源清单");
+                BLL.LogService.AddSys_Log(this.CurrUser, hazardList.HazardCode, hazardList.HazardId, BLL.Const.HazardListMenuId, Const.BtnAdd);
             }
             else
             {
@@ -194,7 +194,7 @@ namespace FineUIPro.Web.Technique
                     hazardList.HazardListTypeId = hazard.HazardListTypeId;
                 }
                 BLL.HazardListService.UpdateHazardList(hazardList);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改危险源清单");
+                BLL.LogService.AddSys_Log(this.CurrUser, hazardList.HazardCode, hazardList.HazardId, BLL.Const.HazardListMenuId, Const.BtnModify);
             }
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
@@ -279,11 +279,11 @@ namespace FineUIPro.Web.Technique
                         BLL.HazardListService.UpdateHazardListIsPass(hazardList);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【危险源清单明细】上报到集团公司" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【危险源清单明细】上报到集团公司" + idList.Count.ToString() + "条数据；", string.Empty, BLL.Const.HazardListMenuId, Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【危险源清单明细】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【危险源清单明细】上报到集团公司失败；", string.Empty, BLL.Const.HazardListMenuId, Const.BtnUploadResources);
             }
         }
         #endregion
@@ -312,6 +312,11 @@ namespace FineUIPro.Web.Technique
         /// <returns></returns>
         private void GetButtonPower()
         {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
+
             var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HazardListMenuId);
             if (buttonList.Count() > 0)
             {

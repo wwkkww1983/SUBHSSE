@@ -124,6 +124,32 @@ namespace BLL
         }
 
         /// <summary>
+        /// 根据时间段和类型获取事故数量
+        /// </summary>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="accidentType"></param>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static int GetCountByAccidentType(string accidentType, string projectId)
+        {
+            return (from x in Funs.DB.Accident_AccidentReport where x.AccidentTypeId == accidentType && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).Count();
+            //if (accidentType == "1" || accidentType == "2" || accidentType == "3")  //轻重死事故按审批完成时间
+            //{
+            //    return (from x in Funs.DB.Accident_AccidentReport
+            //            join y in Funs.DB.Sys_FlowOperate
+            //            on x.AccidentReportId equals y.DataId
+            //            where x.AccidentTypeId == accidentType && x.ProjectId == projectId && x.States == BLL.Const.State_2
+            //            && y.State == BLL.Const.State_2 && y.OperaterTime >= startTime && y.OperaterTime < endTime
+            //            select x).Count();
+            //}
+            //else
+            //{
+            //    return (from x in Funs.DB.Accident_AccidentReport where x.AccidentDate >= startTime && x.AccidentDate < endTime && x.AccidentTypeId == accidentType && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).Count();
+            //}
+        }
+
+        /// <summary>
         /// 根据时间段和类型获取事故人数
         /// </summary>
         /// <param name="startTime"></param>

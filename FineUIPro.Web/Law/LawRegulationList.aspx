@@ -72,11 +72,11 @@
                                 ToolTip='<%#Bind("LawsRegulationsTypeName") %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="90px" ColumnID="ApprovalDate" DataField="ApprovalDate" SortField="ApprovalDate"
+                    <f:RenderField Width="95px" ColumnID="ApprovalDate" DataField="ApprovalDate" SortField="ApprovalDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="批准日"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="EffectiveDate" DataField="EffectiveDate" SortField="EffectiveDate"
+                    <f:RenderField Width="95px" ColumnID="EffectiveDate" DataField="EffectiveDate" SortField="EffectiveDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="生效日"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
@@ -88,10 +88,10 @@
                     </f:TemplateField>
                     <f:WindowField TextAlign="Center" Width="80px" WindowID="WindowAtt" 
                         Text="附件" ToolTip="附件上传查看" DataIFrameUrlFields="LawRegulationId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/LawRegulation&menuId=F4B02718-0616-4623-ABCE-885698DDBEB1"/>
-                    <f:RenderField Width="90px" ColumnID="CompileMan" DataField="CompileMan" SortField="CompileMan"
+                    <f:RenderField Width="95px" ColumnID="CompileMan" DataField="CompileMan" SortField="CompileMan"
                         FieldType="String" HeaderText="整理人" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
+                    <f:RenderField Width="95px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="整理日期"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
@@ -135,7 +135,7 @@
         Width="1024px" Height="500px">
     </f:Window>
     <f:Window ID="Window5" Title="选择需要导出的列" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window5_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window5_Close" IsModal="true"
         Width="350px" Height="250px" EnableAjax="false">
     </f:Window>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
@@ -147,7 +147,7 @@
             runat="server" Text="编辑" Icon="Pencil" Hidden="true">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除" Icon="Delete"
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除" Icon="Delete"
             Hidden="true">
         </f:MenuButton>
     </f:Menu>

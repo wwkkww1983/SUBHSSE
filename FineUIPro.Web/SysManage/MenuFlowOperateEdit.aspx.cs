@@ -76,7 +76,7 @@ namespace FineUIPro.Web.SysManage
                 {
                     int maxId = 0;
                     string str = "SELECT (ISNULL(MAX(FlowStep),0)+1) FROM Sys_MenuFlowOperate WHERE MenuId='" + this.MenuId + "'";
-                    maxId = BLL.SQLHelper.getIntValue(str);
+                    maxId = BLL.SQLHelper.GetIntValue(str);
                     this.txtFlowStep.Text = maxId.ToString();
                 }
             }
@@ -102,13 +102,13 @@ namespace FineUIPro.Web.SysManage
             if (string.IsNullOrEmpty(this.FlowOperateId))
             {
                 BLL.MenuFlowOperateService.AddAuditFlow(newMenuFlowOperate);
-                BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加菜单流程信息", newMenuFlowOperate.AuditFlowName);
+                BLL.LogService.AddSys_Log(this.CurrUser,  newMenuFlowOperate.AuditFlowName, newMenuFlowOperate.FlowOperateId,BLL.Const.SysConstSetMenuId,BLL.Const.BtnAdd);
             }
             else
             {
                 newMenuFlowOperate.FlowOperateId = this.FlowOperateId;
                 BLL.MenuFlowOperateService.UpdateAuditFlow(newMenuFlowOperate);
-                BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加菜单流程信息", newMenuFlowOperate.AuditFlowName);
+                BLL.LogService.AddSys_Log(this.CurrUser, newMenuFlowOperate.AuditFlowName, newMenuFlowOperate.FlowOperateId, BLL.Const.SysConstSetMenuId, BLL.Const.BtnModify);
             }
 
             ShowNotify("设置成功!", MessageBoxIcon.Success);

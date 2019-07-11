@@ -153,11 +153,7 @@ namespace FineUIPro.Web.QualityAudit
             {
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 this.UnitId = Request.Params["UnitId"];
-                string ops = Request.Params["ops"];
-                if (ops != null)
-                {
-                    this.btnSave.Visible = false;                   
-                }
+               
                 if (!string.IsNullOrEmpty(this.UnitId))
                 {
                     var unit = BLL.UnitService.GetUnitByUnitId(this.UnitId);
@@ -219,6 +215,10 @@ namespace FineUIPro.Web.QualityAudit
         /// <returns></returns>
         private void GetButtonPower()
         {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
             string menuId = BLL.Const.SubUnitQualityMenuId;
             if (string.IsNullOrEmpty(this.CurrUser.LoginProjectId))
             {
@@ -373,14 +373,14 @@ namespace FineUIPro.Web.QualityAudit
             {
                 subUnitQuality.SubUnitQualityId = this.SubUnitQualityId;
                 BLL.SubUnitQualityService.UpdateSubUnitQuality(subUnitQuality);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改分包商资质", subUnitQuality.SubUnitQualityId);
+                BLL.LogService.AddSys_Log(this.CurrUser, subUnitQuality.SubUnitQualityCode, subUnitQuality.SubUnitQualityId, BLL.Const.SubUnitQualityMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.SubUnitQualityId = SQLHelper.GetNewID(typeof(Model.QualityAudit_SubUnitQuality));
                 subUnitQuality.SubUnitQualityId = this.SubUnitQualityId;
                 BLL.SubUnitQualityService.AddSubUnitQuality(subUnitQuality);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加分包商资质", subUnitQuality.SubUnitQualityId);
+                BLL.LogService.AddSys_Log(this.CurrUser, subUnitQuality.SubUnitQualityCode, subUnitQuality.SubUnitQualityId, BLL.Const.SubUnitQualityMenuId, BLL.Const.BtnAdd);
             }
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }

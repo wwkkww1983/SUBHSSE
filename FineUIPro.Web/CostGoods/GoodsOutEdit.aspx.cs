@@ -180,14 +180,14 @@ namespace FineUIPro.Web.CostGoods
             {
                 goodsOut.GoodsOutId = this.GoodsOutId;
                 BLL.GoodsOut2Service.UpdateGoodsOut(goodsOut);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改物资出库管理", goodsOut.GoodsOutId);
+                BLL.LogService.AddSys_Log(this.CurrUser, goodsOut.GoodsOutCode, goodsOut.GoodsOutId,BLL.Const.GoodsOut2MenuId,BLL.Const.BtnModify);
             }
             else
             {
                 this.GoodsOutId = SQLHelper.GetNewID(typeof(Model.CostGoods_GoodsOut));
                 goodsOut.GoodsOutId = this.GoodsOutId;
                 BLL.GoodsOut2Service.AddGoodsOut(goodsOut);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加物资出库管理", goodsOut.GoodsOutId);
+                BLL.LogService.AddSys_Log(this.CurrUser, goodsOut.GoodsOutCode, goodsOut.GoodsOutId, BLL.Const.GoodsOut2MenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.GoodsOut2MenuId, this.GoodsOutId, (type == BLL.Const.BtnSubmit ? true : false), goodsOut.GoodsOutCode, "../CostGoods/GoodsOutView.aspx?GoodsOutId={0}");

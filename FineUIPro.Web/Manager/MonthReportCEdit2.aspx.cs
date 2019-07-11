@@ -187,7 +187,7 @@ namespace FineUIPro.Web.Manager
             Model.Manager_MonthReportC oldMonthReport = BLL.MonthReportCService.GetMonthReportByMonths(Convert.ToDateTime(Request.Params["months"]), this.CurrUser.LoginProjectId);
             if (oldMonthReport != null)
             {
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改HSE月报告", MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, oldMonthReport.MonthReportCode, oldMonthReport.MonthReportId, BLL.Const.ProjectManagerMonthCMenuId, BLL.Const.BtnModify);
                 OperatePersonSort(MonthReportId);
             }
             else
@@ -202,7 +202,7 @@ namespace FineUIPro.Web.Manager
                 monthReport.ReportMan = this.CurrUser.UserId;
                 monthReport.MonthReportDate = DateTime.Now;
                 BLL.MonthReportCService.AddMonthReport(monthReport);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加HSE月报告", monthReport.MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, monthReport.MonthReportCode, monthReport.MonthReportId, BLL.Const.ProjectManagerMonthCMenuId, BLL.Const.BtnAdd);
                 OperatePersonSort(newKeyID);
             }
             ShowNotify("保存成功!", MessageBoxIcon.Success);
@@ -215,16 +215,20 @@ namespace FineUIPro.Web.Manager
         private void OperatePersonSort(string monthReportId)
         {
             BLL.PersonSortCService.DeletePersonSortsByMonthReportId(monthReportId);
-            for (int i = 0; i < this.gvPersonSort.Rows.Count; i++)
+            JArray mergedData = gvPersonSort.GetMergedData();
+            foreach (JObject mergedRow in mergedData)
             {
+                string status = mergedRow.Value<string>("status");
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
                 Model.Manager_PersonSortC personSort = new Model.Manager_PersonSortC
                 {
                     MonthReportId = monthReportId,
                     UnitId = this.gvPersonSort.Rows[i].DataKeys[1].ToString(),
-                    SumPersonNum = Funs.GetNewIntOrZero(this.gvPersonSort.Rows[i].Values[1].ToString()),
-                    HSEPersonNum = Funs.GetNewIntOrZero(this.gvPersonSort.Rows[i].Values[2].ToString()),
-                    ContractRange = this.gvPersonSort.Rows[i].Values[3].ToString(),
-                    Remark = this.gvPersonSort.Rows[i].Values[4].ToString()
+                    SumPersonNum = Funs.GetNewIntOrZero(values.Value<string>("SumPersonNum").ToString()),
+                    HSEPersonNum = Funs.GetNewIntOrZero(values.Value<string>("HSEPersonNum").ToString()),
+                    ContractRange = values.Value<string>("ContractRange").ToString(),
+                    Remark = values.Value<string>("Remark").ToString()
                 };
                 BLL.PersonSortCService.AddPersonSort(personSort);
             }

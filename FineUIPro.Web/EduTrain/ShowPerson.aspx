@@ -23,7 +23,7 @@
             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="人员" EnableCollapse="true"
                 runat="server" BoxFlex="1" DataKeyNames="PersonId"   EnableCheckBoxSelect="true"
                 EnableColumnLines="true"  DataIDField="PersonId" AllowSorting="true" PageSize="10000"
-                SortField="UnitName,PersonName" SortDirection="ASC" OnSort="Grid1_Sort"                
+                SortField="InTime,PersonName" SortDirection="DESC" OnSort="Grid1_Sort"                
 				 EnableTextSelection="True" >
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server">
@@ -59,11 +59,11 @@
                     <f:RenderField Width="90px" ColumnID="PersonName" DataField="PersonName" FieldType="String"
                         HeaderText="人员姓名" HeaderTextAlign="Center" TextAlign="Left" SortField="PersonName">
                     </f:RenderField>
-                    <f:RenderField Width="150px" ColumnID="CardNo" DataField="CardNo" FieldType="String"
+                    <f:RenderField Width="100px" ColumnID="CardNo" DataField="CardNo" FieldType="String"
                         HeaderText="卡号" HeaderTextAlign="Center" TextAlign="Left" SortField="CardNo">
                     </f:RenderField>
                     <f:RenderField HeaderText="性别" ColumnID="Sex" DataField="Sex" SortField="Sex" FieldType="String"
-                        HeaderTextAlign="Center" TextAlign="Left" Width="80px">
+                        HeaderTextAlign="Center" TextAlign="Left" Width="70px">
                     </f:RenderField>
                     <f:RenderField HeaderText="岗位名称" ColumnID="WorkPostName" DataField="WorkPostName"
                         SortField="WorkPostName" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
@@ -72,6 +72,10 @@
                     <f:RenderField HeaderText="身份证号" ColumnID="IdentityCard" DataField="IdentityCard"
                         SortField="IdentityCard" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
                         Width="160px">
+                    </f:RenderField>
+                     <f:RenderField Width="90px" ColumnID="InTime" DataField="InTime"
+                        SortField="InTime" FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd"
+                        HeaderText="入场时间" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                    <%-- <f:TemplateField ColumnID="tfI" HeaderText="身份证号" Width="160px" HeaderTextAlign="Center" SortField="IdentityCard"
                         TextAlign="Center">

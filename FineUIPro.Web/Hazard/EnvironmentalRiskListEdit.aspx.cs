@@ -83,7 +83,7 @@ namespace FineUIPro.Web.Hazard
                 else
                 {
                     ////自动生成编码
-                    this.txtRiskCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectCheckDayMenuId, this.ProjectId, this.CurrUser.UnitId);
+                    this.txtRiskCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectEnvironmentalRiskListMenuId, this.ProjectId, this.CurrUser.UnitId);
                     this.drpCompileMan.SelectedValue = this.CurrUser.UserId;
                     this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                     this.txtIdentificationDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
@@ -193,7 +193,7 @@ namespace FineUIPro.Web.Hazard
             {
                 newEnvironmentalRiskList.EnvironmentalRiskListId = this.EnvironmentalRiskListId;
                 BLL.Hazard_EnvironmentalRiskListService.UpdateEnvironmentalRiskList(newEnvironmentalRiskList);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改环境危险源辨识与评价", newEnvironmentalRiskList.EnvironmentalRiskListId);
+                BLL.LogService.AddSys_Log(this.CurrUser, newEnvironmentalRiskList.RiskCode, newEnvironmentalRiskList.EnvironmentalRiskListId,BLL.Const.ProjectEnvironmentalRiskListMenuId,BLL.Const.BtnModify);
             }
             else
             {
@@ -201,7 +201,7 @@ namespace FineUIPro.Web.Hazard
                 this.EnvironmentalRiskListId = newEnvironmentalRiskList.EnvironmentalRiskListId;
                 newEnvironmentalRiskList.CompileMan = this.CurrUser.UserId;
                 BLL.Hazard_EnvironmentalRiskListService.AddEnvironmentalRiskList(newEnvironmentalRiskList);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加环境危险源辨识与评价", newEnvironmentalRiskList.EnvironmentalRiskListId);
+                BLL.LogService.AddSys_Log(this.CurrUser, newEnvironmentalRiskList.RiskCode, newEnvironmentalRiskList.EnvironmentalRiskListId, BLL.Const.ProjectEnvironmentalRiskListMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectEnvironmentalRiskListMenuId, this.EnvironmentalRiskListId, (type == BLL.Const.BtnSubmit ? true : false), this.txtCompileDate.Text.Trim(), "../Hazard/EnvironmentalRiskListView.aspx?EnvironmentalRiskListId={0}");

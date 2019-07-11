@@ -55,7 +55,10 @@ namespace BLL
                 CompletedDate = CheckColligationDetail.CompletedDate,
                 Suggestions = CheckColligationDetail.Suggestions,
                 WorkArea = CheckColligationDetail.WorkArea,
-                CheckContent = CheckColligationDetail.CheckContent
+                CheckContent = CheckColligationDetail.CheckContent,
+                HiddenDangerType = CheckColligationDetail.HiddenDangerType,
+                HiddenDangerLevel = CheckColligationDetail.HiddenDangerLevel,
+                PersonId = CheckColligationDetail.PersonId
             };
             db.Check_CheckColligationDetail.InsertOnSubmit(newCheckColligationDetail);
             db.SubmitChanges();
@@ -83,6 +86,9 @@ namespace BLL
                 newCheckColligationDetail.Suggestions = CheckColligationDetail.Suggestions;
                 newCheckColligationDetail.WorkArea = CheckColligationDetail.WorkArea;
                 newCheckColligationDetail.CheckContent = CheckColligationDetail.CheckContent;
+                newCheckColligationDetail.HiddenDangerType = CheckColligationDetail.HiddenDangerType;
+                newCheckColligationDetail.HiddenDangerLevel = CheckColligationDetail.HiddenDangerLevel;
+                newCheckColligationDetail.PersonId = CheckColligationDetail.PersonId;
                 db.SubmitChanges();
             }
         }
@@ -114,7 +120,7 @@ namespace BLL
         public static void DeleteCheckColligationDetailById(string checkColligationDetailId)
         {
             Model.SUBHSSEDB db = Funs.DB;
-            var q = (from x in db.Check_CheckColligationDetail where x.CheckColligationDetailId == checkColligationDetailId select x).FirstOrDefault();
+            var q = db.Check_CheckColligationDetail.FirstOrDefault(x => x.CheckColligationDetailId == checkColligationDetailId);
             if (q != null)
             {
                 ////删除附件表

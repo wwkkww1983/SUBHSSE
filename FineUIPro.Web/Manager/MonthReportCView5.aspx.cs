@@ -94,11 +94,8 @@ namespace FineUIPro.Web.Manager
                 {
                     this.MonthReportId = monthReport.MonthReportId;
                     this.ProjectId = monthReport.ProjectId;
+                    months = Convert.ToDateTime(monthReport.Months);
                     Model.SUBHSSEDB db = Funs.DB;
-                    this.txtActionPlanNum.Text = (monthReport.ActionPlanNum ?? 0).ToString();
-                    this.txtYearActionPlanNum.Text = (monthReport.YearActionPlanNum ?? 0).ToString();
-                    this.txtMonthSolutionNum.Text = (monthReport.MonthSolutionNum ?? 0).ToString();
-                    this.txtYearSolutionNum.Text = (monthReport.YearSolutionNum ?? 0).ToString();
                     //5.1.2 本月文件、方案修编情况说明
                     plans = (from x in db.Manager_Month_PlanC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
                     if (plans.Count > 0)
@@ -112,13 +109,6 @@ namespace FineUIPro.Web.Manager
                     {
                         this.gvReviewRecord.DataSource = reviewRecords;
                         this.gvReviewRecord.DataBind();
-                    }
-                    //5.3 HSE文件管理
-                    fileManages = (from x in db.Manager_Month_FileManageC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
-                    if (fileManages.Count > 0)
-                    {
-                        this.gvFileManage.DataSource = fileManages;
-                        this.gvFileManage.DataBind();
                     }
                 }
             }

@@ -1,16 +1,16 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
-using BLL;
 using AspNet = System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.Meeting
 {
     public partial class AttendMeeting : PageBase
-    {         
+    {
         /// <summary>
         /// 项目id
         /// </summary>
@@ -25,6 +25,7 @@ namespace FineUIPro.Web.Meeting
                 ViewState["ProjectId"] = value;
             }
         }
+
         #region 加载页面
         /// <summary>
         /// 加载页面
@@ -35,7 +36,6 @@ namespace FineUIPro.Web.Meeting
         {
             if (!IsPostBack)
             {
-               
                 this.ProjectId = this.CurrUser.LoginProjectId;
                 if (!string.IsNullOrEmpty(Request.Params["projectId"]) && Request.Params["projectId"] != this.ProjectId)
                 {
@@ -66,7 +66,7 @@ namespace FineUIPro.Web.Meeting
         private void BindGrid()
         {
             string strSql = "SELECT AttendMeeting.AttendMeetingId,AttendMeeting.ProjectId,CodeRecords.Code AS AttendMeetingCode,Unit.UnitId,Unit.UnitName,AttendMeeting.AttendMeetingName,AttendMeeting.AttendMeetingDate,AttendMeeting.CompileMan,AttendMeeting.AttendMeetingContents,AttendMeeting.CompileDate,AttendMeeting.States "
-                + @" ,(CASE WHEN AttendMeeting.States = " + BLL.Const.State_0 + " OR AttendMeeting.States IS NULL THEN '待['+OperateUser.UserName+']提交' WHEN AttendMeeting.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
+                + @" ,(CASE WHEN AttendMeeting.States = " + BLL.Const.State_0 + " OR AttendMeeting.States IS NULL THEN '待['+ISNULL(OperateUser.UserName,Users.UserName)+']提交' WHEN AttendMeeting.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
                 + @" FROM Meeting_AttendMeeting AS AttendMeeting "
                 + @" LEFT JOIN  Sys_CodeRecords AS CodeRecords ON AttendMeeting.AttendMeetingId=CodeRecords.DataId "
                 + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON AttendMeeting.AttendMeetingId=FlowOperate.DataId AND FlowOperate.IsClosed <> 1"
@@ -100,12 +100,12 @@ namespace FineUIPro.Web.Meeting
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 
             Grid1.RecordCount = tb.Rows.Count;
-            tb = GetFilteredTable(Grid1.FilteredData, tb);
+           // tb = GetFilteredTable(Grid1.FilteredData, tb);
             var table = this.GetPagedDataTable(Grid1, tb);
             Grid1.DataSource = table;
             Grid1.DataBind();
         }
- 
+
         /// <summary>
         /// 改变索引事件
         /// </summary>
@@ -206,7 +206,7 @@ namespace FineUIPro.Web.Meeting
                 {
                     PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttendMeetingEdit.aspx?AttendMeetingId={0}", id, "编辑 - ")));
                 }
-            }  
+            }
         }
         #endregion
 
@@ -223,13 +223,18 @@ namespace FineUIPro.Web.Meeting
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "删除其他会议记录", rowID);
-                    BLL.AttendMeetingService.DeleteAttendMeetingById(rowID);
+                    var meet = BLL.AttendMeetingService.GetAttendMeetingById(rowID);
+                    if (meet != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, meet.AttendMeetingCode, meet.AttendMeetingId, BLL.Const.ProjectAttendMeetingMenuId, BLL.Const.BtnDelete);
+                        BLL.AttendMeetingService.DeleteAttendMeetingById(rowID);
+                    }
                 }
 
-                this.BindGrid();
-                ShowNotify("删除数据成功!", MessageBoxIcon.Success);
             }
+
+            this.BindGrid();
+            ShowNotify("删除数据成功!", MessageBoxIcon.Success);
         }
         #endregion
 

@@ -11,6 +11,11 @@
         {
             text-align: center;
         }
+        .f-grid-row .f-grid-cell-inner
+        {
+            white-space: normal;
+            word-break: break-all;
+        }
     </style>
 </head>
 <body>
@@ -21,7 +26,7 @@
         <Rows>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtSuperviseCheckReportCode" runat="server" Label="检查编号" Required="true"   FocusOnPageLoad="true"
+                    <f:TextBox ID="txtSuperviseCheckReportCode" runat="server" Label="检查编号" Required="true" FocusOnPageLoad="true"
                         MaxLength="50" ShowRedStar="true" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
                     <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="检查日期" ID="dpkCheckDate">
@@ -30,11 +35,12 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:DropDownList ID="ddlUnitId" runat="server" Label="检查对象" Width="400px" EmptyText="请选择单位"
-                        Enabled="false">
+                    <f:DropDownList ID="ddlProjectId" runat="server"  EmptyText="请选择项目" EnableEdit="true"
+                        Label="检查对象" ShowRedStar="true" AutoPostBack="true" OnSelectedIndexChanged="ddlProjectId_SelectedIndexChanged" >
                     </f:DropDownList>
-                    <f:DropDownList ID="ddlProjectId" runat="server" Width="400px" EmptyText="请选择项目" EnableEdit="true">
+                    <f:DropDownList ID="ddlUnitId" runat="server" EmptyText="请选择单位" ShowRedStar="true">
                     </f:DropDownList>
+                   
                 </Items>
             </f:FormRow>
             <f:FormRow>
@@ -45,9 +51,9 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1"
+                    <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1" Height="280px"
                         DataKeyNames="SuperviseCheckReportItemId" EnableMultiSelect="false" ShowGridHeader="true"
-                        EnableColumnLines="true" OnRowCommand="Grid1_RowCommand" AutoScroll="true">
+                        EnableColumnLines="true" OnRowCommand="Grid1_RowCommand" >
                         <Toolbars>
                             <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
                                 <Items>
@@ -61,25 +67,25 @@
                         </Toolbars>
                         <Columns>
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center"/>
-                            <f:RenderField Width="100px" ColumnID="RectifyName" DataField="RectifyName" SortField="RectifyName"
+                            <f:RenderField Width="110px" ColumnID="RectifyName" DataField="RectifyName" SortField="RectifyName"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Center" HeaderText="作业类别">
                             </f:RenderField>
-                            <f:TemplateField Width="220px" HeaderText="隐患源点" HeaderTextAlign="Center" TextAlign="Left">
+                            <f:TemplateField Width="230px" HeaderText="隐患源点" HeaderTextAlign="Center" TextAlign="Left">
                                 <ItemTemplate>
                                     <asp:Label ID="Label5" runat="server" Text='<%# Bind("HazardSourcePoint") %>' ToolTip='<%#Bind("HazardSourcePoint") %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-                            <f:TemplateField Width="170px" HeaderText="风险分析" HeaderTextAlign="Center" TextAlign="Left">
+                            <f:TemplateField Width="200px" HeaderText="风险分析" HeaderTextAlign="Center" TextAlign="Left">
                                 <ItemTemplate>
                                     <asp:Label ID="Label4" runat="server" Text='<%# Bind("RiskAnalysis") %>' ToolTip='<%#Bind("RiskAnalysis") %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-                            <f:TemplateField Width="250px" HeaderText="风险防范" HeaderTextAlign="Center" TextAlign="Left">
+                            <f:TemplateField Width="250px" HeaderText="风险防范" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
                                 <ItemTemplate>
                                     <asp:Label ID="Label2" runat="server" Text='<%# Bind("RiskPrevention") %>' ToolTip='<%#Bind("RiskPrevention") %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-                            <f:TemplateField Width="110px" HeaderText="同类风险" HeaderTextAlign="Center" TextAlign="Left">
+                            <f:TemplateField Width="100px" HeaderText="同类风险" HeaderTextAlign="Center" TextAlign="Left">
                                 <ItemTemplate>
                                     <asp:Label ID="Label3" runat="server" Text='<%# Bind("SimilarRisk") %>' ToolTip='<%#Bind("SimilarRisk") %>'></asp:Label>
                                 </ItemTemplate>
@@ -100,10 +106,10 @@
                                     </f:TextBox>
                                 </Editor>
                             </f:RenderField>
-                            <f:LinkButtonField EnableAjax="false" Width="100px" CommandName="Attach" DataTextField="AttachUrlName"
+                            <f:LinkButtonField EnableAjax="false" Width="120px" CommandName="Attach" DataTextField="AttachUrlName"
                                 HeaderText="附件" ColumnID="AttachUrl" DataToolTipField="AttachUrlName" TextAlign="Left" />
-                            <f:LinkButtonField Width="30px" ConfirmText="删除选中行？" ConfirmTarget="Top" CommandName="Delete"
-                                Icon="Delete" Text="删除" />
+                            <f:LinkButtonField Width="30px" ConfirmText="删除选中行？" ConfirmTarget="Parent" CommandName="Delete"
+                                Icon="Delete" ToolTip="删除" />
                         </Columns>
                         <Listeners>
                             <f:Listener Event="dataload" Handler="onGridDataLoad" />

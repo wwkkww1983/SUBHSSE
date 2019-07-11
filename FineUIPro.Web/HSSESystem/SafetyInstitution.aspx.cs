@@ -191,8 +191,12 @@ namespace FineUIPro.Web.HSSESystem
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除安全制度", rowID);
-                    BLL.ServerSafetyInstitutionService.DeleteSafetyInstitutionById(rowID);
+                    var newSafetyInstitution = BLL.ServerSafetyInstitutionService.GetSafetyInstitutionById(rowID);
+                    if (newSafetyInstitution != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, newSafetyInstitution.SafetyInstitutionName, newSafetyInstitution.SafetyInstitutionId, BLL.Const.ServerSafetyInstitutionMenuId, BLL.Const.BtnDelete);
+                        BLL.ServerSafetyInstitutionService.DeleteSafetyInstitutionById(rowID);
+                    }
                 }
                 this.BindGrid();
                 ShowNotify("删除数据成功!", MessageBoxIcon.Success);

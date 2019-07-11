@@ -17,26 +17,18 @@
                 <Items>
                     <f:Form ID="Form2" ShowHeader="false" ShowBorder="false" runat="server">
                         <Rows>
-                            <f:FormRow>
+                            <f:FormRow ColumnWidths="60% 23% 8% 9%" >  
                                 <Items>
                                      <f:DropDownList ID="drpUnit" runat="server" LabelWidth="50px" Label="单位" 
                                         OnClearIconClick="drpUnit_ClearIconClick" EnableCheckBoxSelect="true"
                                          EnableMultiSelect="true" AutoShowClearIcon="true" EnableClearIconClickEvent="true" EnableEdit="true">
-                                    </f:DropDownList>                                                                      
-                                </Items>
-                            </f:FormRow>
-                            <f:FormRow ColumnWidths="30% 20% 20% 20% 10%">                                
-                                <Items>
-                                    <f:DropDownList ID="drpChartType" runat="server" LabelWidth="70px" Label="图形类型" 
+                                    </f:DropDownList>
+                                     <f:DropDownList ID="drpChartType" runat="server" LabelWidth="80px" Label="图形类型" 
                                         AutoPostBack="true" OnSelectedIndexChanged="drpChartType_SelectedIndexChanged" >
                                     </f:DropDownList>
-                                    <f:Label ID="Label2" runat="server">
-                                    </f:Label>
-                                    <f:CheckBox ID="ckbShow" runat="server" LabelWidth="70px" Label="三维效果" 
+                                    <f:CheckBox ID="ckbShow" runat="server" LabelWidth="80px" Label="三维效果" 
                                         AutoPostBack="true" OnCheckedChanged="ckbShow_CheckedChanged">
                                     </f:CheckBox>
-                                    <f:Label ID="Label1" runat="server">
-                                    </f:Label>
                                     <f:Button ID="BtnAnalyse" Text="统计" Icon="ChartPie" runat="server" OnClick="BtnAnalyse_Click"></f:Button>
                                 </Items>
                             </f:FormRow>

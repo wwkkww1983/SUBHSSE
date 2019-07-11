@@ -120,10 +120,13 @@ namespace FineUIPro.Web.ProjectAccident
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-
-                    BLL.AccidentAnalysisItemService.DeleteAccidentAnalysisItemByAccidentAnalysisId(rowID);
-                    BLL.AccidentAnalysisService.DeleteAccidentAnalysisById(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除事故统计信息");
+                    var getD = BLL.AccidentAnalysisService.GetAccidentAnalysisById(rowID);
+                    if (getD != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, null, getD.AccidentAnalysisId,BLL.Const.ServerAccidentAnalysisMenuId,BLL.Const.BtnDelete);
+                        BLL.AccidentAnalysisItemService.DeleteAccidentAnalysisItemByAccidentAnalysisId(rowID);
+                        BLL.AccidentAnalysisService.DeleteAccidentAnalysisById(rowID);
+                    }
 
                 }
                 BindGrid();

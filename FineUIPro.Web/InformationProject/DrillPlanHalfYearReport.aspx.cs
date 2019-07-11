@@ -212,10 +212,13 @@ namespace FineUIPro.Web.InformationProject
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "删除应急演练工作计划半年报");
-                    BLL.ProjectDrillPlanHalfYearReportItemService.DeleteDrillPlanHalfYearReportItemList(rowID);
-                    BLL.ProjectDrillPlanHalfYearReportService.DeleteDrillPlanHalfYearReportById(rowID);
-                }
+                    var getV = BLL.ProjectDrillPlanHalfYearReportService.GetDrillPlanHalfYearReportById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.YearId.ToString() + "-" +getV.HalfYearId.ToString(), getV.DrillPlanHalfYearReportId, BLL.Const.ProjectDrillPlanHalfYearReportMenuId, BLL.Const.BtnDelete);
+                        BLL.ProjectDrillPlanHalfYearReportItemService.DeleteDrillPlanHalfYearReportItemList(rowID);
+                        BLL.ProjectDrillPlanHalfYearReportService.DeleteDrillPlanHalfYearReportById(rowID);
+                    } }
 
                 this.BindGrid();
                 ShowNotify("删除数据成功!", MessageBoxIcon.Success);

@@ -99,8 +99,9 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void btnDelete_Click(object sender, EventArgs e)
         {
+            BLL.LogService.AddSys_Log(this.CurrUser, this.txtSolutionTempleteTypeCode.Text, hfFormID.Text, BLL.Const.SolutionTempleteTypeMenuId, BLL.Const.BtnDelete);
             BLL.SolutionTempleteTypeService.DeleteSolutionTempleteTypeById(hfFormID.Text);
-            BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除施工方案类型", hfFormID.Text);
+          
             // 重新绑定表格，并模拟点击[新增按钮]
             BindGrid();
             PageContext.RegisterStartupScript("onNewButtonClick();");
@@ -118,9 +119,12 @@ namespace FineUIPro.Web.BaseInfo
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-
-                    BLL.SolutionTempleteTypeService.DeleteSolutionTempleteTypeById(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除施工方案类型");
+                    var getV = BLL.SolutionTempleteTypeService.GetSolutionTempleteTypeById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.SolutionTempleteTypeCode, getV.SolutionTempleteTypeCode, BLL.Const.SolutionTempleteTypeMenuId, BLL.Const.BtnDelete);
+                        BLL.SolutionTempleteTypeService.DeleteSolutionTempleteTypeById(rowID);
+                    }
                 }
                 BindGrid();
                 PageContext.RegisterStartupScript("onNewButtonClick();");
@@ -178,12 +182,12 @@ namespace FineUIPro.Web.BaseInfo
             if (string.IsNullOrEmpty(strRowID))
             {
                 BLL.SolutionTempleteTypeService.AddSolutionTempleteType(solutionTempleteType);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加施工方案类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, solutionTempleteType.SolutionTempleteTypeCode, solutionTempleteType.SolutionTempleteTypeCode, BLL.Const.SolutionTempleteTypeMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 BLL.SolutionTempleteTypeService.UpdateSolutionTempleteType(solutionTempleteType);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改施工方案类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, solutionTempleteType.SolutionTempleteTypeCode, solutionTempleteType.SolutionTempleteTypeCode, BLL.Const.SolutionTempleteTypeMenuId, BLL.Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行

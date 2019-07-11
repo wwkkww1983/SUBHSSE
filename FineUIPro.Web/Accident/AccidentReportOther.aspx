@@ -24,11 +24,13 @@
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
                             <f:TextBox runat="server" Label="事故编号" ID="txtAccidentReportOtherCode" EmptyText="输入查询条件"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="300px" LabelWidth="100px"
-                                LabelAlign="right">
+                                Width="300px" LabelWidth="100px" LabelAlign="right">
                             </f:TextBox>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
+                             <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch" 
+                                 EnablePostBack="true" OnClick="TextBox_TextChanged" runat="server" >
+                            </f:Button>
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" Hidden="true"
                                 runat="server">
                             </f:Button>
@@ -113,7 +115,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="事故调查处理报告" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="1024px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1024px"
         Height="650px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
@@ -121,7 +123,7 @@
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server"
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server"
             Text="删除">
         </f:MenuButton>
     </f:Menu>

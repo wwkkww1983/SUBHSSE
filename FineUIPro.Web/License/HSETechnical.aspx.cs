@@ -48,6 +48,7 @@ namespace FineUIPro.Web.License
                 {
                     this.ProjectId = Request.Params["projectId"];
                 }
+                BLL.UnitService.InitUnitDropDownList(this.drpUnit, this.ProjectId, true);
                 this.btnNew.OnClientClick = Window1.GetShowReference("HSETechnicalEdit.aspx") + "return false;";
                 if (this.CurrUser != null && this.CurrUser.PageSize.HasValue)
                 {
@@ -77,7 +78,7 @@ namespace FineUIPro.Web.License
                             + @"Unit.UnitName,"
                             + @"TeamGroup.TeamGroupName,"
                             + @"Users.UserName,"
-                            + @"(CASE WHEN HSETechnical.States = " + BLL.Const.State_0 + " OR HSETechnical.States IS NULL THEN '待['+Users.UserName+']提交' WHEN HSETechnical.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
+                            + @"(CASE WHEN HSETechnical.States = " + BLL.Const.State_0 + " OR HSETechnical.States IS NULL THEN ISNULL(OperateUser.UserName,Users.UserName) WHEN HSETechnical.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
                    + @" FROM License_HSETechnical AS HSETechnical "
                    + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId = HSETechnical.UnitId "
                    + @" LEFT JOIN ProjectData_TeamGroup AS TeamGroup ON TeamGroup.TeamGroupId = HSETechnical.TeamGroupId "
@@ -112,6 +113,12 @@ namespace FineUIPro.Web.License
                 strSql += " AND HSETechnical.WorkContents LIKE @WorkContents";
                 listStr.Add(new SqlParameter("@WorkContents", "%" + this.txtWorkContents.Text.Trim() + "%"));
             }
+            if (this.drpUnit.SelectedValue != BLL.Const._Null && !string.IsNullOrEmpty(this.drpUnit.SelectedValue))
+            {
+                strSql += " AND HSETechnical.UnitId = @UnitId2";
+                listStr.Add(new SqlParameter("@UnitId2", this.drpUnit.SelectedValue));
+            }
+
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 
@@ -240,8 +247,12 @@ namespace FineUIPro.Web.License
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除安全技术交底", rowID);
-                    BLL.HSETechnicalService.DeleteHSETechnicalById(rowID);
+                    var getV = BLL.HSETechnicalService.GetHSETechnicalById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.HSETechnicalCode, getV.HSETechnicalId,BLL.Const.ProjectHSETechnicalMenuId,BLL.Const.BtnDelete); 
+                        BLL.HSETechnicalService.DeleteHSETechnicalById(rowID);
+                    }
                 }
 
                 this.BindGrid();

@@ -46,12 +46,11 @@
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="250px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
-                        FieldType="String" HeaderText="受检单位" TextAlign="Left" HeaderTextAlign="Center"
-                        ExpandUnusedSpace="true">
+                    <f:RenderField Width="240px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
+                        FieldType="String" HeaderText="受检单位" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="250px" ColumnID="SubjectObject" DataField="SubjectObject" SortField="SubjectObject"
-                        FieldType="String" HeaderText="受检对象" TextAlign="Left" HeaderTextAlign="Center">
+                    <f:RenderField Width="260px" ColumnID="SubjectObject" DataField="SubjectObject" SortField="SubjectObject"
+                        FieldType="String" HeaderText="受检对象" TextAlign="Left" HeaderTextAlign="Center" ExpandUnusedSpace="true">
                     </f:RenderField>
                     <f:RenderField Width="100px" ColumnID="CheckStartTime" DataField="CheckStartTime"
                         SortField="CheckStartTime" FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd"
@@ -65,7 +64,7 @@
                         SortField="SubjectUnitAdd" FieldType="String" HeaderText="单位地址" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="SubjectUnitMan" DataField="SubjectUnitMan"
+                    <f:RenderField Width="120px" ColumnID="SubjectUnitMan" DataField="SubjectUnitMan"
                         SortField="SubjectUnitMan" FieldType="String" HeaderText="单位负责人" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
@@ -90,9 +89,9 @@
             </f:Grid>
         </Items>
     </f:Panel>
-    <f:Window ID="Window1" runat="server" Hidden="true" ShowHeader="false" IsModal="false"
-        Target="Parent" EnableMaximize="true" EnableResize="true" Title="编辑安全监督检查整改"
-        CloseAction="HidePostBack" EnableIFrame="true" Height="480px" Width="1100px">
+    <f:Window ID="Window1" runat="server" Hidden="true" ShowHeader="true" IsModal="false"
+        Target="Parent" EnableMaximize="true" EnableResize="true" Title="安全监督检查报告查看"
+        EnableIFrame="true" Height="560px" Width="1100px">
     </f:Window>
     </form>
     <script type="text/javascript">

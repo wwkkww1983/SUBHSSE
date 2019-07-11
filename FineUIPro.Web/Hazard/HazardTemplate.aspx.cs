@@ -273,11 +273,14 @@ namespace FineUIPro.Web.Hazard
             {
                 nodeId = nodeId.Substring(nodeId.LastIndexOf('#') + 1);
             }
-            string strSql = "select * from View_Technique_HazardList where HazardListTypeId=@HazardListTypeId and IsPass=@IsPass";
-
-            List<SqlParameter> listStr = new List<SqlParameter>();
-            listStr.Add(new SqlParameter("@HazardListTypeId", nodeId));
-            listStr.Add(new SqlParameter("@IsPass", true));
+            string strSql = @"SELECT HazardId,HazardListTypeId,HazardListTypeCode,HazardListTypeName,HazardCode,HazardItems,DefectsType,MayLeadAccidents,HelperMethod"
+                          + @" , HazardJudge_L, HazardJudge_E, HazardJudge_C, HazardJudge_D, HazardLevel, ControlMeasures, CompileMan, CompileDate, AuditMan, AuditDate, IsPass, CompileManName, AuditManName "
+                          + @"FROM View_Technique_HazardList where HazardListTypeId=@HazardListTypeId and IsPass=@IsPass";
+            List<SqlParameter> listStr = new List<SqlParameter>
+            {
+                new SqlParameter("@HazardListTypeId", nodeId),
+                new SqlParameter("@IsPass", true)
+            };
 
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
@@ -485,13 +488,18 @@ namespace FineUIPro.Web.Hazard
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    if (BLL.Hazard_HazardSelectedItemService.GetHazardSelectedItemByHazardId(rowID) != null)
+                    var getD= BLL.HazardListService.GetHazardListById(rowID);
+                    if (getD != null)
                     {
-                        Alert.ShowInTop("在项目级危险源评价清单中已使用该资源，无法删除！", MessageBoxIcon.Warning);
-                        return;
+                        if (BLL.Hazard_HazardSelectedItemService.GetHazardSelectedItemByHazardId(rowID) != null)
+                        {
+                            Alert.ShowInTop("在项目级危险源评价清单中已使用该资源，无法删除！", MessageBoxIcon.Warning);
+                            return;
+                        }
+                        BLL.LogService.AddSys_Log(this.CurrUser, getD.HazardCode, getD.HazardId, BLL.Const.HazardListMenuId, BLL.Const.BtnDelete);
+                        BLL.HazardListService.DeleteHazardListById(rowID);
+                       
                     }
-                    BLL.HazardListService.DeleteHazardListById(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除危险源清单");
                 }
                 BindGrid();
                 ShowNotify("删除数据成功!");

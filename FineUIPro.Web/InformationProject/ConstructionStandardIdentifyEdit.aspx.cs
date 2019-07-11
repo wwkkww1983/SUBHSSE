@@ -616,14 +616,14 @@ namespace FineUIPro.Web.InformationProject
                     this.ConstructionStandardIdentifyId = SQLHelper.GetNewID(typeof(Model.InformationProject_ConstructionStandardIdentify));
                     constructionStandardIdentify.ConstructionStandardIdentifyId = this.ConstructionStandardIdentifyId;
                     BLL.ConstructionStandardIdentifyService.AddConstructionStandardIdentify(constructionStandardIdentify);
-                    BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "编制标准规范识别报告");
+                    BLL.LogService.AddSys_Log(this.CurrUser, constructionStandardIdentify.ConstructionStandardIdentifyCode, constructionStandardIdentify.ConstructionStandardIdentifyId, BLL.Const.ConstructionStandardIdentifyMenuId, BLL.Const.BtnAdd);
                 }
                 else   //重新选择
                 {
                     constructionStandardIdentify.ConstructionStandardIdentifyId = this.ConstructionStandardIdentifyId;
                     BLL.ConstructionStandardIdentifyService.UpdateConstructionStandardIdentify(constructionStandardIdentify);
-                    BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "修改标准规范识别报告");
-                    BLL.ConstructionStandardSelectedItemService.DeleteConstructionStandardSelectedItemByConstructionStandardIdentifyId(ConstructionStandardIdentifyId);
+                BLL.LogService.AddSys_Log(this.CurrUser, constructionStandardIdentify.ConstructionStandardIdentifyCode, constructionStandardIdentify.ConstructionStandardIdentifyId, BLL.Const.ConstructionStandardIdentifyMenuId, BLL.Const.BtnModify);
+                BLL.ConstructionStandardSelectedItemService.DeleteConstructionStandardSelectedItemByConstructionStandardIdentifyId(ConstructionStandardIdentifyId);
                 }
                 if (this.ckbAll.Checked == true)
                 {

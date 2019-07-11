@@ -39,7 +39,7 @@
                 <Columns>
                     <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center"/>
                     <f:RenderField Width="120px" ColumnID="TestType" DataField="TestType" SortField="TestType"
-                        FieldType="String" HeaderText="试题类型" HeaderTextAlign="Center" TextAlign="Center">
+                        FieldType="String" HeaderText="试题类型" HeaderTextAlign="Center" TextAlign="Center" ExpandUnusedSpace="true">
                     </f:RenderField>
                     <f:RenderField Width="150px" ColumnID="ItemType" DataField="ItemType" FieldType="String"
                         HeaderText="题型" HeaderTextAlign="Center" TextAlign="Center">
@@ -78,15 +78,15 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="试题库维护" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Self" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="800px" Height="520px" AutoScroll="true">
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Width="800px" Height="560px" >
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true"
             runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

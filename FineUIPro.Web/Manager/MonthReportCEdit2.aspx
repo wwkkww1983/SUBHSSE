@@ -20,7 +20,7 @@
                             <f:Grid ID="gvPersonSort" ShowBorder="true" ShowHeader="false" Title="本月项目现场HSE人力投入情况"
                                 runat="server" AllowCellEditing="true" ClicksToEdit="1" DataIDField="PersonSortId"
                                 DataKeyNames="PersonSortId,UnitId" EnableMultiSelect="false" ShowGridHeader="true"
-                                Height="420px" EnableColumnLines="true" AutoScroll="true" EnableSummary="true"
+                                Height="420px" EnableColumnLines="true"  EnableSummary="true"
                                 SummaryPosition="Flow">
                                 <Columns>
                                     <f:TemplateField Width="250px" HeaderText="单位" HeaderTextAlign="Center" TextAlign="Left"

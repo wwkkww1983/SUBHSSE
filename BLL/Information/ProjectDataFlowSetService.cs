@@ -240,7 +240,7 @@
             {
                 operaterName = "已完成";
             }
-            else if (state == Const.State_3)
+            else if (state == Const.State_R)
             {
                 operaterName = "重申请";
             }

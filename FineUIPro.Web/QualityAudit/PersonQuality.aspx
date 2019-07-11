@@ -15,7 +15,7 @@
 <body>
     <form id="form1" runat="server">
     <f:PageManager ID="PageManager1" AutoSizePanelID="Panel1" runat="server" />
-    <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" ShowBorder="false"
+    <f:Panel ID="Panel1" runat="server" Margin="10px" BodyPadding="10px" ShowBorder="false"
         ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch" AutoScroll="true">
         <Items>
             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="特殊岗位人员资质" EnableCollapse="true"
@@ -119,8 +119,8 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="特殊岗位人员资质" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="800px"
-        Height="450px">
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1000px"
+        Height="650px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件页面" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"

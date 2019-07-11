@@ -258,13 +258,13 @@ namespace FineUIPro.Web.ServerCheck
                 {
                     newUpCheckReport.UpCheckReportId = this.UpCheckReportId;
                     BLL.UpCheckReportService.UpdateUpCheckReport(newUpCheckReport);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "增加安全监督检查报告！");
+                    BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, newUpCheckReport.UpCheckReportId, BLL.Const.UpCheckReportMenuId, BLL.Const.BtnModify);
                 }
                 else
                 {
                    this.UpCheckReportId = newUpCheckReport.UpCheckReportId = SQLHelper.GetNewID(typeof(Model.Supervise_UpCheckReport));
                     BLL.UpCheckReportService.AddUpCheckReport(newUpCheckReport);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改安全监督检查报告！");
+                    BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, newUpCheckReport.UpCheckReportId, BLL.Const.UpCheckReportMenuId, BLL.Const.BtnAdd);
                 }
 
                 if (gvItem.GetModifiedData().Count > 0 && !string.IsNullOrEmpty(newUpCheckReport.UpCheckReportId))
@@ -445,11 +445,11 @@ namespace FineUIPro.Web.ServerCheck
                         BLL.UpCheckReportService.UpdateUpCheckReport(report);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全监督检查评价报告】上传到服务器" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全监督检查评价报告】上传到服务器" + idList.Count.ToString() + "条数据；",string.Empty,BLL.Const.UpCheckReportMenuId,BLL.Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全监督检查评价报告】上传到服务器失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全监督检查评价报告】上传到服务器失败；", string.Empty, BLL.Const.UpCheckReportMenuId, BLL.Const.BtnUploadResources);
             }
         }
         #endregion

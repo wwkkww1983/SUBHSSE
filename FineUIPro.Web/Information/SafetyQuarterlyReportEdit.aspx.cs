@@ -913,7 +913,7 @@ namespace FineUIPro.Web.Information
                     safetyQuarterlyReport.HandleMan = this.CurrUser.UserId;
                     safetyQuarterlyReport.HandleState = BLL.Const.HandleState_1;
                     BLL.SafetyQuarterlyReportService.AddSafetyQuarterlyReport(safetyQuarterlyReport);
-                    BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加安全生产数据季报", (this.ddlYearId.SelectedText + "-" + this.ddlQuarter.SelectedText));
+                    BLL.LogService.AddSys_Log(this.CurrUser, (this.ddlYearId.SelectedText + "-" + this.ddlQuarter.SelectedText), safetyQuarterlyReport.SafetyQuarterlyReportId,BLL.Const.SafetyQuarterlyReportMenuId,BLL.Const.BtnAdd);
                 }
             }
             else
@@ -926,8 +926,8 @@ namespace FineUIPro.Web.Information
                 }
                 safetyQuarterlyReport.SafetyQuarterlyReportId = this.SafetyQuarterlyReportId;
                 safetyQuarterlyReport.UpState = BLL.Const.UpState_2;
-                BLL.SafetyQuarterlyReportService.UpdateSafetyQuarterlyReport(safetyQuarterlyReport);                
-                BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改安全生产数据季报", (this.ddlYearId.SelectedText + "-" + this.ddlQuarter.SelectedText));
+                BLL.SafetyQuarterlyReportService.UpdateSafetyQuarterlyReport(safetyQuarterlyReport);
+                BLL.LogService.AddSys_Log(this.CurrUser, (this.ddlYearId.SelectedText + "-" + this.ddlQuarter.SelectedText), safetyQuarterlyReport.SafetyQuarterlyReportId, BLL.Const.SafetyQuarterlyReportMenuId, BLL.Const.BtnModify);
             }
             if (type == "updata")     //保存并上报
             {
@@ -1101,13 +1101,12 @@ namespace FineUIPro.Web.Information
                         }
                     }
                 }
-                
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "【安全生产数据季报】上传到服务器" + idList.Count.ToString() + "条数据；");
 
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全生产数据季报】上传到服务器" + idList.Count.ToString() + "条数据；",null, BLL.Const.SafetyQuarterlyReportMenuId, BLL.Const.BtnUploadResources);
             }
             else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "【安全生产数据季报】上传到服务器失败；");
+            {                
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全生产数据季报】上传到服务器失败；", null, BLL.Const.SafetyQuarterlyReportMenuId, BLL.Const.BtnUploadResources);
             }
         }
         #endregion

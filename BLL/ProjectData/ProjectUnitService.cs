@@ -58,10 +58,10 @@
         /// 增加项目单位信息
         /// </summary>
         /// <returns></returns>
-        public static void AddProjectUnit(Model.Project_ProjectUnit projectUnit)
+        public static void AddProjectUnit(Project_ProjectUnit projectUnit)
         {
-            Model.SUBHSSEDB db = Funs.DB;
-            Model.Project_ProjectUnit newProjectUnit = new Project_ProjectUnit
+            SUBHSSEDB db = Funs.DB;
+            Project_ProjectUnit newProjectUnit = new Project_ProjectUnit
             {
                 ProjectUnitId = SQLHelper.GetNewID(typeof(Model.Project_ProjectUnit)),
                 ProjectId = projectUnit.ProjectId,

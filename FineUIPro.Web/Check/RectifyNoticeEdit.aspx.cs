@@ -232,14 +232,14 @@ namespace FineUIPro.Web.Check
             {
                 rectifyNotices.RectifyNoticesId = this.RectifyNoticeId;
                 BLL.RectifyNoticesService.UpdateRectifyNotices(rectifyNotices);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改隐患整改通知单");
+                BLL.LogService.AddSys_Log(this.CurrUser, rectifyNotices.RectifyNoticesCode, rectifyNotices.RectifyNoticesId,BLL.Const.ProjectRectifyNoticeMenuId,BLL.Const.BtnModify);
             }
             else
             {
                 this.RectifyNoticeId = SQLHelper.GetNewID(typeof(Model.Check_RectifyNotices));
                 rectifyNotices.RectifyNoticesId = this.RectifyNoticeId;
                 BLL.RectifyNoticesService.AddRectifyNotices(rectifyNotices);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加隐患整改通知单");
+                BLL.LogService.AddSys_Log(this.CurrUser, rectifyNotices.RectifyNoticesCode, rectifyNotices.RectifyNoticesId, BLL.Const.ProjectRectifyNoticeMenuId, BLL.Const.BtnAdd);
                 ///写入工程师日志
                 BLL.HSSELogService.CollectHSSELog(rectifyNotices.ProjectId, rectifyNotices.SignPerson, rectifyNotices.SignDate, "22", rectifyNotices.WrongContent, Const.BtnAdd, 1);
             }

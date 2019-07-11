@@ -301,7 +301,7 @@ namespace FineUIPro.Web.Hazard
                 registration.State = registration1.State;
                 registration.RegistrationId = this.RegistrationId;
                 BLL.Hazard_RegistrationService.UpdateRegistration(registration);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改危险观察登记", registration.RegistrationId);
+                BLL.LogService.AddSys_Log(this.CurrUser, registration.HazardCode, registration.RegistrationId,BLL.Const.RegisterMenuId,BLL.Const.BtnModify);
             }
             else
             {
@@ -310,7 +310,7 @@ namespace FineUIPro.Web.Hazard
                 registration.State = BLL.Const.RegistrationState_0;
                 this.RegistrationId = registration.RegistrationId;
                 BLL.Hazard_RegistrationService.AddRegistration(registration);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "增加危险观察登记", registration.RegistrationId);
+                BLL.LogService.AddSys_Log(this.CurrUser, registration.HazardCode, registration.RegistrationId, BLL.Const.RegisterMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.HazardRegisterMenuId, this.RegistrationId, (type == BLL.Const.BtnSubmit ? true : false), this.txtProblemTypes.Text.Trim(), "../Hazard/RegistrationView.aspx?RegistrationId={0}");

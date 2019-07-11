@@ -39,23 +39,16 @@ namespace FineUIPro.Web.Supervise
         private void BindGrid()
         {
             string strSql = string.Empty;
-            SqlParameter[] parameter = new SqlParameter[] { };
-            if (BLL.CommonService.IsMainUnitOrAdmin(this.CurrUser.UserId))    //集团公司加载所有单位
+          
+            strSql = "select * from View_Supervise_SuperviseCheckRectify WHERE 1= 1";
+            List<SqlParameter> listStr = new List<SqlParameter>();
+            if (!string.IsNullOrEmpty(this.txtName.Text.Trim()))
             {
-                strSql = "select * from View_Supervise_SuperviseCheckRectify order by HandleState";
+                strSql += " AND (SuperviseCheckRectifyCode like @name OR ProjectName like @name OR UnitName like @name OR HandleState like @name)";
+                listStr.Add(new SqlParameter("@name", "%" + this.txtName.Text.Trim() + "%"));
             }
-            else
-            {
-                strSql = "select * from View_Supervise_SuperviseCheckRectify where UnitId = @UnitId and (HandleState='2' or HandleState='3') order by HandleState";
-                parameter = new SqlParameter[]       
-                    {
-                        new SqlParameter("@UnitId",this.CurrUser.UnitId),
-                    };
-            }
+            SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
-
-            // 2.获取当前分页数据
-            //var table = this.GetPagedDataTable(Grid1, tb1);
 
             Grid1.RecordCount = tb.Rows.Count;
             tb = GetFilteredTable(Grid1.FilteredData, tb);
@@ -70,9 +63,13 @@ namespace FineUIPro.Web.Supervise
                 {
                     if (rectify.HandleState == "1")
                     {
+                        Grid1.Rows[i].RowCssClass = "green";
+                    }
+                    if (rectify.HandleState == "2")
+                    {
                         Grid1.Rows[i].RowCssClass = "yellow";
                     }
-                    else if (rectify.HandleState == "2")
+                    else if (rectify.HandleState == "3")
                     {
                         Grid1.Rows[i].RowCssClass = "red";
                     }
@@ -300,7 +297,7 @@ namespace FineUIPro.Web.Supervise
             Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("安全监督检查整改" + filename, System.Text.Encoding.UTF8) + ".xls");
             Response.ContentType = "application/excel";
             Response.ContentEncoding = System.Text.Encoding.UTF8;
-            Response.Write(GetGridTableHtml(Grid1));
+            Response.Write(GetGridTableHtmls(Grid1));
             Response.End();
 
         }
@@ -310,7 +307,7 @@ namespace FineUIPro.Web.Supervise
         /// </summary>
         /// <param name="grid"></param>
         /// <returns></returns>
-        private string GetGridTableHtml(Grid grid)
+        private string GetGridTableHtmls(Grid grid)
         {
             StringBuilder sb = new StringBuilder();
             MultiHeaderTable mht = new MultiHeaderTable();
@@ -481,6 +478,15 @@ namespace FineUIPro.Web.Supervise
         }
         #endregion
         #endregion
-    }
 
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void txtName_TextChanged(object sender, EventArgs e)
+        {
+            this.BindGrid();
+        }
+    }
 }

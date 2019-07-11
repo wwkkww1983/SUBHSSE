@@ -237,7 +237,7 @@ namespace FineUIPro.Web.Administrative
                 }
                 checkTypeSet.SupCheckTypeCode = this.CheckTypeCode;
                 BLL.CheckTypeSetService.AddCheckTypeSet(checkTypeSet);
-                BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加检查类别设置", this.CheckTypeCode);
+                BLL.LogService.AddSys_Log(this.CurrUser, this.txtCheckTypeCode.Text, this.CheckTypeCode, BLL.Const.CheckTypeSetMenuId, BLL.Const.BtnAdd);
             }
             if (this.OperateState == "修改")
             {
@@ -253,7 +253,7 @@ namespace FineUIPro.Web.Administrative
                 }
                 checkTypeSet.CheckTypeCode = this.CheckTypeCode;
                 BLL.CheckTypeSetService.UpdateCheckTypeSet(checkTypeSet);
-                BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改检查类别设置", this.CheckTypeCode);
+                BLL.LogService.AddSys_Log(this.CurrUser, this.txtCheckTypeCode.Text, this.CheckTypeCode, BLL.Const.CheckTypeSetMenuId, BLL.Const.BtnModify);
 
             }
             // 重新绑定表格，并点击当前编辑或者新增的行
@@ -275,11 +275,11 @@ namespace FineUIPro.Web.Administrative
         {
             if (this.CheckTypeCode != null && this.tvCheckTypeSet.SelectedNode.NodeID != "0")
             {
+                BLL.LogService.AddSys_Log(this.CurrUser, this.txtCheckTypeCode.Text, this.CheckTypeCode, BLL.Const.CheckTypeSetMenuId, BLL.Const.BtnDelete);
                 DeleteCheckTypeSets(CheckTypeCode);
                 CheckTypeSetDataBind();
                 this.tvCheckTypeSet.ExpandAllNodes();
                 ResetInterface();
-                BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除检查类别", CheckTypeCode);
                 //Alert.Show("删除成功！", MessageBoxIcon.Success);
             }
             else

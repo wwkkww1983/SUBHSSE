@@ -55,13 +55,17 @@ namespace FineUIPro.Web.CostGoods
                 btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 this.CostManageId = Request.Params["CostManageId"];
                 this.CostManageItemId = Request.Params["CostManageItemId"];
+                this.drpInvestCostProject.DataTextField = "Text";
+                this.drpInvestCostProject.DataValueField = "Value";
+                this.drpInvestCostProject.DataSource = BLL.CostManageItemService.GetInvestCostProjectList();
+                this.drpInvestCostProject.DataBind();
                 if (!string.IsNullOrEmpty(this.CostManageItemId))
                 {
                     Model.CostGoods_CostManageItem costManageItem = BLL.CostManageItemService.GetCostManageItemById(this.CostManageItemId);
                     if (costManageItem != null)
                     {
                         this.CostManageId = costManageItem.CostManageId;
-                        this.txtInvestCostProject.Text = costManageItem.InvestCostProject;
+                        this.drpInvestCostProject.SelectedValue = costManageItem.InvestCostProject;
                         this.txtUseReason.Text = costManageItem.UseReason;
                         if (costManageItem.Counts != null)
                         {
@@ -72,7 +76,6 @@ namespace FineUIPro.Web.CostGoods
                             this.txtPriceMoney.Text = Convert.ToString(costManageItem.PriceMoney);
                         }
                         this.txtTotalMoney.Text = Convert.ToString(costManageItem.Counts * costManageItem.PriceMoney);
-                        this.txtRemark.Text = costManageItem.Remark;
                     }
                 }
             }
@@ -90,11 +93,10 @@ namespace FineUIPro.Web.CostGoods
             Model.CostGoods_CostManageItem costManageItem = new Model.CostGoods_CostManageItem
             {
                 CostManageId = this.CostManageId,
-                InvestCostProject = this.txtInvestCostProject.Text.Trim(),
+                InvestCostProject = this.drpInvestCostProject.SelectedValue,
                 UseReason = this.txtUseReason.Text.Trim(),
                 Counts = Funs.GetNewInt(this.txtCount.Text.Trim()),
                 PriceMoney = Funs.GetNewDecimalOrZero(this.txtPriceMoney.Text.Trim()),
-                Remark = this.txtRemark.Text.Trim()
             };
             if (!string.IsNullOrEmpty(this.CostManageItemId))
             {

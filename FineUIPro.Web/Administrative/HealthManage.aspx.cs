@@ -53,7 +53,7 @@ namespace FineUIPro.Web.Administrative
                 + @"HealthManage.CompileMan, "
                 + @"HealthManage.CompileDate, "
                 + @"Users.UserName AS PersonName, "
-                 + @"(CASE WHEN HealthManage.States = " + BLL.Const.State_0 + " OR HealthManage.States IS NULL THEN '待['+Users.UserName+']提交' WHEN HealthManage.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
+                 + @"(CASE WHEN HealthManage.States = " + BLL.Const.State_0 + " OR HealthManage.States IS NULL THEN 'ISNULL(OperateUser.UserName,Users.UserName)' WHEN HealthManage.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
                 + @" FROM Administrative_HealthManage AS HealthManage "
                 + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON HealthManage.HealthManageId = FlowOperate.DataId AND FlowOperate.IsClosed <> 1"
                 + @" LEFT JOIN Sys_User AS OperateUser ON FlowOperate.OperaterId = OperateUser.UserId"
@@ -214,7 +214,7 @@ namespace FineUIPro.Web.Administrative
                     if (healthManage != null)
                     {
                         var user = BLL.UserService.GetUserByUserId(healthManage.PersonId);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除【" + user.UserName + "】的职业健康管理");
+                        BLL.LogService.AddSys_Log(this.CurrUser, user.UserName, rowID, BLL.Const.HealthManageMenuId, BLL.Const.BtnDelete);
                     }
                     BLL.HealthManageService.DeleteHealthManageById(rowID);
                 }

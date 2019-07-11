@@ -73,9 +73,15 @@
                                             <f:DropDownList ID="drpSubUnits" runat="server" Label="参与单位" EnableCheckBoxSelect="true"
                                                 EnableMultiSelect="true" AutoPostBack="true" OnSelectedIndexChanged="drpSubUnits_SelectedIndexChanged">
                                             </f:DropDownList>
+                                            <f:Label runat="server"></f:Label>
+                                        </Items>
+                                    </f:FormRow>
+                                    <f:FormRow>
+                                        <Items>
                                             <f:DropDownList ID="drpSubUnitPerson" runat="server" Label="人员" EnableCheckBoxSelect="true"
                                                 EnableMultiSelect="true">
                                             </f:DropDownList>
+                                             <f:TextBox  runat="server" ID="txtPartInPersonNames" MaxLength="1000" Label="人员"></f:TextBox>
                                         </Items>
                                     </f:FormRow>
                                 </Rows>
@@ -88,13 +94,17 @@
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1"
                         DataIDField="CheckWorkDetailId" DataKeyNames="CheckWorkDetailId" EnableMultiSelect="false"
-                        ShowGridHeader="true" Height="200" EnableColumnLines="true" AutoScroll="true" OnRowCommand="Grid1_RowCommand"
+                        ShowGridHeader="true" Height="350" EnableColumnLines="true"  OnRowCommand="Grid1_RowCommand"
                         EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick">
                         <Toolbars>
                             <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
                                 <Items>
                                    <%-- <f:CheckBox runat="server" ID="ckbIsCompleted" ></f:CheckBox>
                                     <f:Label runat="server" ID="lb1" Text="是否闭环"></f:Label>--%>
+                                    <f:ToolbarFill runat="server"></f:ToolbarFill>
+                                    <f:Button ID="btnImport" ToolTip="导入" Icon="PageExcel" runat="server" ValidateForms="SimpleForm1"
+                                            OnClick="btnImport_Click">
+                                    </f:Button>
                                     <f:Button ID="btnSelect" Icon="ShapeSquareSelect" runat="server" ToolTip="选择" ValidateForms="SimpleForm1"
                                         OnClick="btnSelect_Click">
                                     </f:Button>
@@ -113,19 +123,18 @@
                             <%--<f:RenderField Width="120px" ColumnID="CheckItemStr" DataField="CheckItemStr" SortField="CheckItemStr"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="检查项">
                             </f:RenderField>--%>
-                            <f:LinkButtonField Width="120px" HeaderText="检查项" ConfirmTarget="Top" CommandName="click"
-                        TextAlign="Center" ToolTip="点击增加一条相同记录" DataTextField="CheckItemStr" ColumnID="CheckItemStr" />
-                            <f:RenderField Width="280px" ColumnID="CheckResult" DataField="CheckResult" SortField="CheckResult"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="检查结果"
-                                ExpandUnusedSpace="true">
+                            <f:LinkButtonField Width="120px" HeaderText="检查内容" ConfirmTarget="Parent" CommandName="click" ExpandUnusedSpace="true"                                
+                                TextAlign="Left" ToolTip="点击增加一条相同记录" DataTextField="CheckItemStr" ColumnID="CheckItemStr" />
+                            <f:RenderField Width="100px" ColumnID="CheckResult" DataField="CheckResult" SortField="CheckResult"
+                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="检查结果">
                             </f:RenderField>
-                            <f:RenderField Width="170px" ColumnID="CheckOpinion" DataField="CheckOpinion" SortField="CheckOpinion"
+                            <f:RenderField Width="150px" ColumnID="CheckOpinion" DataField="CheckOpinion" SortField="CheckOpinion"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="处理意见">
                             </f:RenderField>
-                            <f:RenderField Width="170px" ColumnID="HandleResult" DataField="HandleResult" SortField="HandleResult"
+                            <f:RenderField Width="150px" ColumnID="HandleResult" DataField="HandleResult" SortField="HandleResult"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="整改结果">
                             </f:RenderField>
-                            <f:RenderField Width="170px" ColumnID="CheckStation" DataField="CheckStation" SortField="CheckStation"
+                            <f:RenderField Width="150px" ColumnID="CheckStation" DataField="CheckStation" SortField="CheckStation"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="验证情况">
                             </f:RenderField>
                         </Columns>
@@ -200,7 +209,7 @@
             Icon="Pencil" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Icon="Delete" ConfirmText="确定删除当前数据？" ConfirmTarget="Top" runat="server" Text="删除"
+            Icon="Delete" ConfirmText="确定删除当前数据？" ConfirmTarget="Parent" runat="server" Text="删除"
             >
         </f:MenuButton>
     </f:Menu>

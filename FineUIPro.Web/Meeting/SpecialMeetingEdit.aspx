@@ -40,15 +40,13 @@
                     </f:TextBox>
                 </Items>
             </f:FormRow>
-            <f:FormRow>
+            <f:FormRow ColumnWidths="33% 67%">
                 <Items>
                     <f:NumberBox ID="txtAttentPersonNum" NoDecimal="true" NoNegative="true" MinValue="0"
                         runat="server" Label="参会人数" ShowRedStar="true" Required="true" LabelAlign="Right">
                     </f:NumberBox>
-                    <f:TextBox ID="txtAttentPerson" runat="server" Label="参会人员" LabelAlign="Right" MaxLength="300">
+                    <f:TextBox ID="txtAttentPerson" runat="server" Label="参会人员" LabelAlign="Right" MaxLength="300" EnableBlurEvent="true" OnBlur="txtAttentPerson_Blur">
                     </f:TextBox>
-                    <f:Label runat="server" ID="lb123">
-                    </f:Label>
                 </Items>
             </f:FormRow>
             <f:FormRow>

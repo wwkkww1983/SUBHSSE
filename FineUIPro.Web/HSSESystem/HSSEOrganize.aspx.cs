@@ -63,13 +63,13 @@ namespace FineUIPro.Web.HSSESystem
                 {
                     this.hdHSSEOrganizeId.Text = organize.HSSEOrganizeId = SQLHelper.GetNewID(typeof(Model.HSSESystem_HSSEOrganize));
                     BLL.HSSEOrganizeService.AddHSSEOrganize(organize);
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加安全组织体系", organize.HSSEOrganizeId);
+                    BLL.LogService.AddSys_Log(this.CurrUser, null, organize.HSSEOrganizeId,BLL.Const.HSSEOrganizeMenuId,BLL.Const.BtnModify);
                 }
                 else
                 {
                     organize.HSSEOrganizeId = this.hdHSSEOrganizeId.Text;
                     BLL.HSSEOrganizeService.UpdateHSSEOrganize(organize);
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改安全组织体系", organize.HSSEOrganizeId);
+                    BLL.LogService.AddSys_Log(this.CurrUser, null, organize.HSSEOrganizeId, BLL.Const.HSSEOrganizeMenuId, BLL.Const.BtnAdd);
                 }
 
                 this.UpHSSEOrganize(organize);
@@ -108,12 +108,12 @@ namespace FineUIPro.Web.HSSESystem
             if (e.Error == null)
             {
                 ShowNotify("【安全体系】上报成功!", MessageBoxIcon.Success);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全体系】上传到服务器1条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全体系】上传到服务器1条数据；", null, BLL.Const.HSSEOrganizeMenuId, BLL.Const.BtnUploadResources);
             }
             else
             {
                 ShowNotify("【安全体系】上报失败!", MessageBoxIcon.Error);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全体系】上传到服务器失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全体系】上传到服务器失败；", null, BLL.Const.HSSEOrganizeMenuId, BLL.Const.BtnUploadResources);
             }
         }
         #endregion

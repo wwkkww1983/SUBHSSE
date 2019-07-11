@@ -134,14 +134,14 @@ namespace FineUIPro.Web.ProjectAccident
             {
                 this.AccidentReportId = accidentReport.AccidentReportId = SQLHelper.GetNewID(typeof(Model.ProjectAccident_AccidentReport));
                 BLL.AccidentReportService.AddAccidentReport(accidentReport);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加事故快报");
+                BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ServerAccidentReportMenuId, BLL.Const.BtnModify);
             }
             else
             {
 
                 accidentReport.AccidentReportId = this.AccidentReportId;
                 BLL.AccidentReportService.UpdateAccidentReport(accidentReport);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加事故快报");
+                BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ServerAccidentReportMenuId, BLL.Const.BtnAdd);
             }
 
             //保存流程审核数据         

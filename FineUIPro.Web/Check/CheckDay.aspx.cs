@@ -65,7 +65,7 @@ namespace FineUIPro.Web.Check
                     new SqlParameter("@States", !string.IsNullOrEmpty(Request.Params["projectId"])?BLL.Const.State_2:null),
                     new SqlParameter("@UnitName", !string.IsNullOrEmpty(this.txtUnitName.Text)?this.txtUnitName.Text:null),
                     new SqlParameter("@WorkAreaName",  !string.IsNullOrEmpty(this.txtWorkAreaName.Text)?this.txtWorkAreaName.Text:null),
-                    };
+                   };
             DataTable tb = SQLHelper.GetDataTableRunProc("SpCheckDayStatistic", parameter);
             // 2.获取当前分页数据
             //var table = this.GetPagedDataTable(Grid1, tb1);
@@ -234,10 +234,15 @@ namespace FineUIPro.Web.Check
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString().Split(',')[0];
-                    BLL.Check_CheckDayDetailService.DeleteCheckDayDetails(rowID);
-                    BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "删除日常巡检信息", rowID);
-                    BLL.Check_CheckDayService.DeleteCheckDay(rowID);
+                    var getV = BLL.Check_CheckDayService.GetCheckDayByCheckDayId(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.CheckDayCode, getV.CheckDayId, BLL.Const.ProjectCheckDayMenuId, BLL.Const.BtnDelete);
+                        BLL.Check_CheckDayDetailService.DeleteCheckDayDetails(rowID);                      
+                        BLL.Check_CheckDayService.DeleteCheckDay(rowID);
+                    }
                 }
+
                 BindGrid();
                 ShowNotify("删除数据成功!（表格数据已重新绑定）");
             }
@@ -264,6 +269,7 @@ namespace FineUIPro.Web.Check
                     this.btnNew.Hidden = false;
                     this.btnCompletedDate.Hidden = false;
                     this.btnMenuRectify.Hidden = false;
+                    this.btnPrint.Hidden = false;
                 }
                 if (buttonList.Contains(BLL.Const.BtnModify))
                 {
@@ -443,6 +449,15 @@ namespace FineUIPro.Web.Check
             return sb.ToString();
         }
         #endregion
-      
+
+        protected void btnPrint_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckDayPrint.aspx?CheckDayId={0}", Grid1.SelectedRowID.Split(',')[0], "打印 - ")));
+        }
     }
 }

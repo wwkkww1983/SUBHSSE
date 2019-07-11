@@ -18,31 +18,12 @@
         <Rows>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtHSECertificateCode" runat="server" Label="获奖证书或奖杯编号" LabelAlign="Right"
+                    <f:TextBox ID="txtHSECertificateCode" runat="server" Label="编号" LabelAlign="Right"
                         Readonly="true" LabelWidth="150px">
                     </f:TextBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:TextBox ID="txtHSECertificateName" runat="server" Label="获奖证书或奖杯名称" LabelAlign="Right"
+                     <f:TextBox ID="txtHSECertificateName" runat="server" Label="名称" LabelAlign="Right"
                         LabelWidth="150px" Readonly="true">
                     </f:TextBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:ContentPanel ID="ContentPanel2" runat="server" ShowHeader="false" ShowBorder="false"
-                        Title="证书或奖杯扫描件">
-                        <table>
-                            <tr style="height: 28px">
-                                <td align="left">
-                                    <div id="divFile" runat="server">
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </f:ContentPanel>
                 </Items>
             </f:FormRow>
             <f:FormRow>
@@ -57,14 +38,22 @@
         <Toolbars>
             <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
                 <Items>
+                    <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
+                        OnClick="btnUploadResources_Click" ValidateForms="SimpleForm1" MarginLeft="10px">
+                    </f:Button>
                     <f:ToolbarFill ID="ToolbarFill1" runat="server">
                     </f:ToolbarFill>
-                    <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
+                    <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" 
+                        Icon="SystemClose" MarginRight="10px">
                     </f:Button>
                 </Items>
             </f:Toolbar>
         </Toolbars>
     </f:Form>
+     <f:Window ID="WindowAtt" Title="附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Height="500px">
+    </f:Window>
     </form>
 </body>
 </html>

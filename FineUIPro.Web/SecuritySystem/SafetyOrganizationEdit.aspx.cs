@@ -62,6 +62,11 @@ namespace FineUIPro.Web.SecuritySystem
                         this.txtSortIndex.Text = item.SortIndex;
                     }
                 }
+
+                if (Request.Params["value"] == "0")
+                {
+                    this.btnSave.Hidden=true;
+                }
             }
         }
 
@@ -91,13 +96,13 @@ namespace FineUIPro.Web.SecuritySystem
                 this.SafetyOrganizationId = SQLHelper.GetNewID(typeof(Model.SecuritySystem_SafetyOrganization));
                 newItem.SafetyOrganizationId = this.SafetyOrganizationId;
                 BLL.SafetyOrganizationService.AddSafetyOrganization(newItem);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加安全管理机构");
+                BLL.LogService.AddSys_Log(this.CurrUser, newItem.Names, newItem.SafetyOrganizationId, BLL.Const.ProjectSafetyOrganizationMenuId, BLL.Const.BtnAdd);
             }
             else
             {                
                 newItem.SafetyOrganizationId = this.SafetyOrganizationId;
                 BLL.SafetyOrganizationService.UpdateSafetyOrganization(newItem);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改安全管理机构");
+                BLL.LogService.AddSys_Log(this.CurrUser, newItem.Names, newItem.SafetyOrganizationId,BLL.Const.ProjectSafetyOrganizationMenuId,BLL.Const.BtnModify);
             }
 
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());

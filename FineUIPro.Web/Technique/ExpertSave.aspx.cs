@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BLL;
+﻿using BLL;
 using Model;
-using System.IO;
+using System;
+using System.Linq;
+using System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.Technique
 {
@@ -245,13 +241,13 @@ namespace FineUIPro.Web.Technique
                 expert.ExpertId = SQLHelper.GetNewID(typeof(Model.Technique_Expert));
                 ExpertId = expert.ExpertId;
                 BLL.ExpertService.AddExpert(expert);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加安全专家");
+                BLL.LogService.AddSys_Log(this.CurrUser, expert.ExpertCode, expert.ExpertId, BLL.Const.ExpertMenuId, Const.BtnAdd);
             }
             else
             {
                 expert.ExpertId = ExpertId;
                 BLL.ExpertService.UpdateExpert(expert);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改安全专家");
+                BLL.LogService.AddSys_Log(this.CurrUser, expert.ExpertCode, expert.ExpertId, BLL.Const.ExpertMenuId, Const.BtnModify);
             }
         }
 
@@ -358,11 +354,12 @@ namespace FineUIPro.Web.Technique
                         BLL.ExpertService.UpdateExpertIsPass(expert);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全专家】上报到集团公司" + idList.Count.ToString() + "条数据；");
+
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全专家】上报到集团公司" + idList.Count.ToString() + "条数据；", string.Empty, BLL.Const.ExpertMenuId, Const.BtnSaveUp);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全专家】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全专家】上报到集团公司失败", string.Empty, BLL.Const.ExpertMenuId, Const.BtnSaveUp);
             }
         }
         #endregion        
@@ -398,11 +395,18 @@ namespace FineUIPro.Web.Technique
         /// <param name="e"></param>
         protected void btnUploadResources_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.ExpertId))
+            if (this.btnSave.Hidden)
             {
-                SaveData(BLL.Const.UpState_1);
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/Expert&type=-1", this.ExpertId)));
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/Expert&menuId=05495F29-B583-43D9-89D3-3384D6783A3F", this.ExpertId)));
+            else
+            {
+                if (string.IsNullOrEmpty(this.ExpertId))
+                {
+                    SaveData(BLL.Const.UpState_1);
+                }
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/Expert&menuId={1}", this.ExpertId, BLL.Const.ExpertMenuId)));
+            }
         }
         #endregion
 
@@ -430,6 +434,10 @@ namespace FineUIPro.Web.Technique
         /// <returns></returns>
         private void GetButtonPower()
         {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
             var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.ExpertMenuId);
             if (buttonList.Count() > 0)
             {

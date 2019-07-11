@@ -26,6 +26,20 @@ namespace FineUIPro.Web.Hazard
                 ViewState["HazardListId"] = value;
             }
         }
+        /// <summary>
+        /// 项目id
+        /// </summary>
+        public string ProjectId
+        {
+            get
+            {
+                return (string)ViewState["ProjectId"];
+            }
+            set
+            {
+                ViewState["ProjectId"] = value;
+            }
+        }
         #endregion
 
         #region 加载页面
@@ -38,6 +52,11 @@ namespace FineUIPro.Web.Hazard
         {
             if (!IsPostBack)
             {
+                this.ProjectId = this.CurrUser.LoginProjectId;
+                if (!string.IsNullOrEmpty(Request.Params["projectId"]) && Request.Params["projectId"] != this.ProjectId)
+                {
+                    this.ProjectId = Request.Params["projectId"];
+                }
                 ////权限按钮方法
                 this.GetButtonPower();
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
@@ -69,7 +88,7 @@ namespace FineUIPro.Web.Hazard
             }
             else
             {
-                listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
+                listStr.Add(new SqlParameter("@ProjectId",  this.ProjectId));
             }
             if (!string.IsNullOrEmpty(this.txtHazardListCode.Text.Trim()))
             {
@@ -166,7 +185,7 @@ namespace FineUIPro.Web.Hazard
         /// <param name="e"></param>
         protected void btnNew_Click(object sender, EventArgs e)
         {
-            int count = BLL.Hazard_HazardListService.GetHazardListCountByVersionNoIsNull(this.CurrUser.LoginProjectId);
+            int count = BLL.Hazard_HazardListService.GetHazardListCountByVersionNoIsNull( this.ProjectId);
             if (count > 0)
             {
                 Alert.ShowInTop("职业健康安全危险源辨识与评价版本号还未生成，不能进行操作！", MessageBoxIcon.Warning);
@@ -207,11 +226,16 @@ namespace FineUIPro.Web.Hazard
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, isShow))
                     {
-                        BLL.Hazard_HazardSelectedItemService.DeleteHazardSelectedItemByHazardListId(rowID);
-                        BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除职业健康安全危险源辨识与评价", rowID);
-                        BLL.Hazard_HazardListService.DeleteHazardListByHazardListId(rowID);
+                        var getV = BLL.Hazard_HazardListService.GetHazardList(rowID);
+                        if (getV != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getV.HazardListCode, getV.HazardListId, BLL.Const.ProjectHazardListMenuId, BLL.Const.BtnDelete);
+                            BLL.Hazard_HazardSelectedItemService.DeleteHazardSelectedItemByHazardListId(rowID);                          
+                            BLL.Hazard_HazardListService.DeleteHazardListByHazardListId(rowID);
+                        }
                     }
                 }
+
                 BindGrid();
                 ShowNotify("删除数据成功!（表格数据已重新绑定）", MessageBoxIcon.Success);
             }
@@ -324,7 +348,7 @@ namespace FineUIPro.Web.Hazard
             {
                 return;
             }
-            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.ProjectHazardListMenuId);
+            var buttonList = BLL.CommonService.GetAllButtonList( this.ProjectId, this.CurrUser.UserId, BLL.Const.ProjectHazardListMenuId);
             if (buttonList.Count() > 0)
             {
                 if (buttonList.Contains(BLL.Const.BtnAdd))

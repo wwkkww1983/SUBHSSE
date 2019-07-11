@@ -74,6 +74,7 @@ namespace FineUIPro.Web.Technique
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
             this.BindGrid1();
+            BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.HAZOPMenuId, BLL.Const.BtnQuery);
         }
         #endregion
 
@@ -212,9 +213,14 @@ namespace FineUIPro.Web.Technique
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.HAZOPService.DeleteHAZOPById(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除HAZOP管理");
+                    var getV = BLL.HAZOPService.GetHAZOPById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.HAZOPTitle, getV.HAZOPId, BLL.Const.HAZOPMenuId, BLL.Const.BtnDelete);
+                        BLL.HAZOPService.DeleteHAZOPById(rowID);
+                    }
                 }
+
                 BindGrid1();
                 ShowNotify("删除数据成功!", MessageBoxIcon.Success);
             }

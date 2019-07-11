@@ -122,7 +122,7 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="Window2" Title="危险源清单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="true"
         Width="1100px" Height="700px">
     </f:Window>
     </form>

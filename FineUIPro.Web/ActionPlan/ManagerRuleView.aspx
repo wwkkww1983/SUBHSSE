@@ -60,7 +60,7 @@
                     <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
                         OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1">
                     </f:Button>
-                    <f:ToolbarFill>
+                    <f:ToolbarFill runat="server">
                     </f:ToolbarFill>                
                     <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
                     </f:Button>

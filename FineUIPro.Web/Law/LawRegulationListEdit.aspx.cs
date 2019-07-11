@@ -154,13 +154,13 @@ namespace FineUIPro.Web.Law
                 this.LawRegulationId = SQLHelper.GetNewID(typeof(Model.Law_LawRegulationList));
                 lawRegulationList.LawRegulationId = this.LawRegulationId;
                 BLL.LawRegulationListService.AddLawRegulationList(lawRegulationList);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "增加安全法律法规");
+                BLL.LogService.AddSys_Log(this.CurrUser, lawRegulationList.LawRegulationCode, lawRegulationList.LawRegulationId, BLL.Const.LawRegulationListMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 lawRegulationList.LawRegulationId = this.LawRegulationId;
                 BLL.LawRegulationListService.UpdateLawRegulationList(lawRegulationList);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改安全法律法规");
+                BLL.LogService.AddSys_Log(this.CurrUser, lawRegulationList.LawRegulationCode, lawRegulationList.LawRegulationId, BLL.Const.LawRegulationListMenuId, BLL.Const.BtnModify);
             }
             if (isClose)
             {
@@ -227,11 +227,11 @@ namespace FineUIPro.Web.Law
                         BLL.LawRegulationListService.UpdateLawRegulationList(law);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【法律法规】上传到服务器" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【法律法规】上传到服务器" + idList.Count.ToString() + "条数据；",null, BLL.Const.LawRegulationListMenuId, BLL.Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【法律法规】上传到服务器失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【法律法规】上传到服务器失败；", null, BLL.Const.LawRegulationListMenuId, BLL.Const.BtnUploadResources);
             }
         }
         #endregion
@@ -242,6 +242,10 @@ namespace FineUIPro.Web.Law
         /// </summary>
         private void GetButtonPower()
         {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
             var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.LawRegulationListMenuId);
             if (buttonList.Count() > 0)
             {
@@ -285,7 +289,14 @@ namespace FineUIPro.Web.Law
             {
                 SaveData(BLL.Const.UpState_1, false);
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/LawRegulation&menuId=F4B02718-0616-4623-ABCE-885698DDBEB1", LawRegulationId)));
+            if (this.btnSave.Hidden)
+            {
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/LawRegulation&type=-1", LawRegulationId)));
+            }
+            else
+            {
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/LawRegulation&menuId=F4B02718-0616-4623-ABCE-885698DDBEB1", LawRegulationId)));
+            }
         }
         #endregion
     }

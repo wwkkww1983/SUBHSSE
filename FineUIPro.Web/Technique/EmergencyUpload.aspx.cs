@@ -245,13 +245,13 @@ namespace FineUIPro.Web.Technique
                 emergency.IsPass = null;
                 this.EmergencyId = emergency.EmergencyId = SQLHelper.GetNewID(typeof(Model.Technique_Emergency));
                 BLL.EmergencyService.AddEmergencyList(emergency);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加应急预案");
+                BLL.LogService.AddSys_Log(this.CurrUser, emergency.EmergencyCode, emergency.EmergencyId, BLL.Const.EmergencyMenuId, Const.BtnAdd);
             }
             else
             {
                 emergency.EmergencyId = this.EmergencyId;
                 BLL.EmergencyService.UpdateEmergencyList(emergency);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改应急预案");
+                BLL.LogService.AddSys_Log(this.CurrUser, emergency.EmergencyCode, emergency.EmergencyId, BLL.Const.EmergencyMenuId, Const.BtnModify);
             }
         }
         #endregion

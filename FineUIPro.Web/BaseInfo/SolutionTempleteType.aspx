@@ -22,12 +22,12 @@
                     <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
                         TextAlign="Center" />
                     <f:RenderField Width="150px" ColumnID="SolutionTempleteTypeCode" DataField="SolutionTempleteTypeCode"
-                        FieldType="String" HeaderText="方案模板类型编号" HeaderTextAlign="Center" TextAlign="Center">
+                        FieldType="String" HeaderText="编号" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="200px" ColumnID="SolutionTempleteTypeName" DataField="SolutionTempleteTypeName"
-                        FieldType="String" HeaderText="方案模板类型" HeaderTextAlign="Center" TextAlign="Left">
+                    <f:RenderField Width="360px" ColumnID="SolutionTempleteTypeName" DataField="SolutionTempleteTypeName"
+                        FieldType="String" HeaderText="方案类型" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="300px" ColumnID="Remark" DataField="Remark" FieldType="String"
+                    <f:RenderField Width="100px" ColumnID="Remark" DataField="Remark" FieldType="String"
                         ExpandUnusedSpace="true" HeaderText="备注" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                 </Columns>
@@ -55,16 +55,16 @@
                 <Items>
                     <f:HiddenField ID="hfFormID" runat="server">
                     </f:HiddenField>
-                    <f:TextBox ID="txtSolutionTempleteTypeCode" Label="方案模板类型编号" ShowRedStar="true" Required="true"
+                    <f:TextBox ID="txtSolutionTempleteTypeCode" Label="编号" ShowRedStar="true" Required="true"
                         runat="server" MaxLength="50" LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged"
-                        LabelWidth="130px">
+                        LabelWidth="80px">
                     </f:TextBox>
-                    <f:TextBox ID="txtSolutionTempleteTypeName" Label="方案模板类型" ShowRedStar="true" Required="true"
+                    <f:TextBox ID="txtSolutionTempleteTypeName" Label="类型" ShowRedStar="true" Required="true"
                         runat="server" MaxLength="50" LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged"
-                        LabelWidth="130px">
+                        LabelWidth="80px">
                     </f:TextBox>
                     <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="right" MaxLength="500"
-                        LabelWidth="130px">
+                        LabelWidth="80px" >
                     </f:TextArea>
                 </Items>
                 <Toolbars>
@@ -95,7 +95,7 @@
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            Hidden="true" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

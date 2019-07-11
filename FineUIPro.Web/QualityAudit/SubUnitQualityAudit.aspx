@@ -24,7 +24,7 @@
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1"
                         DataIDField="AuditDetailId" DataKeyNames="AuditDetailId" EnableMultiSelect="false"
-                        ShowGridHeader="true" Height="400px" EnableColumnLines="true" AutoScroll="true"
+                        ShowGridHeader="true" Height="400px" EnableColumnLines="true" 
                         EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick">
                         <Toolbars>
                             <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
@@ -63,11 +63,11 @@
         </Rows>
     </f:Form>
     <f:Window ID="Window1" Title="编辑审查记录明细" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="800px" Height="320px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
@@ -75,7 +75,7 @@
             Icon="Pencil" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" Hidden="true"
-            Icon="Delete" ConfirmText="确定删除当前数据？" ConfirmTarget="Top" runat="server" Text="删除">
+            Icon="Delete" ConfirmText="确定删除当前数据？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

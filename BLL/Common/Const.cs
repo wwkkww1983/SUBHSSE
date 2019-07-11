@@ -87,17 +87,9 @@ namespace BLL
         /// </summary>
         public const string BtnSelect = "选择";
         /// <summary>
-        /// 数据库备份
-        /// </summary>
-        public const string BtnDataBak = "数据库备份";
-        /// <summary>
         /// 审核
         /// </summary>
         public const string BtnAuditing = "审核";
-        /// <summary>
-        /// 取消审核
-        /// </summary>
-        public const string BtnCancelAuditing = "取消审核";
         /// <summary>
         /// 导入
         /// </summary>
@@ -134,13 +126,25 @@ namespace BLL
         /// 发卡
         /// </summary>
         public const string BtnSendCard = "发卡";
+        /// <summary>
+        /// 发卡
+        /// </summary>
+        public const string BtnQuery = "查询";
+        /// <summary>
+        /// 登录
+        /// </summary>
+        public const string BtnLogin = "登录";
         #endregion
 
         #region 定义常量
         /// <summary>
         /// 新奥单位id
         /// </summary>
-        public const string UnitId_XA = "24633275-2a4c-484f-986a-93d6c34857a9";  
+        public const string UnitId_XA = "24633275-2a4c-484f-986a-93d6c34857a9";
+        /// <summary>
+        /// 天辰单位id
+        /// </summary>
+        public const string UnitId_TCC_ = "b4f3d912-ca6d-440c-a8d7-bc6a5d5a1f84";
         /// <summary>
         /// 五环单位id
         /// </summary>
@@ -150,7 +154,11 @@ namespace BLL
         /// </summary>
         public const string UnitId_ECEC = "2e2d66b1-cb51-41c7-9f42-6ed877f51e39";
         /// <summary>
-        /// 十四单位id
+        /// 六公司id
+        /// </summary>
+        public const string UnitId_6 = "ac666437-09d0-4d6c-9aaa-fbde5399acaf";
+        /// <summary>
+        /// 十四公司id
         /// </summary>
         public const string UnitId_14 = "1c1cc3ba-8654-4bac-b7e7-b45f4eec0dc9";
         /// <summary>
@@ -505,6 +513,10 @@ namespace BLL
         /// </summary>
         public const string Menu_Project = "Menu_Project";
         /// <summary>
+        /// 设计项目现场菜单
+        /// </summary>
+        public const string Menu_EProject = "Menu_EProject";
+        /// <summary>
         /// 公共资源菜单
         /// </summary>
         public const string Menu_Resource = "Menu_Resource";
@@ -674,6 +686,22 @@ namespace BLL
         /// 施工方案类型
         /// </summary>
         public const string SolutionTempleteTypeMenuId = "179F286B-6DF8-414E-947F-82267076D4C8";
+        /// <summary>
+        /// 安全巡检类型
+        /// </summary>
+        public const string HazardRegisterTypesMenuId = "3EC2676A-70EB-400E-BE17-EEBBA0B7E9D7";
+        /// <summary>
+        /// 领导督察类型
+        /// </summary>
+        public const string HazardRegisterTypesSupervisionMenuId = "60BFBA33-B5C7-4EBF-A4AE-1B820559676D";
+        /// <summary>
+        /// 处罚项信息
+        /// </summary>
+        public const string PunishItemMenuId = "015F94F0-F2EB-403F-B8CA-FF44AB9BDA5B";
+        /// <summary>
+        /// 专项检查类型
+        /// </summary>
+        public const string SpecialCheckTypesMenuId = "7AC97581-08C2-4848-A117-BDC034EF6666";
         #endregion
 
         #region 公共资源
@@ -723,21 +751,26 @@ namespace BLL
         /// 培训教材库
         /// </summary>
         public const string TrainDBMenuId = "9D99A981-7380-4085-84FA-8C3B1AFA6202";
-
+        /// <summary>
+        /// 公司教材库
+        /// </summary>
+        public const string CompanyTrainingMenuId = "9D4F76A1-CD2E-4E66-B833-49425CD879EB";
         /// <summary>
         /// 安全试题库
         /// </summary>
         public const string TrainTestDBMenuId = "F58EE8ED-9EB5-47C7-9D7F-D751EFEA44CA";
-
         /// <summary>
         /// 事故案例库
         /// </summary>
         public const string AccidentCaseMenuId = "D86917DB-D00A-4E18-9793-C290B5BBA84C";
-
         /// <summary>
         /// 应知应会库
         /// </summary>
         public const string KnowledgeDBMenuId = "AB7A3D78-2D89-4488-97E3-8F8616BDDE30";
+        /// <summary>
+        /// 考试试题库
+        /// </summary>
+        public const string TestTrainingMenuId = "4D6BD686-DA06-45CC-9DB8-54B342651724";
         #endregion
 
         #region 在线学习考核
@@ -953,9 +986,13 @@ namespace BLL
         /// 项目安全文件
         /// </summary>
         public const string ServerSafeReportMenuId = "306A1C97-B6B1-4AE4-AFC1-6933E821C129";
+        /// <summary>
+        /// 分公司安全文件
+        /// </summary>
+        public const string ServerSafeUnitReportMenuId = "2C673125-AAA4-4F41-A827-0F04DFE55DED";
 
         #endregion
-
+        
         #region 企业安全大检查
         /// <summary>
         /// 安全监督检查报告
@@ -1101,6 +1138,23 @@ namespace BLL
         public const string ServerAccidentDataMenuId = "A139FF69-8B74-489B-AB5F-526B2207DD89";
         #endregion
 
+        #region E项目安全管理资料
+        /// <summary>
+        /// 资料目录设置
+        /// </summary>
+        public const string ServerSafetyDataEMenuId = "5786468C-3EB3-4219-8121-70F603E48A1A";
+
+        /// <summary>
+        /// 考核计划总表
+        /// </summary>
+        public const string ServerSafetyDataEPlanMenuId = "F29C7286-446D-49CC-AB6B-40CA48132CB8";
+
+        /// <summary>
+        /// 项目上报资料
+        /// </summary>
+        public const string ServerProjectSafetyDataEMenuId = "CDEFCAB5-328C-406B-9551-435250C84D1D";
+        #endregion
+
         #region 文件柜
         /// <summary>
         /// 文件柜1(集团检查类)
@@ -1116,7 +1170,7 @@ namespace BLL
 
         #region 项目菜单
         /// <summary>
-        /// 组织建设
+        /// 项目设置
         /// </summary>
         public const string MenuProjectB_BuildingMenuId = "E82B690B-F662-4B4E-8340-6C4B8ECA44CC";
 
@@ -1126,13 +1180,17 @@ namespace BLL
         /// </summary>
         public const string ProjectSetMenuId = "0C3386D2-8F86-40AC-94F6-EE0100324FDD";
         /// <summary>
-        /// 项目信息
+        /// 项目状态及软件关闭
         /// </summary>
         public const string ProjectShutdownMenuId = "D24ACD3C-086C-4AC8-9AFA-16D48893215E";
         /// <summary>
-        /// 单位信息
+        /// 项目单位
         /// </summary>
         public const string ProjectUnitMenuId = "64690369-3049-4009-82EE-437DF2E606BA";
+        /// <summary>
+        /// 项目用户
+        /// </summary>
+        public const string ProjectUserMenuId = "CDB80E91-61A8-4E4D-BA97-3ADDC3208B66";
         /// <summary>
         /// 班组信息
         /// </summary>
@@ -1140,11 +1198,11 @@ namespace BLL
         /// <summary>
         /// 作业区域
         /// </summary>
-        public const string WorkAreaMenuId = "CBA3833A-C705-4B4E-A4A7-ACC27D0ECDCE";
+        public const string WorkAreaMenuId = "CBA3833A-C705-4B4E-A4A7-ACC27D0ECDCE";        
         /// <summary>
-        /// 项目用户
+        /// 项目用户转换
         /// </summary>
-        public const string ProjectUserMenuId = "CDB80E91-61A8-4E4D-BA97-3ADDC3208B66";
+        public const string ProjectDataSendReceiveMenuId = "DB3F7E51-7700-4B87-A529-3070AA652517";
         /// <summary>
         /// 编码/模板
         /// </summary>
@@ -1336,7 +1394,10 @@ namespace BLL
         /// 人员信息
         /// </summary>
         public const string PersonListMenuId = "AD6FC259-CF40-41C7-BA3F-15AC50C1DD20";
-
+        /// <summary>
+        /// 人员项目转换
+        /// </summary>
+        public const string SendReceiveMenuId = "06F7E687-51B3-4357-BD6D-E6AEFC0E3975";
         /// <summary>
         /// 人工时日报
         /// </summary>
@@ -1373,11 +1434,38 @@ namespace BLL
         /// 培训记录
         /// </summary>
         public const string ProjectTrainRecordMenuId = "1182E353-FAB9-4DB1-A1EC-F41A00892128";
-
         /// <summary>
         /// 人员培训查询
         /// </summary>
         public const string ProjectTrainFindMenuId = "F81E3F54-B3A9-4DDB-9C8C-1574317E040F";
+        /// <summary>
+        /// 培训计划
+        /// </summary>
+        public const string PlanMenuId = "B782A26B-D85C-4F84-8B45-F7AA47B3159E";
+        /// <summary>
+        /// 培训任务
+        /// </summary>
+        public const string TaskMenuId = "E108F75D-89D0-4DCA-8356-A156C328805C";
+        /// <summary>
+        /// 培训试题
+        /// </summary>
+        public const string TrainTestRecordMenuId = "6C314522-AF62-4476-893E-5F42C09C3077";
+        /// <summary>
+        /// 考试计划
+        /// </summary>
+        public const string TestPlanMenuId = "FAF7F4A4-A4BC-4D94-9E88-0CF5A380DB34";
+        /// <summary>
+        /// 考试记录
+        /// </summary>
+        public const string TestRecordMenuId = "0EEB138D-84F9-4686-8CBB-CAEAA6CF1B2A";
+        /// <summary>
+        /// 模拟考试
+        /// </summary>
+        public const string ModelTestRecordMenuId = "1C80EF15-B75B-473D-B190-CE12E4DDA287";
+        /// <summary>
+        /// 考试统计
+        /// </summary>
+        public const string TestStatisticsMenuId = "6FF941C1-8A00-4A74-8111-C892FC30A8DA";
         #endregion
 
         #region HSSE许可管理
@@ -1413,6 +1501,10 @@ namespace BLL
         /// </summary>
         public const string ProjectCheckDayMenuId = "9F6FB863-4001-49BD-A748-66009891D13C";
         /// <summary>
+        /// HSSE日常巡检（五环）
+        /// </summary>
+        public const string ProjectCheckDayWHMenuId = "0E30F917-0C51-4C45-BD19-981039CA44F5";
+        /// <summary>
         /// HSSE日常巡检（新奥）
         /// </summary>
         public const string ProjectCheckDayXAMenuId = "38FBBA77-8B35-470C-90EE-6861E6DDE03F";
@@ -1423,7 +1515,11 @@ namespace BLL
         /// <summary>
         /// HSSE综合检查
         /// </summary>
-        public const string ProjectCheckColligationMenuId = "C198EBA8-9E23-4654-92E1-09C61105C522"; 
+        public const string ProjectCheckColligationMenuId = "C198EBA8-9E23-4654-92E1-09C61105C522";
+        /// <summary>
+        /// HSSE综合检查（五环）
+        /// </summary>
+        public const string ProjectCheckColligationWHMenuId = "E8363923-06CD-47C2-BFE1-F18212094710";
         /// <summary>
         /// 开工前HSSE检查
         /// </summary>
@@ -1440,6 +1536,10 @@ namespace BLL
         /// 隐患整改通知单
         /// </summary>
         public const string ProjectRectifyNoticeMenuId = "0038D764-D628-46F0-94FF-D0A22C3C45A3";
+        /// <summary>
+        /// 企业监督检查整改
+        /// </summary>
+        public const string ProjectSuperviseCheckRectifyMenuId = "29F27641-06ED-435A-9F9B-FCE6366801BE";
         /// <summary>
         /// 工程暂停令
         /// </summary>
@@ -1460,6 +1560,29 @@ namespace BLL
         /// 联系单
         /// </summary>
         public const string ProjectContactListMenuId = "F057C207-4549-48AE-B838-A1920E5709D8";
+        #endregion
+
+        #region APP检查管理
+        /// <summary>
+        /// 日常巡检
+        /// </summary>
+        public const string HSSE_HiddenRectificationListMenuId = "2FC8AA2A-F421-4174-A05E-2711167AF141";
+
+        /// <summary>
+        /// 日常巡检记录
+        /// </summary>
+        public const string HSSE_HiddenRectificationRecordMenuId = "23855EB9-0BB1-4B3E-BA69-3C0222F5E2A4";
+
+        /// <summary>
+        /// APP专项检查
+        /// </summary>
+        public const string HSSE_APPCheckSpecialMenuId = "B7A5F84B-843A-4C13-9844-023D8B4A41AC";
+
+        /// <summary>
+        /// APP领导督察
+        /// </summary>
+        public const string HSSE_APPSafeSupervisionMenuId = "247B76AA-01BF-4A40-BB4C-B3EAF441F538";
+
         #endregion
 
         #region 隐患巡检
@@ -1627,6 +1750,22 @@ namespace BLL
         /// 物资库存管理
         /// </summary>
         public const string GoodsStockMenuId = "B97B1C46-25B0-477B-9925-B6AB1D45204E";
+        /// <summary>
+        /// 安全分包费用
+        /// </summary>
+        public const string ProjectHSSECostUnitManageMenuId = "6488F005-95F2-4D49-BC95-6DF4C9B23F3D";
+        /// <summary>
+        /// 安全分包费用审核
+        /// </summary>
+        public const string ProjectHSSECostUnitManageAuditMenuId = "0051CA27-83A3-4CAD-8A0B-64C4DFE3944C";
+        /// <summary>
+        /// 安全分包费用核定
+        /// </summary>
+        public const string ProjectHSSECostUnitManageRatifiedMenuId = "8B71C8C4-0738-4D5F-8916-57FF3197709C";
+        /// <summary>
+        /// 安全费用管理
+        /// </summary>
+        public const string ProjectHSSECostManageMenuId = "5C74F09D-FDE3-4995-A1D6-0549A8693940";
         #endregion
 
         #region HSSE行政管理
@@ -1784,6 +1923,37 @@ namespace BLL
         /// 项目安全文件
         /// </summary>
         public const string ProjectSafeReportMenuId = "BD16BE8D-0F4D-4C80-A4D7-707156B541B8";
+        /// <summary>
+        /// 海外工程项目月度HSSE统计表
+        /// </summary>
+        public const string ProjectManagerMonthEMenuId = "288C6A04-456F-4364-B4FE-82C14B8B3CC9";
+        /// <summary>
+        /// 分包商安全费用投入登记
+        /// </summary>
+        public const string ProjectSubPayRegistrationMenuId = "E7B8059B-304B-47C6-90C8-D88E4A3EC506";
+        /// <summary>
+        /// 项目HSE绩效管理报告
+        /// </summary>
+        public const string ProjectPerformanceManagementReportMenuId = "A97295B1-86C5-45F6-B8EC-A520E8CF3A4B";
+        /// <summary>
+        /// 分包商上传周报
+        /// </summary>
+        public const string ProjectSubUploadWeekMenuId = "AB03E11C-8174-4B83-90F4-D07A3D933E1D";
+        #endregion
+
+        #region E项目安全管理资料
+        /// <summary>
+        /// 安全管理资料
+        /// </summary>
+        public const string ProjectSafetyDataESuperMenuId = "5BB670AD-CCAA-4004-B931-70C5879A968B";
+        /// <summary>
+        /// 安全管理资料
+        /// </summary>
+        public const string ProjectSafetyDataEMenuId = "BC3B7C4A-D69C-45CA-A951-98F4F64191BB";
+        /// <summary>
+        /// 安全管理资料考核
+        /// </summary>
+        public const string ProjectSafetyDataECheckMenuId = "8F2E3B63-8B98-44FC-8353-7F09DA86A463";
         #endregion
 
         #region HSSE绩效评价管理
@@ -2001,7 +2171,34 @@ namespace BLL
         /// 环境因素危险源导入模板
         /// </summary>
         public const string EnvironmentalTemplateUrl = "File\\Excel\\DataIn\\环境因素危险源导入模板.xls";
-
+        /// <summary>
+        /// 人员培训导入模板
+        /// </summary>
+        public const string TrainRecordTemplateUrl = "File\\Excel\\DataIn\\人员培训导入模板.xls";
+        /// <summary>
+        /// 考试试题模版文件原始的虚拟路径
+        /// </summary>
+        public const string TestTrainingTemplateUrl = "File\\Excel\\DataIn\\考试试题模版.xls";
+        /// <summary>
+        /// 日常巡检导入模板
+        /// </summary>
+        public const string CheckDayTemplateUrl = "File\\Excel\\DataIn\\日常巡检导入模板.xls";
+        /// <summary>
+        /// 专项检查导入模板
+        /// </summary>
+        public const string CheckSpecialTemplateUrl = "File\\Excel\\DataIn\\专项检查导入模板.xls";
+        /// <summary>
+        /// 综合检查导入模板
+        /// </summary>
+        public const string CheckColligationTemplateUrl = "File\\Excel\\DataIn\\综合检查导入模板.xls";
+        /// <summary>
+        /// 开工前检查导入模板
+        /// </summary>
+        public const string CheckWorkTemplateUrl = "File\\Excel\\DataIn\\开工前检查导入模板.xls";
+        /// <summary>
+        /// 季节性节假日检查检查导入模板
+        /// </summary>
+        public const string CheckHolidayTemplateUrl = "File\\Excel\\DataIn\\季节性节假日检查导入模板.xls";
         #endregion
 
         #region 初始化上传路径
@@ -2009,7 +2206,7 @@ namespace BLL
         /// <summary>
         /// Excel附件路径
         /// </summary>
-        public const string ExcelUrl = "File\\Excel\\";
+        public const string ExcelUrl = "File\\Excel\\Temp\\";
 
         #endregion
 
@@ -2074,9 +2271,36 @@ namespace BLL
         /// </summary>
         public const string State_2 = "2";
         /// <summary>
-        /// 重新申请
+        /// 已完成/已上报
         /// </summary>
         public const string State_3 = "3";
+        /// <summary>
+        /// 重新申请
+        /// </summary>
+        public const string State_R = "-1";
+        #endregion
+
+        #region APP专项检查流程定义
+        /// <summary>
+        /// 重新编制
+        /// </summary>
+        public const string APPCheckSpecial_ReCompile = "0";
+
+        /// <summary>
+        /// 编制
+        /// </summary>
+        public static string APPCheckSpecial_Compile = "1";
+
+        /// <summary>
+        /// 办理中
+        /// </summary>
+        public static string APPCheckSpecial_Check = "2";
+
+        /// <summary>
+        /// 审批完成
+        /// </summary>
+        public static string APPCheckSpecial_ApproveCompleted = "3";
+
         #endregion
     }
 }

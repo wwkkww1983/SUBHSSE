@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using BLL;
+using System.Linq;
 
 namespace FineUIPro.Web.ProjectData
 {
@@ -24,6 +25,21 @@ namespace FineUIPro.Web.ProjectData
                     Grid1.PageSize = this.CurrUser.PageSize.Value;
                 } 
                 this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
+                ///
+                BLL.UnitService.InitUnitDropDownList(this.drpUnit, string.Empty, true);
+                var thisUnit = BLL.CommonService.GetIsThisUnit();
+                if (thisUnit != null)
+                {
+                    if (thisUnit.UnitId == BLL.Const.UnitId_ECEC)
+                    {
+                        this.cbIsState.Items[0].Text = "施工/设计中";
+                    }
+                    if (thisUnit.UnitId == BLL.Const.UnitId_6)
+                    {
+                        this.drpUnit.Label = "所属分公司";
+                    }
+                }
+
                 // 绑定表格
                 this.BindGrid();
             }
@@ -39,16 +55,19 @@ namespace FineUIPro.Web.ProjectData
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (BLL.CommonService.IsThisUnitLeaderOrManage(this.CurrUser.UserId)) //根据用户ID判断是否 管理角色、领导角色 且是本单位用户
             {
-                strSql = @"SELECT ProjectId,ProjectCode,ProjectName,StartDate,EndDate,ProjectAddress,"
-                        + @" (CASE WHEN ProjectState='" + BLL.Const.ProjectState_2 + "' THEN '暂停中' WHEN ProjectState='" + BLL.Const.ProjectState_3 + "' THEN '已完工' ELSE '施工中' END) AS ProjectStateName,ProjectState"
-                        + @" FROM Base_Project WHERE 1=1 ";
+                strSql = @"SELECT ProjectId,ProjectCode,ProjectName,StartDate,EndDate,ProjectAddress,sysConst.ConstText AS ProjectTypeName,"
+                        + @" (CASE WHEN ProjectState='" + BLL.Const.ProjectState_2 + "' THEN '暂停中' WHEN ProjectState='" + BLL.Const.ProjectState_3 + "' THEN '已完工' WHEN SysConst.ConstText='E' THEN '设计中' ELSE '施工中' END) AS ProjectStateName,ProjectState"
+                        + @" FROM Base_Project AS Project "
+                        + @" LEFT JOIN Sys_Const AS sysConst ON sysConst.ConstValue = Project.ProjectType and sysConst.GroupId='" + BLL.ConstValue.Group_ProjectType + "'"
+                        + @" WHERE 1=1 ";
             }
             else
             {
-                strSql = @"SELECT Project.ProjectId,Project.ProjectCode,Project.ProjectName,Project.StartDate,Project.EndDate,Project.ProjectAddress,"
-                        + @" (CASE WHEN Project.ProjectState='" + BLL.Const.ProjectState_2 + "' THEN '暂停中' WHEN Project.ProjectState='" + BLL.Const.ProjectState_3 + "' THEN '已完工' ELSE '施工中' END) AS ProjectStateName,Project.ProjectState"
+                strSql = @"SELECT Project.ProjectId,Project.ProjectCode,Project.ProjectName,Project.StartDate,Project.EndDate,Project.ProjectAddress,sysConst.ConstText AS ProjectTypeName,"
+                        + @" (CASE WHEN Project.ProjectState='" + BLL.Const.ProjectState_2 + "' THEN '暂停中' WHEN Project.ProjectState='" + BLL.Const.ProjectState_3 + "' THEN '已完工' WHEN SysConst.ConstText='E' THEN '设计中' ELSE '施工中' END) AS ProjectStateName,Project.ProjectState"
                         + @" FROM Base_Project AS Project "
                         + @" LEFT JOIN Project_ProjectUser AS ProjectUser ON Project.ProjectId =ProjectUser.ProjectId "
+                        + @" LEFT JOIN Sys_Const AS sysConst ON sysConst.ConstValue = Project.ProjectType and sysConst.GroupId='" + BLL.ConstValue.Group_ProjectType + "'"
                         + @" WHERE ProjectUser.UserId=@UserId";
                 listStr.Add(new SqlParameter("@UserId", this.CurrUser.UserId));
             }
@@ -63,7 +82,11 @@ namespace FineUIPro.Web.ProjectData
                 strSql += " and ProjectCode LIKE @ProjectCode";
                 listStr.Add(new SqlParameter("@ProjectCode", "%" + this.txtProjectCode.Text.Trim() + "%"));
             }
-
+            if (this.drpUnit.SelectedValue != BLL.Const._Null)
+            {
+                strSql += " and Project.UnitId = @UnitId";
+                listStr.Add(new SqlParameter("@UnitId", this.drpUnit.SelectedValue));
+            }
             if (this.cbIsState.SelectedValueArray.Length == 1)
             {
                 ///

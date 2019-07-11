@@ -42,7 +42,7 @@
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="90px" ColumnID="CarManagerCode" DataField="CarManagerCode"
+                    <f:RenderField Width="120px" ColumnID="CarManagerCode" DataField="CarManagerCode"
                         SortField="CarManagerCode" FieldType="String" HeaderText="编号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
@@ -93,7 +93,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="现场车辆管理" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="900px" Height="500px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
@@ -101,7 +101,7 @@
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server"
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server"
             Text="删除">
         </f:MenuButton>
     </f:Menu>

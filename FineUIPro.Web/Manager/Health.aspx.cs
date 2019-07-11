@@ -206,8 +206,13 @@ namespace FineUIPro.Web.Manager
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, isShow))
                     {
-                        BLL.HealthService.DeleteHealthById(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除工程现场环境与职业健康月报");
+                        var getD = BLL.HealthService.GetHealthById(rowID);
+                        if (getD != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getD.HealthCode, getD.HealthId, BLL.Const.HealthMenuId, BLL.Const.BtnDelete);
+
+                            BLL.HealthService.DeleteHealthById(rowID);
+                        }
                     }
                 }
                 BindGrid();

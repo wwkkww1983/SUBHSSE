@@ -39,7 +39,7 @@
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="180px" ColumnID="CostManageCode" DataField="CostManageCode"
+                    <f:RenderField Width="120px" ColumnID="CostManageCode" DataField="CostManageCode"
                         SortField="CostManageCode" FieldType="String" HeaderText="编号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
@@ -47,7 +47,7 @@
                         SortField="CostManageName" FieldType="String" HeaderText="名称" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="220px" ColumnID="UnitName" DataField="UnitName" ExpandUnusedSpace="true"
+                    <f:RenderField Width="250px" ColumnID="UnitName" DataField="UnitName" ExpandUnusedSpace="true"
                         SortField="UnitName" FieldType="String" HeaderText="分包商" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
@@ -59,9 +59,9 @@
                         SortField="FlowOperateName" FieldType="String" HeaderText="状态" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:WindowField TextAlign="Left" Width="160px" WindowID="WindowAtt" HeaderText="附件"
+                    <f:WindowField TextAlign="Left" Width="80px" WindowID="WindowAtt" HeaderText="附件"
                         Text="上传查看" ToolTip="附件上传查看" DataIFrameUrlFields="CostManageId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/CostManageAttachUrl&menuId=FF68C697-B058-4687-A98F-71C591650E02"
-                        IFrameUrl="~/alert.aspx" ExpandUnusedSpace="True" HeaderTextAlign="Center" />
+                        IFrameUrl="~/alert.aspx"  HeaderTextAlign="Center" />
                 </Columns>
                 <Listeners>
                     <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
@@ -84,7 +84,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="分包HSE费用管理" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="1200px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1200px"
         Height="660px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
@@ -96,7 +96,7 @@
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server"
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server"
             Text="删除">
         </f:MenuButton>
     </f:Menu>

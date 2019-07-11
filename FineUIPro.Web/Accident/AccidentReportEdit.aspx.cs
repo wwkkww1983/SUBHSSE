@@ -378,7 +378,7 @@ namespace FineUIPro.Web.Accident
             {
                 accidentReport.AccidentReportId = this.AccidentReportId;
                 BLL.AccidentReport2Service.UpdateAccidentReport(accidentReport);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改事故调查报告", accidentReport.AccidentReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, this.txtAccidentReportCode.Text, this.AccidentReportId, BLL.Const.ProjectAccidentReportMenuId, Const.BtnModify);
                 Model.Accident_AccidentReport a = BLL.AccidentReport2Service.GetAccidentReportById(this.AccidentReportId);
                 if (type == BLL.Const.BtnSubmit && accidentReport.States == BLL.Const.State_2 && a.NotConfirmed == true)
                 {
@@ -466,7 +466,7 @@ namespace FineUIPro.Web.Accident
                     accidentReport.NotConfirmed = true;
                 }
                 BLL.AccidentReport2Service.AddAccidentReport(accidentReport);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加事故调查报告", accidentReport.AccidentReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, this.txtAccidentReportCode.Text, this.AccidentReportId, BLL.Const.ProjectAccidentReportMenuId, Const.BtnAdd);                
             }
             //保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectAccidentReportMenuId, this.AccidentReportId, (type == BLL.Const.BtnSubmit ? true : false), accidentReport.AccidentReportCode, "../Accident/AccidentReportView.aspx?AccidentReportId={0}");

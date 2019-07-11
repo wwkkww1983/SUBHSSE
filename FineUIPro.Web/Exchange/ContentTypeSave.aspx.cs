@@ -48,13 +48,13 @@ namespace FineUIPro.Web.Exchange
             {
                 contentTypeId = contentType.ContentTypeId = SQLHelper.GetNewID(typeof(Model.Exchange_ContentType));
                 BLL.ContentTypeService.AddContentType(contentType);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "增加交流类型信息", contentTypeId);
+                BLL.LogService.AddSys_Log(this.CurrUser, contentType.ContentTypeCode, contentType.ContentTypeId, BLL.Const.ContentTypeMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 contentType.ContentTypeId = contentTypeId;
                 BLL.ContentTypeService.UpdateContentType(contentType);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改交流类型信息", contentTypeId);
+                BLL.LogService.AddSys_Log(this.CurrUser, contentType.ContentTypeCode, contentType.ContentTypeId, BLL.Const.ContentTypeMenuId, BLL.Const.BtnModify);
             }
             // 2. 关闭本窗体，然后刷新父窗体
             // PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());

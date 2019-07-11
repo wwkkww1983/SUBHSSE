@@ -33,14 +33,15 @@
                                 <Toolbars>
                                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                                         <Items>
-                                            <f:TextBox runat="server" Label="编号" ID="txtNoticeCode" EmptyText="输入查询条件" AutoPostBack="true"
-                                                OnTextChanged="STextBox_TextChanged" Width="250px" LabelWidth="60px" LabelAlign="right">
+                                            <f:TextBox runat="server" Label="编号" ID="txtNoticeCode" EmptyText="输入查询条件" Width="250px" LabelWidth="60px" LabelAlign="right">
                                             </f:TextBox>
-                                            <f:TextBox runat="server" Label="名称" ID="txtNoticeTitle" EmptyText="输入查询条件" AutoPostBack="true"
-                                                OnTextChanged="STextBox_TextChanged" Width="250px" LabelWidth="60px" LabelAlign="right">
+                                            <f:TextBox runat="server" Label="名称" ID="txtNoticeTitle" EmptyText="输入查询条件" Width="250px" LabelWidth="60px" LabelAlign="right">
                                             </f:TextBox>
                                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                                             </f:ToolbarFill>
+                                              <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch" 
+                                                    EnablePostBack="true" OnClick="STextBox_TextChanged" runat="server" >
+                                            </f:Button>
                                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" Hidden="true"
                                                 runat="server">
                                             </f:Button>
@@ -167,6 +168,10 @@
     </f:Panel>
     <f:Window ID="Window1" Title="管理通知" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1024px"
+        Height="620px">
+    </f:Window>
+        <f:Window ID="Window2" Title="管理通知" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1024px"
         Height="650px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件页面" Hidden="true" EnableIFrame="true" EnableMaximize="true"
@@ -181,7 +186,7 @@
             EnablePostBack="true" Hidden="true" runat="server" Text="发布">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server"
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server"
             Text="删除">
         </f:MenuButton>
     </f:Menu>

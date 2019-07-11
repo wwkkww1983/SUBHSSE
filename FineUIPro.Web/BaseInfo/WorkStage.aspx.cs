@@ -108,11 +108,15 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            BLL.WorkStageService.DeleteWorkStageById(hfFormID.Text);
-            BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除工作阶段");
-            // 重新绑定表格，并模拟点击[新增按钮]
-            BindGrid();
-            PageContext.RegisterStartupScript("onNewButtonClick();");
+            var workStage = BLL.WorkStageService.GetWorkStageById(hfFormID.Text);
+            if (workStage != null)
+            {
+                BLL.LogService.AddSys_Log(this.CurrUser, workStage.WorkStageCode, workStage.WorkStageId, BLL.Const.WorkStageMenuId, BLL.Const.BtnDelete);
+                BLL.WorkStageService.DeleteWorkStageById(hfFormID.Text);
+                // 重新绑定表格，并模拟点击[新增按钮]
+                BindGrid();
+                PageContext.RegisterStartupScript("onNewButtonClick();");
+            }
 
         }
         /// <summary>
@@ -135,9 +139,12 @@ namespace FineUIPro.Web.BaseInfo
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-
-                    BLL.WorkStageService.DeleteWorkStageById(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除工作阶段");
+                    var workStage =BLL.WorkStageService.GetWorkStageById(rowID);
+                    if (workStage != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, workStage.WorkStageCode, workStage.WorkStageId, BLL.Const.WorkStageMenuId, BLL.Const.BtnDelete);
+                        BLL.WorkStageService.DeleteWorkStageById(rowID);
+                    }
                 }
 
                 BindGrid();
@@ -199,13 +206,13 @@ namespace FineUIPro.Web.BaseInfo
             {
                 workStage.WorkStageId = SQLHelper.GetNewID(typeof(Model.Base_WorkStage));
                 BLL.WorkStageService.AddWorkStage(workStage);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加工作阶段");
+                BLL.LogService.AddSys_Log(this.CurrUser, workStage.WorkStageCode, workStage.WorkStageId, BLL.Const.WorkStageMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 workStage.WorkStageId = strRowID;
                 BLL.WorkStageService.UpdateWorkStage(workStage);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改工作阶段");
+                BLL.LogService.AddSys_Log(this.CurrUser, workStage.WorkStageCode, workStage.WorkStageId, BLL.Const.WorkStageMenuId, BLL.Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行

@@ -49,13 +49,13 @@ namespace FineUIPro.Web.Manager {
         protected global::FineUIPro.GroupPanel GroupPanel60;
         
         /// <summary>
-        /// txtQuestion 控件。
+        /// txtPhotoContents 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextArea txtQuestion;
+        protected global::FineUIPro.HtmlEditor txtPhotoContents;
         
         /// <summary>
         /// Toolbar1 控件。

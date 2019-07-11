@@ -192,8 +192,12 @@ namespace FineUIPro.Web.OccupationHealth
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除危害检测");
-                    BLL.HazardDetectionService.DeleteHazardDetectionById(rowID);
+                    var getD = BLL.HazardDetectionService.GetHazardDetectionById(rowID);
+                    if (getD != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getD.FileCode, getD.FileId, BLL.Const.ServerHazardDetectionMenuId, BLL.Const.BtnDelete);
+                        BLL.HazardDetectionService.DeleteHazardDetectionById(rowID);
+                    }
                 }
 
                 this.BindGrid();

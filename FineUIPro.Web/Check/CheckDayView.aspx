@@ -44,7 +44,7 @@
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1" DataIDField="CheckDayDetailId"
                         DataKeyNames="CheckDayDetailId" EnableMultiSelect="false" ShowGridHeader="true" Height="220px"
-                        EnableColumnLines="true" AutoScroll="true">
+                        EnableColumnLines="true" >
                         <Toolbars>
                             <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
                                 <Items>

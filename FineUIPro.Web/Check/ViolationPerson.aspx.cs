@@ -230,8 +230,12 @@ namespace FineUIPro.Web.Check
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除违规人员记录", rowID);
-                    BLL.ViolationPersonService.DeleteViolationPersonById(rowID);
+                    var violationPerson = BLL.ViolationPersonService.GetViolationPersonById(rowID);
+                    if (violationPerson != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, violationPerson.ViolationPersonCode, violationPerson.ViolationPersonId, BLL.Const.ProjectViolationPersonMenuId, BLL.Const.BtnDelete);
+                        BLL.ViolationPersonService.DeleteViolationPersonById(rowID);
+                    }
                 }
 
                 this.BindGrid();

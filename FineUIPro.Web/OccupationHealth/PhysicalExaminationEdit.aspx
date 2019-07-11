@@ -27,7 +27,7 @@
             <f:FormRow>
                 <Items>
                     <f:HtmlEditor runat="server" Label="内容" ID="txtFileContent" ShowLabel="false"
-                        Editor="UMEditor" BasePath="~/res/umeditor/" ToolbarSet="Full" Height="330px" LabelAlign="Right">
+                        Editor="UMEditor" BasePath="~/res/umeditor/" ToolbarSet="Basic" Height="250px" LabelAlign="Right">
                     </f:HtmlEditor>
                 </Items>
             </f:FormRow>

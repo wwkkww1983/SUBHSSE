@@ -108,17 +108,18 @@ namespace FineUIPro.Web.Technique
                         IsEndLever = Convert.ToBoolean(this.chkIsEndLevel.Checked),
                         CheckType = Request.Params["checkType"]
                     };
+
                     if (string.IsNullOrEmpty(this.CheckItemSetId))
                     {
                         checkItemSet.CheckItemSetId = SQLHelper.GetNewID(typeof(Model.Technique_CheckItemSet));
                         BLL.Technique_CheckItemSetService.AddCheckItemSet(checkItemSet);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "增加检查项目设置信息");
+                        BLL.LogService.AddSys_Log(this.CurrUser, checkItemSet.MapCode, checkItemSet.CheckItemSetId, BLL.Const.TechniqueCheckItemSetMenuId, Const.BtnAdd);
                     }
                     else
                     {
                         checkItemSet.CheckItemSetId = this.CheckItemSetId;
                         BLL.Technique_CheckItemSetService.UpdateCheckItemSet(checkItemSet);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改检查项目设置信息");
+                        BLL.LogService.AddSys_Log(this.CurrUser, checkItemSet.MapCode, checkItemSet.CheckItemSetId, BLL.Const.TechniqueCheckItemSetMenuId, Const.BtnModify);
                     }
                 }
                 else

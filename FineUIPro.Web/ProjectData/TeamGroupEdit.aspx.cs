@@ -88,14 +88,14 @@ namespace FineUIPro.Web.ProjectData
             {
                 teamGroup.TeamGroupId = this.TeamGroupId;
                 BLL.TeamGroupService.UpdateTeamGroup(teamGroup);
-                BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改班组信息",teamGroup.TeamGroupCode);
+                BLL.LogService.AddSys_Log(this.CurrUser, teamGroup.TeamGroupCode, teamGroup.TeamGroupId,BLL.Const.TeamGroupMenuId,BLL.Const.BtnModify);
             }
             else
             {
                 this.TeamGroupId = SQLHelper.GetNewID(typeof(Model.ProjectData_TeamGroup));
                 teamGroup.TeamGroupId = this.TeamGroupId;
                 BLL.TeamGroupService.AddTeamGroup(teamGroup);
-                BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加班组信息", teamGroup.TeamGroupCode);
+                BLL.LogService.AddSys_Log(this.CurrUser, teamGroup.TeamGroupCode, teamGroup.TeamGroupId, BLL.Const.TeamGroupMenuId, BLL.Const.BtnAdd);
             }
             ShowNotify("保存数据成功!", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());

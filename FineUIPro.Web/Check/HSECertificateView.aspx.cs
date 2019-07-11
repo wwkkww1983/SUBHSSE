@@ -61,13 +61,28 @@ namespace FineUIPro.Web.Check
                         this.txtHSECertificateCode.Text = BLL.CodeRecordsService.ReturnCodeByDataId(this.HSECertificateId);
                         this.txtHSECertificateName.Text = hseCertificate.HSECertificateName;
                         this.AttachUrl = hseCertificate.AttachUrl;
-                        this.divFile.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../", this.AttachUrl);
+                        //this.divFile.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../", this.AttachUrl);
                     }
                 }
                 ///初始化审核菜单
                 this.ctlAuditFlow.MenuId = BLL.Const.ProjectHSECertificateMenuId;
                 this.ctlAuditFlow.DataId = this.HSECertificateId;
             }
+        }
+        #endregion
+
+        #region 附件上传
+        /// <summary>
+        /// 上传附件资源
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnUploadResources_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(this.HSECertificateId))
+            {
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/HSECertificate&menuId=9A034CAD-C7D5-4DE4-9FF5-828D35FFEE28", this.HSECertificateId)));
+            }            
         }
         #endregion
     }

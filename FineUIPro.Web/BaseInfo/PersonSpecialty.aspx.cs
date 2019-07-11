@@ -108,9 +108,13 @@ namespace FineUIPro.Web.BaseInfo
         {
             if (judgementDelete(hfFormID.Text, true))
             {
-                BLL.PersonSpecialtyService.DeletePersonSpecialtyById(hfFormID.Text);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除专家专业");
-                // 重新绑定表格，并模拟点击[新增按钮]
+                var getPersonSpecialty = BLL.PersonSpecialtyService.GetPersonSpecialtyById(hfFormID.Text);
+                if (getPersonSpecialty != null)
+                {
+                    BLL.LogService.AddSys_Log(this.CurrUser, getPersonSpecialty.PersonSpecialtyCode, getPersonSpecialty.PersonSpecialtyId, BLL.Const.PersonSpecialtyMenuId, BLL.Const.BtnDelete);
+                    BLL.PersonSpecialtyService.DeletePersonSpecialtyById(hfFormID.Text);
+                }
+
                 BindGrid();
                 PageContext.RegisterStartupScript("onNewButtonClick();");
             }
@@ -130,8 +134,12 @@ namespace FineUIPro.Web.BaseInfo
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (judgementDelete(rowID, true))
                     {
-                        BLL.PersonSpecialtyService.DeletePersonSpecialtyById(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除专家专业");
+                        var getPersonSpecialty = BLL.PersonSpecialtyService.GetPersonSpecialtyById(rowID);
+                        if (getPersonSpecialty != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getPersonSpecialty.PersonSpecialtyCode, getPersonSpecialty.PersonSpecialtyId, BLL.Const.PersonSpecialtyMenuId, BLL.Const.BtnDelete);
+                            BLL.PersonSpecialtyService.DeletePersonSpecialtyById(rowID);
+                        }
                     }
                 }
                 BindGrid();
@@ -212,13 +220,13 @@ namespace FineUIPro.Web.BaseInfo
             {
                 newPersonSpecialty.PersonSpecialtyId = SQLHelper.GetNewID(typeof(Model.Base_PersonSpecialty));
                 BLL.PersonSpecialtyService.AddPersonSpecialty(newPersonSpecialty);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "增加专家专业信息");
-            }
+                BLL.LogService.AddSys_Log(this.CurrUser, newPersonSpecialty.PersonSpecialtyCode, newPersonSpecialty.PersonSpecialtyId, BLL.Const.PersonSpecialtyMenuId, BLL.Const.BtnAdd);
+            }                
             else
             {
                 newPersonSpecialty.PersonSpecialtyId = strRowID;
                 BLL.PersonSpecialtyService.UpdatePersonSpecialty(newPersonSpecialty);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改专家专业信息");
+                BLL.LogService.AddSys_Log(this.CurrUser, newPersonSpecialty.PersonSpecialtyCode, newPersonSpecialty.PersonSpecialtyId, BLL.Const.PersonSpecialtyMenuId, BLL.Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行

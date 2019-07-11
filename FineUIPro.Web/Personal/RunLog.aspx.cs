@@ -1,12 +1,8 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Data.SqlClient;
-using BLL;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace FineUIPro.Web.Personal
 {
@@ -16,6 +12,11 @@ namespace FineUIPro.Web.Personal
         {
             if (!IsPostBack)
             {
+                if (this.CurrUser != null && this.CurrUser.PageSize.HasValue)
+                {
+                    Grid1.PageSize = this.CurrUser.PageSize.Value;
+                }
+                this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 this.BindGrid();
                 if (this.CurrUser.UserId != BLL.Const.sysglyId)
                 {
@@ -30,12 +31,12 @@ namespace FineUIPro.Web.Personal
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT sysLog.LogId,sysLog.UserId,sysLog.OperationTime,sysLog.Ip,sysLog.HostName,sysLog.OperationLog,users.UserName,units.UnitName,Project.ProjectId,Project.ProjectName"
+            string strSql = @"SELECT sysLog.LogId,sysLog.UserId,sysLog.OperationTime,sysLog.Ip,sysLog.HostName,sysLog.OperationLog,users.UserName,ISNULL(units.UnitName,(SELECT TOP 1 UnitName FROM Base_Unit WHERE IsThisUnit = 1)) AS  UnitName,Project.ProjectId,Project.ProjectName"
                          + @" FROM dbo.Sys_Log as sysLog"
                          + @" LEFT JOIN Sys_User as users ON users.UserId=sysLog.UserId "
                          + @" LEFT JOIN Base_Unit as units on users.UnitId=units.UnitId"
                          + @" LEFT JOIN Base_Project as Project on sysLog.ProjectId=Project.ProjectId"
-                         + @" WHERE 1=1 ";
+                         + @" WHERE sysLog.UserId != '"+BLL.Const.hfnbdId + "'";
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (this.CurrUser.UserId != BLL.Const.sysglyId)
             {
@@ -62,7 +63,7 @@ namespace FineUIPro.Web.Personal
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 
             Grid1.RecordCount = tb.Rows.Count;
-            tb = GetFilteredTable(Grid1.FilteredData, tb);
+           // tb = GetFilteredTable(Grid1.FilteredData, tb);
             var table = this.GetPagedDataTable(Grid1, tb);
             Grid1.DataSource = table;
             Grid1.DataBind();

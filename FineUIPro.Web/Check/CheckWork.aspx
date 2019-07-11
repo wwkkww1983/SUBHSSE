@@ -55,6 +55,9 @@
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" runat="server"
                                 Hidden="true">
                             </f:Button>
+                            <f:Button ID="btnPrint" ToolTip="打印" Icon="Printer" Hidden="true" runat="server"
+                                        OnClick="btnPrint_Click">
+                                    </f:Button>
                             <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
                                 EnableAjax="false" DisableControlBeforePostBack="false">
                             </f:Button>
@@ -76,7 +79,7 @@
                         SortField="Area" FieldType="String" HeaderText="被检查单位、区域或部位" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="95px" ColumnID="CheckTime" DataField="CheckTime" SortField="CheckTime"
+                    <f:RenderField Width="100px" ColumnID="CheckTime" DataField="CheckTime" SortField="CheckTime"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="检查日期"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
@@ -107,7 +110,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="编辑开工前检查" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
         Width="1300px" Height="660px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

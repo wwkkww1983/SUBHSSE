@@ -34,6 +34,7 @@ namespace FineUIPro.Web.ProjectData
             if (!IsPostBack)
             {
                 this.ProjectId = Request.QueryString["ProjectId"];
+                
                 if (this.CurrUser != null && this.CurrUser.PageSize.HasValue)
                 {
                     Grid1.PageSize = this.CurrUser.PageSize.Value;
@@ -185,7 +186,7 @@ namespace FineUIPro.Web.ProjectData
                         ProjectId = this.ProjectId,
                         UserId = userId,
                         UnitId = user.UnitId,
-                        RoleId = null,
+                        RoleId = user.RoleId,
                         IsPost = true
                     };
                     BLL.ProjectUserService.AddProjectUser(newProjectUser);
@@ -211,6 +212,11 @@ namespace FineUIPro.Web.ProjectData
                     }
                 }
             }
+        }
+
+        protected void btnNew_Click(object sender, EventArgs e)
+        {
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../SysManage/UserListEdit.aspx?UnitId={0}", this.drpUnit.SelectedValue, "新增 - ")));
         }
     }
 }

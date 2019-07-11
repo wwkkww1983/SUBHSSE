@@ -175,8 +175,12 @@ namespace FineUIPro.Web.SafetyData
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, isShow))
                     {
-                        BLL.ResetManHoursService.DeleteResetManHoursByResetManHoursId(rowID);
-                        BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除公司安全人工时管理信息", rowID);
+                        var getV = BLL.ResetManHoursService.GetResetManHoursByResetManHoursId(rowID);
+                        if (getV != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getV.Abstract, rowID, BLL.Const.ServerAccidentDataMenuId, BLL.Const.BtnDelete);
+                            BLL.ResetManHoursService.DeleteResetManHoursByResetManHoursId(rowID);                            
+                        }
                     }
                 }
                 BindGrid();

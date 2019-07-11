@@ -27,7 +27,5 @@
 <TreeNode id="7C07BCB4-5D51-4061-BB71-60AD25F6F21D" Text="物资名称*" NavigateUrl="BaseInfo/GoodsDef.aspx" Icon="Basket"></TreeNode>
 <TreeNode id="091322A8-4FFB-472C-91EB-ABB3E491262A" Text="培训类别*" NavigateUrl="BaseInfo/TrainType.aspx" Icon="TextListBullets"></TreeNode>
 <TreeNode id="B27A0196-06A0-412D-B734-FB348AA6E312" Text="培训级别*" NavigateUrl="BaseInfo/TrainLevel.aspx" Icon="ReportEdit"></TreeNode>
-<TreeNode id="7353F3C1-0EAF-4DB7-86B4-93E3B96805F8" Text="行政管理检查类别" NavigateUrl="Administrative/CheckTypeSet.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="38143A01-D17C-4234-A1A1-D90A3F887438" Text="工作阶段" NavigateUrl="BaseInfo/WorkStage.aspx" Icon="Clock"></TreeNode>
-<TreeNode id="179F286B-6DF8-414E-947F-82267076D4C8" Text="施工方案类型*" NavigateUrl="BaseInfo/SolutionTempleteType.aspx" Icon="BookNext"></TreeNode>
 </Tree>

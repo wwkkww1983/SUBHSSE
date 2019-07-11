@@ -140,13 +140,13 @@ namespace FineUIPro.Web.Technique
                 appraise.CompileDate = DateTime.Now;
                 this.AppraiseId = appraise.AppraiseId = SQLHelper.GetNewID(typeof(Model.Technique_Appraise));
                 BLL.AppraiseService.AddAppraise(appraise);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加安全评价");
+                BLL.LogService.AddSys_Log(this.CurrUser, appraise.AppraiseCode, appraise.AppraiseId, BLL.Const.AppraiseMenuId, Const.BtnAdd);
             }
             else
             {
                 appraise.AppraiseId = this.AppraiseId;
                 BLL.AppraiseService.UpdateAppraise(appraise);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改安全评价");
+                BLL.LogService.AddSys_Log(this.CurrUser, appraise.AppraiseCode, appraise.AppraiseId, BLL.Const.AppraiseMenuId, Const.BtnModify);
             }
         }
         #endregion
@@ -208,11 +208,12 @@ namespace FineUIPro.Web.Technique
                         BLL.AppraiseService.UpdateAppraise(appraise);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全评价】上报到集团公司" + idList.Count.ToString() + "条数据；");
+
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全评价】上报到集团公司" + idList.Count.ToString() + "条数据；", string.Empty, BLL.Const.AppraiseMenuId, Const.BtnUploadResources);             
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全评价】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全评价】上报到集团公司失败；", string.Empty, BLL.Const.AppraiseMenuId, Const.BtnUploadResources);
             }
         }
         #endregion
@@ -224,12 +225,19 @@ namespace FineUIPro.Web.Technique
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void btnUploadResources_Click(object sender, EventArgs e)
-        {            
-            if (string.IsNullOrEmpty(this.AppraiseId))
+        {
+            if (this.btnSave.Hidden)
             {
-                SaveData(BLL.Const.UpState_1);
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/Appraise&type=-1", this.AppraiseId)));
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/Appraise&menuId=0ADD01FB-8088-4595-BB40-6A73F332A229", this.AppraiseId)));
+            else
+            {
+                if (string.IsNullOrEmpty(this.AppraiseId))
+                {
+                    SaveData(BLL.Const.UpState_1);
+                }
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/Appraise&menuId={1}", this.AppraiseId, BLL.Const.AppraiseMenuId)));
+            }
         }
         #endregion
 
@@ -263,6 +271,10 @@ namespace FineUIPro.Web.Technique
         /// <returns></returns>
         private void GetButtonPower()
         {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
             var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.AppraiseMenuId);
             if (buttonList.Count() > 0)
             {

@@ -38,6 +38,7 @@ namespace FineUIPro.Web.ProjectData
             if (!IsPostBack)
             {
                 this.ProjectId = Request.QueryString["ProjectId"];
+                this.btnNew.OnClientClick = Window1.GetShowReference("../SysManage/UnitEdit.aspx") + "return false;";
                 if (this.CurrUser != null && this.CurrUser.PageSize.HasValue)
                 {
                     Grid1.PageSize = this.CurrUser.PageSize.Value;

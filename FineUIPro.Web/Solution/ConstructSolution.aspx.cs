@@ -235,8 +235,12 @@ namespace FineUIPro.Web.Solution
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除施工方案/审查", rowID);
-                    BLL.ConstructSolutionService.DeleteConstructSolutionById(rowID);
+                    var getV = BLL.ConstructSolutionService.GetConstructSolutionById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.ConstructSolutionCode, getV.ConstructSolutionId, BLL.Const.ProjectConstructSolutionMenuId, BLL.Const.BtnDelete);
+                        BLL.ConstructSolutionService.DeleteConstructSolutionById(rowID);
+                    }
                 }
                 this.BindGrid();
                 ShowNotify("删除数据成功!", MessageBoxIcon.Success);

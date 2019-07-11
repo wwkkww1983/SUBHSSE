@@ -104,11 +104,7 @@ namespace FineUIPro.Web.License
         /// </summary>
         private void InitDropDownList()
         {
-            this.drpUnitId.DataValueField = "UnitId";
-            this.drpUnitId.DataTextField = "UnitName";
-            this.drpUnitId.DataSource = BLL.UnitService.GetUnitByProjectIdList(this.ProjectId);
-            this.drpUnitId.DataBind();
-            Funs.FineUIPleaseSelect(this.drpUnitId);
+            BLL.UnitService.InitUnitDropDownList(this.drpUnitId, this.ProjectId, true);
         }
 
         #region 保存
@@ -173,14 +169,14 @@ namespace FineUIPro.Web.License
             {
                 hSETechnical.HSETechnicalId = this.HSETechnicalId;
                 BLL.HSETechnicalService.UpdateHSETechnical(hSETechnical);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改安全技术交底",hSETechnical.HSETechnicalId);
+                BLL.LogService.AddSys_Log(this.CurrUser, hSETechnical.HSETechnicalCode, hSETechnical.HSETechnicalId, BLL.Const.ProjectHSETechnicalMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.HSETechnicalId = SQLHelper.GetNewID(typeof(Model.License_HSETechnical));
                 hSETechnical.HSETechnicalId = this.HSETechnicalId;
                 BLL.HSETechnicalService.AddHSETechnical(hSETechnical);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加安全技术交底",hSETechnical.HSETechnicalId);
+                BLL.LogService.AddSys_Log(this.CurrUser, hSETechnical.HSETechnicalCode, hSETechnical.HSETechnicalId, BLL.Const.ProjectHSETechnicalMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectHSETechnicalMenuId, this.HSETechnicalId, (type == BLL.Const.BtnSubmit ? true : false), hSETechnical.HSETechnicalCode, "../License/HSETechnicalView.aspx?HSETechnicalId={0}");

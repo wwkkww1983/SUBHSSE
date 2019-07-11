@@ -175,14 +175,14 @@ namespace FineUIPro.Web.Emergency
             {
                 EmergencySupply.FileId = this.FileId;
                 BLL.EmergencySupplyService.UpdateEmergencySupply(EmergencySupply);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改应急物资管理", EmergencySupply.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, EmergencySupply.FileCode, EmergencySupply.FileId, BLL.Const.ProjectEmergencySupplyMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.FileId = SQLHelper.GetNewID(typeof(Model.Emergency_EmergencySupply));
                 EmergencySupply.FileId = this.FileId;
                 BLL.EmergencySupplyService.AddEmergencySupply(EmergencySupply);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加应急物资管理", EmergencySupply.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, EmergencySupply.FileCode, EmergencySupply.FileId, BLL.Const.ProjectEmergencySupplyMenuId,BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectEmergencySupplyMenuId, this.FileId, (type == BLL.Const.BtnSubmit ? true : false), EmergencySupply.FileName, "../Emergency/EmergencySupplyView.aspx?FileId={0}");

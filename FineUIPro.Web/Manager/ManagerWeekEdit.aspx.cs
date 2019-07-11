@@ -160,14 +160,14 @@ namespace FineUIPro.Web.Manager
             {
                 managerWeek.ManagerWeekId = this.ManagerWeekId;
                 BLL.ManagerWeekService.UpdateManagerWeek(managerWeek);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "修改管理周报");
+                BLL.LogService.AddSys_Log(this.CurrUser, managerWeek.ManagerWeekCode, managerWeek.ManagerWeekId, BLL.Const.ProjectManagerWeekMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.ManagerWeekId = SQLHelper.GetNewID(typeof(Model.Manager_ManagerWeek));
                 managerWeek.ManagerWeekId = this.ManagerWeekId;
                 BLL.ManagerWeekService.AddManagerWeek(managerWeek);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "添加管理周报");
+                BLL.LogService.AddSys_Log(this.CurrUser, managerWeek.ManagerWeekCode, managerWeek.ManagerWeekId, BLL.Const.ProjectManagerWeekMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectManagerWeekMenuId, this.ManagerWeekId, (type == BLL.Const.BtnSubmit ? true : false), managerWeek.ManagerWeekName, "../Manager/ManagerWeekView.aspx?ManagerWeekId={0}");

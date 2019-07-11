@@ -66,6 +66,7 @@ namespace BLL
                 MainUnitPerson = checkHoliday.MainUnitPerson,
                 SubUnits = checkHoliday.SubUnits,
                 SubUnitPerson = checkHoliday.SubUnitPerson,
+                PartInPersonNames = checkHoliday.PartInPersonNames,
                 MainUnitDeputy = checkHoliday.MainUnitDeputy,
                 SubUnitDeputy = checkHoliday.SubUnitDeputy,
                 MainUnitDeputyDate = checkHoliday.MainUnitDeputyDate,
@@ -75,6 +76,7 @@ namespace BLL
                 States = checkHoliday.States,
                 CompileMan = checkHoliday.CompileMan
             };
+
             db.Check_CheckHoliday.InsertOnSubmit(newCheckHoliday);
             db.SubmitChanges();
             ////增加一条编码记录
@@ -97,6 +99,7 @@ namespace BLL
                 newCheckHoliday.MainUnitPerson = checkHoliday.MainUnitPerson;
                 newCheckHoliday.SubUnits = checkHoliday.SubUnits;
                 newCheckHoliday.SubUnitPerson = checkHoliday.SubUnitPerson;
+                newCheckHoliday.PartInPersonNames = checkHoliday.PartInPersonNames;
                 newCheckHoliday.MainUnitDeputy = checkHoliday.MainUnitDeputy;
                 newCheckHoliday.SubUnitDeputy = checkHoliday.SubUnitDeputy;
                 newCheckHoliday.MainUnitDeputyDate = checkHoliday.MainUnitDeputyDate;

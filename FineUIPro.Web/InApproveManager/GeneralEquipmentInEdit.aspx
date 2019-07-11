@@ -154,7 +154,7 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="Window1" Title="主要设备基本情况" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="650px" Height="420px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
@@ -166,7 +166,7 @@
             runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

@@ -117,10 +117,10 @@ namespace BLL
         /// </summary>
         /// <param name="identityCard">身份证号</param>
         /// <returns>人员的数量</returns>
-        public static int GetPersonCountByIdentityCard(string identityCard, string projectId)
+        public static Model.SitePerson_Person GetPersonCountByIdentityCard(string identityCard, string projectId)
         {
-            var q = (from x in Funs.DB.SitePerson_Person where x.IdentityCard == identityCard && x.ProjectId == projectId select x).ToList();
-            return q.Count();
+            var q = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.IdentityCard == identityCard && x.ProjectId == projectId);
+            return q;
         }
 
         /// <summary>
@@ -152,8 +152,19 @@ namespace BLL
                 UnitId = person.UnitId,
                 TeamGroupId = person.TeamGroupId,
                 WorkAreaId = person.WorkAreaId,
-                WorkPostId = person.WorkPostId
+                WorkPostId = person.WorkPostId,
+                OutTime = person.OutTime,
+                OutResult = person.OutResult,
+                Telephone = person.Telephone,
+                PositionId = person.PositionId,
+                PostTitleId = person.PostTitleId,
+                PhotoUrl = person.PhotoUrl,
+                IsUsed = person.IsUsed,
+                IsCardUsed = person.IsCardUsed,
+                DepartId = person.DepartId,
+                FromPersonId =person.FromPersonId,
             };
+
             if (person.InTime.HasValue)
             {
                 newPerson.InTime = person.InTime;
@@ -162,15 +173,7 @@ namespace BLL
             {
                 newPerson.InTime = Funs.GetNewDateTime(System.DateTime.Now.ToShortDateString());
             }
-            newPerson.OutTime = person.OutTime;
-            newPerson.OutResult = person.OutResult;
-            newPerson.Telephone = person.Telephone;
-            newPerson.PositionId = person.PositionId;
-            newPerson.PostTitleId = person.PostTitleId;
-            newPerson.PhotoUrl = person.PhotoUrl;
-            newPerson.IsUsed = person.IsUsed;
-            newPerson.IsCardUsed = person.IsCardUsed;
-            newPerson.DepartId = person.DepartId;
+            
             db.SitePerson_Person.InsertOnSubmit(newPerson);
             db.SubmitChanges();
 
@@ -209,6 +212,7 @@ namespace BLL
             Model.SitePerson_Person newPerson = db.SitePerson_Person.FirstOrDefault(e => e.PersonId == person.PersonId);
             if (newPerson != null)
             {
+                newPerson.FromPersonId = person.FromPersonId;
                 newPerson.CardNo = person.CardNo;
                 newPerson.PersonName = person.PersonName;
                 newPerson.Sex = person.Sex;
@@ -229,6 +233,7 @@ namespace BLL
                 newPerson.IsUsed = person.IsUsed;
                 newPerson.IsCardUsed = person.IsCardUsed;
                 newPerson.DepartId = person.DepartId;
+                newPerson.QRCodeAttachUrl = person.QRCodeAttachUrl;
                 db.SubmitChanges();
 
                 ///写入人员出入场时间表 

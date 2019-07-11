@@ -20,7 +20,7 @@
         Layout="VBox" BodyPadding="10px" runat="server" RedStarPosition="BeforeText"
         LabelAlign="Right">              
         <Rows>
-            <f:FormRow ColumnWidths="29% 20% 25% 20%">
+            <f:FormRow>
                 <Items>
                     <f:DropDownList ID="drpYear" AutoPostBack="false" EnableSimulateTree="true" Required="true"
                         ShowRedStar="true" runat="server" Label="年度">
@@ -39,15 +39,15 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox runat="server" Label="百万工时总可记录事故率" ID="txtRecordableIncidentRate" LabelWidth="170px">
+                    <f:TextBox runat="server" Label="百万工时</br>总可记录事故率" ID="txtRecordableIncidentRate" LabelWidth="130px">
                     </f:TextBox>
-                    <f:TextBox runat="server" Label="百万工时损失工时率" ID="txtLostTimeRate" LabelWidth="150px">
+                    <f:TextBox runat="server" Label="百万工时</br>损失工时率" ID="txtLostTimeRate" LabelWidth="120px">
                     </f:TextBox>
-                    <f:TextBox runat="server" Label="百万工时损失工时伤害事故率" ID="txtLostTimeInjuryRate" LabelWidth="190px">
+                    <f:TextBox runat="server" Label="百万工时</br>损失工时伤害事故率" ID="txtLostTimeInjuryRate" LabelWidth="150px">
                     </f:TextBox>
-                    <f:TextBox runat="server" Label="百万工时死亡事故频率" ID="txtDeathAccidentFrequency" LabelWidth="160px">
+                    <f:TextBox runat="server" Label="百万工时</br>死亡事故频率" ID="txtDeathAccidentFrequency" LabelWidth="130px">
                     </f:TextBox>
-                    <f:TextBox runat="server" Label="百万工时事故死亡率" ID="txtAccidentMortality" LabelWidth="150px">
+                    <f:TextBox runat="server" Label="百万工时</br>事故死亡率" ID="txtAccidentMortality" LabelWidth="120px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
@@ -56,21 +56,21 @@
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" EnableCollapse="true" runat="server"
                         BoxFlex="1" DataKeyNames="MillionsMonthlyReportItemId" AllowCellEditing="true"
                         ClicksToEdit="1" DataIDField="MillionsMonthlyReportItemId" EnableColumnLines="true"
-                        OnRowCommand="Grid1_RowCommand" EnableHeaderMenu="false" Width="1400px" Height="450px">
+                        OnRowCommand="Grid1_RowCommand" EnableHeaderMenu="false" Width="1300px" Height="380px">
                         <Columns>
-                            <f:LinkButtonField Width="40px" ConfirmTarget="Top" CommandName="Add" Icon="Add"
+                            <f:LinkButtonField Width="40px" ConfirmTarget="Parent" CommandName="Add" Icon="Add"
                                 TextAlign="Center" />
-                            <f:LinkButtonField Width="40px" ConfirmText="删除选中行？" ConfirmTarget="Top" CommandName="Delete"
+                            <f:LinkButtonField Width="40px" ConfirmText="删除选中行？" ConfirmTarget="Parent" CommandName="Delete"
                                 Icon="Delete" TextAlign="Center" />
                            <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center"/>
-                            <f:RenderField Width="100px" ColumnID="Affiliation" DataField="Affiliation" FieldType="String"
+                            <f:RenderField Width="120px" ColumnID="Affiliation" DataField="Affiliation" FieldType="String"
                                 HeaderText="所属单位" HeaderTextAlign="Center">
                                 <Editor>
                                     <f:TextBox runat="server" ID="txtAffiliation" Text='<%# Eval("Affiliation")%>'>
                                     </f:TextBox>
                                 </Editor>
                             </f:RenderField>
-                            <f:RenderField Width="100px" ColumnID="Name" DataField="Name" FieldType="String"
+                            <f:RenderField Width="200px" ColumnID="Name" DataField="Name" FieldType="String"
                                 HeaderText="名称" HeaderTextAlign="Center">
                                 <Editor>
                                     <f:TextBox runat="server" ID="txtName" Text='<%# Eval("Name")%>'>
@@ -79,19 +79,19 @@
                             </f:RenderField>
                             <f:GroupField EnableLock="true" HeaderText="员工总数" TextAlign="Center">
                                 <Columns>
-                                    <f:RenderField Width="90px" ColumnID="PostPersonNum" DataField="PostPersonNum" FieldType="String"
+                                    <f:RenderField Width="85px" ColumnID="PostPersonNum" DataField="PostPersonNum" FieldType="String"
                                         HeaderText="在岗员工" HeaderTextAlign="Center">
                                         <Editor>
                                             <f:NumberBox ID="txtPostPersonNum" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                Text='<%# Eval("PostPersonNum")%>' runat="server">
+                                                Text='<%# Eval("PostPersonNum")%>' runat="server" >
                                             </f:NumberBox>
                                         </Editor>
                                     </f:RenderField>
-                                    <f:RenderField Width="90px" ColumnID="SnapPersonNum" DataField="SnapPersonNum" FieldType="String"
+                                    <f:RenderField Width="85px" ColumnID="SnapPersonNum" DataField="SnapPersonNum" FieldType="String"
                                         HeaderText="临时员工" HeaderTextAlign="Center">
                                         <Editor>
                                             <f:NumberBox ID="txtSnapPersonNum" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                Text='<%# Eval("SnapPersonNum")%>' runat="server">
+                                                Text='<%# Eval("SnapPersonNum")%>' runat="server" >
                                             </f:NumberBox>
                                         </Editor>
                                     </f:RenderField>
@@ -99,19 +99,19 @@
                                         HeaderText="承包商" HeaderTextAlign="Center">
                                         <Editor>
                                             <f:NumberBox ID="txtContractorNum" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                Text='<%# Eval("ContractorNum")%>' runat="server">
+                                                Text='<%# Eval("ContractorNum")%>' runat="server" >
                                             </f:NumberBox>
                                         </Editor>
                                     </f:RenderField>
                                 </Columns>
                             </f:GroupField>
-                            <f:RenderField Width="120px" ColumnID="TotalWorkNum" DataField="TotalWorkNum" FieldType="String"
-                                HeaderText="总工时数（万）" HeaderTextAlign="Center">
+                            <f:RenderField Width="110px" ColumnID="TotalWorkNum" DataField="TotalWorkNum" FieldType="String"
+                                HeaderText="总工时数(万)" HeaderTextAlign="Center">
                                 <Editor>
                                    <%-- <f:TextBox runat="server" ID="txtTotalWorkNum" Text='<%# Eval("TotalWorkNum")%>'>
                                     </f:TextBox>--%>
                                     <f:NumberBox ID="txtTotalWorkNum" NoDecimal="false" NoNegative="true" MinValue="0.00" 
-                                                Text='<%# Eval("TotalWorkNum")%>' runat="server" DecimalPrecision="4">
+                                                Text='<%# Eval("TotalWorkNum")%>' runat="server" DecimalPrecision="4" >
                                             </f:NumberBox>
                                 </Editor>
                             </f:RenderField>
@@ -123,7 +123,7 @@
                                                 FieldType="String" HeaderText="起数" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox ID="txtSeriousInjuriesNum" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                        Text='<%# Eval("SeriousInjuriesNum")%>' runat="server">
+                                                        Text='<%# Eval("SeriousInjuriesNum")%>' runat="server" >
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
@@ -131,15 +131,15 @@
                                                 FieldType="String" HeaderText="人数" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox ID="txtSeriousInjuriesPersonNum" NoDecimal="true" NoNegative="true"
-                                                        MinValue="0" Text='<%# Eval("SeriousInjuriesPersonNum")%>' runat="server">
+                                                        MinValue="0" Text='<%# Eval("SeriousInjuriesPersonNum")%>' runat="server" >
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
-                                            <f:RenderField Width="75px" ColumnID="SeriousInjuriesLossHour" DataField="SeriousInjuriesLossHour"
+                                            <f:RenderField Width="80px" ColumnID="SeriousInjuriesLossHour" DataField="SeriousInjuriesLossHour"
                                                 FieldType="String" HeaderText="损失工时" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox ID="txtSeriousInjuriesLossHour" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                        Text='<%# Eval("SeriousInjuriesLossHour")%>' runat="server">
+                                                        Text='<%# Eval("SeriousInjuriesLossHour")%>' runat="server" >
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
@@ -148,26 +148,26 @@
                                     <f:GroupField EnableLock="true" HeaderText="轻伤事故" TextAlign="Center">
                                         <Columns>
                                             <f:RenderField Width="50px" ColumnID="MinorAccidentNum" DataField="MinorAccidentNum"
-                                                FieldType="String" HeaderText="起数" HeaderTextAlign="Center">
+                                                FieldType="String" HeaderText="起数" HeaderTextAlign="Center" >
                                                 <Editor>
                                                     <f:NumberBox ID="txtMinorAccidentNum" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                        Text='<%# Eval("MinorAccidentNum")%>' runat="server">
+                                                        Text='<%# Eval("MinorAccidentNum")%>' runat="server" >
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
                                             <f:RenderField Width="50px" ColumnID="MinorAccidentPersonNum" DataField="MinorAccidentPersonNum"
-                                                FieldType="String" HeaderText="人数" HeaderTextAlign="Center">
+                                                FieldType="String" HeaderText="人数" HeaderTextAlign="Center" >
                                                 <Editor>
                                                     <f:NumberBox ID="txtMinorAccidentPersonNum" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                        Text='<%# Eval("MinorAccidentPersonNum")%>' runat="server">
+                                                        Text='<%# Eval("MinorAccidentPersonNum")%>' runat="server" >
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
-                                            <f:RenderField Width="75px" ColumnID="MinorAccidentLossHour" DataField="MinorAccidentLossHour"
+                                            <f:RenderField Width="80px" ColumnID="MinorAccidentLossHour" DataField="MinorAccidentLossHour"
                                                 FieldType="String" HeaderText="损失工时" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox ID="txtMinorAccidentLossHour" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                        Text='<%# Eval("MinorAccidentLossHour")%>' runat="server">
+                                                        Text='<%# Eval("MinorAccidentLossHour")%>' runat="server" >
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
@@ -179,7 +179,7 @@
                                                 FieldType="String" HeaderText="起数" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox ID="txtOtherAccidentNum" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                        Text='<%# Eval("OtherAccidentNum")%>' runat="server">
+                                                        Text='<%# Eval("OtherAccidentNum")%>' runat="server" >
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
@@ -187,15 +187,15 @@
                                                 FieldType="String" HeaderText="人数" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox ID="txtOtherAccidentPersonNum" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                        Text='<%# Eval("OtherAccidentPersonNum")%>' runat="server">
+                                                        Text='<%# Eval("OtherAccidentPersonNum")%>' runat="server" >
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
-                                            <f:RenderField Width="75px" ColumnID="OtherAccidentLossHour" DataField="OtherAccidentLossHour"
+                                            <f:RenderField Width="80px" ColumnID="OtherAccidentLossHour" DataField="OtherAccidentLossHour"
                                                 FieldType="String" HeaderText="损失工时" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox ID="txtOtherAccidentLossHour" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                        Text='<%# Eval("OtherAccidentLossHour")%>' runat="server">
+                                                        Text='<%# Eval("OtherAccidentLossHour")%>' runat="server" >
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
@@ -207,15 +207,15 @@
                                                 FieldType="String" HeaderText="人数" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox ID="txtRestrictedWorkPersonNum" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                        Text='<%# Eval("RestrictedWorkPersonNum")%>' runat="server">
+                                                        Text='<%# Eval("RestrictedWorkPersonNum")%>' runat="server" >
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
-                                            <f:RenderField Width="75px" ColumnID="RestrictedWorkLossHour" DataField="RestrictedWorkLossHour"
+                                            <f:RenderField Width="80px" ColumnID="RestrictedWorkLossHour" DataField="RestrictedWorkLossHour"
                                                 FieldType="String" HeaderText="损失工时" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox ID="txtRestrictedWorkLossHour" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                        Text='<%# Eval("RestrictedWorkLossHour")%>' runat="server">
+                                                        Text='<%# Eval("RestrictedWorkLossHour")%>' runat="server" >
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
@@ -227,15 +227,15 @@
                                                 FieldType="String" HeaderText="人数" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox ID="txtMedicalTreatmentPersonNum" NoDecimal="true" NoNegative="true"
-                                                        MinValue="0" Text='<%# Eval("MedicalTreatmentPersonNum")%>' runat="server">
+                                                        MinValue="0" Text='<%# Eval("MedicalTreatmentPersonNum")%>' runat="server" >
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
-                                            <f:RenderField Width="75px" ColumnID="MedicalTreatmentLossHour" DataField="MedicalTreatmentLossHour"
+                                            <f:RenderField Width="80px" ColumnID="MedicalTreatmentLossHour" DataField="MedicalTreatmentLossHour"
                                                 FieldType="String" HeaderText="损失工时" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox ID="txtMedicalTreatmentLossHour" NoDecimal="true" NoNegative="true"
-                                                        MinValue="0" Text='<%# Eval("MedicalTreatmentLossHour")%>' runat="server">
+                                                        MinValue="0" Text='<%# Eval("MedicalTreatmentLossHour")%>' runat="server" >
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
@@ -250,7 +250,8 @@
                                             <f:RenderField Width="50px" ColumnID="FireNum" DataField="FireNum" FieldType="String"
                                                 HeaderText="起数" HeaderTextAlign="Center">
                                                 <Editor>
-                                                    <f:NumberBox ID="txtFireNum" NoDecimal="true" NoNegative="true" MinValue="0" Text='<%# Eval("FireNum")%>'
+                                                    <f:NumberBox ID="txtFireNum" NoDecimal="true" NoNegative="true" MinValue="0" 
+                                                        Text='<%# Eval("FireNum")%>' 
                                                         runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
@@ -263,7 +264,7 @@
                                                 HeaderText="起数" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox ID="txtExplosionNum" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                        Text='<%# Eval("ExplosionNum")%>' runat="server">
+                                                        Text='<%# Eval("ExplosionNum")%>' runat="server" >
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
@@ -274,7 +275,8 @@
                                             <f:RenderField Width="50px" ColumnID="TrafficNum" DataField="TrafficNum" FieldType="String"
                                                 HeaderText="起数" HeaderTextAlign="Center">
                                                 <Editor>
-                                                    <f:NumberBox ID="txtTrafficNum" NoDecimal="true" NoNegative="true" MinValue="0" Text='<%# Eval("TrafficNum")%>'
+                                                    <f:NumberBox ID="txtTrafficNum" NoDecimal="true" NoNegative="true" MinValue="0" 
+                                                        Text='<%# Eval("TrafficNum")%>' 
                                                         runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
@@ -283,11 +285,11 @@
                                     </f:GroupField>
                                     <f:GroupField EnableLock="true" HeaderText="机械设备" TextAlign="Center">
                                         <Columns>
-                                            <f:RenderField Width="75px" ColumnID="EquipmentNum" DataField="EquipmentNum" FieldType="String"
+                                            <f:RenderField Width="80px" ColumnID="EquipmentNum" DataField="EquipmentNum" FieldType="String"
                                                 HeaderText="起数" HeaderTextAlign="Center">
                                                 <Editor>
                                                     <f:NumberBox ID="txtEquipmentNum" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                        Text='<%# Eval("EquipmentNum")%>' runat="server">
+                                                        Text='<%# Eval("EquipmentNum")%>' runat="server" >
                                                     </f:NumberBox>
                                                 </Editor>
                                             </f:RenderField>
@@ -298,7 +300,8 @@
                                             <f:RenderField Width="50px" ColumnID="QualityNum" DataField="QualityNum" FieldType="String"
                                                 HeaderText="起数" HeaderTextAlign="Center">
                                                 <Editor>
-                                                    <f:NumberBox ID="txtQualityNum" NoDecimal="true" NoNegative="true" MinValue="0" Text='<%# Eval("QualityNum")%>'
+                                                    <f:NumberBox ID="txtQualityNum" NoDecimal="true" NoNegative="true" MinValue="0" 
+                                                        Text='<%# Eval("QualityNum")%>' 
                                                         runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
@@ -310,7 +313,8 @@
                                             <f:RenderField Width="50px" ColumnID="OtherNum" DataField="OtherNum" FieldType="String"
                                                 HeaderText="起数" HeaderTextAlign="Center">
                                                 <Editor>
-                                                    <f:NumberBox ID="txtOtherNum" NoDecimal="true" NoNegative="true" MinValue="0" Text='<%# Eval("OtherNum")%>'
+                                                    <f:NumberBox ID="txtOtherNum" NoDecimal="true" NoNegative="true" MinValue="0" 
+                                                        Text='<%# Eval("OtherNum")%>' 
                                                         runat="server">
                                                     </f:NumberBox>
                                                 </Editor>
@@ -325,7 +329,7 @@
                                         FieldType="String" HeaderText="起数" HeaderTextAlign="Center">
                                         <Editor>
                                             <f:NumberBox ID="txtFirstAidDressingsNum" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                Text='<%# Eval("FirstAidDressingsNum")%>' runat="server">
+                                                Text='<%# Eval("FirstAidDressingsNum")%>' runat="server" >
                                             </f:NumberBox>
                                         </Editor>
                                     </f:RenderField>
@@ -337,7 +341,7 @@
                                         FieldType="String" HeaderText="起数" HeaderTextAlign="Center">
                                         <Editor>
                                             <f:NumberBox ID="txtAttemptedEventNum" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                Text='<%# Eval("AttemptedEventNum")%>' runat="server">
+                                                Text='<%# Eval("AttemptedEventNum")%>' runat="server" >
                                             </f:NumberBox>
                                         </Editor>
                                     </f:RenderField>
@@ -346,7 +350,7 @@
                             <f:RenderField Width="100px" ColumnID="LossDayNum" DataField="LossDayNum" FieldType="String"
                                 HeaderText="损失工日" HeaderTextAlign="Center">
                                 <Editor>
-                                    <f:NumberBox ID="txtLossDayNum" NoDecimal="true" NoNegative="true" MinValue="0"
+                                    <f:NumberBox ID="txtLossDayNum" NoDecimal="true" NoNegative="true" MinValue="0" 
                                         Text='<%# Eval("LossDayNum")%>' runat="server">
                                     </f:NumberBox>
                                 </Editor>
@@ -364,7 +368,7 @@
             </f:FormRow>
         </Rows>
         <Toolbars>
-            <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server" Margin="0 50 30 50">
+            <f:Toolbar ID="Toolbar1" Position="Top" ToolbarAlign="Right" runat="server">
                 <Items>
                     <f:Button ID="btnCopy" Icon="Database" runat="server" ToolTip="复制上月数据"
                         ValidateForms="SimpleForm1" OnClick="btnCopy_Click" Hidden = "true">
@@ -378,15 +382,14 @@
                     </f:Button>
                     <f:Button ID="btnUpdata" Icon="PageSave" runat="server" Hidden="true" ConfirmText="确定上报？"
                         ToolTip="上报" ValidateForms="SimpleForm1" OnClick="btnUpdata_Click">
-                    </f:Button>
-                                        
+                    </f:Button>                                      
                 </Items>
             </f:Toolbar>
         </Toolbars>
     </f:Form>
     <f:Window ID="Window1" IconUrl="~/res/images/16/11.png" runat="server" Hidden="true"
         IsModal="false" Target="Parent" EnableMaximize="true" EnableResize="true" OnClose="Window1_Close"
-        Title="办理流程" CloseAction="HidePostBack" EnableIFrame="true" Height="250px" Width="500px">
+        Title="办理流程" CloseAction="HidePostBack" EnableIFrame="true" Height="520px" Width="800px">
     </f:Window>
     </form>
 </body>

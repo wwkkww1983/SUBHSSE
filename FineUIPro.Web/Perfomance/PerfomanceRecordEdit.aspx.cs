@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BLL;
+﻿using BLL;
+using System;
 
 namespace FineUIPro.Web.Perfomance
 {
@@ -72,7 +67,7 @@ namespace FineUIPro.Web.Perfomance
                 this.PerfomanceRecordId = Request.Params["PerfomanceRecordId"];
                 if (!string.IsNullOrEmpty(this.PerfomanceRecordId))
                 {
-                    Model.Perfomance_PerfomanceRecord perfomanceRecord = BLL.PerfomanceRecordService.GetPerfomanceRecordById(this.PerfomanceRecordId);
+                    var perfomanceRecord = BLL.PerfomanceRecordService.GetPerfomanceRecordById(this.PerfomanceRecordId);
                     if (perfomanceRecord != null)
                     {
                         this.ProjectId = perfomanceRecord.ProjectId;
@@ -163,17 +158,8 @@ namespace FineUIPro.Web.Perfomance
         /// </summary>
         private void InitDropDownList()
         {
-            this.drpUnitId.DataValueField = "UnitId";
-            this.drpUnitId.DataTextField = "UnitName";
-            this.drpUnitId.DataSource = BLL.UnitService.GetUnitByProjectIdList(this.ProjectId);
-            this.drpUnitId.DataBind();
-            Funs.FineUIPleaseSelect(this.drpUnitId);
-
-            this.drpRewardOrPunish.DataValueField = "ConstValue";
-            this.drpRewardOrPunish.DataTextField = "ConstText";
-            this.drpRewardOrPunish.DataSource = BLL.ConstValue.drpConstItemList(BLL.ConstValue.Group_RewardOrPunish);
-            this.drpRewardOrPunish.DataBind();
-            Funs.FineUIPleaseSelect(this.drpRewardOrPunish);
+            UnitService.InitUnitDropDownList(this.drpUnitId, this.ProjectId, true);
+            ConstValue.InitConstValueDropDownList(this.drpRewardOrPunish, ConstValue.Group_RewardOrPunish, true);
         }
 
         #region 保存、提交
@@ -190,7 +176,7 @@ namespace FineUIPro.Web.Perfomance
                 return;
             }
             this.SaveData(BLL.Const.BtnSave);
-            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
+            
         }
 
         /// <summary>
@@ -211,7 +197,6 @@ namespace FineUIPro.Web.Perfomance
                 return;
             }
             this.SaveData(BLL.Const.BtnSubmit);
-            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }
 
         /// <summary>
@@ -223,85 +208,97 @@ namespace FineUIPro.Web.Perfomance
             Model.Perfomance_PerfomanceRecord perfomanceRecord = new Model.Perfomance_PerfomanceRecord
             {
                 ProjectId = this.ProjectId,
-                PerfomanceRecordCode = this.txtPerfomanceRecordCode.Text.Trim()
+                PerfomanceRecordCode = this.txtPerfomanceRecordCode.Text.Trim(),
+                SubContractNum = this.txtSubContractNum.Text.Trim(),
+                EvaluationDate = Funs.GetNewDateTime(this.txtEvaluationDate.Text.Trim()),
+                EvaluationDef = this.txtEvaluationDef.Text.Trim(),
+                RPMoney = Funs.GetNewDecimalOrZero(this.txtRPMoney.Text.Trim()),
+                AssessmentGroup = this.txtAssessmentGroup.Text.Trim(),
+                Behavior_1 = this.txtBehavior_1.Text.Trim(),
+                Behavior_2 = this.txtBehavior_2.Text.Trim(),
+                Behavior_3 = this.txtBehavior_3.Text.Trim(),
+                Behavior_4 = this.txtBehavior_4.Text.Trim(),
+                Behavior_5 = this.txtBehavior_5.Text.Trim(),
+                Behavior_6 = this.txtBehavior_6.Text.Trim(),
+                Behavior_7 = this.txtBehavior_7.Text.Trim(),
+                Behavior_8 = this.txtBehavior_8.Text.Trim(),
+                Behavior_9 = this.txtBehavior_9.Text.Trim(),
+                Behavior_10 = this.txtBehavior_10.Text.Trim(),
+                Behavior_11 = this.txtBehavior_11.Text.Trim(),
+                Behavior_12 = this.txtBehavior_12.Text.Trim(),
+                Behavior_13 = this.txtBehavior_13.Text.Trim(),
+                Behavior_14 = this.txtBehavior_14.Text.Trim(),
+                Behavior_15 = this.txtBehavior_15.Text.Trim(),
+                Behavior_16 = this.txtBehavior_16.Text.Trim(),
+                Behavior_17 = this.txtBehavior_17.Text.Trim(),
+                Behavior_18 = this.txtBehavior_18.Text.Trim(),
+                Behavior_19 = this.txtBehavior_19.Text.Trim(),
+                Behavior_20 = this.txtBehavior_20.Text.Trim(),
+                Score_1 = Funs.GetNewDecimalOrZero(this.txtScore_1.Text.Trim()),
+                Score_2 = Funs.GetNewDecimalOrZero(this.txtScore_2.Text.Trim()),
+                Score_3 = Funs.GetNewDecimalOrZero(this.txtScore_3.Text.Trim()),
+                Score_4 = Funs.GetNewDecimalOrZero(this.txtScore_4.Text.Trim()),
+                Score_5 = Funs.GetNewDecimalOrZero(this.txtScore_5.Text.Trim()),
+                Score_6 = Funs.GetNewDecimalOrZero(this.txtScore_6.Text.Trim()),
+                Score_7 = Funs.GetNewDecimalOrZero(this.txtScore_7.Text.Trim()),
+                Score_8 = Funs.GetNewDecimalOrZero(this.txtScore_8.Text.Trim()),
+                Score_9 = Funs.GetNewDecimalOrZero(this.txtScore_9.Text.Trim()),
+                Score_10 = Funs.GetNewDecimalOrZero(this.txtScore_10.Text.Trim()),
+                Score_11 = Funs.GetNewDecimalOrZero(this.txtScore_11.Text.Trim()),
+                Score_12 = Funs.GetNewDecimalOrZero(this.txtScore_12.Text.Trim()),
+                Score_13 = Funs.GetNewDecimalOrZero(this.txtScore_13.Text.Trim()),
+                Score_14 = Funs.GetNewDecimalOrZero(this.txtScore_14.Text.Trim()),
+                Score_15 = Funs.GetNewDecimalOrZero(this.txtScore_15.Text.Trim()),
+                Score_16 = Funs.GetNewDecimalOrZero(this.txtScore_16.Text.Trim()),
+                Score_17 = Funs.GetNewDecimalOrZero(this.txtScore_17.Text.Trim()),
+                Score_18 = Funs.GetNewDecimalOrZero(this.txtScore_18.Text.Trim()),
+                Score_19 = Funs.GetNewDecimalOrZero(this.txtScore_19.Text.Trim()),
+                Score_20 = Funs.GetNewDecimalOrZero(this.txtScore_20.Text.Trim()),
+                TotalJudging = this.txtTotalJudging.Text.Trim(),
+                TotalScore = Funs.GetNewDecimalOrZero(this.txtTotalScore.Text.Trim()),
+                States = BLL.Const.State_0,
+                CompileMan = this.CurrUser.UserId,
+                CompileDate = DateTime.Now,
+                AttachUrl = this.AttachUrl1,
             };
+
             if (this.drpUnitId.SelectedValue != BLL.Const._Null)
             {
                 perfomanceRecord.UnitId = this.drpUnitId.SelectedValue;
             }
-            perfomanceRecord.SubContractNum = this.txtSubContractNum.Text.Trim();
-            perfomanceRecord.EvaluationDate = Funs.GetNewDateTime(this.txtEvaluationDate.Text.Trim());
-            perfomanceRecord.EvaluationDef = this.txtEvaluationDef.Text.Trim();
+
             if (this.drpRewardOrPunish.SelectedValue != BLL.Const._Null)
             {
                 perfomanceRecord.RewardOrPunish = this.drpRewardOrPunish.SelectedValue;
             }
-            perfomanceRecord.RPMoney = Funs.GetNewDecimalOrZero(this.txtRPMoney.Text.Trim());
-            perfomanceRecord.AssessmentGroup = this.txtAssessmentGroup.Text.Trim();
-            perfomanceRecord.Behavior_1 = this.txtBehavior_1.Text.Trim();
-            perfomanceRecord.Behavior_2 = this.txtBehavior_2.Text.Trim();
-            perfomanceRecord.Behavior_3 = this.txtBehavior_3.Text.Trim();
-            perfomanceRecord.Behavior_4 = this.txtBehavior_4.Text.Trim();
-            perfomanceRecord.Behavior_5 = this.txtBehavior_5.Text.Trim();
-            perfomanceRecord.Behavior_6 = this.txtBehavior_6.Text.Trim();
-            perfomanceRecord.Behavior_7 = this.txtBehavior_7.Text.Trim();
-            perfomanceRecord.Behavior_8 = this.txtBehavior_8.Text.Trim();
-            perfomanceRecord.Behavior_9 = this.txtBehavior_9.Text.Trim();
-            perfomanceRecord.Behavior_10 = this.txtBehavior_10.Text.Trim();
-            perfomanceRecord.Behavior_11 = this.txtBehavior_11.Text.Trim();
-            perfomanceRecord.Behavior_12 = this.txtBehavior_12.Text.Trim();
-            perfomanceRecord.Behavior_13 = this.txtBehavior_13.Text.Trim();
-            perfomanceRecord.Behavior_14 = this.txtBehavior_14.Text.Trim();
-            perfomanceRecord.Behavior_15 = this.txtBehavior_15.Text.Trim();
-            perfomanceRecord.Behavior_16 = this.txtBehavior_16.Text.Trim();
-            perfomanceRecord.Behavior_17 = this.txtBehavior_17.Text.Trim();
-            perfomanceRecord.Behavior_18 = this.txtBehavior_18.Text.Trim();
-            perfomanceRecord.Behavior_19 = this.txtBehavior_19.Text.Trim();
-            perfomanceRecord.Behavior_20 = this.txtBehavior_20.Text.Trim();
-            perfomanceRecord.Score_1 = Funs.GetNewDecimalOrZero(this.txtScore_1.Text.Trim());
-            perfomanceRecord.Score_2 = Funs.GetNewDecimalOrZero(this.txtScore_2.Text.Trim());
-            perfomanceRecord.Score_3 = Funs.GetNewDecimalOrZero(this.txtScore_3.Text.Trim());
-            perfomanceRecord.Score_4 = Funs.GetNewDecimalOrZero(this.txtScore_4.Text.Trim());
-            perfomanceRecord.Score_5 = Funs.GetNewDecimalOrZero(this.txtScore_5.Text.Trim());
-            perfomanceRecord.Score_6 = Funs.GetNewDecimalOrZero(this.txtScore_6.Text.Trim());
-            perfomanceRecord.Score_7 = Funs.GetNewDecimalOrZero(this.txtScore_7.Text.Trim());
-            perfomanceRecord.Score_8 = Funs.GetNewDecimalOrZero(this.txtScore_8.Text.Trim());
-            perfomanceRecord.Score_9 = Funs.GetNewDecimalOrZero(this.txtScore_9.Text.Trim());
-            perfomanceRecord.Score_10 = Funs.GetNewDecimalOrZero(this.txtScore_10.Text.Trim());
-            perfomanceRecord.Score_11 = Funs.GetNewDecimalOrZero(this.txtScore_11.Text.Trim());
-            perfomanceRecord.Score_12 = Funs.GetNewDecimalOrZero(this.txtScore_12.Text.Trim());
-            perfomanceRecord.Score_13 = Funs.GetNewDecimalOrZero(this.txtScore_13.Text.Trim());
-            perfomanceRecord.Score_14 = Funs.GetNewDecimalOrZero(this.txtScore_14.Text.Trim());
-            perfomanceRecord.Score_15 = Funs.GetNewDecimalOrZero(this.txtScore_15.Text.Trim());
-            perfomanceRecord.Score_16 = Funs.GetNewDecimalOrZero(this.txtScore_16.Text.Trim());
-            perfomanceRecord.Score_17 = Funs.GetNewDecimalOrZero(this.txtScore_17.Text.Trim());
-            perfomanceRecord.Score_18 = Funs.GetNewDecimalOrZero(this.txtScore_18.Text.Trim());
-            perfomanceRecord.Score_19 = Funs.GetNewDecimalOrZero(this.txtScore_19.Text.Trim());
-            perfomanceRecord.Score_20 = Funs.GetNewDecimalOrZero(this.txtScore_20.Text.Trim());
-            perfomanceRecord.TotalJudging = this.txtTotalJudging.Text.Trim();
-            perfomanceRecord.TotalScore = Funs.GetNewDecimalOrZero(this.txtTotalScore.Text.Trim());
-            perfomanceRecord.States = BLL.Const.State_0;
+
             if (type == BLL.Const.BtnSubmit)
             {
                 perfomanceRecord.States = this.ctlAuditFlow.NextStep;
             }
-            perfomanceRecord.CompileMan = this.CurrUser.UserId;
-            perfomanceRecord.CompileDate = DateTime.Now;
-            perfomanceRecord.AttachUrl = this.AttachUrl1;
             if (!string.IsNullOrEmpty(this.PerfomanceRecordId))
             {
                 perfomanceRecord.PerfomanceRecordId = this.PerfomanceRecordId;
                 BLL.PerfomanceRecordService.UpdatePerfomanceRecord(perfomanceRecord);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改分包方绩效评价", perfomanceRecord.PerfomanceRecordId);
+                BLL.LogService.AddSys_Log(this.CurrUser, perfomanceRecord.PerfomanceRecordCode, perfomanceRecord.PerfomanceRecordId, BLL.Const.PerfomanceRecordMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.PerfomanceRecordId = SQLHelper.GetNewID(typeof(Model.Perfomance_PerfomanceRecord));
                 perfomanceRecord.PerfomanceRecordId = this.PerfomanceRecordId;
                 BLL.PerfomanceRecordService.AddPerfomanceRecord(perfomanceRecord);
+                BLL.LogService.AddSys_Log(this.CurrUser, perfomanceRecord.PerfomanceRecordCode, perfomanceRecord.PerfomanceRecordId, BLL.Const.PerfomanceRecordMenuId, BLL.Const.BtnAdd);
             }
-            ////保存流程审核数据         
-            this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.PerfomanceRecordMenuId, this.PerfomanceRecordId, (type == BLL.Const.BtnSubmit ? true : false), perfomanceRecord.PerfomanceRecordCode, "../Perfomance/PerfomanceRecordView.aspx?PerfomanceRecordId={0}");
+            if (!string.IsNullOrEmpty(this.PerfomanceRecordId))
+            {
+                ////保存流程审核数据         
+                this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.PerfomanceRecordMenuId, this.PerfomanceRecordId, (type == BLL.Const.BtnSubmit ? true : false), perfomanceRecord.PerfomanceRecordCode, "../Perfomance/PerfomanceRecordView.aspx?PerfomanceRecordId={0}");
+                PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
+            }
+            else
+            {
+                Alert.ShowInParent("保存不成功！", MessageBoxIcon.Warning);
+            }
         }
         #endregion
 

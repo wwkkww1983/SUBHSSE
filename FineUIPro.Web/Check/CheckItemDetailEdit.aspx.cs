@@ -94,13 +94,13 @@ namespace FineUIPro.Web.Check
                 {
                     checkItemDetail.CheckItemDetailId = SQLHelper.GetNewID(typeof(Model.Check_ProjectCheckItemDetail));
                     BLL.Check_ProjectCheckItemDetailService.AddCheckItemDetail(checkItemDetail);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "增加检查项明细表信息");
+                    BLL.LogService.AddSys_Log(this.CurrUser, checkItemDetail.SortIndex.ToString(), checkItemDetail.CheckItemDetailId,BLL.Const.ProjectCheckItemSetMenuId,BLL.Const.BtnAdd);
                 }
                 else
                 {
                     checkItemDetail.CheckItemDetailId = this.CheckItemDetailId;
                     BLL.Check_ProjectCheckItemDetailService.UpdateCheckItemDetail(checkItemDetail);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改检查项明细表信息");
+                    BLL.LogService.AddSys_Log(this.CurrUser, checkItemDetail.SortIndex.ToString(), checkItemDetail.CheckItemDetailId, BLL.Const.ProjectCheckItemSetMenuId, BLL.Const.BtnModify);
                 }
 
                 PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());

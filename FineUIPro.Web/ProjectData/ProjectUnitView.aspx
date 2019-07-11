@@ -37,8 +37,8 @@
             </f:FormRow>     
             <f:FormRow>
                 <Items>  
-                <f:TextBox runat="server" Label="安全生产费计划额（总额）" ID="nbPlanCostA"  Readonly="true" LabelWidth="200px"></f:TextBox>
-                     <f:TextBox runat="server" Label="文明施工措施费计划额（总额）" ID="nbPlanCostB"  Readonly="true" LabelWidth="200px"></f:TextBox>
+                <f:TextBox runat="server" Label="安全生产费</br>计划额（总额）" ID="nbPlanCostA"  Readonly="true" LabelWidth="120px"></f:TextBox>
+                     <f:TextBox runat="server" Label="文明施工措施费</br>计划额（总额）" ID="nbPlanCostB"  Readonly="true" LabelWidth="120px"></f:TextBox>
                 </Items>
             </f:FormRow>                           
         </rows>

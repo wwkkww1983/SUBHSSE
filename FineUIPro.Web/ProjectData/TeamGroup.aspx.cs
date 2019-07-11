@@ -177,7 +177,7 @@ namespace FineUIPro.Web.ProjectData
                         var TeamGroup = BLL.TeamGroupService.GetTeamGroupById(rowID);
                         if (TeamGroup != null)
                         {
-                            BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除班组信息",TeamGroup.TeamGroupCode);
+                            BLL.LogService.AddSys_Log(this.CurrUser, TeamGroup.TeamGroupCode, TeamGroup.TeamGroupId, BLL.Const.TeamGroupMenuId, BLL.Const.BtnDelete);
                             BLL.TeamGroupService.DeleteTeamGroupById(rowID);
                         }                                                
                     }

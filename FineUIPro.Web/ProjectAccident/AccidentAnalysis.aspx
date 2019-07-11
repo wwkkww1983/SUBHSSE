@@ -52,17 +52,17 @@
                         </ItemTemplate>
                     </f:TemplateField>
                     <f:RenderField Width="300px" ColumnID="ProjectName" DataField="ProjectName" FieldType="String"
-                        HeaderText="项目" HeaderToolTip="项目" HeaderTextAlign="Center" TextAlign="Left">
+                        HeaderText="项目" HeaderToolTip="项目" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
                     </f:RenderField>
                     <f:RenderField Width="100px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="时间"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="120px" ColumnID="CompileMan" DataField="CompileMan" SortField="CompileMan"
-                        FieldType="String" HeaderText="编制人" TextAlign="Center" HeaderTextAlign="Center">
+                        FieldType="String" HeaderText="处理人" TextAlign="Center" HeaderTextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="200px" ColumnID="Remarks" DataField="Remarks" SortField="Remarks"
-                        FieldType="String" HeaderText="备注" TextAlign="Center" HeaderTextAlign="Left" ExpandUnusedSpace="true">
+                        FieldType="String" HeaderText="备注" TextAlign="Center" HeaderTextAlign="Left" >
                     </f:RenderField>
                 </Columns>
                 <Listeners>
@@ -86,15 +86,15 @@
         </items>
     </f:Panel>
     <f:Window ID="Window1" Title="编辑事故统计" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
-        Width="900px" Height="660px">
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+        Width="900px" Height="600px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true" Hidden="true" 
             runat="server" Text="编辑" Icon="TableEdit">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" Hidden="true" 
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除" Icon="Delete">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除" Icon="Delete">
         </f:MenuButton>
     </f:Menu>
     </form>

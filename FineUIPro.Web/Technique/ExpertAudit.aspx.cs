@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Data.SqlClient;
+﻿using BLL;
+using System;
 using System.Data;
-using BLL;
-using System.IO;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.Technique
 {
@@ -186,7 +182,9 @@ namespace FineUIPro.Web.Technique
                         UpExpert(rowID, unit.UnitId);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "审核安全专家");
+
+                BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ExpertMenuId, Const.BtnAuditing);
+
                 BindGrid();
                 ShowNotify("操作成功!");
                 if (isPass)
@@ -275,11 +273,12 @@ namespace FineUIPro.Web.Technique
                         BLL.ExpertService.UpdateExpertIsPass(expert);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全专家】上报到集团公司" + idList.Count.ToString() + "条数据；");
+
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全专家】上报到集团公司" + idList.Count.ToString() + "条数据；", string.Empty, BLL.Const.ExpertMenuId, Const.BtnSaveUp);                
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全专家】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全专家】上报到集团公司失败", string.Empty, BLL.Const.ExpertMenuId, Const.BtnSaveUp);
             }
         }
         #endregion

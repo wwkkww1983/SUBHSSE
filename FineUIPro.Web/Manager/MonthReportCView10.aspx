@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MonthReportCView10.aspx.cs" Inherits="FineUIPro.Web.Manager.MonthReportCView10" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MonthReportCView10.aspx.cs" Inherits="FineUIPro.Web.Manager.MonthReportCView10" ValidateRequest="false" %>
 
 <!DOCTYPE html>
 
@@ -15,11 +15,12 @@
         <Rows>
             <f:FormRow>
                 <Items>
-                    <f:GroupPanel ID="GroupPanel60" Layout="Anchor" Title="10.存在的主要问题及改进措施、 需要项目经理、项目主管、公司相关部门、业主协调解决事宜。 <br/>（简要说明项目HSE管理存在的主要问题和需要项目经理、项目主管、公司相关部门、业主协调解决事宜，并提出具体改进措施和建议。）"
+                    <f:GroupPanel ID="GroupPanel60" Layout="Anchor" Title="10.项目现场影像照片"
                         runat="server">
                         <Items>
-                            <f:TextArea runat="server" ID="txtQuestion" Label="" Readonly="true" Height="420px">
-                            </f:TextArea>
+                            <f:HtmlEditor runat="server" Label="" ID="txtPhotoContents" ShowLabel="false"
+                            Editor="UMEditor" BasePath="~/res/umeditor/" ToolbarSet="Full" Height="420" LabelAlign="Right">
+                        </f:HtmlEditor>
                         </Items>
                     </f:GroupPanel>
                 </Items>

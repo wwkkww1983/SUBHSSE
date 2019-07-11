@@ -168,8 +168,9 @@ namespace FineUIPro.Web.ProjectData
                     {
                         if (projectSate.States != BLL.Const.State_2)
                         {
+                            BLL.LogService.AddSys_Log(this.CurrUser, "删除项目状态及软件关闭", projectSate.ProjectStateId, BLL.Const.ProjectShutdownMenuId, BLL.Const.BtnDelete);
                             BLL.ProjectSateService.DeleteProjectSateById(rowID);
-                            BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除项目状态及软件关闭");
+                          
                         }
                         else
                         {

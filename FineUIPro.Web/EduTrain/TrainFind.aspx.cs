@@ -44,13 +44,11 @@ namespace FineUIPro.Web.EduTrain
                 }
                 //单位
                 BLL.UnitService.InitUnitDropDownList(this.drpUnitId, this.ProjectId, true);
-
-                //培训类别
-                this.drpTrainType.DataTextField = "TrainTypeName";
-                this.drpTrainType.DataValueField = "TrainTypeId";
-                this.drpTrainType.DataSource = BLL.TrainTypeService.GetTrainTypeList();
-                drpTrainType.DataBind();
-                Funs.FineUIPleaseSelect(this.drpTrainType, "-请选择-");
+                
+                //培训类型
+                BLL.TrainTypeService.InitTrainTypeDropDownList(this.drpTrainType, true);
+                //培训级别;
+                BLL.TrainLevelService.InitTrainLevelDropDownList(this.drpTrainLevel, true);
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
                 BindGrid();
@@ -62,7 +60,9 @@ namespace FineUIPro.Web.EduTrain
         /// </summary>
         private void BindGrid()
         {
-            string strSql = "SELECT NEWID() AS ID, CardNo,PersonName,ProjectId,UnitId,UnitName,WorkPostName,TrainTitle ,TrainStartDate,TrainEndDate,TrainTypeId,TeachHour,TrainTypeName,CheckScore,CheckResult,TeachMan,UnitType  FROM dbo.View_EduTrain_TrainFind where 1=1";
+            string strSql = @"SELECT NEWID() AS ID, CardNo,PersonName,ProjectId,UnitId,UnitName,WorkPostName,TrainTitle ,TrainStartDate,TrainEndDate,TrainTypeId,TeachHour,TrainTypeName,CheckScore,CheckResult,TeachMan,UnitType,TrainLevelName" +
+                            @" FROM dbo.View_EduTrain_TrainFind" +
+                            @" WHERE 1=1";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND ProjectId = @ProjectId";
             listStr.Add(new SqlParameter("@ProjectId", this.ProjectId));
@@ -82,6 +82,12 @@ namespace FineUIPro.Web.EduTrain
                 strSql += " AND TrainTypeId = @TrainTypeId";
                 listStr.Add(new SqlParameter("@TrainTypeId", this.drpTrainType.SelectedValue.Trim()));
             }
+            if (this.drpTrainLevel.SelectedValue != BLL.Const._Null)
+            {
+                strSql += " AND TrainLevelId = @TrainLevel";
+                listStr.Add(new SqlParameter("@TrainLevel", this.drpTrainLevel.SelectedValue));
+            }
+
             if (!string.IsNullOrEmpty(this.txtTeachMan.Text.Trim()))
             {
                 strSql += " AND TeachMan LIKE @TeachMan";
@@ -177,11 +183,11 @@ namespace FineUIPro.Web.EduTrain
             {
                 if (checkResult.ToString() == "True")
                 {
-                    return "通过";
+                    return "合格";
                 }
                 else
                 {
-                    return "未通过";
+                    return "不合格";
                 }
             }
             return "";

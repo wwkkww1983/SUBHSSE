@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BLL;
+﻿using BLL;
 using Model;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.Information
 {
@@ -226,7 +225,7 @@ namespace FineUIPro.Web.Information
                     report.HandleState = BLL.Const.HandleState_1;
                     report.HandleMan = this.CurrUser.UserId;
                     BLL.MillionsMonthlyReportService.AddMillionsMonthlyReport(report);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "增加企业百万工时安全统计月报表");
+                    BLL.LogService.AddSys_Log(this.CurrUser, report.Year.ToString() + "-" + report.Month.ToString(), report.MillionsMonthlyReportId, BLL.Const.MillionsMonthlyReportMenuId, BLL.Const.BtnAdd);
                 }
                 else
                 {
@@ -245,7 +244,7 @@ namespace FineUIPro.Web.Information
                 report.MillionsMonthlyReportId = MillionsMonthlyReportId;
                 report.UpState = BLL.Const.UpState_2;
                 BLL.MillionsMonthlyReportService.UpdateMillionsMonthlyReport(report);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改企业百万工时安全统计月报表");
+                BLL.LogService.AddSys_Log(this.CurrUser, report.Year.ToString()+"-"+report.Month.ToString(),report.MillionsMonthlyReportId,BLL.Const.MillionsMonthlyReportMenuId,BLL.Const.BtnModify );
             }
             MillionsMonthlyReportId = report.MillionsMonthlyReportId;
             BLL.MillionsMonthlyReportItemService.DeleteMillionsMonthlyReportItemByMillionsMonthlyReportId(report.MillionsMonthlyReportId);
@@ -254,6 +253,8 @@ namespace FineUIPro.Web.Information
             {
                 if (!string.IsNullOrEmpty(item.Name))
                 {
+                    item.Affiliation = System.Web.HttpUtility.HtmlDecode(item.Affiliation);
+                    item.Name = System.Web.HttpUtility.HtmlDecode(item.Name);
                     BLL.MillionsMonthlyReportItemService.AddMillionsMonthlyReportItem(item);
                 }
             }
@@ -394,16 +395,16 @@ namespace FineUIPro.Web.Information
                         }
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "【百万工时安全统计月报表】上传到服务器" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【百万工时安全统计月报表】上传到服务器" + idList.Count.ToString() + "条数据；",null,BLL.Const.MillionsMonthlyReportMenuId,BLL.Const.BtnUploadResources);
             }
             else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "【百万工时安全统计月报表】上传到服务器失败；");
+            {                
+                BLL.LogService.AddSys_Log(this.CurrUser, "【百万工时安全统计月报表】上传到服务器失败；", null, BLL.Const.MillionsMonthlyReportMenuId, BLL.Const.BtnUploadResources);
             }
         }
         #endregion
         #endregion
-
+        
         #region 增加本月明细
         private void GetItems(string millionsMonthlyReportId)
         {
@@ -412,7 +413,7 @@ namespace FineUIPro.Web.Information
                            MinorAccidentPersonNumSum = 0, MinorAccidentLossHourSum = 0, OtherAccidentNumSum = 0, OtherAccidentPersonNumSum = 0, OtherAccidentLossHourSum = 0, RestrictedWorkPersonNumSum = 0, RestrictedWorkLossHourSum = 0, MedicalTreatmentPersonNumSum = 0, MedicalTreatmentLossHourSum = 0,
                            FireNumSum = 0, ExplosionNumSum = 0, TrafficNumSum = 0, EquipmentNumSum = 0, QualityNumSum = 0, OtherNumSum = 0, FirstAidDressingsNumSum = 0, AttemptedEventNumSum = 0, LossDayNumSum = 0;
             items.Clear();
-            int i = 10;
+            int i = 10;           
             foreach (JObject mergedRow in Grid1.GetMergedData())
             {
                 JObject values = mergedRow.Value<JObject>("values");
@@ -424,63 +425,95 @@ namespace FineUIPro.Web.Information
                 }
                 item.MillionsMonthlyReportId = millionsMonthlyReportId;
                 item.SortIndex = i;
-                if (values["Affiliation"].ToString() != "")
+                if (!string.IsNullOrEmpty(values["Affiliation"].ToString()))
                 {
                     item.Affiliation = values.Value<string>("Affiliation");
                 }
-                if (values["Name"].ToString() != "")
+                if (!string.IsNullOrEmpty(values["Name"].ToString()))
                 {
                     item.Name = values.Value<string>("Name");
                 }
-                if (values["PostPersonNum"].ToString() != "")
+                if (!string.IsNullOrEmpty(values["PostPersonNum"].ToString()))
                 {
                     item.PostPersonNum = values.Value<int>("PostPersonNum");
                     SumPersonNum += values.Value<int>("PostPersonNum");
                     PostPersonNumSum += values.Value<int>("PostPersonNum");
                     SumPersonNumSum += values.Value<int>("PostPersonNum");
                 }
-                if (values["SnapPersonNum"].ToString() != "")
+                else
+                {
+                    item.PostPersonNum = 0;
+                }
+                if (!string.IsNullOrEmpty(values["SnapPersonNum"].ToString()))
                 {
                     item.SnapPersonNum = values.Value<int>("SnapPersonNum");
                     SumPersonNum += values.Value<int>("SnapPersonNum");
                     SnapPersonNumSum += values.Value<int>("SnapPersonNum");
                     SumPersonNumSum += values.Value<int>("SnapPersonNum");
                 }
-                if (values["ContractorNum"].ToString() != "")
+                else
+                {
+                    item.SnapPersonNum = 0;
+                }
+                if (!string.IsNullOrEmpty(values["ContractorNum"].ToString()))
                 {
                     item.ContractorNum = values.Value<int>("ContractorNum");
                     SumPersonNum += values.Value<int>("ContractorNum");
                     ContractorNumSum += values.Value<int>("ContractorNum");
                     SumPersonNumSum += values.Value<int>("ContractorNum");
                 }
+                else
+                {
+                    item.ContractorNum = 0;
+                }
                 if (SumPersonNum != 0)
                 {
                     item.SumPersonNum = SumPersonNum;          //获取每条明细记录员工总数合计值
                 }
-                if (values["TotalWorkNum"].ToString() != "")
+                if (!string.IsNullOrEmpty(values["TotalWorkNum"].ToString()))
                 {
                     item.TotalWorkNum = values.Value<decimal>("TotalWorkNum");
                     TotalWorkNumSum += values.Value<decimal>("TotalWorkNum");
                 }
-                if (values["SeriousInjuriesNum"].ToString() != "")
+                else
+                {
+                    item.TotalWorkNum = 0;
+                }
+                if (!string.IsNullOrEmpty(values["SeriousInjuriesNum"].ToString()))
                 {
                     item.SeriousInjuriesNum = values.Value<int>("SeriousInjuriesNum");
                     SeriousInjuriesNumSum += values.Value<int>("SeriousInjuriesNum");
                 }
-                if (values["SeriousInjuriesPersonNum"].ToString() != "")
+                else
+                {
+                    item.SeriousInjuriesNum = 0;
+                }
+                if (!string.IsNullOrEmpty(values["SeriousInjuriesPersonNum"].ToString()))
                 {
                     item.SeriousInjuriesPersonNum = values.Value<int>("SeriousInjuriesPersonNum");
                     SeriousInjuriesPersonNumSum += values.Value<int>("SeriousInjuriesPersonNum");
+                }
+                else
+                {
+                    item.SeriousInjuriesPersonNum = 0;
                 }
                 if (values["SeriousInjuriesLossHour"].ToString() != "")
                 {
                     item.SeriousInjuriesLossHour = values.Value<int>("SeriousInjuriesLossHour");
                     SeriousInjuriesLossHourSum += values.Value<int>("SeriousInjuriesLossHour");
                 }
+                else
+                {
+                    item.SeriousInjuriesLossHour = 0;
+                }
                 if (values["MinorAccidentNum"].ToString() != "")
                 {
                     item.MinorAccidentNum = values.Value<int>("MinorAccidentNum");
                     MinorAccidentNumSum += values.Value<int>("MinorAccidentNum");
+                }
+                else
+                {
+                    item.MinorAccidentNum = 0;
                 }
                 if (values["MinorAccidentPersonNum"].ToString() != "")
                 {
@@ -492,6 +525,10 @@ namespace FineUIPro.Web.Information
                     item.MinorAccidentLossHour = values.Value<int>("MinorAccidentLossHour");
                     MinorAccidentLossHourSum += values.Value<int>("MinorAccidentLossHour");
                 }
+                else
+                {
+                    item.MinorAccidentLossHour = 0;
+                }
                 if (values["OtherAccidentNum"].ToString() != "")
                 {
                     item.OtherAccidentNum = values.Value<int>("OtherAccidentNum");
@@ -502,75 +539,135 @@ namespace FineUIPro.Web.Information
                     item.OtherAccidentPersonNum = values.Value<int>("OtherAccidentPersonNum");
                     OtherAccidentPersonNumSum += values.Value<int>("OtherAccidentPersonNum");
                 }
+                else
+                {
+                    item.OtherAccidentPersonNum = 0;
+                }
                 if (values["OtherAccidentLossHour"].ToString() != "")
                 {
                     item.OtherAccidentLossHour = values.Value<int>("OtherAccidentLossHour");
                     OtherAccidentLossHourSum += values.Value<int>("OtherAccidentLossHour");
+                }
+                else
+                {
+                    item.OtherAccidentLossHour = 0;
                 }
                 if (values["RestrictedWorkPersonNum"].ToString() != "")
                 {
                     item.RestrictedWorkPersonNum = values.Value<int>("RestrictedWorkPersonNum");
                     RestrictedWorkPersonNumSum += values.Value<int>("RestrictedWorkPersonNum");
                 }
+                else
+                {
+                    item.RestrictedWorkPersonNum = 0;
+                }
                 if (values["RestrictedWorkLossHour"].ToString() != "")
                 {
                     item.RestrictedWorkLossHour = values.Value<int>("RestrictedWorkLossHour");
                     RestrictedWorkLossHourSum += values.Value<int>("RestrictedWorkLossHour");
+                }
+                else
+                {
+                    item.RestrictedWorkLossHour = 0;
                 }
                 if (values["MedicalTreatmentPersonNum"].ToString() != "")
                 {
                     item.MedicalTreatmentPersonNum = values.Value<int>("MedicalTreatmentPersonNum");
                     MedicalTreatmentPersonNumSum += values.Value<int>("MedicalTreatmentPersonNum");
                 }
+                else
+                {
+                    item.MedicalTreatmentPersonNum = 0;
+                }
                 if (values["MedicalTreatmentLossHour"].ToString() != "")
                 {
                     item.MedicalTreatmentLossHour = values.Value<int>("MedicalTreatmentLossHour");
                     MedicalTreatmentLossHourSum += values.Value<int>("MedicalTreatmentLossHour");
+                }
+                else
+                {
+                    item.MedicalTreatmentLossHour = 0;
                 }
                 if (values["FireNum"].ToString() != "")
                 {
                     item.FireNum = values.Value<int>("FireNum");
                     FireNumSum += values.Value<int>("FireNum");
                 }
+                else
+                {
+                    item.FireNum = 0;
+                }
                 if (values["ExplosionNum"].ToString() != "")
                 {
                     item.ExplosionNum = values.Value<int>("ExplosionNum");
                     ExplosionNumSum += values.Value<int>("ExplosionNum");
+                }
+                else
+                {
+                    item.ExplosionNum = 0;
                 }
                 if (values["TrafficNum"].ToString() != "")
                 {
                     item.TrafficNum = values.Value<int>("TrafficNum");
                     TrafficNumSum += values.Value<int>("TrafficNum");
                 }
+                else
+                {
+                    item.TrafficNum = 0;
+                }
                 if (values["EquipmentNum"].ToString() != "")
                 {
                     item.EquipmentNum = values.Value<int>("EquipmentNum");
                     EquipmentNumSum += values.Value<int>("EquipmentNum");
+                }
+                else
+                {
+                    item.EquipmentNum = 0;
                 }
                 if (values["QualityNum"].ToString() != "")
                 {
                     item.QualityNum = values.Value<int>("QualityNum");
                     QualityNumSum += values.Value<int>("QualityNum");
                 }
+                else
+                {
+                    item.QualityNum = 0;
+                }
                 if (values["OtherNum"].ToString() != "")
                 {
                     item.OtherNum = values.Value<int>("OtherNum");
                     OtherNumSum += values.Value<int>("OtherNum");
+                }
+                else
+                {
+                    item.OtherNum = 0;
                 }
                 if (values["FirstAidDressingsNum"].ToString() != "")
                 {
                     item.FirstAidDressingsNum = values.Value<int>("FirstAidDressingsNum");
                     FirstAidDressingsNumSum += values.Value<int>("FirstAidDressingsNum");
                 }
+                else
+                {
+                    item.FirstAidDressingsNum = 0;
+                }
                 if (values["AttemptedEventNum"].ToString() != "")
                 {
                     item.AttemptedEventNum = values.Value<int>("AttemptedEventNum");
                     AttemptedEventNumSum += values.Value<int>("AttemptedEventNum");
                 }
+                else
+                {
+                    item.AttemptedEventNum = 0;
+                }
                 if (values["LossDayNum"].ToString() != "")
                 {
                     item.LossDayNum = values.Value<int>("LossDayNum");
                     LossDayNumSum += values.Value<int>("LossDayNum");
+                }
+                else
+                {
+                    item.LossDayNum = 0;
                 }
                 items.Add(item);
                 i += 10;
@@ -672,15 +769,70 @@ namespace FineUIPro.Web.Information
                 MillionsMonthlyReportItemId = SQLHelper.GetNewID(typeof(Model.Information_MillionsMonthlyReportItem)),
                 Affiliation = "机关后勤服务",
                 Name = "总部",
-                SortIndex = 10
+                SortIndex = 10,
+                PostPersonNum = 0,
+                SnapPersonNum = 0,
+                ContractorNum = 0,
+                SumPersonNum = 0,
+                TotalWorkNum = 0,
+                SeriousInjuriesNum = 0,
+                SeriousInjuriesPersonNum = 0,
+                SeriousInjuriesLossHour = 0,
+                MinorAccidentNum = 0,
+                MinorAccidentPersonNum = 0,
+                MinorAccidentLossHour = 0,
+                OtherAccidentNum = 0,
+                OtherAccidentPersonNum = 0,
+                OtherAccidentLossHour = 0,
+                RestrictedWorkPersonNum = 0,
+                RestrictedWorkLossHour = 0,
+                MedicalTreatmentPersonNum = 0,
+                MedicalTreatmentLossHour = 0,
+                FireNum = 0,
+                ExplosionNum = 0,
+                TrafficNum = 0,
+                EquipmentNum = 0,
+                QualityNum = 0,
+                OtherNum = 0,
+                FirstAidDressingsNum = 0,
+                AttemptedEventNum = 0,
+                LossDayNum = 0,
             };
+
             items.Add(item1);
             Model.Information_MillionsMonthlyReportItem item2 = new Information_MillionsMonthlyReportItem
             {
                 MillionsMonthlyReportItemId = SQLHelper.GetNewID(typeof(Model.Information_MillionsMonthlyReportItem)),
                 Affiliation = "机关后勤服务",
                 Name = "二级单位",
-                SortIndex = 20
+                SortIndex = 20,
+                PostPersonNum = 0,
+                SnapPersonNum = 0,
+                ContractorNum = 0,
+                SumPersonNum = 0,
+                TotalWorkNum = 0,
+                SeriousInjuriesNum = 0,
+                SeriousInjuriesPersonNum = 0,
+                SeriousInjuriesLossHour = 0,
+                MinorAccidentNum = 0,
+                MinorAccidentPersonNum = 0,
+                MinorAccidentLossHour = 0,
+                OtherAccidentNum = 0,
+                OtherAccidentPersonNum = 0,
+                OtherAccidentLossHour = 0,
+                RestrictedWorkPersonNum = 0,
+                RestrictedWorkLossHour = 0,
+                MedicalTreatmentPersonNum = 0,
+                MedicalTreatmentLossHour = 0,
+                FireNum = 0,
+                ExplosionNum = 0,
+                TrafficNum = 0,
+                EquipmentNum = 0,
+                QualityNum = 0,
+                OtherNum = 0,
+                FirstAidDressingsNum = 0,
+                AttemptedEventNum = 0,
+                LossDayNum = 0,
             };
             items.Add(item2);
             var projects = (from x in Funs.DB.Base_Project
@@ -702,6 +854,17 @@ namespace FineUIPro.Web.Information
                     Name = p.ProjectName,
                     SortIndex = i
                 };
+
+                if (!string.IsNullOrEmpty(p.UnitId))
+                {
+                    var name = BLL.UnitService.GetUnitNameByUnitId(p.UnitId);
+                    if (!string.IsNullOrEmpty(name))
+                    {                       
+                        item.Affiliation = name;
+                        item.Name = "[" + p.ProjectCode + "]" + p.ProjectName;
+                    }
+                }
+
                 Model.InformationProject_MillionsMonthlyReport report = millionsMonthlyReports.FirstOrDefault(x => x.ProjectId == p.ProjectId);
                 if (report != null)
                 {
@@ -733,31 +896,38 @@ namespace FineUIPro.Web.Information
                     item.AttemptedEventNum = report.AttemptedEventNum;
                     item.LossDayNum = report.LossDayNum;
                 }
+                else
+                {
+                    item.PostPersonNum = 0;
+                    item.SnapPersonNum = 0;
+                    item.ContractorNum = 0;
+                    item.SumPersonNum = 0;
+                    item.TotalWorkNum = 0;
+                    item.SeriousInjuriesNum = 0;
+                    item.SeriousInjuriesPersonNum = 0;
+                    item.SeriousInjuriesLossHour = 0;
+                    item.MinorAccidentNum = 0;
+                    item.MinorAccidentPersonNum = 0;
+                    item.MinorAccidentLossHour = 0;
+                    item.OtherAccidentNum = 0;
+                    item.OtherAccidentPersonNum = 0;
+                    item.OtherAccidentLossHour = 0;
+                    item.RestrictedWorkPersonNum = 0;
+                    item.RestrictedWorkLossHour = 0;
+                    item.MedicalTreatmentPersonNum = 0;
+                    item.MedicalTreatmentLossHour = 0;
+                    item.FireNum = 0;
+                    item.ExplosionNum = 0;
+                    item.TrafficNum = 0;
+                    item.EquipmentNum = 0;
+                    item.QualityNum = 0;
+                    item.OtherNum = 0;
+                    item.FirstAidDressingsNum = 0;
+                    item.AttemptedEventNum = 0;
+                    item.LossDayNum = 0;
+                }
                 items.Add(item);
-            }
-            //else
-            //{
-            //    foreach (var p in projects)
-            //    {
-            //        i += 10;
-            //        Model.Information_MillionsMonthlyReportItem item = new Information_MillionsMonthlyReportItem();
-            //        item.MillionsMonthlyReportItemId = SQLHelper.GetNewID(typeof(Model.Information_MillionsMonthlyReportItem));
-            //        item.Affiliation = "项目现场";
-            //        item.Name = p.ProjectName;
-            //        item.SortIndex = i;
-            //        items.Add(item);
-            //    }
-            //    for (int j = 0; j < (8 - projects.Count); j++)
-            //    {
-            //        Model.Information_MillionsMonthlyReportItem newItem = new Information_MillionsMonthlyReportItem();
-            //        newItem.MillionsMonthlyReportItemId = SQLHelper.GetNewID(typeof(Model.Information_MillionsMonthlyReportItem));
-            //        newItem.Affiliation = "项目现场";
-            //        newItem.Name = "";
-            //        newItem.SortIndex = i;
-            //        items.Add(newItem);
-            //        i += 10;
-            //    }
-            //}
+            }            
         }
         #endregion
 

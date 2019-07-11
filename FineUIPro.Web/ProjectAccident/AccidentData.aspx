@@ -48,7 +48,7 @@
                             <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="95px" ColumnID="AccidentDate" DataField="AccidentDate" SortField="AccidentDate"
+                    <f:RenderField Width="100px" ColumnID="AccidentDate" DataField="AccidentDate" SortField="AccidentDate"
                                 FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="发生时间"
                                 HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>

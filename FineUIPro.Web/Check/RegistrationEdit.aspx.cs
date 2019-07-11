@@ -134,7 +134,7 @@ namespace FineUIPro.Web.Check
                     string periodString = this.txtRectificationPeriod.Text.Trim() + " " + this.txtH.Text.Trim() + ":" + this.txtM.Text.Trim();
                     updateRegistration.RectificationPeriod = Funs.GetNewDateTime(periodString);
                     Funs.DB.SubmitChanges();
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改隐患巡检（手机端）");
+                    BLL.LogService.AddSys_Log(this.CurrUser, periodString, updateRegistration.RegistrationId, BLL.Const.RegisterMenuId, BLL.Const.BtnModify);
                     PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
                 }
             }

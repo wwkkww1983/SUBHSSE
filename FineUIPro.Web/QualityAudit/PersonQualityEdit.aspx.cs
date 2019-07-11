@@ -107,6 +107,11 @@ namespace FineUIPro.Web.QualityAudit
                     this.txtSendDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                     this.txtLimitDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);                   
                 }
+
+                if (Request.Params["value"] == "0")
+                {
+                    this.btnSave.Hidden = true;
+                }
             }
         }
         #endregion
@@ -118,14 +123,21 @@ namespace FineUIPro.Web.QualityAudit
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void btnAttachUrl_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(this.PersonQualityId))
+        {           
+            if (this.btnSave.Hidden)
             {
-                SaveData(false);
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonQualityAttachUrl&menuId={1}&type=-1", PersonQualityId, BLL.Const.PersonQualityMenuId)));
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonQualityAttachUrl&menuId={1}", PersonQualityId, BLL.Const.PersonQualityMenuId)));
-        }
+            else
+            {
+                if (string.IsNullOrEmpty(this.PersonQualityId))
+                {
+                    SaveData(false);
+                }
 
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonQualityAttachUrl&menuId={1}", PersonQualityId, BLL.Const.PersonQualityMenuId)));
+            }            
+        }
         #endregion
 
         #region 保存
@@ -174,14 +186,14 @@ namespace FineUIPro.Web.QualityAudit
                 {
                     personQuality.PersonQualityId = this.PersonQualityId;
                     BLL.PersonQualityService.UpdatePersonQuality(personQuality);
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改特殊岗位人员资质", personQuality.PersonQualityId);
+                    BLL.LogService.AddSys_Log(this.CurrUser, personQuality.CertificateNo, personQuality.PersonQualityId,BLL.Const.PersonQualityMenuId,BLL.Const.BtnModify );
                 }
                 else
                 {
                     this.PersonQualityId = SQLHelper.GetNewID(typeof(Model.QualityAudit_PersonQuality));
                     personQuality.PersonQualityId = this.PersonQualityId;
                     BLL.PersonQualityService.AddPersonQuality(personQuality);
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加特殊岗位人员资质", personQuality.PersonQualityId);
+                    BLL.LogService.AddSys_Log(this.CurrUser, personQuality.CertificateNo, personQuality.PersonQualityId, BLL.Const.PersonQualityMenuId, BLL.Const.BtnAdd);
                 }
                 if (isClose)
                 {

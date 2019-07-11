@@ -104,7 +104,7 @@ namespace FineUIPro.Web.EduTrain
                 knowledge.SupKnowledgeId = this.SupKnowledgeId;
                 knowledge.KnowledgeId = SQLHelper.GetNewID(typeof(Model.Training_Knowledge));
                 BLL.KnowledgeService.AddKnowledge(knowledge);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加应知应会库类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, knowledge.KnowledgeCode, knowledge.KnowledgeId, BLL.Const.KnowledgeDBMenuId, BLL.Const.BtnAdd);
             }
             else
             {
@@ -115,7 +115,7 @@ namespace FineUIPro.Web.EduTrain
                 }
                 knowledge.KnowledgeId = this.KnowledgeId;
                 BLL.KnowledgeService.UpdateKnowledge(knowledge);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改应知应会库类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, knowledge.KnowledgeCode, knowledge.KnowledgeId, BLL.Const.KnowledgeDBMenuId, BLL.Const.BtnModify);
             }
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }

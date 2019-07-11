@@ -165,7 +165,8 @@ namespace FineUIPro.Web.Technique
                         UpHazardList(rowID, unit.UnitId);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "审核危险源清单");
+
+                BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.HazardListMenuId, Const.BtnAuditing);
                 BindGrid();
                 ShowNotify("操作成功!");
                 if (isPass)
@@ -231,11 +232,12 @@ namespace FineUIPro.Web.Technique
                         BLL.HazardListService.UpdateHazardListIsPass(hazardList);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【危险源清单明细】上报到集团公司" + idList.Count.ToString() + "条数据；");
+
+                BLL.LogService.AddSys_Log(this.CurrUser, "【危险源清单明细】上报到集团公司" + idList.Count.ToString() + "条数据；", string.Empty, BLL.Const.HazardListMenuId, Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【危险源清单明细】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【危险源清单明细】上报到集团公司失败；", string.Empty, BLL.Const.HazardListMenuId, Const.BtnUploadResources);
             }
         }
 

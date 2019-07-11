@@ -103,13 +103,13 @@ namespace FineUIPro.Web.InformationProject
                     {
                         newProjectFolder.ProjectFolderId = SQLHelper.GetNewID(typeof(Model.InformationProject_ProjectFolder));
                         BLL.ProjectFolderService.AddProjectFolder(newProjectFolder);
-                        BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "增加项目文件夹", newProjectFolder.Code);
+                        BLL.LogService.AddSys_Log(this.CurrUser, newProjectFolder.Code, newProjectFolder.ProjectFolderId, BLL.Const.ProjectFolderMenuId, BLL.Const.BtnAdd);
                     }
                     else
                     {
                         newProjectFolder.ProjectFolderId = this.ProjectFolderId;
                         BLL.ProjectFolderService.UpdateProjectFolder(newProjectFolder);
-                        BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改项目文件夹", newProjectFolder.Code);
+                        BLL.LogService.AddSys_Log(this.CurrUser, newProjectFolder.Code, newProjectFolder.ProjectFolderId, BLL.Const.ProjectFolderMenuId, BLL.Const.BtnModify);
                     }
 
                     PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());

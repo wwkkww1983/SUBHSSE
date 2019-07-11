@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>职工伤亡事故原因分析报表</title>
     <link href="../res/css/common.css" rel="stylesheet" type="text/css" />
-    <style>
+    <style type="text/css">
         .f-grid-row .f-grid-cell-inner
         {
             white-space: normal;
@@ -24,12 +24,12 @@
                 BoxConfigAlign="Stretch" BoxConfigPosition="Left" runat="server">
                 <Items>
                     <f:Form ID="SimpleForm1" ShowBorder="true" ShowHeader="True" AutoScroll="true" BodyPadding="10px"
-                        EnableCollapse="true" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
+                        EnableCollapse="true" runat="server" RedStarPosition="BeforeText" LabelAlign="Right"  Height="250px">
                         <Toolbars>
                             <f:Toolbar ID="Toolbar1" Position="Top" ToolbarAlign="Right" runat="server">
                                 <Items>
                                     <f:DropDownList ID="drpUnit" AutoPostBack="true" EnableSimulateTree="true" runat="server"
-                                        Width="350px" LabelWidth="70px" EnableEdit="true" ForceSelection="false" Label="填报单位"
+                                        Width="320px" LabelWidth="80px" EnableEdit="true" ForceSelection="false" Label="填报单位"
                                         OnSelectedIndexChanged="drpUnit_SelectedIndexChanged">
                                     </f:DropDownList>
                                     <f:DropDownList ID="drpYear" AutoPostBack="true" EnableSimulateTree="true" runat="server"
@@ -44,10 +44,10 @@
                                     <f:Button ID="BtnBulletRight" ToolTip="后一个月" Icon="BulletRight" runat="server" EnablePostBack="true"
                                         OnClick="BulletRight_Click">
                                     </f:Button>
-                                    <f:Button ID="btnSee" ToolTip="查看审批流程" Icon="Find" runat="server" OnClick="btnSee_Click">
-                                    </f:Button>
-                                    <f:ToolbarFill runat="server">
+                                     <f:ToolbarFill runat="server">
                                     </f:ToolbarFill>
+                                    <f:Button ID="btnSee" ToolTip="查看审批流程" Icon="Find" runat="server" OnClick="btnSee_Click">
+                                    </f:Button>                                   
                                     <f:Button ID="btnNew" ToolTip="新增" Icon="Add" Hidden="true" runat="server" OnClick="btnNew_Click">
                                     </f:Button>
                                     <f:Button ID="btnEdit" ToolTip="编辑" Icon="Pencil" Hidden="true" runat="server" OnClick="btnEdit_Click">
@@ -70,7 +70,10 @@
                                     <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
                                         EnableAjax="false" DisableControlBeforePostBack="false">
                                     </f:Button>
-                                    <f:Button ID="btnPrint" ToolTip="打印" Icon="ApplicationGo" Hidden="true" runat="server"
+                                     <f:Button ID="btnView" ToolTip="查看未报项目" Icon="MagifierZoomOut" runat="server"
+                                        OnClick="btnView_Click">
+                                    </f:Button>
+                                    <f:Button ID="btnPrint" ToolTip="打印" Icon="Printer" Hidden="true" runat="server"
                                         OnClick="btnPrint_Click">
                                     </f:Button>
                                 </Items>
@@ -155,54 +158,54 @@
                                     </f:RenderField>
                                 </Columns>
                             </f:GroupField>
-                            <f:GroupField EnableLock="true" HeaderText="防护、保险信号等装置缺乏或装置缺乏或有缺陷" TextAlign="Center">
+                            <f:GroupField EnableLock="true" HeaderText="防护、保险信号等装置</br>缺乏或装置缺乏或有缺陷" TextAlign="Center">
                                 <Columns>
-                                    <f:RenderField Width="50px" ColumnID="Death1" DataField="Death1" FieldType="String"
+                                    <f:RenderField Width="60px" ColumnID="Death1" DataField="Death1" FieldType="String"
                                         HeaderText="死" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
-                                    <f:RenderField Width="50px" ColumnID="Injuries1" DataField="Injuries1" FieldType="String"
+                                    <f:RenderField Width="60px" ColumnID="Injuries1" DataField="Injuries1" FieldType="String"
                                         HeaderText="重" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
-                                    <f:RenderField Width="50px" ColumnID="MinorInjuries1" DataField="MinorInjuries1"
+                                    <f:RenderField Width="60px" ColumnID="MinorInjuries1" DataField="MinorInjuries1"
                                         FieldType="String" HeaderText="轻" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
                                 </Columns>
                             </f:GroupField>
                             <f:GroupField EnableLock="true" HeaderText="设备、工具附件有缺陷" TextAlign="Center">
                                 <Columns>
-                                    <f:RenderField Width="50px" ColumnID="Death2" DataField="Death2" FieldType="String"
+                                    <f:RenderField Width="60px" ColumnID="Death2" DataField="Death2" FieldType="String"
                                         HeaderText="死" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
-                                    <f:RenderField Width="50px" ColumnID="Injuries2" DataField="Injuries2" FieldType="String"
+                                    <f:RenderField Width="60px" ColumnID="Injuries2" DataField="Injuries2" FieldType="String"
                                         HeaderText="重" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
-                                    <f:RenderField Width="50px" ColumnID="MinorInjuries2" DataField="MinorInjuries2"
+                                    <f:RenderField Width="60px" ColumnID="MinorInjuries2" DataField="MinorInjuries2"
                                         FieldType="String" HeaderText="轻" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
                                 </Columns>
                             </f:GroupField>
-                            <f:GroupField EnableLock="true" HeaderText="个人防护用品缺乏或有缺陷" TextAlign="Center">
+                            <f:GroupField EnableLock="true" HeaderText="个人防护用品</br>缺乏或有缺陷" TextAlign="Center">
                                 <Columns>
-                                    <f:RenderField Width="50px" ColumnID="Death3" DataField="Death3" FieldType="String"
+                                    <f:RenderField Width="60px" ColumnID="Death3" DataField="Death3" FieldType="String"
                                         HeaderText="死" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
-                                    <f:RenderField Width="50px" ColumnID="Injuries3" DataField="Injuries3" FieldType="String"
+                                    <f:RenderField Width="60px" ColumnID="Injuries3" DataField="Injuries3" FieldType="String"
                                         HeaderText="重" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
-                                    <f:RenderField Width="50px" ColumnID="MinorInjuries3" DataField="MinorInjuries3"
+                                    <f:RenderField Width="60px" ColumnID="MinorInjuries3" DataField="MinorInjuries3"
                                         FieldType="String" HeaderText="轻" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
                                 </Columns>
                             </f:GroupField>
-                            <f:GroupField EnableLock="true" HeaderText="光线不足或工作地点及通道情况不良" TextAlign="Center">
+                            <f:GroupField EnableLock="true" HeaderText="光线不足或工作地点</br>及通道情况不良" TextAlign="Center">
                                 <Columns>
-                                    <f:RenderField Width="50px" ColumnID="Death4" DataField="Death4" FieldType="String"
+                                    <f:RenderField Width="60px" ColumnID="Death4" DataField="Death4" FieldType="String"
                                         HeaderText="死" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
-                                    <f:RenderField Width="50px" ColumnID="Injuries4" DataField="Injuries4" FieldType="String"
+                                    <f:RenderField Width="60px" ColumnID="Injuries4" DataField="Injuries4" FieldType="String"
                                         HeaderText="重" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
-                                    <f:RenderField Width="50px" ColumnID="MinorInjuries4" DataField="MinorInjuries4"
+                                    <f:RenderField Width="60px" ColumnID="MinorInjuries4" DataField="MinorInjuries4"
                                         FieldType="String" HeaderText="轻" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
                                 </Columns>
@@ -220,15 +223,15 @@
                                     </f:RenderField>
                                 </Columns>
                             </f:GroupField>
-                            <f:GroupField EnableLock="true" HeaderText="对现场工作缺乏检查或指导有错误" TextAlign="Center">
+                            <f:GroupField EnableLock="true" HeaderText="对现场工作缺乏</br>检查或指导有错误" TextAlign="Center">
                                 <Columns>
-                                    <f:RenderField Width="50px" ColumnID="Death6" DataField="Death6" FieldType="String"
+                                    <f:RenderField Width="60px" ColumnID="Death6" DataField="Death6" FieldType="String"
                                         HeaderText="死" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
-                                    <f:RenderField Width="50px" ColumnID="Injuries6" DataField="Injuries6" FieldType="String"
+                                    <f:RenderField Width="60px" ColumnID="Injuries6" DataField="Injuries6" FieldType="String"
                                         HeaderText="重" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
-                                    <f:RenderField Width="50px" ColumnID="MinorInjuries6" DataField="MinorInjuries6"
+                                    <f:RenderField Width="60px" ColumnID="MinorInjuries6" DataField="MinorInjuries6"
                                         FieldType="String" HeaderText="轻" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
                                 </Columns>
@@ -248,39 +251,39 @@
                             </f:GroupField>
                             <f:GroupField EnableLock="true" HeaderText="不懂操作技术和知识" TextAlign="Center">
                                 <Columns>
-                                    <f:RenderField Width="50px" ColumnID="Death8" DataField="Death8" FieldType="String"
+                                    <f:RenderField Width="60px" ColumnID="Death8" DataField="Death8" FieldType="String"
                                         HeaderText="死" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
-                                    <f:RenderField Width="50px" ColumnID="Injuries8" DataField="Injuries8" FieldType="String"
+                                    <f:RenderField Width="60px" ColumnID="Injuries8" DataField="Injuries8" FieldType="String"
                                         HeaderText="重" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
-                                    <f:RenderField Width="50px" ColumnID="MinorInjuries8" DataField="MinorInjuries8"
+                                    <f:RenderField Width="60px" ColumnID="MinorInjuries8" DataField="MinorInjuries8"
                                         FieldType="String" HeaderText="轻" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
                                 </Columns>
                             </f:GroupField>
-                            <f:GroupField EnableLock="true" HeaderText="违反操作规程或劳动纪律" TextAlign="Center">
+                            <f:GroupField EnableLock="true" HeaderText="违反操作规程</br>或劳动纪律" TextAlign="Center">
                                 <Columns>
-                                    <f:RenderField Width="50px" ColumnID="Death9" DataField="Death9" FieldType="String"
+                                    <f:RenderField Width="60px" ColumnID="Death9" DataField="Death9" FieldType="String"
                                         HeaderText="死" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
-                                    <f:RenderField Width="50px" ColumnID="Injuries9" DataField="Injuries9" FieldType="String"
+                                    <f:RenderField Width="60px" ColumnID="Injuries9" DataField="Injuries9" FieldType="String"
                                         HeaderText="重" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
-                                    <f:RenderField Width="50px" ColumnID="MinorInjuries9" DataField="MinorInjuries9"
+                                    <f:RenderField Width="60px" ColumnID="MinorInjuries9" DataField="MinorInjuries9"
                                         FieldType="String" HeaderText="轻" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
                                 </Columns>
                             </f:GroupField>
-                            <f:GroupField EnableLock="true" HeaderText="没有安全操作规程制度或不健全" TextAlign="Center">
+                            <f:GroupField EnableLock="true" HeaderText="没有安全操作</br>规程制度或不健全" TextAlign="Center">
                                 <Columns>
-                                    <f:RenderField Width="50px" ColumnID="Death10" DataField="Death10" FieldType="String"
+                                    <f:RenderField Width="60px" ColumnID="Death10" DataField="Death10" FieldType="String"
                                         HeaderText="死" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
-                                    <f:RenderField Width="50px" ColumnID="Injuries10" DataField="Injuries10" FieldType="String"
+                                    <f:RenderField Width="60px" ColumnID="Injuries10" DataField="Injuries10" FieldType="String"
                                         HeaderText="重" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
-                                    <f:RenderField Width="50px" ColumnID="MinorInjuries10" DataField="MinorInjuries10"
+                                    <f:RenderField Width="60px" ColumnID="MinorInjuries10" DataField="MinorInjuries10"
                                         FieldType="String" HeaderText="轻" HeaderTextAlign="Center" TextAlign="Center">
                                     </f:RenderField>
                                 </Columns>

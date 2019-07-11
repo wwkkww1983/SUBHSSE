@@ -128,15 +128,16 @@ namespace FineUIPro.Web.ProjectAccident
             {
                 accidentAnalysis.AccidentAnalysisId = SQLHelper.GetNewID(typeof(Model.ProjectAccident_AccidentAnalysis));
                 BLL.AccidentAnalysisService.AddAccidentAnalysis(accidentAnalysis);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加事故处理");
+                BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ServerAccidentAnalysisMenuId, BLL.Const.BtnAdd);
             }
             else
-            {
-                
+            {                
                 accidentAnalysis.AccidentAnalysisId = this.AccidentAnalysisId;
                 BLL.AccidentAnalysisService.UpdateAccidentAnalysis(accidentAnalysis);
                 BLL.AccidentAnalysisItemService.DeleteAccidentAnalysisItemByAccidentAnalysisId(AccidentAnalysisId);
+                BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ServerAccidentAnalysisMenuId, BLL.Const.BtnModify);
             }
+
             AddItems(accidentAnalysis.AccidentAnalysisId);
             // 2. 关闭本窗体，然后刷新父窗体
             // PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());

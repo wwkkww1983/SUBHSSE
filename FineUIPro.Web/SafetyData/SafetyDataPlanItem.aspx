@@ -21,12 +21,12 @@
         <Toolbars>
             <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
                 <Items> 
-                    <f:Button ID="btnDelete" ToolTip="删除项目不考核项" Icon="TableDelete" EnableAjax="false" Hidden="true"
-                        runat="server" OnClick="btnDelete_Click">
-                    </f:Button>
-                     <f:Button ID="btnAdd" ToolTip="恢复项目不考核项" Icon="TableAdd" EnableAjax="false" Hidden="true"
-                        runat="server" OnClick="btnAdd_Click">
-                    </f:Button>
+                     <f:TextBox runat="server" Label="查询" ID="txtTitle" EmptyText="输入查询条件"
+                        AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="180px" LabelWidth="50px"
+                        LabelAlign="right">
+                    </f:TextBox>
+                                                 
+                    <f:ToolbarFill runat="server" ID="lbTemp1"></f:ToolbarFill>
                      <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
                         EnableAjax="false" DisableControlBeforePostBack="false">
                     </f:Button>                                  
@@ -40,7 +40,7 @@
         </Items>
     </f:Panel> 
     <f:Window ID="Window1" Title="考核项考核维护" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="900px"   OnClose="Window1_Close"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="900px"   OnClose="Window1_Close"
         Height="560px">
     </f:Window>             
     </form>

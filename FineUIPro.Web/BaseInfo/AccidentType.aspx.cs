@@ -108,12 +108,15 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            BLL.AccidentTypeService.DeleteAccidentTypeById(hfFormID.Text);
-            BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除事故类型");
-            // 重新绑定表格，并模拟点击[新增按钮]
-            BindGrid();
-            PageContext.RegisterStartupScript("onNewButtonClick();");
-
+            var getV= BLL.AccidentTypeService.GetAccidentTypeById(hfFormID.Text);
+            if (getV != null)
+            {
+                BLL.LogService.AddSys_Log(this.CurrUser, getV.AccidentTypeCode, getV.AccidentTypeId, BLL.Const.AccidentTypeMenuId, BLL.Const.BtnDelete);
+                BLL.AccidentTypeService.DeleteAccidentTypeById(getV.AccidentTypeId);                
+                // 重新绑定表格，并模拟点击[新增按钮]
+                BindGrid();
+                PageContext.RegisterStartupScript("onNewButtonClick();");
+            }
         }
         /// <summary>
         /// 右键删除事件
@@ -135,13 +138,15 @@ namespace FineUIPro.Web.BaseInfo
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    var q = (from x in Funs.DB.Manager_AccidentSort
-                             where x.AccidentTypeId == rowID
-                             select x).FirstOrDefault();
-                    if (q == null)
+                    var acc = Funs.DB.Manager_AccidentSort.FirstOrDefault(x =>x.AccidentTypeId == rowID);
+                    if (acc == null)
                     {
-                        BLL.AccidentTypeService.DeleteAccidentTypeById(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除事故类型");
+                        var getV = BLL.AccidentTypeService.GetAccidentTypeById(hfFormID.Text);
+                        if (getV != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getV.AccidentTypeCode, getV.AccidentTypeId, BLL.Const.AccidentTypeMenuId, BLL.Const.BtnDelete);
+                            BLL.AccidentTypeService.DeleteAccidentTypeById(rowID);
+                        }
                     }
                     else
                     {
@@ -209,13 +214,13 @@ namespace FineUIPro.Web.BaseInfo
             {
                 accidentType.AccidentTypeId = SQLHelper.GetNewID(typeof(Model.Base_AccidentType));
                 BLL.AccidentTypeService.AddAccidentType(accidentType);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加事故类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, accidentType.AccidentTypeCode, accidentType.AccidentTypeId, BLL.Const.AccidentTypeMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 accidentType.AccidentTypeId = strRowID;
                 BLL.AccidentTypeService.UpdateAccidentType(accidentType);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改事故类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, accidentType.AccidentTypeCode, accidentType.AccidentTypeId, BLL.Const.AccidentTypeMenuId, BLL.Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行

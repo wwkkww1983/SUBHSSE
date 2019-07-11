@@ -120,15 +120,19 @@
         /// </summary>
         private void DeleteData()
         {
-
             if (Grid1.SelectedRowIndexArray.Length > 0)
             {
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.SignManageService.DeleteSignManage(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除标牌管理");
+                    var newSignManage = BLL.SignManageService.GetSignManageBySignManageId(rowID);
+                    if (newSignManage != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, newSignManage.SignCode, newSignManage.SignManageId, BLL.Const.SignManageMenuId, BLL.Const.BtnModify);
+                        BLL.SignManageService.DeleteSignManage(rowID);
+                    }
                 }
+
                 BindGrid();
                 ShowNotify("删除数据成功!");
             }

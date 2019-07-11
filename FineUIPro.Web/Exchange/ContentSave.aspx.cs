@@ -105,13 +105,13 @@ namespace FineUIPro.Web.Exchange
                 this.ContentId = SQLHelper.GetNewID(typeof(Model.Exchange_Content));
                 content.ContentId = this.ContentId;
                 BLL.ContentService.AddContent(content);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "增加帖子信息");
+                BLL.LogService.AddSys_Log(this.CurrUser, content.Theme, content.ContentId, BLL.Const.ContentMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 content.ContentId = this.ContentId;
                 BLL.ContentService.UpdateContent(content);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改帖子信息");
+                BLL.LogService.AddSys_Log(this.CurrUser, content.Theme, content.ContentId, BLL.Const.ContentMenuId, BLL.Const.BtnModify);
             }
         }
 

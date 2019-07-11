@@ -72,16 +72,26 @@ namespace FineUIPro.Web.QualityAudit
                           + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId = Person.UnitId"
                           + @" LEFT JOIN QualityAudit_ManagePersonQuality AS PersonQuality ON Person.PersonId = PersonQuality.PersonId "
                           + @" LEFT JOIN Base_WorkPost AS WorkPost ON WorkPost.WorkPostId = Person.WorkPostId "
-                          + @" LEFT JOIN Sys_User AS Users ON PersonQuality.CompileMan = Users.UserId "
-                          + @" WHERE (WorkPost.PostType ='" + BLL.Const.PostType_1 + "'" + " OR WorkPost.PostType ='" + BLL.Const.PostType_4 + "')";
+                          + @" LEFT JOIN Sys_User AS Users ON PersonQuality.CompileMan = Users.UserId "                         
+                          + @" WHERE 1=1";           
+            var unitThis = BLL.CommonService.GetIsThisUnit();
+            if (unitThis != null && unitThis.UnitId == BLL.Const.UnitId_CWCEC)
+            {
+                strSql += " AND  WorkPost.PostType ='" + BLL.Const.PostType_4 + "'";
+            }
+            else
+            {
+                strSql += " AND (WorkPost.PostType ='" + BLL.Const.PostType_1 + "'" + " OR WorkPost.PostType ='" + BLL.Const.PostType_4 + "')";
+            }
+
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND Person.ProjectId = @ProjectId";
             listStr.Add(new SqlParameter("@ProjectId", this.ProjectId));
          
-            if (this.drpUnitId.SelectedValue != BLL.Const._Null)
+            if (this.drpUnitId.SelectedValue != BLL.Const._Null && !String.IsNullOrEmpty(this.drpUnitId.SelectedValue))
             {
                 strSql += " AND Person.UnitId = @UnitId";
-                listStr.Add(new SqlParameter("@UnitId", this.drpUnitId.SelectedValue.Trim()));
+                listStr.Add(new SqlParameter("@UnitId", this.drpUnitId.SelectedValue));
             }
             if (!string.IsNullOrEmpty(this.txtCardNo.Text.Trim()))
             {
@@ -102,7 +112,7 @@ namespace FineUIPro.Web.QualityAudit
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 
             this.Grid1.RecordCount = tb.Rows.Count;
-            tb = GetFilteredTable(Grid1.FilteredData, tb);
+          // tb = GetFilteredTable(Grid1.FilteredData, tb);
             var table = this.GetPagedDataTable(Grid1, tb);
             this.Grid1.DataSource = table;
             this.Grid1.DataBind();

@@ -223,14 +223,14 @@ namespace FineUIPro.Web.Manager
             {
                 ManagerTotalMonth.ManagerTotalMonthId = this.ManagerTotalMonthId;
                 BLL.ManagerTotalMonthService.UpdateManagerTotalMonth(ManagerTotalMonth);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改安全月总结", ManagerTotalMonth.ManagerTotalMonthId);
+                BLL.LogService.AddSys_Log(this.CurrUser, null, ManagerTotalMonth.ManagerTotalMonthId, BLL.Const.ProjectManagerTotalMonthMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.ManagerTotalMonthId = SQLHelper.GetNewID(typeof(Model.Manager_ManagerTotalMonth));
                 ManagerTotalMonth.ManagerTotalMonthId = this.ManagerTotalMonthId;
                 BLL.ManagerTotalMonthService.AddManagerTotalMonth(ManagerTotalMonth);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加安全月总结", ManagerTotalMonth.ManagerTotalMonthId);
+                BLL.LogService.AddSys_Log(this.CurrUser, null, ManagerTotalMonth.ManagerTotalMonthId, BLL.Const.ProjectManagerTotalMonthMenuId, BLL.Const.BtnAdd);
             }
             
             //保存本月HSE工作存在问题与处理（或拟采取对策）
@@ -282,9 +282,14 @@ namespace FineUIPro.Web.Manager
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.ManagerTotalMonthItemService.DeleteManagerTotalMonthItemByManagerTotalMonthItemId(rowID);
+                    var getD =Funs.DB.Manager_ManagerTotalMonthItem.FirstOrDefault(x => x.ManagerTotalMonthItemId == rowID);
+                    if (getD != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getD.CorrectiveActions, getD.ManagerTotalMonthItemId, BLL.Const.ProjectManagerTotalMonthMenuId, BLL.Const.BtnDelete);
+                        BLL.ManagerTotalMonthItemService.DeleteManagerTotalMonthItemByManagerTotalMonthItemId(rowID);
+                    }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除月总结本月HSE工作存在问题与处理明显！");
+               
                 BindGrid();
                 ShowNotify("删除数据成功!", MessageBoxIcon.Success);
             }

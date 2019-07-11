@@ -108,13 +108,19 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            BLL.LicenseTypeService.DeleteLicenseTypeById(hfFormID.Text);
-            BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除许可证类型");
-            // 重新绑定表格，并模拟点击[新增按钮]
-            BindGrid();
-            PageContext.RegisterStartupScript("onNewButtonClick();");
+            var licenseType = BLL.LicenseTypeService.GetLicenseTypeById(hfFormID.Text);
+            if (licenseType != null)
+            {
+                BLL.LogService.AddSys_Log(this.CurrUser, licenseType.LicenseTypeCode, licenseType.LicenseTypeId, BLL.Const.LicenseTypeMenuId, BLL.Const.BtnDelete);
 
+                BLL.LicenseTypeService.DeleteLicenseTypeById(hfFormID.Text);
+
+                // 重新绑定表格，并模拟点击[新增按钮]
+                BindGrid();
+                PageContext.RegisterStartupScript("onNewButtonClick();");
+            }
         }
+
         /// <summary>
         /// 右键删除事件
         /// </summary>
@@ -135,9 +141,12 @@ namespace FineUIPro.Web.BaseInfo
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-
-                    BLL.LicenseTypeService.DeleteLicenseTypeById(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除许可证类型");
+                    var licenseType = BLL.LicenseTypeService.GetLicenseTypeById(rowID);
+                    if (licenseType != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, licenseType.LicenseTypeCode, licenseType.LicenseTypeId, BLL.Const.LicenseTypeMenuId, BLL.Const.BtnDelete);
+                        BLL.LicenseTypeService.DeleteLicenseTypeById(rowID);
+                    }
                 }
 
                 BindGrid();
@@ -202,13 +211,13 @@ namespace FineUIPro.Web.BaseInfo
             {
                 licenseType.LicenseTypeId = SQLHelper.GetNewID(typeof(Model.Base_LicenseType));
                 BLL.LicenseTypeService.AddLicenseType(licenseType);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加许可证类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, licenseType.LicenseTypeCode, licenseType.LicenseTypeId,BLL.Const.LicenseTypeMenuId,BLL.Const.BtnAdd);
             }
             else
             {
                 licenseType.LicenseTypeId = strRowID;
                 BLL.LicenseTypeService.UpdateLicenseType(licenseType);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改许可证类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, licenseType.LicenseTypeCode, licenseType.LicenseTypeId, BLL.Const.LicenseTypeMenuId, BLL.Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行

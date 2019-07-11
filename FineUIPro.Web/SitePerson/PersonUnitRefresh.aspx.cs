@@ -23,14 +23,14 @@ namespace FineUIPro.Web.SitePerson
             {
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 //项目单位
-                BLL.UnitService.InitUnitDropDownList(this.drpUnitId, this.CurrUser.LoginProjectId, false);
+                BLL.UnitService.InitUnitOtherDropDownList(this.drpUnitId, this.CurrUser.LoginProjectId, false);
                 if (BLL.ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.CurrUser.LoginProjectId, this.CurrUser.UnitId))
                 {
                     this.drpUnitId.SelectedValue = this.CurrUser.UnitId;
                     this.drpUnitId.Enabled = false;
                 }
                 //项目单位
-                BLL.UnitService.InitUnitDropDownList(this.drpToUnit, this.CurrUser.LoginProjectId, false);
+                BLL.UnitService.InitUnitOtherDropDownList(this.drpToUnit, this.CurrUser.LoginProjectId, false);
                 BLL.TeamGroupService.InitTeamGroupProjectUnitDropDownList(this.drpTeamGroup, this.CurrUser.LoginProjectId, this.drpToUnit.SelectedValue, true);
                 this.BindGrid();
             }
@@ -46,16 +46,30 @@ namespace FineUIPro.Web.SitePerson
             {
                 string strSql = string.Empty;
                 ///在场人员出场
-                strSql = @"SELECT PersonId,CardNo,PersonName,IdentityCard"
-                          + @" FROM SitePerson_Person WHERE UnitId ='" + this.drpUnitId.SelectedValue + "'";
+                //strSql = @"SELECT PersonId,CardNo,PersonName,IdentityCard"
+                //          + @" FROM SitePerson_Person WHERE UnitId ='" + this.drpUnitId.SelectedValue + "'";
+                //List<SqlParameter> listStr = new List<SqlParameter>();
+                //strSql += " AND ProjectId = @ProjectId";
+                //listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
+                //if (!string.IsNullOrEmpty(this.CurrUser.UnitId))
+                //{
+                //    strSql += " AND UnitId = @UnitId";
+                //    listStr.Add(new SqlParameter("@UnitId", this.drpUnitId.SelectedValue));
+                //}
+                strSql = @"SELECT PersonId,CardNo,PersonName,IdentityCard FROM SitePerson_Person"
+                       + @" WHERE  ProjectId = @ProjectId ";
                 List<SqlParameter> listStr = new List<SqlParameter>();
-                strSql += " AND ProjectId = @ProjectId";
                 listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
-                if (!string.IsNullOrEmpty(this.CurrUser.UnitId))
+                if (!string.IsNullOrEmpty(this.drpUnitId.SelectedValue) && this.drpUnitId.SelectedValue != "0")
                 {
                     strSql += " AND UnitId = @UnitId";
                     listStr.Add(new SqlParameter("@UnitId", this.drpUnitId.SelectedValue));
                 }
+                else
+                {
+                    strSql += " AND UnitId IS NULL ";
+                }
+
                 if (!string.IsNullOrEmpty(this.txtPersonName.Text.Trim()))
                 {
                     strSql += " AND PersonName LIKE @PersonName";
@@ -92,7 +106,14 @@ namespace FineUIPro.Web.SitePerson
                     var person = BLL.PersonService.GetPersonById(item);
                     if (person != null)
                     {
-                        person.UnitId = this.drpToUnit.SelectedValue;
+                        if (this.drpToUnit.SelectedValue == "0")//如果新单位选择其他，则置空该人员单位
+                        {
+                            person.UnitId = null;
+                        }
+                        else
+                        {
+                            person.UnitId = this.drpToUnit.SelectedValue;
+                        }
                         if (this.drpTeamGroup.SelectedValue != BLL.Const._Null)
                         {
                             person.TeamGroupId = this.drpTeamGroup.SelectedValue;
@@ -105,7 +126,7 @@ namespace FineUIPro.Web.SitePerson
                     }
                 }
 
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "人员批量调整单位！");
+                BLL.LogService.AddSys_Log(this.CurrUser, "人员批量调整单位！", null, BLL.Const.PersonListMenuId, BLL.Const.BtnModify);
                 PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
             }
             else
@@ -134,7 +155,10 @@ namespace FineUIPro.Web.SitePerson
         /// <param name="e"></param>
         protected void drpUnit_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BLL.TeamGroupService.InitTeamGroupProjectUnitDropDownList(this.drpTeamGroup, this.CurrUser.LoginProjectId, this.drpToUnit.SelectedValue, true);
+            if (this.drpUnitId.SelectedValue != "0")
+            {
+                BLL.TeamGroupService.InitTeamGroupProjectUnitDropDownList(this.drpTeamGroup, this.CurrUser.LoginProjectId, this.drpToUnit.SelectedValue, true);
+            }
         }
     }
 }

@@ -166,14 +166,14 @@ namespace FineUIPro.Web.Administrative
             {
                 healthManage.HealthManageId = this.HealthManageId;
                 BLL.HealthManageService.UpdateHealthManage(healthManage);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "修改【" + this.drpPersonId.SelectedText.Trim() + "】的职业健康管理");
+                BLL.LogService.AddSys_Log(this.CurrUser, this.drpPersonId.SelectedText, healthManage.HealthManageId, BLL.Const.HealthManageMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.HealthManageId = SQLHelper.GetNewID(typeof(Model.Administrative_HealthManage));
                 healthManage.HealthManageId = this.HealthManageId;
                 BLL.HealthManageService.AddHealthManage(healthManage);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "添加【" + this.drpPersonId.SelectedText.Trim() + "】的职业健康管理");
+                BLL.LogService.AddSys_Log(this.CurrUser, this.drpPersonId.SelectedText, healthManage.HealthManageId, BLL.Const.HealthManageMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.HealthManageMenuId, this.HealthManageId, (type == BLL.Const.BtnSubmit ? true : false), this.drpPersonId.SelectedText.Trim(), "../Administrative/HealthManageView.aspx?HealthManageId={0}");

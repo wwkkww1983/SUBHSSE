@@ -85,7 +85,7 @@ namespace FineUIPro.Web.Technique
             // 2.获取当前分页数据
             //var table = this.GetPagedDataTable(Grid1, tb1);
             Grid1.RecordCount = tb.Rows.Count;
-            tb = GetFilteredTable(Grid1.FilteredData, tb);
+           // tb = GetFilteredTable(Grid1.FilteredData, tb);
             var table = this.GetPagedDataTable(Grid1, tb);
 
             Grid1.DataSource = table;
@@ -131,10 +131,15 @@ namespace FineUIPro.Web.Technique
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, isShow))
                     {
-                        BLL.Technique_EnvironmentalService.DeleteEnvironmental(rowID);
+                        var getV = BLL.Technique_EnvironmentalService.GetEnvironmental(rowID);
+                        if (getV != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getV.Code, getV.EnvironmentalId, BLL.Const.EnvironmentalMenuId, BLL.Const.BtnDelete);
+                            BLL.Technique_EnvironmentalService.DeleteEnvironmental(rowID);
+                        }
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除环境因素危险源");
+
                 BindGrid();
                 //ShowNotify("删除数据成功!");
             }

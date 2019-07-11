@@ -126,14 +126,14 @@ namespace FineUIPro.Web.SiteConstruction
             {
                 newConstructionDynamic.ConstructionDynamicId = this.ConstructionDynamicId;
                 BLL.ConstructionDynamicService.UpdateConstructionDynamic(newConstructionDynamic);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改现场动态", newConstructionDynamic.ConstructionDynamicId);
+                BLL.LogService.AddSys_Log(this.CurrUser, this.drpUnit.SelectedText, newConstructionDynamic.ConstructionDynamicId, BLL.Const.ProjectConstructionDynamicMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.ConstructionDynamicId = SQLHelper.GetNewID(typeof(Model.SiteConstruction_ConstructionDynamic));
                 newConstructionDynamic.ConstructionDynamicId = this.ConstructionDynamicId;
                 BLL.ConstructionDynamicService.AddConstructionDynamic(newConstructionDynamic);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加现场动态", newConstructionDynamic.ConstructionDynamicId);
+                BLL.LogService.AddSys_Log(this.CurrUser, this.drpUnit.SelectedText, newConstructionDynamic.ConstructionDynamicId, BLL.Const.ProjectConstructionDynamicMenuId, BLL.Const.BtnAdd);
             }
         }
         #endregion

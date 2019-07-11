@@ -216,10 +216,15 @@ namespace FineUIPro.Web.InformationProject
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string constructionStandardIdentifyId = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.ConstructionStandardSelectedItemService.DeleteConstructionStandardSelectedItemByConstructionStandardIdentifyId(constructionStandardIdentifyId);
-                    BLL.ConstructionStandardIdentifyService.DeleteConstructionStandardIdentifyById(constructionStandardIdentifyId);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除标准规范辨识");
+                    var getD = BLL.ConstructionStandardIdentifyService.GetConstructionStandardIdentifyById(constructionStandardIdentifyId);
+                    if (getD != null)
+                    {
+                        BLL.ConstructionStandardSelectedItemService.DeleteConstructionStandardSelectedItemByConstructionStandardIdentifyId(constructionStandardIdentifyId);
+                        BLL.ConstructionStandardIdentifyService.DeleteConstructionStandardIdentifyById(constructionStandardIdentifyId);
+                        BLL.LogService.AddSys_Log(this.CurrUser, getD.ConstructionStandardIdentifyCode, getD.ConstructionStandardIdentifyId, BLL.Const.ConstructionStandardIdentifyMenuId, BLL.Const.BtnDelete);
+                    }
                 }
+
                 BindGrid();
             }
         }

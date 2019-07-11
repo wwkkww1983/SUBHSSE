@@ -260,14 +260,14 @@ namespace FineUIPro.Web.InformationProject
             {
                 newNotice.NoticeId = this.NoticeId;
                 BLL.NoticeService.UpdateNotice(newNotice);
-                BLL.LogService.AddLogCode(this.ProjectId, this.CurrUser.UserId, "修改通知管理", newNotice.NoticeCode);
+                BLL.LogService.AddSys_Log(this.CurrUser, newNotice.NoticeCode, newNotice.NoticeId, BLL.Const.ServerNoticeMenuId, Const.BtnModify);
             }
             else
             {
                 this.NoticeId = SQLHelper.GetNewID(typeof(Model.InformationProject_Notice));
                 newNotice.NoticeId = this.NoticeId;
                 BLL.NoticeService.AddNotice(newNotice);
-                BLL.LogService.AddLogCode(this.ProjectId, this.CurrUser.UserId, "添加通知管理", newNotice.NoticeCode);
+                BLL.LogService.AddSys_Log(this.CurrUser, newNotice.NoticeCode, newNotice.NoticeId, BLL.Const.ServerNoticeMenuId, Const.BtnAdd);
             }
             ///初始化审核菜单
             string menuId = BLL.Const.ServerNoticeMenuId;

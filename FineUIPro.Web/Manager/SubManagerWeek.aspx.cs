@@ -205,9 +205,13 @@ namespace FineUIPro.Web.Manager
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, isShow))
-                    {
-                        BLL.SubManagerWeekService.DeleteSubManagerWeekById(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除分包商周报");
+                    { 
+                        var getD = BLL.SubManagerWeekService.GetSubManagerWeekById(rowID);
+                        if (getD != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getD.SubManagerWeekCode, getD.SubManagerWeekId, BLL.Const.SubManagerWeekMenuId, BLL.Const.BtnDelete);
+                            BLL.SubManagerWeekService.DeleteSubManagerWeekById(rowID);
+                        }
                     }
                 }
                 BindGrid();

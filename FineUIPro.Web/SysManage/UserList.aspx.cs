@@ -37,15 +37,15 @@
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT Users.UserId,Users.Account,Users.UserCode,Users.Password,Users.UserName,Users.RoleId,Users.UnitId,Users.IsPosts,Users.IsReplies,Users.IsDeletePosts,Users.IsPost,CASE WHEN  Users.IsPost=1 THEN '是' ELSE '否' END AS IsPostName,Users.IdentityCard,Users.Telephone,"
+            string strSql = @"SELECT Users.UserId,Users.Account,Users.UserCode,Users.Password,Users.UserName,Users.RoleId,Users.UnitId,Users.IsPosts,Users.IsReplies,Users.IsDeletePosts,Users.IsPost,CASE WHEN  Users.IsPost=1 THEN '是' ELSE '否' END AS IsPostName,Users.IdentityCard,Users.Telephone,Users.IsOffice,"
                           + @" CASE WHEN Users.IsPosts=1 THEN '是' ELSE '否' END AS IsPostsName,CASE WHEN  Users.IsReplies=1 THEN '是' ELSE '否' END AS IsRepliesName ,CASE WHEN  Users.IsDeletePosts=1 THEN '是' ELSE '否' END AS IsDeletePostsName,Roles.RoleName,Unit.UnitName,Unit.UnitCode,Const13.ConstText AS RoleTypeName"
                           + @" From dbo.Sys_User AS Users"
                           + @" LEFT JOIN Sys_Role AS Roles ON Roles.RoleId=Users.RoleId"
                           + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=Users.UnitId"
                           + @" LEFT JOIN Sys_Const AS Const13 ON Roles.RoleType=Const13.ConstValue AND Const13.GroupId='" + BLL.ConstValue.Group_0013 + "'"
-                          + @" WHERE Users.UserId !=@UserId AND Users.UserId !='" + BLL.Const.hfnbdId + "'";
-            List<SqlParameter> listStr = new List<SqlParameter>();
-            listStr.Add(new SqlParameter("@UserId", Const.sysglyId));
+                          + @" WHERE Users.UserId !='" + Const.sysglyId + "' AND Users.UserId !='" + BLL.Const.hfnbdId + "'";
+
+            List<SqlParameter> listStr = new List<SqlParameter>();            
             if (!string.IsNullOrEmpty(this.txtUserName.Text.Trim()))
             {
                 strSql += " AND Users.UserName LIKE @UserName";
@@ -76,7 +76,7 @@
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 
             Grid1.RecordCount = tb.Rows.Count;
-            tb = GetFilteredTable(Grid1.FilteredData, tb);
+            //tb = GetFilteredTable(Grid1.FilteredData, tb);
             var table = this.GetPagedDataTable(Grid1, tb);
             Grid1.DataSource = table;
             Grid1.DataBind();           
@@ -149,8 +149,8 @@
                         string cont = judgementDelete(rowID);
                         if (string.IsNullOrEmpty(cont))
                         {
-                            BLL.UserService.DeleteUser(rowID);
-                            BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除用户信息");                           
+                            BLL.LogService.AddSys_Log(this.CurrUser, user.UserCode, user.UserId, BLL.Const.UserMenuId, BLL.Const.BtnAdd);
+                            BLL.UserService.DeleteUser(rowID);                      
                         }
                         else
                         {
@@ -275,7 +275,7 @@
         /// <param name="e"></param>
         protected void lbtnPro_Click(object sender, EventArgs e)
         {
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ParticipateProject.aspx?userId={0}", Grid1.SelectedRowID, "参与项目情况 - ")));
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ParticipateProject.aspx?userId={0}", Grid1.SelectedRowID, "参与项目情况 - "),"参与项目",1000,520));
         }
     }
 }

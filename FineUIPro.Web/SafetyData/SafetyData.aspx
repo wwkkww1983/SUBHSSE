@@ -27,7 +27,11 @@
                         OnSelectedIndexChanged="cbType_SelectedIndexChanged"  AutoPostBack="true" Label="资料类型">
                         <f:CheckItem Text="全部" Value="0" />
                         <f:CheckItem Text="考核项" Value="1" />
-                     </f:CheckBoxList>  
+                     </f:CheckBoxList>
+                    <%-- <f:TextBox runat="server" Label="查询" ID="txtTitle" EmptyText="输入查询条件"
+                        AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="180px" LabelWidth="50px"
+                        LabelAlign="right">
+                    </f:TextBox>--%>
                 </Items>                    
             </f:Toolbar>
         </Toolbars> 
@@ -54,8 +58,8 @@
         </Items>
     </f:Menu>    
     <f:Window ID="Window1" Title="" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="900px" Height="500px">
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Width="900px" Height="520px">
     </f:Window>
     </form>
     <script type="text/javascript">

@@ -1,23 +1,12 @@
-﻿using System;
+﻿using BLL;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Configuration;
-using System.Linq;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
-using System.Reflection;
-using System.ComponentModel;
-using System.Collections;
-using BLL;
-using Model;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Web.UI;
 
 namespace FineUIPro.Web.Technique
 {
@@ -276,8 +265,8 @@ namespace FineUIPro.Web.Technique
                         ShowNotify("内置项无法删除", MessageBoxIcon.Warning);
                         return;
                     }
+                    BLL.LogService.AddSys_Log(this.CurrUser, expert.ExpertCode, expert.ExpertId, BLL.Const.ExpertMenuId, Const.BtnDelete);
                     BLL.ExpertService.DeleteExpertId(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除安全专家");
                 }
 
                 BindGrid();
@@ -307,6 +296,7 @@ namespace FineUIPro.Web.Technique
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
             this.BindGrid();
+            BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ExpertMenuId, Const.BtnQuery);
         }
         #endregion
 

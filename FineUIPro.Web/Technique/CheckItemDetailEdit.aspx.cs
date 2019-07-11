@@ -62,6 +62,11 @@ namespace FineUIPro.Web.Technique
                         this.txtSortIndex.Text = checkItemDetail.SortIndex.ToString();
                     }
                 }
+
+                if (Request.Params["value"] == "0")
+                {
+                    this.btnSave.Hidden = true;
+                }
             }
         }
 
@@ -94,13 +99,13 @@ namespace FineUIPro.Web.Technique
                 {
                     checkItemDetail.CheckItemDetailId = SQLHelper.GetNewID(typeof(Model.Technique_CheckItemDetail));
                     BLL.Technique_CheckItemDetailService.AddCheckItemDetail(checkItemDetail);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "增加检查项明细表信息");
+                    BLL.LogService.AddSys_Log(this.CurrUser, this.txtSortIndex.Text.Trim(), checkItemDetail.CheckItemDetailId, BLL.Const.TechniqueCheckItemSetMenuId, Const.BtnAdd);
                 }
                 else
                 {
                     checkItemDetail.CheckItemDetailId = this.CheckItemDetailId;
                     BLL.Technique_CheckItemDetailService.UpdateCheckItemDetail(checkItemDetail);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改检查项明细表信息");
+                    BLL.LogService.AddSys_Log(this.CurrUser, this.txtSortIndex.Text.Trim(), checkItemDetail.CheckItemDetailId, BLL.Const.TechniqueCheckItemSetMenuId, Const.BtnModify);
                 }
 
                 PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());

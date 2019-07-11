@@ -85,16 +85,20 @@ namespace FineUIPro.Web.QualityAudit
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.SubUnitQualityAuditDetailService.DeleteSubUnitQualityAuditDetailById(rowID);
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除分包商资质审查记录", rowID);
+                    var subUnitQuality = BLL.SubUnitQualityAuditDetailService.GetSubUnitQualityAuditDetailById(rowID);
+                    if (subUnitQuality != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, null, subUnitQuality.AuditDetailId, BLL.Const.SubUnitQualityMenuId, BLL.Const.BtnModify);
+                        BLL.SubUnitQualityAuditDetailService.DeleteSubUnitQualityAuditDetailById(rowID);
+                    }
+                    List<Model.View_QualityAudit_SubUnitQualityAuditDetail> details = (from x in Funs.DB.View_QualityAudit_SubUnitQualityAuditDetail
+                                                                                       where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitId == Request.Params["UnitId"]
+                                                                                       orderby x.AuditDate descending
+                                                                                       select x).ToList();
+                    Grid1.DataSource = details;
+                    Grid1.DataBind();
+                    ShowNotify("删除数据成功!（表格数据已重新绑定）");
                 }
-                List<Model.View_QualityAudit_SubUnitQualityAuditDetail> details = (from x in Funs.DB.View_QualityAudit_SubUnitQualityAuditDetail
-                                                                                   where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitId == Request.Params["UnitId"]
-                                                                                   orderby x.AuditDate descending
-                                                                                   select x).ToList();
-                Grid1.DataSource = details;
-                Grid1.DataBind();
-                ShowNotify("删除数据成功!（表格数据已重新绑定）");
             }
         }
         #endregion

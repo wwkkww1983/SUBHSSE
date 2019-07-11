@@ -13,7 +13,7 @@
     <f:PageManager ID="PageManager1" runat="server" AutoSizePanelID="RegionPanel1" />
     <f:RegionPanel ID="RegionPanel1" ShowBorder="false" runat="server" Margin="5px">
         <Regions>           
-           <f:Region ID="Region2" ShowBorder="false" ShowHeader="false" Position="Center" Layout="VBox"
+           <f:Region ID="Region2" ShowBorder="false" ShowHeader="false" Position="Center" Layout="Fit"
                 BoxConfigAlign="Stretch" BoxConfigPosition="Left" runat="server">
                  <Toolbars>
                     <f:Toolbar ID="Toolbar1" Position="Top" ToolbarAlign="Right" runat="server" Height="30px">
@@ -27,8 +27,8 @@
                     </f:Toolbar>
                 </Toolbars>
                 <Items> 
-                    <f:HtmlEditor runat="server" Label="详细" ID="txtSeeFile" ShowLabel="false"
-                        Editor="UMEditor" BasePath="~/res/umeditor/" ToolbarSet="Full" Height="510">
+                    <f:HtmlEditor runat="server" Label="详细" ID="txtSeeFile" ShowLabel="false" 
+                        Editor="UMEditor" BasePath="~/res/umeditor/" ToolbarSet="Full" MarginBottom="2px">
                     </f:HtmlEditor>                  
                 </Items>
             </f:Region>

@@ -124,6 +124,7 @@ namespace FineUIPro.Web.SafetyData
             }
             //更新现场月报的累计安全人工时
             Model.Manager_MonthReportB monthReportB = BLL.MonthReportBService.GetMonthReportByMonth(months, this.drpProject.SelectedValue);
+            if (monthReportB != null)
             {
                 int hseManhours = 0;
                 List<Model.SitePerson_DayReport> newDayReports = (from x in Funs.DB.SitePerson_DayReport where x.CompileDate >= date.AddDays(1) && x.CompileDate < endTime && x.ProjectId == this.drpProject.SelectedValue && x.States == BLL.Const.State_2 select x).ToList();
@@ -141,8 +142,8 @@ namespace FineUIPro.Web.SafetyData
                 monthReportB.NoStartDate = date.AddDays(1);
                 BLL.MonthReportBService.UpdateMonthReport(monthReportB);
                 List<Model.Manager_MonthReportB> monthReportBs = (from x in Funs.DB.Manager_MonthReportB
-                                                                      where x.Months > months && x.ProjectId == this.drpProject.SelectedValue
-                                                                      select x).ToList();
+                                                                  where x.Months > months && x.ProjectId == this.drpProject.SelectedValue
+                                                                  select x).ToList();
                 foreach (var item in monthReportBs)
                 {
                     item.TotalHseManhours -= minusHseManhours;

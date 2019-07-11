@@ -118,13 +118,13 @@ namespace FineUIPro.Web.HSSESystem
             {
                 hsseMainDuty.HSSEMainDutyId = SQLHelper.GetNewID(typeof(Model.HSSESystem_HSSEMainDuty));
                 BLL.HSSEMainDutyService.AddHSSEMainDuty(hsseMainDuty);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加安全主体责任");
+                BLL.LogService.AddSys_Log(this.CurrUser, hsseMainDuty.SortIndex, hsseMainDuty.HSSEMainDutyId, BLL.Const.HSSEMainDutyMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 hsseMainDuty.HSSEMainDutyId = this.HSSEMainDutyId;
                 BLL.HSSEMainDutyService.UpdateHSSEMainDuty(hsseMainDuty);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改安全主体责任");
+                BLL.LogService.AddSys_Log(this.CurrUser, hsseMainDuty.SortIndex, hsseMainDuty.HSSEMainDutyId, BLL.Const.HSSEMainDutyMenuId, BLL.Const.BtnModify);
             }
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }

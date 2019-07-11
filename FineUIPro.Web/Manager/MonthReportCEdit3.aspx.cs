@@ -134,8 +134,8 @@ namespace FineUIPro.Web.Manager
             if (monthReport != null)
             {
                 monthHSEWorkDay = Convert.ToInt32((from x in Funs.DB.SitePerson_MonthReportDetail
-                                   where x.MonthReportId == monthReport.MonthReportId
-                                   select x.RealPersonNum ?? 0).Sum());
+                                                   where x.MonthReportId == monthReport.MonthReportId
+                                                   select x.RealPersonNum ?? 0).Sum());
                 hSEManhours = (from x in Funs.DB.SitePerson_MonthReportDetail
                                join z in Funs.DB.Project_ProjectUnit
                                on x.UnitId equals z.UnitId
@@ -253,18 +253,34 @@ namespace FineUIPro.Web.Manager
         protected void btnSave_Click(object sender, EventArgs e)
         {
             Model.Manager_MonthReportC oldMonthReport = BLL.MonthReportCService.GetMonthReportByMonths(Convert.ToDateTime(Request.Params["months"]), this.CurrUser.LoginProjectId);
+            string MonthHSEDay = string.Empty, SumHSEDay = string.Empty, MonthHSEWorkDay = string.Empty, YearHSEWorkDay = string.Empty, SumHSEWorkDay = string.Empty,
+                HseManhours = string.Empty, SubcontractManHours = string.Empty, TotalHseManhours = string.Empty;
+            JArray mergedData = gvHSEDay.GetMergedData();
+            foreach (JObject mergedRow in mergedData)
+            {
+                string status = mergedRow.Value<string>("status");
+                JObject values = mergedRow.Value<JObject>("values");
+                MonthHSEDay = values.Value<string>("MonthHSEDay").ToString();
+                SumHSEDay = values.Value<string>("SumHSEDay").ToString();
+                MonthHSEWorkDay = values.Value<string>("MonthHSEWorkDay").ToString();
+                YearHSEWorkDay = values.Value<string>("YearHSEWorkDay").ToString();
+                SumHSEWorkDay = values.Value<string>("SumHSEWorkDay").ToString();
+                HseManhours = values.Value<string>("HseManhours").ToString();
+                SubcontractManHours = values.Value<string>("SubcontractManHours").ToString();
+                TotalHseManhours = values.Value<string>("TotalHseManhours").ToString();
+            }
             if (oldMonthReport != null)
             {
-                oldMonthReport.MonthHSEDay = Funs.GetNewIntOrZero(this.gvHSEDay.Rows[0].Values[1].ToString());
-                oldMonthReport.SumHSEDay = Funs.GetNewIntOrZero(this.gvHSEDay.Rows[0].Values[2].ToString());
-                oldMonthReport.MonthHSEWorkDay = Funs.GetNewIntOrZero(this.gvHSEDay.Rows[0].Values[4].ToString());
-                oldMonthReport.YearHSEWorkDay = Funs.GetNewIntOrZero(this.gvHSEDay.Rows[0].Values[5].ToString());
-                oldMonthReport.SumHSEWorkDay = Funs.GetNewIntOrZero(this.gvHSEDay.Rows[0].Values[6].ToString());
-                oldMonthReport.HseManhours = Funs.GetNewIntOrZero(this.gvHSEDay.Rows[0].Values[9].ToString());
-                oldMonthReport.SubcontractManHours = Funs.GetNewIntOrZero(this.gvHSEDay.Rows[0].Values[10].ToString());
-                oldMonthReport.TotalHseManhours = Funs.GetNewIntOrZero(this.gvHSEDay.Rows[0].Values[11].ToString());
+                oldMonthReport.MonthHSEDay = Funs.GetNewIntOrZero(MonthHSEDay);
+                oldMonthReport.SumHSEDay = Funs.GetNewIntOrZero(SumHSEDay);
+                oldMonthReport.MonthHSEWorkDay = Funs.GetNewIntOrZero(MonthHSEWorkDay);
+                oldMonthReport.YearHSEWorkDay = Funs.GetNewIntOrZero(YearHSEWorkDay);
+                oldMonthReport.SumHSEWorkDay = Funs.GetNewIntOrZero(SumHSEWorkDay);
+                oldMonthReport.HseManhours = Funs.GetNewIntOrZero(HseManhours);
+                oldMonthReport.SubcontractManHours = Funs.GetNewIntOrZero(SubcontractManHours);
+                oldMonthReport.TotalHseManhours = Funs.GetNewIntOrZero(TotalHseManhours);
                 BLL.MonthReportCService.UpdateMonthReport(oldMonthReport);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改HSE月报告", MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, oldMonthReport.MonthReportCode, oldMonthReport.MonthReportId, BLL.Const.ProjectManagerMonthCMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -277,16 +293,16 @@ namespace FineUIPro.Web.Manager
                 monthReport.Months = Funs.GetNewDateTime(Request.Params["months"]);
                 monthReport.ReportMan = this.CurrUser.UserId;
                 monthReport.MonthReportDate = DateTime.Now;
-                monthReport.MonthHSEDay = Funs.GetNewIntOrZero(this.gvHSEDay.Rows[0].Values[1].ToString());
-                monthReport.SumHSEDay = Funs.GetNewIntOrZero(this.gvHSEDay.Rows[0].Values[2].ToString());
-                monthReport.MonthHSEWorkDay = Funs.GetNewIntOrZero(this.gvHSEDay.Rows[0].Values[4].ToString());
-                monthReport.YearHSEWorkDay = Funs.GetNewIntOrZero(this.gvHSEDay.Rows[0].Values[5].ToString());
-                monthReport.SumHSEWorkDay = Funs.GetNewIntOrZero(this.gvHSEDay.Rows[0].Values[6].ToString());
-                monthReport.HseManhours = Funs.GetNewIntOrZero(this.gvHSEDay.Rows[0].Values[9].ToString());
-                monthReport.SubcontractManHours = Funs.GetNewIntOrZero(this.gvHSEDay.Rows[0].Values[10].ToString());
-                monthReport.TotalHseManhours = Funs.GetNewIntOrZero(this.gvHSEDay.Rows[0].Values[11].ToString());
+                monthReport.MonthHSEDay = Funs.GetNewIntOrZero(MonthHSEDay);
+                monthReport.SumHSEDay = Funs.GetNewIntOrZero(SumHSEDay);
+                monthReport.MonthHSEWorkDay = Funs.GetNewIntOrZero(MonthHSEWorkDay);
+                monthReport.YearHSEWorkDay = Funs.GetNewIntOrZero(YearHSEWorkDay);
+                monthReport.SumHSEWorkDay = Funs.GetNewIntOrZero(SumHSEWorkDay);
+                monthReport.HseManhours = Funs.GetNewIntOrZero(HseManhours);
+                monthReport.SubcontractManHours = Funs.GetNewIntOrZero(SubcontractManHours);
+                monthReport.TotalHseManhours = Funs.GetNewIntOrZero(TotalHseManhours);
                 BLL.MonthReportCService.AddMonthReport(monthReport);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加HSE月报告", monthReport.MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, monthReport.MonthReportCode, monthReport.MonthReportId, BLL.Const.ProjectManagerMonthCMenuId, BLL.Const.BtnAdd);
             }
             ShowNotify("保存成功!", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());

@@ -108,12 +108,16 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            BLL.CertificateService.DeleteCertificateById(hfFormID.Text);
-            BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除特岗证书");
-            // 重新绑定表格，并模拟点击[新增按钮]
-            BindGrid();
-            PageContext.RegisterStartupScript("onNewButtonClick();");
+            var getV = BLL.CertificateService.GetCertificateById(hfFormID.Text);
+            if (getV != null)
+            {
+                BLL.LogService.AddSys_Log(this.CurrUser, getV.CertificateCode, getV.CertificateId, BLL.Const.CertificateMenuId, BLL.Const.BtnDelete);
+                BLL.CertificateService.DeleteCertificateById(getV.CertificateId);
 
+                // 重新绑定表格，并模拟点击[新增按钮]
+                BindGrid();
+                PageContext.RegisterStartupScript("onNewButtonClick();");
+            }
         }
         /// <summary>
         /// 右键删除事件
@@ -136,14 +140,17 @@ namespace FineUIPro.Web.BaseInfo
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
 
-                    BLL.CertificateService.DeleteCertificateById(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除特岗证书");
+                    var getV = BLL.CertificateService.GetCertificateById(hfFormID.Text);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.CertificateCode, getV.CertificateId, BLL.Const.CertificateMenuId, BLL.Const.BtnDelete);
+                        BLL.CertificateService.DeleteCertificateById(getV.CertificateId);
+                    }
                 }
-
                 BindGrid();
                 PageContext.RegisterStartupScript("onNewButtonClick();");
             }
-        }
+        }    
         #endregion
 
         #region 编辑
@@ -199,14 +206,15 @@ namespace FineUIPro.Web.BaseInfo
             {
                 certificate.CertificateId = SQLHelper.GetNewID(typeof(Model.Base_Certificate));
                 BLL.CertificateService.AddCertificate(certificate);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加特岗证书");
+                BLL.LogService.AddSys_Log(this.CurrUser, certificate.CertificateCode, certificate.CertificateId, BLL.Const.CertificateMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 certificate.CertificateId = strRowID;
                 BLL.CertificateService.UpdateCertificate(certificate);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改特岗证书");
+                BLL.LogService.AddSys_Log(this.CurrUser, certificate.CertificateCode, certificate.CertificateId, BLL.Const.CertificateMenuId, BLL.Const.BtnModify);
             }
+
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行
             BindGrid();

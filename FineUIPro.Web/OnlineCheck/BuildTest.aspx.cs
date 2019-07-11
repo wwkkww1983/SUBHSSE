@@ -254,7 +254,7 @@ namespace FineUIPro.Web.OnlineCheck
          {
              int maxId = 0;
              string str = "SELECT (ISNULL(MAX(TestCode),0)+1) from dbo.Edu_Online_Test t left join dbo.Edu_Online_TestCondition c on c.TestConditionId=t.TestConditionId where c.WorkPostId='" + this.ddlWorkPost.SelectedValue + "' and c.ABVolume='" + this.ddlABVolume.SelectedValue + "' ";
-             maxId = BLL.SQLHelper.getIntValue(str);
+             maxId = BLL.SQLHelper.GetIntValue(str);
              return maxId;
          }
     }

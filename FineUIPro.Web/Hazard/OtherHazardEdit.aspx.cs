@@ -135,7 +135,7 @@ namespace FineUIPro.Web.Hazard
             {
                 otherHazard.OtherHazardId = this.OtherHazardId;
                 BLL.Hazard_OtherHazardService.UpdateOtherHazard(otherHazard);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改其他危险源辨识文件", otherHazard.OtherHazardId);
+                BLL.LogService.AddSys_Log(this.CurrUser, otherHazard.OtherHazardCode, otherHazard.OtherHazardId,BLL.Const.OtherHazardMenuId,BLL.Const.BtnModify);
             }
             else
             {
@@ -143,7 +143,7 @@ namespace FineUIPro.Web.Hazard
                 otherHazard.CompileMan = this.CurrUser.UserId;
                 this.OtherHazardId = otherHazard.OtherHazardId;
                 BLL.Hazard_OtherHazardService.AddOtherHazard(otherHazard);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加其他危险源辨识文件", otherHazard.OtherHazardId);
+                BLL.LogService.AddSys_Log(this.CurrUser, otherHazard.OtherHazardCode, otherHazard.OtherHazardId, BLL.Const.OtherHazardMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.OtherHazardMenuId, this.OtherHazardId, (type == BLL.Const.BtnSubmit ? true : false), otherHazard.OtherHazardName, "../Hazard/OtherHazardView.aspx?OtherHazardId={0}");
@@ -180,7 +180,7 @@ namespace FineUIPro.Web.Hazard
             };
             this.OtherHazardId = otherHazard.OtherHazardId;
             BLL.Hazard_OtherHazardService.AddOtherHazard(otherHazard);
-            BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加其他危险源辨识文件", otherHazard.OtherHazardId);
+            BLL.LogService.AddSys_Log(this.CurrUser, otherHazard.OtherHazardCode, otherHazard.OtherHazardId, BLL.Const.OtherHazardMenuId, BLL.Const.BtnAdd);
         }
     }
 }

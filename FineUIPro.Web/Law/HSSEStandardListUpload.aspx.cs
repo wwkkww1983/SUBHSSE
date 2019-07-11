@@ -234,8 +234,9 @@ namespace FineUIPro.Web.Law
             var standardsList = BLL.HSSEStandardsListService.GetHSSEStandardsListByHSSEStandardsListId(this.StandardId);
             if (standardsList != null && !standardsList.AuditDate.HasValue)
             {
+                BLL.LogService.AddSys_Log(this.CurrUser, standardsList.StandardNo, standardsList.StandardId, BLL.Const.HSSEStandardListMenuId, BLL.Const.BtnDelete);
                 BLL.HSSEStandardsListService.DeleteHSSEStandardsList(this.StandardId);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除上报的安全标准规范");
+               
                 this.SetTemp();
                 this.InitTreeMenu();
                 ShowNotify("删除成功！");
@@ -357,13 +358,13 @@ namespace FineUIPro.Web.Law
             {
                 this.StandardId = hSSEStandardsList.StandardId = SQLHelper.GetNewID(typeof(Model.Law_HSSEStandardsList));
                 BLL.HSSEStandardsListService.AddHSSEStandardsList(hSSEStandardsList);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "增加安全标准规范");
+                BLL.LogService.AddSys_Log(this.CurrUser, hSSEStandardsList.StandardNo, hSSEStandardsList.StandardId, BLL.Const.HSSEStandardListMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 hSSEStandardsList.StandardId = StandardId;
                 BLL.HSSEStandardsListService.UpdateHSSEStandardsList(hSSEStandardsList);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改安全标准规范");
+                BLL.LogService.AddSys_Log(this.CurrUser, hSSEStandardsList.StandardNo, hSSEStandardsList.StandardId, BLL.Const.HSSEStandardListMenuId, BLL.Const.BtnModify);
             }
         }
         #endregion

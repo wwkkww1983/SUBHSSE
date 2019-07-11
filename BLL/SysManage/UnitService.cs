@@ -64,7 +64,10 @@ namespace BLL
                 EMail = unit.EMail,
                 ProjectRange = unit.ProjectRange,
                 IsThisUnit = unit.IsThisUnit,
-                IsHide = false
+                IsBranch = unit.IsBranch,
+                IsHide = false,
+                DataSources = unit.DataSources,
+                FromUnitId = unit.FromUnitId,
             };
             db.Base_Unit.InsertOnSubmit(newUnit);
             db.SubmitChanges();
@@ -90,7 +93,9 @@ namespace BLL
                 newUnit.EMail = unit.EMail;
                 newUnit.ProjectRange = unit.ProjectRange;
                 newUnit.IsThisUnit = unit.IsThisUnit;
+                newUnit.IsBranch = unit.IsBranch;
                 newUnit.IsHide = unit.IsHide;
+                newUnit.FromUnitId = unit.FromUnitId;
                 db.SubmitChanges();
             }
         }
@@ -116,7 +121,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_Unit> GetUnitDropDownList()
         {
-            var list = (from x in Funs.DB.Base_Unit where (x.IsHide== null || x.IsHide == false) select x).OrderByDescending(x => x.IsThisUnit).ThenBy(x => x.UnitCode).ToList();
+            var list = (from x in Funs.DB.Base_Unit where (x.IsHide == null || x.IsHide == false) select x).OrderByDescending(x => x.IsThisUnit).ThenBy(x => x.UnitCode).ToList();
             return list;
         }
 
@@ -127,6 +132,18 @@ namespace BLL
         public static List<Model.Base_Unit> GetThisUnitDropDownList()
         {
             var list = (from x in Funs.DB.Base_Unit where x.IsThisUnit == true select x).ToList();
+            return list;
+        }
+
+        /// <summary>
+        /// 获取分公司列表
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Base_Unit> GetBranchUnitList()
+        {
+            var list = (from x in Funs.DB.Base_Unit
+                        where x.IsBranch == true && (x.IsHide == null || x.IsHide == false)
+                        select x).OrderBy(x => x.UnitCode).ToList();
             return list;
         }
 
@@ -165,6 +182,22 @@ namespace BLL
                      join y in db.Project_ProjectUnit
                      on x.UnitId equals y.UnitId
                      where y.ProjectId == projectId && (x.IsHide == null || x.IsHide == false)
+                     orderby x.UnitCode
+                     select x).ToList();
+            return q;
+        }
+
+        /// <summary>
+        /// 根据项目Id获取单位名称下拉选择项
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static List<Model.Base_Unit> GetUnitByProjectIdUnitTypeList(string projectId, string unitType)
+        {
+            var q = (from x in db.Base_Unit
+                     join y in db.Project_ProjectUnit
+                     on x.UnitId equals y.UnitId
+                     where y.ProjectId == projectId && (x.IsHide == null || x.IsHide == false) && y.UnitType == unitType
                      orderby x.UnitCode
                      select x).ToList();
             return q;
@@ -221,6 +254,23 @@ namespace BLL
         }
 
         /// <summary>
+        /// 获取分公司表下拉框
+        /// </summary>
+        /// <param name="dropName"></param>
+        /// <param name="isShowPlease"></param>
+        public static void InitBranchUnitDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "UnitId";
+            dropName.DataTextField = "UnitName";
+            dropName.DataSource = BLL.UnitService.GetBranchUnitList();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
+        /// <summary>
         ///  单位表下拉框
         /// </summary>
         /// <param name="dropName">下拉框名字</param>
@@ -229,7 +279,24 @@ namespace BLL
         {
             dropName.DataValueField = "UnitId";
             dropName.DataTextField = "UnitName";
-            dropName.DataSource = BLL.UnitService.GetUnitByProjectIdListNotContainOneUnit(projectId,unitId);
+            dropName.DataSource = BLL.UnitService.GetUnitByProjectIdListNotContainOneUnit(projectId, unitId);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
+        /// <summary>
+        ///  根据单位类型获取单位表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitUnitByProjectIdUnitTypeDropDownList(FineUIPro.DropDownList dropName, string projectId, string unitType, bool isShowPlease)
+        {
+            dropName.DataValueField = "UnitId";
+            dropName.DataTextField = "UnitName";
+            dropName.DataSource = BLL.UnitService.GetUnitByProjectIdUnitTypeList(projectId, unitType);
             dropName.DataBind();
             if (isShowPlease)
             {
@@ -253,6 +320,32 @@ namespace BLL
                      orderby x.UnitCode
                      select x).ToList();
             return q;
+        }
+        /// <summary>
+        /// 单位下拉选择项（添加其他单位）
+        /// </summary>
+        /// <param name="dropName"></param>
+        /// <param name="projectId"></param>
+        /// <param name="isShowPlease"></param>
+        public static void InitUnitOtherDropDownList(FineUIPro.DropDownList dropName, string projectId, bool isShowPlease)
+        {
+            dropName.DataValueField = "UnitId";
+            dropName.DataTextField = "UnitName";
+
+            List<Model.Base_Unit> units = new List<Model.Base_Unit>();
+            units.AddRange(BLL.UnitService.GetUnitListByProjectId(projectId));
+
+            Model.Base_Unit other = new Model.Base_Unit();
+            other.UnitName = "其他";
+            other.UnitId = "0";
+            units.Add(other);
+
+            dropName.DataSource = units;
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
         }
     }
 }

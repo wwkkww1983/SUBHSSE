@@ -1,10 +1,8 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BLL;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace FineUIPro.Web.Information
 {
@@ -46,28 +44,112 @@ namespace FineUIPro.Web.Information
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {
-                LoadData();               
-                BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpHandleMan, this.CurrUser.LoginProjectId,this.CurrUser.UnitId, true);                 
-                BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpHandleMan2, this.CurrUser.LoginProjectId, this.CurrUser.UnitId, true); 
+            {                
+                this.BindGrid();
+                this.BindGrid1();
+                //BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpHandleMan, this.CurrUser.LoginProjectId,this.CurrUser.UnitId, true);                 
+                //BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpHandleMan2, this.CurrUser.LoginProjectId, this.CurrUser.UnitId, true); 
                 this.drpHandleMan2.Enabled = false; 
                 this.Type = Request.Params["Type"];
-                this.Id = Request.Params["Id"];
-                Model.ProjectData_FlowOperate flowOperate = BLL.ProjectDataFlowSetService.getCompileFlowOperate(this.Id);
-                if (flowOperate != null)
-                {
-                    this.drpHandleMan2.SelectedValue = flowOperate.OperaterId;
-                }
+                this.Id = Request.Params["Id"];                
             }
         }
+        #endregion
 
+        #region 人员下拉框绑定数据
         /// <summary>
-        /// 加载数据
+        /// 绑定数据
         /// </summary>
-        private void LoadData()
+        private void BindGrid()
         {
-            btnClose.OnClientClick = ActiveWindow.GetHideReference();
+            string unitId = this.CurrUser.UnitId;
+            var thisUnit = BLL.CommonService.GetIsThisUnit();
+            if (thisUnit != null)
+            {
+                unitId = thisUnit.UnitId;
+            }
+
+            string strSql = @"SELECT UserId,UserName,IdentityCard,UserCode,role.RoleName"
+                    + @" FROM Sys_User AS users"
+                    + @" LEFT JOIN Sys_Role AS role ON users.RoleId= role.RoleId"
+                    + @" WHERE users.IsPost=1 AND role.IsAuditFlow=1 AND UnitId ='" + unitId + "'";
+            List<SqlParameter> listStr = new List<SqlParameter>();
+            if (!string.IsNullOrEmpty(this.txtUserName.Text.Trim()))
+            {
+                strSql += " AND (UserName LIKE @Name OR IdentityCard LIKE @Name OR UserCode LIKE @Name OR role.RoleName LIKE @Name)";
+                listStr.Add(new SqlParameter("@Name", "%" + this.txtUserName.Text.Trim() + "%"));
+            }
+
+            SqlParameter[] parameter = listStr.ToArray();
+            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+
+            Grid1.RecordCount = tb.Rows.Count;
+            tb = GetFilteredTable(Grid1.FilteredData, tb);
+            var table = this.GetPagedDataTable(Grid1, tb);
+            Grid1.DataSource = table;
+            Grid1.DataBind();
         }
+
+        #region 查询
+        /// <summary>
+        /// 下拉框查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void TextBox_TextChanged(object sender, EventArgs e)
+        {
+            this.drpHandleMan.Values = null;
+            this.BindGrid();
+        }
+        #endregion
+        #endregion
+
+        #region 人员下拉框绑定数据
+        /// <summary>
+        /// 绑定数据
+        /// </summary>
+        private void BindGrid1()
+        {
+            string unitId = this.CurrUser.UnitId;
+            var thisUnit = BLL.CommonService.GetIsThisUnit();
+            if (thisUnit != null && string.IsNullOrEmpty(unitId))
+            {
+                unitId = thisUnit.UnitId;
+            }
+
+            string strSql = @"SELECT UserId,UserName,IdentityCard,UserCode,role.RoleName"
+                    + @" FROM Sys_User AS users"
+                    + @" LEFT JOIN Sys_Role AS role ON users.RoleId= role.RoleId"
+                    + @" WHERE users.IsPost=1 AND role.IsAuditFlow=1 AND UnitId ='" + unitId + "'";
+            List<SqlParameter> listStr = new List<SqlParameter>();
+            if (!string.IsNullOrEmpty(this.txtUserName.Text.Trim()))
+            {
+                strSql += " AND (UserName LIKE @Name OR IdentityCard LIKE @Name OR UserCode LIKE @Name OR role.RoleName LIKE @Name)";
+                listStr.Add(new SqlParameter("@Name", "%" + this.txtUserName.Text.Trim() + "%"));
+            }
+
+            SqlParameter[] parameter = listStr.ToArray();
+            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+
+            Grid2.RecordCount = tb.Rows.Count;
+            tb = GetFilteredTable(Grid2.FilteredData, tb);
+            var table = this.GetPagedDataTable(Grid2, tb);
+            Grid2.DataSource = table;
+            Grid2.DataBind();
+        }
+
+        #region 查询
+        /// <summary>
+        /// 下拉框查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void TextBox1_TextChanged(object sender, EventArgs e)
+        {
+            this.drpHandleMan2.Values = null;
+            this.BindGrid1();
+        }
+        #endregion
         #endregion
 
         #region 保存
@@ -83,7 +165,8 @@ namespace FineUIPro.Web.Information
                 ShowNotify("请选择办理步骤！", MessageBoxIcon.Warning);
                 return;
             }
-
+            string handleMan = this.drpHandleMan.Value;
+            string handleMan2 = this.drpHandleMan2.Value;
             #region 百万工时安全统计月报
             if (Type == "MillionsMonthlyReport")//百万工时安全统计月报
             {
@@ -116,19 +199,20 @@ namespace FineUIPro.Web.Information
                             updateUnFlowOperate.IsClosed = true;
                             BLL.ProjectDataFlowSetService.UpdateFlowOperateOpinion(updateUnFlowOperate);
                         }
+                       
                         ////增加 下一步办理信息
                         Model.ProjectData_FlowOperate newdateUnFlowOperate = new Model.ProjectData_FlowOperate
                         {
                             MenuId = BLL.Const.MillionsMonthlyReportMenuId,
                             DataId = this.Id,
-                            OperaterId = this.drpHandleMan.SelectedValue,
+                            OperaterId = handleMan,
                             IsClosed = false,
                             State = BLL.Const.State_1,
                             Opinion = ""
                         };
                         BLL.ProjectDataFlowSetService.AddProjectData_FlowOperate(newdateUnFlowOperate);
                         report.HandleState = BLL.Const.HandleState_3;
-                        report.HandleMan = drpHandleMan.SelectedValue;
+                        report.HandleMan = handleMan;
                         BLL.MillionsMonthlyReportService.UpdateMillionsMonthlyReport(report);
                     }
                     else    //完成返回上报人
@@ -162,14 +246,14 @@ namespace FineUIPro.Web.Information
                         {
                             MenuId = BLL.Const.MillionsMonthlyReportMenuId,
                             DataId = this.Id,
-                            OperaterId = this.drpHandleMan2.SelectedValue,
+                            OperaterId = handleMan2,
                             IsClosed = false,
                             State = BLL.Const.State_2,
                             Opinion = ""
                         };
                         BLL.ProjectDataFlowSetService.AddProjectData_FlowOperate(newdateUnFlowOperate);
                         report.HandleState = BLL.Const.HandleState_4;
-                        report.HandleMan = drpHandleMan2.SelectedValue;
+                        report.HandleMan = handleMan2;
                         BLL.MillionsMonthlyReportService.UpdateMillionsMonthlyReport(report);
                     }
                 }
@@ -213,14 +297,14 @@ namespace FineUIPro.Web.Information
                         {
                             MenuId = BLL.Const.AccidentCauseReportMenuId,
                             DataId = this.Id,
-                            OperaterId = this.drpHandleMan.SelectedValue,
+                            OperaterId = handleMan,
                             IsClosed = false,
                             State = BLL.Const.State_1,
                             Opinion = ""
                         };
                         BLL.ProjectDataFlowSetService.AddProjectData_FlowOperate(newdateUnFlowOperate);
                         report.HandleState = BLL.Const.HandleState_3;
-                        report.HandleMan = drpHandleMan.SelectedValue;
+                        report.HandleMan = handleMan;
                         BLL.AccidentCauseReportService.UpdateAccidentCauseReport(report);
                     }
                     else    //完成返回上报人
@@ -254,14 +338,14 @@ namespace FineUIPro.Web.Information
                         {
                             MenuId = BLL.Const.AccidentCauseReportMenuId,
                             DataId = this.Id,
-                            OperaterId = this.drpHandleMan2.SelectedValue,
+                            OperaterId = handleMan2,
                             IsClosed = false,
                             State = BLL.Const.State_2,
                             Opinion = ""
                         };
                         BLL.ProjectDataFlowSetService.AddProjectData_FlowOperate(newdateUnFlowOperate);
                         report.HandleState = BLL.Const.HandleState_4;
-                        report.HandleMan = drpHandleMan2.SelectedValue;
+                        report.HandleMan = handleMan2;
                         BLL.AccidentCauseReportService.UpdateAccidentCauseReport(report);
                     }
                 }
@@ -305,14 +389,14 @@ namespace FineUIPro.Web.Information
                         {
                             MenuId = BLL.Const.SafetyQuarterlyReportMenuId,
                             DataId = this.Id,
-                            OperaterId = this.drpHandleMan.SelectedValue,
+                            OperaterId = handleMan,
                             IsClosed = false,
                             State = BLL.Const.State_1,
                             Opinion = ""
                         };
                         BLL.ProjectDataFlowSetService.AddProjectData_FlowOperate(newdateUnFlowOperate);
                         report.HandleState = BLL.Const.HandleState_3;
-                        report.HandleMan = drpHandleMan.SelectedValue;
+                        report.HandleMan = handleMan;
                         BLL.SafetyQuarterlyReportService.UpdateSafetyQuarterlyReport(report);
                     }
                     else    //完成返回上报人
@@ -346,14 +430,14 @@ namespace FineUIPro.Web.Information
                         {
                             MenuId = BLL.Const.SafetyQuarterlyReportMenuId,
                             DataId = this.Id,
-                            OperaterId = this.drpHandleMan2.SelectedValue,
+                            OperaterId = handleMan2,
                             IsClosed = false,
                             State = BLL.Const.State_2,
                             Opinion = ""
                         };
                         BLL.ProjectDataFlowSetService.AddProjectData_FlowOperate(newdateUnFlowOperate);
                         report.HandleState = BLL.Const.HandleState_4;
-                        report.HandleMan = drpHandleMan2.SelectedValue;
+                        report.HandleMan = handleMan2;
                         BLL.SafetyQuarterlyReportService.UpdateSafetyQuarterlyReport(report);
                     }
                 }
@@ -397,14 +481,14 @@ namespace FineUIPro.Web.Information
                         {
                             MenuId = BLL.Const.DrillConductedQuarterlyReportMenuId,
                             DataId = this.Id,
-                            OperaterId = this.drpHandleMan.SelectedValue,
+                            OperaterId = handleMan,
                             IsClosed = false,
                             State = BLL.Const.State_1,
                             Opinion = ""
                         };
                         BLL.ProjectDataFlowSetService.AddProjectData_FlowOperate(newdateUnFlowOperate);
                         report.HandleState = BLL.Const.HandleState_3;
-                        report.HandleMan = drpHandleMan.SelectedValue;
+                        report.HandleMan = handleMan;
                         BLL.DrillConductedQuarterlyReportService.UpdateDrillConductedQuarterlyReport(report);
                     }
                     else    //完成返回上报人
@@ -438,14 +522,14 @@ namespace FineUIPro.Web.Information
                         {
                             MenuId = BLL.Const.DrillConductedQuarterlyReportMenuId,
                             DataId = this.Id,
-                            OperaterId = this.drpHandleMan2.SelectedValue,
+                            OperaterId = handleMan2,
                             IsClosed = false,
                             State = BLL.Const.State_2,
                             Opinion = ""
                         };
                         BLL.ProjectDataFlowSetService.AddProjectData_FlowOperate(newdateUnFlowOperate);
                         report.HandleState = BLL.Const.HandleState_4;
-                        report.HandleMan = drpHandleMan2.SelectedValue;
+                        report.HandleMan = handleMan2;
                         BLL.DrillConductedQuarterlyReportService.UpdateDrillConductedQuarterlyReport(report);
                     }
                 }
@@ -489,14 +573,14 @@ namespace FineUIPro.Web.Information
                         {
                             MenuId = BLL.Const.DrillPlanHalfYearReportMenuId,
                             DataId = this.Id,
-                            OperaterId = this.drpHandleMan.SelectedValue,
+                            OperaterId = handleMan,
                             IsClosed = false,
                             State = BLL.Const.State_1,
                             Opinion = ""
                         };
                         BLL.ProjectDataFlowSetService.AddProjectData_FlowOperate(newdateUnFlowOperate);
                         report.HandleState = BLL.Const.HandleState_3;
-                        report.HandleMan = drpHandleMan.SelectedValue;
+                        report.HandleMan = handleMan;
                         BLL.DrillPlanHalfYearReportService.UpdateDrillPlanHalfYearReport(report);
                     }
                     else    //完成返回上报人
@@ -530,14 +614,14 @@ namespace FineUIPro.Web.Information
                         {
                             MenuId = BLL.Const.DrillPlanHalfYearReportMenuId,
                             DataId = this.Id,
-                            OperaterId = this.drpHandleMan2.SelectedValue,
+                            OperaterId = handleMan2,
                             IsClosed = false,
                             State = BLL.Const.State_2,
                             Opinion = ""
                         };
                         BLL.ProjectDataFlowSetService.AddProjectData_FlowOperate(newdateUnFlowOperate);
                         report.HandleState = BLL.Const.HandleState_4;
-                        report.HandleMan = drpHandleMan2.SelectedValue;
+                        report.HandleMan = handleMan2;
                         BLL.DrillPlanHalfYearReportService.UpdateDrillPlanHalfYearReport(report);
                     }
                 }
@@ -573,6 +657,12 @@ namespace FineUIPro.Web.Information
                 this.drpHandleMan2.Enabled = true;
                 this.cbNext.Checked = false;
                 this.drpHandleMan.Enabled = false;
+
+                Model.ProjectData_FlowOperate flowOperate = BLL.ProjectDataFlowSetService.getCompileFlowOperate(this.Id);
+                if (flowOperate != null)
+                {
+                    this.drpHandleMan2.Value = flowOperate.OperaterId;
+                }
             }
             else
             {

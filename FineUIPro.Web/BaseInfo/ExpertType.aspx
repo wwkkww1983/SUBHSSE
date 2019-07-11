@@ -32,7 +32,7 @@
                         HeaderText="类别编号" HeaderTextAlign="Center" TextAlign="Center" Width="150px">
                     </f:RenderField>
                     <f:RenderField  ColumnID="ExpertTypeName" DataField="ExpertTypeName" FieldType="String"
-                        HeaderText="类别名称" HeaderTextAlign="Center" TextAlign="Center" Width="200px">
+                        HeaderText="类别名称" HeaderTextAlign="Center" TextAlign="Left" Width="200px">
                     </f:RenderField>
                     <f:RenderField  ColumnID="Remark" DataField="Remark" FieldType="String"
                         HeaderText="备注" HeaderTextAlign="Center" TextAlign="Center" Width="350px">
@@ -62,10 +62,10 @@
                 <Items>
                     <f:HiddenField ID="hfFormID" runat="server">
                     </f:HiddenField>
-                    <f:TextBox ID="txtExpertTypeCode" Label="类别编号" ShowRedStar="true" Required="true" runat="server"  MaxLength="50"
+                    <f:TextBox ID="txtExpertTypeCode" Label="编号" ShowRedStar="true" Required="true" runat="server"  MaxLength="50"
                         LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
-                    <f:TextBox ID="txtExpertTypeName" Label="类别名称" ShowRedStar="true" Required="true" runat="server"  MaxLength="1000"
+                    <f:TextBox ID="txtExpertTypeName" Label="名称" ShowRedStar="true" Required="true" runat="server"  MaxLength="1000"
                         LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
                     <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="right"  MaxLength="1000">
@@ -98,7 +98,7 @@
            Icon="BulletEdit"  runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" Hidden="true"
-          Icon="Delete"  ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+          Icon="Delete"  ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

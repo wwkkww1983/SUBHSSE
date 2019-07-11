@@ -11,7 +11,7 @@
         /// <summary>
         /// 自动启用插件标志文件路径
         /// </summary>
-        private static string applicationActiveFlagFilePhysicalPath = String.Empty;
+        //private static string applicationActiveFlagFilePhysicalPath = String.Empty;
 
         protected void Application_Start(object sender, EventArgs e)
         {
@@ -24,11 +24,12 @@
                 ErrLogInfo.DefaultErrLogFullPath = Server.MapPath("~/ErrLog.txt");
                 Funs.ConnString = ConfigurationManager.AppSettings["ConnectionString"];
                 Funs.SystemName = ConfigurationManager.AppSettings["SystemName"];
+                ServiceProxyBll.Endpoint= ConfigurationManager.AppSettings["endpoint"];
             }
             catch (Exception ex)
             {
                 ErrLogInfo.WriteLog(string.Empty, ex);
-                AppDomain.Unload(AppDomain.CurrentDomain);
+                //AppDomain.Unload(AppDomain.CurrentDomain);
             }
 
             //////得到集团服务器路径
@@ -42,6 +43,17 @@
             {
                 ErrLogInfo.WriteLog("得到集团服务器地址失败!", ex);
             }
+
+            ////日志定时上报自动启动
+            try
+            {                
+                BLL.MonitorService.StartMonitor();
+                BLL.MonitorService.StartMonitorEve();
+            }
+            catch (Exception ex)
+            {
+                ErrLogInfo.WriteLog("日志定时上报失败!", ex);
+            }
         }
 
         protected void Session_Start(object sender, EventArgs e)
@@ -54,8 +66,7 @@
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
-        {
-
+        {            
         }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)

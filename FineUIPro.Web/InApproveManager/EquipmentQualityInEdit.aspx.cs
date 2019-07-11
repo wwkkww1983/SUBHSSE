@@ -166,14 +166,14 @@ namespace FineUIPro.Web.InApproveManager
             {
                 EquipmentQualityIn.EquipmentQualityInId = this.EquipmentQualityInId;
                 BLL.EquipmentQualityInService.UpdateEquipmentQualityIn(EquipmentQualityIn);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改特种设备报批", EquipmentQualityIn.EquipmentQualityInId);
+                BLL.LogService.AddSys_Log(this.CurrUser, EquipmentQualityIn.DriverName, EquipmentQualityIn.EquipmentQualityInId,BLL.Const.EquipmentQualityInMenuId,BLL.Const.BtnModify);
             }
             else
             {
                 this.EquipmentQualityInId = SQLHelper.GetNewID(typeof(Model.InApproveManager_EquipmentQualityIn));
                 EquipmentQualityIn.EquipmentQualityInId = this.EquipmentQualityInId;
                 BLL.EquipmentQualityInService.AddEquipmentQualityIn(EquipmentQualityIn);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加特种设备报批", EquipmentQualityIn.EquipmentQualityInId);
+                BLL.LogService.AddSys_Log(this.CurrUser, EquipmentQualityIn.DriverName, EquipmentQualityIn.EquipmentQualityInId, BLL.Const.EquipmentQualityInMenuId, BLL.Const.BtnAdd);
             }
             BLL.EquipmentQualityInItemService.DeleteEquipmentQualityInItemByEquipmentQualityInId(this.EquipmentQualityInId);
             Model.InApproveManager_EquipmentQualityInItem EquipmentQualityInItem = new Model.InApproveManager_EquipmentQualityInItem

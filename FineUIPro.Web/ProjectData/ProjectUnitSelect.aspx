@@ -30,7 +30,9 @@
                         <Items>                           
                             <f:TextBox runat="server" Label="单位名称" ID="txtUnitName" EmptyText="输入查询条件" 
                                 AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px"></f:TextBox>                       
-                            <f:ToolbarFill runat="server"></f:ToolbarFill>                        
+                            <f:ToolbarFill runat="server"></f:ToolbarFill> 
+                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" runat="server">
+                            </f:Button>  
                             <f:Button ID="btnSure" ToolTip="确定按钮" Icon="Accept" runat="server" OnClick="btnSure_Click">
                             </f:Button> 
                         </Items>
@@ -70,7 +72,11 @@
             </PageItems>            
             </f:Grid>
         </Items>
-    </f:Panel>                           
+    </f:Panel>
+    <f:Window ID="Window1" Title="单位设置" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        Target="Parent" EnableResize="true" runat="server"  IsModal="true"
+        Width="1000px" Height="350px">
+    </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuSure" OnClick="btnSure_Click" EnablePostBack="true" Icon="Accept" runat="server" Text="确定">
         </f:MenuButton>       

@@ -1372,7 +1372,7 @@ namespace FineUIPro.Web.ManagementReport
             {
                 headMonthReport.HeadMonthReportId = MonthReportId;
                 BLL.HeadMonthReportBService.UpdateHeadMonthReport(headMonthReport);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改本部管理月报", headMonthReport.HeadMonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, headMonthReport.MonthReportCode, headMonthReport.HeadMonthReportId, BLL.Const.ServerMonthReportBMenuId, BLL.Const.BtnModify);
                 costAnalyse = BLL.CostAnalyseService.getCostAnalyseByMonths(headMonthReport.Months, null);
                 if (costAnalyse != null)
                 {
@@ -1414,7 +1414,7 @@ namespace FineUIPro.Web.ManagementReport
                 string newKeyID = SQLHelper.GetNewID(typeof(Model.Manager_HeadMonthReportB));
                 headMonthReport.HeadMonthReportId = newKeyID;
                 BLL.HeadMonthReportBService.AddHeadMonthReport(headMonthReport);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "增加本部管理月报", headMonthReport.HeadMonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, headMonthReport.MonthReportCode, headMonthReport.HeadMonthReportId, BLL.Const.ServerMonthReportBMenuId, BLL.Const.BtnAdd);
                 costAnalyse.Months = headMonthReport.Months;
                 if (manhours == 0)
                 {
@@ -1465,7 +1465,7 @@ namespace FineUIPro.Web.ManagementReport
                 string newKeyID = SQLHelper.GetNewID(typeof(Model.Manager_HeadMonthReportB));
                 headMonthReport.HeadMonthReportId = newKeyID;
                 BLL.HeadMonthReportBService.AddHeadMonthReport(headMonthReport);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "增加本部管理月报", headMonthReport.HeadMonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, headMonthReport.MonthReportCode, headMonthReport.HeadMonthReportId,BLL.Const.ServerMonthReportBMenuId,BLL.Const.BtnAdd);
                 //costAnalyse.Months = headMonthReport.Months;
                 //if (allSumManhours == 0)
                 //{

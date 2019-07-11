@@ -30,8 +30,8 @@
         public static void ConfigEndpointAddress<TChannel>(System.ServiceModel.ClientBase<TChannel> proxy, string endpointAddress)
             where TChannel : class
         {
-            Uri endpointUri = new Uri(endpointAddress);
-            EndpointAddress endPointAddress = new EndpointAddress(endpointUri);              
+            Uri endpointUri = new Uri(endpointAddress);            
+            EndpointAddress endPointAddress = new EndpointAddress(endpointUri);            
             proxy.Endpoint.Address = endPointAddress;            
         }       
     }

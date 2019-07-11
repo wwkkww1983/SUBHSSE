@@ -165,14 +165,14 @@ namespace FineUIPro.Web.InformationProject
             {
                 picture.PictureId = this.PictureId;
                 BLL.PictureService.UpdatePicture(picture);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改项目图片",picture.PictureId);
+                BLL.LogService.AddSys_Log(this.CurrUser, picture.Title, picture.PictureId, BLL.Const.ProjectPictureMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.PictureId = SQLHelper.GetNewID(typeof(Model.InformationProject_Picture));
                 picture.PictureId = this.PictureId;
                 BLL.PictureService.AddPicture(picture);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加项目图片", picture.PictureId);
+                BLL.LogService.AddSys_Log(this.CurrUser, picture.Title, picture.PictureId, BLL.Const.ProjectPictureMenuId, BLL.Const.BtnAdd);
             }
 
             ////保存流程审核数据         

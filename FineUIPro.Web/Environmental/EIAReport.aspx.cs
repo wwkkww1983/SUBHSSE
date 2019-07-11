@@ -188,12 +188,16 @@ namespace FineUIPro.Web.Environmental
         protected void btnMenuDelete_Click(object sender, EventArgs e)
         {
             if (Grid1.SelectedRowIndexArray.Length > 0)
-            {               
+            {
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除环评报告");
-                    BLL.EIAReportService.DeleteEIAReportById(rowID);
+                    var getD = BLL.EIAReportService.GetEIAReportById(rowID);
+                    if (getD != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getD.FileCode, getD.FileId, BLL.Const.EIAReportMenuId, BLL.Const.BtnDelete);
+                        BLL.EIAReportService.DeleteEIAReportById(rowID);
+                    }
                 }
 
                 this.BindGrid();

@@ -184,10 +184,14 @@ namespace FineUIPro.Web.ActionPlan
                         //Model.HSSE_ActionPlan_ManagerRule managerRule = BLL.HSSE_ActionPlan_ManagerRuleService.GetManagerRuleByManagerRuleId(rowID);
                         //if (managerRule.State == "1")
                         //{
-                        BLL.ActionPlan_ManagerRuleService.DeleteManageRuleById(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除管理规定清单");
-                        BindGrid();
-                        ShowNotify("删除成功！", MessageBoxIcon.Success);
+                        var getV = BLL.ActionPlan_ManagerRuleService.GetManagerRuleById(rowID);
+                        if (getV != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getV.ManageRuleCode, getV.ManagerRuleId, BLL.Const.ActionPlan_ManagerRuleListMenuId, Const.BtnDelete);
+                            BLL.ActionPlan_ManagerRuleService.DeleteManageRuleById(rowID);
+                            BindGrid();
+                            ShowNotify("删除成功！", MessageBoxIcon.Success);
+                        }
                         //}
                         //else
                         //{
@@ -341,6 +345,7 @@ namespace FineUIPro.Web.ActionPlan
             this.BindGrid();
             Response.Write(GetGridTableHtml(Grid1));
             Response.End();
+            BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ActionPlan_ManagerRuleListMenuId, Const.BtnOut);
         }
 
         /// <summary>
@@ -414,6 +419,7 @@ namespace FineUIPro.Web.ActionPlan
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
             this.BindGrid();
+            BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ActionPlan_ManagerRuleListMenuId, Const.BtnQuery);
         }
         #endregion
     }

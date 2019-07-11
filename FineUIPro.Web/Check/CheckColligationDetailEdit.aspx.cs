@@ -74,7 +74,7 @@ namespace FineUIPro.Web.Check
                         this.txtCheckItem.Text = checkColligationDetail.CheckContent;
                         this.txtUnqualified.Text = checkColligationDetail.Unqualified;
                         this.txtSuggestions.Text = checkColligationDetail.Suggestions;
-                        this.txtWorkArea.Text = checkColligationDetail.CheckArea;
+                        this.txtWorkArea.Text = checkColligationDetail.WorkArea;
                         if (!string.IsNullOrEmpty(checkColligationDetail.UnitId))
                         {
                             this.drpUnit.SelectedValue = checkColligationDetail.UnitId;

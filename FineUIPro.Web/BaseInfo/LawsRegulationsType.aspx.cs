@@ -108,8 +108,13 @@ namespace FineUIPro.Web.BaseInfo
         {
             if (judgementDelete(hfFormID.Text, true))
             {
-                BLL.LawsRegulationsTypeService.DeleteLawsRegulationsTypeById(hfFormID.Text);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除法律法规类型");
+                var getLawsRegulationsType = BLL.LawsRegulationsTypeService.GetLawsRegulationsTypeById(hfFormID.Text);
+                if (getLawsRegulationsType != null)
+                {
+                    BLL.LogService.AddSys_Log(this.CurrUser, getLawsRegulationsType.Code, getLawsRegulationsType.Id, BLL.Const.LawsRegulationsTypeMenuId, BLL.Const.BtnDelete);
+
+                    BLL.LawsRegulationsTypeService.DeleteLawsRegulationsTypeById(hfFormID.Text);
+                }
                 // 重新绑定表格，并模拟点击[新增按钮]
                 BindGrid();
                 PageContext.RegisterStartupScript("onNewButtonClick();");
@@ -130,8 +135,12 @@ namespace FineUIPro.Web.BaseInfo
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (judgementDelete(rowID, true))
                     {
-                        BLL.LawsRegulationsTypeService.DeleteLawsRegulationsTypeById(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除法律法规类型");
+                        var getLawsRegulationsType = BLL.LawsRegulationsTypeService.GetLawsRegulationsTypeById(rowID);
+                        if (getLawsRegulationsType != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getLawsRegulationsType.Code, getLawsRegulationsType.Id, BLL.Const.LawsRegulationsTypeMenuId, BLL.Const.BtnDelete);
+                            BLL.LawsRegulationsTypeService.DeleteLawsRegulationsTypeById(rowID);
+                        }
                     }
                 }
                 BindGrid();
@@ -212,13 +221,13 @@ namespace FineUIPro.Web.BaseInfo
             {
                 lawsRegulationsType.Id = SQLHelper.GetNewID(typeof(Model.Base_LawsRegulationsType));
                 BLL.LawsRegulationsTypeService.AddLawsRegulationsType(lawsRegulationsType);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加法律法规类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, lawsRegulationsType.Code, lawsRegulationsType.Id, BLL.Const.LawsRegulationsTypeMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 lawsRegulationsType.Id = strRowID;
                 BLL.LawsRegulationsTypeService.UpdateLawsRegulationsType(lawsRegulationsType);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改法律法规类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, lawsRegulationsType.Code, lawsRegulationsType.Id, BLL.Const.LawsRegulationsTypeMenuId, BLL.Const.BtnModify);
             }
             //this.hfFormID.Text = string.Empty;
             //this.txtCode.Text = string.Empty;

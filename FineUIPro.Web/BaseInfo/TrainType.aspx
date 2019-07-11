@@ -64,10 +64,10 @@
                 <Items>
                     <f:HiddenField ID="hfFormID" runat="server">
                     </f:HiddenField>
-                    <f:TextBox ID="txtTrainTypeCode" Label="类型编号" ShowRedStar="true" Required="true" runat="server"
+                    <f:TextBox ID="txtTrainTypeCode" Label="编号" ShowRedStar="true" Required="true" runat="server"
                         LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelWidth="100px">
                     </f:TextBox>
-                    <f:TextBox ID="txtTrainTypeName" Label="类型名称" ShowRedStar="true" Required="true" runat="server"
+                    <f:TextBox ID="txtTrainTypeName" Label="名称" ShowRedStar="true" Required="true" runat="server"
                         LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelWidth="100px">
                     </f:TextBox>
                     <f:CheckBox ID="ckbIsAboutSendCard" runat="server" Label="关联发卡" LabelAlign="right" LabelWidth="100px">
@@ -104,7 +104,7 @@
             runat="server" Text="编辑" Icon="TableEdit">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除" Icon="Delete">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除" Icon="Delete">
         </f:MenuButton>
     </f:Menu>
     </form>

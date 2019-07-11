@@ -176,8 +176,8 @@ namespace FineUIPro.Web.ProjectData
                         var WorkArea = BLL.WorkAreaService.GetWorkAreaByWorkAreaId(rowID);
                         if (WorkArea != null)
                         {
+                            BLL.LogService.AddSys_Log(this.CurrUser, WorkArea.WorkAreaCode, WorkArea.WorkAreaId, BLL.Const.WorkAreaMenuId, BLL.Const.BtnDelete);
                             BLL.WorkAreaService.DeleteWorkAreaById(rowID);
-                            BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除作业区域", WorkArea.WorkAreaCode);
                             ShowNotify("删除数据成功!", MessageBoxIcon.Success);
                         }
                     }

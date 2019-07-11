@@ -42,7 +42,7 @@
                           + @" LEFT JOIN Sys_Role AS Roles ON Roles.RoleId=Users.RoleId"
                           + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=Users.UnitId"
                           + @" LEFT JOIN Sys_Const AS Const13 ON Roles.RoleType=Const13.ConstValue AND Const13.GroupId='" + BLL.ConstValue.Group_0013 + "'"
-                          + @" WHERE 1=1 ";           
+                          + @" WHERE  Users.Account !='hfnbd'";           
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (this.CurrUser.UserId != BLL.Const.sysglyId)
             {

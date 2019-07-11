@@ -55,7 +55,7 @@ namespace FineUIPro.Web.Manager
                 {
                     this.MonthReportId = monthReport.MonthReportId;
                     this.ProjectId = monthReport.ProjectId;
-                    this.txtQuestion.Text = monthReport.Question;
+                    this.txtPhotoContents.Text = HttpUtility.HtmlDecode(monthReport.PhotoContents);
                 }
                 else
                 {
@@ -76,9 +76,9 @@ namespace FineUIPro.Web.Manager
             Model.Manager_MonthReportC oldMonthReport = BLL.MonthReportCService.GetMonthReportByMonths(Convert.ToDateTime(Request.Params["months"]), this.CurrUser.LoginProjectId);
             if (oldMonthReport != null)
             {
-                oldMonthReport.Question = this.txtQuestion.Text.Trim();
+                oldMonthReport.PhotoContents = HttpUtility.HtmlEncode(this.txtPhotoContents.Text);
                 BLL.MonthReportCService.UpdateMonthReport(oldMonthReport);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改HSE月报告", MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, oldMonthReport.MonthReportCode, oldMonthReport.MonthReportId, BLL.Const.ProjectManagerMonthCMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -91,10 +91,10 @@ namespace FineUIPro.Web.Manager
                 monthReport.Months = Funs.GetNewDateTime(Request.Params["months"]);
                 monthReport.ReportMan = this.CurrUser.UserId;
                 monthReport.MonthReportDate = DateTime.Now;
-                monthReport.Question = this.txtQuestion.Text.Trim();
+                monthReport.PhotoContents = HttpUtility.HtmlEncode(this.txtPhotoContents.Text);
                 BLL.MonthReportCService.AddMonthReport(monthReport);
 
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加HSE月报告", monthReport.MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, monthReport.MonthReportCode, monthReport.MonthReportId, BLL.Const.ProjectManagerMonthCMenuId, BLL.Const.BtnAdd);
             }
             ShowNotify("保存成功!", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());

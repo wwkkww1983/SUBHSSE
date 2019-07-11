@@ -9,9 +9,23 @@
 <body>
     <form id="form1" runat="server">
     <f:PageManager ID="PageManager1"  AutoSizePanelID="SimpleForm1" runat="server" />
-    <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="false"
+    <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" Layout="VBox"  
         BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
-        <Rows>
+        <Toolbars>
+            <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
+                <Items>
+                      <f:FileUpload runat="server" ID="testContent" ButtonText="上传试题内容" AcceptFileTypes="image/*" ButtonOnly="true"
+                           AutoPostBack="true" OnFileSelected="testContent_FileSelected" ButtonIconFont="Upload">
+                       </f:FileUpload>
+                    <f:Button ID="btnSave" Icon="SystemSave" runat="server"  ValidateForms="SimpleForm1"
+                        OnClick="btnSave_Click">
+                    </f:Button>
+                    <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
+                    </f:Button>
+                </Items>
+            </f:Toolbar>
+        </Toolbars>
+        <Rows>            
           <f:FormRow>
                 <Items>
                     <f:GroupPanel ID="GroupPanel1"  CssClass="marginr" Layout="Region" Title="试题内容" runat="server" Height="320px">
@@ -21,10 +35,6 @@
                   </f:GroupPanel>
                 </Items>
             </f:FormRow>
-            <f:FormRow Height="10px">
-             
-            </f:FormRow>
-             
              <f:FormRow>
                 <Items>
                     <f:DropDownList ID="drpTestType" Label="试题类型"  EnableEdit="true"  ForceSelection="false" EnableSimulateTree="true"
@@ -48,21 +58,7 @@
                 </Items>
             </f:FormRow>
         </Rows>
-        <Toolbars>
-            <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
-                <Items>
-                      <f:FileUpload runat="server" ID="testContent" ButtonText="上传试题内容" AcceptFileTypes="image/*" ButtonOnly="true"
-                           AutoPostBack="true" OnFileSelected="testContent_FileSelected" ButtonIconFont="Upload">
-                       </f:FileUpload>
-
-                    <f:Button ID="btnSave" Icon="SystemSave" runat="server"  ValidateForms="SimpleForm1"
-                        OnClick="btnSave_Click">
-                    </f:Button>
-                    <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
-                    </f:Button>
-                </Items>
-            </f:Toolbar>
-        </Toolbars>
+        
     </f:Form>
     </form>
 </body>

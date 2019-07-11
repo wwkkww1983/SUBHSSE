@@ -6,6 +6,13 @@
 <head runat="server">
     <title>新开项目作业许可证</title>
     <link href="../res/css/common.css" rel="stylesheet" type="text/css" />
+     <style type="text/css">
+        .f-grid-row .f-grid-cell-inner
+        {
+            white-space: normal;
+            word-break: break-all;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -48,7 +55,7 @@
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="150px" ColumnID="SecurityLicenseCode" DataField="SecurityLicenseCode"
+                    <f:RenderField Width="120px" ColumnID="SecurityLicenseCode" DataField="SecurityLicenseCode"
                         SortField="SecurityLicenseCode" FieldType="String" HeaderText="许可证编号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
@@ -64,13 +71,13 @@
                         SortField="NewProjectPart" FieldType="String" HeaderText="新开工程部位" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="200px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
+                    <f:RenderField Width="230px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
                         FieldType="String" HeaderText="单位名称" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="LimitDate" DataField="LimitDate" SortField="LimitDate"
+                    <f:RenderField Width="85px" ColumnID="LimitDate" DataField="LimitDate" SortField="LimitDate"
                         FieldType="String" HeaderText="施工期限" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="UserName" DataField="UserName" SortField="UserName"
+                    <f:RenderField Width="80px" ColumnID="UserName" DataField="UserName" SortField="UserName"
                         FieldType="String" HeaderText="签发人" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="90px" ColumnID="SignDate" DataField="SignDate" SortField="SignDate"
@@ -83,12 +90,11 @@
                     <f:RenderField Width="120px" ColumnID="AddMeasure" DataField="AddMeasure" SortField="AddMeasure"
                         FieldType="String" HeaderText="补充措施" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="AddMeasureMan" DataField="AddMeasureMan" SortField="AddMeasureMan"
+                    <f:RenderField Width="80px" ColumnID="AddMeasureMan" DataField="AddMeasureMan" SortField="AddMeasureMan"
                         FieldType="String" HeaderText="补充人" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:WindowField TextAlign="Left" Width="160px" WindowID="WindowAtt" HeaderText="附件"
-                        Text="上传查看" ToolTip="附件上传查看" DataIFrameUrlFields="SecurityLicenseId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SecurityLicenseAttachUrl&menuId=915F5AB2-CDCA-4025-A462-AC873D8FB037"
-                         ExpandUnusedSpace="True" HeaderTextAlign="Center" />
+                    <f:WindowField TextAlign="Left" Width="80px" WindowID="WindowAtt" HeaderText="附件"
+                        Text="上传查看" ToolTip="附件上传查看" DataIFrameUrlFields="SecurityLicenseId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SecurityLicenseAttachUrl&menuId=915F5AB2-CDCA-4025-A462-AC873D8FB037" HeaderTextAlign="Center" />
                 </Columns>
                 <Listeners>
                     <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
@@ -111,7 +117,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="新开项目作业许可证" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="1024px" Height="600px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
@@ -123,7 +129,7 @@
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server"
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server"
             Text="删除">
         </f:MenuButton>
     </f:Menu>

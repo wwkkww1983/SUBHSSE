@@ -104,7 +104,7 @@ namespace FineUIPro.Web.ProjectData
                 newProjectUser.IsPost = Convert.ToBoolean(this.drpIsPost.SelectedValue);
                 BLL.ProjectUserService.UpdateProjectUser(newProjectUser);
                 this.SetWorkPost(newProjectUser);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改项目用户信息！");
+                BLL.LogService.AddSys_Log(this.CurrUser, this.lbUserCode.Text, newProjectUser.UserId, BLL.Const.ProjectUserMenuId, BLL.Const.BtnModify);
                 ShowNotify("保存数据成功!", MessageBoxIcon.Success);
                 // 2. 关闭本窗体，然后回发父窗体
                 PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());

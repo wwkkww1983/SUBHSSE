@@ -5,6 +5,12 @@
 <head runat="server">
     <title>编辑施工方案/审查</title>
     <link href="../res/css/common.css" rel="stylesheet" type="text/css" />
+     <style type="text/css">
+        .f-grid-row .f-grid-cell-inner {
+            white-space: normal;
+            word-break: break-all;
+        }     
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -49,8 +55,8 @@
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="130px" ColumnID="ConstructSolutionCode" DataField="ConstructSolutionCode"
-                        SortField="ConstructSolutionCode" FieldType="String" HeaderText="方案审查编号" HeaderTextAlign="Center"
+                    <f:RenderField Width="125px" ColumnID="ConstructSolutionCode" DataField="ConstructSolutionCode"
+                        SortField="ConstructSolutionCode" FieldType="String" HeaderText="编号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="75px" ColumnID="VersionNo" DataField="VersionNo" 
@@ -61,23 +67,23 @@
                         SortField="UnitName" FieldType="String" HeaderText="单位名称" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="ConstructSolutionName" DataField="ConstructSolutionName" 
+                    <f:RenderField Width="145px" ColumnID="ConstructSolutionName" DataField="ConstructSolutionName" 
                         SortField="ConstructSolutionName" FieldType="String" HeaderText="文件名" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="SolutinType" DataField="SolutinType" 
+                    <f:RenderField Width="120px" ColumnID="SolutinType" DataField="SolutinType" 
                         SortField="SolutinType" FieldType="String" HeaderText="方案类别" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                     <f:RenderField Width="90px" ColumnID="CompileManName" DataField="CompileManName"
+                     <f:RenderField Width="95px" ColumnID="CompileManName" DataField="CompileManName"
                         SortField="CompileManName" FieldType="String" HeaderText="编制人" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="CompileDate" DataField="CompileDate"
+                    <f:RenderField Width="100px" ColumnID="CompileDate" DataField="CompileDate"
                         SortField="CompileDate" FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd"
                         HeaderText="编制日期" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="FlowOperateName" DataField="FlowOperateName"
+                    <f:RenderField Width="115px" ColumnID="FlowOperateName" DataField="FlowOperateName"
                         SortField="FlowOperateName" FieldType="String" HeaderText="状态" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
@@ -106,7 +112,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="施工方案/审查" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="1024px" Height="700px">
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1024px" Height="700px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件页面" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px" Height="500px">
@@ -116,7 +122,7 @@
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

@@ -204,6 +204,7 @@ namespace FineUIPro.Web.Technique
             var specialScheme = BLL.SpecialSchemeService.GetSpecialSchemeListById(this.SpecialSchemeId);
             if (specialScheme != null && !specialScheme.AuditDate.HasValue)
             {
+                BLL.LogService.AddSys_Log(this.CurrUser, specialScheme.SpecialSchemeCode, specialScheme.SpecialSchemeId, BLL.Const.SpecialSchemeMenuId, Const.BtnDelete);
                 BLL.SpecialSchemeService.DeleteSpecialSchemeListById(this.SpecialSchemeId);
                 this.SetTemp();
                 this.InitTreeMenu();
@@ -286,13 +287,13 @@ namespace FineUIPro.Web.Technique
                 specialScheme.IsPass = null;
                 this.SpecialSchemeId = specialScheme.SpecialSchemeId = SQLHelper.GetNewID(typeof(Model.Technique_SpecialScheme));
                 BLL.SpecialSchemeService.AddSpecialSchemeList(specialScheme);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加专项方案资源");
+                BLL.LogService.AddSys_Log(this.CurrUser, specialScheme.SpecialSchemeCode, specialScheme.SpecialSchemeId, BLL.Const.SpecialSchemeMenuId, Const.BtnModify);
             }
             else
             {
                 specialScheme.SpecialSchemeId = this.SpecialSchemeId;
                 BLL.SpecialSchemeService.UpdateSpecialSchemeList(specialScheme);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改专项方案资源");
+                BLL.LogService.AddSys_Log(this.CurrUser, specialScheme.SpecialSchemeCode, specialScheme.SpecialSchemeId, BLL.Const.SpecialSchemeMenuId, Const.BtnModify);
             }
         }
         #endregion        

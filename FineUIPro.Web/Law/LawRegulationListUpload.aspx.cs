@@ -239,13 +239,13 @@ namespace FineUIPro.Web.Law
 
                 this.LawRegulationId = lawRegulationList.LawRegulationId = SQLHelper.GetNewID(typeof(Model.Law_LawRegulationList));
                 BLL.LawRegulationListService.AddLawRegulationList(lawRegulationList);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "增加安全法律法规");
+                BLL.LogService.AddSys_Log(this.CurrUser, lawRegulationList.LawRegulationCode, lawRegulationList.LawRegulationId,BLL.Const.LawRegulationListMenuId,BLL.Const.BtnAdd);
             }
             else
             {
                 lawRegulationList.LawRegulationId = this.LawRegulationId;
                 BLL.LawRegulationListService.UpdateLawRegulationList(lawRegulationList);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改安全法律法规");
+                BLL.LogService.AddSys_Log(this.CurrUser, lawRegulationList.LawRegulationCode, lawRegulationList.LawRegulationId, BLL.Const.LawRegulationListMenuId, BLL.Const.BtnModify);
             }
         }
         #endregion
@@ -271,6 +271,7 @@ namespace FineUIPro.Web.Law
             var law = BLL.LawRegulationListService.GetLawRegulationListById(this.LawRegulationId);
             if (law != null && !law.AuditDate.HasValue)
             {
+                BLL.LogService.AddSys_Log(this.CurrUser, law.LawRegulationCode, law.LawRegulationId, BLL.Const.LawRegulationListMenuId, BLL.Const.BtnModify);
                 BLL.LawRegulationListService.DeleteLawRegulationListById(this.LawRegulationId);
                 this.SetTemp();
                 this.InitTreeMenu();

@@ -98,7 +98,6 @@ namespace FineUIPro.Web.Meeting
                 this.ctlAuditFlow.DataId = this.AttendMeetingId;
                 this.ctlAuditFlow.ProjectId = this.ProjectId;
                 this.ctlAuditFlow.UnitId = this.CurrUser.UnitId;
-                this.ctlAuditFlow.UnitId = this.CurrUser.UnitId;
             }
         }
         #endregion
@@ -162,14 +161,14 @@ namespace FineUIPro.Web.Meeting
             {
                 attendMeeting.AttendMeetingId = this.AttendMeetingId;
                 BLL.AttendMeetingService.UpdateAttendMeeting(attendMeeting);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改其他会议记录",attendMeeting.AttendMeetingId);
+                BLL.LogService.AddSys_Log(this.CurrUser, attendMeeting.AttendMeetingCode, attendMeeting.AttendMeetingId, BLL.Const.ProjectAttendMeetingMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.AttendMeetingId = SQLHelper.GetNewID(typeof(Model.Meeting_AttendMeeting));
                 attendMeeting.AttendMeetingId = this.AttendMeetingId;
                 BLL.AttendMeetingService.AddAttendMeeting(attendMeeting);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加其他会议记录",attendMeeting.AttendMeetingId);
+                BLL.LogService.AddSys_Log(this.CurrUser, attendMeeting.AttendMeetingCode, attendMeeting.AttendMeetingId, BLL.Const.ProjectAttendMeetingMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectAttendMeetingMenuId, this.AttendMeetingId, (type == BLL.Const.BtnSubmit ? true : false), attendMeeting.AttendMeetingName, "../Meeting/AttendMeetingView.aspx?AttendMeetingId={0}");

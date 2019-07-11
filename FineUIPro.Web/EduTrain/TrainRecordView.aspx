@@ -75,7 +75,7 @@
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1"
                         DataIDField="TrainDetailId" DataKeyNames="TrainDetailId" EnableMultiSelect="false"
-                        ShowGridHeader="true" Height="220px" EnableColumnLines="true" AutoScroll="true">
+                        ShowGridHeader="true" Height="220px" EnableColumnLines="true" >
                         <Columns>
                             <f:RowNumberField HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center" />
                             <f:RenderField Width="180px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
@@ -121,6 +121,8 @@
                     <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
                         OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1">
                     </f:Button>
+                    <f:Button ID="btnTrainTest" runat="server" ToolTip="培训试卷" Hidden="true"
+                        Icon="ApplicationFormEdit" OnClick="btnTrainTest_Click"></f:Button>
                     <f:ToolbarFill ID="ToolbarFill1" runat="server">
                     </f:ToolbarFill>
                     <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
@@ -130,13 +132,17 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
+    <f:Window ID="Window2" Title="培训试卷" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true"
+        Width="1200px" Height="520px">
+    </f:Window>
     </form>
-    <script>
+    <script type="text/jscript">
         function renderCheckResult(value) {
-            return value == true ? '通过' : '未通过';
+            return value == true ? '合格' : '不合格';
         }
 
         function onGridDataLoad(event) {

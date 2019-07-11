@@ -54,7 +54,13 @@ namespace FineUIPro.Web.ServerCheck
                         if (rectify.IssueDate.HasValue)
                         {
                             this.txtIssueDate.Text = string.Format("{0:yyyy-MM-dd}", rectify.IssueDate);                            
-                        }                        
+                        }
+                        if (rectify.HandleState == BLL.Const.State_3)
+                        {
+                            this.btnSave.Hidden = true;
+                            this.btnSaveUp.Hidden = true;
+                        }
+
                         CheckRectifyItems = (from x in Funs.DB.View_CheckRectifyListFromSUB where x.CheckRectifyId == this.CheckRectifyId orderby x.SortIndex select x).ToList();
                         Grid1.DataSource = CheckRectifyItems;
                         Grid1.DataBind();
@@ -69,41 +75,53 @@ namespace FineUIPro.Web.ServerCheck
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
-        {           
+        {
+            this.SavaData(BLL.Const.BtnSave);
+        }
+
+        /// <summary>
+        /// 保存并提交
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnSaveUp_Click(object sender, EventArgs e)
+        {
+            this.SavaData(BLL.Const.BtnSaveUp);
+        }
+
+        /// <summary>
+        /// 保存数据方法
+        /// </summary>
+        /// <param name="type"></param>
+        private void SavaData(string type)
+        {
             jerqueSaveList();
-            bool result = true;
             foreach (var item in CheckRectifyItems)
             {
-                if (item.RealEndDate.HasValue)
+                var newCheckRectifyItem = BLL.CheckRectifyItemService.GetCheckRectifyItemByCheckRectifyItemId(item.CheckRectifyItemId);
+                if (newCheckRectifyItem != null)
                 {
-                    var newCheckRectifyItem = BLL.CheckRectifyItemService.GetCheckRectifyItemByCheckRectifyItemId(item.CheckRectifyItemId);
                     newCheckRectifyItem.RealEndDate = item.RealEndDate;
                     newCheckRectifyItem.OrderEndPerson = item.OrderEndPerson;
                     newCheckRectifyItem.Verification = item.Verification;
                     BLL.CheckRectifyItemService.UpdateCheckRectifyItem(newCheckRectifyItem);
                 }
-                else
-                {
-                    result = false;
-                }
             }
+
             var newCheckRectify = BLL.CheckRectifyService.GetCheckRectifyByCheckRectifyId(this.CheckRectifyId);
-            if (newCheckRectify != null)
+            if (newCheckRectify != null && newCheckRectify.HandleState != BLL.Const.State_3)
             {
-                if (result)    //已全部确认完成
-                {
-                    newCheckRectify.HandleState = "3";    //已完成
-                }
-                else
-                {
-                    newCheckRectify.HandleState = "2";    //已签发但未完成
-                }
+                newCheckRectify.HandleState = BLL.Const.State_2;    //待上报              
                 BLL.CheckRectifyService.UpdateCheckRectify(newCheckRectify);
             }
-            BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改安全监督检查整改");
-            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
 
-            this.SynchData();
+            if (type == BLL.Const.BtnSaveUp)
+            {
+                this.SynchData();
+            }
+
+            BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.CheckRectifyMenuId, BLL.Const.BtnModify);            
+            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
 
         /// <summary>
@@ -139,6 +157,7 @@ namespace FineUIPro.Web.ServerCheck
                 if (buttonList.Contains(BLL.Const.BtnSave))
                 {
                     this.btnSave.Hidden = false;
+                    this.btnSaveUp.Hidden = false;
                 }
             }
         }
@@ -156,25 +175,7 @@ namespace FineUIPro.Web.ServerCheck
         }
         #endregion
 
-        #region 安全监督检查整改上报到集团公司
-        /// <summary>
-        /// 安全监督检查整改
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void poxy_DataInsertCheck_CheckRectifyTableCompleted(object sender, HSSEService.DataInsertCheck_CheckRectifyTableCompletedEventArgs e)
-        {
-            if (e.Error == null)
-            {
-                var idList = e.Result;
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "【集团检查整改】上传到服务器" + idList.Count.ToString() + "条数据；");
-            }
-            else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "【集团检查整改】上传到服务器失败；");
-            }
-        }
-
+        #region 安全监督检查整改上报到集团公司 
         /// <summary>
         /// 同步方法
         /// </summary>
@@ -191,7 +192,7 @@ namespace FineUIPro.Web.ServerCheck
             var poxy = Web.ServiceProxy.CreateServiceClient();
             poxy.DataInsertCheck_CheckRectifyTableCompleted += new EventHandler<HSSEService.DataInsertCheck_CheckRectifyTableCompletedEventArgs>(poxy_DataInsertCheck_CheckRectifyTableCompleted);
             var rectify = from x in Funs.DB.View_CheckRectifyListFromSUB
-                          where x.RealEndDate != null && x.CheckRectifyId == this.CheckRectifyId
+                          where x.RealEndDate.HasValue && x.CheckRectifyId == this.CheckRectifyId
                           select new HSSEService.Check_CheckRectify
                           {
                               CheckRectifyId = x.CheckRectifyId,
@@ -209,7 +210,6 @@ namespace FineUIPro.Web.ServerCheck
                               OrderEndPerson = x.OrderEndPerson,
                               RealEndDate = x.RealEndDate,
                               Verification = x.Verification,
-
                               AttachFileId = x.AttachFileId2,
                               ToKeyId = x.ToKeyId2,
                               AttachSource = x.AttachSource2,
@@ -218,10 +218,41 @@ namespace FineUIPro.Web.ServerCheck
                               ////附件转为字节传送
                               FileContext = FileStructService.GetMoreFileStructByAttachUrl(x.AttachUrl2),
                           };
+
             poxy.DataInsertCheck_CheckRectifyTableAsync(rectify.ToList());
         }
+
+        /// <summary>
+        /// 安全监督检查整改
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void poxy_DataInsertCheck_CheckRectifyTableCompleted(object sender, HSSEService.DataInsertCheck_CheckRectifyTableCompletedEventArgs e)
+        {
+            if (e.Error == null)
+            {
+                var idList = e.Result;
+                foreach (var item in idList)
+                {
+                    var newCheckRectify = BLL.CheckRectifyService.GetCheckRectifyByCheckRectifyId(item);
+                    if (newCheckRectify != null)
+                    {
+                        var itme = Funs.DB.Check_CheckRectifyItem.FirstOrDefault(x => x.CheckRectifyId == item && !x.RealEndDate.HasValue);
+                        if (itme == null)
+                        {
+                            newCheckRectify.HandleState = BLL.Const.State_3;    //已完成              
+                            BLL.CheckRectifyService.UpdateCheckRectify(newCheckRectify);
+                        }
+                    }
+                }
+
+                BLL.LogService.AddSys_Log(this.CurrUser, "【集团检查整改】上传到服务器" + idList.Count.ToString() + "条数据；", string.Empty, BLL.Const.CheckRectifyMenuId, BLL.Const.BtnUploadResources);
+            }
+            else
+            {
+                BLL.LogService.AddSys_Log(this.CurrUser, "【集团检查整改】上传到服务器失败；", string.Empty, BLL.Const.CheckRectifyMenuId, BLL.Const.BtnUploadResources);
+            }
+        }
         #endregion
-
-
     }
 }

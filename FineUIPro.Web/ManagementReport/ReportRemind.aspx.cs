@@ -43,6 +43,7 @@ namespace FineUIPro.Web.ManagementReport
                 BLL.ConstValue.InitConstValueDropDownList(this.drpMonth, ConstValue.Group_0009, true);
                 BLL.ConstValue.InitConstValueDropDownList(this.drpYear, ConstValue.Group_0008, true);
                 BLL.ConstValue.InitConstValueDropDownList(this.drpQuarter, ConstValue.Group_0011, true);
+
                 List<Model.Base_Project> projects = (from x in Funs.DB.Base_Project
                                                      where x.ProjectState == BLL.Const.ProjectState_1 || x.ProjectState == null
                                                      select x).ToList();
@@ -97,7 +98,8 @@ namespace FineUIPro.Web.ManagementReport
                                 BLL.ReportRemindService.AddReportRemind(reportRemind);
                             }
                         }
-                        Model.InformationProject_MillionsMonthlyReport millionsMonthlyReport = Funs.DB.InformationProject_MillionsMonthlyReport.FirstOrDefault(x => x.ProjectId == project.ProjectId && x.Year == month.Year && x.Month == month.Month);
+                        Model.InformationProject_MillionsMonthlyReport millionsMonthlyReport = Funs.DB.InformationProject_MillionsMonthlyReport.FirstOrDefault(x => x.ProjectId == project.ProjectId
+                            && x.Year == month.Year && x.Month == month.Month && x.States == BLL.Const.State_2);
                         if (millionsMonthlyReport == null)
                         {
                             Model.ManagementReport_ReportRemind oldReportRemind = (from x in Funs.DB.ManagementReport_ReportRemind
@@ -133,6 +135,29 @@ namespace FineUIPro.Web.ManagementReport
                                     CompileDate = now
                                 };
                                 BLL.ReportRemindService.AddReportRemind(reportRemind);
+                            }
+                        }
+                        if (project.IsForeign == true)   //海外项目
+                        {
+                            Model.Manager_MonthReportE monthReportE = Funs.DB.Manager_MonthReportE.FirstOrDefault(x => x.ProjectId == project.ProjectId && x.Months.Value.Year == month.Year && x.Months.Value.Month == month.Month);
+                            if (monthReportE == null)
+                            {
+                                Model.ManagementReport_ReportRemind oldReportRemind = (from x in Funs.DB.ManagementReport_ReportRemind
+                                                                                       where x.ProjectId == project.ProjectId && x.Year == month.Year && x.Month == month.Month && x.ReportName == "海外工程项目月度HSSE统计表"
+                                                                                       select x).FirstOrDefault();
+                                if (oldReportRemind == null)
+                                {
+                                    Model.ManagementReport_ReportRemind reportRemind = new Model.ManagementReport_ReportRemind
+                                    {
+                                        ProjectId = project.ProjectId,
+                                        Months = month,
+                                        Year = month.Year,
+                                        Month = month.Month,
+                                        ReportName = "海外工程项目月度HSSE统计表",
+                                        CompileDate = now
+                                    };
+                                    BLL.ReportRemindService.AddReportRemind(reportRemind);
+                                }
                             }
                         }
                         //处理季报
@@ -269,6 +294,10 @@ namespace FineUIPro.Web.ManagementReport
                     else if (reportRemind.ReportName == "应急演练工作计划半年报")
                     {
                         reportName = reportRemind.Year.ToString() + "年" + halfYear + "应急演练工作计划半年报未上报";
+                    }
+                    else if (reportRemind.ReportName == "海外工程项目月度HSSE统计表")
+                    {
+                        reportName = reportRemind.Year.ToString() + "年" + reportRemind.Month.ToString() + "月海外工程项目月度HSSE统计表";
                     }
                 }
             }
@@ -412,8 +441,11 @@ namespace FineUIPro.Web.ManagementReport
                     if (this.judgementDelete(rowID, isShow))
                     {
                         Model.ManagementReport_ReportRemind reportRemind = BLL.ReportRemindService.GetReportRemindByReportRemindId(rowID);
-                        BLL.ReportRemindService.DeleteReportRemindByReportRemind(reportRemind);
-                        BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除报表上报情况信息", rowID);
+                        if (reportRemind != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, null, reportRemind.ReportRemindId, BLL.Const.ServerReportRemindMenuId, BLL.Const.BtnDelete);
+                            BLL.ReportRemindService.DeleteReportRemindByReportRemind(reportRemind);
+                        }
                     }
                 }
                 BindGrid();
@@ -508,21 +540,13 @@ namespace FineUIPro.Web.ManagementReport
                 foreach (GridColumn column in grid.Columns)
                 {
                     string html = row.Values[column.ColumnIndex].ToString();
-                    if (column.ColumnID == "tfPageIndex")
+                    if (column.ColumnID == "tfNumber")
                     {
-                        html = (row.FindControl("lblPageIndex") as AspNet.Label).Text;
+                        html = (row.FindControl("lblNumber") as AspNet.Label).Text;
                     }
-                    if (column.ColumnID == "tfWorkTime")
+                    if (column.ColumnID == "lblReportName")
                     {
-                        html = (row.FindControl("lblWorkTime") as AspNet.Label).Text;
-                    }
-                    if (column.ColumnID == "tfWorkTimeYear")
-                    {
-                        html = (row.FindControl("lblWorkTimeYear") as AspNet.Label).Text;
-                    }
-                    if (column.ColumnID == "tfTotal")
-                    {
-                        html = (row.FindControl("lblTotal") as AspNet.Label).Text;
+                        html = (row.FindControl("lblReportName") as AspNet.Label).Text;
                     }
                     sb.AppendFormat("<td>{0}</td>", html);
                 }

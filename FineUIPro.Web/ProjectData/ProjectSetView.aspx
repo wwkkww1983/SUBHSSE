@@ -60,13 +60,20 @@
             <f:FormRow>
                  <Items>
                    <f:TextBox ID="txtProjectAddress" runat="server" Label="项目地址" Readonly="true"></f:TextBox>
+                   <f:TextBox ID="txtUnitName" runat="server" Label="项目所属单位" Readonly="true"></f:TextBox>
                 </Items>
             </f:FormRow> 
             <f:FormRow>
                  <Items>
                    <f:TextArea ID="txtRemark" runat="server" Label="项目概况" Readonly="true"></f:TextArea>
                 </Items>
-            </f:FormRow>      
+            </f:FormRow>    
+            <f:FormRow>
+                 <Items>
+                   <f:CheckBox runat="server" ID="ckbIsForeign" Label="海外项目" Enabled="false"></f:CheckBox>
+                   <f:Label runat="server" ID="lb1" Hidden="true"></f:Label>
+                </Items>
+            </f:FormRow>     
         </rows>
         <toolbars>
             <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">

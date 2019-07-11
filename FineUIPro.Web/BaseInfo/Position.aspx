@@ -22,7 +22,7 @@
                         HeaderText="职务编号" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="200px" ColumnID="PositionName" DataField="PositionName" FieldType="String"
-                        HeaderText="职务名称" HeaderTextAlign="Center" TextAlign="Center">
+                        HeaderText="职务名称" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="350px" ColumnID="Remark" DataField="Remark" FieldType="String"
                         HeaderText="备注" HeaderTextAlign="Center" TextAlign="Center">
@@ -52,10 +52,10 @@
                 <Items>
                     <f:HiddenField ID="hfFormID" runat="server">
                     </f:HiddenField>
-                    <f:TextBox ID="txtPositionCode" Label="职务编号" ShowRedStar="true" Required="true" runat="server"
+                    <f:TextBox ID="txtPositionCode" Label="编号" ShowRedStar="true" Required="true" runat="server"
                         LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" FocusOnPageLoad="true">
                     </f:TextBox>
-                    <f:TextBox ID="txtPositionName" Label="职务名称" ShowRedStar="true" Required="true" runat="server"
+                    <f:TextBox ID="txtPositionName" Label="名称" ShowRedStar="true" Required="true" runat="server"
                         LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
                     <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="right">
@@ -88,7 +88,7 @@
             runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

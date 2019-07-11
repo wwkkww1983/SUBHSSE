@@ -54,9 +54,9 @@
                                 HeaderText="年度" HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
                             <%-- <f:RenderField Width="90px" ColumnID="HalfYearId" DataField="HalfYearId" FieldType="Int"
-                                HeaderText="季度" HeaderTextAlign="Center" TextAlign="Center">
+                                HeaderText="半年" HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>--%>
-                            <f:TemplateField Width="90px" HeaderText="季度" HeaderTextAlign="Center" TextAlign="Center">
+                            <f:TemplateField Width="90px" HeaderText="半年" HeaderTextAlign="Center" TextAlign="Center">
                                 <ItemTemplate>
                                     <asp:Label ID="Label4" runat="server" Text='<%# ConvertHalfYear(Eval("HalfYearId")) %>'></asp:Label>
                                 </ItemTemplate>
@@ -93,7 +93,7 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:Label ID="lblBottom" runat="server" Text="说明：单位、年份、季度为必填项！">
+                    <f:Label ID="lblBottom" runat="server" Text="说明：单位、年份、半年为必填项！">
                     </f:Label>
                 </Items>
             </f:FormRow>

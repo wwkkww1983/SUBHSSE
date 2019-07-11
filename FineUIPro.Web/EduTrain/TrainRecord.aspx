@@ -23,23 +23,26 @@
                 EnableColumnLines="true" ClicksToEdit="2" DataIDField="TrainingId" AllowSorting="true"
                 SortField="TrainingCode" SortDirection="DESC" OnSort="Grid1_Sort" AllowPaging="true"
                 IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"
-                EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" AllowFilters="true"
-                OnFilterChange="Grid1_FilterChange" EnableTextSelection="True" EnableSummary="true" SummaryPosition="Flow">
+                EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" 
+                EnableTextSelection="True" EnableSummary="true" SummaryPosition="Flow">
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server">
                         <Items>
-                            <f:DropDownList ID="drpUnitId" runat="server" Label="所属单位" AutoPostBack="true" OnSelectedIndexChanged="Text_TextChanged"
-                                LabelAlign="Right">
+                            <f:DropDownList ID="drpUnitId" runat="server" Label="单位" AutoPostBack="true" OnSelectedIndexChanged="Text_TextChanged"
+                                LabelAlign="Right" LabelWidth="50px" Width="280px">
                             </f:DropDownList>
-                            <f:TextBox ID="txtTrainTypeName" runat="server" Label="培训类型" Width="250px" LabelAlign="Right"
-                                AutoPostBack="true" OnTextChanged="Text_TextChanged">
-                            </f:TextBox>
-                            <f:DatePicker ID="txtStartDate" runat="server" Label="培训日期" Width="220px" LabelAlign="Right"
+                            <f:DropDownList ID="drpTrainType" runat="server" Label="培训类别" Width="180px" LabelWidth="80px" LabelAlign="Right"
+                                AutoPostBack="true" OnSelectedIndexChanged="Text_TextChanged">
+                            </f:DropDownList>
+                             <f:DropDownList ID="drpTrainLevel" runat="server" Label="培训级别" Width="180px" LabelWidth="80px" LabelAlign="Right"
+                                AutoPostBack="true" OnSelectedIndexChanged="Text_TextChanged">
+                            </f:DropDownList>
+                            <f:DatePicker ID="txtStartDate" runat="server" Label="培训日期" Width="180px" LabelWidth="80px" LabelAlign="Right"
                                 AutoPostBack="true" OnTextChanged="Text_TextChanged">
                             </f:DatePicker>
-                            <f:Label ID="lblTo" runat="server" Text="至">
+                            <f:Label ID="lblTo" runat="server" Text="至" Width="20px">
                             </f:Label>
-                            <f:DatePicker ID="txtEndDate" runat="server" Width="120px" AutoPostBack="true" OnTextChanged="Text_TextChanged">
+                            <f:DatePicker ID="txtEndDate" runat="server" Width="100px" AutoPostBack="true" OnTextChanged="Text_TextChanged">
                             </f:DatePicker>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
@@ -58,7 +61,7 @@
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="110px" ColumnID="TrainingCode" DataField="TrainingCode" SortField="TrainingCode"
+                    <f:RenderField Width="100px" ColumnID="TrainingCode" DataField="TrainingCode" SortField="TrainingCode"
                         FieldType="String" HeaderText="培训编号" HeaderTextAlign="Center" TextAlign="Left">                        
                     </f:RenderField>
                     <f:TemplateField ColumnID="tfUnitIds" Width="400px" HeaderText="单位名称" HeaderTextAlign="Center"
@@ -67,14 +70,17 @@
                             <asp:Label ID="lblUnitId" runat="server" Text='<%# ConvertUnitName(Eval("UnitIds")) %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="150px" ColumnID="TrainTypeName" DataField="TrainTypeName" SortField="TrainTypeName"
+                    <f:RenderField Width="140px" ColumnID="TrainTypeName" DataField="TrainTypeName" SortField="TrainTypeName"
                         FieldType="String" HeaderText="培训类型" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="TrainStartDate" DataField="TrainStartDate"
+                    <f:RenderField Width="90px" ColumnID="TrainLevelName" DataField="TrainLevelName" SortField="TrainLevelName"
+                        FieldType="String" HeaderText="培训级别" HeaderTextAlign="Center" TextAlign="Left">
+                    </f:RenderField>
+                    <f:RenderField Width="100px" ColumnID="TrainStartDate" DataField="TrainStartDate"
                         SortField="TrainStartDate" FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd"
                         HeaderText="培训日期" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="55px" ColumnID="TeachHour" DataField="TeachHour" SortField="TeachHour"
+                    <f:RenderField Width="65px" ColumnID="TeachHour" DataField="TeachHour" SortField="TeachHour"
                         FieldType="Float" HeaderText="学时" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="90px" ColumnID="TeachMan" DataField="TeachMan" SortField="TeachMan"
@@ -84,7 +90,7 @@
                         SortField="TrainPersonNum" FieldType="String" HeaderText="培训人数" HeaderTextAlign="Center"
                         TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="140px" ColumnID="FlowOperateName" DataField="FlowOperateName"
+                    <f:RenderField Width="120px" ColumnID="FlowOperateName" DataField="FlowOperateName"
                         SortField="FlowOperateName" FieldType="String" HeaderText="状态" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>                    
@@ -114,7 +120,7 @@
         Width="1024px" Height="768px">
     </f:Window>
     <f:Window ID="Window2" Title="打印培训记录" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="1024px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1024px"
         Height="768px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
@@ -125,7 +131,7 @@
             runat="server" Icon="Printer" Text="打印">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            ConfirmText="删除选中行？" Icon="Delete" Hidden="true" ConfirmTarget="Top" runat="server"
+            ConfirmText="删除选中行？" Icon="Delete" Hidden="true" ConfirmTarget="Parent" runat="server"
             Text="删除">
         </f:MenuButton>
     </f:Menu>

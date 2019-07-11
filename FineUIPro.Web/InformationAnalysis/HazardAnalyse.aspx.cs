@@ -61,7 +61,7 @@ namespace FineUIPro.Web.InformationAnalysis
             }
             ////危险观察等级
             var registrationList = from x in Funs.DB.Inspection_Registration
-                                   where x.ProjectId == this.ProjectId && (x.State == BLL.Const.State_2 || x.State == BLL.Const.State_3)
+                                   where x.ProjectId == this.ProjectId && (x.State == BLL.Const.State_2 || x.State == BLL.Const.State_R)
                                    select x;
             var WorkAreaIdList = registrationList.Select(x => x.WorkAreaId).Distinct();
 

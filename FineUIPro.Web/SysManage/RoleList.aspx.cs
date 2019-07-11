@@ -55,7 +55,7 @@
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 
             Grid1.RecordCount = tb.Rows.Count;
-            tb = GetFilteredTable(Grid1.FilteredData, tb);
+            //tb = GetFilteredTable(Grid1.FilteredData, tb);
             var table = this.GetPagedDataTable(Grid1, tb);
             Grid1.DataSource = table;
             Grid1.DataBind();
@@ -87,8 +87,9 @@
                         var roles = BLL.RoleService.GetRoleByRoleId(rowID);
                         if (roles != null && ((!roles.IsSystemBuilt.HasValue || roles.IsSystemBuilt == false) || (roles.IsSystemBuilt == true && !BLL.CommonService.GetIsBuildUnit())))
                         {
+                            BLL.LogService.AddSys_Log(this.CurrUser, roles.RoleCode, roles.RoleId, BLL.Const.RoleMenuId, BLL.Const.BtnDelete);
                             BLL.RoleService.DeleteRole(rowID);
-                            BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除角色管理", roles.RoleCode);
+                          
                         }
                     }
                 }

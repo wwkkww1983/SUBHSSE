@@ -106,11 +106,7 @@ namespace FineUIPro.Web.InApproveManager
         /// </summary>
         private void InitDropDownList()
         {
-            this.drpUnitId.DataValueField = "UnitId";
-            this.drpUnitId.DataTextField = "UnitName";
-            this.drpUnitId.DataSource = BLL.UnitService.GetUnitByProjectIdList(this.ProjectId);
-            this.drpUnitId.DataBind();
-            Funs.FineUIPleaseSelect(this.drpUnitId);
+            BLL.UnitService.InitUnitDropDownList(this.drpUnitId, this.ProjectId, true);
         }
 
         #region 保存
@@ -179,14 +175,14 @@ namespace FineUIPro.Web.InApproveManager
             {
                 goodsOut.GoodsOutId = this.GoodsOutId;
                 BLL.GoodsOutService.UpdateGoodsOut(goodsOut);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "修改普通货物出场报批");
+                BLL.LogService.AddSys_Log(this.CurrUser, goodsOut.GoodsOutCode, goodsOut.GoodsOutId, BLL.Const.GoodsOutMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.GoodsOutId = SQLHelper.GetNewID(typeof(Model.InApproveManager_GoodsOut));
                 goodsOut.GoodsOutId = this.GoodsOutId;
                 BLL.GoodsOutService.AddGoodsOut(goodsOut);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "添加普通货物出场报批");
+                BLL.LogService.AddSys_Log(this.CurrUser, goodsOut.GoodsOutCode, goodsOut.GoodsOutId, BLL.Const.GoodsOutMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.GoodsOutMenuId, this.GoodsOutId, (type == BLL.Const.BtnSubmit ? true : false), goodsOut.GoodsOutNote, "../InApproveManager/GoodsOutView.aspx?GoodsOutId={0}");

@@ -96,7 +96,7 @@ namespace FineUIPro.Web.SafetyData
         {
             if (!string.IsNullOrEmpty(this.SafetyDataItemId))
             {
-                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ProjectSafetyDataAttachUrl&menuId={1}", this.SafetyDataItemId, BLL.Const.ProjectSafetyDataMenuId)));    
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ProjectSafetyDataAttachUrl&menuId={1}&type=-1", this.SafetyDataItemId, BLL.Const.ProjectSafetyDataMenuId)));    
             }
         }
         #endregion

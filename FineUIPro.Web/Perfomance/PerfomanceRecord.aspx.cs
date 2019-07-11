@@ -80,16 +80,13 @@ namespace FineUIPro.Web.Perfomance
                           + @" LEFT JOIN Sys_User AS Users ON PerfomanceRecord.CompileMan = Users.UserId WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND PerfomanceRecord.ProjectId = @ProjectId";
+            listStr.Add(new SqlParameter("@ProjectId", this.ProjectId));
             if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
             {
-                listStr.Add(new SqlParameter("@ProjectId", Request.Params["projectId"]));
                 strSql += " AND PerfomanceRecord.States = @States";  ///状态为已完成
                 listStr.Add(new SqlParameter("@States", BLL.Const.State_2));
             }
-            else
-            {
-                listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
-            }
+
             if (BLL.ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.ProjectId, this.CurrUser.UnitId))
             {
                 strSql += " AND PerfomanceRecord.UnitId = @UnitId";  ///状态为已完成
@@ -239,8 +236,12 @@ namespace FineUIPro.Web.Perfomance
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除分包方绩效评价", rowID);
-                    BLL.PerfomanceRecordService.DeletePerfomanceRecordById(rowID);
+                    var perfomanceRecord = BLL.PerfomanceRecordService.GetPerfomanceRecordById(rowID);
+                    if (perfomanceRecord != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, perfomanceRecord.PerfomanceRecordCode, perfomanceRecord.PerfomanceRecordId, BLL.Const.PerfomanceRecordMenuId, BLL.Const.BtnDelete);
+                        BLL.PerfomanceRecordService.DeletePerfomanceRecordById(rowID);
+                    }
                 }
 
                 this.BindGrid();

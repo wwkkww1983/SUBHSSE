@@ -228,14 +228,14 @@ namespace FineUIPro.Web.Check
             {
                 SupervisionNotice.SupervisionNoticeId = this.SupervisionNoticeId;
                 BLL.SupervisionNoticeService.UpdateSupervisionNotice(SupervisionNotice);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改监理整改通知单");
+                BLL.LogService.AddSys_Log(this.CurrUser, SupervisionNotice.SupervisionNoticeCode, SupervisionNotice.SupervisionNoticeId, BLL.Const.ProjectSupervisionNoticeMenuId,BLL.Const.BtnModify);
             }
             else
             {
                 this.SupervisionNoticeId = SQLHelper.GetNewID(typeof(Model.Check_SupervisionNotice));
                 SupervisionNotice.SupervisionNoticeId = this.SupervisionNoticeId;
                 BLL.SupervisionNoticeService.AddSupervisionNotice(SupervisionNotice);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加监理整改通知单");
+                BLL.LogService.AddSys_Log(this.CurrUser, SupervisionNotice.SupervisionNoticeCode, SupervisionNotice.SupervisionNoticeId, BLL.Const.ProjectSupervisionNoticeMenuId, BLL.Const.BtnAdd);
             }
             if (isColse)
             {

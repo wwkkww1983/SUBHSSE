@@ -37,23 +37,22 @@
             <f:FormRow>
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1" DataIDField="MonthReportDetailId"
-                        DataKeyNames="MonthReportDetailId" EnableMultiSelect="false" ShowGridHeader="true" Height="350px"
-                        EnableColumnLines="true" AutoScroll="true" EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick"> 
-                        <Columns>
-                            <f:RowNumberField HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center" />
+                        DataKeyNames="MonthReportDetailId" EnableMultiSelect="false" ShowGridHeader="true" Height="300px"
+                        EnableColumnLines="true" EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick"> 
+                        <Columns>                           
                             <f:RenderField Width="180px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="单位名称">
                             </f:RenderField>
                             <f:RenderField Width="220px" ColumnID="StaffData" DataField="StaffData" SortField="StaffData"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="人员情况" ExpandUnusedSpace="true">
                             </f:RenderField>
-                            <f:RenderField Width="150px" ColumnID="WorkTime" DataField="WorkTime" SortField="WorkTime"
+                            <f:RenderField Width="90px" ColumnID="WorkTime" DataField="WorkTime" SortField="WorkTime"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="平均工时">
                             </f:RenderField>
-                            <f:RenderField Width="120px" ColumnID="RealPersonNum" DataField="RealPersonNum" SortField="RealPersonNum"
+                            <f:RenderField Width="90px" ColumnID="RealPersonNum" DataField="RealPersonNum" SortField="RealPersonNum"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="实际人数">
                             </f:RenderField>
-                            <f:RenderField Width="140px" ColumnID="DayNum" DataField="DayNum" SortField="DayNum"
+                            <f:RenderField Width="90px" ColumnID="DayNum" DataField="DayNum" SortField="DayNum"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="工作天数">
                             </f:RenderField>
                             <f:RenderField Width="100px" ColumnID="PersonWorkTime" DataField="PersonWorkTime" SortField="PersonWorkTime"
@@ -93,7 +92,7 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="Window1" Title="编辑人工时明细" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="1100px" Height="620px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

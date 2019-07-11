@@ -211,8 +211,12 @@ namespace FineUIPro.Web.License
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, isShow))
                     {
-                        BLL.SecurityLicenseService.DeleteSecurityLicenseById(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除新开项目作业许可证");
+                        var getD = BLL.SecurityLicenseService.GetSecurityLicenseById(rowID);
+                        if (getD != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getD.SecurityLicenseCode, getD.SecurityLicenseId, BLL.Const.ProjectSecurityLicenseMenuId, BLL.Const.BtnDelete);
+                            BLL.SecurityLicenseService.DeleteSecurityLicenseById(rowID);
+                        }
                     }
                 }
                 BindGrid();

@@ -135,14 +135,14 @@ namespace FineUIPro.Web.SafetyActivities
             {
                 newMonthlyRating.MonthlyRatingId = this.MonthlyRatingId;
                 BLL.MonthlyRatingService.UpdateMonthlyRating(newMonthlyRating);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改月度安全评比", newMonthlyRating.MonthlyRatingId);
+                BLL.LogService.AddSys_Log(this.CurrUser, newMonthlyRating.Title, newMonthlyRating.MonthlyRatingId,BLL.Const.ProjectMonthlyRatingMenuId,BLL.Const.BtnModify);
             }
             else
             {
                 this.MonthlyRatingId = SQLHelper.GetNewID(typeof(Model.SafetyActivities_MonthlyRating));
                 newMonthlyRating.MonthlyRatingId = this.MonthlyRatingId;
                 BLL.MonthlyRatingService.AddMonthlyRating(newMonthlyRating);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加月度安全评比", newMonthlyRating.MonthlyRatingId);
+                BLL.LogService.AddSys_Log(this.CurrUser, newMonthlyRating.Title, newMonthlyRating.MonthlyRatingId, BLL.Const.ProjectMonthlyRatingMenuId, BLL.Const.BtnAdd);
             }
         }
         #endregion

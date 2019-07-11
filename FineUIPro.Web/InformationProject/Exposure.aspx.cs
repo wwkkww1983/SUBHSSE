@@ -216,10 +216,15 @@ namespace FineUIPro.Web.InformationProject
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, isShow))
                     {
-                        BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除违章曝光台", rowID);
-                        BLL.ExposureService.DeleteExposureById(rowID);
+                        var getV = BLL.ExposureService.GetExposureById(rowID);
+                        if (getV != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getV.ExposureCode, rowID, BLL.Const.ProjectExposureMenuId, BLL.Const.BtnDelete);
+                            BLL.ExposureService.DeleteExposureById(rowID);
+                        }
                     }
                 }
+
                 BindGrid();
                 ShowNotify("删除数据成功!（表格数据已重新绑定）", MessageBoxIcon.Success);
             }

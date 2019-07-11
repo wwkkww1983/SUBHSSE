@@ -1,13 +1,9 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
-using BLL;
-using System.IO;
+using System.Linq;
 using System.Text;
 using AspNet = System.Web.UI.WebControls;
 
@@ -224,9 +220,14 @@ namespace FineUIPro.Web.Solution
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除危险性较大的工程清单", rowID);
-                    BLL.LargerHazardService.DeleteLargerHazard(rowID);
+                    var getV = BLL.LargerHazardService.GetLargerHazardByHazardId(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.HazardCode, getV.HazardId, BLL.Const.ProjectLargerHazardListMenuId, BLL.Const.BtnDelete);
+                        BLL.LargerHazardService.DeleteLargerHazard(rowID);
+                    }
                 }
+
                 BindGrid();
                 ShowNotify("删除数据成功!（表格数据已重新绑定）");
             }

@@ -45,20 +45,20 @@
                         </Toolbars>
                         <Columns>
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="45px" HeaderTextAlign="Center" TextAlign="Center"/>
-                            <f:RenderField Width="220px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
+                            <f:RenderField Width="240px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
                                 FieldType="String" HeaderText="单位" HeaderTextAlign="Center" TextAlign="Left">                              
                             </f:RenderField>
-                            <f:RenderField Width="90px" ColumnID="UserName" DataField="UserName" SortField="UserName"
+                            <f:RenderField Width="95px" ColumnID="UserName" DataField="UserName" SortField="UserName"
                                 FieldType="String" HeaderText="操作人员" HeaderTextAlign="Center" TextAlign="Left">                               
                             </f:RenderField>
                             <f:RenderField Width="250px" ColumnID="ProjectName" DataField="ProjectName" SortField="ProjectName"
-                                FieldType="String" HeaderText="操作项目" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">                              
+                                FieldType="String" HeaderText="操作项目" HeaderTextAlign="Center" TextAlign="Left">                              
                             </f:RenderField>                           
                             <f:RenderField Width="150px" ColumnID="OperationTime" DataField="OperationTime" SortField="OperationTime" HeaderText="操作时间" HeaderTextAlign="Center" 
                                 TextAlign="Left" >
                             </f:RenderField>                            
                             <f:RenderField ColumnID="OperationLog" DataField="OperationLog" SortField="OperationLog" HeaderTextAlign="Center" TextAlign="Left"
-                                FieldType="String" HeaderText="操作日志" Width="320px">
+                                FieldType="String" HeaderText="操作日志" Width="320px"  ExpandUnusedSpace="true">
                             </f:RenderField>
                         </Columns>
                         <PageItems >
@@ -67,8 +67,7 @@
                             <f:ToolbarText ID="ToolbarText1" runat="server" Text="每页记录数：">
                             </f:ToolbarText>
                             <f:DropDownList runat="server" ID="ddlPageSize" Width="80px" AutoPostBack="true"
-                                OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">
-                                <f:ListItem Text="10" Value="10" />
+                                OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">                               
                                 <f:ListItem Text="15" Value="15" />
                                 <f:ListItem Text="20" Value="20" />
                                 <f:ListItem Text="25" Value="25" />

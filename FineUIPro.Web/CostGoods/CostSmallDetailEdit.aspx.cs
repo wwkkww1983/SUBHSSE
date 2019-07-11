@@ -315,7 +315,7 @@ namespace FineUIPro.Web.CostGoods
             {
                 costSmallDetail.CostSmallDetailId = this.CostSmallDetailId;
                 BLL.CostSmallDetailService.UpdateCostSmallDetail(costSmallDetail);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改安全费用投入登记", costSmallDetail.CostSmallDetailId);
+                BLL.LogService.AddSys_Log(this.CurrUser, costSmallDetail.CostSmallDetailCode, costSmallDetail.CostSmallDetailId,BLL.Const.ProjectCostSmallDetailMenuId,BLL.Const.BtnModify);
                 BLL.CostSmallDetailItemService.DeleteCostSmallDetailItemByCostSmallDetailId(this.CostSmallDetailId);
             }
             else
@@ -325,7 +325,7 @@ namespace FineUIPro.Web.CostGoods
                 //costSmallDetail.CompileMan = this.CurrUser.UserName;
                 costSmallDetail.CompileDate = DateTime.Now;
                 BLL.CostSmallDetailService.AddCostSmallDetail(costSmallDetail);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加安全费用投入登记", costSmallDetail.CostSmallDetailId);
+                BLL.LogService.AddSys_Log(this.CurrUser, costSmallDetail.CostSmallDetailCode, costSmallDetail.CostSmallDetailId, BLL.Const.ProjectCostSmallDetailMenuId, BLL.Const.BtnAdd);
             }
             //保存费用明细
             BLL.CostSmallDetailItemService.AddCostDetail(costSmallDetail.CostSmallDetailId, "A1", Funs.GetNewDecimalOrZero(this.nbA1.Text), this.txtDefA1.Text.Trim());

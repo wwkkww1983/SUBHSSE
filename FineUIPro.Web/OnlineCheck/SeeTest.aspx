@@ -37,7 +37,7 @@
             </f:GroupPanel>
             <f:Grid runat="server" AllowCellEditing="True" ClicksToEdit="1" DataIDField="TestId"
                 EnableColumnLines="True" EnableRowLines="True" DataKeyNames="TestId,TestPath" EnableCollapse="True"
-                ShowHeader="False" Height="220px" AutoScroll="True"  ID="Grid1" 
+                ShowHeader="False" Height="220px"   ID="Grid1" 
                 EnableMultiSelect="false" EnableRowSelectEvent="true" OnRowSelect="Grid1_RowSelect"  EnableTextSelection="True">
                 <Columns>
                     <f:RenderField runat="server" EnableColumnEdit="False" FieldType="String" DataField="TestCode"

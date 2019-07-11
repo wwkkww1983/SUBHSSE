@@ -63,7 +63,7 @@
                     <f:RenderField Width="120px" ColumnID="FileCreate" DataField="FileCreate" FieldType="String"
                         HeaderText="创建人">
                     </f:RenderField>
-                    <f:LinkButtonField Width="50px" ConfirmText="删除选中行？" ConfirmTarget="Top" CommandName="Delete"
+                    <f:LinkButtonField Width="50px" ConfirmText="删除选中行？" ConfirmTarget="Parent" CommandName="Delete"
                         Icon="Delete" />
                 </Columns>
 

@@ -78,6 +78,8 @@ namespace Web.ReportPrint
                 reportName = Request.QueryString["reportName"];
                 ReplaceParameter = Request.QueryString["replaceParameter"];
                 HideValue = Request.QueryString["rd"];
+
+                this.lbReportName.Text = "报表名称：" + reportName;
             }
         }
 

@@ -70,7 +70,21 @@ namespace FineUIPro.Web.SecuritySystem
                 }
             }
         }
-                 
+
+        #region 删除
+        /// <summary>
+        /// 删除明细按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            BLL.LogService.AddSys_Log(this.CurrUser, "删除安全管理组织机构", null, BLL.Const.ProjectSafetyManageOrganizationMenuId, BLL.Const.BtnDelete);
+            BLL.SafetyManageOrganizationService.DeleteSafetyManageOrganizationByProjectid(this.ProjectId);
+            ShowNotify("删除成功！", MessageBoxIcon.Success);
+        }
+        #endregion
+
         #region 获取按钮权限
         /// <summary>
         /// 获取按钮权限
@@ -89,12 +103,12 @@ namespace FineUIPro.Web.SecuritySystem
                 if (buttonList.Contains(BLL.Const.BtnSave))
                 {
                     this.btnSave.Hidden = false;
+                    this.btnDelete.Hidden = false;
                 }
             }
         }
         #endregion
-
-
+        
         /// <summary>
         ///  保存按钮事件
         /// </summary>
@@ -126,13 +140,13 @@ namespace FineUIPro.Web.SecuritySystem
                     this.SafetyManageOrganizationId = newSafetyManageOrganization.SafetyManageOrganizationId = SQLHelper.GetNewID(typeof(Model.SecuritySystem_SafetyManageOrganization));
                     newSafetyManageOrganization.SafetyManageOrganizationId = this.SafetyManageOrganizationId;
                     BLL.SafetyManageOrganizationService.AddSafetyManageOrganization(newSafetyManageOrganization);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加安全管理组织机构");
+                    BLL.LogService.AddSys_Log(this.CurrUser, this.drpUnit.SelectedText, newSafetyManageOrganization.SafetyManageOrganizationId, BLL.Const.ProjectSafetyManageOrganizationMenuId, BLL.Const.BtnAdd);
                 }
                 else
                 {
                     newSafetyManageOrganization.SafetyManageOrganizationId = this.SafetyManageOrganizationId;
                     BLL.SafetyManageOrganizationService.UpdateSafetyManageOrganization(newSafetyManageOrganization);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改安全管理组织机构");
+                    BLL.LogService.AddSys_Log(this.CurrUser, this.drpUnit.SelectedText, newSafetyManageOrganization.SafetyManageOrganizationId, BLL.Const.ProjectSafetyManageOrganizationMenuId, BLL.Const.BtnModify);
                 }
             }
             else

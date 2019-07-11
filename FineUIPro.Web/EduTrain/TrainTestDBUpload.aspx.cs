@@ -228,7 +228,7 @@ namespace FineUIPro.Web.EduTrain
                 trainTestDBItem.TrainTestId = this.TrainTestId;
                 this.TrainTestItemId = trainTestDBItem.TrainTestItemId = SQLHelper.GetNewID(typeof(Model.Training_TrainTestDBItem));
                 BLL.TrainTestDBItemService.AddTrainTestDBItem(trainTestDBItem);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加安全试题库");
+                BLL.LogService.AddSys_Log(this.CurrUser, trainTestDBItem.TrainTestItemCode, trainTestDBItem.TrainTestItemId, BLL.Const.TrainTestDBMenuId, BLL.Const.BtnAdd);
             }
             else
             {
@@ -239,7 +239,7 @@ namespace FineUIPro.Web.EduTrain
                 }
                 trainTestDBItem.TrainTestItemId = this.TrainTestItemId;
                 BLL.TrainTestDBItemService.UpdateTrainTestDBItem(trainTestDBItem);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改安全试题库");
+                BLL.LogService.AddSys_Log(this.CurrUser, trainTestDBItem.TrainTestItemCode, trainTestDBItem.TrainTestItemId, BLL.Const.TrainTestDBMenuId, BLL.Const.BtnModify);
             }
         }
         #endregion

@@ -77,7 +77,7 @@ namespace FineUIPro.Web.License
                              + @"Unit.UnitName,"
                              + @"WorkArea.WorkAreaName,"
                              + @"Users.UserName,"
-                             + @"(CASE WHEN EquipmentSafetyList.States = " + BLL.Const.State_0 + " OR EquipmentSafetyList.States IS NULL THEN '待['+Users.UserName+']提交' WHEN EquipmentSafetyList.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
+                             + @"(CASE WHEN EquipmentSafetyList.States = " + BLL.Const.State_0 + " OR EquipmentSafetyList.States IS NULL THEN 'ISNULL(OperateUser.UserName,Users.UserName)' WHEN EquipmentSafetyList.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
                     + @" FROM License_EquipmentSafetyList AS EquipmentSafetyList "
                     + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId = EquipmentSafetyList.UnitId "
                     + @" LEFT JOIN ProjectData_WorkArea AS WorkArea ON WorkArea.WorkAreaId = EquipmentSafetyList.WorkAreaId "
@@ -240,8 +240,12 @@ namespace FineUIPro.Web.License
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除施工机具、安全设施检查验收", rowID);
-                    BLL.EquipmentSafetyListService.DeleteEquipmentSafetyListById(rowID);
+                    var getV = BLL.EquipmentSafetyListService.GetEquipmentSafetyListById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.EquipmentSafetyListCode, rowID,BLL.Const.ProjectEquipmentSafetyListMenuId,BLL.Const.BtnDelete);
+                        BLL.EquipmentSafetyListService.DeleteEquipmentSafetyListById(rowID);
+                    }
                 }
 
                 this.BindGrid();

@@ -118,13 +118,13 @@ namespace FineUIPro.Web.InformationProject
                     {
                         newFileCabinetA.FileCabinetAId = SQLHelper.GetNewID(typeof(Model.InformationProject_FileCabinetA));
                         BLL.FileCabinetAService.AddFileCabinetA(newFileCabinetA);
-                        BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "增加文件柜A(集团文件柜类)", newFileCabinetA.Code);
+                        BLL.LogService.AddSys_Log(this.CurrUser, newFileCabinetA.Code, newFileCabinetA.FileCabinetAId, BLL.Const.ProjectFileCabinetAMenuId, Const.BtnAdd);
                     }
                     else
                     {
                         newFileCabinetA.FileCabinetAId = this.FileCabinetAId;
                         BLL.FileCabinetAService.UpdateFileCabinetA(newFileCabinetA);
-                        BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改文件柜A(集团文件柜类)", newFileCabinetA.Code);
+                        BLL.LogService.AddSys_Log(this.CurrUser, newFileCabinetA.Code, newFileCabinetA.FileCabinetAId, BLL.Const.ProjectFileCabinetAMenuId, Const.BtnModify);
                     }
 
                     PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());

@@ -202,6 +202,24 @@ namespace FineUIPro.Web.Manager
         }
         #endregion
 
+        #region 导出
+        /// <summary>
+        /// 导出按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnMenuOut_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            string MonthReportId = Grid1.SelectedRowID;
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("MonthReportCOut.aspx?MonthReportId={0}", MonthReportId, "编辑 - ")));
+        }
+        #endregion
+
         #region 删除
         /// <summary>
         /// 批量删除
@@ -215,43 +233,48 @@ namespace FineUIPro.Web.Manager
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.PersonSortCService.DeletePersonSortsByMonthReportId(rowID);
-                    BLL.HazardSortCService.DeleteHazardSortsByMonthReportId(rowID);
-                    BLL.AccidentSortCService.DeleteAccidentSortsByMonthReportId(rowID);
-                    BLL.HseCostCService.DeleteHseCostsByMonthReportId(rowID);
-                    BLL.TrainSortCService.DeleteTrainSortsByMonthReportId(rowID);
-                    BLL.TrainActivitySortCService.DeleteTrainActivitySortsByMonthReportId(rowID);
-                    BLL.MeetingSortCService.DeleteMeetingSortsByMonthReportId(rowID);
-                    BLL.CheckSortCService.DeleteCheckSortsByMonthReportId(rowID);
-                    BLL.CheckDetailSortCService.DeleteCheckDetailSortsByMonthReportId(rowID);
-                    BLL.PromotionalActiviteSortCService.DeletePromotionalActiviteSortsByMonthReportId(rowID);
-                    BLL.EmergencySortCService.DeleteEmergencySortsByMonthReportId(rowID);
-                    BLL.DrillSortCService.DeleteDrillSortsByMonthReportId(rowID);
-                    BLL.IncentiveSortCService.DeleteIncentiveSortsByMonthReportId(rowID);
-                    BLL.OtherActiveSortCService.DeleteOtherActiveSortsByMonthReportId(rowID);
-                    BLL.ActivityDesCService.DeleteActivityDesByMonthReportId(rowID);
-                    BLL.OtherManagementCService.DeleteOtherManagementByMonthReportId(rowID);
-                    BLL.PlanCService.DeletePlanByMonthReportId(rowID);
-                    BLL.ReviewRecordCService.DeleteReviewRecordByMonthReportId(rowID);
-                    BLL.FileManageCService.DeleteFileManageByMonthReportId(rowID);
-                    BLL.FiveExpenseCService.DeleteFiveExpenseByMonthReportId(rowID);
-                    BLL.SubExpenseCService.DeleteSubExpenseByMonthReportId(rowID);
-                    BLL.AccidentDesciptionItemCService.DeleteAccidentDesciptionItemByMonthReportId(rowID);
-                    BLL.AccidentDesciptionCService.DeleteAccidentDesciptionByMonthReportId(rowID);
-                    BLL.OtherWorkCService.DeleteOtherWorkByMonthReportId(rowID);
-                    BLL.HazardCService.DeleteHazardByMonthReportId(rowID);
-                    BLL.TrainCService.DeleteTrainByMonthReportId(rowID);
-                    BLL.CheckCService.DeleteCheckByMonthReportId(rowID);
-                    BLL.MeetingCService.DeleteMeetingByMonthReportId(rowID);
-                    BLL.ActivitiesCService.DeleteActivitiesByMonthReportId(rowID);
-                    BLL.EmergencyPlanCService.DeleteEmergencyPlanByMonthReportId(rowID);
-                    BLL.EmergencyExercisesCService.DeleteEmergencyExercisesByMonthReportId(rowID);
-                    BLL.CostInvestmentPlanCService.DeleteCostInvestmentPlanByMonthReportId(rowID);
-                    BLL.ManageDocPlanCService.DeleteManageDocPlanByMonthReportId(rowID);
-                    BLL.OtherWorkPlanCService.DeleteOtherWorkPlanByMonthReportId(rowID);
-                    BLL.MonthReportCService.DeleteMonthReportByMonthReportId(rowID);
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除HSE月报告", rowID);
+                    var mont = BLL.MonthReportCService.GetMonthReportByMonthReportId(rowID);
+                    if (mont != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, mont.MonthReportCode, mont.MonthReportId, BLL.Const.ProjectManagerMonthCMenuId, BLL.Const.BtnDelete);
+                        BLL.PersonSortCService.DeletePersonSortsByMonthReportId(rowID);
+                        BLL.HazardSortCService.DeleteHazardSortsByMonthReportId(rowID);
+                        BLL.AccidentSortCService.DeleteAccidentSortsByMonthReportId(rowID);
+                        BLL.HseCostCService.DeleteHseCostsByMonthReportId(rowID);
+                        BLL.TrainSortCService.DeleteTrainSortsByMonthReportId(rowID);
+                        BLL.TrainActivitySortCService.DeleteTrainActivitySortsByMonthReportId(rowID);
+                        BLL.MeetingSortCService.DeleteMeetingSortsByMonthReportId(rowID);
+                        BLL.CheckSortCService.DeleteCheckSortsByMonthReportId(rowID);
+                        BLL.CheckDetailSortCService.DeleteCheckDetailSortsByMonthReportId(rowID);
+                        BLL.PromotionalActiviteSortCService.DeletePromotionalActiviteSortsByMonthReportId(rowID);
+                        BLL.EmergencySortCService.DeleteEmergencySortsByMonthReportId(rowID);
+                        BLL.DrillSortCService.DeleteDrillSortsByMonthReportId(rowID);
+                        BLL.IncentiveSortCService.DeleteIncentiveSortsByMonthReportId(rowID);
+                        BLL.OtherActiveSortCService.DeleteOtherActiveSortsByMonthReportId(rowID);
+                        BLL.ActivityDesCService.DeleteActivityDesByMonthReportId(rowID);
+                        BLL.OtherManagementCService.DeleteOtherManagementByMonthReportId(rowID);
+                        BLL.PlanCService.DeletePlanByMonthReportId(rowID);
+                        BLL.ReviewRecordCService.DeleteReviewRecordByMonthReportId(rowID);
+                        BLL.FileManageCService.DeleteFileManageByMonthReportId(rowID);
+                        BLL.FiveExpenseCService.DeleteFiveExpenseByMonthReportId(rowID);
+                        BLL.SubExpenseCService.DeleteSubExpenseByMonthReportId(rowID);
+                        BLL.AccidentDesciptionItemCService.DeleteAccidentDesciptionItemByMonthReportId(rowID);
+                        BLL.AccidentDesciptionCService.DeleteAccidentDesciptionByMonthReportId(rowID);
+                        BLL.OtherWorkCService.DeleteOtherWorkByMonthReportId(rowID);
+                        BLL.HazardCService.DeleteHazardByMonthReportId(rowID);
+                        BLL.TrainCService.DeleteTrainByMonthReportId(rowID);
+                        BLL.CheckCService.DeleteCheckByMonthReportId(rowID);
+                        BLL.MeetingCService.DeleteMeetingByMonthReportId(rowID);
+                        BLL.ActivitiesCService.DeleteActivitiesByMonthReportId(rowID);
+                        BLL.EmergencyPlanCService.DeleteEmergencyPlanByMonthReportId(rowID);
+                        BLL.EmergencyExercisesCService.DeleteEmergencyExercisesByMonthReportId(rowID);
+                        BLL.CostInvestmentPlanCService.DeleteCostInvestmentPlanByMonthReportId(rowID);
+                        BLL.ManageDocPlanCService.DeleteManageDocPlanByMonthReportId(rowID);
+                        BLL.OtherWorkPlanCService.DeleteOtherWorkPlanByMonthReportId(rowID);
+                        BLL.MonthReportCService.DeleteMonthReportByMonthReportId(rowID);
+                    }                   
                 }
+
                 BindGrid();
                 ShowNotify("删除数据成功!（表格数据已重新绑定）");
             }

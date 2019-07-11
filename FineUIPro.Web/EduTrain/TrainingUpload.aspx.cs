@@ -221,7 +221,7 @@ namespace FineUIPro.Web.EduTrain
                 trainingItem.TrainingId = this.TrainingId;
                 this.TrainingItemId = trainingItem.TrainingItemId = SQLHelper.GetNewID(typeof(Model.Training_TrainTestDB));
                 BLL.TrainingItemService.AddTrainingItem(trainingItem);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加培训教材库");
+                BLL.LogService.AddSys_Log(this.CurrUser, trainingItem.TrainingItemCode, trainingItem.TrainingItemId, BLL.Const.TrainDBMenuId, BLL.Const.BtnAdd);
             }
             else
             {
@@ -232,7 +232,7 @@ namespace FineUIPro.Web.EduTrain
                 }
                 trainingItem.TrainingItemId = this.TrainingItemId;
                 BLL.TrainingItemService.UpdateTrainingItem(trainingItem);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改培训教材库");
+                BLL.LogService.AddSys_Log(this.CurrUser, trainingItem.TrainingItemCode, trainingItem.TrainingItemId, BLL.Const.TrainDBMenuId, BLL.Const.BtnModify);
             }
         }        
 

@@ -160,14 +160,14 @@ namespace FineUIPro.Web.Manager
             {
                 health.HealthId = this.HealthId;
                 BLL.HealthService.UpdateHealth(health);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "修改工程现场环境与职业健康月报");
+                BLL.LogService.AddSys_Log(this.CurrUser, health.HealthCode, health.HealthId, BLL.Const.HealthMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.HealthId = SQLHelper.GetNewID(typeof(Model.Manager_Health));
                 health.HealthId = this.HealthId;
                 BLL.HealthService.AddHealth(health);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "添加工程现场环境与职业健康月报");
+                BLL.LogService.AddSys_Log(this.CurrUser, health.HealthCode, health.HealthId, BLL.Const.HealthMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.HealthMenuId, this.HealthId, (type == BLL.Const.BtnSubmit ? true : false), health.HealthName, "../Manager/HealthView.aspx?HealthId={0}");

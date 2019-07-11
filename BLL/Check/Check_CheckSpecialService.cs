@@ -79,6 +79,7 @@ namespace BLL
                 PartInUnits = checkSpecial.PartInUnits,
                 PartInPersons = checkSpecial.PartInPersons,
                 PartInPersonIds = checkSpecial.PartInPersonIds,
+                PartInPersonNames=checkSpecial.PartInPersonNames,
                 CheckAreas = checkSpecial.CheckAreas,
                 States = checkSpecial.States,
                 CompileMan = checkSpecial.CompileMan,
@@ -113,6 +114,7 @@ namespace BLL
                 newCheckSpecial.PartInUnits = checkSpecial.PartInUnits;
                 newCheckSpecial.PartInPersons = checkSpecial.PartInPersons;
                 newCheckSpecial.PartInPersonIds = checkSpecial.PartInPersonIds;
+                newCheckSpecial.PartInPersonNames = checkSpecial.PartInPersonNames;
                 newCheckSpecial.CheckAreas = checkSpecial.CheckAreas;
                 newCheckSpecial.States = checkSpecial.States;
                 newCheckSpecial.CheckType = checkSpecial.CheckType;

@@ -141,8 +141,12 @@ namespace FineUIPro.Web.ProjectAccident
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, isShow))
                     {
-                        BLL.AccidentDetailSortBService.DeleteAccidentDetailSortByAccidentDetailSortId(rowID);
-                        BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除事故台账信息", rowID);
+                        var getD = Funs.DB.Manager_AccidentDetailSortB.FirstOrDefault(x => x.AccidentDetailSortId == rowID);
+                        if (getD != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, null, rowID, BLL.Const.ServerAccidentDataListMenuId, BLL.Const.BtnDelete);
+                            BLL.AccidentDetailSortBService.DeleteAccidentDetailSortByAccidentDetailSortId(rowID);                            
+                        }
                     }
                 }
                 BindGrid();

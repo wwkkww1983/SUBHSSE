@@ -84,6 +84,8 @@ namespace FineUIPro.Web.Perfomance
                         this.txtPersonPerfomanceCode.Text = CodeRecordsService.ReturnCodeByDataId(this.PersonPerfomanceId);
                         if (!string.IsNullOrEmpty(personPerfomance.UnitId))
                         {
+                            this.drpUnitId.SelectedValue = personPerfomance.UnitId;
+
                             BLL.TeamGroupService.InitTeamGroupProjectUnitDropDownList(this.drpTeamGroupId, this.ProjectId, this.drpUnitId.SelectedValue, true);
                             this.drpTeamGroupId.SelectedIndex = 0;
                             if (!string.IsNullOrEmpty(personPerfomance.TeamGroupId))
@@ -268,17 +270,18 @@ namespace FineUIPro.Web.Perfomance
             {
                 personPerfomance.PersonPerfomanceId = this.PersonPerfomanceId;
                 BLL.PersonPerfomanceService.UpdatePersonPerfomance(personPerfomance);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改个人绩效评价", personPerfomance.PersonPerfomanceId);
+                BLL.LogService.AddSys_Log(this.CurrUser, personPerfomance.PersonPerfomanceCode, personPerfomance.PersonPerfomanceId, BLL.Const.PersonPerfomanceMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.PersonPerfomanceId = SQLHelper.GetNewID(typeof(Model.Perfomance_PersonPerfomance));
                 personPerfomance.PersonPerfomanceId = this.PersonPerfomanceId;
                 BLL.PersonPerfomanceService.AddPersonPerfomance(personPerfomance);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加个人绩效评价", personPerfomance.PersonPerfomanceId);
-                ////保存流程审核数据         
-                this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.PersonPerfomanceMenuId, this.PersonPerfomanceId, (type == BLL.Const.BtnSubmit ? true : false), personPerfomance.PersonPerfomanceCode, "../Perfomance/PersonPerfomanceView.aspx?PersonPerfomanceId={0}");
+                BLL.LogService.AddSys_Log(this.CurrUser, personPerfomance.PersonPerfomanceCode, personPerfomance.PersonPerfomanceId, BLL.Const.PersonPerfomanceMenuId, BLL.Const.BtnAdd);               
             }
+
+            ////保存流程审核数据         
+            this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.PersonPerfomanceMenuId, this.PersonPerfomanceId, (type == BLL.Const.BtnSubmit ? true : false), personPerfomance.PersonPerfomanceCode, "../Perfomance/PersonPerfomanceView.aspx?PersonPerfomanceId={0}");
         }
         #endregion
 

@@ -198,9 +198,14 @@ namespace FineUIPro.Web.Law
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.ManageRuleService.DeleteManageRuleById(rowID);
+                    var law = BLL.ManageRuleService.GetManageRuleById(rowID);
+                    if (law != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, law.ManageRuleCode, law.ManageRuleId, BLL.Const.ManageRuleMenuId, BLL.Const.BtnDelete);
+                        BLL.ManageRuleService.DeleteManageRuleById(rowID);
+                    }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除安全管理规定");
+
                 BindGrid();
                 ShowNotify("删除数据成功!");
             }

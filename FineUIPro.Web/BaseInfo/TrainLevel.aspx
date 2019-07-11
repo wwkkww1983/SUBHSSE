@@ -59,10 +59,10 @@
                 <Items>
                     <f:HiddenField ID="hfFormID" runat="server">
                     </f:HiddenField>
-                    <f:TextBox ID="txtTrainLevelCode" Label="级别编号" ShowRedStar="true" Required="true" runat="server" LabelWidth="110px"
+                    <f:TextBox ID="txtTrainLevelCode" Label="编号" ShowRedStar="true" Required="true" runat="server" LabelWidth="110px"
                         LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
-                    <f:TextBox ID="txtTrainLevelName" Label="级别名称" ShowRedStar="true" Required="true" runat="server" LabelWidth="110px"
+                    <f:TextBox ID="txtTrainLevelName" Label="名称" ShowRedStar="true" Required="true" runat="server" LabelWidth="110px"
                         LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
                     <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="right" LabelWidth="110px">
@@ -95,7 +95,7 @@
             runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

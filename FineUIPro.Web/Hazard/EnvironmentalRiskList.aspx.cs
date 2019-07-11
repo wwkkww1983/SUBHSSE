@@ -76,51 +76,59 @@ namespace FineUIPro.Web.Hazard
         /// </summary>
         private void BindGrid()
         {
-            string strSql = "SELECT ERiskList.EnvironmentalRiskListId,ERiskList.ProjectId,ERiskList.WorkAreaName,Unit.UnitId,ERiskList.IdentificationDate,CompileManUsers.UserName AS CompileManName,ERiskList.CompileDate,CodeRecords.Code AS EnvironmentalRiskListCode,ControllingPersonUsers.UserName AS ControllingPersonName "
-                          + @" ,(CASE WHEN ERiskList.States = " + BLL.Const.State_0 + " OR ERiskList.States IS NULL THEN '待['+OperateUser.UserName+']提交' WHEN ERiskList.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
-                          + @" from Hazard_EnvironmentalRiskList AS ERiskList "
-                          + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON ERiskList.EnvironmentalRiskListId=FlowOperate.DataId AND FlowOperate.IsClosed <> 1"
-                          + @" LEFT JOIN Sys_User AS OperateUser ON FlowOperate.OperaterId=OperateUser.UserId "
-                          + @" LEFT JOIN Sys_User AS CompileManUsers ON ERiskList.CompileMan=CompileManUsers.UserId  "
-                          + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=CompileManUsers.UnitId  "
-                          + @" LEFT JOIN Sys_User AS ControllingPersonUsers ON ERiskList.ControllingPerson=ControllingPersonUsers.UserId "
-                          + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON ERiskList.EnvironmentalRiskListId=CodeRecords.DataId WHERE 1=1 ";
-            List<SqlParameter> listStr = new List<SqlParameter>();
-            strSql += " AND ERiskList.ProjectId = @ProjectId";
-            listStr.Add(new SqlParameter("@ProjectId", this.ProjectId));
-            if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
-            {               
-                strSql += " AND ERiskList.States = @States";  ///状态为已完成
-                listStr.Add(new SqlParameter("@States", BLL.Const.State_2));
-            }
-            if (!string.IsNullOrEmpty(this.txtWorkAreaName.Text.Trim()))
+            if (!string.IsNullOrEmpty(this.ProjectId))
             {
-                strSql += " AND ERiskList.WorkAreaName LIKE @WorkAreaName";
-                listStr.Add(new SqlParameter("@WorkAreaName", "%" + this.txtWorkAreaName.Text.Trim() + "%"));
-            }
-            if (this.drpUnitId.SelectedValue != BLL.Const._Null)
-            {
-                strSql += " AND Unit.UnitId = @UnitId";
-                listStr.Add(new SqlParameter("@UnitId", this.drpUnitId.SelectedValue.Trim()));
-            }
-            if (!string.IsNullOrEmpty(this.txtStartDate.Text.Trim()))
-            {
-                strSql += " AND ERiskList.IdentificationDate >= @StartDate";
-                listStr.Add(new SqlParameter("@StartDate", this.txtStartDate.Text.Trim()));
-            }
-            if (!string.IsNullOrEmpty(this.txtEndDate.Text.Trim()))
-            {
-                strSql += " AND ERiskList.IdentificationDate <= @EndDate";
-                listStr.Add(new SqlParameter("@EndDate", this.txtEndDate.Text.Trim()));
-            }
-            SqlParameter[] parameter = listStr.ToArray();
-            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
-            Grid1.RecordCount = tb.Rows.Count;
-            tb = GetFilteredTable(Grid1.FilteredData, tb);
-            var table = this.GetPagedDataTable(Grid1, tb);
+                string strSql = "SELECT ERiskList.EnvironmentalRiskListId,ERiskList.ProjectId,ERiskList.WorkAreaName,Unit.UnitId,ERiskList.IdentificationDate,CompileManUsers.UserName AS CompileManName,ERiskList.CompileDate,CodeRecords.Code AS EnvironmentalRiskListCode,ControllingPersonUsers.UserName AS ControllingPersonName "
+                              + @" ,(CASE WHEN ERiskList.States = " + BLL.Const.State_0 + " OR ERiskList.States IS NULL THEN '待['+OperateUser.UserName+']提交' WHEN ERiskList.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
+                              + @" from Hazard_EnvironmentalRiskList AS ERiskList "
+                              + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON ERiskList.EnvironmentalRiskListId=FlowOperate.DataId AND FlowOperate.IsClosed <> 1"
+                              + @" LEFT JOIN Sys_User AS OperateUser ON FlowOperate.OperaterId=OperateUser.UserId "
+                              + @" LEFT JOIN Sys_User AS CompileManUsers ON ERiskList.CompileMan=CompileManUsers.UserId  "
+                              + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=CompileManUsers.UnitId  "
+                              + @" LEFT JOIN Sys_User AS ControllingPersonUsers ON ERiskList.ControllingPerson=ControllingPersonUsers.UserId "
+                              + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON ERiskList.EnvironmentalRiskListId=CodeRecords.DataId WHERE 1=1 ";
+                List<SqlParameter> listStr = new List<SqlParameter>();
+                strSql += " AND ERiskList.ProjectId = @ProjectId";
+                listStr.Add(new SqlParameter("@ProjectId", this.ProjectId));
+                if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
+                {
+                    strSql += " AND ERiskList.States = @States";  ///状态为已完成
+                    listStr.Add(new SqlParameter("@States", BLL.Const.State_2));
+                }
+                if (!string.IsNullOrEmpty(this.txtWorkAreaName.Text.Trim()))
+                {
+                    strSql += " AND ERiskList.WorkAreaName LIKE @WorkAreaName";
+                    listStr.Add(new SqlParameter("@WorkAreaName", "%" + this.txtWorkAreaName.Text.Trim() + "%"));
+                }
+                if (this.drpUnitId.SelectedValue != BLL.Const._Null)
+                {
+                    strSql += " AND Unit.UnitId = @UnitId";
+                    listStr.Add(new SqlParameter("@UnitId", this.drpUnitId.SelectedValue.Trim()));
+                }
+                if (!string.IsNullOrEmpty(this.txtStartDate.Text.Trim()))
+                {
+                    strSql += " AND ERiskList.IdentificationDate >= @StartDate";
+                    listStr.Add(new SqlParameter("@StartDate", this.txtStartDate.Text.Trim()));
+                }
+                if (!string.IsNullOrEmpty(this.txtEndDate.Text.Trim()))
+                {
+                    strSql += " AND ERiskList.IdentificationDate <= @EndDate";
+                    listStr.Add(new SqlParameter("@EndDate", this.txtEndDate.Text.Trim()));
+                }
+                SqlParameter[] parameter = listStr.ToArray();
+                DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+                Grid1.RecordCount = tb.Rows.Count;
+                tb = GetFilteredTable(Grid1.FilteredData, tb);
+                var table = this.GetPagedDataTable(Grid1, tb);
 
-            Grid1.DataSource = table;
-            Grid1.DataBind();
+                Grid1.DataSource = table;
+                Grid1.DataBind();
+            }
+            else
+            {
+                Grid1.DataSource = null;
+                Grid1.DataBind();
+            }
         }
         #endregion
 
@@ -235,9 +243,13 @@ namespace FineUIPro.Web.Hazard
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, isShow))
                     {
-                        BLL.Hazard_EnvironmentalRiskItemService.DeleteEnvironmentalRiskItemByRiskListId(rowID);
-                        BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "删除环境危险源辨识与评价", rowID);
-                        BLL.Hazard_EnvironmentalRiskListService.DeleteEnvironmentalRiskListById(rowID);
+                        var newEnvironmentalRiskList = BLL.Hazard_EnvironmentalRiskListService.GetEnvironmentalRiskList(rowID);
+                        if (newEnvironmentalRiskList != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, newEnvironmentalRiskList.RiskCode, newEnvironmentalRiskList.EnvironmentalRiskListId, BLL.Const.ProjectEnvironmentalRiskListMenuId, BLL.Const.BtnDelete);
+                            BLL.Hazard_EnvironmentalRiskItemService.DeleteEnvironmentalRiskItemByRiskListId(rowID);
+                            BLL.Hazard_EnvironmentalRiskListService.DeleteEnvironmentalRiskListById(rowID);
+                        }
                     }
                 }
                 BindGrid();

@@ -1,12 +1,8 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using BLL;
-using System.IO;
-using Newtonsoft.Json.Linq;
 
 namespace FineUIPro.Web.Manager
 {
@@ -459,6 +455,7 @@ namespace FineUIPro.Web.Manager
                     totalLossMoney2 += BLL.AccidentReport2Service.GetSumLosMoneyByAccidentTimeAndAccidentType(startTime, endTime, "8", this.ProjectId);
                     this.txtTheftCaseNum.Text = "0";
                     this.txtPropertyLossMoney.Text = Convert.ToDecimal(Math.Round(totalLossMoney2 / 10000, 2)).ToString();
+                    
                     //安全生产费用
                     this.txtMainBusinessIncome.Text = "0";
                     this.txtConstructionIncome.Text = "0";
@@ -466,6 +463,24 @@ namespace FineUIPro.Web.Manager
                     this.txtPaidForMoney.Text = "0";
                     this.txtApprovedChargesMoney.Text = "0";
                     this.txtHasBeenChargedMoney.Text = "0";
+                    var hsseCostManage = Funs.DB.CostGoods_HSSECostManage.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.Month.Value.Year == months.Year && x.Month.Value.Month == months.Month);
+                    if (hsseCostManage != null)
+                    {
+                        this.txtMainBusinessIncome.Text = (hsseCostManage.MainIncome ?? 0).ToString();
+                        this.txtConstructionIncome.Text = (hsseCostManage.ConstructionIncome ?? 0).ToString();
+                        this.txtHasBeenChargedMoney.Text = (hsseCostManage.SafetyCosts ?? 0).ToString();
+
+                        var hsseUnitSum = from x in Funs.DB.CostGoods_HSSECostUnitManage
+                                          where x.HSSECostManageId == hsseCostManage.HSSECostManageId
+                                          select x;
+                        if (hsseUnitSum.Count() > 0)
+                        {
+                            this.txtProjectVolume.Text = (hsseUnitSum.Sum(x => x.EngineeringCost) ?? 0).ToString();
+                            this.txtPaidForMoney.Text = (hsseUnitSum.Sum(x => x.SubUnitCost) ?? 0).ToString();
+                            this.txtApprovedChargesMoney.Text = (hsseUnitSum.Sum(x => x.AuditedSubUnitCost) ?? 0).ToString();
+                        }
+                    }
+                 
                     //人员培训
                     this.txtTrainPersonNum.Text = (from x in db.EduTrain_TrainRecordDetail
                                                    join y in db.EduTrain_TrainRecord
@@ -579,9 +594,10 @@ namespace FineUIPro.Web.Manager
             Model.Manager_MonthReportD oldMonthReport = BLL.MonthReportDService.GetMonthReportByMonths(months, this.CurrUser.LoginProjectId);
             if (oldMonthReport != null)
             {
+                BLL.LogService.AddSys_Log(this.CurrUser, oldMonthReport.MonthReportCode, oldMonthReport.MonthReportId, BLL.Const.ProjectMonthReportMenuId, BLL.Const.BtnDelete);
                 this.MonthReportId = oldMonthReport.MonthReportId;
                 BLL.SafetyDataDService.DeleteSafetyDataDByMonthReportId(this.MonthReportId);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改安全生产月报", MonthReportId);
+              
             }
             else
             {
@@ -595,7 +611,7 @@ namespace FineUIPro.Web.Manager
                 monthReport.ReportMan = this.CurrUser.UserId;
                 monthReport.MonthReportDate = DateTime.Now;
                 BLL.MonthReportDService.AddMonthReport(monthReport);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加安全生产月报", monthReport.MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, oldMonthReport.MonthReportCode, oldMonthReport.MonthReportId, BLL.Const.ProjectMonthReportMenuId, BLL.Const.BtnAdd);
             }
             SaveData("save");
             ShowNotify("保存成功!", MessageBoxIcon.Success);
@@ -618,7 +634,7 @@ namespace FineUIPro.Web.Manager
                 oldMonthReport.States = BLL.Const.State_2;
                 BLL.MonthReportDService.UpdateMonthReport(oldMonthReport);
                 BLL.SafetyDataDService.DeleteSafetyDataDByMonthReportId(this.MonthReportId);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改安全生产月报", MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, oldMonthReport.MonthReportCode, oldMonthReport.MonthReportId, BLL.Const.ProjectMonthReportMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -633,8 +649,9 @@ namespace FineUIPro.Web.Manager
                 monthReport.MonthReportDate = DateTime.Now;
                 monthReport.States = BLL.Const.State_2;
                 BLL.MonthReportDService.AddMonthReport(monthReport);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加安全生产月报", monthReport.MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, monthReport.MonthReportCode, monthReport.MonthReportId, BLL.Const.ProjectMonthReportMenuId, BLL.Const.BtnAdd);
             }
+
             SaveData("submit");
 
             ////判断单据是否 加入到企业管理资料
@@ -952,7 +969,10 @@ namespace FineUIPro.Web.Manager
                         CompileDate = DateTime.Now,
                         States = BLL.Const.State_2
                     };
+
                     BLL.ProjectDrillConductedQuarterlyReportService.AddDrillConductedQuarterlyReport(drillConductedQuarterlyReport);
+                    BLL.LogService.AddSys_Log(this.CurrUser, drillConductedQuarterlyReport.YearId.ToString() + "-" + drillConductedQuarterlyReport.Quarter.ToString(), drillConductedQuarterlyReport.DrillConductedQuarterlyReportId, BLL.Const.ProjectDrillConductedQuarterlyReportMenuId, BLL.Const.BtnAdd);
+
                     Model.InformationProject_DrillConductedQuarterlyReportItem item = new Model.InformationProject_DrillConductedQuarterlyReportItem
                     {
                         DrillConductedQuarterlyReportItemId = SQLHelper.GetNewID(typeof(Model.InformationProject_DrillConductedQuarterlyReportItem)),
@@ -989,7 +1009,7 @@ namespace FineUIPro.Web.Manager
                 monthReport.MonthReportId = SQLHelper.GetNewID(typeof(Model.Manager_MonthReport));
                 this.MonthReportId = monthReport.MonthReportId;
                 BLL.MonthReportDService.AddMonthReport(monthReport);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "增加安全生产月报", monthReport.MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, monthReport.MonthReportCode, monthReport.MonthReportId, BLL.Const.ProjectManagerMonthMenuId, BLL.Const.BtnAdd);
             }
             PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ManagerMonthReport&menuId={1}", this.MonthReportId, BLL.Const.ProjectManagerMonthDMenuId)));
         }

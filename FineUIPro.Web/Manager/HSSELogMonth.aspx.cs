@@ -178,12 +178,16 @@ namespace FineUIPro.Web.Manager
         protected void btnMenuDelete_Click(object sender, EventArgs e)
         {
             if (Grid1.SelectedRowIndexArray.Length > 0)
-            {               
+            {
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除HSSE经理暨HSSE工程师细则", rowID);
-                    BLL.HSSELogMonthService.DeleteHSSELogMonthByID(rowID);                 
+                    var newHSSELog = BLL.HSSELogMonthService.GetHSSELogMonthByHSSELogMonthId(rowID);
+                    if (newHSSELog != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, null, newHSSELog.HSSELogMonthId, BLL.Const.ProjectHSSELogMonthMenuId, BLL.Const.BtnDelete);                  
+                        BLL.HSSELogMonthService.DeleteHSSELogMonthByID(rowID);
+                    }
                 }
 
                 this.BindGrid();

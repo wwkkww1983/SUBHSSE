@@ -191,8 +191,12 @@ namespace FineUIPro.Web.Check
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除获奖证书或奖杯", rowID);
-                    BLL.HSECertificateService.DeleteHSECertificateById(rowID);
+                    var hseCertificate = BLL.HSECertificateService.GetHSECertificateById(rowID);
+                    if (hseCertificate != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, hseCertificate.HSECertificateCode, hseCertificate.HSECertificateId, BLL.Const.ProjectHSECertificateMenuId, BLL.Const.BtnDelete);
+                        BLL.HSECertificateService.DeleteHSECertificateById(rowID);
+                    }
                 }
 
                 this.BindGrid();

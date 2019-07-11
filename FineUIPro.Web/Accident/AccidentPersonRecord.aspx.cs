@@ -157,6 +157,7 @@ namespace FineUIPro.Web.Accident
                 }
             }
             this.BindGrid();
+            BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ProjectAccidentPersonRecordMenuId, BLL.Const.BtnQuery);
         }
         #endregion
 
@@ -220,8 +221,12 @@ namespace FineUIPro.Web.Accident
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除HSE事故(对人员)记录");
-                    BLL.AccidentPersonRecordService.DeleteAccidentPersonRecordById(rowID);
+                    var getV = BLL.AccidentPersonRecordService.GetAccidentPersonRecordById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, getV.AccidentPersonRecordId, BLL.Const.ProjectAccidentPersonRecordMenuId, BLL.Const.BtnDelete);
+                        BLL.AccidentPersonRecordService.DeleteAccidentPersonRecordById(rowID);
+                    }
                 }
 
                 this.BindGrid();

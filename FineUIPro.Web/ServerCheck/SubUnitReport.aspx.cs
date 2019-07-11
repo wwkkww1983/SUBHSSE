@@ -67,14 +67,14 @@ namespace FineUIPro.Web.ServerCheck
             trSubUnitReport.EnableIcons = true;
             trSubUnitReport.AutoScroll = true;
             trSubUnitReport.EnableSingleClickExpand = true;
-            TreeNode rootNode = new TreeNode
-            {
-                Text = "企业安全文件",
-                NodeID = "0",
-                Expanded = true
-            };
-            this.trSubUnitReport.Nodes.Add(rootNode);
-            BoundTree(rootNode.Nodes, "0");
+            //TreeNode rootNode = new TreeNode
+            //{
+            //    Text = "企业安全文件",
+            //    NodeID = "0",
+            //    Expanded = true
+            //};
+            //this.trSubUnitReport.Nodes.Add(rootNode);
+            BoundTree(this.trSubUnitReport.Nodes, "0");
         }
 
         /// <summary>
@@ -99,10 +99,13 @@ namespace FineUIPro.Web.ServerCheck
                     };
                     nodes.Add(tn);
 
-                    if (BLL.SubUnitReportService.IsUpLoadSubUnitReport(dr.SubUnitReportId))
+                    if (tn != null)
                     {
-                        tn.Text = "<font color='#FF7575'>" + tn.Text + "</font>";
-                        this.SetNodeColor(tn);
+                        if (BLL.SubUnitReportService.IsUpLoadSubUnitReport(dr.SubUnitReportId))
+                        {
+                            tn.Text = "<font color='#FF7575'>" + tn.Text + "</font>";
+                            this.SetNodeColor(tn);
+                        }
                     }
 
                     BoundTree(tn.Nodes, dr.SubUnitReportId);
@@ -116,9 +119,12 @@ namespace FineUIPro.Web.ServerCheck
         private void SetNodeColor(TreeNode tn)
         {
             if (tn.NodeID != "0")
-            {
+            {                
                 tn.Text = "<font color='#FF7575'>" + tn.Text + "</font>";
-                this.SetNodeColor(tn.ParentNode);
+                if (tn.ParentNode != null)
+                {
+                    this.SetNodeColor(tn.ParentNode);
+                }
             }
         }
         #endregion
@@ -131,7 +137,7 @@ namespace FineUIPro.Web.ServerCheck
         /// <returns></returns>
         private List<Model.Supervise_SubUnitReport> GetNewSubUnitReport(string parentId)
         {
-            return (from x in Funs.DB.Supervise_SubUnitReport where x.SupSubUnitReportId == parentId orderby x.SubUnitReportCode select x).ToList(); ;
+            return (from x in Funs.DB.Supervise_SubUnitReport where x.SupSubUnitReportId == parentId orderby x.SubUnitReportCode descending select x).ToList(); ;
         }
         #endregion
 
@@ -147,19 +153,20 @@ namespace FineUIPro.Web.ServerCheck
             this.SubUnitReportItemId = string.Empty;
             this.dpkReportDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
             this.txtPlanReortDate.Text = string.Empty;
-            this.formTitle.Title = "上报状态：未上报";
+            this.formTitle.Title = string.Empty;
             var thisUnit = BLL.CommonService.GetIsThisUnit();
             if (thisUnit != null)
             {
                 this.txtUnitName.Text = thisUnit.UnitName;
             }
-
-            this.SubUnitReportId = this.trSubUnitReport.SelectedNodeID;
-            this.txtReportTitle.Text = this.trSubUnitReport.SelectedNode.Text;
-            this.dpkReportDate.Text = string.Format("{0:yyyy-MM-dd}", System.DateTime.Now);
+            this.panelCenterRegion.Hidden = true;
+            this.SubUnitReportId = this.trSubUnitReport.SelectedNodeID;          
             var subUnitReortItem = BLL.SubUnitReportItemService.GetSubUnitReportItemBySubUnitReportId(this.SubUnitReportId);
             if (subUnitReortItem != null)
             {
+                this.panelCenterRegion.Hidden = false;
+                this.txtReportTitle.Text = subUnitReortItem.ReportTitle;
+                this.dpkReportDate.Text = string.Format("{0:yyyy-MM-dd}", System.DateTime.Now);
                 this.SubUnitReportItemId = subUnitReortItem.SubUnitReportItemId;
                 if (!string.IsNullOrEmpty(subUnitReortItem.UnitId))
                 {
@@ -261,7 +268,7 @@ namespace FineUIPro.Web.ServerCheck
             {
                 item.SubUnitReportItemId = this.SubUnitReportItemId;
                 BLL.SubUnitReportItemService.UpdateSubUnitReportItem(item);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改企业安全文件上报");
+                BLL.LogService.AddSys_Log(this.CurrUser, this.txtReportTitle.Text.Trim(), item.SubUnitReportItemId, BLL.Const.SubUnitReportMenuId, BLL.Const.BtnModify);
             }
         }
         #endregion
@@ -326,12 +333,12 @@ namespace FineUIPro.Web.ServerCheck
                 this.EmptyText();
 
                 ShowNotify("【企业安全文件上报】上报到集团公司成功！", MessageBoxIcon.Success);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【企业安全文件上报】上报到集团公司" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【企业安全文件上报】上报到集团公司" + idList.Count.ToString() + "条数据；", string.Empty, BLL.Const.SubUnitReportMenuId, BLL.Const.BtnUploadResources);
             }
             else
             {
                 ShowNotify("【企业安全文件上报】上报到集团公司失败！", MessageBoxIcon.Warning);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【企业安全文件上报】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【企业安全文件上报】上报到集团公司失败；",string.Empty,BLL.Const.SubUnitReportMenuId,BLL.Const.BtnUploadResources);
             }
         }
         #endregion

@@ -319,8 +319,8 @@ namespace FineUIPro.Web.SysManage
                         }
                     }
                 }
-
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "保存角色菜单授权");
+                
+                BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.RolePowerMenuId, Const.BtnModify);
                 ShowNotify("保存成功！", MessageBoxIcon.Success);
             }
             else

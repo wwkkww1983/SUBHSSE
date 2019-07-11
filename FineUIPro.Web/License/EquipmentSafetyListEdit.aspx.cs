@@ -197,14 +197,14 @@ namespace FineUIPro.Web.License
             {
                 equipmentSafetyList.EquipmentSafetyListId = this.EquipmentSafetyListId;
                 BLL.EquipmentSafetyListService.UpdateEquipmentSafetyList(equipmentSafetyList);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改施工机具、安全设施检查验收", equipmentSafetyList.EquipmentSafetyListId);
+                BLL.LogService.AddSys_Log(this.CurrUser, equipmentSafetyList.EquipmentSafetyListCode, equipmentSafetyList.EquipmentSafetyListId, BLL.Const.ProjectEquipmentSafetyListMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.EquipmentSafetyListId = SQLHelper.GetNewID(typeof(Model.License_EquipmentSafetyList));
                 equipmentSafetyList.EquipmentSafetyListId = this.EquipmentSafetyListId;
                 BLL.EquipmentSafetyListService.AddEquipmentSafetyList(equipmentSafetyList);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加施工机具、安全设施检查验收", equipmentSafetyList.EquipmentSafetyListId);
+                BLL.LogService.AddSys_Log(this.CurrUser, equipmentSafetyList.EquipmentSafetyListCode, equipmentSafetyList.EquipmentSafetyListId,BLL.Const.ProjectEquipmentSafetyListMenuId,BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectEquipmentSafetyListMenuId, this.EquipmentSafetyListId, (type == BLL.Const.BtnSubmit ? true : false), equipmentSafetyList.EquipmentSafetyListName, "../License/EquipmentSafetyListView.aspx?EquipmentSafetyListId={0}");

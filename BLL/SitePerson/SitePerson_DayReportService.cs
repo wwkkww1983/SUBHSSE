@@ -112,6 +112,28 @@ namespace BLL
         /// <param name="startTime">开始时间</param>
         /// <param name="endTime">结束时间</param>
         /// <returns>工作日报信息</returns>
+        public static List<Model.SitePerson_DayReport> GetDayReportsByCompileDate2(DateTime startTime, string projectId)
+        {
+            return (from x in Funs.DB.SitePerson_DayReport where x.CompileDate >= startTime && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).ToList();
+        }
+
+        /// <summary>
+        /// 获取工作日报信息
+        /// </summary>
+        /// <param name="startTime">开始时间</param>
+        /// <param name="endTime">结束时间</param>
+        /// <returns>工作日报信息</returns>
+        public static List<Model.SitePerson_DayReport> GetDayReports(string projectId)
+        {
+            return (from x in Funs.DB.SitePerson_DayReport where x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).ToList();
+        }
+
+        /// <summary>
+        /// 根据时间获取工作日报信息
+        /// </summary>
+        /// <param name="startTime">开始时间</param>
+        /// <param name="endTime">结束时间</param>
+        /// <returns>工作日报信息</returns>
         public static List<Model.SitePerson_DayReport> GetDayReportsByCompileDateAndUnitId(DateTime startTime, DateTime endTime, string projectId, string unitId)
         {
             return (from x in Funs.DB.SitePerson_DayReport

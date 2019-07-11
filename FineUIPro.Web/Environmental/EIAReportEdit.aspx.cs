@@ -147,7 +147,7 @@ namespace FineUIPro.Web.Environmental
             {
                 EIAReport.FileId = this.FileId;
                 BLL.EIAReportService.UpdateEIAReport(EIAReport);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改环评报告", EIAReport.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, EIAReport.FileCode, EIAReport.FileId, BLL.Const.EIAReportMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -155,7 +155,7 @@ namespace FineUIPro.Web.Environmental
                 EIAReport.FileId = this.FileId;
                 EIAReport.ProjectId = this.ProjectId;
                 BLL.EIAReportService.AddEIAReport(EIAReport);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加环评报告", EIAReport.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, EIAReport.FileCode, EIAReport.FileId, BLL.Const.EIAReportMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.EIAReportMenuId, this.FileId, (type == BLL.Const.BtnSubmit ? true : false), this.txtFileName.Text.Trim(), "../Environmental/EIAReportView.aspx?FileId={0}");               

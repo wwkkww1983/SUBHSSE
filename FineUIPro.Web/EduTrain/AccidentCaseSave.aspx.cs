@@ -92,7 +92,7 @@ namespace FineUIPro.Web.EduTrain
                 this.AccidentCaseId = accidentCase.AccidentCaseId;
                 accidentCase.SupAccidentCaseId = this.SupAccidentCaseId;
                 BLL.AccidentCaseService.AddAccidentCase(accidentCase);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加事故案例类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, accidentCase.AccidentCaseCode, accidentCase.AccidentCaseId, BLL.Const.AccidentCaseMenuId, BLL.Const.BtnAdd);
             }
             else
             {
@@ -103,7 +103,7 @@ namespace FineUIPro.Web.EduTrain
                     accidentCase.SupAccidentCaseId = t.SupAccidentCaseId;
                 }
                 BLL.AccidentCaseService.UpdateAccidentCase(accidentCase);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改事故案例类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, accidentCase.AccidentCaseCode, accidentCase.AccidentCaseId, BLL.Const.AccidentCaseMenuId, BLL.Const.BtnModify);
             }
             // 2. 关闭本窗体，然后刷新父窗体
             // PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());

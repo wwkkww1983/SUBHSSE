@@ -321,14 +321,14 @@ namespace FineUIPro.Web.Check
             {
                 violationPerson.ViolationPersonId = this.ViolationPersonId;
                 BLL.ViolationPersonService.UpdateViolationPerson(violationPerson);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改违规人员记录", violationPerson.ViolationPersonId);
+                BLL.LogService.AddSys_Log(this.CurrUser, violationPerson.ViolationPersonCode, violationPerson.ViolationPersonId,BLL.Const.ProjectViolationPersonMenuId,BLL.Const.BtnModify);
             }
             else
             {
                 this.ViolationPersonId = SQLHelper.GetNewID(typeof(Model.Check_ViolationPerson));
                 violationPerson.ViolationPersonId = this.ViolationPersonId;
                 BLL.ViolationPersonService.AddViolationPerson(violationPerson);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加违规人员记录", violationPerson.ViolationPersonId);
+                BLL.LogService.AddSys_Log(this.CurrUser, violationPerson.ViolationPersonCode, violationPerson.ViolationPersonId,BLL.Const.ProjectViolationPersonMenuId,BLL.Const.BtnAdd);                
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectViolationPersonMenuId, this.ViolationPersonId, (type == BLL.Const.BtnSubmit ? true : false), violationPerson.ViolationPersonCode, "../Check/ViolationPersonView.aspx?ViolationPersonId={0}");

@@ -17,7 +17,7 @@
             <f:FormRow runat="server" ID="FormRow1">
                 <Items>
                     <f:HtmlEditor runat="server" Label="月总结" ID="txtFileContent" ShowLabel="false" Editor="UMEditor"
-                        BasePath="~/res/umeditor/" ToolbarSet="Full" Height="500" LabelAlign="Right">
+                        BasePath="~/res/umeditor/" ToolbarSet="Full" Height="480" LabelAlign="Right">
                     </f:HtmlEditor>
                 </Items>
             </f:FormRow>       

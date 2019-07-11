@@ -164,7 +164,7 @@
                                     <f:Grid ID="GridToDoMatter" ShowBorder="false" ShowHeader="false" Title="待办事项" EnableCollapse="true"
                                         ShowGridHeader="false" runat="server" BoxFlex="1" DataKeyNames="Id" AllowCellEditing="true"
                                         EnableColumnLines="true" ClicksToEdit="2" DataIDField="Id" EnableRowDoubleClickEvent="false"
-                                        SortField="Date" SortDirection="DESC" AutoScroll="true">
+                                        SortField="Date" SortDirection="DESC" >
                                         <Columns>                                           
                                             <f:RenderField Width="270px" ColumnID="Name" DataField="Name" FieldType="String"
                                                 HeaderText="待办事项" HeaderTextAlign="Center" TextAlign="Left">

@@ -199,6 +199,8 @@ namespace FineUIPro.Web.Technique
             var rectifyItem = BLL.RectifyItemService.GetRectifyItemById(this.RectifyItemId);
             if (rectifyItem != null && !rectifyItem.AuditDate.HasValue)
             {
+                BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, rectifyItem.RectifyId, BLL.Const.RectifyMenuId, Const.BtnDelete);
+
                 BLL.RectifyItemService.DeleteRectifyItemByRectifyId(this.RectifyItemId);
                 this.SetTemp();
                 this.InitTreeMenu();
@@ -231,7 +233,7 @@ namespace FineUIPro.Web.Technique
                 rectifyItem.RectifyItemId = SQLHelper.GetNewID(typeof(Model.Technique_RectifyItem));
                 rectifyItem.RectifyId = this.RectifyId;
                 BLL.RectifyItemService.AddRectifyItem(rectifyItem);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加安全隐患");
+                BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, rectifyItem.RectifyId, BLL.Const.RectifyMenuId, Const.BtnAdd);
             }
             else
             {
@@ -242,7 +244,8 @@ namespace FineUIPro.Web.Technique
                     rectifyItem.RectifyId = r.RectifyId;
                 }
                 BLL.RectifyItemService.UpdateRectifyItem(rectifyItem);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改安全隐患");
+                BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, rectifyItem.RectifyId, BLL.Const.RectifyMenuId, Const.BtnModify);
+
             }
             this.InitTreeMenu();
             ShowNotify("保存成功！", MessageBoxIcon.Success);

@@ -176,7 +176,7 @@ namespace FineUIPro.Web.Solution
             {
                 largerHazard.HazardId = this.HazardId;
                 BLL.LargerHazardService.UpdateLargerHazard(largerHazard);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改危险性较大的工程清单", largerHazard.HazardId);
+                BLL.LogService.AddSys_Log(this.CurrUser, largerHazard.HazardCode, largerHazard.HazardId,BLL.Const.ProjectLargerHazardListMenuId,BLL.Const.BtnModify);
             }
             else
             {
@@ -184,7 +184,7 @@ namespace FineUIPro.Web.Solution
                 largerHazard.RecardMan = this.CurrUser.UserId;
                 this.HazardId = largerHazard.HazardId;
                 BLL.LargerHazardService.AddLargerHazard(largerHazard);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加危险性较大的工程清单", largerHazard.HazardId);
+                BLL.LogService.AddSys_Log(this.CurrUser, largerHazard.HazardCode, largerHazard.HazardId, BLL.Const.ProjectLargerHazardListMenuId, BLL.Const.BtnAdd);
                 if (largerHazard.IsArgument == true)
                 {
                     ////判断单据是否 加入到企业管理资料
@@ -234,7 +234,7 @@ namespace FineUIPro.Web.Solution
             };
             this.HazardId = largerHazard.HazardId;
             BLL.LargerHazardService.AddLargerHazard(largerHazard);
-            BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加危险性较大的工程清单", largerHazard.HazardId);
+            BLL.LogService.AddSys_Log(this.CurrUser, largerHazard.HazardCode, largerHazard.HazardId,BLL.Const.ProjectLargerHazardListMenuId,BLL.Const.BtnAdd);
         }
     }
 }

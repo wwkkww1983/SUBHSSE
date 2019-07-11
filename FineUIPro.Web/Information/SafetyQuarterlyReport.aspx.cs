@@ -341,7 +341,8 @@ namespace FineUIPro.Web.Information
             Model.Information_SafetyQuarterlyReport report = BLL.SafetyQuarterlyReportService.GetSafetyQuarterlyReportByUnitIdAndYearAndQuarters(drpUnit.SelectedValue, Funs.GetNewIntOrZero(drpYear.SelectedValue), Funs.GetNewIntOrZero(drpQuarter.SelectedValue));
             if (report != null)
             {
-                BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除安全生产数据季报", (this.lblYearId.Text + "-" + this.lblQuarters.Text));
+                BLL.LogService.AddSys_Log(this.CurrUser, (this.lblYearId.Text + "-" + this.lblQuarters.Text), report.SafetyQuarterlyReportId, BLL.Const.SafetyQuarterlyReportMenuId, BLL.Const.BtnDelete);
+                
                 BLL.ProjectDataFlowSetService.DeleteFlowSetByDataId(report.SafetyQuarterlyReportId);
                 BLL.SafetyQuarterlyReportService.DeleteSafetyQuarterlyReportById(report.SafetyQuarterlyReportId);
                 

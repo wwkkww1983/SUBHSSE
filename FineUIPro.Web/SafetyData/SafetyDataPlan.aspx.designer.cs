@@ -2,8 +2,8 @@
 // <自动生成>
 //     此代码由工具生成。
 //
-//     对此文件的更改可能会导致不正确的行为，并且如果
-//     重新生成代码，这些更改将会丢失。 
+//     对此文件的更改可能导致不正确的行为，如果
+//     重新生成代码，则所做更改将丢失。
 // </自动生成>
 //------------------------------------------------------------------------------
 
@@ -49,13 +49,40 @@ namespace FineUIPro.Web.SafetyData {
         protected global::FineUIPro.Panel Panel1;
         
         /// <summary>
-        /// Grid1 控件。
+        /// panelLeftRegion 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Grid Grid1;
+        protected global::FineUIPro.Panel panelLeftRegion;
+        
+        /// <summary>
+        /// tvProject 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Tree tvProject;
+        
+        /// <summary>
+        /// panel2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Panel panel2;
+        
+        /// <summary>
+        /// Toolbar1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Toolbar Toolbar1;
         
         /// <summary>
         /// Toolbar2 控件。
@@ -67,22 +94,58 @@ namespace FineUIPro.Web.SafetyData {
         protected global::FineUIPro.Toolbar Toolbar2;
         
         /// <summary>
-        /// txtProjectName 控件。
+        /// drpState 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtProjectName;
+        protected global::FineUIPro.DropDownList drpState;
         
         /// <summary>
-        /// ToolbarFill1 控件。
+        /// txtTitle 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.ToolbarFill ToolbarFill1;
+        protected global::FineUIPro.TextBox txtTitle;
+        
+        /// <summary>
+        /// txtStarTime 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DatePicker txtStarTime;
+        
+        /// <summary>
+        /// txtEndTime 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DatePicker txtEndTime;
+        
+        /// <summary>
+        /// lbTemp1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.ToolbarFill lbTemp1;
+        
+        /// <summary>
+        /// btnGVNew 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnGVNew;
         
         /// <summary>
         /// btnOut 控件。
@@ -94,13 +157,13 @@ namespace FineUIPro.Web.SafetyData {
         protected global::FineUIPro.Button btnOut;
         
         /// <summary>
-        /// lblNumber 控件。
+        /// Grid1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNumber;
+        protected global::FineUIPro.Grid Grid1;
         
         /// <summary>
         /// ToolbarSeparator1 控件。
@@ -139,6 +202,15 @@ namespace FineUIPro.Web.SafetyData {
         protected global::FineUIPro.Window Window1;
         
         /// <summary>
+        /// Window2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Window Window2;
+        
+        /// <summary>
         /// Menu1 控件。
         /// </summary>
         /// <remarks>
@@ -148,21 +220,66 @@ namespace FineUIPro.Web.SafetyData {
         protected global::FineUIPro.Menu Menu1;
         
         /// <summary>
-        /// btnView 控件。
+        /// btnTreeView 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.MenuButton btnView;
+        protected global::FineUIPro.MenuButton btnTreeView;
         
         /// <summary>
-        /// btnMenuDel 控件。
+        /// btnTreeDel 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.MenuButton btnMenuDel;
+        protected global::FineUIPro.MenuButton btnTreeDel;
+        
+        /// <summary>
+        /// btnTreeOne 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.MenuButton btnTreeOne;
+        
+        /// <summary>
+        /// Menu2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Menu Menu2;
+        
+        /// <summary>
+        /// btnGVModify 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.MenuButton btnGVModify;
+        
+        /// <summary>
+        /// btnGVDel 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.MenuButton btnGVDel;
+        
+        /// <summary>
+        /// btnGVView 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.MenuButton btnGVView;
     }
 }

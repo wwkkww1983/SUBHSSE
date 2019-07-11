@@ -108,7 +108,7 @@ namespace FineUIPro.Web.EduTrain
                 trainTestDB.TrainTestId = SQLHelper.GetNewID(typeof(Model.Training_TrainTestDB));
                 trainTestDB.SupTrainTestId = this.SupTrainingId;
                 BLL.TrainTestDBService.AddTrainTestDB(trainTestDB);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加安全试题库");
+                BLL.LogService.AddSys_Log(this.CurrUser, trainTestDB.TrainTestCode, trainTestDB.TrainTestId, BLL.Const.TrainTestDBMenuId, BLL.Const.BtnAdd);
             }
             else
             {
@@ -119,7 +119,7 @@ namespace FineUIPro.Web.EduTrain
                 }
                 trainTestDB.TrainTestId = this.TrainTestId;
                 BLL.TrainTestDBService.UpdateTrainTestDB(trainTestDB);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改安全试题库");
+                BLL.LogService.AddSys_Log(this.CurrUser, trainTestDB.TrainTestCode, trainTestDB.TrainTestId, BLL.Const.TrainTestDBMenuId, BLL.Const.BtnModify);
             }
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }

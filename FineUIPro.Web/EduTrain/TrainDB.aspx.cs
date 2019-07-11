@@ -226,8 +226,13 @@ namespace FineUIPro.Web.EduTrain
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.TrainingItemService.DeleteTrainingItemsByTrainingItemId(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除培训教材库");
+                    var getV = BLL.TrainingItemService.GetTrainingItemByTrainingItemId(rowID);
+                    if(getV !=null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.TrainingItemCode, getV.TrainingItemId, BLL.Const.TrainDBMenuId, BLL.Const.BtnDelete);
+                        BLL.TrainingItemService.DeleteTrainingItemsByTrainingItemId(rowID);
+                    }
+                    
                 }
 
                 BindGrid();
@@ -251,9 +256,6 @@ namespace FineUIPro.Web.EduTrain
 
         protected void Grid1_Sort(object sender, FineUIPro.GridSortEventArgs e)
         {
-            Grid1.SortDirection = e.SortDirection;
-            Grid1.SortField = e.SortField;
-
             BindGrid();
         }
 

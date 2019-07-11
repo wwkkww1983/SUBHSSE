@@ -4,232 +4,99 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>本月项目HSE费用管理</title>
+    <link href="../res/css/common.css" rel="stylesheet" type="text/css" />
+    <style>
+        .font_style
+        {
+            font-weight: bold;
+        }
+        
+        .tablehtml td.label1, .tablehtml td.label2
+        {
+            width: 80px;
+            text-align: center;
+        }
+        
+        .tablehtml td.label
+        {
+            width: 120px;
+            text-align: center;
+        }
+        
+        .tablehtml td.label3
+        {
+            width: 80px;
+            text-align: center;
+        }
+        
+        .tablehtml
+        {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        
+        .tablehtml td
+        {
+            border-width: 1px;
+            border-style: solid;
+            padding: 0;
+        }
+        
+        .tablehtml td.label .redstar
+        {
+            color: red;
+        }
+        
+        .tablehtml td > div
+        {
+            display: block;
+            vertical-align: top;
+        }
+        
+        .tablehtml .f-field
+        {
+            width: 100%;
+            margin-bottom: 0 !important;
+        }
+        
+        .tablehtml .f-field-textbox, .tablehtml .f-field-label
+        {
+            border-radius: 0;
+            margin: 0;
+            border-width: 0;
+            padding: 7px 6px;
+        }
+        
+        .tablehtml .f-field-checkbox-icon
+        {
+            margin-left: 6px;
+        }
+        
+        .tablehtml .f-field-body-checkboxlabel
+        {
+            margin-left: 26px;
+        }
+        
+        .tablehtml td.label
+        {
+            width: 100px;
+            text-align: center;
+        }
+        
+        .tablehtml td.content
+        {
+            width: 200px;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
     <f:PageManager ID="PageManager1" AutoSizePanelID="SimpleForm1" runat="server">
     </f:PageManager>
-    <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="true"
-        BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
-        <Rows>
-               <f:FormRow>
-                <Items>
-                    <f:GroupPanel ID="GroupPanel42" Layout="Anchor" Title="6.本月项目HSE费用管理" runat="server">
-                        <Items>
-                            <f:Form ID="Form11" ShowBorder="false" ShowHeader="false" AutoScroll="true" BodyPadding="10px"
-                                runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
-                                <Rows>
-                                    <f:FormRow>
-                                        <Items>
-                                            <f:Label runat="server" ID="Label18" Text="类型">
-                                            </f:Label>
-                                            <f:Label runat="server" ID="Label13" Text="内容">
-                                            </f:Label>
-                                            <f:Label runat="server" ID="Label19" Text="当月累计">
-                                            </f:Label>
-                                            <f:Label runat="server" ID="Label20" Text="当年累计">
-                                            </f:Label>
-                                        </Items>
-                                    </f:FormRow>
-                                    <f:FormRow>
-                                        <Items>
-                                            <f:Panel ID="Panel57" runat="server" ShowBorder="false" Title="" Layout="Table" TableConfigColumns="4"
-                                                ShowHeader="false" BodyPadding="1px">
-                                                <Items>
-                                                    <f:Panel ID="Panel58" Title="Panel1" MarginRight="0" TableRowspan="6" runat="server"
-                                                        Width="250px" BodyPadding="1px" ShowBorder="false" ShowHeader="false">
-                                                        <Items>
-                                                            <f:Label runat="server" ID="Label14" Text="安全防护" TableRowspan="6">
-                                                            </f:Label>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel59" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:Label runat="server" ID="lblBaseManager" Text="基础管理">
-                                                            </f:Label>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel60" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:TextBox ID="txtSMonthType1" Readonly="true" runat="server">
-                                                            </f:TextBox>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel61" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:TextBox ID="txtYearSMonthType1" Readonly="true" runat="server">
-                                                            </f:TextBox>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel62" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:Label runat="server" ID="lblIncentiveType12" Text="安全技术">
-                                                            </f:Label>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel63" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:TextBox ID="txtSMonthType2" Readonly="true" runat="server">
-                                                            </f:TextBox>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel64" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:TextBox ID="txtYearSMonthType2" Readonly="true" runat="server">
-                                                            </f:TextBox>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel65" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:Label runat="server" ID="lblIncentiveType13" Text="职业健康">
-                                                            </f:Label>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel66" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:TextBox ID="txtSMonthType3" Readonly="true" runat="server">
-                                                            </f:TextBox>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel67" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:TextBox ID="txtYearSMonthType3" Readonly="true" runat="server">
-                                                            </f:TextBox>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel68" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:Label runat="server" ID="lblIncentiveType14" Text="防护措施">
-                                                            </f:Label>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel69" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:TextBox ID="txtSMonthType4" Readonly="true" runat="server">
-                                                            </f:TextBox>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel70" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:TextBox ID="txtYearSMonthType4" Readonly="true" runat="server">
-                                                            </f:TextBox>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel1" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:Label runat="server" ID="Label16" Text="化工试车">
-                                                            </f:Label>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel2" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:TextBox ID="txtSMonthType5" Readonly="true" runat="server">
-                                                            </f:TextBox>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel3" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:TextBox ID="txtYearSMonthType5" Readonly="true" runat="server">
-                                                            </f:TextBox>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel4" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:Label runat="server" ID="Label17" Text="教育培训">
-                                                            </f:Label>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel5" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:TextBox ID="txtSMonthType6" Readonly="true" runat="server">
-                                                            </f:TextBox>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel6" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:TextBox ID="txtYearSMonthType6" Readonly="true" runat="server">
-                                                            </f:TextBox>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel71" Title="Panel1" MarginRight="0" TableRowspan="2" runat="server"
-                                                        Width="250px" BodyPadding="1px" ShowBorder="false" ShowHeader="false">
-                                                        <Items>
-                                                            <f:Label runat="server" ID="Label15" Text="临时设施文明施工和环境保护">
-                                                            </f:Label>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel72" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:Label runat="server" ID="lblIncentiveType21" Text="文明施工和环境保护">
-                                                            </f:Label>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel73" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:TextBox ID="txtTMonthType1" Readonly="true" runat="server">
-                                                            </f:TextBox>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel74" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:TextBox ID="txtYearTMonthType1" Readonly="true" runat="server">
-                                                            </f:TextBox>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel75" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:Label runat="server" ID="lblIncentiveType22" Text="临时设施">
-                                                            </f:Label>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel76" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:TextBox ID="txtTMonthType2" Readonly="true" runat="server">
-                                                            </f:TextBox>
-                                                        </Items>
-                                                    </f:Panel>
-                                                    <f:Panel ID="Panel77" Title="Panel1" runat="server" BodyPadding="1px" ShowBorder="false"
-                                                        Width="250px" ShowHeader="false">
-                                                        <Items>
-                                                            <f:TextBox ID="txtYearTMonthType2" Readonly="true" runat="server">
-                                                            </f:TextBox>
-                                                        </Items>
-                                                    </f:Panel>
-                                                </Items>
-                                            </f:Panel>
-                                        </Items>
-                                    </f:FormRow>
-                                </Rows>
-                            </f:Form>
-                        </Items>
-                    </f:GroupPanel>
-                </Items>
-            </f:FormRow>
-        </Rows>
+    <f:Panel ID="Panel1" runat="server" Width="970px" ShowBorder="True" EnableCollapse="true"
+        CssClass="mytable" Layout="Table" TableConfigColumns="3" ShowHeader="True" Title="6 本月项目HSE费用管理（单位：万元）">
         <Toolbars>
             <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
                 <Items>
@@ -239,7 +106,248 @@
                 </Items>
             </f:Toolbar>
         </Toolbars>
-    </f:Form>
+        <Items>
+            <f:ContentPanel ID="ContentPanel1" IsFluid="true" CssClass="blockpanel" runat="server"
+                ShowBorder="false" ShowHeader="false">
+                <table class="tablehtml">
+                    <tr>
+                        <td class="f-widget-content label1" rowspan="2">
+                            序号
+                        </td>
+                        <td class="f-widget-content label2" rowspan="2">
+                            投入项目
+                        </td>
+                        <td class="f-widget-content label" colspan="2">
+                            五环工程
+                        </td>
+                        <td class="f-widget-content label" colspan="2">
+                           施工分包商
+                        </td>
+                        <td class="f-widget-content label" colspan="2">
+                           建安产值
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-widget-content label1" >
+                            本月
+                        </td>
+                        <td class="f-widget-content label2" >
+                            项目累计
+                        </td>
+                        <td class="f-widget-content label" >
+                            本月
+                        </td>
+                        <td class="f-widget-content label" >
+                           项目累计
+                        </td>
+                        <td class="f-widget-content label" >
+                           本月
+                        </td>
+                        <td class="f-widget-content label" >
+                           项目累计
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-widget-content label">
+                            1
+                        </td>
+                        <td class="f-widget-content" >
+                            基础管理
+                        </td>
+                        <td class="f-widget-content" >
+                            <f:NumberBox ID="nbMainCost1" NoDecimal="false" NoNegative="true" MinValue="0" runat="server">
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbMainProjectCost1" NoDecimal="false" NoNegative="true" MinValue="0" runat="server" >
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbSubCost1" NoDecimal="false" NoNegative="true" MinValue="0" runat="server">
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbSubProjectCost1" NoDecimal="false" NoNegative="true" MinValue="0" runat="server" >
+                                                    </f:NumberBox>
+                        </td>
+                         <td class="f-widget-content" rowspan="8">
+                           <f:NumberBox ID="nbJianAnCost" NoDecimal="false" NoNegative="true" MinValue="0" runat="server">
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" rowspan="8">
+                           <f:NumberBox ID="nbJianAnProjectCost" NoDecimal="false" NoNegative="true" MinValue="0" runat="server" >
+                                                    </f:NumberBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-widget-content label">
+                            2
+                        </td>
+                        <td class="f-widget-content" >
+                            安全技术
+                        </td>
+                        <td class="f-widget-content" >
+                            <f:NumberBox ID="nbMainCost2" NoDecimal="false" NoNegative="true" MinValue="0" runat="server">
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbMainProjectCost2" NoDecimal="false" NoNegative="true" MinValue="0" runat="server" >
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbSubCost2" NoDecimal="false" NoNegative="true" MinValue="0" runat="server">
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbSubProjectCost2" NoDecimal="false" NoNegative="true" MinValue="0" runat="server" >
+                                                    </f:NumberBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-widget-content label">
+                            3
+                        </td>
+                        <td class="f-widget-content" >
+                            职业健康
+                        </td>
+                        <td class="f-widget-content" >
+                            <f:NumberBox ID="nbMainCost3" NoDecimal="false" NoNegative="true" MinValue="0" runat="server">
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbMainProjectCost3" NoDecimal="false" NoNegative="true" MinValue="0" runat="server" >
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbSubCost3" NoDecimal="false" NoNegative="true" MinValue="0" runat="server">
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbSubProjectCost3" NoDecimal="false" NoNegative="true" MinValue="0" runat="server" >
+                                                    </f:NumberBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-widget-content label">
+                            4
+                        </td>
+                        <td class="f-widget-content" >
+                            安全防护
+                        </td>
+                        <td class="f-widget-content" >
+                            <f:NumberBox ID="nbMainCost4" NoDecimal="false" NoNegative="true" MinValue="0" runat="server">
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbMainProjectCost4" NoDecimal="false" NoNegative="true" MinValue="0" runat="server" >
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbSubCost4" NoDecimal="false" NoNegative="true" MinValue="0" runat="server">
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbSubProjectCost4" NoDecimal="false" NoNegative="true" MinValue="0" runat="server" >
+                                                    </f:NumberBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-widget-content label">
+                            5
+                        </td>
+                        <td class="f-widget-content" >
+                            化工试车
+                        </td>
+                        <td class="f-widget-content" >
+                            <f:NumberBox ID="nbMainCost5" NoDecimal="false" NoNegative="true" MinValue="0" runat="server">
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbMainProjectCost5" NoDecimal="false" NoNegative="true" MinValue="0" runat="server" >
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbSubCost5" NoDecimal="false" NoNegative="true" MinValue="0" runat="server">
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbSubProjectCost5" NoDecimal="false" NoNegative="true" MinValue="0" runat="server" >
+                                                    </f:NumberBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-widget-content label">
+                            6
+                        </td>
+                        <td class="f-widget-content" >
+                            教育培训
+                        </td>
+                        <td class="f-widget-content" >
+                            <f:NumberBox ID="nbMainCost6" NoDecimal="false" NoNegative="true" MinValue="0" runat="server">
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbMainProjectCost6" NoDecimal="false" NoNegative="true" MinValue="0" runat="server" >
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbSubCost6" NoDecimal="false" NoNegative="true" MinValue="0" runat="server">
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbSubProjectCost6" NoDecimal="false" NoNegative="true" MinValue="0" runat="server" >
+                                                    </f:NumberBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-widget-content label">
+                            7
+                        </td>
+                        <td class="f-widget-content" >
+                            文明施工环境保护
+                        </td>
+                        <td class="f-widget-content" >
+                            <f:NumberBox ID="nbMainCost7" NoDecimal="false" NoNegative="true" MinValue="0" runat="server">
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbMainProjectCost7" NoDecimal="false" NoNegative="true" MinValue="0" runat="server" >
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbSubCost7" NoDecimal="false" NoNegative="true" MinValue="0" runat="server">
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbSubProjectCost7" NoDecimal="false" NoNegative="true" MinValue="0" runat="server">
+                                                    </f:NumberBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-widget-content label" colspan="2">
+                            合计
+                        </td>
+                        <td class="f-widget-content" >
+                            <f:NumberBox ID="nbMainCost" NoDecimal="false" NoNegative="true" MinValue="0" runat="server" >
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbMainProjectCost" NoDecimal="false" NoNegative="true" MinValue="0" runat="server" >
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbSubCost" NoDecimal="false" NoNegative="true" MinValue="0" runat="server" >
+                                                    </f:NumberBox>
+                        </td>
+                        <td class="f-widget-content" >
+                           <f:NumberBox ID="nbSubProjectCost" NoDecimal="false" NoNegative="true" MinValue="0" runat="server">
+                                                    </f:NumberBox>
+                        </td>
+                    </tr>
+                </table>
+            </f:ContentPanel>
+        </Items>
+    </f:Panel>
     </form>
 </body>
 </html>

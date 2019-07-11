@@ -43,7 +43,7 @@
             <f:FormRow>
                 <Items>
                     <f:HtmlEditor runat="server" Label="方案模板" ID="txtFileContents" ShowLabel="false"
-                        Editor="UMEditor" BasePath="~/res/umeditor/" ToolbarSet="Full" Height="400" LabelAlign="Right">
+                        Editor="UMEditor" BasePath="~/res/umeditor/" ToolbarSet="Full" Height="360" LabelAlign="Right">
                     </f:HtmlEditor>
                 </Items>
             </f:FormRow>

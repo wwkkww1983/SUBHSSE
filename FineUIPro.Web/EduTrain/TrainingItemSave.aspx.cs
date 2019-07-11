@@ -113,7 +113,7 @@ namespace FineUIPro.Web.EduTrain
                 trainingItem.TrainingId = this.TrainingId;
                 this.TrainingItemId = trainingItem.TrainingItemId;
                 BLL.TrainingItemService.AddTrainingItem(trainingItem);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加培训教材库");
+                BLL.LogService.AddSys_Log(this.CurrUser, trainingItem.TrainingItemCode, trainingItem.TrainingItemId, BLL.Const.TrainDBMenuId, BLL.Const.BtnAdd);
             }
             else
             {
@@ -124,7 +124,7 @@ namespace FineUIPro.Web.EduTrain
                     trainingItem.TrainingId = t.TrainingId;
                 }
                 BLL.TrainingItemService.UpdateTrainingItem(trainingItem);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改培训教材库");
+                BLL.LogService.AddSys_Log(this.CurrUser, trainingItem.TrainingItemCode, trainingItem.TrainingItemId, BLL.Const.TrainDBMenuId, BLL.Const.BtnModify);
             }
             if (isClose)
             {
@@ -209,11 +209,12 @@ namespace FineUIPro.Web.EduTrain
                         BLL.TrainingItemService.UpdateTrainingItemIsPass(trainingItem);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【培训教材明细】上报到集团公司" + idList.Count.ToString() + "条数据；");
+                
+                BLL.LogService.AddSys_Log(this.CurrUser, "【培训教材明细】上传到服务器" + idList.Count.ToString() + "条数据；", null, BLL.Const.TrainDBMenuId, BLL.Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【培训教材明细】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【培训教材明细】上传到服务器失败；", null, BLL.Const.TrainDBMenuId, BLL.Const.BtnUploadResources);
             }
         }
         #endregion        
@@ -226,6 +227,10 @@ namespace FineUIPro.Web.EduTrain
         /// <returns></returns>
         private void GetButtonPower()
         {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
             var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.TrainDBMenuId);
             if (buttonList.Count() > 0)
             {
@@ -264,11 +269,18 @@ namespace FineUIPro.Web.EduTrain
         /// <param name="e"></param>
         protected void btnUploadResources_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.TrainingItemId))
+            if (this.btnSave.Hidden)
             {
-                SaveData(BLL.Const.UpState_1, false);
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/Training&type=-1", TrainingItemId)));
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/Training&menuId=9D99A981-7380-4085-84FA-8C3B1AFA6202", TrainingItemId)));
+            else
+            {
+                if (string.IsNullOrEmpty(this.TrainingItemId))
+                {
+                    SaveData(BLL.Const.UpState_1, false);
+                }
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/Training&menuId={1}", TrainingItemId, BLL.Const.TrainDBMenuId)));
+            }
         }
     }
 }

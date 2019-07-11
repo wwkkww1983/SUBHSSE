@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BLL;
+﻿using BLL;
 using Model;
+using System;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace FineUIPro.Web.ProjectData
 {
@@ -37,7 +35,21 @@ namespace FineUIPro.Web.ProjectData
             {
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 BLL.ConstValue.InitConstValueDropDownList(this.drpProjectType, ConstValue.Group_ProjectType, false);
-                         
+                List<Model.Sys_User> myList = new List<Model.Sys_User>();
+                myList = (from x in Funs.DB.Sys_User
+                          join y in Funs.DB.Base_Unit
+                          on x.UnitId equals y.UnitId
+                          where y.IsThisUnit == true
+                          orderby x.UserName
+                          select x).ToList();
+                RadioButtonList1.DataTextField = "UserName";
+                RadioButtonList1.DataValueField = "UserId";
+                RadioButtonList1.DataSource = myList;
+                RadioButtonList1.DataBind();
+                RadioButtonList2.DataTextField = "UserName";
+                RadioButtonList2.DataValueField = "UserId";
+                RadioButtonList2.DataSource = myList;
+                RadioButtonList2.DataBind();
                 this.ProjectId = Request.QueryString["ProjectId"];
                 this.txtProjectState.Text = "施工中";
                 ///项目经理
@@ -46,6 +58,26 @@ namespace FineUIPro.Web.ProjectData
                 BLL.UserService.InitUserDropDownList(this.drpConstructionManager, string.Empty, true);
                 ///安全经理
                 BLL.UserService.InitUserDropDownList(this.drpHSSEManager, string.Empty, true);
+                BLL.UnitService.InitUnitDropDownList(this.drpUnit, string.Empty, true);
+                var thisUnit = BLL.CommonService.GetIsThisUnit();
+                if (thisUnit != null)
+                {
+                    this.drpUnit.SelectedValue = thisUnit.UnitId;
+                    if (thisUnit.UnitId == BLL.Const.UnitId_6)
+                    {
+                        this.drpUnit.Label = "所属分公司";
+                    }
+                    if (thisUnit.UnitId == BLL.Const.UnitId_ECEC)
+                    {
+                        this.ckIsUpTotalMonth.Hidden = false;
+                    }
+                    if (thisUnit.UnitId == BLL.Const.UnitId_TCC_)
+                    {
+                        this.trAPP.Hidden = false;
+                        this.trIsForeign.Hidden = false;
+                    }
+                }
+
                 if (!String.IsNullOrEmpty(this.ProjectId))
                 {
                     var project = BLL.ProjectService.GetProjectByProjectId(this.ProjectId);
@@ -56,7 +88,7 @@ namespace FineUIPro.Web.ProjectData
                         this.txtProjectAddress.Text = project.ProjectAddress;
                         this.txtWorkRange.Text = project.WorkRange;
                         this.txtContractNo.Text = project.ContractNo;
-                        if(project.Duration!=null)
+                        if (project.Duration != null)
                         {
                             this.txtDuration.Text = project.Duration.ToString();
                         }
@@ -69,7 +101,7 @@ namespace FineUIPro.Web.ProjectData
                             this.txtEndDate.Text = string.Format("{0:yyyy-MM-dd}", project.EndDate);
                         }
 
-                        this.txtShortName.Text = project.ShortName;                        
+                        this.txtShortName.Text = project.ShortName;
                         if (!string.IsNullOrEmpty(project.ProjectType))
                         {
                             this.drpProjectType.SelectedValue = project.ProjectType;
@@ -79,7 +111,7 @@ namespace FineUIPro.Web.ProjectData
                         var m = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.RoleId == BLL.Const.ProjectManager);
                         if (m != null)
                         {
-                             this.drpProjectManager.SelectedValue  = m.UserId;
+                            this.drpProjectManager.SelectedValue = m.UserId;
                         }
                         ///施工经理 
                         var c = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.RoleId == BLL.Const.ConstructionManager);
@@ -106,8 +138,25 @@ namespace FineUIPro.Web.ProjectData
                         {
                             this.txtProjectState.Text = "施工中";
                         }
-
+                        if (!string.IsNullOrEmpty(project.UnitId))
+                        {
+                            this.drpUnit.SelectedValue = project.UnitId;
+                        }
+                        if (project.ProjectMainPerson != null)
+                        {
+                            string[] us = project.ProjectMainPerson.Split('|');
+                            DropDownBox1.Values = us;
+                        }
+                        if (project.ProjectLiaisonPerson != null)
+                        {
+                            string[] us = project.ProjectLiaisonPerson.Split('|');
+                            DropDownBox2.Values = us;
+                        }
                         this.ckIsUpTotalMonth.Checked = project.IsUpTotalMonth.Value;
+                        if (project.IsForeign == true)
+                        {
+                            this.ckbIsForeign.Checked = true;
+                        }
                     }
                 }
             }
@@ -123,7 +172,7 @@ namespace FineUIPro.Web.ProjectData
             Model.Base_Project project = new Base_Project
             {
                 ProjectCode = this.txtProjectCode.Text.Trim(),
-                ProjectName = this.txtProjectName.Text.Trim(),
+                ProjectName = Regex.Replace(this.txtProjectName.Text, @"\s", ""),
                 ProjectAddress = this.txtProjectAddress.Text.Trim(),
                 WorkRange = this.txtWorkRange.Text.Trim(),
                 ContractNo = this.txtContractNo.Text.Trim(),
@@ -143,25 +192,37 @@ namespace FineUIPro.Web.ProjectData
             {
                 project.ProjectType = this.drpProjectType.SelectedValue;
             }
+            if (this.drpUnit.SelectedValue != BLL.Const._Null)
+            {
+                project.UnitId = this.drpUnit.SelectedValue;
+            }
             project.PostCode = this.txtPostCode.Text.Trim();
+            project.ProjectMainPerson = String.Join("|", DropDownBox1.Values);
+            project.ProjectLiaisonPerson = String.Join("|", DropDownBox2.Values);
             project.IsUpTotalMonth = Convert.ToBoolean(this.ckIsUpTotalMonth.Checked);
+            project.IsForeign = Convert.ToBoolean(this.ckbIsForeign.Checked);
             if (String.IsNullOrEmpty(this.ProjectId))
             {
                 project.ProjectId = SQLHelper.GetNewID(typeof(Model.Base_Project));
                 project.ProjectState = BLL.Const.ProjectState_1;
                 this.ProjectId = project.ProjectId;
                 BLL.ProjectService.AddProject(project);
-                BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "新增项目信息！", project.ProjectCode); 
+                BLL.LogService.AddSys_Log(this.CurrUser, project.ProjectCode, project.ProjectId, BLL.Const.ProjectSetMenuId, BLL.Const.BtnAdd);
             }
             else
             {
+                var getProject = BLL.ProjectService.GetProjectByProjectId(this.ProjectId);
+                if (getProject != null)
+                {
+                    project.FromProjectId = getProject.FromProjectId;
+                }
                 project.ProjectId = this.ProjectId;
                 BLL.ProjectService.UpdateProject(project);
-                BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改项目信息！", project.ProjectCode);
+                BLL.LogService.AddSys_Log(this.CurrUser, project.ProjectCode, project.ProjectId, BLL.Const.ProjectSetMenuId, BLL.Const.BtnModify);
             }
 
             this.SetProjectManager(project.ProjectId);/// 设置项目、施工、安全经理
-            ShowNotify("保存数据成功!", MessageBoxIcon.Success);   
+            ShowNotify("保存数据成功!", MessageBoxIcon.Success);
             // 2. 关闭本窗体，然后刷新父窗体
             // PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
             // 2. 关闭本窗体，然后回发父窗体
@@ -169,7 +230,7 @@ namespace FineUIPro.Web.ProjectData
             //PageContext.RegisterStartupScript(ActiveWindow.GetWriteBackValueReference(wedId) + ActiveWindow.GetHideReference());
 
         }
-        
+
         #region 验证项目名称、项目编号是否存在
         /// <summary>
         /// 验证项目名称、项目编号是否存在
@@ -192,6 +253,7 @@ namespace FineUIPro.Web.ProjectData
         }
         #endregion
 
+        #region 设置项目、施工、安全经理
         /// <summary>
         /// 设置项目、施工、安全经理
         /// </summary>
@@ -205,8 +267,8 @@ namespace FineUIPro.Web.ProjectData
             if (project != null)
             {
                 string OldProjectManager = string.Empty; ////项目经理
-                var m = Funs.DB.Project_ProjectUser.FirstOrDefault(x=>x.ProjectId == projectId && x.RoleId == BLL.Const.ProjectManager);
-                if(m != null)
+                var m = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId == BLL.Const.ProjectManager);
+                if (m != null)
                 {
                     OldProjectManager = m.UserId;
                 }
@@ -239,12 +301,12 @@ namespace FineUIPro.Web.ProjectData
                             IsPost = true
                         };
                         BLL.ProjectUserService.AddProjectUser(newProjectUser);
-                    }                   
+                    }
                 }
                 ////施工经理
                 string OldConstructionManager = string.Empty;
-                var c  = Funs.DB.Project_ProjectUser.FirstOrDefault(x=>x.ProjectId == projectId && x.RoleId == BLL.Const.ConstructionManager);
-                if(c != null)
+                var c = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId == BLL.Const.ConstructionManager);
+                if (c != null)
                 {
                     OldConstructionManager = c.UserId;
                 }
@@ -280,7 +342,7 @@ namespace FineUIPro.Web.ProjectData
                     }
                 }
                 ///安全经理
-                string OldHSSEManager =string.Empty;
+                string OldHSSEManager = string.Empty;
                 var h = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId == BLL.Const.HSSEManager);
                 if (h != null)
                 {
@@ -316,8 +378,9 @@ namespace FineUIPro.Web.ProjectData
                         };
                         BLL.ProjectUserService.AddProjectUser(newProjectUser);
                     }
-                }                
+                }
             }
         }
+        #endregion
     }
 }

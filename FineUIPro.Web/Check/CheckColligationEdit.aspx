@@ -59,9 +59,15 @@
                 <Items>
                     <f:DropDownList ID="drpCheckPerson" runat="server" Label="检查组长" EnableEdit="true">
                     </f:DropDownList>
+                    <f:Label runat="server"></f:Label>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
                     <f:DropDownList ID="drpPartInPersons" runat="server" Label="组成员" EnableEdit="true" EnableMultiSelect="true"
                         ForceSelection="false" MaxLength="2000" EnableCheckBoxSelect="true">
                     </f:DropDownList>
+                    <f:TextBox  runat="server" ID="txtPartInPersonNames" MaxLength="1000" Label="组成员"></f:TextBox>
                 </Items>
             </f:FormRow>
        <%--     <f:FormRow>
@@ -74,15 +80,18 @@
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1" DataIDField="CheckColligationDetailId"
                         DataKeyNames="CheckColligationDetailId" EnableMultiSelect="false" ShowGridHeader="true" Height="185" OnRowCommand="Grid1_RowCommand"
-                        EnableColumnLines="true" AutoScroll="true" EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick">
+                        EnableColumnLines="true" EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick">
                         <Toolbars>
                             <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
                                 <Items>
                                     <%--<f:Button ID="btnCreateRectifyNotice" Icon="PageWhiteGet" runat="server" ToolTip="生成隐患整改通知单" ValidateForms="SimpleForm1"
                                         OnClick="btnCreateRectifyNotice_Click">
                                     </f:Button>--%>
-                                     <f:Label ID="Label1" runat="server" CssClass="fontred" Label="说明" Text="双击检查项填报相关内容" LabelAlign="right" LabelWidth="50px"></f:Label>
-                                    <f:Label ID="Label2" runat="server" Width="400px"></f:Label>
+                                    <f:Label ID="Label1" runat="server" CssClass="fontred" Label="说明" Text="双击检查项填报相关内容" LabelAlign="right" LabelWidth="50px"></f:Label>
+                                     <f:ToolbarFill runat="server"></f:ToolbarFill>
+                                    <f:Button ID="btnImport" ToolTip="导入" Icon="PageExcel" runat="server" ValidateForms="SimpleForm1"
+                                            OnClick="btnImport_Click">
+                                    </f:Button>
                                     <f:Button ID="btnSelect" Icon="ShapeSquareSelect" runat="server" ToolTip="选择" ValidateForms="SimpleForm1"
                                         OnClick="btnSelect_Click">
                                     </f:Button>
@@ -100,7 +109,7 @@
                             <%--<f:RenderField Width="120px" ColumnID="CheckItemStr" DataField="CheckItemStr" SortField="CheckItemStr"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="检查项">
                             </f:RenderField>--%>
-                            <f:LinkButtonField Width="120px" HeaderText="检查项" ConfirmTarget="Top" CommandName="click"
+                            <f:LinkButtonField Width="120px" HeaderText="检查项" ConfirmTarget="Parent" CommandName="click"
                         TextAlign="Center" ToolTip="点击增加一条相同记录" DataTextField="CheckItemStr" ColumnID="CheckItemStr" />
                             <f:RenderField Width="220px" ColumnID="Unqualified" DataField="Unqualified" SortField="Unqualified"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="不合格项描述" ExpandUnusedSpace="true">
@@ -182,11 +191,11 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="Window1" Title="编辑检查项明细" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="1100px" Height="520px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
@@ -194,7 +203,7 @@
             Icon="Pencil" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Icon="Delete" ConfirmText="确定删除当前数据？" ConfirmTarget="Top" runat="server" Text="删除"
+            Icon="Delete" ConfirmText="确定删除当前数据？" ConfirmTarget="Parent" runat="server" Text="删除"
             >
         </f:MenuButton>
     </f:Menu>

@@ -47,7 +47,7 @@
                     </f:Toolbar>
                 </Toolbars>               
                 <Items>
-                    <f:Tree ID="tvProjectSafetyData" KeepCurrentSelection="true"
+                    <f:Tree ID="tvProjectSafetyData" KeepCurrentSelection="true" Width="280px"
                         ShowHeader="false" OnNodeCommand="tvProjectSafetyData_NodeCommand" runat="server"
                         ShowBorder="false" EnableSingleClickExpand="true">
                         <Listeners>
@@ -72,9 +72,9 @@
                                     <f:Button ID="btnNewDetail" ToolTip="新增" Icon="Add" runat="server" Hidden="true"
                                         OnClick="btnNewDetail_Click">
                                     </f:Button>  
-                            <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
-                                EnableAjax="false" DisableControlBeforePostBack="false">
-                            </f:Button>                                 
+                                    <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
+                                        EnableAjax="false" DisableControlBeforePostBack="false">
+                                    </f:Button>                                 
                                 </Items>
                             </f:Toolbar>
                         </Toolbars>
@@ -133,8 +133,8 @@
         </Items>
     </f:Menu>   
     <f:Window ID="Window1" Title="文件内容" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="800px" Height="550px">
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Width="800px" Height="560px">
     </f:Window>
     </form>
     <script type="text/javascript">

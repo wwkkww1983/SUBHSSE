@@ -34,8 +34,7 @@
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" Hidden="true"
                                 runat="server">
                             </f:Button>
-                            <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
-                                EnableAjax="false" DisableControlBeforePostBack="false">
+                            <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp">
                             </f:Button>
                         </Items>
                     </f:Toolbar>
@@ -81,11 +80,15 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="HSSE日志暨管理数据收集" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="1024px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1024px"
         Height="650px">
     </f:Window>
        <f:Window ID="Window2" Title="打印HSSE日志暨管理数据收集" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="1024px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1024px"
+        Height="768px">
+    </f:Window>
+       <f:Window ID="Window3" Title="导出HSSE日志暨管理数据收集" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1024px"
         Height="768px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
@@ -96,7 +99,7 @@
             runat="server" Icon="Printer" Text="打印">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server"
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server"
             Text="删除">
         </f:MenuButton>
     </f:Menu>

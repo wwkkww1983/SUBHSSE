@@ -228,9 +228,14 @@ namespace FineUIPro.Web.Hazard
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除危险观察整改", rowID);
-                    BLL.Hazard_RegistrationService.DeleteRegistration(rowID);
+                    var registration = BLL.Hazard_RegistrationService.GetRegistrationByRegistrationId(rowID);
+                    if (registration != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, registration.HazardCode, registration.RegistrationId, BLL.Const.RegisterMenuId, BLL.Const.BtnDelete);
+                        BLL.Hazard_RegistrationService.DeleteRegistration(rowID);
+                    }
                 }
+
                 BindGrid();
                 ShowNotify("删除数据成功!（表格数据已重新绑定）");
             }

@@ -101,8 +101,8 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="编辑事故处理" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
-        Width="1024px" Height="400px">
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+        Width="1024px" Height="500px">
     </f:Window>
      <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true"
             EnableMaximize="true" Target="Self" EnableResize="true" runat="server"
@@ -113,7 +113,7 @@
             runat="server" Text="编辑" Icon="TableEdit">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" Hidden="true"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除" Icon="Delete">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除" Icon="Delete">
         </f:MenuButton>
     </f:Menu>
     </form>

@@ -98,6 +98,7 @@ namespace BLL
                 newGeneralEquipmentQuality.CompileMan = generalEquipmentQuality.CompileMan;
                 newGeneralEquipmentQuality.CompileDate = generalEquipmentQuality.CompileDate;
                 newGeneralEquipmentQuality.InDate = generalEquipmentQuality.InDate;
+                newGeneralEquipmentQuality.QRCodeAttachUrl = generalEquipmentQuality.QRCodeAttachUrl;
                 db.SubmitChanges();
             }
         }

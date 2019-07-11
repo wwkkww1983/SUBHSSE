@@ -93,8 +93,8 @@ namespace FineUIPro.Web.Check
                     if (!string.IsNullOrEmpty(checkColligation.PartInPersonIds))
                     {
                         this.drpPartInPersons.SelectedValueArray = checkColligation.PartInPersonIds.Split(',');
-                    }    
-                   
+                    }
+                    this.txtPartInPersonNames.Text = checkColligation.PartInPersonNames;
                     this.txtDaySummary.Text = HttpUtility.HtmlDecode(checkColligation.DaySummary);
                     checkColligationDetails = (from x in Funs.DB.View_Check_CheckColligationDetail where x.CheckColligationId == this.CheckColligationId orderby x.CheckItem select x).ToList();
                 }
@@ -318,6 +318,7 @@ namespace FineUIPro.Web.Check
                     checkColligation.PartInPersonIds = partInPersonIds.Substring(0, partInPersonIds.LastIndexOf(","));
                     checkColligation.PartInPersons = partInPersons.Substring(0, partInPersons.LastIndexOf(","));
                 }
+                checkColligation.PartInPersonNames = this.txtPartInPersonNames.Text.Trim();
 
                 checkColligation.CheckTime = Funs.GetNewDateTime(this.txtCheckDate.Text.Trim());
                 checkColligation.DaySummary = HttpUtility.HtmlEncode(this.txtDaySummary.Text.Trim());
@@ -326,7 +327,7 @@ namespace FineUIPro.Web.Check
                 this.CheckColligationId = checkColligation.CheckColligationId;
                 checkColligation.CompileMan = this.CurrUser.UserId;
                 BLL.Check_CheckColligationService.AddCheckColligation(checkColligation);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加综合检查", checkColligation.CheckColligationId);
+                BLL.LogService.AddSys_Log(this.CurrUser, checkColligation.CheckColligationCode, checkColligation.CheckColligationId, BLL.Const.ProjectCheckColligationMenuId, BLL.Const.BtnAdd);
             }
         }
 
@@ -449,6 +450,9 @@ namespace FineUIPro.Web.Check
                 checkColligation.PartInPersonIds = partInPersonIds.Substring(0, partInPersonIds.LastIndexOf(","));
                 checkColligation.PartInPersons = partInPersons.Substring(0, partInPersons.LastIndexOf(","));
             }
+
+            checkColligation.PartInPersonNames = this.txtPartInPersonNames.Text.Trim();
+
             //检查区域
             //string workAreaIds = string.Empty;
             //foreach (var item in this.drpCheckAreas.SelectedValueArray)
@@ -472,7 +476,7 @@ namespace FineUIPro.Web.Check
             {
                 checkColligation.CheckColligationId = this.CheckColligationId;
                 BLL.Check_CheckColligationService.UpdateCheckColligation(checkColligation);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改综合检查", checkColligation.CheckColligationId);
+                BLL.LogService.AddSys_Log(this.CurrUser, checkColligation.CheckColligationCode, checkColligation.CheckColligationId, BLL.Const.ProjectCheckColligationMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -480,7 +484,7 @@ namespace FineUIPro.Web.Check
                 this.CheckColligationId = checkColligation.CheckColligationId;
                 checkColligation.CompileMan = this.CurrUser.UserId;
                 BLL.Check_CheckColligationService.AddCheckColligation(checkColligation);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加综合检查", checkColligation.CheckColligationId);
+                BLL.LogService.AddSys_Log(this.CurrUser, checkColligation.CheckColligationCode, checkColligation.CheckColligationId, BLL.Const.ProjectCheckColligationMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectCheckColligationMenuId, this.CheckColligationId, (type == BLL.Const.BtnSubmit ? true : false), this.txtCheckDate.Text.Trim(), "../Check/CheckColligationView.aspx?CheckColligationId={0}");
@@ -564,7 +568,12 @@ namespace FineUIPro.Web.Check
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.Check_CheckColligationDetailService.DeleteCheckColligationDetailById(rowID);
+                    var getV = BLL.Check_CheckColligationDetailService.GetCheckColligationDetailByCheckColligationDetailId(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.CheckItem, getV.CheckColligationDetailId, BLL.Const.ProjectCheckColligationMenuId, BLL.Const.BtnDelete);
+                        BLL.Check_CheckColligationDetailService.DeleteCheckColligationDetailById(rowID);
+                    }
                 }
                 checkColligationDetails = (from x in Funs.DB.View_Check_CheckColligationDetail where x.CheckColligationId == this.CheckColligationId orderby x.CheckItem select x).ToList();
                 Grid1.DataSource = checkColligationDetails;
@@ -659,5 +668,15 @@ namespace FineUIPro.Web.Check
             }
         }
         #endregion
+
+        protected void btnImport_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.CheckColligationId))
+            {
+                this.SaveData(BLL.Const.BtnSave);
+            }
+
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckColligationDetailIn.aspx?CheckColligationId={0}", this.CheckColligationId, "导入 - "), "导入", 1024, 560));
+        }
     }
 }

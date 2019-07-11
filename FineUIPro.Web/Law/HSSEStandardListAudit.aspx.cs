@@ -248,11 +248,11 @@ namespace FineUIPro.Web.Law
                         BLL.HSSEStandardsListService.UpdateHSSEStandardsList(standardsList);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【标准规范】上报到集团公司" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【标准规范】上传到服务器" + idList.Count.ToString() + "条数据；", null, BLL.Const.HSSEStandardListMenuId, BLL.Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【标准规范】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【标准规范】上传到服务器失败；", null, BLL.Const.HSSEStandardListMenuId, BLL.Const.BtnUploadResources);
             }
         }
 
@@ -284,7 +284,7 @@ namespace FineUIPro.Web.Law
                     }
                 }
 
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "审核安全标准规范");
+                BLL.LogService.AddSys_Log(this.CurrUser, null, null, BLL.Const.HSSEStandardListMenuId, BLL.Const.BtnAuditing);
                 BindGrid();
                 ShowNotify("操作成功!");
                 if (isPass)

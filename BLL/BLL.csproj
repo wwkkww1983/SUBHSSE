@@ -39,6 +39,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Apache.NMS">
+      <HintPath>..\packages\Apache.NMS.1.7.1\lib\net40\Apache.NMS.dll</HintPath>
+    </Reference>
+    <Reference Include="Apache.NMS.ActiveMQ">
+      <HintPath>..\packages\Apache.NMS.ActiveMQ.1.7.2\lib\net40\Apache.NMS.ActiveMQ.dll</HintPath>
+    </Reference>
     <Reference Include="FineUIPro, Version=3.1.0.2, Culture=neutral, PublicKeyToken=9cbe753c029f291a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\FineUIPro\FineUIPro.dll</HintPath>
@@ -47,11 +53,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\Microsoft.SQLServer.ManagedDTS.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\FineUIPro\Net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.DirectoryServices" />
@@ -85,6 +91,8 @@
     <Compile Include="Administrative\DriverManagerService.cs" />
     <Compile Include="BaseInfo\AccidentTypeService.cs" />
     <Compile Include="BaseInfo\CertificateService.cs" />
+    <Compile Include="BaseInfo\CheckItemDetailService.cs" />
+    <Compile Include="BaseInfo\CheckItemSetService.cs" />
     <Compile Include="BaseInfo\ContentTypeService.cs" />
     <Compile Include="BaseInfo\CostTypeService.cs" />
     <Compile Include="BaseInfo\DepartService.cs" />
@@ -94,6 +102,8 @@
     <Compile Include="BaseInfo\GoodsDefService.cs" />
     <Compile Include="BaseInfo\GoodsTypeService.cs" />
     <Compile Include="BaseInfo\HSSEStandardListTypeService.cs" />
+    <Compile Include="BaseInfo\HSSE_Hazard_HazardRegisterTypesService.cs" />
+    <Compile Include="BaseInfo\HSSE_Hazard_PunishItemService.cs" />
     <Compile Include="BaseInfo\LawsRegulationsTypeService.cs" />
     <Compile Include="BaseInfo\LicenseTypeService.cs" />
     <Compile Include="BaseInfo\ManageRuleTypeService.cs" />
@@ -131,8 +141,17 @@
     <Compile Include="Check\RegistrationService.cs" />
     <Compile Include="Check\ViolationPersonService.cs" />
     <Compile Include="Check\SupervisionNoticeService.cs" />
+    <Compile Include="CostGoods\SubPayRegistrationService.cs" />
+    <Compile Include="EduTrain\EduTrain_TrainTestService.cs" />
+    <Compile Include="Manager\PerformanceManagementReportService.cs" />
+    <Compile Include="Manager\SubUploadWeekService.cs" />
+    <Compile Include="OpenService\SynchronizationService.cs" />
+    <Compile Include="OpenService\MonitorService.cs" />
     <Compile Include="Common\CodeRecordsService.cs" />
     <Compile Include="CostGoods\CostManageItemService.cs" />
+    <Compile Include="CostGoods\HSSECostUnitManageItemService.cs" />
+    <Compile Include="CostGoods\HSSECostUnitManageService.cs" />
+    <Compile Include="CostGoods\HSSECostManageService.cs" />
     <Compile Include="CostGoods\CostManageService.cs" />
     <Compile Include="CostGoods\CostSmallDetailItemService.cs" />
     <Compile Include="CostGoods\CostSmallDetailService.cs" />
@@ -146,8 +165,20 @@
     <Compile Include="CostGoods\MeasuresPlanService.cs" />
     <Compile Include="CostGoods\PayRegistrationService.cs" />
     <Compile Include="DynamicTHeaderHepler.cs" />
+    <Compile Include="EduTrain\CompanyTrainingItemService.cs" />
+    <Compile Include="EduTrain\CompanyTrainingService.cs" />
     <Compile Include="EduTrain\EduTrain_TrainRecordDetailService.cs" />
     <Compile Include="EduTrain\EduTrain_TrainRecordService.cs" />
+    <Compile Include="EduTrain\ModelTestRecordItemService.cs" />
+    <Compile Include="EduTrain\ModelTestRecordService.cs" />
+    <Compile Include="EduTrain\PlanItemService.cs" />
+    <Compile Include="EduTrain\PlanService.cs" />
+    <Compile Include="EduTrain\TaskService.cs" />
+    <Compile Include="EduTrain\TestPlanService.cs" />
+    <Compile Include="EduTrain\TestRecordItemService.cs" />
+    <Compile Include="EduTrain\TestRecordService.cs" />
+    <Compile Include="EduTrain\TestTrainingItemService.cs" />
+    <Compile Include="EduTrain\TestTrainingService.cs" />
     <Compile Include="Emergency\EmergencyListService.cs" />
     <Compile Include="Emergency\DrillRecordListService.cs" />
     <Compile Include="Emergency\EmergencySupplyService.cs" />
@@ -165,8 +196,15 @@
     <Compile Include="Hazard\Hazard_EnvironmentalRiskListService.cs" />
     <Compile Include="Hazard\Hazard_HazardListService.cs" />
     <Compile Include="Hazard\Hazard_HazardSelectedItemService.cs" />
+    <Compile Include="HiddenInspection\AttachFileService.cs" />
+    <Compile Include="HiddenInspection\HSSE_Hazard_CheckSpecialAuditService.cs" />
+    <Compile Include="HiddenInspection\HSSE_Hazard_CheckSpecialService.cs" />
+    <Compile Include="HiddenInspection\HSSE_Hazard_HazardRegisterRecordService.cs" />
+    <Compile Include="HiddenInspection\HSSE_Hazard_HazardRegisterService.cs" />
+    <Compile Include="HiddenInspection\HSSE_Hazard_SafeSupervisionService.cs" />
     <Compile Include="HSSESystem\ServerSafetyInstitutionService.cs" />
     <Compile Include="InformationProject\ExposureService.cs" />
+    <Compile Include="ManagementReport\SafeReportUnitItemService.cs" />
     <Compile Include="ManagementReport\SafeReportService.cs" />
     <Compile Include="ManagementReport\SafeReportItemService.cs" />
     <Compile Include="Manager\AccidentDesciptionCService.cs" />
@@ -204,6 +242,7 @@
     <Compile Include="Manager\MonthReportBService.cs" />
     <Compile Include="Manager\MonthReportCService.cs" />
     <Compile Include="Manager\MonthReportDService.cs" />
+    <Compile Include="Manager\MonthReportEService.cs" />
     <Compile Include="Manager\OtherActiveSortCService.cs" />
     <Compile Include="Manager\OtherManagementCService.cs" />
     <Compile Include="Manager\OtherWorkCService.cs" />
@@ -223,20 +262,35 @@
     <Compile Include="Manager\HSSELogMonthService.cs" />
     <Compile Include="Manager\TrainSortCService.cs" />
     <Compile Include="Manager\ViolationRecordDService.cs" />
+    <Compile Include="OpenService\GetDataService.cs" />
+    <Compile Include="Personal\Attach_ImageService.cs" />
     <Compile Include="ProjectData\ProjectSateService.cs" />
+    <Compile Include="ProjectData\ProjectSendReceiveService.cs" />
     <Compile Include="QualityAudit\EquipmentQualityAuditDetailService.cs" />
+    <Compile Include="QualityAudit\ManagePersonQualityItemService.cs" />
     <Compile Include="QualityAudit\SubUnitQualityAuditDetailService.cs" />
     <Compile Include="SafetyActivities\ThemeActivitiesService.cs" />
     <Compile Include="SafetyActivities\MonthlyRatingService.cs" />
     <Compile Include="SafetyActivities\SafetyMonthService.cs" />
     <Compile Include="SafetyActivities\FireActivitiesService.cs" />
     <Compile Include="SafetyActivities\OtherActivitiesService.cs" />
+    <Compile Include="SafetyDataE\SafetyDataEItemService.cs" />
+    <Compile Include="SafetyDataE\SafetyDataEPlanService.cs" />
+    <Compile Include="SafetyDataE\SafetyDataEService.cs" />
     <Compile Include="SecuritySystem\SafetyOrganizationService.cs" />
     <Compile Include="SecuritySystem\SafetySystemService.cs" />
     <Compile Include="SecuritySystem\SafetyInstitutionService.cs" />
     <Compile Include="SecuritySystem\SafetyManageOrganizationService.cs" />
+    <Compile Include="Service References\HSSEService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceProxyBll.cs" />
     <Compile Include="SiteConstruction\ConstructionDynamicService.cs" />
     <Compile Include="SiteConstruction\MonthPlanService.cs" />
+    <Compile Include="SitePerson\HSSE_Hazard_PunishRecordService.cs" />
+    <Compile Include="SitePerson\SendReceiveService.cs" />
     <Compile Include="SitePerson\PersonInOutService.cs" />
     <Compile Include="Solution\ExpertArgumentService.cs" />
     <Compile Include="Solution\LargerHazardService.cs" />
@@ -335,7 +389,6 @@
     <Compile Include="SafetyData\SafetyDataPlanService.cs" />
     <Compile Include="ServerCheck\CheckRectifyItemService.cs" />
     <Compile Include="ServerCheck\CheckRectifyService.cs" />
-    <Compile Include="Common\TimeDataInService.cs" />
     <Compile Include="Common\ChartControlService.cs" />
     <Compile Include="Common\ConstValue.cs" />
     <Compile Include="Common\UploadAttachmentService.cs" />
@@ -456,17 +509,129 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Scripts\jquery-3.1.0.min.map" />
-    <None Include="Scripts\jquery-3.1.0.slim.min.map" />
+    <None Include="Scripts\jquery-3.4.1.min.map" />
+    <None Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <None Include="Service References\HSSEService\BLL.HSSEService.Base_Unit.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Check_CheckInfo_Table8Item.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Check_CheckRectify.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.EduTrain_AccidentCase.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.EduTrain_AccidentCaseItem.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Information_UrgeReport.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Law_HSSEStandardsList.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Law_LawRegulationList.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Law_ManageRule.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Law_RulesRegulations.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Supervise_SubUnitReport.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Supervise_SubUnitReportItem.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Supervise_SuperviseCheckRectify.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Sys_Version.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Technique_Appraise.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Technique_Emergency.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Technique_Expert.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Technique_HazardList.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Technique_HazardListType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Technique_HAZOP.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Technique_Rectify.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Technique_RectifyItem.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Technique_SpecialScheme.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Training_Knowledge.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Training_KnowledgeItem.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Training_Training.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Training_TrainingItem.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Training_TrainTestDB.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\BLL.HSSEService.Training_TrainTestDBItem.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HSSEService\HSSEService.wsdl" />
+    <None Include="Service References\HSSEService\HSSEService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\HSSEService\HSSEService1.wsdl" />
+    <None Include="Service References\HSSEService\HSSEService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\HSSEService\HSSEService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\HSSEService\HSSEService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\jquery-3.1.0-vsdoc.js" />
-    <Content Include="Scripts\jquery-3.1.0.js" />
-    <Content Include="Scripts\jquery-3.1.0.min.js" />
-    <Content Include="Scripts\jquery-3.1.0.slim.js" />
-    <Content Include="Scripts\jquery-3.1.0.slim.min.js" />
+    <None Include="Service References\HSSEService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\HSSEService\configuration.svcinfo" />
+    <None Include="Service References\HSSEService\configuration91.svcinfo" />
+    <None Include="Service References\HSSEService\HSSEService.disco" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\HSSEService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

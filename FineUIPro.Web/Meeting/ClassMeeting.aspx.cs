@@ -65,7 +65,7 @@ namespace FineUIPro.Web.Meeting
         private void BindGrid()
         {
             string strSql = "SELECT ClassMeeting.ClassMeetingId,ClassMeeting.ProjectId,CodeRecords.Code AS   ClassMeetingCode,Unit.UnitId,Unit.UnitName,ClassMeeting.ClassMeetingName,ClassMeeting.ClassMeetingDate,ClassMeeting.CompileMan,ClassMeeting.ClassMeetingContents,ClassMeeting.CompileDate,ClassMeeting.States "
-                + @" ,(CASE WHEN ClassMeeting.States = " + BLL.Const.State_0 + " OR ClassMeeting.States IS NULL THEN '待['+Users.UserName+']提交' WHEN ClassMeeting.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
+                + @" ,(CASE WHEN ClassMeeting.States = " + BLL.Const.State_0 + " OR ClassMeeting.States IS NULL THEN '待['+ISNULL(OperateUser.UserName,Users.UserName)+']提交' WHEN ClassMeeting.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
                 + @" FROM Meeting_ClassMeeting AS ClassMeeting "
                 + @"  LEFT JOIN Sys_CodeRecords AS CodeRecords ON ClassMeeting.ClassMeetingId = CodeRecords.DataId "
                 + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON ClassMeeting.ClassMeetingId = FlowOperate.DataId AND FlowOperate.IsClosed <> 1"
@@ -220,8 +220,13 @@ namespace FineUIPro.Web.Meeting
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除班前会", rowID);
-                    BLL.ClassMeetingService.DeleteClassMeetingById(rowID);
+                    var meet = BLL.ClassMeetingService.GetClassMeetingById(rowID);
+                    if (meet != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, meet.ClassMeetingCode, meet.ClassMeetingId, BLL.Const.ProjectClassMeetingMenuId, BLL.Const.BtnDelete);
+
+                        BLL.ClassMeetingService.DeleteClassMeetingById(rowID);
+                    }
                 }
 
                 this.BindGrid();

@@ -311,8 +311,12 @@ namespace FineUIPro.Web.HSSESystem
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.HSSEManageItemService.DeleteHSSEManageItem(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除安全管理机构");
+                    var getV = BLL.HSSEManageItemService.GetHSSEManageItemById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.Names, getV.HSSEManageItemId, BLL.Const.HSSEManageMenuId, BLL.Const.BtnDelete);
+                        BLL.HSSEManageItemService.DeleteHSSEManageItem(rowID);
+                    }
                 }
 
                 BindGrid();

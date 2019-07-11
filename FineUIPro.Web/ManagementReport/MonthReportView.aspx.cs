@@ -58,16 +58,20 @@ namespace FineUIPro.Web.ManagementReport
                     decimal totalSafetyCost = 0;
                     foreach (var monthReport in monthReports)
                     {
-                        Model.Base_Project project = BLL.ProjectService.GetProjectByProjectId(monthReport.ProjectId);
-                        allProjectData += project.ProjectName + "：\r\n" + monthReport.AllProjectData + "\r\n";
-                        allManhoursData += project.ProjectName + "：\r\n" + monthReport.AllManhoursData + "\r\n";
-                        thisMonthKeyPoints += project.ProjectName + "：\r\n" + monthReport.ThisMonthKeyPoints + "\r\n";
-                        thisMonthSafetyActivity += project.ProjectName + "：\r\n" + monthReport.ThisMonthSafetyActivity + "\r\n";
-                        nextMonthWorkFocus += project.ProjectName + "：\r\n" + monthReport.NextMonthWorkFocus + "\r\n";
-                        equipmentQualityData += project.ProjectName + "：\r\n" + monthReport.EquipmentQualityData + "\r\n";
-                        thisMonthSafetyCost += monthReport.ThisMonthSafetyCost ?? 0;
-                        totalSafetyCost += monthReport.TotalSafetyCost ?? 0;
+                        var project = BLL.ProjectService.GetProjectByProjectId(monthReport.ProjectId);
+                        if (project != null)
+                        {
+                            allProjectData += project.ProjectName + "：\r\n" + monthReport.AllProjectData + "\r\n";
+                            allManhoursData += project.ProjectName + "：\r\n" + monthReport.AllManhoursData + "\r\n";
+                            thisMonthKeyPoints += project.ProjectName + "：\r\n" + monthReport.ThisMonthKeyPoints + "\r\n";
+                            thisMonthSafetyActivity += project.ProjectName + "：\r\n" + monthReport.ThisMonthSafetyActivity + "\r\n";
+                            nextMonthWorkFocus += project.ProjectName + "：\r\n" + monthReport.NextMonthWorkFocus + "\r\n";
+                            equipmentQualityData += project.ProjectName + "：\r\n" + monthReport.EquipmentQualityData + "\r\n";
+                            thisMonthSafetyCost += monthReport.ThisMonthSafetyCost ?? 0;
+                            totalSafetyCost += monthReport.TotalSafetyCost ?? 0;
+                        }
                     }
+
                     this.txtAllProjectData.Text = allProjectData;
                     this.txtAllManhoursData.Text = allManhoursData;
                     this.txtThisMonthKeyPoints.Text = thisMonthKeyPoints;

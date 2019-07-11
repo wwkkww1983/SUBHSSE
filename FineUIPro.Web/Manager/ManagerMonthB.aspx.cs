@@ -222,20 +222,24 @@ namespace FineUIPro.Web.Manager
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.ManhoursSortBService.DeleteManhoursSortsByMonthReportId(rowID);
-                    BLL.AccidentSortBService.DeleteAccidentSortsByMonthReportId(rowID);
-                    BLL.HseCostBService.DeleteHseCostsByMonthReportId(rowID);
-                    BLL.TrainSortBService.DeleteTrainSortsByMonthReportId(rowID);
-                    BLL.MeetingSortBService.DeleteMeetingSortsByMonthReportId(rowID);
-                    BLL.CheckSortBService.DeleteCheckSortsByMonthReportId(rowID);
-                    BLL.IncentiveSortBService.DeleteIncentiveSortsByMonthReportId(rowID);
-                    BLL.AccidentDetailSortBService.DeleteAccidentDetailSortsByMonthReportId(rowID);
-                    if (BLL.CostAnalyseService.getCostAnalyseByMonths(BLL.MonthReportBService.GetMonthReportByMonthReportId(rowID).Months, this.CurrUser.LoginProjectId) != null)
+                    var mont = BLL.MonthReportBService.GetMonthReportByMonthReportId(rowID);
+                    if (mont != null)
                     {
-                        BLL.CostAnalyseService.DeleteCostAnalyseByMonths(BLL.MonthReportBService.GetMonthReportByMonthReportId(rowID).Months);
+                        BLL.LogService.AddSys_Log(this.CurrUser, mont.MonthReportCode, mont.MonthReportId, BLL.Const.ProjectManagerMonthBMenuId, BLL.Const.BtnDelete);
+                        BLL.ManhoursSortBService.DeleteManhoursSortsByMonthReportId(rowID);
+                        BLL.AccidentSortBService.DeleteAccidentSortsByMonthReportId(rowID);
+                        BLL.HseCostBService.DeleteHseCostsByMonthReportId(rowID);
+                        BLL.TrainSortBService.DeleteTrainSortsByMonthReportId(rowID);
+                        BLL.MeetingSortBService.DeleteMeetingSortsByMonthReportId(rowID);
+                        BLL.CheckSortBService.DeleteCheckSortsByMonthReportId(rowID);
+                        BLL.IncentiveSortBService.DeleteIncentiveSortsByMonthReportId(rowID);
+                        BLL.AccidentDetailSortBService.DeleteAccidentDetailSortsByMonthReportId(rowID);
+                        if (BLL.CostAnalyseService.getCostAnalyseByMonths(BLL.MonthReportBService.GetMonthReportByMonthReportId(rowID).Months, this.CurrUser.LoginProjectId) != null)
+                        {
+                            BLL.CostAnalyseService.DeleteCostAnalyseByMonths(BLL.MonthReportBService.GetMonthReportByMonthReportId(rowID).Months);
+                        }                        
+                        BLL.MonthReportBService.DeleteMonthReportByMonthReportId(rowID);
                     }
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除管理月报", rowID);
-                    BLL.MonthReportBService.DeleteMonthReportByMonthReportId(rowID);
                 }
                 BindGrid();
                 ShowNotify("删除数据成功!（表格数据已重新绑定）");

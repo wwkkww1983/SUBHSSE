@@ -23,6 +23,16 @@ namespace BLL
         }
 
         /// <summary>
+        /// 根据项目Id，单位Id和月份获取安全费用管理
+        /// </summary>
+        /// <param name="costManageId"></param>
+        /// <returns></returns>
+        public static Model.CostGoods_CostManage GetCostManageByUnitIdAndDate(string projectId, string unidId, DateTime date)
+        {
+            return Funs.DB.CostGoods_CostManage.FirstOrDefault(e => e.CostManageId == projectId && e.UnitId == unidId && e.CostManageDate.Value.Year == date.Year && e.CostManageDate.Value.Month == date.Month);
+        }
+
+        /// <summary>
         /// 添加安全费用管理
         /// </summary>
         /// <param name="costManage"></param>

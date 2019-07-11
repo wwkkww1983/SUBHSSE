@@ -108,12 +108,15 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            BLL.CostTypeService.DeleteCostTypeById(hfFormID.Text);
-            BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除费用类型");
-            // 重新绑定表格，并模拟点击[新增按钮]
-            BindGrid();
-            PageContext.RegisterStartupScript("onNewButtonClick();");
-
+            var getV = BLL.CostTypeService.GetCostTypeById(hfFormID.Text);
+            if (getV != null)
+            {
+                BLL.LogService.AddSys_Log(this.CurrUser, getV.CostTypeCode, getV.CostTypeId, BLL.Const.CostTypeMenuId, BLL.Const.BtnDelete);
+                BLL.CostTypeService.DeleteCostTypeById(hfFormID.Text);
+                // 重新绑定表格，并模拟点击[新增按钮]
+                BindGrid();
+                PageContext.RegisterStartupScript("onNewButtonClick();");
+            }
         }
 
         /// <summary>
@@ -136,9 +139,12 @@ namespace FineUIPro.Web.BaseInfo
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-
-                    BLL.CostTypeService.DeleteCostTypeById(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除费用类型");
+                    var getV = BLL.CostTypeService.GetCostTypeById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.CostTypeCode, getV.CostTypeId, BLL.Const.CostTypeMenuId, BLL.Const.BtnDelete);
+                        BLL.CostTypeService.DeleteCostTypeById(rowID);
+                    }
                 }
 
                 BindGrid();
@@ -200,14 +206,15 @@ namespace FineUIPro.Web.BaseInfo
             {
                 costType.CostTypeId = SQLHelper.GetNewID(typeof(Model.Base_CostType));
                 BLL.CostTypeService.AddCostType(costType);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加费用类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, costType.CostTypeCode, costType.CostTypeId, BLL.Const.CostTypeMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 costType.CostTypeId = strRowID;
                 BLL.CostTypeService.UpdateCostType(costType);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改费用类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, costType.CostTypeCode, costType.CostTypeId, BLL.Const.CostTypeMenuId, BLL.Const.BtnModify);
             }
+
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行
             BindGrid();

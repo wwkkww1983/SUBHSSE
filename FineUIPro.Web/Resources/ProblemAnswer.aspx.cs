@@ -114,14 +114,17 @@
         /// </summary>
         private void DeleteData()
         {
-
             if (Grid1.SelectedRowIndexArray.Length > 0)
             {
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.ProblemAnswerService.DeleteProblemAnswer(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除问题及答案");
+                    var getV = BLL.ProblemAnswerService.GetProblemAnswerByProblemAnswerId(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, null, getV.ProblemAnswerId, BLL.Const.ProblemAnswerMenuId, BLL.Const.BtnDelete);
+                        BLL.ProblemAnswerService.DeleteProblemAnswer(rowID);
+                    }
                 }
                 BindGrid();
                 ShowNotify("删除数据成功!");

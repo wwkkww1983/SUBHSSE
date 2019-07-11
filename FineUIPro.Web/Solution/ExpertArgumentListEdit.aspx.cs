@@ -170,7 +170,7 @@ namespace FineUIPro.Web.Solution
             {
                 expertArgument.ExpertArgumentId = this.ExpertArgumentId;
                 BLL.ExpertArgumentService.UpdateExpertArgument(expertArgument);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改专家论证清单", expertArgument.ExpertArgumentId);
+                BLL.LogService.AddSys_Log(this.CurrUser, expertArgument.ExpertArgumentCode, expertArgument.ExpertArgumentId, BLL.Const.ProjectExpertArgumentMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -180,7 +180,7 @@ namespace FineUIPro.Web.Solution
                 expertArgument.RecordTime = DateTime.Now;
                 this.ExpertArgumentId = expertArgument.ExpertArgumentId;
                 BLL.ExpertArgumentService.AddExpertArgument(expertArgument);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加专家论证清单", expertArgument.ExpertArgumentId);
+                BLL.LogService.AddSys_Log(this.CurrUser, expertArgument.ExpertArgumentCode, expertArgument.ExpertArgumentId, BLL.Const.ProjectExpertArgumentMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectExpertArgumentMenuId, this.ExpertArgumentId, (type == BLL.Const.BtnSubmit ? true : false), this.drpHazardType.SelectedItem.Text, "../Solution/ExpertArgumentListView.aspx?ExpertArgumentId={0}");
@@ -222,7 +222,7 @@ namespace FineUIPro.Web.Solution
             };
             this.ExpertArgumentId = expertArgument.ExpertArgumentId;
             BLL.ExpertArgumentService.AddExpertArgument(expertArgument);
-            BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加专家论证清单", expertArgument.ExpertArgumentId);
+            BLL.LogService.AddSys_Log(this.CurrUser, expertArgument.ExpertArgumentCode, expertArgument.ExpertArgumentId,BLL.Const.ProjectExpertArgumentMenuId,BLL.Const.BtnAdd);
         }
     }
 }

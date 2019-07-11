@@ -55,9 +55,12 @@ namespace BLL
         /// <param name="monthReportId">月报告主键</param>
         public static void DeleteResetManHoursByResetManHoursId(string resetManHoursId)
         {
-            var q = (from x in db.Manager_ResetManHours where x.ResetManHoursId == resetManHoursId select x).FirstOrDefault();
-            db.Manager_ResetManHours.DeleteOnSubmit(q);
-            db.SubmitChanges();
+            var q = db.Manager_ResetManHours.FirstOrDefault(x => x.ResetManHoursId == resetManHoursId);
+            if (q != null)
+            {
+                db.Manager_ResetManHours.DeleteOnSubmit(q);
+                db.SubmitChanges();
+            }
         }
     }
 }

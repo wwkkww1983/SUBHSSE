@@ -92,6 +92,7 @@ namespace FineUIPro.Web.Check
                     {
                         this.drpMainUnitPerson.SelectedValueArray = checkWork.MainUnitPerson.Split(',');
                     }
+                    this.txtPartInPersonNames.Text = checkWork.PartInPersonNames;
                     if (!string.IsNullOrEmpty(checkWork.SubUnits))
                     {
                         this.drpSubUnits.SelectedValueArray = checkWork.SubUnits.Split(',');
@@ -101,6 +102,7 @@ namespace FineUIPro.Web.Check
                             this.drpSubUnitPerson.SelectedValueArray = checkWork.SubUnitPerson.Split(',');
                         }
                     }
+                    this.txtPartInPersonNames.Text = checkWork.PartInPersonNames;
                     if (checkWork.IsAgree == true)
                     {
                         this.ckIsAgree.Checked = true;
@@ -112,18 +114,27 @@ namespace FineUIPro.Web.Check
                     this.txtMainUnitDeputy.Text = checkWork.MainUnitDeputy;
                     this.txtMainUnitDeputyDate.Text = string.Format("{0:yyyy-MM-dd}", checkWork.MainUnitDeputyDate);
                     this.txtSubUnitDeputy.Text = checkWork.SubUnitDeputy;
-                    this.txtSubUnitDeputyDate.Text = string.Format("{0:yyyy-MM-dd}", checkWork.SubUnitDeputyDate);
-                    checkWorkDetails = (from x in Funs.DB.View_Check_CheckWorkDetail where x.CheckWorkId == this.CheckWorkId orderby x.CheckItem select x).ToList();
+                    this.txtSubUnitDeputyDate.Text = string.Format("{0:yyyy-MM-dd}", checkWork.SubUnitDeputyDate);                    
                 }
                 else
                 {
                     ////自动生成编码
                     this.txtCheckWorkCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectCheckWorkMenuId, this.ProjectId, this.CurrUser.UnitId);
                     this.txtCheckDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
+                    var thisUnit = BLL.CommonService.GetIsThisUnit();
+                    if (thisUnit != null && thisUnit.UnitId == Const.UnitId_CWCEC)
+                    {
+                        SaveNew(true);                       
+                    }
                 }
-                Grid1.DataSource = checkWorkDetails;
+
+                Grid1.DataSource = (from x in Funs.DB.View_Check_CheckWorkDetail
+                                    where x.CheckWorkId == this.CheckWorkId
+                                    orderby x.SortIndex
+                                    select x).ToList(); 
                 Grid1.DataBind();
-                ChangeGridColor();
+                //ChangeGridColor();
+
                 ///初始化审核菜单
                 this.ctlAuditFlow.MenuId = BLL.Const.ProjectCheckWorkMenuId;
                 this.ctlAuditFlow.DataId = this.CheckWorkId; 
@@ -173,7 +184,7 @@ namespace FineUIPro.Web.Check
         {
             if (string.IsNullOrEmpty(this.CheckWorkId))
             {
-                SaveNew();
+                SaveNew(false);
             }
             PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ShowCheckItem.aspx?CheckWorkId={0}&checkType=4", this.CheckWorkId, "编辑 - ")));
         }
@@ -182,7 +193,7 @@ namespace FineUIPro.Web.Check
         /// <summary>
         /// 
         /// </summary>
-        private void SaveNew()
+        private void SaveNew(bool isWuHuan )
         {
             if (string.IsNullOrEmpty(this.CheckWorkId))
             {
@@ -232,10 +243,13 @@ namespace FineUIPro.Web.Check
                 {
                     checkWork.SubUnitPerson = subUnitPerson.Substring(0, subUnitPerson.LastIndexOf(","));
                 }
+
                 //if (this.ckbIsCompleted.Checked)
                 //{
                 //    checkWork.IsCompleted = true;
                 //}
+
+                checkWork.PartInPersonNames = this.txtPartInPersonNames.Text.Trim();
                 checkWork.MainUnitDeputy = this.txtMainUnitDeputy.Text.Trim();
                 checkWork.MainUnitDeputyDate = Funs.GetNewDateTime(this.txtMainUnitDeputyDate.Text.Trim());
                 checkWork.SubUnitDeputy = this.txtSubUnitDeputy.Text.Trim();
@@ -249,7 +263,35 @@ namespace FineUIPro.Web.Check
                     checkWork.IsAgree = true;
                 }
                 BLL.Check_CheckWorkService.AddCheckWork(checkWork);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "增加开工前检查信息");
+                BLL.LogService.AddSys_Log(this.CurrUser, checkWork.CheckWorkCode, checkWork.CheckWorkId, BLL.Const.ProjectCheckWorkMenuId, BLL.Const.BtnAdd);
+                if (isWuHuan)
+                {
+                    checkWorkDetails = (from x in Funs.DB.Check_ProjectCheckItemDetail
+                                        join y in Funs.DB.Check_ProjectCheckItemSet on x.CheckItemSetId equals y.CheckItemSetId
+                                        where y.ProjectId == this.ProjectId && y.CheckType== "4"
+                                        orderby y.SortIndex
+                                        select new Model.View_Check_CheckWorkDetail
+                                        {
+                                            CheckWorkId = this.CheckWorkId,
+                                            CheckItem = y.CheckItemSetId,
+                                            CheckContent = x.CheckContent,
+                                            CheckItemStr = x.CheckContent,
+                                            SortIndex =x.SortIndex,
+                                        }).ToList();
+                    foreach (var item in checkWorkDetails)
+                    {
+                        Model.Check_CheckWorkDetail detail = new Model.Check_CheckWorkDetail
+                        {
+                            CheckWorkDetailId = SQLHelper.GetNewID(typeof(Model.Check_CheckWorkDetail)),
+                            CheckWorkId = item.CheckWorkId,
+                            CheckItem = item.CheckItem,
+                            CheckContent = item.CheckContent,
+                            SortIndex = item.SortIndex,
+                        };
+                        
+                        BLL.Check_CheckWorkDetailService.AddCheckWorkDetail(detail);
+                    }
+                }             
             }
         }
 
@@ -377,7 +419,7 @@ namespace FineUIPro.Web.Check
             {
                 checkWork.SubUnitPerson = subUnitPerson.Substring(0, subUnitPerson.LastIndexOf(","));
             }
-
+            checkWork.PartInPersonNames = this.txtPartInPersonNames.Text.Trim();
             if (this.ckIsAgree.Checked)
             {
                 checkWork.IsAgree = true;
@@ -396,7 +438,7 @@ namespace FineUIPro.Web.Check
             {
                 checkWork.CheckWorkId = this.CheckWorkId;
                 BLL.Check_CheckWorkService.UpdateCheckWork(checkWork);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改开工前检查", checkWork.CheckWorkId);
+                BLL.LogService.AddSys_Log(this.CurrUser, checkWork.CheckWorkCode, checkWork.CheckWorkId, BLL.Const.ProjectCheckWorkMenuId, BLL.Const.BtnAdd);
             }
             else
             {
@@ -404,7 +446,7 @@ namespace FineUIPro.Web.Check
                 checkWork.CompileMan = this.CurrUser.UserId; 
                 this.CheckWorkId = checkWork.CheckWorkId;
                 BLL.Check_CheckWorkService.AddCheckWork(checkWork);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加开工前检查", checkWork.CheckWorkId);
+                BLL.LogService.AddSys_Log(this.CurrUser, checkWork.CheckWorkCode, checkWork.CheckWorkId, BLL.Const.ProjectCheckWorkMenuId, BLL.Const.BtnModify);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectCheckWorkMenuId, this.CheckWorkId, (type == BLL.Const.BtnSubmit ? true : false), checkWork.Area, "../Check/CheckWorkView.aspx?CheckWorkId={0}");
@@ -418,10 +460,13 @@ namespace FineUIPro.Web.Check
         /// <param name="e"></param>
         protected void Window1_Close(object sender, EventArgs e)
         {
-            checkWorkDetails = (from x in Funs.DB.View_Check_CheckWorkDetail where x.CheckWorkId == this.CheckWorkId orderby x.CheckItem select x).ToList();
+            checkWorkDetails = (from x in Funs.DB.View_Check_CheckWorkDetail
+                                where x.CheckWorkId == this.CheckWorkId
+                                orderby x.SortIndex
+                                select x).ToList();
             Grid1.DataSource = checkWorkDetails;
             Grid1.DataBind();
-            ChangeGridColor();
+            //ChangeGridColor();
         }
         #endregion
 
@@ -469,9 +514,12 @@ namespace FineUIPro.Web.Check
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
+                                        
                     BLL.Check_CheckWorkDetailService.DeleteCheckWorkDetailById(rowID);
                 }
-                checkWorkDetails = (from x in Funs.DB.View_Check_CheckWorkDetail where x.CheckWorkId == this.CheckWorkId orderby x.CheckItem select x).ToList();
+                checkWorkDetails = (from x in Funs.DB.View_Check_CheckWorkDetail
+                                    where x.CheckWorkId == this.CheckWorkId
+                                    orderby x.SortIndex select x).ToList();
                 Grid1.DataSource = checkWorkDetails;
                 Grid1.DataBind();
                 ChangeGridColor();
@@ -502,7 +550,7 @@ namespace FineUIPro.Web.Check
         {
             if (string.IsNullOrEmpty(this.CheckWorkId))
             {
-                SaveNew();
+                SaveNew(false);
             }
             PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/CheckWork&menuId={1}", this.CheckWorkId, BLL.Const.ProjectCheckWorkMenuId)));
         }
@@ -525,15 +573,17 @@ namespace FineUIPro.Web.Check
                     CheckWorkDetailId = SQLHelper.GetNewID(typeof(Model.Check_CheckWorkDetail)),
                     CheckWorkId = detail.CheckWorkId,
                     CheckItem = detail.CheckItem,
+                    SortIndex = detail.SortIndex,
                     CheckContent = detail.CheckContent,
-                    CheckResult = "隐患",
-                    CheckOpinion = "整改"
                 };
+
                 BLL.Check_CheckWorkDetailService.AddCheckWorkDetail(newDetail);
-                checkWorkDetails = (from x in Funs.DB.View_Check_CheckWorkDetail where x.CheckWorkId == this.CheckWorkId orderby x.CheckItem select x).ToList();
+                checkWorkDetails = (from x in Funs.DB.View_Check_CheckWorkDetail
+                                    where x.CheckWorkId == this.CheckWorkId
+                                    orderby x.SortIndex select x).ToList();
                 Grid1.DataSource = checkWorkDetails;
                 Grid1.DataBind();
-                ChangeGridColor();
+                //ChangeGridColor();
             }
         }
         #endregion
@@ -576,6 +626,21 @@ namespace FineUIPro.Web.Check
             InitDropDownList();
             this.drpMainUnitPerson.SelectedIndex = 0;
             this.txtMainUnitDeputy.Text = BLL.UnitService.GetUnitNameByUnitId(this.drpThisUnit.SelectedValue);
+        }
+
+        /// <summary>
+        /// 导入
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnImport_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.CheckWorkId))
+            {
+                this.SaveData(BLL.Const.BtnSave);
+            }
+
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckWorkDetailIn.aspx?CheckWorkId={0}", this.CheckWorkId, "导入 - "), "导入", 1024, 560));
         }
     }
 }

@@ -129,14 +129,14 @@ namespace FineUIPro.Web.Solution
             {
                 solutionTemplate.SolutionTemplateId = this.SolutionTemplateId;
                 BLL.SolutionTemplateService.UpdateSolutionTemplate(solutionTemplate);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改方案模板", solutionTemplate.SolutionTemplateId);
+                BLL.LogService.AddSys_Log(this.CurrUser, solutionTemplate.SolutionTemplateCode, solutionTemplate.SolutionTemplateId,BLL.Const.SolutionTemplateMenuId,BLL.Const.BtnModify);
             }
             else
             {
                 this.SolutionTemplateId = SQLHelper.GetNewID(typeof(Model.Solution_SolutionTemplate));
                 solutionTemplate.SolutionTemplateId = this.SolutionTemplateId;
                 BLL.SolutionTemplateService.AddSolutionTemplate(solutionTemplate);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加方案模板", solutionTemplate.SolutionTemplateId);
+                BLL.LogService.AddSys_Log(this.CurrUser, solutionTemplate.SolutionTemplateCode, solutionTemplate.SolutionTemplateId, BLL.Const.SolutionTemplateMenuId, BLL.Const.BtnAdd);
             }
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }

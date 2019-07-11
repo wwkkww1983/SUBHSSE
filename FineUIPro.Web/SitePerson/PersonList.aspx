@@ -10,6 +10,15 @@
             white-space: normal;
             word-break: break-all;
         }
+          .f-grid-row.Red
+        {
+            background-color: red;
+        }
+        .LabelColor
+        {
+            color: Red;
+            font-size:small;
+        }   
     </style>
 </head>
 <body>
@@ -40,7 +49,7 @@
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="人员信息" EnableCollapse="true"
                         runat="server" BoxFlex="1" DataKeyNames="PersonId" AllowCellEditing="true" ClicksToEdit="2"
-                        DataIDField="PersonId" AllowSorting="true" SortField="CardNo" SortDirection="ASC"
+                        DataIDField="PersonId" AllowSorting="true" SortField="CardNo,PersonName" SortDirection="ASC"
                         OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true" PageSize="10" EnableColumnLines="true"
                         OnPageIndexChange="Grid1_PageIndexChange" EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick"
                         AllowFilters="true" OnFilterChange="Grid1_FilterChange" EnableTextSelection="True" EnableCheckBoxSelect="true">
@@ -48,29 +57,32 @@
                             <f:Toolbar ID="Toolbar3" Position="Top" ToolbarAlign="Right" runat="server">
                                 <Items>
                                     <f:TextBox runat="server" Label="姓名" ID="txtPersonName" EmptyText="输入查询条件"
-                                        AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="200px" LabelWidth="50px"
-                                        LabelAlign="right">
+                                         Width="200px" LabelWidth="50px" LabelAlign="right">
                                     </f:TextBox>
                                      <f:TextBox runat="server" Label="卡号" ID="txtCardNo" EmptyText="输入查询条件"
-                                        AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="200px" LabelWidth="50px"
-                                        LabelAlign="right">
+                                         Width="200px" LabelWidth="50px" LabelAlign="right">
                                     </f:TextBox>
                                     <f:DropDownList ID="drpPost" runat="server" Label="岗位" EnableEdit="true" EnableMultiSelect="true" 
-                                        Width="200px" LabelWidth="50px" LabelAlign="right" ForceSelection="false" EnableCheckBoxSelect="true"
-                                        AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged">
+                                        Width="200px" LabelWidth="50px" LabelAlign="right" ForceSelection="false" EnableCheckBoxSelect="true">
                                     </f:DropDownList>
                                      <f:DropDownList ID="drpTreamGroup" runat="server" Label="班组" EnableEdit="true" 
-                                        Width="200px" LabelWidth="50px" LabelAlign="right" ForceSelection="false"
-                                        AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged">
-                                    </f:DropDownList>
-                                    
+                                        Width="200px" LabelWidth="50px" LabelAlign="right" ForceSelection="false">
+                                    </f:DropDownList>                                    
                                 </Items>
                             </f:Toolbar>
                         </Toolbars>
                         <Toolbars>
                             <f:Toolbar ID="Toolbar1" Position="Top" ToolbarAlign="Right" runat="server">
                                 <Items>
+                                    <f:CheckBox runat="server" ID="ckTrain" Label="未参加培训" LabelAlign="right"> 
+                                    </f:CheckBox>
+                                    <f:TextBox runat="server" Label="身份证" ID="txtIdentityCard" EmptyText="输入查询条件"
+                                        Width="250px" LabelWidth="100px"
+                                        LabelAlign="right">
+                                    </f:TextBox>
+                                                                   
                                     <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>
+                                    <f:Button ID="btSearch" ToolTip="查询" Icon="SystemSearch" runat="server" OnClick="TextBox_TextChanged"></f:Button>
                                     <f:Button ID="btnNew" ToolTip="增加" Icon="Add" runat="server" Hidden="true" OnClick="btnNew_Click">
                                     </f:Button>
                                     <f:Button ID="btnPersonOut" ToolTip="批量出场" Icon="UserGo" runat="server" Hidden="true" OnClick="btnPersonOut_Click">
@@ -81,21 +93,23 @@
                                     <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
                                             EnableAjax="false" DisableControlBeforePostBack="false">
                                     </f:Button>
+                                    <f:Button ID="BtnAnalyse" ToolTip="扣分查询" Icon="ChartPie" runat="server" OnClick="BtnAnalyse_Click" Hidden="true"></f:Button>
+                                    <f:Button ID="BtnBlackList" ToolTip="黑名单" Icon="ApplicationOsxTerminal" runat="server" OnClick="BtnBlackList_Click" Hidden="true"></f:Button>
                                  </Items>
                             </f:Toolbar>
                         </Toolbars>
                         <Columns>
-                            <f:TemplateField ColumnID="tfNumber" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center">
+                            <%--<f:TemplateField ColumnID="tfNumber" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center">
                                 <ItemTemplate>
                                     <asp:Label ID="labNumber" runat="server" Text=' <%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1%>'></asp:Label>
                                 </ItemTemplate>
-                            </f:TemplateField>  
-                             <f:RenderField HeaderText="卡号" ColumnID="CardNo" DataField="CardNo" SortField="CardNo"
-                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="130px">                               
-                            </f:RenderField>
-                            <f:RenderField Width="90px" ColumnID="PersonName" DataField="PersonName" SortField="PersonName"
-                                FieldType="String" HeaderText="人员姓名" HeaderTextAlign="Center"
+                            </f:TemplateField>    --%>                          
+                            <f:RenderField Width="80px" ColumnID="PersonName" DataField="PersonName" SortField="PersonName"
+                                FieldType="String" HeaderText="姓名" HeaderTextAlign="Center"
                                 TextAlign="Center">                          
+                            </f:RenderField>
+                             <f:RenderField HeaderText="卡号" ColumnID="CardNo" DataField="CardNo" SortField="CardNo"
+                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="150px">                               
                             </f:RenderField>
                             <%--<f:RenderField HeaderText="发卡号" ColumnID="SendCardNo" DataField="SendCardNo" SortField="SendCardNo"
                                  FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="110px">                               
@@ -104,7 +118,7 @@
                                  FieldType="String" HeaderTextAlign="Center" TextAlign="Center" Width="60px">                               
                             </f:RenderField>
                             <f:RenderField HeaderText="岗位名称" ColumnID="WorkPostName" DataField="WorkPostName" SortField="WorkPostName"
-                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="100px">                               
+                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="120px">                               
                             </f:RenderField>
                              <f:RenderField HeaderText="单位名称" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
                                  FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="250px">                               
@@ -126,11 +140,11 @@
                              <f:RenderField HeaderText="作业区域" ColumnID="WorkAreaName" DataField="WorkAreaName" SortField="WorkAreaName"
                                  FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="120px">                               
                             </f:RenderField>
-                            <f:RenderField Width="90px" ColumnID="InTime" DataField="InTime" SortField="InTime"
+                            <f:RenderField Width="100px" ColumnID="InTime" DataField="InTime" SortField="InTime"
                                 FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="入场时间"
                                 HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="90px" ColumnID="OutTime" DataField="OutTime" SortField="OutTime"
+                            <f:RenderField Width="100px" ColumnID="OutTime" DataField="OutTime" SortField="OutTime"
                                 FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="出场时间"
                                 HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
@@ -160,6 +174,7 @@
                                 <f:ListItem Text="25" Value="25" />
                                 <f:ListItem Text="所有行" Value="100000" />
                             </f:DropDownList>
+                            <f:Label runat="server" Text="红色表示未进行过任何培训人员。"  CssClass="LabelColor"></f:Label>
                         </PageItems>
                     </f:Grid>
                 </Items>
@@ -172,18 +187,22 @@
     </f:Window>
     <f:Window ID="Window2" Title="导入人员信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="false"
-        CloseAction="HidePostBack" Width="1024px" Height="640px">
+        CloseAction="HidePostBack" Width="1200px" Height="600px">
     </f:Window>
     <f:Window ID="Window3" Title="编辑人员批量出场" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" OnClose="Window3_Close" IsModal="true"
         Width="800px" Height="550px">
+    </f:Window>
+    <f:Window ID="WindowPunishRecord" Title="处罚记录" Hidden="true" EnableIFrame="true"
+        EnableMaximize="true" Target="Parent" EnableResize="true" runat="server" IsModal="true"
+        Width="1300px" Height="520px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true"
             Hidden="true" runat="server" Text="修改" Icon="Pencil">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Icon="Delete" Text="删除">
+            Hidden="true" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Icon="Delete" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

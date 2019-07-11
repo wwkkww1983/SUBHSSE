@@ -12,7 +12,7 @@
       <f:Panel ID="Panel2" runat="server" ShowHeader="false" ShowBorder="false" ColumnWidth="100%" MarginRight="5px">
             <Items>
                <f:TabStrip ID="TabStrip1" CssClass="f-tabstrip-theme-simple" Height="500px" ShowBorder="true"
-                TabPosition="Top" MarginBottom="5px" EnableTabCloseMenu="false" runat="server" Width="1160px">              
+                TabPosition="Top" MarginBottom="1px" EnableTabCloseMenu="false" runat="server" Width="1160px">              
                    <Tabs>                   
                         <f:Tab ID="Tab1" Title="监督检查报告" BodyPadding="5px" Layout="Fit" IconFont="Bookmark" runat="server">
                             <Items>
@@ -21,7 +21,7 @@
                                     TitleToolTip="监督检查报告" AutoScroll="true">                                     
                                     <Items>
                                          <f:Form ID="SimpleForm1" ShowBorder="true" ShowHeader="false" AutoScroll="true" EnableCollapse="true" Collapsed="false"
-                                                BodyPadding="2px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right" Height="300px">
+                                                BodyPadding="2px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right" Height="260px">
                                             <Rows>
                                                 <f:FormRow>
                                                     <Items>
@@ -184,14 +184,14 @@
                                     TitleToolTip="安全监督检查明细表" AutoScroll="true">                                     
                                     <Items>
                                          <f:Form ID="Form2" ShowBorder="true" ShowHeader="false" AutoScroll="true" EnableCollapse="true" Collapsed="false"
-                                                BodyPadding="2px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right" Height="35px">
+                                                BodyPadding="2px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
                                             <Rows>
                                                 <f:FormRow>
                                                     <Items>
-                                                         <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="检查开始时间" ID="txtCheckStartTime">
+                                                         <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="开始时间" ID="txtCheckStartTime">
                                                          </f:DatePicker>
                                                          <f:Label runat="server" ID ="Label7"></f:Label>
-                                                         <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="检查结束时间" ID="txtCheckEndTime">
+                                                         <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="结束时间" ID="txtCheckEndTime">
                                                          </f:DatePicker>
                                                          <f:Label runat="server" ID ="Label8"></f:Label>
                                                     </Items>
@@ -245,7 +245,7 @@
                                                                 </f:TextBox>
                                                             </Editor>
                                                         </f:RenderField>
-                                                        <f:RenderField Width="80px" ColumnID="UnitManTel" DataField="UnitManTel" FieldType="String"
+                                                        <f:RenderField Width="120px" ColumnID="UnitManTel" DataField="UnitManTel" FieldType="String"
                                                            HeaderText="电话" HeaderTextAlign="Center" TextAlign="Center">
                                                             <Editor>
                                                                 <f:TextBox ID="txtUnitManTel" runat="server">
@@ -263,7 +263,7 @@
                                                                 </f:TextBox>
                                                             </Editor>
                                                         </f:RenderField>
-                                                        <f:RenderField Width="100px" ColumnID="UnitHSSEManTel" DataField="UnitHSSEManTel" FieldType="String"
+                                                        <f:RenderField Width="120px" ColumnID="UnitHSSEManTel" DataField="UnitHSSEManTel" FieldType="String"
                                                            HeaderText="电话" HeaderTextAlign="Center" TextAlign="Center">
                                                              <Editor>
                                                                 <f:TextBox ID="txtUnitHSSEManTel" runat="server">
@@ -273,7 +273,7 @@
                                                     </Columns>
                                                 </f:GroupField>
                                                  <f:RenderField HeaderText="检查时间" ColumnID="CheckDate" DataField="CheckDate" SortField="CheckDate"
-                                                    HeaderTextAlign="Center" TextAlign="Left" Width="90px" FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd">
+                                                    HeaderTextAlign="Center" TextAlign="Left" Width="100px" FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd">
                                                     <Editor>
                                                         <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" ID="DatePicker1">
                                                         </f:DatePicker>
@@ -301,7 +301,7 @@
                                                     </Editor>
                                                  </f:RenderField>
                                                   <f:RenderField HeaderText="检查结果等级" ColumnID="ResultLevel" DataField="ResultLevel" 
-                                                    HeaderTextAlign="Center"  TextAlign="Left" Width="100px">
+                                                    HeaderTextAlign="Center"  TextAlign="Left" Width="120px">
                                                     <Editor>
                                                         <f:DropDownList ID="TextBox2" runat="server">
                                                             <f:ListItem Text="合格" Value="合格"/>
@@ -318,7 +318,7 @@
                                     </Items>
                                     <Items>
                                          <f:Form ID="Form3" ShowBorder="true" ShowHeader="false" AutoScroll="true" EnableCollapse="true" Collapsed="false"
-                                                BodyPadding="2px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right" Height="35px">
+                                                BodyPadding="2px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
                                             <Rows>
                                                 <f:FormRow>
                                                     <Items>

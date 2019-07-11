@@ -89,7 +89,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="法律法规辨识记录" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="1300px" Height="600px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
@@ -97,7 +97,7 @@
             Text="修改" Icon="Pencil" OnClick="btnMenuModify_Click">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" Hidden="true"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Icon="Delete" Text="删除">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Icon="Delete" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

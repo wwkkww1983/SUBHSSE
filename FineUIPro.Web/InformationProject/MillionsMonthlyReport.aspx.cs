@@ -240,8 +240,12 @@ namespace FineUIPro.Web.InformationProject
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "删除百万工时安全统计月报", rowID);
-                    BLL.ProjectMillionsMonthlyReportService.DeleteMillionsMonthlyReportById(rowID);
+                    var millionsMonthly = BLL.ProjectMillionsMonthlyReportService.GetMillionsMonthlyReportById(rowID);
+                    if (millionsMonthly != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, millionsMonthly.Year.ToString() + "-" + millionsMonthly.Month.ToString(), rowID, BLL.Const.ProjectMillionsMonthlyReportMenuId, BLL.Const.BtnDelete);
+                        BLL.ProjectMillionsMonthlyReportService.DeleteMillionsMonthlyReportById(rowID);
+                    }
                 }
 
                 this.BindGrid();
@@ -295,6 +299,5 @@ namespace FineUIPro.Web.InformationProject
             }
         }
         #endregion
-
     }
 }

@@ -200,7 +200,6 @@ namespace FineUIPro.Web.SafetyData
                 var safetyData = BLL.SafetyDataService.GetSafetyDataBySafetyDataId(this.tvSafetyData.SelectedNodeID);               
                 if (safetyData != null && BLL.SafetyDataService.IsDeleteSafetyData(safetyData.SafetyDataId))
                 {
-                    BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除企业安全管理资料信息", this.tvSafetyData.SelectedNode.Text);
                     BLL.SafetyDataService.DeleteSafetyDataByID(safetyData.SafetyDataId);                    
                     this.SafetyDataDataBind();
                     Alert.ShowInTop("删除成功！",MessageBoxIcon.Success);
@@ -267,6 +266,16 @@ namespace FineUIPro.Web.SafetyData
         {
             this.tvSafetyData.SelectedNodeID = string.Empty;
             this.SafetyDataDataBind();
+        }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void TextBox_TextChanged(object sender, EventArgs e)
+        {
+            this.SafetyDataDataBind();//加载树
         }
     }
 }

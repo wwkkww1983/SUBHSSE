@@ -48,115 +48,116 @@ namespace FineUIPro.Web.common
         private void BindGridToDoMatter(string type)
         {
             var q = from x in Funs.DB.View_ToDoMatter where x.UserId == this.CurrUser.UserId select x;
-            List<string> lawRegulationButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.LawRegulationListMenuId);
-            if (!lawRegulationButtonList.Contains(Const.BtnAuditing))
+            if (q.Count() > 0)
             {
-                q = q.Where(e => e.Type != "法律法规");
+                List<string> lawRegulationButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.LawRegulationListMenuId);
+                if (!lawRegulationButtonList.Contains(Const.BtnAuditing))
+                {
+                    q = q.Where(e => e.Type != "法律法规");
+                }
+                List<string> standardButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HSSEStandardListMenuId);
+                if (!standardButtonList.Contains(Const.BtnAuditing))
+                {
+                    q = q.Where(e => e.Type != "标准规范");
+                }
+                List<string> rulesRegulationsButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.RulesRegulationsMenuId);
+                if (!rulesRegulationsButtonList.Contains(Const.BtnAuditing))
+                {
+                    q = q.Where(e => e.Type != "规章制度");
+                }
+                List<string> manageRuleButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.ManageRuleMenuId);
+                if (!manageRuleButtonList.Contains(Const.BtnAuditing))
+                {
+                    q = q.Where(e => e.Type != "管理规定");
+                }
+                List<string> trainingItemButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.TrainDBMenuId);
+                if (!trainingItemButtonList.Contains(Const.BtnAuditing))
+                {
+                    q = q.Where(e => e.Type != "培训教材");
+                }
+                List<string> trainTestItemButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.TrainTestDBMenuId);
+                if (!trainTestItemButtonList.Contains(Const.BtnAuditing))
+                {
+                    q = q.Where(e => e.Type != "安全试题");
+                }
+                List<string> accidentCaseItemButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.AccidentCaseMenuId);
+                if (!accidentCaseItemButtonList.Contains(Const.BtnAuditing))
+                {
+                    q = q.Where(e => e.Type != "事故案例");
+                }
+                List<string> knowledgeItemButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.KnowledgeDBMenuId);
+                if (!knowledgeItemButtonList.Contains(Const.BtnAuditing))
+                {
+                    q = q.Where(e => e.Type != "应知应会");
+                }
+                List<string> hazardButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HazardListMenuId);
+                if (!hazardButtonList.Contains(Const.BtnAuditing))
+                {
+                    q = q.Where(e => e.Type != "危险源");
+                }
+                List<string> rectifyItemButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.RectifyMenuId);
+                if (!rectifyItemButtonList.Contains(Const.BtnAuditing))
+                {
+                    q = q.Where(e => e.Type != "安全隐患");
+                }
+                List<string> HAZOPButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HAZOPMenuId);
+                if (!HAZOPButtonList.Contains(Const.BtnAuditing))
+                {
+                    q = q.Where(e => e.Type != "HAZOP");
+                }
+                List<string> expertButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.ExpertMenuId);
+                if (!expertButtonList.Contains(Const.BtnAuditing))
+                {
+                    q = q.Where(e => e.Type != "安全专家");
+                }
+                List<string> emergencyButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.EmergencyMenuId);
+                if (!emergencyButtonList.Contains(Const.BtnAuditing))
+                {
+                    q = q.Where(e => e.Type != "应急预案");
+                }
+                List<string> specialSchemeButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.SpecialSchemeMenuId);
+                if (!specialSchemeButtonList.Contains(Const.BtnAuditing))
+                {
+                    q = q.Where(e => e.Type != "专项方案");
+                }
             }
-            List<string> standardButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HSSEStandardListMenuId);
-            if (!standardButtonList.Contains(Const.BtnAuditing))
-            {
-                q = q.Where(e => e.Type != "标准规范");
-            }
-            List<string> rulesRegulationsButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.RulesRegulationsMenuId);
-            if (!rulesRegulationsButtonList.Contains(Const.BtnAuditing))
-            {
-                q = q.Where(e => e.Type != "规章制度");
-            }
-            List<string> manageRuleButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.ManageRuleMenuId);
-            if (!manageRuleButtonList.Contains(Const.BtnAuditing))
-            {
-                q = q.Where(e => e.Type != "管理规定");
-            }
-            List<string> trainingItemButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.TrainDBMenuId);
-            if (!trainingItemButtonList.Contains(Const.BtnAuditing))
-            {
-                q = q.Where(e => e.Type != "培训教材");
-            }
-            List<string> trainTestItemButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.TrainTestDBMenuId);
-            if (!trainTestItemButtonList.Contains(Const.BtnAuditing))
-            {
-                q = q.Where(e => e.Type != "安全试题");
-            }
-            List<string> accidentCaseItemButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.AccidentCaseMenuId);
-            if (!accidentCaseItemButtonList.Contains(Const.BtnAuditing))
-            {
-                q = q.Where(e => e.Type != "事故案例");
-            }
-            List<string> knowledgeItemButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.KnowledgeDBMenuId);
-            if (!knowledgeItemButtonList.Contains(Const.BtnAuditing))
-            {
-                q = q.Where(e => e.Type != "应知应会");
-            }
-            List<string> hazardButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HazardListMenuId);
-            if (!hazardButtonList.Contains(Const.BtnAuditing))
-            {
-                q = q.Where(e => e.Type != "危险源");
-            }
-            List<string> rectifyItemButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.RectifyMenuId);
-            if (!rectifyItemButtonList.Contains(Const.BtnAuditing))
-            {
-                q = q.Where(e => e.Type != "安全隐患");
-            }
-            List<string> HAZOPButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HAZOPMenuId);
-            if (!HAZOPButtonList.Contains(Const.BtnAuditing))
-            {
-                q = q.Where(e => e.Type != "HAZOP");
-            }
-            List<string> expertButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.ExpertMenuId);
-            if (!expertButtonList.Contains(Const.BtnAuditing))
-            {
-                q = q.Where(e => e.Type != "安全专家");
-            }
-            List<string> emergencyButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.EmergencyMenuId);
-            if (!emergencyButtonList.Contains(Const.BtnAuditing))
-            {
-                q = q.Where(e => e.Type != "应急预案");
-            }
-            List<string> specialSchemeButtonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.SpecialSchemeMenuId);
-            if (!specialSchemeButtonList.Contains(Const.BtnAuditing))
-            {
-                q = q.Where(e => e.Type != "专项方案");
-            }
+
             var toDoMatterList = q.ToList();
             var dataIdList = (from x in Funs.DB.Sys_FlowOperate
                               where x.OperaterId == this.CurrUser.UserId && (x.IsClosed == false || !x.IsClosed.HasValue)
+                                && x.State != BLL.Const.State_2
                               select x).ToList();
             if (dataIdList.Count() > 0)
             {
                 foreach (var item in dataIdList)
                 {
-                    var isClosedData = Funs.DB.Sys_FlowOperate.FirstOrDefault(x => x.DataId == item.DataId && x.IsClosed == true && x.State== BLL.Const.State_2);
-                    if (isClosedData == null)
+                    Model.View_ToDoMatter newTodo = new Model.View_ToDoMatter
                     {
-                        Model.View_ToDoMatter newTodo = new Model.View_ToDoMatter
+                        Id = item.DataId
+                    };
+                    var menu = BLL.SysMenuService.GetSysMenuByMenuId(item.MenuId);
+                    if (menu != null)
+                    {
+                        newTodo.Type = menu.MenuName;
+                        if (!string.IsNullOrEmpty(item.Url))
                         {
-                            Id = item.DataId
-                        };
-                        var menu = BLL.SysMenuService.GetSysMenuByMenuId(item.MenuId);
-                        if (menu != null)
-                        {
-                            newTodo.Type = menu.MenuName;
-                            if (!string.IsNullOrEmpty(item.Url))
-                            {
-                                string newUrl = item.Url.Replace("View.aspx", "Edit.aspx");
-                                newTodo.Url = String.Format(newUrl, item.DataId, "审核 - ");
-                            }
-
-                            string userName = BLL.UserService.GetUserNameByUserId(item.OperaterId);
-                            var project = BLL.ProjectService.GetProjectByProjectId(item.ProjectId);
-                            if (project != null)
-                            {
-                                newTodo.Name = project.ProjectName + ":待" + userName + "处理";
-                            }
-                            else
-                            {
-                                newTodo.Name = "本部系统：待" + userName + "处理";
-                            }
-                            newTodo.Date = item.OperaterTime;
-                            newTodo.UserId = item.OperaterId;
-                            toDoMatterList.Add(newTodo);
+                            string newUrl = item.Url.Replace("View.aspx", "Edit.aspx");
+                            newTodo.Url = String.Format(newUrl, item.DataId, "审核 - ");
                         }
+
+                        string userName = BLL.UserService.GetUserNameByUserId(item.OperaterId);
+                        var project = BLL.ProjectService.GetProjectByProjectId(item.ProjectId);
+                        if (project != null)
+                        {
+                            newTodo.Name = project.ProjectName + ":待" + userName + "处理";
+                        }
+                        else
+                        {
+                            newTodo.Name = "本部系统：待" + userName + "处理";
+                        }
+                        newTodo.Date = item.OperaterTime;
+                        newTodo.UserId = item.OperaterId;
+                        toDoMatterList.Add(newTodo);
                     }
                 }
             }
@@ -209,7 +210,7 @@ namespace FineUIPro.Web.common
             {
                 if (type != "oper")
                 {
-                    toDoMatterList = toDoMatterList.Take(5).ToList();
+                    toDoMatterList = toDoMatterList.Take(8).ToList();
                 }
                 var sysVer = (from x in Funs.DB.Sys_Version where x.IsSub == true orderby x.VersionDate descending select x).FirstOrDefault();
                 if (sysVer != null && sysVer.VersionName != Funs.SystemVersion && sysVer.VersionName.Length > 27 && Funs.SystemVersion.Length > 27)
@@ -236,17 +237,13 @@ namespace FineUIPro.Web.common
             {
                 if (type != "oper")
                 {
-                    toDoMatterList = toDoMatterList.Take(6).ToList();
+                    toDoMatterList = toDoMatterList.Take(8).ToList();
                 }
             }
 
             DataTable tb = this.LINQToDataTable(toDoMatterList);
-            // 2.获取当前分页数据
-            //var table = this.GetPagedDataTable(GridNewDynamic, tb1);
             GridToDoMatter.RecordCount = tb.Rows.Count;
-            tb = GetFilteredTable(GridToDoMatter.FilteredData, tb);
             var table = this.GetPagedDataTable(GridToDoMatter, tb);
-
             GridToDoMatter.DataSource = table;
             GridToDoMatter.DataBind();
         }
@@ -404,17 +401,17 @@ namespace FineUIPro.Web.common
             {
                 if (BLL.CommonService.IsThisUnitLeaderOrManage(this.CurrUser.UserId))
                 {
-                    strSql = "SELECT TOP 5 * FROM View_NewDynamic";
+                    strSql = "SELECT TOP 8 * FROM View_NewDynamic";
                 }
                 else
                 {
-                    strSql = @"SELECT TOP 5 * FROM View_NewDynamic A"
+                    strSql = @"SELECT TOP 8 * FROM View_NewDynamic A"
                               + @" LEFT JOIN Project_ProjectUser B ON A.ProjectId =B.ProjectId"
                               + @" WHERE B.UserId='" + this.CurrUser.UserId + "'"
                               + @" ORDER BY A.Date DESC";
                     if (!string.IsNullOrEmpty(this.CurrUser.LoginProjectId))
                     {
-                        strSql = "SELECT TOP 5 * FROM View_NewDynamic WHERE ProjectId='" + this.CurrUser.LoginProjectId + "' ORDER BY Date DESC";
+                        strSql = "SELECT TOP 8 * FROM View_NewDynamic WHERE ProjectId='" + this.CurrUser.LoginProjectId + "' ORDER BY Date DESC";
                     }
                 } 
             }
@@ -434,10 +431,18 @@ namespace FineUIPro.Web.common
         /// <param name="e"></param>
         protected void GridNewDynamic_RowDoubleClick(object sender, GridRowClickEventArgs e)
         {
-            var view = Funs.DB.View_NewDynamic.FirstOrDefault(x => x.Id == GridNewDynamic.SelectedRowID);   
+            var view = Funs.DB.View_NewDynamic.FirstOrDefault(x => x.Id == GridNewDynamic.SelectedRowID);
             if (view != null)
             {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format(GridNewDynamic.SelectedRow.Values[3].ToString(), GridNewDynamic.SelectedRowID), "资质预警:" + view.Type));
+                string url = GridNewDynamic.SelectedRow.Values[3].ToString();
+                if (!string.IsNullOrEmpty(url))
+                {
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format(url, GridNewDynamic.SelectedRowID), "资质预警:" + view.Type));
+                }
+                else
+                {
+                    Alert.ShowInTop("到相应业务页面查看相关信息！", MessageBoxIcon.Warning);
+                }
             }
         }
 

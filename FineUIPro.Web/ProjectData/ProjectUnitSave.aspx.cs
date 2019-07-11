@@ -93,7 +93,7 @@ namespace FineUIPro.Web.ProjectData
                 newProjectUnit.PlanCostB = Funs.GetNewDecimalOrZero(this.nbPlanCostB.Text.Trim());
                 newProjectUnit.ContractRange = this.txtContractRange.Text.Trim();
                 BLL.ProjectUnitService.UpdateProjectUnit(newProjectUnit);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改项目单位信息！");
+                BLL.LogService.AddSys_Log(this.CurrUser, null, newProjectUnit.ProjectUnitId, BLL.Const.ProjectUnitMenuId, BLL.Const.BtnModify);
                 ShowNotify("保存数据成功!", MessageBoxIcon.Success);
                 // 2. 关闭本窗体，然后回发父窗体
                 PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());

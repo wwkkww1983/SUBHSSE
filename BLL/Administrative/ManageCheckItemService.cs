@@ -58,7 +58,7 @@ namespace BLL
         {
             Model.SUBHSSEDB db = Funs.DB;
             var item = (from x in db.Administrative_ManageCheckItem where x.ManageCheckId == manageCheckId select x).ToList();
-            if (item != null)
+            if (item.Count() > 0)
             {
                 db.Administrative_ManageCheckItem.DeleteAllOnSubmit(item);
                 db.SubmitChanges();

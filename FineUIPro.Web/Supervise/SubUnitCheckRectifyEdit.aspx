@@ -11,6 +11,11 @@
         {
             text-align: center;
         }
+        .f-grid-row .f-grid-cell-inner
+        {
+            white-space: normal;
+            word-break: break-all;
+        }
     </style>
 </head>
 <body>
@@ -29,7 +34,7 @@
                     </f:DropDownList>
                     <f:DatePicker ID="dpkUpDateTime" runat="server" Label="检查开始时间"  LabelWidth="120px">
                     </f:DatePicker>
-                    <f:DatePicker ID="dpkCheckEndDate" runat="server" Label="结束时间"  LabelWidth="70px">
+                    <f:DatePicker ID="dpkCheckEndDate" runat="server" Label="结束时间"  LabelWidth="80px">
                     </f:DatePicker>
                 </Items>
             </f:FormRow>
@@ -98,23 +103,23 @@
             <f:FormRow>
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" EnableCollapse="true" runat="server"
-                        BoxFlex="1" DataKeyNames="SubUnitCheckRectifyItemId" AllowCellEditing="true"
+                        BoxFlex="1" DataKeyNames="SubUnitCheckRectifyItemId" AllowCellEditing="true" SortField="Name" AllowSorting="true"
                         ClicksToEdit="1" DataIDField="SubUnitCheckRectifyItemId" EnableColumnLines="true"
-                        OnRowCommand="Grid1_RowCommand" EnableHeaderMenu="false" Width="1300px" Height="350px">
+                        OnRowCommand="Grid1_RowCommand" EnableHeaderMenu="false" Width="1300px" Height="300px">
                         <Columns>
-                            <f:LinkButtonField Width="40px" ConfirmTarget="Top" CommandName="Add" Icon="Add"
+                            <f:LinkButtonField Width="40px" ConfirmTarget="Parent" CommandName="Add" Icon="Add"
                                 TextAlign="Center" ToolTip="新增" />
-                            <f:LinkButtonField Width="40px" ConfirmText="删除选中行？" ConfirmTarget="Top" CommandName="Delete"
-                                Icon="Delete" TextAlign="Center" Text="删除" />
+                            <f:LinkButtonField Width="40px" ConfirmText="删除选中行？" ConfirmTarget="Parent" CommandName="Delete"
+                                Icon="Delete" TextAlign="Center" ToolTip="删除" />
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center"/>
-                            <f:RenderField Width="90px" ColumnID="Name" DataField="Name" SortField="Name" FieldType="String"
+                            <f:RenderField Width="85px" ColumnID="Name" DataField="Name" SortField="Name" FieldType="String"
                                 HeaderTextAlign="Center" TextAlign="Center" HeaderText="姓名">
                                 <Editor>
                                     <f:TextBox ID="txtName" MaxLength="50" Text='<%# Eval("Name")%>' runat="server">
                                     </f:TextBox>
                                 </Editor>
                             </f:RenderField>
-                            <f:RenderField Width="90px" ColumnID="Sex" DataField="Sex" SortField="Sex" FieldType="String"
+                            <f:RenderField Width="70px" ColumnID="Sex" DataField="Sex" SortField="Sex" FieldType="String"
                                 HeaderTextAlign="Center" TextAlign="Center" HeaderText="性别">
                                 <Editor>
                                     <f:TextBox ID="txtSex" MaxLength="50" Text='<%# Eval("Sex")%>' runat="server">
@@ -122,7 +127,7 @@
                                 </Editor>
                             </f:RenderField>
                             <f:RenderField Width="200px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Center" HeaderText="所在单位">
+                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="所在单位" ExpandUnusedSpace="true">
                                 <Editor>
                                     <f:TextBox ID="txtUnitName" MaxLength="500" Text='<%# Eval("UnitName")%>' runat="server">
                                     </f:TextBox>
@@ -135,7 +140,7 @@
                                     </f:TextBox>
                                 </Editor>
                             </f:RenderField>
-                            <f:RenderField Width="120px" ColumnID="WorkTitle" DataField="WorkTitle" SortField="WorkTitle"
+                            <f:RenderField Width="110px" ColumnID="WorkTitle" DataField="WorkTitle" SortField="WorkTitle"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Center" HeaderText="职称">
                                 <Editor>
                                     <f:TextBox ID="txtWorkTitle" MaxLength="50" Text='<%# Eval("WorkTitle")%>' runat="server">
@@ -150,7 +155,7 @@
                                     </f:TextBox>
                                 </Editor>
                             </f:RenderField>
-                            <f:RenderField Width="120px" ColumnID="CheckDate" DataField="CheckDate" SortField="CheckDate"
+                            <f:RenderField Width="110px" ColumnID="CheckDate" DataField="CheckDate" SortField="CheckDate"
                                 FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderTextAlign="Center"
                                 TextAlign="Center" HeaderText="检查日期">
                                 <Editor>

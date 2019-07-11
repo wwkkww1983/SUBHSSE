@@ -68,7 +68,7 @@
                 <Items>
                     <f:DropDownList ID="drpCompleteStatus" runat="server" Label="整改完成情况">
                     </f:DropDownList>
-                    <f:Label runat="server" ID="l1" Hidden="true"></f:Label>
+                    <f:Label runat="server" ID="l1" ></f:Label>
                 </Items>
             </f:FormRow>
              <f:FormRow>

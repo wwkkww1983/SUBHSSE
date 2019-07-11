@@ -313,14 +313,14 @@ namespace FineUIPro.Web.InApproveManager
             {
                 gasCylinderOut.GasCylinderOutId = this.GasCylinderOutId;
                 BLL.GasCylinderOutService.UpdateGasCylinderOut(gasCylinderOut);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改气瓶出场报批", gasCylinderOut.GasCylinderOutId);
+                BLL.LogService.AddSys_Log(this.CurrUser, gasCylinderOut.GasCylinderOutCode, gasCylinderOut.GasCylinderOutId,BLL.Const.GasCylinderOutMenuId,BLL.Const.BtnModify);
             }
             else
             {
                 this.GasCylinderOutId = SQLHelper.GetNewID(typeof(Model.InApproveManager_GasCylinderOut));
                 gasCylinderOut.GasCylinderOutId = this.GasCylinderOutId;
                 BLL.GasCylinderOutService.AddGasCylinderOut(gasCylinderOut);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加气瓶出场报批", gasCylinderOut.GasCylinderOutId);
+                BLL.LogService.AddSys_Log(this.CurrUser, gasCylinderOut.GasCylinderOutCode, gasCylinderOut.GasCylinderOutId, BLL.Const.GasCylinderOutMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.GasCylinderOutMenuId, this.GasCylinderOutId, (type == BLL.Const.BtnSubmit ? true : false), (gasCylinderOut.DriverName + gasCylinderOut.DriverNum), "../InApproveManager/GasCylinderOutView.aspx?GasCylinderOutId={0}");

@@ -30,7 +30,7 @@
             </f:FormRow>
             <f:FormRow runat="server" ID="trProjects">
                 <Items>
-                    <f:TextArea ID="drpProjects" runat="server" Label="接收对象" LabelWidth="80px" LabelAlign="right" Readonly="true" Height="120px"></f:TextArea>
+                    <f:TextArea ID="drpProjects" runat="server" Label="接收对象" LabelWidth="80px" LabelAlign="right" Readonly="true" Height="200px"></f:TextArea>
                 </Items>
             </f:FormRow>           
         </Rows>

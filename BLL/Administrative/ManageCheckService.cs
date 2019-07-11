@@ -90,6 +90,7 @@ namespace BLL
             Model.Administrative_ManageCheck manageCheck = db.Administrative_ManageCheck.FirstOrDefault(e => e.ManageCheckId == manageCheckId);
             if (manageCheck != null)
             {
+                BLL.ManageCheckItemService.DeleteMangeCheckItemByManageCheckId(manageCheckId);
                 BLL.CodeRecordsService.DeleteCodeRecordsByDataId(manageCheckId);
                 ////删除审核流程表
                 BLL.CommonService.DeleteFlowOperateByID(manageCheckId);

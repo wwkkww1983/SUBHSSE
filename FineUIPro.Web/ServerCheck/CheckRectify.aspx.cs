@@ -29,7 +29,7 @@ namespace FineUIPro.Web.ServerCheck
         {
             string strSql = string.Empty;
             SqlParameter[] parameter = new SqlParameter[] { };
-            strSql = "SELECT S.CheckRectifyId,S.CheckRectifyCode,S.ProjectId,S.UnitId,U.UnitName,S.CheckDate,CASE S.HandleState WHEN '1' THEN '未签发' WHEN '2' THEN '未完成' ELSE '已完成' END AS HandleState,"
+            strSql = "SELECT S.CheckRectifyId,S.CheckRectifyCode,S.ProjectId,S.UnitId,U.UnitName,S.CheckDate,CASE S.HandleState WHEN '"+BLL.Const.State_1+ "' THEN '未签发' WHEN '" + BLL.Const.State_2 + "' THEN '未上报' ELSE '已上报' END AS HandleState,"
                          + @" S.IssueMan,S.IssueDate,ISNULL(TotalCount.TotalCount,0) AS TotalCount ,ISNULL(CompleteCount.CompleteCount,0) AS CompleteCount,(ISNULL(TotalCount.TotalCount,0) -ISNULL(CompleteCount.CompleteCount,0)) AS UnCompleteCount"
                          + @" FROM dbo.Check_CheckRectify AS S LEFT JOIN dbo.Base_Unit AS U ON U.UnitId = S.UnitId"
                          + @" LEFT JOIN (SELECT COUNT(*) AS TotalCount, CheckRectifyId FROM dbo.Check_CheckRectifyItem GROUP BY CheckRectifyId) AS TotalCount ON S.CheckRectifyId=TotalCount.CheckRectifyId"
@@ -41,7 +41,7 @@ namespace FineUIPro.Web.ServerCheck
             //var table = this.GetPagedDataTable(Grid1, tb1);
 
             Grid1.RecordCount = tb.Rows.Count;
-            tb = GetFilteredTable(Grid1.FilteredData, tb);
+            //tb = GetFilteredTable(Grid1.FilteredData, tb);
             var table = this.GetPagedDataTable(Grid1, tb);
 
             Grid1.DataSource = table;

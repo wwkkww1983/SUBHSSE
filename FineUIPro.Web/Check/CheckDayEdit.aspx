@@ -59,13 +59,16 @@
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1"
                         DataIDField="CheckDayDetailId" DataKeyNames="CheckDayDetailId" EnableMultiSelect="false"
-                        ShowGridHeader="true" Height="200px" EnableColumnLines="true" AutoScroll="true"
+                        ShowGridHeader="true" Height="400px" EnableColumnLines="true"  
                         EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" OnRowCommand="Grid1_RowCommand">
                         <Toolbars>
                             <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
                                 <Items>                                
                                     <f:Label ID="Label1" runat="server" CssClass="fontred" Label="说明" Text="双击检查项填报相关内容" LabelAlign="right" LabelWidth="50px"></f:Label>
-                                    <f:Label ID="Label2" runat="server" Width="400px"></f:Label>
+                                    <f:ToolbarFill runat="server"></f:ToolbarFill>
+                                    <f:Button ID="btnImport" ToolTip="导入" Icon="PageExcel" runat="server" ValidateForms="SimpleForm1"
+                                            OnClick="btnImport_Click">
+                                    </f:Button>
                                     <f:Button ID="btnSelect" Icon="ShapeSquareSelect" runat="server" ToolTip="选择" ValidateForms="SimpleForm1"
                                         OnClick="btnSelect_Click">
                                     </f:Button>
@@ -81,7 +84,7 @@
                                         ToolTip='<%# ConvertCheckItemType(Eval("CheckItem")) %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-                            <f:LinkButtonField Width="110px" HeaderText="检查项" ConfirmTarget="Top" CommandName="click"
+                            <f:LinkButtonField Width="110px" HeaderText="检查项" ConfirmTarget="Parent" CommandName="click"
                                  TextAlign="Center" ToolTip="点击增加一条相同记录" DataTextField="CheckItemStr" ColumnID="CheckItemStr" />
                             <f:RenderField Width="220px" ColumnID="Unqualified" DataField="Unqualified" SortField="Unqualified"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="不合格项描述"
@@ -93,7 +96,7 @@
                             <f:RenderField Width="120px" ColumnID="WorkArea" DataField="WorkArea" SortField="WorkArea"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="检查区域">
                             </f:RenderField>
-                            <f:RenderField Width="220px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
+                            <f:RenderField Width="200px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="责任单位">
                             </f:RenderField>
                             <f:RenderField Width="100px" ColumnID="HandleStepStr" DataField="HandleStepStr" SortField="HandleStepStr"
@@ -103,7 +106,7 @@
                                 FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="限时时间"
                                 HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
-                            <f:TemplateField Width="75px" HeaderText="整改情况" HeaderTextAlign="Center" TextAlign="Center">
+                            <f:TemplateField Width="80px" HeaderText="整改情况" HeaderTextAlign="Center" TextAlign="Center">
                                 <ItemTemplate>
                                     <asp:Label ID="Label3" runat="server" Text='<%# ConvertCompleteStatus(Eval("CompleteStatus")) %>'
                                         ToolTip='<%# ConvertCompleteStatus(Eval("CompleteStatus")) %>'></asp:Label>
@@ -126,7 +129,7 @@
             <f:FormRow>
                 <Items>
                     <f:HtmlEditor runat="server" Label="其他情况日小结" ID="txtDaySummary" ShowLabel="false"
-                        Editor="UMEditor" BasePath="~/res/umeditor/" ToolbarSet="Full" Height="200px"
+                        Editor="UMEditor" BasePath="~/res/umeditor/" ToolbarSet="Full" Height="140px"
                         LabelAlign="Right">
                     </f:HtmlEditor>
                 </Items>
@@ -167,11 +170,11 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="Window1" Title="编辑检查项明细" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="1100px" Height="520px">
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Width="1000px" Height="520px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
@@ -179,7 +182,7 @@
             Icon="Pencil" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Icon="Delete" ConfirmText="确定删除当前数据？" ConfirmTarget="Top" runat="server" Text="删除">
+            Icon="Delete" ConfirmText="确定删除当前数据？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

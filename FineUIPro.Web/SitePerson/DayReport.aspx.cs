@@ -338,11 +338,16 @@ namespace FineUIPro.Web.SitePerson
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, isShow))
                     {
-                        BLL.SitePerson_DayReportDetailService.DeleteDayReportDetailsByDayReportId(rowID);
-                        BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除人工时日报", rowID);
-                        BLL.SitePerson_DayReportService.DeleteDayReportByDayReportId(rowID);
+                        var getV = BLL.SitePerson_DayReportService.GetDayReportByDayReportId(rowID);
+                        if (getV != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, null, getV.DayReportId, BLL.Const.DayReportMenuId, BLL.Const.BtnDelete);
+                            BLL.SitePerson_DayReportDetailService.DeleteDayReportDetailsByDayReportId(rowID);                            
+                            BLL.SitePerson_DayReportService.DeleteDayReportByDayReportId(rowID);
+                        }
                     }
                 }
+
                 BindGrid();
                 ShowNotify("删除数据成功!（表格数据已重新绑定）", MessageBoxIcon.Success);
             }

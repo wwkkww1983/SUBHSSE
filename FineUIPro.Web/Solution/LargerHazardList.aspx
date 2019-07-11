@@ -45,7 +45,7 @@
                                 AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="200px" LabelWidth="50px"
                                 LabelAlign="right">
                             </f:TextBox>
-                            <f:DatePicker runat="server" Label="预计时间" ID="txtStartDate" LabelWidth="70px" AutoPostBack="true" Width="210px"
+                            <f:DatePicker runat="server" Label="预计时间" ID="txtStartDate" LabelWidth="90px" AutoPostBack="true" Width="210px"
                                 OnTextChanged="TextBox_TextChanged" LabelAlign="right">
                             </f:DatePicker>
                             <f:Label ID="lblTO" runat="server" Text="至"></f:Label>
@@ -86,7 +86,7 @@
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="125px" ColumnID="IsArgumentStr" DataField="IsArgumentStr" SortField="IsArgumentStr"
-                        FieldType="String" HeaderText="是否需要专家论证" TextAlign="Center" HeaderTextAlign="Center">
+                        FieldType="String" HeaderText="专家论证" TextAlign="Center" HeaderTextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="150px" ColumnID="FlowOperateName" DataField="FlowOperateName"
                         SortField="FlowOperateName" FieldType="String" HeaderText="状态" HeaderTextAlign="Center"
@@ -114,7 +114,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="编辑危险性较大的工程清单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
         Width="1000px" Height="580px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

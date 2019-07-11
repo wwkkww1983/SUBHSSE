@@ -101,6 +101,7 @@ namespace BLL
                 newConstructSolution.CompileManName = constructSolution.CompileManName;
                 newConstructSolution.CompileDate = constructSolution.CompileDate;
                 newConstructSolution.States = constructSolution.States;
+                newConstructSolution.QRCodeAttachUrl = constructSolution.QRCodeAttachUrl;
                 db.SubmitChanges();
                 if (constructSolution.ConstructSolutionCode != CodeRecordsService.ReturnCodeByDataId(constructSolution.ConstructSolutionId))
                 {

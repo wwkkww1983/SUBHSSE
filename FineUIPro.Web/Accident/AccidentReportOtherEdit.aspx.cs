@@ -251,14 +251,14 @@ namespace FineUIPro.Web.Accident
             {
                 accidentReportOther.AccidentReportOtherId = this.AccidentReportOtherId;
                 BLL.AccidentReportOtherService.UpdateAccidentReportOther(accidentReportOther);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改事故调查处理报告", accidentReportOther.AccidentReportOtherId);
+                BLL.LogService.AddSys_Log(this.CurrUser, accidentReportOther.AccidentReportOtherCode, accidentReportOther.AccidentReportOtherId, BLL.Const.ProjectAccidentReportOtherMenuId, Const.BtnModify);                
             }
             else
             {
                 this.AccidentReportOtherId = SQLHelper.GetNewID(typeof(Model.Accident_AccidentReportOther));
                 accidentReportOther.AccidentReportOtherId = this.AccidentReportOtherId;
                 BLL.AccidentReportOtherService.AddAccidentReportOther(accidentReportOther);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加事故调查处理报告", accidentReportOther.AccidentReportOtherId);
+                BLL.LogService.AddSys_Log(this.CurrUser, accidentReportOther.AccidentReportOtherCode, accidentReportOther.AccidentReportOtherId, BLL.Const.ProjectAccidentReportOtherMenuId, Const.BtnAdd);
             }
 
             //保存流程审核数据         

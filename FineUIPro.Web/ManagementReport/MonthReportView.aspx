@@ -49,8 +49,7 @@
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="true" Title="教育与培训情况统计" runat="server"
                         ClicksToEdit="1" DataIDField="TrainSortId" DataKeyNames="TrainSortId,TrainTypeName"
-                        EnableMultiSelect="false" ShowGridHeader="true" Height="220px" EnableColumnLines="true"
-                        AutoScroll="true">
+                        EnableMultiSelect="false" ShowGridHeader="true" Height="220px" EnableColumnLines="true">
                         <Columns>
                              <f:RenderField Width="200px" ColumnID="TrainTypeName" DataField="TrainTypeName"
                                 FieldType="String" HeaderText="安全培训课程类型" HeaderTextAlign="Center" TextAlign="Left">
@@ -229,8 +228,7 @@
                 <Items>
                     <f:Grid ID="Grid2" ShowBorder="true" ShowHeader="true" Title="事故分类统计" runat="server"
                         ClicksToEdit="1" DataIDField="AccidentSortId" DataKeyNames="AccidentSortId,AccidentTypeId"
-                        EnableMultiSelect="false" ShowGridHeader="true" Height="220px" EnableColumnLines="true" EnableSummary="true" SummaryPosition="Flow"
-                        AutoScroll="true">
+                        EnableMultiSelect="false" ShowGridHeader="true" Height="220px" EnableColumnLines="true" EnableSummary="true" SummaryPosition="Flow">
                         <Columns>
                             <f:TemplateField Width="200px" HeaderText="事故类型" HeaderTextAlign="Center" TextAlign="Left"
                                 ExpandUnusedSpace="true" ColumnID="TrainTypeId">
@@ -404,7 +402,7 @@
                                     <f:FormRow ColumnWidths="30% 5% 65%">
                                         <Items>
                                             <f:NumberBox ID="txtHseNumber01" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                runat="server" Label="本月现场施工车辆总共" LabelWidth="150px" Readonly="true">
+                                                runat="server" Label="本月现场施工车辆总共" LabelWidth="160px" Readonly="true">
                                             </f:NumberBox>
                                             <f:Label runat="server" ID="Label31" Text="台。">
                                             </f:Label>
@@ -415,10 +413,10 @@
                                     <f:FormRow ColumnWidths="30% 30% 5% 35%">
                                         <Items>
                                             <f:NumberBox ID="txtHseNumber02" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                runat="server" Label="本月施工机械设备" LabelWidth="125px" Readonly="true">
+                                                runat="server" Label="本月施工机械设备" LabelWidth="160px" Readonly="true">
                                             </f:NumberBox>
                                             <f:NumberBox ID="txtHseNumber03" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                runat="server" Label="台。其中特种设备" LabelWidth="125px" Readonly="true">
+                                                runat="server" Label="台。其中特种设备" LabelWidth="160px" Readonly="true">
                                             </f:NumberBox>
                                             <f:Label runat="server" ID="Label32" Text="台。">
                                             </f:Label>
@@ -429,10 +427,10 @@
                                     <f:FormRow ColumnWidths="30% 30% 5% 35%">
                                         <Items>
                                             <f:NumberBox ID="txtHseNumber04" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                runat="server" Label="本月隐患整改总共" LabelWidth="125px" Readonly="true">
+                                                runat="server" Label="本月隐患整改总共" LabelWidth="160px" Readonly="true">
                                             </f:NumberBox>
                                             <f:NumberBox ID="txtHseNumber05" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                runat="server" Label="项，已经整改完成" LabelWidth="125px" Readonly="true">
+                                                runat="server" Label="项，已经整改完成" LabelWidth="160px" Readonly="true">
                                             </f:NumberBox>
                                             <f:Label runat="server" ID="Label33" Text="项。">
                                             </f:Label>
@@ -443,10 +441,10 @@
                                     <f:FormRow ColumnWidths="30% 30% 5% 35%">
                                         <Items>
                                             <f:NumberBox ID="txtHseNumber06" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                runat="server" Label="本月方案审批数量" LabelWidth="125px" Readonly="true">
+                                                runat="server" Label="本月方案审批数量" LabelWidth="160px" Readonly="true">
                                             </f:NumberBox>
                                             <f:NumberBox ID="txtSpecialNumber" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                runat="server" Label="。其中专项方案数量" LabelWidth="140px" Readonly="true">
+                                                runat="server" Label="。其中专项方案数量" LabelWidth="150px" Readonly="true">
                                             </f:NumberBox>
                                             <f:Label runat="server" ID="Label34" Text="。">
                                             </f:Label>
@@ -457,7 +455,7 @@
                                     <f:FormRow>
                                         <Items>
                                             <f:NumberBox ID="txtHseNumber07" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                runat="server" Label="本月共计签发隐患整改单" LabelWidth="165px" Readonly="true">
+                                                runat="server" Label="本月共计签发隐患整改单" LabelWidth="180px" Readonly="true">
                                             </f:NumberBox>
                                             <f:Label runat="server" ID="Label35" Text="份。">
                                             </f:Label>
@@ -466,7 +464,7 @@
                                     <f:FormRow>
                                         <Items>
                                             <f:NumberBox ID="txtHseNumber08" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                runat="server" Label="本月共计签发《隐患整改暂时停止作业令》" LabelWidth="270px" Readonly="true">
+                                                runat="server" Label="本月共计签发《隐患整改暂时停止作业令》" LabelWidth="290px" Readonly="true">
                                             </f:NumberBox>
                                             <f:Label runat="server" ID="Label36" Text="份。">
                                             </f:Label>
@@ -475,7 +473,7 @@
                                     <f:FormRow>
                                         <Items>
                                             <f:NumberBox ID="txtHseNumber09" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                runat="server" Label="本月共计办理作业许可证" LabelWidth="165px" Readonly="true">
+                                                runat="server" Label="本月共计办理作业许可证" LabelWidth="180px" Readonly="true">
                                             </f:NumberBox>
                                             <f:Label runat="server" ID="Label37" Text="份。">
                                             </f:Label>
@@ -484,7 +482,7 @@
                                     <f:FormRow>
                                         <Items>
                                             <f:NumberBox ID="txtHseNumber00" NoDecimal="true" NoNegative="true" MinValue="0"
-                                                runat="server" Label="本月共计签发处罚单" LabelWidth="140px" Readonly="true">
+                                                runat="server" Label="本月共计签发处罚单" LabelWidth="150px" Readonly="true">
                                             </f:NumberBox>
                                             <f:Label runat="server" ID="Label38" Text="份。">
                                             </f:Label>

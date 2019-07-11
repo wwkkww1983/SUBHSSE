@@ -1,11 +1,11 @@
-﻿using System;
+﻿using BLL;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
-using BLL;
-using Newtonsoft.Json.Linq;
 using AspNet = System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.EduTrain
@@ -36,9 +36,7 @@ namespace FineUIPro.Web.EduTrain
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
-        {
-            // 表头过滤
-            FilterDataRowItem = FilterDataRowItemImplement;
+        {          
             if (!IsPostBack)
             {
                 ////权限按钮方法
@@ -46,11 +44,11 @@ namespace FineUIPro.Web.EduTrain
                 this.btnMenuDelete.OnClientClick = Grid1.GetNoSelectionAlertReference("请至少选择一项！");
                 this.btnMenuDelete.ConfirmText = String.Format("你确定要删除选中的&nbsp;<b><script>{0}</script></b>&nbsp;行数据吗？", Grid1.GetSelectedCountReference());
                 //单位
-                this.drpUnitId.DataTextField = "UnitName";
-                this.drpUnitId.DataValueField = "UnitId";
-                this.drpUnitId.DataSource = BLL.UnitService.GetUnitByProjectIdList(this.CurrUser.LoginProjectId);
-                this.drpUnitId.DataBind();
-                Funs.FineUIPleaseSelect(this.drpUnitId);
+                BLL.UnitService.InitUnitDropDownList(this.drpUnitId, this.CurrUser.LoginProjectId, true);
+                //培训类型
+                BLL.TrainTypeService.InitTrainTypeDropDownList(this.drpTrainType, true);
+                //培训级别;
+                BLL.TrainLevelService.InitTrainLevelDropDownList(this.drpTrainLevel, true);
 
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
@@ -66,20 +64,21 @@ namespace FineUIPro.Web.EduTrain
         {
             string strSql = "select TrainRecord.TrainingId"
                           + @",TrainRecord.TrainTitle"
-                          + @",TrainType.TrainTypeName"
+                          + @",TrainType.TrainTypeName,TrainLevel.TrainLevelName"
                           + @",TrainRecord.TrainStartDate"
                           + @",TrainRecord.TrainEndDate"
                           + @",TrainRecord.TeachHour"
                           + @",TrainRecord.TeachMan"
                           + @",TrainRecord.TrainPersonNum"
-                          + @",CodeRecords.Code AS TrainingCode"
-                          + @",TrainRecord.TrainPersonNum"
+                           + @",TrainingCode" 
+                          // + @",CodeRecords.Code AS TrainingCode"                         
                           + @",(CASE WHEN TrainRecord.States = " + BLL.Const.State_0 + " OR TrainRecord.States IS NULL THEN '待['+OperateUser.UserName+']提交' WHEN TrainRecord.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
                           + @",TrainRecord.UnitIds"
                           + @" from EduTrain_TrainRecord AS TrainRecord "
                           + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON TrainRecord.TrainingId=FlowOperate.DataId AND FlowOperate.IsClosed <> 1"
                           + @" LEFT JOIN Sys_User AS OperateUser ON FlowOperate.OperaterId=OperateUser.UserId "
-                          + @" LEFT JOIN Base_TrainType AS TrainType ON TrainType.TrainTypeId=TrainRecord.TrainTypeId "
+                          + @" LEFT JOIN Base_TrainType AS TrainType ON TrainRecord.TrainTypeId=TrainType.TrainTypeId "
+                          + @" LEFT JOIN Base_TrainLevel AS TrainLevel ON TrainRecord.TrainLevelId=TrainLevel.TrainLevelId "
                           + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON TrainRecord.TrainingId=CodeRecords.DataId WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND TrainRecord.ProjectId = @ProjectId";
@@ -93,10 +92,15 @@ namespace FineUIPro.Web.EduTrain
             {
                 listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
             }
-            if (!string.IsNullOrEmpty(this.txtTrainTypeName.Text.Trim()))
+            if (this.drpTrainType.SelectedValue != BLL.Const._Null)
             {
-                strSql += " AND TrainType.TrainTypeName LIKE @TrainTypeName";
-                listStr.Add(new SqlParameter("@TrainTypeName", "%" + this.txtTrainTypeName.Text.Trim() + "%"));
+                strSql += " AND TrainRecord.TrainTypeId = @TrainType";
+                listStr.Add(new SqlParameter("@TrainType", this.drpTrainType.SelectedValue));
+            }
+            if (this.drpTrainLevel.SelectedValue != BLL.Const._Null)
+            {
+                strSql += " AND TrainRecord.TrainLevelId = @TrainLevel";
+                listStr.Add(new SqlParameter("@TrainLevel", this.drpTrainLevel.SelectedValue));
             }
             if (!string.IsNullOrEmpty(this.txtStartDate.Text.Trim()))
             {
@@ -121,7 +125,7 @@ namespace FineUIPro.Web.EduTrain
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
             Grid1.RecordCount = tb.Rows.Count;
-            tb = GetFilteredTable(Grid1.FilteredData, tb);
+            //tb = GetFilteredTable(Grid1.FilteredData, tb);
             var table = this.GetPagedDataTable(Grid1, tb);
 
             Grid1.DataSource = table;
@@ -129,72 +133,16 @@ namespace FineUIPro.Web.EduTrain
             int totalPersonNum = 0;
             for (int i = 0; i < tb.Rows.Count; i++)
             {
-                if (!string.IsNullOrEmpty(tb.Rows[i][7].ToString()))
-                {
-                    totalPersonNum += Funs.GetNewIntOrZero(tb.Rows[i][7].ToString());
-                }
+                totalPersonNum += Funs.GetNewIntOrZero(tb.Rows[i][8].ToString());
             }
-            JObject summary = new JObject();
-            summary.Add("TeachMan", "合计人数：");
-            summary.Add("TrainPersonNum", totalPersonNum);
+
+            JObject summary = new JObject
+            {
+                { "TeachMan", "合计：" },
+                { "TrainPersonNum", totalPersonNum }
+            };
 
             Grid1.SummaryData = summary;
-        }
-        #endregion
-
-        #region 表头过滤
-        /// <summary>
-        /// 表头过滤
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Grid1_FilterChange(object sender, EventArgs e)
-        {
-            BindGrid();
-        }
-
-        private bool FilterDataRowItemImplement(object sourceObj, string fillteredOperator, object fillteredObj, string column)
-        {
-            bool valid = false;
-            if (column == "TrainingCode")
-            {
-                string sourceValue = sourceObj.ToString();
-                string fillteredValue = fillteredObj.ToString();
-                if (fillteredOperator == "equal")
-                {
-                    if (sourceValue == fillteredValue)
-                    {
-                        valid = true;
-                    }
-                }
-                else if (fillteredOperator == "contain")
-                {
-                    if (sourceValue.Contains(fillteredValue))
-                    {
-                        valid = true;
-                    }
-                }
-            }
-            if (column == "TrainTitle")
-            {
-                string sourceValue = sourceObj.ToString();
-                string fillteredValue = fillteredObj.ToString();
-                if (fillteredOperator == "equal")
-                {
-                    if (sourceValue == fillteredValue)
-                    {
-                        valid = true;
-                    }
-                }
-                else if (fillteredOperator == "contain")
-                {
-                    if (sourceValue.Contains(fillteredValue))
-                    {
-                        valid = true;
-                    }
-                }
-            }
-            return valid;
         }
         #endregion
 
@@ -206,7 +154,6 @@ namespace FineUIPro.Web.EduTrain
         /// <param name="e"></param>
         protected void Grid1_PageIndexChange(object sender, GridPageEventArgs e)
         {
-            Grid1.PageIndex = e.NewPageIndex;
             BindGrid();
         }
         #endregion
@@ -219,8 +166,6 @@ namespace FineUIPro.Web.EduTrain
         /// <param name="e"></param>
         protected void Grid1_Sort(object sender, GridSortEventArgs e)
         {
-            Grid1.SortDirection = e.SortDirection;
-            Grid1.SortField = e.SortField;
             BindGrid();
         }
         #endregion
@@ -233,7 +178,6 @@ namespace FineUIPro.Web.EduTrain
         /// <param name="e"></param>
         protected void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Grid1.PageSize = Convert.ToInt32(ddlPageSize.SelectedValue);
             BindGrid();
         }
         #endregion
@@ -325,11 +269,16 @@ namespace FineUIPro.Web.EduTrain
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, isShow))
                     {
-                        BLL.EduTrain_TrainRecordDetailService.DeleteTrainDetailByTrainingId(rowID);
-                        BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除培训记录", rowID);
-                        BLL.EduTrain_TrainRecordService.DeleteTrainingByTrainingId(rowID);
-                        BindGrid();
-                        ShowNotify("删除数据成功!（表格数据已重新绑定）", MessageBoxIcon.Success);
+                        var TrainRecord = BLL.EduTrain_TrainRecordService.GetTrainingByTrainingId(rowID);
+                        if (TrainRecord != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, TrainRecord.TrainingCode, TrainRecord.TrainingId, BLL.Const.ProjectTrainRecordMenuId, BLL.Const.BtnDelete);
+
+                            BLL.EduTrain_TrainRecordDetailService.DeleteTrainDetailByTrainingId(rowID);
+                            BLL.EduTrain_TrainRecordService.DeleteTrainingByTrainingId(rowID);
+                            BindGrid();
+                            ShowNotify("删除数据成功!（表格数据已重新绑定）", MessageBoxIcon.Success);
+                        }
                     }
                 }
             }

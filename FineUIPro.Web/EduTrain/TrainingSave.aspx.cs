@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BLL;
+﻿using BLL;
 using Model;
-using System.IO;
+using System;
+using System.Linq;
 
 namespace FineUIPro.Web.EduTrain
 {
@@ -98,6 +93,7 @@ namespace FineUIPro.Web.EduTrain
                 training.TrainingId = TrainingId;
                 training.SupTrainingId = this.SupTrainingId;
                 BLL.TrainingService.AddTraining(training);
+                BLL.LogService.AddSys_Log(this.CurrUser, training.TrainingCode, training.TrainingId, BLL.Const.TrainDBMenuId, BLL.Const.BtnAdd);
             }
             else
             {
@@ -109,6 +105,7 @@ namespace FineUIPro.Web.EduTrain
                 }
                 training.IsBuild = t.IsBuild;
                 BLL.TrainingService.UpdateTraining(training);
+                BLL.LogService.AddSys_Log(this.CurrUser, training.TrainingCode, training.TrainingId, BLL.Const.TrainDBMenuId, BLL.Const.BtnModify);
             }
             // 2. 关闭本窗体，然后刷新父窗体
             // PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());

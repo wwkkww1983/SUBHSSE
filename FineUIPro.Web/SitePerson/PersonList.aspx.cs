@@ -1,10 +1,10 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
-using BLL;
 using AspNet = System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.SitePerson
@@ -59,7 +59,14 @@ namespace FineUIPro.Web.SitePerson
                 if (!string.IsNullOrEmpty(Request.Params["projectId"]) && Request.Params["projectId"] != this.ProjectId)
                 {
                     this.ProjectId = Request.Params["projectId"];
-                } 
+                }
+                var thisUnit = BLL.CommonService.GetIsThisUnit();
+                if (thisUnit != null && thisUnit.UnitId == BLL.Const.UnitId_TCC_)
+                {
+                    this.BtnAnalyse.Hidden = false;
+                    this.BtnBlackList.Hidden = false;
+                }
+
                 ////权限按钮方法
                 this.GetButtonPower();
                 this.btnMenuDelete.OnClientClick = Grid1.GetNoSelectionAlertReference("请至少选择一项！");
@@ -116,6 +123,12 @@ namespace FineUIPro.Web.SitePerson
                     unitLists = unitLists.Where(x => x.UnitId == this.CurrUser.UnitId).ToList();
                 }
 
+                //添加其他单位/无单位人员
+                Model.Base_Unit otherUnit = new Model.Base_Unit();
+                otherUnit.UnitId = "0";
+                otherUnit.UnitName = "其他";
+                unitLists.Add(otherUnit);
+
                 TreeNode newNode = null;
                 foreach (var q in unitLists)
                 {
@@ -128,6 +141,11 @@ namespace FineUIPro.Web.SitePerson
                     if (personLists.Count() > 0)
                     {
                         var personUnitLists = personLists.Where(x => x.UnitId == q.UnitId);
+                        if (q.UnitId == "0")
+                        {
+                            personUnitLists = personLists.Where(x => x.UnitId == null);
+                        }
+
                         if (personUnitLists.Count() > 0)
                         {
                             var personIn = personUnitLists.Where(x => x.InTime <= System.DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= System.DateTime.Now));
@@ -165,10 +183,21 @@ namespace FineUIPro.Web.SitePerson
                     projectId = str[1];
                 }
 
-                string strSql = "select * from View_SitePerson_Person Where ProjectId=@ProjectId and UnitId=@UnitId ";
-                List<SqlParameter> listStr = new List<SqlParameter>();
-                listStr.Add(new SqlParameter("@ProjectId", this.ProjectId));
-                listStr.Add(new SqlParameter("@UnitId", unitId)); 
+                string strSql = "select * from View_SitePerson_Person Where ProjectId=@ProjectId ";
+                List<SqlParameter> listStr = new List<SqlParameter>
+                {
+                    new SqlParameter("@ProjectId", this.ProjectId)
+                };
+                if (!string.IsNullOrEmpty(unitId) && unitId != "0")
+                {
+                    strSql += " AND UnitId =@UnitId ";
+                    listStr.Add(new SqlParameter("@UnitId", unitId));
+                }
+                else
+                {
+                    strSql += " AND UnitId IS NULL";
+                }
+                
                 if (!string.IsNullOrEmpty(this.txtPersonName.Text.Trim()))
                 {
                     strSql += " AND PersonName LIKE @PersonName";
@@ -179,6 +208,11 @@ namespace FineUIPro.Web.SitePerson
                 {
                     strSql += " AND CardNo LIKE @CardNo";
                     listStr.Add(new SqlParameter("@CardNo", "%" + this.txtCardNo.Text.Trim() + "%"));
+                }
+                if (!string.IsNullOrEmpty(this.txtIdentityCard.Text.Trim()))
+                {
+                    strSql += " AND IdentityCard LIKE @IdentityCard";
+                    listStr.Add(new SqlParameter("@IdentityCard", "%" + this.txtIdentityCard.Text.Trim() + "%"));
                 }
                 if (!string.IsNullOrEmpty(this.drpTreamGroup.SelectedValue) && this.drpTreamGroup.SelectedValue != BLL.Const._Null)
                 {
@@ -203,16 +237,33 @@ namespace FineUIPro.Web.SitePerson
 
                     strSql += ")";
                 }
-
+                if (this.ckTrain.Checked)
+                {
+                    strSql += " AND TrainCount =0";
+                }
 
                 SqlParameter[] parameter = listStr.ToArray();
                 DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 
                 Grid1.RecordCount = tb.Rows.Count;
-                tb = GetFilteredTable(Grid1.FilteredData, tb);
+                //tb = GetFilteredTable(Grid1.FilteredData, tb);
                 var table = this.GetPagedDataTable(Grid1, tb);
                 Grid1.DataSource = table;
                 Grid1.DataBind();
+
+                for (int i = 0; i < Grid1.Rows.Count; i++)
+                {
+                    string personId = Grid1.Rows[i].DataKeys[0].ToString();
+
+                    var isNull = from x in Funs.DB.EduTrain_TrainRecordDetail
+                                 join y in Funs.DB.EduTrain_TrainRecord on x.TrainingId equals y.TrainingId
+                                 where y.ProjectId == this.ProjectId && x.PersonId == personId
+                                 select x;
+                    if (isNull.Count() == 0) ////未参加过培训的人员
+                    {
+                        Grid1.Rows[i].RowCssClass = "Red";
+                    }
+                }
             }
         }
         #endregion
@@ -466,8 +517,12 @@ namespace FineUIPro.Web.SitePerson
                     if (this.judgementDelete(rowID, isShow))
                     {
                         i++;
-                        BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除人员信息", rowID);
-                        BLL.PersonService.DeletePerson(rowID);
+                        var getV = BLL.PersonService.GetPersonById(rowID);
+                        if (getV != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getV.PersonName, getV.PersonId, BLL.Const.PersonListMenuId, BLL.Const.BtnDelete);
+                            BLL.PersonService.DeletePerson(rowID);
+                        }
                     }
                 }
                 BindGrid();
@@ -600,7 +655,7 @@ namespace FineUIPro.Web.SitePerson
             Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("人员信息" + filename, System.Text.Encoding.UTF8) + ".xls");
             Response.ContentType = "application/excel";
             Response.ContentEncoding = System.Text.Encoding.UTF8;
-            this.Grid1.PageSize = 500;
+            //this.Grid1.PageSize = this.;
             BindGrid();
             Response.Write(GetGridTableHtml(Grid1));
             Response.End();
@@ -704,6 +759,35 @@ namespace FineUIPro.Web.SitePerson
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
             this.BindGrid();
+        }
+
+        //protected void ckTrain_CheckedChanged(object sender, CheckedEventArgs e)
+        //{
+        //    this.BindGrid();
+        //}
+        #endregion     
+
+        #region 扣分查询事件
+        /// <summary>
+        /// 扣分查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void BtnAnalyse_Click(object sender, EventArgs e)
+        {
+            PageContext.RegisterStartupScript(WindowPunishRecord.GetShowReference(String.Format("PersonPunishRecordSearch.aspx", "查询 - ")));
+        }
+        #endregion
+
+        #region 黑名单事件
+        /// <summary>
+        /// 黑名单
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void BtnBlackList_Click(object sender, EventArgs e)
+        {
+            PageContext.RegisterStartupScript(WindowPunishRecord.GetShowReference(String.Format("BlackList.aspx", "查询 - ")));
         }
         #endregion
     }

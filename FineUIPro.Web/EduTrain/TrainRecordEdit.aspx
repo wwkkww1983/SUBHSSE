@@ -76,11 +76,16 @@
             <f:FormRow>
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1" AllowCellEditing="true"
-                        DataIDField="TrainDetailId" DataKeyNames="TrainDetailId" EnableMultiSelect="true"
-                        ShowGridHeader="true" Height="220px" EnableColumnLines="true" AutoScroll="true">
+                        DataIDField="TrainDetailId" DataKeyNames="TrainDetailId" EnableMultiSelect="true" AllowSorting="true" SortField="UnitName,PersonName"
+                        ShowGridHeader="true" Height="200px" EnableColumnLines="true" >
                         <Toolbars>
                             <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
                                 <Items>
+                                    <f:Button ID="btnTrainTest" runat="server" ToolTip="培训试卷" Icon="ApplicationFormEdit" Hidden="true"
+                                        OnClick="btnTrainTest_Click"></f:Button>
+                                    <f:Button ID="btnImport" ToolTip="导入" Icon="PageExcel" runat="server" ValidateForms="SimpleForm1"
+                                            OnClick="btnImport_Click">
+                                    </f:Button>
                                     <f:Button ID="btnSelect" Icon="ShapeSquareSelect" runat="server" ToolTip="选择培训人员" ValidateForms="SimpleForm1"
                                         OnClick="btnSelect_Click">
                                     </f:Button>
@@ -94,22 +99,13 @@
                             </f:RenderField>
                             <f:RenderField Width="150px" ColumnID="PersonName" DataField="PersonName" SortField="PersonName"
                                 FieldType="String" HeaderText="培训人员" TextAlign="Left" HeaderTextAlign="Center">
-                            </f:RenderField>
-                           <%-- <f:TemplateField Width="150px" HeaderText="考核结果" HeaderTextAlign="Center" TextAlign="Center">
-                                <ItemTemplate>
-                                    <asp:DropDownList ID="drpCheckResult" runat="server" Height="23px" SelectedValue='<%# Eval("CheckResult")==null?"True":Eval("CheckResult") %>'
-                                        Style="border: 0px;">
-                                        <asp:ListItem Value="True">通过</asp:ListItem>
-                                        <asp:ListItem Value="False">未通过</asp:ListItem>
-                                    </asp:DropDownList>
-                                </ItemTemplate>
-                            </f:TemplateField>--%>
+                            </f:RenderField>                       
                             <f:RenderField Width="100px" ColumnID="CheckResult" DataField="CheckResult" FieldType="Int"
                                     RendererFunction="renderGender" HeaderText="考核结果">
                                     <Editor>
                                         <f:DropDownList ID="drpCheckResult" Required="true" runat="server">
-                                            <f:ListItem Text="通过" Value="1" />
-                                            <f:ListItem Text="未通过" Value="0" />
+                                            <f:ListItem Text="合格" Value="1" />
+                                            <f:ListItem Text="未合格" Value="0" />
                                         </f:DropDownList>
                                     </Editor>
                                 </f:RenderField>
@@ -157,23 +153,27 @@
                     <f:Button ID="btnSubmit" Icon="SystemSaveNew" runat="server" ToolTip="提交" ValidateForms="SimpleForm1"
                         OnClick="btnSubmit_Click">
                     </f:Button>
-                    <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
+                    <f:Button ID="btnClose" EnablePostBack="false" runat="server" Icon="SystemClose" MarginRight="10px">
                     </f:Button>
                 </Items>
             </f:Toolbar>
         </Toolbars>
     </f:Form>
     <f:Window ID="Window1" Title="选择培训人员" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Width="1200px" Height="520px">
+    </f:Window>
+    <f:Window ID="Window2" Title="培训试卷" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true"
         Width="1200px" Height="520px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Icon="Delete" ConfirmText="确定删除当前数据？" ConfirmTarget="Top" runat="server" Text="删除">
+            Icon="Delete" ConfirmText="确定删除当前数据？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>
@@ -186,7 +186,7 @@
             return false;
         }
         function renderGender(value) {
-            return value == 1 ? '通过' : '不通过';
+            return value == 1 ? '合格' : '不合格';
         }
         function onGridDataLoad(event) {
             this.mergeColumns(['UnitName']);

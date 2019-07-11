@@ -289,8 +289,12 @@ namespace FineUIPro.Web.SecuritySystem
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除安全制度", rowID);
-                    BLL.SafetyInstitutionService.DeleteSafetyInstitutionById(rowID);
+                    var getV = BLL.SafetyInstitutionService.GetSafetyInstitutionById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.Title, getV.SafetyInstitutionId, BLL.Const.ProjectSafetyInstitutionMenuId, BLL.Const.BtnDelete);
+                        BLL.SafetyInstitutionService.DeleteSafetyInstitutionById(rowID);
+                    }
                 }
 
                 this.BindGrid();
@@ -306,12 +310,16 @@ namespace FineUIPro.Web.SecuritySystem
         protected void btnMenuDelete_Click(object sender, EventArgs e)
         {
             if (Grid1.SelectedRowIndexArray.Length > 0)
-            {               
+            {
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除安全制度", rowID);
-                    BLL.SafetyInstitutionService.DeleteSafetyInstitutionById(rowID);
+                    var getV = BLL.SafetyInstitutionService.GetSafetyInstitutionById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.Title, getV.SafetyInstitutionId, BLL.Const.ProjectSafetyInstitutionMenuId, BLL.Const.BtnDelete);
+                        BLL.SafetyInstitutionService.DeleteSafetyInstitutionById(rowID);
+                    }
                 }
 
                 this.BindGrid();

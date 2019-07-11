@@ -61,7 +61,7 @@
             // 2.获取当前分页数据
             //var table = this.GetPagedDataTable(Grid1, tb1);
             Grid1.RecordCount = tb.Rows.Count;
-            tb = GetFilteredTable(Grid1.FilteredData, tb);
+           
             var table = this.GetPagedDataTable(Grid1, tb);
 
             this.OutputSummaryData(resourceCollections);

@@ -71,7 +71,7 @@
                         SortField="CompileManName" FieldType="String" HeaderText="整理人" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>             
-                     <f:RenderField Width="90px" ColumnID="CompileDate" DataField="CompileDate"
+                     <f:RenderField Width="100px" ColumnID="CompileDate" DataField="CompileDate"
                         SortField="CompileDate" FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd"
                         HeaderText="整理时间" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
@@ -101,7 +101,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="编辑职业病事故" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="1024px" Height="700px">
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1024px" Height="600px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件页面" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px" Height="500px">
@@ -111,7 +111,7 @@
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

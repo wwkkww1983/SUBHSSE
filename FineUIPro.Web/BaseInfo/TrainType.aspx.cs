@@ -83,11 +83,15 @@ namespace FineUIPro.Web.BaseInfo
             string rowID = hfFormID.Text;
             if (this.judgementDelete(rowID, true))
             {
-                BLL.TrainTypeService.DeleteTrainTypeById(rowID);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除培训类型");
-                // 重新绑定表格，并模拟点击[新增按钮]
-                BindGrid();
-                PageContext.RegisterStartupScript("onNewButtonClick();");
+                var newTrainType = BLL.TrainTypeService.GetTrainTypeById(rowID);
+                if (newTrainType != null)
+                {
+                    BLL.LogService.AddSys_Log(this.CurrUser, newTrainType.TrainTypeCode, newTrainType.TrainTypeId, BLL.Const.TrainTypeMenuId, BLL.Const.BtnDelete);
+                    BLL.TrainTypeService.DeleteTrainTypeById(rowID);
+                    // 重新绑定表格，并模拟点击[新增按钮]
+                    BindGrid();
+                    PageContext.RegisterStartupScript("onNewButtonClick();");
+                }
             }
         }
 
@@ -113,8 +117,12 @@ namespace FineUIPro.Web.BaseInfo
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, true))
                     {
-                        BLL.TrainTypeService.DeleteTrainTypeById(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除培训类型");
+                        var newTrainType = BLL.TrainTypeService.GetTrainTypeById(rowID);
+                        if (newTrainType != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, newTrainType.TrainTypeCode, newTrainType.TrainTypeId, BLL.Const.TrainTypeMenuId, BLL.Const.BtnDelete);
+                            BLL.TrainTypeService.DeleteTrainTypeById(rowID);
+                        }
                     }
                 }
 
@@ -206,13 +214,13 @@ namespace FineUIPro.Web.BaseInfo
             {
                 newTrainType.TrainTypeId = SQLHelper.GetNewID(typeof(Model.Base_TrainType));
                 BLL.TrainTypeService.AddTrainType(newTrainType);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加培训类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, newTrainType.TrainTypeCode, newTrainType.TrainTypeId, BLL.Const.TrainTypeMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 newTrainType.TrainTypeId = strRowID;
                 BLL.TrainTypeService.UpdateTrainType(newTrainType);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改培训类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, newTrainType.TrainTypeCode, newTrainType.TrainTypeId, BLL.Const.TrainTypeMenuId, BLL.Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行

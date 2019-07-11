@@ -207,8 +207,12 @@ namespace FineUIPro.Web.Manager
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, isShow))
                     {
-                        BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除安全月总结", rowID);
-                        BLL.ManagerTotalMonthService.deleteManagerTotalMonthById(rowID);
+                        var getV = BLL.ManagerTotalMonthService.GetManagerTotalMonthById(rowID);
+                        if (getV != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, null, rowID, BLL.Const.ProjectManagerTotalMonthMenuId, BLL.Const.BtnDelete);
+                            BLL.ManagerTotalMonthService.deleteManagerTotalMonthById(rowID);
+                        }
                     }
                 }
                 BindGrid();

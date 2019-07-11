@@ -178,14 +178,25 @@ namespace FineUIPro.Web.SitePerson
                     person.PersonId = newKeyID;
                     BLL.PersonService.AddPerson(person);
                 }
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加人员信息", person.PersonId);
+                BLL.LogService.AddSys_Log(this.CurrUser, person.PersonName, person.PersonId, BLL.Const.PersonListMenuId, BLL.Const.BtnAdd);
             }
             else
             {
-                person.PersonId = PersonId;
-                BLL.PersonService.UpdatePerson(person);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改人员信息", person.PersonId);
+                var getPerson = BLL.PersonService.GetPersonById(PersonId);
+                if (getPerson != null)
+                {
+                    getPerson.Sex = person.Sex;
+                    getPerson.ProjectId = person.ProjectId;
+                    getPerson.UnitId = person.UnitId;
+                    getPerson.WorkPostId = person.WorkPostId;
+                    getPerson.DepartId = person.DepartId;
+                    getPerson.PersonName = person.PersonName;
+                    getPerson.Telephone = person.Telephone;
+                    BLL.PersonService.UpdatePerson(getPerson);
+                    BLL.LogService.AddSys_Log(this.CurrUser, person.PersonName, person.PersonId, BLL.Const.PersonListMenuId, BLL.Const.BtnModify);
+                }
             }
+
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
         #endregion

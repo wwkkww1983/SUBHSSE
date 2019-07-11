@@ -261,16 +261,19 @@ namespace FineUIPro.Web.Manager
         private void jerqueSaveAccidentDesciptionList()
         {
             accidentDesciptions.Clear();
-            int rowsCount = this.gvAccidentDesciption.Rows.Count;
-            for (int i = 0; i < rowsCount; i++)
+            JArray mergedData = gvAccidentDesciption.GetMergedData();
+            foreach (JObject mergedRow in mergedData)
             {
+                string status = mergedRow.Value<string>("status");
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
                 Model.Manager_Month_AccidentDesciptionC accidentDesciptionSort = new Model.Manager_Month_AccidentDesciptionC
                 {
                     AccidentDesId = this.gvAccidentDesciption.Rows[i].DataKeys[0].ToString(),
                     SortIndex = i,
-                    Matter = this.gvAccidentDesciption.Rows[i].Values[1].ToString(),
-                    MonthDataNum = Funs.GetNewDecimalOrZero(this.gvAccidentDesciption.Rows[i].Values[2].ToString()),
-                    YearDataNum = Funs.GetNewDecimalOrZero(this.gvAccidentDesciption.Rows[i].Values[3].ToString())
+                    Matter = values.Value<string>("Matter").ToString(),
+                    MonthDataNum = Funs.GetNewDecimalOrZero(values.Value<string>("MonthDataNum").ToString()),
+                    YearDataNum = Funs.GetNewDecimalOrZero(values.Value<string>("YearDataNum").ToString())
                 };
                 accidentDesciptions.Add(accidentDesciptionSort);
             }
@@ -316,7 +319,7 @@ namespace FineUIPro.Web.Manager
                             item.Datas = (from x in accidentHandles
                                           select x.MoneyLoss ?? 0).Sum().ToString();
                         }
-                        else if (item.Matter == "事故损失工时数")
+                        else if (item.Matter == "事故失时数")
                         {
                             item.Datas = (from x in accidentHandles
                                           select x.WorkHoursLoss ?? 0).Sum().ToString();
@@ -339,15 +342,18 @@ namespace FineUIPro.Web.Manager
         private void jerqueSaveAccidentDesciptionItemList()
         {
             AccidentDesciptionItems.Clear();
-            int rowsCount = this.gvAccidentDesciptionItem.Rows.Count;
-            for (int i = 0; i < rowsCount; i++)
+            JArray mergedData = gvAccidentDesciptionItem.GetMergedData();
+            foreach (JObject mergedRow in mergedData)
             {
+                string status = mergedRow.Value<string>("status");
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
                 Model.Manager_Month_AccidentDesciptionItemC accidentDesciptionItemSort = new Model.Manager_Month_AccidentDesciptionItemC
                 {
                     AccidentDesItemId = this.gvAccidentDesciptionItem.Rows[i].DataKeys[0].ToString(),
                     SortIndex = i,
-                    Matter = this.gvAccidentDesciptionItem.Rows[i].Values[1].ToString(),
-                    Datas = this.gvAccidentDesciptionItem.Rows[i].Values[2].ToString()
+                    Matter = values.Value<string>("Matter").ToString(),
+                    Datas = values.Value<string>("Datas").ToString()
                 };
                 AccidentDesciptionItems.Add(accidentDesciptionItemSort);
             }
@@ -369,7 +375,7 @@ namespace FineUIPro.Web.Manager
                 BLL.MonthReportCService.UpdateMonthReport(oldMonthReport);
                 OperateAccidentDesciptionSort(MonthReportId);
                 OperateAccidentDesciptionItemSort(MonthReportId);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改HSE月报告", MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, oldMonthReport.MonthReportCode, oldMonthReport.MonthReportId, BLL.Const.ProjectManagerMonthCMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -386,7 +392,7 @@ namespace FineUIPro.Web.Manager
                 BLL.MonthReportCService.AddMonthReport(monthReport);
                 OperateAccidentDesciptionSort(MonthReportId);
                 OperateAccidentDesciptionItemSort(MonthReportId);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加HSE月报告", monthReport.MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, monthReport.MonthReportCode, monthReport.MonthReportId, BLL.Const.ProjectManagerMonthCMenuId, BLL.Const.BtnAdd);
             }
             ShowNotify("保存成功!", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());

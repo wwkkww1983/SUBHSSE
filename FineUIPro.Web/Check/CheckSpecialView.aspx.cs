@@ -1,12 +1,9 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using BLL;
-using System.IO;
-using Newtonsoft.Json.Linq;
 
 namespace FineUIPro.Web.Check
 {
@@ -85,6 +82,7 @@ namespace FineUIPro.Web.Check
                             this.txtCheckPerson.Text = user.UserName;
                         }
                     }
+                    this.txtPartInPersonNames.Text = checkSpecial.PartInPersonNames;
                     //if (!string.IsNullOrEmpty(checkSpecial.CheckAreas))
                     //{
                     //    string areas = string.Empty;

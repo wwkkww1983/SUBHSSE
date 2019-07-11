@@ -254,7 +254,7 @@ namespace FineUIPro.Web.Hazard
             }
             registration.RegistrationId = this.RegistrationId;
             BLL.Hazard_RegistrationService.UpdateRegistration(registration);
-            BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改危险观察整改", registration.RegistrationId);
+            BLL.LogService.AddSys_Log(this.CurrUser, registration.HazardCode, registration.RegistrationId, BLL.Const.ProjectPayRegistrationMenuId,BLL.Const.BtnModify);
         }
 
         /// <summary>

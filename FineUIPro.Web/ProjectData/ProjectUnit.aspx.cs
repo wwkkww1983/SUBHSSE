@@ -105,8 +105,9 @@ namespace FineUIPro.Web.ProjectData
                         var person = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.ProjectId == delProjectUnit.ProjectId && x.UnitId == delProjectUnit.UnitId);
                         if (person == null)
                         {
+                            BLL.LogService.AddSys_Log(this.CurrUser, "删除项目单位！", delProjectUnit.ProjectUnitId,BLL.Const.ProjectUnitMenuId,BLL.Const.BtnDelete);
                             BLL.ProjectUnitService.DeleteProjectProjectUnitById(projectUnitId);
-                            BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除项目单位！");
+                           
                         }
                         else
                         {
@@ -167,7 +168,7 @@ namespace FineUIPro.Web.ProjectData
         {
             if (!string.IsNullOrEmpty(this.drpProject.SelectedValue))
             {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ProjectUnitSelect.aspx?ProjectId={0}", this.drpProject.SelectedValue), "单位选择", 900, 450));
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ProjectUnitSelect.aspx?ProjectId={0}", this.drpProject.SelectedValue), "单位选择", 900, 520));
             }
             else
             {
@@ -209,11 +210,11 @@ namespace FineUIPro.Web.ProjectData
 
             if (this.btnMenuEdit.Hidden)   ////双击事件 编辑权限有：编辑页面，无：查看页面 或者状态是完成时查看页面
             {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ProjectUnitView.aspx?ProjectUnitId={0}", Grid1.SelectedRowID), "查看项目单位", 800, 300));
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ProjectUnitView.aspx?ProjectUnitId={0}", Grid1.SelectedRowID), "查看项目单位", 800, 500));
             }
             else
             {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ProjectUnitSave.aspx?ProjectUnitId={0}", Grid1.SelectedRowID), "编辑项目单位", 800, 300));
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ProjectUnitSave.aspx?ProjectUnitId={0}", Grid1.SelectedRowID), "编辑项目单位", 800, 500));
             }
         }
 

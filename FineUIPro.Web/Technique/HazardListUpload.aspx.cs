@@ -316,7 +316,7 @@ namespace FineUIPro.Web.Technique
                 hazardList.HazardId = SQLHelper.GetNewID(typeof(Model.Technique_HazardList));
                 hazardList.HazardListTypeId = this.HazardListTypeId;
                 BLL.HazardListService.AddHazardList(hazardList);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加危险源清单资源");
+                BLL.LogService.AddSys_Log(this.CurrUser, hazardList.HazardCode, hazardList.HazardId, BLL.Const.HazardListMenuId, Const.BtnAdd);
             }
             else
             {
@@ -327,7 +327,7 @@ namespace FineUIPro.Web.Technique
                     hazardList.HazardListTypeId = hazard.HazardListTypeId;
                 }
                 BLL.HazardListService.UpdateHazardList(hazardList);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改危险源清单资源");
+                BLL.LogService.AddSys_Log(this.CurrUser, hazardList.HazardCode, hazardList.HazardId, BLL.Const.HazardListMenuId, Const.BtnModify);
             }  
             this.InitTreeMenu();
             ShowNotify("保存成功！", MessageBoxIcon.Success);

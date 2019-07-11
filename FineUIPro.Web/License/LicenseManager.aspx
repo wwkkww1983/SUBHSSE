@@ -29,22 +29,21 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>                           
-                            <f:TextBox runat="server" Label="类型" ID="txtLicenseTypeName" EmptyText="输入查询条件"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="60px"
+                            <f:DropDownList runat="server" Label="类型" ID="drpLicenseType" EnableEdit="true"
+                                AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged" Width="220px" LabelWidth="50px"
                                 LabelAlign="right">
-                            </f:TextBox>
-                            <f:DropDownList ID="drpUnit" runat="server" Label="单位" Width="300px" LabelWidth="60px" EmptyText="请选择单位"
+                            </f:DropDownList>
+                            <f:DropDownList ID="drpUnit" runat="server" Label="单位" Width="280px" LabelWidth="50px"
                                 EnableEdit="true" AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged">
                             </f:DropDownList>
                             <f:DatePicker ID="txtStartDate" runat="server" Label="许可证时间" AutoPostBack="true" OnTextChanged="TextBox_TextChanged"
-                                Width="250px" EmptyText="开始时间" LabelAlign="Right">
+                                Width="220px" EmptyText="开始时间" LabelAlign="Right" EnableEdit="true" LabelWidth="90px">
                             </f:DatePicker>
                             <f:Label ID="lblTo" runat="server" Text="至">
                             </f:Label>
                             <f:DatePicker ID="txtEndDate" runat="server" AutoPostBack="true" OnTextChanged="TextBox_TextChanged"
-                                Width="150px" EmptyText="结束时间">
+                                Width="150px" EmptyText="结束时间" LabelWidth="80px">
                             </f:DatePicker>
-
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" Hidden="true"
@@ -63,33 +62,33 @@
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="100px" ColumnID="LicenseManagerCode" DataField="LicenseManagerCode"
+                    <f:RenderField Width="90px" ColumnID="LicenseManagerCode" DataField="LicenseManagerCode"
                         SortField="LicenseManagerCode" FieldType="String" HeaderText="编号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="130px" ColumnID="LicenseTypeName" DataField="LicenseTypeName"
+                    <f:RenderField Width="125px" ColumnID="LicenseTypeName" DataField="LicenseTypeName"
                         SortField="LicenseTypeName" FieldType="String" HeaderText="类型" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="220px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
                         FieldType="String" HeaderText="申请单位" HeaderTextAlign="Center" TextAlign="Left"  ExpandUnusedSpace="True">
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="WorkAreaName" DataField="WorkAreaName" SortField="WorkAreaName"
+                    <f:RenderField Width="150px" ColumnID="WorkAreaName" DataField="WorkAreaName" SortField="WorkAreaName"
                         FieldType="String" HeaderText="作业区域" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>                   
-                    <f:RenderField Width="90px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
+                    <f:RenderField Width="100px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="申请日期"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="StartDate" DataField="StartDate" SortField="StartDate"
+                    <f:RenderField Width="100px" ColumnID="StartDate" DataField="StartDate" SortField="StartDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="开始时间"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="EndDate" DataField="EndDate" SortField="EndDate"
+                    <f:RenderField Width="100px" ColumnID="EndDate" DataField="EndDate" SortField="EndDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="结束时间"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="FlowOperateName" DataField="FlowOperateName"
+                    <f:RenderField Width="110px" ColumnID="FlowOperateName" DataField="FlowOperateName"
                         SortField="FlowOperateName" FieldType="String" HeaderText="状态" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
@@ -118,8 +117,8 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="现场作业许可证" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="1024px" Height="640px">
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Width="1100px" Height="640px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
@@ -130,7 +129,7 @@
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server"
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server"
             Text="删除">
         </f:MenuButton>
     </f:Menu>

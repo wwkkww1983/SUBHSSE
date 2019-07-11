@@ -106,10 +106,15 @@ namespace FineUIPro.Web.QualityAudit
                     this.txtSendDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                     this.txtLimitDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);                   
                 }
+
+                if(Request.Params["value"] == "0")
+                {
+                    this.btnSave.Hidden = true;
+                }
             }
         }
         #endregion
-        
+
         #region 附件上传
         /// <summary>
         /// 上传附件
@@ -118,13 +123,19 @@ namespace FineUIPro.Web.QualityAudit
         /// <param name="e"></param>
         protected void btnAttachUrl_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.SafePersonQualityId))
+            if (this.btnSave.Hidden)
             {
-                SaveData(false);
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SafePersonQualityAttachUrl&type=-1", SafePersonQualityId, BLL.Const.SafePersonQualityMenuId)));
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SafePersonQualityAttachUrl&menuId={1}", SafePersonQualityId, BLL.Const.SafePersonQualityMenuId)));
+            else
+            {
+                if (string.IsNullOrEmpty(this.SafePersonQualityId))
+                {
+                    SaveData(false);
+                }
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SafePersonQualityAttachUrl&menuId={1}", SafePersonQualityId, BLL.Const.SafePersonQualityMenuId)));
+            }
         }
-
         #endregion
 
         #region 保存
@@ -166,7 +177,7 @@ namespace FineUIPro.Web.QualityAudit
                 {
                     SafePersonQuality.SafePersonQualityId = this.SafePersonQualityId;
                     BLL.SafePersonQualityService.UpdateSafePersonQuality(SafePersonQuality);
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改安全人员资质", SafePersonQuality.SafePersonQualityId);
+                    BLL.LogService.AddSys_Log(this.CurrUser, SafePersonQuality.CertificateNo, SafePersonQuality.SafePersonQualityId, BLL.Const.SafePersonQualityMenuId, BLL.Const.BtnModify);
                 }
                 else
                 {
@@ -175,14 +186,14 @@ namespace FineUIPro.Web.QualityAudit
                     {
                         SafePersonQuality.SafePersonQualityId = updateSafe.SafePersonQualityId;
                         BLL.SafePersonQualityService.UpdateSafePersonQuality(SafePersonQuality);
-                        BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改安全人员资质", SafePersonQuality.SafePersonQualityId);
+                        BLL.LogService.AddSys_Log(this.CurrUser, SafePersonQuality.CertificateNo, SafePersonQuality.SafePersonQualityId, BLL.Const.SafePersonQualityMenuId, BLL.Const.BtnModify);
                     }
                     else
                     {
                         this.SafePersonQualityId = SQLHelper.GetNewID(typeof(Model.QualityAudit_SafePersonQuality));
                         SafePersonQuality.SafePersonQualityId = this.SafePersonQualityId;
                         BLL.SafePersonQualityService.AddSafePersonQuality(SafePersonQuality);
-                        BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加安全人员资质", SafePersonQuality.SafePersonQualityId);
+                        BLL.LogService.AddSys_Log(this.CurrUser, SafePersonQuality.CertificateNo, SafePersonQuality.SafePersonQualityId, BLL.Const.SafePersonQualityMenuId, BLL.Const.BtnAdd);
                     }
                 }
 

@@ -46,7 +46,7 @@ namespace BLL
             db.SafetyData_SafetyDataItem.InsertOnSubmit(newSafetyDataItem);
             db.SubmitChanges();
             ///  更新考核计划 单据提交时间
-            AddSafetyDataCheckItemSubmit(newSafetyDataItem);
+            AddSafetyDataItemSubmit(newSafetyDataItem);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace BLL
                 db.SubmitChanges();
 
                 ///  更新考核计划 单据提交时间
-                AddSafetyDataCheckItemSubmit(newSafetyDataItem);
+                AddSafetyDataItemSubmit(newSafetyDataItem);
             }
         }
 
@@ -122,22 +122,22 @@ namespace BLL
         #endregion
 
         /// <summary>
-        ///  更新考核计划 单据提交时间
+        ///  单据 更新考核计划 单据提交时间
         /// </summary>
         /// <param name="safetyDataItem"></param>
-        private static void AddSafetyDataCheckItemSubmit(Model.SafetyData_SafetyDataItem safetyDataItem)
+        public static void AddSafetyDataItemSubmit(Model.SafetyData_SafetyDataItem safetyDataItem)
         {
-            var safetyDataCheckItem = from x in Funs.DB.SafetyData_SafetyDataCheckItem
-                                      join y in Funs.DB.SafetyData_SafetyDataCheckProject on x.SafetyDataCheckProjectId equals y.SafetyDataCheckProjectId
-                                      where y.ProjectId == safetyDataItem.ProjectId && x.SafetyDataId == safetyDataItem.SafetyDataId 
-                                            && safetyDataItem.CompileDate >= x.StartDate && safetyDataItem.CompileDate <= x.EndDate
-                                      select x;
-            if (safetyDataCheckItem.Count() > 0)
+            var safetyDataPlan = from x in Funs.DB.SafetyData_SafetyDataPlan
+                                 where x.ProjectId == safetyDataItem.ProjectId && x.SafetyDataId == safetyDataItem.SafetyDataId
+                                       && safetyDataItem.CompileDate >= x.RealStartDate && safetyDataItem.CompileDate <= x.RealEndDate
+                                       && !x.SubmitDate.HasValue
+                                 select x;
+            if (safetyDataPlan.Count() > 0)
             {
-                foreach (var item in safetyDataCheckItem)
+                foreach (var item in safetyDataPlan)
                 {
                     item.SubmitDate = safetyDataItem.SubmitDate;
-                    if (item.SubmitDate <= item.EndDate) ///准时提交
+                    if (item.SubmitDate <= item.CheckDate) ///准时提交
                     {
                         item.RealScore = item.ShouldScore;
                     }
@@ -146,7 +146,33 @@ namespace BLL
                         item.RealScore = 0;
                     }
 
-                    BLL.SafetyDataCheckItemService.UpdateSafetyDataCheckItem(item);
+                    BLL.SafetyDataPlanService.UpdateSafetyDataPlan(item);
+                }
+            }
+        }
+
+        public static void GollSafetyData(string projectId)
+        {
+            var thisUnit = BLL.CommonService.GetIsThisUnit();
+            if (thisUnit != null && thisUnit.UnitId == BLL.Const.UnitId_ECEC)
+            {
+                ////判断单据是否 加入到企业管理资料
+                string menuId = BLL.Const.ProjectCheckDayMenuId;
+                var safeData = Funs.DB.SafetyData_SafetyData.FirstOrDefault(x => x.MenuId == menuId);
+                if (safeData != null)
+                {
+                    ///收集手机端考核项资料
+                    var registrations = from x in Funs.DB.Inspection_Registration
+                                        where x.ProjectId == projectId
+                                        select x;
+                    foreach (var item in registrations)
+                    {
+                        var safetyDataItem = BLL.SafetyDataItemService.GetSafetyDataItemByID(item.RegistrationId); ///明细是否存在
+                        if (safetyDataItem == null)
+                        {
+                            BLL.SafetyDataService.AddSafetyData(menuId, item.RegistrationId, item.ProblemDescription, "../Check/RegistrationView.aspx?RegistrationId={0}", projectId);
+                        }
+                    }
                 }
             }
         }

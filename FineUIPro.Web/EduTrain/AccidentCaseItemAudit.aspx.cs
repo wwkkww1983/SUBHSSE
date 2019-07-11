@@ -155,7 +155,8 @@ namespace FineUIPro.Web.EduTrain
                         UpAccidentCaseItem(rowID, unit.UnitId);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "审核事故案例库");
+                
+                BLL.LogService.AddSys_Log(this.CurrUser, "审核事故案例库", null, BLL.Const.AccidentCaseMenuId, BLL.Const.BtnAuditing);
                 BindGrid();
                 ShowNotify("操作成功!");
                 if (isPass)
@@ -213,11 +214,11 @@ namespace FineUIPro.Web.EduTrain
                         BLL.AccidentCaseItemService.UpdateAccidentCaseItemIsPass(accidentCaseItem);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【事故案例明细】上报到集团公司" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【事故案例明细】上报到集团公司" + idList.Count.ToString() + "条数据；", null, BLL.Const.AccidentCaseMenuId, BLL.Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【事故案例明细】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【事故案例明细】上报到集团公司失败；", null, BLL.Const.AccidentCaseMenuId, BLL.Const.BtnUploadResources);
             }
         }
 

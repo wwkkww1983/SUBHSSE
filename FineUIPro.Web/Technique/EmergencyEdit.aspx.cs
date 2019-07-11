@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BLL;
+using System;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.IO;
-using BLL;
 
 namespace FineUIPro.Web.Technique
 {
@@ -140,13 +136,13 @@ namespace FineUIPro.Web.Technique
                 emergency.IsPass = true;
                 this.EmergencyId = emergency.EmergencyId = SQLHelper.GetNewID(typeof(Model.Technique_Emergency));
                 BLL.EmergencyService.AddEmergencyList(emergency);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加应急预案");
+                BLL.LogService.AddSys_Log(this.CurrUser, emergency.EmergencyCode, emergency.EmergencyId, BLL.Const.EmergencyMenuId, Const.BtnAdd);
             }
             else
             {
                 emergency.EmergencyId = this.EmergencyId;
                 BLL.EmergencyService.UpdateEmergencyList(emergency);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改应急预案");
+                BLL.LogService.AddSys_Log(this.CurrUser, emergency.EmergencyCode, emergency.EmergencyId, BLL.Const.EmergencyMenuId, Const.BtnModify);
             }
         }
         #endregion
@@ -159,11 +155,18 @@ namespace FineUIPro.Web.Technique
         /// <param name="e"></param>
         protected void btnUploadResources_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.EmergencyId))
+            if (this.btnSave.Hidden)
             {
-                SaveData(BLL.Const.UpState_1);
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/Emergency&type=-1", this.EmergencyId)));
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/Emergency&menuId=575C5154-A135-4737-8682-A129EA717660", this.EmergencyId)));
+            else
+            {
+                if (string.IsNullOrEmpty(this.EmergencyId))
+                {
+                    SaveData(BLL.Const.UpState_1);
+                }
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/Emergency&menuId={1}", this.EmergencyId, BLL.Const.EmergencyMenuId)));
+            }
         }
         #endregion
 
@@ -223,11 +226,14 @@ namespace FineUIPro.Web.Technique
                         BLL.EmergencyService.UpdateEmergencyList(emergency);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应急预案】上报到集团公司" + idList.Count.ToString() + "条数据；");
+
+                BLL.LogService.AddSys_Log(this.CurrUser, "【应急预案】上报到集团公司" + idList.Count.ToString() + "条数据；", 
+                    string.Empty, BLL.Const.EmergencyMenuId, Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应急预案】上报到集团公司失败；");
+                
+                BLL.LogService.AddSys_Log(this.CurrUser, "【应急预案】上报到集团公司失败；", string.Empty, BLL.Const.EmergencyMenuId, Const.BtnUploadResources);
             }
         }
         #endregion
@@ -261,6 +267,10 @@ namespace FineUIPro.Web.Technique
         /// <returns></returns>
         private void GetButtonPower()
         {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
             var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.EmergencyMenuId);
             if (buttonList.Count() > 0)
             {

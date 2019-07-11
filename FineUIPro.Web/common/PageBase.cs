@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Web;
 using Newtonsoft.Json.Linq;
+using AspNet = System.Web.UI.WebControls;
 
 namespace FineUIPro.Web
 {
@@ -622,6 +623,103 @@ namespace FineUIPro.Web
             System.Web.HttpContext.Current.Response.Flush();
             System.Web.HttpContext.Current.Response.Close();
 
+        }
+        #endregion
+
+        #region 导出方法
+        /// <summary>
+        /// 导出方法
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public static string GetGridTableHtml(Grid grid)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
+            sb.Append("<table cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;\">");
+            sb.Append("<tr>");
+           
+            foreach (GridColumn column in grid.Columns)
+            {
+                sb.AppendFormat("<td>{0}</td>", column.HeaderText);
+            }
+            sb.Append("</tr>");
+            foreach (GridRow row in grid.Rows)
+            {
+                sb.Append("<tr>");
+                foreach (GridColumn column in grid.Columns)
+                {
+                    string html = row.Values[column.ColumnIndex].ToString();
+                    if (column.ColumnID == "tfNumber" && (row.FindControl("labNumber") as AspNet.Label) != null)
+                    {
+                        html = (row.FindControl("labNumber") as AspNet.Label).Text;
+                    }
+                    if (column.ColumnID == "tfTeamType" && (row.FindControl("lbTeamType") as AspNet.Label) != null)
+                    {
+                        html = (row.FindControl("lbTeamType") as AspNet.Label).Text;
+                    }
+                    if (column.ColumnID == "tfI" && (row.FindControl("tfI") as AspNet.Label) != null)
+                    {
+                        html = (row.FindControl("lbI") as AspNet.Label).Text;
+                    }
+                    if (column.ColumnID == "tfCompileMan" && (row.FindControl("tfCompileMan") as AspNet.Label) != null)
+                    {
+                        html = (row.FindControl("lblCompileMan") as AspNet.Label).Text;
+                    }
+
+                    // 处理CheckBox
+                    if (html.Contains("f-grid-static-checkbox"))
+                    {
+                        if (!html.Contains("f-checked"))
+                        {
+                            html = "×";
+                        }
+                        else
+                        {
+                            html = "√";
+                        }
+                    }
+                    sb.AppendFormat("<td>{0}</td>", html);
+                }
+
+                sb.Append("</tr>");
+            }
+
+            sb.Append("</table>");
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// DataTable转HTML
+        /// </summary>
+        /// <param name="table"></param>
+        /// <returns></returns>
+        public static string GetTableHtml(DataTable table)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
+            sb.Append("<table cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;\">");
+            sb.Append("<tr>");
+            foreach (var column in table.Columns)
+            {
+                sb.AppendFormat("<td>{0}</td>", column.ToString());
+            }
+            sb.Append("</tr>");
+            for (int i = 0; i < table.Rows.Count; i++)
+            {
+                sb.Append("<tr>");
+                for (int j = 0; j < table.Columns.Count; j++)
+                {
+                    string html = table.Rows[i][j].ToString();
+                    sb.AppendFormat("<td>{0}</td>", html);
+                }
+                sb.Append("</tr>");
+            }
+
+            sb.Append("</table>");
+
+            return sb.ToString();
         }
         #endregion
     }

@@ -160,14 +160,14 @@ namespace FineUIPro.Web.Manager
             {
                 subManagerMonth.SubManagerMonthId = this.SubManagerMonthId;
                 BLL.SubManagerMonthService.UpdateSubManagerMonth(subManagerMonth);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "修改分包商月报");
+                BLL.LogService.AddSys_Log(this.CurrUser, subManagerMonth.SubManagerMonthCode, subManagerMonth.SubManagerMonthId, BLL.Const.SubManagerMonthMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.SubManagerMonthId = SQLHelper.GetNewID(typeof(Model.Manager_SubManagerMonth));
                 subManagerMonth.SubManagerMonthId = this.SubManagerMonthId;
                 BLL.SubManagerMonthService.AddSubManagerMonth(subManagerMonth);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "添加分包商月报");
+                BLL.LogService.AddSys_Log(this.CurrUser, subManagerMonth.SubManagerMonthCode, subManagerMonth.SubManagerMonthId, BLL.Const.SubManagerMonthMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.SubManagerMonthMenuId, this.SubManagerMonthId, (type == BLL.Const.BtnSubmit ? true : false), subManagerMonth.SubManagerMonthName, "../Manager/SubManagerMonthView.aspx?SubManagerMonthId={0}");

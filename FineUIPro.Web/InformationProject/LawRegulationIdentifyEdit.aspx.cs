@@ -155,14 +155,14 @@ namespace FineUIPro.Web.InformationProject
             {
                 lawRegulationIdentify.LawRegulationIdentifyId = this.LawRegulationIdentifyId;
                 BLL.LawRegulationIdentifyService.UpdateLawRegulationIdentify(lawRegulationIdentify);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改法律法规辨识!", this.LawRegulationIdentifyId);
+                BLL.LogService.AddSys_Log(this.CurrUser, lawRegulationIdentify.LawRegulationIdentifyCode, this.LawRegulationIdentifyId, BLL.Const.LawRegulationIdentifyMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.LawRegulationIdentifyId = SQLHelper.GetNewID(typeof(Model.Law_LawRegulationIdentify));
                 lawRegulationIdentify.LawRegulationIdentifyId =  this.LawRegulationIdentifyId;
                 BLL.LawRegulationIdentifyService.AddLawRegulationIdentify(lawRegulationIdentify);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加法律法规辨识!", this.LawRegulationIdentifyId);
+                BLL.LogService.AddSys_Log(this.CurrUser, lawRegulationIdentify.LawRegulationIdentifyCode, this.LawRegulationIdentifyId, BLL.Const.LawRegulationIdentifyMenuId, BLL.Const.BtnAdd);
             }
             
             if (lawRegulationIdentify != null)

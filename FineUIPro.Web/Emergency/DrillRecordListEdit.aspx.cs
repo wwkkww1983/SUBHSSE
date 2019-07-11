@@ -196,7 +196,7 @@ namespace FineUIPro.Web.Emergency
             {
                 DrillRecordList.DrillRecordListId = this.DrillRecordListId;
                 BLL.DrillRecordListService.UpdateDrillRecordList(DrillRecordList);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改应急演练", DrillRecordList.DrillRecordListId);
+                BLL.LogService.AddSys_Log(this.CurrUser, DrillRecordList.DrillRecordCode, DrillRecordList.DrillRecordListId, BLL.Const.ProjectDrillRecordListMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -204,7 +204,7 @@ namespace FineUIPro.Web.Emergency
                 DrillRecordList.CompileMan = this.CurrUser.UserId;
                 DrillRecordList.DrillRecordListId = this.DrillRecordListId;
                 BLL.DrillRecordListService.AddDrillRecordList(DrillRecordList);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加应急演练", DrillRecordList.DrillRecordListId);
+                BLL.LogService.AddSys_Log(this.CurrUser, DrillRecordList.DrillRecordCode, DrillRecordList.DrillRecordListId, BLL.Const.ProjectDrillRecordListMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectDrillRecordListMenuId, this.DrillRecordListId, (type == BLL.Const.BtnSubmit ? true : false), DrillRecordList.DrillRecordName, "../Emergency/DrillRecordListView.aspx?DrillRecordListId={0}");

@@ -91,13 +91,16 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="编辑HSE月报告" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close" CloseAction="HidePostBack"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close" CloseAction="HidePostBack"
         Width="1300px" Height="600px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <Items>
             <f:MenuButton ID="btnMenuModify" EnablePostBack="true" runat="server" Hidden="true"
                 Text="修改" Icon="Pencil" OnClick="btnMenuModify_Click">
+            </f:MenuButton>
+            <f:MenuButton ID="btnMenuOut" EnablePostBack="true" runat="server"
+                Text="导出" Icon="Find" OnClick="btnMenuOut_Click">
             </f:MenuButton>
             <f:MenuButton ID="btnMenuDel" EnablePostBack="true" runat="server" Hidden="true"
                 Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？" OnClick="btnMenuDel_Click">

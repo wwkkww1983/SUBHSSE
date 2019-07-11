@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BLL;
+using Newtonsoft.Json.Linq;
 
 namespace FineUIPro.Web.CostGoods
 {
@@ -59,6 +60,17 @@ namespace FineUIPro.Web.CostGoods
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 this.InitDropDownList();
                 this.CostManageId = Request.Params["CostManageId"];
+                this.drpInvestCostProject.DataTextField = "Text";
+                this.drpInvestCostProject.DataValueField = "Value";
+                this.drpInvestCostProject.DataSource = BLL.CostManageItemService.GetInvestCostProjectList();
+                this.drpInvestCostProject.DataBind();
+                if (!BLL.CommonService.IsMainUnitOrAdmin(this.CurrUser.UserId))   //分包单位用户，隐藏审核列
+                {
+                    this.Grid1.Columns[7].Hidden = true;
+                    this.Grid1.Columns[8].Hidden = true;
+                    this.Grid1.Columns[9].Hidden = true;
+                }
+                this.txtCostManageDate.Text = string.Format("{0:yyyy-MM-dd}", System.DateTime.Now);
                 if (!string.IsNullOrEmpty(this.CostManageId))
                 {
                     Model.CostGoods_CostManage costManage = BLL.CostManageService.GetCostManageById(this.CostManageId);
@@ -83,6 +95,7 @@ namespace FineUIPro.Web.CostGoods
                         this.txtSubProject.Text = costManage.SubProject;
                     }
                     BindGrid();
+
                 }
                 else
                 {
@@ -95,13 +108,61 @@ namespace FineUIPro.Web.CostGoods
                 this.ctlAuditFlow.ProjectId = this.ProjectId;
                 this.ctlAuditFlow.UnitId = this.CurrUser.UnitId;
             }
+            else
+            {
+                if (GetRequestEventArgument() == "UPDATE_SUMMARY")
+                {
+                    jerqueSaveMonthPlanList();
+                    this.Grid1.DataSource = costManageItems;
+                    this.Grid1.DataBind();
+                    // 页面要求重新计算合计行的值
+                    OutputSummaryData();
+                }
+            }
         }
+
+        #region 计算合计及各行总价
+        /// <summary>
+        /// 计算合计
+        /// </summary>
+        private void OutputSummaryData()
+        {
+            Grid1.CommitChanges();
+            decimal sumTotalMoney = 0, sumAuditTotalMoney = 0, totalMoney = 0, auditTotalMoney = 0, priceMoney = 0, auditPriceMoney = 0;
+            int counts = 0, auditCounts = 0;
+            for (int i = 0; i < Grid1.Rows.Count; i++)
+            {
+                counts = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[4].ToString());
+                priceMoney = Funs.GetNewDecimalOrZero(this.Grid1.Rows[i].Values[5].ToString());
+                totalMoney = counts * priceMoney;
+                sumTotalMoney += totalMoney;
+                this.Grid1.Rows[i].Values[6] = totalMoney.ToString();
+                auditCounts = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[7].ToString());
+                auditPriceMoney = Funs.GetNewDecimalOrZero(this.Grid1.Rows[i].Values[8].ToString());
+                auditTotalMoney = auditCounts * auditPriceMoney;
+                sumAuditTotalMoney += auditTotalMoney;
+                this.Grid1.Rows[i].Values[9] = auditTotalMoney.ToString();
+            }
+            if (this.Grid1.Rows.Count > 0)
+            {
+                JObject summary = new JObject();
+                summary.Add("PriceMoney", "总计");
+                summary.Add("TotalMoney", sumTotalMoney);
+                summary.Add("AuditTotalMoney", sumAuditTotalMoney);
+                Grid1.SummaryData = summary;
+            }
+            else
+            {
+                Grid1.SummaryData = null;
+            }
+        }
+        #endregion
 
         /// <summary>
         ///  初始化下拉框
         /// </summary>
         private void InitDropDownList()
-        {  
+        {
             BLL.UnitService.InitUnitDropDownList(this.drpUnitId, this.ProjectId, true);
         }
 
@@ -114,6 +175,7 @@ namespace FineUIPro.Web.CostGoods
             this.Grid1.DataSource = costManageItems;
             this.Grid1.PageIndex = 0;
             this.Grid1.DataBind();
+            OutputSummaryData();
         }
 
         /// <summary>
@@ -146,63 +208,6 @@ namespace FineUIPro.Web.CostGoods
         protected void Window1_Close(object sender, EventArgs e)
         {
             BindGrid();
-        }
-        #endregion
-
-        #region 编辑
-        /// <summary>
-        /// 双击事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Grid1_RowDoubleClick(object sender, GridRowClickEventArgs e)
-        {
-            this.EditData();
-        }
-
-        /// <summary>
-        /// 右键编辑事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnMenuEdit_Click(object sender, EventArgs e)
-        {
-            this.EditData();
-        }
-
-        /// <summary>
-        /// 编辑数据方法
-        /// </summary>
-        private void EditData()
-        {
-            if (Grid1.SelectedRowIndexArray.Length == 0)
-            {
-                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
-                return;
-            }
-            string id = Grid1.SelectedRowID;
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CostManageItemEdit.aspx?CostManageItemId={0}", id, "编辑 - ")));
-        }
-        #endregion
-
-        #region 删除
-        /// <summary>
-        /// 右键删除事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnMenuDelete_Click(object sender, EventArgs e)
-        {
-            if (Grid1.SelectedRowIndexArray.Length > 0)
-            {
-                foreach (int rowIndex in Grid1.SelectedRowIndexArray)
-                {
-                    string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.CostManageItemService.DeleteCostManageItemById(rowID);
-                }
-                BindGrid();
-                ShowNotify("删除数据成功!（表格数据已重新绑定）", MessageBoxIcon.Success);
-            }
         }
         #endregion
 
@@ -250,6 +255,12 @@ namespace FineUIPro.Web.CostGoods
         /// <param name="type"></param>
         private void SaveData(string type)
         {
+            if (!BLL.CommonService.IsMainUnitOrAdmin(this.CurrUser.UserId) && type == BLL.Const.BtnSubmit && this.ctlAuditFlow.NextStep == BLL.Const.State_2)
+            {
+                Alert.ShowInParent("分包商不能关闭审核流程", MessageBoxIcon.Warning);
+                return;
+            }
+
             Model.CostGoods_CostManage costManage = new Model.CostGoods_CostManage
             {
                 ProjectId = this.ProjectId,
@@ -277,14 +288,21 @@ namespace FineUIPro.Web.CostGoods
             {
                 costManage.CostManageId = this.CostManageId;
                 BLL.CostManageService.UpdateCostManage(costManage);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改安全费用管理", costManage.CostManageId);
+                BLL.LogService.AddSys_Log(this.CurrUser, costManage.CostManageCode, costManage.CostManageId, BLL.Const.ProjectCostManageMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.CostManageId = SQLHelper.GetNewID(typeof(Model.CostGoods_CostManage));
                 costManage.CostManageId = this.CostManageId;
                 BLL.CostManageService.AddCostManage(costManage);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加安全费用管理", costManage.CostManageId);
+                BLL.LogService.AddSys_Log(this.CurrUser, costManage.CostManageCode, costManage.CostManageId, BLL.Const.ProjectCostManageMenuId, BLL.Const.BtnAdd);
+            }
+            jerqueSaveMonthPlanList();
+            BLL.CostManageItemService.DeleteCostManageItemByCostManageId(this.CostManageId);
+            foreach (var costManageItem in costManageItems)
+            {
+                costManageItem.CostManageId = this.CostManageId;
+                BLL.CostManageItemService.AddCostManageItem(costManageItem);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectCostManageMenuId, this.CostManageId, (type == BLL.Const.BtnSubmit ? true : false), costManage.CostManageName, "../CostGoods/CostManageView.aspx?CostManageId={0}");
@@ -307,24 +325,75 @@ namespace FineUIPro.Web.CostGoods
         }
         #endregion
 
-        #region 新增主要设备基础情况
+        #region 新增费用申请情况
         /// <summary>
-        /// 添加主要设备基础情况
+        /// 新增费用申请情况
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void btnNew_Click(object sender, EventArgs e)
         {
-            if (this.drpUnitId.SelectedValue == BLL.Const._Null)
+            //if (this.drpUnitId.SelectedValue == BLL.Const._Null)
+            //{
+            //    Alert.ShowInTop("请选择分包商！", MessageBoxIcon.Warning);
+            //    return;
+            //}
+            jerqueSaveMonthPlanList();
+            Model.CostGoods_CostManageItem costManageItem = new Model.CostGoods_CostManageItem
             {
-                Alert.ShowInTop("请选择分包商！", MessageBoxIcon.Warning);
-                return;
-            }
-            if (string.IsNullOrEmpty(this.CostManageId))
+                CostManageItemId = SQLHelper.GetNewID(typeof(Model.CostGoods_CostManageItem))
+            };
+            costManageItems.Add(costManageItem);
+            this.Grid1.DataSource = costManageItems;
+            this.Grid1.DataBind();
+            OutputSummaryData();
+        }
+
+        /// <summary>
+        /// 检查并保存其他HSE管理活动集合
+        /// </summary>
+        private void jerqueSaveMonthPlanList()
+        {
+            costManageItems.Clear();
+            JArray mergedData = Grid1.GetMergedData();
+            foreach (JObject mergedRow in mergedData)
             {
-                SaveData(BLL.Const.BtnSave);
+                string status = mergedRow.Value<string>("status");
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
+                Model.CostGoods_CostManageItem costManageItem = new Model.CostGoods_CostManageItem
+                {
+                    CostManageItemId = this.Grid1.Rows[i].DataKeys[0].ToString(),
+                    InvestCostProject = values.Value<string>("InvestCostProject").ToString(),
+                    UseReason = values.Value<string>("UseReason").ToString(),
+                    Counts = Funs.GetNewIntOrZero(values.Value<string>("Counts").ToString()),
+                    PriceMoney = Funs.GetNewDecimalOrZero(values.Value<string>("PriceMoney").ToString()),
+                    AuditCounts = !string.IsNullOrEmpty(values.Value<string>("AuditCounts").ToString()) ? Funs.GetNewInt(values.Value<string>("AuditCounts").ToString()) : null,
+                    AuditPriceMoney = !string.IsNullOrEmpty(values.Value<string>("AuditPriceMoney").ToString()) ? Funs.GetNewDecimal(values.Value<string>("AuditPriceMoney").ToString()) : null
+                };
+                costManageItems.Add(costManageItem);
             }
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CostManageItemEdit.aspx?CostManageId={0}", this.CostManageId, "编辑 - ")));
+        }
+
+        protected void gvMonthPlan_RowCommand(object sender, GridCommandEventArgs e)
+        {
+            jerqueSaveMonthPlanList();
+            string rowID = this.Grid1.DataKeys[e.RowIndex][0].ToString();
+            if (e.CommandName == "Delete")
+            {
+                foreach (var item in costManageItems)
+                {
+                    if (item.CostManageItemId == rowID)
+                    {
+                        costManageItems.Remove(item);
+                        break;
+                    }
+                }
+                Grid1.DataSource = costManageItems;
+                Grid1.DataBind();
+                OutputSummaryData();
+                ShowNotify("删除数据成功!", MessageBoxIcon.Success);
+            }
         }
         #endregion
 
@@ -344,6 +413,26 @@ namespace FineUIPro.Web.CostGoods
                 {
                     decimal? price = costManageItem.PriceMoney;
                     int? count = costManageItem.Counts;
+                    total = Convert.ToString(price * count);
+                }
+            }
+            return total;
+        }
+        /// <summary>
+        /// 获取审核总价
+        /// </summary>
+        /// <param name="costManageId"></param>
+        /// <returns></returns>
+        protected string GetAuditTotalMoney(object costManageItemId)
+        {
+            string total = string.Empty;
+            if (costManageItemId != null)
+            {
+                var costManageItem = BLL.CostManageItemService.GetCostManageItemById(costManageItemId.ToString());
+                if (costManageItem != null)
+                {
+                    decimal? price = costManageItem.AuditPriceMoney;
+                    int? count = costManageItem.AuditCounts;
                     total = Convert.ToString(price * count);
                 }
             }

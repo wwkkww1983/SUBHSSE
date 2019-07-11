@@ -222,8 +222,12 @@ namespace FineUIPro.Web.QualityAudit
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除特殊机具设备资质", rowID);
-                    BLL.EquipmentQualityService.DeleteEquipmentQualityById(rowID);
+                    var equipmentQuality = BLL.EquipmentQualityService.GetEquipmentQualityById(rowID);
+                    if (equipmentQuality != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, equipmentQuality.EquipmentQualityCode, equipmentQuality.EquipmentQualityId, BLL.Const.EquipmentQualityMenuId, BLL.Const.BtnDelete);
+                        BLL.EquipmentQualityService.DeleteEquipmentQualityById(rowID);
+                    }
                 }
 
                 this.BindGrid();

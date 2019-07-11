@@ -58,7 +58,7 @@
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="180px" ColumnID="GeneralEquipmentQualityCode" DataField="GeneralEquipmentQualityCode"
+                    <f:RenderField Width="140px" ColumnID="GeneralEquipmentQualityCode" DataField="GeneralEquipmentQualityCode"
                         SortField="GeneralEquipmentQualityCode" FieldType="String" HeaderText="编号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
@@ -66,23 +66,23 @@
                         SortField="UnitName" FieldType="String" HeaderText="单位名称" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="130px" ColumnID="SpecialEquipmentName" DataField="SpecialEquipmentName"
-                        ExpandUnusedSpace="true" SortField="SpecialEquipmentName" FieldType="String"
+                    <f:RenderField Width="120px" ColumnID="SpecialEquipmentName" DataField="SpecialEquipmentName"
+                        SortField="SpecialEquipmentName" FieldType="String"
                         HeaderText="机具设备类型" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="130px" ColumnID="IsQualified" DataField="IsQualified"
-                        ExpandUnusedSpace="true" SortField="IsQualified" FieldType="Boolean"
-                        HeaderText="是否合格" HeaderTextAlign="Center" TextAlign="Left"  RendererFunction="renderIsQualified">
+                    <f:RenderField Width="60px" ColumnID="IsQualified" DataField="IsQualified"
+                        SortField="IsQualified" FieldType="Boolean"
+                        HeaderText="合格" HeaderTextAlign="Center" TextAlign="Left"  RendererFunction="renderIsQualified">
                     </f:RenderField>
-                    <f:RenderField Width="80px" ColumnID="EquipmentCount" DataField="EquipmentCount" ExpandUnusedSpace="true"
+                    <f:RenderField Width="80px" ColumnID="EquipmentCount" DataField="EquipmentCount" 
                         SortField="EquipmentCount" FieldType="Int" HeaderText="数量" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="InDate" DataField="InDate" SortField="InDate"
+                    <f:RenderField Width="90px" ColumnID="InDate" DataField="InDate" SortField="InDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="入场时间"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:WindowField TextAlign="Left" Width="110px" WindowID="WindowAtt" HeaderText="附件"
+                    <f:WindowField TextAlign="Left" Width="90px" WindowID="WindowAtt" HeaderText="附件"
                         Text="附件查看" ToolTip="附件上传查看" DataIFrameUrlFields="GeneralEquipmentQualityId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/GeneralEquipmentQualityAttachUrl&menuId=BFD62699-47F0-49FA-AD39-FAEE8A6C3313"
                         HeaderTextAlign="Center" />
                 </Columns>
@@ -107,7 +107,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="一般机具设备资质" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
         Height="350px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件页面" Hidden="true" EnableIFrame="true" EnableMaximize="true"
@@ -119,7 +119,7 @@
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server"
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server"
             Text="删除">
         </f:MenuButton>
     </f:Menu>

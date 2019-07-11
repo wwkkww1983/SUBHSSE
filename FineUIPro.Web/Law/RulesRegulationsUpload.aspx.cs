@@ -270,7 +270,14 @@ namespace FineUIPro.Web.Law
             Model.Law_RulesRegulations rulesRegulations = new Model.Law_RulesRegulations
             {
                 RulesRegulationsCode = this.txtRulesRegulationsCode.Text.Trim(),
-                RulesRegulationsName = this.txtRulesRegulationsName.Text.Trim()
+                RulesRegulationsName = this.txtRulesRegulationsName.Text.Trim(),
+                ApplicableScope = this.txtApplicableScope.Text.Trim(),
+                Remark = this.txtRemark.Text.Trim(),
+                AttachUrl = this.FullAttachUrl,
+                IsPass = null,
+                CompileMan = this.CurrUser.UserName,
+                CompileDate = Convert.ToDateTime(this.txtCompileDate.Text),
+                UnitId = this.CurrUser.UnitId,
             };
             if (this.ddlRulesRegulationsTypeId.SelectedValue != BLL.Const._Null)
             {
@@ -280,24 +287,18 @@ namespace FineUIPro.Web.Law
             {
                 rulesRegulations.CustomDate = Convert.ToDateTime(this.dpkCustomDate.Text.Trim());
             }
-            rulesRegulations.ApplicableScope = this.txtApplicableScope.Text.Trim();
-            rulesRegulations.Remark = this.txtRemark.Text.Trim();
-            rulesRegulations.AttachUrl = this.FullAttachUrl;
-            rulesRegulations.IsPass = null;
-            rulesRegulations.CompileMan = this.CurrUser.UserName;
-            rulesRegulations.CompileDate = Convert.ToDateTime(this.txtCompileDate.Text);
-            rulesRegulations.UnitId = this.CurrUser.UnitId;
+            
             if (string.IsNullOrEmpty(this.RulesRegulationsId))
             {
                 this.RulesRegulationsId = rulesRegulations.RulesRegulationsId = SQLHelper.GetNewID(typeof(Model.Law_RulesRegulations));
                 BLL.RulesRegulationsService.AddRulesRegulations(rulesRegulations);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "增加政府部门安全规章");
+                BLL.LogService.AddSys_Log(this.CurrUser, rulesRegulations.RulesRegulationsCode, rulesRegulations.RulesRegulationsId,BLL.Const.RulesRegulationsMenuId,BLL.Const.BtnAdd);
             }
             else
             {
                 rulesRegulations.RulesRegulationsId = this.RulesRegulationsId;
                 BLL.RulesRegulationsService.UpdateRulesRegulations(rulesRegulations);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改政府部门安全规章");
+                BLL.LogService.AddSys_Log(this.CurrUser, rulesRegulations.RulesRegulationsCode, rulesRegulations.RulesRegulationsId, BLL.Const.RulesRegulationsMenuId, BLL.Const.BtnModify);
             }
         }
         #endregion

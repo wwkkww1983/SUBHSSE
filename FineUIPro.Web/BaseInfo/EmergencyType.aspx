@@ -27,10 +27,10 @@
                     <f:RenderField Width="150px" ColumnID="EmergencyTypeCode" DataField="EmergencyTypeCode" FieldType="String"
                         HeaderText="编号" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="200px" ColumnID="EmergencyTypeName" DataField="EmergencyTypeName" FieldType="String"
+                    <f:RenderField Width="360px" ColumnID="EmergencyTypeName" DataField="EmergencyTypeName" FieldType="String"
                         HeaderText="名称" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="350px" ColumnID="Remark" DataField="Remark" FieldType="String"
+                    <f:RenderField Width="100px" ColumnID="Remark" DataField="Remark" FieldType="String"
                         HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
                     </f:RenderField>
                 </Columns>
@@ -94,7 +94,7 @@
             runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" Hidden="true"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

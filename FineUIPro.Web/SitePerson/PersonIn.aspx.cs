@@ -31,6 +31,21 @@ namespace FineUIPro.Web.SitePerson
         /// 错误集合
         /// </summary>
         public static string errorInfos = string.Empty;
+
+        /// <summary>
+        /// 项目ID
+        /// </summary>
+        public string ProjectId
+        {
+            get
+            {
+                return (string)ViewState["ProjectId"];
+            }
+            set
+            {
+                ViewState["ProjectId"] = value;
+            }
+        }
         #endregion
 
         #region 加载页面
@@ -50,6 +65,7 @@ namespace FineUIPro.Web.SitePerson
                     persons.Clear();
                 }
                 errorInfos = string.Empty;
+                this.ProjectId = Request.Params["ProjectId"];
             }
         }
         #endregion
@@ -163,19 +179,26 @@ namespace FineUIPro.Web.SitePerson
             if (ic < Cols)
             {
                 Alert.ShowInTop("导入Excel格式错误！Excel只有" + ic.ToString().Trim() + "行", MessageBoxIcon.Warning);
-            }
-
+            }           
             ir = pds.Rows.Count;
             if (pds != null && ir > 0)
-            {
-                var units = from x in Funs.DB.Base_Unit select x;
-                var teamGroups = from x in Funs.DB.ProjectData_TeamGroup select x;
-                var workAreas = from x in Funs.DB.ProjectData_WorkArea select x;
-                var posts = from x in Funs.DB.Base_WorkPost select x;
-                var certificates = from x in Funs.DB.Base_Certificate select x;
+            {                
+                var units = from x in Funs.DB.Base_Unit
+                            where x.IsHide == null || x.IsHide == false
+                            select x;
+                var teamGroups = from x in Funs.DB.ProjectData_TeamGroup
+                                 where x.ProjectId == this.ProjectId
+                                 select x;
+                var workAreas = from x in Funs.DB.ProjectData_WorkArea
+                                where x.ProjectId == this.ProjectId
+                                select x;
+                var posts = from x in Funs.DB.Base_WorkPost
+                            select x;
+                var certificates = from x in Funs.DB.Base_Certificate
+                                   select x;
                 for (int i = 0; i < ir; i++)
                 {                   
-                    string col1 = pds.Rows[i][1].ToString();
+                    string col1 = pds.Rows[i][1].ToString().Trim();
                     if (!string.IsNullOrEmpty(col1))
                     {
                         if (string.IsNullOrEmpty(col1))
@@ -183,7 +206,7 @@ namespace FineUIPro.Web.SitePerson
                             result += "第" + (i + 2).ToString() + "行," + "人员姓名" + "," + "此项为必填项！" + "|";
                         }
 
-                        string col2 = pds.Rows[i][2].ToString();
+                        string col2 = pds.Rows[i][2].ToString().Trim();
                         if (!string.IsNullOrEmpty(col2))
                         {
                             if (col2 != "男" && col2 != "女")
@@ -196,12 +219,17 @@ namespace FineUIPro.Web.SitePerson
                             result += "第" + (i + 2).ToString() + "行," + "性别" + "," + "此项为必填项！" + "|";
                         }
 
-                        string col3 = pds.Rows[i][3].ToString();
+                        string col3 = pds.Rows[i][3].ToString().Trim();
                         if (!string.IsNullOrEmpty(col3))
                         {
                             if (col3.Length > 50)
                             {
                                 result += "第" + (i + 2).ToString() + "行," + "身份证号码" + "," + "[" + col3 + "]错误！" + "|";
+                            }
+
+                            if (PersonService.GetPersonCountByIdentityCard(col3, this.ProjectId) != null)
+                            {
+                                result += "第" + (i + 2).ToString() + "行," + "身份证号码" + "," + "[" + col3 + "]已存在！" + "|";
                             }
                         }
                         //else
@@ -209,13 +237,13 @@ namespace FineUIPro.Web.SitePerson
                         //    result += "第" + (i + 2).ToString() + "行," + "身份证号码" + "," + "此项为必填项！" + "|";
                         //}
 
-                        string col5 = pds.Rows[i][5].ToString();
+                        string col5 = pds.Rows[i][5].ToString().Trim();
                         if (!string.IsNullOrEmpty(col5))
                         {
-                            Model.Base_Unit unit = units.FirstOrDefault(e => e.UnitName == col5);
+                            var unit = units.FirstOrDefault(e => e.UnitName == col5);
                             if (unit != null)
                             {
-                                var projectUnit = Funs.DB.Project_ProjectUnit.FirstOrDefault(x => x.ProjectId == Request.Params["ProjectId"] && x.UnitId == unit.UnitId);
+                                var projectUnit = Funs.DB.Project_ProjectUnit.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.UnitId == unit.UnitId);
                                 if (projectUnit == null)
                                 {
                                     result += "第" + (i + 2).ToString() + "行," + "所属单位" + "," + "[" + col5 + "]不在本项目中！" + "|";
@@ -234,7 +262,7 @@ namespace FineUIPro.Web.SitePerson
                         string col6 = pds.Rows[i][6].ToString().Trim();
                         if (!string.IsNullOrEmpty(col6))
                         {
-                            Model.ProjectData_TeamGroup teamGroup = teamGroups.FirstOrDefault(e => e.ProjectId == Request.Params["ProjectId"] && e.TeamGroupName == col6);
+                            var teamGroup = teamGroups.FirstOrDefault(e => e.TeamGroupName == col6);
                             if (teamGroup == null)
                             {
                                 result += "第" + (i + 2).ToString() + "行," + "所在班组" + "," + "[" + col6 + "]错误！" + "|";
@@ -244,7 +272,7 @@ namespace FineUIPro.Web.SitePerson
                         string col7 = pds.Rows[i][7].ToString().Trim();
                         if (!string.IsNullOrEmpty(col7))
                         {
-                            Model.ProjectData_WorkArea workArea = workAreas.FirstOrDefault(e => e.WorkAreaName == col7 && e.ProjectId == Request.Params["ProjectId"]);
+                            var workArea = workAreas.FirstOrDefault(e => e.WorkAreaName == col7);
                             if (workArea == null)
                             {
                                 result += "第" + (i + 2).ToString() + "行," + "作业区域" + "," + "[" + col7 + "]错误！" + "|";
@@ -254,7 +282,7 @@ namespace FineUIPro.Web.SitePerson
                         string col8 = pds.Rows[i][8].ToString().Trim();
                         if (!string.IsNullOrEmpty(col8))
                         {
-                            Model.Base_WorkPost post = posts.FirstOrDefault(e => e.WorkPostName == col8);
+                            var post = posts.FirstOrDefault(e => e.WorkPostName == col8);
                             if (post == null)
                             {
                                 result += "第" + (i + 2).ToString() + "行," + "岗位" + "," + "[" + col8 + "]错误！" + "|";
@@ -268,7 +296,7 @@ namespace FineUIPro.Web.SitePerson
                         string col9 = pds.Rows[i][9].ToString().Trim();
                         if (!string.IsNullOrEmpty(col9))
                         {
-                            Model.Base_Certificate certificate = certificates.FirstOrDefault(e => e.CertificateName == col9);
+                            var certificate = certificates.FirstOrDefault(e => e.CertificateName == col9);
                             if (certificate == null)
                             {
                                 result += "第" + (i + 2).ToString() + "行," + "特岗证书" + "," + "[" + col9 + "]错误！" + "|";
@@ -314,7 +342,7 @@ namespace FineUIPro.Web.SitePerson
                             }
                         }
 
-                        string col16 = pds.Rows[i][16].ToString();
+                        string col16 = pds.Rows[i][16].ToString().Trim();
                         if (!string.IsNullOrEmpty(col16))
                         {
                             if (col16 != "是" && col16 != "否")
@@ -327,7 +355,7 @@ namespace FineUIPro.Web.SitePerson
                             result += "第" + (i + 2).ToString() + "行," + "人员是否在场" + "," + "此项为必填项！" + "|";
                         }
 
-                        string col17 = pds.Rows[i][17].ToString();
+                        string col17 = pds.Rows[i][17].ToString().Trim();
                         if (!string.IsNullOrEmpty(col17))
                         {
                             if (col17 != "是" && col17 != "否")
@@ -461,11 +489,19 @@ namespace FineUIPro.Web.SitePerson
             ir = pds.Rows.Count;
             if (pds != null && ir > 0)
             {
-                var units = from x in Funs.DB.Base_Unit select x;
-                var teamGroups = from x in Funs.DB.ProjectData_TeamGroup select x;
-                var workAreas = from x in Funs.DB.ProjectData_WorkArea select x;
-                var posts = from x in Funs.DB.Base_WorkPost select x;
-                var certificates = from x in Funs.DB.Base_Certificate select x;
+                var units = from x in Funs.DB.Base_Unit
+                            where x.IsHide == null || x.IsHide == false
+                            select x;
+                var teamGroups = from x in Funs.DB.ProjectData_TeamGroup
+                                 where x.ProjectId == this.ProjectId
+                                 select x;
+                var workAreas = from x in Funs.DB.ProjectData_WorkArea
+                                where x.ProjectId == this.ProjectId
+                                select x;
+                var posts = from x in Funs.DB.Base_WorkPost
+                            select x;
+                var certificates = from x in Funs.DB.Base_Certificate
+                                   select x;
                 for (int i = 0; i < ir; i++)
                 {
                     string col1 = pds.Rows[i][1].ToString().Trim();
@@ -500,7 +536,7 @@ namespace FineUIPro.Web.SitePerson
                         if (!string.IsNullOrEmpty(col1))//姓名
                         {
                             person.PersonName = col1;
-                            person.ProjectId = Request.Params["ProjectId"];
+                            person.ProjectId = this.ProjectId;
 
                         }
                         if (!string.IsNullOrEmpty(col2))//性别
@@ -526,7 +562,7 @@ namespace FineUIPro.Web.SitePerson
                         }
                         if (!string.IsNullOrEmpty(col6))//所在班组
                         {
-                            var teamGroup = teamGroups.FirstOrDefault(e => e.ProjectId == Request.Params["ProjectId"] && e.TeamGroupName == col6);
+                            var teamGroup = teamGroups.FirstOrDefault(e => e.TeamGroupName == col6);
                             if (teamGroup != null)
                             {
                                 person.TeamGroupId = teamGroup.TeamGroupId;
@@ -535,7 +571,7 @@ namespace FineUIPro.Web.SitePerson
                         }
                         if (!string.IsNullOrEmpty(col7))//作业区域
                         {
-                            Model.ProjectData_WorkArea workArea = workAreas.FirstOrDefault(e => e.WorkAreaName == col7 && e.ProjectId == Request.Params["ProjectId"]);
+                            var workArea = workAreas.FirstOrDefault(e => e.WorkAreaName == col7);
                             if (workArea != null)
                             {
                                 person.WorkAreaId = workArea.WorkAreaId;
@@ -544,7 +580,7 @@ namespace FineUIPro.Web.SitePerson
                         }
                         if (!string.IsNullOrEmpty(col8))//岗位
                         {
-                            Model.Base_WorkPost post = posts.FirstOrDefault(e => e.WorkPostName == col8);
+                            var post = posts.FirstOrDefault(e => e.WorkPostName == col8);
                             if (post != null)
                             {
                                 person.WorkPostId = post.WorkPostId;
@@ -624,7 +660,8 @@ namespace FineUIPro.Web.SitePerson
                 int a = persons.Count();
                 for (int i = 0; i < a; i++)
                 {
-                    if (!BLL.PersonService.IsExistPersonByUnit(persons[i].UnitId, persons[i].PersonName, Request.Params["ProjectId"]) && PersonService.GetPersonCountByIdentityCard(persons[i].IdentityCard, Request.Params["ProjectId"]) == 0)
+                    //!BLL.PersonService.IsExistPersonByUnit(persons[i].UnitId, persons[i].IdentityCard, Request.Params["ProjectId"]) &&
+                    if (PersonService.GetPersonCountByIdentityCard(persons[i].IdentityCard, Request.Params["ProjectId"]) == null)
                     {
                         Model.SitePerson_Person newPerson = new Model.SitePerson_Person();
                         string newKeyID = SQLHelper.GetNewID(typeof(Model.SitePerson_Person));

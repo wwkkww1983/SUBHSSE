@@ -98,5 +98,24 @@ namespace BLL
             var list = (from x in Funs.DB.Base_UnitType orderby x.UnitTypeCode select x).ToList();          
             return list;
         }
+
+        #region 单位类型表下拉框
+        /// <summary>
+        ///  单位类型表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitUnitTypeDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "UnitTypeId";
+            dropName.DataTextField = "UnitTypeName";
+            dropName.DataSource = BLL.UnitTypeService.GetUnitTypeDropDownList();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+        #endregion
     }
 }

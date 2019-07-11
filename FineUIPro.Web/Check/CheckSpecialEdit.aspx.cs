@@ -85,6 +85,7 @@ namespace FineUIPro.Web.Check
                     {
                         this.drpCheckPerson.SelectedValue = checkSpecial.CheckPerson;
                     }
+                    this.txtPartInPersonNames.Text = checkSpecial.PartInPersonNames;
                     //if (!string.IsNullOrEmpty(checkSpecial.CheckAreas))
                     //{
                     //    this.drpCheckAreas.SelectedValueArray = checkSpecial.CheckAreas.Split(',');
@@ -103,6 +104,7 @@ namespace FineUIPro.Web.Check
                     this.txtCheckDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                     this.txtDaySummary.Text = HttpUtility.HtmlDecode("其他情况日小结");
                 }
+
                 Grid1.DataSource = checkSpecialDetails;
                 Grid1.DataBind();
                 SetColor();
@@ -316,7 +318,7 @@ namespace FineUIPro.Web.Check
                     checkSpecial.PartInPersonIds = partInPersonIds.Substring(0, partInPersonIds.LastIndexOf(","));
                     checkSpecial.PartInPersons = partInPersons.Substring(0, partInPersons.LastIndexOf(","));
                 }
-                
+                checkSpecial.PartInPersonNames = this.txtPartInPersonNames.Text.Trim();
                 checkSpecial.CheckTime = Funs.GetNewDateTime(this.txtCheckDate.Text.Trim());
                 checkSpecial.DaySummary = HttpUtility.HtmlEncode(this.txtDaySummary.Text.Trim());
                 ////单据状态
@@ -324,7 +326,7 @@ namespace FineUIPro.Web.Check
                 this.CheckSpecialId = checkSpecial.CheckSpecialId;
                 checkSpecial.CompileMan = this.CurrUser.UserId;
                 BLL.Check_CheckSpecialService.AddCheckSpecial(checkSpecial);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加专项检查", checkSpecial.CheckSpecialId);
+                BLL.LogService.AddSys_Log(this.CurrUser, checkSpecial.CheckSpecialCode, checkSpecial.CheckSpecialId, BLL.Const.ProjectCheckSpecialMenuId, BLL.Const.BtnAdd);
             }
         }
 
@@ -448,6 +450,9 @@ namespace FineUIPro.Web.Check
                 checkSpecial.PartInPersonIds = partInPersonIds.Substring(0, partInPersonIds.LastIndexOf(","));
                 checkSpecial.PartInPersons = partInPersons.Substring(0, partInPersons.LastIndexOf(","));
             }
+
+            checkSpecial.PartInPersonNames= this.txtPartInPersonNames.Text.Trim();
+
             //检查区域
             //string workAreaIds = string.Empty;
             //foreach (var item in this.drpCheckAreas.SelectedValueArray)
@@ -471,7 +476,7 @@ namespace FineUIPro.Web.Check
             {
                 checkSpecial.CheckSpecialId = this.CheckSpecialId;
                 BLL.Check_CheckSpecialService.UpdateCheckSpecial(checkSpecial);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改专项检查", checkSpecial.CheckSpecialId);
+                BLL.LogService.AddSys_Log(this.CurrUser, checkSpecial.CheckSpecialCode, checkSpecial.CheckSpecialId,BLL.Const.ProjectCheckSpecialMenuId,BLL.Const.BtnModify);
             }
             else
             {
@@ -479,7 +484,7 @@ namespace FineUIPro.Web.Check
                 this.CheckSpecialId = checkSpecial.CheckSpecialId;
                 checkSpecial.CompileMan = this.CurrUser.UserId;
                 BLL.Check_CheckSpecialService.AddCheckSpecial(checkSpecial);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加专项检查", checkSpecial.CheckSpecialId);
+                BLL.LogService.AddSys_Log(this.CurrUser, checkSpecial.CheckSpecialCode, checkSpecial.CheckSpecialId, BLL.Const.ProjectCheckSpecialMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectCheckSpecialMenuId, this.CheckSpecialId, (type == BLL.Const.BtnSubmit ? true : false), this.txtCheckDate.Text.Trim(), "../Check/CheckSpecialView.aspx?CheckSpecialId={0}");
@@ -658,5 +663,20 @@ namespace FineUIPro.Web.Check
             }
         }
         #endregion
+
+        /// <summary>
+        /// 导入
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnImport_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.CheckSpecialId))
+            {
+                this.SaveData(BLL.Const.BtnSave);
+            }
+
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckSpecialDetailIn.aspx?CheckSpecialId={0}", this.CheckSpecialId, "导入 - "), "导入", 1024, 560));
+        }
     }
 }

@@ -219,8 +219,13 @@ namespace FineUIPro.Web.Emergency
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除应急预案管理清单", rowID);
-                    BLL.EmergencyListService.DeleteEmergencyListById(rowID);
+                    var EmergencyList = BLL.EmergencyListService.GetEmergencyListById(rowID);
+                    if (EmergencyList != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, EmergencyList.EmergencyCode, EmergencyList.EmergencyListId, BLL.Const.ProjectEmergencyListMenuId, BLL.Const.BtnDelete);
+
+                        BLL.EmergencyListService.DeleteEmergencyListById(rowID);
+                    }
                 }
 
                 this.BindGrid();

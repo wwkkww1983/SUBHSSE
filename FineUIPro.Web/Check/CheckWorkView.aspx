@@ -69,7 +69,14 @@
                                         <Items>
                                             <f:TextBox ID="txtSubUnits" runat="server" Label="参与单位" Readonly="true">
                                             </f:TextBox>
-                                            <f:TextBox ID="txtSubUnitPerson" runat="server" Label="人员" Readonly="true" MaxLength="500">
+                                            <f:Label runat="server"></f:Label>
+                                        </Items>
+                                    </f:FormRow>
+                                     <f:FormRow>
+                                        <Items>
+                                             <f:TextBox ID="txtSubUnitPerson" runat="server" Label="人员" Readonly="true" MaxLength="500">
+                                            </f:TextBox>
+                                                <f:TextBox ID="txtPartInPersonNames" runat="server" Label="检查组成员" MaxLength="200" Readonly="true">
                                             </f:TextBox>
                                         </Items>
                                     </f:FormRow>
@@ -83,8 +90,7 @@
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1"
                         DataIDField="CheckWorkDetailId" DataKeyNames="CheckWorkDetailId" EnableMultiSelect="false"
-                        ShowGridHeader="true" Height="175" EnableColumnLines="true" AutoScroll="true"
-                        >
+                        ShowGridHeader="true" Height="175" EnableColumnLines="true"  >
                         <Toolbars>
                             <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
                                 <Items>

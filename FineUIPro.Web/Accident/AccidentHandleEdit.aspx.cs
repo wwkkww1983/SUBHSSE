@@ -193,14 +193,14 @@ namespace FineUIPro.Web.Accident
             {
                 accidentHandle.AccidentHandleId = this.AccidentHandleId;
                 BLL.AccidentHandleService.UpdateAccidentHandle(accidentHandle);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改HSE事故(含未遂)处理", accidentHandle.AccidentHandle);
+                BLL.LogService.AddSys_Log(this.CurrUser, this.txtAccidentHandleCode.Text, this.AccidentHandleId, BLL.Const.ProjectAccidentHandleMenuId, Const.BtnModify);
             }
             else
             {
                 this.AccidentHandleId = SQLHelper.GetNewID(typeof(Model.Accident_AccidentHandle));
                 accidentHandle.AccidentHandleId = this.AccidentHandleId;
                 BLL.AccidentHandleService.AddAccidentHandle(accidentHandle);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加HSE事故(含未遂)处理", accidentHandle.AccidentHandleId);
+                BLL.LogService.AddSys_Log(this.CurrUser, this.txtAccidentHandleCode.Text, this.AccidentHandleId, BLL.Const.ProjectAccidentHandleMenuId, Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectAccidentHandleMenuId, this.AccidentHandleId, (type == BLL.Const.BtnSubmit ? true : false), accidentHandle.AccidentHandleName, "../Accident/AccidentHandleView.aspx?AccidentHandleId={0}");

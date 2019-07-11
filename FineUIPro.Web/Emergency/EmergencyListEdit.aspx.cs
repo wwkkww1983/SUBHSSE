@@ -215,14 +215,14 @@ namespace FineUIPro.Web.Emergency
             {
                 EmergencyList.EmergencyListId = this.EmergencyListId;
                 BLL.EmergencyListService.UpdateEmergencyList(EmergencyList);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改应急预案管理清单", EmergencyList.EmergencyListId);
+                BLL.LogService.AddSys_Log(this.CurrUser, EmergencyList.EmergencyCode, EmergencyList.EmergencyListId, BLL.Const.ProjectEmergencyListMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.EmergencyListId = SQLHelper.GetNewID(typeof(Model.Emergency_EmergencyList));
                 EmergencyList.EmergencyListId = this.EmergencyListId;
                 BLL.EmergencyListService.AddEmergencyList(EmergencyList);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加应急预案管理清单", EmergencyList.EmergencyListId);
+                BLL.LogService.AddSys_Log(this.CurrUser, EmergencyList.EmergencyCode, EmergencyList.EmergencyListId, BLL.Const.ProjectEmergencyListMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectEmergencyListMenuId, this.EmergencyListId, (type == BLL.Const.BtnSubmit ? true : false), EmergencyList.EmergencyName, "../Emergency/EmergencyListView.aspx?EmergencyListId={0}");

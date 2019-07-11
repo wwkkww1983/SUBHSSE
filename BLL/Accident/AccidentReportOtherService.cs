@@ -69,6 +69,19 @@ namespace BLL
         }
 
         /// <summary>
+        /// 根据类型获取事故数量
+        /// </summary>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="accidentType"></param>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static int GetCountByAccidentType(string accidentType, string projectId)
+        {
+            return (from x in Funs.DB.Accident_AccidentReportOther where x.AccidentTypeId == accidentType && x.ProjectId == projectId && x.States == BLL.Const.State_2 select x).Count();
+        }
+
+        /// <summary>
         /// 根据时间段和类型获取事故数量
         /// </summary>
         /// <param name="startTime"></param>

@@ -1,6 +1,6 @@
 ﻿namespace BLL
 {
-    using System.Collections.Generic; 
+    using System.Collections.Generic;
     using System.Linq;
     using Model;
     using System;
@@ -56,14 +56,22 @@
                 PostCode = project.PostCode,
                 Remark = project.Remark,
                 ProjectState = project.ProjectState,
-                IsUpTotalMonth = project.IsUpTotalMonth
+                IsUpTotalMonth = project.IsUpTotalMonth,
+                UnitId = project.UnitId,
+                ProjectMainPerson = project.ProjectMainPerson,
+                ProjectLiaisonPerson = project.ProjectLiaisonPerson,
+                IsForeign=project.IsForeign,
+                FromProjectId = project.FromProjectId,
             };
             db.Base_Project.InsertOnSubmit(newProject);
             db.SubmitChanges();
             ////插入编码/模板规则表
             BLL.ProjectData_CodeTemplateRuleService.InertProjectData_CodeTemplateRuleByProjectId(project.ProjectId);
-            ////根据项目信息生成企业安全管理资料计划总表
-            BLL.SafetyDataPlanService.GetSafetyDataPlanByProjectInfo(newProject.ProjectId, string.Empty);
+            if (newProject.ProjectType != "5")
+            {
+                ////根据项目信息生成企业安全管理资料计划总表
+                BLL.SafetyDataPlanService.GetSafetyDataPlanByProjectInfo(newProject.ProjectId, string.Empty, null, null);
+            }
         }
 
         /// <summary>
@@ -90,9 +98,17 @@
                 newProject.Remark = project.Remark;
                 newProject.ProjectState = project.ProjectState;
                 newProject.IsUpTotalMonth = project.IsUpTotalMonth;
+                newProject.UnitId = project.UnitId;
+                newProject.ProjectMainPerson = project.ProjectMainPerson;
+                newProject.ProjectLiaisonPerson = project.ProjectLiaisonPerson;
+                newProject.IsForeign = project.IsForeign;
+                newProject.FromProjectId = project.FromProjectId;
                 db.SubmitChanges();
-                ////根据项目信息生成企业安全管理资料计划总表
-                BLL.SafetyDataPlanService.GetSafetyDataPlanByProjectInfo(newProject.ProjectId, string.Empty);
+                if (newProject.ProjectType != "5")
+                {
+                    ////根据项目信息生成企业安全管理资料计划总表
+                    BLL.SafetyDataPlanService.GetSafetyDataPlanByProjectInfo(newProject.ProjectId, string.Empty, null, null);
+                }
             }
         }
 
@@ -108,15 +124,18 @@
             {
                 ////删除编码/模板规则表
                 BLL.ProjectData_CodeTemplateRuleService.DeleteProjectData_CodeTemplateRule(project.ProjectId);
-                ////删除企业安全管理资料计划总表
+                ////删除项目安全管理资料计划总表
                 BLL.SafetyDataPlanService.DeleteSafetyDataPlanByProjectId(project.ProjectId);
-
+                ////删除E项目安全管理资料计划总表
+                BLL.SafetyDataEPlanService.DeleteSafetyDataEPlanByProjectId(project.ProjectId);
+                ////删除E项目安全管理
+                BLL.SafetyDataEItemService.DeleteSafetyDataEItemByProjectId(project.ProjectId);
                 BLL.SafetySystemService.DeleteSafetySystemByProjectid(project.ProjectId);
                 db.Base_Project.DeleteOnSubmit(project);
                 db.SubmitChanges();
             }
         }
-        
+
         /// <summary>
         /// 获取施工中项目集合
         /// </summary>
@@ -149,10 +168,11 @@
                     projectList.Add(item);
                 }
                 else
-                {                    
-                    var projectSate1 = (from x in Funs.DB.Base_ProjectSate 
-                                        where x.ProjectId == item.ProjectId && x.ShutdownDate.Value <= monthTime.Value.AddMonths(1) 
-                                        orderby x.ShutdownDate descending select x).FirstOrDefault();
+                {
+                    var projectSate1 = (from x in Funs.DB.Base_ProjectSate
+                                        where x.ProjectId == item.ProjectId && x.ShutdownDate.Value <= monthTime.Value.AddMonths(1)
+                                        orderby x.ShutdownDate descending
+                                        select x).FirstOrDefault();
                     if (projectSate1 == null)
                     {
                         projectList.Add(item);
@@ -203,6 +223,32 @@
             return list;
         }
 
+        /// <summary>
+        /// 获取非设计项目下拉选项
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Base_Project> GetNoEProjectDropDownList()
+        {
+            var list = (from x in Funs.DB.Base_Project
+                        where x.ProjectType != "5"
+                        orderby x.ProjectCode descending
+                        select x).ToList();
+            return list;
+        }
+
+        /// <summary>
+        /// 获取某类型下项目下拉选项
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Base_Project> GetProjectByProjectTypeDropDownList(string projectType)
+        {
+            var list = (from x in Funs.DB.Base_Project
+                        where x.ProjectType == projectType
+                        orderby x.ProjectCode descending
+                        select x).ToList();
+            return list;
+        }
+
         #region 项目表下拉框
         /// <summary>
         ///  项目表下拉框
@@ -234,7 +280,51 @@
             var projectlist = BLL.ProjectService.GetAllProjectDropDownList();
             dropName.DataSource = projectlist;
             dropName.DataBind();
-            if(projectlist.Count() == 0)
+            if (projectlist.Count() == 0)
+            {
+                isShowPlease = true;
+            }
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
+        /// <summary>
+        ///  非设计项目表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitNoEProjectDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "ProjectId";
+            dropName.DataTextField = "ProjectName";
+            var projectlist = BLL.ProjectService.GetNoEProjectDropDownList();
+            dropName.DataSource = projectlist;
+            dropName.DataBind();
+            if (projectlist.Count() == 0)
+            {
+                isShowPlease = true;
+            }
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
+        /// <summary>
+        ///  某类型下项目表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitProjectByProjectTypeDropDownList(FineUIPro.DropDownList dropName, string projectType, bool isShowPlease)
+        {
+            dropName.DataValueField = "ProjectId";
+            dropName.DataTextField = "ProjectName";
+            var projectlist = BLL.ProjectService.GetProjectByProjectTypeDropDownList(projectType);
+            dropName.DataSource = projectlist;
+            dropName.DataBind();
+            if (projectlist.Count() == 0)
             {
                 isShowPlease = true;
             }

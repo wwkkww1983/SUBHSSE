@@ -187,15 +187,17 @@ namespace FineUIPro.Web.AttachFile
             if (Session[sessionName] == null && !string.IsNullOrEmpty(ToKeyId))
             {
                 Session[sessionName] = new JArray();
-                Model.AttachFile sour = new Model.AttachFile(); 
-                if (!string.IsNullOrEmpty(this.MenuId))
-                {
-                    sour = BLL.Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId && x.MenuId == this.MenuId);
-                }
-                else
-                {
-                    sour = BLL.Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId);
-                }
+                Model.AttachFile sour = new Model.AttachFile();
+                sour = BLL.Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId);
+                //if (!string.IsNullOrEmpty(this.MenuId))
+                //{
+                //    sour = BLL.Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId && x.MenuId == this.MenuId);
+                //}
+                //else
+                //{
+                //    sour = BLL.Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId);
+                //}
+
                 if (sour != null)
                 {
                     string url = sour.AttachUrl.Replace('\\', '/');
@@ -239,11 +241,7 @@ namespace FineUIPro.Web.AttachFile
                     {
                         string savedName = item.Value<string>("savedName");
                         File.Delete(Server.MapPath("~/" + AttachPath + "\\" + savedName));
-                        var menuDelete = BLL.SysMenuService.GetSysMenuByMenuId(this.MenuId);
-                        if (menuDelete != null)
-                        {
-                            BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除菜单" + menuDelete.MenuName + "上的附件！");
-                        }
+                        BLL.LogService.AddSys_Log(this.CurrUser, "删除附件！", null, this.MenuId, BLL.Const.BtnDelete);
                     }
                     catch (Exception)
                     {

@@ -198,13 +198,14 @@ namespace FineUIPro.Web.Technique
                 specialScheme.IsPass = true;
                 this.SpecialSchemeId = specialScheme.SpecialSchemeId = SQLHelper.GetNewID(typeof(Model.Technique_SpecialScheme));
                 BLL.SpecialSchemeService.AddSpecialSchemeList(specialScheme);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加专项方案");
+
+                BLL.LogService.AddSys_Log(this.CurrUser, specialScheme.SpecialSchemeCode, specialScheme.SpecialSchemeId, BLL.Const.SpecialSchemeMenuId, Const.BtnAdd);
             }
             else
             {
                 specialScheme.SpecialSchemeId = this.SpecialSchemeId;
                 BLL.SpecialSchemeService.UpdateSpecialSchemeList(specialScheme);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改专项方案");
+                BLL.LogService.AddSys_Log(this.CurrUser, specialScheme.SpecialSchemeCode, specialScheme.SpecialSchemeId, BLL.Const.SpecialSchemeMenuId, Const.BtnModify);                
             }
         }
         #endregion
@@ -264,11 +265,12 @@ namespace FineUIPro.Web.Technique
                         BLL.SpecialSchemeService.UpdateSpecialSchemeList(specialScheme);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【专项方案】上报到集团公司" + idList.Count.ToString() + "条数据；");
+                
+                BLL.LogService.AddSys_Log(this.CurrUser, "【专项方案】上报到集团公司" + idList.Count.ToString() + "条数据；", string.Empty, BLL.Const.SpecialSchemeMenuId, Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【专项方案】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【专项方案】上报到集团公司失败；", string.Empty, BLL.Const.SpecialSchemeMenuId, Const.BtnUploadResources);
             }
         }
         #endregion
@@ -281,26 +283,33 @@ namespace FineUIPro.Web.Technique
         /// <param name="e"></param>
         protected void btnUploadResources_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.txtSpecialSchemeCode.Text.Trim()))
+            if (this.btnSave.Hidden)
             {
-                ShowNotify("请输入方案编号", MessageBoxIcon.Warning);
-                return;
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SpecialScheme&type=-1", this.SpecialSchemeId)));
             }
-            if (string.IsNullOrEmpty(this.txtSpecialSchemeName.Text.Trim()))
+            else
             {
-                ShowNotify("请输入方案名称", MessageBoxIcon.Warning);
-                return;
+                if (string.IsNullOrEmpty(this.txtSpecialSchemeCode.Text.Trim()))
+                {
+                    ShowNotify("请输入方案编号", MessageBoxIcon.Warning);
+                    return;
+                }
+                if (string.IsNullOrEmpty(this.txtSpecialSchemeName.Text.Trim()))
+                {
+                    ShowNotify("请输入方案名称", MessageBoxIcon.Warning);
+                    return;
+                }
+                if (this.ddlUnit.SelectedValue == Const._Null)
+                {
+                    ShowNotify("请选择单位", MessageBoxIcon.Warning);
+                    return;
+                }
+                if (string.IsNullOrEmpty(this.SpecialSchemeId))
+                {
+                    SaveData(BLL.Const.UpState_1);
+                }
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SpecialScheme&menuId={1}", this.SpecialSchemeId, BLL.Const.SpecialSchemeMenuId)));
             }
-            if (this.ddlUnit.SelectedValue == Const._Null)
-            {
-                ShowNotify("请选择单位", MessageBoxIcon.Warning);
-                return;
-            }
-            if (string.IsNullOrEmpty(this.SpecialSchemeId))
-            {
-                SaveData(BLL.Const.UpState_1);
-            }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SpecialScheme&menuId=3E2F2FFD-ED2E-4914-8370-D97A68398814", this.SpecialSchemeId)));
         }
         #endregion
 
@@ -333,6 +342,11 @@ namespace FineUIPro.Web.Technique
         /// <returns></returns>
         private void GetButtonPower()
         {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
+
             var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.SpecialSchemeMenuId);
             if (buttonList.Count() > 0)
             {

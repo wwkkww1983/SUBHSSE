@@ -42,9 +42,9 @@
                                     <f:Button ID="BtnBulletRight" ToolTip="后一半年" Icon="BulletRight" runat="server" EnablePostBack="true"
                                         OnClick="BulletRight_Click"> 
                                     </f:Button>
-                                    <f:Button ID="btnSee" ToolTip="查看审批流程" Icon="Find" runat="server" OnClick="btnSee_Click">
-                                    </f:Button>
                                     <f:ToolbarFill runat="server"></f:ToolbarFill>
+                                    <f:Button ID="btnSee" ToolTip="查看审批流程" Icon="Find" runat="server" OnClick="btnSee_Click">
+                                    </f:Button>                                    
                                     <f:Button ID="btnNew" ToolTip="新增" Icon="Add" Hidden="true" runat="server" OnClick="btnNew_Click">
                                     </f:Button>
                                     <f:Button ID="btnEdit" ToolTip="编辑" Icon="Pencil" Hidden="true" runat="server" OnClick="btnEdit_Click">
@@ -64,7 +64,7 @@
                             <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
                                 EnableAjax="false" DisableControlBeforePostBack="false">
                             </f:Button>
-                                    <f:Button ID="btnPrint" ToolTip="打印" Icon="ApplicationGo" Hidden="true" runat="server"
+                                    <f:Button ID="btnPrint" ToolTip="打印" Icon="Printer" Hidden="true" runat="server"
                                         OnClick="btnPrint_Click">
                                     </f:Button>
                                 </Items>

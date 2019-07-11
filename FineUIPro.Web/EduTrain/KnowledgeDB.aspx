@@ -79,14 +79,14 @@
                                         ToolTip='<%#Bind("KnowledgeItemCode") %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-                            <f:TemplateField Width="250px" HeaderText="名称" HeaderTextAlign="Center" TextAlign="Center"
+                            <f:TemplateField Width="250px" HeaderText="名称" HeaderTextAlign="Center" TextAlign="Left"
                                 SortField="KnowledgeItemName">
                                 <ItemTemplate>
                                     <asp:Label ID="lblKnowledgeItemName" runat="server" Text='<%# Bind("KnowledgeItemName") %>'
                                         ToolTip='<%#Bind("KnowledgeItemName") %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-                            <f:TemplateField Width="500px" HeaderText="备注" HeaderTextAlign="Center" TextAlign="Center"
+                            <f:TemplateField Width="500px" HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left"
                                 SortField="Remark"  ExpandUnusedSpace="True">
                                 <ItemTemplate>
                                     <asp:Label ID="lblRemark" runat="server" Text='<%# Bind("Remark") %>' ToolTip='<%#Bind("Remark") %>'></asp:Label>
@@ -132,7 +132,7 @@
         Height="500px">
     </f:Window>
     <f:Window ID="Window5" Title="选择需要导出的列" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window5_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window5_Close" IsModal="true"
         Width="450px" Height="250px" EnableAjax="false">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
@@ -140,7 +140,7 @@
             runat="server" Text="编辑" Hidden="true">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除" Hidden="true">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除" Hidden="true">
         </f:MenuButton>
     </f:Menu>
     </form>

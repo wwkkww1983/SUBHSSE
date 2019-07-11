@@ -197,6 +197,7 @@ namespace FineUIPro.Web.EduTrain
             var accidentCaseItem = BLL.AccidentCaseItemService.GetAccidentCaseItemById(this.AccidentCaseItemId);
             if (accidentCaseItem != null && !accidentCaseItem.AuditDate.HasValue)
             {
+                BLL.LogService.AddSys_Log(this.CurrUser, accidentCaseItem.AccidentName, accidentCaseItem.AccidentCaseItemId, BLL.Const.AccidentCaseMenuId, BLL.Const.BtnDelete);
                 BLL.AccidentCaseItemService.DeleteAccidentCaseItemId(this.AccidentCaseItemId);
                 this.SetTemp();
                 this.InitTreeMenu();
@@ -229,7 +230,7 @@ namespace FineUIPro.Web.EduTrain
                 accidentCaseItem.AccidentCaseId = this.AccidentCaseId;
                 this.AccidentCaseItemId = accidentCaseItem.AccidentCaseItemId = SQLHelper.GetNewID(typeof(Model.EduTrain_AccidentCaseItem));
                 BLL.AccidentCaseItemService.AddAccidentCaseItem(accidentCaseItem);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加事故案例库");
+                BLL.LogService.AddSys_Log(this.CurrUser, accidentCaseItem.AccidentName, accidentCaseItem.AccidentCaseItemId, BLL.Const.AccidentCaseMenuId, BLL.Const.BtnAdd);
             }
             else
             {
@@ -240,7 +241,7 @@ namespace FineUIPro.Web.EduTrain
                 }
                 accidentCaseItem.AccidentCaseItemId = this.AccidentCaseItemId;
                 BLL.AccidentCaseItemService.UpdateAccidentCaseItem(accidentCaseItem);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改事故案例库");
+                BLL.LogService.AddSys_Log(this.CurrUser, accidentCaseItem.AccidentName, accidentCaseItem.AccidentCaseItemId, BLL.Const.AccidentCaseMenuId, BLL.Const.BtnModify);
             }
             this.InitTreeMenu();
             ShowNotify("保存成功！");

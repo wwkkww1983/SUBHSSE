@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using Model;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Linq;
-using System.Data.Linq;
-using System.Web.Security;
-using System.Web.UI.WebControls;
-using Model;
-using BLL;
 
 namespace BLL
 {

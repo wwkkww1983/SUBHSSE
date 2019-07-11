@@ -23,13 +23,13 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
-                            <f:TextBox runat="server" Label="HSE获奖证书或奖杯编号" ID="txtHSECertificateCode" EmptyText="输入查询条件"
+                            <f:TextBox runat="server" Label="编号" ID="txtHSECertificateCode" EmptyText="输入查询条件"
                                 AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="350px" LabelAlign="right"
-                                LabelWidth="170px">
+                                LabelWidth="60px">
                             </f:TextBox>
-                            <f:TextBox runat="server" Label="HSE获奖证书或奖杯名称" ID="txtHSECertificateName" EmptyText="输入查询条件"
+                            <f:TextBox runat="server" Label="名称" ID="txtHSECertificateName" EmptyText="输入查询条件"
                                 AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="350px" LabelAlign="right"
-                                LabelWidth="170px">
+                                LabelWidth="60px">
                             </f:TextBox>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
@@ -50,12 +50,12 @@
                         </ItemTemplate>
                     </f:TemplateField>
                     <f:RenderField Width="350px" ColumnID="HSECertificateCode" DataField="HSECertificateCode"
-                        SortField="HSECertificateCode" FieldType="String" HeaderText="HSE获奖证书或奖杯编号" HeaderTextAlign="Center"
+                        SortField="HSECertificateCode" FieldType="String" HeaderText="编号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="350px" ColumnID="HSECertificateName" DataField="HSECertificateName"
-                        SortField="HSECertificateName" FieldType="String" HeaderText="HSE获奖证书或奖杯名称" HeaderTextAlign="Center"
-                        TextAlign="Left">
+                        SortField="HSECertificateName" FieldType="String" HeaderText="名称" HeaderTextAlign="Center"
+                        TextAlign="Left" ExpandUnusedSpace="true">
                     </f:RenderField>
                     <f:RenderField Width="200px" ColumnID="FlowOperateName" DataField="FlowOperateName"
                         SortField="FlowOperateName" FieldType="String" HeaderText="状态" HeaderTextAlign="Center"
@@ -82,16 +82,16 @@
             </f:Grid>
         </Items>
     </f:Panel>
-    <f:Window ID="Window1" Title="获奖证书或奖杯" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="900px"
-        Height="400px">
+    <f:Window ID="Window1" Title="编辑" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1024px"
+        Height="500px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="TableEdit" EnablePostBack="true"
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server"
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server"
             Text="删除">
         </f:MenuButton>
     </f:Menu>

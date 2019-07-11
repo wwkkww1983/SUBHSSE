@@ -102,7 +102,7 @@ namespace FineUIPro.Web.SitePerson
                 }
             }
 
-            BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加人员出入场");
+            BLL.LogService.AddSys_Log(this.CurrUser, "添加人员出入场", null, BLL.Const.PersonListMenuId, BLL.Const.BtnModify);
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
 

@@ -52,20 +52,9 @@ namespace FineUIPro.Web.Supervise
                 superviseCheckReportItems.Clear();
                 ////权限按钮方法
                 this.GetButtonPower();
-                Funs.FineUIPleaseSelect(this.ddlProjectId, "-请选择项目-");
 
-                //加载单位下拉选项
-                this.ddlUnitId.DataTextField = "UnitName";
-                this.ddlUnitId.DataValueField = "UnitId";
-                this.ddlUnitId.DataSource = BLL.UnitService.GetThisUnitDropDownList();
-                this.ddlUnitId.DataBind();
-               // Funs.FineUIPleaseSelect(this.ddlUnitId, "-请选择单位-");
-
-                this.ddlProjectId.DataTextField = "ProjectName";
-                this.ddlProjectId.DataValueField = "ProjectId";
-                this.ddlProjectId.DataSource = BLL.ProjectService.GetProjectWorkList();
-                ddlProjectId.DataBind();
-                Funs.FineUIPleaseSelect(this.ddlProjectId, "-请选择项目-");
+                BLL.ProjectService.InitProjectDropDownList(this.ddlProjectId, true);
+                BLL.UnitService.InitUnitDropDownList(this.ddlUnitId, this.ddlProjectId.SelectedValue, true);
 
                 this.SuperviseCheckReportId = Request.Params["SuperviseCheckReportId"];
                 var superviseCheckReport = BLL.SuperviseCheckReportService.GetSuperviseCheckReportById(this.SuperviseCheckReportId);
@@ -76,18 +65,15 @@ namespace FineUIPro.Web.Supervise
                     {
                         this.dpkCheckDate.Text = string.Format("{0:yyyy-MM-dd}", superviseCheckReport.CheckDate);
                     }
-                    if (!string.IsNullOrEmpty(superviseCheckReport.UnitId))
+                    if (!string.IsNullOrEmpty(superviseCheckReport.ProjectId))
                     {
-                        this.ddlUnitId.SelectedValue = superviseCheckReport.UnitId;
-                        this.ddlProjectId.Items.Clear();
-                        this.ddlProjectId.DataTextField = "ProjectName";
-                        this.ddlProjectId.DataValueField = "ProjectId";
-                        this.ddlProjectId.DataSource = BLL.ProjectService.GetProjectWorkList();
-                        ddlProjectId.DataBind();
-                        Funs.FineUIPleaseSelect(this.ddlProjectId);
-                        if (!string.IsNullOrEmpty(superviseCheckReport.ProjectId))
+                        this.ddlProjectId.SelectedValue = superviseCheckReport.ProjectId;
+
+                        this.ddlUnitId.Items.Clear();
+                        BLL.UnitService.InitUnitDropDownList(this.ddlUnitId, this.ddlProjectId.SelectedValue, true);
+                        if (!string.IsNullOrEmpty(superviseCheckReport.UnitId))
                         {
-                            this.ddlProjectId.SelectedValue = superviseCheckReport.ProjectId;
+                            this.ddlProjectId.SelectedValue = superviseCheckReport.UnitId;
                         }
                     }
                     this.txtCheckTeam.Text = superviseCheckReport.CheckTeam;
@@ -103,10 +89,8 @@ namespace FineUIPro.Web.Supervise
                     }
                 }
                 else
-                {
-                    Model.Base_Unit unit = BLL.UnitService.GetUnitByUnitId(this.CurrUser.UnitId);
-                    string unitName = unit != null ? (unit.UnitName + ":") : "";
-                    this.txtCheckTeam.Text = unitName + this.CurrUser.UserName;
+                {                                        
+                    this.txtCheckTeam.Text = BLL.UnitService.GetUnitNameByUnitId(this.CurrUser.UnitId) + this.CurrUser.UserName;
                     this.dpkCheckDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);                   
                 }
                 Grid1.DataSource = superviseCheckReportItems;
@@ -299,7 +283,7 @@ namespace FineUIPro.Web.Supervise
             {
                 superviseCheckReport.SuperviseCheckReportId = SQLHelper.GetNewID(typeof(Model.Supervise_SuperviseCheckReport));
                 BLL.SuperviseCheckReportService.AddSuperviseCheckReport(superviseCheckReport);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加安全监督检查报告");
+                BLL.LogService.AddSys_Log(this.CurrUser, superviseCheckReport.SuperviseCheckReportCode, superviseCheckReport.SuperviseCheckReportId, BLL.Const.SuperviseCheckReportMenuId, Const.BtnAdd);
             }
             else
             {
@@ -312,7 +296,7 @@ namespace FineUIPro.Web.Supervise
                 superviseCheckReport.SuperviseCheckReportId = this.SuperviseCheckReportId;
                 BLL.SuperviseCheckReportService.UpdateSuperviseCheckReport(superviseCheckReport);
                 BLL.SuperviseCheckReportItemService.DeleteSuperviseCheckReportItemBySuperviseCheckReportId(this.SuperviseCheckReportId);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加安全监督检查报告");
+                BLL.LogService.AddSys_Log(this.CurrUser, superviseCheckReport.SuperviseCheckReportCode, superviseCheckReport.SuperviseCheckReportId, BLL.Const.SuperviseCheckReportMenuId, Const.BtnModify);
             }
             jerqueSaveList();
             foreach (var item in superviseCheckReportItems)
@@ -409,5 +393,11 @@ namespace FineUIPro.Web.Supervise
             }
         }
         #endregion
+
+        protected void ddlProjectId_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.ddlUnitId.Items.Clear();
+            BLL.UnitService.InitUnitDropDownList(this.ddlUnitId, this.ddlProjectId.SelectedValue, true);
+        }
     }
 }

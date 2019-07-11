@@ -329,7 +329,8 @@ namespace FineUIPro.Web.InformationProject
             {
                 millionsMonthlyReport.MillionsMonthlyReportId = this.MillionsMonthlyReportId;
                 BLL.ProjectMillionsMonthlyReportService.UpdateMillionsMonthlyReport(millionsMonthlyReport);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "修改【" + millionsMonthlyReport.Year + "年" + millionsMonthlyReport.Month + "月】百万工时安全统计月报");
+                BLL.LogService.AddSys_Log(this.CurrUser, millionsMonthlyReport.Year.ToString() + "-" + millionsMonthlyReport.Month.ToString(), millionsMonthlyReport.MillionsMonthlyReportId, BLL.Const.ProjectMillionsMonthlyReportMenuId, BLL.Const.BtnModify);
+                
             }
             else
             {
@@ -341,7 +342,7 @@ namespace FineUIPro.Web.InformationProject
                     this.MillionsMonthlyReportId = SQLHelper.GetNewID(typeof(Model.InformationProject_MillionsMonthlyReport));
                     millionsMonthlyReport.MillionsMonthlyReportId = this.MillionsMonthlyReportId;
                     BLL.ProjectMillionsMonthlyReportService.AddMillionsMonthlyReport(millionsMonthlyReport);
-                    BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "增加【" + millionsMonthlyReport.Year + "年" + millionsMonthlyReport.Month + "月】百万工时安全统计月报");
+                    BLL.LogService.AddSys_Log(this.CurrUser, millionsMonthlyReport.Year.ToString() + "-" + millionsMonthlyReport.Month.ToString(), millionsMonthlyReport.MillionsMonthlyReportId, BLL.Const.ProjectMillionsMonthlyReportMenuId, BLL.Const.BtnAdd);
                     //删除未上报月报信息
                     Model.ManagementReport_ReportRemind reportRemind = (from x in Funs.DB.ManagementReport_ReportRemind
                                                                         where x.ProjectId == this.ProjectId && x.Year == millionsMonthlyReport.Year && x.Month == millionsMonthlyReport.Month && x.ReportName == "百万工时安全统计月报"

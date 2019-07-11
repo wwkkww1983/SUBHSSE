@@ -63,20 +63,20 @@
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                     <f:RenderField Width="120px" ColumnID="UnitTypeName" DataField="UnitTypeName" SortField="UnitTypeName"
+                     <f:RenderField Width="150px" ColumnID="UnitTypeName" DataField="UnitTypeName" SortField="UnitTypeName"
                         FieldType="String" HeaderText="单位类型"  HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="150px" ColumnID="UnitCode" DataField="UnitCode" SortField="UnitCode" FieldType="String"
+                    <f:RenderField Width="180px" ColumnID="UnitCode" DataField="UnitCode" SortField="UnitCode" FieldType="String"
                         HeaderText="单位编号">
                     </f:RenderField>
                     <f:RenderField Width="250px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
                         FieldType="String" HeaderText="单位名称"  HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
                     </f:RenderField>
-                    <f:RenderField Width="150px" ColumnID="InTime" DataField="InTime" SortField="InTime"
+                    <f:RenderField Width="110px" ColumnID="InTime" DataField="InTime" SortField="InTime"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="入场时间"
                          HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="150px" ColumnID="OutTime" DataField="OutTime" SortField="OutTime"
+                    <f:RenderField Width="110px" ColumnID="OutTime" DataField="OutTime" SortField="OutTime"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="出场时间"
                        HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>           
@@ -103,14 +103,14 @@
         </Items>
     </f:Panel> 
     <f:Window ID="Window1" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Self" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true">
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true">
     </f:Window>                  
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true" Hidden="true"
            Icon="BulletEdit" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" Hidden="true"
-            Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

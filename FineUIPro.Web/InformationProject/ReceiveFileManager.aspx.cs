@@ -184,12 +184,16 @@ namespace FineUIPro.Web.InformationProject
         protected void btnMenuDelete_Click(object sender, EventArgs e)
         {
             if (Grid1.SelectedRowIndexArray.Length > 0)
-            {               
+            {
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除一般来文管理", rowID);
-                    BLL.ReceiveFileManagerService.DeleteReceiveFileManagerById(rowID);
+                    var ReceiveFileManager = BLL.ReceiveFileManagerService.GetReceiveFileManagerById(rowID);
+                    if (ReceiveFileManager != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, ReceiveFileManager.ReceiveFileCode, ReceiveFileManager.ReceiveFileManagerId, BLL.Const.ReceiveFileManagerMenuId, BLL.Const.BtnDelete);
+                        BLL.ReceiveFileManagerService.DeleteReceiveFileManagerById(rowID);
+                    }
                 }
 
                 this.BindGrid();

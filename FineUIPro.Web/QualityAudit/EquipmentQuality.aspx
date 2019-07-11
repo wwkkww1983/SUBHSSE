@@ -96,7 +96,7 @@
                     <f:WindowField TextAlign="Left" Width="90px" WindowID="WindowAtt" HeaderText="证书扫描件"
                         Text="附件查看" ToolTip="附件上传查看" DataIFrameUrlFields="EquipmentQualityId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/EquipmentQualityAttachUrl&menuId=2DEDD752-8BAF-43CD-933D-932AF9AF2F58"
                         HeaderTextAlign="Center" />
-                        <f:LinkButtonField Width="100px" HeaderText="审查记录" ConfirmTarget="Top" CommandName="auditDetail"
+                        <f:LinkButtonField Width="100px" HeaderText="审查记录" ConfirmTarget="Parent" CommandName="auditDetail"
                         TextAlign="Center" ToolTip="审查记录" Text="审查记录"/>
                 </Columns>
                 <Listeners>
@@ -120,7 +120,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="特殊机具设备资质" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="800px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="800px"
         Height="450px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件页面" Hidden="true" EnableIFrame="true" EnableMaximize="true"
@@ -132,7 +132,7 @@
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server"
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server"
             Text="删除">
         </f:MenuButton>
     </f:Menu>

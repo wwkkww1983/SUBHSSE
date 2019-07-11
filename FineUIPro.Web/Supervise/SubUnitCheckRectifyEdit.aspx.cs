@@ -204,13 +204,13 @@ namespace FineUIPro.Web.Supervise
                 subUnitCheckRectify.SubUnitCheckRectifyId = this.SubUnitCheckRectifyId;
                 BLL.SubUnitCheckRectifyService.UpdateSubUnitCheckRectify(subUnitCheckRectify);
                 BLL.SubUnitCheckRectifyItemService.DeleteSubUnitCheckRectifyItemsList(this.SubUnitCheckRectifyId);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改安全监督评价报告");
+                BLL.LogService.AddSys_Log(this.CurrUser,string.Empty, subUnitCheckRectify.SubUnitCheckRectifyId, BLL.Const.SuperviseCheckReportMenuId, Const.BtnModify);
             }
             else
             {
                 subUnitCheckRectify.SubUnitCheckRectifyId = SQLHelper.GetNewID(typeof(Model.Supervise_SubUnitCheckRectify));
                 BLL.SubUnitCheckRectifyService.AddSubUnitCheckRectify(subUnitCheckRectify);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加安全监督评价报告");
+                BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, subUnitCheckRectify.SubUnitCheckRectifyId, BLL.Const.SuperviseCheckReportMenuId, Const.BtnAdd);
             }
             this.GetItems(subUnitCheckRectify.SubUnitCheckRectifyId);
             foreach (var item in subUnitCheckRectifyItems)

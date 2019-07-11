@@ -52,10 +52,10 @@
                 <Items>
                     <f:HiddenField ID="hfFormID" runat="server">
                     </f:HiddenField>
-                    <f:TextBox ID="txtSpecialSchemeTypeCode" Label="类别编号" ShowRedStar="true" Required="true"  MaxLength="50"
+                    <f:TextBox ID="txtSpecialSchemeTypeCode" Label="编号" ShowRedStar="true" Required="true"  MaxLength="50"
                         runat="server" LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
-                    <f:TextBox ID="txtSpecialSchemeTypeName" Label="类别名称" ShowRedStar="true" Required="true"  MaxLength="500"
+                    <f:TextBox ID="txtSpecialSchemeTypeName" Label="名称" ShowRedStar="true" Required="true"  MaxLength="500"
                         runat="server" LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
                     <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="right"  MaxLength="2000">
@@ -88,7 +88,7 @@
             runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" Hidden="true"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

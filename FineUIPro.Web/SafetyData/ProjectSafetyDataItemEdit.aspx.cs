@@ -6,6 +6,22 @@ namespace FineUIPro.Web.SafetyData
 {
     public partial class ProjectSafetyDataItemEdit : PageBase
     {
+        #region 自定义项
+        /// <summary>
+        /// 考核计划id
+        /// </summary>
+        public string SafetyDataPlanId
+        {
+            get
+            {
+                return (string)ViewState["SafetyDataPlanId"];
+            }
+            set
+            {
+                ViewState["SafetyDataPlanId"] = value;
+            }
+        }
+
         /// <summary>
         /// 文件明细id
         /// </summary>
@@ -50,6 +66,7 @@ namespace FineUIPro.Web.SafetyData
                 ViewState["ProjectId"] = value;
             }
         }
+        #endregion
 
         /// <summary>
         ///  加载页面
@@ -64,6 +81,23 @@ namespace FineUIPro.Web.SafetyData
                 this.SafetyDataId = Request.Params["SafetyDataId"];
                 this.SafetyDataItemId = Request.Params["SafetyDataItemId"];
                 this.ProjectId = this.CurrUser.LoginProjectId;
+                string lbtext = "【提交时间】为系统默认时间，不可修改；";
+                var getSafetyDataPlan = BLL.SafetyDataPlanService.GetSafetyDataPlanBySafetyDataPlanId(Request.Params["SafetyDataPlanId"]);
+                if (getSafetyDataPlan != null)
+                {
+                    this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", getSafetyDataPlan.RealStartDate);
+                    lbtext = "【所属时段】应在要求上报开始时间" + string.Format("{0:yyyy-MM-dd}", getSafetyDataPlan.RealStartDate) +"；"
+                        +"结束时间" + string.Format("{0:yyyy-MM-dd}", getSafetyDataPlan.RealEndDate) + "；"+ lbtext + getSafetyDataPlan.Remark;
+
+                    this.hdRealStartDate.Text = string.Format("{0:yyyy-MM-dd}", getSafetyDataPlan.RealStartDate);
+                    this.hdRealEndDate.Text = string.Format("{0:yyyy-MM-dd}", getSafetyDataPlan.RealEndDate);
+                }
+                else
+                {
+                    this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", System.DateTime.Now);
+                }
+                this.Label2.Text = lbtext;
+
                 if (!string.IsNullOrEmpty(this.SafetyDataItemId))
                 {
                     var projectSafetyDataItem = BLL.SafetyDataItemService.GetSafetyDataItemByID(this.SafetyDataItemId);
@@ -96,15 +130,7 @@ namespace FineUIPro.Web.SafetyData
                     }
                     this.txtCode.Text = newCode;
                     this.txtTitle.Text = safeData.Title;
-                    var safetyDataCheckItem = BLL.SafetyDataCheckItemService.GetSafetyDataCheckItemById(Request.Params["SafetyDataCheckItemId"]);
-                    if (safetyDataCheckItem != null)
-                    {
-                        this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", safetyDataCheckItem.StartDate);
-                    }
-                    else
-                    {
-                        this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", System.DateTime.Now);
-                    }
+                   
                     this.txtSubmitDate.Text = string.Format("{0:yyyy-MM-dd}", System.DateTime.Now);
                     this.txtFileContent.Text = HttpUtility.HtmlDecode(safeData.Title);
                 }
@@ -129,6 +155,11 @@ namespace FineUIPro.Web.SafetyData
         {
             if (!string.IsNullOrEmpty(this.txtTitle.Text))
             {
+                if (!CopDate())
+                {
+                    Alert.ShowInTop("所属时段必须在当前列表记录设置的开始时间与结束时间之间！");
+                    return;
+                }
                 Model.SafetyData_SafetyDataItem newProjectSafetyDataItem = new Model.SafetyData_SafetyDataItem
                 {
                     SafetyDataId = this.SafetyDataId,
@@ -148,13 +179,11 @@ namespace FineUIPro.Web.SafetyData
                     this.SafetyDataItemId = SQLHelper.GetNewID(typeof(Model.SafetyData_SafetyDataItem));
                     newProjectSafetyDataItem.SafetyDataItemId = this.SafetyDataItemId;
                     BLL.SafetyDataItemService.AddSafetyDataItem(newProjectSafetyDataItem);
-                    BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "增加项目文件", newProjectSafetyDataItem.Code);
                 }
                 else
                 {
                     newProjectSafetyDataItem.SafetyDataItemId = this.SafetyDataItemId;
                     BLL.SafetyDataItemService.UpdateSafetyDataItem(newProjectSafetyDataItem);
-                    BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改项目文件", newProjectSafetyDataItem.Code);
                 }
 
                 if (isClose)
@@ -184,5 +213,27 @@ namespace FineUIPro.Web.SafetyData
             PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ProjectSafetyDataAttachUrl&menuId={1}", this.SafetyDataItemId, BLL.Const.ProjectSafetyDataMenuId)));
         }
         #endregion
+
+
+        protected void txtCompileDate_TextChanged(object sender, EventArgs e)
+        {
+            if (!CopDate())
+            {
+                Alert.ShowInTop("所属时段必须在当前列表记录设置的开始时间与结束时间之间！");
+            }
+        }
+
+        private bool CopDate()
+        {
+            bool isOk = false;
+            DateTime? compileDate = Funs.GetNewDateTime(this.txtCompileDate.Text);
+            DateTime? startDate = Funs.GetNewDateTime(this.hdRealStartDate.Text);
+            DateTime? endDate = Funs.GetNewDateTime(this.hdRealEndDate.Text);
+            if (!startDate.HasValue || !endDate.HasValue || (compileDate >= startDate && compileDate <= endDate))
+            {
+                isOk = true;
+            }
+            return isOk;
+        }
     }
 }

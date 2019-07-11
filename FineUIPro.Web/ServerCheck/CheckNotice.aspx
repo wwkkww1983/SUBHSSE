@@ -32,24 +32,32 @@
             <f:Panel runat="server" ID="panelLeftRegion" RegionPosition="Left" RegionSplit="true" 
                 EnableCollapse="true" Width="250px" Title="监督检查" TitleToolTip="监督检查" ShowBorder="true"
                 ShowHeader="false" BodyPadding="5px" IconFont="ArrowCircleLeft" Layout="VBox" AutoScroll="true">
-                 <Items>       
-                    <f:DatePicker ID="txtCheckStartTimeS" runat="server" Label="开始时间" AutoPostBack="true" OnTextChanged="Tree_TextChanged" 
-                        DateFormatString="yyyy-MM-dd" LabelWidth="70px">
-                    </f:DatePicker>  
-                    <f:DatePicker ID="txtCheckEndTimeS" runat="server" Label="结束时间" AutoPostBack="true" OnTextChanged="Tree_TextChanged" 
-                        DateFormatString="yyyy-MM-dd" LabelWidth="70px">
-                    </f:DatePicker>                                                                            
-                </Items>
+                <Toolbars>
+                    <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Right">
+                        <Items>       
+                            <f:DatePicker ID="txtCheckStartTimeS" runat="server" Label="开始时间" AutoPostBack="true" OnTextChanged="Tree_TextChanged" 
+                                DateFormatString="yyyy-MM-dd" LabelWidth="75px">
+                            </f:DatePicker>                                                                         
+                        </Items> 
+                     </f:Toolbar>
+                   <f:Toolbar ID="Toolbar3" Position="Top" runat="server" ToolbarAlign="Right">
+                        <Items>
+                        <f:DatePicker ID="txtCheckEndTimeS" runat="server" Label="结束时间" AutoPostBack="true" OnTextChanged="Tree_TextChanged" 
+                                DateFormatString="yyyy-MM-dd" LabelWidth="75px">
+                            </f:DatePicker>                                                                            
+                        </Items>
+                    </f:Toolbar>
+                </Toolbars>
                 <Items>
                     <f:Tree ID="tvControlItem" EnableCollapse="true" ShowHeader="true" Title="监督检查节点树"
-                        Height="470px" OnNodeCommand="tvControlItem_NodeCommand" AutoLeafIdentification="true"
+                        OnNodeCommand="tvControlItem_NodeCommand" AutoLeafIdentification="true" Height="410px"
                         runat="server" EnableTextSelection="true" AutoScroll="true">
                     </f:Tree>
                 </Items>                
             </f:Panel>
             <f:Panel runat="server" ID="panelCenterRegion" RegionPosition="Center" ShowBorder="true"
                 Layout="VBox" ShowHeader="false" BodyPadding="5px" IconFont="PlusCircle" Title="监督检查"
-                TitleToolTip="监督检查" AutoScroll="true">
+                TitleToolTip="监督检查" AutoScroll="true" >
                 <Toolbars>
                      <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
                         <Items>                               
@@ -67,48 +75,48 @@
                         <Rows>       
                             <f:FormRow>
                                 <Items>
-                                    <f:Label ID="txtCheckType" Label="检查方式" runat="server" LabelWidth="80px">
+                                    <f:Label ID="txtCheckType" Label="检查方式" runat="server" LabelWidth="90px">
                                     </f:Label>
                                     <f:Label runat="server" ID="temp">
                                     </f:Label>
                                 </Items>
                             </f:FormRow>                                                  
-                            <f:FormRow>
+                            <f:FormRow ColumnWidths="40% 60%">
                                 <Items>
-                                    <f:Label ID="drpSubjectUnit" Label="受检单位" runat="server" LabelWidth="80px">
+                                    <f:Label ID="drpSubjectUnit" Label="受检单位" runat="server" LabelWidth="90px">
                                     </f:Label>
-                                    <f:Label ID="txtSubjectObject" ShowLabel="false" runat="server" MarginLeft="140px"></f:Label>
+                                    <f:Label ID="txtSubjectObject" ShowLabel="false" runat="server"></f:Label>
                                 </Items>
                             </f:FormRow>
                             <f:FormRow>
                                 <Items>
-                                    <f:Label ID="txtSubjectUnitMan" Label="受检单位负责人" runat="server" LabelWidth="120px">
+                                    <f:Label ID="txtSubjectUnitMan" Label="受检单位负责人" runat="server" LabelWidth="130px">
                                     </f:Label>
-                                    <f:Label ID="txtSubjectUnitTel" Label="受检单位负责人电话" runat="server" LabelWidth="140px">
+                                    <f:Label ID="txtSubjectUnitTel" Label="受检单位负责人电话" runat="server" LabelWidth="160px">
                                     </f:Label>
                                 </Items>                                    
                             </f:FormRow>                          
                             <f:FormRow >
                                 <Items>
-                                    <f:Label ID="txtCheckTeamLeader" Label="检查组长" runat="server" LabelWidth="80px">
+                                    <f:Label ID="txtCheckTeamLeader" Label="检查组长" runat="server" LabelWidth="90px">
                                     </f:Label>
-                                    <f:Label ID="txtSubjectUnitAdd" Label="受检单位地址"  runat="server" LabelWidth="100px">
+                                    <f:Label ID="txtSubjectUnitAdd" Label="受检单位地址"  runat="server" LabelWidth="130px">
                                     </f:Label>
                                 </Items>
                             </f:FormRow>
                             <f:FormRow>
                                 <Items>                                    
-                                    <f:Label ID="txtCheckStartTime" Label="检查开始日期" runat="server" LabelWidth="100px">
+                                    <f:Label ID="txtCheckStartTime" Label="检查开始日期" runat="server" LabelWidth="130px">
                                     </f:Label>
-                                    <f:Label ID="txtCheckEndTime" Label="检查结束日期" runat="server" LabelWidth="100px">
+                                    <f:Label ID="txtCheckEndTime" Label="检查结束日期" runat="server" LabelWidth="130px">
                                     </f:Label>                                    
                                 </Items>
                             </f:FormRow>
                             <f:FormRow>
                                 <Items>
-                                    <f:Label ID="txtCompileMan" Label="编制人" runat="server" LabelWidth="100px">
+                                    <f:Label ID="txtCompileMan" Label="编制人" runat="server" LabelWidth="90px">
                                     </f:Label>
-                                    <f:Label ID="txtCompileDate" Label="编制日期" runat="server" LabelWidth="100px">
+                                    <f:Label ID="txtCompileDate" Label="编制日期" runat="server" LabelWidth="130px">
                                     </f:Label>
                                 </Items>
                             </f:FormRow>
@@ -116,10 +124,10 @@
                     </f:Form>
                  </Items> 
                  <Items>
-                    <f:Grid ID="Grid1" Width="870px" ShowBorder="true" ShowHeader="true" EnableCollapse="true" Title="检查资料"
+                    <f:Grid ID="Grid1" Width="870px" ShowBorder="true" ShowHeader="true"  Title="检查资料" Hidden="true"
                         runat="server" BoxFlex="1" DataKeyNames="CheckFileId" AllowSorting="true" IsDatabasePaging="true" PageSize="10"
-                        OnSort="Grid1_Sort" SortField="SortIndex" SortDirection="ASC" AllowCellEditing="true" EnableExpandEvent="true" OnExpand="Gridl_Expand" 
-                        ClicksToEdit="2" EnableColumnLines="true" DataIDField="CheckFileId" AllowPaging="true" EnableCollapseEvent="true" OnCollapse="Gridl_Collapse"
+                        OnSort="Grid1_Sort" SortField="SortIndex" SortDirection="ASC" AllowCellEditing="true"  
+                        ClicksToEdit="2" EnableColumnLines="true" DataIDField="CheckFileId" AllowPaging="true"  
                          EnableTextSelection="True">
                         <Columns>                           
                             <f:RenderField Width="90px" ColumnID="SortIndex" DataField="SortIndex"
@@ -141,13 +149,13 @@
                     </f:Grid>
                 </Items>
                 <Items>
-                    <f:Grid ID="Grid2" Width="870px" ShowBorder="true" ShowHeader="true" EnableCollapse="true" Title="检查组成员"
+                    <f:Grid ID="Grid2" Width="870px" ShowBorder="true" ShowHeader="true"  Title="检查组成员"
                         runat="server" BoxFlex="1" DataKeyNames="CheckTeamId" AllowSorting="true" IsDatabasePaging="true" PageSize="10"
-                        OnSort="Grid2_Sort" SortField="SortIndex" SortDirection="ASC" AllowCellEditing="true" Collapsed="true" EnableCollapseEvent="true" OnCollapse="Grid2_Collapse"
-                        ClicksToEdit="2" EnableColumnLines="true" DataIDField="CheckTeamId" AllowPaging="true" EnableExpandEvent="true" OnExpand="Grid2_Expand"
+                        OnSort="Grid2_Sort" SortField="SortIndex" SortDirection="ASC" AllowCellEditing="true" 
+                        ClicksToEdit="2" EnableColumnLines="true" DataIDField="CheckTeamId" AllowPaging="true" 
                          EnableTextSelection="True">                                             
                         <Columns>                           
-                            <f:RenderField Width="45px" ColumnID="SortIndex" DataField="SortIndex"
+                            <f:RenderField Width="55px" ColumnID="SortIndex" DataField="SortIndex"
                                 SortField="SortIndex" FieldType="Int" HeaderText="序号"
                                 HeaderTextAlign="Center" TextAlign="Left">
                             </f:RenderField>
@@ -189,8 +197,8 @@
         </Items>
     </f:Panel>
    <f:Window ID="Window3" Title="查看" ShowHeader="false" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Self" EnableResize="true" runat="server" IsModal="true"
-        Width="900px" Height="520px">
+        Target="Parent" EnableResize="true" runat="server" IsModal="true"
+        Width="900px" Height="510px">
    </f:Window>
     </form>
     <script type="text/javascript">

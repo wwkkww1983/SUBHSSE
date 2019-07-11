@@ -174,8 +174,12 @@ namespace FineUIPro.Web.CostGoods
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除物资出库管理", rowID);
-                    BLL.GoodsOut2Service.DeleteGoodsOutById(rowID);
+                    var goodsOut = BLL.GoodsOut2Service.GetGoodsOutById(rowID);
+                    if (goodsOut != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, goodsOut.GoodsOutCode, goodsOut.GoodsOutId, BLL.Const.GoodsOut2MenuId, BLL.Const.BtnDelete);
+                        BLL.GoodsOut2Service.DeleteGoodsOutById(rowID);
+                    }
                 }
 
                 this.BindGrid();

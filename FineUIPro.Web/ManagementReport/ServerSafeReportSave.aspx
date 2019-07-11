@@ -14,17 +14,17 @@
         <Rows>
              <f:FormRow>
                 <Items>
-                   <f:TextBox ID="txtSafeReportName" runat="server" Label="标题" Required="true" ShowRedStar="true"
+                   <f:TextBox ID="txtSafeReportName" runat="server" Label="标题" Required="true" ShowRedStar="true"  LabelWidth="120px"
                         FocusOnPageLoad="true" MaxLength="500">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtSafeReportCode" runat="server" Label="编号" Required="true" ShowRedStar="true"
+                    <f:TextBox ID="txtSafeReportCode" runat="server" Label="编号" Required="true" ShowRedStar="true"  LabelWidth="120px"
                         MaxLength="50">
                     </f:TextBox>
-                     <f:DropDownList ID="drpIsEndLever" Label="是否末级" AutoPostBack="true" 
+                     <f:DropDownList ID="drpIsEndLever" Label="是否末级" AutoPostBack="true"  LabelWidth="120px"
                         runat="server" OnSelectedIndexChanged="drpIsEndLever_SelectedIndexChanged">
                     </f:DropDownList>                    
                 </Items>
@@ -35,12 +35,12 @@
                         <Rows>
                             <f:FormRow>
                                 <Items>
-                                    <f:TextArea runat="server" ID="txtRequirement" Label="上报要求" MaxLength="2000" Height="64px"></f:TextArea>
+                                    <f:TextArea runat="server" ID="txtRequirement" Label="上报要求" MaxLength="2000" Height="64px" LabelWidth="120px"></f:TextArea>
                                 </Items>
                            </f:FormRow>
                            <f:FormRow>
                                 <Items>
-                                     <f:DatePicker ID="txtRequestTime" runat="server" Label="上报时间" >
+                                    <f:DatePicker ID="txtRequestTime" runat="server" Label="要求上报时间" LabelWidth="120px">
                                     </f:DatePicker>
                                      <f:Button ID="btnAttachUrl" Text="标准模板" Icon="TableCell" runat="server"
                                         OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1">
@@ -49,9 +49,9 @@
                             </f:FormRow>
                            <f:FormRow>
                                 <Items>
-                                    <f:DropDownList ID="drpCompileMan" runat="server" Label="编制人" EnableEdit="true">
+                                    <f:DropDownList ID="drpCompileMan" runat="server" Label="编制人" EnableEdit="true"  LabelWidth="120px">
                                     </f:DropDownList>
-                                     <f:DatePicker ID="txtCompileTime" runat="server" Label="编制时间" >
+                                     <f:DatePicker ID="txtCompileTime" runat="server" Label="编制时间"  LabelWidth="120px">
                                     </f:DatePicker>
                                 </Items>
                             </f:FormRow>
@@ -76,7 +76,7 @@
         </Toolbars>
     </f:Form>
      <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
     </form>

@@ -86,7 +86,7 @@ namespace FineUIPro.Web.HSSESystem
             }
             else
             {
-                ShowNotify("请输入编号！",MessageBoxIcon.Warning);
+                ShowNotify("请输入编号！", MessageBoxIcon.Warning);
                 return;
             }
             if (!string.IsNullOrEmpty(this.txtHSSEManageName.Text.Trim()))
@@ -95,21 +95,21 @@ namespace FineUIPro.Web.HSSESystem
             }
             else
             {
-                ShowNotify("请输入机构名称",MessageBoxIcon.Warning);
+                ShowNotify("请输入机构名称", MessageBoxIcon.Warning);
                 return;
-            }           
+            }
             hsseManage.SupHSSEManageId = this.SupHSSEManageId;
             if (string.IsNullOrEmpty(this.HSSEManageId))
             {
                 hsseManage.HSSEManageId = SQLHelper.GetNewID(typeof(Model.HSSESystem_HSSEManage));
                 BLL.HSSEManageService.AddHSSEManage(hsseManage);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加安全管理机构");
+                BLL.LogService.AddSys_Log(this.CurrUser, hsseManage.HSSEManageCode, hsseManage.HSSEManageId, BLL.Const.HSSEManageMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 hsseManage.HSSEManageId = this.HSSEManageId;
                 BLL.HSSEManageService.UpdateHSSEManage(hsseManage);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改安全管理机构");
+                BLL.LogService.AddSys_Log(this.CurrUser, hsseManage.HSSEManageCode, hsseManage.HSSEManageId, BLL.Const.HSSEManageMenuId, BLL.Const.BtnAdd);
             }
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }

@@ -165,10 +165,10 @@ namespace FineUIPro.Web.Technique
         {
             if (this.trHazardListType.SelectedNode != null)
             {
-                var q = BLL.HazardListTypeService.GetHazardListTypeById(this.trHazardListType.SelectedNode.NodeID);
-
-                if (q != null && BLL.HazardListTypeService.IsDeleteHazardListType(this.trHazardListType.SelectedNode.NodeID))
+                var hazardList = BLL.HazardListTypeService.GetHazardListTypeById(this.trHazardListType.SelectedNode.NodeID);
+                if (hazardList != null && BLL.HazardListTypeService.IsDeleteHazardListType(this.trHazardListType.SelectedNode.NodeID))
                 {
+                    BLL.LogService.AddSys_Log(this.CurrUser, hazardList.HazardListTypeCode, hazardList.HazardListTypeId, BLL.Const.HazardListMenuId, Const.BtnDelete);
                     BLL.HazardListTypeService.DeleteHazardListTypeById(this.trHazardListType.SelectedNode.NodeID);
                     InitTreeMenu();
                 }
@@ -238,6 +238,7 @@ namespace FineUIPro.Web.Technique
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
             this.BindGrid();
+            BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.HazardListMenuId, Const.BtnQuery);
         }
         #endregion
 
@@ -393,25 +394,31 @@ namespace FineUIPro.Web.Technique
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    var selectItem= BLL.Hazard_HazardSelectedItemService.GetHazardSelectedItemByHazardId(rowID);
-                    if (selectItem != null)
+                    var hazard = BLL.HazardListService.GetHazardListById(rowID);
+                    if (hazard != null)
                     {
-                        string value = "在项目级危险源评价清单中已使用该资源，无法删除！";
-                        var hazardList = BLL.Hazard_HazardListService.GetHazardList(selectItem.HazardListId);
-                        if (hazardList != null)
+                        var selectItem = BLL.Hazard_HazardSelectedItemService.GetHazardSelectedItemByHazardId(rowID);
+                        if (selectItem != null)
                         {
-                            var project = BLL.ProjectService.GetProjectByProjectId(hazardList.ProjectId);
-                            if (project != null)
+                            string value = "在项目级危险源评价清单中已使用该资源，无法删除！";
+                            var hazardList = BLL.Hazard_HazardListService.GetHazardList(selectItem.HazardListId);
+                            if (hazardList != null)
                             {
-                                value = "在项目：" + project.ProjectName + "中；危险源辨识评价清单：" + hazardList.HazardListCode + "中已使用该资源，无法删除！";
+                                var project = BLL.ProjectService.GetProjectByProjectId(hazardList.ProjectId);
+                                if (project != null)
+                                {
+                                    value = "在项目：" + project.ProjectName + "中；危险源辨识评价清单：" + hazardList.HazardListCode + "中已使用该资源，无法删除！";
+                                }
                             }
+                            Alert.ShowInTop(value, MessageBoxIcon.Warning);
+                            return;
                         }
-                        Alert.ShowInTop(value, MessageBoxIcon.Warning);
-                        return;
+
+                        BLL.LogService.AddSys_Log(this.CurrUser, hazard.HazardCode, hazard.HazardId, BLL.Const.HazardListMenuId, Const.BtnDelete);
+                        BLL.HazardListService.DeleteHazardListById(rowID);
                     }
-                    BLL.HazardListService.DeleteHazardListById(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除危险源清单");
                 }
+
                 BindGrid();
                 ShowNotify("删除数据成功!");
             }
@@ -431,7 +438,6 @@ namespace FineUIPro.Web.Technique
                 if (this.trHazardListType.SelectedNode.Nodes.Count == 0 && this.trHazardListType.SelectedNode.NodeID != "0")
                 {
                     PageContext.RegisterStartupScript(Window3.GetShowReference(String.Format("HazardListUpload.aspx?HazardListTypeId={0}", this.trHazardListType.SelectedNode.NodeID, "编辑 - ")));
-
                 }
                 else
                 {
@@ -634,6 +640,7 @@ namespace FineUIPro.Web.Technique
         protected void Text_TextChanged(object sender, EventArgs e)
         {
             InitTreeMenu();
+            BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.HazardListMenuId, Const.BtnQuery);
         }
         #endregion
     }

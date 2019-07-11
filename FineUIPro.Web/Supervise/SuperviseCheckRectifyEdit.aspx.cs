@@ -117,6 +117,7 @@ namespace FineUIPro.Web.Supervise
             BLL.SuperviseCheckRectifyItemService.DeleteSuperviseCheckRectifyItemBySuperviseCheckRectifyId(Request.Params["SuperviseCheckRectifyId"]);
             jerqueSaveList();
             bool result = true;
+            bool resultAll = true;
             foreach (var item in superviseCheckRectifyItems)
             {
                 Model.Supervise_SuperviseCheckRectifyItem newSuperviseCheckRectifyItem = new Model.Supervise_SuperviseCheckRectifyItem
@@ -129,25 +130,34 @@ namespace FineUIPro.Web.Supervise
                     OrderEndDate = item.OrderEndDate,
                     OrderEndPerson = item.OrderEndPerson,
                     RealEndDate = item.RealEndDate,
-                    AttachUrl = item.AttachUrl
+                    AttachUrl = item.AttachUrl,
+                    VerifierName = item.VerifierName,
+                    VerifierDate = item.VerifierDate,
                 };
-                if (item.RealEndDate == null)
+                if (!item.RealEndDate.HasValue)
                 {
                     result = false;
                 }
-
+                if (!item.VerifierDate.HasValue || string.IsNullOrEmpty(item.VerifierName))
+                {
+                    resultAll = false;
+                }
                 BLL.SuperviseCheckRectifyItemService.AddSuperviseCheckRectifyItem(newSuperviseCheckRectifyItem);
             }
             if (result)    //已全部确认完成
             {
-                superviseCheckRectify.HandleState = "3";    //已完成
+                superviseCheckRectify.HandleState = "3";    //待验收
+                if (resultAll)
+                {
+                    superviseCheckRectify.HandleState = "4";    //已闭环
+                }
             }
             else
             {
                 superviseCheckRectify.HandleState = "2";    //已签发但未完成
             }
             BLL.SuperviseCheckRectifyService.UpdateSuperviseCheckRectify(superviseCheckRectify);
-            BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改安全监督检查整改");
+            BLL.LogService.AddSys_Log(this.CurrUser, superviseCheckRectify.SuperviseCheckRectifyCode, superviseCheckRectify.SuperviseCheckRectifyId, BLL.Const.SuperviseCheckRectifyMenuId, Const.BtnModify);
             if (type == "updata" && superviseCheckRectify.IsFromMainUnit == true)     //保存并上报
             {
                 Update(this.SuperviseCheckRectifyId);
@@ -202,11 +212,11 @@ namespace FineUIPro.Web.Supervise
             if (e.Error == null)
             {
                 var idList = e.Result;
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全监督检查整改】上传到服务器" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全监督检查整改】上传到服务器" + idList.Count.ToString() + "条数据；", string.Empty, BLL.Const.SuperviseCheckRectifyMenuId, Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全监督检查整改】上传到服务器失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全监督检查整改】上传到服务器失败；", string.Empty, BLL.Const.SuperviseCheckRectifyMenuId, Const.BtnUploadResources);
             }
         }
         #endregion
@@ -228,6 +238,9 @@ namespace FineUIPro.Web.Supervise
                 item.OrderEndDate = Funs.GetNewDateTime(values.Value<string>("OrderEndDate"));
                 item.OrderEndPerson = values.Value<string>("OrderEndPerson");
                 item.RealEndDate = Funs.GetNewDateTime(values.Value<string>("RealEndDate"));
+
+                item.VerifierName = values.Value<string>("VerifierName");
+                item.VerifierDate = Funs.GetNewDateTime(values.Value<string>("VerifierDate"));
             }
         }
         #endregion

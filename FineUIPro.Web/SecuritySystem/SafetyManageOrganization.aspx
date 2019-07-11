@@ -27,6 +27,9 @@
                             <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" Hidden="true"
                                 OnClick="btnSave_Click">
                             </f:Button>
+                             <f:Button ID="btnDelete" ToolTip="删除" Icon="Delete" ConfirmText="确定删除当前数据？" OnClick="btnDelete_Click"
+                                        Hidden="true" runat="server">
+                                    </f:Button>
                         </Items>
                     </f:Toolbar>
                  </Toolbars>

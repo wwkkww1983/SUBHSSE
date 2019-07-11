@@ -55,8 +55,12 @@ namespace BLL
                 CompletedDate = CheckDayDetail.CompletedDate,
                 Suggestions = CheckDayDetail.Suggestions,
                 CheckContent = CheckDayDetail.CheckContent,
-                WorkArea = CheckDayDetail.WorkArea
+                WorkArea = CheckDayDetail.WorkArea,
+                HiddenDangerType=CheckDayDetail.HiddenDangerType,
+                HiddenDangerLevel = CheckDayDetail.HiddenDangerLevel,
+                PersonId= CheckDayDetail.PersonId
             };
+
             db.Check_CheckDayDetail.InsertOnSubmit(newCheckDayDetail);
             db.SubmitChanges();
 
@@ -82,7 +86,11 @@ namespace BLL
                 newCheckDayDetail.CompletedDate = CheckDayDetail.CompletedDate;
                 newCheckDayDetail.Suggestions = CheckDayDetail.Suggestions;
                 newCheckDayDetail.CheckContent = CheckDayDetail.CheckContent;
+                newCheckDayDetail.CheckItem = CheckDayDetail.CheckItem;
                 newCheckDayDetail.WorkArea = CheckDayDetail.WorkArea;
+                newCheckDayDetail.HiddenDangerType = CheckDayDetail.HiddenDangerType;
+                newCheckDayDetail.HiddenDangerLevel = CheckDayDetail.HiddenDangerLevel;
+                newCheckDayDetail.PersonId = CheckDayDetail.PersonId;
                 db.SubmitChanges();
             }
         }

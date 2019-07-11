@@ -226,14 +226,14 @@ namespace FineUIPro.Web.ProjectEvaluation
             {
                 perfomanceRecord.PerfomanceRecordId = this.PerfomanceRecordId;
                 BLL.ProjectEvaluationService.UpdatePerfomanceRecord(perfomanceRecord);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改项目绩效评价", perfomanceRecord.PerfomanceRecordId);
+                BLL.LogService.AddSys_Log(this.CurrUser, perfomanceRecord.PerfomanceRecordCode, perfomanceRecord.PerfomanceRecordId,BLL.Const.PerfomanceRecordMenuId,BLL.Const.BtnModify);
             }
             else
             {
                 this.PerfomanceRecordId = SQLHelper.GetNewID(typeof(Model.ProjectSupervision_ProjectEvaluation));
                 perfomanceRecord.PerfomanceRecordId = this.PerfomanceRecordId;
                 BLL.ProjectEvaluationService.AddPerfomanceRecord(perfomanceRecord);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "增加项目绩效评价", perfomanceRecord.PerfomanceRecordId);
+                BLL.LogService.AddSys_Log(this.CurrUser, perfomanceRecord.PerfomanceRecordCode, perfomanceRecord.PerfomanceRecordId, BLL.Const.PerfomanceRecordMenuId, BLL.Const.BtnAdd);
             }
         }
         #endregion

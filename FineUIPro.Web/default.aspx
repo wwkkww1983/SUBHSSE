@@ -62,10 +62,16 @@
                                                     <f:Listener Event="click" Handler="onUserProfileClick" />
                                                 </Listeners>
                                             </f:MenuButton>
-                                            <f:MenuSeparator ID="MenuSeparator1" runat="server"></f:MenuSeparator>
+                                            <f:MenuSeparator ID="msSysMenuSet" runat="server" Hidden="true"></f:MenuSeparator>
                                             <f:MenuButton Text="功能菜单" IconFont="ThList" EnablePostBack="false" runat="server" ID="SysMenuSet" Hidden="true">
                                                 <Listeners>
                                                     <f:Listener Event="click" Handler="onSysMenuSetClick" />
+                                                </Listeners>
+                                            </f:MenuButton>
+                                            <f:MenuSeparator runat="server" ID="msCustomQuery" Hidden="true"></f:MenuSeparator>
+                                             <f:MenuButton Text="自定义查询" IconFont="Table" EnablePostBack="false" runat="server" ID="CustomQuery" Hidden="true">
+                                                <Listeners>
+                                                    <f:Listener Event="click" Handler="onCustomQueryClick" />
                                                 </Listeners>
                                             </f:MenuButton>
                                             <f:MenuSeparator runat="server"></f:MenuSeparator>
@@ -82,7 +88,7 @@
                     </div>
                 </f:ContentPanel>
                 <f:Panel ID="leftPanel" CssClass="leftregion" RegionPosition="Left" RegionSplit="true" RegionSplitWidth="3px"
-                    ShowBorder="true" Width="240px" ShowHeader="true" Title="系统菜单"
+                    ShowBorder="true" Width="230px" ShowHeader="true" Title="系统菜单"
                     EnableCollapse="false" Collapsed="false" Layout="Fit" runat="server">
                     <Tools>
                         <%--自定义展开折叠工具图标--%>
@@ -161,7 +167,7 @@
                         <f:Toolbar ID="leftPanelBottomToolbar" Position="Bottom" HeaderStyle="true" runat="server" Layout="Fit">
                             <Items>
                                 <f:TwinTriggerBox ID="ttbxSearch" ShowLabel="false" Trigger1Icon="Clear" ShowTrigger1="False" EmptyText="搜索菜单" Trigger2Icon="Search"
-                                    EnableTrigger1PostBack="false" EnableTrigger2PostBack="false" runat="server" Width="248px">
+                                    EnableTrigger1PostBack="false" EnableTrigger2PostBack="false" runat="server" Width="235px">
                                     <Listeners>
                                         <f:Listener Event="trigger1click" Handler="onSearchTrigger1Click" />
                                         <f:Listener Event="trigger2click" Handler="onSearchTrigger2Click" />
@@ -223,10 +229,7 @@
                 <f:ContentPanel ID="bottomPanel" CssClass="bottomregion" RegionPosition="Bottom" ShowBorder="false" ShowHeader="false" EnableCollapse="false" runat="server">
                     <table class="bottomtable ui-widget-header f-mainheader">
                          <tr runat="server" id="trBottom">
-                            <td style="text-align: left;">&nbsp;&nbsp;</td>                          
-                            <td style="text-align: center;">
-                              <a target="_blank" href="http://cncec.cn/" >Copyright © 2015 China National Chemical Engineering Group Corporation All rights reserved.p 中国化学工程集团公司 版权所有</a>
-                            </td>
+                            <td style="text-align: left;">&nbsp;&nbsp;</td>                                                     
                             <td style="text-align: center;">
                               <a target="_blank" href="http://www.chinasafety.gov.cn">国家安全生产监督管理总局</a>
                             </td>                                                    
@@ -241,6 +244,9 @@
                             </td>
                              <td style="text-align: center;" runat="server" id="trEHtml3" visible="false">
                               <a target="_blank" href="http://www.aqt365.com/jssajxt/application/ui/login.htm">傲途建筑安全智能监督软件</a>
+                            </td>
+                            <td style="text-align: center;">
+                              <a target="_blank" href="http://cncec.cn/" >Copyright © 2015 China National Chemical Engineering Group Corporation All rights reserved.p 中国化学工程集团公司 版权所有</a>
                             </td>
                             <td style="text-align: right;">&nbsp;&nbsp;</td>
                         </tr>
@@ -261,15 +267,19 @@
             EnableMaximize="true" EnableResize="true">
         </f:Window>
         <f:Window ID="windowUserProfile" Title="个人设置" Hidden="true" EnableIFrame="true" IFrameUrl="./Personal/PersonalSet.aspx" ClearIFrameAfterClose="false"
-            runat="server" IsModal="true" Width="1000px" Height="500px" EnableClose="true"
+            runat="server" IsModal="true" Width="1000px" Height="520px" EnableClose="true"
             EnableMaximize="true" EnableResize="true">
         </f:Window>
          <f:Window ID="windowtoolPageSet" Title="待办信息" Hidden="true" EnableIFrame="true" IFrameUrl="./common/mainI.aspx" ClearIFrameAfterClose="false"
-            runat="server" IsModal="true" Width="1150px" Height="600px" EnableClose="true"
+            runat="server" IsModal="true" Width="1000px" Height="560px" EnableClose="true"
             EnableMaximize="true" EnableResize="true">
         </f:Window>
          <f:Window ID="windowProject" Title="项目信息" Hidden="true" EnableIFrame="true" ClearIFrameAfterClose="false"
             runat="server" IsModal="true" Width="1150px" Height="500px" EnableClose="true" OnClose="windowProject_Close"
+            EnableMaximize="true" EnableResize="true">
+        </f:Window>
+        <f:Window ID="windowCustomQuery" Title="自定义查询" Hidden="true" EnableIFrame="true" IFrameUrl="./SysManage/CustomQuery.aspx" ClearIFrameAfterClose="false"
+            runat="server" IsModal="true" Width="1200px" Height="620px" EnableClose="true"
             EnableMaximize="true" EnableResize="true">
         </f:Window>
         <asp:XmlDataSource ID="XmlDataSource1" runat="server" EnableCaching="false"></asp:XmlDataSource>
@@ -280,6 +290,7 @@
         var toolNewWindowClientID = '<%= toolNewWindow.ClientID %>';
         var mainTabStripClientID = '<%= mainTabStrip.ClientID %>';
         var windowSysMenuSetClientID = '<%= windowSysMenuSet.ClientID %>';
+         var windowCustomQueryClientID = '<%= windowCustomQuery.ClientID %>';
         var windowUserProfileClientID = '<%= windowUserProfile.ClientID %>';
         var windowtoolPageSetClientID = '<%= windowtoolPageSet.ClientID %>';
 
@@ -590,6 +601,12 @@
         function onSysMenuSetClick() {
             var windowSysMenuSet = F(windowSysMenuSetClientID);
             windowSysMenuSet.show();
+        }
+
+        ///功能菜单设置
+        function onCustomQueryClick() {
+            var windowCustomQuery = F(windowCustomQueryClientID);
+            windowCustomQuery.show();
         }
 
         F.ready(function () {

@@ -202,13 +202,13 @@ namespace FineUIPro.Web.SecuritySystem
                     newSafetySystem.SafetySystemId = this.SafetySystemId;
                     newSafetySystem.UnitId = this.trSafetySystem.SelectedNodeID;
                     BLL.SafetySystemService.AddSafetySystem(newSafetySystem);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加项目组织体系");
+                    BLL.LogService.AddSys_Log(this.CurrUser, this.trSafetySystem.SelectedNode.Text, this.SafetySystemId, BLL.Const.ProjectSafetySystemMenuId, BLL.Const.BtnAdd);
                 }
                 else
                 {
                     newSafetySystem.SafetySystemId = this.SafetySystemId;
                     BLL.SafetySystemService.UpdateSafetySystem(newSafetySystem);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改项目组织体系");
+                    BLL.LogService.AddSys_Log(this.CurrUser, this.trSafetySystem.SelectedNode.Text, this.SafetySystemId,BLL.Const.ProjectSafetySystemMenuId,BLL.Const.BtnModify);
                 }
             }
         }

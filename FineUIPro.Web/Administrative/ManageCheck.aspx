@@ -22,15 +22,17 @@
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
                             <f:DatePicker ID="txtStartDate" runat="server" Label="检查时间" Width="240px"
-                                LabelAlign="Right" EmptyText="查询开始时间" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
+                                LabelAlign="Right" EmptyText="查询开始时间">
                             </f:DatePicker>
                             <f:Label ID="lblTo" runat="server" Text="至">
                             </f:Label>
-                            <f:DatePicker ID="txtEndDate" runat="server"  Width="140px" EmptyText="查询结束时间"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
+                            <f:DatePicker ID="txtEndDate" runat="server"  Width="140px" EmptyText="查询结束时间">
                             </f:DatePicker>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
+                             <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch" 
+                                 EnablePostBack="true" OnClick="TextBox_TextChanged" runat="server" >
+                            </f:Button>
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" Hidden="true"
                                 runat="server">
                             </f:Button>                  
@@ -100,7 +102,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="行政管理检查记录" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="1024px" Height="500px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
@@ -108,7 +110,7 @@
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server"
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server"
             Text="删除">
         </f:MenuButton>
     </f:Menu>

@@ -291,9 +291,13 @@ namespace FineUIPro.Web.EduTrain
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.TrainTestDBItemService.DeleteTrainTestDBItemById(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除安全试题库");
-                }
+                    var getV = BLL.TrainTestDBItemService.GetTrainTestDBItemById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.TrainTestItemCode, getV.TrainTestItemId,  BLL.Const.TrainTestDBMenuId, BLL.Const.BtnDelete);
+                        BLL.TrainTestDBItemService.DeleteTrainTestDBItemById(rowID);
+                        
+                    } }
 
                 BindGrid();
                 ShowNotify("删除数据成功!");

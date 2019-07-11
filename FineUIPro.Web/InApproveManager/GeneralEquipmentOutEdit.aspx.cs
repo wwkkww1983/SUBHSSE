@@ -311,14 +311,14 @@ namespace FineUIPro.Web.InApproveManager
             {
                 generalEquipmentOut.GeneralEquipmentOutId = this.GeneralEquipmentOutId;
                 BLL.GeneralEquipmentOutService.UpdateGeneralEquipmentOut(generalEquipmentOut);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改一般设备机具出场报批",generalEquipmentOut.GeneralEquipmentOutId);
+                BLL.LogService.AddSys_Log(this.CurrUser, generalEquipmentOut.GeneralEquipmentOutCode, generalEquipmentOut.GeneralEquipmentOutId, BLL.Const.GeneralEquipmentOutMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.GeneralEquipmentOutId = SQLHelper.GetNewID(typeof(Model.InApproveManager_GeneralEquipmentOut));
                 generalEquipmentOut.GeneralEquipmentOutId = this.GeneralEquipmentOutId;
                 BLL.GeneralEquipmentOutService.AddGeneralEquipmentOut(generalEquipmentOut);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加一般设备机具出场报批", generalEquipmentOut.GeneralEquipmentOutId);
+                BLL.LogService.AddSys_Log(this.CurrUser, generalEquipmentOut.GeneralEquipmentOutCode, generalEquipmentOut.GeneralEquipmentOutId,BLL.Const.GeneralEquipmentOutMenuId,BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.GeneralEquipmentOutMenuId, this.GeneralEquipmentOutId, (type == BLL.Const.BtnSubmit ? true : false), (generalEquipmentOut.DriverName + generalEquipmentOut.CarNum), "../InApproveManager/GeneralEquipmentOutView.aspx?GeneralEquipmentOutId={0}");

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManagerRule.aspx.cs" Inherits="FineUIPro.Web.ActionPlan.ManagerRule" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManagerRule.aspx.cs" MaintainScrollPositionOnPostback="true" Inherits="FineUIPro.Web.ActionPlan.ManagerRule" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -16,37 +16,49 @@
     <form id="form1" runat="server">
     <f:PageManager ID="PageManager1" AutoSizePanelID="Panel1" runat="server" />
     <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" ShowBorder="false"
-        ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
-        <Items>
+        ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch" Height="550px ">        
+        <Items>     
+            <f:Form ID="Form5" ShowBorder="False" ShowHeader="False" runat="server" EnableTableStyle="true">
+                    <Rows>
+                        <f:FormRow>
+                            <Items>
+                                <f:CheckBoxList runat="server" ID="cbIssue" ShowLabel="false" Width="200px" LabelAlign="Right">
+                                    <f:CheckItem Text="未发布" Value="0"  Selected="true"/>
+                                    <f:CheckItem Text="已发布" Value="1" />
+                                </f:CheckBoxList>
+                                <f:TextBox runat="server" Label="编号" ID="txtManageRuleCode" EmptyText="输入查询条件"
+                                    Width="210px" LabelWidth="60px"
+                                    LabelAlign="right">
+                                </f:TextBox>
+                                <f:TextBox runat="server" Label="名称" ID="txtManageRuleName" EmptyText="输入查询条件"
+                                    Width="210px" LabelWidth="60px"
+                                    LabelAlign="right">
+                                </f:TextBox>
+                                <f:TextBox runat="server" Label="分类" ID="txtManageRuleTypeName" EmptyText="输入查询条件"
+                                   Width="210px" LabelWidth="60px"
+                                    LabelAlign="right">
+                                </f:TextBox>
+                            </Items>
+                        </f:FormRow>
+                    </Rows>
+                </f:Form>
+            
             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="管理规定发布" EnableCollapse="true"
                 AllowColumnLocking="true" runat="server" BoxFlex="1" DataKeyNames="ManagerRuleId"
                 AllowCellEditing="true" ClicksToEdit="2" DataIDField="ManagerRuleId" AllowSorting="true"
                 SortField="IssueDate,CompileDate" SortDirection="DESC" EnableColumnLines="true"
                 OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true" PageSize="10"
                 OnPageIndexChange="Grid1_PageIndexChange" EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick"
-                AllowFilters="true" OnFilterChange="Grid1_FilterChange" EnableTextSelection="True">
+                AllowFilters="true" OnFilterChange="Grid1_FilterChange" EnableTextSelection="True"> 
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
                         <Items>
-                            <f:CheckBoxList runat="server" ID="cbIssue" ShowLabel="false" Width="200px" LabelAlign="Right"
-                                OnSelectedIndexChanged="TextBox_TextChanged" AutoPostBack="true">
-                                <f:CheckItem Text="未发布" Value="0"  Selected="true"/>
-                                <f:CheckItem Text="已发布" Value="1" />
-                            </f:CheckBoxList>
-                            <f:TextBox runat="server" Label="编号" ID="txtManageRuleCode" EmptyText="输入查询条件"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="60px"
-                                LabelAlign="right">
-                            </f:TextBox>
-                            <f:TextBox runat="server" Label="名称" ID="txtManageRuleName" EmptyText="输入查询条件"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="60px"
-                                LabelAlign="right">
-                            </f:TextBox>
-                            <f:TextBox runat="server" Label="分类" ID="txtManageRuleTypeName" EmptyText="输入查询条件"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="60px"
-                                LabelAlign="right">
-                            </f:TextBox>
+                                       
                             <f:ToolbarFill runat="server">
                             </f:ToolbarFill>
+                            
+                        <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch" EnablePostBack="true" 	OnClick="TextBox_TextChanged" runat="server" >
+                            </f:Button>
                             <f:Button ID="btnCompile" ToolTip="编制" Icon="Add" Hidden="true" runat="server" OnClick="btnCompile_Click">
                             </f:Button>
                             <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
@@ -54,7 +66,7 @@
                             </f:Button>
                         </Items>
                     </f:Toolbar>
-                </Toolbars>
+                </Toolbars> 
                 <Columns>
                     <f:TemplateField ColumnID="tfNumber" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center">
                         <ItemTemplate>
@@ -129,8 +141,8 @@
         OnClose="Window1_Close" Height="500px">
     </f:Window>
     <f:Window ID="Window2" Title="管理规定编辑" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="false"
-        CloseAction="HidePostBack" Width="1024px" Height="650px">
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+        Width="1024px" Height="650px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true"
@@ -143,7 +155,7 @@
             EnablePostBack="true" Hidden="true" runat="server" Text="发布">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" Icon="Delete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            Hidden="true" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

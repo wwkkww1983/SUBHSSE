@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BLL;
+using Newtonsoft.Json.Linq;
 
 namespace FineUIPro.Web.CostGoods
 {
@@ -78,6 +79,43 @@ namespace FineUIPro.Web.CostGoods
             }
         }
 
+        #region 计算合计及各行总价
+        /// <summary>
+        /// 计算合计
+        /// </summary>
+        private void OutputSummaryData()
+        {
+            Grid1.CommitChanges();
+            decimal sumTotalMoney = 0, sumAuditTotalMoney = 0, totalMoney = 0, auditTotalMoney = 0, priceMoney = 0, auditPriceMoney = 0;
+            int counts = 0, auditCounts = 0;
+            for (int i = 0; i < Grid1.Rows.Count; i++)
+            {
+                counts = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[3].ToString());
+                priceMoney = Funs.GetNewDecimalOrZero(this.Grid1.Rows[i].Values[4].ToString());
+                totalMoney = counts * priceMoney;
+                sumTotalMoney += totalMoney;
+                this.Grid1.Rows[i].Values[5] = totalMoney.ToString();
+                auditCounts = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[6].ToString());
+                auditPriceMoney = Funs.GetNewDecimalOrZero(this.Grid1.Rows[i].Values[7].ToString());
+                auditTotalMoney = auditCounts * auditPriceMoney;
+                sumAuditTotalMoney += auditTotalMoney;
+                this.Grid1.Rows[i].Values[8] = auditTotalMoney.ToString();
+            }
+            if (this.Grid1.Rows.Count > 0)
+            {
+                JObject summary = new JObject();
+                summary.Add("PriceMoney", "总计");
+                summary.Add("TotalMoney", sumTotalMoney);
+                summary.Add("AuditTotalMoney", sumAuditTotalMoney);
+                Grid1.SummaryData = summary;
+            }
+            else
+            {
+                Grid1.SummaryData = null;
+            }
+        }
+        #endregion
+
         /// <summary>
         /// 绑定Grid
         /// </summary>
@@ -87,6 +125,7 @@ namespace FineUIPro.Web.CostGoods
             this.Grid1.DataSource = costManageItems;
             this.Grid1.PageIndex = 0;
             this.Grid1.DataBind();
+            OutputSummaryData();
         }
 
         /// <summary>
@@ -154,6 +193,27 @@ namespace FineUIPro.Web.CostGoods
                     decimal? price = costManageItem.PriceMoney;
                     int? count = costManageItem.Counts;
                     total = Convert.ToString(price * count);
+                }
+            }
+            return total;
+        }
+
+        /// <summary>
+        /// 获取审核总价
+        /// </summary>
+        /// <param name="costManageId"></param>
+        /// <returns></returns>
+        protected string GetAuditTotalMoney(object costManageItemId)
+        {
+            string total = string.Empty;
+            if (costManageItemId != null)
+            {
+                var costManageItem = BLL.CostManageItemService.GetCostManageItemById(costManageItemId.ToString());
+                if (costManageItem != null)
+                {
+                    decimal? auditPrice = costManageItem.AuditPriceMoney;
+                    int? auditCount = costManageItem.AuditCounts;
+                    total = Convert.ToString(auditPrice * auditCount);
                 }
             }
             return total;

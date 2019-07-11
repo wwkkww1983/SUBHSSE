@@ -188,8 +188,12 @@ namespace FineUIPro.Web.Administrative
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除现场车辆管理", rowID);                   
-                    BLL.CarManagerService.DeleteCarManagerById(rowID);
+                    var getV = BLL.CarManagerService.GetCarManagerById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.CarManagerCode, getV.CarManagerId, BLL.Const.CarManagerMenuId, BLL.Const.BtnDelete);
+                        BLL.CarManagerService.DeleteCarManagerById(rowID);
+                    }
                 }
                 this.BindGrid();
                 ShowNotify("删除数据成功!", MessageBoxIcon.Success);

@@ -23,6 +23,7 @@ namespace FineUIPro.Web.ProjectData
             {
                 ////权限按钮方法
                 this.GetButtonPower();
+                BLL.UnitService.InitUnitDropDownList(this.drpUnit, string.Empty, true);
                 this.btnNew.OnClientClick = Window1.GetShowReference("ProjectSetSave.aspx") + "return false;";
                 if (this.CurrUser != null && this.CurrUser.PageSize.HasValue)
                 {
@@ -41,9 +42,9 @@ namespace FineUIPro.Web.ProjectData
         /// </summary>
         private void BindGrid()
         {
-            string strSql = "SELECT Project.ProjectId,Project.ProjectCode,Project.ProjectName,Project.StartDate,Project.EndDate,Project.ProjectAddress,SysConst.ConstText AS ProjectTypeName, "
-                          + @" (CASE WHEN ProjectState='" + BLL.Const.ProjectState_2 + "' THEN '暂停中' WHEN ProjectState='" + BLL.Const.ProjectState_3 + "' THEN '已完工' ELSE '施工中' END) AS ProjectStateName,Project.ProjectState"
-                          + @" FROM Base_Project AS Project LEFT JOIN Sys_Const AS SysConst ON Project.ProjectType =SysConst.ConstValue AND SysConst.GroupId='" + BLL.ConstValue.Group_ProjectType + "'"
+            string strSql = "SELECT Project.ProjectId,Project.ProjectCode,Project.ProjectName,unit.UnitName,Project.StartDate,Project.EndDate,Project.ProjectAddress,SysConst.ConstText AS ProjectTypeName, "
+                          + @" (CASE WHEN ProjectState='" + BLL.Const.ProjectState_2 + "' THEN '暂停中' WHEN ProjectState='" + BLL.Const.ProjectState_3 + "' THEN '已完工' WHEN SysConst.ConstText='E' THEN '设计中' ELSE '施工中' END) AS ProjectStateName,Project.ProjectState"
+                          + @" FROM Base_Project AS Project LEFT JOIN Base_Unit as unit on unit.UnitId=Project.UnitId LEFT JOIN Sys_Const AS SysConst ON Project.ProjectType =SysConst.ConstValue AND SysConst.GroupId='" + BLL.ConstValue.Group_ProjectType + "'"
                           + @" WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();            
             if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
@@ -67,6 +68,23 @@ namespace FineUIPro.Web.ProjectData
                 strSql += " and ProjectCode LIKE @ProjectCode";
                 listStr.Add(new SqlParameter("@ProjectCode", "%" + this.txtProjectCode.Text.Trim() + "%"));
             }
+            if (this.drpUnit.SelectedValue != BLL.Const._Null && !String.IsNullOrEmpty(this.drpUnit.SelectedValue) )
+            {
+                strSql += " and Project.UnitId = @UnitId";
+                listStr.Add(new SqlParameter("@UnitId", this.drpUnit.SelectedValue));
+            }
+            if (this.ckState.SelectedValue != "0")
+            {
+                if (this.ckState.SelectedValue == "1")
+                {
+                    strSql += " AND (ProjectState = '1' OR ProjectState IS NULL)";
+                }
+                else
+                {
+                    strSql += " AND (ProjectState = '2' OR ProjectState = '3' )";
+                }
+            }
+
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 
@@ -75,6 +93,14 @@ namespace FineUIPro.Web.ProjectData
             var table = this.GetPagedDataTable(Grid1, tb);
             Grid1.DataSource = table;
             Grid1.DataBind();
+
+            BLL.UnitService.InitUnitDropDownList(this.drpUnit, string.Empty, true);
+            var thisUnit = BLL.CommonService.GetIsThisUnit();
+            if (thisUnit != null && thisUnit.UnitId == BLL.Const.UnitId_6)
+            {
+                this.drpUnit.Label = "所属分公司";
+                this.Grid1.Columns[10].HeaderText = "所属分公司";
+            }
         }
         #endregion
 
@@ -100,8 +126,7 @@ namespace FineUIPro.Web.ProjectData
                     {
                         var project = BLL.ProjectService.GetProjectByProjectId(rowID);
                         if (project != null)
-                        {
-                            BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除项目", project.ProjectName);
+                        {                           
                             BLL.LogService.DeleteLog(rowID);
                             BLL.ReportRemindService.DeleteReportRemindByProjectId(rowID);
                             BLL.ProjectUnitService.DeleteProjectUnitByProjectId(rowID);
@@ -250,31 +275,31 @@ namespace FineUIPro.Web.ProjectData
             string content = string.Empty;
             if (Funs.DB.ProjectData_TeamGroup.FirstOrDefault(x => x.ProjectId == id) != null)
             {
-                content = "该项目已在【项目班组】中使用，不能删除！";
+                content += "该项目已在【项目班组】中使用，不能删除！";
             }
             if (Funs.DB.ProjectData_WorkArea.FirstOrDefault(x => x.ProjectId == id) != null)
             {
-                content = "该项目已在【作业区域】中使用，不能删除！";
+                content += "该项目已在【作业区域】中使用，不能删除！";
             }
             if (Funs.DB.Project_ProjectUnit.FirstOrDefault(x => x.ProjectId == id) != null)
             {
-                content = "该项目已在【项目单位】中使用，不能删除！";
+                content += "该项目已在【项目单位】中使用，不能删除！";
             }
             if (Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == id) != null)
             {
-                content = "该项目已在【项目用户】中使用，不能删除！";
+                content += "该项目已在【项目用户】中使用，不能删除！";
             }
             if (Funs.DB.SecuritySystem_SafetyManageOrganization.FirstOrDefault(x => x.ProjectId == id) != null)
             {
-                content = "该项目已在【项目安全管理组织机构表】中使用，不能删除！";
+                content += "该项目已在【项目安全管理组织机构表】中使用，不能删除！";
             }
             if (Funs.DB.SecuritySystem_SafetyOrganization.FirstOrDefault(x => x.ProjectId == id) != null)
             {
-                content = "该项目已在【项目安全管理机构表】中使用，不能删除！";
+                content += "该项目已在【项目安全管理机构表】中使用，不能删除！";
             }
             if (Funs.DB.SecuritySystem_SafetySystem.FirstOrDefault(x => x.ProjectId == id) != null)
             {
-                content = "该项目已在【项目安全组织体系表】中使用，不能删除！";
+                content += "该项目已在【项目安全组织体系表】中使用，不能删除！";
             }
             var sysCode = Funs.DB.Sys_CodeRecords.Where(x => x.ProjectId == id);
             if (sysCode.Count()> 0)
@@ -284,12 +309,12 @@ namespace FineUIPro.Web.ProjectData
                     var menu = Funs.DB.Sys_Menu.FirstOrDefault(x => x.MenuId == item.MenuId);
                     if (menu != null)
                     {
-                        content = "该项目已在【" + menu.MenuName + "】中使用，不能删除！";
+                        content += "该项目已在【" + menu.MenuName + "】中使用，不能删除！";
                     }
                     else
                     {
 
-                        content = "该项目已在【单据编码】中使用，不能删除！";
+                        content += "该项目已在【单据编码】中使用，不能删除！";
                     }
                 }
             }
@@ -302,12 +327,12 @@ namespace FineUIPro.Web.ProjectData
                     var menu = Funs.DB.Sys_Menu.FirstOrDefault(x => x.MenuId == item.MenuId);
                     if (menu != null)
                     {
-                        content = "该项目已在【" + menu.MenuName + "】中使用，不能删除！";
+                        content += "该项目已在【" + menu.MenuName + "】中使用，不能删除！";
                     }
                     else
                     {
 
-                        content = "该项目已在【审核流程】中使用，不能删除！";
+                        content += "该项目已在【审核流程】中使用，不能删除！";
                     }
                 }
             } 

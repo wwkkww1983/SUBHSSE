@@ -50,13 +50,13 @@ namespace FineUIPro.Web.SiteConstruction
                 if (this.CurrUser != null && this.CurrUser.PageSize.HasValue)
                 {
                     Grid1.PageSize = this.CurrUser.PageSize.Value;
-                } 
+                }
                 this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
-                this.InitTreeMenu();        
+                this.InitTreeMenu();
             }
         }
         #endregion
-        
+
         #region 加载树
         /// <summary>
         /// 加载树
@@ -69,7 +69,7 @@ namespace FineUIPro.Web.SiteConstruction
             {
                 if (BLL.ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.ProjectId, this.CurrUser.UnitId))
                 {
-                    constructionDynamicLists = constructionDynamicLists.Where(x => x.UnitId == this.CurrUser.UnitId).OrderBy(x=>x.CompileDate).ToList();
+                    constructionDynamicLists = constructionDynamicLists.Where(x => x.UnitId == this.CurrUser.UnitId).OrderBy(x => x.CompileDate).ToList();
                 }
 
                 var yearsList = constructionDynamicLists.Select(x => x.CompileDate.Value.Year).Distinct();
@@ -84,7 +84,7 @@ namespace FineUIPro.Web.SiteConstruction
                             Expanded = true
                         };
                         this.trConstructionDynamic.Nodes.Add(rootNode);
-                        this.BoundTree(rootNode.Nodes, rootNode, constructionDynamicLists,"0");
+                        this.BoundTree(rootNode.Nodes, rootNode, constructionDynamicLists, "0");
                     }
                 }
             }
@@ -95,7 +95,7 @@ namespace FineUIPro.Web.SiteConstruction
         /// </summary>
         /// <param name="nodes"></param>
         /// <param name="menuId"></param>
-        private void BoundTree(TreeNodeCollection nodes, TreeNode node, List<Model.SiteConstruction_ConstructionDynamic> constructionDynamicLists,string type)
+        private void BoundTree(TreeNodeCollection nodes, TreeNode node, List<Model.SiteConstruction_ConstructionDynamic> constructionDynamicLists, string type)
         {
             if (type == "0")
             {
@@ -107,7 +107,7 @@ namespace FineUIPro.Web.SiteConstruction
                         TreeNode rootNode = new TreeNode
                         {
                             Text = item.ToString() + "月",
-                            NodeID = item.ToString()
+                            NodeID = node.NodeID + "|" + item.ToString()
                         };
                         nodes.Add(rootNode);
                         this.BoundTree(rootNode.Nodes, rootNode, constructionDynamicLists, "1");
@@ -116,7 +116,7 @@ namespace FineUIPro.Web.SiteConstruction
             }
             else if (type == "1")
             {
-                var dateList = constructionDynamicLists.Where(x => x.CompileDate.Value.Year.ToString() == node.ParentNode.NodeID && x.CompileDate.Value.Month.ToString() == node.NodeID).Select(x => x.CompileDate.Value.ToShortDateString()).Distinct();
+                var dateList = constructionDynamicLists.Where(x => x.CompileDate.Value.Year.ToString() == node.ParentNode.NodeID && x.CompileDate.Value.Month.ToString() == node.NodeID.Split('|')[1]).Select(x => x.CompileDate.Value.ToShortDateString()).Distinct();
                 if (dateList.Count() > 0)
                 {
                     foreach (var item in dateList)
@@ -131,7 +131,7 @@ namespace FineUIPro.Web.SiteConstruction
                         this.BoundTree(rootNode.Nodes, rootNode, constructionDynamicLists, "2");
                     }
                 }
-            }            
+            }
         }
         #endregion
 
@@ -155,11 +155,11 @@ namespace FineUIPro.Web.SiteConstruction
             if (this.trConstructionDynamic.SelectedNode != null)
             {
                 dateSelect = this.trConstructionDynamic.SelectedNode.NodeID;
-            }            
+            }
             string strSql = @"SELECT C.ConstructionDynamicId,C.ProjectId,C.UnitId,C.CompileMan,C.CompileDate,C.AttachUrl,C.SeeFile,Unit.UnitName,"
-                        + @" C.JobContent,(CASE WHEN LEN(C.JobContent) > 50 THEN SUBSTRING(C.JobContent,0,50) ELSE C.JobContent END) AS ShortJobContent "          
+                        + @" C.JobContent,(CASE WHEN LEN(C.JobContent) > 50 THEN SUBSTRING(C.JobContent,0,50) ELSE C.JobContent END) AS ShortJobContent "
                         + @" FROM dbo.SiteConstruction_ConstructionDynamic AS C "
-                        + @" LEFT JOIN dbo.Base_Unit AS Unit ON C.UnitId=Unit.UnitId "                         
+                        + @" LEFT JOIN dbo.Base_Unit AS Unit ON C.UnitId=Unit.UnitId "
                         + @" WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND C.ProjectId = @ProjectId";
@@ -173,7 +173,7 @@ namespace FineUIPro.Web.SiteConstruction
             }
 
             strSql += " AND C.CompileDate = @CompileDate";
-            listStr.Add(new SqlParameter("@CompileDate", Funs.GetNewDateTime(dateSelect))); 
+            listStr.Add(new SqlParameter("@CompileDate", Funs.GetNewDateTime(dateSelect)));
             if (BLL.ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.ProjectId, this.CurrUser.UnitId))
             {
                 strSql += " AND C.UnitId = @UnitId";
@@ -222,7 +222,7 @@ namespace FineUIPro.Web.SiteConstruction
         {
             this.BindGrid();
         }
-        #endregion               
+        #endregion
 
         #region 编辑
         /// <summary>
@@ -261,13 +261,13 @@ namespace FineUIPro.Web.SiteConstruction
             {
                 if (this.btnMenuEdit.Hidden || this.CurrUser.UnitId != constructionDynamic.UnitId)   ////双击事件 编辑权限有：编辑页面，无：查看页面 或者状态是完成时查看页面
                 {
-                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ConstructionDynamicView.aspx?ConstructionDynamicId={0}", id, "查看 - ")));                    
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ConstructionDynamicView.aspx?ConstructionDynamicId={0}", id, "查看 - ")));
                 }
                 else
                 {
                     PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ConstructionDynamicEdit.aspx?ConstructionDynamicId={0}", id, "编辑 - ")));
                 }
-            }            
+            }
         }
         #endregion
 
@@ -287,17 +287,20 @@ namespace FineUIPro.Web.SiteConstruction
                     var constructionDynamic = BLL.ConstructionDynamicService.GetConstructionDynamicById(rowID);
                     if (constructionDynamic != null && (constructionDynamic.UnitId == this.CurrUser.UnitId || this.CurrUser.UserId == BLL.Const.sysglyId))
                     {
-
-                        BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除现场施工动态", rowID);
-                        BLL.ConstructionDynamicService.DeleteConstructionDynamicById(rowID);
+                        var getV = BLL.ConstructionDynamicService.GetConstructionDynamicById(rowID);
+                        if (getV != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, null, getV.ConstructionDynamicId, BLL.Const.ProjectConstructionDynamicMenuId, BLL.Const.BtnDelete);
+                            BLL.ConstructionDynamicService.DeleteConstructionDynamicById(rowID);
+                        }
                     }
-                } 
+                }
                 this.BindGrid();
                 ShowNotify("删除数据成功!", MessageBoxIcon.Success);
             }
-        }     
+        }
         #endregion
-       
+
         #region 获取按钮权限
         /// <summary>
         /// 获取按钮权限

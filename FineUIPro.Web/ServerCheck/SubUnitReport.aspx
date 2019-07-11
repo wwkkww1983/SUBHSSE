@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SubUnitReport.aspx.cs"
-    Inherits="FineUIPro.Web.ServerCheck.SubUnitReport" Async="true" %>
+    Inherits="FineUIPro.Web.ServerCheck.SubUnitReport" Async="true" ValidateRequest="false" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -13,18 +13,18 @@
     <f:PageManager ID="PageManager1" AutoSizePanelID="Panel1" runat="server" />
     <f:Panel ID="Panel1" runat="server" ShowBorder="false" ShowHeader="false" Layout="Region">
         <Items>
-            <f:Panel runat="server" ID="panelLeftRegion" RegionPosition="Left" RegionSplit="true"
-                EnableCollapse="true" Layout="HBox" Width="250" Title="企业安全文件上报" TitleToolTip="企业安全文件上报"
-                ShowBorder="true" ShowHeader="true" AutoScroll="true" BodyPadding="5px" IconFont="ArrowCircleLeft">
+            <f:Panel runat="server" ID="panelLeftRegion" Width="250px" RegionPosition="Left" RegionSplit="true"
+                EnableCollapse="true" Layout="HBox" Title="企业安全文件上报" TitleToolTip="企业安全文件上报"
+                ShowBorder="true" ShowHeader="true" BodyPadding="5px" IconFont="ArrowCircleLeft">
                 <Items>
-                    <f:Tree ID="trSubUnitReport" Width="200px" EnableCollapse="true" ShowHeader="true"
+                    <f:Tree ID="trSubUnitReport" EnableCollapse="true" ShowHeader="true" 
                         Title="企业安全文件上报" OnNodeCommand="trSubUnitReport_NodeCommand" AutoLeafIdentification="true"
                         runat="server">
                     </f:Tree>
                 </Items>
             </f:Panel>
             <f:Panel runat="server" ID="panelCenterRegion" RegionPosition="Center" ShowBorder="true"
-                Layout="VBox" ShowHeader="false" BodyPadding="5px" IconFont="PlusCircle" AutoScroll="true"
+                Layout="VBox" ShowHeader="false" BodyPadding="5px"  AutoScroll="true"  Hidden="true"
                 Title="企业安全文件上报明细" TitleToolTip="企业安全文件上报明细">
                 <Items>
                     <f:Form runat="server" ID="formTitle" RegionPosition="Center" ShowBorder="true" ShowHeader="true"

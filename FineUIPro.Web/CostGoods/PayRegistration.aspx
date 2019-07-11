@@ -79,7 +79,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="安全费用投入登记" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="1200px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1300px"
         Height="700px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
@@ -90,8 +90,11 @@
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="TableEdit" EnablePostBack="true"
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
+        <f:MenuButton ID="btnMenuView" OnClick="btnMenuView_Click" Icon="Pencil" EnablePostBack="true"
+            Hidden="true" runat="server" Text="查看当月总投入登记表">
+        </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server"
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server"
             Text="删除">
         </f:MenuButton>
     </f:Menu>

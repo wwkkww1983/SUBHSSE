@@ -374,7 +374,7 @@ namespace BLL
 
         }
 
-        public static int getIntValue(string sql)
+        public static int GetIntValue(string sql)
         {
             int i = 0;
             using (SqlConnection Connection = new SqlConnection(connectionString))
@@ -960,7 +960,7 @@ namespace BLL
         {
             int maxId = 0;
             string str = "SELECT (ISNULL(MAX(" + ColumnName + "),0)+1) from " + tableName + "";
-            maxId = getIntValue(str);
+            maxId = GetIntValue(str);
             return maxId;
         }
     }

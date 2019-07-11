@@ -71,6 +71,11 @@ namespace FineUIPro.Web.CostGoods
                     ////自动生成编码
                     this.txtMeasuresPlanCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectMeasuresPlanMenuId, this.CurrUser.LoginProjectId, this.CurrUser.UnitId);
                 }
+
+                if (Request.Params["value"] == "0")
+                {
+                    this.btnSave.Hidden = true;
+                }
             }
         }
         #endregion
@@ -114,14 +119,14 @@ namespace FineUIPro.Web.CostGoods
             {
                 measuresPlan.MeasuresPlanId = this.MeasuresPlanId;
                 BLL.MeasuresPlanService.UpdateMeasuresPlan(measuresPlan);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改安全措施费使用计划");
+                BLL.LogService.AddSys_Log(this.CurrUser, measuresPlan.MeasuresPlanCode, measuresPlan.MeasuresPlanId, BLL.Const.ProjectMeasuresPlanMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.MeasuresPlanId = SQLHelper.GetNewID(typeof(Model.CostGoods_MeasuresPlan));
                 measuresPlan.MeasuresPlanId = this.MeasuresPlanId;
                 BLL.MeasuresPlanService.AddMeasuresPlan(measuresPlan);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加安全措施费使用计划");
+                BLL.LogService.AddSys_Log(this.CurrUser, measuresPlan.MeasuresPlanCode, measuresPlan.MeasuresPlanId, BLL.Const.ProjectMeasuresPlanMenuId, BLL.Const.BtnAdd);
             }
         }
         #endregion
@@ -134,16 +139,23 @@ namespace FineUIPro.Web.CostGoods
         /// <param name="e"></param>
         protected void btnAttachUrl_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.MeasuresPlanId))
+            if (this.btnSave.Hidden)
             {
-                if (this.drpUnitId.SelectedValue == BLL.Const._Null)
-                {
-                    Alert.ShowInTop("请选择单位名称！", MessageBoxIcon.Warning);
-                    return;
-                }
-                SaveData();
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/MeasuresPlanAttachUrl&type=-1", this.MeasuresPlanId, BLL.Const.ProjectMeasuresPlanMenuId)));
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/MeasuresPlanAttachUrl&menuId={1}", this.MeasuresPlanId, BLL.Const.ProjectMeasuresPlanMenuId)));
+            else
+            {
+                if (string.IsNullOrEmpty(this.MeasuresPlanId))
+                {
+                    if (this.drpUnitId.SelectedValue == BLL.Const._Null)
+                    {
+                        Alert.ShowInTop("请选择单位名称！", MessageBoxIcon.Warning);
+                        return;
+                    }
+                    SaveData();
+                }
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/MeasuresPlanAttachUrl&menuId={1}", this.MeasuresPlanId, BLL.Const.ProjectMeasuresPlanMenuId)));
+            }            
         }
         #endregion
     }

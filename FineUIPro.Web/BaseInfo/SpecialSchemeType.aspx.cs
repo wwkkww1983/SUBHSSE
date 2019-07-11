@@ -83,25 +83,20 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            
-                //if (BLL.SpecialSchemeService.IsDelteBySpecialSchemeTypeId(hfFormID.Text))
-                //{
-                    if (judgementDelete(hfFormID.Text, true))
-                    {
-                        BLL.SpecialSchemeTypeService.DeleteSpecialSchemeTypeById(hfFormID.Text);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除专项方案类别");
-                        // 重新绑定表格，并模拟点击[新增按钮]
-                        BindGrid();
-                        PageContext.RegisterStartupScript("onNewButtonClick();");
-                    }
-                //}
-                //else
-                //{
-                //    ShowNotify("专项方案中已使用该类型，无法删除！");
-                //}
-           
-        }
+            if (judgementDelete(hfFormID.Text, true))
+            {
+                var getSpecialSchemeType = BLL.SpecialSchemeTypeService.GetSpecialSchemeTypeById(hfFormID.Text);
+                if (getSpecialSchemeType != null)
+                {
+                    BLL.LogService.AddSys_Log(this.CurrUser, getSpecialSchemeType.SpecialSchemeTypeCode, getSpecialSchemeType.SpecialSchemeTypeId, BLL.Const.SpecialSchemeTypeMenuId, BLL.Const.BtnDelete);
+                    BLL.SpecialSchemeTypeService.DeleteSpecialSchemeTypeById(hfFormID.Text);
 
+                    // 重新绑定表格，并模拟点击[新增按钮]
+                    BindGrid();
+                    PageContext.RegisterStartupScript("onNewButtonClick();");
+                }
+            }           
+        }
 
         /// <summary>
         /// 右键删除事件
@@ -117,8 +112,12 @@ namespace FineUIPro.Web.BaseInfo
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (judgementDelete(rowID, true))
                     {
-                        BLL.SpecialSchemeTypeService.DeleteSpecialSchemeTypeById(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除专项方案类别");
+                        var getSpecialSchemeType = BLL.SpecialSchemeTypeService.GetSpecialSchemeTypeById(rowID);
+                        if (getSpecialSchemeType != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getSpecialSchemeType.SpecialSchemeTypeCode, getSpecialSchemeType.SpecialSchemeTypeId, BLL.Const.SpecialSchemeTypeMenuId, BLL.Const.BtnDelete);
+                            BLL.SpecialSchemeTypeService.DeleteSpecialSchemeTypeById(rowID);
+                        }
                     }
                 }
                 BindGrid();
@@ -163,7 +162,7 @@ namespace FineUIPro.Web.BaseInfo
         protected void btnSave_Click(object sender, EventArgs e)
         {
             string strRowID = hfFormID.Text;
-            Model.Base_SpecialSchemeType depart = new Model.Base_SpecialSchemeType
+            Model.Base_SpecialSchemeType newSpecialSchemeType = new Model.Base_SpecialSchemeType
             {
                 SpecialSchemeTypeCode = this.txtSpecialSchemeTypeCode.Text.Trim(),
                 SpecialSchemeTypeName = this.txtSpecialSchemeTypeName.Text.Trim(),
@@ -171,20 +170,20 @@ namespace FineUIPro.Web.BaseInfo
             };
             if (string.IsNullOrEmpty(strRowID))
             {
-                depart.SpecialSchemeTypeId = SQLHelper.GetNewID(typeof(Model.Base_SpecialSchemeType));
-                BLL.SpecialSchemeTypeService.AddSpecialSchemeType(depart);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加专项方案类别");
+                newSpecialSchemeType.SpecialSchemeTypeId = SQLHelper.GetNewID(typeof(Model.Base_SpecialSchemeType));
+                BLL.SpecialSchemeTypeService.AddSpecialSchemeType(newSpecialSchemeType);
+                BLL.LogService.AddSys_Log(this.CurrUser, newSpecialSchemeType.SpecialSchemeTypeCode, newSpecialSchemeType.SpecialSchemeTypeId, BLL.Const.SpecialSchemeTypeMenuId, BLL.Const.BtnAdd);
             }
             else
             {
-                depart.SpecialSchemeTypeId = strRowID;
-                BLL.SpecialSchemeTypeService.UpdateSpecialSchemeType(depart);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改专项方案类别");
+                newSpecialSchemeType.SpecialSchemeTypeId = strRowID;
+                BLL.SpecialSchemeTypeService.UpdateSpecialSchemeType(newSpecialSchemeType);
+                BLL.LogService.AddSys_Log(this.CurrUser, newSpecialSchemeType.SpecialSchemeTypeCode, newSpecialSchemeType.SpecialSchemeTypeId, BLL.Const.SpecialSchemeTypeMenuId, BLL.Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行
             BindGrid();
-            PageContext.RegisterStartupScript(String.Format("F('{0}').selectRow('{1}');", Grid1.ClientID, depart.SpecialSchemeTypeId));
+            PageContext.RegisterStartupScript(String.Format("F('{0}').selectRow('{1}');", Grid1.ClientID, newSpecialSchemeType.SpecialSchemeTypeId));
         }
 
       

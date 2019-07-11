@@ -55,7 +55,7 @@
                 <Items>
                     <f:HiddenField ID="hfFormID" runat="server">
                     </f:HiddenField>
-                    <f:DropDownList ID="drpGoodsDefCode" runat="server" Label="物资类别" LabelAlign="Right"
+                    <f:DropDownList ID="drpGoodsDefCode" runat="server" Label="类别" LabelAlign="Right"
                         Required="true" ShowRedStar="true">
                        <%-- <f:ListItem Value="药品" Text="药品" />
                         <f:ListItem Value="仪器" Text="仪器" />
@@ -64,7 +64,7 @@
                         <f:ListItem Value="劳保用品" Text="劳保用品" />
                         <f:ListItem Value="其他" Text="其他" />--%>
                     </f:DropDownList>
-                    <f:TextBox ID="txtGoodsDefName" Label="物资名称" ShowRedStar="true" Required="true" runat="server"
+                    <f:TextBox ID="txtGoodsDefName" Label="名称" ShowRedStar="true" Required="true" runat="server"
                         LabelAlign="right">
                     </f:TextBox>
                     <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="right">
@@ -97,7 +97,7 @@
             runat="server" Text="编辑" Icon="TableEdit">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除" Icon="Delete">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除" Icon="Delete">
         </f:MenuButton>
     </f:Menu>
     </form>

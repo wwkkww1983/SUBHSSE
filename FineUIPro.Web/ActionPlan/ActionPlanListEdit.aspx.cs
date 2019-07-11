@@ -175,14 +175,14 @@ namespace FineUIPro.Web.ActionPlan
             {
                 actionPlanList.ActionPlanListId = this.ActionPlanListId;
                 BLL.ActionPlanListService.UpdateActionPlanList(actionPlanList);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "修改实施计划");
+                BLL.LogService.AddSys_Log(this.CurrUser, this.txtActionPlanListCode.Text, this.ActionPlanListId, BLL.Const.ProjectActionPlanListMenuId, Const.BtnModify);
             }
             else
             {
                 this.ActionPlanListId = SQLHelper.GetNewID(typeof(Model.ActionPlan_ActionPlanList));
                 actionPlanList.ActionPlanListId = this.ActionPlanListId;
                 BLL.ActionPlanListService.AddActionPlanList(actionPlanList);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "添加实施计划");
+                BLL.LogService.AddSys_Log(this.CurrUser, this.txtActionPlanListCode.Text, this.ActionPlanListId, BLL.Const.ProjectActionPlanListMenuId, Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectActionPlanListMenuId, this.ActionPlanListId, (type == BLL.Const.BtnSubmit ? true : false), actionPlanList.ActionPlanListName, "../ActionPlan/ActionPlanListView.aspx?ActionPlanListId={0}");

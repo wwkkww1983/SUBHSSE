@@ -22,7 +22,7 @@
                         FieldType="String" HeaderText="类型编号" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="200px" ColumnID="GasCylinderName" DataField="GasCylinderName"
-                        FieldType="String" HeaderText="类型名称" HeaderTextAlign="Center" TextAlign="Center">
+                        FieldType="String" HeaderText="类型名称" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="350px" ColumnID="Remark" DataField="Remark" FieldType="String"
                         HeaderText="备注" HeaderTextAlign="Center" TextAlign="Center">
@@ -52,10 +52,10 @@
                 <Items>
                     <f:HiddenField ID="hfFormID" runat="server">
                     </f:HiddenField>
-                    <f:TextBox ID="txtGasCylinderCode" Label="类型编号" ShowRedStar="true" Required="true"
+                    <f:TextBox ID="txtGasCylinderCode" Label="编号" ShowRedStar="true" Required="true"
                         runat="server" LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
-                    <f:TextBox ID="txtGasCylinderName" Label="类型名称" ShowRedStar="true" Required="true"
+                    <f:TextBox ID="txtGasCylinderName" Label="名称" ShowRedStar="true" Required="true"
                         runat="server" LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
                     <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="right">
@@ -88,7 +88,7 @@
             runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

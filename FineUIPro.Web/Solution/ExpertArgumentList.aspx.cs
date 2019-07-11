@@ -205,7 +205,7 @@ namespace FineUIPro.Web.Solution
         //        foreach (int rowIndex in Grid1.SelectedRowIndexArray)
         //        {
         //            string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-        //            BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除专家论证清单", rowID);
+        //            BLL.LogService.AddSys_Log(this.CurrUser,  "删除专家论证清单", rowID);
         //            BLL.ExpertArgumentService.DeleteExpertArgumentById(rowID);
         //        }
         //        BindGrid();

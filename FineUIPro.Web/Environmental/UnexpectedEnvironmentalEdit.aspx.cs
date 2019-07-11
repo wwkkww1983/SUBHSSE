@@ -147,7 +147,7 @@ namespace FineUIPro.Web.Environmental
             {
                 UnexpectedEnvironmental.FileId = this.FileId;
                 BLL.UnexpectedEnvironmentalService.UpdateUnexpectedEnvironmental(UnexpectedEnvironmental);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改突发环境事件", UnexpectedEnvironmental.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, UnexpectedEnvironmental.FileCode, UnexpectedEnvironmental.FileId, BLL.Const.UnexpectedEnvironmentalMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -155,7 +155,7 @@ namespace FineUIPro.Web.Environmental
                 UnexpectedEnvironmental.FileId = this.FileId;
                 UnexpectedEnvironmental.ProjectId = this.ProjectId;
                 BLL.UnexpectedEnvironmentalService.AddUnexpectedEnvironmental(UnexpectedEnvironmental);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加突发环境事件", UnexpectedEnvironmental.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, UnexpectedEnvironmental.FileCode, UnexpectedEnvironmental.FileId, BLL.Const.UnexpectedEnvironmentalMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.UnexpectedEnvironmentalMenuId, this.FileId, (type == BLL.Const.BtnSubmit ? true : false), this.txtFileName.Text.Trim(), "../Environmental/UnexpectedEnvironmentalView.aspx?FileId={0}");                      

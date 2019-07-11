@@ -188,12 +188,16 @@ namespace FineUIPro.Web.Environmental
         protected void btnMenuDelete_Click(object sender, EventArgs e)
         {
             if (Grid1.SelectedRowIndexArray.Length > 0)
-            {               
+            {
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除环境监测数据");
-                    BLL.EnvironmentalMonitoringService.DeleteEnvironmentalMonitoringById(rowID);
+                    var getD = BLL.EnvironmentalMonitoringService.GetEnvironmentalMonitoringById(rowID);
+                    if (getD != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getD.FileCode, getD.FileId, BLL.Const.EnvironmentalMonitoringMenuId, BLL.Const.BtnDelete);
+                        BLL.EnvironmentalMonitoringService.DeleteEnvironmentalMonitoringById(rowID);
+                    }
                 }
 
                 this.BindGrid();

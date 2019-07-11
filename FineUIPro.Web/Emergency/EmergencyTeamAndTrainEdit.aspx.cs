@@ -175,14 +175,14 @@ namespace FineUIPro.Web.Emergency
             {
                 EmergencyTeamAndTrain.FileId = this.FileId;
                 BLL.EmergencyTeamAndTrainService.UpdateEmergencyTeamAndTrain(EmergencyTeamAndTrain);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改应急队伍/培训", EmergencyTeamAndTrain.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, EmergencyTeamAndTrain.FileCode, EmergencyTeamAndTrain.FileId, BLL.Const.ProjectEmergencyTeamAndTrainMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.FileId = SQLHelper.GetNewID(typeof(Model.Emergency_EmergencyTeamAndTrain));
                 EmergencyTeamAndTrain.FileId = this.FileId;
                 BLL.EmergencyTeamAndTrainService.AddEmergencyTeamAndTrain(EmergencyTeamAndTrain);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加应急队伍/培训", EmergencyTeamAndTrain.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, EmergencyTeamAndTrain.FileCode, EmergencyTeamAndTrain.FileId, BLL.Const.ProjectEmergencyTeamAndTrainMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectEmergencyTeamAndTrainMenuId, this.FileId, (type == BLL.Const.BtnSubmit ? true : false), EmergencyTeamAndTrain.FileName, "../Emergency/EmergencyTeamAndTrainView.aspx?FileId={0}");

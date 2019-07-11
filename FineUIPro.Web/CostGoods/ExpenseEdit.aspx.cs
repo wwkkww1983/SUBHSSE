@@ -310,7 +310,7 @@ namespace FineUIPro.Web.CostGoods
             {
                 expense.ExpenseId = this.ExpenseId;
                 BLL.ExpenseService.UpdateExpense(expense);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改措施费用使用计划", expense.ExpenseId);
+                BLL.LogService.AddSys_Log(this.CurrUser, expense.ExpenseCode, expense.ExpenseId, BLL.Const.ProjectExpenseMenuId, BLL.Const.BtnModify);
                 BLL.ExpenseDetailService.DeleteCostDetailByExpenseId(this.ExpenseId);
             }
             else
@@ -320,7 +320,7 @@ namespace FineUIPro.Web.CostGoods
                 expense.CompileMan = this.CurrUser.UserName;
                 expense.CompileDate = DateTime.Now;
                 BLL.ExpenseService.AddExpense(expense);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加措施费用使用计划", expense.ExpenseId);
+                BLL.LogService.AddSys_Log(this.CurrUser, expense.ExpenseCode, expense.ExpenseId, BLL.Const.ProjectExpenseMenuId, BLL.Const.BtnAdd);
             }
             //保存费用明细
             BLL.ExpenseDetailService.AddCostDetail(expense.ExpenseId, "A1", Funs.GetNewDecimalOrZero(this.nbA1.Text), this.txtDefA1.Text.Trim());

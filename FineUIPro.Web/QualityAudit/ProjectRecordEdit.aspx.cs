@@ -37,7 +37,7 @@ namespace FineUIPro.Web.QualityAudit
             if (!IsPostBack)
             {
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
-                BLL.UnitService.InitUnitDropDownList(this.drpUnitId, this.CurrUser.LoginProjectId, true);
+                BLL.UnitService.InitUnitDropDownList(this.drpUnitId, this.CurrUser.LoginProjectId, false);
                 this.ProjectRecordId = Request.Params["ProjectRecordId"];
                 if (!string.IsNullOrEmpty(this.ProjectRecordId))
                 {
@@ -47,7 +47,8 @@ namespace FineUIPro.Web.QualityAudit
                         this.txtProjectRecordCode.Text = BLL.CodeRecordsService.ReturnCodeByDataId(this.ProjectRecordId);
                         if (!string.IsNullOrEmpty(projectRecord.UnitId))
                         {
-                            this.drpUnitId.SelectedValue = projectRecord.UnitId;
+                            //this.drpUnitId.SelectedValue = projectRecord.UnitId;
+                            this.drpUnitId.SelectedValueArray = projectRecord.UnitId.Split(',');
                         }
                         this.txtProjectRecordName.Text = projectRecord.ProjectRecordName;
                         this.txtRemark.Text = projectRecord.Remark;
@@ -57,6 +58,11 @@ namespace FineUIPro.Web.QualityAudit
                 {
                     ////自动生成编码
                     this.txtProjectRecordCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectRecordMenuId, this.CurrUser.LoginProjectId, this.CurrUser.UnitId);
+                }
+
+                if (Request.Params["value"] == "0")
+                {
+                    this.btnSave.Hidden = true;
                 }
             }
         }
@@ -70,7 +76,7 @@ namespace FineUIPro.Web.QualityAudit
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (this.drpUnitId.SelectedValue == BLL.Const._Null)
+            if (string.IsNullOrEmpty(this.drpUnitId.SelectedValue))
             {
                 Alert.ShowInTop("请选择单位名称", MessageBoxIcon.Warning);
                 return;
@@ -87,28 +93,37 @@ namespace FineUIPro.Web.QualityAudit
             Model.QualityAudit_ProjectRecord projectRecord = new Model.QualityAudit_ProjectRecord
             {
                 ProjectId = this.CurrUser.LoginProjectId,
-                ProjectRecordCode = this.txtProjectRecordCode.Text.Trim()
+                ProjectRecordCode = this.txtProjectRecordCode.Text.Trim(),
+                ProjectRecordName = this.txtProjectRecordName.Text.Trim(),
+                Remark = this.txtRemark.Text.Trim(),
+                CompileMan = this.CurrUser.UserId,
+                CompileDate = DateTime.Now,
             };
-            if (this.drpUnitId.SelectedValue != BLL.Const._Null)
+
+            if (!string.IsNullOrEmpty(this.drpUnitId.SelectedValue))
             {
-                projectRecord.UnitId = this.drpUnitId.SelectedValue;
+                string units = string.Empty;
+                var unitIds = this.drpUnitId.SelectedValueArray;
+                foreach (var item in unitIds)
+                {
+                    units += item + ",";
+                }
+
+                projectRecord.UnitId = units;
             }
-            projectRecord.ProjectRecordName = this.txtProjectRecordName.Text.Trim();
-            projectRecord.Remark = this.txtRemark.Text.Trim();
-            projectRecord.CompileMan = this.CurrUser.UserId;
-            projectRecord.CompileDate = DateTime.Now;
+            
             if (!string.IsNullOrEmpty(this.ProjectRecordId))
             {
                 projectRecord.ProjectRecordId = this.ProjectRecordId;
                 BLL.ProjectRecordService.UpdateProjectRecord(projectRecord);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改项目协议记录", projectRecord.ProjectRecordId);
+                BLL.LogService.AddSys_Log(this.CurrUser, projectRecord.ProjectRecordCode, projectRecord.ProjectRecordId,BLL.Const.ProjectRecordMenuId,BLL.Const.BtnModify );
             }
             else
             {
                 this.ProjectRecordId = BLL.SQLHelper.GetNewID(typeof(Model.QualityAudit_ProjectRecord));
                 projectRecord.ProjectRecordId = this.ProjectRecordId;
                 BLL.ProjectRecordService.AddProjectRecord(projectRecord);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加项目协议记录", projectRecord.ProjectRecordId);
+                BLL.LogService.AddSys_Log(this.CurrUser, projectRecord.ProjectRecordCode, projectRecord.ProjectRecordId, BLL.Const.ProjectRecordMenuId, BLL.Const.BtnAdd);
                 ////判断单据是否 加入到企业管理资料
                 var safeData = BLL.Funs.DB.SafetyData_SafetyData.FirstOrDefault(x => x.MenuId == BLL.Const.ProjectRecordMenuId);
                 if (safeData != null)
@@ -131,16 +146,23 @@ namespace FineUIPro.Web.QualityAudit
         /// <param name="e"></param>
         protected void btnAttachUrl_Click(object sender, EventArgs e)
         {
-            if (this.drpUnitId.SelectedValue == BLL.Const._Null)
+            if (this.btnSave.Hidden)
             {
-                Alert.ShowInTop("请选择单位名称", MessageBoxIcon.Warning);
-                return;
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ProjectRecordAttachUrl&type=-1", this.ProjectRecordId, BLL.Const.ProjectRecordMenuId)));
             }
-            if (string.IsNullOrEmpty(this.ProjectRecordId))
+            else
             {
-                SaveData(false);
+                if (string.IsNullOrEmpty(this.drpUnitId.SelectedValue))
+                {
+                    Alert.ShowInTop("请选择单位名称", MessageBoxIcon.Warning);
+                    return;
+                }
+                if (string.IsNullOrEmpty(this.ProjectRecordId))
+                {
+                    SaveData(false);
+                }
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ProjectRecordAttachUrl&menuId={1}", this.ProjectRecordId, BLL.Const.ProjectRecordMenuId)));
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ProjectRecordAttachUrl&menuId={1}", this.ProjectRecordId, BLL.Const.ProjectRecordMenuId)));
         }
         #endregion
     }

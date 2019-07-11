@@ -151,6 +151,7 @@ namespace FineUIPro.Web.Manager
                 endTime = Convert.ToDateTime(Request.Params["endTime"]);
                 yearStartTime = Convert.ToDateTime(Request.Params["yearStartTime"]);
                 Model.Manager_MonthReportC monthReport = BLL.MonthReportCService.GetMonthReportByMonths(months, this.CurrUser.LoginProjectId);
+                Model.Manager_MonthReportC mr = BLL.MonthReportCService.GetLastMonthReportByDate(endTime, this.ProjectId);
                 Model.Base_Project project = BLL.ProjectService.GetProjectByProjectId(ProjectId);
                 if (project.StartDate != null)
                 {
@@ -160,9 +161,9 @@ namespace FineUIPro.Web.Manager
                 {
                     this.MonthReportId = monthReport.MonthReportId;
                     this.ProjectId = monthReport.ProjectId;
+                    months = Convert.ToDateTime(monthReport.Months);
                     Model.SUBHSSEDB db = Funs.DB;
-                    this.txtHazardNum.Text = (monthReport.HazardNum ?? 0).ToString();
-                    this.txtYearHazardNum.Text = (monthReport.YearHazardNum ?? 0).ToString();
+                    this.txtMainActivitiesDef.Text = monthReport.MainActivitiesDef;
                     //危险源情况
                     hazardSorts = (from x in db.Manager_HazardSortC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
                     if (hazardSorts.Count > 0)   //保存过数据
@@ -198,8 +199,35 @@ namespace FineUIPro.Web.Manager
                         this.gvCheckDetailSort.DataSource = checkDetailSorts;
                         this.gvCheckDetailSort.DataBind();
                     }
-                    this.txtMeetingNum.Text = (monthReport.MeetingNum ?? 0).ToString();
-                    this.txtYearMeetingNum.Text = (monthReport.YearMeetingNum ?? 0).ToString();
+                    if (monthReport.MeetingNum != null)
+                    {
+                        this.txtMeetingNum.Text = (monthReport.MeetingNum ?? 0).ToString();
+                        this.txtYearMeetingNum.Text = (monthReport.YearMeetingNum ?? 0).ToString();
+                    }
+                    else
+                    {
+                        //会议数量
+                        int meetingNum1 = BLL.WeekMeetingService.GetCountByTime(startTime, endTime, this.ProjectId);
+                        int meetingNum2 = BLL.MonthMeetingService.GetCountByTime(startTime, endTime, this.ProjectId);
+                        int meetingNum3 = BLL.SpecialMeetingService.GetCountByTime(startTime, endTime, this.ProjectId);
+                        int meetingNum4 = BLL.AttendMeetingService.GetCountByTime(startTime, endTime, this.ProjectId);
+                        this.txtMeetingNum.Text = (meetingNum1 + meetingNum2 + meetingNum3 + meetingNum4).ToString();
+                        if (mr != null)
+                        {
+                            if (mr.YearMeetingNum != 0)
+                            {
+                                this.txtYearMeetingNum.Text = (mr.YearMeetingNum + Convert.ToInt32(this.txtMeetingNum.Text.Trim())).ToString();
+                            }
+                            else
+                            {
+                                this.txtYearMeetingNum.Text = txtMeetingNum.Text.Trim();
+                            }
+                        }
+                        else
+                        {
+                            this.txtYearMeetingNum.Text = txtMeetingNum.Text.Trim();
+                        }
+                    }
                     //会议情况
                     meetingSorts = (from x in db.Manager_MeetingSortC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
                     if (meetingSorts.Count > 0)
@@ -207,39 +235,75 @@ namespace FineUIPro.Web.Manager
                         this.gvMeetingSort.DataSource = meetingSorts;
                         this.gvMeetingSort.DataBind();
                     }
-                    this.txtPromotionalActiviteNum.Text = (monthReport.PromotionalActiviteNum ?? 0).ToString();
-                    this.txtYearPromotionalActiviteNum.Text = (monthReport.YearPromotionalActiviteNum ?? 0).ToString();
-                    //HSE宣传活动情况
-                    promotionalActiviteSorts = (from x in db.Manager_PromotionalActiviteSortC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
-                    if (promotionalActiviteSorts.Count > 0)
+                    if (monthReport.ComplexEmergencyNum != null)
                     {
-                        this.gvPromotionalActiviteSort.DataSource = promotionalActiviteSorts;
-                        this.gvPromotionalActiviteSort.DataBind();
+                        this.txtComplexEmergencyNum.Text = (monthReport.ComplexEmergencyNum ?? 0).ToString();
+                        this.txtYearComplexEmergencyNum.Text = (monthReport.YearComplexEmergencyNum ?? 0).ToString();
+                        this.txtTotalComplexEmergencyNum.Text = (monthReport.TotalComplexEmergencyNum ?? 0).ToString();
+                        this.txtSpecialEmergencyNum.Text = (monthReport.SpecialEmergencyNum ?? 0).ToString();
+                        this.txtYearSpecialEmergencyNum.Text = (monthReport.YearSpecialEmergencyNum ?? 0).ToString();
+                        this.txtTotalSpecialEmergencyNum.Text = (monthReport.TotalSpecialEmergencyNum ?? 0).ToString();
+                        this.txtDrillRecordNum.Text = (monthReport.DrillRecordNum ?? 0).ToString();
+                        this.txtYearDrillRecordNum.Text = (monthReport.YearDrillRecordNum ?? 0).ToString();
+                        this.txtTotalDrillRecordNum.Text = (monthReport.TotalDrillRecordNum ?? 0).ToString();
                     }
-                    this.txtComplexEmergencyNum.Text = (monthReport.ComplexEmergencyNum ?? 0).ToString();
-                    this.txtYearComplexEmergencyNum.Text = (monthReport.YearComplexEmergencyNum ?? 0).ToString();
-                    this.txtSpecialEmergencyNum.Text = (monthReport.SpecialEmergencyNum ?? 0).ToString();
-                    this.txtYearSpecialEmergencyNum.Text = (monthReport.YearSpecialEmergencyNum ?? 0).ToString();
-                    this.txtDrillRecordNum.Text = (monthReport.DrillRecordNum ?? 0).ToString();
-                    this.txtYearDrillRecordNum.Text = (monthReport.YearDrillRecordNum ?? 0).ToString();
-                    //HSE应急预案情况
-                    emergencySorts = (from x in db.Manager_EmergencySortC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
-                    if (emergencySorts.Count > 0)
+                    else
                     {
-                        this.gvEmergencySort.DataSource = emergencySorts;
-                        this.gvEmergencySort.DataBind();
+                        //应急管理
+                        List<Model.Emergency_EmergencyList> complexEmergencys = BLL.EmergencyListService.GetEmergencyListsByEmergencyType(BLL.Const.ComplexEmergencyName, this.ProjectId, startTime, endTime);  //综合应急预案集合
+                        int complexEmergencyNum = complexEmergencys.Count;
+                        this.txtComplexEmergencyNum.Text = complexEmergencyNum.ToString();
+                        List<Model.Emergency_EmergencyList> specialEmergencys = BLL.EmergencyListService.GetOtherEmergencyListsByEmergencyType(BLL.Const.ComplexEmergencyName, this.ProjectId, startTime, endTime);  //专项应急预案集合
+                        int specialEmergencyNum = specialEmergencys.Count;
+                        this.txtSpecialEmergencyNum.Text = specialEmergencyNum.ToString();
+                        this.txtDrillRecordNum.Text = BLL.DrillRecordListService.GetCountByDate(startTime, endTime, this.ProjectId).ToString();
+                        if (mr != null)
+                        {
+                            //综合应急预案
+                            if (mr.YearComplexEmergencyNum != 0)
+                            {
+                                this.txtYearComplexEmergencyNum.Text = (mr.YearComplexEmergencyNum + complexEmergencyNum).ToString();
+                                this.txtTotalComplexEmergencyNum.Text = (mr.TotalComplexEmergencyNum + complexEmergencyNum).ToString();
+                            }
+                            else
+                            {
+                                this.txtYearComplexEmergencyNum.Text = complexEmergencyNum.ToString();
+                                this.txtTotalComplexEmergencyNum.Text = complexEmergencyNum.ToString();
+                            }
+                            //专项应急预案
+                            if (mr.YearSpecialEmergencyNum != 0)
+                            {
+                                this.txtYearSpecialEmergencyNum.Text = (mr.YearSpecialEmergencyNum + specialEmergencyNum).ToString();
+                                this.txtTotalSpecialEmergencyNum.Text = (mr.TotalSpecialEmergencyNum + specialEmergencyNum).ToString();
+                            }
+                            else
+                            {
+                                this.txtYearSpecialEmergencyNum.Text = specialEmergencyNum.ToString();
+                                this.txtTotalSpecialEmergencyNum.Text = specialEmergencyNum.ToString();
+                            }
+                            //应急演练活动
+                            if (mr.YearDrillRecordNum != 0)
+                            {
+                                this.txtYearDrillRecordNum.Text = (mr.YearDrillRecordNum + Convert.ToInt32(this.txtDrillRecordNum.Text.Trim())).ToString();
+                                this.txtTotalDrillRecordNum.Text = (mr.TotalDrillRecordNum + Convert.ToInt32(this.txtDrillRecordNum.Text.Trim())).ToString();
+                            }
+                            else
+                            {
+                                this.txtYearDrillRecordNum.Text = this.txtDrillRecordNum.Text;
+                                this.txtTotalDrillRecordNum.Text = this.txtDrillRecordNum.Text;
+                            }
+                        }
+                        else
+                        {
+                            this.txtYearComplexEmergencyNum.Text = complexEmergencyNum.ToString();
+                            this.txtTotalComplexEmergencyNum.Text = complexEmergencyNum.ToString();
+                            this.txtYearSpecialEmergencyNum.Text = specialEmergencyNum.ToString();
+                            this.txtTotalSpecialEmergencyNum.Text = specialEmergencyNum.ToString();
+                            this.txtYearDrillRecordNum.Text = this.txtDrillRecordNum.Text;
+                            this.txtTotalDrillRecordNum.Text = this.txtDrillRecordNum.Text;
+                        }
                     }
-                    //HSE应急演练情况
-                    drillSorts = (from x in db.Manager_DrillSortC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
-                    if (drillSorts.Count > 0)
-                    {
-                        this.gvDrillSort.DataSource = drillSorts;
-                        this.gvDrillSort.DataBind();
-                    }
-                    this.txtLicenseNum.Text = (monthReport.LicenseNum ?? 0).ToString();
-                    this.txtYearLicenseNum.Text = (monthReport.YearLicenseNum ?? 0).ToString();
-                    this.txtEquipmentNum.Text = (monthReport.EquipmentNum ?? 0).ToString();
-                    this.txtYearEquipmentNum.Text = (monthReport.YearEquipmentNum ?? 0).ToString();
+                    this.txtEmergencyManagementWorkDef.Text = monthReport.EmergencyManagementWorkDef;
                     this.txtLicenseRemark.Text = monthReport.LicenseRemark;
                     this.txtEquipmentRemark.Text = monthReport.EquipmentRemark;
                     //HSE奖励情况
@@ -256,27 +320,65 @@ namespace FineUIPro.Web.Manager
                         this.gvPunishSort.DataSource = punishSorts;
                         this.gvPunishSort.DataBind();
                     }
-                    this.txtRewardNum.Text = (monthReport.RewardNum ?? 0).ToString();
-                    this.txtYearRewardNum.Text = (monthReport.YearRewardNum ?? 0).ToString();
-                    this.txtRewardMoney.Text = (monthReport.RewardMoney ?? 0).ToString();
-                    this.txtYearRewardMoney.Text = (monthReport.YearRewardMoney ?? 0).ToString();
-                    this.txtPunishNum.Text = (monthReport.PunishNum ?? 0).ToString();
-                    this.txtYearPunishNum.Text = (monthReport.YearPunishNum ?? 0).ToString();
-                    this.txtPunishMoney.Text = (monthReport.PunishMoney ?? 0).ToString();
-                    this.txtYearPunishMoney.Text = (monthReport.YearPunishMoney ?? 0).ToString();
-                    //其他HSE管理活动 
-                    otherActiveSorts = (from x in db.Manager_OtherActiveSortC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
-                    if (otherActiveSorts.Count > 0)
+                    if (monthReport.RewardNum != null)
                     {
-                        this.gvOtherActiveSort.DataSource = otherActiveSorts;
-                        this.gvOtherActiveSort.DataBind();
+                        this.txtRewardNum.Text = (monthReport.RewardNum ?? 0).ToString();
+                        this.txtYearRewardNum.Text = (monthReport.YearRewardNum ?? 0).ToString();
+                        this.txtRewardMoney.Text = (monthReport.RewardMoney ?? 0).ToString();
+                        this.txtYearRewardMoney.Text = (monthReport.YearRewardMoney ?? 0).ToString();
+                        this.txtPunishNum.Text = (monthReport.PunishNum ?? 0).ToString();
+                        this.txtYearPunishNum.Text = (monthReport.YearPunishNum ?? 0).ToString();
+                        this.txtPunishMoney.Text = (monthReport.PunishMoney ?? 0).ToString();
+                        this.txtYearPunishMoney.Text = (monthReport.YearPunishMoney ?? 0).ToString();
                     }
-                    //4.9.2 活动说明情况
-                    activityDess = (from x in db.Manager_Month_ActivityDesC where x.MonthReportId == MonthReportId select x).ToList();
-                    if (activityDess.Count > 0)
+                    else
                     {
-                        this.gvActivityDes.DataSource = activityDess;
-                        this.gvActivityDes.DataBind();
+                        this.txtRewardNum.Text = BLL.IncentiveNoticeService.GetCountByDate(startTime, endTime, this.ProjectId).ToString();
+                        this.txtRewardMoney.Text = Convert.ToInt32(BLL.IncentiveNoticeService.GetSumMoneyByDate(startTime, endTime, this.ProjectId)).ToString();
+                        this.txtPunishNum.Text = BLL.PunishNoticeService.GetCountByDate(startTime, endTime, this.ProjectId).ToString();
+                        this.txtPunishMoney.Text = Convert.ToInt32(BLL.PunishNoticeService.GetSumMoneyByDate(startTime, endTime, this.ProjectId)).ToString();
+                        if (mr != null)
+                        {
+                            if (mr.YearRewardNum != 0)
+                            {
+                                this.txtYearRewardNum.Text = (mr.YearRewardNum + Convert.ToInt32(this.txtRewardNum.Text.Trim())).ToString();
+                            }
+                            else
+                            {
+                                this.txtYearRewardNum.Text = this.txtRewardNum.Text.Trim();
+                            }
+                            if (mr.YearRewardMoney != 0)
+                            {
+                                this.txtYearRewardMoney.Text = (mr.YearRewardMoney + Convert.ToInt32(this.txtRewardMoney.Text.Trim())).ToString();
+                            }
+                            else
+                            {
+                                this.txtYearRewardMoney.Text = this.txtRewardMoney.Text.Trim();
+                            }
+                            if (mr.YearPunishNum != 0)
+                            {
+                                this.txtYearPunishNum.Text = (mr.YearPunishNum + Convert.ToInt32(this.txtPunishNum.Text.Trim())).ToString();
+                            }
+                            else
+                            {
+                                this.txtYearPunishNum.Text = this.txtPunishNum.Text.Trim();
+                            }
+                            if (mr.YearPunishMoney != 0)
+                            {
+                                this.txtYearPunishMoney.Text = (mr.YearPunishMoney + Convert.ToInt32(this.txtPunishMoney.Text.Trim())).ToString();
+                            }
+                            else
+                            {
+                                this.txtYearPunishMoney.Text = this.txtPunishMoney.Text.Trim();
+                            }
+                        }
+                        else
+                        {
+                            this.txtYearRewardNum.Text = this.txtYearRewardNum.Text.Trim();
+                            this.txtYearRewardMoney.Text = this.txtRewardMoney.Text.Trim();
+                            this.txtYearPunishNum.Text = this.txtPunishNum.Text.Trim();
+                            this.txtYearPunishMoney.Text = this.txtPunishMoney.Text.Trim();
+                        }
                     }
                     //4.10 HSE现场其他管理情况
                     otherManagements = (from x in db.Manager_Month_OtherManagementC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();

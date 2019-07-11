@@ -198,13 +198,14 @@ namespace FineUIPro.Web.ManagementReport
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
 
-                    //if (BLL.CostAnalyseService.getCostAnalyseByMonths(BLL.HeadMonthReportService.GetHeadMonthReportByHeadMonthReportId(HeadMonthReportId).Months, null) != null)
-                    //{
-                    //    BLL.CostAnalyseService.DeleteCostAnalyseByMonths(BLL.HeadMonthReportService.GetHeadMonthReportByHeadMonthReportId(HeadMonthReportId).Months);
-                    //}
-                    BLL.HeadMonthReportBService.DeleteHeadMonthReportByHeadMonthReportId(rowID);
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除本部管理月报B", rowID);
+                    var getV = BLL.HeadMonthReportBService.GetHeadMonthReportByHeadMonthReportId(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.MonthReportCode, rowID, BLL.Const.ServerMonthReportBMenuId, BLL.Const.BtnDelete);
+                        BLL.HeadMonthReportBService.DeleteHeadMonthReportByHeadMonthReportId(rowID);                      
+                    }
                 }
+
                 BindGrid();
                 ShowNotify("删除数据成功!（表格数据已重新绑定）");
             }

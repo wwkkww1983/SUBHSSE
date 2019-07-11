@@ -87,17 +87,17 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="编辑安全生产数据季报" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="1300px" Height="660px">
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1300px" Height="660px">
     </f:Window>
     <f:Window ID="Window2" Title="打印安全生产数据季报" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="1300px" Height="660px">
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1300px" Height="660px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="TableEdit" EnablePostBack="true"
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

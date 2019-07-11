@@ -29,7 +29,7 @@
                     </f:TextBox>
                     <f:TextBox ID="txtCostManageName" runat="server" Label="名称" LabelAlign="Right" MaxLength="50">
                     </f:TextBox>
-                      <f:DropDownList ID="drpUnitId" runat="server" Label="分包商" Required="true" ShowRedStar="true"
+                    <f:DropDownList ID="drpUnitId" runat="server" Label="分包商" Required="true" ShowRedStar="true"
                         LabelAlign="Right">
                     </f:DropDownList>
                 </Items>
@@ -38,9 +38,9 @@
                 <Items>
                     <f:TextBox ID="txtContractNum" runat="server" Label="合同号" LabelAlign="Right" MaxLength="50">
                     </f:TextBox>
-                     <f:DatePicker ID="txtCostManageDate" runat="server" Label="日期" EnableEdit="true">
+                    <f:DatePicker ID="txtCostManageDate" runat="server" Label="日期" EnableEdit="true">
                     </f:DatePicker>
-                     <f:Label ID="Label1" runat="server">
+                    <f:Label ID="Label1" runat="server">
                     </f:Label>
                 </Items>
             </f:FormRow>
@@ -48,10 +48,8 @@
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="投入费用明细" EnableCollapse="true"
                         runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="CostManageItemId"
-                        AllowCellEditing="true" ClicksToEdit="2" DataIDField="CostManageItemId" AllowPaging="true"
-                        IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"
-                        EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True"
-                        Height="200px">
+                        AllowCellEditing="true" ClicksToEdit="1" DataIDField="CostManageItemId" PageSize="100" OnPageIndexChange="Grid1_PageIndexChange" EnableSummary="true" SummaryPosition="Flow"
+                        EnableTextSelection="True" OnRowCommand="gvMonthPlan_RowCommand" Height="300px">
                         <Toolbars>
                             <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                                 <Items>
@@ -66,32 +64,64 @@
                             </f:Toolbar>
                         </Toolbars>
                         <Columns>
+                            <f:LinkButtonField Width="40px" ConfirmText="删除选中行？" ConfirmTarget="Parent" CommandName="Delete"
+                                ToolTip="删除" Icon="Delete" TextAlign="Center" />
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
                                 TextAlign="Center" />
-                            <f:RenderField Width="250px" ColumnID="InvestCostProject" DataField="InvestCostProject"
-                                SortField="InvestCostProject" FieldType="String" HeaderText="投入费用项目" HeaderTextAlign="Center"
-                                TextAlign="Left">
+                            <f:RenderField HeaderText="投入费用项目" ColumnID="InvestCostProject" DataField="InvestCostProject"
+                                SortField="InvestCostProject" HeaderTextAlign="Center" TextAlign="Center" Width="120px"
+                                FieldType="String">
+                                <Editor>
+                                    <f:DropDownList ID="drpInvestCostProject" runat="server" EnableEdit="true">
+                                    </f:DropDownList>
+                                </Editor>
                             </f:RenderField>
-                            <f:RenderField Width="250px" ColumnID="UseReason" DataField="UseReason" SortField="UseReason"
-                                FieldType="String" HeaderText="费用使用原因" HeaderTextAlign="Center" TextAlign="Left">
+                            <f:RenderField HeaderText="费用使用原因" ColumnID="UseReason" DataField="UseReason" SortField="UseReason"
+                                HeaderTextAlign="Center" TextAlign="Center" Width="150px" FieldType="String" ExpandUnusedSpace="true">
+                                <Editor>
+                                    <f:TextBox runat="server" ID="txtUseReason" MaxLength="50">
+                                    </f:TextBox>
+                                </Editor>
                             </f:RenderField>
-                            <f:RenderField Width="100px" ColumnID="Counts" DataField="Counts" SortField="Counts"
-                                FieldType="Int" HeaderText="数量" HeaderTextAlign="Center" TextAlign="Left">
+                            <f:RenderField HeaderText="数量" ColumnID="Counts" DataField="Counts" SortField="Counts"
+                                HeaderTextAlign="Center" TextAlign="Center" Width="100px" FieldType="Int">
+                                <Editor>
+                                    <f:NumberBox ID="txtCounts" runat="server" NoNegative="true" NoDecimal="true">
+                                    </f:NumberBox>
+                                </Editor>
                             </f:RenderField>
-                            <f:RenderField Width="100px" ColumnID="PriceMoney" DataField="PriceMoney" SortField="PriceMoney"
-                                FieldType="Float" HeaderText="单价(元)" HeaderTextAlign="Center" TextAlign="Left">
+                            <f:RenderField HeaderText="单价(元)" ColumnID="PriceMoney" DataField="PriceMoney" SortField="PriceMoney"
+                                HeaderTextAlign="Center" TextAlign="Center" Width="100px" FieldType="Double">
+                                <Editor>
+                                    <f:NumberBox ID="txtPriceMoney" runat="server" NoNegative="true" NoDecimal="false">
+                                    </f:NumberBox>
+                                </Editor>
                             </f:RenderField>
-                            <f:TemplateField HeaderText="总价(元)" Width="120px" HeaderTextAlign="Center" TextAlign="Left">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblTotalMoney" runat="server" Text='<%# GetTotalMoney(Eval("CostManageItemId")) %>'></asp:Label>
-                                </ItemTemplate>
-                            </f:TemplateField>
-                            <f:RenderField ColumnID="Remark" DataField="Remark" SortField="Remark" ExpandUnusedSpace="true"
-                                FieldType="String" HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left">
+                            <f:RenderField HeaderText="总价(元)" ColumnID="TotalMoney" DataField="TotalMoney" SortField="TotalMoney"
+                                HeaderTextAlign="Center" TextAlign="Center" Width="100px" FieldType="Double">
+                            </f:RenderField>
+                            <f:RenderField HeaderText="审核数量" ColumnID="AuditCounts" DataField="AuditCounts" SortField="AuditCounts"
+                                HeaderTextAlign="Center" TextAlign="Center" Width="100px" FieldType="Int">
+                                <Editor>
+                                    <f:NumberBox ID="txtAuditCounts" runat="server" NoNegative="true" NoDecimal="true">
+                                    </f:NumberBox>
+                                </Editor>
+                            </f:RenderField>
+                            <f:RenderField HeaderText="审核单价(元)" ColumnID="AuditPriceMoney" DataField="AuditPriceMoney"
+                                SortField="AuditPriceMoney" HeaderTextAlign="Center" TextAlign="Center" Width="110px"
+                                FieldType="Double">
+                                <Editor>
+                                    <f:NumberBox ID="txtAuditPriceMoney" runat="server" NoNegative="true" NoDecimal="false">
+                                    </f:NumberBox>
+                                </Editor>
+                            </f:RenderField>
+                            <f:RenderField HeaderText="审核总价(元)" ColumnID="AuditTotalMoney" DataField="AuditTotalMoney"
+                                SortField="AuditTotalMoney" HeaderTextAlign="Center" TextAlign="Center" Width="110px"
+                                FieldType="Double">
                             </f:RenderField>
                         </Columns>
                         <Listeners>
-                            <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
+                            <f:Listener Event="afteredit" Handler="onGridAfterEdit" />
                         </Listeners>
                         <PageItems>
                             <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">
@@ -112,17 +142,21 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextArea ID="txtOpinion" runat="server" Label="分包负责人意见" LabelAlign="Right" MaxLength="500" LabelWidth="140px">
+                    <f:TextArea ID="txtOpinion" runat="server" Label="分包负责人意见" LabelAlign="Right" MaxLength="500"
+                        LabelWidth="140px">
                     </f:TextArea>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtSubHSE" runat="server" Label="分包HSE经理" LabelAlign="Right" MaxLength="50" LabelWidth="140px">
+                    <f:TextBox ID="txtSubHSE" runat="server" Label="分包HSE经理" LabelAlign="Right" MaxLength="50"
+                        LabelWidth="140px">
                     </f:TextBox>
-                    <f:TextBox ID="txtSubCN" runat="server" Label="分包施工经理" LabelAlign="Right" MaxLength="50" LabelWidth="140px">
+                    <f:TextBox ID="txtSubCN" runat="server" Label="分包施工经理" LabelAlign="Right" MaxLength="50"
+                        LabelWidth="140px">
                     </f:TextBox>
-                    <f:TextBox ID="txtSubProject" runat="server" Label="分包项目经理" LabelAlign="Right" MaxLength="50" LabelWidth="140px">
+                    <f:TextBox ID="txtSubProject" runat="server" Label="分包项目经理" LabelAlign="Right" MaxLength="50"
+                        LabelWidth="140px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
@@ -158,28 +192,78 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="650px" Height="420px">
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Width="850px" Height="420px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
-    <f:Menu ID="Menu1" runat="server">
-        <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="TableEdit" EnablePostBack="true"
-            runat="server" Text="编辑">
-        </f:MenuButton>
-        <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
-        </f:MenuButton>
-    </f:Menu>
     </form>
     <script type="text/javascript">
-        var menuID = '<%= Menu1.ClientID %>';
-        // 返回false，来阻止浏览器右键菜单
-        function onRowContextMenu(event, rowId) {
-            F(menuID).show();  //showAt(event.pageX, event.pageY);
-            return false;
+        function onGridAfterEdit(event, value, params) {
+            var me = this, columnId = params.columnId, rowId = params.rowId;
+            var change = false;
+            if (columnId === 'Counts') {
+                var counts = me.getCellValue(rowId, 'Counts');
+                var priceMoney = me.getCellValue(rowId, 'PriceMoney');
+                if (counts.toString() == "" || priceMoney.toString() == "") {
+                    me.updateCellValue(rowId, 'TotalMoney', 0);
+                }
+                else {
+                    me.updateCellValue(rowId, 'TotalMoney', (counts * priceMoney).toFixed(2));
+                }
+                if (counts.toString() != "" && priceMoney.toString() != "") {
+                    change = true;
+                }
+            }
+            if (columnId === 'PriceMoney') {
+                var counts = me.getCellValue(rowId, 'Counts');
+                var priceMoney = me.getCellValue(rowId, 'PriceMoney');
+                if (counts.toString() == "" || priceMoney.toString() == "") {
+                    me.updateCellValue(rowId, 'TotalMoney', 0);
+                }
+                else {
+                    me.updateCellValue(rowId, 'TotalMoney', (counts * priceMoney).toFixed(2));
+                }
+                if (counts.toString() != "" && priceMoney.toString() != "") {
+                    change = true;
+                }
+            }
+            if (columnId === 'AuditCounts') {
+                var auditCounts = me.getCellValue(rowId, 'AuditCounts');
+                var auditPriceMoney = me.getCellValue(rowId, 'AuditPriceMoney');
+                if (auditCounts.toString() == "" || auditPriceMoney.toString() == "") {
+                    me.updateCellValue(rowId, 'AuditTotalMoney', 0);
+                }
+                else {
+                    me.updateCellValue(rowId, 'AuditTotalMoney', (auditCounts * auditPriceMoney).toFixed(2));
+                }
+                if (auditCounts.toString() != "" && auditPriceMoney.toString() != "") {
+                    change = true;
+                }
+            }
+            if (columnId === 'AuditPriceMoney') {
+                var auditCounts = me.getCellValue(rowId, 'AuditCounts');
+                var auditPriceMoney = me.getCellValue(rowId, 'AuditPriceMoney');
+                if (auditCounts.toString() == "" || auditPriceMoney.toString() == "") {
+                    me.updateCellValue(rowId, 'AuditTotalMoney', 0);
+                }
+                else {
+                    me.updateCellValue(rowId, 'AuditTotalMoney', (auditCounts * auditPriceMoney).toFixed(2));
+                }
+                if (auditCounts.toString() != "" && auditPriceMoney.toString() != "") {
+                    change = true;
+                }
+            }
+            if (change == true) {
+                updateSummary();
+            }
+        }
+
+        function updateSummary() {
+            // 回发到后台更新
+            __doPostBack('', 'UPDATE_SUMMARY');
         }
 
         function reloadGrid() {

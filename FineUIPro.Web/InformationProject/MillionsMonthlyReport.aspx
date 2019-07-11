@@ -32,7 +32,7 @@
                             </f:ToolbarFill>
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" Hidden="true"
                                 runat="server">
-                            </f:Button>
+                            </f:Button>                         
                         </Items>
                     </f:Toolbar>
                 </Toolbars>
@@ -224,7 +224,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="编辑百万工时安全统计月报表" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="1024px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1024px"
         Height="660px">
     </f:Window>
     <f:Window ID="Window2" IconUrl="~/res/images/16/11.png" runat="server" Hidden="true"
@@ -237,7 +237,7 @@
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server"
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server"
             Text="删除">
         </f:MenuButton>
     </f:Menu>

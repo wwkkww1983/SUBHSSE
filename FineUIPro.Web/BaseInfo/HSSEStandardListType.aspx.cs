@@ -104,8 +104,12 @@ namespace FineUIPro.Web.BaseInfo
         {
             if (judgementDelete(hfFormID.Text, true))
             {
-                BLL.HSSEStandardListTypeService.DeleteHSSEStandardListType(hfFormID.Text);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除标准规范类型");
+                var getType = BLL.HSSEStandardListTypeService.GetHSSEStandardListType(hfFormID.Text);
+                if (getType != null)
+                {
+                    BLL.LogService.AddSys_Log(this.CurrUser, getType.TypeCode, getType.TypeId, BLL.Const.LawsRegulationsTypeMenuId, BLL.Const.BtnDelete);
+                    BLL.HSSEStandardListTypeService.DeleteHSSEStandardListType(hfFormID.Text);
+                }
                 // 重新绑定表格，并模拟点击[新增按钮]
                 BindGrid();
                 PageContext.RegisterStartupScript("onNewButtonClick();");
@@ -126,8 +130,12 @@ namespace FineUIPro.Web.BaseInfo
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (judgementDelete(rowID, true))
                     {
-                        BLL.HSSEStandardListTypeService.DeleteHSSEStandardListType(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除标准规范类型");
+                        var getType = BLL.HSSEStandardListTypeService.GetHSSEStandardListType(rowID);
+                        if (getType != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getType.TypeCode, getType.TypeId, BLL.Const.LawsRegulationsTypeMenuId, BLL.Const.BtnDelete);
+                            BLL.HSSEStandardListTypeService.DeleteHSSEStandardListType(rowID);
+                        }
                     }
                 }
                 BindGrid();
@@ -204,13 +212,13 @@ namespace FineUIPro.Web.BaseInfo
                 hSSEStandardListType.TypeName = tbxTypeName.Text.Trim();
                 hSSEStandardListType.Remark = tbxRemark.Text.Trim();
                 BLL.HSSEStandardListTypeService.AddHSSEStandardListType(hSSEStandardListType);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加标准规范类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, hSSEStandardListType.TypeCode, hSSEStandardListType.TypeId, BLL.Const.HSSEStandardListTypeMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 hSSEStandardListType.TypeId = strRowID;
                 BLL.HSSEStandardListTypeService.UpdateHSSEStandardListType(strRowID, tbxTypeCode.Text.Trim(), tbxTypeName.Text.Trim(), tbxRemark.Text.Trim());
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改标准规范类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, hSSEStandardListType.TypeCode, hSSEStandardListType.TypeId, BLL.Const.HSSEStandardListTypeMenuId, BLL.Const.BtnModify);
             }
 
             // 重新绑定表格，并点击当前编辑或者新增的行

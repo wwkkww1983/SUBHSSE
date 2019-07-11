@@ -175,14 +175,14 @@ namespace FineUIPro.Web.Emergency
             {
                 EmergencyResponseRecord.FileId = this.FileId;
                 BLL.EmergencyResponseRecordService.UpdateEmergencyResponseRecord(EmergencyResponseRecord);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改应急响应记录/评价", EmergencyResponseRecord.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, EmergencyResponseRecord.FileCode, EmergencyResponseRecord.FileId, BLL.Const.ProjectEmergencyResponseRecordMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.FileId = SQLHelper.GetNewID(typeof(Model.Emergency_EmergencyResponseRecord));
                 EmergencyResponseRecord.FileId = this.FileId;
                 BLL.EmergencyResponseRecordService.AddEmergencyResponseRecord(EmergencyResponseRecord);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加应急响应记录/评价", EmergencyResponseRecord.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, EmergencyResponseRecord.FileCode, EmergencyResponseRecord.FileId, BLL.Const.ProjectEmergencyResponseRecordMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectEmergencyResponseRecordMenuId, this.FileId, (type == BLL.Const.BtnSubmit ? true : false), EmergencyResponseRecord.FileName, "../Emergency/EmergencyResponseRecordView.aspx?FileId={0}");

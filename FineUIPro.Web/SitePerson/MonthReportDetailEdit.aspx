@@ -38,8 +38,7 @@
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" AllowCellEditing="true"
                         ClicksToEdit="1" DataIDField="MonthReportUnitDetailId" DataKeyNames="MonthReportUnitDetailId"
-                        EnableMultiSelect="false" ShowGridHeader="true" Height="420px" EnableColumnLines="true"
-                        AutoScroll="true">                      
+                        EnableMultiSelect="false" ShowGridHeader="true" Height="420px" EnableColumnLines="true">                      
                         <Columns>
                             <f:RowNumberField HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center" />
                             <f:RenderField Width="100px" ColumnID="WorkPostName" DataField="WorkPostName" SortField="WorkPostName"

@@ -21,10 +21,13 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
-                            <f:TextBox runat="server" Label="编号" ID="txtHSETechnicalCode" EmptyText="输入查询条件"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px"
+                             <f:TextBox runat="server" Label="编号" ID="txtHSETechnicalCode" EmptyText="输入查询条件"
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px"  LabelWidth="50px"
                                 LabelAlign="right">
                             </f:TextBox>
+                             <f:DropDownList ID="drpUnit" runat="server" Label="单位" Width="280px" LabelWidth="50px"
+                                EnableEdit="true" AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged">
+                            </f:DropDownList>                           
                             <f:TextBox runat="server" Label="作业内容" ID="txtWorkContents" EmptyText="输入查询条件" AutoPostBack="true"
                                 OnTextChanged="TextBox_TextChanged" Width="250px" LabelAlign="right">
                             </f:TextBox>
@@ -46,14 +49,14 @@
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="150px" ColumnID="HSETechnicalCode" DataField="HSETechnicalCode"
+                    <f:RenderField Width="120px" ColumnID="HSETechnicalCode" DataField="HSETechnicalCode"
                         SortField="HSETechnicalCode" FieldType="String" HeaderText="编号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="200px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
                         FieldType="String" HeaderText="单位名称" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="150px" ColumnID="TeamGroupName" DataField="TeamGroupName" SortField="TeamGroupName"
+                    <f:RenderField Width="120px" ColumnID="TeamGroupName" DataField="TeamGroupName" SortField="TeamGroupName"
                         FieldType="String" HeaderText="班组" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="150px" ColumnID="WorkContents" DataField="WorkContents" SortField="WorkContents"
@@ -62,7 +65,7 @@
                     <f:RenderField Width="150px" ColumnID="Address" DataField="Address" SortField="Address"
                         FieldType="String" HeaderText="地点" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="HSETechnicalDate" DataField="HSETechnicalDate"
+                    <f:RenderField Width="100px" ColumnID="HSETechnicalDate" DataField="HSETechnicalDate"
                         SortField="HSETechnicalDate" FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd"
                         HeaderText="时间" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
@@ -70,8 +73,8 @@
                         SortField="FlowOperateName" FieldType="String" HeaderText="状态" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:WindowField TextAlign="Left" Width="160px" WindowID="WindowAtt" HeaderText="附件"
-                        Text="上传查看" ToolTip="附件上传查看" DataIFrameUrlFields="HSETechnicalId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/HSETechnicalAttachUrl&menuId=49485F7E-8E71-4EED-87B4-BF6CC180C69C"
+                    <f:WindowField TextAlign="Left" Width="80px" WindowID="WindowAtt" HeaderText="附件"
+                        Text="上传查看" ToolTip="上传查看" DataIFrameUrlFields="HSETechnicalId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/HSETechnicalAttachUrl&menuId=49485F7E-8E71-4EED-87B4-BF6CC180C69C"
                          ExpandUnusedSpace="True" HeaderTextAlign="Center" />
                 </Columns>
                 <Listeners>
@@ -95,7 +98,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="安全技术交底" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="800px" Height="500px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
@@ -107,7 +110,7 @@
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server"
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server"
             Text="删除">
         </f:MenuButton>
     </f:Menu>

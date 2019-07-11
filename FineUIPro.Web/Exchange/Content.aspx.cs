@@ -270,10 +270,11 @@ namespace FineUIPro.Web.Exchange
         {
             string rowID = Grid1.SelectedRowID;
             Model.Exchange_ReContent reContent = BLL.ReContentService.GetReContentById(rowID);
-            if (reContent.CompileMan == this.CurrUser.UserId)
+            if (reContent != null && reContent.CompileMan == this.CurrUser.UserId)
             {
+                BLL.LogService.AddSys_Log(this.CurrUser, "删除回帖信息", rowID, BLL.Const.ContentMenuId, BLL.Const.BtnDelete);
                 BLL.ReContentService.DeleteReContentById(rowID);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除回帖信息");
+              
                 BindGrid1();
                 ShowNotify("删除数据成功!", MessageBoxIcon.Success);
             }
@@ -368,10 +369,10 @@ namespace FineUIPro.Web.Exchange
         {
             if (IsAllowDeleteContentType(this.rblContentType.SelectedValue))
             {
+                BLL.LogService.AddSys_Log(this.CurrUser, "删除交流类型信息", this.rblContentType.SelectedValue, BLL.Const.ContentMenuId, BLL.Const.BtnDelete);
                 BLL.ContentTypeService.DeleteContentType(this.rblContentType.SelectedValue);
                 rblContentType.DataSource = BLL.ContentTypeService.GetContentTypeListAndNew();
                 rblContentType.DataBind();
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除交流类型信息");
             }
             else
             {
@@ -464,19 +465,24 @@ namespace FineUIPro.Web.Exchange
         {
             if (this.Grid2.SelectedRow != null)
             {
-                if (IsAllowDeleteContent(Grid2.SelectedRow.DataKeys[0].ToString()))
+                string rowId = Grid2.SelectedRow.DataKeys[0].ToString();
+                if (IsAllowDeleteContent(rowId))
                 {
-                    BLL.ReContentService.DeleteAllReContentsById(Grid2.SelectedRow.DataKeys[0].ToString());
-                    BLL.ContentService.DeleteContentById(Grid2.SelectedRow.DataKeys[0].ToString());
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除帖子信息");
-                    BindGrid2();
-                    this.Grid1.DataSource = null;
-                    this.Grid1.DataBind();
-                    this.Panel2.Title = string.Empty;
-                    lbContents.Text = string.Empty;
-                    lbContents.ToolTip = string.Empty;
-                    lbCompileMan.Text = string.Empty;
-                    lbCompileDate.Text = string.Empty;
+                    var getV = BLL.ContentService.GetContentById(rowId);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.Theme, getV.ContentId, BLL.Const.ContentMenuId, BLL.Const.BtnDelete);
+                        BLL.ReContentService.DeleteAllReContentsById(rowId);
+                        BLL.ContentService.DeleteContentById(rowId);
+                        BindGrid2();
+                        this.Grid1.DataSource = null;
+                        this.Grid1.DataBind();
+                        this.Panel2.Title = string.Empty;
+                        lbContents.Text = string.Empty;
+                        lbContents.ToolTip = string.Empty;
+                        lbCompileMan.Text = string.Empty;
+                        lbCompileDate.Text = string.Empty;
+                    }
                 }
             }
             else

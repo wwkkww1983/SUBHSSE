@@ -434,14 +434,14 @@ namespace FineUIPro.Web.Check
             {
                 incentiveNotice.IncentiveNoticeId = this.IncentiveNoticeId;
                 BLL.IncentiveNoticeService.UpdateIncentiveNotice(incentiveNotice);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改奖励通知单", incentiveNotice.IncentiveNoticeId);
+                BLL.LogService.AddSys_Log(this.CurrUser, incentiveNotice.IncentiveNoticeCode, incentiveNotice.IncentiveNoticeId, BLL.Const.ProjectIncentiveNoticeMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.IncentiveNoticeId = SQLHelper.GetNewID(typeof(Model.Check_IncentiveNotice));
                 incentiveNotice.IncentiveNoticeId = this.IncentiveNoticeId;
                 BLL.IncentiveNoticeService.AddIncentiveNotice(incentiveNotice);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加奖励通知单", incentiveNotice.IncentiveNoticeId);
+                BLL.LogService.AddSys_Log(this.CurrUser, incentiveNotice.IncentiveNoticeCode, incentiveNotice.IncentiveNoticeId, BLL.Const.ProjectIncentiveNoticeMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectIncentiveNoticeMenuId, this.IncentiveNoticeId, (type == BLL.Const.BtnSubmit ? true : false), incentiveNotice.IncentiveNoticeCode, "../Check/IncentiveNoticeView.aspx?IncentiveNoticeId={0}");

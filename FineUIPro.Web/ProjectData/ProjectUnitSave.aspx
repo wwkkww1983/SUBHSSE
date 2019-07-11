@@ -37,11 +37,11 @@
             </f:FormRow>    
             <f:FormRow>
                 <Items>  
-                 <f:NumberBox ID="nbPlanCostA" NoDecimal="false" NoNegative="false" MinValue="0" runat="server" LabelWidth="200px"
-                        Label="安全生产费计划额（总额）">
+                 <f:NumberBox ID="nbPlanCostA" NoDecimal="false" NoNegative="false" MinValue="0" runat="server" 
+                        Label="安全生产费</br>计划额（总额）"  LabelWidth="120px">
                     </f:NumberBox>
-                    <f:NumberBox ID="nbPlanCostB" NoDecimal="false" NoNegative="false" MinValue="0" runat="server" LabelWidth="230px"
-                        Label="文明施工措施费计划额（总额）">
+                    <f:NumberBox ID="nbPlanCostB" NoDecimal="false" NoNegative="false" MinValue="0" runat="server" 
+                        Label="文明施工措施费</br>计划额（总额）"  LabelWidth="120px">
                     </f:NumberBox>
                 </Items>
             </f:FormRow>   

@@ -178,9 +178,14 @@ namespace FineUIPro.Web.Solution
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除方案模板", rowID);
-                    BLL.SolutionTemplateService.DeleteSolutionTemplateById(rowID);
+                    var getV = BLL.SolutionTemplateService.GetSolutionTemplateById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.SolutionTemplateCode, getV.SolutionTemplateId, BLL.Const.SolutionTemplateMenuId, BLL.Const.BtnDelete);
+                        BLL.SolutionTemplateService.DeleteSolutionTemplateById(rowID);
+                    }
                 }
+
                 this.BindGrid();
                 ShowNotify("删除数据成功!", MessageBoxIcon.Success);
             }
@@ -244,7 +249,8 @@ namespace FineUIPro.Web.Solution
                         BLL.SolutionTemplateService.AddSolutionTemplate(solutionTemplate);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "提取方案模板");
+                
+                BLL.LogService.AddSys_Log(this.CurrUser, "提取方案模板！", null, BLL.Const.SolutionTemplateMenuId, BLL.Const.BtnDownload);
                 Alert.Show("提取成功！", MessageBoxIcon.Success);
                 this.BindGrid();
             }

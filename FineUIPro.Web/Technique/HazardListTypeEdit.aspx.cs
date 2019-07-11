@@ -126,6 +126,7 @@ namespace FineUIPro.Web.Technique
                 hazardListType.HazardListTypeId = SQLHelper.GetNewID(typeof(Model.Technique_HazardListType));
                 hazardListType.SupHazardListTypeId = this.SupHazardListTypeId;
                 BLL.HazardListTypeService.AddHazardListType(hazardListType);
+                BLL.LogService.AddSys_Log(this.CurrUser, hazardListType.HazardListTypeCode, hazardListType.HazardListTypeId, BLL.Const.HazardListMenuId, Const.BtnAdd);
             }
             else
             {
@@ -136,6 +137,7 @@ namespace FineUIPro.Web.Technique
                     hazardListType.SupHazardListTypeId = t.SupHazardListTypeId;
                 }
                 BLL.HazardListTypeService.UpdateHazardListType(hazardListType);
+                BLL.LogService.AddSys_Log(this.CurrUser, hazardListType.HazardListTypeCode, hazardListType.HazardListTypeId, BLL.Const.HazardListMenuId, Const.BtnModify);
             }
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }

@@ -164,35 +164,7 @@ namespace FineUIPro.Web.Manager
                     this.ProjectId = monthReport.ProjectId;
                     months = Convert.ToDateTime(monthReport.Months);
                     Model.SUBHSSEDB db = Funs.DB;
-                    if (monthReport.HazardNum != null)  //保存过数据
-                    {
-                        this.txtHazardNum.Text = (monthReport.HazardNum ?? 0).ToString();
-                        this.txtYearHazardNum.Text = (monthReport.YearHazardNum ?? 0).ToString();
-                    }
-                    else
-                    {
-                        //危险源数量
-                        int hazardNum1 = BLL.Hazard_HazardListService.GetHazardListCountByProjectIdAndDate(this.ProjectId, startTime, endTime);
-                        int hazardNum2 = BLL.Hazard_RegistrationService.GetHazardRegisterCountByProjectIdAndDate(this.ProjectId, startTime, endTime);
-                        int hazardNum3 = BLL.Hazard_OtherHazardService.GetOtherHazardCountByProjectIdAndDate(this.ProjectId, startTime, endTime);
-                        int hazardNum4 = BLL.Hazard_EnvironmentalRiskListService.GetEnvironmentalRiskCountByProjectIdAndDate(this.ProjectId, startTime, endTime);
-                        this.txtHazardNum.Text = (hazardNum1 + hazardNum2 + hazardNum3 + hazardNum4).ToString();
-                        if (mr != null)
-                        {
-                            if (mr.YearHazardNum != 0)
-                            {
-                                this.txtYearHazardNum.Text = (mr.YearHazardNum ?? 0 + Convert.ToInt32(this.txtHazardNum.Text.Trim())).ToString();
-                            }
-                            else
-                            {
-                                this.txtYearHazardNum.Text = this.txtHazardNum.Text.Trim();
-                            }
-                        }
-                        else
-                        {
-                            this.txtYearHazardNum.Text = this.txtHazardNum.Text.Trim();
-                        }
-                    }
+                    this.txtMainActivitiesDef.Text = monthReport.MainActivitiesDef;
                     //危险源情况
                     hazardSorts = (from x in db.Manager_HazardSortC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
                     if (hazardSorts.Count > 0)   //保存过数据
@@ -280,50 +252,17 @@ namespace FineUIPro.Web.Manager
                     {
                         GetMeetingSort();
                     }
-                    if (monthReport.PromotionalActiviteNum != null)
-                    {
-                        this.txtPromotionalActiviteNum.Text = (monthReport.PromotionalActiviteNum ?? 0).ToString();
-                        this.txtYearPromotionalActiviteNum.Text = (monthReport.YearPromotionalActiviteNum ?? 0).ToString();
-                    }
-                    else
-                    {
-                        //宣传活动数量
-                        this.txtPromotionalActiviteNum.Text = BLL.PromotionalActivitiesService.GetCountByDate(startTime, endTime, this.ProjectId).ToString();
-                        if (mr != null)
-                        {
-                            if (mr.YearPromotionalActiviteNum != 0)
-                            {
-                                this.txtYearPromotionalActiviteNum.Text = (mr.YearPromotionalActiviteNum + Convert.ToInt32(this.txtPromotionalActiviteNum.Text.Trim())).ToString();
-                            }
-                            else
-                            {
-                                this.txtYearPromotionalActiviteNum.Text = this.txtPromotionalActiviteNum.Text.Trim();
-                            }
-                        }
-                        else
-                        {
-                            this.txtYearPromotionalActiviteNum.Text = this.txtPromotionalActiviteNum.Text.Trim();
-                        }
-                    }
-                    //HSE宣传活动情况
-                    promotionalActiviteSorts = (from x in db.Manager_PromotionalActiviteSortC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
-                    if (promotionalActiviteSorts.Count > 0)
-                    {
-                        this.gvPromotionalActiviteSort.DataSource = promotionalActiviteSorts;
-                        this.gvPromotionalActiviteSort.DataBind();
-                    }
-                    else
-                    {
-                        GetPromotionalActiviteSort();
-                    }
                     if (monthReport.ComplexEmergencyNum != null)
                     {
                         this.txtComplexEmergencyNum.Text = (monthReport.ComplexEmergencyNum ?? 0).ToString();
                         this.txtYearComplexEmergencyNum.Text = (monthReport.YearComplexEmergencyNum ?? 0).ToString();
+                        this.txtTotalComplexEmergencyNum.Text = (monthReport.TotalComplexEmergencyNum ?? 0).ToString();
                         this.txtSpecialEmergencyNum.Text = (monthReport.SpecialEmergencyNum ?? 0).ToString();
                         this.txtYearSpecialEmergencyNum.Text = (monthReport.YearSpecialEmergencyNum ?? 0).ToString();
+                        this.txtTotalSpecialEmergencyNum.Text = (monthReport.TotalSpecialEmergencyNum ?? 0).ToString();
                         this.txtDrillRecordNum.Text = (monthReport.DrillRecordNum ?? 0).ToString();
                         this.txtYearDrillRecordNum.Text = (monthReport.YearDrillRecordNum ?? 0).ToString();
+                        this.txtTotalDrillRecordNum.Text = (monthReport.TotalDrillRecordNum ?? 0).ToString();
                     }
                     else
                     {
@@ -341,98 +280,49 @@ namespace FineUIPro.Web.Manager
                             if (mr.YearComplexEmergencyNum != 0)
                             {
                                 this.txtYearComplexEmergencyNum.Text = (mr.YearComplexEmergencyNum + complexEmergencyNum).ToString();
+                                this.txtTotalComplexEmergencyNum.Text = (mr.TotalComplexEmergencyNum + complexEmergencyNum).ToString();
                             }
                             else
                             {
                                 this.txtYearComplexEmergencyNum.Text = complexEmergencyNum.ToString();
+                                this.txtTotalComplexEmergencyNum.Text = complexEmergencyNum.ToString();
                             }
                             //专项应急预案
                             if (mr.YearSpecialEmergencyNum != 0)
                             {
                                 this.txtYearSpecialEmergencyNum.Text = (mr.YearSpecialEmergencyNum + specialEmergencyNum).ToString();
+                                this.txtTotalSpecialEmergencyNum.Text = (mr.TotalSpecialEmergencyNum + specialEmergencyNum).ToString();
                             }
                             else
                             {
                                 this.txtYearSpecialEmergencyNum.Text = specialEmergencyNum.ToString();
+                                this.txtTotalSpecialEmergencyNum.Text = specialEmergencyNum.ToString();
                             }
                             //应急演练活动
                             if (mr.YearDrillRecordNum != 0)
                             {
                                 this.txtYearDrillRecordNum.Text = (mr.YearDrillRecordNum + Convert.ToInt32(this.txtDrillRecordNum.Text.Trim())).ToString();
+                                this.txtTotalDrillRecordNum.Text = (mr.TotalDrillRecordNum + Convert.ToInt32(this.txtDrillRecordNum.Text.Trim())).ToString();
                             }
                             else
                             {
                                 this.txtYearDrillRecordNum.Text = this.txtDrillRecordNum.Text;
+                                this.txtTotalDrillRecordNum.Text = this.txtDrillRecordNum.Text;
                             }
                         }
                         else
                         {
                             this.txtYearComplexEmergencyNum.Text = complexEmergencyNum.ToString();
+                            this.txtTotalComplexEmergencyNum.Text = complexEmergencyNum.ToString();
                             this.txtYearSpecialEmergencyNum.Text = specialEmergencyNum.ToString();
+                            this.txtTotalSpecialEmergencyNum.Text = specialEmergencyNum.ToString();
                             this.txtYearDrillRecordNum.Text = this.txtDrillRecordNum.Text;
+                            this.txtTotalDrillRecordNum.Text = this.txtDrillRecordNum.Text;
                         }
                     }
-                    //HSE应急预案情况
-                    emergencySorts = (from x in db.Manager_EmergencySortC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
-                    if (emergencySorts.Count > 0)
-                    {
-                        this.gvEmergencySort.DataSource = emergencySorts;
-                        this.gvEmergencySort.DataBind();
-                    }
-                    else
-                    {
-                        GetEmergencySort();
-                    }
-                    //HSE应急演练情况
-                    drillSorts = (from x in db.Manager_DrillSortC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
-                    if (drillSorts.Count > 0)
-                    {
-                        this.gvDrillSort.DataSource = drillSorts;
-                        this.gvDrillSort.DataBind();
-                    }
-                    else
-                    {
-                        GetDrillSort();
-                    }
-                    if (monthReport.LicenseNum != null)
-                    {
-                        this.txtLicenseNum.Text = (monthReport.LicenseNum ?? 0).ToString();
-                        this.txtYearLicenseNum.Text = (monthReport.YearLicenseNum ?? 0).ToString();
-                        this.txtEquipmentNum.Text = (monthReport.EquipmentNum ?? 0).ToString();
-                        this.txtYearEquipmentNum.Text = (monthReport.YearEquipmentNum ?? 0).ToString();
-                        this.txtLicenseRemark.Text = monthReport.LicenseRemark;
-                        this.txtEquipmentRemark.Text = monthReport.EquipmentRemark;
-                    }
-                    else
-                    {
-                        //HSE许可管理
-                        this.txtLicenseNum.Text = BLL.LicenseManagerService.GetCountByDate(startTime, endTime, this.ProjectId).ToString();
-                        this.txtEquipmentNum.Text = BLL.EquipmentSafetyListService.GetCountByDate(startTime, endTime, this.ProjectId).ToString();
-                        if (mr != null)
-                        {
-                            if (mr.YearLicenseNum != 0)
-                            {
-                                this.txtYearLicenseNum.Text = (mr.YearLicenseNum + Convert.ToInt32(this.txtLicenseNum.Text.Trim())).ToString();
-                            }
-                            else
-                            {
-                                this.txtYearLicenseNum.Text = this.txtLicenseNum.Text.Trim();
-                            }
-                            if (mr.YearEquipmentNum != 0)
-                            {
-                                this.txtYearEquipmentNum.Text = (mr.YearEquipmentNum + Convert.ToInt32(this.txtEquipmentNum.Text.Trim())).ToString();
-                            }
-                            else
-                            {
-                                this.txtYearEquipmentNum.Text = this.txtEquipmentNum.Text.Trim();
-                            }
-                        }
-                        else
-                        {
-                            this.txtYearLicenseNum.Text = this.txtLicenseNum.Text.Trim();
-                            this.txtYearEquipmentNum.Text = this.txtEquipmentNum.Text.Trim();
-                        }
-                    }
+                    this.txtEmergencyManagementWorkDef.Text = monthReport.EmergencyManagementWorkDef;
+                    this.txtLicenseRemark.Text = monthReport.LicenseRemark;
+                    this.txtEquipmentRemark.Text = monthReport.EquipmentRemark;
                     //HSE奖励情况
                     rewardSorts = (from x in db.Manager_IncentiveSortC where x.MonthReportId == MonthReportId && x.BigType == "1" orderby x.SortIndex select x).ToList();
                     if (rewardSorts.Count > 0)
@@ -515,20 +405,6 @@ namespace FineUIPro.Web.Manager
                             this.txtYearPunishMoney.Text = this.txtPunishMoney.Text.Trim();
                         }
                     }
-                    //其他HSE管理活动 
-                    otherActiveSorts = (from x in db.Manager_OtherActiveSortC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
-                    if (otherActiveSorts.Count > 0)
-                    {
-                        this.gvOtherActiveSort.DataSource = otherActiveSorts;
-                        this.gvOtherActiveSort.DataBind();
-                    }
-                    //4.9.2 活动说明情况
-                    activityDess = (from x in db.Manager_Month_ActivityDesC where x.MonthReportId == MonthReportId select x).ToList();
-                    if (activityDess.Count > 0)
-                    {
-                        this.gvActivityDes.DataSource = activityDess;
-                        this.gvActivityDes.DataBind();
-                    }
                     //4.10 HSE现场其他管理情况
                     otherManagements = (from x in db.Manager_Month_OtherManagementC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
                     if (otherManagements.Count > 0)
@@ -539,27 +415,6 @@ namespace FineUIPro.Web.Manager
                 }
                 else
                 {
-                    //危险源数量
-                    int hazardNum1 = BLL.Hazard_HazardListService.GetHazardListCountByProjectIdAndDate(this.ProjectId, startTime, endTime);
-                    int hazardNum2 = BLL.Hazard_RegistrationService.GetHazardRegisterCountByProjectIdAndDate(this.ProjectId, startTime, endTime);
-                    int hazardNum3 = BLL.Hazard_OtherHazardService.GetOtherHazardCountByProjectIdAndDate(this.ProjectId, startTime, endTime);
-                    int hazardNum4 = BLL.Hazard_EnvironmentalRiskListService.GetEnvironmentalRiskCountByProjectIdAndDate(this.ProjectId, startTime, endTime);
-                    this.txtHazardNum.Text = (hazardNum1 + hazardNum2 + hazardNum3 + hazardNum4).ToString();
-                    if (mr != null)
-                    {
-                        if (mr.YearHazardNum != 0)
-                        {
-                            this.txtYearHazardNum.Text = (mr.YearHazardNum + Convert.ToInt32(this.txtHazardNum.Text.Trim())).ToString();
-                        }
-                        else
-                        {
-                            this.txtYearHazardNum.Text = this.txtHazardNum.Text.Trim();
-                        }
-                    }
-                    else
-                    {
-                        this.txtYearHazardNum.Text = this.txtHazardNum.Text.Trim();
-                    }
                     GetTrainSort();
                     GetCheckSort();
                     GetCheckDetailSort();
@@ -585,24 +440,6 @@ namespace FineUIPro.Web.Manager
                         this.txtYearMeetingNum.Text = txtMeetingNum.Text.Trim();
                     }
                     GetMeetingSort();
-                    //宣传活动数量
-                    this.txtPromotionalActiviteNum.Text = BLL.PromotionalActivitiesService.GetCountByDate(startTime, endTime, this.ProjectId).ToString();
-                    if (mr != null)
-                    {
-                        if (mr.YearPromotionalActiviteNum != 0)
-                        {
-                            this.txtYearPromotionalActiviteNum.Text = (mr.YearPromotionalActiviteNum + Convert.ToInt32(this.txtPromotionalActiviteNum.Text.Trim())).ToString();
-                        }
-                        else
-                        {
-                            this.txtYearPromotionalActiviteNum.Text = this.txtPromotionalActiviteNum.Text.Trim();
-                        }
-                    }
-                    else
-                    {
-                        this.txtYearPromotionalActiviteNum.Text = this.txtPromotionalActiviteNum.Text.Trim();
-                    }
-                    GetPromotionalActiviteSort();
                     //应急管理
                     List<Model.Emergency_EmergencyList> complexEmergencys = BLL.EmergencyListService.GetEmergencyListsByEmergencyType(BLL.Const.ComplexEmergencyName, this.ProjectId, startTime, endTime);  //综合应急预案集合
                     int complexEmergencyNum = complexEmergencys.Count;
@@ -646,35 +483,6 @@ namespace FineUIPro.Web.Manager
                         this.txtYearComplexEmergencyNum.Text = complexEmergencyNum.ToString();
                         this.txtYearSpecialEmergencyNum.Text = specialEmergencyNum.ToString();
                         this.txtYearDrillRecordNum.Text = this.txtDrillRecordNum.Text;
-                    }
-                    GetDrillSort();
-                    GetEmergencySort();
-                    //HSE许可管理
-                    this.txtLicenseNum.Text = BLL.LicenseManagerService.GetCountByDate(startTime, endTime, this.ProjectId).ToString();
-                    this.txtEquipmentNum.Text = BLL.EquipmentSafetyListService.GetCountByDate(startTime, endTime, this.ProjectId).ToString();
-                    if (mr != null)
-                    {
-                        if (mr.YearLicenseNum != 0)
-                        {
-                            this.txtYearLicenseNum.Text = (mr.YearLicenseNum + Convert.ToInt32(this.txtLicenseNum.Text.Trim())).ToString();
-                        }
-                        else
-                        {
-                            this.txtYearLicenseNum.Text = this.txtLicenseNum.Text.Trim();
-                        }
-                        if (mr.YearEquipmentNum != 0)
-                        {
-                            this.txtYearEquipmentNum.Text = (mr.YearEquipmentNum + Convert.ToInt32(this.txtEquipmentNum.Text.Trim())).ToString();
-                        }
-                        else
-                        {
-                            this.txtYearEquipmentNum.Text = this.txtEquipmentNum.Text.Trim();
-                        }
-                    }
-                    else
-                    {
-                        this.txtYearLicenseNum.Text = this.txtLicenseNum.Text.Trim();
-                        this.txtYearEquipmentNum.Text = this.txtEquipmentNum.Text.Trim();
                     }
                     GetRewardSort();
                     GetPunishSort();
@@ -753,17 +561,20 @@ namespace FineUIPro.Web.Manager
         private void jerqueSaveHazardList()
         {
             hazardSorts.Clear();
-            int rowsCount = this.gvHazardSort.Rows.Count;
-            for (int i = 0; i < rowsCount; i++)
+            JArray mergedData = gvHazardSort.GetMergedData();
+            foreach (JObject mergedRow in mergedData)
             {
+                string status = mergedRow.Value<string>("status");
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
                 Model.Manager_HazardSortC hazardSort = new Model.Manager_HazardSortC
                 {
                     HazardSortId = this.gvHazardSort.Rows[i].DataKeys[0].ToString(),
                     SortIndex = i,
-                    HazardName = this.gvHazardSort.Rows[i].Values[2].ToString(),
-                    UnitAndArea = this.gvHazardSort.Rows[i].Values[3].ToString(),
-                    StationDef = this.gvHazardSort.Rows[i].Values[4].ToString(),
-                    HandleWay = this.gvHazardSort.Rows[i].Values[5].ToString()
+                    HazardName = values.Value<string>("HazardName").ToString(),
+                    UnitAndArea = values.Value<string>("UnitAndArea").ToString(),
+                    StationDef = values.Value<string>("StationDef").ToString(),
+                    HandleWay = values.Value<string>("HandleWay").ToString()
                 };
                 hazardSorts.Add(hazardSort);
             }
@@ -863,18 +674,21 @@ namespace FineUIPro.Web.Manager
         private void jerqueSaveTrainList()
         {
             trainSorts.Clear();
-            int rowsCount = this.gvTrainSort.Rows.Count;
-            for (int i = 0; i < rowsCount; i++)
+            JArray mergedData = gvTrainSort.GetMergedData();
+            foreach (JObject mergedRow in mergedData)
             {
+                string status = mergedRow.Value<string>("status");
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
                 Model.Manager_TrainSortC trainSort = new Model.Manager_TrainSortC
                 {
                     TrainSortId = this.gvTrainSort.Rows[i].DataKeys[0].ToString(),
                     SortIndex = i,
-                    TrainContent = this.gvTrainSort.Rows[i].Values[2].ToString(),
-                    TeachHour = Funs.GetNewDecimalOrZero(this.gvTrainSort.Rows[i].Values[3].ToString()),
-                    TeachMan = this.gvTrainSort.Rows[i].Values[4].ToString(),
-                    UnitName = this.gvTrainSort.Rows[i].Values[5].ToString(),
-                    PersonNum = Funs.GetNewIntOrZero(this.gvTrainSort.Rows[i].Values[6].ToString())
+                    TrainContent = values.Value<string>("TrainContent").ToString(),
+                    TeachHour = Funs.GetNewDecimalOrZero(values.Value<string>("TeachHour").ToString()),
+                    TeachMan = values.Value<string>("TeachMan").ToString(),
+                    UnitName = values.Value<string>("UnitName").ToString(),
+                    PersonNum = Funs.GetNewIntOrZero(values.Value<string>("PersonNum").ToString())
                 };
                 trainSorts.Add(trainSort);
             }
@@ -923,16 +737,19 @@ namespace FineUIPro.Web.Manager
         private void jerqueSaveTrainActivityList()
         {
             trainActivitySorts.Clear();
-            int rowsCount = this.gvTrainActivitySort.Rows.Count;
-            for (int i = 0; i < rowsCount; i++)
+            JArray mergedData = gvTrainActivitySort.GetMergedData();
+            foreach (JObject mergedRow in mergedData)
             {
+                string status = mergedRow.Value<string>("status");
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
                 Model.Manager_TrainActivitySortC trainActivitySort = new Model.Manager_TrainActivitySortC
                 {
                     TrainActivitySortId = this.gvTrainActivitySort.Rows[i].DataKeys[0].ToString(),
                     SortIndex = i,
-                    ActivityName = this.gvTrainActivitySort.Rows[i].Values[2].ToString(),
-                    TrainDate = this.gvTrainActivitySort.Rows[i].Values[3].ToString(),
-                    TrainEffect = this.gvTrainActivitySort.Rows[i].Values[4].ToString()
+                    ActivityName = values.Value<string>("ActivityName").ToString(),
+                    TrainDate = values.Value<string>("TrainDate").ToString(),
+                    TrainEffect = values.Value<string>("TrainEffect").ToString()
                 };
                 trainActivitySorts.Add(trainActivitySort);
             }
@@ -1057,19 +874,22 @@ namespace FineUIPro.Web.Manager
         private void jerqueSaveCheckList()
         {
             checkSorts.Clear();
-            int rowsCount = this.gvCheckSort.Rows.Count;
-            for (int i = 0; i < rowsCount; i++)
+            JArray mergedData = gvCheckSort.GetMergedData();
+            foreach (JObject mergedRow in mergedData)
             {
+                string status = mergedRow.Value<string>("status");
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
                 Model.Manager_CheckSortC checkSort = new Model.Manager_CheckSortC
                 {
                     CheckSortId = this.gvCheckSort.Rows[i].DataKeys[0].ToString(),
                     SortIndex = i,
-                    CheckType = this.gvCheckSort.Rows[i].Values[2].ToString(),
-                    CheckNumber = Funs.GetNewIntOrZero(this.gvCheckSort.Rows[i].Values[3].ToString()),
-                    YearCheckNum = Funs.GetNewIntOrZero(this.gvCheckSort.Rows[i].Values[4].ToString()),
-                    TotalCheckNum = Funs.GetNewIntOrZero(this.gvCheckSort.Rows[i].Values[5].ToString()),
-                    ViolationNumber = Funs.GetNewIntOrZero(this.gvCheckSort.Rows[i].Values[6].ToString()),
-                    YearViolationNum = Funs.GetNewIntOrZero(this.gvCheckSort.Rows[i].Values[7].ToString())
+                    CheckType = values.Value<string>("CheckType").ToString(),
+                    CheckNumber = Funs.GetNewIntOrZero(values.Value<string>("CheckNumber").ToString()),
+                    YearCheckNum = Funs.GetNewIntOrZero(values.Value<string>("YearCheckNum").ToString()),
+                    TotalCheckNum = Funs.GetNewIntOrZero(values.Value<string>("TotalCheckNum").ToString()),
+                    ViolationNumber = Funs.GetNewIntOrZero(values.Value<string>("ViolationNumber").ToString()),
+                    YearViolationNum = Funs.GetNewIntOrZero(values.Value<string>("YearViolationNum").ToString())
                 };
                 checkSorts.Add(checkSort);
             }
@@ -1197,17 +1017,20 @@ namespace FineUIPro.Web.Manager
         private void jerqueSaveCheckDetailList()
         {
             checkDetailSorts.Clear();
-            int rowsCount = this.gvCheckDetailSort.Rows.Count;
-            for (int i = 0; i < rowsCount; i++)
+            JArray mergedData = gvCheckDetailSort.GetMergedData();
+            foreach (JObject mergedRow in mergedData)
             {
+                string status = mergedRow.Value<string>("status");
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
                 Model.Manager_CheckDetailSortC checkDetailSort = new Model.Manager_CheckDetailSortC
                 {
                     CheckDetailSortId = this.gvCheckDetailSort.Rows[i].DataKeys[0].ToString(),
                     SortIndex = i,
-                    CheckType = this.gvCheckDetailSort.Rows[i].Values[2].ToString(),
-                    CheckTime = this.gvCheckDetailSort.Rows[i].Values[3].ToString(),
-                    JoinUnit = this.gvCheckDetailSort.Rows[i].Values[4].ToString(),
-                    StateDef = this.gvCheckDetailSort.Rows[i].Values[5].ToString()
+                    CheckType = values.Value<string>("CheckType").ToString(),
+                    CheckTime = values.Value<string>("CheckTime").ToString(),
+                    JoinUnit = values.Value<string>("JoinUnit").ToString(),
+                    StateDef = values.Value<string>("StateDef").ToString()
                 };
                 checkDetailSorts.Add(checkDetailSort);
             }
@@ -1368,19 +1191,22 @@ namespace FineUIPro.Web.Manager
         private void jerqueSaveMeetingList()
         {
             meetingSorts.Clear();
-            int rowsCount = this.gvMeetingSort.Rows.Count;
-            for (int i = 0; i < rowsCount; i++)
+            JArray mergedData = gvMeetingSort.GetMergedData();
+            foreach (JObject mergedRow in mergedData)
             {
+                string status = mergedRow.Value<string>("status");
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
                 Model.Manager_MeetingSortC meetingSort = new Model.Manager_MeetingSortC
                 {
                     MeetingSortId = this.gvMeetingSort.Rows[i].DataKeys[0].ToString(),
                     SortIndex = i,
-                    MeetingType = this.gvMeetingSort.Rows[i].Values[2].ToString(),
-                    MeetingHours = Funs.GetNewDecimalOrZero(this.gvMeetingSort.Rows[i].Values[3].ToString()),
-                    MeetingHostMan = this.gvMeetingSort.Rows[i].Values[4].ToString(),
-                    MeetingDate = this.gvMeetingSort.Rows[i].Values[5].ToString(),
-                    AttentPerson = this.gvMeetingSort.Rows[i].Values[6].ToString(),
-                    MainContent = this.gvMeetingSort.Rows[i].Values[7].ToString()
+                    MeetingType = values.Value<string>("MeetingType").ToString(),
+                    MeetingHours = Funs.GetNewDecimalOrZero(values.Value<string>("MeetingHours").ToString()),
+                    MeetingHostMan = values.Value<string>("MeetingHostMan").ToString(),
+                    MeetingDate = values.Value<string>("MeetingDate").ToString(),
+                    AttentPerson = values.Value<string>("AttentPerson").ToString(),
+                    MainContent = values.Value<string>("MainContent").ToString()
                 };
                 meetingSorts.Add(meetingSort);
             }
@@ -1409,315 +1235,12 @@ namespace FineUIPro.Web.Manager
         #endregion
 
         #region HSE宣传活动
-        /// <summary>
-        /// 显示月报告HSE宣传活动情况
-        /// </summary>
-        private void GetPromotionalActiviteSort()
-        {
-            List<Model.InformationProject_PromotionalActivities> promotionalActivitiesList = BLL.PromotionalActivitiesService.GetPromotionalActivitiesListsByDate(startTime, endTime, this.ProjectId);
-            if (promotionalActivitiesList.Count > 0)
-            {
-                int i = 0;
-                foreach (Model.InformationProject_PromotionalActivities p in promotionalActivitiesList)
-                {
-                    Model.Manager_PromotionalActiviteSortC promotionalActiviteSort = new Model.Manager_PromotionalActiviteSortC
-                    {
-                        PromotionalActiviteSortId = SQLHelper.GetNewID(typeof(Model.Manager_PromotionalActiviteSortC)),
-                        SortIndex = i,
-                        PromotionalActivitiesName = p.Title
-                    };
-                    if (p.CompileDate != null)
-                    {
-                        promotionalActiviteSort.CompileDate = string.Format("{0:yyyy-MM-dd}", p.CompileDate);
-                    }
-                    promotionalActiviteSort.ParticipatingUnits = p.UnitNames;
-                    promotionalActiviteSort.Remark = StripHT(HttpUtility.HtmlDecode(p.MainContent));
-                    promotionalActiviteSorts.Add(promotionalActiviteSort);
-                    i++;
-                }
-            }
-            this.gvPromotionalActiviteSort.DataSource = promotionalActiviteSorts;
-            this.gvPromotionalActiviteSort.DataBind();
-        }
 
         private string StripHT(string strHtml)
         {
             Regex regex = new Regex("<.+?>", RegexOptions.IgnoreCase);
             string strOutput = regex.Replace(strHtml, "");
             return strOutput;
-        }
-
-        /// <summary>
-        /// 增加HSE宣传活动
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnNewPromotionalActiviteSort_Click(object sender, EventArgs e)
-        {
-            jerqueSavePromotionalActiviteList();
-            Model.Manager_PromotionalActiviteSortC promotionalActiviteSort = new Model.Manager_PromotionalActiviteSortC
-            {
-                PromotionalActiviteSortId = SQLHelper.GetNewID(typeof(Model.Manager_PromotionalActiviteSortC))
-            };
-            promotionalActiviteSorts.Add(promotionalActiviteSort);
-            this.gvPromotionalActiviteSort.DataSource = promotionalActiviteSorts;
-            this.gvPromotionalActiviteSort.DataBind();
-        }
-
-        /// <summary>
-        /// 检查并保存HSE宣传活动集合
-        /// </summary>
-        private void jerqueSavePromotionalActiviteList()
-        {
-            promotionalActiviteSorts.Clear();
-            int rowsCount = this.gvPromotionalActiviteSort.Rows.Count;
-            for (int i = 0; i < rowsCount; i++)
-            {
-                Model.Manager_PromotionalActiviteSortC promotionalActiviteSort = new Model.Manager_PromotionalActiviteSortC
-                {
-                    PromotionalActiviteSortId = this.gvPromotionalActiviteSort.Rows[i].DataKeys[0].ToString(),
-                    SortIndex = i,
-                    PromotionalActivitiesName = this.gvPromotionalActiviteSort.Rows[i].Values[2].ToString(),
-                    CompileDate = this.gvPromotionalActiviteSort.Rows[i].Values[3].ToString(),
-                    ParticipatingUnits = this.gvPromotionalActiviteSort.Rows[i].Values[4].ToString(),
-                    Remark = this.gvPromotionalActiviteSort.Rows[i].Values[5].ToString()
-                };
-                promotionalActiviteSorts.Add(promotionalActiviteSort);
-            }
-        }
-
-        protected void gvPromotionalActiviteSort_RowCommand(object sender, GridCommandEventArgs e)
-        {
-            jerqueSavePromotionalActiviteList();
-            string rowID = this.gvPromotionalActiviteSort.DataKeys[e.RowIndex][0].ToString();
-            if (e.CommandName == "Delete")
-            {
-                foreach (var item in promotionalActiviteSorts)
-                {
-                    if (item.PromotionalActiviteSortId == rowID)
-                    {
-                        promotionalActiviteSorts.Remove(item);
-                        break;
-                    }
-                }
-                gvPromotionalActiviteSort.DataSource = promotionalActiviteSorts;
-                gvPromotionalActiviteSort.DataBind();
-                ShowNotify("删除数据成功!", MessageBoxIcon.Success);
-            }
-        }
-        #endregion
-
-        #region 应急预案
-        /// <summary>
-        /// 应急预案修编情况修编、审核
-        /// </summary>
-        private void GetEmergencySort()
-        {
-            List<Model.Emergency_EmergencyList> emergencyList = BLL.EmergencyListService.GetEmergencyListByDate(this.ProjectId, startTime, endTime);
-            if (emergencyList.Count > 0)
-            {
-                foreach (Model.Emergency_EmergencyList item in emergencyList)
-                {
-                    Model.Manager_EmergencySortC emergency = new Model.Manager_EmergencySortC
-                    {
-                        EmergencySortId = SQLHelper.GetNewID(typeof(Model.Manager_EmergencySortC)),
-                        EmergencyName = item.EmergencyName
-                    };
-                    List<Model.Sys_User> users = (from x in Funs.DB.Sys_User
-                                                  join y in Funs.DB.Sys_FlowOperate
-                                                  on x.UserId equals y.OperaterId
-                                                  join z in Funs.DB.Project_ProjectUser
-                                                  on y.OperaterId equals z.UserId
-                                                  where (z.RoleId == BLL.Const.HSSEEngineer || z.RoleId == BLL.Const.HSSEManager) && y.MenuId == BLL.Const.ProjectEmergencyListMenuId && y.DataId == item.EmergencyListId
-                                                  select x).Distinct().ToList();
-                    if (users.Count() > 0)
-                    {
-                        string names = string.Empty;
-                        foreach (var user in users)
-                        {
-                            names += user.UserName + ",";
-                        }
-                        if (!string.IsNullOrEmpty(names))
-                        {
-                            names = names.Substring(0, names.LastIndexOf(","));
-                        }
-                        emergency.ModefyPerson = names;
-                    }
-
-                    if (item.CompileDate != null)
-                    {
-                        emergency.ReleaseDate = string.Format("{0:yyyy-MM-dd}", item.CompileDate);
-                    }
-                    emergencySorts.Add(emergency);
-                }
-            }
-            this.gvEmergencySort.DataSource = emergencySorts;
-            this.gvEmergencySort.DataBind();
-        }
-
-        /// <summary>
-        /// 增加HSE应急预案
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnNewEmergencySort_Click(object sender, EventArgs e)
-        {
-            jerqueSaveEmergencyList();
-            Model.Manager_EmergencySortC emergencySort = new Model.Manager_EmergencySortC
-            {
-                EmergencySortId = SQLHelper.GetNewID(typeof(Model.Manager_EmergencySortC))
-            };
-            emergencySorts.Add(emergencySort);
-            this.gvEmergencySort.DataSource = emergencySorts;
-            this.gvEmergencySort.DataBind();
-        }
-
-        /// <summary>
-        /// 检查并保存HSE应急预案集合
-        /// </summary>
-        private void jerqueSaveEmergencyList()
-        {
-            emergencySorts.Clear();
-            int rowsCount = this.gvEmergencySort.Rows.Count;
-            for (int i = 0; i < rowsCount; i++)
-            {
-                Model.Manager_EmergencySortC emergencySort = new Model.Manager_EmergencySortC
-                {
-                    EmergencySortId = this.gvEmergencySort.Rows[i].DataKeys[0].ToString(),
-                    SortIndex = i,
-                    EmergencyName = this.gvEmergencySort.Rows[i].Values[2].ToString(),
-                    ModefyPerson = this.gvEmergencySort.Rows[i].Values[3].ToString(),
-                    ReleaseDate = this.gvEmergencySort.Rows[i].Values[4].ToString(),
-                    StateRef = this.gvEmergencySort.Rows[i].Values[5].ToString()
-                };
-                emergencySorts.Add(emergencySort);
-            }
-        }
-
-        protected void gvEmergencySort_RowCommand(object sender, GridCommandEventArgs e)
-        {
-            jerqueSaveEmergencyList();
-            string rowID = this.gvEmergencySort.DataKeys[e.RowIndex][0].ToString();
-            if (e.CommandName == "Delete")
-            {
-                foreach (var item in emergencySorts)
-                {
-                    if (item.EmergencySortId == rowID)
-                    {
-                        emergencySorts.Remove(item);
-                        break;
-                    }
-                }
-                gvEmergencySort.DataSource = emergencySorts;
-                gvEmergencySort.DataBind();
-                ShowNotify("删除数据成功!", MessageBoxIcon.Success);
-            }
-        }
-        #endregion
-
-        #region 应急演练
-        /// <summary>
-        /// 应急预案修编情况修编、审核
-        /// </summary>
-        private void GetDrillSort()
-        {
-            List<Model.Emergency_DrillRecordList> drillRecordList = BLL.DrillRecordListService.GetDrillRecordListsByDrillRecordDate(startTime, endTime, this.ProjectId);
-            if (drillRecordList.Count > 0)
-            {
-                foreach (Model.Emergency_DrillRecordList item in drillRecordList)
-                {
-                    Model.Manager_DrillSortC drillSort = new Model.Manager_DrillSortC
-                    {
-                        DrillSortId = SQLHelper.GetNewID(typeof(Model.Manager_DrillSortC)),
-                        DrillContent = item.DrillRecordName,
-                        DrillDate = string.Format("{0:yyyy-MM-dd}", item.DrillRecordDate)
-                    };
-                    string unitNames = string.Empty;
-                    if (!string.IsNullOrEmpty(item.UnitIds))
-                    {
-                        string[] strs = item.UnitIds.Split(',');
-                        foreach (var i in strs)
-                        {
-                            Model.Base_Unit unit = BLL.UnitService.GetUnitByUnitId(i);
-                            if (unit != null)
-                            {
-                                unitNames += unit.UnitName + ",";
-                            }
-                        }
-                        if (!string.IsNullOrEmpty(unitNames))
-                        {
-                            unitNames = unitNames.Substring(0, unitNames.LastIndexOf(","));
-                        }
-                    }
-                    drillSort.JointUnit = unitNames;
-                    if (item.JointPersonNum != null)
-                    {
-                        drillSort.JoinPerson = item.JointPersonNum.ToString();
-                    }
-                    drillSorts.Add(drillSort);
-                }
-            }
-            this.gvDrillSort.DataSource = drillSorts;
-            this.gvDrillSort.DataBind();
-        }
-
-        /// <summary>
-        /// 增加HSE应急演练
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnNewDrillSort_Click(object sender, EventArgs e)
-        {
-            jerqueSaveDrillList();
-            Model.Manager_DrillSortC drillSort = new Model.Manager_DrillSortC
-            {
-                DrillSortId = SQLHelper.GetNewID(typeof(Model.Manager_DrillSortC))
-            };
-            drillSorts.Add(drillSort);
-            this.gvDrillSort.DataSource = drillSorts;
-            this.gvDrillSort.DataBind();
-        }
-
-        /// <summary>
-        /// 检查并保存HSE应急演练集合
-        /// </summary>
-        private void jerqueSaveDrillList()
-        {
-            drillSorts.Clear();
-            int rowsCount = this.gvDrillSort.Rows.Count;
-            for (int i = 0; i < rowsCount; i++)
-            {
-                Model.Manager_DrillSortC drillSort = new Model.Manager_DrillSortC
-                {
-                    DrillSortId = this.gvDrillSort.Rows[i].DataKeys[0].ToString(),
-                    SortIndex = i,
-                    DrillContent = this.gvDrillSort.Rows[i].Values[2].ToString(),
-                    DrillDate = this.gvDrillSort.Rows[i].Values[3].ToString(),
-                    JointUnit = this.gvDrillSort.Rows[i].Values[4].ToString(),
-                    JoinPerson = this.gvDrillSort.Rows[i].Values[5].ToString()
-                };
-                drillSorts.Add(drillSort);
-            }
-        }
-
-        protected void gvDrillSort_RowCommand(object sender, GridCommandEventArgs e)
-        {
-            jerqueSaveDrillList();
-            string rowID = this.gvDrillSort.DataKeys[e.RowIndex][0].ToString();
-            if (e.CommandName == "Delete")
-            {
-                foreach (var item in drillSorts)
-                {
-                    if (item.DrillSortId == rowID)
-                    {
-                        drillSorts.Remove(item);
-                        break;
-                    }
-                }
-                gvDrillSort.DataSource = drillSorts;
-                gvDrillSort.DataBind();
-                ShowNotify("删除数据成功!", MessageBoxIcon.Success);
-            }
         }
         #endregion
 
@@ -1784,18 +1307,21 @@ namespace FineUIPro.Web.Manager
         private void jerqueSaveRewardList()
         {
             rewardSorts.Clear();
-            int rowsCount = this.gvRewardSort.Rows.Count;
-            for (int i = 0; i < rowsCount; i++)
+            JArray mergedData = gvRewardSort.GetMergedData();
+            foreach (JObject mergedRow in mergedData)
             {
+                string status = mergedRow.Value<string>("status");
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
                 Model.Manager_IncentiveSortC rewardSort = new Model.Manager_IncentiveSortC
                 {
                     IncentiveSortId = this.gvRewardSort.Rows[i].DataKeys[0].ToString(),
                     SortIndex = i,
                     BigType = "1",
-                    IncentiveUnit = this.gvRewardSort.Rows[i].Values[2].ToString(),
-                    IncentiveType = this.gvRewardSort.Rows[i].Values[3].ToString(),
-                    IncentiveDate = this.gvRewardSort.Rows[i].Values[4].ToString(),
-                    IncentiveMoney = Funs.GetNewIntOrZero(this.gvRewardSort.Rows[i].Values[5].ToString())
+                    IncentiveUnit = values.Value<string>("IncentiveUnit").ToString(),
+                    IncentiveType = values.Value<string>("IncentiveType").ToString(),
+                    IncentiveDate = values.Value<string>("IncentiveDate").ToString(),
+                    IncentiveMoney = Funs.GetNewIntOrZero(values.Value<string>("IncentiveMoney").ToString())
                 };
                 rewardSorts.Add(rewardSort);
             }
@@ -1845,7 +1371,6 @@ namespace FineUIPro.Web.Manager
                     {
                         punishSort.IncentiveUnit = u.UnitName;
                     }
-                    punishSort.IncentiveType = "现金";
                     if (p.PunishNoticeDate != null)
                     {
                         punishSort.IncentiveDate = string.Format("{0:yyyy-MM-dd}", p.PunishNoticeDate);
@@ -1887,20 +1412,22 @@ namespace FineUIPro.Web.Manager
         private void jerqueSavePunishList()
         {
             punishSorts.Clear();
-            int rowsCount = this.gvPunishSort.Rows.Count;
-            for (int i = 0; i < rowsCount; i++)
+            JArray mergedData = gvPunishSort.GetMergedData();
+            foreach (JObject mergedRow in mergedData)
             {
+                string status = mergedRow.Value<string>("status");
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
                 Model.Manager_IncentiveSortC punishSort = new Model.Manager_IncentiveSortC
                 {
                     IncentiveSortId = this.gvPunishSort.Rows[i].DataKeys[0].ToString(),
                     SortIndex = i,
                     BigType = "2",
-                    IncentiveUnit = this.gvPunishSort.Rows[i].Values[2].ToString(),
-                    IncentiveType = this.gvPunishSort.Rows[i].Values[3].ToString(),
-                    IncentiveDate = this.gvPunishSort.Rows[i].Values[4].ToString(),
-                    IncentiveMoney = Funs.GetNewIntOrZero(this.gvPunishSort.Rows[i].Values[5].ToString()),
-                    IncentiveReason = this.gvPunishSort.Rows[i].Values[6].ToString(),
-                    IncentiveBasis = this.gvPunishSort.Rows[i].Values[7].ToString()
+                    IncentiveUnit = values.Value<string>("IncentiveUnit").ToString(),
+                    IncentiveDate = values.Value<string>("IncentiveDate").ToString(),
+                    IncentiveMoney = Funs.GetNewIntOrZero(values.Value<string>("IncentiveMoney").ToString()),
+                    IncentiveReason = values.Value<string>("IncentiveReason").ToString(),
+                    IncentiveBasis = values.Value<string>("IncentiveBasis").ToString()
                 };
                 punishSorts.Add(punishSort);
             }
@@ -1922,125 +1449,6 @@ namespace FineUIPro.Web.Manager
                 }
                 gvPunishSort.DataSource = punishSorts;
                 gvPunishSort.DataBind();
-                ShowNotify("删除数据成功!", MessageBoxIcon.Success);
-            }
-        }
-        #endregion
-
-        #region 其他HSE管理活动
-        /// <summary>
-        /// 增加其他HSE管理活动
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnNewOtherActiveSort_Click(object sender, EventArgs e)
-        {
-            jerqueSaveOtherActiveList();
-            Model.Manager_OtherActiveSortC otherActiveSort = new Model.Manager_OtherActiveSortC
-            {
-                OtherActiveSortId = SQLHelper.GetNewID(typeof(Model.Manager_OtherActiveSortC))
-            };
-            otherActiveSorts.Add(otherActiveSort);
-            this.gvOtherActiveSort.DataSource = otherActiveSorts;
-            this.gvOtherActiveSort.DataBind();
-        }
-
-        /// <summary>
-        /// 检查并保存其他HSE管理活动集合
-        /// </summary>
-        private void jerqueSaveOtherActiveList()
-        {
-            otherActiveSorts.Clear();
-            int rowsCount = this.gvOtherActiveSort.Rows.Count;
-            for (int i = 0; i < rowsCount; i++)
-            {
-                Model.Manager_OtherActiveSortC otherActiveSort = new Model.Manager_OtherActiveSortC
-                {
-                    OtherActiveSortId = this.gvOtherActiveSort.Rows[i].DataKeys[0].ToString(),
-                    SortIndex = i,
-                    ActiveName = this.gvOtherActiveSort.Rows[i].Values[2].ToString(),
-                    Num = this.gvOtherActiveSort.Rows[i].Values[3].ToString(),
-                    YearNum = this.gvOtherActiveSort.Rows[i].Values[4].ToString()
-                };
-                otherActiveSorts.Add(otherActiveSort);
-            }
-        }
-
-        protected void gvOtherActiveSort_RowCommand(object sender, GridCommandEventArgs e)
-        {
-            jerqueSaveOtherActiveList();
-            string rowID = this.gvOtherActiveSort.DataKeys[e.RowIndex][0].ToString();
-            if (e.CommandName == "Delete")
-            {
-                foreach (var item in otherActiveSorts)
-                {
-                    if (item.OtherActiveSortId == rowID)
-                    {
-                        otherActiveSorts.Remove(item);
-                        break;
-                    }
-                }
-                gvOtherActiveSort.DataSource = otherActiveSorts;
-                gvOtherActiveSort.DataBind();
-                ShowNotify("删除数据成功!", MessageBoxIcon.Success);
-            }
-        }
-
-        /// <summary>
-        /// 增加其他HSE管理活动
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnNewActivityDes_Click(object sender, EventArgs e)
-        {
-            jerqueSaveActivityDesList();
-            Model.Manager_Month_ActivityDesC activityDesSort = new Model.Manager_Month_ActivityDesC
-            {
-                ActivityDesId = SQLHelper.GetNewID(typeof(Model.Manager_Month_ActivityDesC))
-            };
-            activityDess.Add(activityDesSort);
-            this.gvActivityDes.DataSource = activityDess;
-            this.gvActivityDes.DataBind();
-        }
-
-        /// <summary>
-        /// 检查并保存其他HSE管理活动集合
-        /// </summary>
-        private void jerqueSaveActivityDesList()
-        {
-            activityDess.Clear();
-            int rowsCount = this.gvActivityDes.Rows.Count;
-            for (int i = 0; i < rowsCount; i++)
-            {
-                Model.Manager_Month_ActivityDesC activityDesSort = new Model.Manager_Month_ActivityDesC
-                {
-                    ActivityDesId = this.gvActivityDes.Rows[i].DataKeys[0].ToString(),
-                    SortIndex = i,
-                    ActivityTheme = this.gvActivityDes.Rows[i].Values[2].ToString(),
-                    ActivityDate = this.gvActivityDes.Rows[i].Values[3].ToString(),
-                    UnitName = this.gvActivityDes.Rows[i].Values[4].ToString(),
-                    EffectDes = this.gvActivityDes.Rows[i].Values[5].ToString()
-                };
-                activityDess.Add(activityDesSort);
-            }
-        }
-
-        protected void gvActivityDes_RowCommand(object sender, GridCommandEventArgs e)
-        {
-            jerqueSaveActivityDesList();
-            string rowID = this.gvActivityDes.DataKeys[e.RowIndex][0].ToString();
-            if (e.CommandName == "Delete")
-            {
-                foreach (var item in activityDess)
-                {
-                    if (item.ActivityDesId == rowID)
-                    {
-                        activityDess.Remove(item);
-                        break;
-                    }
-                }
-                gvActivityDes.DataSource = activityDess;
-                gvActivityDes.DataBind();
                 ShowNotify("删除数据成功!", MessageBoxIcon.Success);
             }
         }
@@ -2070,14 +1478,17 @@ namespace FineUIPro.Web.Manager
         private void jerqueSaveOtherManagementList()
         {
             otherManagements.Clear();
-            int rowsCount = this.gvOtherManagement.Rows.Count;
-            for (int i = 0; i < rowsCount; i++)
+            JArray mergedData = gvOtherManagement.GetMergedData();
+            foreach (JObject mergedRow in mergedData)
             {
+                string status = mergedRow.Value<string>("status");
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
                 Model.Manager_Month_OtherManagementC otherManagementSort = new Model.Manager_Month_OtherManagementC
                 {
                     OtherManagementId = this.gvOtherManagement.Rows[i].DataKeys[0].ToString(),
                     SortIndex = i,
-                    ManagementDes = this.gvOtherManagement.Rows[i].Values[2].ToString()
+                    ManagementDes = values.Value<string>("ManagementDes").ToString()
                 };
                 otherManagements.Add(otherManagementSort);
             }
@@ -2115,14 +1526,7 @@ namespace FineUIPro.Web.Manager
             Model.Manager_MonthReportC oldMonthReport = BLL.MonthReportCService.GetMonthReportByMonths(Convert.ToDateTime(Request.Params["months"]), this.CurrUser.LoginProjectId);
             if (oldMonthReport != null)
             {
-                if (!string.IsNullOrEmpty(this.txtHazardNum.Text.Trim()))
-                {
-                    oldMonthReport.HazardNum = Convert.ToInt32(this.txtHazardNum.Text.Trim());
-                }
-                if (!string.IsNullOrEmpty(this.txtYearHazardNum.Text.Trim()))
-                {
-                    oldMonthReport.YearHazardNum = Convert.ToInt32(this.txtYearHazardNum.Text.Trim());
-                }
+                oldMonthReport.MainActivitiesDef = this.txtMainActivitiesDef.Text.Trim();
                 if (!string.IsNullOrEmpty(this.txtMeetingNum.Text.Trim()))
                 {
                     oldMonthReport.MeetingNum = Convert.ToInt32(this.txtMeetingNum.Text.Trim());
@@ -2130,14 +1534,6 @@ namespace FineUIPro.Web.Manager
                 if (!string.IsNullOrEmpty(this.txtYearMeetingNum.Text.Trim()))
                 {
                     oldMonthReport.YearMeetingNum = Convert.ToInt32(this.txtYearMeetingNum.Text.Trim());
-                }
-                if (!string.IsNullOrEmpty(this.txtPromotionalActiviteNum.Text.Trim()))
-                {
-                    oldMonthReport.PromotionalActiviteNum = Convert.ToInt32(this.txtPromotionalActiviteNum.Text.Trim());
-                }
-                if (!string.IsNullOrEmpty(this.txtYearPromotionalActiviteNum.Text.Trim()))
-                {
-                    oldMonthReport.YearPromotionalActiviteNum = Convert.ToInt32(this.txtYearPromotionalActiviteNum.Text.Trim());
                 }
                 if (!string.IsNullOrEmpty(this.txtComplexEmergencyNum.Text.Trim()))
                 {
@@ -2147,6 +1543,10 @@ namespace FineUIPro.Web.Manager
                 {
                     oldMonthReport.YearComplexEmergencyNum = Convert.ToInt32(this.txtYearComplexEmergencyNum.Text.Trim());
                 }
+                if (!string.IsNullOrEmpty(this.txtTotalComplexEmergencyNum.Text.Trim()))
+                {
+                    oldMonthReport.TotalComplexEmergencyNum = Convert.ToInt32(this.txtTotalComplexEmergencyNum.Text.Trim());
+                }
                 if (!string.IsNullOrEmpty(this.txtSpecialEmergencyNum.Text.Trim()))
                 {
                     oldMonthReport.SpecialEmergencyNum = Convert.ToInt32(this.txtSpecialEmergencyNum.Text.Trim());
@@ -2154,6 +1554,10 @@ namespace FineUIPro.Web.Manager
                 if (!string.IsNullOrEmpty(this.txtYearSpecialEmergencyNum.Text.Trim()))
                 {
                     oldMonthReport.YearSpecialEmergencyNum = Convert.ToInt32(this.txtYearSpecialEmergencyNum.Text.Trim());
+                }
+                if (!string.IsNullOrEmpty(this.txtTotalSpecialEmergencyNum.Text.Trim()))
+                {
+                    oldMonthReport.TotalSpecialEmergencyNum = Convert.ToInt32(this.txtTotalSpecialEmergencyNum.Text.Trim());
                 }
                 if (!string.IsNullOrEmpty(this.txtDrillRecordNum.Text.Trim()))
                 {
@@ -2163,21 +1567,9 @@ namespace FineUIPro.Web.Manager
                 {
                     oldMonthReport.YearDrillRecordNum = Convert.ToInt32(this.txtYearDrillRecordNum.Text.Trim());
                 }
-                if (!string.IsNullOrEmpty(this.txtLicenseNum.Text.Trim()))
+                if (!string.IsNullOrEmpty(this.txtTotalDrillRecordNum.Text.Trim()))
                 {
-                    oldMonthReport.LicenseNum = Convert.ToInt32(this.txtLicenseNum.Text.Trim());
-                }
-                if (!string.IsNullOrEmpty(this.txtYearLicenseNum.Text.Trim()))
-                {
-                    oldMonthReport.YearLicenseNum = Convert.ToInt32(this.txtYearLicenseNum.Text.Trim());
-                }
-                if (!string.IsNullOrEmpty(this.txtEquipmentNum.Text.Trim()))
-                {
-                    oldMonthReport.EquipmentNum = Convert.ToInt32(this.txtEquipmentNum.Text.Trim());
-                }
-                if (!string.IsNullOrEmpty(this.txtYearEquipmentNum.Text.Trim()))
-                {
-                    oldMonthReport.YearEquipmentNum = Convert.ToInt32(this.txtYearEquipmentNum.Text.Trim());
+                    oldMonthReport.TotalDrillRecordNum = Convert.ToInt32(this.txtTotalDrillRecordNum.Text.Trim());
                 }
                 if (!string.IsNullOrEmpty(this.txtRewardNum.Text.Trim()))
                 {
@@ -2212,6 +1604,7 @@ namespace FineUIPro.Web.Manager
                     oldMonthReport.YearPunishMoney = Convert.ToInt32(this.txtYearPunishMoney.Text.Trim());
                 }
                 oldMonthReport.LicenseRemark = this.txtLicenseRemark.Text.Trim();
+                oldMonthReport.EmergencyManagementWorkDef = this.txtEmergencyManagementWorkDef.Text.Trim();
                 oldMonthReport.EquipmentRemark = this.txtEquipmentRemark.Text.Trim();
                 BLL.MonthReportCService.UpdateMonthReport(oldMonthReport);
                 OperateHazardSort(MonthReportId);
@@ -2220,16 +1613,11 @@ namespace FineUIPro.Web.Manager
                 OperateCheckSort(MonthReportId);
                 OperateCheckDetailSort(MonthReportId);
                 OperateMeetingSort(MonthReportId);
-                OperatePromotionalActiviteSort(MonthReportId);
-                OperateEmergencySort(MonthReportId);
-                OperateDrillSort(MonthReportId);
-                BLL.IncentiveSortService.DeleteIncentiveSortsByMonthReportId(MonthReportId);
+                BLL.IncentiveSortCService.DeleteIncentiveSortsByMonthReportId(MonthReportId);
                 OperateRewardSort(MonthReportId);
                 OperatePunishSort(MonthReportId);
-                OperateOtherActiveSort(MonthReportId);
-                OperateActivityDesSort(MonthReportId);
                 OperateOtherManagementSort(MonthReportId);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改HSE月报告", MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, oldMonthReport.MonthReportCode, oldMonthReport.MonthReportId, BLL.Const.ProjectManagerMonthCMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -2242,14 +1630,7 @@ namespace FineUIPro.Web.Manager
                 monthReport.Months = Funs.GetNewDateTime(Request.Params["months"]);
                 monthReport.ReportMan = this.CurrUser.UserId;
                 monthReport.MonthReportDate = DateTime.Now;
-                if (!string.IsNullOrEmpty(this.txtHazardNum.Text.Trim()))
-                {
-                    monthReport.HazardNum = Convert.ToInt32(this.txtHazardNum.Text.Trim());
-                }
-                if (!string.IsNullOrEmpty(this.txtYearHazardNum.Text.Trim()))
-                {
-                    monthReport.YearHazardNum = Convert.ToInt32(this.txtYearHazardNum.Text.Trim());
-                }
+                monthReport.MainActivitiesDef = this.txtMainActivitiesDef.Text.Trim();
                 if (!string.IsNullOrEmpty(this.txtMeetingNum.Text.Trim()))
                 {
                     monthReport.MeetingNum = Convert.ToInt32(this.txtMeetingNum.Text.Trim());
@@ -2257,14 +1638,6 @@ namespace FineUIPro.Web.Manager
                 if (!string.IsNullOrEmpty(this.txtYearMeetingNum.Text.Trim()))
                 {
                     monthReport.YearMeetingNum = Convert.ToInt32(this.txtYearMeetingNum.Text.Trim());
-                }
-                if (!string.IsNullOrEmpty(this.txtPromotionalActiviteNum.Text.Trim()))
-                {
-                    monthReport.PromotionalActiviteNum = Convert.ToInt32(this.txtPromotionalActiviteNum.Text.Trim());
-                }
-                if (!string.IsNullOrEmpty(this.txtYearPromotionalActiviteNum.Text.Trim()))
-                {
-                    monthReport.YearPromotionalActiviteNum = Convert.ToInt32(this.txtYearPromotionalActiviteNum.Text.Trim());
                 }
                 if (!string.IsNullOrEmpty(this.txtComplexEmergencyNum.Text.Trim()))
                 {
@@ -2274,6 +1647,10 @@ namespace FineUIPro.Web.Manager
                 {
                     monthReport.YearComplexEmergencyNum = Convert.ToInt32(this.txtYearComplexEmergencyNum.Text.Trim());
                 }
+                if (!string.IsNullOrEmpty(this.txtTotalComplexEmergencyNum.Text.Trim()))
+                {
+                    monthReport.TotalComplexEmergencyNum = Convert.ToInt32(this.txtTotalComplexEmergencyNum.Text.Trim());
+                }
                 if (!string.IsNullOrEmpty(this.txtSpecialEmergencyNum.Text.Trim()))
                 {
                     monthReport.SpecialEmergencyNum = Convert.ToInt32(this.txtSpecialEmergencyNum.Text.Trim());
@@ -2281,6 +1658,10 @@ namespace FineUIPro.Web.Manager
                 if (!string.IsNullOrEmpty(this.txtYearSpecialEmergencyNum.Text.Trim()))
                 {
                     monthReport.YearSpecialEmergencyNum = Convert.ToInt32(this.txtYearSpecialEmergencyNum.Text.Trim());
+                }
+                if (!string.IsNullOrEmpty(this.txtTotalSpecialEmergencyNum.Text.Trim()))
+                {
+                    monthReport.TotalSpecialEmergencyNum = Convert.ToInt32(this.txtTotalSpecialEmergencyNum.Text.Trim());
                 }
                 if (!string.IsNullOrEmpty(this.txtDrillRecordNum.Text.Trim()))
                 {
@@ -2290,21 +1671,9 @@ namespace FineUIPro.Web.Manager
                 {
                     monthReport.YearDrillRecordNum = Convert.ToInt32(this.txtYearDrillRecordNum.Text.Trim());
                 }
-                if (!string.IsNullOrEmpty(this.txtLicenseNum.Text.Trim()))
+                if (!string.IsNullOrEmpty(this.txtTotalDrillRecordNum.Text.Trim()))
                 {
-                    monthReport.LicenseNum = Convert.ToInt32(this.txtLicenseNum.Text.Trim());
-                }
-                if (!string.IsNullOrEmpty(this.txtYearLicenseNum.Text.Trim()))
-                {
-                    monthReport.YearLicenseNum = Convert.ToInt32(this.txtYearLicenseNum.Text.Trim());
-                }
-                if (!string.IsNullOrEmpty(this.txtEquipmentNum.Text.Trim()))
-                {
-                    monthReport.EquipmentNum = Convert.ToInt32(this.txtEquipmentNum.Text.Trim());
-                }
-                if (!string.IsNullOrEmpty(this.txtYearEquipmentNum.Text.Trim()))
-                {
-                    monthReport.YearEquipmentNum = Convert.ToInt32(this.txtYearEquipmentNum.Text.Trim());
+                    monthReport.TotalDrillRecordNum = Convert.ToInt32(this.txtTotalDrillRecordNum.Text.Trim());
                 }
                 if (!string.IsNullOrEmpty(this.txtRewardNum.Text.Trim()))
                 {
@@ -2338,6 +1707,7 @@ namespace FineUIPro.Web.Manager
                 {
                     monthReport.YearPunishMoney = Convert.ToInt32(this.txtYearPunishMoney.Text.Trim());
                 }
+                monthReport.EmergencyManagementWorkDef = this.txtEmergencyManagementWorkDef.Text.Trim();
                 monthReport.LicenseRemark = this.txtLicenseRemark.Text.Trim();
                 monthReport.EquipmentRemark = this.txtEquipmentRemark.Text.Trim();
                 BLL.MonthReportCService.AddMonthReport(monthReport);
@@ -2347,16 +1717,11 @@ namespace FineUIPro.Web.Manager
                 OperateCheckSort(newKeyID);
                 OperateCheckDetailSort(newKeyID);
                 OperateMeetingSort(newKeyID);
-                OperatePromotionalActiviteSort(newKeyID);
-                OperateEmergencySort(newKeyID);
-                OperateDrillSort(newKeyID);
-                BLL.IncentiveSortService.DeleteIncentiveSortsByMonthReportId(newKeyID);
+                BLL.IncentiveSortCService.DeleteIncentiveSortsByMonthReportId(newKeyID);
                 OperateRewardSort(newKeyID);
                 OperatePunishSort(newKeyID);
-                OperateOtherActiveSort(newKeyID);
-                OperateActivityDesSort(newKeyID);
                 OperateOtherManagementSort(newKeyID);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加HSE月报告", monthReport.MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, monthReport.MonthReportCode, monthReport.MonthReportId, BLL.Const.ProjectManagerMonthCMenuId, BLL.Const.BtnAdd);
             }
             ShowNotify("保存成功!", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
@@ -2447,48 +1812,6 @@ namespace FineUIPro.Web.Manager
         }
 
         /// <summary>
-        /// 操作月报告HSE宣传活动情况
-        /// </summary>
-        private void OperatePromotionalActiviteSort(string monthReportId)
-        {
-            BLL.PromotionalActiviteSortCService.DeletePromotionalActiviteSortsByMonthReportId(monthReportId);
-            jerqueSavePromotionalActiviteList();
-            foreach (Model.Manager_PromotionalActiviteSortC promotionalActiviteSort in promotionalActiviteSorts)
-            {
-                promotionalActiviteSort.MonthReportId = monthReportId;
-                BLL.PromotionalActiviteSortCService.AddPromotionalActiviteSort(promotionalActiviteSort);
-            }
-        }
-
-        /// <summary>
-        /// 操作月报告HSE应急预案情况
-        /// </summary>
-        private void OperateEmergencySort(string monthReportId)
-        {
-            BLL.EmergencySortCService.DeleteEmergencySortsByMonthReportId(monthReportId);
-            jerqueSaveEmergencyList();
-            foreach (Model.Manager_EmergencySortC emergencySort in emergencySorts)
-            {
-                emergencySort.MonthReportId = monthReportId;
-                BLL.EmergencySortCService.AddEmergencySort(emergencySort);
-            }
-        }
-
-        /// <summary>
-        /// 操作月报告HSE应急演练情况
-        /// </summary>
-        private void OperateDrillSort(string monthReportId)
-        {
-            BLL.DrillSortCService.DeleteDrillSortsByMonthReportId(monthReportId);
-            jerqueSaveDrillList();
-            foreach (Model.Manager_DrillSortC drillSort in drillSorts)
-            {
-                drillSort.MonthReportId = monthReportId;
-                BLL.DrillSortCService.AddDrillSort(drillSort);
-            }
-        }
-
-        /// <summary>
         /// 操作月报告HSE奖励情况
         /// </summary>
         private void OperateRewardSort(string monthReportId)
@@ -2511,35 +1834,6 @@ namespace FineUIPro.Web.Manager
             {
                 punishSort.MonthReportId = monthReportId;
                 BLL.IncentiveSortCService.AddIncentiveSort(punishSort);
-            }
-        }
-
-        /// <summary>
-        /// 操作月报告其他HSE管理活动情况
-        /// </summary>
-        private void OperateOtherActiveSort(string monthReportId)
-        {
-            BLL.OtherActiveSortCService.DeleteOtherActiveSortsByMonthReportId(monthReportId);
-            jerqueSaveOtherActiveList();
-            foreach (Model.Manager_OtherActiveSortC otherActiveSort in otherActiveSorts)
-            {
-                otherActiveSort.MonthReportId = monthReportId;
-                BLL.OtherActiveSortCService.AddOtherActiveSort(otherActiveSort);
-            }
-        }
-
-        /// <summary>
-        /// 4.9.2 活动情况说明
-        /// </summary>
-        /// <param name="monthReportId"></param>
-        private void OperateActivityDesSort(string monthReportId)
-        {
-            BLL.ActivityDesCService.DeleteActivityDesByMonthReportId(monthReportId);
-            jerqueSaveActivityDesList();
-            foreach (Model.Manager_Month_ActivityDesC activityDes in activityDess)
-            {
-                activityDes.MonthReportId = monthReportId;
-                BLL.ActivityDesCService.AddActivityDes(activityDes);
             }
         }
 

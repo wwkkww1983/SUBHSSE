@@ -49,10 +49,10 @@
                 <Items>
                     <f:HiddenField ID="hfFormID" runat="server">
                     </f:HiddenField>
-                    <f:TextBox ID="txtContentTypeCode" Label="类型编号" ShowRedStar="true" Required="true" runat="server"  MaxLength="50"
+                    <f:TextBox ID="txtContentTypeCode" Label="编号" ShowRedStar="true" Required="true" runat="server"  MaxLength="50"
                         LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
-                    <f:TextBox ID="txtContentTypeName" Label="类型名称" ShowRedStar="true" Required="true" runat="server"  MaxLength="50"
+                    <f:TextBox ID="txtContentTypeName" Label="名称" ShowRedStar="true" Required="true" runat="server"  MaxLength="50"
                         LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
                 </Items>
@@ -83,7 +83,7 @@
              Icon="BulletEdit" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" Hidden="true"
-           Icon="Delete"  ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+           Icon="Delete"  ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

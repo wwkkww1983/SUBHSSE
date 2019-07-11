@@ -1,9 +1,9 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using BLL;
 using System.Text;
 using AspNet = System.Web.UI.WebControls;
 
@@ -275,7 +275,7 @@ namespace FineUIPro.Web.SiteConstruction
                     var monthPlan = BLL.MonthPlanService.GetMonthPlanById(rowID);
                     if (monthPlan != null)
                     {
-                        BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除月度计划", rowID);
+                        BLL.LogService.AddSys_Log(this.CurrUser, monthPlan.Months.ToString(), monthPlan.MonthPlanId, BLL.Const.ProjectMonthPlanMenuId, BLL.Const.BtnDelete);
                         BLL.MonthPlanService.DeleteMonthPlanById(rowID);
                     }
                 }

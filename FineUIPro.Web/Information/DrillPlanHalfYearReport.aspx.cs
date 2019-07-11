@@ -299,11 +299,11 @@ namespace FineUIPro.Web.Information
             Model.Information_DrillPlanHalfYearReport report = BLL.DrillPlanHalfYearReportService.GetDrillPlanHalfYearReportByUnitIdAndYearAndHalfYear(drpUnit.SelectedValue, Funs.GetNewIntOrZero(drpYear.SelectedValue), Funs.GetNewIntOrZero(drpHalfYear.SelectedValue));
             if (report != null)
             {
-                string ID = report.DrillPlanHalfYearReportId;
-                BLL.ProjectDataFlowSetService.DeleteFlowSetByDataId(ID);
-                BLL.DrillPlanHalfYearReportItemService.DeleteDrillPlanHalfYearReportItemList(ID);
-                BLL.DrillPlanHalfYearReportService.DeleteDrillPlanHalfYearReportById(ID);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除应急演练工作计划半年报表");
+                BLL.LogService.AddSys_Log(this.CurrUser, report.YearId.ToString() + "-" + report.HalfYearId.ToString(),
+                        report.DrillPlanHalfYearReportId, BLL.Const.DrillPlanHalfYearReportMenuId, BLL.Const.BtnDelete);
+                BLL.ProjectDataFlowSetService.DeleteFlowSetByDataId(report.DrillPlanHalfYearReportId);
+                BLL.DrillPlanHalfYearReportItemService.DeleteDrillPlanHalfYearReportItemList(report.DrillPlanHalfYearReportId);
+                BLL.DrillPlanHalfYearReportService.DeleteDrillPlanHalfYearReportById(report.DrillPlanHalfYearReportId);
                 SetEmpty();
                 this.btnNew.Hidden = false;
                 ShowNotify("删除数据成功!", MessageBoxIcon.Success);

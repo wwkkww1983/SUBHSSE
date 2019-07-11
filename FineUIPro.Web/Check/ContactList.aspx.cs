@@ -201,8 +201,12 @@ namespace FineUIPro.Web.Check
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除联系单", rowID);
-                    BLL.ContactListService.DeleteContactListById(rowID);
+                    var newContactList= BLL.ContactListService.GetContactListById(rowID);
+                    if (newContactList != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, newContactList.Code, newContactList.ContactListId, BLL.Const.ProjectContactListMenuId, BLL.Const.BtnDelete);
+                        BLL.ContactListService.DeleteContactListById(rowID);
+                    }
                 }
 
                 this.BindGrid();

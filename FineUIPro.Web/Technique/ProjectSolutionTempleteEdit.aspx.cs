@@ -78,6 +78,11 @@ namespace FineUIPro.Web.Technique
                         this.txtFileContents.Text = HttpUtility.HtmlDecode(codeTemplateRule.Template);
                     }
                 }
+
+                if (Request.Params["value"] == "0")
+                {
+                    this.btnSave.Hidden = true;
+                }
             }
         }
 
@@ -112,14 +117,14 @@ namespace FineUIPro.Web.Technique
             {
                 projectSolutionTemplete.TempleteId = this.TempleteId;
                 BLL.ProjectSolutionTempleteService.UpdateProjectSolutionTemplete(projectSolutionTemplete);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改现场施工方案模板", projectSolutionTemplete.TempleteId);
+                BLL.LogService.AddSys_Log(this.CurrUser, projectSolutionTemplete.TempleteCode, projectSolutionTemplete.TempleteId,BLL.Const.ProjectSolutionTempleteMenuId,BLL.Const.BtnModify);
             }
             else
             {
                 this.TempleteId = SQLHelper.GetNewID(typeof(Model.Technique_ProjectSolutionTemplete));
                 projectSolutionTemplete.TempleteId = this.TempleteId;
                 BLL.ProjectSolutionTempleteService.AddProjectSolutionTemplete(projectSolutionTemplete);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加现场施工方案模板", projectSolutionTemplete.TempleteId);
+                BLL.LogService.AddSys_Log(this.CurrUser, projectSolutionTemplete.TempleteCode, projectSolutionTemplete.TempleteId, BLL.Const.ProjectSolutionTempleteMenuId, BLL.Const.BtnAdd);
             }
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }

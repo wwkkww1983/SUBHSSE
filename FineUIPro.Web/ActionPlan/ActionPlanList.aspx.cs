@@ -159,6 +159,7 @@ namespace FineUIPro.Web.ActionPlan
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
             this.BindGrid();
+            BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ProjectActionPlanListMenuId, Const.BtnQuery);
         }
         #endregion
 
@@ -230,8 +231,12 @@ namespace FineUIPro.Web.ActionPlan
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, isShow))
                     {
-                        BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除实施计划", rowID);
-                        BLL.ActionPlanListService.DeleteActionPlanListById(rowID);
+                        var getV = BLL.ActionPlanListService.GetActionPlanListById(rowID);
+                        if (getV != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getV.ActionPlanListCode, getV.ActionPlanListId, BLL.Const.ProjectActionPlanListMenuId, Const.BtnDelete);
+                            BLL.ActionPlanListService.DeleteActionPlanListById(rowID);
+                        }
                     }
                 }
                 BindGrid();

@@ -54,7 +54,12 @@
                     </f:Toolbar>
                 </Toolbars>
                 <Columns>
-                    <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center" Locked="true"/>
+                    <f:TemplateField ColumnID="tfNumber" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
+                        TextAlign="Center">
+                        <ItemTemplate>
+                            <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
+                        </ItemTemplate>
+                    </f:TemplateField>
                     <f:RenderField Width="150px" ColumnID="ProjectCode" DataField="ProjectCode" SortField="ProjectCode"
                         FieldType="String" HeaderText="项目代号"
                         HeaderTextAlign="Center" TextAlign="Left">
@@ -63,10 +68,10 @@
                         FieldType="String" HeaderText="项目名称" 
                         HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:TemplateField Width="400px" HeaderText="未上报报表情况" HeaderTextAlign="Center" TextAlign="Left"
+                    <f:TemplateField Width="400px" HeaderText="未上报报表情况" HeaderTextAlign="Center" TextAlign="Left" ColumnID="lblReportName"
                         ExpandUnusedSpace="true">
                         <ItemTemplate>
-                            <asp:Label ID="Label3" runat="server" Text='<%# ConvertReportName(Eval("ReportRemindId")) %>'
+                            <asp:Label ID="lblReportName" runat="server" Text='<%# ConvertReportName(Eval("ReportRemindId")) %>'
                                 ToolTip='<%# ConvertReportName(Eval("ReportRemindId")) %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>

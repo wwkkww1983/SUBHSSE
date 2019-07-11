@@ -108,12 +108,16 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            BLL.GoodsCategoryService.DeleteGoodsCategoryById(hfFormID.Text);
-            BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除物资类别");
-            // 重新绑定表格，并模拟点击[新增按钮]
-            BindGrid();
-            PageContext.RegisterStartupScript("onNewButtonClick();");
+            var GoodsCategory = BLL.GoodsCategoryService.GetGoodsCategoryById(hfFormID.Text);
+            if (GoodsCategory != null)
+            {
+                BLL.LogService.AddSys_Log(this.CurrUser, GoodsCategory.GoodsCategoryCode, GoodsCategory.GoodsCategoryId, BLL.Const.GoodsCategoryMenuId, BLL.Const.BtnDelete);
 
+                BLL.GoodsCategoryService.DeleteGoodsCategoryById(hfFormID.Text);
+                // 重新绑定表格，并模拟点击[新增按钮]
+                BindGrid();
+                PageContext.RegisterStartupScript("onNewButtonClick();");
+            }
         }
 
         /// <summary>
@@ -136,9 +140,12 @@ namespace FineUIPro.Web.BaseInfo
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-
-                    BLL.GoodsCategoryService.DeleteGoodsCategoryById(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除物资类别");
+                    var GoodsCategory = BLL.GoodsCategoryService.GetGoodsCategoryById(rowID);
+                    if (GoodsCategory != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, GoodsCategory.GoodsCategoryCode, GoodsCategory.GoodsCategoryId, BLL.Const.GoodsCategoryMenuId, BLL.Const.BtnDelete);
+                        BLL.GoodsCategoryService.DeleteGoodsCategoryById(rowID);
+                    }
                 }
 
                 BindGrid();
@@ -200,13 +207,13 @@ namespace FineUIPro.Web.BaseInfo
             {
                 GoodsCategory.GoodsCategoryId = SQLHelper.GetNewID(typeof(Model.Base_GoodsCategory));
                 BLL.GoodsCategoryService.AddGoodsCategory(GoodsCategory);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加物资类别");
+                BLL.LogService.AddSys_Log(this.CurrUser, GoodsCategory.GoodsCategoryCode, GoodsCategory.GoodsCategoryId, BLL.Const.GoodsCategoryMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 GoodsCategory.GoodsCategoryId = strRowID;
                 BLL.GoodsCategoryService.UpdateGoodsCategory(GoodsCategory);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改物资类别");
+                BLL.LogService.AddSys_Log(this.CurrUser, GoodsCategory.GoodsCategoryCode, GoodsCategory.GoodsCategoryId, BLL.Const.GoodsCategoryMenuId, BLL.Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行

@@ -42,7 +42,7 @@
                 </Items> 
                 <Items>
                    <f:NumberBox runat="server" ID="txtDuration" Label="项目建设工期(月)" NoDecimal="true"
-                        NoNegative="true" LabelWidth="120px">
+                        NoNegative="true" LabelWidth="160px">
                     </f:NumberBox>
                </Items>                                         
             </f:FormRow>   
@@ -73,25 +73,63 @@
                     </f:DropDownList>     
                 </Items>
             </f:FormRow>  
+            <f:FormRow ID="trAPP" runat="server" Hidden="true"> 
+                <Items>
+                    <f:DropDownBox runat="server" Label="APP领导督查发起人" LabelWidth="160px"  ID="DropDownBox1" DataControlID="RadioButtonList1" EnableMultiSelect="true" Values="js,php">
+                    <PopPanel>
+                        <f:SimpleForm ID="SimpleForm2" BodyPadding="10px" runat="server" AutoScroll="true"
+                            ShowBorder="True" ShowHeader="false" Hidden="true">
+                           <Items>
+                               <f:Label ID="Label1" runat="server" Text="请选择APP领导督查发起人："></f:Label>
+                                <f:CheckBoxList ID="RadioButtonList1" ColumnNumber="3" runat="server"> 
+                                </f:CheckBoxList>
+                           </Items>
+                        </f:SimpleForm>
+                    </PopPanel>
+                </f:DropDownBox>   
+                </Items>
+                <Items>
+                    <f:DropDownBox runat="server" Label="APP领导督查责任人" LabelWidth="160px"  ID="DropDownBox2" DataControlID="RadioButtonList2" EnableMultiSelect="true" Values="js,php">
+                    <PopPanel>
+                        <f:SimpleForm ID="SimpleForm3" BodyPadding="10px" runat="server" AutoScroll="true"
+                            ShowBorder="True" ShowHeader="false" Hidden="true">
+                           <Items>
+                               <f:Label ID="Label2" runat="server" Text="请选择APP领导督查责任人："></f:Label>
+                                <f:CheckBoxList ID="RadioButtonList2" ColumnNumber="3" runat="server"> 
+                                </f:CheckBoxList>
+                           </Items>
+                        </f:SimpleForm>
+                    </PopPanel>
+                </f:DropDownBox>    
+                </Items>
+            </f:FormRow>  
             <f:FormRow>
                  <Items>
                    <f:TextBox ID="txtProjectAddress" runat="server" Label="项目地址" MaxLength="500" ></f:TextBox>
+                   <f:DropDownList ID="drpUnit" Label="项目所属单位" runat="server" EnableEdit="true" LabelWidth="160px">
+                   </f:DropDownList>
                 </Items>
             </f:FormRow> 
             <f:FormRow>
                  <Items>
-                   <f:TextArea ID="txtWorkRange" runat="server" Label="工作范围" MaxLength="500" ></f:TextArea>
+                   <f:TextArea ID="txtWorkRange" runat="server" Label="工作范围" MaxLength="500"  Height="64px"></f:TextArea>
                 </Items>
             </f:FormRow> 
+            <f:FormRow runat="server" ID="trIsForeign" Hidden="true">
+                 <Items>
+                   <f:CheckBox runat="server" ID="ckbIsForeign" Label="海外项目"></f:CheckBox>
+                   <f:Label runat="server" ID="lb1" Hidden="true"></f:Label>
+                </Items>
+            </f:FormRow>   
             <f:FormRow>   
                 <Items>
-                     <f:CheckBox ID="ckIsUpTotalMonth" runat="server" Label="上报月总结" Checked="true" >
+                     <f:CheckBox ID="ckIsUpTotalMonth" runat="server" Label="上报月总结" Checked="true" Hidden="true">
                     </f:CheckBox>
                 </Items>
                 <Items>
                     <f:Label runat="server"></f:Label>
                 </Items>
-            </f:FormRow>     
+            </f:FormRow>   
         </rows>
         <toolbars>
             <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">

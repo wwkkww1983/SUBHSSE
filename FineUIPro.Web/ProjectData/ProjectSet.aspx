@@ -28,11 +28,20 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
-                         <f:TextBox runat="server" Label="项目号" ID="txtProjectCode" EmptyText="输入查询条件" 
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px"></f:TextBox>  
-                            <f:TextBox runat="server" Label="项目名称" ID="txtProjectName" EmptyText="输入查询条件" 
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px"></f:TextBox> 
-                                                    
+                            <f:RadioButtonList runat="server" ID="ckState" AutoPostBack="true" 
+                                OnSelectedIndexChanged="TextBox_TextChanged" Width="240px">
+                                <f:RadioItem Text="全部" Value="0" />
+                                <f:RadioItem Text="施工" Value="1" Selected="true" />
+                                <f:RadioItem Text="完工/暂停" Value="2" />
+                            </f:RadioButtonList>
+                            <f:ToolbarSeparator runat="server"></f:ToolbarSeparator>
+                            <f:TextBox runat="server" Label="项目号" ID="txtProjectCode" EmptyText="输入查询条件" 
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="180px" LabelWidth="70px"></f:TextBox>  
+                            <f:TextBox runat="server" Label="名称" ID="txtProjectName" EmptyText="输入查询条件" 
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="200px" LabelWidth="50px"></f:TextBox> 
+                            <f:DropDownList ID="drpUnit" Label="所属单位" runat="server" EnableEdit="true" LabelWidth="80px" Width="330px"
+                                    AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged">
+                            </f:DropDownList>  
                             <f:ToolbarFill runat="server"></f:ToolbarFill>                        
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" Hidden="true" runat="server">
                             </f:Button> 
@@ -61,11 +70,11 @@
                     <f:RenderField Width="90px" ColumnID="ProjectStateName" DataField="ProjectStateName" SortField="ProjectStateName"
                         FieldType="String" HeaderText="项目状态"  HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="StartDate" DataField="StartDate" SortField="StartDate"
+                    <f:RenderField Width="95px" ColumnID="StartDate" DataField="StartDate" SortField="StartDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="开工日期"
                          HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="EndDate" DataField="EndDate" SortField="EndDate"
+                    <f:RenderField Width="95px" ColumnID="EndDate" DataField="EndDate" SortField="EndDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="竣工日期"
                        HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
@@ -86,7 +95,10 @@
                             <asp:Label ID="lblHSSEM" runat="server" Text='<%# ConvertHSSEManager(Eval("ProjectId")) %>'
                                 ToolTip='<%# ConvertHSSEManager(Eval("ProjectId")) %>'></asp:Label>
                         </ItemTemplate>
-                    </f:TemplateField>                   
+                    </f:TemplateField> 
+                     <f:RenderField Width="200px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
+                        FieldType="String" HeaderText="项目所属单位"  HeaderTextAlign="Center" TextAlign="Left">
+                    </f:RenderField>                 
                      <f:RenderField Width="300px" ColumnID="ProjectAddress" DataField="ProjectAddress" SortField="ProjectAddress" FieldType="String"
                         HeaderText="项目地址"  HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>                
@@ -112,9 +124,9 @@
         </Items>
     </f:Panel> 
     <f:Window ID="Window1" Title="编辑项目信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true"
-        Width="1024px" Height="500px">
-    </f:Window>           
+        Target="Parent" EnableResize="true" runat="server" IsModal="true"
+        Width="1024px" Height="600px">
+    </f:Window>       
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="BulletEdit" EnablePostBack="true" Hidden="true"
             runat="server" Text="编辑">
@@ -123,7 +135,7 @@
                 OnClick="btnView_Click">
             </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" Hidden="true" Icon="Delete"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

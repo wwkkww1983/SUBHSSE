@@ -160,14 +160,14 @@ namespace FineUIPro.Web.Manager
             {
                 completionReport.CompletionReportId = this.CompletionReportId;
                 BLL.CompletionReportService.UpdateCompletionReport(completionReport);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "修改完工报告");
+                BLL.LogService.AddSys_Log(this.CurrUser, completionReport.CompletionReportCode, completionReport.CompletionReportId, BLL.Const.ProjectCompletionReportMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.CompletionReportId = SQLHelper.GetNewID(typeof(Model.Manager_CompletionReport));
                 completionReport.CompletionReportId = this.CompletionReportId;
                 BLL.CompletionReportService.AddCompletionReport(completionReport);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "添加完工报告");
+                BLL.LogService.AddSys_Log(this.CurrUser, completionReport.CompletionReportCode, completionReport.CompletionReportId, BLL.Const.ProjectCompletionReportMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectCompletionReportMenuId, this.CompletionReportId, (type == BLL.Const.BtnSubmit ? true : false), completionReport.CompletionReportName, "../Manager/CompletionReportView.aspx?CompletionReportId={0}");

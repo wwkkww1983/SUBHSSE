@@ -286,14 +286,14 @@ namespace FineUIPro.Web.Manager
             {
                 newHSSELog.HSSELogId = this.HSSELogId;
                 BLL.HSSELogService.UpdateHSSELog(newHSSELog);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改HSSE日志暨管理数据收集", newHSSELog.HSSELogId);
+                BLL.LogService.AddSys_Log(this.CurrUser, null, newHSSELog.HSSELogId, BLL.Const.ProjectHSSELogMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.HSSELogId = SQLHelper.GetNewID(typeof(Model.Manager_HSSELog));
                 newHSSELog.HSSELogId = this.HSSELogId;
                 BLL.HSSELogService.AddHSSELog(newHSSELog);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加HSSE日志暨管理数据收集", newHSSELog.HSSELogId);
+                BLL.LogService.AddSys_Log(this.CurrUser, null, newHSSELog.HSSELogId, BLL.Const.ProjectHSSELogMenuId, BLL.Const.BtnAdd);
             }
         }
         #endregion               

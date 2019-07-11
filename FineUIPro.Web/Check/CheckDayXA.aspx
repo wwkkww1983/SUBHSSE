@@ -77,21 +77,20 @@
                     <f:RenderField Width="100px" ColumnID="CheckDayCode" DataField="CheckDayCode" SortField="CheckDayCode"
                         FieldType="String" HeaderText="检查编号" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:TemplateField Width="200px" HeaderText="受检单位/班组" HeaderTextAlign="Center" TextAlign="Center">
+                    <f:TemplateField Width="250px" HeaderText="受检单位/班组" HeaderTextAlign="Center" TextAlign="Left">
                         <ItemTemplate>
                             <asp:Label ID="Label2" runat="server" Text='<%# ConvertUnitOrTeamGroup(Eval("CheckDayId")) %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:TemplateField Width="200px" HeaderText="检查区域" HeaderTextAlign="Center" TextAlign="Center">
+                    <f:TemplateField Width="130px" HeaderText="检查区域" HeaderTextAlign="Center" TextAlign="Center">
                         <ItemTemplate>
                             <asp:Label ID="Label1" runat="server" Text='<%# ConvertWorkArea(Eval("WorkAreaIds")) %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="100px" ColumnID="NotOKNum" DataField="NotOKNum" SortField="NotOKNum"
+                    <f:RenderField Width="90px" ColumnID="NotOKNum" DataField="NotOKNum" SortField="NotOKNum"
                         FieldType="String" HeaderText="不合格数" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:TemplateField Width="200px" HeaderText="不合格项描述" HeaderTextAlign="Center" TextAlign="Center"
-                                >
+                    <f:TemplateField Width="200px" HeaderText="不合格项描述" HeaderTextAlign="Center" TextAlign="Center"  >
                                 <ItemTemplate>
                                     <asp:Label ID="lblWorkStage" runat="server" Text='<%# ConvertUnqualified(Eval("Unqualified")) %>' ToolTip='<%# Bind("Unqualified") %>'></asp:Label>
                                 </ItemTemplate>
@@ -107,7 +106,7 @@
                         SortField="FlowOperateName" FieldType="String" HeaderText="状态" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>--%>
-                    <f:LinkButtonField Width="100px" HeaderText="整改情况" ConfirmTarget="Top" CommandName="Handle"
+                    <f:LinkButtonField Width="100px" HeaderText="整改情况" ConfirmTarget="Parent" CommandName="Handle"
                         TextAlign="Center" ToolTip="整改情况" Text="整改情况"/>
                         <f:TemplateField Width="200px" HeaderText="整改情况" HeaderTextAlign="Center" TextAlign="Center"
                                 >

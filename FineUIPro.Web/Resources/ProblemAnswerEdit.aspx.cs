@@ -82,13 +82,13 @@ namespace FineUIPro.Web.Resources
                 this.ProblemAnswerId = SQLHelper.GetNewID(typeof(Model.Resources_ProblemAnswer));
                 newProblemAnswer.ProblemAnswerId = this.ProblemAnswerId; 
                 BLL.ProblemAnswerService.AddProblemAnswer(newProblemAnswer);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加资料信息", newProblemAnswer.ProblemAnswerId);
+                BLL.LogService.AddSys_Log(this.CurrUser, newProblemAnswer.Answer, newProblemAnswer.ProblemAnswerId, BLL.Const.ProblemAnswerMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 newProblemAnswer.ProblemAnswerId = this.ProblemAnswerId;
                 BLL.ProblemAnswerService.UpdateProblemAnswer(newProblemAnswer);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改资料信息", newProblemAnswer.ProblemAnswerId);
+                BLL.LogService.AddSys_Log(this.CurrUser, newProblemAnswer.Answer, newProblemAnswer.ProblemAnswerId, BLL.Const.ProblemAnswerMenuId, BLL.Const.BtnModify);
             }
             if (isClose)
             {

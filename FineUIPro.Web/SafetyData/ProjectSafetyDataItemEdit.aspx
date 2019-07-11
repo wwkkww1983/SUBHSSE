@@ -12,6 +12,7 @@
         {
             color: #FF7575;
             background-image: none;
+            font-size:small;
         }
     </style>
 </head>
@@ -31,22 +32,24 @@
             </f:FormRow>
              <f:FormRow>
                 <Items>
-                    <f:DatePicker ID="txtCompileDate" runat="server" Label="单据日期" LabelAlign="Right" Required="true" ShowRedStar="true"
-                        EnableEdit="true">
+                    <f:DatePicker ID="txtCompileDate" runat="server" Label="所属时段" LabelAlign="Right" Required="true" ShowRedStar="true"
+                        EnableEdit="true" AutoPostBack="true" OnTextChanged="txtCompileDate_TextChanged">
                     </f:DatePicker>  
                      <f:TextBox ID="txtSubmitDate" runat="server" Label="提交日期"  Required="true" ShowRedStar="true" Readonly="true">
                     </f:TextBox>                   
                 </Items>
             </f:FormRow>
-            <f:FormRow>
+             <f:FormRow>
                 <Items>
-                    <f:Label ID="Label1" runat="server" CssClass="fontred" Label="说明" Text="单据时间：要在列表开始时间与结束时间内。提交时间：为系统默认时间。" LabelAlign="right" LabelWidth="50px"></f:Label>
+                    <f:Label ID="Label2" runat="server" CssClass="fontred" Label="说明" LabelAlign="right" LabelWidth="50px"></f:Label>
+                        <f:HiddenField ID="hdRealStartDate" runat="server"></f:HiddenField>
+                    <f:HiddenField ID="hdRealEndDate" runat="server"></f:HiddenField>
                 </Items>
-            </f:FormRow> 
+            </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:HtmlEditor runat="server" Label="文件内容" ID="txtFileContent" ShowLabel="false"
-                        Editor="UMEditor" BasePath="~/res/umeditor/" ToolbarSet="Full" Height="400" LabelAlign="Right">
+                        Editor="UMEditor" BasePath="~/res/umeditor/" ToolbarSet="Full" Height="380" LabelAlign="Right">
                     </f:HtmlEditor>
                 </Items>
             </f:FormRow>       

@@ -267,7 +267,7 @@ namespace FineUIPro.Web.Check
                 this.CheckDayId = checkDay.CheckDayId;
                 checkDay.CompileMan = this.CurrUser.UserId;
                 BLL.Check_CheckDayService.AddCheckDay(checkDay);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加日常巡检", checkDay.CheckDayId);
+                BLL.LogService.AddSys_Log(this.CurrUser, checkDay.CheckDayCode, checkDay.CheckDayId, BLL.Const.ProjectCheckDayMenuId, BLL.Const.BtnAdd);
             }
         }
 
@@ -374,7 +374,7 @@ namespace FineUIPro.Web.Check
             {
                 checkDay.CheckDayId = this.CheckDayId;
                 BLL.Check_CheckDayService.UpdateCheckDay(checkDay);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改日常巡检", checkDay.CheckDayId);
+                BLL.LogService.AddSys_Log(this.CurrUser, checkDay.CheckDayCode, checkDay.CheckDayId, BLL.Const.ProjectCheckDayMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -382,7 +382,7 @@ namespace FineUIPro.Web.Check
                 this.CheckDayId = checkDay.CheckDayId;
                 checkDay.CompileMan = this.CurrUser.UserId;
                 BLL.Check_CheckDayService.AddCheckDay(checkDay);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加日常巡检", checkDay.CheckDayId);
+                BLL.LogService.AddSys_Log(this.CurrUser, checkDay.CheckDayCode, checkDay.CheckDayId, BLL.Const.ProjectCheckDayMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectCheckDayMenuId, this.CheckDayId, (type == BLL.Const.BtnSubmit ? true : false), this.txtCheckDate.Text.Trim(), "../Check/CheckDayView.aspx?CheckDayId={0}");
@@ -561,5 +561,20 @@ namespace FineUIPro.Web.Check
             }
         }
         #endregion
+        
+        /// <summary>
+        /// 导入
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnImport_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.CheckDayId))
+            {
+                this.SaveData(BLL.Const.BtnSave);
+            }
+
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckDayDetailIn.aspx?CheckDayId={0}", this.CheckDayId, "导入 - "), "导入", 1024, 560));
+        }
     }
 }

@@ -106,7 +106,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="奖励通知单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="1100px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1100px"
         Height="520px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
@@ -114,7 +114,7 @@
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server"
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server"
             Text="删除">
         </f:MenuButton>
     </f:Menu>

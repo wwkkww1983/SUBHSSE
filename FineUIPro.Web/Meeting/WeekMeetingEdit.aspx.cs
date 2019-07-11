@@ -174,14 +174,14 @@ namespace FineUIPro.Web.Meeting
             {
                 weekMeeting.WeekMeetingId = this.WeekMeetingId;
                 BLL.WeekMeetingService.UpdateWeekMeeting(weekMeeting);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改安全周例会", weekMeeting.WeekMeetingId);
+                BLL.LogService.AddSys_Log(this.CurrUser, weekMeeting.WeekMeetingCode, weekMeeting.WeekMeetingId, BLL.Const.ProjectWeekMeetingMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.WeekMeetingId = SQLHelper.GetNewID(typeof(Model.Meeting_WeekMeeting));
                 weekMeeting.WeekMeetingId = this.WeekMeetingId;
                 BLL.WeekMeetingService.AddWeekMeeting(weekMeeting);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加安全周例会", weekMeeting.WeekMeetingId);
+                BLL.LogService.AddSys_Log(this.CurrUser, weekMeeting.WeekMeetingCode, weekMeeting.WeekMeetingId, BLL.Const.ProjectWeekMeetingMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectWeekMeetingMenuId, this.WeekMeetingId, (type == BLL.Const.BtnSubmit ? true : false), weekMeeting.WeekMeetingName, "../Meeting/WeekMeetingView.aspx?WeekMeetingId={0}");
@@ -203,5 +203,34 @@ namespace FineUIPro.Web.Meeting
             PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/WeekMeetingAttachUrl&menuId={1}", WeekMeetingId,BLL.Const.ProjectWeekMeetingMenuId)));
         }
         #endregion
+
+        /// <summary>
+        ///  计算参会人数
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void txtAttentPerson_Blur(object sender, EventArgs e)
+        {
+            string str = this.txtAttentPerson.Text.Trim();
+            if (!string.IsNullOrEmpty(str))
+            {
+                if (str.Contains(","))
+                {
+                    this.txtAttentPersonNum.Text = str.Split(',').Length.ToString();
+                }
+                else if (str.Contains("，"))
+                {
+                    this.txtAttentPersonNum.Text = str.Split('，').Length.ToString();
+                }
+                else if (str.Contains(";"))
+                {
+                    this.txtAttentPersonNum.Text = str.Split(';').Length.ToString();
+                }
+                else if (str.Contains("；"))
+                {
+                    this.txtAttentPersonNum.Text = str.Split('；').Length.ToString();
+                }
+            }
+        }
     }
 }

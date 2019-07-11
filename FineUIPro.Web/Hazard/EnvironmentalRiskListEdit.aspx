@@ -60,7 +60,7 @@
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1"
                         DataIDField="EnvironmentalRiskItemId" DataKeyNames="EnvironmentalRiskItemId"
                         EnableMultiSelect="true" ShowGridHeader="true" EnableColumnLines="true" AllowSorting="true"
-                        SortField="SmallTypeName" SortDirection="DESC" AutoScroll="true" EnableRowDoubleClickEvent="true"
+                        SortField="SmallTypeName" SortDirection="DESC" EnableRowDoubleClickEvent="true"
                         OnRowDoubleClick="Grid1_RowDoubleClick">
                         <Toolbars>
                             <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
@@ -181,15 +181,15 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="Window1" Title="编辑危险源明细" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="850px" Height="380px">
     </f:Window>
     <f:Window ID="Window2" Title="选择危险源明细" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="1200px" Height="520px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
@@ -197,7 +197,7 @@
             Icon="Pencil" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Icon="Delete" ConfirmText="确定删除当前数据？" ConfirmTarget="Top" runat="server" Text="删除">
+            Icon="Delete" ConfirmText="确定删除当前数据？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

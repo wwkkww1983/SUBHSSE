@@ -88,77 +88,44 @@ namespace FineUIPro.Web.Manager
                 {
                     this.MonthReportId = monthReport.MonthReportId;
                     this.ProjectId = monthReport.ProjectId;
+                    months = Convert.ToDateTime(monthReport.Months);
                     Model.SUBHSSEDB db = Funs.DB;
-                    GetFiveExpenseList(); //五环HSE费用投入
+                    this.nbMainCost1.Text = (monthReport.MainCost1 ?? 0).ToString();
+                    this.nbMainProjectCost1.Text = (monthReport.MainProjectCost1 ?? 0).ToString();
+                    this.nbSubCost1.Text = (monthReport.SubCost1 ?? 0).ToString();
+                    this.nbSubProjectCost1.Text = (monthReport.SubProjectCost1 ?? 0).ToString();
+                    this.nbMainCost2.Text = (monthReport.MainCost2 ?? 0).ToString();
+                    this.nbMainProjectCost2.Text = (monthReport.MainProjectCost2 ?? 0).ToString();
+                    this.nbSubCost2.Text = (monthReport.SubCost2 ?? 0).ToString();
+                    this.nbSubProjectCost2.Text = (monthReport.SubProjectCost2 ?? 0).ToString();
+                    this.nbMainCost3.Text = (monthReport.MainCost3 ?? 0).ToString();
+                    this.nbMainProjectCost3.Text = (monthReport.MainProjectCost3 ?? 0).ToString();
+                    this.nbSubCost3.Text = (monthReport.SubCost3 ?? 0).ToString();
+                    this.nbSubProjectCost3.Text = (monthReport.SubProjectCost3 ?? 0).ToString();
+                    this.nbMainCost4.Text = (monthReport.MainCost4 ?? 0).ToString();
+                    this.nbMainProjectCost4.Text = (monthReport.MainProjectCost4 ?? 0).ToString();
+                    this.nbSubCost4.Text = (monthReport.SubCost4 ?? 0).ToString();
+                    this.nbSubProjectCost4.Text = (monthReport.SubProjectCost4 ?? 0).ToString();
+                    this.nbMainCost5.Text = (monthReport.MainCost5 ?? 0).ToString();
+                    this.nbMainProjectCost5.Text = (monthReport.MainProjectCost5 ?? 0).ToString();
+                    this.nbSubCost5.Text = (monthReport.SubCost5 ?? 0).ToString();
+                    this.nbSubProjectCost5.Text = (monthReport.SubProjectCost5 ?? 0).ToString();
+                    this.nbMainCost6.Text = (monthReport.MainCost6 ?? 0).ToString();
+                    this.nbMainProjectCost6.Text = (monthReport.MainProjectCost6 ?? 0).ToString();
+                    this.nbSubCost6.Text = (monthReport.SubCost6 ?? 0).ToString();
+                    this.nbSubProjectCost6.Text = (monthReport.SubProjectCost6 ?? 0).ToString();
+                    this.nbMainCost7.Text = (monthReport.MainCost7 ?? 0).ToString();
+                    this.nbMainProjectCost7.Text = (monthReport.MainProjectCost7 ?? 0).ToString();
+                    this.nbSubCost7.Text = (monthReport.SubCost7 ?? 0).ToString();
+                    this.nbSubProjectCost7.Text = (monthReport.SubProjectCost7 ?? 0).ToString();
+                    this.nbMainCost.Text = (monthReport.MainCost ?? 0).ToString();
+                    this.nbMainProjectCost.Text = (monthReport.MainProjectCost ?? 0).ToString();
+                    this.nbSubCost.Text = (monthReport.SubCost ?? 0).ToString();
+                    this.nbSubProjectCost.Text = (monthReport.SubProjectCost ?? 0).ToString();
+                    this.nbJianAnCost.Text = (monthReport.JianAnCost ?? 0).ToString();
+                    this.nbJianAnProjectCost.Text = (monthReport.JianAnProjectCost ?? 0).ToString();
                 }
             }
-        }
-        #endregion
-
-        #region 五环费用投入
-        /// <summary>
-        /// 五环费用投入
-        /// </summary>
-        private void GetFiveExpenseList()
-        {
-            decimal? sMonthType1 = 0, sMonthType2 = 0, sMonthType3 = 0, sMonthType4 = 0, sMonthType5 = 0, sMonthType6 = 0;
-            decimal? tMonthType1 = 0, tMonthType2 = 0;
-            List<Model.CostGoods_PayRegistration> payRegistrations = BLL.PayRegistrationService.GetPayRegistrationByPayDate(startTime, endTime, this.ProjectId);
-            if (payRegistrations != null)
-            {
-                foreach (var item in payRegistrations)
-                {
-                    sMonthType1 += item.SMonthType1_1 + item.SMonthType1_2 + item.SMonthType1_3 + item.SMonthType1_4 + item.SMonthType1_5 + item.SMonthType1_6 + item.SMonthType1_7 + item.SMonthType1_8 + item.SMonthType1_9 + item.SMonthType1_10 + item.SMonthType1_11 + item.SMonthType1_12 + item.SMonthType1_13 + item.SMonthType1_14 + item.SMonthType1_15 + item.SMonthType1_16;
-                    sMonthType2 += item.SMonthType2_1 + item.SMonthType2_2 + item.SMonthType2_3 + item.SMonthType2_4;
-                    sMonthType3 += item.SMonthType3_1 + item.SMonthType3_2 + item.SMonthType3_3 + item.SMonthType3_4 + item.SMonthType3_5 + item.SMonthType3_6;
-                    sMonthType4 += item.SMonthType4_1 + item.SMonthType4_2 + item.SMonthType4_3 + item.SMonthType4_4 + item.SMonthType4_5 + item.SMonthType4_6 + item.SMonthType4_7 + item.SMonthType4_8 + item.SMonthType4_9 + item.SMonthType4_10 + item.SMonthType4_11 + item.SMonthType4_12 + item.SMonthType4_13 + item.SMonthType4_14 + item.SMonthType4_15 + item.SMonthType4_16 + item.SMonthType4_17 + item.SMonthType4_18 + item.SMonthType4_19 + item.SMonthType4_20 + item.SMonthType4_21 + item.SMonthType4_22 + item.SMonthType4_23 + item.SMonthType4_24 + item.SMonthType4_25 + item.SMonthType4_26 + item.SMonthType4_27 + item.SMonthType4_28 + item.SMonthType4_29 + item.SMonthType4_30 + item.SMonthType4_31 + item.SMonthType4_32 + item.SMonthType4_33 + item.SMonthType4_34 + item.SMonthType4_35 + item.SMonthType4_35 + item.SMonthType4_36 + item.SMonthType4_37 + item.SMonthType4_38 + item.SMonthType4_39 + item.SMonthType4_40;
-                    sMonthType5 += item.SMonthType5_1 + item.SMonthType5_2 + item.SMonthType5_3 + item.SMonthType5_4 + item.SMonthType5_5 + item.SMonthType5_6;
-                    sMonthType6 += item.SMonthType6_1 + item.SMonthType6_2 + item.SMonthType6_3;
-                    tMonthType1 += item.TMonthType1_1 + item.TMonthType1_2 + item.TMonthType1_3 + item.TMonthType1_4 + item.TMonthType1_5 + item.TMonthType1_6 + item.TMonthType1_7 + item.TMonthType1_8 + item.TMonthType1_9 + item.TMonthType1_10 + item.TMonthType1_11;
-                    tMonthType2 += item.TMonthType2_1 + item.TMonthType2_2 + item.TMonthType2_3 + item.TMonthType2_4 + item.TMonthType2_5 + item.TMonthType2_6 + item.TMonthType2_7 + item.TMonthType2_8 + item.TMonthType2_9;
-                }
-                this.txtSMonthType1.Text = sMonthType1.ToString();
-                this.txtSMonthType2.Text = sMonthType2.ToString();
-                this.txtSMonthType3.Text = sMonthType3.ToString();
-                this.txtSMonthType4.Text = sMonthType4.ToString();
-                this.txtSMonthType5.Text = sMonthType5.ToString();
-                this.txtSMonthType6.Text = sMonthType6.ToString();
-                this.txtTMonthType1.Text = tMonthType1.ToString();
-                this.txtTMonthType2.Text = tMonthType2.ToString();
-            }
-            decimal? yearSMonthType1 = 0, yearSMonthType2 = 0, yearSMonthType3 = 0, yearSMonthType4 = 0, yearSMonthType5 = 0, yearSMonthType6 = 0;
-            decimal? yearTMonthType1 = 0, yearTMonthType2 = 0;
-            Model.Manager_MonthReportC mc = BLL.MonthReportCService.GetMonthReportByMonthReportId(Request.Params["monthReportId"]);
-            DateTime? monthReportDate = null;
-            if (mc != null)
-            {
-                monthReportDate = mc.MonthReportDate;
-            }
-            else
-            {
-                monthReportDate = DateTime.Now;
-            }
-            var yPayRegistrations = BLL.PayRegistrationService.GetPayRegistrationByYear(this.ProjectId, monthReportDate.Value);
-            foreach (var item in yPayRegistrations)
-            {
-                yearSMonthType1 += item.SMonthType1_1 + item.SMonthType1_2 + item.SMonthType1_3 + item.SMonthType1_4 + item.SMonthType1_5 + item.SMonthType1_6 + item.SMonthType1_7 + item.SMonthType1_8 + item.SMonthType1_9 + item.SMonthType1_10 + item.SMonthType1_11 + item.SMonthType1_12 + item.SMonthType1_13 + item.SMonthType1_14 + item.SMonthType1_15 + item.SMonthType1_16;
-                yearSMonthType2 += item.SMonthType2_1 + item.SMonthType2_2 + item.SMonthType2_3 + item.SMonthType2_4;
-                yearSMonthType3 += item.SMonthType3_1 + item.SMonthType3_2 + item.SMonthType3_3 + item.SMonthType3_4 + item.SMonthType3_5 + item.SMonthType3_6;
-                yearSMonthType4 += item.SMonthType4_1 + item.SMonthType4_2 + item.SMonthType4_3 + item.SMonthType4_4 + item.SMonthType4_5 + item.SMonthType4_6 + item.SMonthType4_7 + item.SMonthType4_8 + item.SMonthType4_9 + item.SMonthType4_10 + item.SMonthType4_11 + item.SMonthType4_12 + item.SMonthType4_13 + item.SMonthType4_14 + item.SMonthType4_15 + item.SMonthType4_16 + item.SMonthType4_17 + item.SMonthType4_18 + item.SMonthType4_19 + item.SMonthType4_20 + item.SMonthType4_21 + item.SMonthType4_22 + item.SMonthType4_23 + item.SMonthType4_24 + item.SMonthType4_25 + item.SMonthType4_26 + item.SMonthType4_27 + item.SMonthType4_28 + item.SMonthType4_29 + item.SMonthType4_30 + item.SMonthType4_31 + item.SMonthType4_32 + item.SMonthType4_33 + item.SMonthType4_34 + item.SMonthType4_35 + item.SMonthType4_35 + item.SMonthType4_36 + item.SMonthType4_37 + item.SMonthType4_38 + item.SMonthType4_39 + item.SMonthType4_40;
-                yearSMonthType5 += item.SMonthType5_1 + item.SMonthType5_2 + item.SMonthType5_3 + item.SMonthType5_4 + item.SMonthType5_5 + item.SMonthType5_6;
-                yearSMonthType6 += item.SMonthType6_1 + item.SMonthType6_2 + item.SMonthType6_3;
-                yearTMonthType1 += item.TMonthType1_1 + item.TMonthType1_2 + item.TMonthType1_3 + item.TMonthType1_4 + item.TMonthType1_5 + item.TMonthType1_6 + item.TMonthType1_7 + item.TMonthType1_8 + item.TMonthType1_9 + item.TMonthType1_10 + item.TMonthType1_11;
-                yearTMonthType2 += item.TMonthType2_1 + item.TMonthType2_2 + item.TMonthType2_3 + item.TMonthType2_4 + item.TMonthType2_5 + item.TMonthType2_6 + item.TMonthType2_7 + item.TMonthType2_8 + item.TMonthType2_9;
-
-            }
-            this.txtYearSMonthType1.Text = yearSMonthType1.ToString();
-            this.txtYearSMonthType2.Text = yearSMonthType2.ToString();
-            this.txtYearSMonthType3.Text = yearSMonthType3.ToString();
-            this.txtYearSMonthType4.Text = yearSMonthType4.ToString();
-            this.txtYearSMonthType5.Text = yearSMonthType5.ToString();
-            this.txtYearSMonthType6.Text = yearSMonthType6.ToString();
-            this.txtYearTMonthType1.Text = yearTMonthType1.ToString();
-            this.txtYearTMonthType2.Text = yearTMonthType2.ToString();
         }
         #endregion
     }

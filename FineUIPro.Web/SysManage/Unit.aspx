@@ -20,8 +20,8 @@
         <Items>
             <f:Grid ID="Grid1" ShowBorder="true"  EnableCollapse="true" ShowHeader="false"
                 runat="server" BoxFlex="1" DataKeyNames="UnitId" AllowCellEditing="true" EnableColumnLines="true"
-                ClicksToEdit="2" DataIDField="UnitId" AllowSorting="true" SortField="IsThisUnit"
-                SortDirection="DESC" OnSort="Grid1_Sort"  AllowPaging="true" IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"
+                ClicksToEdit="2" DataIDField="UnitId" AllowSorting="true" SortField="UnitCode"
+                SortDirection="ASC" OnSort="Grid1_Sort"  AllowPaging="true" IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"
                 EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True">
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server">
@@ -54,7 +54,8 @@
                     <f:RenderField Width="160px" ColumnID="EMail" DataField="EMail"   Hidden="true"
                         FieldType="String" HeaderText="邮箱" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:CheckBoxField Width="75px" RenderAsStaticField="true" TextAlign="Center"  DataField="IsThisUnit" HeaderText="本单位" />                   
+                    <f:CheckBoxField Width="75px" RenderAsStaticField="true" TextAlign="Center"  DataField="IsThisUnit" HeaderText="本单位" /> 
+                    <f:CheckBoxField Width="75px" RenderAsStaticField="true" TextAlign="Center"  DataField="IsBranch" HeaderText="分公司" />
                     <f:WindowField ColumnID="SubUnit" Width="80px" WindowID="WindowSubUnit" HeaderText="资质"
                                 Text="详细" ToolTip="资质详细信息" DataTextFormatString="{0}" DataIFrameUrlFields="UnitId"
                                 DataIFrameUrlFormatString="../QualityAudit/SubUnitQualityEdit.aspx?UnitId={0}"/>             
@@ -81,18 +82,18 @@
     </f:Panel>
     <f:Window ID="Window1" Title="单位设置" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Self" EnableResize="true" runat="server"  IsModal="true"
-        Width="1000px" Height="350px">
+        Width="1000px" Height="420px">
     </f:Window>
     <f:Window ID="WindowSubUnit" Title="分包商资质详细信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true"
-        Width="1024px" Height="460px">
+        Width="1100px" Height="540px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true" Hidden="true"
             runat="server" Text="编辑" Icon="TableEdit">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" Hidden="true"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除" Icon="Delete">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除" Icon="Delete">
         </f:MenuButton>
     </f:Menu>
     </form>

@@ -136,13 +136,13 @@ namespace FineUIPro.Web.Check
                         checkItemSet.CheckItemSetId = SQLHelper.GetNewID(typeof(Model.Check_ProjectCheckItemSet));
                         checkItemSet.ProjectId = this.CurrUser.LoginProjectId;
                         BLL.Check_ProjectCheckItemSetService.AddCheckItemSet(checkItemSet);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "增加检查项目设置信息");
+                        BLL.LogService.AddSys_Log(this.CurrUser, checkItemSet.MapCode, checkItemSet.CheckItemSetId, BLL.Const.ProjectCheckItemSetMenuId, BLL.Const.BtnAdd);
                     }
                     else
                     {
                         checkItemSet.CheckItemSetId = this.CheckItemSetId;
                         BLL.Check_ProjectCheckItemSetService.UpdateCheckItemSet(checkItemSet);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改检查项目设置信息");
+                        BLL.LogService.AddSys_Log(this.CurrUser, checkItemSet.MapCode, checkItemSet.CheckItemSetId, BLL.Const.ProjectCheckItemSetMenuId, BLL.Const.BtnModify);
                     }
                 }
                 else

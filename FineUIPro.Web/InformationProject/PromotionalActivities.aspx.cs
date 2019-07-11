@@ -181,12 +181,16 @@ namespace FineUIPro.Web.InformationProject
         protected void btnMenuDelete_Click(object sender, EventArgs e)
         {
             if (Grid1.SelectedRowIndexArray.Length > 0)
-            {               
+            {
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除安全宣传活动", rowID);
-                    BLL.PromotionalActivitiesService.DeletePromotionalActivitiesById(rowID);
+                    var PromotionalActivities = BLL.PromotionalActivitiesService.GetPromotionalActivitiesById(rowID);
+                    if (PromotionalActivities != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, PromotionalActivities.Code, PromotionalActivities.PromotionalActivitiesId, BLL.Const.ProjectPromotionalActivitiesMenuId, BLL.Const.BtnDelete);
+                        BLL.PromotionalActivitiesService.DeletePromotionalActivitiesById(rowID);
+                    }
                 }
 
                 this.BindGrid();

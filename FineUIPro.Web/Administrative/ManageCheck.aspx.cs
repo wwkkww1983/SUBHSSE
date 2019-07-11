@@ -117,6 +117,7 @@ namespace FineUIPro.Web.Administrative
                 }
             }
             this.BindGrid();
+            BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ManageCheckMenuId, Const.BtnQuery);
         }
 
         /// <summary>
@@ -147,9 +148,7 @@ namespace FineUIPro.Web.Administrative
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Grid1_Sort(object sender, FineUIPro.GridSortEventArgs e)
-        {
-            Grid1.SortDirection = e.SortDirection;
-            Grid1.SortField = e.SortField;
+        {          
             BindGrid();
         }
 
@@ -225,9 +224,12 @@ namespace FineUIPro.Web.Administrative
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除行政管理检查纪录", rowID);
-                    BLL.ManageCheckItemService.DeleteMangeCheckItemByManageCheckId(rowID);
-                    BLL.ManageCheckService.DeleteManageCheckById(rowID);
+                    var getManageCheck = BLL.ManageCheckService.GetManageCheckById(rowID);
+                    if (getManageCheck != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getManageCheck.ManageCheckCode, getManageCheck.ManageCheckId, BLL.Const.ManageCheckMenuId, Const.BtnDelete);                        
+                        BLL.ManageCheckService.DeleteManageCheckById(rowID);
+                    }
                 }
 
                 this.BindGrid();
@@ -292,7 +294,7 @@ namespace FineUIPro.Web.Administrative
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void btnOut_Click(object sender, EventArgs e)
-        {
+        {            
             Response.ClearContent();
             string filename = Funs.GetNewFileName();
             Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("行政管理检查记录" + filename, System.Text.Encoding.UTF8) + ".xls");
@@ -302,6 +304,7 @@ namespace FineUIPro.Web.Administrative
             this.BindGrid();
             Response.Write(GetGridTableHtml(Grid1));
             Response.End();
+            BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ManageCheckMenuId, Const.BtnOut);
         }
 
         /// <summary>

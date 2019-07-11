@@ -203,9 +203,13 @@ namespace FineUIPro.Web.CostGoods
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除安全费用管理", rowID);
-                    BLL.CostManageItemService.DeleteCostManageItemByCostManageId(rowID);
-                    BLL.CostManageService.DeleteCostManageById(rowID);
+                    var costManage= BLL.CostManageService.GetCostManageById(rowID);
+                    if (costManage != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, costManage.CostManageCode, costManage.CostManageId, BLL.Const.ProjectCostManageMenuId, BLL.Const.BtnDelete);
+                        BLL.CostManageItemService.DeleteCostManageItemByCostManageId(rowID);
+                        BLL.CostManageService.DeleteCostManageById(rowID);
+                    }
                 }
 
                 this.BindGrid();

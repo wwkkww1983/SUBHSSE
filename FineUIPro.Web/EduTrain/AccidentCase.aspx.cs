@@ -152,10 +152,10 @@ namespace FineUIPro.Web.EduTrain
         {
             if (this.trAccidentCase.SelectedNode != null)
             {
-                    var q = BLL.AccidentCaseService.GetAccidentCaseById(this.trAccidentCase.SelectedNode.NodeID);
-
-                    if (q != null && BLL.AccidentCaseService.IsDeleteAccidentCase(this.trAccidentCase.SelectedNode.NodeID))
+                    var accidentCase = BLL.AccidentCaseService.GetAccidentCaseById(this.trAccidentCase.SelectedNode.NodeID);
+                    if (accidentCase != null && BLL.AccidentCaseService.IsDeleteAccidentCase(this.trAccidentCase.SelectedNode.NodeID))
                     {
+                        BLL.LogService.AddSys_Log(this.CurrUser, accidentCase.AccidentCaseCode, accidentCase.AccidentCaseId, BLL.Const.AccidentCaseMenuId, BLL.Const.BtnDelete);
                         BLL.AccidentCaseService.DeleteAccidentCaseByAccidentCaseId(this.trAccidentCase.SelectedNode.NodeID);
                         InitTreeMenu();
                     }
@@ -273,8 +273,12 @@ namespace FineUIPro.Web.EduTrain
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.AccidentCaseItemService.DeleteAccidentCaseItemId(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除事故案例库");
+                    var getV = BLL.AccidentCaseItemService.GetAccidentCaseItemById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.AccidentName, getV.AccidentCaseItemId, BLL.Const.AccidentCaseMenuId, BLL.Const.BtnDelete);
+                        BLL.AccidentCaseItemService.DeleteAccidentCaseItemId(rowID);
+                    }
                 }
 
                 BindGrid();

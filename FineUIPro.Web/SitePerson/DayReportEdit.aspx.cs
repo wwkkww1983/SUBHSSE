@@ -163,8 +163,9 @@ namespace FineUIPro.Web.SitePerson
                 {
                     dayReport.States = this.ctlAuditFlow.NextStep;
                 }
+
                 BLL.SitePerson_DayReportService.UpdateDayReport(dayReport);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改人工时日报", dayReport.DayReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, null, dayReport.DayReportId, BLL.Const.DayReportMenuId, BLL.Const.BtnModify);
                 ////保存流程审核数据         
                 this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.DayReportMenuId, this.DayReportId, (type == BLL.Const.BtnSubmit ? true : false), this.txtCompileDate.Text.Trim(), "../SitePerson/DayReportView.aspx?DayReportId={0}");
             }

@@ -159,13 +159,13 @@ namespace FineUIPro.Web.Law
                 this.ManageRuleId = SQLHelper.GetNewID(typeof(Model.Law_ManageRule));
                 manageRule.ManageRuleId = this.ManageRuleId;
                 BLL.ManageRuleService.AddManageRule(manageRule);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "增加安全管理规定");
+                BLL.LogService.AddSys_Log(this.CurrUser, manageRule.ManageRuleCode, manageRule.ManageRuleId, BLL.Const.ManageRuleMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 manageRule.ManageRuleId = this.ManageRuleId;
                 BLL.ManageRuleService.UpdateManageRule(manageRule);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改安全管理规定");
+                BLL.LogService.AddSys_Log(this.CurrUser, manageRule.ManageRuleCode, manageRule.ManageRuleId, BLL.Const.ManageRuleMenuId, BLL.Const.BtnModify);
             }
             if (isColose)
             {
@@ -230,11 +230,11 @@ namespace FineUIPro.Web.Law
                         BLL.ManageRuleService.UpdateManageRule(manageRule);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全管理规定】上报到集团公司" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全管理规定】上报到集团公司" + idList.Count.ToString() + "条数据；", null, BLL.Const.ManageRuleMenuId, BLL.Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全管理规定】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全管理规定】上报到集团公司失败；", null, BLL.Const.ManageRuleMenuId, BLL.Const.BtnUploadResources);
             }
         }
         #endregion
@@ -261,6 +261,10 @@ namespace FineUIPro.Web.Law
         /// </summary>
         private void GetButtonPower()
         {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
             var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.ManageRuleMenuId);
             if (buttonList.Count() > 0)
             {
@@ -300,11 +304,18 @@ namespace FineUIPro.Web.Law
         /// <param name="e"></param>
         protected void btnUploadResources_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.ManageRuleId))
+            if (this.btnSave.Hidden)
             {
-                SaveData(BLL.Const.UpState_1, false);
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ManageRule&type=-1", ManageRuleId, BLL.Const.ManageRuleMenuId)));
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ManageRule&menuId={1}", ManageRuleId, BLL.Const.ManageRuleMenuId)));
+            else
+            {
+                if (string.IsNullOrEmpty(this.ManageRuleId))
+                {
+                    SaveData(BLL.Const.UpState_1, false);
+                }
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ManageRule&menuId={1}", ManageRuleId, BLL.Const.ManageRuleMenuId)));
+            }
         }
         #endregion
     }

@@ -141,14 +141,14 @@ namespace FineUIPro.Web.Administrative
             {
                 DriverManager.DriverManagerId = this.DriverManagerId;
                 BLL.DriverManagerService.UpdateDriverManager(DriverManager);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改现场驾驶员管理", DriverManager.DriverManagerId);
+                BLL.LogService.AddSys_Log(this.CurrUser, DriverManager.DriverManagerCode, DriverManager.DriverManagerId,BLL.Const.DriverManagerMenuId,BLL.Const.BtnAdd);
             }
             else
             {
                 this.DriverManagerId = SQLHelper.GetNewID(typeof(Model.Administrative_DriverManager));
                 DriverManager.DriverManagerId = this.DriverManagerId;
                 BLL.DriverManagerService.AddDriverManager(DriverManager);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改现场驾驶员管理", DriverManager.DriverManagerId);
+                BLL.LogService.AddSys_Log(this.CurrUser, DriverManager.DriverManagerCode, DriverManager.DriverManagerId, BLL.Const.DriverManagerMenuId, BLL.Const.BtnModify);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.DriverManagerMenuId, this.DriverManagerId, (type == BLL.Const.BtnSubmit ? true : false), DriverManager.DriverName, "../Administrative/DriverManagerView.aspx?DriverManagerId={0}");

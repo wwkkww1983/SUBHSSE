@@ -114,14 +114,14 @@
                     <f:RenderField Width="150px" ColumnID="AccidentDef" DataField="AccidentDef" SortField="AccidentDef"
                         FieldType="String" HeaderText="事故描述" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:LinkButtonField Width="100px" HeaderText="查看月报" ConfirmTarget="Top" CommandName="View" 
+                    <f:LinkButtonField Width="100px" HeaderText="查看月报" ConfirmTarget="Parent" CommandName="View" 
                         TextAlign="Center" ToolTip="查看月报" DataTextField="View" />
                 </Columns>
             </f:Grid>
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="查看管理月报" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true"
         Width="1300px" Height="600px">
     </f:Window>
     </form>

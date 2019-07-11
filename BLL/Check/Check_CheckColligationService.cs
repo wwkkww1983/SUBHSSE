@@ -81,6 +81,7 @@ namespace BLL
                 PartInUnits = checkColligation.PartInUnits,
                 PartInPersons = checkColligation.PartInPersons,
                 PartInPersonIds = checkColligation.PartInPersonIds,
+                PartInPersonNames = checkColligation.PartInPersonNames,
                 CheckAreas = checkColligation.CheckAreas,
                 States = checkColligation.States,
                 CompileMan = checkColligation.CompileMan
@@ -110,6 +111,7 @@ namespace BLL
                 newCheckColligation.DaySummary = checkColligation.DaySummary;
                 newCheckColligation.PartInUnits = checkColligation.PartInUnits;
                 newCheckColligation.PartInPersons = checkColligation.PartInPersons;
+                newCheckColligation.PartInPersonNames = checkColligation.PartInPersonNames;
                 newCheckColligation.PartInPersonIds = checkColligation.PartInPersonIds;
                 newCheckColligation.CheckAreas = checkColligation.CheckAreas;
                 newCheckColligation.States = checkColligation.States;

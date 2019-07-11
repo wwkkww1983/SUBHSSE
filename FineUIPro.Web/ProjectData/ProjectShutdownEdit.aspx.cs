@@ -162,7 +162,7 @@ namespace FineUIPro.Web.ProjectData
             {
                 projectShutdown.ProjectStateId = this.ProjectStateId;
                 BLL.ProjectSateService.UpdateProjectSate(projectShutdown);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改项目状态及软件关闭", projectShutdown.ProjectStateId);
+                BLL.LogService.AddSys_Log(this.CurrUser, null, projectShutdown.ProjectStateId,BLL.Const.ProjectShutdownMenuId,BLL.Const.BtnAdd);
             }
             else
             {
@@ -172,7 +172,7 @@ namespace FineUIPro.Web.ProjectData
                 this.ProjectStateId = SQLHelper.GetNewID(typeof(Model.Base_ProjectSate));
                 projectShutdown.ProjectStateId = this.ProjectStateId;
                 BLL.ProjectSateService.AddProjectSate(projectShutdown);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加项目状态及软件关闭", projectShutdown.ProjectStateId);
+                BLL.LogService.AddSys_Log(this.CurrUser, null, projectShutdown.ProjectStateId, BLL.Const.ProjectShutdownMenuId, BLL.Const.BtnModify);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectShutdownMenuId, this.ProjectStateId, (type == BLL.Const.BtnSubmit ? true : false), this.txtProjectName.Text, "../ProjectData/ProjectShutdownView.aspx?ProjectStateId={0}");

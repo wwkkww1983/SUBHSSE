@@ -150,9 +150,14 @@ namespace FineUIPro.Web.OnlineCheck
                     foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                     {
                         string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                        BLL.TestDBService.DeleteTestDB(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除试题库维护");
+                        var getV = BLL.TestDBService.GetTestDBByTestId(rowID);
+                        if (getV != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getV.TestNo, getV.TestId, BLL.Const.TestDBMenuId, Const.BtnDelete);
+                            BLL.TestDBService.DeleteTestDB(rowID);
+                        }
                     }
+
                     BindGrid();
                     ShowNotify("删除数据成功!");
                 }

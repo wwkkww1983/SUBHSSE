@@ -91,6 +91,13 @@ namespace BLL
                 {
                     SafeReportItemService.DeleteSafeReportItemBySafeReportItemId(item.SafeReportItemId);
                 }
+
+                var unitItems = SafeReportUnitItemService.GetSafeReportUnitItemListBySafeReportId(safeReportId);
+                foreach (var item in unitItems)
+                {
+                    SafeReportUnitItemService.DeleteSafeReportUnitItemBySafeReportUnitItemId(item.SafeReportUnitItemId);
+                }
+
                 db.Manager_SafeReport.DeleteOnSubmit(delSafeReport);
                 db.SubmitChanges();
             }
@@ -124,21 +131,20 @@ namespace BLL
             var SafeReport = BLL.SafeReportService.GetSafeReportBySafeReportId(safeReportId);
             if (SafeReport != null)
             {
-                if (SafeReport.IsEndLever == true)
+                var detailCout = Funs.DB.Manager_SafeReportItem.FirstOrDefault(x => x.SafeReportId == safeReportId && x.States != BLL.Const.State_0);
+                if (detailCout != null)
                 {
-                    var detailCout = Funs.DB.Manager_SafeReportItem.FirstOrDefault(x => x.SafeReportId == safeReportId);
-                    if (detailCout != null)
-                    {
-                        isDelete = false;
-                    }
+                    isDelete = false;
                 }
-                else
+                var detailUnitCout = Funs.DB.Manager_SafeReportUnitItem.FirstOrDefault(x => x.SafeReportId == safeReportId && x.States != BLL.Const.State_0);
+                if (detailUnitCout != null)
                 {
-                    var supItemSetCount = BLL.SafeReportService.GetSafeReportBySupItem(safeReportId);
-                    if (supItemSetCount.Count() > 0)
-                    {
-                        isDelete = false;
-                    }
+                    isDelete = false;
+                }
+                var supItemSetCount = GetSafeReportBySupItem(safeReportId);
+                if (supItemSetCount.Count() > 0)
+                {
+                    isDelete = false;
                 }
             }
 
@@ -146,14 +152,14 @@ namespace BLL
         }
 
         /// <summary>
-        /// 是否未上报
+        /// 安全报表是否未上报
         /// </summary>
         /// <param name="postName"></param>
         /// <returns>true-已上报，false-未上报</returns>
         public static bool IsUpLoadSafeReport(string safeReportId)
         {
             bool isUpLoad = true;
-            var safeReport = BLL.SafeReportService.GetSafeReportBySafeReportId(safeReportId);
+            var safeReport = GetSafeReportBySafeReportId(safeReportId);
             if (safeReport != null && safeReport.IsEndLever == true)
             {
                 var detailCout = Funs.DB.Manager_SafeReportItem.FirstOrDefault(x => x.SafeReportId == safeReportId && x.States != Const.State_2);
@@ -161,9 +167,139 @@ namespace BLL
                 {
                     isUpLoad = false;
                 }
+
+                var detailUnitCout = Funs.DB.Manager_SafeReportUnitItem.FirstOrDefault(x => x.SafeReportId == safeReportId && x.States != Const.State_2);
+                if (detailUnitCout != null)
+                {
+                    isUpLoad = false;
+                }
             }
 
             return isUpLoad;
+        }
+
+        /// <summary>
+        /// 项目是否未上报
+        /// </summary>
+        /// <param name="postName"></param>
+        /// <returns>true-已上报，false-未上报</returns>
+        public static bool IsUpLoadSafeReport(string safeReportId, string projectId)
+        {
+            bool isUpLoad = true;
+            var safeReport = GetSafeReportBySafeReportId(safeReportId);
+            if (safeReport != null && safeReport.IsEndLever == true)
+            {
+                var detailCout = Funs.DB.Manager_SafeReportItem.FirstOrDefault(x => x.SafeReportId == safeReportId && x.States != Const.State_2 && x.ProjectId == projectId);
+                if (detailCout != null)
+                {
+                    isUpLoad = false;
+                }               
+            }
+
+            return isUpLoad;
+        }
+
+        /// <summary>
+        /// 单位是否未上报
+        /// </summary>
+        /// <param name="postName"></param>
+        /// <returns>true-已上报，false-未上报</returns>
+        public static bool IsUpLoadSafeReportUnit(string safeReportId, string unitId)
+        {
+            bool isUpLoad = true;
+            var safeReport = GetSafeReportBySafeReportId(safeReportId);
+            if (safeReport != null && safeReport.IsEndLever == true)
+            {
+                var detailUnitCout = Funs.DB.Manager_SafeReportUnitItem.FirstOrDefault(x => x.SafeReportId == safeReportId && x.States != Const.State_2 && x.UnitId == unitId);
+                if (detailUnitCout != null)
+                {
+                    isUpLoad = false;
+                }
+            }
+
+            return isUpLoad;
+        }
+
+        /// <summary>
+        /// 根据项目id 获取项目下的安全文件上报目录
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static List<Model.Manager_SafeReport> getProjectSafeReportList(string projectId)
+        {
+            List<Model.Manager_SafeReport> safeReportLists = new List<Model.Manager_SafeReport>();
+            var safeReportItem = from x in Funs.DB.Manager_SafeReportItem where x.ProjectId == projectId select x.SafeReportId;
+            foreach (var item in safeReportItem)
+            {
+                var safeReport = GetSafeReportBySafeReportId(item);
+                if (safeReport != null)
+                {
+                    safeReportLists.Add(safeReport);
+                    if (safeReport.SupSafeReportId != "0" && safeReportLists.FirstOrDefault(x => x.SafeReportId == safeReport.SupSafeReportId) == null)
+                    {
+                        List<Model.Manager_SafeReport> setLists = new List<Model.Manager_SafeReport>();
+                        var getLists = getSafeReportBySafeReportId(safeReport.SupSafeReportId, setLists);
+                        if (getLists.Count() > 0)
+                        {
+                            safeReportLists.AddRange(getLists);
+                        }
+                    }
+                }
+            }
+            return safeReportLists.Distinct().OrderByDescending(x=>x.SafeReportCode).ToList();
+        }
+
+        /// <summary>
+        /// 根据单位id 获取该单位的安全文件上报目录
+        /// </summary>
+        /// <param name="unitId"></param>
+        /// <returns></returns>
+        public static List<Model.Manager_SafeReport> getUnitSafeReportList(string unitId)
+        {
+            List<Model.Manager_SafeReport> safeReportLists = new List<Model.Manager_SafeReport>();
+            var safeReportUnitItem = from x in Funs.DB.Manager_SafeReportUnitItem
+                                 where x.UnitId == unitId
+                                 select x.SafeReportId;
+            foreach (var item in safeReportUnitItem)
+            {
+                var safeReport = GetSafeReportBySafeReportId(item);
+                if (safeReport != null)
+                {
+                    safeReportLists.Add(safeReport);
+                    if (safeReport.SupSafeReportId != "0" && safeReportLists.FirstOrDefault(x => x.SafeReportId == safeReport.SupSafeReportId) == null)
+                    {
+                        List<Model.Manager_SafeReport> setLists = new List<Model.Manager_SafeReport>();
+                        var getLists = getSafeReportBySafeReportId(safeReport.SupSafeReportId, setLists);
+                        if (getLists.Count() > 0)
+                        {
+                            safeReportLists.AddRange(getLists);
+                        }
+                    }
+                }
+            }
+            return safeReportLists.Distinct().OrderByDescending(x => x.SafeReportCode).ToList();
+        }
+
+        /// <summary>
+        ///  循环获取上级安全文件目录
+        /// </summary>
+        /// <param name="safeReportId"></param>
+        /// <returns></returns>
+        public static List<Model.Manager_SafeReport> getSafeReportBySafeReportId(string safeReportId, List<Model.Manager_SafeReport> safeReportLists)
+        {
+            if (safeReportLists.FirstOrDefault(x => x.SafeReportId == safeReportId) == null)
+            {
+                var safeReport = GetSafeReportBySafeReportId(safeReportId);
+                if (safeReport != null)
+                {
+                    safeReportLists.Add(safeReport);
+                    if (safeReport.SupSafeReportId != "0")
+                    {
+                        getSafeReportBySafeReportId(safeReport.SupSafeReportId, safeReportLists);
+                    }
+                }
+            }
+            return safeReportLists;
         }
     }
 }

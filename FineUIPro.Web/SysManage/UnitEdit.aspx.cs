@@ -28,11 +28,7 @@ namespace FineUIPro.Web.SysManage
                 LoadData();
                 ////权限按钮方法
                 this.GetButtonPower();
-                this.ddlUnitTypeId.DataTextField = "UnitTypeName";
-                this.ddlUnitTypeId.DataValueField = "UnitTypeId";
-                this.ddlUnitTypeId.DataSource = BLL.UnitTypeService.GetUnitTypeDropDownList();
-                ddlUnitTypeId.DataBind();
-                Funs.FineUIPleaseSelect(this.ddlUnitTypeId); 
+                BLL.UnitTypeService.InitUnitTypeDropDownList(this.ddlUnitTypeId, true);
                 this.UnitId = Request.Params["UnitId"];
                 if (!string.IsNullOrEmpty(this.UnitId))
                 {
@@ -51,6 +47,10 @@ namespace FineUIPro.Web.SysManage
                         this.txtFax.Text = unit.Fax;
                         this.txtEMail.Text = unit.EMail;
                         this.txtProjectRange.Text = unit.ProjectRange;
+                        if (unit.IsBranch == true)
+                        {
+                            this.rblIsBranch.SelectedValue = "true";
+                        }
                         if (unit.IsThisUnit== true)
                         {
                             this.rblIsThisUnit.SelectedValue = "true";
@@ -68,11 +68,11 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
 
-                var thisUnit = BLL.CommonService.GetIsThisUnit();
-                if (this.CurrUser.UserId == BLL.Const.sysglyId)
-                {
-                    this.rblIsThisUnit.Enabled = true;
-                }
+                //var thisUnit = BLL.CommonService.GetIsThisUnit();
+                //if (this.CurrUser.UserId == BLL.Const.sysglyId)
+                //{
+                //    this.rblIsThisUnit.Enabled = true;
+                //}
             }
         }
 
@@ -156,20 +156,26 @@ namespace FineUIPro.Web.SysManage
                 unit.IsHide = false;
                 this.UnitId = updateName.UnitId;
             }
-
+            unit.IsBranch = Convert.ToBoolean(this.rblIsBranch.SelectedValue);
             if (string.IsNullOrEmpty(this.UnitId))
             {
                 unit.UnitId = SQLHelper.GetNewID(typeof(Model.Base_Unit));
+                unit.DataSources = this.CurrUser.LoginProjectId;
                 BLL.UnitService.AddUnit(unit);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加单位设置");
+                BLL.LogService.AddSys_Log(this.CurrUser, unit.UnitCode, unit.UnitId, BLL.Const.UnitMenuId, Const.BtnAdd);
                 SaveHSSEManage("add");
             }
             else
             {
+                var getUnit = BLL.UnitService.GetUnitByUnitId(this.UnitId);
+                if (getUnit != null)
+                {
+                    unit.FromUnitId = getUnit.FromUnitId;
+                }
                 unit.UnitId = this.UnitId;
                 BLL.UnitService.UpdateUnit(unit);
                 SaveHSSEManage("update");
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改单位设置");
+                BLL.LogService.AddSys_Log(this.CurrUser, unit.UnitCode, unit.UnitId, BLL.Const.UnitMenuId, Const.BtnModify);
             }
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }

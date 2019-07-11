@@ -121,7 +121,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="安全人员资质" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="800px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="800px"
         Height="450px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件页面" Hidden="true" EnableIFrame="true" EnableMaximize="true"

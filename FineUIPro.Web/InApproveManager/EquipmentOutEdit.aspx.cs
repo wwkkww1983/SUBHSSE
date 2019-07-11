@@ -314,14 +314,14 @@ namespace FineUIPro.Web.InApproveManager
             {
                 equipmentOut.EquipmentOutId = this.EquipmentOutId;
                 BLL.EquipmentOutService.UpdateEquipmentOut(equipmentOut);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改特种设备机具出场报批",equipmentOut.EquipmentOutId);
+                BLL.LogService.AddSys_Log(this.CurrUser, equipmentOut.EquipmentOutCode, equipmentOut.EquipmentOutId,BLL.Const.EquipmentOutMenuId,BLL.Const.BtnModify);
             }
             else
             {
                 this.EquipmentOutId = SQLHelper.GetNewID(typeof(Model.InApproveManager_EquipmentOut));
                 equipmentOut.EquipmentOutId = this.EquipmentOutId;
                 BLL.EquipmentOutService.AddEquipmentOut(equipmentOut);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加特种设备机具出场报批", equipmentOut.EquipmentOutId);
+                BLL.LogService.AddSys_Log(this.CurrUser, equipmentOut.EquipmentOutCode, equipmentOut.EquipmentOutId, BLL.Const.EquipmentOutMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.EquipmentOutMenuId, this.EquipmentOutId, (type == BLL.Const.BtnSubmit ? true : false), (equipmentOut.DriverName + equipmentOut.CarNum), "../InApproveManager/EquipmentOutView.aspx?EquipmentOutId={0}");

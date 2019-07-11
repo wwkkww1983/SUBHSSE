@@ -7,6 +7,17 @@
     <link href="../res/css/common.css" rel="stylesheet" type="text/css" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>安全监督检查报告</title>
+    <style type="text/css">
+        .f-grid-row .f-grid-cell-inner
+        {
+            white-space: normal;
+            word-break: break-all;
+        }
+          .f-grid-row.red
+        {
+            background-color: #FFD202;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -16,7 +27,7 @@
         <Items>
             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="安全监督检查报告" EnableCollapse="true"
                 runat="server" BoxFlex="1" DataKeyNames="SuperviseCheckReportId" AllowCellEditing="true"
-                ClicksToEdit="2" DataIDField="SuperviseCheckReportId" AllowSorting="true" SortField="SuperviseCheckReportCode"
+                ClicksToEdit="2" DataIDField="SuperviseCheckReportId" AllowSorting="true" SortField="CheckDate"
                 SortDirection="DESC" OnSort="Grid1_Sort" OnRowCommand="Grid1_RowCommand" EnableColumnLines="true"
                 AllowPaging="true" IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"
                 EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" AllowFilters="true"
@@ -24,6 +35,10 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
                         <Items>
+                            <f:TextBox runat="server" ID="txtName" Label="查询" EmptyText="请输入查询条件" LabelWidth="50px" Width="250px"
+                                AutoPostBack="true" OnTextChanged="txtName_TextChanged">
+                            </f:TextBox>
+                            <f:ToolbarFill runat="server"></f:ToolbarFill>
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" runat="server"
                                 Hidden="true">
                             </f:Button>
@@ -33,9 +48,9 @@
                              <f:Button ID="btnDelete" ToolTip="删除" Icon="Delete" ConfirmText="确定删除当前数据？" OnClick="btnDelete_Click"
                                 Hidden="true" runat="server">
                             </f:Button>
-                                    <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
-                                        EnableAjax="false" DisableControlBeforePostBack="false">
-                                    </f:Button>
+                            <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
+                                EnableAjax="false" DisableControlBeforePostBack="false">
+                            </f:Button>
                         </Items>
                     </f:Toolbar>
                 </Toolbars>
@@ -46,8 +61,8 @@
                                 <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                             </ItemTemplate>
                         </f:TemplateField>
-                    <f:RenderField Width="100px" ColumnID="SuperviseCheckReportCode" DataField="SuperviseCheckReportCode"
-                        SortField="SuperviseCheckReportCode" FieldType="String" HeaderText="检查编号" TextAlign="Left"
+                    <f:RenderField Width="80px" ColumnID="SuperviseCheckReportCode" DataField="SuperviseCheckReportCode"
+                        SortField="SuperviseCheckReportCode" FieldType="String" HeaderText="编号" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
                     <f:GroupField HeaderText="检查对象" TextAlign="Left" HeaderTextAlign="Center">
@@ -55,26 +70,26 @@
                             <f:RenderField Width="220px" ColumnID="UnitName" DataField="UnitName" FieldType="String"
                                 HeaderText="单位" HeaderToolTip="检查单位" HeaderTextAlign="Center" TextAlign="Left">
                             </f:RenderField>
-                            <f:RenderField Width="210px" ColumnID="ProjectName" DataField="ProjectName" FieldType="String"
+                            <f:RenderField Width="230px" ColumnID="ProjectName" DataField="ProjectName" FieldType="String"
                                 HeaderText="项目" HeaderToolTip="检查项目" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
                             </f:RenderField>
                         </Columns>
                     </f:GroupField>
-                    <f:RenderField Width="250px" ColumnID="CheckTeam" DataField="CheckTeam" SortField="CheckTeam"
+                    <f:RenderField Width="170px" ColumnID="CheckTeam" DataField="CheckTeam" SortField="CheckTeam"
                         FieldType="String" HeaderText="检查组/人" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="CheckDate" DataField="CheckDate" SortField="CheckDate"
+                    <f:RenderField Width="100px" ColumnID="CheckDate" DataField="CheckDate" SortField="CheckDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="检查日期"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:TemplateField ColumnID="tfRectify" Width="100px" HeaderText="检查整改" HeaderTextAlign="Center" TextAlign="Left">
+                    <f:TemplateField ColumnID="tfRectify" Width="120px" HeaderText="检查整改" HeaderTextAlign="Center" TextAlign="Left">
                         <ItemTemplate>
                             <asp:LinkButton ID="lbtnRectify" runat="server" Text="整改单" CommandArgument='<%#Bind("SuperviseCheckReportId") %>'
                                 OnClick="lbtnRectify_Click"></asp:LinkButton>
                             <asp:Label runat="server" ID="lblRectify"></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:TemplateField ColumnID="tfSubRec" Width="90px" HeaderText="检查报告" HeaderTextAlign="Center" TextAlign="Left">
+                    <f:TemplateField ColumnID="tfSubRec" Width="80px" HeaderText="检查报告" HeaderTextAlign="Center" TextAlign="Left">
                         <ItemTemplate>
                             <asp:LinkButton ID="lbtnSubRec" runat="server" Text="报告单" CommandArgument='<%#Bind("SuperviseCheckReportId") %>'
                                 OnClick="lbtnSubRec_Click"></asp:LinkButton>
@@ -103,11 +118,11 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="编辑安全监督检查整改" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
         Width="1300px" Height="500px">
     </f:Window>
     <f:Window ID="Window2" Title="编辑安全监督检查报告" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="1024px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1024px"
         Height="600px" OnClose="Window2_Close1">
     </f:Window>
     </form>

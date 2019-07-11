@@ -170,12 +170,16 @@ namespace FineUIPro.Web.SafetyActivities
         protected void btnMenuDelete_Click(object sender, EventArgs e)
         {
             if (Grid1.SelectedRowIndexArray.Length > 0)
-            {               
+            {
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除月度安全评比", rowID);
-                    BLL.MonthlyRatingService.DeleteMonthlyRatingById(rowID);
+                    var getv = BLL.MonthlyRatingService.GetMonthlyRatingById(rowID);
+                    if (getv != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getv.Title, getv.MonthlyRatingId, BLL.Const.ProjectMonthlyRatingMenuId, BLL.Const.BtnDelete);
+                        BLL.MonthlyRatingService.DeleteMonthlyRatingById(rowID);
+                    }
                 }
 
                 this.BindGrid();

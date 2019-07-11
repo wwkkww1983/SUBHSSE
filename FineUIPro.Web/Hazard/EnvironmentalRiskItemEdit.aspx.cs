@@ -186,7 +186,7 @@ namespace FineUIPro.Web.Hazard
                 environmentalItem.EnvironmentEffect = this.txtEnvironmentEffect.Text.Trim();
                 environmentalItem.EnvironmentalRiskItemId = this.EnvironmentalRiskItemId;
                 BLL.Hazard_EnvironmentalRiskItemService.UpdateEnvironmentalRiskItem(environmentalItem);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改环境因素危险源评价明细");
+                BLL.LogService.AddSys_Log(this.CurrUser, environmentalItem.Code, environmentalItem.EnvironmentalRiskItemId, BLL.Const.ProjectEnvironmentalRiskListMenuId, BLL.Const.BtnModify);
             }
 
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());

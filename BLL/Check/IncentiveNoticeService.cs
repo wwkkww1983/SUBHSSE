@@ -64,6 +64,50 @@ namespace BLL
         }
 
         /// <summary>
+        /// 获取金额总和
+        /// </summary>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="rewardType"></param>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static decimal? GetSumMoney(string projectId)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            decimal? sumRewardMoney = (from x in db.Check_IncentiveNotice
+                                       where
+                                       x.ProjectId == projectId && x.States == BLL.Const.State_2
+                                       select x.IncentiveMoney).Sum();
+            if (sumRewardMoney == null)
+            {
+                return 0;
+            }
+            return sumRewardMoney;
+        }
+
+        /// <summary>
+        /// 根据日期获取金额总和
+        /// </summary>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="rewardType"></param>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static decimal? GetSumMoneyByTime(DateTime startTime, DateTime endTime, string projectId)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            decimal? sumRewardMoney = (from x in db.Check_IncentiveNotice
+                                       where
+                                       x.IncentiveDate >= startTime && x.IncentiveDate < endTime && x.ProjectId == projectId && x.States == BLL.Const.State_2
+                                       select x.IncentiveMoney).Sum();
+            if (sumRewardMoney == null)
+            {
+                return 0;
+            }
+            return sumRewardMoney;
+        }
+
+        /// <summary>
         /// 根据日期和奖励方式获取金额总和
         /// </summary>
         /// <param name="startTime"></param>

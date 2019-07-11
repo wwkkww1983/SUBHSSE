@@ -219,8 +219,12 @@ namespace FineUIPro.Web.Emergency
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除应急响应记录/评价", rowID);
-                    BLL.EmergencyResponseRecordService.DeleteEmergencyResponseRecordById(rowID);
+                    var EmergencyResponseRecord = BLL.EmergencyResponseRecordService.GetEmergencyResponseRecordById(rowID);
+                    if (EmergencyResponseRecord != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, EmergencyResponseRecord.FileCode, EmergencyResponseRecord.FileId, BLL.Const.ProjectEmergencyResponseRecordMenuId, BLL.Const.BtnDelete);
+                        BLL.EmergencyResponseRecordService.DeleteEmergencyResponseRecordById(rowID);
+                    }
                 }
 
                 this.BindGrid();

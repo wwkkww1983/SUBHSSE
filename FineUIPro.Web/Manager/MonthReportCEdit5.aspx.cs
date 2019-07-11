@@ -97,48 +97,6 @@ namespace FineUIPro.Web.Manager
                     this.ProjectId = monthReport.ProjectId;
                     months = Convert.ToDateTime(monthReport.Months);
                     Model.SUBHSSEDB db = Funs.DB;
-                    if (monthReport.ActionPlanNum != null)
-                    {
-                        this.txtActionPlanNum.Text = (monthReport.ActionPlanNum ?? 0).ToString();
-                        this.txtYearActionPlanNum.Text = (monthReport.YearActionPlanNum ?? 0).ToString();
-                        this.txtMonthSolutionNum.Text = (monthReport.MonthSolutionNum ?? 0).ToString();
-                        this.txtYearSolutionNum.Text = (monthReport.YearSolutionNum ?? 0).ToString();
-                    }
-                    else
-                    {
-                        //施工HSE实施计划数量
-                        List<Model.ActionPlan_ActionPlanList> actionPlans = BLL.ActionPlanListService.GetActionPlanListsByDate(startTime, endTime, this.ProjectId);
-                        int actionPlanNum = actionPlans.Count;
-                        //HSE管理规定数量
-                        List<Model.ActionPlan_ManagerRule> hSERules = BLL.ActionPlan_ManagerRuleService.GetManagerRuleListsByDate(startTime, endTime, this.ProjectId);
-                        int hSERuleNum = hSERules.Count;
-                        this.txtActionPlanNum.Text = Convert.ToString(actionPlanNum + hSERuleNum);
-                        this.txtMonthSolutionNum.Text = Convert.ToString(BLL.ConstructSolutionService.GetConstructSolutionCountByDate(this.ProjectId, startTime, endTime) + BLL.EquipmentQualityService.GetCountByDate(this.ProjectId, startTime, endTime));
-                        if (mr != null)
-                        {
-                            if (mr.YearActionPlanNum != 0)
-                            {
-                                this.txtYearActionPlanNum.Text = (mr.YearActionPlanNum ?? 0 + Convert.ToInt32(this.txtActionPlanNum.Text.Trim())).ToString();
-                            }
-                            else
-                            {
-                                this.txtYearActionPlanNum.Text = this.txtActionPlanNum.Text.Trim();
-                            }
-                            if (mr.YearSolutionNum != 0)
-                            {
-                                this.txtYearSolutionNum.Text = (mr.YearSolutionNum + Convert.ToInt32(this.txtMonthSolutionNum.Text.Trim())).ToString();
-                            }
-                            else
-                            {
-                                this.txtYearSolutionNum.Text = this.txtMonthSolutionNum.Text.Trim();
-                            }
-                        }
-                        else
-                        {
-                            this.txtYearActionPlanNum.Text = this.txtActionPlanNum.Text.Trim();
-                            this.txtYearSolutionNum.Text = this.txtMonthSolutionNum.Text.Trim();
-                        }
-                    }
                     //5.1.2 本月文件、方案修编情况说明
                     plans = (from x in db.Manager_Month_PlanC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
                     if (plans.Count > 0)
@@ -161,53 +119,20 @@ namespace FineUIPro.Web.Manager
                     {
                         GetReviewRecordSort();
                     }
-                    //5.3 HSE文件管理
-                    fileManages = (from x in db.Manager_Month_FileManageC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
-                    if (fileManages.Count > 0)
-                    {
-                        this.gvFileManage.DataSource = fileManages;
-                        this.gvFileManage.DataBind();
-                    }
                 }
                 else
                 {
                     //施工HSE实施计划数量
-                    List<Model.ActionPlan_ActionPlanList> actionPlans = BLL.ActionPlanListService.GetActionPlanListsByDate(startTime, endTime, this.ProjectId);
-                    int actionPlanNum = actionPlans.Count;
-                    //HSE管理规定数量
-                    List<Model.ActionPlan_ManagerRule> hSERules = BLL.ActionPlan_ManagerRuleService.GetManagerRuleListsByDate(startTime, endTime, this.ProjectId);
-                    int hSERuleNum = hSERules.Count;
-                    this.txtActionPlanNum.Text = Convert.ToString(actionPlanNum + hSERuleNum);
-                    int constructSolutionNum = BLL.ConstructSolutionService.GetConstructSolutionCountByDate(this.ProjectId, startTime, endTime);
-                    int subUnitQualityAuditDetailNum = BLL.SubUnitQualityAuditDetailService.GetCountByDate(this.ProjectId, startTime, endTime);
-                    int equipmentQualityAuditDetailNum = BLL.EquipmentQualityAuditDetailService.GetCountByDate(this.ProjectId, startTime, endTime);
-                    int personQualityAuditDetailNum = BLL.PersonQualityService.GetCountByDate(this.ProjectId, startTime, endTime);
-                    int generalEquipmentQualityNum = BLL.GeneralEquipmentQualityService.GetSumCountByDate(this.ProjectId, startTime, endTime);
-                    this.txtMonthSolutionNum.Text = (constructSolutionNum + subUnitQualityAuditDetailNum + equipmentQualityAuditDetailNum + personQualityAuditDetailNum + generalEquipmentQualityNum).ToString();
-                    if (mr != null)
-                    {
-                        if (mr.YearActionPlanNum != 0)
-                        {
-                            this.txtYearActionPlanNum.Text = (mr.YearActionPlanNum + Convert.ToInt32(this.txtActionPlanNum.Text.Trim())).ToString();
-                        }
-                        else
-                        {
-                            this.txtYearActionPlanNum.Text = this.txtActionPlanNum.Text.Trim();
-                        }
-                        if (mr.YearSolutionNum != 0)
-                        {
-                            this.txtYearSolutionNum.Text = (mr.YearSolutionNum + Convert.ToInt32(this.txtMonthSolutionNum.Text.Trim())).ToString();
-                        }
-                        else
-                        {
-                            this.txtYearSolutionNum.Text = this.txtMonthSolutionNum.Text.Trim();
-                        }
-                    }
-                    else
-                    {
-                        this.txtYearActionPlanNum.Text = this.txtActionPlanNum.Text.Trim();
-                        this.txtYearSolutionNum.Text = this.txtMonthSolutionNum.Text.Trim();
-                    }
+                    //List<Model.ActionPlan_ActionPlanList> actionPlans = BLL.ActionPlanListService.GetActionPlanListsByDate(startTime, endTime, this.ProjectId);
+                    //int actionPlanNum = actionPlans.Count;
+                    ////HSE管理规定数量
+                    //List<Model.ActionPlan_ManagerRule> hSERules = BLL.ActionPlan_ManagerRuleService.GetManagerRuleListsByDate(startTime, endTime, this.ProjectId);
+                    //int hSERuleNum = hSERules.Count;
+                    //int constructSolutionNum = BLL.ConstructSolutionService.GetConstructSolutionCountByDate(this.ProjectId, startTime, endTime);
+                    //int subUnitQualityAuditDetailNum = BLL.SubUnitQualityAuditDetailService.GetCountByDate(this.ProjectId, startTime, endTime);
+                    //int equipmentQualityAuditDetailNum = BLL.EquipmentQualityAuditDetailService.GetCountByDate(this.ProjectId, startTime, endTime);
+                    //int personQualityAuditDetailNum = BLL.PersonQualityService.GetCountByDate(this.ProjectId, startTime, endTime);
+                    //int generalEquipmentQualityNum = BLL.GeneralEquipmentQualityService.GetSumCountByDate(this.ProjectId, startTime, endTime);
                     GetPlanSort();
                     GetReviewRecordSort();
                 }
@@ -325,16 +250,19 @@ namespace FineUIPro.Web.Manager
         private void jerqueSaveMonthPlanList()
         {
             plans.Clear();
-            int rowsCount = this.gvMonthPlan.Rows.Count;
-            for (int i = 0; i < rowsCount; i++)
+            JArray mergedData = gvMonthPlan.GetMergedData();
+            foreach (JObject mergedRow in mergedData)
             {
+                string status = mergedRow.Value<string>("status");
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
                 Model.Manager_Month_PlanC monthPlanSort = new Model.Manager_Month_PlanC
                 {
                     PlanId = this.gvMonthPlan.Rows[i].DataKeys[0].ToString(),
                     SortIndex = i,
-                    PlanName = this.gvMonthPlan.Rows[i].Values[2].ToString(),
-                    CompileMan = this.gvMonthPlan.Rows[i].Values[3].ToString(),
-                    CompileDate = this.gvMonthPlan.Rows[i].Values[4].ToString()
+                    PlanName = values.Value<string>("PlanName").ToString(),
+                    CompileMan = values.Value<string>("CompileMan").ToString(),
+                    CompileDate = values.Value<string>("CompileDate").ToString()
                 };
                 plans.Add(monthPlanSort);
             }
@@ -531,16 +459,19 @@ namespace FineUIPro.Web.Manager
         private void jerqueSaveReviewRecordList()
         {
             reviewRecords.Clear();
-            int rowsCount = this.gvReviewRecord.Rows.Count;
-            for (int i = 0; i < rowsCount; i++)
+            JArray mergedData = gvReviewRecord.GetMergedData();
+            foreach (JObject mergedRow in mergedData)
             {
+                string status = mergedRow.Value<string>("status");
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
                 Model.Manager_Month_ReviewRecordC reviewRecordSort = new Model.Manager_Month_ReviewRecordC
                 {
                     ReviewRecordId = this.gvReviewRecord.Rows[i].DataKeys[0].ToString(),
                     SortIndex = i,
-                    ReviewRecordName = this.gvReviewRecord.Rows[i].Values[2].ToString(),
-                    ReviewMan = this.gvReviewRecord.Rows[i].Values[3].ToString(),
-                    ReviewDate = this.gvReviewRecord.Rows[i].Values[4].ToString()
+                    ReviewRecordName = values.Value<string>("ReviewRecordName").ToString(),
+                    ReviewMan = values.Value<string>("ReviewMan").ToString(),
+                    ReviewDate = values.Value<string>("ReviewDate").ToString()
                 };
                 reviewRecords.Add(reviewRecordSort);
             }
@@ -567,66 +498,6 @@ namespace FineUIPro.Web.Manager
         }
         #endregion
 
-        #region 其他HSE管理情况
-        /// <summary>
-        /// 增加其他HSE管理情况
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnNewFileManage_Click(object sender, EventArgs e)
-        {
-            jerqueSaveFileManageList();
-            Model.Manager_Month_FileManageC fileManageSort = new Model.Manager_Month_FileManageC
-            {
-                FileManageId = SQLHelper.GetNewID(typeof(Model.Manager_Month_FileManageC))
-            };
-            fileManages.Add(fileManageSort);
-            this.gvFileManage.DataSource = fileManages;
-            this.gvFileManage.DataBind();
-        }
-
-        /// <summary>
-        /// 检查并保存其他HSE管理情况集合
-        /// </summary>
-        private void jerqueSaveFileManageList()
-        {
-            fileManages.Clear();
-            int rowsCount = this.gvFileManage.Rows.Count;
-            for (int i = 0; i < rowsCount; i++)
-            {
-                Model.Manager_Month_FileManageC fileManageSort = new Model.Manager_Month_FileManageC
-                {
-                    FileManageId = this.gvFileManage.Rows[i].DataKeys[0].ToString(),
-                    SortIndex = i,
-                    FileName = this.gvFileManage.Rows[i].Values[2].ToString(),
-                    Disposal = this.gvFileManage.Rows[i].Values[3].ToString(),
-                    FileArchiveLocation = this.gvFileManage.Rows[i].Values[4].ToString()
-                };
-                fileManages.Add(fileManageSort);
-            }
-        }
-
-        protected void gvFileManage_RowCommand(object sender, GridCommandEventArgs e)
-        {
-            jerqueSaveFileManageList();
-            string rowID = this.gvFileManage.DataKeys[e.RowIndex][0].ToString();
-            if (e.CommandName == "Delete")
-            {
-                foreach (var item in fileManages)
-                {
-                    if (item.FileManageId == rowID)
-                    {
-                        fileManages.Remove(item);
-                        break;
-                    }
-                }
-                gvFileManage.DataSource = fileManages;
-                gvFileManage.DataBind();
-                ShowNotify("删除数据成功!", MessageBoxIcon.Success);
-            }
-        }
-        #endregion
-
         #region 保存按钮
         /// <summary>
         /// 保存按钮
@@ -638,27 +509,10 @@ namespace FineUIPro.Web.Manager
             Model.Manager_MonthReportC oldMonthReport = BLL.MonthReportCService.GetMonthReportByMonths(Convert.ToDateTime(Request.Params["months"]), this.CurrUser.LoginProjectId);
             if (oldMonthReport != null)
             {
-                if (!string.IsNullOrEmpty(this.txtActionPlanNum.Text.Trim()))
-                {
-                    oldMonthReport.ActionPlanNum = Convert.ToInt32(this.txtActionPlanNum.Text.Trim());
-                }
-                if (!string.IsNullOrEmpty(this.txtYearActionPlanNum.Text.Trim()))
-                {
-                    oldMonthReport.YearActionPlanNum = Convert.ToInt32(this.txtYearActionPlanNum.Text.Trim());
-                }
-                if (!string.IsNullOrEmpty(this.txtMonthSolutionNum.Text.Trim()))
-                {
-                    oldMonthReport.MonthSolutionNum = Convert.ToInt32(this.txtMonthSolutionNum.Text.Trim());
-                }
-                if (!string.IsNullOrEmpty(this.txtYearSolutionNum.Text.Trim()))
-                {
-                    oldMonthReport.YearSolutionNum = Convert.ToInt32(this.txtYearSolutionNum.Text.Trim());
-                }
                 BLL.MonthReportCService.UpdateMonthReport(oldMonthReport);
                 OperatePlanSort(MonthReportId);
                 OperateReviewRecordSort(MonthReportId);
-                OperateFileManageSort(MonthReportId);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改HSE月报告", MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, oldMonthReport.MonthReportCode, oldMonthReport.MonthReportId, BLL.Const.ProjectManagerMonthCMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -671,27 +525,10 @@ namespace FineUIPro.Web.Manager
                 monthReport.Months = Funs.GetNewDateTime(Request.Params["months"]);
                 monthReport.ReportMan = this.CurrUser.UserId;
                 monthReport.MonthReportDate = DateTime.Now;
-                if (!string.IsNullOrEmpty(this.txtActionPlanNum.Text.Trim()))
-                {
-                    monthReport.ActionPlanNum = Convert.ToInt32(this.txtActionPlanNum.Text.Trim());
-                }
-                if (!string.IsNullOrEmpty(this.txtYearActionPlanNum.Text.Trim()))
-                {
-                    monthReport.YearActionPlanNum = Convert.ToInt32(this.txtYearActionPlanNum.Text.Trim());
-                }
-                if (!string.IsNullOrEmpty(this.txtMonthSolutionNum.Text.Trim()))
-                {
-                    monthReport.MonthSolutionNum = Convert.ToInt32(this.txtMonthSolutionNum.Text.Trim());
-                }
-                if (!string.IsNullOrEmpty(this.txtYearSolutionNum.Text.Trim()))
-                {
-                    monthReport.YearSolutionNum = Convert.ToInt32(this.txtYearSolutionNum.Text.Trim());
-                }
                 BLL.MonthReportCService.AddMonthReport(monthReport);
                 OperatePlanSort(MonthReportId);
                 OperateReviewRecordSort(MonthReportId);
-                OperateFileManageSort(MonthReportId);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加HSE月报告", monthReport.MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, monthReport.MonthReportCode, monthReport.MonthReportId, BLL.Const.ProjectManagerMonthCMenuId, BLL.Const.BtnAdd);
             }
             ShowNotify("保存成功!", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
@@ -724,21 +561,6 @@ namespace FineUIPro.Web.Manager
             {
                 reviewRecord.MonthReportId = monthReportId;
                 BLL.ReviewRecordCService.AddReviewRecord(reviewRecord);
-            }
-        }
-
-        /// <summary>
-        /// 5.3 HSSE文件管理
-        /// </summary>
-        /// <param name="monthReportId"></param>
-        private void OperateFileManageSort(string monthReportId)
-        {
-            BLL.FileManageCService.DeleteFileManageByMonthReportId(monthReportId);
-            jerqueSaveFileManageList();
-            foreach (Model.Manager_Month_FileManageC fileManage in fileManages)
-            {
-                fileManage.MonthReportId = monthReportId;
-                BLL.FileManageCService.AddFileManage(fileManage);
             }
         }
         #endregion

@@ -103,13 +103,13 @@ namespace FineUIPro.Web.Personal
                     {
                         newPersonalFolder.PersonalFolderId = SQLHelper.GetNewID(typeof(Model.Personal_PersonalFolder));
                         BLL.PersonalFolderService.AddPersonalFolder(newPersonalFolder);
-                        BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "增加个人文件夹", newPersonalFolder.Code);
+                        BLL.LogService.AddSys_Log(this.CurrUser, newPersonalFolder.Code, newPersonalFolder.PersonalFolderId,BLL.Const.PersonalFolderMenuId,BLL.Const.BtnAdd);
                     }
                     else
                     {
                         newPersonalFolder.PersonalFolderId = this.PersonalFolderId;
                         BLL.PersonalFolderService.UpdatePersonalFolder(newPersonalFolder);
-                        BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改个人文件夹", newPersonalFolder.Code);
+                        BLL.LogService.AddSys_Log(this.CurrUser, newPersonalFolder.Code, newPersonalFolder.PersonalFolderId, BLL.Const.PersonalFolderMenuId, BLL.Const.BtnModify);
                     }
 
                     PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());

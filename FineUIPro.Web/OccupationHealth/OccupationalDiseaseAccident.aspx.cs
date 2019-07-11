@@ -192,8 +192,12 @@ namespace FineUIPro.Web.OccupationHealth
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除职业病事故");
-                    BLL.OccupationalDiseaseAccidentService.DeleteOccupationalDiseaseAccidentById(rowID);
+                    var getD = BLL.OccupationalDiseaseAccidentService.GetOccupationalDiseaseAccidentById(rowID);
+                    if (getD != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getD.FileCode, getD.FileId, BLL.Const.ServerOccupationalDiseaseAccidentMenuId, BLL.Const.BtnDelete);
+                        BLL.OccupationalDiseaseAccidentService.DeleteOccupationalDiseaseAccidentById(rowID);
+                    }
                 }
 
                 this.BindGrid();

@@ -393,7 +393,7 @@ namespace FineUIPro.Web.Manager
                 if (count > 0)
                 {
                     decimal persontotal = Convert.ToDecimal(Math.Round(personNum / count, 2));
-                    if (persontotal.ToString().IndexOf(".") > 0 && persontotal.ToString().Substring(persontotal.ToString().IndexOf("."), persontotal.ToString().Length - persontotal.ToString().IndexOf("."))!=".00")
+                    if (persontotal.ToString().IndexOf(".") > 0 && persontotal.ToString().Substring(persontotal.ToString().IndexOf("."), persontotal.ToString().Length - persontotal.ToString().IndexOf(".")) != ".00")
                     {
                         string personint = persontotal.ToString().Substring(0, persontotal.ToString().IndexOf("."));
                         manhoursSort.PersonTotal = Convert.ToInt32(personint) + 1;
@@ -454,226 +454,226 @@ namespace FineUIPro.Web.Manager
             Model.Manager_AccidentSortB accidentSort = BLL.AccidentSortBService.GetAccidentSortsByMonthReportIdAndAccidentType(LastMonthReportId, this.lblAccidentType11.Text);
             this.txtNumber11.Text = "0";
             this.txtNumber11.Text = BLL.AccidentReport2Service.GetCountByAccidentTimeAndAccidentType(startTime, endTime, accidentType11, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumNumber11.Text = accidentSort != null ? ((accidentSort.TotalNum??0) + Convert.ToInt32(this.txtNumber11.Text)).ToString() : Convert.ToInt32(this.txtNumber11.Text).ToString("N0");
+            this.txtSumNumber11.Text = accidentSort != null ? ((accidentSort.TotalNum ?? 0) + Convert.ToInt32(this.txtNumber11.Text)).ToString() : Convert.ToInt32(this.txtNumber11.Text).ToString("N0");
             this.txtPersonNum11.Text = "0";
             this.txtPersonNum11.Text = BLL.AccidentReport2Service.GetPersonNumByAccidentTimeAndAccidentType(startTime, endTime, accidentType11, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumPersonNum11.Text = accidentSort != null ? ((accidentSort.TotalPersonNum??0) + Convert.ToInt32(this.txtPersonNum11.Text)).ToString() : Convert.ToInt32(this.txtPersonNum11.Text).ToString("N0");
+            this.txtSumPersonNum11.Text = accidentSort != null ? ((accidentSort.TotalPersonNum ?? 0) + Convert.ToInt32(this.txtPersonNum11.Text)).ToString() : Convert.ToInt32(this.txtPersonNum11.Text).ToString("N0");
             this.txtLoseHours11.Text = "0";
             this.txtLoseHours11.Text = BLL.AccidentReport2Service.GetSumLoseWorkTimeByAccidentTimeAndAccidentType(startTime, endTime, accidentType11, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseHours11.Text = accidentSort != null ? ((accidentSort.TotalLoseHours??0) + Convert.ToInt32(this.txtLoseHours11.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours11.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseHours11.Text = accidentSort != null ? ((accidentSort.TotalLoseHours ?? 0) + Convert.ToInt32(this.txtLoseHours11.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours11.Text.Replace(",", "").Trim()).ToString("N0");
             this.txtLoseMoney11.Text = "0";
             this.txtLoseMoney11.Text = BLL.AccidentReport2Service.GetSumLosMoneyByAccidentTimeAndAccidentType(startTime, endTime, accidentType11, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseMoney11.Text = accidentSort != null ? ((accidentSort.TotalLoseMoney??0) + Convert.ToInt32(this.txtLoseMoney11.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney11.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseMoney11.Text = accidentSort != null ? ((accidentSort.TotalLoseMoney ?? 0) + Convert.ToInt32(this.txtLoseMoney11.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney11.Text.Replace(",", "").Trim()).ToString("N0");
 
             string accidentType12 = "2";   //重伤事故
             Model.Manager_AccidentSortB accidentSort2 = BLL.AccidentSortBService.GetAccidentSortsByMonthReportIdAndAccidentType(LastMonthReportId, this.lblAccidentType12.Text);
             this.txtNumber12.Text = "0";
             this.txtNumber12.Text = BLL.AccidentReport2Service.GetCountByAccidentTimeAndAccidentType(startTime, endTime, accidentType12, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumNumber12.Text = accidentSort2 != null ? ((accidentSort2.TotalNum??0) + Convert.ToInt32(this.txtNumber12.Text)).ToString() : Convert.ToInt32(this.txtNumber12.Text).ToString("N0");
+            this.txtSumNumber12.Text = accidentSort2 != null ? ((accidentSort2.TotalNum ?? 0) + Convert.ToInt32(this.txtNumber12.Text)).ToString() : Convert.ToInt32(this.txtNumber12.Text).ToString("N0");
             this.txtPersonNum12.Text = "0";
             this.txtPersonNum12.Text = BLL.AccidentReport2Service.GetPersonNumByAccidentTimeAndAccidentType(startTime, endTime, accidentType12, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumPersonNum12.Text = accidentSort2 != null ? ((accidentSort2.TotalPersonNum??0) + Convert.ToInt32(this.txtPersonNum12.Text)).ToString() : Convert.ToInt32(this.txtPersonNum12.Text).ToString("N0");
+            this.txtSumPersonNum12.Text = accidentSort2 != null ? ((accidentSort2.TotalPersonNum ?? 0) + Convert.ToInt32(this.txtPersonNum12.Text)).ToString() : Convert.ToInt32(this.txtPersonNum12.Text).ToString("N0");
             this.txtLoseHours12.Text = "0";
             this.txtLoseHours12.Text = BLL.AccidentReport2Service.GetSumLoseWorkTimeByAccidentTimeAndAccidentType(startTime, endTime, accidentType12, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseHours12.Text = accidentSort2 != null ? ((accidentSort2.TotalLoseHours??0) + Convert.ToInt32(this.txtLoseHours12.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours12.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseHours12.Text = accidentSort2 != null ? ((accidentSort2.TotalLoseHours ?? 0) + Convert.ToInt32(this.txtLoseHours12.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours12.Text.Replace(",", "").Trim()).ToString("N0");
             this.txtLoseMoney12.Text = "0";
             this.txtLoseMoney12.Text = BLL.AccidentReport2Service.GetSumLosMoneyByAccidentTimeAndAccidentType(startTime, endTime, accidentType12, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseMoney12.Text = accidentSort2 != null ? ((accidentSort2.TotalLoseMoney??0) + Convert.ToInt32(this.txtLoseMoney12.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney12.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseMoney12.Text = accidentSort2 != null ? ((accidentSort2.TotalLoseMoney ?? 0) + Convert.ToInt32(this.txtLoseMoney12.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney12.Text.Replace(",", "").Trim()).ToString("N0");
 
             string accidentType13 = "3";  //轻伤事故
             Model.Manager_AccidentSortB accidentSort3 = BLL.AccidentSortBService.GetAccidentSortsByMonthReportIdAndAccidentType(LastMonthReportId, this.lblAccidentType13.Text);
             this.txtNumber13.Text = "0";
             this.txtNumber13.Text = BLL.AccidentReport2Service.GetCountByAccidentTimeAndAccidentType(startTime, endTime, accidentType13, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumNumber13.Text = accidentSort3 != null ? ((accidentSort3.TotalNum??0) + Convert.ToInt32(this.txtNumber13.Text)).ToString() : Convert.ToInt32(this.txtNumber13.Text).ToString("N0");
+            this.txtSumNumber13.Text = accidentSort3 != null ? ((accidentSort3.TotalNum ?? 0) + Convert.ToInt32(this.txtNumber13.Text)).ToString() : Convert.ToInt32(this.txtNumber13.Text).ToString("N0");
             this.txtPersonNum13.Text = "0";
             this.txtPersonNum13.Text = BLL.AccidentReport2Service.GetPersonNumByAccidentTimeAndAccidentType(startTime, endTime, accidentType13, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumPersonNum13.Text = accidentSort3 != null ? ((accidentSort3.TotalPersonNum??0) + Convert.ToInt32(this.txtPersonNum13.Text)).ToString() : Convert.ToInt32(this.txtPersonNum13.Text).ToString("N0");
+            this.txtSumPersonNum13.Text = accidentSort3 != null ? ((accidentSort3.TotalPersonNum ?? 0) + Convert.ToInt32(this.txtPersonNum13.Text)).ToString() : Convert.ToInt32(this.txtPersonNum13.Text).ToString("N0");
             this.txtLoseHours13.Text = "0";
             this.txtLoseHours13.Text = BLL.AccidentReport2Service.GetSumLoseWorkTimeByAccidentTimeAndAccidentType(startTime, endTime, accidentType13, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseHours13.Text = accidentSort3 != null ? ((accidentSort3.TotalLoseHours??0) + Convert.ToInt32(this.txtLoseHours13.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours13.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseHours13.Text = accidentSort3 != null ? ((accidentSort3.TotalLoseHours ?? 0) + Convert.ToInt32(this.txtLoseHours13.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours13.Text.Replace(",", "").Trim()).ToString("N0");
             this.txtLoseMoney13.Text = "0";
             this.txtLoseMoney13.Text = BLL.AccidentReport2Service.GetSumLosMoneyByAccidentTimeAndAccidentType(startTime, endTime, accidentType13, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseMoney13.Text = accidentSort3 != null ? ((accidentSort3.TotalLoseMoney??0) + Convert.ToInt32(this.txtLoseMoney13.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney13.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseMoney13.Text = accidentSort3 != null ? ((accidentSort3.TotalLoseMoney ?? 0) + Convert.ToInt32(this.txtLoseMoney13.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney13.Text.Replace(",", "").Trim()).ToString("N0");
 
             string accidentType14 = "1";   //工作受限事故
             Model.Manager_AccidentSortB accidentSort4 = BLL.AccidentSortBService.GetAccidentSortsByMonthReportIdAndAccidentType(LastMonthReportId, this.lblAccidentType14.Text);
             this.txtNumber14.Text = "0";
             this.txtNumber14.Text = BLL.AccidentReportOtherService.GetCountByAccidentTimeAndAccidentType(startTime, endTime, accidentType14, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumNumber14.Text = accidentSort4 != null ? ((accidentSort4.TotalNum??0) + Convert.ToInt32(this.txtNumber14.Text)).ToString() : Convert.ToInt32(this.txtNumber14.Text).ToString("N0");
+            this.txtSumNumber14.Text = accidentSort4 != null ? ((accidentSort4.TotalNum ?? 0) + Convert.ToInt32(this.txtNumber14.Text)).ToString() : Convert.ToInt32(this.txtNumber14.Text).ToString("N0");
             this.txtPersonNum14.Text = "0";
             this.txtPersonNum14.Text = BLL.AccidentReportOtherService.GetPersonNumByAccidentTimeAndAccidentType(startTime, endTime, accidentType14, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumPersonNum14.Text = accidentSort4 != null ? ((accidentSort4.TotalPersonNum??0) + Convert.ToInt32(this.txtPersonNum14.Text)).ToString() : Convert.ToInt32(this.txtPersonNum14.Text).ToString("N0");
+            this.txtSumPersonNum14.Text = accidentSort4 != null ? ((accidentSort4.TotalPersonNum ?? 0) + Convert.ToInt32(this.txtPersonNum14.Text)).ToString() : Convert.ToInt32(this.txtPersonNum14.Text).ToString("N0");
             this.txtLoseHours14.Text = "0";
             this.txtLoseHours14.Text = BLL.AccidentReportOtherService.GetSumLoseWorkTimeByAccidentTimeAndAccidentType(startTime, endTime, accidentType14, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseHours14.Text = accidentSort4 != null ? ((accidentSort4.TotalLoseHours??0) + Convert.ToInt32(this.txtLoseHours14.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours14.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseHours14.Text = accidentSort4 != null ? ((accidentSort4.TotalLoseHours ?? 0) + Convert.ToInt32(this.txtLoseHours14.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours14.Text.Replace(",", "").Trim()).ToString("N0");
             this.txtLoseMoney14.Text = "0";
             this.txtLoseMoney14.Text = BLL.AccidentReportOtherService.GetSumLosMoneyByAccidentTimeAndAccidentType(startTime, endTime, accidentType14, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseMoney14.Text = accidentSort4 != null ? ((accidentSort4.TotalLoseMoney??0) + Convert.ToInt32(this.txtLoseMoney14.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney14.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseMoney14.Text = accidentSort4 != null ? ((accidentSort4.TotalLoseMoney ?? 0) + Convert.ToInt32(this.txtLoseMoney14.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney14.Text.Replace(",", "").Trim()).ToString("N0");
 
             string accidentType15 = "2";  //医疗处理
             Model.Manager_AccidentSortB accidentSort5 = BLL.AccidentSortBService.GetAccidentSortsByMonthReportIdAndAccidentType(LastMonthReportId, this.lblAccidentType15.Text);
             this.txtNumber15.Text = "0";
             this.txtNumber15.Text = BLL.AccidentReportOtherService.GetCountByAccidentTimeAndAccidentType(startTime, endTime, accidentType15, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumNumber15.Text = accidentSort5 != null ? ((accidentSort5.TotalNum??0) + Convert.ToInt32(this.txtNumber15.Text)).ToString() : Convert.ToInt32(this.txtNumber15.Text).ToString("N0");
+            this.txtSumNumber15.Text = accidentSort5 != null ? ((accidentSort5.TotalNum ?? 0) + Convert.ToInt32(this.txtNumber15.Text)).ToString() : Convert.ToInt32(this.txtNumber15.Text).ToString("N0");
             this.txtPersonNum15.Text = "0";
             this.txtPersonNum15.Text = BLL.AccidentReportOtherService.GetPersonNumByAccidentTimeAndAccidentType(startTime, endTime, accidentType15, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumPersonNum15.Text = accidentSort5 != null ? ((accidentSort5.TotalPersonNum??0) + Convert.ToInt32(this.txtPersonNum15.Text)).ToString() : Convert.ToInt32(this.txtPersonNum15.Text).ToString("N0");
+            this.txtSumPersonNum15.Text = accidentSort5 != null ? ((accidentSort5.TotalPersonNum ?? 0) + Convert.ToInt32(this.txtPersonNum15.Text)).ToString() : Convert.ToInt32(this.txtPersonNum15.Text).ToString("N0");
             this.txtLoseHours15.Text = "0";
             this.txtLoseHours15.Text = BLL.AccidentReportOtherService.GetSumLoseWorkTimeByAccidentTimeAndAccidentType(startTime, endTime, accidentType15, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseHours15.Text = accidentSort5 != null ? ((accidentSort5.TotalLoseHours??0) + Convert.ToInt32(this.txtLoseHours15.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours15.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseHours15.Text = accidentSort5 != null ? ((accidentSort5.TotalLoseHours ?? 0) + Convert.ToInt32(this.txtLoseHours15.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours15.Text.Replace(",", "").Trim()).ToString("N0");
             this.txtLoseMoney15.Text = "0";
             this.txtLoseMoney15.Text = BLL.AccidentReportOtherService.GetSumLosMoneyByAccidentTimeAndAccidentType(startTime, endTime, accidentType15, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseMoney15.Text = accidentSort5 != null ? ((accidentSort5.TotalLoseMoney??0) + Convert.ToInt32(this.txtLoseMoney15.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney15.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseMoney15.Text = accidentSort5 != null ? ((accidentSort5.TotalLoseMoney ?? 0) + Convert.ToInt32(this.txtLoseMoney15.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney15.Text.Replace(",", "").Trim()).ToString("N0");
 
             string accidentType16 = "3";   //现场处置（急救）
             Model.Manager_AccidentSortB accidentSort6 = BLL.AccidentSortBService.GetAccidentSortsByMonthReportIdAndAccidentType(LastMonthReportId, this.lblAccidentType16.Text);
             this.txtNumber16.Text = "0";
             this.txtNumber16.Text = BLL.AccidentReportOtherService.GetCountByAccidentTimeAndAccidentType(startTime, endTime, accidentType16, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumNumber16.Text = accidentSort6 != null ? ((accidentSort6.TotalNum??0) + Convert.ToInt32(this.txtNumber16.Text)).ToString() : Convert.ToInt32(this.txtNumber16.Text).ToString("N0");
+            this.txtSumNumber16.Text = accidentSort6 != null ? ((accidentSort6.TotalNum ?? 0) + Convert.ToInt32(this.txtNumber16.Text)).ToString() : Convert.ToInt32(this.txtNumber16.Text).ToString("N0");
             this.txtPersonNum16.Text = "0";
             this.txtPersonNum16.Text = BLL.AccidentReportOtherService.GetPersonNumByAccidentTimeAndAccidentType(startTime, endTime, accidentType16, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumPersonNum16.Text = accidentSort6 != null ? ((accidentSort6.TotalPersonNum??0) + Convert.ToInt32(this.txtPersonNum16.Text)).ToString() : Convert.ToInt32(this.txtPersonNum16.Text).ToString("N0");
+            this.txtSumPersonNum16.Text = accidentSort6 != null ? ((accidentSort6.TotalPersonNum ?? 0) + Convert.ToInt32(this.txtPersonNum16.Text)).ToString() : Convert.ToInt32(this.txtPersonNum16.Text).ToString("N0");
             this.txtLoseHours16.Text = "0";
             this.txtLoseHours16.Text = BLL.AccidentReportOtherService.GetSumLoseWorkTimeByAccidentTimeAndAccidentType(startTime, endTime, accidentType16, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseHours16.Text = accidentSort6 != null ? ((accidentSort6.TotalLoseHours??0) + Convert.ToInt32(this.txtLoseHours16.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours16.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseHours16.Text = accidentSort6 != null ? ((accidentSort6.TotalLoseHours ?? 0) + Convert.ToInt32(this.txtLoseHours16.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours16.Text.Replace(",", "").Trim()).ToString("N0");
             this.txtLoseMoney16.Text = "0";
             this.txtLoseMoney16.Text = BLL.AccidentReportOtherService.GetSumLosMoneyByAccidentTimeAndAccidentType(startTime, endTime, accidentType16, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseMoney16.Text = accidentSort6 != null ? ((accidentSort6.TotalLoseMoney??0) + Convert.ToInt32(this.txtLoseMoney16.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney16.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseMoney16.Text = accidentSort6 != null ? ((accidentSort6.TotalLoseMoney ?? 0) + Convert.ToInt32(this.txtLoseMoney16.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney16.Text.Replace(",", "").Trim()).ToString("N0");
 
             string accidentType21 = "4";  //未遂事故
             Model.Manager_AccidentSortB accidentSort21 = BLL.AccidentSortBService.GetAccidentSortsByMonthReportIdAndAccidentType(LastMonthReportId, this.lblAccidentType21.Text);
             this.txtNumber21.Text = "0";
             this.txtNumber21.Text = BLL.AccidentReportOtherService.GetCountByAccidentTimeAndAccidentType(startTime, endTime, accidentType21, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumNumber21.Text = accidentSort21 != null ? ((accidentSort21.TotalNum??0) + Convert.ToInt32(this.txtNumber21.Text)).ToString() : Convert.ToInt32(this.txtNumber21.Text).ToString("N0");
+            this.txtSumNumber21.Text = accidentSort21 != null ? ((accidentSort21.TotalNum ?? 0) + Convert.ToInt32(this.txtNumber21.Text)).ToString() : Convert.ToInt32(this.txtNumber21.Text).ToString("N0");
             this.txtPersonNum21.Text = "0";
             this.txtPersonNum21.Text = BLL.AccidentReportOtherService.GetPersonNumByAccidentTimeAndAccidentType(startTime, endTime, accidentType21, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumPersonNum21.Text = accidentSort21 != null ? ((accidentSort21.TotalPersonNum??0) + Convert.ToInt32(this.txtPersonNum21.Text)).ToString() : Convert.ToInt32(this.txtPersonNum21.Text).ToString("N0");
+            this.txtSumPersonNum21.Text = accidentSort21 != null ? ((accidentSort21.TotalPersonNum ?? 0) + Convert.ToInt32(this.txtPersonNum21.Text)).ToString() : Convert.ToInt32(this.txtPersonNum21.Text).ToString("N0");
             this.txtLoseHours21.Text = "0";
             this.txtLoseHours21.Text = BLL.AccidentReportOtherService.GetSumLoseWorkTimeByAccidentTimeAndAccidentType(startTime, endTime, accidentType21, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseHours21.Text = accidentSort21 != null ? ((accidentSort21.TotalLoseHours??0) + Convert.ToInt32(this.txtLoseHours21.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours21.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseHours21.Text = accidentSort21 != null ? ((accidentSort21.TotalLoseHours ?? 0) + Convert.ToInt32(this.txtLoseHours21.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours21.Text.Replace(",", "").Trim()).ToString("N0");
             this.txtLoseMoney21.Text = "0";
             this.txtLoseMoney21.Text = BLL.AccidentReportOtherService.GetSumLosMoneyByAccidentTimeAndAccidentType(startTime, endTime, accidentType21, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseMoney21.Text = accidentSort21 != null ? ((accidentSort21.TotalLoseMoney??0) + Convert.ToInt32(this.txtLoseMoney21.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney21.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseMoney21.Text = accidentSort21 != null ? ((accidentSort21.TotalLoseMoney ?? 0) + Convert.ToInt32(this.txtLoseMoney21.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney21.Text.Replace(",", "").Trim()).ToString("N0");
 
             string accidentType22 = "4";  //火灾事故
             Model.Manager_AccidentSortB accidentSort22 = BLL.AccidentSortBService.GetAccidentSortsByMonthReportIdAndAccidentType(LastMonthReportId, this.lblAccidentType22.Text);
             this.txtNumber22.Text = "0";
             this.txtNumber22.Text = BLL.AccidentReport2Service.GetCountByAccidentTimeAndAccidentType(startTime, endTime, accidentType22, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumNumber22.Text = accidentSort22 != null ? ((accidentSort22.TotalNum??0) + Convert.ToInt32(this.txtNumber22.Text)).ToString() : Convert.ToInt32(this.txtNumber22.Text).ToString("N0");
+            this.txtSumNumber22.Text = accidentSort22 != null ? ((accidentSort22.TotalNum ?? 0) + Convert.ToInt32(this.txtNumber22.Text)).ToString() : Convert.ToInt32(this.txtNumber22.Text).ToString("N0");
             this.txtPersonNum22.Text = "0";
             this.txtPersonNum22.Text = BLL.AccidentReport2Service.GetPersonNumByAccidentTimeAndAccidentType(startTime, endTime, accidentType22, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumPersonNum22.Text = accidentSort22 != null ? ((accidentSort22.TotalPersonNum??0) + Convert.ToInt32(this.txtPersonNum22.Text)).ToString() : Convert.ToInt32(this.txtPersonNum22.Text).ToString("N0");
+            this.txtSumPersonNum22.Text = accidentSort22 != null ? ((accidentSort22.TotalPersonNum ?? 0) + Convert.ToInt32(this.txtPersonNum22.Text)).ToString() : Convert.ToInt32(this.txtPersonNum22.Text).ToString("N0");
             this.txtLoseHours22.Text = "0";
             this.txtLoseHours22.Text = BLL.AccidentReport2Service.GetSumLoseWorkTimeByAccidentTimeAndAccidentType(startTime, endTime, accidentType22, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseHours22.Text = accidentSort22 != null ? ((accidentSort22.TotalLoseHours??0) + Convert.ToInt32(this.txtLoseHours22.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours22.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseHours22.Text = accidentSort22 != null ? ((accidentSort22.TotalLoseHours ?? 0) + Convert.ToInt32(this.txtLoseHours22.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours22.Text.Replace(",", "").Trim()).ToString("N0");
             this.txtLoseMoney22.Text = "0";
             this.txtLoseMoney22.Text = BLL.AccidentReport2Service.GetSumLosMoneyByAccidentTimeAndAccidentType(startTime, endTime, accidentType22, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseMoney22.Text = accidentSort22 != null ? ((accidentSort22.TotalLoseMoney??0) + Convert.ToInt32(this.txtLoseMoney22.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney22.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseMoney22.Text = accidentSort22 != null ? ((accidentSort22.TotalLoseMoney ?? 0) + Convert.ToInt32(this.txtLoseMoney22.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney22.Text.Replace(",", "").Trim()).ToString("N0");
 
             string accidentType23 = "5";   //爆炸事故
             Model.Manager_AccidentSortB accidentSort23 = BLL.AccidentSortBService.GetAccidentSortsByMonthReportIdAndAccidentType(LastMonthReportId, this.lblAccidentType23.Text);
             this.txtNumber23.Text = "0";
             this.txtNumber23.Text = BLL.AccidentReport2Service.GetCountByAccidentTimeAndAccidentType(startTime, endTime, accidentType23, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumNumber23.Text = accidentSort23 != null ? ((accidentSort23.TotalNum??0) + Convert.ToInt32(this.txtNumber23.Text)).ToString() : Convert.ToInt32(this.txtNumber23.Text).ToString("N0");
+            this.txtSumNumber23.Text = accidentSort23 != null ? ((accidentSort23.TotalNum ?? 0) + Convert.ToInt32(this.txtNumber23.Text)).ToString() : Convert.ToInt32(this.txtNumber23.Text).ToString("N0");
             this.txtPersonNum23.Text = "0";
             this.txtPersonNum23.Text = BLL.AccidentReport2Service.GetPersonNumByAccidentTimeAndAccidentType(startTime, endTime, accidentType23, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumPersonNum23.Text = accidentSort23 != null ? ((accidentSort23.TotalPersonNum??0) + Convert.ToInt32(this.txtPersonNum23.Text)).ToString() : Convert.ToInt32(this.txtPersonNum23.Text).ToString("N0");
+            this.txtSumPersonNum23.Text = accidentSort23 != null ? ((accidentSort23.TotalPersonNum ?? 0) + Convert.ToInt32(this.txtPersonNum23.Text)).ToString() : Convert.ToInt32(this.txtPersonNum23.Text).ToString("N0");
             this.txtLoseHours23.Text = "0";
             this.txtLoseHours23.Text = BLL.AccidentReport2Service.GetSumLoseWorkTimeByAccidentTimeAndAccidentType(startTime, endTime, accidentType23, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseHours23.Text = accidentSort23 != null ? ((accidentSort23.TotalLoseHours??0) + Convert.ToInt32(this.txtLoseHours23.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours23.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseHours23.Text = accidentSort23 != null ? ((accidentSort23.TotalLoseHours ?? 0) + Convert.ToInt32(this.txtLoseHours23.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours23.Text.Replace(",", "").Trim()).ToString("N0");
             this.txtLoseMoney23.Text = "0";
             this.txtLoseMoney23.Text = BLL.AccidentReport2Service.GetSumLosMoneyByAccidentTimeAndAccidentType(startTime, endTime, accidentType23, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseMoney23.Text = accidentSort23 != null ? ((accidentSort23.TotalLoseMoney??0) + Convert.ToInt32(this.txtLoseMoney23.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney23.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseMoney23.Text = accidentSort23 != null ? ((accidentSort23.TotalLoseMoney ?? 0) + Convert.ToInt32(this.txtLoseMoney23.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney23.Text.Replace(",", "").Trim()).ToString("N0");
 
             string accidentType24 = "6";   //道路交通事故
             Model.Manager_AccidentSortB accidentSort24 = BLL.AccidentSortBService.GetAccidentSortsByMonthReportIdAndAccidentType(LastMonthReportId, this.lblAccidentType24.Text);
             this.txtNumber24.Text = "0";
             this.txtNumber24.Text = BLL.AccidentReport2Service.GetCountByAccidentTimeAndAccidentType(startTime, endTime, accidentType24, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumNumber24.Text = accidentSort24 != null ? ((accidentSort24.TotalNum??0) + Convert.ToInt32(this.txtNumber24.Text)).ToString() : Convert.ToInt32(this.txtNumber24.Text).ToString("N0");
+            this.txtSumNumber24.Text = accidentSort24 != null ? ((accidentSort24.TotalNum ?? 0) + Convert.ToInt32(this.txtNumber24.Text)).ToString() : Convert.ToInt32(this.txtNumber24.Text).ToString("N0");
             this.txtPersonNum24.Text = "0";
             this.txtPersonNum24.Text = BLL.AccidentReport2Service.GetPersonNumByAccidentTimeAndAccidentType(startTime, endTime, accidentType24, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumPersonNum24.Text = accidentSort24 != null ? ((accidentSort24.TotalPersonNum??0) + Convert.ToInt32(this.txtPersonNum24.Text)).ToString() : Convert.ToInt32(this.txtPersonNum24.Text).ToString("N0");
+            this.txtSumPersonNum24.Text = accidentSort24 != null ? ((accidentSort24.TotalPersonNum ?? 0) + Convert.ToInt32(this.txtPersonNum24.Text)).ToString() : Convert.ToInt32(this.txtPersonNum24.Text).ToString("N0");
             this.txtLoseHours24.Text = "0";
             this.txtLoseHours24.Text = BLL.AccidentReport2Service.GetSumLoseWorkTimeByAccidentTimeAndAccidentType(startTime, endTime, accidentType24, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseHours24.Text = accidentSort24 != null ? ((accidentSort24.TotalLoseHours??0) + Convert.ToInt32(this.txtLoseHours24.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours24.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseHours24.Text = accidentSort24 != null ? ((accidentSort24.TotalLoseHours ?? 0) + Convert.ToInt32(this.txtLoseHours24.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours24.Text.Replace(",", "").Trim()).ToString("N0");
             this.txtLoseMoney24.Text = "0";
             this.txtLoseMoney24.Text = BLL.AccidentReport2Service.GetSumLosMoneyByAccidentTimeAndAccidentType(startTime, endTime, accidentType24, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseMoney24.Text = accidentSort24 != null ? ((accidentSort24.TotalLoseMoney??0) + Convert.ToInt32(this.txtLoseMoney24.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney24.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseMoney24.Text = accidentSort24 != null ? ((accidentSort24.TotalLoseMoney ?? 0) + Convert.ToInt32(this.txtLoseMoney24.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney24.Text.Replace(",", "").Trim()).ToString("N0");
 
             string accidentType25 = "7";  //机械设备事故
             Model.Manager_AccidentSortB accidentSort25 = BLL.AccidentSortBService.GetAccidentSortsByMonthReportIdAndAccidentType(LastMonthReportId, this.lblAccidentType25.Text);
             this.txtNumber25.Text = "0";
             this.txtNumber25.Text = BLL.AccidentReport2Service.GetCountByAccidentTimeAndAccidentType(startTime, endTime, accidentType25, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumNumber25.Text = accidentSort25 != null ? ((accidentSort25.TotalNum??0) + Convert.ToInt32(this.txtNumber25.Text)).ToString() : Convert.ToInt32(this.txtNumber25.Text).ToString("N0");
+            this.txtSumNumber25.Text = accidentSort25 != null ? ((accidentSort25.TotalNum ?? 0) + Convert.ToInt32(this.txtNumber25.Text)).ToString() : Convert.ToInt32(this.txtNumber25.Text).ToString("N0");
             this.txtPersonNum25.Text = "0";
             this.txtPersonNum25.Text = BLL.AccidentReport2Service.GetPersonNumByAccidentTimeAndAccidentType(startTime, endTime, accidentType25, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumPersonNum25.Text = accidentSort25 != null ? ((accidentSort25.TotalPersonNum??0) + Convert.ToInt32(this.txtPersonNum25.Text)).ToString() : Convert.ToInt32(this.txtPersonNum25.Text).ToString("N0");
+            this.txtSumPersonNum25.Text = accidentSort25 != null ? ((accidentSort25.TotalPersonNum ?? 0) + Convert.ToInt32(this.txtPersonNum25.Text)).ToString() : Convert.ToInt32(this.txtPersonNum25.Text).ToString("N0");
             this.txtLoseHours25.Text = "0";
             this.txtLoseHours25.Text = BLL.AccidentReport2Service.GetSumLoseWorkTimeByAccidentTimeAndAccidentType(startTime, endTime, accidentType25, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseHours25.Text = accidentSort25 != null ? ((accidentSort25.TotalLoseHours??0) + Convert.ToInt32(this.txtLoseHours25.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours25.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseHours25.Text = accidentSort25 != null ? ((accidentSort25.TotalLoseHours ?? 0) + Convert.ToInt32(this.txtLoseHours25.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours25.Text.Replace(",", "").Trim()).ToString("N0");
             this.txtLoseMoney25.Text = "0";
             this.txtLoseMoney25.Text = BLL.AccidentReport2Service.GetSumLosMoneyByAccidentTimeAndAccidentType(startTime, endTime, accidentType25, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseMoney25.Text = accidentSort25 != null ? ((accidentSort25.TotalLoseMoney??0) + Convert.ToInt32(this.txtLoseMoney25.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney25.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseMoney25.Text = accidentSort25 != null ? ((accidentSort25.TotalLoseMoney ?? 0) + Convert.ToInt32(this.txtLoseMoney25.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney25.Text.Replace(",", "").Trim()).ToString("N0");
 
             string accidentType26 = "8";  //环境污染事故
             Model.Manager_AccidentSortB accidentSort26 = BLL.AccidentSortBService.GetAccidentSortsByMonthReportIdAndAccidentType(LastMonthReportId, this.lblAccidentType26.Text);
             this.txtNumber26.Text = "0";
             this.txtNumber26.Text = BLL.AccidentReport2Service.GetCountByAccidentTimeAndAccidentType(startTime, endTime, accidentType26, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumNumber26.Text = accidentSort26 != null ? ((accidentSort26.TotalNum??0) + Convert.ToInt32(this.txtNumber26.Text)).ToString() : Convert.ToInt32(this.txtNumber26.Text).ToString("N0");
+            this.txtSumNumber26.Text = accidentSort26 != null ? ((accidentSort26.TotalNum ?? 0) + Convert.ToInt32(this.txtNumber26.Text)).ToString() : Convert.ToInt32(this.txtNumber26.Text).ToString("N0");
             this.txtPersonNum26.Text = "0";
             this.txtPersonNum26.Text = BLL.AccidentReport2Service.GetPersonNumByAccidentTimeAndAccidentType(startTime, endTime, accidentType26, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumPersonNum26.Text = accidentSort26 != null ? ((accidentSort26.TotalPersonNum??0) + Convert.ToInt32(this.txtPersonNum26.Text)).ToString() : Convert.ToInt32(this.txtPersonNum26.Text).ToString("N0");
+            this.txtSumPersonNum26.Text = accidentSort26 != null ? ((accidentSort26.TotalPersonNum ?? 0) + Convert.ToInt32(this.txtPersonNum26.Text)).ToString() : Convert.ToInt32(this.txtPersonNum26.Text).ToString("N0");
             this.txtLoseHours26.Text = "0";
             this.txtLoseHours26.Text = BLL.AccidentReport2Service.GetSumLoseWorkTimeByAccidentTimeAndAccidentType(startTime, endTime, accidentType26, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseHours26.Text = accidentSort26 != null ? ((accidentSort26.TotalLoseHours??0) + Convert.ToInt32(this.txtLoseHours26.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours26.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseHours26.Text = accidentSort26 != null ? ((accidentSort26.TotalLoseHours ?? 0) + Convert.ToInt32(this.txtLoseHours26.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours26.Text.Replace(",", "").Trim()).ToString("N0");
             this.txtLoseMoney26.Text = "0";
             this.txtLoseMoney26.Text = BLL.AccidentReport2Service.GetSumLosMoneyByAccidentTimeAndAccidentType(startTime, endTime, accidentType26, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseMoney26.Text = accidentSort26 != null ? ((accidentSort26.TotalLoseMoney??0) + Convert.ToInt32(this.txtLoseMoney26.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney26.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseMoney26.Text = accidentSort26 != null ? ((accidentSort26.TotalLoseMoney ?? 0) + Convert.ToInt32(this.txtLoseMoney26.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney26.Text.Replace(",", "").Trim()).ToString("N0");
 
             string accidentType27 = "9";  //职业病
             Model.Manager_AccidentSortB accidentSort27 = BLL.AccidentSortBService.GetAccidentSortsByMonthReportIdAndAccidentType(LastMonthReportId, this.lblAccidentType27.Text);
             this.txtNumber27.Text = "0";
             this.txtNumber27.Text = BLL.AccidentReport2Service.GetCountByAccidentTimeAndAccidentType(startTime, endTime, accidentType27, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumNumber27.Text = accidentSort27 != null ? ((accidentSort27.TotalNum??0) + Convert.ToInt32(this.txtNumber27.Text)).ToString() : Convert.ToInt32(this.txtNumber27.Text).ToString("N0");
+            this.txtSumNumber27.Text = accidentSort27 != null ? ((accidentSort27.TotalNum ?? 0) + Convert.ToInt32(this.txtNumber27.Text)).ToString() : Convert.ToInt32(this.txtNumber27.Text).ToString("N0");
             this.txtPersonNum27.Text = "0";
             this.txtPersonNum27.Text = BLL.AccidentReport2Service.GetPersonNumByAccidentTimeAndAccidentType(startTime, endTime, accidentType27, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumPersonNum27.Text = accidentSort27 != null ? ((accidentSort27.TotalPersonNum??0) + Convert.ToInt32(this.txtPersonNum27.Text)).ToString() : Convert.ToInt32(this.txtPersonNum27.Text).ToString("N0");
+            this.txtSumPersonNum27.Text = accidentSort27 != null ? ((accidentSort27.TotalPersonNum ?? 0) + Convert.ToInt32(this.txtPersonNum27.Text)).ToString() : Convert.ToInt32(this.txtPersonNum27.Text).ToString("N0");
             this.txtLoseHours27.Text = "0";
             this.txtLoseHours27.Text = BLL.AccidentReport2Service.GetSumLoseWorkTimeByAccidentTimeAndAccidentType(startTime, endTime, accidentType27, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseHours27.Text = accidentSort27 != null ? ((accidentSort27.TotalLoseHours??0) + Convert.ToInt32(this.txtLoseHours27.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours27.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseHours27.Text = accidentSort27 != null ? ((accidentSort27.TotalLoseHours ?? 0) + Convert.ToInt32(this.txtLoseHours27.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours27.Text.Replace(",", "").Trim()).ToString("N0");
             this.txtLoseMoney27.Text = "0";
             this.txtLoseMoney27.Text = BLL.AccidentReport2Service.GetSumLosMoneyByAccidentTimeAndAccidentType(startTime, endTime, accidentType27, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseMoney27.Text = accidentSort27 != null ? ((accidentSort27.TotalLoseMoney??0) + Convert.ToInt32(this.txtLoseMoney27.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney27.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseMoney27.Text = accidentSort27 != null ? ((accidentSort27.TotalLoseMoney ?? 0) + Convert.ToInt32(this.txtLoseMoney27.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney27.Text.Replace(",", "").Trim()).ToString("N0");
 
             string accidentType28 = "10";  //生产事故
             Model.Manager_AccidentSortB accidentSort28 = BLL.AccidentSortBService.GetAccidentSortsByMonthReportIdAndAccidentType(LastMonthReportId, this.lblAccidentType28.Text);
             this.txtNumber28.Text = "0";
             this.txtNumber28.Text = BLL.AccidentReport2Service.GetCountByAccidentTimeAndAccidentType(startTime, endTime, accidentType28, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumNumber28.Text = accidentSort28 != null ? ((accidentSort28.TotalNum??0) + Convert.ToInt32(this.txtNumber28.Text)).ToString() : Convert.ToInt32(this.txtNumber28.Text).ToString("N0");
+            this.txtSumNumber28.Text = accidentSort28 != null ? ((accidentSort28.TotalNum ?? 0) + Convert.ToInt32(this.txtNumber28.Text)).ToString() : Convert.ToInt32(this.txtNumber28.Text).ToString("N0");
             this.txtPersonNum28.Text = "0";
             this.txtPersonNum28.Text = BLL.AccidentReport2Service.GetPersonNumByAccidentTimeAndAccidentType(startTime, endTime, accidentType28, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumPersonNum28.Text = accidentSort28 != null ? ((accidentSort28.TotalPersonNum??0) + Convert.ToInt32(this.txtPersonNum28.Text)).ToString() : Convert.ToInt32(this.txtPersonNum28.Text).ToString("N0");
+            this.txtSumPersonNum28.Text = accidentSort28 != null ? ((accidentSort28.TotalPersonNum ?? 0) + Convert.ToInt32(this.txtPersonNum28.Text)).ToString() : Convert.ToInt32(this.txtPersonNum28.Text).ToString("N0");
             this.txtLoseHours28.Text = "0";
             this.txtLoseHours28.Text = BLL.AccidentReport2Service.GetSumLoseWorkTimeByAccidentTimeAndAccidentType(startTime, endTime, accidentType28, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseHours28.Text = accidentSort28 != null ? ((accidentSort28.TotalLoseHours??0) + Convert.ToInt32(this.txtLoseHours28.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours28.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseHours28.Text = accidentSort28 != null ? ((accidentSort28.TotalLoseHours ?? 0) + Convert.ToInt32(this.txtLoseHours28.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours28.Text.Replace(",", "").Trim()).ToString("N0");
             this.txtLoseMoney28.Text = "0";
             this.txtLoseMoney28.Text = BLL.AccidentReport2Service.GetSumLosMoneyByAccidentTimeAndAccidentType(startTime, endTime, accidentType28, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseMoney28.Text = accidentSort28 != null ? ((accidentSort28.TotalLoseMoney??0) + Convert.ToInt32(this.txtLoseMoney28.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney28.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseMoney28.Text = accidentSort28 != null ? ((accidentSort28.TotalLoseMoney ?? 0) + Convert.ToInt32(this.txtLoseMoney28.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney28.Text.Replace(",", "").Trim()).ToString("N0");
 
             string accidentType29 = "11";   //其它事故
             Model.Manager_AccidentSortB accidentSort29 = BLL.AccidentSortBService.GetAccidentSortsByMonthReportIdAndAccidentType(LastMonthReportId, this.lblAccidentType29.Text);
             this.txtNumber29.Text = "0";
             this.txtNumber29.Text = BLL.AccidentReport2Service.GetCountByAccidentTimeAndAccidentType(startTime, endTime, accidentType29, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumNumber29.Text = accidentSort29 != null ? ((accidentSort29.TotalNum??0) + Convert.ToInt32(this.txtNumber29.Text)).ToString() : Convert.ToInt32(this.txtNumber29.Text).ToString("N0");
+            this.txtSumNumber29.Text = accidentSort29 != null ? ((accidentSort29.TotalNum ?? 0) + Convert.ToInt32(this.txtNumber29.Text)).ToString() : Convert.ToInt32(this.txtNumber29.Text).ToString("N0");
             this.txtPersonNum29.Text = "0";
             this.txtPersonNum29.Text = BLL.AccidentReport2Service.GetPersonNumByAccidentTimeAndAccidentType(startTime, endTime, accidentType29, this.CurrUser.LoginProjectId).ToString();
-            this.txtSumPersonNum29.Text = accidentSort29 != null ? ((accidentSort29.TotalPersonNum??0) + Convert.ToInt32(this.txtPersonNum29.Text)).ToString() : Convert.ToInt32(this.txtPersonNum29.Text).ToString("N0");
+            this.txtSumPersonNum29.Text = accidentSort29 != null ? ((accidentSort29.TotalPersonNum ?? 0) + Convert.ToInt32(this.txtPersonNum29.Text)).ToString() : Convert.ToInt32(this.txtPersonNum29.Text).ToString("N0");
             this.txtLoseHours29.Text = "0";
             this.txtLoseHours29.Text = BLL.AccidentReport2Service.GetSumLoseWorkTimeByAccidentTimeAndAccidentType(startTime, endTime, accidentType29, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseHours29.Text = accidentSort29 != null ? ((accidentSort29.TotalLoseHours??0) + Convert.ToInt32(this.txtLoseHours29.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours29.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseHours29.Text = accidentSort29 != null ? ((accidentSort29.TotalLoseHours ?? 0) + Convert.ToInt32(this.txtLoseHours29.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseHours29.Text.Replace(",", "").Trim()).ToString("N0");
             this.txtLoseMoney29.Text = "0";
             this.txtLoseMoney29.Text = BLL.AccidentReport2Service.GetSumLosMoneyByAccidentTimeAndAccidentType(startTime, endTime, accidentType29, this.CurrUser.LoginProjectId).ToString("N0");
-            this.txtSumLoseMoney29.Text = accidentSort29 != null ? ((accidentSort29.TotalLoseMoney??0) + Convert.ToInt32(this.txtLoseMoney29.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney29.Text.Replace(",", "").Trim()).ToString("N0");
+            this.txtSumLoseMoney29.Text = accidentSort29 != null ? ((accidentSort29.TotalLoseMoney ?? 0) + Convert.ToInt32(this.txtLoseMoney29.Text.Replace(",", "").Trim())).ToString("N0") : Convert.ToInt32(this.txtLoseMoney29.Text.Replace(",", "").Trim()).ToString("N0");
             //事故数据
             List<Model.Accident_AccidentReport> accidentReports = BLL.AccidentReport2Service.GetAccidentReportsByAccidentTime(startTime, endTime, this.CurrUser.LoginProjectId);
             List<Model.Accident_AccidentReportOther> accidentReportOthers = BLL.AccidentReportOtherService.GetAccidentReportOthersByAccidentTime(startTime, endTime, this.CurrUser.LoginProjectId);
@@ -1220,7 +1220,7 @@ namespace FineUIPro.Web.Manager
             {
                 monthReport.MonthReportId = this.MonthReportId;
                 BLL.MonthReportBService.UpdateMonthReport(monthReport);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改管理月报", monthReport.MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, monthReport.MonthReportCode, monthReport.MonthReportId, BLL.Const.ProjectManagerMonthBMenuId, BLL.Const.BtnModify);
                 if (BLL.CostAnalyseService.getCostAnalyseByMonths(monthReport.Months, this.CurrUser.LoginProjectId) != null)
                 {
                     costAnalyse = BLL.CostAnalyseService.getCostAnalyseByMonths(monthReport.Months, this.CurrUser.LoginProjectId);
@@ -1263,7 +1263,7 @@ namespace FineUIPro.Web.Manager
                 monthReport.MonthReportId = SQLHelper.GetNewID(typeof(Model.Manager_MonthReport));
                 this.MonthReportId = monthReport.MonthReportId;
                 BLL.MonthReportBService.AddMonthReport(monthReport);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "增加管理月报", monthReport.MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, monthReport.MonthReportCode, monthReport.MonthReportId, BLL.Const.ProjectManagerMonthBMenuId, BLL.Const.BtnAdd);
                 costAnalyse.Months = monthReport.Months;
                 costAnalyse.ProjectId = this.CurrUser.LoginProjectId;
                 if (monthReport.Manhours == 0 || monthReport.Manhours == null)
@@ -2549,7 +2549,7 @@ namespace FineUIPro.Web.Manager
                 };
                 this.MonthReportId = monthReport.MonthReportId;
                 BLL.MonthReportBService.AddMonthReport(monthReport);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "增加管理月报", monthReport.MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, monthReport.MonthReportCode, monthReport.MonthReportId, BLL.Const.ProjectManagerMonthBMenuId, BLL.Const.BtnAdd);
             }
             PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ManagerMonthReport&menuId={1}", this.MonthReportId, BLL.Const.ProjectManagerMonthBMenuId)));
         }
@@ -2563,11 +2563,20 @@ namespace FineUIPro.Web.Manager
         /// <returns></returns>
         protected string ConvertUnitName(object unitId)
         {
+            string unitName = string.Empty;
             if (unitId != null)
             {
-                return BLL.UnitService.GetUnitNameByUnitId(unitId.ToString());
+                Model.Project_ProjectUnit projectUnit = BLL.ProjectUnitService.GetProjectUnitByUnitIdProjectId(this.CurrUser.LoginProjectId, unitId.ToString());
+                if (projectUnit.OutTime != null && projectUnit.OutTime.Value <= DateTime.Now)   //离场单位
+                {
+                    unitName = BLL.UnitService.GetUnitNameByUnitId(unitId.ToString()) + "(退场)";
+                }
+                else      //在场单位
+                {
+                    unitName = BLL.UnitService.GetUnitNameByUnitId(unitId.ToString());
+                }
             }
-            return "";
+            return unitName;
         }
 
         /// <summary>

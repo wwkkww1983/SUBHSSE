@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PersonListEdit.aspx.cs" Inherits="FineUIPro.Web.SitePerson.PersonListEdit" %>
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -44,7 +44,7 @@
                            <%-- <f:DropDownList ID="drpUnit" runat="server" Label="所属单位" LabelAlign="Right" Required="True"
                                 ShowRedStar="True" AutoPostBack="True" OnSelectedIndexChanged="drpUnit_SelectedIndexChanged">
                             </f:DropDownList>--%>
-                            <f:TextBox ID="txtUnitName" runat="server" Label="所属单位" LabelAlign="Right" Readonly="true" Required="True" ShowRedStar="True"></f:TextBox>
+                            <f:TextBox ID="txtUnitName" runat="server" Label="所属单位" LabelAlign="Right" Readonly="true" ></f:TextBox>
                             <f:DropDownList ID="drpTeamGroup" runat="server" Label="所属班组" LabelAlign="Right">
                             </f:DropDownList>                           
                             <f:TextBox ID="txtAddress" runat="server" Label="家庭地址" MaxLength="50" LabelAlign="Right">
@@ -53,6 +53,8 @@
                             </f:DropDownList>
                             <f:DropDownList ID="drpTitle" runat="server" Label="所属职称" LabelAlign="Right" EnableEdit="true">
                             </f:DropDownList>
+                            <f:Button runat="server" ID="btnQR" OnClick="btnQR_Click" Text="二维码生成" MarginLeft="10px">
+                            </f:Button>
                         </Items>
                     </f:Panel>
                     <f:Panel ID="Panel4" runat="server" BoxFlex="3" ShowBorder="false" ShowHeader="false"
@@ -60,7 +62,7 @@
                         <Items>
                             <f:TextBox ID="txtCardNo" runat="server" Label="卡号" MaxLength="50" LabelAlign="Right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                             </f:TextBox>
-                            <f:Button runat="server" ID="btnReadIdentityCard" Icon="Vcard" Text="读取身份证" MarginLeft="90px"></f:Button>
+                            <f:Button runat="server" ID="btnReadIdentityCard" Icon="Vcard" Text="读取身份证" MarginLeft="90px" Hidden="true"></f:Button>
                             <f:RadioButtonList ID="rblSex" runat="server" Label="性别" LabelAlign="Right" Required="True" ShowRedStar="True">
                                 <f:RadioItem Value="1" Text="男" Selected="true" />
                                 <f:RadioItem Value="2" Text="女" />
@@ -84,7 +86,7 @@
                                 runat="server" BoxFlex="1">
                             </f:Image>
                             <f:FileUpload ID="filePhoto" CssClass="uploadbutton" runat="server" ButtonText="上传照片"
-                                ButtonOnly="true" AutoPostBack="true" OnFileSelected="filePhoto_FileSelected">
+                                ButtonOnly="true" AutoPostBack="true" OnFileSelected="filePhoto_FileSelected" Hidden="true">
                             </f:FileUpload>
                         </Items>
                     </f:Panel>
@@ -129,7 +131,7 @@
                     <f:Toolbar ID="Toolbar1" runat="server" ToolbarAlign="Right" Position="Bottom">
                         <Items>
                             <f:Button ID="btnSave" Icon="SystemSave" runat="server"  ValidateForms="Form2"
-                                OnClick="btnSave_Click">
+                                OnClick="btnSave_Click" Hidden="true">
                             </f:Button>
                             <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
                             </f:Button>
@@ -139,6 +141,10 @@
             </f:Form>
         </Items>
     </f:Form>
+    <f:Window ID="Window1" runat="server" Hidden="true" IsModal="false" Target="Parent"
+        EnableMaximize="true" EnableResize="true" Title="弹出框" CloseAction="HidePostBack"
+        EnableIFrame="true">
+    </f:Window>
     </form>
 </body>
 </html>

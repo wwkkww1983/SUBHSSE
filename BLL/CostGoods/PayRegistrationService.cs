@@ -33,6 +33,16 @@ namespace BLL
         }
 
         /// <summary>
+        /// 获取项目费用小计
+        /// </summary>
+        /// <param name="paydate"></param>
+        /// <returns></returns>
+        public static List<Model.CostGoods_PayRegistration> GetPayRegistrationTotal(string projectId, DateTime? date)
+        {
+            return (from x in db.CostGoods_PayRegistration where x.ProjectId == projectId where x.PayDate <= date select x).ToList();
+        }
+
+        /// <summary>
         /// 添加安全费用投入登记
         /// </summary>
         /// <param name="payRegistration"></param>

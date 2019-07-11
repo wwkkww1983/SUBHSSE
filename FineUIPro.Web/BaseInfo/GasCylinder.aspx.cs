@@ -106,12 +106,15 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            BLL.GasCylinderService.DeleteGasCylinderById(hfFormID.Text);
-            BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除气瓶类型");
-            // 重新绑定表格，并模拟点击[新增按钮]
-            BindGrid();
-            PageContext.RegisterStartupScript("onNewButtonClick();");
-
+            var GasCylinder = BLL.GasCylinderService.GetGasCylinderById(hfFormID.Text);
+            if (GasCylinder != null)
+            {
+                BLL.LogService.AddSys_Log(this.CurrUser, GasCylinder.GasCylinderCode, GasCylinder.GasCylinderId, BLL.Const.GasCylinderMenuId, BLL.Const.BtnDelete);
+                BLL.GasCylinderService.DeleteGasCylinderById(hfFormID.Text);                
+                // 重新绑定表格，并模拟点击[新增按钮]
+                BindGrid();
+                PageContext.RegisterStartupScript("onNewButtonClick();");
+            }
         }
         /// <summary>
         /// 右键删除事件
@@ -133,9 +136,13 @@ namespace FineUIPro.Web.BaseInfo
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
+                    var GasCylinder = BLL.GasCylinderService.GetGasCylinderById(rowID);
+                    if (GasCylinder != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, GasCylinder.GasCylinderCode, GasCylinder.GasCylinderId, BLL.Const.GasCylinderMenuId, BLL.Const.BtnDelete);
 
-                    BLL.GasCylinderService.DeleteGasCylinderById(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除气瓶类型");
+                        BLL.GasCylinderService.DeleteGasCylinderById(rowID);
+                    }
                 }
 
                 BindGrid();
@@ -197,13 +204,13 @@ namespace FineUIPro.Web.BaseInfo
             {
                 gasCylinder.GasCylinderId = SQLHelper.GetNewID(typeof(Model.Base_GasCylinder));
                 BLL.GasCylinderService.AddGasCylinder(gasCylinder);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加气瓶类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, gasCylinder.GasCylinderCode, gasCylinder.GasCylinderId, BLL.Const.GasCylinderMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 gasCylinder.GasCylinderId = strRowID;
                 BLL.GasCylinderService.UpdateGasCylinder(gasCylinder);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改气瓶类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, gasCylinder.GasCylinderCode, gasCylinder.GasCylinderId, BLL.Const.GasCylinderMenuId, BLL.Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行

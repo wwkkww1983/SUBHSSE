@@ -55,7 +55,7 @@ namespace FineUIPro.Web.Manager
                 {
                     this.MonthReportId = monthReport.MonthReportId;
                     this.ProjectId = monthReport.ProjectId;
-                    this.txtQuestion.Text = monthReport.Question;
+                    this.txtPhotoContents.Text = HttpUtility.HtmlDecode(monthReport.PhotoContents);
                 }
             }
         }

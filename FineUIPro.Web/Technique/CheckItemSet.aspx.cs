@@ -240,8 +240,9 @@ namespace FineUIPro.Web.Technique
                 var q = BLL.Technique_CheckItemSetService.GetCheckItemSetById(checkItemSetId);
                 if (q != null && BLL.Technique_CheckItemSetService.IsDeleteCheckItemSet(checkItemSetId))
                 {
+                    BLL.LogService.AddSys_Log(this.CurrUser, q.MapCode, q.CheckItemSetId, BLL.Const.CheckTypeSetMenuId, BLL.Const.BtnDelete);
                     BLL.Technique_CheckItemSetService.DeleteCheckItemSet(checkItemSetId);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除检查项设置信息");
+                    
                     CheckItemSetDataBind();
                     Alert.ShowInTop("删除成功！");
                 }
@@ -319,11 +320,14 @@ namespace FineUIPro.Web.Technique
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.Technique_CheckItemDetailService.DeleteCheckItemDetail(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除检查明细信息");
-                    BindGrid();
-                    ShowNotify("删除数据成功!");
+                    var getV = BLL.Technique_CheckItemDetailService.GetCheckItemDetailById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.SortIndex.ToString(), getV.CheckItemSetId, BLL.Const.TechniqueCheckItemSetMenuId, Const.BtnDelete);
+                        BLL.Technique_CheckItemDetailService.DeleteCheckItemDetail(rowID);                       
+                    }
                 }
+
                 BindGrid();
                 ShowNotify("删除数据成功!");
             }
@@ -397,13 +401,12 @@ namespace FineUIPro.Web.Technique
             {
                 foreach (var item in checkItems)
                 {
+                    BLL.LogService.AddSys_Log(this.CurrUser, item.MapCode, item.CheckItemSetId, BLL.Const.TechniqueCheckItemSetMenuId, Const.BtnDelete);
                     DeleteCheckItemSet(item.CheckItemSetId);
                 }
             }
             this.CheckItemSetDataBind();//加载树
             this.BindGrid();
-
-            BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "批量删除资源库项目检查项信息");
         }
 
         /// <summary>

@@ -277,14 +277,14 @@ namespace FineUIPro.Web.Check
             {
                 punishNotice.PunishNoticeId = this.PunishNoticeId;
                 BLL.PunishNoticeService.UpdatePunishNotice(punishNotice);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改处罚通知单", punishNotice.PunishNoticeId);
+                BLL.LogService.AddSys_Log(this.CurrUser, punishNotice.PunishNoticeCode, punishNotice.PunishNoticeId, BLL.Const.ProjectPunishNoticeMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.PunishNoticeId = SQLHelper.GetNewID(typeof(Model.Check_PunishNotice));
                 punishNotice.PunishNoticeId = this.PunishNoticeId;
                 BLL.PunishNoticeService.AddPunishNotice(punishNotice);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加处罚通知单", punishNotice.PunishNoticeId);
+                BLL.LogService.AddSys_Log(this.CurrUser, punishNotice.PunishNoticeCode, punishNotice.PunishNoticeId,BLL.Const.ProjectPunishNoticeMenuId,BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectPunishNoticeMenuId, this.PunishNoticeId, (type == BLL.Const.BtnSubmit ? true : false), punishNotice.PunishNoticeCode, "../Check/PunishNoticeView.aspx?PunishNoticeId={0}");

@@ -20,7 +20,7 @@
     <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="true"
         BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
         <Rows>
-            <f:FormRow ColumnWidths="25% 34%">
+            <f:FormRow >
                 <Items>
                     <f:Panel ID="Panel4" runat="server" ShowBorder="False" Layout="Table" TableConfigColumns="2"
                         ShowHeader="false">
@@ -60,45 +60,42 @@
             <f:FormRow>
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" EnableCollapse="true" runat="server"
-                        BoxFlex="1" DataKeyNames="SuperviseCheckRectifyItemId" AllowCellEditing="true"
+                        BoxFlex="1" DataKeyNames="SuperviseCheckRectifyItemId" AllowCellEditing="true" Height="330px"
                         ClicksToEdit="1" DataIDField="SuperviseCheckRectifyItemId" EnableColumnLines="true">
                         <Columns>
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center"/>
-                            <f:RenderField Width="90px" ColumnID="RectifyName" DataField="RectifyName" SortField="RectifyName"
+                            <f:RenderField Width="120px" ColumnID="RectifyName" DataField="RectifyName" SortField="RectifyName"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="作业类别">
                             </f:RenderField>
-
-                            <f:TemplateField Width="110px" HeaderText="隐患源点" HeaderTextAlign="Center" TextAlign="Left">
+                            <f:TemplateField Width="230px" HeaderText="隐患源点" HeaderTextAlign="Center" TextAlign="Left">
                                 <ItemTemplate>
                                     <asp:Label ID="Label15" runat="server" Text='<%# Bind("HazardSourcePoint") %>' ToolTip='<%#Bind("HazardSourcePoint") %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-
-                            <f:TemplateField Width="110px" HeaderText="风险分析" HeaderTextAlign="Center" TextAlign="Left" >
+                            <f:TemplateField Width="200px" HeaderText="风险分析" HeaderTextAlign="Center" TextAlign="Left" >
                                 <ItemTemplate>
                                     <asp:Label ID="Label4" runat="server" Text='<%# Bind("RiskAnalysis") %>' ToolTip='<%#Bind("RiskAnalysis") %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
 
-                            <f:TemplateField Width="120px" HeaderText="风险防范" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
+                            <f:TemplateField Width="200px" HeaderText="风险防范" HeaderTextAlign="Center" TextAlign="Left">
                                 <ItemTemplate>
                                     <asp:Label ID="Label24" runat="server" Text='<%# Bind("RiskPrevention") %>' ToolTip='<%#Bind("RiskPrevention") %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-
-                            <f:WindowField ColumnID="AttachUrl" Width="90px" WindowID="Window6" HeaderText="附件"
+                            <f:WindowField ColumnID="AttachUrl" Width="120px" WindowID="Window6" HeaderText="附件"
                                 DataToolTipField="AttachUrlName" DataTextField="AttachUrlName" DataTextFormatString="{0}"
                                 DataIFrameUrlFields="AttachUrl,HazardSourcePoint" DataIFrameUrlFormatString="~/common/ShowUpFile.aspx?fileUrl={0}"
                                 DataWindowTitleFormatString="编辑 - {1}" >
                             </f:WindowField>
-                            <f:RenderField Width="90px" ColumnID="ConfirmMan" DataField="ConfirmMan" FieldType="String"
+                            <f:RenderField Width="95px" ColumnID="ConfirmMan" DataField="ConfirmMan" FieldType="String"
                                 HeaderTextAlign="Center" TextAlign="Center" HeaderText="立项人">
                                 <Editor>
                                     <f:TextBox ID="txtConfirmMan" Text='<%# Eval("ConfirmMan")%>' runat="server">
                                     </f:TextBox>
                                 </Editor>
                             </f:RenderField>
-                            <f:RenderField Width="90px" EnableLock="true" ColumnID="ConfirmDate" DataField="ConfirmDate"
+                            <f:RenderField Width="100px" EnableLock="true" ColumnID="ConfirmDate" DataField="ConfirmDate"
                                 FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="立项时间"
                                 TextAlign="Center" HeaderTextAlign="Center">
                                 <Editor>
@@ -106,7 +103,7 @@
                                     </f:DatePicker>
                                 </Editor>
                             </f:RenderField>
-                            <f:RenderField Width="100px" EnableLock="true" ColumnID="OrderEndDate" DataField="OrderEndDate"
+                            <f:RenderField Width="110px" EnableLock="true" ColumnID="OrderEndDate" DataField="OrderEndDate"
                                 FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="要求消项时间"
                                 TextAlign="Center" HeaderTextAlign="Center">
                                 <Editor>
@@ -114,14 +111,14 @@
                                     </f:DatePicker>
                                 </Editor>
                             </f:RenderField>
-                            <f:RenderField Width="90px" ColumnID="OrderEndPerson" DataField="OrderEndPerson"
+                            <f:RenderField Width="100px" ColumnID="OrderEndPerson" DataField="OrderEndPerson"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Center" HeaderText="消项责任人">
                                 <Editor>
                                     <f:TextBox ID="txtOrderEndPerson" Text='<%# Eval("OrderEndPerson")%>' runat="server">
                                     </f:TextBox>
                                 </Editor>
                             </f:RenderField>
-                            <f:RenderField Width="100px" EnableLock="true" ColumnID="RealEndDate" DataField="RealEndDate"
+                            <f:RenderField Width="110px" EnableLock="true" ColumnID="RealEndDate" DataField="RealEndDate"
                                 FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="实际消项时间"
                                 TextAlign="Center" HeaderTextAlign="Center">
                                 <Editor>
@@ -129,7 +126,22 @@
                                     </f:DatePicker>
                                 </Editor>
                             </f:RenderField>
-                            <f:RenderField Width="100px" ColumnID="SuperviseCheckRectifyItemId" DataField="SuperviseCheckRectifyItemId"
+                             <f:RenderField Width="90px" ColumnID="VerifierName" DataField="VerifierName"
+                                FieldType="String" HeaderTextAlign="Center" TextAlign="Center" HeaderText="验证人">
+                                <Editor>
+                                    <f:TextBox ID="TextBox1" Text='<%# Eval("VerifierName")%>' runat="server">
+                                    </f:TextBox>
+                                </Editor>
+                            </f:RenderField>
+                            <f:RenderField Width="100px" EnableLock="true" ColumnID="VerifierDate" DataField="VerifierDate"
+                                FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="验证时间"
+                                TextAlign="Center" HeaderTextAlign="Center">
+                                <Editor>
+                                    <f:DatePicker ID="DatePicker1" runat="server" Text='<%# Eval("VerifierDate")%>'>
+                                    </f:DatePicker>
+                                </Editor>
+                            </f:RenderField>
+                            <f:RenderField Width="1px" ColumnID="SuperviseCheckRectifyItemId" DataField="SuperviseCheckRectifyItemId"
                                 FieldType="String" HeaderText="主键" Hidden="true" HeaderTextAlign="Center">
                                 <Editor>
                                     <f:TextBox runat="server" ID="txtSuperviseCheckRectifyItemId" Text='<%# Eval("SuperviseCheckRectifyItemId")%>'>
@@ -160,12 +172,11 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="Window6" Title="请点击下方保存下载附件到本地" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" Hidden="true" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" Hidden="true" IsModal="true"
         Width="400px" Height="10px" EnableAjax="false">
     </f:Window>
     </form>
-    <script>
-
+    <script type="text/javascript">
         function onGridDataLoad(event) {
             this.mergeColumns(['RectifyName']);
         }

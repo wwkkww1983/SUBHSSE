@@ -21,7 +21,9 @@ namespace BLL
             {               
                 string unitId = unit.UnitId;
                 List<Model.SpSysMenuItem> menusNewList = new List<Model.SpSysMenuItem>();
-                var sysMenus = from x in Funs.DB.Sys_Menu where x.UnitId == unitId && x.IsUsed == true && x.MenuType == menuType select x;                
+                var sysMenus = from x in Funs.DB.Sys_Menu
+                               where x.UnitId == unitId && x.IsUsed == true && x.MenuType == menuType
+                               select x;                
                 if (sysMenus.Count() > 0) ///说明当前单位已设置了菜单
                 {
                     var menusList = from x in sysMenus
@@ -155,7 +157,16 @@ namespace BLL
                     }
                 }
                 #endregion
+                var EMenuList = menusNewList.Where(x => x.SuperMenu == BLL.Const.ProjectSafetyDataESuperMenuId || x.MenuId == BLL.Const.ProjectSafetyDataESuperMenuId
+                || x.MenuId == Const.MenuProjectB_BuildingMenuId || x.MenuId == Const.ProjectSetMenuId || x.MenuId == Const.ProjectShutdownMenuId
+                || x.MenuId == Const.ProjectUnitMenuId || x.MenuId == Const.ProjectUserMenuId).ToList();
+
+                menusNewList = menusNewList.Where(x => x.SuperMenu != BLL.Const.ProjectSafetyDataESuperMenuId && x.MenuId != BLL.Const.ProjectSafetyDataESuperMenuId).ToList();
                 CreateMenuDataXML(menuType, menusNewList, "0", null);
+                if (menuType == BLL.Const.Menu_Project)
+                {
+                    CreateMenuDataXML(BLL.Const.Menu_EProject, EMenuList, "0", null);
+                }
             }
         }
 

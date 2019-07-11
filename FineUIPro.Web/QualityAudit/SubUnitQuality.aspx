@@ -44,7 +44,7 @@
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="95px" ColumnID="UnitCode" DataField="UnitCode" SortField="UnitCode"
+                    <f:RenderField Width="100px" ColumnID="UnitCode" DataField="UnitCode" SortField="UnitCode"
                         FieldType="String" HeaderText="单位编号" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="220px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
@@ -68,13 +68,13 @@
                         FieldType="Date" Renderer="Date" HeaderText="营业执照有效期" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="OrganCode" DataField="OrganCode" SortField="OrganCode"
+                   <%-- <f:RenderField Width="120px" ColumnID="OrganCode" DataField="OrganCode" SortField="OrganCode"
                         FieldType="String" HeaderText="机构代码" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="120px" ColumnID="O_EnableDate" DataField="O_EnableDate" SortField="O_EnableDate"
                         FieldType="Date" Renderer="Date" HeaderText="机构代码有效期" HeaderTextAlign="Center"
                         TextAlign="Left">
-                    </f:RenderField>
+                    </f:RenderField>--%>
                     <f:RenderField Width="120px" ColumnID="Certificate" DataField="Certificate" SortField="Certificate"
                         FieldType="String" HeaderText="资质证书" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
@@ -105,7 +105,7 @@
                         FieldType="Date" Renderer="Date" HeaderText="安全生产许可证有效期" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:LinkButtonField Width="100px" HeaderText="审查记录" ConfirmTarget="Top" CommandName="auditDetail"
+                    <f:LinkButtonField Width="100px" HeaderText="审查记录" ConfirmTarget="Parent" CommandName="auditDetail"
                         TextAlign="Center" ToolTip="审查记录" Text="审查记录"/>
                 </Columns>
                 <Listeners>
@@ -129,15 +129,15 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="分包商资质" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="1024px"
-        Height="460px">
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1200px"
+        Height="540px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="TableEdit" EnablePostBack="true"
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <%--<f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>--%>
     </f:Menu>
     </form>

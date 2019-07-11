@@ -98,13 +98,13 @@ namespace FineUIPro.Web.Personal
                     this.PersonalFolderItemId =  SQLHelper.GetNewID(typeof(Model.Personal_PersonalFolderItem));
                     newPersonalFolderItem.PersonalFolderItemId = this.PersonalFolderItemId;
                     BLL.PersonalFolderItemService.AddPersonalFolderItem(newPersonalFolderItem);
-                    BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "增加个人文件", newPersonalFolderItem.Code);
+                    BLL.LogService.AddSys_Log(this.CurrUser, newPersonalFolderItem.Code, newPersonalFolderItem.PersonalFolderItemId,BLL.Const.PersonalFolderMenuId, BLL.Const.BtnAdd);
                 }
                 else
                 {
                     newPersonalFolderItem.PersonalFolderItemId = this.PersonalFolderItemId;
                     BLL.PersonalFolderItemService.UpdatePersonalFolderItem(newPersonalFolderItem);
-                    BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改个人文件", newPersonalFolderItem.Code);
+                    BLL.LogService.AddSys_Log(this.CurrUser, newPersonalFolderItem.Code, newPersonalFolderItem.PersonalFolderItemId, BLL.Const.PersonalFolderMenuId, BLL.Const.BtnModify);
                 }
 
                 if (isClose)

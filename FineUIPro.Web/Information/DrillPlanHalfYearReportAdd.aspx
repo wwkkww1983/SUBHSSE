@@ -42,11 +42,11 @@
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" EnableCollapse="true" runat="server"
                         BoxFlex="1" DataKeyNames="DrillPlanHalfYearReportItemId" AllowCellEditing="true"
                         ClicksToEdit="1" DataIDField="DrillPlanHalfYearReportItemId" EnableColumnLines="true"
-                        OnRowCommand="Grid1_RowCommand" EnableHeaderMenu="false" Width="1300px" Height="450px">
+                        OnRowCommand="Grid1_RowCommand" EnableHeaderMenu="false" Width="1300px" Height="380px">
                         <Columns>
-                            <f:LinkButtonField Width="40px" ConfirmTarget="Top" CommandName="Add" Icon="Add"
+                            <f:LinkButtonField Width="40px" ConfirmTarget="Parent" CommandName="Add" Icon="Add"
                                 TextAlign="Center" />
-                            <f:LinkButtonField Width="40px" ConfirmText="删除选中行？" ConfirmTarget="Top" CommandName="Delete"
+                            <f:LinkButtonField Width="40px" ConfirmText="删除选中行？" ConfirmTarget="Parent" CommandName="Delete"
                                 Icon="Delete" TextAlign="Center" />
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center"/>
                             <f:RenderField Width="180px" ColumnID="DrillPlanName" DataField="DrillPlanName" SortField="IndustryType"
@@ -102,10 +102,10 @@
             </f:FormRow>
         </Rows>
         <Toolbars>
-            <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server" Margin="0 50 30 50">
+            <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server" >
                 <Items>
                      <f:Button ID="btnCopy" Icon="Database" runat="server" ToolTip="复制上半年数据" ValidateForms="SimpleForm1"
-                        OnClick="btnCopy_Click" Hidden="true">
+                        OnClick="btnCopy_Click" Hidden="true" MarginLeft="10px">
                     </f:Button>
                     <f:ToolbarFill runat="server"></f:ToolbarFill>
                     <f:Button ID="btnSave" Icon="SystemSave" runat="server" Hidden="true" 
@@ -115,7 +115,7 @@
                         ValidateForms="SimpleForm1" OnClick="btnSubmit_Click">
                     </f:Button>
                     <f:Button ID="btnUpdata" Icon="PageSave" runat="server" Hidden="true" ConfirmText="确定上报？"
-                        ToolTip="上报" ValidateForms="SimpleForm1" OnClick="btnUpdata_Click">
+                        ToolTip="上报" ValidateForms="SimpleForm1" OnClick="btnUpdata_Click" MarginRight="10px">
                     </f:Button>
                 </Items>
             </f:Toolbar>

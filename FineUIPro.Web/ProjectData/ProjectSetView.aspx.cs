@@ -73,6 +73,27 @@ namespace FineUIPro.Web.ProjectData
                         {
                             this.txtProjectState.Text = "施工中";
                         }
+                        Model.Base_Unit unit = BLL.UnitService.GetUnitByUnitId(project.UnitId);
+                        if (unit != null)
+                        {
+                            this.txtUnitName.Text = unit.UnitName;
+                        }
+                        if (project.IsForeign == true)
+                        {
+                            this.ckbIsForeign.Checked = true;
+                        }
+                        var thisUnit = BLL.CommonService.GetIsThisUnit();
+                        if (thisUnit != null)
+                        {
+                            if (thisUnit.UnitId == BLL.Const.UnitId_6)
+                            {
+                                this.txtUnitName.Label = "所属分公司";
+                            }
+                            //if (thisUnit.UnitId == BLL.Const.UnitId_ECEC)
+                            //{
+                            //    this.ckIsUpTotalMonth.Hidden = false;
+                            //}
+                        }
                     }
                 }
             }

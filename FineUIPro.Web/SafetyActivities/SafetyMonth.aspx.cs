@@ -174,8 +174,12 @@ namespace FineUIPro.Web.SafetyActivities
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除全国安全月活动", rowID);
-                    BLL.SafetyMonthService.DeleteSafetyMonthById(rowID);
+                    var getV = BLL.SafetyMonthService.GetSafetyMonthById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.Title, getV.SafetyMonthId, BLL.Const.ProjectSafetyMonthMenuId, BLL.Const.BtnDelete);
+                        BLL.SafetyMonthService.DeleteSafetyMonthById(rowID);
+                    }
                 }
 
                 this.BindGrid();

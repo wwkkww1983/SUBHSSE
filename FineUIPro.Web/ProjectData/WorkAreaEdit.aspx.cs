@@ -88,14 +88,14 @@ namespace FineUIPro.Web.ProjectData
             {
                 workArea.WorkAreaId = this.WorkAreaId;
                 BLL.WorkAreaService.UpdateWorkArea(workArea);
-                BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改作业区域", workArea.WorkAreaCode);
+                BLL.LogService.AddSys_Log(this.CurrUser, workArea.WorkAreaCode, workArea.WorkAreaId,BLL.Const.WorkAreaMenuId,BLL.Const.BtnModify);
             }
             else
             {
                 this.WorkAreaId = SQLHelper.GetNewID(typeof(Model.ProjectData_WorkArea));
                 workArea.WorkAreaId = this.WorkAreaId;
                 BLL.WorkAreaService.AddWorkArea(workArea);
-                BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加作业区域", workArea.WorkAreaCode);
+                BLL.LogService.AddSys_Log(this.CurrUser, workArea.WorkAreaCode, workArea.WorkAreaId, BLL.Const.WorkAreaMenuId, BLL.Const.BtnAdd);
             }
             ShowNotify("保存数据成功!", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());

@@ -85,11 +85,16 @@ namespace FineUIPro.Web.BaseInfo
         {
             if (judgementDelete(hfFormID.Text, true))
             {
-                BLL.RulesRegulationsTypeService.DeleteRulesRegulationsTypeById(hfFormID.Text);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除政府部门安全规章类别");
-                // 重新绑定表格，并模拟点击[新增按钮]
-                BindGrid();
-                PageContext.RegisterStartupScript("onNewButtonClick();");
+                var getRulesRegulationsType = BLL.RulesRegulationsTypeService.GetRulesRegulationsTypeById(hfFormID.Text);
+                if (getRulesRegulationsType != null)
+                {
+                    BLL.LogService.AddSys_Log(this.CurrUser, getRulesRegulationsType.RulesRegulationsTypeCode, getRulesRegulationsType.RulesRegulationsTypeId, BLL.Const.RulesRegulationsTypeMenuId, BLL.Const.BtnDelete);
+                    BLL.RulesRegulationsTypeService.DeleteRulesRegulationsTypeById(hfFormID.Text);
+
+                    // 重新绑定表格，并模拟点击[新增按钮]
+                    BindGrid();
+                    PageContext.RegisterStartupScript("onNewButtonClick();");
+                }
             }
         }
 
@@ -107,8 +112,12 @@ namespace FineUIPro.Web.BaseInfo
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (judgementDelete(rowID, true))
                     {
-                        BLL.RulesRegulationsTypeService.DeleteRulesRegulationsTypeById(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除政府部门安全规章类别");
+                        var getRulesRegulationsType = BLL.RulesRegulationsTypeService.GetRulesRegulationsTypeById(rowID);
+                        if (getRulesRegulationsType != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getRulesRegulationsType.RulesRegulationsTypeCode, getRulesRegulationsType.RulesRegulationsTypeId, BLL.Const.RulesRegulationsTypeMenuId, BLL.Const.BtnDelete);
+                            BLL.RulesRegulationsTypeService.DeleteRulesRegulationsTypeById(rowID);
+                        }
                     }
                 }
                 BindGrid();
@@ -163,13 +172,13 @@ namespace FineUIPro.Web.BaseInfo
             {
                 rulesRegulationsType.RulesRegulationsTypeId = SQLHelper.GetNewID(typeof(Model.Base_RulesRegulationsType));
                 BLL.RulesRegulationsTypeService.AddRulesRegulationsType(rulesRegulationsType);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加规章制度类别");
+                BLL.LogService.AddSys_Log(this.CurrUser, rulesRegulationsType.RulesRegulationsTypeCode, rulesRegulationsType.RulesRegulationsTypeId, BLL.Const.RulesRegulationsTypeMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 rulesRegulationsType.RulesRegulationsTypeId = strRowID;
                 BLL.RulesRegulationsTypeService.UpdateRulesRegulationsType(rulesRegulationsType);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改规章制度类别");
+                BLL.LogService.AddSys_Log(this.CurrUser, rulesRegulationsType.RulesRegulationsTypeCode, rulesRegulationsType.RulesRegulationsTypeId, BLL.Const.RulesRegulationsTypeMenuId, BLL.Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行

@@ -82,5 +82,24 @@ namespace BLL
         {
             return (from x in Funs.DB.Base_LicenseType orderby x.LicenseTypeCode select x).ToList();
         }
+
+        #region 许可证类型下拉框
+        /// <summary>
+        /// 许可证类型下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitLicenseTypeDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "LicenseTypeId";
+            dropName.DataTextField = "LicenseTypeName";
+            dropName.DataSource = GetLicenseTypeList();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+        #endregion
     }
 }

@@ -188,8 +188,12 @@ namespace FineUIPro.Web.QualityAudit
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除采购供货厂家管理", rowID);
-                    BLL.InUnitService.DeleteInUnitById(rowID);
+                    var inUnit = BLL.InUnitService.GetInUnitById(rowID);
+                    if (inUnit != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, inUnit.InUnitCode, inUnit.InUnitId, BLL.Const.InUnitMenuId, BLL.Const.BtnDelete);                 
+                        BLL.InUnitService.DeleteInUnitById(rowID);
+                    }
                 }
 
                 this.BindGrid();

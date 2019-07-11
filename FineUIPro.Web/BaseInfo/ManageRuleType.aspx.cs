@@ -107,11 +107,16 @@ namespace FineUIPro.Web.BaseInfo
         {
             if (judgementDelete(hfFormID.Text, true))
             {
-                BLL.ManageRuleTypeService.DeleteManageRuleTypeById(hfFormID.Text);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除管理规定分类");
-                // 重新绑定表格，并模拟点击[新增按钮]
-                BindGrid();
-                PageContext.RegisterStartupScript("onNewButtonClick();");
+                var getD = BLL.ManageRuleTypeService.GetManageRuleTypeById(hfFormID.Text);
+                if (getD != null)
+                {
+                    BLL.LogService.AddSys_Log(this.CurrUser, getD.ManageRuleTypeCode, getD.ManageRuleTypeId, BLL.Const.ManageRuleTypeMenuId, BLL.Const.BtnDelete);
+                    BLL.ManageRuleTypeService.DeleteManageRuleTypeById(hfFormID.Text);
+                   
+                    // 重新绑定表格，并模拟点击[新增按钮]
+                    BindGrid();
+                    PageContext.RegisterStartupScript("onNewButtonClick();");
+                }
             }
         }
 
@@ -129,8 +134,12 @@ namespace FineUIPro.Web.BaseInfo
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (judgementDelete(rowID, true))
                     {
-                        BLL.ManageRuleTypeService.DeleteManageRuleTypeById(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除管理规定分类");
+                        var getD = BLL.ManageRuleTypeService.GetManageRuleTypeById(rowID);
+                        if (getD != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getD.ManageRuleTypeCode, getD.ManageRuleTypeId, BLL.Const.ManageRuleTypeMenuId, BLL.Const.BtnDelete);
+                            BLL.ManageRuleTypeService.DeleteManageRuleTypeById(rowID);
+                        }
                     }
                 }
                 BindGrid();
@@ -212,13 +221,13 @@ namespace FineUIPro.Web.BaseInfo
             {
                 manageRuleType.ManageRuleTypeId = SQLHelper.GetNewID(typeof(Model.Base_ManageRuleType));
                 BLL.ManageRuleTypeService.AddManageRuleType(manageRuleType);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加管理规定分类");
+                BLL.LogService.AddSys_Log(this.CurrUser, manageRuleType.ManageRuleTypeCode, manageRuleType.ManageRuleTypeId, BLL.Const.ManageRuleTypeMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 manageRuleType.ManageRuleTypeId = strRowID;
                 BLL.ManageRuleTypeService.UpdateManageRuleType(manageRuleType);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改管理规定分类");
+                BLL.LogService.AddSys_Log(this.CurrUser, manageRuleType.ManageRuleTypeCode, manageRuleType.ManageRuleTypeId, BLL.Const.ManageRuleTypeMenuId, BLL.Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行

@@ -84,7 +84,7 @@ namespace FineUIPro.Web
                 var unit = BLL.CommonService.GetIsThisUnit();
                 if (unit != null && !string.IsNullOrEmpty(unit.UnitName))
                 {
-                    this.lbTitle.Text = unit.UnitName + Funs.SystemName;
+                   // this.lbTitle.Text = unit.UnitName + Funs.SystemName;
                     if (unit.IsBuild == null || unit.IsBuild == false)
                     {
                         this.trBottom.Visible = false;
@@ -139,6 +139,7 @@ namespace FineUIPro.Web
                 ShowBorder = false,
                 ShowHeader = false
             };
+
             leftPanel.Items.Add(accordionMenu);
             XmlDocument xmlDoc = XmlDataSource1.GetXmlDocument();
             XmlNodeList xmlNodes = xmlDoc.SelectNodes("/Tree/TreeNode");
@@ -159,7 +160,7 @@ namespace FineUIPro.Web
                 AccordionPane accordionPane = new AccordionPane
                 {
                     Title = accordionPaneTitle,
-                    Layout = Layout.Fit,
+                    //Layout = Layout.Fit,
                     ShowBorder = false
                 };
                 var accordionPaneIconAttr = xmlNode.Attributes["Icon"];
@@ -428,7 +429,11 @@ namespace FineUIPro.Web
                 if (this.CurrUser.UserId == BLL.Const.hfnbdId)
                 {
                     this.SysMenuSet.Hidden = false;
+                    this.msSysMenuSet.Hidden = false;
+                    this.CustomQuery.Hidden = false;
+                    this.msCustomQuery.Hidden = false;
                 }
+
                 this.btnHomePage.OnClientClick = "parent.removeActiveTab();";
                 this.btnSever.OnClientClick = "parent.removeActiveTab();";
                 this.btnPoject.OnClientClick = "parent.removeActiveTab();";
@@ -448,7 +453,7 @@ namespace FineUIPro.Web
                     this.trEHtml1.Visible = true;
                     this.trEHtml2.Visible = true;
                     this.trEHtml3.Visible = true;
-                }
+                }                
             }
         }
 
@@ -497,14 +502,14 @@ namespace FineUIPro.Web
             }
             if (e.Error == null)
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "【版本信息】从集团提取" + count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【版本信息】从集团提取" + count.ToString() + "条数据；", null, BLL.Const.SynchronizationMenuId, BLL.Const.BtnDownload);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "【版本信息】从集团提取失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【版本信息】从集团提取失败；", null, BLL.Const.SynchronizationMenuId, BLL.Const.BtnDownload);
             }
-            
-            this.CheckNewVeion();            
+
+            this.CheckNewVeion();
         }
 
         /// <summary>
@@ -618,21 +623,42 @@ namespace FineUIPro.Web
                 ShowNotify("未添加任何项目！", MessageBoxIcon.Warning);
                 return;
             }
-            var role = BLL.RoleService.GetRoleByRoleId(this.CurrUser.RoleId);
-            if (projectCount.Count == 1 && BLL.CommonService.IsThisUnitLeaderOrManage(this.CurrUser.UserId))
+            if (BLL.CommonService.IsThisUnitLeaderOrManage(this.CurrUser.UserId))
             {
-                var projectFirst = projectCount.FirstOrDefault();
-                if (projectFirst != null)
+                if (projectCount.Count == 1)
                 {
-                    this.CurrUser.LoginProjectId = projectFirst.ProjectId;
-                    this.MenuSwitchMethod(BLL.Const.Menu_Project);
+                    var projectFirst = projectCount.FirstOrDefault();
+                    if (projectFirst != null)
+                    {
+                        this.CurrUser.LoginProjectId = projectFirst.ProjectId;
+                        this.MenuSwitchMethod(BLL.Const.Menu_Project);
+                    }
+                    else
+                    {
+                        ShowNotify("请刷新页面后再试！", MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+                else
+                {
+                    PageContext.RegisterStartupScript(windowProject.GetShowReference(String.Format("~/ProjectData/EnterProjectMenu.aspx")));
                 }
             }
             else
             {
-                if (role != null && BLL.CommonService.IsThisUnitLeaderOrManage(this.CurrUser.UserId))
+                if (projectCount.Count == 1 && BLL.CommonService.IsThisUnitLeaderOrManage(this.CurrUser.UserId))
                 {
-                    PageContext.RegisterStartupScript(windowProject.GetShowReference(String.Format("~/ProjectData/EnterProjectMenu.aspx")));
+                    var projectFirst = projectCount.FirstOrDefault();
+                    if (projectFirst != null)
+                    {
+                        this.CurrUser.LoginProjectId = projectFirst.ProjectId;
+                        this.MenuSwitchMethod(BLL.Const.Menu_Project);
+                    }
+                    else
+                    {
+                        ShowNotify("请刷新页面后再试！", MessageBoxIcon.Warning);
+                        return;
+                    }
                 }
                 else
                 {
@@ -645,6 +671,11 @@ namespace FineUIPro.Web
                         {
                             this.CurrUser.LoginProjectId = projectUserFirst.ProjectId;
                             this.MenuSwitchMethod(BLL.Const.Menu_Project);
+                        }
+                        else
+                        {
+                            ShowNotify("请刷新页面后再试！", MessageBoxIcon.Warning);
+                            return;
                         }
                     }
                     else if (count > 1 || this.CurrUser.UserId == BLL.Const.sysglyId)
@@ -721,11 +752,13 @@ namespace FineUIPro.Web
         protected void MenuSwitchMethod(string type)
         {                               
             this.lbTitle.Text = hdTitle.Text;
+            string projectType = string.Empty;
             if (type == BLL.Const.Menu_Project)
             {                             
                 var project = BLL.ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId);
                 if (project != null)
                 {
+                    projectType = project.ProjectType;
                     if (!string.IsNullOrEmpty(project.ProjectCode))
                     {
                         this.lbTitle.Text = "[" + project.ProjectCode + "]" + project.ProjectName;
@@ -744,6 +777,14 @@ namespace FineUIPro.Web
             if (!string.IsNullOrEmpty(type))
             {
                 this.XmlDataSource1.DataFile = "common/" + type + ".xml";
+                if (projectType == "5")
+                {
+                    var unit = BLL.CommonService.GetIsThisUnit();
+                    if (unit != null && unit.UnitId == BLL.Const.UnitId_ECEC)
+                    {
+                        this.XmlDataSource1.DataFile = "common/Menu_EProject.xml";
+                    }
+                }
             }
             else
             {

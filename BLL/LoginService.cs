@@ -4,6 +4,7 @@ namespace BLL
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Security;
+    using System.Web;
 
     public static class LoginService
     {
@@ -24,14 +25,15 @@ namespace BLL
                     select y).ToList();
             if (x.Any())
             {
-                FormsAuthentication.SetAuthCookie(account, false);
+                string accValue = HttpUtility.UrlEncode(account);
+                FormsAuthentication.SetAuthCookie(accValue, false);
                 page.Session[SessionName.CurrUser] = x.First();
                 if (rememberMe)
                 {
                     System.Web.HttpCookie u = new System.Web.HttpCookie("UserInfo");
-                    u["username"] = account;
+                    u["username"] = accValue;
                     u["password"] = password;                    
-                    // Cookies过期时间设置为一年.
+                    // Cookies过期时间设置为一月.
                     u.Expires = DateTime.Now.AddMonths(1);
                     page.Response.Cookies.Add(u);
                 }
@@ -60,17 +62,18 @@ namespace BLL
         public static bool UserLogOn(string account, bool rememberMe, System.Web.UI.Page page)
         {
             List<Model.Sys_User> x = (from y in Funs.DB.Sys_User
-                                      where y.Account == account && y.IsPost == true
+                                      where y.Account == account  && y.IsPost == true
                                       select y).ToList();
             if (x.Any())
             {
-                FormsAuthentication.SetAuthCookie(account, false);
+                string accValue = HttpUtility.UrlEncode(account);
+                FormsAuthentication.SetAuthCookie(accValue, false);
                 page.Session[SessionName.CurrUser] = x.First();
                 if (rememberMe)
                 {
                     System.Web.HttpCookie u = new System.Web.HttpCookie("UserInfo");
-                    u["username"] = account;
-                   // u["password"] = password;
+                    u["username"] = accValue;
+                    //u["password"] = password;
                     // Cookies过期时间设置为一年.
                     u.Expires = DateTime.Now.AddYears(1);
                     page.Response.Cookies.Add(u);

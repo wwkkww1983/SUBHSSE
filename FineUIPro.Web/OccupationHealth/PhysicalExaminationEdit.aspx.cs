@@ -147,7 +147,7 @@ namespace FineUIPro.Web.OccupationHealth
             {
                 PhysicalExamination.FileId = this.FileId;
                 BLL.PhysicalExaminationService.UpdatePhysicalExamination(PhysicalExamination);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改体检管理", PhysicalExamination.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, PhysicalExamination.FileCode, PhysicalExamination.FileId, BLL.Const.PhysicalExaminationMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -155,7 +155,7 @@ namespace FineUIPro.Web.OccupationHealth
                 PhysicalExamination.FileId = this.FileId;
                 PhysicalExamination.ProjectId = this.ProjectId;
                 BLL.PhysicalExaminationService.AddPhysicalExamination(PhysicalExamination);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加体检管理", PhysicalExamination.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, PhysicalExamination.FileCode, PhysicalExamination.FileId, BLL.Const.PhysicalExaminationMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.PhysicalExaminationMenuId, this.FileId, (type == BLL.Const.BtnSubmit ? true : false), this.txtFileName.Text.Trim(), "../OccupationHealth/PhysicalExaminationView.aspx?FileId={0}");               

@@ -33,7 +33,9 @@
                             </f:DropDownList>                     
                             <f:TextBox runat="server" Label="用户名称" ID="txtUserName" EmptyText="输入查询条件" 
                                 AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px"></f:TextBox>                       
-                            <f:ToolbarFill runat="server"></f:ToolbarFill>                        
+                            <f:ToolbarFill runat="server"></f:ToolbarFill>        
+                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" runat="server" OnClick="btnNew_Click">
+                            </f:Button>
                             <f:Button ID="btnSure" ToolTip="确定按钮" Icon="Accept" runat="server" OnClick="btnSure_Click">
                             </f:Button> 
                         </Items>
@@ -71,7 +73,11 @@
             </PageItems>            
             </f:Grid>
         </Items>
-    </f:Panel>                           
+    </f:Panel>     
+    <f:Window ID="Window1" Title="用户信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="800px"
+        Height="360px">
+    </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuSure" OnClick="btnSure_Click" EnablePostBack="true" Icon="Accept" runat="server" Text="确定">
         </f:MenuButton>       

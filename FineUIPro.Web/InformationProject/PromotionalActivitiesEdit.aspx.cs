@@ -216,14 +216,14 @@ namespace FineUIPro.Web.InformationProject
             {
                 PromotionalActivities.PromotionalActivitiesId = this.PromotionalActivitiesId;
                 BLL.PromotionalActivitiesService.UpdatePromotionalActivities(PromotionalActivities);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改HSSE宣传活动", PromotionalActivities.PromotionalActivitiesId);
+                BLL.LogService.AddSys_Log(this.CurrUser, PromotionalActivities.Code, PromotionalActivities.PromotionalActivitiesId, BLL.Const.ProjectPromotionalActivitiesMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.PromotionalActivitiesId = SQLHelper.GetNewID(typeof(Model.InformationProject_PromotionalActivities));
                 PromotionalActivities.PromotionalActivitiesId = this.PromotionalActivitiesId;
                 BLL.PromotionalActivitiesService.AddPromotionalActivities(PromotionalActivities);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加HSSE宣传活动", PromotionalActivities.PromotionalActivitiesId);
+                BLL.LogService.AddSys_Log(this.CurrUser, PromotionalActivities.Code, PromotionalActivities.PromotionalActivitiesId, BLL.Const.ProjectPromotionalActivitiesMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectPromotionalActivitiesMenuId, this.PromotionalActivitiesId, (type == BLL.Const.BtnSubmit ? true : false), PromotionalActivities.Title, "../InformationProject/PromotionalActivitiesView.aspx?PromotionalActivitiesId={0}");

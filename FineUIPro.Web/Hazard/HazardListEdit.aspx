@@ -36,7 +36,7 @@
                                     </f:TextBox>
                                     <f:DropDownList ID="drpWorkArea" runat="server" AutoPostBack="true" OnSelectedIndexChanged="drpWorkArea_SelectedIndexChanged">
                                     </f:DropDownList>
-                                    <f:Label ID="Label1" runat="server" Text="说明：检查区域可从下拉框选择也可手动编辑。" CssClass="lab" MarginLeft="5px">
+                                    <f:Label ID="Label1" runat="server" Text="说明：检查区域可选择也可手动编辑。" CssClass="lab" MarginLeft="5px">
                                     </f:Label>
                                 </Items>
                             </f:FormRow>

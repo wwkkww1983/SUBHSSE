@@ -233,7 +233,11 @@ namespace FineUIPro.Web.Accident
             {
                 accidentPersonRecord.PersonId = this.drpPersonId.SelectedValue;
             }
-            accidentPersonRecord.Injury = this.drpInjury.SelectedValue;
+            if (this.drpInjury.SelectedValue != BLL.Const._Null)
+            {
+                accidentPersonRecord.Injury = this.drpInjury.SelectedValue;
+            }
+
             accidentPersonRecord.InjuryPart = this.txtInjuryPart.Text.Trim();
             accidentPersonRecord.HssePersons = this.txtHssePersons.Text.Trim();
             accidentPersonRecord.InjuryResult = this.txtInjuryResult.Text.Trim();
@@ -259,14 +263,14 @@ namespace FineUIPro.Web.Accident
             {
                 accidentPersonRecord.AccidentPersonRecordId = this.AccidentPersonRecordId;
                 BLL.AccidentPersonRecordService.UpdateAccidentPersonRecord(accidentPersonRecord);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "修改HSE事故(对人员)记录");
+                BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, this.AccidentPersonRecordId, BLL.Const.ProjectAccidentPersonRecordMenuId, Const.BtnModify);
             }
             else
             {
                 this.AccidentPersonRecordId = SQLHelper.GetNewID(typeof(Model.Accident_AccidentPersonRecord));
                 accidentPersonRecord.AccidentPersonRecordId = this.AccidentPersonRecordId;
                 BLL.AccidentPersonRecordService.AddAccidentPersonRecord(accidentPersonRecord);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "添加HSE事故（对人员）记录");
+                BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, this.AccidentPersonRecordId, BLL.Const.ProjectAccidentPersonRecordMenuId, Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectAccidentPersonRecordMenuId, this.AccidentPersonRecordId, (type == BLL.Const.BtnSubmit ? true : false), this.drpPersonId.SelectedText, "../Accident/AccidentPersonRecordView.aspx?AccidentPersonRecordId={0}");

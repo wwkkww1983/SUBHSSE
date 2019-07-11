@@ -124,11 +124,11 @@
         </Items>
     </f:Menu>
     <f:Window ID="Window2" Title="" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="true"
         Width="600px" Height="240px">
     </f:Window>
     <f:Window ID="Window1" Title="文件内容" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="800px" Height="520px">
     </f:Window>
     </form>

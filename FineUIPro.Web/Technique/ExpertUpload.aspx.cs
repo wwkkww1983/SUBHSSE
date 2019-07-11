@@ -248,6 +248,7 @@ namespace FineUIPro.Web.Technique
             var expert = BLL.ExpertService.GetExpertById(this.ExpertId);
             if (expert != null && !expert.AuditDate.HasValue)
             {
+                BLL.LogService.AddSys_Log(this.CurrUser, expert.ExpertCode, expert.ExpertId, BLL.Const.ExpertMenuId, Const.BtnDelete);
                 BLL.ExpertService.DeleteExpertId(this.ExpertId);
                 this.SetTemp();
                 this.InitTreeMenu();
@@ -387,13 +388,13 @@ namespace FineUIPro.Web.Technique
                 expert.IsPass = null;
                 this.ExpertId = expert.ExpertId = SQLHelper.GetNewID(typeof(Model.Technique_Expert));
                 BLL.ExpertService.AddExpert(expert);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加安全专家");
+                BLL.LogService.AddSys_Log(this.CurrUser, expert.ExpertCode, expert.ExpertId, BLL.Const.ExpertMenuId, Const.BtnAdd);
             }
             else
             {
                 expert.ExpertId = this.ExpertId;
                 BLL.ExpertService.UpdateExpert(expert);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改安全专家");
+                BLL.LogService.AddSys_Log(this.CurrUser, expert.ExpertCode, expert.ExpertId, BLL.Const.ExpertMenuId, Const.BtnModify);
             }
         }
         #endregion

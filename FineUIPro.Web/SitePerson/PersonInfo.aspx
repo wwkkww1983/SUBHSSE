@@ -74,7 +74,7 @@
                         FieldType="String" HeaderText="卡号" HeaderTextAlign="Center"
                         TextAlign="Center">
                     </f:RenderField>
-                    <f:TemplateField ColumnID="tfIdentityCard" Width="160px" HeaderText="身份证号" HeaderTextAlign="Center" TextAlign="Right">
+                    <f:TemplateField ColumnID="tfIdentityCard" Width="180px" HeaderText="身份证号" HeaderTextAlign="Center" TextAlign="Right">
                         <ItemTemplate>
                             <asp:Label ID="lblIdentityCard" runat="server" Text='<%# Bind("IdentityCard") %>' ToolTip='<%#Bind("IdentityCard") %>'></asp:Label>
                         </ItemTemplate>
@@ -102,7 +102,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="编辑考勤" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="950px" Height="450px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

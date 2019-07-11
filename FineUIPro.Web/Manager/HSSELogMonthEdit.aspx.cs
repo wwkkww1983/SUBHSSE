@@ -273,7 +273,7 @@ namespace FineUIPro.Web.Manager
             {  
                 hsseLogMonth.HSSELogMonthId = this.HSSELogMonthId;
                 BLL.HSSELogMonthService.UpdateHSSELogMonth(hsseLogMonth);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改HSE经理暨HSE工程师细则", hsseLogMonth.HSSELogMonthId);
+                BLL.LogService.AddSys_Log(this.CurrUser, hsseLogMonth.HSSELogMonthCode, hsseLogMonth.HSSELogMonthId, BLL.Const.ProjectHSSELogMonthMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -282,7 +282,7 @@ namespace FineUIPro.Web.Manager
                 this.HSSELogMonthId = SQLHelper.GetNewID(typeof(Model.Manager_HSSELogMonth));
                 hsseLogMonth.HSSELogMonthId = this.HSSELogMonthId;
                 BLL.HSSELogMonthService.AddHSSELogMonth(hsseLogMonth);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加HSE经理暨HSE工程师细则", hsseLogMonth.HSSELogMonthId);
+                BLL.LogService.AddSys_Log(this.CurrUser, hsseLogMonth.HSSELogMonthCode, hsseLogMonth.HSSELogMonthId,BLL.Const.ProjectHSSELogMonthMenuId,BLL.Const.BtnAdd);
             }            
         }
         #endregion

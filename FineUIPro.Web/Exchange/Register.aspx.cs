@@ -98,7 +98,7 @@ namespace FineUIPro.Web.Exchange
                         u.IsPosts = checkField.GetCheckedState(e.RowIndex);
                         BLL.UserService.UpdateUser(u);
                         BindGrid1();
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "用户发帖授权");
+                        BLL.LogService.AddSys_Log(this.CurrUser, "用户发帖授权", null, BLL.Const.RegisterMenuId, BLL.Const.BtnModify);
                     }
                     if (e.CommandName == "IsReplies")
                     {
@@ -107,7 +107,7 @@ namespace FineUIPro.Web.Exchange
                         u.IsReplies = checkField.GetCheckedState(e.RowIndex);
                         BLL.UserService.UpdateUser(u);
                         BindGrid1();
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "用户回帖授权");
+                        BLL.LogService.AddSys_Log(this.CurrUser, "用户回帖授权", null, BLL.Const.RegisterMenuId, BLL.Const.BtnModify);
                     }
                     if (e.CommandName == "IsDeletePosts")
                     {
@@ -116,7 +116,7 @@ namespace FineUIPro.Web.Exchange
                         u.IsDeletePosts = checkField.GetCheckedState(e.RowIndex);
                         BLL.UserService.UpdateUser(u);
                         BindGrid1();
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "用户删帖授权");
+                        BLL.LogService.AddSys_Log(this.CurrUser, "用户删帖授权", null, BLL.Const.RegisterMenuId, BLL.Const.BtnModify);
                     }
                 }
             }

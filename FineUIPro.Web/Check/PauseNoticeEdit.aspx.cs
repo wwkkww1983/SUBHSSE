@@ -265,7 +265,7 @@ namespace FineUIPro.Web.Check
                     pauseNotice.States = this.ctlAuditFlow.NextStep;
                 }
                 BLL.Check_PauseNoticeService.UpdatePauseNotice(pauseNotice);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "确认工程暂停令", pauseNotice.PauseNoticeId);
+                BLL.LogService.AddSys_Log(this.CurrUser, pauseNotice.PauseNoticeCode, pauseNotice.PauseNoticeId, BLL.Const.ProjectPauseNoticeMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -323,7 +323,7 @@ namespace FineUIPro.Web.Check
                 {
                     pauseNotice.PauseNoticeId = this.PauseNoticeId;
                     BLL.Check_PauseNoticeService.UpdatePauseNotice(pauseNotice);
-                    BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改工程暂停令", pauseNotice.PauseNoticeId);
+                    BLL.LogService.AddSys_Log(this.CurrUser, pauseNotice.PauseNoticeCode, pauseNotice.PauseNoticeId,BLL.Const.ProjectPauseNoticeMenuId,BLL.Const.BtnModify);
                 }
                 else
                 {
@@ -331,7 +331,7 @@ namespace FineUIPro.Web.Check
                     pauseNotice.CompileMan = this.CurrUser.UserId;
                     this.PauseNoticeId = pauseNotice.PauseNoticeId;
                     BLL.Check_PauseNoticeService.AddPauseNotice(pauseNotice);
-                    BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "增加工程暂停令", pauseNotice.PauseNoticeId);
+                    BLL.LogService.AddSys_Log(this.CurrUser, pauseNotice.PauseNoticeCode, pauseNotice.PauseNoticeId, BLL.Const.ProjectPauseNoticeMenuId, BLL.Const.BtnAdd);
                 }
             }
             ////保存流程审核数据         

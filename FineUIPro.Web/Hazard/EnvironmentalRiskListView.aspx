@@ -50,8 +50,7 @@
                    <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1"
                         DataIDField="EnvironmentalRiskItemId" DataKeyNames="EnvironmentalRiskItemId"
                         EnableMultiSelect="true" ShowGridHeader="true" EnableColumnLines="true"
-                        AllowSorting="true" SortField="SmallTypeName" SortDirection="DESC" 
-                        AutoScroll="true">                        
+                        AllowSorting="true" SortField="SmallTypeName" SortDirection="DESC" >                        
                         <Columns>
                             <f:RowNumberField HeaderText="序号" Width="45px" HeaderTextAlign="Center" TextAlign="Center" />                           
                            <f:RenderField Width="100px" ColumnID="SmallTypeName" DataField="SmallTypeName" FieldType="String"
@@ -150,7 +149,7 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="WindowAtt" Title="附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
     </form>

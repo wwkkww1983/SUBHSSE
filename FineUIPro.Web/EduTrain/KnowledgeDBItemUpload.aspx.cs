@@ -174,6 +174,7 @@ namespace FineUIPro.Web.EduTrain
             var knowledgeItem = BLL.KnowledgeItemService.GetKnowledgeItemById(this.KnowledgeItemId);
             if (knowledgeItem != null && !knowledgeItem.AuditDate.HasValue)
             {
+                BLL.LogService.AddSys_Log(this.CurrUser, knowledgeItem.KnowledgeItemCode, knowledgeItem.KnowledgeItemId, BLL.Const.KnowledgeDBMenuId, BLL.Const.BtnDelete);
                 BLL.KnowledgeItemService.DeleteKnowledgeItem(this.KnowledgeItemId);
                 this.SetTemp();
                 this.InitTreeMenu();
@@ -224,7 +225,7 @@ namespace FineUIPro.Web.EduTrain
                 knowledgeItem.KnowledgeId = this.KnowledgeId;
                 knowledgeItem.KnowledgeItemId = SQLHelper.GetNewID(typeof(Model.Training_KnowledgeItem));
                 BLL.KnowledgeItemService.AddKnowledgeItem(knowledgeItem);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加应知应会库上传资源");
+                BLL.LogService.AddSys_Log(this.CurrUser, knowledgeItem.KnowledgeItemCode, knowledgeItem.KnowledgeItemId, BLL.Const.KnowledgeDBMenuId, BLL.Const.BtnAdd);
             }
             else
             {
@@ -235,7 +236,7 @@ namespace FineUIPro.Web.EduTrain
                 }
                 knowledgeItem.KnowledgeItemId = this.KnowledgeItemId;
                 BLL.KnowledgeItemService.UpdateKnowledgeItem(knowledgeItem);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改应知应会库上传资源");
+                BLL.LogService.AddSys_Log(this.CurrUser, knowledgeItem.KnowledgeItemCode, knowledgeItem.KnowledgeItemId, BLL.Const.KnowledgeDBMenuId, BLL.Const.BtnModify);
             }
             this.InitTreeMenu();
             ShowNotify("保存成功！");
@@ -262,9 +263,9 @@ namespace FineUIPro.Web.EduTrain
         }
         #endregion
 
-        #region 验证培训教材库名称是否存在
+        #region 验证应知应会库名称是否存在
         /// <summary>
-        /// 验证培训教材库名称是否存在
+        /// 验证应知应会库名称是否存在
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

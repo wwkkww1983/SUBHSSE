@@ -123,7 +123,7 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="Window1" Title="连接读卡器" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="600px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="600px"
         Height="300px">
     </f:Window>
     </form>

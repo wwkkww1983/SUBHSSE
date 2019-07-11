@@ -218,14 +218,20 @@ namespace FineUIPro.Web.Manager
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     var month = Funs.DB.Manager_MonthReportD.FirstOrDefault(x => x.MonthReportId == rowID);
-                    if (month != null && month.States == BLL.Const.State_2 && this.CurrUser.UserId != BLL.Const.sysglyId)
+                    if (month != null)
                     {
-                        ShowNotify("已提交单据需要系统管理员删除！", MessageBoxIcon.Warning);
-                        return;
+                        if (month.States == BLL.Const.State_2 && this.CurrUser.UserId != BLL.Const.sysglyId)
+                        {
+                            ShowNotify("已提交单据需要系统管理员删除！", MessageBoxIcon.Warning);
+                            return;
+                        }
+                        else
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, month.MonthReportCode, month.MonthReportId, BLL.Const.ProjectManagerMonthDMenuId, BLL.Const.BtnDelete);
+                            BLL.SafetyDataDService.DeleteSafetyDataDByMonthReportId(rowID);
+                            BLL.MonthReportDService.DeleteMonthReportByMonthReportId(rowID);
+                        }
                     }
-                    BLL.SafetyDataDService.DeleteSafetyDataDByMonthReportId(rowID);                   
-                    BLL.MonthReportDService.DeleteMonthReportByMonthReportId(rowID);
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除安全生产月报", rowID);
                 }
                 BindGrid();
                 ShowNotify("操作完成!");

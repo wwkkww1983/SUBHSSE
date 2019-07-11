@@ -50,59 +50,6 @@ namespace FineUIPro.Web.Manager
 
         private static DateTime projectStartTime;
 
-        #region 定义集合
-        /// <summary>
-        /// 9.1 危险源动态识别及控制集合
-        /// </summary>
-        private static List<Model.Manager_Month_HazardC> hazards = new List<Model.Manager_Month_HazardC>();
-
-        /// <summary>
-        /// 9.2 HSSE培训集合
-        /// </summary>
-        private static List<Model.Manager_Month_TrainC> trains = new List<Model.Manager_Month_TrainC>();
-
-        /// <summary>
-        /// 9.3 HSSE检查集合
-        /// </summary>
-        private static List<Model.Manager_Month_CheckC> checks = new List<Model.Manager_Month_CheckC>();
-
-        /// <summary>
-        /// 9.4 HSSE会议集合
-        /// </summary>
-        private static List<Model.Manager_Month_MeetingC> meetings = new List<Model.Manager_Month_MeetingC>();
-
-        /// <summary>
-        /// 9.5 HSSE活动集合
-        /// </summary>
-        private static List<Model.Manager_Month_ActivitiesC> activitiess = new List<Model.Manager_Month_ActivitiesC>();
-
-        /// <summary>
-        /// 9.6.1 应急预案修编集合
-        /// </summary>
-        private static List<Model.Manager_Month_EmergencyPlanC> emergencyPlans = new List<Model.Manager_Month_EmergencyPlanC>();
-
-        /// <summary>
-        /// 9.6.2 应急演练活动集合
-        /// </summary>
-        private static List<Model.Manager_Month_EmergencyExercisesC> emergencyExercisess = new List<Model.Manager_Month_EmergencyExercisesC>();
-
-        /// <summary>
-        /// 9.7 HSE费用投入计划集合
-        /// </summary>
-        private static List<Model.Manager_Month_CostInvestmentPlanC> costInvestmentPlans = new List<Model.Manager_Month_CostInvestmentPlanC>();
-
-        /// <summary>
-        /// 9.8 HSE管理文件/方案修编计划集合
-        /// </summary>
-        private static List<Model.Manager_Month_ManageDocPlanC> manageDocPlans = new List<Model.Manager_Month_ManageDocPlanC>();
-
-        /// <summary>
-        /// 9.9 其他HSE工作计划
-        /// </summary>
-        private static List<Model.Manager_Month_OtherWorkPlanC> otherWorkPlans = new List<Model.Manager_Month_OtherWorkPlanC>();
-
-        #endregion
-
         #endregion
 
         #region 加载
@@ -110,16 +57,6 @@ namespace FineUIPro.Web.Manager
         {
             if (!IsPostBack)
             {
-                hazards.Clear();
-                trains.Clear();
-                checks.Clear();
-                meetings.Clear();
-                activitiess.Clear();
-                emergencyPlans.Clear();
-                emergencyExercisess.Clear();
-                costInvestmentPlans.Clear();
-                manageDocPlans.Clear();
-                otherWorkPlans.Clear();
                 this.MonthReportId = Request.Params["monthReportId"];
                 this.ProjectId = this.CurrUser.LoginProjectId;
                 DateTime months = Convert.ToDateTime(Request.Params["months"]);
@@ -136,77 +73,7 @@ namespace FineUIPro.Web.Manager
                 {
                     this.MonthReportId = monthReport.MonthReportId;
                     this.ProjectId = monthReport.ProjectId;
-                    Model.SUBHSSEDB db = Funs.DB;
-                    //9.1 危险源动态识别及控制
-                    hazards = (from x in db.Manager_Month_HazardC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
-                    if (hazards.Count > 0)
-                    {
-                        this.gvHazard.DataSource = hazards;
-                        this.gvHazard.DataBind();
-                    }
-                    //9.2 HSSE培训
-                    trains = (from x in db.Manager_Month_TrainC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
-                    if (trains.Count > 0)
-                    {
-                        this.gvTrain.DataSource = trains;
-                        this.gvTrain.DataBind();
-                    }
-                    //9.3 HSSE检查
-                    checks = (from x in db.Manager_Month_CheckC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
-                    if (checks.Count > 0)
-                    {
-                        this.gvCheck.DataSource = checks;
-                        this.gvCheck.DataBind();
-                    }
-                    //9.4 HSSE会议
-                    meetings = (from x in db.Manager_Month_MeetingC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
-                    if (meetings.Count > 0)
-                    {
-                        this.gvMeeting.DataSource = meetings;
-                        this.gvMeeting.DataBind();
-                    }
-                    //9.5 HSSE活动
-                    activitiess = (from x in db.Manager_Month_ActivitiesC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
-                    if (activitiess.Count > 0)
-                    {
-                        this.gvActivities.DataSource = activitiess;
-                        this.gvActivities.DataBind();
-                    }
-                    //9.6.1 应急预案修编
-                    emergencyPlans = (from x in db.Manager_Month_EmergencyPlanC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
-                    if (emergencyPlans.Count > 0)
-                    {
-                        this.gvEmergencyPlan.DataSource = emergencyPlans;
-                        this.gvEmergencyPlan.DataBind();
-                    }
-                    // 9.6.2 应急演练活动
-                    emergencyExercisess = (from x in db.Manager_Month_EmergencyExercisesC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
-                    if (emergencyExercisess.Count > 0)
-                    {
-                        this.gvEmergencyExercises.DataSource = emergencyExercisess;
-                        this.gvEmergencyExercises.DataBind();
-                    }
-                    // 9.7 HSE费用投入计划
-                    costInvestmentPlans = (from x in db.Manager_Month_CostInvestmentPlanC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
-                    if (costInvestmentPlans.Count > 0)
-                    {
-                        this.gvCostInvestmentPlan.DataSource = costInvestmentPlans;
-                        this.gvCostInvestmentPlan.DataBind();
-                    }
-                    //9.8 HSE管理文件/方案修编计划
-                    manageDocPlans = (from x in db.Manager_Month_ManageDocPlanC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
-                    if (manageDocPlans.Count > 0)
-                    {
-                        this.gvManageDocPlan.DataSource = manageDocPlans;
-                        this.gvManageDocPlan.DataBind();
-                    }
-                    //9.9其他HSE工作计划
-                    otherWorkPlans = (from x in db.Manager_Month_OtherWorkPlanC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
-                    if (otherWorkPlans.Count > 0)
-                    {
-                        this.gvOtherWorkPlan.DataSource = otherWorkPlans;
-                        this.gvOtherWorkPlan.DataBind();
-                    }
+                    this.txtQuestion.Text = monthReport.Question;
                 }
             }
         }

@@ -66,7 +66,15 @@ namespace FineUIPro.Web.Check
                         }
 
                         this.txtCheckItemType.Text = BLL.Check_ProjectCheckItemSetService.ConvertCheckItemType(checkDayDetail.CheckItem);
-                        this.txtCheckItem.Text = checkDayDetail.CheckContent;
+                        if (!string.IsNullOrEmpty(checkDayDetail.CheckContent))
+                        {
+                            this.txtCheckItem.Text = checkDayDetail.CheckContent;
+                        }
+                        else
+                        {
+                            this.txtCheckItem.Text = this.txtCheckItemType.Text;
+                        }
+
                         this.txtUnqualified.Text = checkDayDetail.Unqualified;
                         this.txtSuggestions.Text = checkDayDetail.Suggestions;
                         this.txtWorkArea.Text = checkDayDetail.WorkArea;
@@ -130,7 +138,7 @@ namespace FineUIPro.Web.Check
             Model.Check_CheckDayDetail detail = BLL.Check_CheckDayDetailService.GetCheckDayDetailByCheckDayDetailId(this.CheckDayDetailId);
             if (detail != null)
             {
-                detail.CheckContent = this.txtCheckItem.Text.Trim();
+                detail.CheckContent = this.txtCheckItem.Text.Trim();              
                 detail.Unqualified = this.txtUnqualified.Text.Trim();
                 detail.Suggestions = this.txtSuggestions.Text.Trim();
                 detail.WorkArea = this.txtWorkArea.Text.Trim();
@@ -146,6 +154,7 @@ namespace FineUIPro.Web.Check
                 {
                     detail.LimitedDate = Funs.GetNewDateTime(this.txtLimitedDate.Text.Trim());
                 }
+
                 detail.CompleteStatus = Convert.ToBoolean(this.drpCompleteStatus.SelectedValue);
                 BLL.Check_CheckDayDetailService.UpdateCheckDayDetail(detail);
             }

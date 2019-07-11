@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BLL;
-using System.IO;
-using Newtonsoft.Json.Linq;
+﻿using BLL;
+using System;
 
 namespace FineUIPro.Web.Manager
 {
@@ -150,7 +143,7 @@ namespace FineUIPro.Web.Manager
                 monthReport.MonthReportId = SQLHelper.GetNewID(typeof(Model.Manager_MonthReport));
                 this.MonthReportId = monthReport.MonthReportId;
                 BLL.MonthReportCService.AddMonthReport(monthReport);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "增加管理月报", monthReport.MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, monthReport.MonthReportCode, monthReport.MonthReportId, BLL.Const.ProjectManagerMonthCMenuId, BLL.Const.BtnAdd);
             }
             PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ManagerMonthReport&menuId={1}", this.MonthReportId, BLL.Const.ProjectManagerMonthCMenuId)));
         }

@@ -48,7 +48,7 @@
                     <f:DropDownBox runat="server" ID="drpMenu" EmptyText="请选择菜单" Width="300px" AutoShowClearIcon="true" EnableClearIconClickEvent="true"
                         EnableMultiSelect="false" Label="业务菜单" OnClearIconClick="drpMenu_ClearIconClick" LabelWidth="120px">
                         <PopPanel>
-                            <f:Tree ID="treeMenu" ShowHeader="false" Hidden="true" runat="server" EnableSingleExpand="true">
+                            <f:Tree ID="treeMenu" ShowHeader="false" Hidden="true" runat="server" EnableSingleExpand="true" >
                             </f:Tree>
                         </PopPanel>
                     </f:DropDownBox>

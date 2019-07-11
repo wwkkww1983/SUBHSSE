@@ -20,9 +20,9 @@
                             <f:GroupPanel ID="GroupPanel44" Layout="Anchor" Title="7.1 管理绩效数据统计（表一）" runat="server">
                                 <Items>
                                     <f:Grid ID="gvAccidentDesciption" ShowBorder="true" ShowHeader="false" Title="管理绩效数据统计"
-                                        runat="server" AllowCellEditing="false" ClicksToEdit="1" DataIDField="AccidentDesId"
+                                        runat="server" AllowCellEditing="true" ClicksToEdit="1" DataIDField="AccidentDesId"
                                         DataKeyNames="AccidentDesId" EnableMultiSelect="false" ShowGridHeader="true"
-                                        Height="220px" EnableColumnLines="true" AutoScroll="true">
+                                        Height="220px" EnableColumnLines="true" >
                                         <Columns>
                                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
                                                 TextAlign="Center" />
@@ -55,9 +55,9 @@
                                 runat="server">
                                 <Items>
                                     <f:Grid ID="gvAccidentDesciptionItem" ShowBorder="true" ShowHeader="false" Title="管理绩效数据统计"
-                                        runat="server" AllowCellEditing="false" ClicksToEdit="1" DataIDField="AccidentDesItemId"
+                                        runat="server" AllowCellEditing="true" ClicksToEdit="1" DataIDField="AccidentDesItemId"
                                         DataKeyNames="AccidentDesItemId" EnableMultiSelect="false" ShowGridHeader="true"
-                                        Height="220px" EnableColumnLines="true" AutoScroll="true">
+                                        Height="220px" EnableColumnLines="true" >
                                         <Columns>
                                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
                                                 TextAlign="Center" />
@@ -81,7 +81,7 @@
                             </f:GroupPanel>
                             <f:GroupPanel ID="GroupPanel46" Layout="Anchor" Title="7.3 事故/事件描述（文字描述）" runat="server">
                                 <Items>
-                                    <f:TextArea runat="server" ID="txtAccidentDes" Readonly="true">
+                                    <f:TextArea runat="server" ID="txtAccidentDes">
                                     </f:TextArea>
                                 </Items>
                             </f:GroupPanel>

@@ -345,10 +345,11 @@ namespace FineUIPro.Web.Information
             Model.Information_MillionsMonthlyReport report = BLL.MillionsMonthlyReportService.GetMillionsMonthlyReportByUnitIdAndYearAndMonth(drpUnit.SelectedValue, Funs.GetNewIntOrZero(drpYear.SelectedValue), Funs.GetNewIntOrZero(drpMonth.SelectedValue));
             if (report != null)
             {
+                BLL.LogService.AddSys_Log(this.CurrUser, report.Year.ToString() + "-" + report.Month.ToString(), report.MillionsMonthlyReportId, BLL.Const.MillionsMonthlyReportMenuId, BLL.Const.BtnDelete);
                 BLL.ProjectDataFlowSetService.DeleteFlowSetByDataId(report.MillionsMonthlyReportId);
                 BLL.MillionsMonthlyReportItemService.DeleteMillionsMonthlyReportItemByMillionsMonthlyReportId(report.MillionsMonthlyReportId);
                 BLL.MillionsMonthlyReportService.DeleteMillionsMonthlyReportByMillionsMonthlyReportId(report.MillionsMonthlyReportId);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除企业百万工时安全统计月报表");
+                
                 SetEmpty();
                 this.btnNew.Hidden = false;
                 ShowNotify("删除数据成功!", MessageBoxIcon.Success);
@@ -703,6 +704,57 @@ namespace FineUIPro.Web.Information
             }
         }
         #endregion
+        #endregion
+
+        #region 查看未上报的项目
+        /// <summary>
+        /// 查看未上报的项目
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnView_Click(object sender, EventArgs e)
+        {
+            string info = string.Empty;
+            DateTime date = Convert.ToDateTime(this.drpYear.SelectedValue + "-" + this.drpMonth.SelectedValue + "-01").AddDays(-1).AddMonths(1);
+            var projects = (from x in Funs.DB.Base_Project
+                            where (x.ProjectState == BLL.Const.ProjectState_1 || x.ProjectState == null)
+                            && x.StartDate <= date
+                            select x).ToList();
+            foreach (var item in projects)
+            {
+                var millionsMonthlyReport = Funs.DB.InformationProject_MillionsMonthlyReport.FirstOrDefault(x => x.ProjectId == item.ProjectId && x.Year == date.Year && x.Month == date.Month);
+                if (millionsMonthlyReport == null)
+                {
+                    info += item.ProjectCode + ":" + item.ProjectName + "，未填写报表；</br>";
+                }
+                else
+                {                   
+                    if (millionsMonthlyReport.States != BLL.Const.State_2)
+                    {
+                        info += item.ProjectCode + ":" + item.ProjectName + "报表未报；";
+                        var flows = (from x in Funs.DB.Sys_FlowOperate
+                                     join y in Funs.DB.Sys_User on x.OperaterId equals y.UserId
+                                     where x.DataId == millionsMonthlyReport.MillionsMonthlyReportId && x.IsClosed != false
+                                     select y).FirstOrDefault();
+                        if (flows != null)
+                        {
+                            info += "待" + flows.UserName + "处理；";
+                        }
+                        info += "</br>";
+                    }
+                }
+            }
+
+            if (!string.IsNullOrEmpty(info))
+            {
+                Alert.ShowInTop(info + "项目报表未上报。", MessageBoxIcon.Warning);
+            }
+            else
+            {
+                ShowNotify("项目报表已上报", MessageBoxIcon.Success);
+            }
+
+        }
         #endregion
     }
 }

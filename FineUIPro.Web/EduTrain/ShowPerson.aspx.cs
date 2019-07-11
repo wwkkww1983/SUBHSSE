@@ -135,7 +135,7 @@ namespace FineUIPro.Web.EduTrain
             var trainType = BLL.TrainTypeService.GetTrainTypeById(type);
             if (trainType != null)
             {
-                string strSql = @"SELECT viewPerSon.PersonId,viewPerSon.UnitName,viewPerSon.PersonName,viewPerSon.CardNo,viewPerSon.Sex,WorkPostName,viewPerSon.IdentityCard,TeamGroupName,WorkAreaName "
+                string strSql = @"SELECT viewPerSon.PersonId,viewPerSon.UnitName,viewPerSon.PersonName,viewPerSon.CardNo,viewPerSon.Sex,WorkPostName,viewPerSon.IdentityCard,TeamGroupName,WorkAreaName,InTime "
                     + @" FROM View_SitePerson_Person AS viewPerSon   "
                     //+ @" LEFT JOIN EduTrain_TrainRecordDetail AS TrainRecordDetail ON viewPerSon.PersonId=TrainRecordDetail.PersonId "
                     //+ @" LEFT JOIN EduTrain_TrainRecord AS TrainRecord ON TrainRecord.TrainingId=TrainRecordDetail.TrainingId "
@@ -188,7 +188,7 @@ namespace FineUIPro.Web.EduTrain
                     strSql += " AND IsHsse = @IsHsse";
                     listStr.Add(new SqlParameter("@IsHsse", true));
                 }
-                strSql += " group by viewPerSon.PersonId,viewPerSon.UnitName,viewPerSon.PersonName,viewPerSon.CardNo,viewPerSon.Sex,WorkPostName,viewPerSon.IdentityCard,TeamGroupName,WorkAreaName";
+                strSql += " group by viewPerSon.PersonId,viewPerSon.UnitName,viewPerSon.PersonName,viewPerSon.CardNo,viewPerSon.Sex,WorkPostName,viewPerSon.IdentityCard,TeamGroupName,WorkAreaName,InTime";
                 SqlParameter[] parameter = listStr.ToArray();
                 DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 

@@ -174,7 +174,8 @@ namespace FineUIPro.Web.ProjectData
             if (sysMenu != null && sysMenu.IsEnd == true)
             {
                 this.SaveData2(sysMenu.MenuId);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改菜单编码模板设置！");
+                
+                BLL.LogService.AddSys_Log(this.CurrUser, "修改菜单编码模板设置！", null, BLL.Const.ProjectCodeTemplateRuleMenuId, BLL.Const.BtnModify);
                 ShowNotify("保存成功！", MessageBoxIcon.Success);
             }
         }
@@ -224,8 +225,8 @@ namespace FineUIPro.Web.ProjectData
             if (sysMenu != null && sysMenu.IsEnd == true)
             {
                 this.SaveData2(sysMenu.MenuId);
-                BLL.CodeRecordsService.UpdateCodeRecordsByMenuIdProjectId(this.drpMenu.Value, this.CurrUser.LoginProjectId);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "更新编码！");
+                BLL.CodeRecordsService.UpdateCodeRecordsByMenuIdProjectId(this.drpMenu.Value, this.CurrUser.LoginProjectId);                
+                BLL.LogService.AddSys_Log(this.CurrUser, "更新编码！", null, BLL.Const.ProjectCodeTemplateRuleMenuId, BLL.Const.BtnModify);
                 ShowNotify("更新成功！", MessageBoxIcon.Success);
             }
             else
@@ -247,7 +248,7 @@ namespace FineUIPro.Web.ProjectData
             {
                 this.SaveData2(sysMenu.MenuId);
                 BLL.CodeRecordsService.DatabaseRefreshCodeRecordsByMenuIdProjectId(this.drpMenu.Value,this.CurrUser.LoginProjectId);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "重新排序并生成编码！");
+                BLL.LogService.AddSys_Log(this.CurrUser, "重新排序并生成编码！",null,BLL.Const.ProjectCodeTemplateRuleMenuId,BLL.Const.BtnModify);
                 ShowNotify("重新生成成功！", MessageBoxIcon.Success);
             }
             else

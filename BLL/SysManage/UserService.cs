@@ -26,7 +26,7 @@ namespace BLL
         public static bool IsExistUserAccount(string userId, string account)
         {
             bool isExist = false;
-            var role = Funs.DB.Sys_User.FirstOrDefault(x => x.Account == account && x.UserId != userId);
+            var role = Funs.DB.Sys_User.FirstOrDefault(x => x.Account == account && (x.UserId != userId || (userId==null && x.UserId != null)));
             if (role != null)
             {
                 isExist = true;
@@ -43,7 +43,7 @@ namespace BLL
         public static bool IsExistUserIdentityCard(string userId, string identityCard)
         {
             bool isExist = false;
-            var role = Funs.DB.Sys_User.FirstOrDefault(x => x.IdentityCard == identityCard && x.UserId != userId);
+            var role = Funs.DB.Sys_User.FirstOrDefault(x => x.IdentityCard == identityCard && (x.UserId != userId || (userId == null && x.UserId != null)));
             if (role != null)
             {
                 isExist = true;
@@ -118,7 +118,8 @@ namespace BLL
                 IsReplies = true,
                 IsDeletePosts = true,
                 PageSize = 10,
-                IsOffice = user.IsOffice
+                IsOffice = user.IsOffice,
+                DataSources=user.DataSources,
             };
             db.Sys_User.InsertOnSubmit(newUser);
             db.SubmitChanges();
@@ -145,7 +146,7 @@ namespace BLL
                 newUser.UnitId = user.UnitId;
                 newUser.RoleId = user.RoleId;              
                 newUser.IsPost = user.IsPost;
-                newUser.IsOffice = user.IsOffice;
+                newUser.IsOffice = user.IsOffice;                
                 db.SubmitChanges();
             }
         }
@@ -198,41 +199,56 @@ namespace BLL
                              where y.ProjectId == projectId && z.IsAuditFlow == true && (u.UnitId == unitId || u.UnitType == BLL.Const.ProjectUnitType_1 || u.UnitType == BLL.Const.ProjectUnitType_3 || u.UnitType == BLL.Const.ProjectUnitType_4)
                              orderby z.RoleCode, x.UserCode
                              select new Model.SpSysUserItem
-                                 {
-                                     UserName = "[" + z.RoleName + "] " + x.UserName,
-                                     UserId = x.UserId,
-                                 });
+                             {
+                                 UserName =  z.RoleName + "- " + x.UserName,
+                                 UserId = x.UserId,
+                             });
                 }
                 else
                 {
                     users = (from x in Funs.DB.Sys_User
                              join y in Funs.DB.Project_ProjectUser on x.UserId equals y.UserId
                              join z in Funs.DB.Sys_Role on y.RoleId equals z.RoleId
+                             join u in Funs.DB.Base_Unit on x.UnitId equals u.UnitId
                              where y.ProjectId == projectId && z.IsAuditFlow == true
-                             orderby z.RoleCode,x.UserCode
+                             orderby u.UnitCode, z.RoleCode, x.UserCode
                              select new Model.SpSysUserItem
                              {
-                                 UserName = "[" + z.RoleName + "] " + x.UserName,
+                                 UserName = x.UserName + "- " + z.RoleName + "- " + u.UnitName,
                                  UserId = x.UserId,
                              });
                 }
             }
             else
             {
-                users = (from x in Funs.DB.Sys_User
-                         join z in Funs.DB.Sys_Role on x.RoleId equals z.RoleId
-                         where x.IsPost == true && z.IsAuditFlow == true
-                         orderby x.UserCode
-                         select new Model.SpSysUserItem
-                         {
-                             UserName = "[" + z.RoleName + "] " + x.UserName,
-                             UserId = x.UserId,
-                         });
+                if (!string.IsNullOrEmpty(unitId))
+                {
+                    users = (from x in Funs.DB.Sys_User
+                             join z in Funs.DB.Sys_Role on x.RoleId equals z.RoleId
+                             where x.IsPost == true && z.IsAuditFlow == true && x.UnitId == unitId
+                             orderby x.UserCode
+                             select new Model.SpSysUserItem
+                             {
+                                 UserName = z.RoleName + "- " + x.UserName,
+                                 UserId = x.UserId,
+                             });
+                }
+                else
+                {
+                    users = (from x in Funs.DB.Sys_User
+                             join z in Funs.DB.Sys_Role on x.RoleId equals z.RoleId
+                             where x.IsPost == true && z.IsAuditFlow == true
+                             orderby x.UserCode
+                             select new Model.SpSysUserItem
+                             {
+                                 UserName = z.RoleName + "- " + x.UserName,
+                                 UserId = x.UserId,
+                             });
+                }
             }
-           
             return users.ToList();
         }
-
+        
         /// <summary>
         /// 根据项目号和单位Id获取用户下拉选项
         /// </summary>

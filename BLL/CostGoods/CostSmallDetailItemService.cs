@@ -64,6 +64,68 @@ namespace BLL
         }
 
         /// <summary>
+        /// 根据时间及费用类型获取当期费用
+        /// </summary>
+        /// <param name="unitId"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="costType"></param>
+        /// <returns></returns>
+        public static decimal GetCostDetailsByCostType(string projectId, DateTime startTime, DateTime endTime, string costType)
+        {
+            decimal cost = 0;
+            var q = from x in Funs.DB.CostGoods_CostSmallDetailItem
+                    join y in Funs.DB.CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
+                    join z in Funs.DB.Sys_FlowOperate
+                    on y.CostSmallDetailId equals z.DataId
+                    where y.ProjectId == projectId && y.States == BLL.Const.State_2 && z.State == BLL.Const.State_2 && z.OperaterTime >= startTime && z.OperaterTime < endTime && x.CostType.Contains(costType)
+                    select x.CostMoney;
+            foreach (var item in q)
+            {
+                if (item != null)
+                {
+                    cost += Funs.GetNewDecimalOrZero(item.ToString());
+                }
+            }
+            return cost;
+            //return (from x in Funs.DB.CostGoods_CostSmallDetailItem
+            //        join y in Funs.DB.CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
+            //        where y.UnitId == unitId && y.States == BLL.Const.State_2 && y.ApproveDate >= startTime && y.ApproveDate < endTime && x.CostType.Contains(costType)
+            //        select x.CostMoney ?? 0).Sum();
+        }
+
+        /// <summary>
+        /// 根据费用类型获取所有费用
+        /// </summary>
+        /// <param name="unitId"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="costType"></param>
+        /// <returns></returns>
+        public static decimal GetTotalCostDetailsByCostType(string projectId, string costType)
+        {
+            decimal cost = 0;
+            var q = from x in Funs.DB.CostGoods_CostSmallDetailItem
+                    join y in Funs.DB.CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
+                    join z in Funs.DB.Sys_FlowOperate
+                    on y.CostSmallDetailId equals z.DataId
+                    where y.ProjectId == projectId && y.States == BLL.Const.State_2 && z.State == BLL.Const.State_2 && x.CostType.Contains(costType)
+                    select x.CostMoney;
+            foreach (var item in q)
+            {
+                if (item != null)
+                {
+                    cost += Funs.GetNewDecimalOrZero(item.ToString());
+                }
+            }
+            return cost;
+            //return (from x in Funs.DB.CostGoods_CostSmallDetailItem
+            //        join y in Funs.DB.CostGoods_CostSmallDetail on x.CostSmallDetailId equals y.CostSmallDetailId
+            //        where y.UnitId == unitId && y.States == BLL.Const.State_2 && y.ApproveDate >= startTime && y.ApproveDate < endTime && x.CostType.Contains(costType)
+            //        select x.CostMoney ?? 0).Sum();
+        }
+
+        /// <summary>
         /// 根据费用投入登记ID获取所有相关明细信息
         /// </summary>
         /// <param name="costSmallDetailId"></param>

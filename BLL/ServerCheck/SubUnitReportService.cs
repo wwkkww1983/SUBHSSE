@@ -41,6 +41,10 @@ namespace BLL
                         isUpLoad = false;
                     }
                 }
+                else
+                {
+                    isUpLoad = false;
+                }
             }
 
             return isUpLoad;

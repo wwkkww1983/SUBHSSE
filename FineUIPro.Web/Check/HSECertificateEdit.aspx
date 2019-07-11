@@ -18,36 +18,14 @@
         <Rows>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtHSECertificateCode" runat="server" Label="获奖证书或奖杯编号" LabelAlign="Right"
-                        MaxLength="50" Readonly="true" LabelWidth="150px">
+                    <f:TextBox ID="txtHSECertificateCode" runat="server" Label="编号" LabelAlign="Right"
+                        MaxLength="50" Readonly="true" LabelWidth="60px">
+                    </f:TextBox>
+                    <f:TextBox ID="txtHSECertificateName" runat="server" Label="名称" LabelAlign="Right"
+                        MaxLength="50" LabelWidth="60px">
                     </f:TextBox>
                 </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:TextBox ID="txtHSECertificateName" runat="server" Label="获奖证书或奖杯名称" LabelAlign="Right"
-                        MaxLength="50" LabelWidth="150px">
-                    </f:TextBox>
-                </Items>
-            </f:FormRow>
-            <%--<f:FormRow>
-                <Items>
-                    <f:FileUpload runat="server" ID="btnFile" EmptyText="请选择附件" OnFileSelected="btnFile_Click"
-                        AutoPostBack="true" Label="证书或奖杯扫描件上传" LabelWidth="150px">
-                    </f:FileUpload>
-                    <f:ContentPanel ID="ContentPanel2" runat="server" ShowHeader="false" ShowBorder="false"
-                        Title="附件">
-                        <table>
-                            <tr style="height: 28px">
-                                <td align="left">
-                                    <div id="divFile" runat="server">
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </f:ContentPanel>
-                </Items>
-            </f:FormRow>--%>
+            </f:FormRow>           
             <f:FormRow>
                 <Items>
                     <f:ContentPanel ID="ContentPanel1" runat="server" ShowHeader="false" EnableCollapse="true"

@@ -6,6 +6,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>管理岗位首页</title>
     <link href="../res/css/common.css" rel="stylesheet" type="text/css" />
+    <style>
+         .info {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            text-align: center;
+            border: solid 1px #ddd;
+            padding: 10px;
+            background-color: #efefef;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -30,7 +41,7 @@
                                                 EnableColumnLines="true" ClicksToEdit="2" DataIDField="Id" EnableRowDoubleClickEvent="true"
                                                 OnRowDoubleClick="GridNotice_RowDoubleClick" SortField="Date" SortDirection="DESC">
                                                 <Columns>
-                                                    <f:RenderField MinWidth="95px" ColumnID="Type" DataField="Type" FieldType="String"
+                                                    <f:RenderField MinWidth="90px" ColumnID="Type" DataField="Type" FieldType="String"
                                                         HeaderText="类别" HeaderTextAlign="Center" TextAlign="Left">
                                                     </f:RenderField>
                                                     <f:RenderField MinWidth="350px"  ColumnID="Name" DataField="Name" FieldType="String"
@@ -115,7 +126,7 @@
                                  </Rows>
                           </f:Form> 
                          <f:Form BodyPadding="1px" ID="formNewDynamic" EnableCollapse="false" Layout="VBox" runat="server"
-                                Title="资质预警" IconFont="Tag" ShowHeader="true" ShowBorder="false" AutoScroll="true">
+                                Title="限期预警" IconFont="Tag" ShowHeader="true" ShowBorder="false" AutoScroll="true">
                             <Rows>
                                 <f:FormRow>
                                     <Items>
@@ -153,8 +164,9 @@
     </f:Panel>
     <f:Window ID="Window1" Title="通知页面" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="false"
-        Width="1300px" Height="640px"  CloseAction="HidePostBack">
-    </f:Window>
+        Width="1200px" Height="560px"  CloseAction="HidePostBack">
+    </f:Window>  
+    
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuOpen1" OnClick="btnMenuOpen1_Click" EnablePostBack="true"
             runat="server" Text="展开" Icon="ControlAddBlue">
@@ -235,8 +247,8 @@
                 var height = $(window).height();
                 formNotice.setHeight(height - 300 - 60);
                 // formPicture.setHeight(height);
-                formToDoMatter.setHeight((height - 100) / 2);
-                formNewDynamic.setHeight((height - 100) / 2);
+                formToDoMatter.setHeight((height - 20) / 2);
+                formNewDynamic.setHeight((height - 20) / 2);
             }
 
             // 页面加载完毕后，首先对窗体进行高度设置

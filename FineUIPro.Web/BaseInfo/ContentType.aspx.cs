@@ -108,11 +108,16 @@ namespace FineUIPro.Web.BaseInfo
         {
             if (judgementDelete(hfFormID.Text, true))
             {
-                BLL.ContentTypeService.DeleteContentType(hfFormID.Text);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除交流话题类型");
-                // 重新绑定表格，并模拟点击[新增按钮]
-                BindGrid();
-                PageContext.RegisterStartupScript("onNewButtonClick();");
+                var getV = BLL.ContentTypeService.GetContentType(hfFormID.Text);
+                if (getV != null)
+                {
+                    BLL.LogService.AddSys_Log(this.CurrUser, getV.ContentTypeCode, getV.ContentTypeId, BLL.Const.ContentTypeMenuId, BLL.Const.BtnDelete);
+                    BLL.ContentTypeService.DeleteContentType(hfFormID.Text);
+
+                    // 重新绑定表格，并模拟点击[新增按钮]
+                    BindGrid();
+                    PageContext.RegisterStartupScript("onNewButtonClick();");
+                }
             }
         }
 
@@ -130,8 +135,12 @@ namespace FineUIPro.Web.BaseInfo
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (judgementDelete(rowID, true))
                     {
-                        BLL.ContentTypeService.DeleteContentType(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除交流话题类型");
+                        var getV = BLL.ContentTypeService.GetContentType(rowID);
+                        if (getV != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getV.ContentTypeCode, getV.ContentTypeId, BLL.Const.ContentTypeMenuId, BLL.Const.BtnDelete);
+                            BLL.ContentTypeService.DeleteContentType(rowID);
+                        }
                     }
                 }
                 BindGrid();
@@ -210,13 +219,13 @@ namespace FineUIPro.Web.BaseInfo
             {
                 depart.ContentTypeId = SQLHelper.GetNewID(typeof(Model.Exchange_ContentType));
                 BLL.ContentTypeService.AddContentType(depart);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加交流话题类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, depart.ContentTypeCode, depart.ContentTypeId, BLL.Const.ContentTypeMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 depart.ContentTypeId = strRowID;
                 BLL.ContentTypeService.UpdateContentType(depart);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改交流话题类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, depart.ContentTypeCode, depart.ContentTypeId, BLL.Const.ContentTypeMenuId, BLL.Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行

@@ -182,14 +182,14 @@ namespace FineUIPro.Web.CostGoods
             {
                 goodsIn.GoodsInId = this.GoodsInId;
                 BLL.GoodsIn2Service.UpdateGoodsIn(goodsIn);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改物资入库管理", goodsIn.GoodsInId);
+                BLL.LogService.AddSys_Log(this.CurrUser, goodsIn.GoodsInCode, goodsIn.GoodsInId, BLL.Const.GoodsIn2MenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.GoodsInId = SQLHelper.GetNewID(typeof(Model.CostGoods_GoodsIn));
                 goodsIn.GoodsInId = this.GoodsInId;
                 BLL.GoodsIn2Service.AddGoodsIn(goodsIn);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加物资入库管理", goodsIn.GoodsInId);
+                BLL.LogService.AddSys_Log(this.CurrUser, goodsIn.GoodsInCode, goodsIn.GoodsInId, BLL.Const.GoodsIn2MenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.GoodsIn2MenuId, this.GoodsInId, (type == BLL.Const.BtnSubmit ? true : false), goodsIn.GoodsInCode, "../CostGoods/GoodsInView.aspx?GoodsInId={0}");

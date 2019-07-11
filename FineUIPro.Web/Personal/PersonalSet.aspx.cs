@@ -195,7 +195,7 @@ namespace FineUIPro.Web.Personal
                 newUser.PhotoUrl = this.PhotoAttachUrl;
                 newUser.PageSize = Funs.GetNewInt(this.drpPageSize.SelectedValue);
                 ShowNotify("保存成功！", MessageBoxIcon.Success);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改个人信息！");
+                BLL.LogService.AddSys_Log(this.CurrUser, newUser.UserCode, newUser.UserId, BLL.Const.UserMenuId, BLL.Const.BtnModify);
                 PageContext.RegisterStartupScript(ActiveWindow.GetHideReference());
             }            
         }
@@ -231,7 +231,7 @@ namespace FineUIPro.Web.Personal
                 }
 
                 BLL.UserService.UpdatePassword(user.UserId, this.txtNewPassword.Text);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改个人密码");
+                BLL.LogService.AddSys_Log(this.CurrUser, user.UserCode, user.UserId, BLL.Const.UserMenuId, BLL.Const.BtnModify);
                 PageContext.RegisterStartupScript(ActiveWindow.GetHideReference());
             }
         }

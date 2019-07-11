@@ -29,17 +29,18 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
-                            <f:TextBox runat="server" Label="编号" ID="txtCardNo" EmptyText="输入查询条件"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px"
+                            <f:TextBox runat="server" Label="编号" ID="txtCardNo" EmptyText="输入查询条件" 
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="200px" LabelWidth="50px"
                                 LabelAlign="right">
                             </f:TextBox>
-                            <f:DropDownList ID="drpUnitId" runat="server" Label="单位" AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged"  LabelWidth="70px" Width="250px">
+                            <f:DropDownList ID="drpUnitId" runat="server" Label="单位" AutoPostBack="true"  EnableEdit="true"
+                                OnSelectedIndexChanged="TextBox_TextChanged"  LabelWidth="50px" Width="280px">
                             </f:DropDownList>
-                            <f:TextBox runat="server" Label="人员姓名" ID="txtPersonName" EmptyText="输入查询条件" AutoPostBack="true"
-                                OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px" LabelAlign="right">
+                            <f:TextBox runat="server" Label="姓名" ID="txtPersonName" EmptyText="输入查询条件" AutoPostBack="true"
+                                OnTextChanged="TextBox_TextChanged" Width="200px" LabelWidth="50px" LabelAlign="right">
                             </f:TextBox>
                             <f:TextBox runat="server" Label="岗位" ID="txtWorkPostName" EmptyText="输入查询条件" AutoPostBack="true"
-                                OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px" LabelAlign="right">
+                                OnTextChanged="TextBox_TextChanged" Width="200px" LabelWidth="50px" LabelAlign="right" >
                             </f:TextBox>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>                                                     
@@ -60,43 +61,43 @@
                         SortField="UnitCode" FieldType="String" HeaderText="单位代码" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="250px" ColumnID="UnitName" DataField="UnitName"
+                    <f:RenderField Width="250px" ColumnID="UnitName" DataField="UnitName" ExpandUnusedSpace="true"
                         SortField="UnitName" FieldType="String" HeaderText="单位名称" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>  
-                    <f:RenderField Width="90px" ColumnID="PersonName" DataField="PersonName" 
+                    <f:RenderField Width="100px" ColumnID="PersonName" DataField="PersonName" 
                         SortField="PersonName" FieldType="String" HeaderText="人员姓名" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>  
-                    <f:RenderField Width="90px" ColumnID="WorkPostName" DataField="WorkPostName" 
+                    <f:RenderField Width="200px" ColumnID="WorkPostName" DataField="WorkPostName" 
                         SortField="WorkPostName" FieldType="String" HeaderText="岗位" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="150px" ColumnID="CertificateName" DataField="CertificateName"
+                    <%--<f:RenderField Width="150px" ColumnID="CertificateName" DataField="CertificateName"
                          SortField="CertificateName" FieldType="String" HeaderText="证书"
                         HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="180px" ColumnID="CertificateNo" DataField="CertificateNo" 
+                    <f:RenderField Width="150px" ColumnID="CertificateNo" DataField="CertificateNo" 
                         SortField="CertificateNo" FieldType="String" HeaderText="证书编号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="SendDate" DataField="SendDate" SortField="SendDate"
+                    <f:RenderField Width="100px" ColumnID="SendDate" DataField="SendDate" SortField="SendDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="发证时间"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="LimitDate" DataField="LimitDate" SortField="LimitDate"
+                    <f:RenderField Width="100px" ColumnID="LimitDate" DataField="LimitDate" SortField="LimitDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="有效期至"
                         HeaderTextAlign="Center" TextAlign="Center">
-                    </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="Grade" DataField="Grade" 
+                    </f:RenderField>--%>
+                    <f:RenderField Width="200px" ColumnID="Grade" DataField="Grade" 
                         SortField="Grade" FieldType="String" HeaderText="操作类别" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="220px" ColumnID="SendUnit" DataField="SendUnit" 
+                    <%--<f:RenderField Width="220px" ColumnID="SendUnit" DataField="SendUnit" 
                         SortField="SendUnit" FieldType="String" HeaderText="发证单位" HeaderTextAlign="Center"
                         TextAlign="Left">
-                    </f:RenderField>
-                    <f:WindowField TextAlign="Center" Width="90px" WindowID="WindowAtt" HeaderText="证书扫描件"
+                    </f:RenderField>--%>
+                    <f:WindowField TextAlign="Center" Width="120px" WindowID="WindowAtt" HeaderText="证书扫描件"
                         Text="查看" ToolTip="附件上传查看" DataIFrameUrlFields="ManagePersonQualityId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ManagePersonQualityAttachUrl&menuId=07435F23-F87D-4F52-B32C-A3DA95B10DA2&type=-1"
                         HeaderTextAlign="Center" ColumnID="attWindow" />
                 </Columns>
@@ -121,8 +122,8 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="管理人员资质" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="800px"
-        Height="450px">
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1000px"
+        Height="600px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件页面" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"

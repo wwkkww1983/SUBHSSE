@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BLL;
+﻿using BLL;
 using Model;
-using System.IO;
+using System;
+using System.Linq;
+using System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.Law
 {
@@ -195,13 +191,13 @@ namespace FineUIPro.Web.Law
                 this.StandardId = SQLHelper.GetNewID(typeof(Model.Law_HSSEStandardsList));
                 hSSEStandardsList.StandardId = this.StandardId;
                 BLL.HSSEStandardsListService.AddHSSEStandardsList(hSSEStandardsList);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "增加安全标准规范");
+                BLL.LogService.AddSys_Log(this.CurrUser, hSSEStandardsList.StandardNo, hSSEStandardsList.StandardId, BLL.Const.HSSEStandardListMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 hSSEStandardsList.StandardId = this.StandardId;
                 BLL.HSSEStandardsListService.UpdateHSSEStandardsList(hSSEStandardsList);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改安全标准规范");
+                BLL.LogService.AddSys_Log(this.CurrUser, hSSEStandardsList.StandardNo, hSSEStandardsList.StandardId, BLL.Const.HSSEStandardListMenuId, BLL.Const.BtnModify);
             }
             if (isClose)
             {
@@ -293,11 +289,11 @@ namespace FineUIPro.Web.Law
                         BLL.HSSEStandardsListService.UpdateHSSEStandardsList(standardsList);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【标准规范】上报到集团公司" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【标准规范】上传到服务器" + idList.Count.ToString() + "条数据；", null, BLL.Const.HSSEStandardListMenuId, BLL.Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【标准规范】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【标准规范】上传到服务器失败；", null, BLL.Const.HSSEStandardListMenuId, BLL.Const.BtnUploadResources);
             }
         }
         #endregion
@@ -404,7 +400,14 @@ namespace FineUIPro.Web.Law
             {
                 SaveData(BLL.Const.UpState_1, false);
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/HSSEStandardsList&menuId=EFDSFVDE-RTHN-7UMG-4THA-5TGED48F8IOL", StandardId)));
+            if (this.btnSave.Hidden)
+            {
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/HSSEStandardsList&type=-1", StandardId)));
+            }
+            else
+            {
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/HSSEStandardsList&menuId=EFDSFVDE-RTHN-7UMG-4THA-5TGED48F8IOL", StandardId)));
+            }            
         }
         #endregion
 
@@ -414,6 +417,10 @@ namespace FineUIPro.Web.Law
         /// </summary>
         private void GetButtonPower()
         {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
             var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HSSEStandardListMenuId);
             if (buttonList.Count() > 0)
             {

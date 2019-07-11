@@ -15,7 +15,7 @@ namespace FineUIPro.Web.SafetyData
             if (!IsPostBack)
             {
                 this.ddlPageSize.SelectedValue = this.Grid1.PageSize.ToString();               
-                BLL.ProjectService.InitAllProjectDropDownList(this.drpProject, false);
+                BLL.ProjectService.InitNoEProjectDropDownList(this.drpProject, false);
                 if (!string.IsNullOrEmpty(this.CurrUser.LoginProjectId))
                 {
                     this.drpProject.SelectedValue = this.CurrUser.LoginProjectId;
@@ -25,6 +25,11 @@ namespace FineUIPro.Web.SafetyData
 
                 this.ProjectSafetyDataDataBind();//加载树
                 this.GetButtonPower();
+                ///收集考核项资料
+                if (!string.IsNullOrEmpty(this.CurrUser.LoginProjectId))
+                {
+                    BLL.SafetyDataItemService.GollSafetyData(this.CurrUser.LoginProjectId);
+                }
             }
         }
 
@@ -353,8 +358,7 @@ namespace FineUIPro.Web.SafetyData
                     var item = BLL.SafetyDataItemService.GetSafetyDataItemByID(Grid1.DataKeys[rowIndex][0].ToString());
                     if (item != null)
                     {
-                        BLL.SafetyDataItemService.DeleteSafetyDataItemByID(item.SafetyDataItemId);
-                        BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除项目文件明细信息", item.Code);  
+                        BLL.SafetyDataItemService.DeleteSafetyDataItemByID(item.SafetyDataItemId); 
                     }
                 }
 

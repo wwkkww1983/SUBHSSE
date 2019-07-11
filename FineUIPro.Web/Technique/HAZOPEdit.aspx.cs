@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BLL;
+using System;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using BLL;
-using System.IO;
 
 namespace FineUIPro.Web.Technique
 {
@@ -79,7 +75,7 @@ namespace FineUIPro.Web.Technique
                 else
                 {
                     this.dpkHAZOPDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
-                }
+                }               
             }
         }
         #endregion
@@ -134,13 +130,13 @@ namespace FineUIPro.Web.Technique
                 hazop.IsPass = true;
                 this.HAZOPId = hazop.HAZOPId = SQLHelper.GetNewID(typeof(Model.Technique_HAZOP));
                 BLL.HAZOPService.AddHAZOP(hazop);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加HAZOP管理");
+                BLL.LogService.AddSys_Log(this.CurrUser, hazop.HAZOPTitle, hazop.HAZOPId, BLL.Const.HAZOPMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 hazop.HAZOPId = this.HAZOPId;
                 BLL.HAZOPService.UpdateHAZOP(hazop);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改HAZOP管理");
+                BLL.LogService.AddSys_Log(this.CurrUser, hazop.HAZOPTitle, hazop.HAZOPId, BLL.Const.HAZOPMenuId, BLL.Const.BtnModify);
             }
             if (isClose)
             {
@@ -202,11 +198,12 @@ namespace FineUIPro.Web.Technique
                         BLL.HAZOPService.UpdateHAZOP(hazop);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【HAZOP管理】上报到集团公司" + idList.Count.ToString() + "条数据；");
+
+                BLL.LogService.AddSys_Log(this.CurrUser, "【HAZOP管理】上报到集团公司" + idList.Count.ToString() + "条数据；", string.Empty, BLL.Const.HAZOPMenuId, BLL.Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【HAZOP管理】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【HAZOP管理】上报到集团公司失败；", string.Empty, BLL.Const.HAZOPMenuId, BLL.Const.BtnUploadResources);
             }
         }
         #endregion
@@ -219,6 +216,10 @@ namespace FineUIPro.Web.Technique
         /// <returns></returns>
         private void GetButtonPower()
         {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
             var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HAZOPMenuId);
             if (buttonList.Count() > 0)
             {
@@ -258,11 +259,19 @@ namespace FineUIPro.Web.Technique
         /// <param name="e"></param>
         protected void btnUploadResources_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.HAZOPId))
+            if (this.btnSave.Hidden)
             {
-                SaveData(BLL.Const.UpState_1, false);
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/HAZOP&type=-1", HAZOPId)));
+
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/HAZOP&menuId=41C22E63-36B7-4C44-89EC-F765BFBB7C55", HAZOPId)));
+            else
+            {
+                if (string.IsNullOrEmpty(this.HAZOPId))
+                {
+                    SaveData(BLL.Const.UpState_1, false);
+                }
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/HAZOP&menuId={1}", HAZOPId, BLL.Const.HAZOPMenuId)));
+            }
         }
         #endregion
     }

@@ -17,32 +17,35 @@
                     <f:TextBox ID="txtCheckItemType" runat="server" Label="检查类型" Readonly="true" >
                     </f:TextBox>
                 </Items>
+             </f:FormRow>
+             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtCheckItem" runat="server" Label="检查项" ShowRedStar="true"  FocusOnPageLoad="true" MaxLength="3000">
-                    </f:TextBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:TextArea ID="txtCheckResult" runat="server" MaxLength="500" Label="检查结果">
+                    <f:TextArea ID="txtCheckItem" runat="server" Label="检查项" ShowRedStar="true"   Height="50px"
+                        FocusOnPageLoad="true" MaxLength="3000">
                     </f:TextArea>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextArea ID="txtCheckOpinion" runat="server" MaxLength="500" Label="处理意见">
+                    <f:TextArea ID="txtCheckResult" runat="server" MaxLength="500" Label="检查结果" Height="60px">
                     </f:TextArea>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextArea ID="txtHandleResult" runat="server" MaxLength="500" Label="整改结果">
+                    <f:TextArea ID="txtCheckOpinion" runat="server" MaxLength="500" Label="处理意见" Height="60px">
                     </f:TextArea>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextArea ID="txtCheckStation" runat="server" MaxLength="500" Label="验证情况">
+                    <f:TextArea ID="txtHandleResult" runat="server" MaxLength="500" Label="整改结果" Height="60px">
+                    </f:TextArea>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
+                    <f:TextArea ID="txtCheckStation" runat="server" MaxLength="500" Label="验证情况" Height="60px">
                     </f:TextArea>
                 </Items>
             </f:FormRow>

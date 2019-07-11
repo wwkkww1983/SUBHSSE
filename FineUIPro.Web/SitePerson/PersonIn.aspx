@@ -93,15 +93,15 @@
                             <f:RenderField Width="110px" ColumnID="CertificateCode" DataField="CertificateCode" SortField="CertificateCode"
                                 FieldType="String" HeaderText="证书编号" HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="90px" ColumnID="CertificateLimitTime" DataField="CertificateLimitTime" SortField="CertificateLimitTime"
+                            <f:RenderField Width="100px" ColumnID="CertificateLimitTime" DataField="CertificateLimitTime" SortField="CertificateLimitTime"
                                 FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="证书有效期"
                                 HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="90px" ColumnID="InTime" DataField="InTime" SortField="InTime"
+                            <f:RenderField Width="100px" ColumnID="InTime" DataField="InTime" SortField="InTime"
                                 FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="入场时间"
                                 HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="90px" ColumnID="OutTime" DataField="OutTime" SortField="OutTime"
+                            <f:RenderField Width="100px" ColumnID="OutTime" DataField="OutTime" SortField="OutTime"
                                 FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="出场时间"
                                 HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
@@ -111,10 +111,10 @@
                             <f:RenderField Width="100px" ColumnID="Telephone" DataField="Telephone" SortField="Telephone"
                                 FieldType="String" HeaderText="电话" HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="90px" ColumnID="IsUsed" DataField="IsUsed" FieldType="String"
+                            <f:RenderField Width="80px" ColumnID="IsUsed" DataField="IsUsed" FieldType="String"
                                 HeaderText="人员在场" HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="120px" ColumnID="IsCardUsed" DataField="IsCardUsed"
+                            <f:RenderField Width="90px" ColumnID="IsCardUsed" DataField="IsCardUsed"
                                 FieldType="String" HeaderText="考勤卡启用" HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
                         </Columns>

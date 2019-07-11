@@ -486,7 +486,7 @@ namespace FineUIPro.Web.InformationProject
             {
                 safetyQuarterlyReport.SafetyQuarterlyReportId = this.SafetyQuarterlyReportId;
                 BLL.ProjectSafetyQuarterlyReportService.UpdateSafetyQuarterlyReport(safetyQuarterlyReport);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "修改安全生产数据季报");
+                BLL.LogService.AddSys_Log(this.CurrUser, safetyQuarterlyReport.YearId.ToString() + "-" + safetyQuarterlyReport.Quarters.ToString(), safetyQuarterlyReport.SafetyQuarterlyReportId, BLL.Const.ProjectSafetyQuarterlyReportMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -498,7 +498,7 @@ namespace FineUIPro.Web.InformationProject
                     this.SafetyQuarterlyReportId = SQLHelper.GetNewID(typeof(Model.InformationProject_SafetyQuarterlyReport));
                     safetyQuarterlyReport.SafetyQuarterlyReportId = this.SafetyQuarterlyReportId;
                     BLL.ProjectSafetyQuarterlyReportService.AddSafetyQuarterlyReport(safetyQuarterlyReport);
-                    BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "添加安全生产数据季报");
+                    BLL.LogService.AddSys_Log(this.CurrUser, safetyQuarterlyReport.YearId.ToString() + "-" + safetyQuarterlyReport.Quarters.ToString(), safetyQuarterlyReport.SafetyQuarterlyReportId, BLL.Const.ProjectSafetyQuarterlyReportMenuId, BLL.Const.BtnAdd);
                     //删除未上报月报信息
                     Model.ManagementReport_ReportRemind reportRemind = (from x in Funs.DB.ManagementReport_ReportRemind
                                                                         where x.ProjectId == this.ProjectId && x.Year == safetyQuarterlyReport.YearId && x.Quarterly == safetyQuarterlyReport.Quarters && x.ReportName == "安全生产数据季报"

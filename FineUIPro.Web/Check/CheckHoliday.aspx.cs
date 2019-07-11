@@ -87,8 +87,8 @@ namespace FineUIPro.Web.Check
             }
             if (!string.IsNullOrEmpty(this.txtWorkAreaName.Text.Trim()))
             {
-                strSql += " AND Area LIKE @WorkAreaName";
-                listStr.Add(new SqlParameter("@WorkAreaName", "%" + this.txtWorkAreaName.Text.Trim() + "%"));
+                strSql += " AND Area LIKE @HolidayAreaName";
+                listStr.Add(new SqlParameter("@HolidayAreaName", "%" + this.txtWorkAreaName.Text.Trim() + "%"));
             }
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
@@ -237,10 +237,15 @@ namespace FineUIPro.Web.Check
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.Check_CheckHolidayDetailService.DeleteCheckHolidayDetails(rowID);
-                    BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "删除季节性/节假日检查", rowID);
-                    BLL.Check_CheckHolidayService.DeleteCheckHoliday(rowID);
+                    var CheckHoliday = BLL.Check_CheckHolidayService.GetCheckHolidayByCheckHolidayId(rowID);
+                    if (CheckHoliday != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, CheckHoliday.CheckHolidayCode, rowID, BLL.Const.ProjectCheckHolidayMenuId, BLL.Const.BtnDelete);
+                        BLL.Check_CheckHolidayDetailService.DeleteCheckHolidayDetails(rowID);
+                        BLL.Check_CheckHolidayService.DeleteCheckHoliday(rowID);
+                    }
                 }
+
                 BindGrid();
                 ShowNotify("删除数据成功!（表格数据已重新绑定）");
             }
@@ -294,6 +299,7 @@ namespace FineUIPro.Web.Check
                 if (buttonList.Contains(BLL.Const.BtnAdd))
                 {
                     this.btnNew.Hidden = false;
+                    this.btnPrint.Hidden = false;
                 }
                 if (buttonList.Contains(BLL.Const.BtnModify))
                 {
@@ -363,5 +369,15 @@ namespace FineUIPro.Web.Check
             return sb.ToString();
         }
         #endregion
+
+        protected void btnPrint_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckHolidayPrint.aspx?CheckHolidayId={0}", Grid1.SelectedRowID, "打印 - ")));
+        }
     }
 }

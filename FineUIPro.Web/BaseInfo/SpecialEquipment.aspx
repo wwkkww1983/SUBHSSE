@@ -24,14 +24,14 @@
                 AllowFilters="true" OnFilterChange="Grid1_FilterChange" EnableTextSelection="True">
                 <Columns>
                    <%--<f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center"/>--%>
-                    <f:RenderField Width="120px" ColumnID="SpecialEquipmentCode" DataField="SpecialEquipmentCode" FieldType="String"
+                    <f:RenderField Width="90px" ColumnID="SpecialEquipmentCode" DataField="SpecialEquipmentCode" FieldType="String"
                         HeaderText="设备编号" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="250px" ColumnID="SpecialEquipmentName" DataField="SpecialEquipmentName" FieldType="String"
+                    <f:RenderField Width="160px" ColumnID="SpecialEquipmentName" DataField="SpecialEquipmentName" FieldType="String"
                         HeaderText="设备名称" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="150px" ColumnID="IsSpecial" DataField="IsSpecial" FieldType="Boolean"
-                        RendererFunction="renderIsSpecial" HeaderText="是否特种设备"  HeaderTextAlign="Center" TextAlign="Center">
+                    <f:RenderField Width="80px" ColumnID="IsSpecial" DataField="IsSpecial" FieldType="Boolean"
+                        RendererFunction="renderIsSpecial" HeaderText="特种设备"  HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="200px" ColumnID="Remark" DataField="Remark" FieldType="String"
                         HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
@@ -69,7 +69,7 @@
                     </f:TextBox>
                     <f:CheckBox ID="ckbIsSpecial" runat="server" Label="是否特种设备" LabelAlign="right" LabelWidth="100px">
                     </f:CheckBox>
-                    <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="right" LabelWidth="100px">
+                    <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="right" LabelWidth="100px" Height="200px">
                     </f:TextArea>
                 </Items>
                 <Toolbars>
@@ -99,7 +99,7 @@
             runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

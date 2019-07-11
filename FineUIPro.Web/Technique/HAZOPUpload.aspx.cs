@@ -254,13 +254,13 @@ namespace FineUIPro.Web.Technique
             {
                 this.HAZOPId = hazop.HAZOPId = SQLHelper.GetNewID(typeof(Model.Technique_HAZOP));
                 BLL.HAZOPService.AddHAZOP(hazop);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加HAZOP管理资源");
+                BLL.LogService.AddSys_Log(this.CurrUser, hazop.HAZOPTitle, hazop.HAZOPId, BLL.Const.HAZOPMenuId,BLL.Const.BtnAdd);
             }
             else
             {
                 hazop.HAZOPId = this.HAZOPId;
                 BLL.HAZOPService.UpdateHAZOP(hazop);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改HAZOP管理资源");
+                BLL.LogService.AddSys_Log(this.CurrUser, hazop.HAZOPTitle, hazop.HAZOPId, BLL.Const.HAZOPMenuId, BLL.Const.BtnModify);
             }
         }
         #endregion
@@ -323,7 +323,7 @@ namespace FineUIPro.Web.Technique
         /// <returns></returns>
         private void GetButtonPower()
         {
-            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HazardListMenuId);
+            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HAZOPMenuId);
             if (buttonList.Count() > 0)
             {
                 if (buttonList.Contains(BLL.Const.BtnAdd))

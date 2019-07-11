@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BLL;
+using System;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BLL;
-using System.IO;
 
 namespace FineUIPro.Web.ActionPlan
 {
@@ -67,7 +63,7 @@ namespace FineUIPro.Web.ActionPlan
             if (!IsPostBack)
             {             
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
-                this.ProjectId = this.CurrUser.LoginProjectId;
+                this.ProjectId = this.CurrUser.LoginProjectId;               
                 //加载管理规定类别下拉选项
                 this.ddlManageRuleTypeId.DataTextField = "ManageRuleTypeName";
                 this.ddlManageRuleTypeId.DataValueField = "ManageRuleTypeId";
@@ -114,7 +110,7 @@ namespace FineUIPro.Web.ActionPlan
         protected void btnSave_Click(object sender, EventArgs e)
         {
             this.SaveData(BLL.Const.BtnSave);
-            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
+            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
 
         /// <summary>
@@ -125,7 +121,7 @@ namespace FineUIPro.Web.ActionPlan
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             this.SaveData(BLL.Const.BtnSubmit);
-            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
+            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
 
         /// <summary>
@@ -150,7 +146,8 @@ namespace FineUIPro.Web.ActionPlan
                 manageRule.State = this.ctlAuditFlow.NextStep;
             }
             BLL.ActionPlan_ManagerRuleService.UpdateManageRule(manageRule);
-            BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "修改管理规定发布");
+
+            BLL.LogService.AddSys_Log(this.CurrUser, manageRule.ManageRuleCode, manageRule.ManagerRuleId, BLL.Const.ActionPlan_ManagerRuleMenuId, Const.BtnModify);
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ActionPlan_ManagerRuleMenuId, this.ManageRuleId, (type == BLL.Const.BtnSubmit ? true : false), manageRule.ManageRuleName, "../ActionPlan/ManagerRuleView.aspx?ManagerRuleId={0}");
         }

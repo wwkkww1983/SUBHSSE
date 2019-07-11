@@ -34,6 +34,17 @@ namespace BLL
         }
 
         /// <summary>
+        /// 根据项目ID安全文件Id查询项目安全文件实体
+        /// </summary>
+        /// <param name="safeReportItemId">项目安全文件主键</param>
+        /// <returns>项目安全文件实体</returns>
+        public static Model.Manager_SafeReportItem GetSafeReportItemBySafeReportProjectId(string safeReportId, String projectId)
+        {
+            Model.Manager_SafeReportItem SafeReportItem = Funs.DB.Manager_SafeReportItem.FirstOrDefault(e => e.SafeReportId == safeReportId && e.ProjectId == projectId);
+            return SafeReportItem;
+        }
+
+        /// <summary>
         /// 添加项目安全文件
         /// </summary>
         /// <param name="SafeReportItem">项目安全文件实体</param>
@@ -84,6 +95,6 @@ namespace BLL
                 db.Manager_SafeReportItem.DeleteOnSubmit(safeReportItem);
                 db.SubmitChanges();
             }
-        }
+        }        
     }
 }

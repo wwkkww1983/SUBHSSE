@@ -30,8 +30,26 @@
     <f:Panel ID="Panel22" runat="server" ShowBorder="false" ShowHeader="false">
         <Items>
             <f:Form ID="SimpleForm1" LabelAlign="Right" MessageTarget="Qtip" RedStarPosition="BeforeText"
-                LabelWidth="90px" BodyPadding="5px" ShowBorder="false" ShowHeader="false" runat="server"
-                AutoScroll="false">
+                LabelWidth="90px" BodyPadding="5px" ShowBorder="false" ShowHeader="false" runat="server">
+                <Toolbars>
+                <f:Toolbar ID="Toolbar1" runat="server" ToolbarAlign="Right" Position="Bottom">
+                    <Items>
+                        <f:Label runat="server" ID="lbTemp"></f:Label>
+                         <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件上传及查看" Icon="TableCell" runat="server" OnClick="btnUploadResources_Click"
+                            ValidateForms="SimpleForm1">
+                        </f:Button>
+                        <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>
+                        <f:Button ID="btnSave" Icon="SystemSave" runat="server"  ValidateForms="SimpleForm1"
+                            Hidden="true" OnClick="btnSave_Click">
+                        </f:Button>
+                        <f:Button ID="btnSaveUp" Icon="PageSave" runat="server" ToolTip="保存并上报" ValidateForms="SimpleForm1"
+                            Hidden="true" OnClick="btnSaveUp_Click">
+                        </f:Button>
+                        <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
+                        </f:Button>
+                    </Items>
+                </f:Toolbar>
+            </Toolbars>
                 <Items>
                     <f:Panel ID="Panel2" runat="server" ShowBorder="false" ShowHeader="false" Layout="HBox"
                         BoxConfigAlign="StretchMax">
@@ -125,26 +143,7 @@
                     </f:Form>
                 </Items>
             </f:Form>
-        </Items>
-        <Toolbars>
-            <f:Toolbar ID="Toolbar1" runat="server" ToolbarAlign="Right" Position="Bottom">
-                <Items>
-                    <f:Label runat="server" ID="lbTemp"></f:Label>
-                     <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件上传及查看" Icon="TableCell" runat="server" OnClick="btnUploadResources_Click"
-                        ValidateForms="SimpleForm1">
-                    </f:Button>
-                    <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>
-                    <f:Button ID="btnSave" Icon="SystemSave" runat="server"  ValidateForms="SimpleForm1"
-                        Hidden="true" OnClick="btnSave_Click">
-                    </f:Button>
-                    <f:Button ID="btnSaveUp" Icon="PageSave" runat="server" ToolTip="保存并上报" ValidateForms="SimpleForm1"
-                        Hidden="true" OnClick="btnSaveUp_Click">
-                    </f:Button>
-                    <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
-                    </f:Button>
-                </Items>
-            </f:Toolbar>
-        </Toolbars>
+        </Items>        
     </f:Panel>
     <br />
     <br />

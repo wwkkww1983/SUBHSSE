@@ -121,14 +121,14 @@ namespace FineUIPro.Web.QualityAudit
             {
                 detail.AuditDetailId = this.AuditDetailId;
                 BLL.EquipmentQualityAuditDetailService.UpdateEquipmentQualityAuditDetail(detail);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改特种设备资质审查记录", AuditDetailId);
+                BLL.LogService.AddSys_Log(this.CurrUser, null, detail.AuditDetailId, BLL.Const.EquipmentQualityMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 detail.AuditDetailId = SQLHelper.GetNewID(typeof(Model.QualityAudit_EquipmentQualityAuditDetail));
                 this.AuditDetailId = detail.AuditDetailId;
                 BLL.EquipmentQualityAuditDetailService.AddEquipmentQualityAuditDetail(detail);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加特种设备资质审查记录", AuditDetailId);
+                BLL.LogService.AddSys_Log(this.CurrUser, null, detail.AuditDetailId, BLL.Const.EquipmentQualityMenuId, BLL.Const.BtnAdd);
             }
         }
 

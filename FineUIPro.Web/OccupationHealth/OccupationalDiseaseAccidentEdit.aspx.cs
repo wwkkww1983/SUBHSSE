@@ -147,7 +147,7 @@ namespace FineUIPro.Web.OccupationHealth
             {
                 OccupationalDiseaseAccident.FileId = this.FileId;
                 BLL.OccupationalDiseaseAccidentService.UpdateOccupationalDiseaseAccident(OccupationalDiseaseAccident);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改职业病事故", OccupationalDiseaseAccident.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, OccupationalDiseaseAccident.FileCode, OccupationalDiseaseAccident.FileId, BLL.Const.OccupationalDiseaseAccidentMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -155,7 +155,7 @@ namespace FineUIPro.Web.OccupationHealth
                 OccupationalDiseaseAccident.FileId = this.FileId;
                 OccupationalDiseaseAccident.ProjectId = this.ProjectId;
                 BLL.OccupationalDiseaseAccidentService.AddOccupationalDiseaseAccident(OccupationalDiseaseAccident);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加职业病事故", OccupationalDiseaseAccident.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, OccupationalDiseaseAccident.FileCode, OccupationalDiseaseAccident.FileId, BLL.Const.OccupationalDiseaseAccidentMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.OccupationalDiseaseAccidentMenuId, this.FileId, (type == BLL.Const.BtnSubmit ? true : false), this.txtFileName.Text.Trim(), "../OccupationHealth/OccupationalDiseaseAccidentView.aspx?FileId={0}");             

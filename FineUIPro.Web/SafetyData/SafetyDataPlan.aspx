@@ -12,105 +12,218 @@
             word-break: break-all;
         }     
     </style>
+    <style type="text/css">
+        .LabelColor
+        {
+            color: Red;
+            font-size:small;
+        }   
+         .f-grid-row.Yellow
+        {
+            background-color: Yellow;
+        } 
+        .f-grid-row.Green
+        {
+            background-color: LightGreen;
+        }        
+        .f-grid-row.Red
+        {
+            background-color:Red;
+        }
+        .f-grid-row.Purple
+        {
+            background-color:mediumpurple;
+        }    
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
     <f:PageManager ID="PageManager1" AutoSizePanelID="Panel1"  runat="server" />
-    <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" ShowBorder="false" 
-       ShowHeader="false"  Layout="VBox" BoxConfigAlign="Stretch" >
-        <Items>
-            <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="项目信息" 
-                EnableCollapse="true" runat="server" BoxFlex="1"  EnableColumnLines="true"
-                DataKeyNames="ProjectId" AllowCellEditing="true" ClicksToEdit="2" DataIDField="ProjectId"
-                AllowSorting="true" SortField="ProjectCode" SortDirection="DESC"  OnSort="Grid1_Sort"                
-                AllowPaging="true" IsDatabasePaging="true"  PageSize="10" OnPageIndexChange="Grid1_PageIndexChange" 
-                EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True">
-                <Toolbars>
-                    <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
-                        <Items>
-                            <f:TextBox runat="server" Label="项目名称" ID="txtProjectName" EmptyText="输入查询条件" 
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px" LabelAlign="right"></f:TextBox>                       
-                            <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>
-                            <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
-                                EnableAjax="false" DisableControlBeforePostBack="false">
-                            </f:Button>
-                        </Items>
-                    </f:Toolbar>
-                </Toolbars>
-                <Columns>
-                   <f:TemplateField ColumnID="tfNumber" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
-                        TextAlign="Center">
-                        <ItemTemplate>
-                            <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>
-                    <f:RenderField Width="100px" ColumnID="ProjectCode" DataField="ProjectCode" SortField="ProjectCode" FieldType="String"
-                        HeaderText="项目编号">
-                    </f:RenderField>
-                    <f:RenderField Width="350px" ColumnID="ProjectName" DataField="ProjectName" SortField="ProjectName"
-                        FieldType="String" HeaderText="项目名称"  HeaderTextAlign="Center" TextAlign="Left">
-                    </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="StartDate" DataField="StartDate" SortField="StartDate"
-                        FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="开工日期"
-                         HeaderTextAlign="Center" TextAlign="Center">
-                    </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="EndDate" DataField="EndDate" SortField="EndDate"
-                        FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="竣工日期"
-                       HeaderTextAlign="Center" TextAlign="Center">
-                    </f:RenderField>
-                     <f:RenderField Width="90px" ColumnID="ProjectTypeName" DataField="ProjectTypeName" SortField="ProjectTypeName"
-                        FieldType="String" HeaderText="项目类型"  HeaderTextAlign="Center" TextAlign="Left">
-                    </f:RenderField>
-                     <f:RenderField Width="90px" ColumnID="ProjectStateName" DataField="ProjectStateName" SortField="ProjectStateName"
-                        FieldType="String" HeaderText="项目状态"  HeaderTextAlign="Center" TextAlign="Left">
-                    </f:RenderField>
-                     <f:RenderField ColumnID="ProjectAddress" DataField="ProjectAddress" SortField="ProjectAddress" FieldType="String"
-                        HeaderText="项目地址" ExpandUnusedSpace="true"  HeaderTextAlign="Center" TextAlign="Left">
-                    </f:RenderField>                
-                </Columns>
-                <Listeners>
-                    <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
-                </Listeners>
-            <PageItems>
-                <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">
-                </f:ToolbarSeparator>
-                <f:ToolbarText ID="ToolbarText1" runat="server" Text="每页记录数：">
-                </f:ToolbarText>
-                <f:DropDownList runat="server" ID="ddlPageSize" Width="80px" AutoPostBack="true"
-                    OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">
-                    <f:ListItem Text="10" Value="10" />
-                    <f:ListItem Text="15" Value="15" />
-                    <f:ListItem Text="20" Value="20" />
-                    <f:ListItem Text="25" Value="25" />
-                    <f:ListItem Text="所有行" Value="100000" />
-                </f:DropDownList>        
-            </PageItems>            
-            </f:Grid>
-        </Items>
-    </f:Panel> 
-    <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true"
-        Width="1300px" Height="650px">
-    </f:Window>                  
-    <f:Menu ID="Menu1" runat="server">       
-         <f:MenuButton ID="btnView" EnablePostBack="true" runat="server"  Icon="Find" Text="查看"
-                OnClick="btnView_Click">
-        </f:MenuButton>     
-            <f:MenuButton ID="btnMenuDel" EnablePostBack="true" runat="server"  Text="删除" Icon="Delete" ConfirmText="确认删除选中企业安全管理资料？"
-            OnClick="btnMenuDel_Click" Hidden="true">
-        </f:MenuButton>   
-    </f:Menu>
+        <f:Panel ID="Panel1" runat="server" ShowBorder="false" ShowHeader="false" Layout="Region">
+            <Items>               
+                <f:Panel runat="server" ID="panelLeftRegion" RegionPosition="Left" RegionSplit="true" EnableCollapse="true"
+                    Width="250px" Title="项目" TitleToolTip="项目信息" ShowBorder="true" ShowHeader="false" 
+                    BodyPadding="5px" Layout="HBox">                                                                 
+                    <Items>
+                        <f:Tree ID="tvProject" KeepCurrentSelection="true" Width="245px"
+                            ShowHeader="false" OnNodeCommand="tvProject_NodeCommand" runat="server"
+                            ShowBorder="false" EnableSingleClickExpand="true">
+                            <Listeners>
+                                <f:Listener Event="beforenodecontextmenu" Handler="onTreeNodeContextMenu" />
+                            </Listeners>
+                        </f:Tree>
+                    </Items>
+                </f:Panel>
+                <f:Panel runat="server" ID="panel2" RegionPosition="Center" ShowBorder="true"  AutoScroll="true"
+                    Layout="VBox" ShowHeader="false" BodyPadding="5px" IconFont="PlusCircle" Title="项目考核项">
+                        <Toolbars>
+                            <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
+                                <Items>        
+                                    <f:Label runat="server" Text="状态说明：1、未上报，白色；2、准时上报，绿色；3、离警告时间一周未报，黄色；4、超期未报，红色；5、超期上报，紫色。"  CssClass="LabelColor"></f:Label>                               
+                                </Items>
+                            </f:Toolbar>
+                        </Toolbars>
+                        <Toolbars>
+                            <f:Toolbar ID="Toolbar2" Position="Top" ToolbarAlign="Left" runat="server">
+                                <Items>       
+                                     <f:DropDownList ID="drpState" runat="server" Label="状态" AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged" 
+                                        LabelWidth="50px" Width="160px">
+                                        <f:ListItem Text="所有" Value="0" Selected="true"/>
+                                        <f:ListItem Text="未上报" Value="1" />
+                                        <f:ListItem Text="已上报" Value="2"/>
+                                        <f:ListItem Text="超期未上报" Value="3"/>
+                                        <f:ListItem Text="超期上报" Value="4"/>
+                                        <f:ListItem Text="正常上报" Value="5"/>
+                                    </f:DropDownList>                                   
+                                    <f:TextBox runat="server" Label="查询" ID="txtTitle" EmptyText="输入查询条件"
+                                        AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="180px" LabelWidth="50px"
+                                        LabelAlign="right">
+                                    </f:TextBox>
+                                     <f:DatePicker runat="server" Label="考核时间" ID="txtStarTime" EnableEdit="true" 
+                                         AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="180px" LabelWidth="80px"
+                                        LabelAlign="right"></f:DatePicker>
+                                    <f:DatePicker runat="server" Label="至" ID="txtEndTime" EnableEdit="true" 
+                                        AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="150px" LabelWidth="40px"
+                                        LabelAlign="right"></f:DatePicker>                                    
+                                    <f:ToolbarFill runat="server" ID="lbTemp1"></f:ToolbarFill>
+                                    <f:Button ID="btnGVNew" ToolTip="新增" Icon="Add" runat="server" OnClick="btnGVNew_Click" Hidden="true">
+                                    </f:Button>
+                                    <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
+                                        EnableAjax="false" DisableControlBeforePostBack="false">
+                                    </f:Button>      
+                                </Items>
+                            </f:Toolbar>
+                        </Toolbars>
+                    <Items>                         
+                        <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" EnableCollapse="true" runat="server"
+                            BoxFlex="1" DataKeyNames="SafetyDataPlanId" ClicksToEdit="2"
+                            DataIDField="SafetyDataPlanId" AllowSorting="true" SortField="CheckDate" SortDirection="ASC"
+                            OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true" EnableColumnLines="true"
+                            PageSize="100" OnPageIndexChange="Grid1_PageIndexChange" EnableSummary="true" SummaryPosition="Bottom"
+                            EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True">                           
+                            <Columns>       
+                                <f:RenderField ColumnID="Code" DataField="Code" SortField="Code" Width="90px" 
+                                    FieldType="String" HeaderText="编码" HeaderTextAlign="Center" TextAlign="left">
+                                </f:RenderField>      
+                                <f:RenderField ColumnID="Title" DataField="Title" SortField="Title" Width="230px" 
+                                    FieldType="String" HeaderText="考核资料" HeaderTextAlign="Center" TextAlign="left">
+                                </f:RenderField>  
+                                 <f:RenderField Width="130px" ColumnID="RealStartDate" DataField="RealStartDate"  Renderer="Date"
+                                    SortField="RealStartDate" HeaderText="单据开始日期" HeaderTextAlign="Center"  FieldType="Date"
+                                    TextAlign="Left" >
+                                </f:RenderField>    
+                                 <f:RenderField Width="130px" ColumnID="RealEndDate" DataField="RealEndDate"  Renderer="Date"
+                                    SortField="RealEndDate" HeaderText="单据结束日期" HeaderTextAlign="Center"  FieldType="Date"
+                                    TextAlign="Left" >
+                                </f:RenderField>   
+                                 <f:RenderField Width="130px" ColumnID="CheckDate" DataField="CheckDate"  Renderer="Date"
+                                    SortField="CheckDate" HeaderText="考核截止日期" HeaderTextAlign="Center"  FieldType="Date"
+                                    TextAlign="Left" >
+                                </f:RenderField>   
+                                 <f:RenderField Width="100px" ColumnID="ReminderDate" DataField="ReminderDate"  Renderer="Date"
+                                    SortField="ReminderDate" HeaderText="提醒日期" HeaderTextAlign="Center"  FieldType="Date"
+                                    TextAlign="Left" >
+                                </f:RenderField> 
+                                 <f:RenderField Width="100px" ColumnID="SubmitDate" DataField="SubmitDate"  Renderer="Date"
+                                    SortField="SubmitDate" HeaderText="提交日期" HeaderTextAlign="Center"  FieldType="Date"
+                                    TextAlign="Left" >
+                                </f:RenderField> 
+                                 <f:RenderField Width="70px" ColumnID="Score" DataField="Score" SortField="Score" FieldType="Double"
+                                    HeaderText="分值" HeaderTextAlign="Center" TextAlign="Right">
+                                </f:RenderField>
+                                 <f:RenderField Width="70px" ColumnID="ShouldScore" DataField="ShouldScore" SortField="ShouldScore" FieldType="Double"
+                                    HeaderText="应得值" HeaderTextAlign="Center" TextAlign="Right">
+                                </f:RenderField>
+                                 <f:RenderField Width="70px" ColumnID="RealScore" DataField="RealScore" SortField="RealScore" FieldType="Double"
+                                    HeaderText="得分" HeaderTextAlign="Center" TextAlign="Right">
+                                </f:RenderField>
+                                 <f:RenderField Width="460px" ColumnID="Remark" DataField="Remark" SortField="Remark" FieldType="String"
+                                    HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left" >
+                                </f:RenderField>                                            
+                            </Columns>
+                            <Listeners>
+                                 <f:Listener Event="dataload" Handler="onGridDataLoad" />
+                                <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
+                            </Listeners>
+                            <PageItems>
+                                <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">
+                                </f:ToolbarSeparator>
+                                <f:ToolbarText ID="ToolbarText1" runat="server" Text="每页记录数：">
+                                </f:ToolbarText>
+                                <f:DropDownList runat="server" ID="ddlPageSize" Width="80px" AutoPostBack="true"
+                                    OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">
+                                    <f:ListItem Text="15" Value="15" />
+                                    <f:ListItem Text="20" Value="20" />
+                                    <f:ListItem Text="25" Value="25" />
+                                    <f:ListItem Text="30" Value="30" />
+                                    <f:ListItem Text="100" Value="100" />
+                                    <f:ListItem Text="所有行" Value="100000" />
+                                </f:DropDownList>
+                            </PageItems>
+                        </f:Grid>                      
+                    </Items>
+                </f:Panel>               
+            </Items>
+        </f:Panel>    
     </form>
-    <script type="text/javascript">        
+     <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true"
+        Width="1300px" Height="650px">
+    </f:Window> 
+    <f:Window ID="Window2" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window2_Close" EnableClose="true"
+        Width="1024px" Height="560px">
+    </f:Window> 
+    <f:Menu ID="Menu1" runat="server">
+        <Items>       
+             <f:MenuButton ID="btnTreeView" EnablePostBack="true" runat="server" Icon="Find"  Text="总表"
+                OnClick="btnTreeView_Click">
+            </f:MenuButton>
+            <f:MenuButton ID="btnTreeDel" OnClick="btnTreeDel_Click" EnablePostBack="true"
+                 Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
+             </f:MenuButton>
+            <f:MenuButton ID="btnTreeOne" EnablePostBack="true" runat="server" Icon="ApplicationGet"  Text="抽取"
+                OnClick="btnTreeOne_Click"  Hidden="true">
+            </f:MenuButton>
+        </Items>
+    </f:Menu>
+    <f:Menu ID="Menu2" runat="server">
+        <Items>
+            <f:MenuButton ID="btnGVModify" EnablePostBack="true" runat="server" Icon="BulletEdit"  Text="修改"
+                OnClick="btnGVModify_Click" Hidden="true">
+            </f:MenuButton>
+            <f:MenuButton ID="btnGVDel" EnablePostBack="true" runat="server"  Icon="Delete" Text="删除" ConfirmText="确认删除选中内容？"
+                OnClick="btnGVDel_Click" Hidden="true">
+            </f:MenuButton>
+            <f:MenuButton ID="btnGVView" EnablePostBack="true" runat="server"  Icon="Find" Text="上报资料" 
+                OnClick="btnGVView_Click">
+            </f:MenuButton>
+        </Items>
+    </f:Menu>  
+    <script type="text/javascript"> 
         var menuID = '<%= Menu1.ClientID %>';
+        var menu2ID = '<%= Menu2.ClientID %>';
+        var currentNodeId;
+        // 返回false，来阻止浏览器右键菜单
+        function onTreeNodeContextMenu(event, nodeId) {
+            currentNodeId = nodeId;
+            F(menuID).show();
+            return false;
+        }
+
         // 返回false，来阻止浏览器右键菜单
         function onRowContextMenu(event, rowId) {
-            F(menuID).show();  //showAt(event.pageX, event.pageY);
+            F(menu2ID).show();  //showAt(event.pageX, event.pageY);
             return false;
         }
 
         function reloadGrid() {
             __doPostBack(null, 'reloadGrid');
+        }
+
+         function onGridDataLoad(event) {
+            this.mergeColumns(['Title']);
+            this.mergeColumns(['Code']);
         }
     </script>
 </body>

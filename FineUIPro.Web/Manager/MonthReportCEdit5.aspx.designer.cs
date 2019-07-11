@@ -49,51 +49,6 @@ namespace FineUIPro.Web.Manager {
         protected global::FineUIPro.GroupPanel GroupPanel34;
         
         /// <summary>
-        /// GroupPanel35 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.GroupPanel GroupPanel35;
-        
-        /// <summary>
-        /// GroupPanel36 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.GroupPanel GroupPanel36;
-        
-        /// <summary>
-        /// Form9 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Form Form9;
-        
-        /// <summary>
-        /// txtActionPlanNum 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.NumberBox txtActionPlanNum;
-        
-        /// <summary>
-        /// txtYearActionPlanNum 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.NumberBox txtYearActionPlanNum;
-        
-        /// <summary>
         /// GroupPanel37 控件。
         /// </summary>
         /// <remarks>
@@ -166,51 +121,6 @@ namespace FineUIPro.Web.Manager {
         protected global::FineUIPro.GroupPanel GroupPanel38;
         
         /// <summary>
-        /// GroupPanel39 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.GroupPanel GroupPanel39;
-        
-        /// <summary>
-        /// Form10 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Form Form10;
-        
-        /// <summary>
-        /// txtMonthSolutionNum 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.NumberBox txtMonthSolutionNum;
-        
-        /// <summary>
-        /// txtYearSolutionNum 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.NumberBox txtYearSolutionNum;
-        
-        /// <summary>
-        /// GroupPanel40 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.GroupPanel GroupPanel40;
-        
-        /// <summary>
         /// gvReviewRecord 控件。
         /// </summary>
         /// <remarks>
@@ -263,69 +173,6 @@ namespace FineUIPro.Web.Manager {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox TextBox41;
-        
-        /// <summary>
-        /// GroupPanel41 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.GroupPanel GroupPanel41;
-        
-        /// <summary>
-        /// gvFileManage 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Grid gvFileManage;
-        
-        /// <summary>
-        /// Toolbar17 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Toolbar Toolbar17;
-        
-        /// <summary>
-        /// btnNewFileManage 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnNewFileManage;
-        
-        /// <summary>
-        /// TextBox42 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox TextBox42;
-        
-        /// <summary>
-        /// TextBox43 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox TextBox43;
-        
-        /// <summary>
-        /// TextBox44 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox TextBox44;
         
         /// <summary>
         /// Toolbar1 控件。

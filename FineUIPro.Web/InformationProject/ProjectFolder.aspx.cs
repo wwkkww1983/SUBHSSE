@@ -218,8 +218,8 @@ namespace FineUIPro.Web.InformationProject
                 var ProjectFolder = BLL.ProjectFolderService.GetProjectFolderByID(this.tvProjectFolder.SelectedNodeID);
                 if (ProjectFolder != null && BLL.ProjectFolderService.IsDeleteProjectFolder(ProjectFolder.ProjectFolderId))
                 {
+                    BLL.LogService.AddSys_Log(this.CurrUser, ProjectFolder.Code, ProjectFolder.ProjectFolderId, BLL.Const.ProjectFolderMenuId, BLL.Const.BtnDelete);
                     BLL.ProjectFolderService.DeleteProjectFolderByID(ProjectFolder.ProjectFolderId);
-                    BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除项目文件夹设置信息",this.tvProjectFolder.SelectedNode.Text);
                     this.ProjectFolderDataBind();
                     Alert.ShowInTop("删除成功！");
                 }
@@ -318,8 +318,8 @@ namespace FineUIPro.Web.InformationProject
                     var item = BLL.ProjectFolderItemService.GetProjectFolderItemByID(Grid1.DataKeys[rowIndex][0].ToString());
                     if (item != null)
                     {
+                        BLL.LogService.AddSys_Log(this.CurrUser, item.Code, item.ProjectFolderItemId, BLL.Const.ProjectFolderMenuId, BLL.Const.BtnDelete);
                         BLL.ProjectFolderItemService.DeleteProjectFolderItemByID(item.ProjectFolderItemId);
-                        BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除项目文件明细信息", item.Code);  
                     }
                 }
                 this.BindGrid();

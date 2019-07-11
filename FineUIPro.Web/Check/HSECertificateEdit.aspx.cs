@@ -145,14 +145,14 @@ namespace FineUIPro.Web.Check
             {
                 hseCertificate.HSECertificateId = this.HSECertificateId;
                 BLL.HSECertificateService.UpdateHSECertificate(hseCertificate);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改HSE获奖证书或奖杯", hseCertificate.HSECertificateId);
+                BLL.LogService.AddSys_Log(this.CurrUser, hseCertificate.HSECertificateCode, hseCertificate.HSECertificateId,BLL.Const.ProjectHSECertificateMenuId,BLL.Const.BtnAdd);
             }
             else
             {
                 this.HSECertificateId = SQLHelper.GetNewID(typeof(Model.Check_HSECertificate));
                 hseCertificate.HSECertificateId = this.HSECertificateId;
                 BLL.HSECertificateService.AddHSECertificate(hseCertificate);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加HSE获奖证书或奖杯", hseCertificate.HSECertificateId);
+                BLL.LogService.AddSys_Log(this.CurrUser, hseCertificate.HSECertificateCode, hseCertificate.HSECertificateId, BLL.Const.ProjectHSECertificateMenuId, BLL.Const.BtnModify);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectHSECertificateMenuId, this.HSECertificateId, (type == BLL.Const.BtnSubmit ? true : false), hseCertificate.HSECertificateName, "../Check/HSECertificateView.aspx?HSECertificateId={0}");

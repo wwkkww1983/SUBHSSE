@@ -111,9 +111,14 @@ namespace FineUIPro.Web.Law
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.HSSEStandardsListService.DeleteHSSEStandardsList(rowID);
+                    var getV = BLL.HSSEStandardsListService.GetHSSEStandardsListByHSSEStandardsListId(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser,getV.StandardNo,getV.StandardId,BLL.Const.HSSEStandardListMenuId,BLL.Const.BtnDelete);
+                        BLL.HSSEStandardsListService.DeleteHSSEStandardsList(rowID);
+                    }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除安全标准规范");
+                
                 BindGrid();
                 ShowNotify("删除数据成功!");
             }

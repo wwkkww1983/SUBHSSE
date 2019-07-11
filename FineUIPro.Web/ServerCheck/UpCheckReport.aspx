@@ -60,11 +60,11 @@
                         FieldType="String" HeaderText="单位" TextAlign="Left" HeaderTextAlign="Center" ExpandUnusedSpace="true">
                     </f:RenderField>
                     <f:RenderField Width="120px" ColumnID="CheckStartTime" DataField="CheckStartTime" SortField="CheckStartTime"
-                        FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="检查开始日期"
+                        FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="开始日期"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="120px" ColumnID="CheckEndTime" DataField="CheckEndTime" SortField="CheckEndTime"
-                        FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="检查结束日期"
+                        FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="结束日期"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>                    
                     <f:RenderField Width="100px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
@@ -104,16 +104,16 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" runat="server" Hidden="true" ShowHeader="false"
-        IsModal="true" Target="Top" EnableMaximize="true" EnableResize="true" OnClose="Window1_Close"
-        Title="编辑企业上报监督检查报告" EnableIFrame="true" Height="560px"
-        Width="1180px">
+        IsModal="true" Target="Parent" EnableMaximize="true" EnableResize="true" OnClose="Window1_Close"
+        Title="编辑企业上报监督检查报告" EnableIFrame="true" Height="600px"
+        Width="1200px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">      
         <f:MenuButton ID="btnMenuEdit" OnClick="btnEdit_Click" EnablePostBack="true"
             Hidden="true" runat="server" Text="编辑" Icon="TableEdit" >
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnDelete_Click" EnablePostBack="true"  Icon="Delete"
-            Hidden="true" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            Hidden="true" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

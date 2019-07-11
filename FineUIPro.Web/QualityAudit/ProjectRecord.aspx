@@ -56,24 +56,23 @@
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="180px" ColumnID="ProjectRecordCode" DataField="ProjectRecordCode"
+                    <f:RenderField Width="90px" ColumnID="ProjectRecordCode" DataField="ProjectRecordCode"
                         SortField="ProjectRecordCode" FieldType="String" HeaderText="编号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="220px" ColumnID="ProjectRecordName" DataField="ProjectRecordName"
+                    <f:RenderField Width="250px" ColumnID="ProjectRecordName" DataField="ProjectRecordName"
                         SortField="ProjectRecordName" FieldType="String" HeaderText="标题"
                         HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="250px" ColumnID="UnitName" DataField="UnitName"
-                        ExpandUnusedSpace="true" SortField="UnitName" FieldType="String" HeaderText="单位名称"
-                        HeaderTextAlign="Center" TextAlign="Left">
+                    <f:RenderField Width="350px" ColumnID="Name" DataField="Name" SortField="Name" FieldType="String" HeaderText="单位名称"
+                        HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
                     </f:RenderField>
-                    <f:RenderField Width="250px" ColumnID="Remark" DataField="Remark" ExpandUnusedSpace="true"
+                    <f:RenderField Width="150px" ColumnID="Remark" DataField="Remark" 
                         SortField="Remark" FieldType="String" HeaderText="备注" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:WindowField TextAlign="Left" Width="160px" WindowID="WindowAtt" HeaderText="附件"
-                        Text="附件查看" ToolTip="附件上传查看" DataIFrameUrlFields="ProjectRecordId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ProjectRecordAttachUrl&menuId=874B4232-E0AD-41CD-8C66-8A7FF2D79358"
+                    <f:WindowField TextAlign="Left" Width="80px" WindowID="WindowAtt" HeaderText="附件"
+                        Text="详细" ToolTip="附件上传查看" DataIFrameUrlFields="ProjectRecordId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ProjectRecordAttachUrl&menuId=874B4232-E0AD-41CD-8C66-8A7FF2D79358"
                         HeaderTextAlign="Center" />
                 </Columns>
                 <Listeners>
@@ -97,7 +96,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="项目协议记录" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="900px"
         Height="350px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件页面" Hidden="true" EnableIFrame="true" EnableMaximize="true"
@@ -109,7 +108,7 @@
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server"
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server"
             Text="删除">
         </f:MenuButton>
     </f:Menu>

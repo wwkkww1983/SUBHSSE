@@ -52,9 +52,54 @@ namespace FineUIPro.Web.Manager
 
         #region 定义集合
         /// <summary>
-        /// 8 其他工作情况集合
+        /// 9.1 危险源动态识别及控制集合
         /// </summary>
-        private static List<Model.Manager_Month_OtherWorkC> otherWorks = new List<Model.Manager_Month_OtherWorkC>();
+        private static List<Model.Manager_Month_HazardC> hazards = new List<Model.Manager_Month_HazardC>();
+
+        /// <summary>
+        /// 9.2 HSSE培训集合
+        /// </summary>
+        private static List<Model.Manager_Month_TrainC> trains = new List<Model.Manager_Month_TrainC>();
+
+        /// <summary>
+        /// 9.3 HSSE检查集合
+        /// </summary>
+        private static List<Model.Manager_Month_CheckC> checks = new List<Model.Manager_Month_CheckC>();
+
+        /// <summary>
+        /// 9.4 HSSE会议集合
+        /// </summary>
+        private static List<Model.Manager_Month_MeetingC> meetings = new List<Model.Manager_Month_MeetingC>();
+
+        /// <summary>
+        /// 9.5 HSSE活动集合
+        /// </summary>
+        private static List<Model.Manager_Month_ActivitiesC> activitiess = new List<Model.Manager_Month_ActivitiesC>();
+
+        /// <summary>
+        /// 9.6.1 应急预案修编集合
+        /// </summary>
+        private static List<Model.Manager_Month_EmergencyPlanC> emergencyPlans = new List<Model.Manager_Month_EmergencyPlanC>();
+
+        /// <summary>
+        /// 9.6.2 应急演练活动集合
+        /// </summary>
+        private static List<Model.Manager_Month_EmergencyExercisesC> emergencyExercisess = new List<Model.Manager_Month_EmergencyExercisesC>();
+
+        /// <summary>
+        /// 9.7 HSE费用投入计划集合
+        /// </summary>
+        private static List<Model.Manager_Month_CostInvestmentPlanC> costInvestmentPlans = new List<Model.Manager_Month_CostInvestmentPlanC>();
+
+        /// <summary>
+        /// 9.8 HSE管理文件/方案修编计划集合
+        /// </summary>
+        private static List<Model.Manager_Month_ManageDocPlanC> manageDocPlans = new List<Model.Manager_Month_ManageDocPlanC>();
+
+        /// <summary>
+        /// 9.9 其他HSE工作计划
+        /// </summary>
+        private static List<Model.Manager_Month_OtherWorkPlanC> otherWorkPlans = new List<Model.Manager_Month_OtherWorkPlanC>();
 
         #endregion
 
@@ -65,7 +110,16 @@ namespace FineUIPro.Web.Manager
         {
             if (!IsPostBack)
             {
-                otherWorks.Clear();
+                hazards.Clear();
+                trains.Clear();
+                checks.Clear();
+                meetings.Clear();
+                activitiess.Clear();
+                emergencyPlans.Clear();
+                emergencyExercisess.Clear();
+                costInvestmentPlans.Clear();
+                manageDocPlans.Clear();
+                otherWorkPlans.Clear();
                 this.MonthReportId = Request.Params["monthReportId"];
                 this.ProjectId = this.CurrUser.LoginProjectId;
                 DateTime months = Convert.ToDateTime(Request.Params["months"]);
@@ -84,76 +138,288 @@ namespace FineUIPro.Web.Manager
                     this.MonthReportId = monthReport.MonthReportId;
                     this.ProjectId = monthReport.ProjectId;
                     months = Convert.ToDateTime(monthReport.Months);
+                    this.txtNextEmergencyResponse.Text = monthReport.NextEmergencyResponse;
                     Model.SUBHSSEDB db = Funs.DB;
-                    //8 其他工作情况
-                    otherWorks = (from x in db.Manager_Month_OtherWorkC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
-                    if (otherWorks.Count > 0)
+                    //9.1 危险源动态识别及控制
+                    hazards = (from x in db.Manager_Month_HazardC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
+                    if (hazards.Count > 0)
                     {
-                        this.gvOtherWork.DataSource = otherWorks;
-                        this.gvOtherWork.DataBind();
+                        this.gvHazard.DataSource = hazards;
+                        this.gvHazard.DataBind();
                     }
-                }
-                else
-                {
-
+                    //9.3 HSSE检查
+                    checks = (from x in db.Manager_Month_CheckC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
+                    if (checks.Count > 0)
+                    {
+                        this.gvCheck.DataSource = checks;
+                        this.gvCheck.DataBind();
+                    }
+                    //9.8 HSE管理文件/方案修编计划
+                    manageDocPlans = (from x in db.Manager_Month_ManageDocPlanC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
+                    if (manageDocPlans.Count > 0)
+                    {
+                        this.gvManageDocPlan.DataSource = manageDocPlans;
+                        this.gvManageDocPlan.DataBind();
+                    }
+                    //9.9其他HSE工作计划
+                    otherWorkPlans = (from x in db.Manager_Month_OtherWorkPlanC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();
+                    if (otherWorkPlans.Count > 0)
+                    {
+                        this.gvOtherWorkPlan.DataSource = otherWorkPlans;
+                        this.gvOtherWorkPlan.DataBind();
+                    }
                 }
             }
         }
         #endregion
 
-        #region 其他工作情况
+        #region 危险源动态识别及控制
         /// <summary>
-        /// 增加其他工作情况
+        /// 增加危险源动态识别及控制
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btnNewOtherWork_Click(object sender, EventArgs e)
+        protected void btnNewHazard_Click(object sender, EventArgs e)
         {
-            jerqueSaveOtherWorkList();
-            Model.Manager_Month_OtherWorkC otherWorkSort = new Model.Manager_Month_OtherWorkC
+            jerqueSaveMonthHazardList();
+            Model.Manager_Month_HazardC hazardSort = new Model.Manager_Month_HazardC
             {
-                OtherWorkId = SQLHelper.GetNewID(typeof(Model.Manager_Month_OtherWorkC))
+                HazardId = SQLHelper.GetNewID(typeof(Model.Manager_Month_HazardC))
             };
-            otherWorks.Add(otherWorkSort);
-            this.gvOtherWork.DataSource = otherWorks;
-            this.gvOtherWork.DataBind();
+            hazards.Add(hazardSort);
+            this.gvHazard.DataSource = hazards;
+            this.gvHazard.DataBind();
         }
 
         /// <summary>
-        /// 检查并保存其他工作情况集合
+        /// 检查并保存危险源动态识别及控制集合
         /// </summary>
-        private void jerqueSaveOtherWorkList()
+        private void jerqueSaveMonthHazardList()
         {
-            otherWorks.Clear();
-            int rowsCount = this.gvOtherWork.Rows.Count;
-            for (int i = 0; i < rowsCount; i++)
+            hazards.Clear();
+            JArray mergedData = gvHazard.GetMergedData();
+            foreach (JObject mergedRow in mergedData)
             {
-                Model.Manager_Month_OtherWorkC otherWorkSort = new Model.Manager_Month_OtherWorkC
+                string status = mergedRow.Value<string>("status");
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
+                Model.Manager_Month_HazardC hazardSort = new Model.Manager_Month_HazardC
                 {
-                    OtherWorkId = this.gvOtherWork.Rows[i].DataKeys[0].ToString(),
+                    HazardId = this.gvHazard.Rows[i].DataKeys[0].ToString(),
                     SortIndex = i,
-                    WorkContentDes = this.gvOtherWork.Rows[i].Values[2].ToString()
+                    WorkArea = values.Value<string>("WorkArea").ToString(),
+                    Subcontractor = values.Value<string>("Subcontractor").ToString(),
+                    DangerousSource = values.Value<string>("DangerousSource").ToString(),
+                    ControlMeasures = values.Value<string>("ControlMeasures").ToString()
                 };
-                otherWorks.Add(otherWorkSort);
+                hazards.Add(hazardSort);
             }
         }
 
-        protected void gvOtherWork_RowCommand(object sender, GridCommandEventArgs e)
+        protected void gvHazard_RowCommand(object sender, GridCommandEventArgs e)
         {
-            jerqueSaveOtherWorkList();
-            string rowID = this.gvOtherWork.DataKeys[e.RowIndex][0].ToString();
+            jerqueSaveMonthHazardList();
+            string rowID = this.gvHazard.DataKeys[e.RowIndex][0].ToString();
             if (e.CommandName == "Delete")
             {
-                foreach (var item in otherWorks)
+                foreach (var item in hazards)
                 {
-                    if (item.OtherWorkId == rowID)
+                    if (item.HazardId == rowID)
                     {
-                        otherWorks.Remove(item);
+                        hazards.Remove(item);
                         break;
                     }
                 }
-                gvOtherWork.DataSource = otherWorks;
-                gvOtherWork.DataBind();
+                gvHazard.DataSource = hazards;
+                gvHazard.DataBind();
+                ShowNotify("删除数据成功!", MessageBoxIcon.Success);
+            }
+        }
+        #endregion
+
+        #region HSE检查
+        /// <summary>
+        /// 增加HSE检查
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnNewCheck_Click(object sender, EventArgs e)
+        {
+            jerqueSaveMonthCheckList();
+            Model.Manager_Month_CheckC checkSort = new Model.Manager_Month_CheckC
+            {
+                CheckId = SQLHelper.GetNewID(typeof(Model.Manager_Month_CheckC))
+            };
+            checks.Add(checkSort);
+            this.gvCheck.DataSource = checks;
+            this.gvCheck.DataBind();
+        }
+
+        /// <summary>
+        /// 检查并保存HSE检查集合
+        /// </summary>
+        private void jerqueSaveMonthCheckList()
+        {
+            checks.Clear();
+            JArray mergedData = gvCheck.GetMergedData();
+            foreach (JObject mergedRow in mergedData)
+            {
+                string status = mergedRow.Value<string>("status");
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
+                Model.Manager_Month_CheckC checkSort = new Model.Manager_Month_CheckC
+                {
+                    CheckId = this.gvCheck.Rows[i].DataKeys[0].ToString(),
+                    SortIndex = i,
+                    CheckType = values.Value<string>("CheckType").ToString(),
+                    Inspectors = values.Value<string>("Inspectors").ToString(),
+                    CheckDate = values.Value<string>("CheckDate").ToString(),
+                    Remark = values.Value<string>("Remark").ToString()
+                };
+                checks.Add(checkSort);
+            }
+        }
+
+        protected void gvCheck_RowCommand(object sender, GridCommandEventArgs e)
+        {
+            jerqueSaveMonthCheckList();
+            string rowID = this.gvCheck.DataKeys[e.RowIndex][0].ToString();
+            if (e.CommandName == "Delete")
+            {
+                foreach (var item in checks)
+                {
+                    if (item.CheckId == rowID)
+                    {
+                        checks.Remove(item);
+                        break;
+                    }
+                }
+                gvCheck.DataSource = checks;
+                gvCheck.DataBind();
+                ShowNotify("删除数据成功!", MessageBoxIcon.Success);
+            }
+        }
+        #endregion
+
+        #region HSE管理文件/方案修编计划
+        /// <summary>
+        /// 增加HSE管理文件/方案修编计划
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnNewManageDocPlan_Click(object sender, EventArgs e)
+        {
+            jerqueSaveMonthManageDocPlanList();
+            Model.Manager_Month_ManageDocPlanC manageDocPlanSort = new Model.Manager_Month_ManageDocPlanC
+            {
+                ManageDocPlanId = SQLHelper.GetNewID(typeof(Model.Manager_Month_ManageDocPlanC))
+            };
+            manageDocPlans.Add(manageDocPlanSort);
+            this.gvManageDocPlan.DataSource = manageDocPlans;
+            this.gvManageDocPlan.DataBind();
+        }
+
+        /// <summary>
+        /// 检查并保存HSE管理文件/方案修编计划集合
+        /// </summary>
+        private void jerqueSaveMonthManageDocPlanList()
+        {
+            manageDocPlans.Clear();
+            JArray mergedData = gvManageDocPlan.GetMergedData();
+            foreach (JObject mergedRow in mergedData)
+            {
+                string status = mergedRow.Value<string>("status");
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
+                Model.Manager_Month_ManageDocPlanC manageDocPlanSort = new Model.Manager_Month_ManageDocPlanC
+                {
+                    ManageDocPlanId = this.gvManageDocPlan.Rows[i].DataKeys[0].ToString(),
+                    SortIndex = i,
+                    ManageDocPlanName = values.Value<string>("ManageDocPlanName").ToString(),
+                    CompileMan = values.Value<string>("CompileMan").ToString(),
+                    CompileDate = values.Value<string>("CompileDate").ToString()
+                };
+                manageDocPlans.Add(manageDocPlanSort);
+            }
+        }
+
+        protected void gvManageDocPlan_RowCommand(object sender, GridCommandEventArgs e)
+        {
+            jerqueSaveMonthManageDocPlanList();
+            string rowID = this.gvManageDocPlan.DataKeys[e.RowIndex][0].ToString();
+            if (e.CommandName == "Delete")
+            {
+                foreach (var item in manageDocPlans)
+                {
+                    if (item.ManageDocPlanId == rowID)
+                    {
+                        manageDocPlans.Remove(item);
+                        break;
+                    }
+                }
+                gvManageDocPlan.DataSource = manageDocPlans;
+                gvManageDocPlan.DataBind();
+                ShowNotify("删除数据成功!", MessageBoxIcon.Success);
+            }
+        }
+        #endregion
+
+        #region 其他HSE工作计划
+        /// <summary>
+        /// 增加其他HSE工作计划
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnNewOtherWorkPlan_Click(object sender, EventArgs e)
+        {
+            jerqueSaveMonthOtherWorkPlanList();
+            Model.Manager_Month_OtherWorkPlanC otherWorkPlanSort = new Model.Manager_Month_OtherWorkPlanC
+            {
+                OtherWorkPlanId = SQLHelper.GetNewID(typeof(Model.Manager_Month_OtherWorkPlanC))
+            };
+            otherWorkPlans.Add(otherWorkPlanSort);
+            this.gvOtherWorkPlan.DataSource = otherWorkPlans;
+            this.gvOtherWorkPlan.DataBind();
+        }
+
+        /// <summary>
+        /// 检查并保存其他HSE工作计划集合
+        /// </summary>
+        private void jerqueSaveMonthOtherWorkPlanList()
+        {
+            otherWorkPlans.Clear();
+            JArray mergedData = gvOtherWorkPlan.GetMergedData();
+            foreach (JObject mergedRow in mergedData)
+            {
+                string status = mergedRow.Value<string>("status");
+                JObject values = mergedRow.Value<JObject>("values");
+                int i = mergedRow.Value<int>("index");
+                Model.Manager_Month_OtherWorkPlanC otherWorkPlanSort = new Model.Manager_Month_OtherWorkPlanC
+                {
+                    OtherWorkPlanId = this.gvOtherWorkPlan.Rows[i].DataKeys[0].ToString(),
+                    SortIndex = i,
+                    WorkContent = values.Value<string>("WorkContent").ToString()
+                };
+                otherWorkPlans.Add(otherWorkPlanSort);
+            }
+        }
+
+        protected void gvOtherWorkPlan_RowCommand(object sender, GridCommandEventArgs e)
+        {
+            jerqueSaveMonthOtherWorkPlanList();
+            string rowID = this.gvOtherWorkPlan.DataKeys[e.RowIndex][0].ToString();
+            if (e.CommandName == "Delete")
+            {
+                foreach (var item in otherWorkPlans)
+                {
+                    if (item.OtherWorkPlanId == rowID)
+                    {
+                        otherWorkPlans.Remove(item);
+                        break;
+                    }
+                }
+                gvOtherWorkPlan.DataSource = otherWorkPlans;
+                gvOtherWorkPlan.DataBind();
                 ShowNotify("删除数据成功!", MessageBoxIcon.Success);
             }
         }
@@ -170,9 +436,13 @@ namespace FineUIPro.Web.Manager
             Model.Manager_MonthReportC oldMonthReport = BLL.MonthReportCService.GetMonthReportByMonths(Convert.ToDateTime(Request.Params["months"]), this.CurrUser.LoginProjectId);
             if (oldMonthReport != null)
             {
+                oldMonthReport.NextEmergencyResponse = this.txtNextEmergencyResponse.Text.Trim();
                 BLL.MonthReportCService.UpdateMonthReport(oldMonthReport);
-                OperateOtherWorkSort(MonthReportId);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改HSE月报告", MonthReportId);
+                OperateHazardListSort(MonthReportId);
+                OperateCheckListSort(MonthReportId);
+                OperateManageDocPlanSort(MonthReportId);
+                OperateOtherWorkPlanSort(MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, oldMonthReport.MonthReportCode, oldMonthReport.MonthReportId, BLL.Const.ProjectManagerMonthCMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -185,26 +455,75 @@ namespace FineUIPro.Web.Manager
                 monthReport.Months = Funs.GetNewDateTime(Request.Params["months"]);
                 monthReport.ReportMan = this.CurrUser.UserId;
                 monthReport.MonthReportDate = DateTime.Now;
+                monthReport.NextEmergencyResponse = this.txtNextEmergencyResponse.Text.Trim();
                 BLL.MonthReportCService.AddMonthReport(monthReport);
-                OperateOtherWorkSort(MonthReportId);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加HSE月报告", monthReport.MonthReportId);
+                OperateHazardListSort(MonthReportId);
+                OperateCheckListSort(MonthReportId);
+                OperateManageDocPlanSort(MonthReportId);
+                OperateOtherWorkPlanSort(MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, monthReport.MonthReportCode, monthReport.MonthReportId, BLL.Const.ProjectManagerMonthCMenuId, BLL.Const.BtnAdd);
             }
             ShowNotify("保存成功!", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }
 
         /// <summary>
-        /// 8 其他工作情况
+        /// 9.1 危险源动态识别及控制
         /// </summary>
         /// <param name="monthReportId"></param>
-        private void OperateOtherWorkSort(string monthReportId)
+        private void OperateHazardListSort(string monthReportId)
         {
-            BLL.OtherWorkCService.DeleteOtherWorkByMonthReportId(monthReportId);
-            jerqueSaveOtherWorkList();
-            foreach (Model.Manager_Month_OtherWorkC otherWork in otherWorks)
+            BLL.HazardCService.DeleteHazardByMonthReportId(monthReportId);
+            jerqueSaveMonthHazardList();
+            foreach (Model.Manager_Month_HazardC hazard in hazards)
             {
-                otherWork.MonthReportId = monthReportId;
-                BLL.OtherWorkCService.AddOtherWork(otherWork);
+                hazard.MonthReportId = monthReportId;
+                BLL.HazardCService.AddHazard(hazard);
+            }
+        }
+
+        /// <summary>
+        /// 9.3 HSSE检查
+        /// </summary>
+        /// <param name="monthReportId"></param>
+        private void OperateCheckListSort(string monthReportId)
+        {
+            BLL.CheckCService.DeleteCheckByMonthReportId(monthReportId);
+            jerqueSaveMonthCheckList();
+            foreach (Model.Manager_Month_CheckC check in checks)
+            {
+                check.MonthReportId = monthReportId;
+                BLL.CheckCService.AddCheck(check);
+            }
+        }
+
+        /// <summary>
+        /// 9.8 HSE管理文件/方案修编计划
+        /// </summary>
+        /// <param name="monthReportId"></param>
+        private void OperateManageDocPlanSort(string monthReportId)
+        {
+            BLL.ManageDocPlanCService.DeleteManageDocPlanByMonthReportId(monthReportId);
+            jerqueSaveMonthManageDocPlanList();
+            foreach (Model.Manager_Month_ManageDocPlanC item in manageDocPlans)
+            {
+                item.MonthReportId = monthReportId;
+                BLL.ManageDocPlanCService.AddManageDocPlan(item);
+            }
+        }
+
+        /// <summary>
+        /// 9.9 其他HSE工作计划
+        /// </summary>
+        /// <param name="monthReportId"></param>
+        private void OperateOtherWorkPlanSort(string monthReportId)
+        {
+            BLL.OtherWorkPlanCService.DeleteOtherWorkPlanByMonthReportId(monthReportId);
+            jerqueSaveMonthOtherWorkPlanList();
+            foreach (Model.Manager_Month_OtherWorkPlanC item in otherWorkPlans)
+            {
+                item.MonthReportId = monthReportId;
+                BLL.OtherWorkPlanCService.AddOtherWorkPlan(item);
             }
         }
         #endregion

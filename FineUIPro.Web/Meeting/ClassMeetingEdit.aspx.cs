@@ -109,11 +109,7 @@ namespace FineUIPro.Web.Meeting
         /// </summary>
         private void InitDropDownList()
         {
-            this.drpCompileMan.DataValueField = "UserId";
-            this.drpCompileMan.DataTextField = "UserName";
-            this.drpCompileMan.DataSource = BLL.UserService.GetProjectUserListByProjectId(this.ProjectId);
-            this.drpCompileMan.DataBind();
-            Funs.FineUIPleaseSelect(this.drpCompileMan);
+            BLL.UserService.InitUserDropDownList(this.drpCompileMan, this.ProjectId, true);
         }
 
         #region 保存
@@ -172,17 +168,17 @@ namespace FineUIPro.Web.Meeting
             {
                 classMeeting.ClassMeetingId = this.ClassMeetingId;
                 BLL.ClassMeetingService.UpdateClassMeeting(classMeeting);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改班前会",classMeeting.ClassMeetingId);
+                BLL.LogService.AddSys_Log(this.CurrUser, classMeeting.ClassMeetingCode, classMeeting.ClassMeetingId, BLL.Const.ProjectClassMeetingMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.ClassMeetingId = SQLHelper.GetNewID(typeof(Model.Meeting_ClassMeeting));
                 classMeeting.ClassMeetingId = this.ClassMeetingId;
                 BLL.ClassMeetingService.AddClassMeeting(classMeeting);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加班前会", classMeeting.ClassMeetingId);
+                BLL.LogService.AddSys_Log(this.CurrUser, classMeeting.ClassMeetingCode, classMeeting.ClassMeetingId, BLL.Const.ProjectClassMeetingMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
-            this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectClassMeetingMenuId, this.ClassMeetingId, (type == BLL.Const.BtnSubmit ? true : false), classMeeting.ClassMeetingName, "../Meeting/ClassMeetingView.aspx?WeekMeetingId={0}");
+            this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectClassMeetingMenuId, this.ClassMeetingId, (type == BLL.Const.BtnSubmit ? true : false), classMeeting.ClassMeetingName, "../Meeting/ClassMeetingView.aspx?ClassMeetingId={0}");
         }
         #endregion
 

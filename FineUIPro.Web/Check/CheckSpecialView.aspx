@@ -42,7 +42,14 @@
                 <Items>
                     <f:TextBox ID="txtCheckPerson" runat="server" Label="检查组长" Readonly="true" MaxLength="50">
                     </f:TextBox>
-                    <f:TextBox ID="txtPartInPersons" runat="server" Label="检查组成员" Readonly="true" MaxLength="200">
+                  <f:Label runat="server"></f:Label>
+                </Items>
+            </f:FormRow>
+             <f:FormRow>
+                <Items>
+                     <f:TextBox ID="txtPartInPersons" runat="server" Label="检查组成员" Readonly="true" MaxLength="200">
+                    </f:TextBox>
+                        <f:TextBox ID="txtPartInPersonNames" runat="server" Label="检查组成员" MaxLength="200" Readonly="true">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
@@ -56,7 +63,7 @@
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1" DataIDField="CheckSpecialDetailId"
                         DataKeyNames="CheckSpecialDetailId" EnableMultiSelect="false" ShowGridHeader="true" Height="160"
-                        EnableColumnLines="true" AutoScroll="true">
+                        EnableColumnLines="true" >
                         <Toolbars>
                             <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
                                 <Items>
@@ -150,7 +157,7 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
     </form>

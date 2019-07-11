@@ -208,21 +208,22 @@ namespace FineUIPro.Web.HSSESystem
         /// </summary>
         private void DeleteData()
         {
-           
-                if (Grid1.SelectedRowIndexArray.Length > 0)
+            if (Grid1.SelectedRowIndexArray.Length > 0)
+            {
+                foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
-                    foreach (int rowIndex in Grid1.SelectedRowIndexArray)
+                    string rowID = Grid1.DataKeys[rowIndex][0].ToString();
+                    var getV = BLL.HSSEMainDutyService.GetHSSEMainDutyById(rowID);
+                    if (getV != null)
                     {
-                        string rowID = Grid1.DataKeys[rowIndex][0].ToString();
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.SortIndex, getV.HSSEMainDutyId, BLL.Const.HSSEMainDutyMenuId, BLL.Const.BtnDelete);
                         BLL.HSSEMainDutyService.DeleteHSSEMainDuty(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除安全主体责任");
                     }
-
-                    BindGrid1();
-                    ShowNotify("删除数据成功!");
                 }
-           
-        }
+
+                BindGrid1();
+                ShowNotify("删除数据成功!");
+            } }
         #endregion
 
         #region 关闭窗口
@@ -236,8 +237,6 @@ namespace FineUIPro.Web.HSSESystem
             BindGrid1();
         }
         #endregion
-
-       
 
         #region 获取按钮权限
         /// <summary>

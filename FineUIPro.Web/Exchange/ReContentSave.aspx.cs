@@ -47,7 +47,7 @@ namespace FineUIPro.Web.Exchange
                 reContent.ReContentId = SQLHelper.GetNewID(typeof(Model.Exchange_ReContent));
                 reContent.ContentId = Request.Params["ContentId"];
                 BLL.ReContentService.AddReContent(reContent);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "增加回帖信息", reContent.ReContentId);
+                BLL.LogService.AddSys_Log(this.CurrUser,  "增加回帖信息", reContent.ReContentId,BLL.Const.ContentMenuId,BLL.Const.BtnAdd);
             }
             else
             {
@@ -55,7 +55,7 @@ namespace FineUIPro.Web.Exchange
                 reContent.ReContentId = reContentId;
                 reContent.ContentId = reContent1.ContentId;
                 BLL.ReContentService.UpdateReContent(reContent);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改回帖信息", reContent.ReContentId);
+                BLL.LogService.AddSys_Log(this.CurrUser, "增加回帖信息", reContent.ReContentId, BLL.Const.ContentMenuId, BLL.Const.BtnModify);
             }
             // 2. 关闭本窗体，然后刷新父窗体
             // PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());

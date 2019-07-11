@@ -33,6 +33,7 @@ namespace BLL
             {
                 BLL.UploadFileService.DeleteFile(Funs.RootPath, registration.ImageUrl);//删除整改前图片
                 BLL.UploadFileService.DeleteFile(Funs.RootPath, registration.RectificationImageUrl);//删除整改后图片
+                BLL.SafetyDataItemService.DeleteSafetyDataItemByID(registrationId); // 删除安全资料项
                 db.Inspection_Registration.DeleteOnSubmit(registration);
                 db.SubmitChanges();
             }

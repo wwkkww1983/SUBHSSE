@@ -232,8 +232,13 @@ namespace FineUIPro.Web.Meeting
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除安全专题会议", rowID);
-                    BLL.SpecialMeetingService.DeleteSpecialMeetingById(rowID);
+                    var meet = BLL.SpecialMeetingService.GetSpecialMeetingById(rowID);
+                    if (meet != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, meet.SpecialMeetingCode, meet.SpecialMeetingId, BLL.Const.ProjectSpecialMeetingMenuId, BLL.Const.BtnDelete);
+
+                        BLL.SpecialMeetingService.DeleteSpecialMeetingById(rowID);
+                    }
                 }
 
                 this.BindGrid();

@@ -54,7 +54,7 @@
                             </f:TemplateField>
                     <f:GroupField HeaderText="检查对象" TextAlign="Center" HeaderTextAlign="Center">
                         <Columns>
-                            <f:TemplateField Width="220px" HeaderText="检查单位" ColumnID="UnitName" HeaderTextAlign="Center"
+                            <f:TemplateField Width="240px" HeaderText="检查单位" ColumnID="UnitName" HeaderTextAlign="Center"
                                 TextAlign="Left">
                                 <ItemTemplate>
                                     <asp:Label ID="lblUnit" runat="server" Text='<%# Bind("UnitName") %>' ToolTip='<%# Bind("UnitName") %>'></asp:Label>
@@ -68,14 +68,14 @@
                             </f:TemplateField>
                         </Columns>
                     </f:GroupField>
-                    <f:RenderField Width="95px" ColumnID="CheckDate" DataField="CheckDate" SortField="CheckDate"
+                    <f:RenderField Width="100px" ColumnID="CheckDate" DataField="CheckDate" SortField="CheckDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="受检时间"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="80px" ColumnID="IssueMan" DataField="IssueMan" SortField="IssueMan"
                         FieldType="String" HeaderText="签发人" TextAlign="Center" HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="IssueDate" DataField="IssueDate" SortField="IssueDate"
+                    <f:RenderField Width="100px" ColumnID="IssueDate" DataField="IssueDate" SortField="IssueDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="签发时间"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
@@ -109,14 +109,13 @@
             </f:Grid>
         </Items>
     </f:Panel>
-    <f:Window ID="Window1" runat="server" Hidden="true" ShowHeader="false"
+    <f:Window ID="Window1" runat="server" Hidden="true" ShowHeader="true"
         IsModal="false" Target="Parent" EnableMaximize="true" EnableResize="true" OnClose="Window1_Close"
-        Title="编辑安全监督检查整改" CloseAction="HidePostBack" EnableIFrame="true" Height="500px"
-        Width="1200px">
+        Title="编辑安全监督检查整改" EnableIFrame="true" Height="600px" Width="1300px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true"
-            Hidden="true" runat="server" Text="编辑">
+            Hidden="true" runat="server" Text="编辑" Icon="TabEdit">
         </f:MenuButton>       
     </f:Menu>
     </form>

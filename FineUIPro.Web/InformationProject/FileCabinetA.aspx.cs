@@ -234,8 +234,8 @@ namespace FineUIPro.Web.InformationProject
             {
                 var fileCabinetA = BLL.FileCabinetAService.GetFileCabinetAByID(this.tvFileCabinetA.SelectedNodeID);               
                 if (fileCabinetA != null && BLL.FileCabinetAService.IsDeleteFileCabinetA(fileCabinetA.FileCabinetAId))
-                {
-                    BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除文件柜A(集团文件柜类)信息", this.tvFileCabinetA.SelectedNode.Text);
+                {                    
+                    BLL.LogService.AddSys_Log(this.CurrUser, this.tvFileCabinetA.SelectedNode.Text, this.tvFileCabinetA.SelectedNodeID, BLL.Const.ProjectFileCabinetAMenuId, Const.BtnDelete);
                     BLL.FileCabinetAService.DeleteFileCabinetAByID(fileCabinetA.FileCabinetAId);                    
                     this.FileCabinetADataBind();
                     Alert.ShowInTop("删除成功！",MessageBoxIcon.Success);
@@ -350,8 +350,8 @@ namespace FineUIPro.Web.InformationProject
                     var item = BLL.FileCabinetAItemService.GetFileCabinetAItemByID(Grid1.DataKeys[rowIndex][0].ToString());
                     if (item != null)
                     {
+                        BLL.LogService.AddSys_Log(this.CurrUser, item.Code, item.FileCabinetAItemId, BLL.Const.ProjectFileCabinetAMenuId, Const.BtnDelete);
                         BLL.FileCabinetAItemService.DeleteFileCabinetAItemByID(item.FileCabinetAItemId);
-                        BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除项目文件明细信息", item.Code);  
                     }
                 }
 

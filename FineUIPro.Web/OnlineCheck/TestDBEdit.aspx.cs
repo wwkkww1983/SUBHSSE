@@ -130,12 +130,12 @@ namespace FineUIPro.Web.OnlineCheck
                 }
 
                 BLL.TestDBService.UpdateTestDB(test);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改试题库维护");
+                BLL.LogService.AddSys_Log(this.CurrUser, test.TestNo, test.TestId, BLL.Const.TestDBMenuId, Const.BtnModify);
             }
             else
             {
                 BLL.TestDBService.AddTestDB(test);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加试题库维护");
+                BLL.LogService.AddSys_Log(this.CurrUser, test.TestNo, test.TestId, BLL.Const.TestDBMenuId, Const.BtnAdd);
             }
 
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());

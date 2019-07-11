@@ -198,7 +198,7 @@ namespace FineUIPro.Web.Check
             }
             checkDay.CompileUnit = this.CurrUser.UnitId;
             BLL.Check_CheckDayXAService.AddCheckDay(checkDay);
-            BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加专项检查", checkDay.CheckDayId);
+            BLL.LogService.AddSys_Log(this.CurrUser, checkDay.CheckDayCode, checkDay.CheckDayId,BLL.Const.ProjectCheckDayXAMenuId,BLL.Const.BtnAdd);
         }
 
         #region 保存按钮
@@ -285,7 +285,7 @@ namespace FineUIPro.Web.Check
             {
                 checkDay.CheckDayId = this.CheckDayId;
                 BLL.Check_CheckDayXAService.UpdateCheckDay(checkDay);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改日常巡检", checkDay.CheckDayId);
+                BLL.LogService.AddSys_Log(this.CurrUser, checkDay.CheckDayCode, checkDay.CheckDayId, BLL.Const.ProjectCheckDayXAMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -293,7 +293,7 @@ namespace FineUIPro.Web.Check
                 this.CheckDayId = checkDay.CheckDayId;
                 checkDay.CompileUnit = this.CurrUser.UnitId;
                 BLL.Check_CheckDayXAService.AddCheckDay(checkDay);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加日常巡检", checkDay.CheckDayId);
+                BLL.LogService.AddSys_Log(this.CurrUser, checkDay.CheckDayCode, checkDay.CheckDayId, BLL.Const.ProjectCheckDayXAMenuId, BLL.Const.BtnAdd);
             }
         }
 

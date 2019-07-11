@@ -115,7 +115,7 @@ namespace FineUIPro.Web.Check
                             }
                         }
                     }
-
+                    this.txtPartInPersonNames.Text = checkHoliday.PartInPersonNames;
                     if (checkHoliday.IsCompleted == true)
                     {
                         this.lbIsCompleted.Text = "已闭环";

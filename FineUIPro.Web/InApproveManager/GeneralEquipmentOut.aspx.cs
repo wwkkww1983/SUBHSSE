@@ -236,9 +236,13 @@ namespace FineUIPro.Web.InApproveManager
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除一般设备机具出场报批", rowID);
-                    BLL.GeneralEquipmentOutItemService.DeleteGeneralEquipmentOutItemByGeneralEquipmentOutId(rowID);
-                    BLL.GeneralEquipmentOutService.DeleteGeneralEquipmentOutById(rowID);
+                    var generalEquipmentOut = BLL.GeneralEquipmentOutService.GetGeneralEquipmentOutById(rowID);
+                    if (generalEquipmentOut != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, generalEquipmentOut.GeneralEquipmentOutCode, generalEquipmentOut.GeneralEquipmentOutId, BLL.Const.GeneralEquipmentOutMenuId, BLL.Const.BtnAdd);
+                        BLL.GeneralEquipmentOutItemService.DeleteGeneralEquipmentOutItemByGeneralEquipmentOutId(rowID);
+                        BLL.GeneralEquipmentOutService.DeleteGeneralEquipmentOutById(rowID);
+                    }
                 }
 
                 this.BindGrid();

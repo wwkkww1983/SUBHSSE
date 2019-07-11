@@ -52,10 +52,10 @@
                 <Items>
                     <f:HiddenField ID="hfFormID" runat="server">
                     </f:HiddenField>
-                    <f:TextBox ID="txtCode" Label="类型编号" ShowRedStar="true" Required="true" runat="server"  MaxLength="50"
+                    <f:TextBox ID="txtCode" Label="编号" ShowRedStar="true" Required="true" runat="server"  MaxLength="50"
                         LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
-                    <f:TextBox ID="txtName" runat="server" Label="类型名称" ShowRedStar="true" Required="true"  MaxLength="50"
+                    <f:TextBox ID="txtName" runat="server" Label="名称" ShowRedStar="true" Required="true"  MaxLength="50"
                         LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
                     <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="right"  MaxLength="500">
@@ -88,7 +88,7 @@
             runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" Hidden="true"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

@@ -41,6 +41,21 @@ namespace FineUIPro.Web.ActionPlan
                 ViewState["ManagerRuleListCode"] = value;
             }
         }
+
+        /// <summary>
+        /// 页面
+        /// </summary>
+        public int? PageSize
+        {
+            get
+            {
+                return (int?)ViewState["PageSize"];
+            }
+            set
+            {
+                ViewState["PageSize"] = value;
+            }
+        }
         #endregion
 
         #region 加载页面
@@ -128,6 +143,7 @@ namespace FineUIPro.Web.ActionPlan
                     strSql += " AND (ManagerRule.IsIssue = 0 OR ManagerRule.IsIssue IS NULL) ";
                 }
             }
+
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 
@@ -194,7 +210,7 @@ namespace FineUIPro.Web.ActionPlan
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void btnMenuDelete_Click(object sender, EventArgs e)
-        {
+        {            
             this.DeleteData();
         }
 
@@ -203,6 +219,7 @@ namespace FineUIPro.Web.ActionPlan
         /// </summary>
         private void DeleteData()
         {
+            this.PageSize = this.Grid1.PageIndex;
             if (Grid1.SelectedRowIndexArray.Length > 0)
             {
                 bool isShow = false;
@@ -218,8 +235,14 @@ namespace FineUIPro.Web.ActionPlan
                         //Model.HSSE_ActionPlan_ManagerRule managerRule = BLL.HSSE_ActionPlan_ManagerRuleService.GetManagerRuleByManagerRuleId(rowID);
                         //if (managerRule.State == "1")
                         //{
-                        BLL.ActionPlan_ManagerRuleService.DeleteManageRuleById(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除管理规定发布");
+
+                        var manageRule = BLL.ActionPlan_ManagerRuleService.GetManagerRuleById(rowID);
+                        if (manageRule != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, manageRule.ManageRuleCode, manageRule.ManagerRuleId, BLL.Const.ActionPlan_ManagerRuleMenuId, Const.BtnDelete);
+                            BLL.ActionPlan_ManagerRuleService.DeleteManageRuleById(rowID);
+                        }
+                        
                         BindGrid();
                         ShowNotify("删除成功！", MessageBoxIcon.Success);
                         //}
@@ -283,6 +306,7 @@ namespace FineUIPro.Web.ActionPlan
         /// </summary>
         private void EditData()
         {
+            this.PageSize = this.Grid1.PageIndex;
             if (Grid1.SelectedRowIndexArray.Length == 0)
             {
                 Alert.ShowInTop("请选择一条记录！", MessageBoxIcon.Warning);
@@ -316,15 +340,6 @@ namespace FineUIPro.Web.ActionPlan
             BindGrid();
         }
 
-        /// <summary>
-        /// 关闭弹出窗口
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Window2_Close(object sender, WindowCloseEventArgs e)
-        {
-            BindGrid();
-        }
         #endregion
 
         #region 编制
@@ -546,6 +561,12 @@ namespace FineUIPro.Web.ActionPlan
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
             this.BindGrid();
+            if(this.PageSize.HasValue)
+            {
+                this.ddlPageSize.SelectedValue = this.PageSize.ToString();
+            }
+
+            BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ActionPlan_ManagerRuleMenuId, Const.BtnQuery);
         }
         #endregion
 

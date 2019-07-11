@@ -77,6 +77,10 @@ namespace FineUIPro.Web.QualityAudit
                           + @"ProjectRecord.Remark,"
                           + @"ProjectRecord.CompileMan,"
                           + @"Unit.UnitName,"
+                          + @"Name = STUFF(( SELECT ',' + UnitName FROM dbo.Base_Unit
+                                     where PATINDEX('%,' + RTRIM(dbo.Base_Unit.UnitId) + ',%',',' + ProjectRecord.UnitId + ',')>0
+                                     ORDER BY PATINDEX('%,' + RTRIM(ProjectRecord.UnitId) + ',%',',' + ProjectRecord.UnitId + ',')
+                                     FOR XML PATH('')), 1, 1,''),"
                           + @"ProjectRecord.CompileDate"
                           + @" FROM dbo.QualityAudit_ProjectRecord AS ProjectRecord "
                           + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON ProjectRecord.ProjectRecordId = CodeRecords.DataId "
@@ -90,8 +94,8 @@ namespace FineUIPro.Web.QualityAudit
             }
             if (BLL.ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.ProjectId, this.CurrUser.UnitId))
             {
-                strSql += " AND ProjectRecord.UnitId = @UnitId";  ///状态为已完成
-                listStr.Add(new SqlParameter("@UnitId", this.CurrUser.UnitId));
+                strSql += " AND ProjectRecord.UnitId LIKE @UnitId";  ///状态为已完成
+                listStr.Add(new SqlParameter("@UnitId", "%" + this.CurrUser.UnitId + "%"));
             }
             if (!string.IsNullOrEmpty(this.txtProjectRecordCode.Text.Trim()))
             {
@@ -105,8 +109,8 @@ namespace FineUIPro.Web.QualityAudit
             }
             if (this.drpUnit.SelectedValue!=BLL.Const._Null)
             {
-                strSql += " AND ProjectRecord.UnitId = @UnitId2";
-                listStr.Add(new SqlParameter("@UnitId2", this.drpUnit.SelectedValue));
+                strSql += " AND ProjectRecord.UnitId LIKE @UnitId2";
+                listStr.Add(new SqlParameter("@UnitId2", "%" + this.drpUnit.SelectedValue + "%"));
             }
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
@@ -215,8 +219,12 @@ namespace FineUIPro.Web.QualityAudit
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除项目协议记录", rowID);
-                    BLL.ProjectRecordService.DeleteProjectRecordById(rowID);
+                    var projectRecord = BLL.ProjectRecordService.GetProjectRecordById(rowID);
+                    if (projectRecord != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, projectRecord.ProjectRecordCode, projectRecord.ProjectRecordId, BLL.Const.ProjectRecordMenuId, BLL.Const.BtnModify);                        
+                        BLL.ProjectRecordService.DeleteProjectRecordById(rowID);
+                    }
                 }
 
                 this.BindGrid();

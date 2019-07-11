@@ -62,9 +62,12 @@ namespace BLL
         public static void DeleteAccidentDetailSortByAccidentDetailSortId(string accidentDetailSortId)
         {
             Model.SUBHSSEDB db = Funs.DB;
-            var q = (from x in db.Manager_AccidentDetailSortB where x.AccidentDetailSortId == accidentDetailSortId select x).FirstOrDefault();
-            db.Manager_AccidentDetailSortB.DeleteOnSubmit(q);
-            db.SubmitChanges();
+            var q = db.Manager_AccidentDetailSortB.FirstOrDefault(x => x.AccidentDetailSortId == accidentDetailSortId);
+            if (q != null)
+            {
+                db.Manager_AccidentDetailSortB.DeleteOnSubmit(q);
+                db.SubmitChanges();
+            }
         }
     }
 }

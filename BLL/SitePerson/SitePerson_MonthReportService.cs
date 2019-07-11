@@ -47,13 +47,16 @@ namespace BLL
         public static void UpdateMonthReport(Model.SitePerson_MonthReport monthReport)
         {
             Model.SUBHSSEDB db = Funs.DB;
-            Model.SitePerson_MonthReport newMonthReport = db.SitePerson_MonthReport.First(e => e.MonthReportId == monthReport.MonthReportId);
-            //newMonthReport.ProjectId = monthReport.ProjectId;
-            newMonthReport.CompileMan = monthReport.CompileMan;
-            newMonthReport.CompileDate = monthReport.CompileDate;
-            newMonthReport.States = monthReport.States;
+            Model.SitePerson_MonthReport newMonthReport = db.SitePerson_MonthReport.FirstOrDefault(e => e.MonthReportId == monthReport.MonthReportId);
+            if (newMonthReport != null)
+            {
+                //newMonthReport.ProjectId = monthReport.ProjectId;
+                newMonthReport.CompileMan = monthReport.CompileMan;
+                newMonthReport.CompileDate = monthReport.CompileDate;
+                newMonthReport.States = monthReport.States;
 
-            db.SubmitChanges();
+                db.SubmitChanges();
+            }
         }
 
         /// <summary>

@@ -29,7 +29,7 @@
                             <f:Toolbar ID="Toolbar1" Position="Top" ToolbarAlign="Right" runat="server">
                                 <Items>
                                     <f:DropDownList ID="drpUnit" AutoPostBack="true" EnableSimulateTree="true" runat="server"
-                                        Width="350px" LabelWidth="70px" Label="填报企业" EnableEdit="true" ForceSelection="false"
+                                        Width="320px" LabelWidth="80px" Label="填报企业" EnableEdit="true" ForceSelection="false"
                                         OnSelectedIndexChanged="drpUnit_SelectedIndexChanged">
                                     </f:DropDownList>
                                     <f:DropDownList ID="drpYear" AutoPostBack="true" EnableSimulateTree="true" runat="server"
@@ -44,10 +44,10 @@
                                     <f:Button ID="BtnBulletRight" ToolTip="后一个月" Icon="BulletRight" runat="server" EnablePostBack="true"
                                         OnClick="BulletRight_Click">
                                     </f:Button>
+                                     <f:ToolbarFill ID="ToolbarFill1" runat="server">
+                                    </f:ToolbarFill>
                                     <f:Button ID="btnSee" ToolTip="查看审批流程" Icon="Find" runat="server" OnClick="btnSee_Click">
                                     </f:Button>
-                                    <f:ToolbarFill ID="ToolbarFill1" runat="server">
-                                    </f:ToolbarFill>
                                     <f:Button ID="btnNew" ToolTip="新增" Icon="Add" Hidden="true" runat="server" OnClick="btnNew_Click">
                                     </f:Button>
                                     <f:Button ID="btnEdit" ToolTip="编辑" Icon="Pencil" Hidden="true" runat="server" OnClick="btnEdit_Click">
@@ -70,7 +70,10 @@
                                     <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
                                         EnableAjax="false" DisableControlBeforePostBack="false">
                                     </f:Button>
-                                    <f:Button ID="btnPrint" ToolTip="打印" Icon="ApplicationGo" Hidden="true" runat="server"
+                                     <f:Button ID="btnView" ToolTip="查看未报项目" Icon="MagifierZoomOut" runat="server"
+                                        OnClick="btnView_Click">
+                                    </f:Button>
+                                    <f:Button ID="btnPrint" ToolTip="打印" Icon="Printer" Hidden="true" runat="server"
                                         OnClick="btnPrint_Click">
                                     </f:Button>
                                 </Items>
@@ -102,11 +105,11 @@
                                     <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-                            <f:RenderField Width="100px" ColumnID="Affiliation" DataField="Affiliation" FieldType="String"
-                                HeaderText="所属单位" HeaderTextAlign="Center" TextAlign="Center">
+                            <f:RenderField Width="120px" ColumnID="Affiliation" DataField="Affiliation" FieldType="String"
+                                HeaderText="所属单位" HeaderTextAlign="Center" TextAlign="Left">
                             </f:RenderField>
-                            <f:RenderField Width="100px" ColumnID="Name" DataField="Name" FieldType="String"
-                                HeaderText="名称" HeaderTextAlign="Center" TextAlign="Center">
+                            <f:RenderField Width="200px" ColumnID="Name" DataField="Name" FieldType="String"
+                                HeaderText="名称" HeaderTextAlign="Center" TextAlign="Left">
                             </f:RenderField>
                             <f:GroupField EnableLock="true" HeaderText="员工总数" TextAlign="Center">
                                 <Columns>
@@ -261,7 +264,7 @@
                     <f:Form ID="Form3" ShowBorder="False" ShowHeader="False" AutoScroll="true" BodyPadding="10px"
                         EnableCollapse="true" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
                         <Rows>
-                            <f:FormRow ColumnWidths="19% 19% 24% 19% 19%">
+                            <f:FormRow ColumnWidths="20% 19% 23% 19% 19%">
                                 <Items>
                                     <f:Label runat="server" ID="lbRecordableIncidentRate">
                                     </f:Label>
@@ -281,12 +284,12 @@
             </f:Region>
         </Regions>
     </f:RegionPanel>
-    <f:Window ID="Window1" IconUrl="~/res/images/16/11.png" runat="server" Hidden="true"
+    <f:Window ID="Window1"  runat="server" Hidden="true"
         IsModal="false" Target="Parent" EnableMaximize="true" EnableResize="true" OnClose="Window1_Close"
         Title="编辑百万工时安全统计月报表" CloseAction="HidePostBack" EnableIFrame="true" Height="600px"
-        Width="1400px">
+        Width="1300px">
     </f:Window>
-    <f:Window ID="Window2" IconUrl="~/res/images/16/11.png" runat="server" Hidden="true"
+    <f:Window ID="Window2"  runat="server" Hidden="true"
         IsModal="false" Target="Parent" EnableMaximize="true" EnableResize="true" OnClose="Window2_Close"
         Title="导入百万工时安全统计月报表" CloseAction="HidePostBack" EnableIFrame="true" Height="600px"
         Width="900px">

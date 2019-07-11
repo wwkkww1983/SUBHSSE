@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BLL;
+﻿using BLL;
+using System;
 
 namespace Web.ReportPrint
 {
@@ -19,23 +14,15 @@ namespace Web.ReportPrint
         {
             if (!IsPostBack)
             {
-                this.drpPrintReport.DataTextField = "ConstText";
-                drpPrintReport.DataValueField = "ConstValue";
-                drpPrintReport.DataSource = BLL.ConstValue.drpConstItemList(ConstValue.Group_Report);
-                drpPrintReport.DataBind();
+                BLL.ConstValue.InitConstValueDropDownList(this.drpPrintReport, ConstValue.Group_Report, true);
             }
         }
-
-        /// <summary>
-        /// 报表设计
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void BtnReportDesigner_Click(object sender, EventArgs e)
+        
+        protected void drpPrintReport_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.drpPrintReport.SelectedValue != "0")
+            if (this.drpPrintReport.SelectedValue != BLL.Const._Null)
             {
-                //BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, this.drpPrintReport.SelectedItem.Text);
+                //BLL.LogService.AddSys_Log(this.CurrUser,, this.drpPrintReport.SelectedItem.Text);
                 Response.Redirect("ExPrintSet.aspx?reportId=" + this.drpPrintReport.SelectedValue + "&reportName=" + this.drpPrintReport.SelectedItem.Text);
             }
         }

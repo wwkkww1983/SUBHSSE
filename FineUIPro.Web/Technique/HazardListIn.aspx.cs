@@ -617,6 +617,7 @@ namespace FineUIPro.Web.Technique
                         hazardList.IsPass = true;
                         hazardList.UnitId = CommonService.GetUnitId(this.CurrUser.UnitId);
                         BLL.HazardListService.AddHazardList(hazardList);
+                        BLL.LogService.AddSys_Log(this.CurrUser, hazardList.HazardCode, hazardList.HazardId, BLL.Const.HazardListMenuId, Const.BtnAdd);
                     }
                 }
                 string rootPath = Server.MapPath("~/");

@@ -52,6 +52,7 @@ namespace FineUIPro.Web.EduTrain
                     Model.Training_KnowledgeItem knowledgeItem = BLL.KnowledgeItemService.GetKnowledgeItemById(this.KnowledgeItemId);
                     if (knowledgeItem != null)
                     {
+                        this.KnowledgeId = knowledgeItem.KnowledgeId;
                         this.txtKnowledgeItemCode.Text = knowledgeItem.KnowledgeItemCode;
                         this.txtKnowledgeItemName.Text = knowledgeItem.KnowledgeItemName;
                         this.txtRemark.Text = knowledgeItem.Remark;
@@ -82,7 +83,7 @@ namespace FineUIPro.Web.EduTrain
                 KnowledgeItemId = knowledgeItem.KnowledgeItemId;
                 knowledgeItem.KnowledgeId = this.KnowledgeId;
                 BLL.KnowledgeItemService.AddKnowledgeItem(knowledgeItem);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加应知应会库", knowledgeItem.KnowledgeItemId);
+                BLL.LogService.AddSys_Log(this.CurrUser, knowledgeItem.KnowledgeItemCode, knowledgeItem.KnowledgeItemId, BLL.Const.KnowledgeDBMenuId, BLL.Const.BtnAdd);
             }
             else
             {
@@ -93,7 +94,8 @@ namespace FineUIPro.Web.EduTrain
                 }
                 knowledgeItem.KnowledgeItemId = this.KnowledgeItemId;
                 BLL.KnowledgeItemService.UpdateKnowledgeItem(knowledgeItem);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改应知应会库", knowledgeItem.KnowledgeItemId);
+
+                BLL.LogService.AddSys_Log(this.CurrUser, knowledgeItem.KnowledgeItemCode, knowledgeItem.KnowledgeItemId, BLL.Const.KnowledgeDBMenuId, BLL.Const.BtnModify);
             }
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
@@ -167,11 +169,11 @@ namespace FineUIPro.Web.EduTrain
                         BLL.KnowledgeItemService.UpdateKnowledgeItemIsPass(knowledgeItem);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应知应会明细】上报到集团公司" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【应知应会明细】上报到集团公司" + idList.Count.ToString() + "条数据；",null, BLL.Const.KnowledgeDBMenuId, BLL.Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【应知应会明细】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【应知应会明细】上报到集团公司失败；", null, BLL.Const.KnowledgeDBMenuId, BLL.Const.BtnUploadResources);
             }
         }
 
@@ -183,6 +185,10 @@ namespace FineUIPro.Web.EduTrain
         /// <returns></returns>
         private void GetButtonPower()
         {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
             var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.KnowledgeDBMenuId);
             if (buttonList.Count() > 0)
             {

@@ -175,9 +175,12 @@ namespace FineUIPro.Web.Technique
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.AppraiseService.DeleteAppraiseById(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除安全评价");
-                }
+                    var getV = BLL.AppraiseService.GetAppraiseById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.AppraiseCode, getV.AppraiseId, BLL.Const.AppraiseMenuId, Const.BtnDelete);
+                        BLL.AppraiseService.DeleteAppraiseById(rowID);
+                    } }
 
                 BindGrid();
                 ShowNotify("删除数据成功!");
@@ -252,6 +255,7 @@ namespace FineUIPro.Web.Technique
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
             this.BindGrid();
+            BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.AppraiseMenuId, Const.BtnQuery);
         }
         #endregion
 

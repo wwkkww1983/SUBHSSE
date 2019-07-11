@@ -29,13 +29,17 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar3" Position="Top" runat="server">
                         <Items>
-                            <f:TextBox ID="UnitName" runat="server" Label="单位" EmptyText="输入查询单位" AutoPostBack="true"
-                                OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="70px">
+                            <f:TextBox ID="UnitName" runat="server" Label="单位" EmptyText="输入查询单位" 
+                                Width="250px" LabelWidth="70px">
                             </f:TextBox>
-                            <f:TextBox ID="SpecialSchemeName" runat="server" Label="名称" EmptyText="输入查询名称" AutoPostBack="true"
-                                OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="70px">
+                            <f:TextBox ID="SpecialSchemeName" runat="server" Label="名称" EmptyText="输入查询名称" 
+                                Width="250px" LabelWidth="70px">
                             </f:TextBox>
                             <f:ToolbarFill runat="server"></f:ToolbarFill>
+                            
+                            <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch" EnablePostBack="true" 	
+                                OnClick="TextBox_TextChanged" runat="server" >
+                            </f:Button>
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" runat="server"
                                 Hidden="true">
                             </f:Button>
@@ -120,7 +124,7 @@
         Width="1024px" Height="500px">
     </f:Window>
     <f:Window ID="Window4" Title="选择需要导出的列" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window4_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window4_Close" IsModal="true"
         Width="450px" Height="250px" EnableAjax="false">
     </f:Window>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
@@ -132,7 +136,7 @@
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除">
+            Hidden="true" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>

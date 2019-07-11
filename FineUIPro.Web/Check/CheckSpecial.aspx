@@ -60,16 +60,19 @@
                                 LabelAlign="right">
                             </f:TextBox>
                             <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="开始日期" ID="txtStartTime"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="180px" LabelWidth="70px">
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="200px" LabelWidth="80px">
                             </f:DatePicker>
                             <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="结束日期" ID="txtEndTime"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="180px" LabelWidth="70px">
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="200px" LabelWidth="80px">
                             </f:DatePicker>                           
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" runat="server"
                                 Hidden="true">
                             </f:Button>
+                            <f:Button ID="btnPrint" ToolTip="打印" Icon="Printer" Hidden="true" runat="server"
+                                        OnClick="btnPrint_Click">
+                                    </f:Button>
                             <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
                                 EnableAjax="false" DisableControlBeforePostBack="false">
                             </f:Button>
@@ -87,7 +90,7 @@
                         SortField="CheckSpecialCode" FieldType="String" HeaderText="检查编号" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
-                     <f:RenderField Width="75px" ColumnID="CheckCount" DataField="CheckCount"
+                     <f:RenderField Width="90px" ColumnID="CheckCount" DataField="CheckCount"
                         SortField="CheckCount" FieldType="Int" HeaderText="不合格数" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
@@ -154,7 +157,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="编辑专项检查" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
         Width="1300px" Height="660px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

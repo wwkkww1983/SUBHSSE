@@ -105,7 +105,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="违规人员记录" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="900px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="900px"
         Height="480px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
@@ -113,7 +113,7 @@
             Hidden="true" runat="server" Text="编辑">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server"
+            Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server"
             Text="删除">
         </f:MenuButton>
     </f:Menu>

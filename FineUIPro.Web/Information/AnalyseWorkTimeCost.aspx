@@ -13,33 +13,30 @@
     <f:RegionPanel ID="RegionPanel1" ShowBorder="false" runat="server" Margin="5px">
         <Regions>
             <f:Region ID="Region1" ShowBorder="false" ShowHeader="false" RegionPosition="Top"
-                BodyPadding="0 5 0 0" Width="200px" Layout="Fit" runat="server" EnableCollapse="true">
+                BodyPadding="0 0 0 0" Width="200px" Layout="Fit" runat="server" EnableCollapse="true">
                 <Items>
                     <f:Form ID="Form2" ShowHeader="false" ShowBorder="false" runat="server">
                         <Rows>
-                            <f:FormRow ColumnWidths="40% 30% 30%">
+                            <f:FormRow ColumnWidths="45% 45% 10%">
                                 <Items>                                  
-                                    <f:DropDownList ID="drpYear" runat="server" LabelWidth="50px" Label="年度"  OnClearIconClick="drpYear_ClearIconClick"
+                                    <f:DropDownList ID="drpYear" runat="server" LabelWidth="90px" Label="年度"  OnClearIconClick="drpYear_ClearIconClick"
                                          EnableMultiSelect="true" AutoShowClearIcon="true" EnableClearIconClickEvent="true" EnableEdit="true" EnableCheckBoxSelect="true">
                                     </f:DropDownList>
-                                    <f:DropDownList ID="drpQuarter" runat="server" LabelWidth="50px" Label="季度" OnClearIconClick="drpQuarter_ClearIconClick"
+                                    <f:DropDownList ID="drpQuarter" runat="server" LabelWidth="90px" Label="季度" OnClearIconClick="drpQuarter_ClearIconClick"
                                         EnableMultiSelect="true" AutoShowClearIcon="true" EnableClearIconClickEvent="true" EnableEdit="true" EnableCheckBoxSelect="true">
-                                    </f:DropDownList>                                    
+                                    </f:DropDownList>
+                                    <f:Button ID="BtnAnalyse" Text="统计" Icon="ChartPie" runat="server" OnClick="BtnAnalyse_Click" ToolTip="数据来源：安全生产数据季报表"></f:Button>                                   
                                 </Items>
                             </f:FormRow>
-                            <f:FormRow ColumnWidths="30% 20% 20% 20% 10%">                                
+                            <f:FormRow ColumnWidths="45% 45% 10%">                                
                                 <Items>
-                                    <f:DropDownList ID="drpChartType" runat="server" LabelWidth="70px" Label="图形类型" 
+                                    <f:DropDownList ID="drpChartType" runat="server" LabelWidth="90px" Label="图形类型" 
                                         AutoPostBack="true" OnSelectedIndexChanged="drpChartType_SelectedIndexChanged" >
                                     </f:DropDownList>
-                                    <f:Label ID="Label2" runat="server">
-                                    </f:Label>
-                                    <f:CheckBox ID="ckbShow" runat="server" LabelWidth="70px" Label="三维效果" 
+                                    <f:CheckBox ID="ckbShow" runat="server" LabelWidth="90px" Label="三维效果" 
                                         AutoPostBack="true" OnCheckedChanged="ckbShow_CheckedChanged">
                                     </f:CheckBox>
-                                    <f:Label ID="Label1" runat="server">
-                                    </f:Label>
-                                    <f:Button ID="BtnAnalyse" Text="统计" Icon="ChartPie" runat="server" OnClick="BtnAnalyse_Click" ToolTip="数据来源：安全生产数据季报表"></f:Button>
+                                     <f:Label runat="server"></f:Label>
                                 </Items>
                             </f:FormRow>
                         </Rows>

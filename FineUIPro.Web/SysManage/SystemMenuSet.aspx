@@ -11,7 +11,7 @@
     <f:PageManager ID="PageManager1" runat="server" />         
       <f:Panel ID="Panel2" runat="server" ShowHeader="false" ShowBorder="false" ColumnWidth="100%" MarginRight="5px">
             <Items>
-               <f:TabStrip ID="TabStrip1" CssClass="f-tabstrip-theme-simple" Height="540px" ShowBorder="true"
+               <f:TabStrip ID="TabStrip1" CssClass="f-tabstrip-theme-simple" Height="530px" ShowBorder="true"
                 TabPosition="Top" MarginBottom="5px" EnableTabCloseMenu="false" runat="server">              
                    <Tabs>                   
                         <f:Tab ID="Tab1" Title="菜单模式" BodyPadding="5px" Layout="VBox" IconFont="Bookmark" runat="server">
@@ -45,6 +45,7 @@
                                         <f:CheckItem Text="公共资源" Value="Menu_Resource" />
                                         <f:CheckItem Text="基础信息" Value="Menu_BaseInfo" />
                                         <f:CheckItem Text="系统设置" Value="Menu_SystemSet" />
+                                        <f:CheckItem Text="个人设置" Value="Menu_Personal" />
                                     </Items>
                                     <Listeners>
                                         <f:Listener Event="change" Handler="onCheckBoxListChange" />
@@ -52,9 +53,9 @@
                                 </f:CheckBoxList>                                                             
                             </Items>
                             <Items>
-                                  <f:Tree ID="tvMenu" EnableCollapse="true" ShowHeader="false" Title="系统菜单" Height="420px" ShowBorder="false"
+                                  <f:Tree ID="tvMenu" EnableCollapse="true" ShowHeader="false" Title="系统菜单" Height="400px" ShowBorder="false"
                                         AutoLeafIdentification="true" runat="server" EnableIcons ="true" AutoScroll="true"
-                                         EnableSingleClickExpand ="true" OnNodeCheck="tvMenu_NodeCheck" >
+                                         EnableSingleClickExpand ="true" OnNodeCheck="tvMenu_NodeCheck" EnableCheckBox="true">
                                  </f:Tree>
                             </Items>
                              <Toolbars>

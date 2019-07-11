@@ -1,12 +1,8 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using BLL;
-using System.IO;
-using Newtonsoft.Json.Linq;
 
 namespace FineUIPro.Web.EduTrain
 {
@@ -101,7 +97,15 @@ namespace FineUIPro.Web.EduTrain
                 }
                 Grid1.DataSource = trainRecordDetails;
                 Grid1.DataBind();
-
+                var thisUnit = BLL.CommonService.GetIsThisUnit();
+                if (thisUnit.UnitId == BLL.Const.UnitId_14)
+                {
+                    this.Grid1.Columns[4].Hidden = true;
+                }
+                else if (thisUnit.UnitId == BLL.Const.UnitId_CWCEC)
+                {
+                    this.btnTrainTest.Hidden = false;
+                }
                 ///初始化审核菜单
                 this.ctlAuditFlow.MenuId = BLL.Const.ProjectTrainRecordMenuId;
                 this.ctlAuditFlow.DataId = this.TrainingId;
@@ -123,5 +127,15 @@ namespace FineUIPro.Web.EduTrain
             }
         }
         #endregion
+
+        /// <summary>
+        /// 培训试题
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnTrainTest_Click(object sender, EventArgs e)
+        {           
+            PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("TrainTest.aspx?TrainingId={0}", this.TrainingId, "查看 - ")));
+        }
     }
 }

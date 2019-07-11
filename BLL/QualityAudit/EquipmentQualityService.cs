@@ -95,6 +95,7 @@ namespace BLL
                 newEquipmentQuality.Remark = equipmentQuality.Remark;
                 newEquipmentQuality.CompileMan = equipmentQuality.CompileMan;
                 newEquipmentQuality.CompileDate = equipmentQuality.CompileDate;
+                newEquipmentQuality.QRCodeAttachUrl = equipmentQuality.QRCodeAttachUrl;
                 db.SubmitChanges();
             }
         }

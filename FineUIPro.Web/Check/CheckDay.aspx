@@ -61,15 +61,18 @@
                                 LabelAlign="right">
                             </f:TextBox>                      
                             <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="开始日期" ID="txtStartTime"
-                            AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="150px" LabelWidth="70px">
+                            AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="180px" LabelWidth="80px">
                             </f:DatePicker>
                             <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="结束日期" ID="txtEndTime"
-                             AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="150px" LabelWidth="70px">
+                             AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="180px" LabelWidth="80px">
                             </f:DatePicker>
                             <f:ToolbarFill runat="server"></f:ToolbarFill>
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" runat="server"
                                 Hidden="true">
                             </f:Button>
+                            <f:Button ID="btnPrint" ToolTip="打印" Icon="Printer" Hidden="true" runat="server"
+                                        OnClick="btnPrint_Click">
+                                    </f:Button>
                             <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
                                 EnableAjax="false" DisableControlBeforePostBack="false">
                             </f:Button>
@@ -87,7 +90,7 @@
                         SortField="CheckDayCode" FieldType="String" HeaderText="检查编号" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="75px" ColumnID="CheckCount" DataField="CheckCount"
+                    <f:RenderField Width="90px" ColumnID="CheckCount" DataField="CheckCount"
                         SortField="CheckCount" FieldType="Int" HeaderText="不合格数" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
@@ -107,18 +110,18 @@
                         SortField="CompleteStatusName" FieldType="String" HeaderText="整改" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="LimitedDate" DataField="LimitedDate" SortField="LimitedDate"
+                    <f:RenderField Width="100px" ColumnID="LimitedDate" DataField="LimitedDate" SortField="LimitedDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="整改限时"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="CompletedDate" DataField="CompletedDate" SortField="CompletedDate"
+                    <f:RenderField Width="100px" ColumnID="CompletedDate" DataField="CompletedDate" SortField="CompletedDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="闭环时间"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="90px" ColumnID="CheckPersonName" DataField="CheckPersonName" SortField="CheckPersonName"
                         FieldType="String" HeaderText="检查人" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="95px" ColumnID="CheckTime" DataField="CheckTime" SortField="CheckTime"
+                    <f:RenderField Width="100px" ColumnID="CheckTime" DataField="CheckTime" SortField="CheckTime"
                         FieldType="String" HeaderText="检查日期" TextAlign="Center" HeaderTextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="150px" ColumnID="FlowOperateName" DataField="FlowOperateName"
@@ -151,7 +154,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="编辑日常巡检" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
         Width="1300px" Height="660px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

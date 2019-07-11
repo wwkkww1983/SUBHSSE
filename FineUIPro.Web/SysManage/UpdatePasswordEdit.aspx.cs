@@ -95,7 +95,8 @@ namespace FineUIPro.Web.SysManage
                 }
 
                 BLL.UserService.UpdatePassword(user.UserId, this.txtNewPassword.Text);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改密码");
+
+                BLL.LogService.AddSys_Log(this.CurrUser, "修改密码", string.Empty, BLL.Const.UserMenuId, Const.BtnModify);
                 PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
             }
         }

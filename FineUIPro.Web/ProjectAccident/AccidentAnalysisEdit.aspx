@@ -26,20 +26,20 @@
                     </f:DropDownList>
                      <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="时间" LabelWidth="60px"  ID="dpkCompileDate" EnableEdit="true">
                     </f:DatePicker>
-                      <f:TextBox ID="txtCompileMan" runat="server" Label="处理人" MaxLength="50" LabelWidth="60px" >
+                      <f:TextBox ID="txtCompileMan" runat="server" Label="处理人" MaxLength="50" LabelWidth="70px" >
                     </f:TextBox>
                 </Items>
             </f:FormRow>          
             <f:FormRow>
                 <Items>
-                    <f:TextArea ID="txtRemarks" runat="server" Height="70px" Label="备注" MaxLength="2000" LabelWidth="60px" >
+                    <f:TextArea ID="txtRemarks" runat="server" Height="50px" Label="备注" MaxLength="2000" LabelWidth="60px" >
                     </f:TextArea>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" EnableCollapse="true" runat="server"
-                        BoxFlex="1" DataKeyNames="AccidentAnalysisItemId" AllowCellEditing="true"
+                        BoxFlex="1" DataKeyNames="AccidentAnalysisItemId" AllowCellEditing="true" Height="400px"
                         ClicksToEdit="1" DataIDField="AccidentAnalysisItemId" EnableColumnLines="true">
                         <Columns>
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="100px" HeaderTextAlign="Center" TextAlign="Center" />

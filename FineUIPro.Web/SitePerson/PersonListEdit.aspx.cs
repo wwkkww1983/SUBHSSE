@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BLL;
+using System;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BLL;
+using ThoughtWorks.QRCode.Codec;
+using ThoughtWorks.QRCode.Codec.Data;
+using System.Text;
+using System.IO;
 
 namespace FineUIPro.Web.SitePerson
 {
@@ -25,7 +25,20 @@ namespace FineUIPro.Web.SitePerson
                 ViewState["PersonId"] = value;
             }
         }
-
+        /// <summary>
+        /// 二维码路径id
+        /// </summary>
+        public string QRCodeAttachUrl
+        {
+            get
+            {
+                return (string)ViewState["QRCodeAttachUrl"];
+            }
+            set
+            {
+                ViewState["QRCodeAttachUrl"] = value;
+            }
+        }
         /// <summary>
         /// 项目ID
         /// </summary>
@@ -69,7 +82,8 @@ namespace FineUIPro.Web.SitePerson
             if (!IsPostBack)
             {
                 btnClose.OnClientClick = ActiveWindow.GetHideReference();
-
+                ////权限按钮方法
+                this.GetButtonPower();
                 this.ProjectId = Request.Params["ProjectId"];
                 this.UnitId = Request.Params["UnitId"];
                 this.PersonId = Request.Params["PersonId"];
@@ -192,7 +206,17 @@ namespace FineUIPro.Web.SitePerson
                 ShowNotify("入场时间不能为空！", MessageBoxIcon.Warning);
                 return;
             }
+            if (string.IsNullOrEmpty(this.txtCardNo.Text))
+            {
+                ShowNotify("人员卡号不能为空！", MessageBoxIcon.Warning);
+                return;
+            }
+            SaveData();
+            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
+        }
 
+        protected void SaveData()
+        {
             string pefx = string.Empty;
             Model.Base_Project project = BLL.ProjectService.GetProjectByProjectId(this.ProjectId);
             string projectCode = string.Empty;
@@ -244,7 +268,7 @@ namespace FineUIPro.Web.SitePerson
             if (this.drpTitle.SelectedValue != BLL.Const._Null)
             {
                 person.PostTitleId = this.drpTitle.SelectedValue;
-            }          
+            }
             if (!string.IsNullOrEmpty(this.rblIsUsed.SelectedValue))
             {
                 person.IsUsed = Convert.ToBoolean(this.rblIsUsed.SelectedValue);
@@ -291,28 +315,32 @@ namespace FineUIPro.Web.SitePerson
                 if (!string.IsNullOrEmpty(this.txtIdentityCard.Text))
                 {
                     person.IdentityCard = this.txtIdentityCard.Text.Trim();
-                    int identityCardCount = BLL.PersonService.GetPersonCountByIdentityCard(this.txtIdentityCard.Text.Trim(),this.CurrUser.LoginProjectId);
-                    if (identityCardCount > 0)
+                    var identityCardCount = PersonService.GetPersonCountByIdentityCard(this.txtIdentityCard.Text.Trim(), this.CurrUser.LoginProjectId);
+                    if (identityCardCount != null)
                     {
                         ShowNotify("此身份证号已存在，不能重复！", MessageBoxIcon.Warning);
                         return;
                     }
                 }
-
+                
                 if (!BLL.PersonService.IsExistPersonByUnit(this.UnitId, this.txtPersonName.Text.Trim(), this.ProjectId))
                 {
                     this.PersonId = SQLHelper.GetNewID(typeof(Model.SitePerson_Person));
                     person.PersonId = this.PersonId;
-                    BLL.PersonService.AddPerson(person);                 
+                    BLL.PersonService.AddPerson(person);
                 }
 
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加人员信息", person.PersonId);
+                BLL.LogService.AddSys_Log(this.CurrUser, person.PersonName, person.PersonId, BLL.Const.PersonListMenuId, BLL.Const.BtnAdd);
             }
             else
             {
+                var getPerson = BLL.PersonService.GetPersonById(PersonId);
+                if (getPerson != null)
+                { person.FromPersonId = getPerson.FromPersonId; }
+
                 person.PersonId = PersonId;
-                BLL.PersonService.UpdatePerson(person);                
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改人员信息", person.PersonId);
+                BLL.PersonService.UpdatePerson(person);
+                BLL.LogService.AddSys_Log(this.CurrUser, person.PersonName, person.PersonId, BLL.Const.PersonListMenuId, BLL.Const.BtnModify);
             }
 
             if (!string.IsNullOrEmpty(person.PersonId))
@@ -351,8 +379,6 @@ namespace FineUIPro.Web.SitePerson
                     BLL.PersonQualityService.AddPersonQuality(newPersonQuality);
                 }
             }
-
-            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
         #endregion
 
@@ -409,5 +435,111 @@ namespace FineUIPro.Web.SitePerson
             }
         }
         #endregion
+
+        #region 判断按钮权限
+        /// <summary>
+        /// 判断按钮权限
+        /// </summary>
+        private void GetButtonPower()
+        {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
+            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.PersonListMenuId);
+            if (buttonList.Count() > 0)
+            {
+                if (buttonList.Contains(BLL.Const.BtnSave))
+                {
+                    this.btnSave.Hidden = false;
+                    this.filePhoto.Hidden = false;
+                    this.btnReadIdentityCard.Hidden = false;
+                }                
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnQR_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.txtIdentityCard.Text.Trim()))
+            {
+                Alert.ShowInTop("身份证号码不能为空！", MessageBoxIcon.Warning);
+                return;
+            }
+            if (string.IsNullOrEmpty(this.txtPersonName.Text))
+            {
+                ShowNotify("人员姓名不能为空！", MessageBoxIcon.Warning);
+                return;
+            }
+            if (string.IsNullOrEmpty(this.txtCardNo.Text))
+            {
+                ShowNotify("人员卡号不能为空！", MessageBoxIcon.Warning);
+                return;
+            }
+            if (string.IsNullOrEmpty(this.txtInTime.Text))
+            {
+                ShowNotify("入场时间不能为空！", MessageBoxIcon.Warning);
+                return;
+            }
+            if (string.IsNullOrEmpty(this.PersonId))
+            {
+                this.SaveData();
+            }
+            this.CreateCode_Simple(this.txtCardNo.Text.Trim());
+        }
+
+        //生成二维码方法一
+        private void CreateCode_Simple(string nr)
+        {
+            var person = BLL.PersonService.GetPersonById(this.PersonId);
+            if (person != null)
+            {
+                BLL.UploadFileService.DeleteFile(Funs.RootPath, person.QRCodeAttachUrl);//删除二维码
+                string imageUrl = string.Empty;
+                QRCodeEncoder qrCodeEncoder = new QRCodeEncoder();
+                qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
+                qrCodeEncoder.QRCodeScale = nr.Length;
+                qrCodeEncoder.QRCodeVersion = 0;
+                qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.M;
+                System.Drawing.Image image = qrCodeEncoder.Encode(nr, Encoding.UTF8);
+
+                string filepath = Server.MapPath("~/") + BLL.UploadFileService.QRCodeImageFilePath;
+
+                //如果文件夹不存在，则创建
+                if (!Directory.Exists(filepath))
+                {
+                    Directory.CreateDirectory(filepath);
+                }
+
+                string filename = DateTime.Now.ToString("yyyymmddhhmmssfff").ToString() + ".jpg";
+                imageUrl = filepath + filename;
+
+                System.IO.FileStream fs = new System.IO.FileStream(imageUrl, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write);
+                image.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                fs.Close();
+                image.Dispose();
+                this.QRCodeAttachUrl = BLL.UploadFileService.QRCodeImageFilePath + filename;
+                person.QRCodeAttachUrl = this.QRCodeAttachUrl;
+                BLL.PersonService.UpdatePerson(person);
+                this.btnQR.Hidden = false;
+                this.btnQR.Text = "二维码重新生成";
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../Controls/SeeQRImage.aspx?PersonId={0}", this.PersonId), "二维码查看", 400, 400));
+            }
+            else
+            {
+                Alert.ShowInTop("操作有误，重新生成！", MessageBoxIcon.Warning);
+            }
+
+            //二维码解码
+            //var codeDecoder = CodeDecoder(filepath);
+
+            //this.Image1.ImageUrl = "~/image/" + filename + ".jpg";
+        }
     }
 }

@@ -281,6 +281,7 @@ namespace BLL
                     if (user.IsOffice == true)
                     {
                         isRoleType = true;
+                        isThisUnit = true;
                     }
 
                     var unit = BLL.UnitService.GetUnitByUnitId(user.UnitId);
@@ -380,6 +381,7 @@ namespace BLL
             var flowOperateList = from x in Funs.DB.Sys_FlowOperate where x.DataId == id select x;
             if (flowOperateList.Count() > 0)
             {
+                BLL.SafetyDataItemService.DeleteSafetyDataItemByID(id); // 删除安全资料项
                 Funs.DB.Sys_FlowOperate.DeleteAllOnSubmit(flowOperateList);
                 Funs.DB.SubmitChanges();
             }

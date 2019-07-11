@@ -89,8 +89,9 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void btnDelete_Click(object sender, EventArgs e)
         {
+            BLL.LogService.AddSys_Log(this.CurrUser, this.txtWorkPostCode.Text, hfFormID.Text, BLL.Const.WorkPostMenuId, BLL.Const.BtnDelete);
             BLL.WorkPostService.DeleteWorkPostById(hfFormID.Text);
-            BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除岗位信息", hfFormID.Text);
+            
             // 重新绑定表格，并模拟点击[新增按钮]
             BindGrid();
             PageContext.RegisterStartupScript("onNewButtonClick();");
@@ -108,10 +109,14 @@ namespace FineUIPro.Web.BaseInfo
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-
-                    BLL.WorkPostService.DeleteWorkPostById(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除岗位信息");
+                    var getV = BLL.WorkPostService.GetWorkPostById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.WorkPostCode, getV.WorkPostId, BLL.Const.WorkPostMenuId, BLL.Const.BtnDelete);
+                        BLL.WorkPostService.DeleteWorkPostById(rowID);
+                    }
                 }
+
                 BindGrid();
                 PageContext.RegisterStartupScript("onNewButtonClick();");
             }
@@ -167,7 +172,7 @@ namespace FineUIPro.Web.BaseInfo
                 return;
             }
             string strRowID = hfFormID.Text;
-            Model.Base_WorkPost depart = new Model.Base_WorkPost
+            Model.Base_WorkPost newWorkPost = new Model.Base_WorkPost
             {
                 WorkPostCode = this.txtWorkPostCode.Text.Trim(),
                 WorkPostName = this.txtWorkPostName.Text.Trim(),
@@ -177,20 +182,20 @@ namespace FineUIPro.Web.BaseInfo
             };
             if (string.IsNullOrEmpty(strRowID))
             {
-                depart.WorkPostId = SQLHelper.GetNewID(typeof(Model.Base_WorkPost));
-                BLL.WorkPostService.AddWorkPost(depart);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加岗位信息");
+                newWorkPost.WorkPostId = SQLHelper.GetNewID(typeof(Model.Base_WorkPost));
+                BLL.WorkPostService.AddWorkPost(newWorkPost);
+                BLL.LogService.AddSys_Log(this.CurrUser, newWorkPost.WorkPostCode, newWorkPost.WorkPostId, BLL.Const.WorkPostMenuId, BLL.Const.BtnAdd);
             }
             else
             {
-                depart.WorkPostId = strRowID;
-                BLL.WorkPostService.UpdateWorkPost(depart);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改岗位信息");
+                newWorkPost.WorkPostId = strRowID;
+                BLL.WorkPostService.UpdateWorkPost(newWorkPost);
+                BLL.LogService.AddSys_Log(this.CurrUser, newWorkPost.WorkPostCode, newWorkPost.WorkPostId, BLL.Const.WorkPostMenuId, BLL.Const.BtnDelete);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行
             BindGrid();
-            PageContext.RegisterStartupScript(String.Format("F('{0}').selectRow('{1}');", Grid1.ClientID, depart.WorkPostId));
+            PageContext.RegisterStartupScript(String.Format("F('{0}').selectRow('{1}');", Grid1.ClientID, newWorkPost.WorkPostId));
         }
 
         #region 获取按钮权限

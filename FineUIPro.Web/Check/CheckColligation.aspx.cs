@@ -234,10 +234,16 @@ namespace FineUIPro.Web.Check
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString().Split(',')[0];
-                    BLL.Check_CheckColligationDetailService.DeleteCheckColligationDetails(rowID);
-                    BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "删除综合检查信息", rowID);
-                    BLL.Check_CheckColligationService.DeleteCheckColligation(rowID);
+                    var getV = BLL.Check_CheckColligationService.GetCheckColligationByCheckColligationId(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.CheckColligationCode, getV.CheckColligationId, BLL.Const.ProjectCheckColligationMenuId, BLL.Const.BtnDelete);
+                        BLL.Check_CheckColligationDetailService.DeleteCheckColligationDetails(rowID);
+                        
+                        BLL.Check_CheckColligationService.DeleteCheckColligation(rowID);
+                    }
                 }
+
                 BindGrid();
                 ShowNotify("删除数据成功!（表格数据已重新绑定）");
             }
@@ -264,6 +270,7 @@ namespace FineUIPro.Web.Check
                     this.btnNew.Hidden = false;
                     this.btnCompletedDate.Hidden = false;
                     this.btnMenuRectify.Hidden = false;
+                    this.btnPrint.Hidden = false;
                 }
                 if (buttonList.Contains(BLL.Const.BtnModify))
                 {
@@ -434,5 +441,15 @@ namespace FineUIPro.Web.Check
             return sb.ToString();
         }
         #endregion
+
+        protected void btnPrint_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckColligationPrint.aspx?CheckColligationId={0}", Grid1.SelectedRowID.Split(',')[0], "打印 - ")));
+        }
     }
 }

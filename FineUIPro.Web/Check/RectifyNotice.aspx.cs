@@ -295,32 +295,37 @@ namespace FineUIPro.Web.Check
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.RectifyNoticesService.DeleteRectifyNoticesById(rowID);
-                    Model.Check_CheckDayDetail dayDetail = (from x in Funs.DB.Check_CheckDayDetail
-                                                            where x.RectifyNoticeId == rowID
-                                                            select x).FirstOrDefault();
-                    Model.Check_CheckSpecialDetail specialDetail = (from x in Funs.DB.Check_CheckSpecialDetail
-                                                                    where x.RectifyNoticeId == rowID
-                                                                    select x).FirstOrDefault();
-                    Model.Check_CheckColligationDetail colligationDetail = (from x in Funs.DB.Check_CheckColligationDetail
-                                                                            where x.RectifyNoticeId == rowID
-                                                                            select x).FirstOrDefault();
-                    if (dayDetail != null)
+                    var RectifyNotices = BLL.RectifyNoticesService.GetRectifyNoticesById(rowID);
+                    if (RectifyNotices != null)
                     {
-                        dayDetail.RectifyNoticeId = null;
-                        Funs.DB.SubmitChanges();
+
+                        BLL.LogService.AddSys_Log(this.CurrUser, RectifyNotices.RectifyNoticesCode, rowID, BLL.Const.ProjectRectifyNoticeMenuId, BLL.Const.BtnDelete);
+                        BLL.RectifyNoticesService.DeleteRectifyNoticesById(rowID);
+                        Model.Check_CheckDayDetail dayDetail = (from x in Funs.DB.Check_CheckDayDetail
+                                                                where x.RectifyNoticeId == rowID
+                                                                select x).FirstOrDefault();
+                        Model.Check_CheckSpecialDetail specialDetail = (from x in Funs.DB.Check_CheckSpecialDetail
+                                                                        where x.RectifyNoticeId == rowID
+                                                                        select x).FirstOrDefault();
+                        Model.Check_CheckColligationDetail colligationDetail = (from x in Funs.DB.Check_CheckColligationDetail
+                                                                                where x.RectifyNoticeId == rowID
+                                                                                select x).FirstOrDefault();
+                        if (dayDetail != null)
+                        {
+                            dayDetail.RectifyNoticeId = null;
+                            Funs.DB.SubmitChanges();
+                        }
+                        else if (specialDetail != null)
+                        {
+                            specialDetail.RectifyNoticeId = null;
+                            Funs.DB.SubmitChanges();
+                        }
+                        else if (colligationDetail != null)
+                        {
+                            colligationDetail.RectifyNoticeId = null;
+                            Funs.DB.SubmitChanges();
+                        }
                     }
-                    else if (specialDetail != null)
-                    {
-                        specialDetail.RectifyNoticeId = null;
-                        Funs.DB.SubmitChanges();
-                    }
-                    else if (colligationDetail != null)
-                    {
-                        colligationDetail.RectifyNoticeId = null;
-                        Funs.DB.SubmitChanges();
-                    }
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除隐患整改通知单", rowID);
                 }
                 BindGrid();
                 ShowNotify("删除数据成功!（表格数据已重新绑定）");
@@ -346,6 +351,7 @@ namespace FineUIPro.Web.Check
                 if (buttonList.Contains(BLL.Const.BtnAdd))
                 {
                     this.btnNew.Hidden = false;
+                    this.btnPrint.Hidden = false;
                 }
                 if (buttonList.Contains(BLL.Const.BtnModify))
                 {
@@ -422,5 +428,15 @@ namespace FineUIPro.Web.Check
             return sb.ToString();
         }
         #endregion
+
+        protected void btnPrint_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticePrint.aspx?RectifyNoticeId={0}", Grid1.SelectedRowID, "打印 - ")));
+        }
     }
 }

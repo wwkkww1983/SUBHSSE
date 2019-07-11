@@ -47,6 +47,13 @@ namespace BLL
 
             db.EduTrain_TrainRecordDetail.InsertOnSubmit(newTrainDetail);
             db.SubmitChanges();
+
+            var rainRecord = EduTrain_TrainRecordService.GetTrainingByTrainingId(trainDetail.TrainingId);
+            if (rainRecord != null)
+            {
+                rainRecord.TrainPersonNum += 1;
+                BLL.EduTrain_TrainRecordService.UpdateTraining(rainRecord);
+            }
         }
 
         /// <summary>
@@ -92,6 +99,13 @@ namespace BLL
             {
                 db.EduTrain_TrainRecordDetail.DeleteOnSubmit(trainDetails);
                 db.SubmitChanges();
+
+                var rainRecord = EduTrain_TrainRecordService.GetTrainingByTrainingId(trainDetails.TrainingId);
+                if (rainRecord != null)
+                {
+                    rainRecord.TrainPersonNum -= 1;
+                    BLL.EduTrain_TrainRecordService.UpdateTraining(rainRecord);
+                }
             }
         }
 

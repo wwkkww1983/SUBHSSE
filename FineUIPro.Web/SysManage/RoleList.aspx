@@ -40,23 +40,23 @@
                 </Toolbars>
                 <Columns>
                     <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center"/>                   
-                    <f:RenderField Width="150px" ColumnID="RoleName" DataField="RoleName" EnableFilter="true"
+                    <f:RenderField Width="140px" ColumnID="RoleName" DataField="RoleName" EnableFilter="true"
                         SortField="RoleName" FieldType="String" HeaderText="角色名称" HeaderTextAlign="Center"
                         TextAlign="Left">                      
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="RoleTypeName" DataField="RoleTypeName" 
+                    <f:RenderField Width="90px" ColumnID="RoleTypeName" DataField="RoleTypeName" 
                         SortField="RoleTypeName" FieldType="String" HeaderText="角色类型" HeaderTextAlign="Center"
-                        TextAlign="Center">                       
+                        TextAlign="Left">                       
                     </f:RenderField>
-                    <f:RenderField Width="400px" ColumnID="AuthorizedRoleNames" DataField="AuthorizedRoleNames" 
+                    <f:RenderField Width="400px" ColumnID="AuthorizedRoleNames" DataField="AuthorizedRoleNames"  ExpandUnusedSpace="true"
                         SortField="AuthorizedRoleNames" FieldType="String" HeaderText="可授权角色" HeaderTextAlign="Center"
                         TextAlign="Left">                       
                     </f:RenderField>                                       
-                    <f:CheckBoxField Width="75px" RenderAsStaticField="true" TextAlign="Center"  DataField="IsAuditFlow" HeaderText="参与审批" />
-                    <f:RenderField  ColumnID="Def" DataField="Def" SortField="Def" FieldType="String"
-                        HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
+                    <f:CheckBoxField Width="80px" RenderAsStaticField="true" TextAlign="Center"  DataField="IsAuditFlow" HeaderText="参与审批" />
+                    <f:CheckBoxField Width="75px" RenderAsStaticField="true" TextAlign="Center"  DataField="IsSystemBuilt" HeaderText="内置" />
+                    <f:RenderField  ColumnID="Def" DataField="Def" SortField="Def" FieldType="String" Width="80px"
+                        HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left" >
                     </f:RenderField>
-                    <f:CheckBoxField Width="75px" RenderAsStaticField="true" TextAlign="Center"  DataField="IsSystemBuilt" HeaderText="系统内置" />
                 </Columns>
                 <Listeners>
                     <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
@@ -87,7 +87,7 @@
             runat="server" Text="编辑" Hidden ="true" Icon="TableEdit">
         </f:MenuButton>       
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"  Icon="Delete"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除" Hidden ="true">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除" Hidden ="true">
         </f:MenuButton>        
     </f:Menu>
     </form>

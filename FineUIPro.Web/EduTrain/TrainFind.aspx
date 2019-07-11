@@ -30,20 +30,25 @@
                         <Items>  
                             <f:CheckBoxList runat="server" ID="cbIssue" ShowLabel="false" Width="130px" LabelAlign="Right"
                                 OnSelectedIndexChanged="Text_OnTextChanged" AutoPostBack="true">
-                                <f:CheckItem Text="未通过" Value="0"  />
-                                <f:CheckItem Text="通过" Value="1" Selected="true"/>
+                                <f:CheckItem Text="不合格" Value="0"  />
+                                <f:CheckItem Text="合格" Value="1" Selected="true"/>
                             </f:CheckBoxList>                      
-                             <f:TextBox ID="txtPersonName" runat="server" Label="人员姓名" AutoPostBack="true" OnTextChanged="Text_OnTextChanged" LabelWidth="70px" Width="180px">
+                             <f:TextBox ID="txtPersonName" runat="server" Label="姓名" 
+                                 AutoPostBack="true" OnTextChanged="Text_OnTextChanged" LabelWidth="50px" Width="130px">
                             </f:TextBox>
-                            <f:DropDownList ID="drpUnitId" runat="server" Label="所属单位" AutoPostBack="true" OnSelectedIndexChanged="Text_OnTextChanged"  LabelWidth="70px" Width="250px">
-                            </f:DropDownList>
-                            <f:DropDownList ID="drpTrainType" Label="培训类别" LabelAlign="right" EnableEdit="true"
-                                runat="server" AutoPostBack="true" OnSelectedIndexChanged="Text_OnTextChanged"  LabelWidth="70px" Width="210px">
-                            </f:DropDownList>
+                            <f:DropDownList ID="drpUnitId" runat="server" Label="单位" AutoPostBack="true" 
+                                OnSelectedIndexChanged="Text_OnTextChanged" LabelWidth="50px" Width="280px">
+                            </f:DropDownList>                            
                             <f:TextBox ID="txtTeachMan" runat="server" Label="授课人" LabelAlign="right" AutoPostBack="true"
-                                OnTextChanged="Text_OnTextChanged"  LabelWidth="70px" Width="210px">
+                                OnTextChanged="Text_OnTextChanged"  LabelWidth="70px" Width="150px">
                             </f:TextBox>
-                            <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>
+                            <f:DropDownList ID="drpTrainType" Label="培训类别" LabelAlign="right" EnableEdit="true"
+                                runat="server" AutoPostBack="true" OnSelectedIndexChanged="Text_OnTextChanged"  LabelWidth="80px" Width="180px">
+                            </f:DropDownList>
+                             <f:DropDownList ID="drpTrainLevel" runat="server" Label="级别" Width="130px" LabelWidth="50px" LabelAlign="Right"
+                                AutoPostBack="true" OnSelectedIndexChanged="Text_OnTextChanged">
+                            </f:DropDownList>
+                             <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>
                             <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
                                 EnableAjax="false" DisableControlBeforePostBack="false">
                             </f:Button>
@@ -56,12 +61,12 @@
                             <asp:Label ID="labNumber" runat="server" Text=' <%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1%>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>                   
-                    <f:RenderField Width="100px" ColumnID="CardNo" DataField="CardNo" SortField="CardNo"
+                    <f:RenderField Width="80px" ColumnID="CardNo" DataField="CardNo" SortField="CardNo"
                         FieldType="String" HeaderText="卡号" EnableFilter="true" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="80px" ColumnID="PersonName" DataField="PersonName" SortField="PersonName"
-                        FieldType="String" HeaderText="人员姓名" EnableFilter="true" HeaderTextAlign="Center"
+                        FieldType="String" HeaderText="姓名" EnableFilter="true" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
                     <f:TemplateField Width="200px" ColumnID="tfUnitName" HeaderText="所属单位" HeaderTextAlign="Center" TextAlign="Left">
@@ -74,24 +79,29 @@
                             <asp:Label ID="lbWorkPostName" runat="server" Text='<%# Bind("WorkPostName") %>' ToolTip='<%#Bind("WorkPostName") %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:TemplateField Width="130px" ColumnID="tfTrainTypeName" HeaderText="培训类别" HeaderTextAlign="Center" TextAlign="Left">
-                        <ItemTemplate>
-                            <asp:Label ID="lbTrainTypeName" runat="server" Text='<%# Bind("TrainTypeName") %>' ToolTip='<%#Bind("TrainTypeName") %>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>
-                    <f:TemplateField Width="160px" ColumnID="tfTrainTitle" HeaderText="培训标题" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
+                     <f:TemplateField Width="170px" ColumnID="tfTrainTitle" HeaderText="培训标题" HeaderTextAlign="Center" TextAlign="Left">
                         <ItemTemplate>
                             <asp:Label ID="lbTrainTitle" runat="server" Text='<%# Bind("TrainTitle") %>' ToolTip='<%#Bind("TrainTitle") %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="90px" ColumnID="TrainStartDate" DataField="TrainStartDate"
+                    <f:TemplateField Width="110px" ColumnID="tfTrainTypeName" HeaderText="培训类别" HeaderTextAlign="Center" TextAlign="Left">
+                        <ItemTemplate>
+                            <asp:Label ID="lbTrainTypeName" runat="server" Text='<%# Bind("TrainTypeName") %>' ToolTip='<%#Bind("TrainTypeName") %>'></asp:Label>
+                        </ItemTemplate>
+                    </f:TemplateField>
+                    <f:TemplateField Width="80px" ColumnID="tfTrainLevelName" HeaderText="培训类别" HeaderTextAlign="Center" TextAlign="Left">
+                        <ItemTemplate>
+                            <asp:Label ID="lbTrainLevelName" runat="server" Text='<%# Bind("TrainLevelName") %>' ToolTip='<%#Bind("TrainLevelName") %>'></asp:Label>
+                        </ItemTemplate>
+                    </f:TemplateField>                   
+                    <f:RenderField Width="100px" ColumnID="TrainStartDate" DataField="TrainStartDate"
                         SortField="TrainStartDate" FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd"
                         HeaderText="培训日期" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="60px" ColumnID="TeachHour" DataField="TeachHour" SortField="TeachHour"
                         FieldType="Float" HeaderText="学时" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="TeachMan" DataField="TeachMan" SortField="TeachMan"
+                    <f:RenderField Width="80px" ColumnID="TeachMan" DataField="TeachMan" SortField="TeachMan"
                         FieldType="String" HeaderText="授课人" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:TemplateField Width="80px" ColumnID="tfCheckResult" HeaderText="考核结果" HeaderTextAlign="Center" TextAlign="Left">

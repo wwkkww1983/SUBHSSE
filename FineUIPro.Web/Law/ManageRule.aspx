@@ -121,7 +121,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="编辑安全管理规定" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="1024px" Height="650px">
     </f:Window>
     <f:Window ID="Window2" Title="上传资源" Hidden="true" EnableIFrame="true" EnableMaximize="true"
@@ -133,7 +133,7 @@
         Width="1024px" Height="500px">
     </f:Window>
     <f:Window ID="Window5" Title="选择需要导出的列" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window5_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window5_Close" IsModal="true"
         Width="350px" Height="180px" EnableAjax="false">
     </f:Window>
     <f:Window ID="Window6" Title="编辑内容" Hidden="true" EnableIFrame="true" EnableMaximize="true"
@@ -149,7 +149,7 @@
             runat="server" Text="编辑" Hidden="true" Icon="TableEdit">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" Icon="Delete"
-            ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server" Text="删除" Hidden="true">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除" Hidden="true">
         </f:MenuButton>
     </f:Menu>
     </form>

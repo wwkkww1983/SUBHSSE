@@ -187,7 +187,7 @@ namespace FineUIPro.Web.Technique
                     }
                 }
 
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "审核专项方案");
+                BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.SpecialSchemeMenuId, Const.BtnAuditing);
                 BindGrid();
                 ShowNotify("操作成功!");
                 if (isPass)
@@ -254,11 +254,13 @@ namespace FineUIPro.Web.Technique
                         BLL.SpecialSchemeService.UpdateSpecialSchemeList(specialScheme);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【专项方案】上报到集团公司" + idList.Count.ToString() + "条数据；");
+
+                BLL.LogService.AddSys_Log(this.CurrUser, "【专项方案】上报到集团公司" + idList.Count.ToString() + "条数据；", string.Empty, BLL.Const.SpecialSchemeMenuId, Const.BtnUploadResources);
+                
             }
             else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【专项方案】上报到集团公司失败；");
+            {                
+                BLL.LogService.AddSys_Log(this.CurrUser, "【专项方案】上报到集团公司失败；", string.Empty, BLL.Const.SpecialSchemeMenuId, Const.BtnUploadResources);
             }
         }
         #endregion

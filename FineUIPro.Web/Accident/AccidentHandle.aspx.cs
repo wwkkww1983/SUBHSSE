@@ -53,7 +53,7 @@ namespace FineUIPro.Web.Accident
                           + @"AccidentHandle.States,"
                           + @"AccidentHandle.CompileMan,"
                           + @"AccidentHandle.CompileDate,Unit.UnitName,"
-                          + @"(CASE WHEN AccidentHandle.States = " + BLL.Const.State_0 + " OR AccidentHandle.States IS NULL THEN '待['+OperateUser.UserName+']提交' WHEN AccidentHandle.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
+                          + @"(CASE WHEN AccidentHandle.States = " + BLL.Const.State_0 + " OR AccidentHandle.States IS NULL THEN '待['+ISNULL(OperateUser.UserName,Users.UserName)+']提交' WHEN AccidentHandle.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
                           + @" FROM Accident_AccidentHandle AS AccidentHandle "
                           + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON AccidentHandle.AccidentHandleId = CodeRecords.DataId "
                           + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON AccidentHandle.AccidentHandleId = FlowOperate.DataId AND FlowOperate.IsClosed <> 1"
@@ -130,13 +130,12 @@ namespace FineUIPro.Web.Accident
         }
         #endregion
 
-        #region 查询
         /// <summary>
         /// 查询
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void TextBox_TextChanged(object sender, EventArgs e)
+        protected void btnQuery_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(this.txtStartDate.Text.Trim()) && !string.IsNullOrEmpty(this.txtEndDate.Text.Trim()))
             {
@@ -147,8 +146,9 @@ namespace FineUIPro.Web.Accident
                 }
             }
             this.BindGrid();
+
+            BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ProjectAccidentHandleMenuId, Const.BtnQuery);
         }
-        #endregion
 
         #region 编辑
         /// <summary>
@@ -210,10 +210,15 @@ namespace FineUIPro.Web.Accident
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除HSE事故(含未遂)处理");
-                    BLL.NoFourLetoffService.DeleteNoFourLetoffByAccidentHandleId(rowID);
-                    BLL.AccidentHandleService.DeleteAccidentHandleById(rowID);
-                }  
+                    var getV = BLL.NoFourLetoffService.GetNoFourLetoffByAccidentHandleId(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.NoFourLetoffCode, getV.AccidentHandleId, BLL.Const.ProjectAccidentHandleMenuId, Const.BtnDelete);
+                        BLL.NoFourLetoffService.DeleteNoFourLetoffByAccidentHandleId(rowID);
+                        BLL.AccidentHandleService.DeleteAccidentHandleById(rowID);
+                    }
+                }
+
                 this.BindGrid();
                 ShowNotify("删除数据成功!", MessageBoxIcon.Success);
             }

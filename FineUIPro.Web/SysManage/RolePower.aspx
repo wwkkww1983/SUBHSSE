@@ -85,7 +85,7 @@
             <f:Region ID="Region2" ShowBorder="true" ShowHeader="true" RegionPosition="Center"
                  BodyPadding="0 5 0 0" Layout="Fit" runat="server" Title="菜单按钮树">
                 <Items>
-                    <f:Tree ID="tvMenu" EnableCollapse="true" ShowHeader="false" Title="系统菜单" 
+                    <f:Tree ID="tvMenu" EnableCollapse="true" ShowHeader="false" Title="系统菜单"  EnableCheckBox="true"
                             AutoLeafIdentification="true" runat="server" EnableIcons ="true" AutoScroll="true"
                              EnableSingleClickExpand ="true" OnNodeCheck="tvMenu_NodeCheck" >
                      </f:Tree>

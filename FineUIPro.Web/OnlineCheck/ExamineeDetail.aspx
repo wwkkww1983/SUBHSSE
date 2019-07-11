@@ -22,7 +22,7 @@
         <Items>
             <f:Grid runat="server" AllowCellEditing="false" ClicksToEdit="1" DataIDField="ExamineeDetailId" 
                 EnableColumnLines="True" EnableRowLines="True" DataKeyNames="ExamineeDetailId"  Height="445px"
-                ShowHeader="False" AutoScroll="True" ID="Grid1" EnableMultiSelect="false" OnRowDataBound="Grid1_RowDataBound" EnableTextSelection="True">
+                ShowHeader="False"  ID="Grid1" EnableMultiSelect="false" OnRowDataBound="Grid1_RowDataBound" EnableTextSelection="True">
                 <Columns>
                     <f:RenderField ID="RenderField1" runat="server"  FieldType="String"
                         DataField="TestCode" ColumnID="TestCode" HeaderText="试卷题号" Width="100px" TextAlign="Center"

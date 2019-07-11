@@ -1,11 +1,11 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
-using System.Web.UI;
+using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Text;
-using System.Data.SqlClient;
-using System.Data;
-using BLL;
+using System.Web.UI;
 
 namespace FineUIPro.Web.Technique
 {
@@ -131,10 +131,15 @@ namespace FineUIPro.Web.Technique
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, isShow))
                     {
-                        BLL.Technique_EnvironmentalService.DeleteEnvironmental(rowID);
+                        var getV = BLL.Technique_EnvironmentalService.GetEnvironmental(rowID);
+                        if (getV != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getV.Code, getV.EnvironmentalId, BLL.Const.CompanyEnvironmentalMenuId, Const.BtnDelete);
+                            BLL.Technique_EnvironmentalService.DeleteEnvironmental(rowID);
+                        }
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除公司环境因素危险源");
+
                 BindGrid();
                 //ShowNotify("删除数据成功!");
             }
@@ -436,6 +441,7 @@ namespace FineUIPro.Web.Technique
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
             this.BindGrid();
+            BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.CompanyEnvironmentalMenuId, Const.BtnQuery);
         }
         #endregion
 

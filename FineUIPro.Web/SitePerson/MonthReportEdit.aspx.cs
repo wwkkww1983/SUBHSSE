@@ -158,8 +158,9 @@ namespace FineUIPro.Web.SitePerson
                 {
                     monthReport.States = this.ctlAuditFlow.NextStep;
                 }
-                BLL.SitePerson_MonthReportService.UpdateMonthReport(monthReport);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改人工时月报", monthReport.MonthReportId);
+
+                BLL.LogService.AddSys_Log(this.CurrUser, null, monthReport.MonthReportId, BLL.Const.ProjectMonthReportMenuId, BLL.Const.BtnModify);
+                BLL.SitePerson_MonthReportService.UpdateMonthReport(monthReport);               
                 ////保存流程审核数据         
                 this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectMonthReportMenuId, this.MonthReportId, (type == BLL.Const.BtnSubmit ? true : false), this.txtCompileDate.Text.Trim(), "../SitePerson/MonthReportView.aspx?MonthReportId={0}");
             }

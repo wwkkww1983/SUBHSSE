@@ -143,10 +143,10 @@ namespace FineUIPro.Web.ManagementReport
             row["Id"] = 0;
             row["ProjectCode"] = "本部管理";
             row["ProjectName"] = "各项目综合";
-            row["ManHours1"] = monthReports.Sum(x => x.Manhours ?? 0);
-            row["SafeManHours1"] = monthReports.Sum(x => x.HseManhours ?? 0);
+            row["ManHours1"] = monthReports.Sum(x => x.Manhours) ?? 0;
+            row["SafeManHours1"] = monthReports.Sum(x => x.HseManhours) ?? 0;
             row["Check1"] = Funs.GetNewIntOrZero(row["ManHours1"].ToString()) == Funs.GetNewIntOrZero(row["SafeManHours1"].ToString()) ? "相同" : "不同";
-            row["ManCount1"] = monthReports.Sum(x => x.TotalManNum ?? 0);
+            row["ManCount1"] = monthReports.Sum(x => x.TotalManNum) ?? 0;
             decimal totalWorkNum = 0;
             foreach (var millionsMonthlyReportItem in millionsMonthlyReportItems)
             {

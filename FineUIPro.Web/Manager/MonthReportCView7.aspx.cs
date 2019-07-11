@@ -88,6 +88,7 @@ namespace FineUIPro.Web.Manager
                 {
                     this.MonthReportId = monthReport.MonthReportId;
                     this.ProjectId = monthReport.ProjectId;
+                    months = Convert.ToDateTime(monthReport.Months);
                     Model.SUBHSSEDB db = Funs.DB;
                     //7.1 管理绩效数据统计(表一)
                     accidentDesciptions = (from x in db.Manager_Month_AccidentDesciptionC where x.MonthReportId == MonthReportId orderby x.SortIndex select x).ToList();

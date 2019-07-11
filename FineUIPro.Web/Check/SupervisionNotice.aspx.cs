@@ -292,9 +292,14 @@ namespace FineUIPro.Web.Check
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.SupervisionNoticeService.DeleteSupervisionNoticeById(rowID);
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除监理整改通知单", rowID);
+                    var SupervisionNotice = BLL.SupervisionNoticeService.GetSupervisionNoticeById(rowID);
+                    if (SupervisionNotice != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, SupervisionNotice.SupervisionNoticeCode, SupervisionNotice.SupervisionNoticeId, BLL.Const.ProjectSupervisionNoticeMenuId, BLL.Const.BtnDelete);
+                        BLL.SupervisionNoticeService.DeleteSupervisionNoticeById(rowID);
+                    }
                 }
+
                 BindGrid();
                 ShowNotify("删除数据成功!（表格数据已重新绑定）");
             }

@@ -142,14 +142,14 @@ namespace FineUIPro.Web.Administrative
             {
                 carManager.CarManagerId = this.CarManagerId;
                 BLL.CarManagerService.UpdateCarManager(carManager);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改现场车辆管理", carManager.CarManagerId);
+                BLL.LogService.AddSys_Log(this.CurrUser, carManager.CarManagerCode, carManager.CarManagerId, BLL.Const.CarManagerMenuId,BLL.Const.BtnModify);
             }
             else
             {
                 this.CarManagerId = SQLHelper.GetNewID(typeof(Model.Administrative_CarManager));
                 carManager.CarManagerId = this.CarManagerId;
                 BLL.CarManagerService.AddCarManager(carManager);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改现场车辆管理", carManager.CarManagerId);
+                BLL.LogService.AddSys_Log(this.CurrUser, carManager.CarManagerCode, carManager.CarManagerId, BLL.Const.CarManagerMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.CarManagerMenuId, this.CarManagerId, (type == BLL.Const.BtnSubmit ? true : false), carManager.CarName, "../Administrative/CarManagerView.aspx?CarManagerId={0}");

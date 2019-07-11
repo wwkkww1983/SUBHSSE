@@ -22,6 +22,17 @@ namespace BLL
             return Funs.DB.Check_ProjectCheckItemSet.FirstOrDefault(e => e.CheckItemSetId == checkItemSetId);
         }
 
+
+        /// <summary>
+        /// 根据检测名称获取项目检查项
+        /// </summary>
+        /// <param name="checkItemSetId"></param>
+        /// <returns></returns>
+        public static Model.Check_ProjectCheckItemSet GetCheckItemSetByCheckItemName(string checkItemName)
+        {
+            return Funs.DB.Check_ProjectCheckItemSet.FirstOrDefault(e => e.CheckItemName == checkItemName);
+        }
+
         /// <summary>
         /// 根据主键获取顶级检查项名称
         /// </summary>

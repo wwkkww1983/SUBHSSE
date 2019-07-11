@@ -160,14 +160,14 @@ namespace FineUIPro.Web.Manager
             {
                 managerTotal.ManagerTotalId = this.ManagerTotalId;
                 BLL.ManagerTotalService.UpdateManagerTotal(managerTotal);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "修改管理工作总结");
+                BLL.LogService.AddSys_Log(this.CurrUser, managerTotal.ManagerTotalCode, managerTotal.ManagerTotalId, BLL.Const.ProjectManagerTotalMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.ManagerTotalId = SQLHelper.GetNewID(typeof(Model.Manager_ManagerTotal));
                 managerTotal.ManagerTotalId = this.ManagerTotalId;
                 BLL.ManagerTotalService.AddManagerTotal(managerTotal);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "添加管理工作总结");
+                BLL.LogService.AddSys_Log(this.CurrUser, managerTotal.ManagerTotalCode, managerTotal.ManagerTotalId, BLL.Const.ProjectManagerTotalMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectManagerTotalMenuId, this.ManagerTotalId, (type == BLL.Const.BtnSubmit ? true : false), managerTotal.ManagerTotalName, "../Manager/ManagerTotalView.aspx?ManagerTotalId={0}");

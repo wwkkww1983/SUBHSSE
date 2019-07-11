@@ -135,14 +135,14 @@ namespace FineUIPro.Web.SafetyActivities
             {
                 newOtherActivities.OtherActivitiesId = this.OtherActivitiesId;
                 BLL.OtherActivitiesService.UpdateOtherActivities(newOtherActivities);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改其他安全活动", newOtherActivities.OtherActivitiesId);
+                BLL.LogService.AddSys_Log(this.CurrUser, newOtherActivities.Title, newOtherActivities.OtherActivitiesId, BLL.Const.ProjectOtherActivitiesMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.OtherActivitiesId = SQLHelper.GetNewID(typeof(Model.SafetyActivities_OtherActivities));
                 newOtherActivities.OtherActivitiesId = this.OtherActivitiesId;
                 BLL.OtherActivitiesService.AddOtherActivities(newOtherActivities);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加其他安全活动", newOtherActivities.OtherActivitiesId);
+                BLL.LogService.AddSys_Log(this.CurrUser, newOtherActivities.Title, newOtherActivities.OtherActivitiesId, BLL.Const.ProjectOtherActivitiesMenuId, BLL.Const.BtnAdd);
             }
         }
         #endregion

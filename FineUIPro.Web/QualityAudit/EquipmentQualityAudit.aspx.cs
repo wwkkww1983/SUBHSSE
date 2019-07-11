@@ -87,9 +87,14 @@ namespace FineUIPro.Web.QualityAudit
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.EquipmentQualityAuditDetailService.DeleteEquipmentQualityAuditDetailById(rowID);
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除特种设备资质审查记录", rowID);
+                    var detail = BLL.EquipmentQualityAuditDetailService.GetEquipmentQualityAuditDetailById(rowID);
+                    if (detail != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, null, detail.AuditDetailId, BLL.Const.EquipmentQualityMenuId, BLL.Const.BtnModify);
+                        BLL.EquipmentQualityAuditDetailService.DeleteEquipmentQualityAuditDetailById(rowID);
+                    }
                 }
+
                 List<Model.View_QualityAudit_EquipmentQualityAuditDetail> details = (from x in Funs.DB.View_QualityAudit_EquipmentQualityAuditDetail
                                                                                      where x.ProjectId == this.CurrUser.LoginProjectId && x.EquipmentQualityId == Request.Params["EquipmentQualityId"]
                                                                                    orderby x.AuditDate descending

@@ -203,7 +203,7 @@ namespace FineUIPro.Web.Solution
             {
                 constructSolution.ConstructSolutionId = this.ConstructSolutionId;
                 BLL.ConstructSolutionService.UpdateConstructSolution(constructSolution);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改施工方案/审查", constructSolution.ConstructSolutionId);
+                BLL.LogService.AddSys_Log(this.CurrUser, constructSolution.ConstructSolutionCode, constructSolution.ConstructSolutionId, BLL.Const.ProjectConstructSolutionMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -211,7 +211,7 @@ namespace FineUIPro.Web.Solution
                 this.ConstructSolutionId = SQLHelper.GetNewID(typeof(Model.Solution_ConstructSolution));
                 constructSolution.ConstructSolutionId = this.ConstructSolutionId;
                 BLL.ConstructSolutionService.AddConstructSolution(constructSolution);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加施工方案/审查", constructSolution.ConstructSolutionId);
+                BLL.LogService.AddSys_Log(this.CurrUser, constructSolution.ConstructSolutionCode, constructSolution.ConstructSolutionId, BLL.Const.ProjectConstructSolutionMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectConstructSolutionMenuId, this.ConstructSolutionId, (type == BLL.Const.BtnSubmit ? true : false), constructSolution.ConstructSolutionName, "../Solution/ConstructSolutionView.aspx?ConstructSolutionId={0}");

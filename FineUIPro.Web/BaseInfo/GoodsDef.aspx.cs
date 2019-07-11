@@ -106,12 +106,15 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            BLL.GoodsDefService.DeleteGoodsDefById(hfFormID.Text);
-            BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除物资类别");
-            // 重新绑定表格，并模拟点击[新增按钮]
-            BindGrid();
-            PageContext.RegisterStartupScript("onNewButtonClick();");
-
+            var goodsDef = BLL.GoodsDefService.GetGoodsDefById(hfFormID.Text);
+            if (goodsDef != null)
+            {
+                BLL.LogService.AddSys_Log(this.CurrUser, goodsDef.GoodsDefCode, goodsDef.GoodsDefId, BLL.Const.GoodsDefMenuId, BLL.Const.BtnDelete);
+                BLL.GoodsDefService.DeleteGoodsDefById(hfFormID.Text);
+                // 重新绑定表格，并模拟点击[新增按钮]
+                BindGrid();
+                PageContext.RegisterStartupScript("onNewButtonClick();");
+            }
         }
 
         /// <summary>
@@ -134,9 +137,12 @@ namespace FineUIPro.Web.BaseInfo
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-
-                    BLL.GoodsDefService.DeleteGoodsDefById(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除物资类别");
+                    var goodsDef= BLL.GoodsDefService.GetGoodsDefById(rowID);
+                    if (goodsDef != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, goodsDef.GoodsDefCode, goodsDef.GoodsDefId, BLL.Const.GoodsDefMenuId, BLL.Const.BtnDelete);
+                        BLL.GoodsDefService.DeleteGoodsDefById(rowID);
+                    }
                 }
 
                 BindGrid();
@@ -204,13 +210,13 @@ namespace FineUIPro.Web.BaseInfo
             {
                 goodsDef.GoodsDefId = SQLHelper.GetNewID(typeof(Model.Base_GoodsDef));
                 BLL.GoodsDefService.AddGoodsDef(goodsDef);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加物资名称");
+                BLL.LogService.AddSys_Log(this.CurrUser, goodsDef.GoodsDefCode, goodsDef.GoodsDefId, BLL.Const.GoodsDefMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 goodsDef.GoodsDefId = strRowID;
                 BLL.GoodsDefService.UpdateGoodsDef(goodsDef);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改物资名称");
+                BLL.LogService.AddSys_Log(this.CurrUser, goodsDef.GoodsDefCode, goodsDef.GoodsDefId, BLL.Const.GoodsDefMenuId, BLL.Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行

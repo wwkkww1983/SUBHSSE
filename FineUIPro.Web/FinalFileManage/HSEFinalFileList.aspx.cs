@@ -186,12 +186,16 @@ namespace FineUIPro.Web.FinalFileManage
         protected void btnMenuDelete_Click(object sender, EventArgs e)
         {
             if (Grid1.SelectedRowIndexArray.Length > 0)
-            {               
+            {
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除已定稿文件", rowID);
-                    BLL.HSEFinalFileListService.DeleteHSEFinalFileListById(rowID);
+                    var HSEFinalFileList = BLL.HSEFinalFileListService.GetHSEFinalFileListById(rowID);
+                    if (HSEFinalFileList != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, HSEFinalFileList.FileCode, HSEFinalFileList.FileId, BLL.Const.HSEFinalFileListMenuId, BLL.Const.BtnDelete);
+                        BLL.HSEFinalFileListService.DeleteHSEFinalFileListById(rowID);
+                    }
                 }
 
                 this.BindGrid();

@@ -1,12 +1,10 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
+using System.Linq;
 using System.Web.UI.WebControls;
-using BLL;
 
 namespace FineUIPro.Web.Check
 {
@@ -37,9 +35,13 @@ namespace FineUIPro.Web.Check
 
             this.Grid1.DataSource = null;
             this.Grid1.DataBind();
-            string strSql = @"select * from Check_ProjectCheckItemDetail where CheckItemSetId=@CheckItemSetId";
-            List<SqlParameter> listStr = new List<SqlParameter>();
-            listStr.Add(new SqlParameter("@CheckItemSetId", this.tvCheckItemSet.SelectedNodeID));
+            string strSql = @"SELECT CheckItemDetailId,CheckItemSetId,CheckContent,SortIndex,IsBuiltIn "
+                        + @" FROM Check_ProjectCheckItemDetail "
+                        + @" WHERE CheckItemSetId=@CheckItemSetId";
+            List<SqlParameter> listStr = new List<SqlParameter>
+            {
+                new SqlParameter("@CheckItemSetId", this.tvCheckItemSet.SelectedNodeID)
+            };
             if (!string.IsNullOrEmpty(Request.Params["CheckDayId"]))
             {
                 List<Model.View_Check_CheckDayDetail> details = (from x in Funs.DB.View_Check_CheckDayDetail where x.CheckDayId == Request.Params["CheckDayId"] select x).ToList();
@@ -168,15 +170,28 @@ namespace FineUIPro.Web.Check
         {
             this.tvCheckItemSet.Nodes.Clear();
             this.tvCheckItemSet.SelectedNodeID = string.Empty;
-            TreeNode rootNode = new TreeNode
+            var checks = (from x in Funs.DB.Check_ProjectCheckItemSet
+                         where x.CheckType == Request.Params["checkType"] && x.ProjectId == this.CurrUser.LoginProjectId                       
+                         select x).ToList();
+            if (checks.Count() > 0)
             {
-                Text = "检查项",
-                Expanded = true,
-                NodeID = "0"
-            };//定义根节点
+                var supChecks = checks.Where(x => x.SupCheckItem == "0").OrderBy(x=>x.SortIndex).ToList();
+                if (supChecks.Count() > 0)
+                {
+                    foreach (var item in supChecks)
+                    {
+                        TreeNode rootNode = new TreeNode
+                        {
+                            Text = item.CheckItemName,
+                            NodeID = item.CheckItemSetId,
+                            EnableClickEvent = true,
+                        };//定义根节点
 
-            this.tvCheckItemSet.Nodes.Add(rootNode);
-            this.GetNodes(rootNode.Nodes, null);
+                        this.tvCheckItemSet.Nodes.Add(rootNode);
+                        this.GetNodes(rootNode.Nodes, checks.Where(x=>x.SupCheckItem== item.CheckItemSetId).ToList());
+                    }
+                }
+            }
         }
 
         #region  遍历节点方法
@@ -185,19 +200,9 @@ namespace FineUIPro.Web.Check
         /// </summary>
         /// <param name="nodes">节点集合</param>
         /// <param name="parentId">父节点</param>
-        private void GetNodes(TreeNodeCollection nodes, string parentId)
-        {
-            List<Model.Check_ProjectCheckItemSet> checkItemSet = null;
-            if (parentId == null)
-            {
-                checkItemSet = (from x in BLL.Funs.DB.Check_ProjectCheckItemSet where x.SupCheckItem == "0" && x.CheckType == Request.Params["checkType"] && x.ProjectId == this.CurrUser.LoginProjectId orderby x.SortIndex select x).ToList();
-            }
-            else
-            {
-                checkItemSet = (from x in BLL.Funs.DB.Check_ProjectCheckItemSet where x.SupCheckItem == parentId && x.CheckType == Request.Params["checkType"] && x.ProjectId == this.CurrUser.LoginProjectId orderby x.SortIndex select x).ToList();
-            }
-
-            foreach (var q in checkItemSet)
+        private void GetNodes(TreeNodeCollection nodes, List<Model.Check_ProjectCheckItemSet> checkItemSetLists)
+        {            
+            foreach (var q in checkItemSetLists)
             {
                 var isEnd = BLL.Check_ProjectCheckItemSetService.IsEndLevel(q.CheckItemSetId);
                 TreeNode newNode = new TreeNode
@@ -205,14 +210,12 @@ namespace FineUIPro.Web.Check
                     Text = q.CheckItemName,
                     NodeID = q.CheckItemSetId,
                     EnableClickEvent = true,
-                    EnableCheckBox = true
                 };
                 nodes.Add(newNode);
-            }
-
-            for (int i = 0; i < nodes.Count; i++)
-            {
-                GetNodes(nodes[i].Nodes, nodes[i].NodeID);
+                if (!isEnd)
+                {
+                    GetNodes(newNode.Nodes, checkItemSetLists.Where(x => x.SupCheckItem == q.CheckItemSetId).ToList());
+                }
             }
         }
         #endregion
@@ -326,6 +329,14 @@ namespace FineUIPro.Web.Check
                     {
                         detail.CheckContent = checkItemDetail.CheckContent;
                     }
+                    else
+                    {
+                        var projectCheckItemDetail = BLL.Check_ProjectCheckItemDetailService.GetCheckItemDetailById(item);
+                        if (projectCheckItemDetail != null)
+                        {
+                            detail.CheckContent = projectCheckItemDetail.CheckContent;
+                        }
+                    }
                     detail.Unqualified = "隐患";
                     detail.Suggestions = "整改";
                     detail.CompleteStatus = true;
@@ -346,6 +357,14 @@ namespace FineUIPro.Web.Check
                     if (checkItemDetail != null)
                     {
                         detail.CheckContent = checkItemDetail.CheckContent;
+                    }
+                    else
+                    {
+                        var projectCheckItemDetail = BLL.Check_ProjectCheckItemDetailService.GetCheckItemDetailById(item);
+                        if (projectCheckItemDetail != null)
+                        {
+                            detail.CheckContent = projectCheckItemDetail.CheckContent;
+                        }
                     }
                     detail.Unqualified = "隐患";
                     detail.Suggestions = "整改";
@@ -368,6 +387,14 @@ namespace FineUIPro.Web.Check
                     {
                         detail.CheckContent = checkItemDetail.CheckContent;
                     }
+                    else
+                    {
+                        var projectCheckItemDetail = BLL.Check_ProjectCheckItemDetailService.GetCheckItemDetailById(item);
+                        if (projectCheckItemDetail != null)
+                        {
+                            detail.CheckContent = projectCheckItemDetail.CheckContent;
+                        }
+                    }
                     detail.Unqualified = "隐患";
                     detail.Suggestions = "整改";
                     detail.CompleteStatus = true;
@@ -382,15 +409,25 @@ namespace FineUIPro.Web.Check
                     {
                         CheckWorkDetailId = SQLHelper.GetNewID(typeof(Model.Check_CheckWorkDetail)),
                         CheckWorkId = Request.Params["CheckWorkId"],
-                        CheckItem = item
+                        CheckItem = item,
+                        CheckResult = "合格",
                     };
+
                     Model.Check_ProjectCheckItemDetail checkItemDetail = BLL.Check_ProjectCheckItemDetailService.GetCheckItemDetailById(item);
                     if (checkItemDetail != null)
                     {
                         detail.CheckContent = checkItemDetail.CheckContent;
+                        detail.SortIndex = checkItemDetail.SortIndex;
                     }
-                    detail.CheckResult = "隐患";
-                    detail.CheckOpinion = "整改";
+                    else
+                    {
+                        var projectCheckItemDetail = BLL.Check_ProjectCheckItemDetailService.GetCheckItemDetailById(item);
+                        if (projectCheckItemDetail != null)
+                        {
+                            detail.CheckContent = projectCheckItemDetail.CheckContent;
+                            detail.SortIndex = projectCheckItemDetail.SortIndex;
+                        }
+                    }
                     BLL.Check_CheckWorkDetailService.AddCheckWorkDetail(detail);
                 }
             }
@@ -402,15 +439,23 @@ namespace FineUIPro.Web.Check
                     {
                         CheckHolidayDetailId = SQLHelper.GetNewID(typeof(Model.Check_CheckHolidayDetail)),
                         CheckHolidayId = Request.Params["CheckHolidayId"],
-                        CheckItem = item
+                        CheckItem = item,
+                        CheckResult = "合格",
                     };
                     Model.Check_ProjectCheckItemDetail checkItemDetail = BLL.Check_ProjectCheckItemDetailService.GetCheckItemDetailById(item);
                     if (checkItemDetail != null)
                     {
                         detail.CheckContent = checkItemDetail.CheckContent;
                     }
-                    detail.CheckResult = "隐患";
-                    detail.CheckOpinion = "整改";
+                    else
+                    {
+                        var projectCheckItemDetail = BLL.Check_ProjectCheckItemDetailService.GetCheckItemDetailById(item);
+                        if (projectCheckItemDetail != null)
+                        {
+                            detail.CheckContent = projectCheckItemDetail.CheckContent;
+                        }
+                    }
+                    
                     BLL.Check_CheckHolidayDetailService.AddCheckHolidayDetail(detail);
                 }
             }
@@ -430,6 +475,14 @@ namespace FineUIPro.Web.Check
                     {
                         detail.CheckContent = checkItemSet.CheckItemName;
                     }
+                    else
+                    {
+                        var projectCheckItemDetail = BLL.Check_ProjectCheckItemDetailService.GetCheckItemDetailById(item);
+                        if (projectCheckItemDetail != null)
+                        {
+                            detail.CheckContent = projectCheckItemDetail.CheckContent;
+                        }
+                    }
                     detail.Unqualified = "隐患";
                     detail.Suggestions = "整改";
                     detail.CompleteStatus = true;
@@ -450,6 +503,14 @@ namespace FineUIPro.Web.Check
                     if (checkItemSet != null)
                     {
                         detail.CheckContent = checkItemSet.CheckItemName;
+                    }
+                    else
+                    {
+                        var projectCheckItemDetail = BLL.Check_ProjectCheckItemDetailService.GetCheckItemDetailById(item);
+                        if (projectCheckItemDetail != null)
+                        {
+                            detail.CheckContent = projectCheckItemDetail.CheckContent;
+                        }
                     }
                     detail.Unqualified = "隐患";
                     detail.Suggestions = "整改";
@@ -472,6 +533,14 @@ namespace FineUIPro.Web.Check
                     {
                         detail.CheckContent = checkItemSet.CheckItemName;
                     }
+                    else
+                    {
+                        var projectCheckItemDetail = BLL.Check_ProjectCheckItemDetailService.GetCheckItemDetailById(item);
+                        if (projectCheckItemDetail != null)
+                        {
+                            detail.CheckContent = projectCheckItemDetail.CheckContent;
+                        }
+                    }
                     detail.Unqualified = "隐患";
                     detail.Suggestions = "整改";
                     detail.CompleteStatus = true;
@@ -488,12 +557,20 @@ namespace FineUIPro.Web.Check
                         CheckWorkId = Request.Params["CheckWorkId"],
                         CheckItem = item
                     };
-                    Model.Check_ProjectCheckItemSet checkItemSet = BLL.Check_ProjectCheckItemSetService.GetCheckItemSetById(item);
+                    var  checkItemSet = BLL.Check_ProjectCheckItemSetService.GetCheckItemSetById(item);
                     if (checkItemSet != null)
                     {
                         detail.CheckContent = checkItemSet.CheckItemName;
                     }
-                    detail.CheckResult = "隐患";
+                    else
+                    {
+                        var projectCheckItemDetail = BLL.Check_ProjectCheckItemDetailService.GetCheckItemDetailById(item);
+                        if (projectCheckItemDetail != null)
+                        {
+                            detail.CheckContent = projectCheckItemDetail.CheckContent;
+                        }
+                    }
+                    detail.CheckResult = "合格";
                     detail.CheckOpinion = "整改";
                     BLL.Check_CheckWorkDetailService.AddCheckWorkDetail(detail);
                 }
@@ -513,7 +590,7 @@ namespace FineUIPro.Web.Check
                     {
                         detail.CheckContent = checkItemSet.CheckItemName;
                     }
-                    detail.CheckResult = "隐患";
+                    detail.CheckResult = "合格";
                     detail.CheckOpinion = "整改";
                     BLL.Check_CheckHolidayDetailService.AddCheckHolidayDetail(detail);
                 }

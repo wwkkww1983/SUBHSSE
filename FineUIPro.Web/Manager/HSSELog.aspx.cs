@@ -183,9 +183,9 @@ namespace FineUIPro.Web.Manager
                     if (hsseLog != null)
                     {
                         hsseLog.IsVisible = false;
+                        BLL.LogService.AddSys_Log(this.CurrUser, null, hsseLog.HSSELogId, BLL.Const.ProjectHSSELogMenuId, BLL.Const.BtnDelete);
                         BLL.HSSELogService.UpdateHSSELog(hsseLog);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除HSSE日志暨管理数据收集");
-                    }                    
+                    }                                    
                 }
 
                 this.BindGrid();
@@ -232,53 +232,54 @@ namespace FineUIPro.Web.Manager
         /// <param name="e"></param>
         protected void btnOut_Click(object sender, EventArgs e)
         {
-            Response.ClearContent();
-            string filename = Funs.GetNewFileName();
-            Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("HSSE日志暨管理数据收集" + filename, System.Text.Encoding.UTF8) + ".xls");
-            Response.ContentType = "application/excel";
-            Response.ContentEncoding = System.Text.Encoding.UTF8;
-            this.Grid1.PageSize = 500;
-            this.BindGrid();
-            Response.Write(GetGridTableHtml(Grid1));
-            Response.End();
+            PageContext.RegisterStartupScript(Window3.GetShowReference(String.Format("HSELogStatistics.aspx", "导出 - ")));
+            //Response.ClearContent();
+            //string filename = Funs.GetNewFileName();
+            //Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("HSSE日志暨管理数据收集" + filename, System.Text.Encoding.UTF8) + ".xls");
+            //Response.ContentType = "application/excel";
+            //Response.ContentEncoding = System.Text.Encoding.UTF8;
+            //this.Grid1.PageSize = 500;
+            //this.BindGrid();
+            //Response.Write(GetGridTableHtml(Grid1));
+            //Response.End();
         }
 
-        /// <summary>
-        /// 导出方法
-        /// </summary>
-        /// <param name="grid"></param>
-        /// <returns></returns>
-        private string GetGridTableHtml(Grid grid)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
-            sb.Append("<table cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;\">");
-            sb.Append("<tr>");
-            foreach (GridColumn column in grid.Columns)
-            {
-                sb.AppendFormat("<td>{0}</td>", column.HeaderText);
-            }
-            sb.Append("</tr>");
-            foreach (GridRow row in grid.Rows)
-            {
-                sb.Append("<tr>");
-                foreach (GridColumn column in grid.Columns)
-                {
-                    string html = row.Values[column.ColumnIndex].ToString();
-                    if (column.ColumnID == "tfNumber")
-                    {
-                        html = (row.FindControl("lblNumber") as AspNet.Label).Text;
-                    }
-                    sb.AppendFormat("<td>{0}</td>", html);
-                }
+        ///// <summary>
+        ///// 导出方法
+        ///// </summary>
+        ///// <param name="grid"></param>
+        ///// <returns></returns>
+        //private string GetGridTableHtml(Grid grid)
+        //{
+        //    StringBuilder sb = new StringBuilder();
+        //    sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
+        //    sb.Append("<table cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;\">");
+        //    sb.Append("<tr>");
+        //    foreach (GridColumn column in grid.Columns)
+        //    {
+        //        sb.AppendFormat("<td>{0}</td>", column.HeaderText);
+        //    }
+        //    sb.Append("</tr>");
+        //    foreach (GridRow row in grid.Rows)
+        //    {
+        //        sb.Append("<tr>");
+        //        foreach (GridColumn column in grid.Columns)
+        //        {
+        //            string html = row.Values[column.ColumnIndex].ToString();
+        //            if (column.ColumnID == "tfNumber")
+        //            {
+        //                html = (row.FindControl("lblNumber") as AspNet.Label).Text;
+        //            }
+        //            sb.AppendFormat("<td>{0}</td>", html);
+        //        }
 
-                sb.Append("</tr>");
-            }
+        //        sb.Append("</tr>");
+        //    }
 
-            sb.Append("</table>");
+        //    sb.Append("</table>");
 
-            return sb.ToString();
-        }
+        //    return sb.ToString();
+        //}
         #endregion
 
         #region 打印

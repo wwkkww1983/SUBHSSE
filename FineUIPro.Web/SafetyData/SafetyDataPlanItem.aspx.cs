@@ -74,6 +74,7 @@ namespace FineUIPro.Web.SafetyData
                                  where x.ProjectId == this.ProjectId
                                  orderby x.CheckDate
                                  select x;
+           
             if (safetyDataPlan.Count() > 0)
             {
                 DateTime minCheckDate = safetyDataPlan.Where(x => x.CheckDate.HasValue).Select(x => x.CheckDate.Value).Min();
@@ -120,8 +121,6 @@ namespace FineUIPro.Web.SafetyData
             if (!IsPostBack)
             {
                 ////权限按钮方法
-                this.GetButtonPower();
-                ////权限按钮方法
                 //this.ProjectId = Request.Params["projectId"];               
                 //this.InitGrid();
                 // 绑定表格              
@@ -152,12 +151,17 @@ namespace FineUIPro.Web.SafetyData
             table.Columns.Add(new DataColumn("Code", typeof(String)));
             table.Columns.Add(new DataColumn("Title", typeof(String)));
             table.Columns.Add(new DataColumn("Score", typeof(decimal)));
-            var safetyDataPlan = from x in Funs.DB.View_SafetyData_SafetyDataPlan                               
+            var safetyDataPlan = (from x in Funs.DB.View_SafetyData_SafetyDataPlan                               
                                  where x.ProjectId == this.ProjectId
                                  orderby x.CheckDate
-                                 select x;
+                                 select x).ToList();
+            if (!string.IsNullOrEmpty(this.txtTitle.Text.Trim()))
+            {
+                safetyDataPlan = safetyDataPlan.Where(x => x.Code.Contains(this.txtTitle.Text.Trim()) || x.Title.Contains(this.txtTitle.Text.Trim())).ToList();
+            }
             DateTime minCheckDate = System.DateTime.Now;
-            DateTime maxCheckDate = System.DateTime.Now;
+            DateTime maxCheckDate = System.DateTime.Now;            
+           
             if (safetyDataPlan.Count() > 0)
             {
                  minCheckDate = safetyDataPlan.Where(x => x.CheckDate.HasValue).Select(x => x.CheckDate.Value).Min();
@@ -224,6 +228,16 @@ namespace FineUIPro.Web.SafetyData
         /// <param name="e"></param>
         protected void Window1_Close(object sender, EventArgs e)
         {          
+            this.BindGrid();
+        }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void TextBox_TextChanged(object sender, EventArgs e)
+        {
             this.BindGrid();
         }
 
@@ -294,49 +308,5 @@ namespace FineUIPro.Web.SafetyData
             return sb.ToString();
         }
         #endregion
-
-        #region 获取按钮权限
-        /// <summary>
-        /// 获取按钮权限
-        /// </summary>
-        /// <param name="button"></param>
-        /// <returns></returns>
-        private void GetButtonPower()
-        {
-            if (Request.Params["value"] == "0")
-            {
-                return;
-            }
-            string menuId = BLL.Const.ServerSafetyDataPlanMenuId;
-            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, menuId);
-            if (buttonList.Count() > 0)
-            {
-                if (buttonList.Contains(BLL.Const.BtnDelete))
-                {
-                    this.btnDelete.Hidden = false;
-                    this.btnAdd.Hidden = false;
-                }
-            }
-        }
-        #endregion
-
-        /// <summary>
-        /// 删除当前项目不考核项
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnDelete_Click(object sender, EventArgs e)
-        {
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("SafetyDataPlanItemDelete.aspx?ProjectId={0}", this.ProjectId, "删除考核项 - ")));
-        }   
-        /// <summary>
-        /// 恢复当前项目不考核项
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnAdd_Click(object sender, EventArgs e)
-        {
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("SafetyDataPlanItemAdd.aspx?ProjectId={0}", this.ProjectId, "恢复考核项 - ")));
-        }
     }
 }

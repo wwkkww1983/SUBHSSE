@@ -58,6 +58,7 @@ namespace BLL
                 newProjectRecord.ProjectId = projectRecord.ProjectId;
                 newProjectRecord.ProjectRecordCode = projectRecord.ProjectRecordCode;
                 newProjectRecord.ProjectRecordName = projectRecord.ProjectRecordName;
+                newProjectRecord.UnitId = projectRecord.UnitId;
                 newProjectRecord.Remark = projectRecord.Remark;
                 newProjectRecord.CompileMan = projectRecord.CompileMan;
                 newProjectRecord.CompileDate = projectRecord.CompileDate;

@@ -56,11 +56,11 @@
                             <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="220px" ColumnID="MonthReportCode" DataField="MonthReportCode"
+                    <f:RenderField Width="200px" ColumnID="MonthReportCode" DataField="MonthReportCode"
                         SortField="MonthReportCode" FieldType="String" HeaderText="编号" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="140px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
+                    <f:RenderField Width="120px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM" HeaderText="月报月份"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
@@ -88,7 +88,7 @@
                                 ToolTip='<%# ConvertTotalPersonWorkTimeSum(Eval("CompileDate")) %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="150px" ColumnID="FlowOperateName" DataField="FlowOperateName" ExpandUnusedSpace="true"
+                    <f:RenderField Width="160px" ColumnID="FlowOperateName" DataField="FlowOperateName" ExpandUnusedSpace="true"
                         SortField="FlowOperateName" FieldType="String" HeaderText="状态" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
@@ -115,7 +115,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="人工时月报" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="1200px" Height="800px">
+        Width="1200px" Height="620px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuModify" EnablePostBack="true" runat="server" Hidden="true"

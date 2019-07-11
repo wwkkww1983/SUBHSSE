@@ -205,13 +205,13 @@ namespace FineUIPro.Web.Technique
                 environmental.EnvironmentalId = SQLHelper.GetNewID(typeof(Model.Technique_Environmental));
                 EnvironmentalId = environmental.EnvironmentalId;
                 BLL.Technique_EnvironmentalService.AddEnvironmental(environmental);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加环境因素危险源");
+                BLL.LogService.AddSys_Log(this.CurrUser, environmental.Code, environmental.EnvironmentalId, BLL.Const.EnvironmentalMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 environmental.EnvironmentalId = this.EnvironmentalId;
                 BLL.Technique_EnvironmentalService.UpdateEnvironmental(environmental);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改环境因素危险源");
+                BLL.LogService.AddSys_Log(this.CurrUser, environmental.Code, environmental.EnvironmentalId,BLL.Const.EnvironmentalMenuId,BLL.Const.BtnModify);
             }
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }

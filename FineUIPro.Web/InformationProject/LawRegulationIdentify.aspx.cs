@@ -214,9 +214,14 @@ namespace FineUIPro.Web.InformationProject
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string LawRegulationIdentifyId = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LawRegulationSelectedItemService.DeleteLawRegulationSelectedItemByLawRegulationIdentifyId(LawRegulationIdentifyId);
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除法律法规辨识", LawRegulationIdentifyId);
-                    BLL.LawRegulationIdentifyService.DeleteLawRegulationIdentify(LawRegulationIdentifyId);
+
+                    var lawRegulationIdentify = BLL.LawRegulationIdentifyService.GetLawRegulationIdentifyByLawRegulationIdentifyId(LawRegulationIdentifyId);
+                    if (lawRegulationIdentify != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, lawRegulationIdentify.LawRegulationIdentifyCode, lawRegulationIdentify.LawRegulationIdentifyId, BLL.Const.LawRegulationIdentifyMenuId, BLL.Const.BtnDelete);
+                        BLL.LawRegulationSelectedItemService.DeleteLawRegulationSelectedItemByLawRegulationIdentifyId(LawRegulationIdentifyId);
+                        BLL.LawRegulationIdentifyService.DeleteLawRegulationIdentify(LawRegulationIdentifyId);
+                    }
                 }
 
                 BindGrid();

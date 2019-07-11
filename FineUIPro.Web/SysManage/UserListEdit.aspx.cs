@@ -25,6 +25,20 @@ namespace FineUIPro.Web.SysManage
                 ViewState["UserId"] = value;
             }
         }
+        /// <summary>
+        /// 单位主键
+        /// </summary>
+        public string UnitId
+        {
+            get
+            {
+                return (string)ViewState["UnitId"];
+            }
+            set
+            {
+                ViewState["UnitId"] = value;
+            }
+        }
         #endregion
 
         /// <summary>
@@ -40,12 +54,18 @@ namespace FineUIPro.Web.SysManage
                 ///权限
                 this.GetButtonPower();
                 this.UserId = Request.Params["userId"];
+                this.UnitId = Request.Params["UnitId"];
                 BLL.ConstValue.InitConstValueDropDownList(this.drpIsPost, ConstValue.Group_0001, false);
                 BLL.ConstValue.InitConstValueDropDownList(this.drpIsOffice, ConstValue.Group_0001, false);
                 BLL.UnitService.InitUnitDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, true);
                 if (!string.IsNullOrEmpty(this.CurrUser.UnitId))
                 {
                     this.drpUnit.SelectedValue = this.CurrUser.UnitId;
+                }
+                if (!string.IsNullOrEmpty(this.UnitId))
+                {
+                    this.drpUnit.SelectedValue = this.UnitId;
+                    this.drpIsOffice.SelectedValue= "False";
                 }
                 if (!BLL.CommonService.IsMainUnitOrAdmin(this.CurrUser.UserId)) ///不是企业单位或者管理员
                 {
@@ -142,14 +162,15 @@ namespace FineUIPro.Web.SysManage
             {
                 newUser.Password = Funs.EncryptionPassword(Const.Password);
                 newUser.UserId = SQLHelper.GetNewID(typeof(Model.Sys_User));
+                newUser.DataSources = this.CurrUser.LoginProjectId;
                 BLL.UserService.AddUser(newUser);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加用户信息");
+                BLL.LogService.AddSys_Log(this.CurrUser, newUser.UserCode, newUser.UserId, BLL.Const.UserMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 newUser.UserId = this.UserId;
                 BLL.UserService.UpdateUser(newUser);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改用户信息");
+                BLL.LogService.AddSys_Log(this.CurrUser, newUser.UserCode, newUser.UserId, BLL.Const.UserMenuId, BLL.Const.BtnModify);
             }
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }

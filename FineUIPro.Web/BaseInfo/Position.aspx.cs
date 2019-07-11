@@ -106,12 +106,16 @@ namespace FineUIPro.Web.BaseInfo
         /// <param name="e"></param>
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            BLL.PositionService.DeletePositionById(hfFormID.Text);
-            BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除职务信息");
-            // 重新绑定表格，并模拟点击[新增按钮]
-            BindGrid();
-            PageContext.RegisterStartupScript("onNewButtonClick();");
-
+            var getD = BLL.PositionService.GetPositionById(hfFormID.Text);
+            if (getD != null)
+            {
+                BLL.LogService.AddSys_Log(this.CurrUser, getD.PositionCode, getD.PositionId,BLL.Const.PositionMenuId,BLL.Const.BtnDelete);
+                BLL.PositionService.DeletePositionById(hfFormID.Text);
+               
+                // 重新绑定表格，并模拟点击[新增按钮]
+                BindGrid();
+                PageContext.RegisterStartupScript("onNewButtonClick();");
+            }
         }
 
         /// <summary>
@@ -134,9 +138,12 @@ namespace FineUIPro.Web.BaseInfo
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-
-                    BLL.PositionService.DeletePositionById(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除职务信息");
+                    var getD = BLL.PositionService.GetPositionById(rowID);
+                    if (getD != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getD.PositionCode, getD.PositionId, BLL.Const.PositionMenuId, BLL.Const.BtnDelete);
+                        BLL.PositionService.DeletePositionById(rowID);
+                    }
                 }
 
                 BindGrid();
@@ -198,13 +205,13 @@ namespace FineUIPro.Web.BaseInfo
             {
                 position.PositionId = SQLHelper.GetNewID(typeof(Model.Base_Position));
                 BLL.PositionService.AddPosition(position);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加职务信息");
+                BLL.LogService.AddSys_Log(this.CurrUser, position.PositionCode, position.PositionId, BLL.Const.PositionMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 position.PositionId = strRowID;
                 BLL.PositionService.UpdatePosition(position);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改职务信息");
+                BLL.LogService.AddSys_Log(this.CurrUser, position.PositionCode, position.PositionId, BLL.Const.PositionMenuId, BLL.Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行

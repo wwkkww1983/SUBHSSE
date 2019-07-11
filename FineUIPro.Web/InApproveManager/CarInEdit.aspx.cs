@@ -157,14 +157,14 @@ namespace FineUIPro.Web.InApproveManager
             {
                 carIn.CarInId = this.CarInId;
                 BLL.CarInService.UpdateCarIn(carIn);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改特种车辆入场报批",carIn.CarInId);
+                BLL.LogService.AddSys_Log(this.CurrUser, carIn.CarNum, carIn.CarInId,BLL.Const.CarInMenuId,BLL.Const.BtnModify);
             }
             else
             {
                 this.CarInId = SQLHelper.GetNewID(typeof(Model.InApproveManager_CarIn));
                 carIn.CarInId = this.CarInId;
                 BLL.CarInService.AddCarIn(carIn);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加特种车辆入场报批", carIn.CarInId);
+                BLL.LogService.AddSys_Log(this.CurrUser, carIn.CarNum, carIn.CarInId, BLL.Const.CarInMenuId, BLL.Const.BtnAdd);
             }
             BLL.CarInItemService.DeleteCarInItemByCarInId(this.CarInId);
             Model.InApproveManager_CarInItem carInItem = new Model.InApproveManager_CarInItem

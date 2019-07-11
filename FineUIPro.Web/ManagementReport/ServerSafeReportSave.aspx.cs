@@ -155,19 +155,20 @@ namespace FineUIPro.Web.ManagementReport
             if (type == BLL.Const.BtnSubmit)
             {
                 newSafeReport.States = BLL.Const.State_1;
+                this.UpdateSupSafeReportStates(this.SupSafeReportId); ///更新父级节点状态
             }
 
             if (String.IsNullOrEmpty(this.SafeReportId))
             {
                 this.SafeReportId = newSafeReport.SafeReportId = SQLHelper.GetNewID(typeof(Model.Manager_SafeReport));
                 BLL.SafeReportService.AddSafeReport(newSafeReport);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加安全文件上报类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, newSafeReport.SafeReportCode, newSafeReport.SafeReportId,BLL.Const.ServerSafeReportMenuId,BLL.Const.BtnAdd);
             }
             else
             {
                 newSafeReport.SafeReportId = this.SafeReportId;
                 BLL.SafeReportService.UpdateSafeReport(newSafeReport);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改安全文件上报类型");
+                BLL.LogService.AddSys_Log(this.CurrUser, newSafeReport.SafeReportCode, newSafeReport.SafeReportId, BLL.Const.ServerSafeReportMenuId, BLL.Const.BtnModify);
             }
             
             ////如果是末级节点则自动生成明细表
@@ -187,19 +188,33 @@ namespace FineUIPro.Web.ManagementReport
             var SafeReportItem = Funs.DB.Manager_SafeReportItem.FirstOrDefault(x => x.SafeReportId == this.SafeReportId);
             if (SafeReportItem == null)
             {
-                //var units = BLL.UnitService.GetUnitDropDownListNoThisUnit();
-                //if (units != null)
-                //{
-                //    foreach (var unitItem in units)
-                //    {
-                //        Model.Manager_SafeReportItem newSafeReportItem = new Model.Manager_SafeReportItem();
-                //        newSafeReportItem.SafeReportItemId = SQLHelper.GetNewID(typeof(Model.Manager_SafeReportItem));
-                //        newSafeReportItem.SafeReportId = this.SafeReportId;
-                //        newSafeReportItem.UnitId = unitItem.UnitId;
-                //        newSafeReportItem.State = BLL.Const.ReportState_0;
-                //        BLL.SafeReportItemService.AddSafeReportItem(newSafeReportItem);
-                //    }
-                //}
+                var projects = BLL.ProjectService.GetProjectWorkList(); ///施工中的项目
+                if (projects.Count() > 0)
+                {
+                    foreach (var project in projects)
+                    {
+                        Model.Manager_SafeReportItem newSafeReportItem = new Model.Manager_SafeReportItem();
+                        newSafeReportItem.SafeReportItemId = SQLHelper.GetNewID(typeof(Model.Manager_SafeReportItem));
+                        newSafeReportItem.SafeReportId = this.SafeReportId;
+                        newSafeReportItem.ProjectId = project.ProjectId;
+                        newSafeReportItem.States = BLL.Const.State_0;
+                        BLL.SafeReportItemService.AddSafeReportItem(newSafeReportItem);
+                    }
+                }
+
+                var units = BLL.UnitService.GetBranchUnitList(); ///分公司
+                if (units.Count() > 0)
+                {
+                    foreach (var unitItem in units)
+                    {
+                        Model.Manager_SafeReportUnitItem newSafeReportUnitItem = new Model.Manager_SafeReportUnitItem();
+                        newSafeReportUnitItem.SafeReportUnitItemId = SQLHelper.GetNewID(typeof(Model.Manager_SafeReportUnitItem));
+                        newSafeReportUnitItem.SafeReportId = this.SafeReportId;
+                        newSafeReportUnitItem.UnitId = unitItem.UnitId;
+                        newSafeReportUnitItem.States = BLL.Const.State_0;
+                        BLL.SafeReportUnitItemService.AddSafeReportUnitItem(newSafeReportUnitItem);
+                    }
+                }
             }
         }
         #endregion
@@ -240,11 +255,39 @@ namespace FineUIPro.Web.ManagementReport
             {
                 this.SaveData(BLL.Const.BtnSave);
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ServerSafeReportAttachUrl&menuId={1}", this.SafeReportId, BLL.Const.ServerSafeReportMenuId)));
+            if (this.btnSave.Hidden)
+            {
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ServerSafeReportAttachUrl&menuId={1}&type=-1", this.SafeReportId, BLL.Const.ServerSafeReportMenuId)));
+            }
+            else
+            {
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ServerSafeReportAttachUrl&menuId={1}", this.SafeReportId, BLL.Const.ServerSafeReportMenuId)));
+            }
         }
         #endregion
 
         #region 更新父级为已提交状态
+        /// <summary>
+        /// 子级提交父级状态一并更新
+        /// </summary>
+        /// <param name="supSafeReportId"></param>
+        private void UpdateSupSafeReportStates(string supSafeReportId)
+        {
+            if (supSafeReportId != "0")
+            {
+                var supSafeReport = BLL.SafeReportService.GetSafeReportBySafeReportId(supSafeReportId);
+                if (supSafeReport != null)
+                {
+                    if (supSafeReport.States == BLL.Const.State_0)
+                    {
+                        supSafeReport.States = BLL.Const.State_1;
+                        BLL.SafeReportService.UpdateSafeReport(supSafeReport);
+                        this.UpdateSupSafeReportStates(supSafeReport.SupSafeReportId);
+                    }
+                }
+            }
+        }
+
         #endregion
     }
 }

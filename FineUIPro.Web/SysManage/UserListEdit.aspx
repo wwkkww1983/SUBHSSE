@@ -45,8 +45,9 @@
                     </f:DropDownList>
                     <f:DropDownList ID="drpRole" runat="server" Label="角色" EnableEdit="true" ForceSelection="false">
                     </f:DropDownList>
+                    
                 </Items>
-            </f:FormRow>          
+            </f:FormRow>             
         </Rows>
         <Toolbars>
             <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">

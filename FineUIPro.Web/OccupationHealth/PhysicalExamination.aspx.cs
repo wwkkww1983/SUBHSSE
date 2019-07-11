@@ -188,12 +188,16 @@ namespace FineUIPro.Web.OccupationHealth
         protected void btnMenuDelete_Click(object sender, EventArgs e)
         {
             if (Grid1.SelectedRowIndexArray.Length > 0)
-            {               
+            {
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除体检管理");
-                    BLL.PhysicalExaminationService.DeletePhysicalExaminationById(rowID);
+                    var getD = BLL.PhysicalExaminationService.GetPhysicalExaminationById(rowID);
+                    if (getD != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getD.FileCode, getD.FileId, BLL.Const.ServerPhysicalExaminationMenuId, BLL.Const.BtnDelete);
+                        BLL.PhysicalExaminationService.DeletePhysicalExaminationById(rowID);
+                    }
                 }
 
                 this.BindGrid();

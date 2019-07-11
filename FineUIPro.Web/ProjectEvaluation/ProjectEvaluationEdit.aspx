@@ -32,7 +32,7 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TabStrip ID="TabStrip1" Width="850px" Height="480px" ShowBorder="true" TabPosition="Top"
+                    <f:TabStrip ID="TabStrip1" Width="850px" Height="380px" ShowBorder="true" TabPosition="Top"
                         EnableTabCloseMenu="false" runat="server">
                         <Tabs>
                             <f:Tab ID="Tab1" Title="模式一" BodyPadding="5px" Layout="Fit" runat="server">
@@ -41,7 +41,7 @@
                                         <Items>
                                             <f:FormRow>
                                                 <Items>
-                                                    <f:TextArea ID="txtEvaluationDef" runat="server" Label="评价描述" MaxLength="3000" Height="350">
+                                                    <f:TextArea ID="txtEvaluationDef" runat="server" Label="评价描述" MaxLength="3000" Height="230">
                                                     </f:TextArea>
                                                 </Items>
                                             </f:FormRow>

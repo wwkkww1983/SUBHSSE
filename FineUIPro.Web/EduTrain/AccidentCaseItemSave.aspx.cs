@@ -45,22 +45,14 @@ namespace FineUIPro.Web.EduTrain
             {
                 this.GetButtonPower();
                 LoadData();
-
-                this.AccidentCaseId = Request.QueryString["AccidentCaseId"];
-                if (!string.IsNullOrEmpty(this.AccidentCaseId))
-                {
-                    var accidentCase = BLL.AccidentCaseService.GetAccidentCaseById(this.AccidentCaseId);
-                    if (accidentCase != null)
-                    {
-                        this.txtAccidentCaseName.Text = accidentCase.AccidentCaseName;
-                    }
-                }
                 this.AccidentCaseItemId = Request.QueryString["AccidentCaseItemId"];
+                this.AccidentCaseId = Request.QueryString["AccidentCaseId"];
                 if (!String.IsNullOrEmpty(this.AccidentCaseItemId))
                 {
                     var q = BLL.AccidentCaseItemService.GetAccidentCaseItemById(this.AccidentCaseItemId);
                     if (q != null)
                     {
+                        this.AccidentCaseId = q.AccidentCaseId;
                         this.txtActivities.Text = q.Activities;
                         this.txtAccidentName.Text = q.AccidentName;
                         this.txtAccidentProfiles.Text = q.AccidentProfiles;
@@ -73,6 +65,16 @@ namespace FineUIPro.Web.EduTrain
                                 this.txtAccidentCaseName.Text = accidentCase.AccidentCaseName;
                             }
                         }
+                    }
+                }
+
+               
+                if (!string.IsNullOrEmpty(this.AccidentCaseId))
+                {
+                    var accidentCase = BLL.AccidentCaseService.GetAccidentCaseById(this.AccidentCaseId);
+                    if (accidentCase != null)
+                    {
+                        this.txtAccidentCaseName.Text = accidentCase.AccidentCaseName;
                     }
                 }
             }
@@ -108,7 +110,7 @@ namespace FineUIPro.Web.EduTrain
                 AccidentCaseItemId = accidentCaseItem.AccidentCaseItemId;
                 accidentCaseItem.AccidentCaseId = this.AccidentCaseId;
                 BLL.AccidentCaseItemService.AddAccidentCaseItem(accidentCaseItem);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加事故案例库");
+                BLL.LogService.AddSys_Log(this.CurrUser, accidentCaseItem.AccidentName, accidentCaseItem.AccidentCaseItemId, BLL.Const.AccidentCaseMenuId, BLL.Const.BtnAdd);
             }
             else
             {
@@ -119,7 +121,7 @@ namespace FineUIPro.Web.EduTrain
                     accidentCaseItem.AccidentCaseId = t.AccidentCaseId;
                 }
                 BLL.AccidentCaseItemService.UpdateAccidentCaseItem(accidentCaseItem);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改事故案例库");
+                BLL.LogService.AddSys_Log(this.CurrUser, accidentCaseItem.AccidentName, accidentCaseItem.AccidentCaseItemId, BLL.Const.AccidentCaseMenuId, BLL.Const.BtnModify);
             }
             // 2. 关闭本窗体，然后刷新父窗体
             // PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
@@ -195,11 +197,11 @@ namespace FineUIPro.Web.EduTrain
                         BLL.AccidentCaseItemService.UpdateAccidentCaseItemIsPass(accidentCaseItem);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【事故案例明细】上报到集团公司" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【事故案例明细】上报到集团公司" + idList.Count.ToString() + "条数据；", null, BLL.Const.AccidentCaseMenuId, BLL.Const.BtnUploadResources);                
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【事故案例明细】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【事故案例明细】上报到集团公司失败；", null, BLL.Const.AccidentCaseMenuId, BLL.Const.BtnUploadResources);
             }
         }
         #endregion
@@ -210,6 +212,10 @@ namespace FineUIPro.Web.EduTrain
         /// </summary>
         private void GetButtonPower()
         {
+            if(Request.Params["value"] == "0")
+            {
+                return;
+            }
             var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.AccidentCaseMenuId);
             if (buttonList.Count() > 0)
             {

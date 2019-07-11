@@ -406,7 +406,7 @@ namespace FineUIPro.Web.Information
                     accidentCauseReport.HandleState = BLL.Const.HandleState_1;
                     accidentCauseReport.HandleMan = this.CurrUser.UserId;
                     BLL.AccidentCauseReportService.AddAccidentCauseReport(accidentCauseReport);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "增加职工伤亡事故原因分析报表");
+                    BLL.LogService.AddSys_Log(this.CurrUser, accidentCauseReport.AccidentCauseReportCode, accidentCauseReport.AccidentCauseReportId, BLL.Const.AccidentCauseReportMenuId, BLL.Const.BtnAdd);
                 }
                 else
                 {
@@ -425,7 +425,7 @@ namespace FineUIPro.Web.Information
                 accidentCauseReport.AccidentCauseReportId = AccidentCauseReportId;
                 accidentCauseReport.UpState = BLL.Const.UpState_2;
                 BLL.AccidentCauseReportService.UpdateAccidentCauseReport(accidentCauseReport);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改职工伤亡事故原因分析报表");
+                BLL.LogService.AddSys_Log(this.CurrUser, accidentCauseReport.AccidentCauseReportCode, accidentCauseReport.AccidentCauseReportId,BLL.Const.AccidentCauseReportMenuId,BLL.Const.BtnModify);
                 BLL.AccidentCauseReportItemService.DeleteAccidentCauseReportItemByAccidentCauseReportId(AccidentCauseReportId);
             }
             AddItems(accidentCauseReport.AccidentCauseReportId);
@@ -900,11 +900,11 @@ namespace FineUIPro.Web.Information
                         }
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "【职工伤亡事故原因分析报表】上传到服务器" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【职工伤亡事故原因分析报表】上传到服务器" + idList.Count.ToString() + "条数据；", null, BLL.Const.AccidentCauseReportMenuId, BLL.Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "【职工伤亡事故原因分析报表】上传到服务器失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【职工伤亡事故原因分析报表】上传到服务器失败；", null, BLL.Const.AccidentCauseReportMenuId, BLL.Const.BtnUploadResources);
             }
         }
         #endregion

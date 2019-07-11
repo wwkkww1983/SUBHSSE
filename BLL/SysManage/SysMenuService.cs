@@ -105,7 +105,12 @@ namespace BLL
                                   join y in Funs.DB.Sys_MenuUnit on x.MenuId equals y.MenuId
                                   where x.IsUnit == true && y.UnitId == unitId
                                   select x;
-           var menuNew1 = menuCommon.Union(menuCommonIsUnit);
+            var menuNew1 = menuCommon;
+            if (menuCommonIsUnit.Count() > 0)
+            {
+                menuNew1 = menuCommon.Union(menuCommonIsUnit);
+            }
+
            if (menuNew1.Count() > 0)
            {
                foreach (var item in menuNew1)

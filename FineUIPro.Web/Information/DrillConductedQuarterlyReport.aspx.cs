@@ -268,10 +268,12 @@ namespace FineUIPro.Web.Information
             Model.Information_DrillConductedQuarterlyReport report = BLL.DrillConductedQuarterlyReportService.GetDrillConductedQuarterlyReportByUnitIdAndYearAndQuarters(drpUnit.SelectedValue, Funs.GetNewIntOrZero(drpYear.SelectedValue), Funs.GetNewIntOrZero(drpQuarter.SelectedValue));
             if (report != null)
             {
+                BLL.LogService.AddSys_Log(this.CurrUser, report.YearId.ToString() + "-" + report.Quarter.ToString(),
+                        report.DrillConductedQuarterlyReportId, BLL.Const.DrillConductedQuarterlyReportMenuId, BLL.Const.BtnDelete);
                 BLL.ProjectDataFlowSetService.DeleteFlowSetByDataId(report.DrillConductedQuarterlyReportId);
                 BLL.DrillConductedQuarterlyReportItemService.DeleteDrillConductedQuarterlyReportItemList(report.DrillConductedQuarterlyReportId);
                 BLL.DrillConductedQuarterlyReportService.DeleteDrillConductedQuarterlyReportById(report.DrillConductedQuarterlyReportId);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除应急演练开展情况季报表");
+                
                 SetEmpty();
                 this.btnNew.Hidden = false;
                 ShowNotify("删除数据成功!", MessageBoxIcon.Success);

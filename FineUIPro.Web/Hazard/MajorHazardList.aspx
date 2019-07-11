@@ -28,7 +28,7 @@
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server">
                         <Items>
                             <f:NumberBox runat="server" Label="危险评价D" ID="txtStartD" EmptyText="输入查询条件" AutoPostBack="true"
-                                OnTextChanged="TextBox_TextChanged" LabelWidth="80px" LabelAlign="right" NoNegative="true">
+                                OnTextChanged="TextBox_TextChanged" LabelWidth="90px" LabelAlign="right" NoNegative="true">
                               </f:NumberBox>
                             <f:NumberBox runat="server" Label="危险级别" ID="txtHazardLevel" EmptyText="输入查询条件" AutoPostBack="true"
                                 OnTextChanged="TextBox_TextChanged" LabelWidth="80px" LabelAlign="right"  NoNegative="true"  NoDecimal="true">
@@ -48,7 +48,7 @@
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="120px" ColumnID="HazardListCode" DataField="HazardListCode" SortField="HazardListCode"
+                    <f:RenderField Width="130px" ColumnID="HazardListCode" DataField="HazardListCode" SortField="HazardListCode"
                         FieldType="String" HeaderText="辨识评价编号" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
                     <f:TemplateField ColumnID="tfWorkStage" Width="150px" HeaderText="工作阶段" HeaderTextAlign="Center" TextAlign="Left">

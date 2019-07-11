@@ -29,7 +29,7 @@
             <Toolbars>
                 <f:Toolbar ID="Toolbar1" runat="server" ToolbarAlign="Right" Position="Bottom">
                     <Items>
-                        <f:Button ID="btnLogin" Text="登录" Type="Submit" CssClass="f-btn-success" ValidateForms="SimpleForm1" ValidateTarget="Top"
+                        <f:Button ID="btnLogin" Text="登录" Type="Submit" CssClass="f-btn-success" ValidateForms="SimpleForm1" ValidateTarget="Parent"
                             runat="server" OnClick="btnLogin_Click">
                         </f:Button>
                         <f:Button ID="btnReset" Text="重置" CssClass="f-btn-gray" Type="Reset" EnablePostBack="false"

@@ -813,14 +813,14 @@ namespace FineUIPro.Web.Manager
             {
                 monthReport.MonthReportId = this.MonthReportId;
                 BLL.MonthReportService.UpdateMonthReport(monthReport);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改管理月报", monthReport.MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, monthReport.MonthReportCode, monthReport.MonthReportId, BLL.Const.ProjectManagerMonthMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 monthReport.MonthReportId = SQLHelper.GetNewID(typeof(Model.Manager_MonthReport));
                 this.MonthReportId = monthReport.MonthReportId;
                 BLL.MonthReportService.AddMonthReport(monthReport);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "增加管理月报", monthReport.MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, monthReport.MonthReportCode, monthReport.MonthReportId, BLL.Const.ProjectManagerMonthMenuId, BLL.Const.BtnAdd);
             }
 
             ///保存教育与培训情况统计
@@ -1119,7 +1119,7 @@ namespace FineUIPro.Web.Manager
                 };
                 this.MonthReportId = monthReport.MonthReportId;
                 BLL.MonthReportService.AddMonthReport(monthReport);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "增加管理月报", monthReport.MonthReportId);
+                BLL.LogService.AddSys_Log(this.CurrUser, monthReport.MonthReportCode, monthReport.MonthReportId,BLL.Const.ProjectManagerMonthMenuId,BLL.Const.BtnAdd);
             }
 
             PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ManagerMonthReport&menuId={1}", this.MonthReportId, BLL.Const.ProjectManagerMonthMenuId)));

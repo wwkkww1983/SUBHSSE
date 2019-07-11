@@ -150,13 +150,13 @@ namespace FineUIPro.Web.SysManage
                     newRole.RoleId = SQLHelper.GetNewID(typeof(Model.Sys_Role));
                     newRole.IsSystemBuilt = false;
                     BLL.RoleService.AddRole(newRole);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加角色管理");
+                    BLL.LogService.AddSys_Log(this.CurrUser, newRole.RoleCode, newRole.RoleId, BLL.Const.RoleMenuId, Const.BtnAdd);
                 }
                 else
                 {
                     newRole.RoleId = this.RoleId;
                     BLL.RoleService.UpdateRole(newRole);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改角色管理");
+                    BLL.LogService.AddSys_Log(this.CurrUser, newRole.RoleCode, newRole.RoleId, BLL.Const.RoleMenuId, Const.BtnModify);
                 }
                 PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
             }

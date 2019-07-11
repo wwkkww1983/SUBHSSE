@@ -212,8 +212,12 @@ namespace FineUIPro.Web.InformationProject
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除安全生产数据季报");
-                    BLL.ProjectSafetyQuarterlyReportService.DeleteSafetyQuarterlyReportById(rowID);
+                    var getD = BLL.ProjectSafetyQuarterlyReportService.GetSafetyQuarterlyReportById(rowID);
+                    if (getD != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, null, getD.SafetyQuarterlyReportId, BLL.Const.ProjectSafetyQuarterlyReportMenuId, BLL.Const.BtnDelete);
+                        BLL.ProjectSafetyQuarterlyReportService.DeleteSafetyQuarterlyReportById(rowID);
+                    }
                 }
 
                 this.BindGrid();

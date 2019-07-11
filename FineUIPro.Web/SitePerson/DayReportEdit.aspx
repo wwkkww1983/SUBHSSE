@@ -38,7 +38,7 @@
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1" DataIDField="DayReportDetailId"
                         DataKeyNames="DayReportDetailId" EnableMultiSelect="false" ShowGridHeader="true" Height="350px"
-                        EnableColumnLines="true" AutoScroll="true" EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick"> 
+                        EnableColumnLines="true" EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick"> 
                         <Columns>
                             <f:RowNumberField HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center" />
                             <f:RenderField Width="200px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
@@ -99,7 +99,7 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="Window1" Title="编辑人工时明细" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="1100px" Height="620px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

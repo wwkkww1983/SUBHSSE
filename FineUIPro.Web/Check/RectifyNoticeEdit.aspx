@@ -71,7 +71,7 @@
                         <f:ListItem Value="True" Text="是" />
                         <f:ListItem Value="False" Text="否" />
                     </f:DropDownList>
-                    <f:DropDownList ID="drpCheckPerson" runat="server" Label="本单位检查人" EnableEdit="true" Hidden="true">
+                    <f:DropDownList ID="drpCheckPerson" runat="server" Label="本单位检查人" EnableEdit="true" Hidden="true" LabelWidth="120px">
                     </f:DropDownList>
                 </Items>
             </f:FormRow>

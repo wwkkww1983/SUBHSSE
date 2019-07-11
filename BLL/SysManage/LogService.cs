@@ -12,21 +12,30 @@ namespace BLL
         /// <summary>
         /// 添加操作日志
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="userId"></param>
-        /// <param name="opLog"></param>
-        /// <param name="dataId"></param>
-        public static void AddLog(string projectId, string userId, string opLog)
+        /// <param name="projectId">项目ID</param>
+        /// <param name="userId">操作人ID</param>
+        /// <param name="opLog">操作内容</param>
+        /// <param name="code">编号</param>
+        /// <param name="dataId">主键ID</param>
+        /// <param name="strMenuId">菜单ID</param>
+        /// <param name="strOperationName">操作名称</param>
+        public static void AddSys_Log(Model.Sys_User CurrUser, string code, string dataId, string strMenuId, string strOperationName)
         {
-            var user = BLL.UserService.GetUserByUserId(userId);
-            if (user != null)
+            if (CurrUser != null)
             {
                 Model.SUBHSSEDB db = Funs.DB;
                 Model.Sys_Log syslog = new Model.Sys_Log
                 {
                     LogId = SQLHelper.GetNewID(typeof(Model.Sys_Log)),
-                    HostName = Dns.GetHostName()
-                };
+                    HostName = Dns.GetHostName(),
+                    OperationTime = DateTime.Now,
+                    UserId = CurrUser.UserId,
+                    MenuId = strMenuId,
+                    OperationName = strOperationName,
+                    UpState = Const.UpState_2,
+                    LogSource = 1,
+            };
+
                 IPAddress[] ips = Dns.GetHostAddresses(syslog.HostName);
                 if (ips.Length > 0)
                 {
@@ -38,115 +47,41 @@ namespace BLL
                         }
                     }
                 }
-                syslog.OperationTime = DateTime.Now;
-                syslog.OperationLog = opLog;
-                syslog.UserId = userId;
-                var project = BLL.ProjectService.GetProjectByProjectId(projectId);
-                if (project != null)
+                string opLog = string.Empty;
+                var menu = BLL.SysMenuService.GetSysMenuByMenuId(strMenuId);
+                if (menu != null)
                 {
-                    syslog.ProjectId = projectId;
-                }
-                db.Sys_Log.InsertOnSubmit(syslog);
-                db.SubmitChanges();
-            }
-        }
-
-        /// <summary>
-        /// 添加操作日志
-        /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="userId"></param>
-        /// <param name="opLog"></param>
-        /// <param name="dataId"></param>
-        public static void AddLogDataId(string projectId, string userId, string opLog, string dataId)
-        {
-            var user = BLL.UserService.GetUserByUserId(userId);
-            if (user != null)
-            {
-                Model.SUBHSSEDB db = Funs.DB;
-                Model.Sys_Log syslog = new Model.Sys_Log
-                {
-                    LogId = SQLHelper.GetNewID(typeof(Model.Sys_Log)),
-                    HostName = Dns.GetHostName()
-                };
-                IPAddress[] ips = Dns.GetHostAddresses(syslog.HostName);
-                if (ips.Length > 0)
-                {
-                    foreach (IPAddress ip in ips)
-                    {
-                        if (ip.ToString().IndexOf('.') != -1)
-                        {
-                            syslog.Ip = ip.ToString();
-                        }
-                    }
-                }
-                syslog.OperationTime = DateTime.Now;
-                var returnCode = BLL.CodeRecordsService.ReturnCodeByDataId(dataId);
-                if (!string.IsNullOrEmpty(returnCode))
-                {
-                    syslog.OperationLog = opLog + "；单据编号为【" + returnCode + "】";
-                }
-                else
-                {
-                    syslog.OperationLog = opLog;
+                    opLog = menu.MenuName + ":";
                 }
 
-                syslog.UserId = userId;
-                var project = BLL.ProjectService.GetProjectByProjectId(projectId);
-                if (project != null)
+                if (!string.IsNullOrEmpty(strOperationName))
                 {
-                    syslog.ProjectId = projectId;
+                    opLog += strOperationName;
                 }
-                db.Sys_Log.InsertOnSubmit(syslog);
-                db.SubmitChanges();
-            }
-        }
 
-        /// <summary>
-        /// 添加操作日志
-        /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="userId"></param>
-        /// <param name="opLog"></param>
-        /// <param name="dataId"></param>
-        public static void AddLogCode(string projectId, string userId, string opLog, string code)
-        {
-            var user = BLL.UserService.GetUserByUserId(userId);
-            if (user != null)
-            {
-                Model.SUBHSSEDB db = Funs.DB;
-                Model.Sys_Log syslog = new Model.Sys_Log
-                {
-                    LogId = SQLHelper.GetNewID(typeof(Model.Sys_Log)),
-                    HostName = Dns.GetHostName()
-                };
-                IPAddress[] ips = Dns.GetHostAddresses(syslog.HostName);
-                if (ips.Length > 0)
-                {
-                    foreach (IPAddress ip in ips)
-                    {
-                        if (ip.ToString().IndexOf('.') != -1)
-                        {
-                            syslog.Ip = ip.ToString();
-                        }
-                    }
-                }
-                syslog.OperationTime = DateTime.Now;
                 if (!string.IsNullOrEmpty(code))
                 {
-                    syslog.OperationLog = opLog + "；单据编号为【" + code + "】";
+                    syslog.OperationLog = opLog + "；" + code + "。";
                 }
                 else
                 {
-                    syslog.OperationLog = opLog;
+                    var returnCode = BLL.CodeRecordsService.ReturnCodeByDataId(dataId);
+                    if (!string.IsNullOrEmpty(returnCode))
+                    {
+                        syslog.OperationLog = opLog + "；" + returnCode + "。";
+                    }
+                    else
+                    {
+                        syslog.OperationLog = opLog;
+                    }
                 }
 
-                syslog.UserId = userId;
-                var project = BLL.ProjectService.GetProjectByProjectId(projectId);
+                var project = BLL.ProjectService.GetProjectByProjectId(CurrUser.LoginProjectId);
                 if (project != null)
                 {
-                    syslog.ProjectId = projectId;
+                    syslog.ProjectId = project.ProjectId;
                 }
+                
                 db.Sys_Log.InsertOnSubmit(syslog);
                 db.SubmitChanges();
             }
@@ -160,11 +95,11 @@ namespace BLL
         {
             Model.SUBHSSEDB db = Funs.DB;
             var q = (from x in db.Sys_Log where x.ProjectId == projectId select x).ToList();
-            if (q!=null)
+            if (q != null)
             {
                 db.Sys_Log.DeleteAllOnSubmit(q);
                 db.SubmitChanges();
             }
-        }
+        }        
     }
 }

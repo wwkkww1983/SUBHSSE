@@ -80,5 +80,24 @@ namespace BLL
         {
             return (from x in Funs.DB.Base_TrainLevel orderby x.TrainLevelCode select x).ToList();
         }
+
+        #region 培训级别下拉框
+        /// <summary>
+        /// 培训级别下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitTrainLevelDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "TrainLevelId";
+            dropName.DataTextField = "TrainLevelName";
+            dropName.DataSource = GetTrainLevelList();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+        #endregion
     }
 }

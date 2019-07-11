@@ -166,7 +166,9 @@ namespace FineUIPro.Web.Technique
                         UpRectifyItem(rowID, unit.UnitId);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "审核安全隐患");
+
+                BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.RectifyMenuId, Const.BtnAuditing);
+                
                 BindGrid();
                 ShowNotify("操作成功!");
                 if (isPass)
@@ -225,11 +227,12 @@ namespace FineUIPro.Web.Technique
                         BLL.RectifyItemService.UpdateRectifyItemIsPass(rectifyItem);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全隐患明细】上报到集团公司" + idList.Count.ToString() + "条数据；");
+
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全隐患明细】上报到集团公司" + idList.Count.ToString() + "条数据；", string.Empty, BLL.Const.RectifyMenuId, Const.BtnUploadResources);               
             }
             else
-            {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【安全隐患明细】上报到集团公司失败；");
+            {              
+                BLL.LogService.AddSys_Log(this.CurrUser, "【安全隐患明细】上报到集团公司失败；", string.Empty, BLL.Const.RectifyMenuId, Const.BtnUploadResources);
             }
         }
         #endregion

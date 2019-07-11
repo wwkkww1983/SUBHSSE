@@ -219,14 +219,14 @@ namespace FineUIPro.Web.InformationProject
             {
                 ReceiveFileManager.ReceiveFileManagerId = this.ReceiveFileManagerId;
                 BLL.ReceiveFileManagerService.UpdateReceiveFileManager(ReceiveFileManager);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改一般来文管理", ReceiveFileManager.ReceiveFileManagerId);
+                BLL.LogService.AddSys_Log(this.CurrUser, ReceiveFileManager.ReceiveFileCode, ReceiveFileManager.ReceiveFileManagerId, BLL.Const.ReceiveFileManagerMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.ReceiveFileManagerId = SQLHelper.GetNewID(typeof(Model.InformationProject_ReceiveFileManager));
                 ReceiveFileManager.ReceiveFileManagerId = this.ReceiveFileManagerId;
                 BLL.ReceiveFileManagerService.AddReceiveFileManager(ReceiveFileManager);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加一般来文管理", ReceiveFileManager.ReceiveFileManagerId);
+                BLL.LogService.AddSys_Log(this.CurrUser, ReceiveFileManager.ReceiveFileCode, ReceiveFileManager.ReceiveFileManagerId,BLL.Const.ReceiveFileManagerMenuId,BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ReceiveFileManagerMenuId, this.ReceiveFileManagerId, (type == BLL.Const.BtnSubmit ? true : false), ReceiveFileManager.ReceiveFileName, "../InformationProject/ReceiveFileManagerView.aspx?ReceiveFileManagerId={0}");

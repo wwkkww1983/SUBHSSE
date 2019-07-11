@@ -19,22 +19,14 @@
                         <Rows>
                             <f:FormRow>
                                 <Items>
-                                     <f:DatePicker runat="server" Label="开始时间" ID="txtStarTime" EnableEdit="true"></f:DatePicker>
-                                    <f:DatePicker runat="server" Label="结束时间" ID="txtEndTime" EnableEdit="true"></f:DatePicker>                                                                    
-                                </Items>
-                            </f:FormRow>
-                            <f:FormRow ColumnWidths="30% 20% 20% 20% 10%">                                
-                                <Items>
-                                    <f:DropDownList ID="drpChartType" runat="server" LabelWidth="70px" Label="图形类型" 
+                                    <f:DatePicker runat="server" Label="开始时间" ID="txtStarTime" EnableEdit="true" LabelWidth="80px"></f:DatePicker>
+                                    <f:DatePicker runat="server" Label="结束时间" ID="txtEndTime" EnableEdit="true" LabelWidth="80px"></f:DatePicker>
+                                    <f:DropDownList ID="drpChartType" runat="server" LabelWidth="80px" Label="图形类型" 
                                         AutoPostBack="true" OnSelectedIndexChanged="drpChartType_SelectedIndexChanged" >
                                     </f:DropDownList>
-                                    <f:Label ID="Label2" runat="server">
-                                    </f:Label>
-                                    <f:CheckBox ID="ckbShow" runat="server" LabelWidth="70px" Label="三维效果" 
+                                    <f:CheckBox ID="ckbShow" runat="server" LabelWidth="80px" Label="三维效果" 
                                         AutoPostBack="true" OnCheckedChanged="ckbShow_CheckedChanged">
                                     </f:CheckBox>
-                                    <f:Label ID="Label1" runat="server">
-                                    </f:Label>
                                     <f:Button ID="BtnAnalyse" Text="统计" Icon="ChartPie" runat="server" OnClick="BtnAnalyse_Click"></f:Button>
                                 </Items>
                             </f:FormRow>

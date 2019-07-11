@@ -73,6 +73,7 @@ namespace FineUIPro.Web.Law
                         this.txtRemark.Text = rulesRegulation.Remark;
                     }
                 }
+               
             }
         }
 
@@ -142,13 +143,13 @@ namespace FineUIPro.Web.Law
                 this.RulesRegulationsId = SQLHelper.GetNewID(typeof(Model.Law_RulesRegulations));
                 rulesRegulations.RulesRegulationsId = this.RulesRegulationsId;
                 BLL.RulesRegulationsService.AddRulesRegulations(rulesRegulations);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "增加政府部门安全规章");
+                BLL.LogService.AddSys_Log(this.CurrUser, rulesRegulations.RulesRegulationsCode, rulesRegulations.RulesRegulationsId, BLL.Const.RulesRegulationsMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 rulesRegulations.RulesRegulationsId = this.RulesRegulationsId;
                 BLL.RulesRegulationsService.UpdateRulesRegulations(rulesRegulations);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改政府部门安全规章");
+                BLL.LogService.AddSys_Log(this.CurrUser, rulesRegulations.RulesRegulationsCode, rulesRegulations.RulesRegulationsId, BLL.Const.RulesRegulationsMenuId, BLL.Const.BtnModify);
             }
             if (isClose)
             {
@@ -217,11 +218,11 @@ namespace FineUIPro.Web.Law
                         BLL.RulesRegulationsService.UpdateRulesRegulations(rulesRegulations);
                     }
                 }
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【政府部门安全规章】上报到集团公司" + idList.Count.ToString() + "条数据；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【政府部门安全规章】上报到集团公司" + idList.Count.ToString() + "条数据；", null, BLL.Const.RulesRegulationsMenuId, BLL.Const.BtnUploadResources);
             }
             else
             {
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "【政府部门安全规章】上报到集团公司失败；");
+                BLL.LogService.AddSys_Log(this.CurrUser, "【政府部门安全规章】上报到集团公司失败；", null, BLL.Const.RulesRegulationsMenuId, BLL.Const.BtnUploadResources);
             }
         }
         #endregion
@@ -306,6 +307,10 @@ namespace FineUIPro.Web.Law
         /// </summary>
         private void GetButtonPower()
         {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
             var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.RulesRegulationsMenuId);
             if (buttonList.Count() > 0)
             {
@@ -345,11 +350,18 @@ namespace FineUIPro.Web.Law
         /// <param name="e"></param>
         protected void btnUploadResources_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.RulesRegulationsId))
+            if (this.btnSave.Hidden)
             {
-                SaveData(BLL.Const.UpState_1, false);
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/RulesRegulations&type=-1", RulesRegulationsId)));
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/RulesRegulations&menuId=DF1413F3-4CE5-40B3-A574-E01CE64FEA25", RulesRegulationsId)));
+            else
+            {
+                if (string.IsNullOrEmpty(this.RulesRegulationsId))
+                {
+                    SaveData(BLL.Const.UpState_1, false);
+                }
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/RulesRegulations&menuId={1}", RulesRegulationsId, BLL.Const.RulesRegulationsMenuId)));
+            }
         }
         #endregion
     }

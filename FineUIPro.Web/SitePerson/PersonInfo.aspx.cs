@@ -209,10 +209,14 @@ namespace FineUIPro.Web.SitePerson
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, isShow))
                     {
-                        BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除考勤记录", rowID);
-                        BLL.SitePerson_CheckingService.DeletePersonInfoByCheckingId(rowID);
-                        BindGrid();
-                        ShowNotify("删除数据成功!（表格数据已重新绑定）", MessageBoxIcon.Success);
+                        var getV = BLL.SitePerson_CheckingService.GetPersonInfoByCheckingId(rowID);
+                        if (getV != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getV.CardNo, getV.CheckingId, BLL.Const.PersonalInfoMenuId, BLL.Const.BtnDelete);
+                            BLL.SitePerson_CheckingService.DeletePersonInfoByCheckingId(rowID);
+                            BindGrid();
+                            ShowNotify("删除数据成功!（表格数据已重新绑定）", MessageBoxIcon.Success);
+                        }
                     }
                 }
             }

@@ -75,18 +75,6 @@ namespace FineUIPro.Web.ServerCheck
             Grid1.DataSource = tb;
             Grid1.DataBind();
         }   
-        #endregion
-                
-        #region 关闭按钮事件
-        /// <summary>
-        /// 关闭按钮事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnClose_Click(object sender, EventArgs e)
-        {
-            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
-        }
-        #endregion
+        #endregion                
     }
 }

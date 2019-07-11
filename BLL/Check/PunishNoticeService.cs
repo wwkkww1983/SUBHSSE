@@ -64,6 +64,26 @@ namespace BLL
         }
 
         /// <summary>
+        /// 获取处罚金额总和
+        /// </summary>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static decimal? GetSumMoney(string projectId)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            decimal? sumRewardMoney = (from x in db.Check_PunishNotice
+                                       where x.ProjectId == projectId && x.States == BLL.Const.State_2
+                                       select x.PunishMoney).Sum();
+            if (sumRewardMoney == null)
+            {
+                return 0;
+            }
+            return sumRewardMoney;
+        }
+
+        /// <summary>
         /// 根据日期获取处罚金额总和
         /// </summary>
         /// <param name="startTime"></param>

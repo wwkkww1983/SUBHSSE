@@ -61,8 +61,7 @@
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="true" Title="教育与培训情况统计" runat="server"
                         ClicksToEdit="1" DataIDField="TrainSortId" DataKeyNames="TrainSortId,TrainTypeName"
-                        EnableMultiSelect="false" ShowGridHeader="true" Height="220px" EnableColumnLines="true"
-                        AutoScroll="true">
+                        EnableMultiSelect="false" ShowGridHeader="true" Height="220px" EnableColumnLines="true">
                         <Columns>
                             <f:RenderField Width="200px" ColumnID="TrainTypeName" DataField="TrainTypeName"  ExpandUnusedSpace="true"
                                 FieldType="String" HeaderText="安全培训课程类型" HeaderTextAlign="Center" TextAlign="Left">
@@ -243,7 +242,7 @@
                         AllowCellEditing="true" ClicksToEdit="1" DataIDField="AccidentSortId" DataKeyNames="AccidentSortId,AccidentTypeId"
                         EnableMultiSelect="false" ShowGridHeader="true" Height="320px" EnableColumnLines="true"
                          EnableSummary="true" SummaryPosition="Flow"
-                        AutoScroll="true">
+                        >
                         <Columns>
                             <f:TemplateField Width="200px" HeaderText="事故类型" HeaderTextAlign="Center" TextAlign="Left"
                                 ExpandUnusedSpace="true" ColumnID="TrainTypeId">

@@ -46,7 +46,7 @@
                         <Items>                          
                              <f:Grid ID="Grid2" ShowBorder="true" ShowHeader="false" ShowGridHeader="false" runat="server" BoxFlex="1"  AllowCellEditing="true"    ClicksToEdit="2"
                                 SortDirection="DESC" SortField="Theme" DataKeyNames="ContentId" DataIDField="ContentId" EnableMultiSelect="false" EnableRowSelectEvent="true"
-                                OnRowSelect="Grid2_RowSelect" EnableColumnLines="true" AllowSorting="true"  
+                                OnRowSelect="Grid2_RowSelect" EnableColumnLines="true" AllowSorting="true"   
                                 OnRowDoubleClick="Grid2_RowDoubleClick" EnableRowDoubleClickEvent="true">  
                                  <Toolbars>
                                      <f:Toolbar runat="server" Position="Bottom" ToolbarAlign="Right">

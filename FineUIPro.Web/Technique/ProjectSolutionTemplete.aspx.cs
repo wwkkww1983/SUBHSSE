@@ -170,8 +170,12 @@ namespace FineUIPro.Web.Technique
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除现场施工方案模板", rowID);
-                    BLL.ProjectSolutionTempleteService.DeleteProjectSolutionTempleteById(rowID);
+                    var getV = BLL.ProjectSolutionTempleteService.GetProjectSolutionTempleteById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.TempleteCode, getV.TempleteId, BLL.Const.ProjectSolutionTempleteMenuId, BLL.Const.BtnDelete);
+                        BLL.ProjectSolutionTempleteService.DeleteProjectSolutionTempleteById(rowID);
+                    }
                 }
 
                 this.BindGrid();

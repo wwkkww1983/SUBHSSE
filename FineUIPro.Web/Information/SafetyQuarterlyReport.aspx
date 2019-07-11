@@ -43,9 +43,9 @@
                                     <f:Button ID="BtnBulletRight" ToolTip="后一季度" Icon="BulletRight" runat="server" EnablePostBack="true"
                                         OnClick="BulletRight_Click">
                                     </f:Button>
-                                    <f:Button ID="btnSee" ToolTip="查看审批流程" Icon="Find" runat="server" OnClick="btnSee_Click">
-                                    </f:Button>
                                     <f:ToolbarFill runat="server"></f:ToolbarFill>
+                                    <f:Button ID="btnSee" ToolTip="查看审批流程" Icon="Find" runat="server" OnClick="btnSee_Click">
+                                    </f:Button>                                  
                                     <f:Button ID="btnNew" ToolTip="新增" Icon="Add" Hidden="true" runat="server" OnClick="btnNew_Click">
                                     </f:Button>
                                     <f:Button ID="btnEdit" ToolTip="编辑" Icon="TableEdit" Hidden="true" runat="server" OnClick="btnEdit_Click">
@@ -116,7 +116,7 @@
         </Regions>
     </f:RegionPanel>
     <f:Window ID="Window1" Title="编辑安全生产数据季报" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="false"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="false"
         CloseAction="HidePostBack" Width="900px" Height="620px">
     </f:Window>
     <f:Window ID="Window2" Title="导入安全生产数据季报" Hidden="true" EnableIFrame="true" EnableMaximize="true"

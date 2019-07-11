@@ -50,8 +50,7 @@
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="投入费用明细" EnableCollapse="true"
                         runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="CostManageItemId"
-                        AllowCellEditing="true" ClicksToEdit="2" DataIDField="CostManageItemId" AllowPaging="true"
-                        IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"
+                        AllowCellEditing="true" ClicksToEdit="2" DataIDField="CostManageItemId" PageSize="100" OnPageIndexChange="Grid1_PageIndexChange" EnableSummary="true" SummaryPosition="Flow"
                         EnableTextSelection="True"
                         Height="220px">
                         <Toolbars>
@@ -67,12 +66,12 @@
                         <Columns>
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
                                 TextAlign="Center" />
-                            <f:RenderField Width="200px" ColumnID="InvestCostProject" DataField="InvestCostProject"
+                            <f:RenderField Width="120px" ColumnID="InvestCostProject" DataField="InvestCostProject"
                                 SortField="InvestCostProject" FieldType="String" HeaderText="投入费用项目" HeaderTextAlign="Center"
                                 TextAlign="Left">
                             </f:RenderField>
                             <f:RenderField Width="200px" ColumnID="UseReason" DataField="UseReason" SortField="UseReason"
-                                FieldType="String" HeaderText="费用使用原因" HeaderTextAlign="Center" TextAlign="Left">
+                                FieldType="String" HeaderText="费用使用原因" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
                             </f:RenderField>
                             <f:RenderField Width="100px" ColumnID="Counts" DataField="Counts" SortField="Counts"
                                 FieldType="Int" HeaderText="数量" HeaderTextAlign="Center" TextAlign="Left">
@@ -80,14 +79,22 @@
                             <f:RenderField Width="100px" ColumnID="PriceMoney" DataField="PriceMoney" SortField="PriceMoney"
                                 FieldType="Float" HeaderText="单价（元）" HeaderTextAlign="Center" TextAlign="Left">
                             </f:RenderField>
-                            <f:TemplateField HeaderText="总价（元）" Width="120px" HeaderTextAlign="Center" TextAlign="Left">
+                            <f:TemplateField HeaderText="总价（元）" Width="120px" HeaderTextAlign="Center" TextAlign="Left" ColumnID="TotalMoney">
                                 <ItemTemplate>
                                     <asp:Label ID="lblTotalMoney" runat="server" Text='<%# GetTotalMoney(Eval("CostManageItemId")) %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-                            <f:RenderField Width="160px" ColumnID="Remark" DataField="Remark" SortField="Remark"
-                                FieldType="String" HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left">
+                            <f:RenderField Width="100px" ColumnID="AuditCounts" DataField="AuditCounts" SortField="AuditCounts"
+                                FieldType="Int" HeaderText="数量" HeaderTextAlign="Center" TextAlign="Left">
                             </f:RenderField>
+                            <f:RenderField Width="100px" ColumnID="AuditPriceMoney" DataField="AuditPriceMoney" SortField="AuditPriceMoney"
+                                FieldType="Float" HeaderText="单价（元）" HeaderTextAlign="Center" TextAlign="Left">
+                            </f:RenderField>
+                            <f:TemplateField HeaderText="总价（元）" Width="120px" HeaderTextAlign="Center" TextAlign="Left" ColumnID="AuditTotalMoney">
+                                <ItemTemplate>
+                                    <asp:Label ID="Label2" runat="server" Text='<%# GetAuditTotalMoney(Eval("CostManageItemId")) %>'></asp:Label>
+                                </ItemTemplate>
+                            </f:TemplateField>
                         </Columns>
                         <PageItems>
                             <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">

@@ -160,14 +160,14 @@ namespace FineUIPro.Web.Manager
             {
                 managerQuarterly.ManagerQuarterlyId = this.ManagerQuarterlyId;
                 BLL.ManagerQuarterlyService.UpdateManagerQuarterly(managerQuarterly);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "修改管理季报");
+                BLL.LogService.AddSys_Log(this.CurrUser, managerQuarterly.ManagerQuarterlyCode, managerQuarterly.ManagerQuarterlyId, BLL.Const.ProjectManagerQuarterlyMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.ManagerQuarterlyId = SQLHelper.GetNewID(typeof(Model.Manager_ManagerQuarterly));
                 managerQuarterly.ManagerQuarterlyId = this.ManagerQuarterlyId;
                 BLL.ManagerQuarterlyService.AddManagerQuarterly(managerQuarterly);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "添加管理季报");
+                BLL.LogService.AddSys_Log(this.CurrUser, managerQuarterly.ManagerQuarterlyCode, managerQuarterly.ManagerQuarterlyId, BLL.Const.ProjectManagerQuarterlyMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectManagerQuarterlyMenuId, this.ManagerQuarterlyId, (type == BLL.Const.BtnSubmit ? true : false), managerQuarterly.ManagerQuarterlyName, "../Manager/ManagerQuarterlyView.aspx?ManagerQuarterlyId={0}");

@@ -166,6 +166,7 @@ namespace FineUIPro.Web.Accident
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
             this.BindGrid();
+            BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ProjectAccidentReportOtherMenuId, Const.BtnQuery);
         }
         #endregion
 
@@ -182,9 +183,14 @@ namespace FineUIPro.Web.Accident
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除事故调查处理报告", rowID);
-                    BLL.AccidentReportOtherItemService.DeleteAccidentReportOtherItemByAccidentReportOtherId(rowID);
-                    BLL.AccidentReportOtherService.DeleteAccidentReportOtherById(rowID);
+                    var getV = BLL.AccidentReportOtherService.GetAccidentReportOtherById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.AccidentReportOtherCode, getV.AccidentReportOtherId, BLL.Const.ProjectAccidentReportOtherMenuId, Const.BtnDelete);
+                        
+                        BLL.AccidentReportOtherItemService.DeleteAccidentReportOtherItemByAccidentReportOtherId(rowID);
+                        BLL.AccidentReportOtherService.DeleteAccidentReportOtherById(rowID);
+                    }
                 }
 
                 this.BindGrid();

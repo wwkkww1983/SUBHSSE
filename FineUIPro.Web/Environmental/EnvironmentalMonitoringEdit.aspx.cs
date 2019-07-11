@@ -147,7 +147,7 @@ namespace FineUIPro.Web.Environmental
             {
                 EnvironmentalMonitoring.FileId = this.FileId;
                 BLL.EnvironmentalMonitoringService.UpdateEnvironmentalMonitoring(EnvironmentalMonitoring);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改环境监测数据", EnvironmentalMonitoring.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, EnvironmentalMonitoring.FileCode, EnvironmentalMonitoring.FileId, BLL.Const.EnvironmentalMonitoringMenuId, BLL.Const.BtnModify);
             }
             else
             {
@@ -155,7 +155,7 @@ namespace FineUIPro.Web.Environmental
                 EnvironmentalMonitoring.FileId = this.FileId;
                 EnvironmentalMonitoring.ProjectId = this.ProjectId;
                 BLL.EnvironmentalMonitoringService.AddEnvironmentalMonitoring(EnvironmentalMonitoring);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加环境监测数据", EnvironmentalMonitoring.FileId);
+                BLL.LogService.AddSys_Log(this.CurrUser, EnvironmentalMonitoring.FileCode, EnvironmentalMonitoring.FileId, BLL.Const.EnvironmentalMonitoringMenuId, BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.EnvironmentalMonitoringMenuId, this.FileId, (type == BLL.Const.BtnSubmit ? true : false), this.txtFileName.Text.Trim(), "../Environmental/EnvironmentalMonitoringView.aspx?FileId={0}");                         

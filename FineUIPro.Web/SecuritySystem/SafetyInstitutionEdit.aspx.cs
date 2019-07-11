@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using BLL;
+using System;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BLL;
 
 namespace FineUIPro.Web.SecuritySystem
 {
@@ -127,7 +123,7 @@ namespace FineUIPro.Web.SecuritySystem
             {
                 newSafetyInstitution.SafetyInstitutionId = this.SafetyInstitutionId;
                 BLL.SafetyInstitutionService.UpdateSafetyInstitution(newSafetyInstitution);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "修改安全制度", newSafetyInstitution.SafetyInstitutionId);
+                BLL.LogService.AddSys_Log(this.CurrUser, newSafetyInstitution.Title, newSafetyInstitution.SafetyInstitutionId,BLL.Const.ProjectSafetyInstitutionMenuId,BLL.Const.BtnModify);
             }
             else
             {
@@ -135,7 +131,7 @@ namespace FineUIPro.Web.SecuritySystem
                 newSafetyInstitution.UnitId = this.UnitId;
                 newSafetyInstitution.SafetyInstitutionId = this.SafetyInstitutionId;
                 BLL.SafetyInstitutionService.AddSafetyInstitution(newSafetyInstitution);
-                BLL.LogService.AddLogDataId(this.ProjectId, this.CurrUser.UserId, "添加安全制度", newSafetyInstitution.SafetyInstitutionId);
+                BLL.LogService.AddSys_Log(this.CurrUser, newSafetyInstitution.Title, newSafetyInstitution.SafetyInstitutionId, BLL.Const.ProjectSafetyInstitutionMenuId, BLL.Const.BtnAdd);
             }
         }
         #endregion

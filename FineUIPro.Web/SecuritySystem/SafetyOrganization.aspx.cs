@@ -307,8 +307,12 @@ namespace FineUIPro.Web.SecuritySystem
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.SafetyOrganizationService.DeleteSafetyOrganization(rowID);
-                    BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除安全管理机构");
+                    var getV = BLL.SafetyOrganizationService.GetSafetyOrganizationById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.Names, getV.SafetyOrganizationId, BLL.Const.ProjectSafetyOrganizationMenuId, BLL.Const.BtnDelete);
+                        BLL.SafetyOrganizationService.DeleteSafetyOrganization(rowID);                       
+                    }                    
                 }
 
                 BindGrid();

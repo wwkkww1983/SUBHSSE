@@ -341,9 +341,13 @@ namespace FineUIPro.Web.SitePerson
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, isShow))
                     {
-                        BLL.SitePerson_MonthReportDetailService.DeleteMonthReportDetailsByMonthReportId(rowID);
-                        BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除人工时月报", rowID);
-                        BLL.SitePerson_MonthReportService.DeleteMonthReportByMonthReportId(rowID);
+                        var getV = BLL.SitePerson_MonthReportService.GetMonthReportByMonthReportId(rowID);
+                        if (getV != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, null, getV.MonthReportId, BLL.Const.ProjectMonthReportMenuId, BLL.Const.BtnDelete);
+                            BLL.SitePerson_MonthReportDetailService.DeleteMonthReportDetailsByMonthReportId(rowID);                            
+                            BLL.SitePerson_MonthReportService.DeleteMonthReportByMonthReportId(rowID);
+                        }
                     }
                 }
                 BindGrid();

@@ -83,6 +83,8 @@
                     <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
                         OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1" MarginLeft="5px">
                     </f:Button>
+                    <f:Button runat="server" ID="btnQR" OnClick="btnQR_Click" Text="二维码生成" MarginLeft="10px">
+                            </f:Button>
                     <f:ToolbarFill ID="ToolbarFill1" runat="server">
                     </f:ToolbarFill>
                     <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
@@ -92,12 +94,16 @@
         </Toolbars>
     </f:Form>
     <f:Window ID="Window1" Title="对应标准规范" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Top" EnableResize="true" runat="server" IsModal="true" Width="900px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="900px"
         Height="500px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
         Height="500px">
+    </f:Window>
+    <f:Window ID="Window2" runat="server" Hidden="true" IsModal="false" Target="Parent"
+        EnableMaximize="true" EnableResize="true" Title="弹出框" CloseAction="HidePostBack"
+        EnableIFrame="true">
     </f:Window>
     </form>
 </body>

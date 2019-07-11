@@ -209,8 +209,9 @@ namespace FineUIPro.Web.Personal
                 var personalFolder = BLL.PersonalFolderService.GetPersonalFolderByID(this.tvPersonalFolder.SelectedNodeID);
                 if (personalFolder != null && BLL.PersonalFolderService.IsDeletePersonalFolder(personalFolder.PersonalFolderId))
                 {
+                    BLL.LogService.AddSys_Log(this.CurrUser, personalFolder.Code, personalFolder.PersonalFolderId, BLL.Const.PersonalFolderMenuId, BLL.Const.BtnDelete);
                     BLL.PersonalFolderService.DeletePersonalFolderByID(personalFolder.PersonalFolderId);
-                    BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除个人文件夹设置信息",this.tvPersonalFolder.SelectedNode.Text);
+                    
                     PersonalFolderDataBind();
                     Alert.ShowInTop("删除成功！");
                 }
@@ -301,8 +302,8 @@ namespace FineUIPro.Web.Personal
                     var item = BLL.PersonalFolderItemService.GetPersonalFolderItemByID(Grid1.DataKeys[rowIndex][0].ToString());
                     if (item != null)
                     {
+                        BLL.LogService.AddSys_Log(this.CurrUser, item.Code, item.PersonalFolderId, BLL.Const.PersonalFolderMenuId, BLL.Const.BtnModify);
                         BLL.PersonalFolderItemService.DeletePersonalFolderItemByID(item.PersonalFolderItemId);
-                        BLL.LogService.AddLogCode(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除个人文件明细信息", item.Code);  
                     }
                 }
                 this.BindGrid();

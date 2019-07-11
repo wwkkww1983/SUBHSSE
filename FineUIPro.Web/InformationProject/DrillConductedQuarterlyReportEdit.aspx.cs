@@ -343,7 +343,7 @@ namespace FineUIPro.Web.InformationProject
             {
                 drillConductedQuarterlyReport.DrillConductedQuarterlyReportId = this.DrillConductedQuarterlyReportId;
                 BLL.ProjectDrillConductedQuarterlyReportService.UpdateDrillConductedQuarterlyReport(drillConductedQuarterlyReport);
-                BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "修改应急演练开展情况季报");
+                BLL.LogService.AddSys_Log(this.CurrUser, drillConductedQuarterlyReport.YearId.ToString() + "-" + drillConductedQuarterlyReport.Quarter.ToString(), drillConductedQuarterlyReport.DrillConductedQuarterlyReportId, BLL.Const.ProjectDrillConductedQuarterlyReportMenuId, BLL.Const.BtnModify);
                 BLL.ProjectDrillConductedQuarterlyReportItemService.DeleteDrillConductedQuarterlyReportItemList(this.DrillConductedQuarterlyReportId);
             }
             else
@@ -356,7 +356,7 @@ namespace FineUIPro.Web.InformationProject
                     this.DrillConductedQuarterlyReportId = SQLHelper.GetNewID(typeof(Model.InformationProject_DrillConductedQuarterlyReport));
                     drillConductedQuarterlyReport.DrillConductedQuarterlyReportId = this.DrillConductedQuarterlyReportId;
                     BLL.ProjectDrillConductedQuarterlyReportService.AddDrillConductedQuarterlyReport(drillConductedQuarterlyReport);
-                    BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "添加应急演练开展情况季报");
+                    BLL.LogService.AddSys_Log(this.CurrUser, drillConductedQuarterlyReport.YearId.ToString() + "-" + drillConductedQuarterlyReport.Quarter.ToString(), drillConductedQuarterlyReport.DrillConductedQuarterlyReportId, BLL.Const.ProjectDrillConductedQuarterlyReportMenuId, BLL.Const.BtnAdd);
                     //删除未上报月报信息
                     Model.ManagementReport_ReportRemind reportRemind = (from x in Funs.DB.ManagementReport_ReportRemind
                                                                         where x.ProjectId == this.ProjectId && x.Year == drillConductedQuarterlyReport.YearId && x.Quarterly == drillConductedQuarterlyReport.Quarter && x.ReportName == "应急演练开展情况季报"

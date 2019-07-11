@@ -261,10 +261,16 @@ namespace FineUIPro.Web.Check
                 string checkItemSetId = this.tvCheckItemSet.SelectedNodeID;              
                 if (BLL.Check_ProjectCheckItemSetService.IsDeleteCheckItemSet(checkItemSetId))
                 {
-                    BLL.Check_ProjectCheckItemSetService.DeleteCheckItemSet(checkItemSetId, this.ProjectId);
-                    BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "删除检查项设置信息");
-                    CheckItemSetDataBind();
-                    Alert.ShowInTop("删除成功！", MessageBoxIcon.Success);
+                    var getV = BLL.Check_ProjectCheckItemSetService.GetCheckItemSetById(checkItemSetId);
+                    if(getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.MapCode, getV.CheckItemSetId, BLL.Const.ProjectCheckItemSetMenuId, BLL.Const.BtnDelete);
+                        BLL.Check_ProjectCheckItemSetService.DeleteCheckItemSet(checkItemSetId, this.ProjectId);
+                        
+                        CheckItemSetDataBind();
+                        Alert.ShowInTop("删除成功！", MessageBoxIcon.Success);
+                    }
+                  
                 }
                 else
                 {
@@ -340,8 +346,13 @@ namespace FineUIPro.Web.Check
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.Check_ProjectCheckItemDetailService.DeleteCheckItemDetail(rowID);
-                    BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "删除检查明细信息");                  
+                    var getV = BLL.Check_ProjectCheckItemDetailService.GetCheckItemDetailById(rowID);
+                    if (getV != null)
+                    {
+                        BLL.LogService.AddSys_Log(this.CurrUser, getV.SortIndex.ToString(), getV.CheckItemDetailId, BLL.Const.ProjectCheckItemSetMenuId, BLL.Const.BtnDelete);
+                       
+                        BLL.Check_ProjectCheckItemDetailService.DeleteCheckItemDetail(rowID);
+                    }               
                 }
 
                 BindGrid();
@@ -433,7 +444,7 @@ namespace FineUIPro.Web.Check
             }
             this.InsertProjectCheckItemSet("0", checkType);
             this.UpdateNullSup(checkType);   ///修正上级菜单为NULL的数据
-            BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "抽取公共资源检查项内容");
+            BLL.LogService.AddSys_Log(this.CurrUser, "抽取公共资源检查项内容", null, BLL.Const.ProjectCheckItemSetMenuId, BLL.Const.BtnDownload);
             ShowNotify("抽取公共资源检查项内容成功！", MessageBoxIcon.Success);
             CheckItemSetDataBind();
         }
@@ -616,7 +627,7 @@ namespace FineUIPro.Web.Check
             }
             this.CheckItemSetDataBind();//加载树
             this.BindGrid();
-            BLL.LogService.AddLog(this.ProjectId, this.CurrUser.UserId, "批量删除项目现场检查项信息");
+            BLL.LogService.AddSys_Log(this.CurrUser, "批量删除项目现场检查项信息", null, BLL.Const.ProjectCheckItemSetMenuId, BLL.Const.BtnDelete);
             ShowNotify("删除成功！", MessageBoxIcon.Success);
         }
 

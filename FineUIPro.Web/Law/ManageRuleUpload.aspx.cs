@@ -223,13 +223,13 @@ namespace FineUIPro.Web.Law
             {
                 this.ManageRuleId = manageRule.ManageRuleId = SQLHelper.GetNewID(typeof(Model.Law_ManageRule));
                 BLL.ManageRuleService.AddManageRule(manageRule);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "增加安全管理规定");
+                BLL.LogService.AddSys_Log(this.CurrUser, manageRule.ManageRuleCode, manageRule.ManageRuleId,BLL.Const.ManageRuleMenuId,BLL.Const.BtnAdd);
             }
             else
             {
                 manageRule.ManageRuleId = this.ManageRuleId;
                 BLL.ManageRuleService.UpdateManageRule(manageRule);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改安全管理规定");
+                BLL.LogService.AddSys_Log(this.CurrUser, manageRule.ManageRuleCode, manageRule.ManageRuleId, BLL.Const.ManageRuleMenuId, BLL.Const.BtnModify);
             }
         }
         #endregion
@@ -257,6 +257,7 @@ namespace FineUIPro.Web.Law
             var law = BLL.ManageRuleService.GetManageRuleById(this.ManageRuleId);
             if (law != null && !law.AuditDate.HasValue)
             {
+                BLL.LogService.AddSys_Log(this.CurrUser, law.ManageRuleCode, law.ManageRuleId, BLL.Const.ManageRuleMenuId, BLL.Const.BtnDelete);
                 BLL.ManageRuleService.DeleteManageRuleById(this.ManageRuleId);
                 this.SetTemp();
                 this.InitTreeMenu();

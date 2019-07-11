@@ -37,8 +37,21 @@ namespace BLL
                 ProjectId = training.ProjectId,
                 TrainTitle = training.TrainTitle,
                 TrainContent = training.TrainContent,
-                TrainStartDate = training.TrainStartDate
+                TrainStartDate = training.TrainStartDate,
+                TeachHour = training.TeachHour,
+                TeachMan = training.TeachMan,
+                TeachAddress = training.TeachAddress,
+                Remark = training.Remark,
+                AttachUrl = training.AttachUrl,
+                TrainTypeId = training.TrainTypeId,
+                TrainLevelId = training.TrainLevelId,
+                UnitIds = training.UnitIds,
+                States = training.States,
+                CompileMan = training.CompileMan,
+                TrainPersonNum = training.TrainPersonNum,
+                FromRecordId = training.FromRecordId,
             };
+
             if (training.TrainEndDate.HasValue)
             {
                 newTraining.TrainEndDate = training.TrainEndDate;
@@ -47,17 +60,7 @@ namespace BLL
             {
                 newTraining.TrainEndDate = training.TrainStartDate;
             }
-            newTraining.TeachHour = training.TeachHour;
-            newTraining.TeachMan = training.TeachMan;
-            newTraining.TeachAddress = training.TeachAddress;
-            newTraining.Remark = training.Remark;
-            newTraining.AttachUrl = training.AttachUrl;
-            newTraining.TrainTypeId = training.TrainTypeId;
-            newTraining.TrainLevelId = training.TrainLevelId;
-            newTraining.UnitIds = training.UnitIds;
-            newTraining.States = training.States;
-            newTraining.CompileMan = training.CompileMan;
-            newTraining.TrainPersonNum = training.TrainPersonNum;
+            
             db.EduTrain_TrainRecord.InsertOnSubmit(newTraining);
             db.SubmitChanges();
             ////增加一条编码记录
@@ -95,6 +98,7 @@ namespace BLL
                 newTraining.UnitIds = training.UnitIds;
                 newTraining.States = training.States;
                 newTraining.TrainPersonNum = training.TrainPersonNum;
+                newTraining.FromRecordId = training.FromRecordId;
                 db.SubmitChanges();
             }            
         }
@@ -125,6 +129,8 @@ namespace BLL
                     ////删除流程表
                     BLL.CommonService.DeleteFlowOperateByID(training.TrainingId);
                 }
+                ///删除培训试卷
+                EduTrain_TrainTestService.DeleteTrainTestByTrainingId(training.TrainingId);
                 db.EduTrain_TrainRecord.DeleteOnSubmit(training);
                 db.SubmitChanges();
             }

@@ -217,14 +217,14 @@ namespace FineUIPro.Web.SitePerson
             {
                 personInfo.CheckingId = CheckingId;
                 BLL.SitePerson_CheckingService.UpdatePersonInfo(personInfo);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "修改人员考勤", personInfo.CheckingId);
+                BLL.LogService.AddSys_Log(this.CurrUser, personInfo.CardNo, personInfo.CheckingId, BLL.Const.PersonalInfoMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 string newKeyID = SQLHelper.GetNewID(typeof(Model.SitePerson_Checking));
                 personInfo.CheckingId = newKeyID;
                 BLL.SitePerson_CheckingService.AddPersonInfo(personInfo);
-                BLL.LogService.AddLogDataId(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "添加人员考勤", personInfo.CheckingId);
+                BLL.LogService.AddSys_Log(this.CurrUser, personInfo.CardNo, personInfo.CheckingId, BLL.Const.PersonalInfoMenuId, BLL.Const.BtnDelete);
             }
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }

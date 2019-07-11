@@ -117,8 +117,8 @@ namespace FineUIPro.Web.BaseInfo
         {
             if (judgementDelete(hfFormID.Text, true))
             {
+                BLL.LogService.AddSys_Log(this.CurrUser, this.txtUnitTypeCode.Text, hfFormID.Text, BLL.Const.UnitTypeMenuId, BLL.Const.BtnDelete);
                 BLL.UnitTypeService.DeleteUnitTypeById(hfFormID.Text);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除单位类别");
                 // 重新绑定表格，并模拟点击[新增按钮]
                 BindGrid();
                 PageContext.RegisterStartupScript("onNewButtonClick();");
@@ -139,8 +139,12 @@ namespace FineUIPro.Web.BaseInfo
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, true))
                     {
-                        BLL.UnitTypeService.DeleteUnitTypeById(rowID);
-                        BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "删除单位类别");
+                        var getV = BLL.UnitTypeService.GetUnitTypeById(rowID);
+                        if (getV != null)
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getV.UnitTypeCode, getV.UnitTypeId, BLL.Const.UnitTypeMenuId, BLL.Const.BtnDelete);
+                            BLL.UnitTypeService.DeleteUnitTypeById(rowID);
+                        }
                     }
                 }
                 BindGrid();
@@ -185,7 +189,7 @@ namespace FineUIPro.Web.BaseInfo
         protected void btnSave_Click(object sender, EventArgs e)
         {
             string strRowID = hfFormID.Text;
-            Model.Base_UnitType depart = new Model.Base_UnitType
+            Model.Base_UnitType newUnitType = new Model.Base_UnitType
             {
                 UnitTypeCode = this.txtUnitTypeCode.Text.Trim(),
                 UnitTypeName = this.txtUnitTypeName.Text.Trim(),
@@ -193,20 +197,20 @@ namespace FineUIPro.Web.BaseInfo
             };
             if (string.IsNullOrEmpty(strRowID))
             {
-                depart.UnitTypeId = SQLHelper.GetNewID(typeof(Model.Base_UnitType));
-                BLL.UnitTypeService.AddUnitType(depart);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "添加单位类别");
+                newUnitType.UnitTypeId = SQLHelper.GetNewID(typeof(Model.Base_UnitType));
+                BLL.UnitTypeService.AddUnitType(newUnitType);
+                BLL.LogService.AddSys_Log(this.CurrUser, newUnitType.UnitTypeCode, newUnitType.UnitTypeId, BLL.Const.UnitTypeMenuId, BLL.Const.BtnAdd);
             }
             else
             {
-                depart.UnitTypeId = strRowID;
-                BLL.UnitTypeService.UpdateUnitType(depart);
-                BLL.LogService.AddLog(this.CurrUser.LoginProjectId,this.CurrUser.UserId, "修改单位类别");
+                newUnitType.UnitTypeId = strRowID;
+                BLL.UnitTypeService.UpdateUnitType(newUnitType);
+                BLL.LogService.AddSys_Log(this.CurrUser, newUnitType.UnitTypeCode, newUnitType.UnitTypeId,BLL.Const.UnitTypeMenuId,BLL.Const.BtnModify);
             }
             this.SimpleForm1.Reset();
             // 重新绑定表格，并点击当前编辑或者新增的行
             BindGrid();
-            PageContext.RegisterStartupScript(String.Format("F('{0}').selectRow('{1}');", Grid1.ClientID, depart.UnitTypeId));
+            PageContext.RegisterStartupScript(String.Format("F('{0}').selectRow('{1}');", Grid1.ClientID, newUnitType.UnitTypeId));
         }
 
         /// <summary>
