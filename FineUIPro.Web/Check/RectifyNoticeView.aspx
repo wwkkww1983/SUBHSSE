@@ -19,16 +19,23 @@
                 <Items>
                     <f:TextBox ID="txtRectifyNoticesCode" runat="server" Label="编号" Readonly="true">
                     </f:TextBox>
+                     <f:TextBox ID="txtCheckedDate" runat="server" Label="受检时间" Readonly="true">
+                    </f:TextBox>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
                     <f:TextBox ID="txtUnitName" runat="server" Label="责任单位" Readonly="true">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
+                    <f:TextBox ID="drpDutyPerson" runat="server" Label="责任人" Readonly="true">
+                    </f:TextBox>
                     <f:TextBox ID="txtWorkAreaName" runat="server" Label="检查区域" Readonly="true">
                     </f:TextBox>
-                    <f:TextBox ID="txtCheckedDate" runat="server" Label="受检时间" Readonly="true">
-                    </f:TextBox>
+                   
                 </Items>
             </f:FormRow>
             <f:FormRow>
@@ -68,7 +75,9 @@
                 <Items>
                     <f:TextBox ID="txtIsRectify" runat="server" Label="本单位检查是否完成整改" Readonly="true">
                     </f:TextBox>
-                    <f:TextBox ID="txtCheckPerson" runat="server" Label="本单位检查人" Readonly="true">
+                    <f:TextBox ID="txtCheckPerson" runat="server" Label="本单位检查人" Readonly="true" LabelWidth="120px">
+                    </f:TextBox>
+                     <f:TextBox ID="txtReCheckDate" runat="server" Label="复查日期" Readonly="true">
                     </f:TextBox>
                 </Items>
             </f:FormRow>

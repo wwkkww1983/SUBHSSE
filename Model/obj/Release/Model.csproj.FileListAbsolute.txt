@@ -83,7 +83,10 @@ E:\工作\中国化学平台\SUBHSSE\SUBHSSE\Model\obj\Release\Model.dll
 E:\工作\中国化学平台\SUBHSSE\SUBHSSE\Model\obj\Release\Model.pdb
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\Model\bin\Release\Model.dll
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\Model\bin\Release\Model.pdb
-D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Release\Model.csprojAssemblyReference.cache
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Release\Model.csproj.CoreCompileInputs.cache
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Release\Model.dll
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Release\Model.pdb
+D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\Model\bin\Release\Newtonsoft.Json.dll
+D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\Model\bin\Release\Newtonsoft.Json.pdb
+D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\Model\bin\Release\Newtonsoft.Json.xml
+D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Release\Model.csproj.CopyComplete

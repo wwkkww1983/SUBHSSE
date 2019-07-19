@@ -49,6 +49,15 @@ namespace FineUIPro.Web.Check {
         protected global::FineUIPro.TextBox txtRectifyNoticesCode;
         
         /// <summary>
+        /// txtCheckedDate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DatePicker txtCheckedDate;
+        
+        /// <summary>
         /// drpUnitId 控件。
         /// </summary>
         /// <remarks>
@@ -58,6 +67,15 @@ namespace FineUIPro.Web.Check {
         protected global::FineUIPro.DropDownList drpUnitId;
         
         /// <summary>
+        /// drpDutyPerson 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpDutyPerson;
+        
+        /// <summary>
         /// drpWorkAreaId 控件。
         /// </summary>
         /// <remarks>
@@ -65,15 +83,6 @@ namespace FineUIPro.Web.Check {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.DropDownList drpWorkAreaId;
-        
-        /// <summary>
-        /// txtCheckedDate 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DatePicker txtCheckedDate;
         
         /// <summary>
         /// txtWrongContent 控件。
@@ -155,6 +164,15 @@ namespace FineUIPro.Web.Check {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.DropDownList drpCheckPerson;
+        
+        /// <summary>
+        /// txtReCheckDate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DatePicker txtReCheckDate;
         
         /// <summary>
         /// Toolbar1 控件。

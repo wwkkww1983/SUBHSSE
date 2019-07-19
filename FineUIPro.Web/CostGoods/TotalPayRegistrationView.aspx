@@ -15,6 +15,7 @@
         <Toolbars>
             <f:Toolbar ID="Toolbar1" Position="Top" runat="server">
                 <Items>
+                    <f:ToolbarFill runat="server"></f:ToolbarFill>
                     <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
                         EnableAjax="false" DisableControlBeforePostBack="false">
                     </f:Button>

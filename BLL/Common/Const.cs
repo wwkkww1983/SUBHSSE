@@ -2255,6 +2255,10 @@ namespace BLL
         /// HSSE日志暨管理数据收集打印报表
         /// </summary>
         public const string HSSELogReportId = "16";
+        /// <summary>
+        /// 分包商上传周报打印报表
+        /// </summary>
+        public const string SubUploadWeekReportId = "23";
         #endregion
 
         #region 通用流程定义

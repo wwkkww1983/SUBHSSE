@@ -130,3 +130,4 @@ D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Debug\Model.csproj.CoreCompileIn
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Debug\Model.csproj.CopyComplete
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Debug\Model.dll
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Debug\Model.pdb
+D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Debug\Model.csprojAssemblyReference.cache

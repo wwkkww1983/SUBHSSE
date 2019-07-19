@@ -31,19 +31,19 @@
                             <f:DropDownList ID="drpUnit" runat="server" Label="单位" AutoPostBack="true" Width="300px"
                                 LabelWidth="50px" LabelAlign="right" OnSelectedIndexChanged="TextBox_TextChanged">
                             </f:DropDownList>
-                            <f:TextBox runat="server" EmptyText="输入姓名" AutoPostBack="True" Label="姓名" LabelWidth="45px"
+                            <f:TextBox runat="server" EmptyText="输入姓名" AutoPostBack="True" Label="姓名" LabelWidth="50px"
                                 Width="180px" ID="txtPersonName" OnTextChanged="TextBox_TextChanged">
                             </f:TextBox>
-                            <f:TextBox runat="server" EmptyText="输入卡号" AutoPostBack="True" Label="卡号" LabelWidth="45px"
+                            <f:TextBox runat="server" EmptyText="输入卡号" AutoPostBack="True" Label="卡号" LabelWidth="50px"
                                 Width="180px" ID="txtCardNo" OnTextChanged="TextBox_TextChanged">
                             </f:TextBox> 
-                             <f:TextBox runat="server" EmptyText="输入岗位" AutoPostBack="True" Label="岗位" LabelWidth="45px"
+                             <f:TextBox runat="server" EmptyText="输入岗位" AutoPostBack="True" Label="岗位" LabelWidth="50px"
                                 Width="180px" ID="txtWorkPostName" OnTextChanged="TextBox_TextChanged">
                             </f:TextBox> 
-                            <f:CheckBox ID="ckPostType2" runat="server" Label="特岗人员" LabelWidth="70px"
+                            <f:CheckBox ID="ckPostType2" runat="server" Label="特岗人员" LabelWidth="80px"
                                 Width="80px" OnCheckedChanged="TextBox_TextChanged" AutoPostBack="true">
                             </f:CheckBox>
-                            <f:CheckBox ID="ckIsHsse" runat="server" Label="安全人员" LabelWidth="70px"
+                            <f:CheckBox ID="ckIsHsse" runat="server" Label="安全人员" LabelWidth="80px"
                                 Width="80px" OnCheckedChanged="TextBox_TextChanged" AutoPostBack="true">
                             </f:CheckBox>                                            
                             <f:ToolbarFill runat="server"></f:ToolbarFill>
@@ -59,11 +59,11 @@
                     <f:RenderField Width="90px" ColumnID="PersonName" DataField="PersonName" FieldType="String"
                         HeaderText="人员姓名" HeaderTextAlign="Center" TextAlign="Left" SortField="PersonName">
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="CardNo" DataField="CardNo" FieldType="String"
+                    <f:RenderField Width="150px" ColumnID="CardNo" DataField="CardNo" FieldType="String"
                         HeaderText="卡号" HeaderTextAlign="Center" TextAlign="Left" SortField="CardNo">
                     </f:RenderField>
                     <f:RenderField HeaderText="性别" ColumnID="Sex" DataField="Sex" SortField="Sex" FieldType="String"
-                        HeaderTextAlign="Center" TextAlign="Left" Width="70px">
+                        HeaderTextAlign="Center" TextAlign="Left" Width="60px">
                     </f:RenderField>
                     <f:RenderField HeaderText="岗位名称" ColumnID="WorkPostName" DataField="WorkPostName"
                         SortField="WorkPostName" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
@@ -71,9 +71,9 @@
                     </f:RenderField>
                     <f:RenderField HeaderText="身份证号" ColumnID="IdentityCard" DataField="IdentityCard"
                         SortField="IdentityCard" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
-                        Width="160px">
+                        Width="170px">
                     </f:RenderField>
-                     <f:RenderField Width="90px" ColumnID="InTime" DataField="InTime"
+                     <f:RenderField Width="100px" ColumnID="InTime" DataField="InTime"
                         SortField="InTime" FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd"
                         HeaderText="入场时间" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>

@@ -312,20 +312,20 @@ namespace FineUIPro.Web.Check
                         ProjectId = checkColligation.ProjectId,
                         UnitId = detail.UnitId,
                         CheckedDate = checkColligation.CheckTime,
-                        RectifyNoticesCode = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectRectifyNoticeMenuId, checkColligation.ProjectId, detail.UnitId)
+                        RectifyNoticesCode = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectRectifyNoticeMenuId, checkColligation.ProjectId, detail.UnitId),
+                        WrongContent = "开展了综合检查,发现问题及隐患:" + detail.Unqualified + "\n" + detail.Suggestions,
+                        SignPerson = this.CurrUser.UserId,
+                        SignDate = DateTime.Now,
                     };
-                    Model.ProjectData_WorkArea workArea = (from x in Funs.DB.ProjectData_WorkArea
-                                                           where x.ProjectId == checkColligation.ProjectId && x.WorkAreaName == detail.WorkArea
-                                                           select x).FirstOrDefault();
+
+                    var workArea = Funs.DB.ProjectData_WorkArea.FirstOrDefault(x => x.ProjectId == checkColligation.ProjectId && x.WorkAreaName == detail.WorkArea);
                     if (workArea != null)
                     {
                         rectifyNotice.WorkAreaId = workArea.WorkAreaId;
-                    }
-                    rectifyNotice.WrongContent = "开展了综合检查,发现问题及隐患:" + detail.Unqualified + "\n" + detail.Suggestions;
-                    rectifyNotice.SignPerson = this.CurrUser.UserId;
-                    rectifyNotice.SignDate = DateTime.Now;
-                    rectifyNoticeCode = rectifyNotice.RectifyNoticesCode;
+                    }                  
+                 
                     BLL.RectifyNoticesService.AddRectifyNotices(rectifyNotice);
+                    rectifyNoticeCode = rectifyNotice.RectifyNoticesCode;
                     detail.RectifyNoticeId = rectifyNotice.RectifyNoticesId;
                     BLL.Check_CheckColligationDetailService.UpdateCheckColligationDetail(detail);
                     ///写入工程师日志

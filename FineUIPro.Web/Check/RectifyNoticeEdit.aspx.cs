@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Web;
 using BLL;
-
+using System.Collections.Generic;
+ 
 namespace FineUIPro.Web.Check
 {
     public partial class RectifyNoticeEdit : PageBase
@@ -50,14 +51,25 @@ namespace FineUIPro.Web.Check
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 this.ProjectId = this.CurrUser.LoginProjectId;
                 this.InitDropDownList();
+                this.RectifyNoticeId = Request.Params["RectifyNoticeId"];
                 string states = Request.Params["states"];
+                if (!string.IsNullOrEmpty(this.RectifyNoticeId) && this.RectifyNoticeId.Contains("$"))
+                {
+                    List<string> stre = Funs.GetStrListByStr(this.RectifyNoticeId, '$');
+                    if (stre.Count > 0)
+                    {
+                        this.RectifyNoticeId = stre[0];
+                        states = stre[1];
+                    }
+                }
                 if (!string.IsNullOrEmpty(states))
                 {
                     this.drpIsRectify.Hidden = false;
                     this.drpCheckPerson.Hidden = false;
+                    this.txtReCheckDate.Hidden = false;
                 }
                                
-                this.RectifyNoticeId = Request.Params["RectifyNoticeId"];
+               
                 var rectifyNotice = BLL.RectifyNoticesService.GetRectifyNoticesById(this.RectifyNoticeId);
                 if (rectifyNotice != null)
                 {
@@ -71,6 +83,11 @@ namespace FineUIPro.Web.Check
                     if (!string.IsNullOrEmpty(rectifyNotice.UnitId))
                     {
                         this.drpUnitId.SelectedValue = rectifyNotice.UnitId;
+                        BLL.UserService.InitUserProjectIdUnitIdDropDownList(this.drpDutyPerson, this.ProjectId, this.drpUnitId.SelectedValue, true);
+                        if (!string.IsNullOrEmpty(rectifyNotice.DutyPersonId))
+                        {
+                            this.drpDutyPerson.SelectedValue = rectifyNotice.DutyPersonId;
+                        }
                     }
                     if (!string.IsNullOrEmpty(rectifyNotice.WorkAreaId))
                     {
@@ -105,15 +122,14 @@ namespace FineUIPro.Web.Check
                         this.txtCompleteStatus.Text = "整改结果：";
                     }
                     this.txtDutyPerson.Text = rectifyNotice.DutyPerson;
-                    if (rectifyNotice.CompleteDate != null)
-                    {
-                        this.txtCompleteDate.Text = string.Format("{0:yyyy-MM-dd}", rectifyNotice.CompleteDate);
-                    }
+                    this.txtCompleteDate.Text = string.Format("{0:yyyy-MM-dd}", rectifyNotice.CompleteDate);
+
                     this.drpIsRectify.SelectedValue = Convert.ToString(rectifyNotice.IsRectify);
                     if (!string.IsNullOrEmpty(rectifyNotice.CheckPerson))
                     {
                         this.drpCheckPerson.SelectedValue = rectifyNotice.CheckPerson;
                     }
+                    this.txtReCheckDate.Text = string.Format("{0:yyyy-MM-dd}", rectifyNotice.ReCheckDate);
                 }
                 else
                 {
@@ -123,9 +139,10 @@ namespace FineUIPro.Web.Check
                     {
                         this.drpSignPerson.SelectedValue = this.CurrUser.UserId;
                     }
-                    this.txtCheckedDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
+
+                    //this.txtCheckedDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                     this.txtSignDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
-                    this.txtCompleteDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
+                   // this.txtCompleteDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                     this.txtWrongContent.Text = "隐患描述：";
                     this.txtCompleteStatus.Text = "整改结果：";
                 }
@@ -139,6 +156,7 @@ namespace FineUIPro.Web.Check
         {
             //责任单位
             BLL.UnitService.InitUnitDropDownList(this.drpUnitId, this.ProjectId, true);
+            
             //检查区域
             BLL.WorkAreaService.InitWorkAreaDropDownList(this.drpWorkAreaId, this.ProjectId, true);
             //本单位检查人
@@ -182,9 +200,11 @@ namespace FineUIPro.Web.Check
         /// <param name="e"></param>
         protected void drpUnitId_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.drpDutyPerson.Items.Clear();
             if (this.drpUnitId.SelectedValue != BLL.Const._Null)
             {
                 this.txtRectifyNoticesCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectRectifyNoticeMenuId, this.CurrUser.LoginProjectId, this.drpUnitId.SelectedValue);
+                BLL.UserService.InitUserProjectIdUnitIdDropDownList(this.drpDutyPerson, this.ProjectId, this.drpUnitId.SelectedValue, true);
             }
             else
             {
@@ -202,28 +222,35 @@ namespace FineUIPro.Web.Check
         {
             Model.Check_RectifyNotices rectifyNotices = new Model.Check_RectifyNotices
             {
-                ProjectId = this.CurrUser.LoginProjectId,
-                RectifyNoticesCode = this.txtRectifyNoticesCode.Text.Trim()
+                ProjectId = this.ProjectId,
+                RectifyNoticesCode = this.txtRectifyNoticesCode.Text.Trim(),
+                CheckedDate = Funs.GetNewDateTime(this.txtCheckedDate.Text.Trim()),
+                WrongContent = HttpUtility.HtmlEncode(this.txtWrongContent.Text.Trim()),
+                SignDate = Funs.GetNewDateTime(this.txtSignDate.Text.Trim()),
+                CompleteStatus = HttpUtility.HtmlEncode(this.txtCompleteStatus.Text.Trim()),
+                DutyPerson = this.txtDutyPerson.Text.Trim(),
+                CompleteDate = Funs.GetNewDateTime(this.txtCompleteDate.Text.Trim()),
+                IsRectify = Convert.ToBoolean(this.drpIsRectify.SelectedValue),
+                ReCheckDate = Funs.GetNewDateTime(this.txtReCheckDate.Text.Trim()),
             };
             if (this.drpUnitId.SelectedValue != BLL.Const._Null)
             {
                 rectifyNotices.UnitId = this.drpUnitId.SelectedValue;
             }
+            if (this.drpDutyPerson.SelectedValue != BLL.Const._Null)
+            {
+                rectifyNotices.DutyPersonId = this.drpDutyPerson.SelectedValue;
+            }
+
             if (this.drpWorkAreaId.SelectedValue != BLL.Const._Null)
             {
                 rectifyNotices.WorkAreaId = this.drpWorkAreaId.SelectedValue;
             }
-            rectifyNotices.CheckedDate = Funs.GetNewDateTime(this.txtCheckedDate.Text.Trim());
-            rectifyNotices.WrongContent = HttpUtility.HtmlEncode(this.txtWrongContent.Text.Trim());
             if (this.drpSignPerson.SelectedValue != BLL.Const._Null && !string.IsNullOrEmpty(this.drpSignPerson.SelectedValue))
             {
                 rectifyNotices.SignPerson = this.drpSignPerson.SelectedValue;
             }
-            rectifyNotices.SignDate = Funs.GetNewDateTime(this.txtSignDate.Text.Trim());
-            rectifyNotices.CompleteStatus = HttpUtility.HtmlEncode(this.txtCompleteStatus.Text.Trim());
-            rectifyNotices.DutyPerson = this.txtDutyPerson.Text.Trim();
-            rectifyNotices.CompleteDate = Funs.GetNewDateTime(this.txtCompleteDate.Text.Trim());
-            rectifyNotices.IsRectify = Convert.ToBoolean(this.drpIsRectify.SelectedValue);
+
             if (this.drpCheckPerson.SelectedValue != BLL.Const._Null)
             {
                 rectifyNotices.CheckPerson = this.drpCheckPerson.SelectedValue;

@@ -41,10 +41,12 @@ namespace BLL
                 SignDate = rectifyNotices.SignDate,
                 CompleteStatus = rectifyNotices.CompleteStatus,
                 DutyPerson = rectifyNotices.DutyPerson,
+                DutyPersonId =rectifyNotices.DutyPersonId,
                 CompleteDate = rectifyNotices.CompleteDate,
                 IsRectify = rectifyNotices.IsRectify,
-                CheckPerson = rectifyNotices.CheckPerson
-            };
+                CheckPerson = rectifyNotices.CheckPerson,
+                ReCheckDate = rectifyNotices.ReCheckDate,
+        };
             db.Check_RectifyNotices.InsertOnSubmit(newRectifyNotices);
             db.SubmitChanges();
             CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectRectifyNoticeMenuId, rectifyNotices.ProjectId, rectifyNotices.UnitId, rectifyNotices.RectifyNoticesId, rectifyNotices.CompleteDate);
@@ -72,6 +74,8 @@ namespace BLL
                 newRectifyNotices.CompleteDate = rectifyNotices.CompleteDate;
                 newRectifyNotices.IsRectify = rectifyNotices.IsRectify;
                 newRectifyNotices.CheckPerson = rectifyNotices.CheckPerson;
+                newRectifyNotices.DutyPersonId = rectifyNotices.DutyPersonId;
+                newRectifyNotices.ReCheckDate = rectifyNotices.ReCheckDate;
                 db.SubmitChanges();
             }
         }

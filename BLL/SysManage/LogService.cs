@@ -34,7 +34,7 @@ namespace BLL
                     OperationName = strOperationName,
                     UpState = Const.UpState_2,
                     LogSource = 1,
-            };
+                };
 
                 IPAddress[] ips = Dns.GetHostAddresses(syslog.HostName);
                 if (ips.Length > 0)
@@ -81,7 +81,7 @@ namespace BLL
                 {
                     syslog.ProjectId = project.ProjectId;
                 }
-                
+
                 db.Sys_Log.InsertOnSubmit(syslog);
                 db.SubmitChanges();
             }

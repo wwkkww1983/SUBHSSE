@@ -560,6 +560,17 @@
     <None Include="Doc\安全生产月报.doc" />
     <None Include="Doc\检查项目设置.doc" />
     <None Include="packages.config" />
+    <Content Include="ReportPrint\ReportTabFile\分包商上传周报.tab" />
+    <Content Include="ReportPrint\ReportTabFile\HSSE日志暨管理数据收集.tab" />
+    <Content Include="ReportPrint\ReportTabFile\环境危险源辨识与评价.tab" />
+    <Content Include="ReportPrint\ReportTabFile\环境危险源辨识与评价（重要环境因素）.tab" />
+    <Content Include="ReportPrint\ReportTabFile\项目现场安全生产数据季报.tab" />
+    <Content Include="ReportPrint\ReportTabFile\项目现场应急演练工作计划半年报.tab" />
+    <Content Include="ReportPrint\ReportTabFile\项目现场应急演练开展情况季报.tab" />
+    <Content Include="ReportPrint\ReportTabFile\项目现场百万工时安全统计月报.tab" />
+    <Content Include="ReportPrint\ReportTabFile\项目现场职工伤亡事故原因分析报.tab" />
+    <Content Include="ReportPrint\ReportTabFile\职业健康安全危险源辨识与评价.tab" />
+    <Content Include="ReportPrint\ReportTabFile\职业健康安全危险源辨识与评价（重大危险源）.tab" />
     <None Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Base_Unit.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

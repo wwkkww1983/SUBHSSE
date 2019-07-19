@@ -104,12 +104,12 @@
                                     <asp:Label ID="labNumber" runat="server" Text=' <%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1%>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>    --%>                          
-                            <f:RenderField Width="80px" ColumnID="PersonName" DataField="PersonName" SortField="PersonName"
+                            <f:RenderField Width="120px" ColumnID="PersonName" DataField="PersonName" SortField="PersonName"
                                 FieldType="String" HeaderText="姓名" HeaderTextAlign="Center"
                                 TextAlign="Center">                          
                             </f:RenderField>
                              <f:RenderField HeaderText="卡号" ColumnID="CardNo" DataField="CardNo" SortField="CardNo"
-                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="150px">                               
+                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="100px">                               
                             </f:RenderField>
                             <%--<f:RenderField HeaderText="发卡号" ColumnID="SendCardNo" DataField="SendCardNo" SortField="SendCardNo"
                                  FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="110px">                               

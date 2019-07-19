@@ -38,8 +38,8 @@
                             <f:TextBox ID="txtPersonName" runat="server" Label="人员姓名" MaxLength="200" LabelAlign="Right"
                                 Required="True" ShowRedStar="True" FocusOnPageLoad="true">
                             </f:TextBox>
-                            <f:TextBox ID="txtIdentityCard" runat="server" Label="身份证号" MaxLength="50" LabelAlign="Right"
-                               AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
+                            <f:TextBox ID="txtIdentityCard" runat="server" Label="身份证/证件号" MaxLength="50" LabelAlign="Right"
+                               AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Required="true" ShowRedStar="true">
                             </f:TextBox>
                            <%-- <f:DropDownList ID="drpUnit" runat="server" Label="所属单位" LabelAlign="Right" Required="True"
                                 ShowRedStar="True" AutoPostBack="True" OnSelectedIndexChanged="drpUnit_SelectedIndexChanged">

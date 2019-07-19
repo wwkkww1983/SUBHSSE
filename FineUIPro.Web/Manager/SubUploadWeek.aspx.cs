@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
 using BLL;
@@ -283,6 +280,24 @@ namespace FineUIPro.Web.Manager
 
             return sb.ToString();
         }
-        #endregion        
+        #endregion
+
+        #region Grid行点击事件
+        /// <summary>
+        /// Grid行点击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Grid1_RowCommand(object sender, GridCommandEventArgs e)
+        {
+            if (e.CommandName=="print")
+            {
+                if (!string.IsNullOrEmpty(Grid1.SelectedRowID))
+                {
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../ReportPrint/ExReportPrint.aspx?reportId={0}&&replaceParameter={1}&&varValue={2}", Const.SubUploadWeekReportId, Grid1.SelectedRowID, "", "打印 - ")));
+                }
+            }
+        }
+        #endregion
     }
 }

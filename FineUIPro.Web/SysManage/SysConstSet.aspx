@@ -65,6 +65,13 @@
                                                 <f:Label ID="Label12" runat="server" Text="说明：设置固定流程单据审核流程按照已定义流程审核，不设置在在单据中自主选择流程。" MarginLeft="50px"></f:Label>
                                             </Items>
                                         </f:FormRow>
+                                        <f:FormRow ColumnWidths="35% 65%" runat="server" ID="frChangeData" Hidden="true">
+                                            <Items>
+                                                 <f:CheckBox ID="ckChangeData" runat="server" Label="博晟数据提取" LabelWidth="200px"> 
+                                                </f:CheckBox>
+                                                <f:Label ID="Label13" runat="server" Text="说明：设置单位人员培训从博晟提取数据，不设置不从博晟提取。" MarginLeft="50px"></f:Label>
+                                            </Items>
+                                        </f:FormRow>
                                         <%--<f:FormRow ColumnWidths="35% 65%">
                                             <Items>
                                                 <f:NumberBox ID="NumberBox1" runat="server" Label="企业安全管理资料月报截止日期" LabelWidth="200px"> 

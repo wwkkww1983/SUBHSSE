@@ -20,9 +20,16 @@ namespace FineUIPro.Web.SysManage
             if (!IsPostBack)
             {
                 var thisUnit=BLL.CommonService.GetIsThisUnit();
-                if ( thisUnit != null && thisUnit.UnitId == BLL.Const.UnitId_14)
+                if (thisUnit != null)
                 {
-                    this.frFlowOperate.Hidden = false;
+                    if (thisUnit.UnitId == BLL.Const.UnitId_14)
+                    {
+                        this.frFlowOperate.Hidden = false;
+                    }
+                    if (thisUnit.UnitId == BLL.Const.UnitId_CWCEC)
+                    {
+                        this.frChangeData.Hidden = false;
+                    }
                 }
 
                 /// TAB1加载页面方法
@@ -80,6 +87,19 @@ namespace FineUIPro.Web.SysManage
                     this.ckMenuFlowOperate.Checked = false;
                 }
             }
+
+            var sysSet5 = BLL.ConstValue.drpConstItemList(BLL.ConstValue.Group_ChangeData).FirstOrDefault();
+            if (sysSet5 != null)
+            {
+                if (sysSet5.ConstValue == "1")
+                {
+                    this.ckChangeData.Checked = true;
+                }
+                else
+                {
+                    this.ckChangeData.Checked = false;
+                }
+            }
         }
 
         /// <summary>
@@ -132,6 +152,20 @@ namespace FineUIPro.Web.SysManage
                 else
                 {
                     sysSet4.ConstValue = "0";
+                }
+                Funs.DB.SubmitChanges();
+            }
+
+            var sysSet5 = BLL.ConstValue.drpConstItemList(BLL.ConstValue.Group_ChangeData).FirstOrDefault();
+            if (sysSet5 != null)
+            {
+                if (this.ckChangeData.Checked == true)
+                {
+                    sysSet5.ConstValue = "1";
+                }
+                else
+                {
+                    sysSet5.ConstValue = "0";
                 }
                 Funs.DB.SubmitChanges();
             }

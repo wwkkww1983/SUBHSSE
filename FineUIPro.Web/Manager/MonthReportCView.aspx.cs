@@ -142,5 +142,16 @@ namespace FineUIPro.Web.Manager
             }
         }
         #endregion
+
+        #region 导出按钮
+        /// 导出按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnOut_Click(object sender, EventArgs e)
+        {
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("MonthReportCOut.aspx?MonthReportId={0}", this.MonthReportId, "编辑 - ")));
+        }
+        #endregion
     }
 }

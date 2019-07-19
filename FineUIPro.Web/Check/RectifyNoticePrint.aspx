@@ -141,7 +141,7 @@
                             <br />
                             &nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="Label9" runat="server" Font-Size="15px" Text="在"></asp:Label><asp:Label
                                 ID="txtCheckedDate2" runat="server" Font-Size="15px"></asp:Label>
-                            <asp:Label ID="Label8" runat="server" Font-Size="15px" Text="TCC对你单位施工安全检查中，发现贵单位施工作业中存在以下问题："></asp:Label><br />
+                            <asp:Label ID="Label8" runat="server" Font-Size="15px" Text="对你单位施工安全检查中，发现贵单位施工作业中存在以下问题："></asp:Label><br />
                             <br />
                             <br />
                             &nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="txtWrongContent" runat="server" Font-Size="15px"></asp:Label><br />
@@ -175,7 +175,7 @@
                     </tr>
                     <tr style="height: 32px">
                         <td colspan="6" align="left" style="border: 1px solid #000000; border-bottom: none;">
-                            <asp:Label ID="Label18" runat="server" Font-Size="15px" Text="TCC检查结果："></asp:Label><br />
+                            <asp:Label ID="Label18" runat="server" Font-Size="15px" Text="检查结果："></asp:Label><br />
                             <br />
                             <br />
                             <br />
@@ -186,7 +186,7 @@
                     </tr>
                     <tr style="height: 32px">
                         <td colspan="6" align="left" style="border: 1px solid #000000; border-bottom: none;">
-                            <asp:Label ID="Label19" runat="server" Font-Size="15px" Text="TCC根据上述情况，对违规单位作如下处理："></asp:Label><br />
+                            <asp:Label ID="Label19" runat="server" Font-Size="15px" Text="根据上述情况，对违规单位作如下处理："></asp:Label><br />
                             <asp:CheckBox ID="CheckBox1" runat="server" Text="免予处罚" /><br />
                             <asp:CheckBox ID="CheckBox2" runat="server" Text="批评和警告" /><br />
                             <asp:CheckBox ID="CheckBox3" runat="server" Text="向违规单位上级通报" /><br />

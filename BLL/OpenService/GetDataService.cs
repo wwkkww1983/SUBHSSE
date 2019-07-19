@@ -12,8 +12,7 @@ namespace BLL
         /// </summary>
         public static void AddData()
         {
-            Model.SUBHSSEDB db = Funs.DB;
-            var getDataList = (from x in db.Sys_DataExchange where x.IsUpdate == false select x).ToList();
+            var getDataList = (from x in Funs.DB.Sys_DataExchange where x.IsUpdate == false select x).ToList();
             if (getDataList.Count() > 0)
             {
                 bool isOk = false;
@@ -23,62 +22,106 @@ namespace BLL
                     string type = obj["Type"].ToString();
                     string code = obj["Code"].ToString();
                     string fromprojectId = obj["DepartId"].ToString();
-                    string fromprojectName = "宜都兴发湿法磷酸装置";// obj["DepartName"].ToString();
+                    JArray arr = JArray.Parse(obj["Data"].ToString());
+
                     string projectId = string.Empty;
                     ////根据传值项目主键
-                    var getProjectByFromProjectId = db.Base_Project.FirstOrDefault(x => x.FromProjectId == fromprojectId);
+                    var getProjectByFromProjectId = Funs.DB.Base_Project.FirstOrDefault(x => x.FromProjectId == fromprojectId);
                     if (getProjectByFromProjectId != null)
                     {
                         projectId = getProjectByFromProjectId.ProjectId;
                     }
                     else
                     {
-                        ////根据约定项目名称（项目简称）值判断
-                        var getProjectByFromProjectName = db.Base_Project.FirstOrDefault(x => x.ShortName == fromprojectName);
-                        if (getProjectByFromProjectName != null)
+                        if (type == "1")
                         {
-                            projectId = getProjectByFromProjectName.ProjectId;
-                            getProjectByFromProjectName.FromProjectId = fromprojectId;
-                            ProjectService.UpdateProject(getProjectByFromProjectName);
+                            projectId = AddProject(arr);
                         }
-                    }
-
+                    }  
+                    
                     if (!string.IsNullOrEmpty(projectId))
                     {
-                        JArray arr = JArray.Parse(obj["Data"].ToString());
+                        var sysUser = BLL.UserService.GetUserByUserId(BLL.Const.sysglyId);
+                        if (sysUser != null)
+                        {
+                            sysUser.LoginProjectId = projectId;
+                        }
+
                         if (type == "0")
                         {
-                            isOk = AddPerson(projectId, arr);
+                            isOk = AddPerson(projectId, arr, sysUser);
                         }
                         else if (type == "1")
                         {
-                            isOk = AddUnit(projectId, arr);
+                            isOk = AddUnit(projectId, arr, sysUser);
                         }
                         else if (type == "2")
                         {
-                            isOk = AddTrainRecord(projectId, arr);
+                            isOk = AddTrainRecord(projectId, arr, sysUser);
                         }
                         else if (type == "3")
                         {
-                            isOk = AddTrainRecordPerson(projectId, arr);
+                            isOk = AddTrainRecordPerson(projectId, arr, sysUser);
                         }
                         else if (type == "4")
                         {
-                            isOk = AddEduTrain_TrainTest(projectId, arr);
+                            isOk = AddEduTrain_TrainTest(projectId, arr, sysUser);
                         }
                         else if (type == "5")
                         {
-                            isOk = AddPersonTrainRecord(projectId, arr);
+                            isOk = AddPersonTrainRecord(projectId, arr, sysUser);
                         }
 
                         if (isOk) ///更新数据接收状态
                         {
                             item.IsUpdate = true;
-                            db.SubmitChanges();
+                            Funs.DB.SubmitChanges();
                         }
                     }
                 }
             }
+        }
+        #endregion
+
+        #region 插入信息-项目信息
+        /// <summary>
+        /// 插入信息-项目信息
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="arr"></param>
+        public static string AddProject(JArray arr)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            string projectId = string.Empty;
+            try
+            {
+                foreach (var item in arr)
+                {
+                    string fromUnitId = item["ID"].ToString();
+                    string departName = item["DepartName"].ToString(); ///单位名称
+                    string departSir = item["DepartSir"].ToString(); ///单位级别 0：非项目部 1：项目部级 2：项目部下级单位  
+                    if (!string.IsNullOrEmpty(fromUnitId) && !string.IsNullOrEmpty(departName) && departSir == "1")
+                    {
+                        var getProjectByFromProjectId = db.Base_Project.FirstOrDefault(x => x.FromProjectId == fromUnitId);
+                        if (getProjectByFromProjectId == null)
+                        {
+                            string projectCode = item["ProjectCode"].ToString();
+                            var getProjectByFromProjectName = db.Base_Project.FirstOrDefault(x => x.ProjectCode == projectCode);
+                            if (getProjectByFromProjectName != null)
+                            {
+                                projectId = getProjectByFromProjectName.ProjectId;
+                                getProjectByFromProjectName.FromProjectId = fromUnitId;
+                                ProjectService.UpdateProject(getProjectByFromProjectName);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrLogInfo.WriteLog(string.Empty, ex);
+            }
+            return projectId;
         }
         #endregion
 
@@ -88,13 +131,12 @@ namespace BLL
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="arr"></param>
-        public static bool AddPerson(string projectId, JArray arr)
+        public static bool AddPerson(string projectId, JArray arr, Model.Sys_User user)
         {
             Model.SUBHSSEDB db = Funs.DB;
             bool isOk = true;
             try
             {
-
                 foreach (var item in arr)
                 {
                     ////单位
@@ -153,6 +195,7 @@ namespace BLL
                         {
                             newPerson.PersonId = SQLHelper.GetNewID(typeof(Model.SitePerson_Person));
                             PersonService.AddPerson(newPerson);
+                            BLL.LogService.AddSys_Log(user, newPerson.PersonName, newPerson.PersonId, BLL.Const.PersonListMenuId, BLL.Const.BtnAdd);
                         }
                         else
                         {
@@ -173,6 +216,7 @@ namespace BLL
                                 getPerson.WorkPostId = workPostId;
                             }
                             PersonService.UpdatePerson(getPerson);
+                            BLL.LogService.AddSys_Log(user, getPerson.PersonName, getPerson.PersonId, BLL.Const.PersonListMenuId, BLL.Const.BtnModify);
                         }
                     }
                 }
@@ -193,7 +237,7 @@ namespace BLL
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="arr"></param>
-        public static bool AddUnit(string projectId, JArray arr)
+        public static bool AddUnit(string projectId, JArray arr,Model.Sys_User user)
         {
             Model.SUBHSSEDB db = Funs.DB;
             bool isOk = true;
@@ -204,7 +248,6 @@ namespace BLL
                     string fromUnitId = item["ID"].ToString();
                     string departName = item["DepartName"].ToString(); ///单位名称
                     string departSir = item["DepartSir"].ToString(); ///单位级别 0：非项目部 1：项目部级 2：项目部下级单位
-
                     ////单位类型
                     string unitTypeId = null;
                     var getUnitType = db.Base_UnitType.FirstOrDefault(x => x.UnitTypeName == item["DepartType"].ToString());
@@ -215,50 +258,54 @@ namespace BLL
 
                     if (!string.IsNullOrEmpty(fromUnitId) && !string.IsNullOrEmpty(departName) && departSir != "1")
                     {
-                        Model.Base_Unit newUnit = new Model.Base_Unit
+                        if (!string.IsNullOrEmpty(projectId))
                         {
-                            FromUnitId = fromUnitId,
-                            UnitCode = item["DepartCode"].ToString(),
-                            UnitName = departName,
-                            UnitTypeId = unitTypeId,
-                            Corporate = item["Charge"].ToString(),
-                            Telephone = item["Phone"].ToString(),
-                            IsHide = false,
-                            DataSources = projectId,
-                        };
-
-                        var getUnit = db.Base_Unit.FirstOrDefault(x => x.FromUnitId == fromUnitId);
-                        if (getUnit == null)
-                        {
-                            var getUnitByName = db.Base_Unit.FirstOrDefault(x => x.UnitName == departName);
-                            if (getUnitByName != null)
+                            Model.Base_Unit newUnit = new Model.Base_Unit
                             {
-                                newUnit.UnitId = getUnitByName.UnitId;
-                                getUnitByName.FromUnitId = fromUnitId;
-                                db.SubmitChanges();
+                                FromUnitId = fromUnitId,
+                                UnitCode = item["DepartCode"].ToString(),
+                                UnitName = departName,
+                                UnitTypeId = unitTypeId,
+                                Corporate = item["Charge"].ToString(),
+                                Telephone = item["Phone"].ToString(),
+                                IsHide = false,
+                                DataSources = projectId,
+                            };
+
+                            var getUnit = db.Base_Unit.FirstOrDefault(x => x.FromUnitId == fromUnitId);
+                            if (getUnit == null)
+                            {
+                                var getUnitByName = db.Base_Unit.FirstOrDefault(x => x.UnitName == departName);
+                                if (getUnitByName != null)
+                                {
+                                    newUnit.UnitId = getUnitByName.UnitId;
+                                    getUnitByName.FromUnitId = fromUnitId;
+                                    db.SubmitChanges();
+                                }
+                                else
+                                {
+                                    newUnit.UnitId = SQLHelper.GetNewID(typeof(Model.Base_Unit));
+                                    UnitService.AddUnit(newUnit);
+                                }
                             }
                             else
                             {
-                                newUnit.UnitId = SQLHelper.GetNewID(typeof(Model.Base_Unit));
-                                UnitService.AddUnit(newUnit);
+                                newUnit.UnitId = getUnit.UnitId;
                             }
-                        }
-                        else
-                        {
-                            newUnit.UnitId = getUnit.UnitId;
-                        }
 
-                        var pUnit = db.Project_ProjectUnit.FirstOrDefault(x => x.ProjectId == projectId && x.UnitId == newUnit.UnitId);
-                        if (pUnit == null)
-                        {
-                            Model.Project_ProjectUnit newProjectUnit = new Model.Project_ProjectUnit
+                            var pUnit = db.Project_ProjectUnit.FirstOrDefault(x => x.ProjectId == projectId && x.UnitId == newUnit.UnitId);
+                            if (pUnit == null)
                             {
-                                ProjectId = projectId,
-                                UnitId = newUnit.UnitId,
-                                UnitType = Const.ProjectUnitType_2,
-                            };
+                                Model.Project_ProjectUnit newProjectUnit = new Model.Project_ProjectUnit
+                                {
+                                    ProjectId = projectId,
+                                    UnitId = newUnit.UnitId,
+                                    UnitType = Const.ProjectUnitType_2,
+                                };
 
-                            ProjectUnitService.AddProjectUnit(newProjectUnit);
+                                ProjectUnitService.AddProjectUnit(newProjectUnit);
+                                BLL.LogService.AddSys_Log(user, null, newProjectUnit.ProjectUnitId, BLL.Const.ProjectUnitMenuId, BLL.Const.BtnModify);
+                            }
                         }
                     }
                 }
@@ -278,7 +325,7 @@ namespace BLL
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="arr"></param>
-        public static bool AddTrainRecord(string projectId, JArray arr)
+        public static bool AddTrainRecord(string projectId, JArray arr, Model.Sys_User user)
         {
             Model.SUBHSSEDB db = Funs.DB;
             bool isOk = true;
@@ -326,6 +373,7 @@ namespace BLL
                         {
                             newTrainRecord.TrainingId = SQLHelper.GetNewID(typeof(Model.EduTrain_TrainRecord));
                             EduTrain_TrainRecordService.AddTraining(newTrainRecord);
+                            BLL.LogService.AddSys_Log(user, newTrainRecord.TrainingCode, newTrainRecord.TrainingId, BLL.Const.ProjectTrainRecordMenuId, BLL.Const.BtnAdd);
                         }
                         else
                         {
@@ -345,6 +393,7 @@ namespace BLL
                             getTrainRecord.TeachAddress = newTrainRecord.TeachAddress;
                             getTrainRecord.Remark = newTrainRecord.Remark;
                             EduTrain_TrainRecordService.UpdateTraining(getTrainRecord);
+                            BLL.LogService.AddSys_Log(user, getTrainRecord.TrainingCode, getTrainRecord.TrainingId, BLL.Const.ProjectTrainRecordMenuId, BLL.Const.BtnModify);
                         }
                     }
                     else
@@ -368,7 +417,7 @@ namespace BLL
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="arr"></param>
-        public static bool AddTrainRecordPerson(string projectId, JArray arr)
+        public static bool AddTrainRecordPerson(string projectId, JArray arr, Model.Sys_User user)
         {
             Model.SUBHSSEDB db = Funs.DB;
             bool isOk = true;
@@ -437,7 +486,7 @@ namespace BLL
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="arr"></param>
-        public static bool AddEduTrain_TrainTest(string projectId, JArray arr)
+        public static bool AddEduTrain_TrainTest(string projectId, JArray arr, Model.Sys_User user)
         {
             Model.SUBHSSEDB db = Funs.DB;
             bool isOk = true;
@@ -522,7 +571,7 @@ namespace BLL
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="arr"></param>
-        public static bool AddPersonTrainRecord(string projectId, JArray arr)
+        public static bool AddPersonTrainRecord(string projectId, JArray arr, Model.Sys_User user)
         {
             Model.SUBHSSEDB db = Funs.DB;
             bool isOk = true;

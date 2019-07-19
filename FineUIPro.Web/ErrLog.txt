@@ -7,8 +7,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:21:22
-出错时间:07/08/2019 10:21:22
+出错时间:07/18/2019 11:29:27
+出错时间:07/18/2019 11:29:27
 
 
 错误信息开始=====>
@@ -19,8 +19,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:21:22
-出错时间:07/08/2019 10:21:22
+出错时间:07/18/2019 11:29:28
+出错时间:07/18/2019 11:29:28
 
 
 错误信息开始=====>
@@ -31,8 +31,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:21:22
-出错时间:07/08/2019 10:21:22
+出错时间:07/18/2019 11:29:30
+出错时间:07/18/2019 11:29:30
 
 
 错误信息开始=====>
@@ -43,8 +43,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:21:24
-出错时间:07/08/2019 10:21:24
+出错时间:07/18/2019 11:29:31
+出错时间:07/18/2019 11:29:31
 
 
 错误信息开始=====>
@@ -55,8 +55,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:21:27
-出错时间:07/08/2019 10:21:27
+出错时间:07/18/2019 11:29:31
+出错时间:07/18/2019 11:29:31
 
 
 错误信息开始=====>
@@ -67,8 +67,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:21:27
-出错时间:07/08/2019 10:21:27
+出错时间:07/18/2019 11:29:31
+出错时间:07/18/2019 11:29:31
 
 
 错误信息开始=====>
@@ -79,8 +79,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:21:27
-出错时间:07/08/2019 10:21:27
+出错时间:07/18/2019 11:29:45
+出错时间:07/18/2019 11:29:45
 
 
 错误信息开始=====>
@@ -91,8 +91,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:21:28
-出错时间:07/08/2019 10:21:28
+出错时间:07/18/2019 11:29:45
+出错时间:07/18/2019 11:29:45
 
 
 错误信息开始=====>
@@ -103,8 +103,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:21:28
-出错时间:07/08/2019 10:21:28
+出错时间:07/18/2019 11:29:45
+出错时间:07/18/2019 11:29:45
 
 
 错误信息开始=====>
@@ -115,8 +115,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:21:28
-出错时间:07/08/2019 10:21:28
+出错时间:07/18/2019 11:29:45
+出错时间:07/18/2019 11:29:45
 
 
 错误信息开始=====>
@@ -127,8 +127,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:21:28
-出错时间:07/08/2019 10:21:28
+出错时间:07/18/2019 11:29:45
+出错时间:07/18/2019 11:29:45
 
 
 错误信息开始=====>
@@ -139,8 +139,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:21:28
-出错时间:07/08/2019 10:21:28
+出错时间:07/18/2019 11:29:45
+出错时间:07/18/2019 11:29:45
 
 
 错误信息开始=====>
@@ -151,8 +151,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:23:46
-出错时间:07/08/2019 10:23:46
+出错时间:07/18/2019 11:29:45
+出错时间:07/18/2019 11:29:45
 
 
 错误信息开始=====>
@@ -163,8 +163,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:23:46
-出错时间:07/08/2019 10:23:46
+出错时间:07/18/2019 11:29:46
+出错时间:07/18/2019 11:29:46
 
 
 错误信息开始=====>
@@ -175,8 +175,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:23:47
-出错时间:07/08/2019 10:23:47
+出错时间:07/18/2019 11:29:55
+出错时间:07/18/2019 11:29:55
 
 
 错误信息开始=====>
@@ -187,8 +187,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:23:48
-出错时间:07/08/2019 10:23:48
+出错时间:07/18/2019 11:29:55
+出错时间:07/18/2019 11:29:55
 
 
 错误信息开始=====>
@@ -199,8 +199,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:23:51
-出错时间:07/08/2019 10:23:51
+出错时间:07/18/2019 11:29:56
+出错时间:07/18/2019 11:29:56
 
 
 错误信息开始=====>
@@ -211,8 +211,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:23:51
-出错时间:07/08/2019 10:23:51
+出错时间:07/18/2019 11:29:56
+出错时间:07/18/2019 11:29:56
 
 
 错误信息开始=====>
@@ -223,8 +223,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:23:51
-出错时间:07/08/2019 10:23:51
+出错时间:07/18/2019 11:29:57
+出错时间:07/18/2019 11:29:57
 
 
 错误信息开始=====>
@@ -235,8 +235,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:23:52
-出错时间:07/08/2019 10:23:52
+出错时间:07/18/2019 11:29:57
+出错时间:07/18/2019 11:29:57
 
 
 错误信息开始=====>
@@ -247,8 +247,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:23:52
-出错时间:07/08/2019 10:23:52
+出错时间:07/18/2019 11:30:09
+出错时间:07/18/2019 11:30:09
 
 
 错误信息开始=====>
@@ -259,8 +259,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:23:52
-出错时间:07/08/2019 10:23:52
+出错时间:07/18/2019 11:30:09
+出错时间:07/18/2019 11:30:09
 
 
 错误信息开始=====>
@@ -271,8 +271,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:23:52
-出错时间:07/08/2019 10:23:52
+出错时间:07/18/2019 11:30:09
+出错时间:07/18/2019 11:30:09
 
 
 错误信息开始=====>
@@ -283,8 +283,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:23:52
-出错时间:07/08/2019 10:23:52
+出错时间:07/18/2019 11:30:09
+出错时间:07/18/2019 11:30:09
 
 
 错误信息开始=====>
@@ -295,8 +295,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:28:12
-出错时间:07/08/2019 10:28:12
+出错时间:07/18/2019 11:30:09
+出错时间:07/18/2019 11:30:09
 
 
 错误信息开始=====>
@@ -307,8 +307,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:28:13
-出错时间:07/08/2019 10:28:13
+出错时间:07/18/2019 11:30:09
+出错时间:07/18/2019 11:30:09
 
 
 错误信息开始=====>
@@ -319,8 +319,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:28:13
-出错时间:07/08/2019 10:28:13
+出错时间:07/18/2019 11:30:09
+出错时间:07/18/2019 11:30:09
 
 
 错误信息开始=====>
@@ -331,8 +331,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:28:14
-出错时间:07/08/2019 10:28:14
+出错时间:07/18/2019 11:30:09
+出错时间:07/18/2019 11:30:09
 
 
 错误信息开始=====>
@@ -343,8 +343,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:28:17
-出错时间:07/08/2019 10:28:17
+出错时间:07/18/2019 11:30:19
+出错时间:07/18/2019 11:30:19
 
 
 错误信息开始=====>
@@ -355,8 +355,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:28:17
-出错时间:07/08/2019 10:28:17
+出错时间:07/18/2019 11:30:19
+出错时间:07/18/2019 11:30:19
 
 
 错误信息开始=====>
@@ -367,8 +367,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:28:17
-出错时间:07/08/2019 10:28:17
+出错时间:07/18/2019 11:30:19
+出错时间:07/18/2019 11:30:19
 
 
 错误信息开始=====>
@@ -379,8 +379,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:28:18
-出错时间:07/08/2019 10:28:18
+出错时间:07/18/2019 11:30:20
+出错时间:07/18/2019 11:30:20
 
 
 错误信息开始=====>
@@ -391,8 +391,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:28:18
-出错时间:07/08/2019 10:28:18
+出错时间:07/18/2019 11:30:20
+出错时间:07/18/2019 11:30:20
 
 
 错误信息开始=====>
@@ -403,8 +403,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:28:18
-出错时间:07/08/2019 10:28:18
+出错时间:07/18/2019 11:30:20
+出错时间:07/18/2019 11:30:20
 
 
 错误信息开始=====>
@@ -415,8 +415,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:28:18
-出错时间:07/08/2019 10:28:18
+出错时间:07/18/2019 11:30:20
+出错时间:07/18/2019 11:30:20
 
 
 错误信息开始=====>
@@ -427,8 +427,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:28:18
-出错时间:07/08/2019 10:28:18
+出错时间:07/18/2019 11:30:20
+出错时间:07/18/2019 11:30:20
 
 
 错误信息开始=====>
@@ -439,8 +439,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:43:07
-出错时间:07/08/2019 10:43:07
+出错时间:07/18/2019 11:30:29
+出错时间:07/18/2019 11:30:29
 
 
 错误信息开始=====>
@@ -451,8 +451,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:43:08
-出错时间:07/08/2019 10:43:08
+出错时间:07/18/2019 11:30:29
+出错时间:07/18/2019 11:30:29
 
 
 错误信息开始=====>
@@ -463,8 +463,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:43:08
-出错时间:07/08/2019 10:43:08
+出错时间:07/18/2019 11:30:30
+出错时间:07/18/2019 11:30:30
 
 
 错误信息开始=====>
@@ -475,8 +475,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:43:10
-出错时间:07/08/2019 10:43:10
+出错时间:07/18/2019 11:30:30
+出错时间:07/18/2019 11:30:30
 
 
 错误信息开始=====>
@@ -487,8 +487,8 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:43:25
-出错时间:07/08/2019 10:43:25
+出错时间:07/18/2019 11:30:30
+出错时间:07/18/2019 11:30:30
 
 
 错误信息开始=====>
@@ -499,2167 +499,6 @@
    在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
    在 System.Int32.Parse(String s)
    在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:43:25
-出错时间:07/08/2019 10:43:25
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:43:25
-出错时间:07/08/2019 10:43:25
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:43:26
-出错时间:07/08/2019 10:43:26
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:43:26
-出错时间:07/08/2019 10:43:26
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:43:26
-出错时间:07/08/2019 10:43:26
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:43:26
-出错时间:07/08/2019 10:43:26
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:43:26
-出错时间:07/08/2019 10:43:26
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:43:30
-出错时间:07/08/2019 10:43:30
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:43:31
-出错时间:07/08/2019 10:43:31
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:43:32
-出错时间:07/08/2019 10:43:32
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:43:33
-出错时间:07/08/2019 10:43:33
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:01
-出错时间:07/08/2019 10:44:01
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:02
-出错时间:07/08/2019 10:44:02
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:02
-出错时间:07/08/2019 10:44:02
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:02
-出错时间:07/08/2019 10:44:02
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:06
-出错时间:07/08/2019 10:44:06
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:06
-出错时间:07/08/2019 10:44:06
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:06
-出错时间:07/08/2019 10:44:06
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:07
-出错时间:07/08/2019 10:44:07
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:07
-出错时间:07/08/2019 10:44:07
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:07
-出错时间:07/08/2019 10:44:07
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:07
-出错时间:07/08/2019 10:44:07
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:07
-出错时间:07/08/2019 10:44:07
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:22
-出错时间:07/08/2019 10:44:22
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:22
-出错时间:07/08/2019 10:44:22
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:23
-出错时间:07/08/2019 10:44:23
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:23
-出错时间:07/08/2019 10:44:23
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:23
-出错时间:07/08/2019 10:44:23
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:23
-出错时间:07/08/2019 10:44:23
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:23
-出错时间:07/08/2019 10:44:23
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:23
-出错时间:07/08/2019 10:44:23
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:44
-出错时间:07/08/2019 10:44:44
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:44
-出错时间:07/08/2019 10:44:44
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:44
-出错时间:07/08/2019 10:44:44
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:45
-出错时间:07/08/2019 10:44:45
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:45
-出错时间:07/08/2019 10:44:45
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:45
-出错时间:07/08/2019 10:44:45
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:46
-出错时间:07/08/2019 10:44:46
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:44:46
-出错时间:07/08/2019 10:44:46
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:48:25
-出错时间:07/08/2019 10:48:25
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:48:25
-出错时间:07/08/2019 10:48:25
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:48:25
-出错时间:07/08/2019 10:48:25
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:48:27
-出错时间:07/08/2019 10:48:27
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:49:52
-出错时间:07/08/2019 10:49:52
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:49:52
-出错时间:07/08/2019 10:49:52
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:49:52
-出错时间:07/08/2019 10:49:52
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:49:52
-出错时间:07/08/2019 10:49:52
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:49:53
-出错时间:07/08/2019 10:49:53
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:49:53
-出错时间:07/08/2019 10:49:53
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:49:53
-出错时间:07/08/2019 10:49:53
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:49:53
-出错时间:07/08/2019 10:49:53
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:49:53
-出错时间:07/08/2019 10:49:53
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:49:53
-出错时间:07/08/2019 10:49:53
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:49:53
-出错时间:07/08/2019 10:49:53
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:49:53
-出错时间:07/08/2019 10:49:53
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:49:54
-出错时间:07/08/2019 10:49:54
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:49:54
-出错时间:07/08/2019 10:49:54
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:49:54
-出错时间:07/08/2019 10:49:54
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:49:55
-出错时间:07/08/2019 10:49:55
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:49:55
-出错时间:07/08/2019 10:49:55
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:49:56
-出错时间:07/08/2019 10:49:56
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:49:56
-出错时间:07/08/2019 10:49:56
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:49:56
-出错时间:07/08/2019 10:49:56
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:02
-出错时间:07/08/2019 10:50:02
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:02
-出错时间:07/08/2019 10:50:02
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:02
-出错时间:07/08/2019 10:50:02
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:02
-出错时间:07/08/2019 10:50:02
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:02
-出错时间:07/08/2019 10:50:02
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:03
-出错时间:07/08/2019 10:50:03
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:03
-出错时间:07/08/2019 10:50:03
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:03
-出错时间:07/08/2019 10:50:03
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:03
-出错时间:07/08/2019 10:50:03
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:03
-出错时间:07/08/2019 10:50:03
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:03
-出错时间:07/08/2019 10:50:03
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:04
-出错时间:07/08/2019 10:50:04
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:04
-出错时间:07/08/2019 10:50:04
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:04
-出错时间:07/08/2019 10:50:04
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:04
-出错时间:07/08/2019 10:50:04
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:04
-出错时间:07/08/2019 10:50:04
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:04
-出错时间:07/08/2019 10:50:04
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:04
-出错时间:07/08/2019 10:50:04
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:04
-出错时间:07/08/2019 10:50:05
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:05
-出错时间:07/08/2019 10:50:05
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:05
-出错时间:07/08/2019 10:50:05
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:06
-出错时间:07/08/2019 10:50:06
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:06
-出错时间:07/08/2019 10:50:06
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:07
-出错时间:07/08/2019 10:50:07
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:07
-出错时间:07/08/2019 10:50:07
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:07
-出错时间:07/08/2019 10:50:07
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:08
-出错时间:07/08/2019 10:50:08
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:50:08
-出错时间:07/08/2019 10:50:08
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:11
-出错时间:07/08/2019 10:53:11
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:11
-出错时间:07/08/2019 10:53:11
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:12
-出错时间:07/08/2019 10:53:12
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:13
-出错时间:07/08/2019 10:53:13
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:17
-出错时间:07/08/2019 10:53:17
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:17
-出错时间:07/08/2019 10:53:17
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:17
-出错时间:07/08/2019 10:53:17
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:18
-出错时间:07/08/2019 10:53:18
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:18
-出错时间:07/08/2019 10:53:18
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:18
-出错时间:07/08/2019 10:53:18
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:18
-出错时间:07/08/2019 10:53:18
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:18
-出错时间:07/08/2019 10:53:18
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:19
-出错时间:07/08/2019 10:53:19
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:19
-出错时间:07/08/2019 10:53:19
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:20
-出错时间:07/08/2019 10:53:20
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:20
-出错时间:07/08/2019 10:53:20
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:32
-出错时间:07/08/2019 10:53:32
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:32
-出错时间:07/08/2019 10:53:32
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:32
-出错时间:07/08/2019 10:53:32
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:33
-出错时间:07/08/2019 10:53:33
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:36
-出错时间:07/08/2019 10:53:36
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:36
-出错时间:07/08/2019 10:53:36
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:36
-出错时间:07/08/2019 10:53:36
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:36
-出错时间:07/08/2019 10:53:36
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:36
-出错时间:07/08/2019 10:53:36
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:36
-出错时间:07/08/2019 10:53:36
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:37
-出错时间:07/08/2019 10:53:37
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:37
-出错时间:07/08/2019 10:53:37
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:46
-出错时间:07/08/2019 10:53:46
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:46
-出错时间:07/08/2019 10:53:46
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:46
-出错时间:07/08/2019 10:53:46
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:46
-出错时间:07/08/2019 10:53:46
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:46
-出错时间:07/08/2019 10:53:46
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:46
-出错时间:07/08/2019 10:53:46
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:46
-出错时间:07/08/2019 10:53:46
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:46
-出错时间:07/08/2019 10:53:46
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:55
-出错时间:07/08/2019 10:53:55
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:55
-出错时间:07/08/2019 10:53:55
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:56
-出错时间:07/08/2019 10:53:56
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:56
-出错时间:07/08/2019 10:53:56
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:56
-出错时间:07/08/2019 10:53:56
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:56
-出错时间:07/08/2019 10:53:56
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:56
-出错时间:07/08/2019 10:53:56
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:53:56
-出错时间:07/08/2019 10:53:56
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:54:41
-出错时间:07/08/2019 10:54:41
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:54:41
-出错时间:07/08/2019 10:54:41
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:54:41
-出错时间:07/08/2019 10:54:41
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:54:43
-出错时间:07/08/2019 10:54:43
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:54:46
-出错时间:07/08/2019 10:54:46
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:54:46
-出错时间:07/08/2019 10:54:46
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:54:46
-出错时间:07/08/2019 10:54:46
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:54:47
-出错时间:07/08/2019 10:54:47
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:54:47
-出错时间:07/08/2019 10:54:47
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:54:47
-出错时间:07/08/2019 10:54:47
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:54:47
-出错时间:07/08/2019 10:54:47
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:54:47
-出错时间:07/08/2019 10:54:47
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:54:48
-出错时间:07/08/2019 10:54:48
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:54:48
-出错时间:07/08/2019 10:54:48
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:54:49
-出错时间:07/08/2019 10:54:49
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:54:49
-出错时间:07/08/2019 10:54:49
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:54:58
-出错时间:07/08/2019 10:54:58
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:54:58
-出错时间:07/08/2019 10:54:58
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:54:59
-出错时间:07/08/2019 10:54:59
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:54:59
-出错时间:07/08/2019 10:54:59
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:02
-出错时间:07/08/2019 10:55:02
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:02
-出错时间:07/08/2019 10:55:02
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:02
-出错时间:07/08/2019 10:55:02
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:03
-出错时间:07/08/2019 10:55:03
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:03
-出错时间:07/08/2019 10:55:03
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:03
-出错时间:07/08/2019 10:55:03
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:03
-出错时间:07/08/2019 10:55:03
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:03
-出错时间:07/08/2019 10:55:03
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:12
-出错时间:07/08/2019 10:55:12
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:13
-出错时间:07/08/2019 10:55:13
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:13
-出错时间:07/08/2019 10:55:13
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:13
-出错时间:07/08/2019 10:55:13
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:13
-出错时间:07/08/2019 10:55:13
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:14
-出错时间:07/08/2019 10:55:14
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:14
-出错时间:07/08/2019 10:55:14
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:14
-出错时间:07/08/2019 10:55:14
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:24
-出错时间:07/08/2019 10:55:24
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:24
-出错时间:07/08/2019 10:55:24
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:24
-出错时间:07/08/2019 10:55:24
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:25
-出错时间:07/08/2019 10:55:25
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:25
-出错时间:07/08/2019 10:55:25
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:25
-出错时间:07/08/2019 10:55:25
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:25
-出错时间:07/08/2019 10:55:25
-
-
-错误信息开始=====>
-错误类型:FormatException
-错误信息:输入字符串的格式不正确。
-错误堆栈:
-   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
-   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
-   在 System.Int32.Parse(String s)
-   在 BLL.Funs.GetNewInt(String value) 位置 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 376
-出错时间:07/08/2019 10:55:25
-出错时间:07/08/2019 10:55:25
-
-
-错误信息开始=====>
-错误类型:HttpParseException
-错误信息:基类包括字段“txtCheckItem”，但其类型(FineUIPro.TextBox)与控件(FineUIPro.TextArea)的类型不兼容。
-错误堆栈:
-   在 System.Web.Compilation.BaseTemplateCodeDomTreeGenerator.BuildFieldDeclaration(ControlBuilder builder)
-   在 System.Web.Compilation.BaseTemplateCodeDomTreeGenerator.BuildSourceDataTreeFromBuilder(ControlBuilder builder, Boolean fInTemplate, Boolean topLevelControlInTemplate, PropertyEntry pse)
-   在 System.Web.Compilation.BaseTemplateCodeDomTreeGenerator.BuildSourceDataTreeFromBuilder(ControlBuilder builder, Boolean fInTemplate, Boolean topLevelControlInTemplate, PropertyEntry pse)
-   在 System.Web.Compilation.BaseTemplateCodeDomTreeGenerator.BuildSourceDataTreeFromBuilder(ControlBuilder builder, Boolean fInTemplate, Boolean topLevelControlInTemplate, PropertyEntry pse)
-   在 System.Web.Compilation.BaseTemplateCodeDomTreeGenerator.BuildSourceDataTreeFromBuilder(ControlBuilder builder, Boolean fInTemplate, Boolean topLevelControlInTemplate, PropertyEntry pse)
-   在 System.Web.Compilation.BaseTemplateCodeDomTreeGenerator.BuildSourceDataTreeFromBuilder(ControlBuilder builder, Boolean fInTemplate, Boolean topLevelControlInTemplate, PropertyEntry pse)
-   在 System.Web.Compilation.BaseTemplateCodeDomTreeGenerator.BuildSourceDataTreeFromBuilder(ControlBuilder builder, Boolean fInTemplate, Boolean topLevelControlInTemplate, PropertyEntry pse)
-   在 System.Web.Compilation.BaseTemplateCodeDomTreeGenerator.BuildSourceDataTreeFromBuilder(ControlBuilder builder, Boolean fInTemplate, Boolean topLevelControlInTemplate, PropertyEntry pse)
-   在 System.Web.Compilation.TemplateControlCodeDomTreeGenerator.BuildMiscClassMembers()
-   在 System.Web.Compilation.PageCodeDomTreeGenerator.BuildMiscClassMembers()
-   在 System.Web.Compilation.BaseCodeDomTreeGenerator.BuildSourceDataTree()
-   在 System.Web.Compilation.BaseCodeDomTreeGenerator.GetCodeDomTree(CodeDomProvider codeDomProvider, StringResourceBuilder stringResourceBuilder, VirtualPath virtualPath)
-   在 System.Web.Compilation.BaseTemplateBuildProvider.GenerateCode(AssemblyBuilder assemblyBuilder)
-   在 System.Web.Compilation.AssemblyBuilder.AddBuildProvider(BuildProvider buildProvider)
-出错时间:07/11/2019 09:16:57
-出错文件:http://localhost:8118/Check/CheckHolidayDetailEdit.aspx?CheckHolidayDetailId=02de7733-18d2-4835-ae57-4a055bc3a64d
-IP地址:::1
-
-出错时间:07/11/2019 09:16:57
+出错时间:07/18/2019 11:30:31
+出错时间:07/18/2019 11:30:31
 

@@ -17,7 +17,13 @@
                 <Items>
                     <f:TextBox ID="txtRectifyNoticesCode" runat="server" Label="编号" Required="true" ShowRedStar="true"
                         MaxLength="50">
-                    </f:TextBox>
+                    </f:TextBox>  
+                     <f:DatePicker ID="txtCheckedDate" runat="server" Label="受检时间" EnableEdit="true">
+                    </f:DatePicker>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
                     <f:DropDownList ID="drpUnitId" runat="server" Label="责任单位" EnableEdit="true" Required="true"
                         ShowRedStar="true" AutoPostBack="true" OnSelectedIndexChanged="drpUnitId_SelectedIndexChanged">
                     </f:DropDownList>
@@ -25,10 +31,10 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
+                    <f:DropDownList ID="drpDutyPerson" runat="server" Label="责任人" EnableEdit="true">
+                    </f:DropDownList>
                     <f:DropDownList ID="drpWorkAreaId" runat="server" Label="检查区域" EnableEdit="true">
                     </f:DropDownList>
-                    <f:DatePicker ID="txtCheckedDate" runat="server" Label="受检时间" EnableEdit="true">
-                    </f:DatePicker>
                 </Items>
             </f:FormRow>
             <f:FormRow>
@@ -59,7 +65,7 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtDutyPerson" runat="server" Label="责任人" MaxLength="50">
+                    <f:TextBox ID="txtDutyPerson" runat="server" Label="整改人" MaxLength="50">
                     </f:TextBox>
                     <f:DatePicker ID="txtCompleteDate" runat="server" Label="日期" EnableEdit="true">
                     </f:DatePicker>
@@ -73,6 +79,8 @@
                     </f:DropDownList>
                     <f:DropDownList ID="drpCheckPerson" runat="server" Label="本单位检查人" EnableEdit="true" Hidden="true" LabelWidth="120px">
                     </f:DropDownList>
+                     <f:DatePicker ID="txtReCheckDate" runat="server" Label="复查日期" EnableEdit="true" Hidden="true">
+                    </f:DatePicker>
                 </Items>
             </f:FormRow>
         </Rows>

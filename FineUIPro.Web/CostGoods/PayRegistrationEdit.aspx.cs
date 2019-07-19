@@ -674,6 +674,16 @@ namespace FineUIPro.Web.CostGoods
                 CompileMan = this.CurrUser.UserId,
                 CompileDate = DateTime.Now
             };
+
+            if (string.IsNullOrEmpty(payRegistration.UnitId))
+            {
+                var thisUnit = BLL.CommonService.GetIsThisUnit();
+                if (thisUnit != null)
+                {
+                    payRegistration.UnitId = thisUnit.UnitId;
+                }
+            }
+
             if (!string.IsNullOrEmpty(this.PayRegistrationId))
             {
                 payRegistration.PayRegistrationId = this.PayRegistrationId;

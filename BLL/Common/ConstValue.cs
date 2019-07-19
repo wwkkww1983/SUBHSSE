@@ -247,6 +247,10 @@ namespace BLL
         /// </summary>
         public const string Group_MenuFlowOperate = "MenuFlowOperate";
         /// <summary>
+        /// -是否与博晟数据提取 ：组id
+        /// </summary>
+        public const string Group_ChangeData = "ChangeData";
+        /// <summary>
         /// 标准规范对应HSSE方案 组ID
         /// </summary>
         public const string Group_CNProfessional = "CNProfessional";

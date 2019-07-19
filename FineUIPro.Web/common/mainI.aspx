@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>管理岗位首页</title>
     <link href="../res/css/common.css" rel="stylesheet" type="text/css" />
-    <style>
+    <style type="text/css">
          .info {
             position: fixed;
             bottom: 10px;
@@ -15,6 +15,11 @@
             border: solid 1px #ddd;
             padding: 10px;
             background-color: #efefef;
+        }
+          .f-grid-row .f-grid-cell-inner
+        {
+            white-space: normal;
+            word-break: break-all;
         }
     </style>
 </head>
@@ -104,7 +109,7 @@
                                                 EnableColumnLines="true" ClicksToEdit="2" DataIDField="Id" EnableRowDoubleClickEvent="true"
                                                 OnRowDoubleClick="GridToDoMatter_RowDoubleClick" SortField="Date" SortDirection="DESC">
                                                 <Columns>
-                                                    <f:RenderField MinWidth="130px" ColumnID="Type" DataField="Type" FieldType="String"
+                                                    <f:RenderField MinWidth="105px" ColumnID="Type" DataField="Type" FieldType="String"
                                                         HeaderText="类别" HeaderTextAlign="Center" TextAlign="Left">
                                                     </f:RenderField>
                                                     <f:RenderField MinWidth="300px" ColumnID="Name" DataField="Name" FieldType="String"

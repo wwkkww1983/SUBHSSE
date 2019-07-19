@@ -7,7 +7,22 @@ using BLL;
 namespace FineUIPro.Web.common
 {
     public partial class mainI : PageBase
-    {
+    {  
+        /// <summary>
+       /// 主键
+       /// </summary>
+        public string ThisUnitId
+        {
+            get
+            {
+                return (string)ViewState["ThisUnitId"];
+            }
+            set
+            {
+                ViewState["ThisUnitId"] = value;
+            }
+        }
+        
         #region 加载页面
         /// <summary>
         /// 加载页面
@@ -17,7 +32,13 @@ namespace FineUIPro.Web.common
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {              
+            {
+                var thisUnit = BLL.CommonService.GetIsThisUnit();
+                if (thisUnit != null)
+                {
+                    this.ThisUnitId = thisUnit.UnitId;
+                }
+
                 BindGridToDoMatter("close");
                 BindGridNotice("close");
                 BindGridNewDynamic("close");
@@ -149,11 +170,11 @@ namespace FineUIPro.Web.common
                         var project = BLL.ProjectService.GetProjectByProjectId(item.ProjectId);
                         if (project != null)
                         {
-                            newTodo.Name = project.ProjectName + ":待" + userName + "处理";
+                            newTodo.Name = "待" + userName + "处理，项目：" + project.ProjectName;
                         }
                         else
                         {
-                            newTodo.Name = "本部系统：待" + userName + "处理";
+                            newTodo.Name = "待" + userName + "处理：本部系统";
                         }
                         newTodo.Date = item.OperaterTime;
                         newTodo.UserId = item.OperaterId;
@@ -176,13 +197,14 @@ namespace FineUIPro.Web.common
                 var project = BLL.ProjectService.GetProjectByProjectId(item.ProjectId);
                 if (project != null)
                 {
-                    newTodo.Name = project.ProjectName + ":待整改";
+                    newTodo.Name = "待整改，项目：" + project.ProjectName;
                 }
                 newTodo.Url = String.Format("~/Hazard/RegistrationHandleEdit.aspx?RegistrationId={0}", item.RegistrationId, "整改 - ");
                 newTodo.Date = item.CheckTime;
                 newTodo.UserId = this.CurrUser.UserId;
                 toDoMatterList.Add(newTodo);
             }
+
             //危险观察本单位人员确认提醒
             List<Model.Hazard_Registration> registrationConfirms = (from x in Funs.DB.Hazard_Registration
                                                                     where x.CheckManId == this.CurrUser.UserId && x.States == BLL.Const.State_2 && x.IsEffective == true
@@ -198,12 +220,138 @@ namespace FineUIPro.Web.common
                 var project = BLL.ProjectService.GetProjectByProjectId(item.ProjectId);
                 if (project != null)
                 {
-                    newTodo.Name = project.ProjectName + ":待确认";
+                    newTodo.Name = "待确认，项目：" + project.ProjectName;
                 }
                 newTodo.Url = String.Format("~/Hazard/RegistrationHandleEdit.aspx?RegistrationId={0}", item.RegistrationId, "确认 - ");
                 newTodo.Date = item.CheckTime;
                 newTodo.UserId = this.CurrUser.UserId;
                 toDoMatterList.Add(newTodo);
+            }
+
+
+            //隐患责任人员整改提醒
+            List<Model.Check_RectifyNotices> rectifyNotices = (from x in Funs.DB.Check_RectifyNotices
+                                                               where x.DutyPersonId == this.CurrUser.UserId && x.SignDate.HasValue && !x.CompleteDate.HasValue
+                                                               select x).ToList();
+            foreach (var item in rectifyNotices)
+            {
+                Model.View_ToDoMatter newTodo = new Model.View_ToDoMatter
+                {
+                    Id = item.RectifyNoticesId,
+                    Type = "隐患整改"
+                };
+                var project = BLL.ProjectService.GetProjectByProjectId(item.ProjectId);
+                if (project != null)
+                {
+                    newTodo.Name = "待整改，项目：" + project.ProjectName;
+                }
+                newTodo.Url = String.Format("~/Check/RectifyNoticeEdit.aspx?RectifyNoticeId={0}", item.RectifyNoticesId, "整改 - ");
+                newTodo.Date = item.SignDate;
+                newTodo.UserId = this.CurrUser.UserId;
+                toDoMatterList.Add(newTodo);
+            }
+
+            if (this.CurrUser.UnitId == this.ThisUnitId)
+            {
+                var listProjectIds = (from x in Funs.DB.Project_ProjectUser where x.UserId == this.CurrUser.UserId select x.ProjectId).ToList();
+                if (listProjectIds.Count() > 0)
+                {
+                    //隐患复查提醒
+                    var reCheckRectifyNotices = (from x in Funs.DB.Check_RectifyNotices
+                                                 where listProjectIds.Contains(x.ProjectId) &&
+                                                  x.CompleteDate.HasValue && (!x.ReCheckDate.HasValue || x.ReCheckDate == null)
+                                                 select x).ToList();
+                    foreach (var item in reCheckRectifyNotices)
+                    {
+                        Model.View_ToDoMatter newTodo = new Model.View_ToDoMatter
+                        {
+                            Id = item.RectifyNoticesId,
+                            Type = "隐患整改复查"
+                        };
+                        var project = BLL.ProjectService.GetProjectByProjectId(item.ProjectId);
+                        if (project != null)
+                        {
+                            newTodo.Name = "待本单位检查人复查，项目：" + project.ProjectName;
+                        }
+                        string id = item.RectifyNoticesId + "$check";
+                        newTodo.Url = String.Format("~/Check/RectifyNoticeEdit.aspx?RectifyNoticeId={0}", id, "复查 - ");
+                        newTodo.Date = item.SignDate;
+                        newTodo.UserId = this.CurrUser.UserId;
+                        toDoMatterList.Add(newTodo);
+                    }
+
+                    //日常巡检未关闭提醒
+                    var checkDays = (from x in Funs.DB.Check_CheckDay
+                                     join y in Funs.DB.Check_CheckDayDetail on x.CheckDayId equals y.CheckDayId
+                                     where listProjectIds.Contains(x.ProjectId) &&
+                                      x.States == BLL.Const.State_2 && !y.CompletedDate.HasValue
+                                     select x).Distinct();
+                    foreach (var item in checkDays)
+                    {
+                        Model.View_ToDoMatter newTodo = new Model.View_ToDoMatter
+                        {
+                            Id = item.CheckDayId,
+                            Type = "日常巡检"
+                        };
+                        var project = BLL.ProjectService.GetProjectByProjectId(item.ProjectId);
+                        if (project != null)
+                        {
+                            newTodo.Name = item.CheckDayCode + "未关闭，项目：" + project.ProjectName;
+                        }
+                        newTodo.Url = string.Empty;
+                        newTodo.Date = item.CheckTime;
+                        newTodo.UserId = this.CurrUser.UserId;
+                        toDoMatterList.Add(newTodo);
+                    }
+
+                    //专项检查未关闭提醒
+                    var checkSpecials = (from x in Funs.DB.Check_CheckSpecial
+                                     join y in Funs.DB.Check_CheckSpecialDetail on x.CheckSpecialId equals y.CheckSpecialId
+                                     where listProjectIds.Contains(x.ProjectId) &&
+                                      x.States == BLL.Const.State_2 && !y.CompletedDate.HasValue
+                                     select x).Distinct();
+                    foreach (var item in checkSpecials)
+                    {
+                        Model.View_ToDoMatter newTodo = new Model.View_ToDoMatter
+                        {
+                            Id = item.CheckSpecialId,
+                            Type = "专项检查"
+                        };
+                        var project = BLL.ProjectService.GetProjectByProjectId(item.ProjectId);
+                        if (project != null)
+                        {
+                            newTodo.Name = item.CheckSpecialCode + "未关闭，项目：" + project.ProjectName;
+                        }
+                        newTodo.Url = string.Empty;
+                        newTodo.Date = item.CheckTime;
+                        newTodo.UserId = this.CurrUser.UserId;
+                        toDoMatterList.Add(newTodo);
+                    }
+
+                    //综合大检查未关闭提醒
+                    var checkColligations = (from x in Funs.DB.Check_CheckColligation
+                                         join y in Funs.DB.Check_CheckColligationDetail on x.CheckColligationId equals y.CheckColligationId
+                                             where listProjectIds.Contains(x.ProjectId) &&
+                                          x.States == BLL.Const.State_2 && !y.CompletedDate.HasValue
+                                         select x).Distinct();
+                    foreach (var item in checkColligations)
+                    {
+                        Model.View_ToDoMatter newTodo = new Model.View_ToDoMatter
+                        {
+                            Id = item.CheckColligationId,
+                            Type = "综合大检查"
+                        };
+                        var project = BLL.ProjectService.GetProjectByProjectId(item.ProjectId);
+                        if (project != null)
+                        {
+                            newTodo.Name = item.CheckColligationCode + "未关闭，项目：" + project.ProjectName;
+                        }
+                        newTodo.Url = string.Empty;
+                        newTodo.Date = item.CheckTime;
+                        newTodo.UserId = this.CurrUser.UserId;
+                        toDoMatterList.Add(newTodo);
+                    }
+                }
             }
 
             if (this.CurrUser.UserId == BLL.Const.sysglyId)
@@ -237,7 +385,7 @@ namespace FineUIPro.Web.common
             {
                 if (type != "oper")
                 {
-                    toDoMatterList = toDoMatterList.Take(8).ToList();
+                    toDoMatterList = toDoMatterList.OrderByDescending(x => x.Date).Take(8).ToList();
                 }
             }
 
@@ -257,7 +405,15 @@ namespace FineUIPro.Web.common
         {
             if (GridToDoMatter.SelectedRow != null)
             {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format(GridToDoMatter.SelectedRow.Values[3].ToString()), "待办事项：" + GridToDoMatter.SelectedRow.Values[0].ToString()));
+                string url = GridToDoMatter.SelectedRow.Values[3].ToString();
+                if (!string.IsNullOrEmpty(url))
+                {
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format(url), "待办事项：" + GridToDoMatter.SelectedRow.Values[0].ToString()));
+                }
+                else
+                {
+                    Alert.ShowInParent("请到项目对应页面操作！", MessageBoxIcon.Warning);
+                }
             }
         }
 
@@ -382,11 +538,11 @@ namespace FineUIPro.Web.common
             {
                 if (BLL.CommonService.IsThisUnitLeaderOrManage(this.CurrUser.UserId))
                 {
-                    strSql = "SELECT * FROM View_NewDynamic";
+                    strSql = "SELECT Id,Type,Name,Date,Url,ProjectId FROM View_NewDynamic";
                 }
                 else
                 {
-                    strSql = @"SELECT * FROM View_NewDynamic A"
+                    strSql = @"SELECT Id,Type,Name,Date,Url,A.ProjectId FROM View_NewDynamic A"
                               + @" LEFT JOIN Project_ProjectUser B ON A.ProjectId =B.ProjectId"
                               + @" WHERE B.UserId='" + this.CurrUser.UserId + "'"
                               + @" ORDER BY A.Date DESC";
@@ -401,17 +557,17 @@ namespace FineUIPro.Web.common
             {
                 if (BLL.CommonService.IsThisUnitLeaderOrManage(this.CurrUser.UserId))
                 {
-                    strSql = "SELECT TOP 8 * FROM View_NewDynamic";
+                    strSql = "SELECT TOP 8 Id,Type,Name,Date,Url,ProjectId FROM View_NewDynamic";
                 }
                 else
                 {
-                    strSql = @"SELECT TOP 8 * FROM View_NewDynamic A"
+                    strSql = @"SELECT TOP 8 Id,Type,Name,Date,Url,A.ProjectId FROM View_NewDynamic A"
                               + @" LEFT JOIN Project_ProjectUser B ON A.ProjectId =B.ProjectId"
                               + @" WHERE B.UserId='" + this.CurrUser.UserId + "'"
                               + @" ORDER BY A.Date DESC";
                     if (!string.IsNullOrEmpty(this.CurrUser.LoginProjectId))
                     {
-                        strSql = "SELECT TOP 8 * FROM View_NewDynamic WHERE ProjectId='" + this.CurrUser.LoginProjectId + "' ORDER BY Date DESC";
+                        strSql = "SELECT TOP 8 Id,Type,Name,Date,Url,ProjectId FROM View_NewDynamic WHERE ProjectId='" + this.CurrUser.LoginProjectId + "' ORDER BY Date DESC";
                     }
                 } 
             }

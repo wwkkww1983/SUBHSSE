@@ -198,7 +198,7 @@
     </f:RegionPanel>
     <f:Window ID="Window1" Title="编辑应急演练开展情况季报表" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="false"
-        CloseAction="HidePostBack" Width="1300px" Height="500px">
+        CloseAction="HidePostBack" Width="1300px" Height="540px">
     </f:Window>
     <f:Window ID="Window2" IconUrl="~/res/images/16/11.png" runat="server" Hidden="true"
         IsModal="false" Target="Parent" EnableMaximize="true" EnableResize="true" OnClose="Window2_Close"

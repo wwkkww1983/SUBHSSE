@@ -232,10 +232,10 @@ namespace FineUIPro.Web.SitePerson
                                 result += "第" + (i + 2).ToString() + "行," + "身份证号码" + "," + "[" + col3 + "]已存在！" + "|";
                             }
                         }
-                        //else
-                        //{
-                        //    result += "第" + (i + 2).ToString() + "行," + "身份证号码" + "," + "此项为必填项！" + "|";
-                        //}
+                        else
+                        {
+                            result += "第" + (i + 2).ToString() + "行," + "身份证号码" + "," + "此项为必填项！" + "|";
+                        }
 
                         string col5 = pds.Rows[i][5].ToString().Trim();
                         if (!string.IsNullOrEmpty(col5))

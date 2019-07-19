@@ -201,6 +201,11 @@ namespace FineUIPro.Web.SitePerson
                 ShowNotify("人员姓名不能为空！", MessageBoxIcon.Warning);
                 return;
             }
+            if (string.IsNullOrEmpty(this.txtIdentityCard.Text))
+            {
+                ShowNotify("身份证/证件号不能为空！", MessageBoxIcon.Warning);
+                return;
+            }
             if (string.IsNullOrEmpty(this.txtInTime.Text))
             {
                 ShowNotify("入场时间不能为空！", MessageBoxIcon.Warning);

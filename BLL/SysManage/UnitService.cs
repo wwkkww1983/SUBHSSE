@@ -316,9 +316,8 @@ namespace BLL
                      join y in db.Project_ProjectUnit
                      on x.UnitId equals y.UnitId
                      where y.ProjectId == projectId && (x.IsHide == null || x.IsHide == false)
-                     && (y.UnitType == BLL.Const.ProjectUnitType_1 || y.UnitType == BLL.Const.ProjectUnitType_2) && (y.OutTime == null || y.OutTime >= Convert.ToDateTime(DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-01"))
-                     orderby x.UnitCode
-                     select x).ToList();
+                     && (y.UnitType == BLL.Const.ProjectUnitType_1 || y.UnitType == BLL.Const.ProjectUnitType_2) && (y.OutTime == null || y.OutTime >= Convert.ToDateTime(DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-01"))                     
+                     select x).OrderByDescending(x=>x.IsThisUnit).ThenBy(x=>x.UnitCode).ToList();
             return q;
         }
         /// <summary>

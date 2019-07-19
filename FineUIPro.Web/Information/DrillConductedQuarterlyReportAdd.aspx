@@ -11,7 +11,7 @@
 <body>
     <form id="form1" runat="server">
     <f:PageManager ID="PageManager1" AutoSizePanelID="SimpleForm1" runat="server" />
-    <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="false"
+    <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="true"
         BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">       
         <Rows>
             <f:FormRow>
@@ -32,7 +32,7 @@
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" EnableCollapse="true" runat="server"
                         BoxFlex="1" DataKeyNames="DrillConductedQuarterlyReportItemId" AllowCellEditing="true"
                         ClicksToEdit="1" DataIDField="DrillConductedQuarterlyReportItemId" EnableColumnLines="true"
-                        OnRowCommand="Grid1_RowCommand" EnableHeaderMenu="false" Width="1300px" Height="380px">
+                        OnRowCommand="Grid1_RowCommand" EnableHeaderMenu="false" Width="1200px" Height="380px">
                         <Columns>
                             <f:LinkButtonField Width="40px" ConfirmTarget="Parent" CommandName="Add" Icon="Add"
                                 TextAlign="Center" />

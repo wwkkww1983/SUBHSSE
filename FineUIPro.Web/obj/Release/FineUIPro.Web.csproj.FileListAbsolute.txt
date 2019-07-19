@@ -167,8 +167,6 @@ D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\bin\Newtonsoft.Json.dll
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\bin\BLL.pdb
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\bin\BLL.dll.config
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\bin\Model.pdb
-D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\bin\Apache.NMS.pdb
-D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\bin\Apache.NMS.xml
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\bin\Apache.NMS.ActiveMQ.pdb
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\bin\Apache.NMS.ActiveMQ.xml
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\bin\FineUIPro.xml
@@ -178,3 +176,4 @@ D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\obj\Release\FineUIPro.Web.cs
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\obj\Release\FineUIPro.Web.csproj.CopyComplete
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\obj\Release\FineUIPro.Web.dll
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\obj\Release\FineUIPro.Web.pdb
+D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\bin\Newtonsoft.Json.pdb

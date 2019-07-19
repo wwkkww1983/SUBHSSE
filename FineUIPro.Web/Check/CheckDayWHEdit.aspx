@@ -77,11 +77,11 @@
                         </Toolbars>
                         <Columns>
                             <f:RowNumberField HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center" />
-                            <f:RenderField Width="220px" ColumnID="Unqualified" DataField="Unqualified" SortField="Unqualified"
+                            <f:RenderField Width="200px" ColumnID="Unqualified" DataField="Unqualified" SortField="Unqualified"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="隐患内容"
                                 ExpandUnusedSpace="true">
                             </f:RenderField>
-                            <f:RenderField Width="100px" ColumnID="WorkArea" DataField="WorkArea" SortField="WorkArea"
+                            <f:RenderField Width="120px" ColumnID="WorkArea" DataField="WorkArea" SortField="WorkArea"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="检查区域">
                             </f:RenderField>
                             <f:RenderField Width="100px" ColumnID="HiddenDangerType" DataField="HiddenDangerType"
@@ -95,7 +95,7 @@
                             <f:RenderField Width="200px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="责任单位">
                             </f:RenderField>
-                            <f:RenderField Width="100px" ColumnID="PersonName" DataField="PersonName" SortField="PersonName"
+                            <f:RenderField Width="90px" ColumnID="PersonName" DataField="PersonName" SortField="PersonName"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="责任人">
                             </f:RenderField>
                             <f:RenderField Width="100px" ColumnID="LimitedDate" DataField="LimitedDate" SortField="LimitedDate"
@@ -105,7 +105,7 @@
                             <f:RenderField Width="100px" ColumnID="Suggestions" DataField="Suggestions" SortField="Suggestions"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="整改要求">
                             </f:RenderField>
-                            <f:TemplateField Width="200px" HeaderText="处理措施" HeaderTextAlign="Center" TextAlign="Center">
+                            <f:TemplateField Width="150px" HeaderText="处理措施" HeaderTextAlign="Center" TextAlign="Left">
                                 <ItemTemplate>
                                     <asp:Label ID="Label3" runat="server" Text='<%# HandleStepStr(Eval("HandleStep")) %>'
                                         ToolTip='<%# HandleStepStr(Eval("HandleStep")) %>'></asp:Label>

@@ -66,13 +66,10 @@ namespace FineUIPro.Web.Manager
                 outputDT.Columns.Add("序号", typeof(string));
                 outputDT.Columns.Add("类别", typeof(string));
                 outputDT.Columns.Add("填写要求", typeof(string));
-
-
                 var hseLogDate = from x in Funs.DB.Manager_HSSELog
-                                 join y in Funs.DB.Sys_Const on x.Weather equals y.ConstValue
-                                 where y.GroupId == BLL.ConstValue.Group_Weather && x.CompileMan == this.drpCompileMan.SelectedValue && x.CompileDate >= Convert.ToDateTime(this.txtStartDate.Text) && x.CompileDate <= Convert.ToDateTime(this.txtEndDate.Text)
+                                 where  x.ProjectId == this.CurrUser.LoginProjectId && x.CompileMan == this.drpCompileMan.SelectedValue && x.CompileDate >= Convert.ToDateTime(this.txtStartDate.Text) && x.CompileDate <= Convert.ToDateTime(this.txtEndDate.Text)
                                  orderby x.CompileDate
-                                 select new { x.CompileDate, x.HSSELogId, y.ConstText };
+                                 select new { x.CompileDate, x.HSSELogId, x.Weather };
                 foreach (var incol in hseLogDate)
                 {
                     outputDT.Columns.Add(string.Format("{0:yyyy-MM-dd}", incol.CompileDate), typeof(string));
@@ -83,7 +80,15 @@ namespace FineUIPro.Web.Manager
                 row["填写要求"] = string.Empty;
                 foreach (var item in hseLogDate)
                 {
-                    row[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = "天气：" + item.ConstText;
+                    var w1 = Funs.DB.Sys_Const.FirstOrDefault(x => x.GroupId == BLL.ConstValue.Group_Weather && x.ConstValue == item.Weather);
+                    if (w1 != null)
+                    {
+                        row[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = "天气：" + w1.ConstText;
+                    }
+                    else
+                    {
+                        row[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = "天气：";
+                    }
                 }
                 outputDT.Rows.Add(row);
 

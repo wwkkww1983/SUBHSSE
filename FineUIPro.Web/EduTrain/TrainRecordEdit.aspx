@@ -161,7 +161,7 @@
     </f:Form>
     <f:Window ID="Window1" Title="选择培训人员" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="1200px" Height="520px">
+        Width="1300px" Height="520px">
     </f:Window>
     <f:Window ID="Window2" Title="培训试卷" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true"

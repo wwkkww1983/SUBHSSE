@@ -43,6 +43,7 @@ namespace FineUIPro.Web.Check
                     this.ProjectId = Request.Params["projectId"];
                 }
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
+                BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpCheckPerson, this.ProjectId, null, true);
                 // 绑定表格
                 //BindGrid();
             }

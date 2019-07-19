@@ -18,7 +18,7 @@ namespace FineUIPro.Web.CostGoods
         {
             if (!IsPostBack)
             {
-                Model.CostGoods_PayRegistration payRegistration = BLL.PayRegistrationService.GetPayRegistrationById(Request.Params["PayRegistrationId"]);
+                var payRegistration = BLL.PayRegistrationService.GetPayRegistrationById(Request.Params["PayRegistrationId"]);
                 if (payRegistration != null)
                 {
                     DateTime startTime = Convert.ToDateTime(payRegistration.PayDate.Value.Year + "-" + payRegistration.PayDate.Value.Month + "-1");
@@ -31,7 +31,7 @@ namespace FineUIPro.Web.CostGoods
                     dt.Columns.Add("R2");   //类别
                     dt.Columns.Add("R3");   //项目名称
                     dt.Columns.Add("R4");   //费用明细
-                    List<Model.Base_Unit> units = BLL.UnitService.GetMainAndSubUnitByProjectIdList(this.CurrUser.LoginProjectId);
+                    var units = BLL.UnitService.GetMainAndSubUnitByProjectIdList(payRegistration.ProjectId);
                     int a = 0;
                     for (int i = 0; i < units.Count; i++)
                     {
@@ -41,30 +41,24 @@ namespace FineUIPro.Web.CostGoods
                         dt.Columns.Add("M" + a);   //当月累计
                         a++;
                     }
-                    List<Model.CostGoods_PayRegistration> payRegistrations = BLL.PayRegistrationService.GetPayRegistrationByPayDate(startTime, endTime, this.CurrUser.LoginProjectId);
-                    List<Model.CostGoods_PayRegistration> yearPayRegistrations = BLL.PayRegistrationService.GetPayRegistrationByYear(this.CurrUser.LoginProjectId, endTime);
-                    var costManageItems = from x in Funs.DB.CostGoods_CostManageItem
-                                          join y in Funs.DB.CostGoods_CostManage
-                                          on x.CostManageId equals y.CostManageId
-                                          where y.CostManageDate >= startTime && y.CostManageDate <= endTime && y.ProjectId == this.CurrUser.LoginProjectId
-                                          select new
-                                          {
-                                              UnitId = y.UnitId,
-                                              InvestCostProject = x.InvestCostProject,
-                                              AuditCounts = x.AuditCounts ?? 0,
-                                              AuditPriceMoney = x.AuditPriceMoney ?? 0
-                                          };
+
+                    var yearPayRegistrations = BLL.PayRegistrationService.GetPayRegistrationByYear(payRegistration.ProjectId, endTime);
+                    var payRegistrations = yearPayRegistrations.Where(x => x.PayDate >= startTime && x.PayDate <= endTime);                    
+
                     var yearCostManageItems = from x in Funs.DB.CostGoods_CostManageItem
                                               join y in Funs.DB.CostGoods_CostManage
                                               on x.CostManageId equals y.CostManageId
-                                              where y.CostManageDate.Value.Year == endTime.Year && y.ProjectId == this.CurrUser.LoginProjectId
+                                              where y.CostManageDate.Value.Year == endTime.Year && y.ProjectId == payRegistration.ProjectId
                                               select new
                                               {
-                                                  UnitId = y.UnitId,
-                                                  InvestCostProject = x.InvestCostProject,
+                                                  y.UnitId,
+                                                  x.InvestCostProject,
                                                   AuditCounts = x.AuditCounts ?? 0,
-                                                  AuditPriceMoney = x.AuditPriceMoney ?? 0
+                                                  AuditPriceMoney = x.AuditPriceMoney ?? 0,
+                                                  y.CostManageDate
                                               };
+                    var costManageItems = yearCostManageItems.Where(x => x.CostManageDate >= startTime && x.CostManageDate <= endTime);
+
                     #region 1.基础管理
                     DataRow row1 = dt.NewRow();
                     row1[0] = "1";
@@ -75,22 +69,22 @@ namespace FineUIPro.Web.CostGoods
                     int b = 5;
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row1[b] = payRegistrations.Sum(x => x.SMonthType1_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_5 ?? 0);
+                            row1[b] = payRegistrations.Sum(x => x.SMonthType1_1 ?? 0);
                             row1[b] = Funs.GetNewDecimalOrZero(row1[b].ToString()).ToString("N2");
                             b++;
-                            row1[b] = yearPayRegistrations.Sum(x => x.SMonthType1_1 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_2 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_3 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_4 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_5 ?? 0);
+                            row1[b] = yearPayRegistrations.Sum(x => x.SMonthType1_1 ?? 0);
                             row1[b] = Funs.GetNewDecimalOrZero(row1[b].ToString()).ToString("N2");
                             b++;
                         }
                         else    //分包商
                         {
                             row1[b] = costManageItems.Where(x => x.UnitId == units[i].UnitId && x.InvestCostProject == "内业管理").Sum(x => (int?)x.AuditCounts * (decimal?)x.AuditPriceMoney);
-                            row1[b] = Funs.GetNewDecimalOrZero(row1[b].ToString()).ToString("N2");
+                            row1[b] = 0; Funs.GetNewDecimalOrZero(row1[b].ToString()).ToString("N2");
                             b++;
-                            row1[b] = yearCostManageItems.Where(x => x.UnitId == units[i].UnitId && x.InvestCostProject == "内业管理").Sum(x => (int)x.AuditCounts * (decimal?)x.AuditPriceMoney);
-                            row1[b] = Funs.GetNewDecimalOrZero(row1[b].ToString()).ToString("N2");
+                            row1[b] = 0; //yearCostManageItems.Where(x => x.UnitId == units[i].UnitId && x.InvestCostProject == "内业管理").Sum(x => (int)x.AuditCounts * (decimal?)x.AuditPriceMoney);
+                            row1[b] =  Funs.GetNewDecimalOrZero(row1[b].ToString()).ToString("N2");
                             b++;
                         }
                     }
@@ -104,12 +98,12 @@ namespace FineUIPro.Web.CostGoods
                     row2[4] = "施工现场和特殊界区管理出入证、通行证制证、制卡";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row2[b] = payRegistrations.Sum(x => x.SMonthType1_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_5 ?? 0);
+                            row2[b] = payRegistrations.Sum(x => x.SMonthType1_2 ?? 0);
                             row2[b] = Funs.GetNewDecimalOrZero(row2[b].ToString()).ToString("N2");
                             b++;
-                            row2[b] = yearPayRegistrations.Sum(x => x.SMonthType1_1 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_2 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_3 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_4 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_5 ?? 0);
+                            row2[b] = yearPayRegistrations.Sum(x =>x.SMonthType1_2 ?? 0);
                             row2[b] = Funs.GetNewDecimalOrZero(row2[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -133,12 +127,12 @@ namespace FineUIPro.Web.CostGoods
                     row3[4] = "安全、环保、应急管理文档汇集、编辑、分析";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row3[b] = payRegistrations.Sum(x => x.SMonthType1_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_5 ?? 0);
+                            row3[b] = payRegistrations.Sum(x => x.SMonthType1_3 ?? 0);
                             row3[b] = Funs.GetNewDecimalOrZero(row3[b].ToString()).ToString("N2");
                             b++;
-                            row3[b] = yearPayRegistrations.Sum(x => x.SMonthType1_1 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_2 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_3 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_4 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_5 ?? 0);
+                            row3[b] = yearPayRegistrations.Sum(x => x.SMonthType1_3 ?? 0);
                             row3[b] = Funs.GetNewDecimalOrZero(row3[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -147,8 +141,8 @@ namespace FineUIPro.Web.CostGoods
                             row3[b] = costManageItems.Where(x => x.UnitId == units[i].UnitId && x.InvestCostProject == "内业管理").Sum(x => (int?)x.AuditCounts * (decimal?)x.AuditPriceMoney);
                             row3[b] = Funs.GetNewDecimalOrZero(row3[b].ToString()).ToString("N2");
                             b++;
-                            row3[b] = yearCostManageItems.Where(x => x.UnitId == units[i].UnitId && x.InvestCostProject == "内业管理").Sum(x => (int?)x.AuditCounts * (decimal?)x.AuditPriceMoney);
-                            row3[b] = Funs.GetNewDecimalOrZero(row3[b].ToString()).ToString("N2");
+                            row3[b] =  yearCostManageItems.Where(x => x.UnitId == units[i].UnitId && x.InvestCostProject == "内业管理").Sum(x => (int?)x.AuditCounts * (decimal?)x.AuditPriceMoney);
+                            row3[b] =  Funs.GetNewDecimalOrZero(row3[b].ToString()).ToString("N2");
                             b++;
                         }
                     }
@@ -162,22 +156,22 @@ namespace FineUIPro.Web.CostGoods
                     row4[4] = "安全检测、监测、评定、评价";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row4[b] = payRegistrations.Sum(x => x.SMonthType1_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_5 ?? 0);
+                            row4[b] = payRegistrations.Sum(x => x.SMonthType1_4 ?? 0);
                             row4[b] = Funs.GetNewDecimalOrZero(row4[b].ToString()).ToString("N2");
                             b++;
-                            row4[b] = yearPayRegistrations.Sum(x => x.SMonthType1_1 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_2 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_3 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_4 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_5 ?? 0);
+                            row4[b] = yearPayRegistrations.Sum(x => x.SMonthType1_4 ?? 0);
                             row4[b] = Funs.GetNewDecimalOrZero(row4[b].ToString()).ToString("N2");
                             b++;
                         }
                         else    //分包商
                         {
                             row4[b] = costManageItems.Where(x => x.UnitId == units[i].UnitId && x.InvestCostProject == "内业管理").Sum(x => (int?)x.AuditCounts * (decimal?)x.AuditPriceMoney);
-                            row4[b] = Funs.GetNewDecimalOrZero(row4[b].ToString()).ToString("N2");
+                            row4[b] =  Funs.GetNewDecimalOrZero(row4[b].ToString()).ToString("N2");
                             b++;
                             row4[b] = yearCostManageItems.Where(x => x.UnitId == units[i].UnitId && x.InvestCostProject == "内业管理").Sum(x => (int?)x.AuditCounts * (decimal?)x.AuditPriceMoney);
-                            row4[b] = Funs.GetNewDecimalOrZero(row4[b].ToString()).ToString("N2");
+                            row4[b] =  Funs.GetNewDecimalOrZero(row4[b].ToString()).ToString("N2");
                             b++;
                         }
                     }
@@ -191,12 +185,12 @@ namespace FineUIPro.Web.CostGoods
                     row5[4] = "报刊、标语、参考书、宣传画、音像制品等宣传品和现场宣传栏";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row5[b] = payRegistrations.Sum(x => x.SMonthType1_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_5 ?? 0);
+                            row5[b] = payRegistrations.Sum(x => x.SMonthType1_5 ?? 0);
                             row5[b] = Funs.GetNewDecimalOrZero(row5[b].ToString()).ToString("N2");
                             b++;
-                            row5[b] = yearPayRegistrations.Sum(x => x.SMonthType1_1 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_2 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_3 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_4 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_5 ?? 0);
+                            row5[b] = yearPayRegistrations.Sum(x => x.SMonthType1_5 ?? 0);
                             row5[b] = Funs.GetNewDecimalOrZero(row5[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -220,12 +214,12 @@ namespace FineUIPro.Web.CostGoods
                     row6[4] = "员工进出场信息采集识别管理系统（含摄录存取及分析器材）购置、折旧或租赁费";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row6[b] = payRegistrations.Sum(x => x.SMonthType1_6 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_7 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_8 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_9 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_10 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_11 ?? 0);
+                            row6[b] = payRegistrations.Sum(x => x.SMonthType1_6 ?? 0);
                             row6[b] = Funs.GetNewDecimalOrZero(row6[b].ToString()).ToString("N2");
                             b++;
-                            row6[b] = yearPayRegistrations.Sum(x => x.SMonthType1_6 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_7 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_8 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_9 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_10 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_11 ?? 0);
+                            row6[b] = yearPayRegistrations.Sum(x => x.SMonthType1_6 ?? 0) ;
                             row6[b] = Funs.GetNewDecimalOrZero(row6[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -249,12 +243,12 @@ namespace FineUIPro.Web.CostGoods
                     row7[4] = "射线、风速、噪声、温湿度、粉尘、空气质量检测仪器购置、折旧或租赁费用";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row7[b] = payRegistrations.Sum(x => x.SMonthType1_6 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_7 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_8 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_9 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_10 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_11 ?? 0);
+                            row7[b] =  payRegistrations.Sum(x => x.SMonthType1_7 ?? 0);
                             row7[b] = Funs.GetNewDecimalOrZero(row7[b].ToString()).ToString("N2");
                             b++;
-                            row7[b] = yearPayRegistrations.Sum(x => x.SMonthType1_6 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_7 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_8 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_9 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_10 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_11 ?? 0);
+                            row7[b] =  yearPayRegistrations.Sum(x => x.SMonthType1_7 ?? 0);
                             row7[b] = Funs.GetNewDecimalOrZero(row7[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -278,12 +272,12 @@ namespace FineUIPro.Web.CostGoods
                     row8[4] = "气液成分、电气安全、力学特性、热工特性和几何量检测仪器购置、折旧或租赁费";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row8[b] = payRegistrations.Sum(x => x.SMonthType1_6 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_7 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_8 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_9 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_10 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_11 ?? 0);
+                            row8[b] = payRegistrations.Sum(x => x.SMonthType1_8 ?? 0) ;
                             row8[b] = Funs.GetNewDecimalOrZero(row8[b].ToString()).ToString("N2");
                             b++;
-                            row8[b] = yearPayRegistrations.Sum(x => x.SMonthType1_6 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_7 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_8 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_9 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_10 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_11 ?? 0);
+                            row8[b] = yearPayRegistrations.Sum(x => x.SMonthType1_8 ?? 0);
                             row8[b] = Funs.GetNewDecimalOrZero(row8[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -307,12 +301,12 @@ namespace FineUIPro.Web.CostGoods
                     row9[4] = "监测、检测辅助器具";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row9[b] = payRegistrations.Sum(x => x.SMonthType1_6 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_7 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_8 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_9 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_10 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_11 ?? 0);
+                            row9[b] = payRegistrations.Sum(x => x.SMonthType1_9 ?? 0);
                             row9[b] = Funs.GetNewDecimalOrZero(row9[b].ToString()).ToString("N2");
                             b++;
-                            row9[b] = yearPayRegistrations.Sum(x => x.SMonthType1_6 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_7 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_8 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_9 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_10 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_11 ?? 0);
+                            row9[b] =  yearPayRegistrations.Sum(x => x.SMonthType1_9 ?? 0);
                             row9[b] = Funs.GetNewDecimalOrZero(row9[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -336,12 +330,12 @@ namespace FineUIPro.Web.CostGoods
                     row10[4] = "警戒警示通讯器材（对讲机、望远镜、测距仪）";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row10[b] = payRegistrations.Sum(x => x.SMonthType1_6 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_7 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_8 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_9 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_10 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_11 ?? 0);
+                            row10[b] = payRegistrations.Sum(x => x.SMonthType1_10 ?? 0);
                             row10[b] = Funs.GetNewDecimalOrZero(row10[b].ToString()).ToString("N2");
                             b++;
-                            row10[b] = yearPayRegistrations.Sum(x => x.SMonthType1_6 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_7 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_8 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_9 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_10 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_11 ?? 0);
+                            row10[b] = yearPayRegistrations.Sum(x => x.SMonthType1_10 ?? 0) ;
                             row10[b] = Funs.GetNewDecimalOrZero(row10[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -365,12 +359,12 @@ namespace FineUIPro.Web.CostGoods
                     row11[4] = "监测检测计量器具执行检定和维修费用";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row11[b] = payRegistrations.Sum(x => x.SMonthType1_6 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_7 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_8 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_9 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_10 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_11 ?? 0);
+                            row11[b] =  payRegistrations.Sum(x => x.SMonthType1_11 ?? 0);
                             row11[b] = Funs.GetNewDecimalOrZero(row11[b].ToString()).ToString("N2");
                             b++;
-                            row11[b] = yearPayRegistrations.Sum(x => x.SMonthType1_6 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_7 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_8 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_9 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_10 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_11 ?? 0);
+                            row11[b] =  yearPayRegistrations.Sum(x => x.SMonthType1_11 ?? 0);
                             row11[b] = Funs.GetNewDecimalOrZero(row11[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -394,12 +388,12 @@ namespace FineUIPro.Web.CostGoods
                     row12[4] = "风险突出处安全警示标志牌、警示灯、警戒线、提示牌等";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row12[b] = payRegistrations.Sum(x => x.SMonthType1_12 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_13 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_14 ?? 0);
+                            row12[b] = payRegistrations.Sum(x => x.SMonthType1_12 ?? 0) ;
                             row12[b] = Funs.GetNewDecimalOrZero(row12[b].ToString()).ToString("N2");
                             b++;
-                            row12[b] = yearPayRegistrations.Sum(x => x.SMonthType1_12 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_13 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_14 ?? 0);
+                            row12[b] = yearPayRegistrations.Sum(x => x.SMonthType1_12 ?? 0);
                             row12[b] = Funs.GetNewDecimalOrZero(row12[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -423,12 +417,12 @@ namespace FineUIPro.Web.CostGoods
                     row13[4] = "各工种、各类施工机械的安全操作规程牌";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row13[b] = payRegistrations.Sum(x => x.SMonthType1_12 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_13 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_14 ?? 0);
+                            row13[b] =  payRegistrations.Sum(x => x.SMonthType1_13 ?? 0) ;
                             row13[b] = Funs.GetNewDecimalOrZero(row13[b].ToString()).ToString("N2");
                             b++;
-                            row13[b] = yearPayRegistrations.Sum(x => x.SMonthType1_12 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_13 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_14 ?? 0);
+                            row13[b] =  yearPayRegistrations.Sum(x => x.SMonthType1_13 ?? 0);
                             row13[b] = Funs.GetNewDecimalOrZero(row13[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -452,12 +446,12 @@ namespace FineUIPro.Web.CostGoods
                     row14[4] = "特殊标识、标识设置";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row14[b] = payRegistrations.Sum(x => x.SMonthType1_12 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_13 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_14 ?? 0);
+                            row14[b] =  payRegistrations.Sum(x => x.SMonthType1_14 ?? 0);
                             row14[b] = Funs.GetNewDecimalOrZero(row14[b].ToString()).ToString("N2");
                             b++;
-                            row14[b] = yearPayRegistrations.Sum(x => x.SMonthType1_12 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_13 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType1_14 ?? 0);
+                            row14[b] =  yearPayRegistrations.Sum(x => x.SMonthType1_14 ?? 0);
                             row14[b] = Funs.GetNewDecimalOrZero(row14[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -481,7 +475,7 @@ namespace FineUIPro.Web.CostGoods
                     row15[4] = "表彰安全先进集体、个人的奖励";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
                             row15[b] = payRegistrations.Sum(x => x.SMonthType1_15 ?? 0);
                             row15[b] = Funs.GetNewDecimalOrZero(row15[b].ToString()).ToString("N2");
@@ -510,7 +504,7 @@ namespace FineUIPro.Web.CostGoods
                     row16[4] = "其它安全生产管理直接相关的支出";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
                             row16[b] = payRegistrations.Sum(x => x.SMonthType1_16 ?? 0);
                             row16[b] = Funs.GetNewDecimalOrZero(row16[b].ToString()).ToString("N2");
@@ -539,7 +533,7 @@ namespace FineUIPro.Web.CostGoods
                     row17[4] = "费用小计：";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
                             row17[b] = payRegistrations.Sum(x => x.SMonthType1_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_5 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_6 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_7 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_8 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_9 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_10 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_11 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_12 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_13 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_14 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_15 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_16 ?? 0);
                             row17[b] = Funs.GetNewDecimalOrZero(row17[b].ToString()).ToString("N2");
@@ -570,12 +564,12 @@ namespace FineUIPro.Web.CostGoods
                     row18[4] = "专项方案中非常规安全措施费用";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row18[b] = payRegistrations.Sum(x => x.SMonthType2_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType2_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType2_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType2_4 ?? 0);
+                            row18[b] = payRegistrations.Sum(x => x.SMonthType2_1 ?? 0) ;
                             row18[b] = Funs.GetNewDecimalOrZero(row18[b].ToString()).ToString("N2");
                             b++;
-                            row18[b] = yearPayRegistrations.Sum(x => x.SMonthType2_1 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType2_2 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType2_3 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType2_4 ?? 0);
+                            row18[b] = yearPayRegistrations.Sum(x => x.SMonthType2_1 ?? 0) ;
                             row18[b] = Funs.GetNewDecimalOrZero(row18[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -599,12 +593,12 @@ namespace FineUIPro.Web.CostGoods
                     row19[4] = "与安全相关的专项方案专家论证审查费用";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row19[b] = payRegistrations.Sum(x => x.SMonthType2_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType2_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType2_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType2_4 ?? 0);
+                            row19[b] = payRegistrations.Sum(x => x.SMonthType2_2 ?? 0) ;
                             row19[b] = Funs.GetNewDecimalOrZero(row19[b].ToString()).ToString("N2");
                             b++;
-                            row19[b] = yearPayRegistrations.Sum(x => x.SMonthType2_1 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType2_2 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType2_3 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType2_4 ?? 0);
+                            row19[b] =  yearPayRegistrations.Sum(x => x.SMonthType2_2 ?? 0) ;
                             row19[b] = Funs.GetNewDecimalOrZero(row19[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -628,12 +622,12 @@ namespace FineUIPro.Web.CostGoods
                     row20[4] = "各类安全技术方案的编制和咨询费用";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row20[b] = payRegistrations.Sum(x => x.SMonthType2_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType2_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType2_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType2_4 ?? 0);
+                            row20[b] =  payRegistrations.Sum(x => x.SMonthType2_3 ?? 0) ;
                             row20[b] = Funs.GetNewDecimalOrZero(row20[b].ToString()).ToString("N2");
                             b++;
-                            row20[b] = yearPayRegistrations.Sum(x => x.SMonthType2_1 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType2_2 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType2_3 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType2_4 ?? 0);
+                            row20[b] =  yearPayRegistrations.Sum(x => x.SMonthType2_3 ?? 0) ;
                             row20[b] = Funs.GetNewDecimalOrZero(row20[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -657,12 +651,12 @@ namespace FineUIPro.Web.CostGoods
                     row21[4] = "安全技术进步专项费用";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row21[b] = payRegistrations.Sum(x => x.SMonthType2_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType2_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType2_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType2_4 ?? 0);
+                            row21[b] =  payRegistrations.Sum(x => x.SMonthType2_4 ?? 0);
                             row21[b] = Funs.GetNewDecimalOrZero(row21[b].ToString()).ToString("N2");
                             b++;
-                            row21[b] = yearPayRegistrations.Sum(x => x.SMonthType2_1 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType2_2 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType2_3 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType2_4 ?? 0);
+                            row21[b] = yearPayRegistrations.Sum(x => x.SMonthType2_4 ?? 0);
                             row21[b] = Funs.GetNewDecimalOrZero(row21[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -686,7 +680,7 @@ namespace FineUIPro.Web.CostGoods
                     row22[4] = "费用小计：";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
                             row22[b] = payRegistrations.Sum(x => x.SMonthType2_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType2_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType2_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType2_4 ?? 0);
                             row22[b] = Funs.GetNewDecimalOrZero(row22[b].ToString()).ToString("N2");
@@ -717,12 +711,12 @@ namespace FineUIPro.Web.CostGoods
                     row23[4] = "通风、降温、保暖、除尘、防眩光设施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row23[b] = payRegistrations.Sum(x => x.SMonthType3_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_5 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_6 ?? 0);
+                            row23[b] = payRegistrations.Sum(x => x.SMonthType3_1 ?? 0);
                             row23[b] = Funs.GetNewDecimalOrZero(row23[b].ToString()).ToString("N2");
                             b++;
-                            row23[b] = yearPayRegistrations.Sum(x => x.SMonthType3_1 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_2 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_3 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_4 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_5 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_6 ?? 0);
+                            row23[b] = yearPayRegistrations.Sum(x => x.SMonthType3_1 ?? 0) ;
                             row23[b] = Funs.GetNewDecimalOrZero(row23[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -746,12 +740,12 @@ namespace FineUIPro.Web.CostGoods
                     row24[4] = "职业病预防措施和有害作业工种保健费";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row24[b] = payRegistrations.Sum(x => x.SMonthType3_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_5 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_6 ?? 0);
+                            row24[b] = payRegistrations.Sum(x => x.SMonthType3_2 ?? 0);
                             row24[b] = Funs.GetNewDecimalOrZero(row24[b].ToString()).ToString("N2");
                             b++;
-                            row24[b] = yearPayRegistrations.Sum(x => x.SMonthType3_1 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_2 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_3 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_4 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_5 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_6 ?? 0);
+                            row24[b] =  yearPayRegistrations.Sum(x => x.SMonthType3_2 ?? 0);
                             row24[b] = Funs.GetNewDecimalOrZero(row24[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -775,12 +769,12 @@ namespace FineUIPro.Web.CostGoods
                     row25[4] = "特殊环境作业和特殊要求行业人员体检费";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row25[b] = payRegistrations.Sum(x => x.SMonthType3_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_5 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_6 ?? 0);
+                            row25[b] =  payRegistrations.Sum(x => x.SMonthType3_3 ?? 0) ;
                             row25[b] = Funs.GetNewDecimalOrZero(row25[b].ToString()).ToString("N2");
                             b++;
-                            row25[b] = yearPayRegistrations.Sum(x => x.SMonthType3_1 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_2 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_3 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_4 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_5 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_6 ?? 0);
+                            row25[b] =  yearPayRegistrations.Sum(x => x.SMonthType3_3 ?? 0) ;
                             row25[b] = Funs.GetNewDecimalOrZero(row25[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -804,12 +798,12 @@ namespace FineUIPro.Web.CostGoods
                     row26[4] = "女工休息室、特殊作业人员休息室";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row26[b] = payRegistrations.Sum(x => x.SMonthType3_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_5 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_6 ?? 0);
+                            row26[b] =  payRegistrations.Sum(x => x.SMonthType3_4 ?? 0);
                             row26[b] = Funs.GetNewDecimalOrZero(row26[b].ToString()).ToString("N2");
                             b++;
-                            row26[b] = yearPayRegistrations.Sum(x => x.SMonthType3_1 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_2 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_3 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_4 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_5 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_6 ?? 0);
+                            row26[b] = yearPayRegistrations.Sum(x => x.SMonthType3_4 ?? 0) ;
                             row26[b] = Funs.GetNewDecimalOrZero(row26[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -833,12 +827,12 @@ namespace FineUIPro.Web.CostGoods
                     row27[4] = "水泥等其他易飞扬颗粒建筑材料封闭放置和遮盖措施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row27[b] = payRegistrations.Sum(x => x.SMonthType3_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_5 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_6 ?? 0);
+                            row27[b] = payRegistrations.Sum(x => x.SMonthType3_5 ?? 0) ;
                             row27[b] = Funs.GetNewDecimalOrZero(row27[b].ToString()).ToString("N2");
                             b++;
-                            row27[b] = yearPayRegistrations.Sum(x => x.SMonthType3_1 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_2 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_3 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_4 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_5 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_6 ?? 0);
+                            row27[b] = yearPayRegistrations.Sum(x => x.SMonthType3_5 ?? 0);
                             row27[b] = Funs.GetNewDecimalOrZero(row27[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -862,12 +856,12 @@ namespace FineUIPro.Web.CostGoods
                     row28[4] = "边角余料，废旧材料清理回收措施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row28[b] = payRegistrations.Sum(x => x.SMonthType3_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_5 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_6 ?? 0);
+                            row28[b] =payRegistrations.Sum(x => x.SMonthType3_6 ?? 0);
                             row28[b] = Funs.GetNewDecimalOrZero(row28[b].ToString()).ToString("N2");
                             b++;
-                            row28[b] = yearPayRegistrations.Sum(x => x.SMonthType3_1 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_2 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_3 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_4 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_5 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType3_6 ?? 0);
+                            row28[b] = yearPayRegistrations.Sum(x => x.SMonthType3_6 ?? 0);
                             row28[b] = Funs.GetNewDecimalOrZero(row28[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -891,7 +885,7 @@ namespace FineUIPro.Web.CostGoods
                     row29[4] = "费用小计：";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
                             row29[b] = payRegistrations.Sum(x => x.SMonthType3_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_5 ?? 0) + payRegistrations.Sum(x => x.SMonthType3_6 ?? 0);
                             row29[b] = Funs.GetNewDecimalOrZero(row29[b].ToString()).ToString("N2");
@@ -922,12 +916,12 @@ namespace FineUIPro.Web.CostGoods
                     row30[4] = "漏电保护器";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row30[b] = payRegistrations.Sum(x => x.SMonthType4_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_3 ?? 0);
+                            row30[b] = payRegistrations.Sum(x => x.SMonthType4_1 ?? 0);
                             row30[b] = Funs.GetNewDecimalOrZero(row30[b].ToString()).ToString("N2");
                             b++;
-                            row30[b] = yearPayRegistrations.Sum(x => x.SMonthType4_1 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_2 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_3 ?? 0);
+                            row30[b] = yearPayRegistrations.Sum(x => x.SMonthType4_1 ?? 0) ;
                             row30[b] = Funs.GetNewDecimalOrZero(row30[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -951,12 +945,12 @@ namespace FineUIPro.Web.CostGoods
                     row31[4] = "保护接地装置，大型机具设备的防雷接地";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row31[b] = payRegistrations.Sum(x => x.SMonthType4_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_3 ?? 0);
+                            row31[b] = payRegistrations.Sum(x => x.SMonthType4_2 ?? 0);
                             row31[b] = Funs.GetNewDecimalOrZero(row31[b].ToString()).ToString("N2");
                             b++;
-                            row31[b] = yearPayRegistrations.Sum(x => x.SMonthType4_1 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_2 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_3 ?? 0);
+                            row31[b] = yearPayRegistrations.Sum(x => x.SMonthType4_2 ?? 0) ;
                             row31[b] = Funs.GetNewDecimalOrZero(row31[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -980,12 +974,12 @@ namespace FineUIPro.Web.CostGoods
                     row32[4] = "受限空间使用的低压照明设备（隔离变压器、低压照明灯、专用配电箱）";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row32[b] = payRegistrations.Sum(x => x.SMonthType4_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_3 ?? 0);
+                            row32[b] =  payRegistrations.Sum(x => x.SMonthType4_3 ?? 0);
                             row32[b] = Funs.GetNewDecimalOrZero(row32[b].ToString()).ToString("N2");
                             b++;
-                            row32[b] = yearPayRegistrations.Sum(x => x.SMonthType4_1 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_2 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_3 ?? 0);
+                            row32[b] =  yearPayRegistrations.Sum(x => x.SMonthType4_3 ?? 0);
                             row32[b] = Funs.GetNewDecimalOrZero(row32[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1009,12 +1003,12 @@ namespace FineUIPro.Web.CostGoods
                     row33[4] = "基坑及安全措施费隐蔽工程动土安全措施费（防坍塌措施）";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row33[b] = payRegistrations.Sum(x => x.SMonthType4_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_5 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_6 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_7 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_8 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_9 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_10 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_11 ?? 0);
+                            row33[b] = payRegistrations.Sum(x => x.SMonthType4_4 ?? 0);
                             row33[b] = Funs.GetNewDecimalOrZero(row33[b].ToString()).ToString("N2");
                             b++;
-                            row33[b] = yearPayRegistrations.Sum(x => x.SMonthType4_4 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_5 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_6 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_7 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_8 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_9 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_10 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_11 ?? 0);
+                            row33[b] = yearPayRegistrations.Sum(x => x.SMonthType4_4 ?? 0) ;
                             row33[b] = Funs.GetNewDecimalOrZero(row33[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1038,12 +1032,12 @@ namespace FineUIPro.Web.CostGoods
                     row34[4] = "孔、洞、井的防护盖板和防护栏杆";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row34[b] = payRegistrations.Sum(x => x.SMonthType4_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_5 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_6 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_7 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_8 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_9 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_10 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_11 ?? 0);
+                            row34[b] =  payRegistrations.Sum(x => x.SMonthType4_5 ?? 0);
                             row34[b] = Funs.GetNewDecimalOrZero(row34[b].ToString()).ToString("N2");
                             b++;
-                            row34[b] = yearPayRegistrations.Sum(x => x.SMonthType4_4 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_5 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_6 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_7 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_8 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_9 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_10 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_11 ?? 0);
+                            row34[b] =  yearPayRegistrations.Sum(x => x.SMonthType4_5 ?? 0) ;
                             row34[b] = Funs.GetNewDecimalOrZero(row34[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1067,12 +1061,12 @@ namespace FineUIPro.Web.CostGoods
                     row35[4] = "其它临边防护材料（如安全网、踢脚板等）";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row35[b] = payRegistrations.Sum(x => x.SMonthType4_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_5 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_6 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_7 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_8 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_9 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_10 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_11 ?? 0);
+                            row35[b] =  payRegistrations.Sum(x => x.SMonthType4_6 ?? 0);
                             row35[b] = Funs.GetNewDecimalOrZero(row35[b].ToString()).ToString("N2");
                             b++;
-                            row35[b] = yearPayRegistrations.Sum(x => x.SMonthType4_4 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_5 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_6 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_7 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_8 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_9 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_10 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_11 ?? 0);
+                            row35[b] = yearPayRegistrations.Sum(x => x.SMonthType4_6 ?? 0);
                             row35[b] = Funs.GetNewDecimalOrZero(row35[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1096,12 +1090,12 @@ namespace FineUIPro.Web.CostGoods
                     row36[4] = "有防坠物要求的棚房设施建筑物临边和施工通道的隔离防护棚";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row36[b] = payRegistrations.Sum(x => x.SMonthType4_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_5 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_6 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_7 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_8 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_9 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_10 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_11 ?? 0);
+                            row36[b] = payRegistrations.Sum(x => x.SMonthType4_7 ?? 0);
                             row36[b] = Funs.GetNewDecimalOrZero(row36[b].ToString()).ToString("N2");
                             b++;
-                            row36[b] = yearPayRegistrations.Sum(x => x.SMonthType4_4 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_5 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_6 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_7 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_8 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_9 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_10 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_11 ?? 0);
+                            row36[b] =  yearPayRegistrations.Sum(x => x.SMonthType4_7 ?? 0);
                             row36[b] = Funs.GetNewDecimalOrZero(row36[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1125,12 +1119,12 @@ namespace FineUIPro.Web.CostGoods
                     row37[4] = "防坠物措施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row37[b] = payRegistrations.Sum(x => x.SMonthType4_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_5 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_6 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_7 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_8 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_9 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_10 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_11 ?? 0);
+                            row37[b] =  payRegistrations.Sum(x => x.SMonthType4_8 ?? 0) ;
                             row37[b] = Funs.GetNewDecimalOrZero(row37[b].ToString()).ToString("N2");
                             b++;
-                            row37[b] = yearPayRegistrations.Sum(x => x.SMonthType4_4 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_5 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_6 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_7 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_8 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_9 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_10 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_11 ?? 0);
+                            row37[b] =  yearPayRegistrations.Sum(x => x.SMonthType4_8 ?? 0) ;
                             row37[b] = Funs.GetNewDecimalOrZero(row37[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1154,12 +1148,12 @@ namespace FineUIPro.Web.CostGoods
                     row38[4] = "钢结构安装时脚手架等安全措施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row38[b] = payRegistrations.Sum(x => x.SMonthType4_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_5 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_6 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_7 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_8 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_9 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_10 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_11 ?? 0);
+                            row38[b] = payRegistrations.Sum(x => x.SMonthType4_9 ?? 0) ;
                             row38[b] = Funs.GetNewDecimalOrZero(row38[b].ToString()).ToString("N2");
                             b++;
-                            row38[b] = yearPayRegistrations.Sum(x => x.SMonthType4_4 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_5 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_6 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_7 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_8 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_9 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_10 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_11 ?? 0);
+                            row38[b] = yearPayRegistrations.Sum(x => x.SMonthType4_9 ?? 0) ;
                             row38[b] = Funs.GetNewDecimalOrZero(row38[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1183,12 +1177,12 @@ namespace FineUIPro.Web.CostGoods
                     row39[4] = "高处作业下方区域警戒围护";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row39[b] = payRegistrations.Sum(x => x.SMonthType4_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_5 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_6 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_7 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_8 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_9 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_10 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_11 ?? 0);
+                            row39[b] = payRegistrations.Sum(x => x.SMonthType4_10 ?? 0) ;
                             row39[b] = Funs.GetNewDecimalOrZero(row39[b].ToString()).ToString("N2");
                             b++;
-                            row39[b] = yearPayRegistrations.Sum(x => x.SMonthType4_4 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_5 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_6 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_7 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_8 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_9 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_10 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_11 ?? 0);
+                            row39[b] = yearPayRegistrations.Sum(x => x.SMonthType4_10 ?? 0);
                             row39[b] = Funs.GetNewDecimalOrZero(row39[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1212,12 +1206,12 @@ namespace FineUIPro.Web.CostGoods
                     row40[4] = "其他高处作业安全措施（注：脚手架体、爬梯和通道等施工必要设施不属于安全防护措施，但护栏、安全网、挡脚板、生命线等属于安全防护措施）";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row40[b] = payRegistrations.Sum(x => x.SMonthType4_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_5 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_6 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_7 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_8 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_9 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_10 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_11 ?? 0);
+                            row40[b] =payRegistrations.Sum(x => x.SMonthType4_11 ?? 0);
                             row40[b] = Funs.GetNewDecimalOrZero(row40[b].ToString()).ToString("N2");
                             b++;
-                            row40[b] = yearPayRegistrations.Sum(x => x.SMonthType4_4 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_5 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_6 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_7 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_8 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_9 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_10 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_11 ?? 0);
+                            row40[b] = yearPayRegistrations.Sum(x => x.SMonthType4_11 ?? 0);
                             row40[b] = Funs.GetNewDecimalOrZero(row40[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1241,7 +1235,7 @@ namespace FineUIPro.Web.CostGoods
                     row41[4] = "为确保建构筑物、钢构、设备施工安全而搭设的操作平台的防护栏杆和踢脚板；洞口临边护栏和盖板、平网、立网（密网）；安全通道的侧护栏和防砸顶板等。";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
                             row41[b] = payRegistrations.Sum(x => x.SMonthType4_12 ?? 0);
                             row41[b] = Funs.GetNewDecimalOrZero(row41[b].ToString()).ToString("N2");
@@ -1270,12 +1264,12 @@ namespace FineUIPro.Web.CostGoods
                     row42[4] = "通风、降温、防触电和消防设施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row42[b] = payRegistrations.Sum(x => x.SMonthType4_13 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_14 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_15 ?? 0);
+                            row42[b] = payRegistrations.Sum(x => x.SMonthType4_13 ?? 0);
                             row42[b] = Funs.GetNewDecimalOrZero(row42[b].ToString()).ToString("N2");
                             b++;
-                            row42[b] = yearPayRegistrations.Sum(x => x.SMonthType4_13 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_14 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_15 ?? 0);
+                            row42[b] = yearPayRegistrations.Sum(x => x.SMonthType4_13 ?? 0);
                             row42[b] = Funs.GetNewDecimalOrZero(row42[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1299,12 +1293,12 @@ namespace FineUIPro.Web.CostGoods
                     row43[4] = "安全电压照明系统";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row43[b] = payRegistrations.Sum(x => x.SMonthType4_13 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_14 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_15 ?? 0);
+                            row43[b] =  payRegistrations.Sum(x => x.SMonthType4_14 ?? 0)  ;
                             row43[b] = Funs.GetNewDecimalOrZero(row43[b].ToString()).ToString("N2");
                             b++;
-                            row43[b] = yearPayRegistrations.Sum(x => x.SMonthType4_13 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_14 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_15 ?? 0);
+                            row43[b] =   yearPayRegistrations.Sum(x => x.SMonthType4_14 ?? 0)  ;
                             row43[b] = Funs.GetNewDecimalOrZero(row43[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1328,12 +1322,12 @@ namespace FineUIPro.Web.CostGoods
                     row44[4] = "支护作业平台及防坠落、防滑设施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row44[b] = payRegistrations.Sum(x => x.SMonthType4_13 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_14 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_15 ?? 0);
+                            row44[b] =  payRegistrations.Sum(x => x.SMonthType4_15 ?? 0);
                             row44[b] = Funs.GetNewDecimalOrZero(row44[b].ToString()).ToString("N2");
                             b++;
-                            row44[b] = yearPayRegistrations.Sum(x => x.SMonthType4_13 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_14 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_15 ?? 0);
+                            row44[b] =  yearPayRegistrations.Sum(x => x.SMonthType4_15 ?? 0);
                             row44[b] = Funs.GetNewDecimalOrZero(row44[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1357,12 +1351,12 @@ namespace FineUIPro.Web.CostGoods
                     row45[4] = "气瓶固定、防晒、防砸措施（气瓶笼或气瓶架）；气瓶检漏措施；防回火设施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row45[b] = payRegistrations.Sum(x => x.SMonthType4_16 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_17 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_18 ?? 0);
+                            row45[b] = payRegistrations.Sum(x => x.SMonthType4_16 ?? 0) ;
                             row45[b] = Funs.GetNewDecimalOrZero(row45[b].ToString()).ToString("N2");
                             b++;
-                            row45[b] = yearPayRegistrations.Sum(x => x.SMonthType4_16 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_17 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_18 ?? 0);
+                            row45[b] = yearPayRegistrations.Sum(x => x.SMonthType4_16 ?? 0) ;
                             row45[b] = Funs.GetNewDecimalOrZero(row45[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1386,12 +1380,12 @@ namespace FineUIPro.Web.CostGoods
                     row46[4] = "高处动火的接火措施、挡火措施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row46[b] = payRegistrations.Sum(x => x.SMonthType4_16 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_17 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_18 ?? 0);
+                            row46[b] = payRegistrations.Sum(x => x.SMonthType4_17 ?? 0) ;
                             row46[b] = Funs.GetNewDecimalOrZero(row46[b].ToString()).ToString("N2");
                             b++;
-                            row46[b] = yearPayRegistrations.Sum(x => x.SMonthType4_16 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_17 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_18 ?? 0);
+                            row46[b] =  yearPayRegistrations.Sum(x => x.SMonthType4_17 ?? 0) ;
                             row46[b] = Funs.GetNewDecimalOrZero(row46[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1415,12 +1409,12 @@ namespace FineUIPro.Web.CostGoods
                     row47[4] = "火源及溅落区附件设备、电缆、管道、电气、仪表等覆盖保护措施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row47[b] = payRegistrations.Sum(x => x.SMonthType4_16 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_17 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_18 ?? 0);
+                            row47[b] =  payRegistrations.Sum(x => x.SMonthType4_18 ?? 0);
                             row47[b] = Funs.GetNewDecimalOrZero(row47[b].ToString()).ToString("N2");
                             b++;
-                            row47[b] = yearPayRegistrations.Sum(x => x.SMonthType4_16 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_17 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_18 ?? 0);
+                            row47[b] =  yearPayRegistrations.Sum(x => x.SMonthType4_18 ?? 0);
                             row47[b] = Funs.GetNewDecimalOrZero(row47[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1444,12 +1438,12 @@ namespace FineUIPro.Web.CostGoods
                     row48[4] = "中小型机具安全附件维护，使用保护（安全锁钩、护套）";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row48[b] = payRegistrations.Sum(x => x.SMonthType4_19 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_20 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_21 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_22 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_23 ?? 0);
+                            row48[b] = payRegistrations.Sum(x => x.SMonthType4_19 ?? 0) ;
                             row48[b] = Funs.GetNewDecimalOrZero(row48[b].ToString()).ToString("N2");
                             b++;
-                            row48[b] = yearPayRegistrations.Sum(x => x.SMonthType4_19 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_20 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_21 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_22 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_23 ?? 0);
+                            row48[b] = yearPayRegistrations.Sum(x => x.SMonthType4_19 ?? 0) ;
                             row48[b] = Funs.GetNewDecimalOrZero(row48[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1473,12 +1467,12 @@ namespace FineUIPro.Web.CostGoods
                     row49[4] = "塔吊、吊车、物料提升机、施工电梯等的各种防护装置和保险装置（如安全门、安全钩、限位器、限制器、安全制动器、安全监控器等）检查维护费用";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row49[b] = payRegistrations.Sum(x => x.SMonthType4_19 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_20 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_21 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_22 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_23 ?? 0);
+                            row49[b] =  payRegistrations.Sum(x => x.SMonthType4_20 ?? 0) ;
                             row49[b] = Funs.GetNewDecimalOrZero(row49[b].ToString()).ToString("N2");
                             b++;
-                            row49[b] = yearPayRegistrations.Sum(x => x.SMonthType4_19 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_20 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_21 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_22 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_23 ?? 0);
+                            row49[b] = yearPayRegistrations.Sum(x => x.SMonthType4_20 ?? 0) ;
                             row49[b] = Funs.GetNewDecimalOrZero(row49[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1502,12 +1496,12 @@ namespace FineUIPro.Web.CostGoods
                     row50[4] = "机械设备、电器设备等传动部分为安全增设的安全防护装置及自动开关配置费用";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row50[b] = payRegistrations.Sum(x => x.SMonthType4_19 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_20 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_21 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_22 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_23 ?? 0);
+                            row50[b] =    payRegistrations.Sum(x => x.SMonthType4_21 ?? 0) ;
                             row50[b] = Funs.GetNewDecimalOrZero(row50[b].ToString()).ToString("N2");
                             b++;
-                            row50[b] = yearPayRegistrations.Sum(x => x.SMonthType4_19 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_20 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_21 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_22 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_23 ?? 0);
+                            row50[b] = yearPayRegistrations.Sum(x => x.SMonthType4_21 ?? 0) ;
                             row50[b] = Funs.GetNewDecimalOrZero(row50[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1531,12 +1525,12 @@ namespace FineUIPro.Web.CostGoods
                     row51[4] = "锅炉、压力容器、压缩机及各种有爆炸危险的保险装置检查维护费用";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row51[b] = payRegistrations.Sum(x => x.SMonthType4_19 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_20 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_21 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_22 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_23 ?? 0);
+                            row51[b] =  payRegistrations.Sum(x => x.SMonthType4_22 ?? 0);
                             row51[b] = Funs.GetNewDecimalOrZero(row51[b].ToString()).ToString("N2");
                             b++;
-                            row51[b] = yearPayRegistrations.Sum(x => x.SMonthType4_19 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_20 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_21 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_22 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_23 ?? 0);
+                            row51[b] =  yearPayRegistrations.Sum(x => x.SMonthType4_22 ?? 0) ;
                             row51[b] = Funs.GetNewDecimalOrZero(row51[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1560,12 +1554,12 @@ namespace FineUIPro.Web.CostGoods
                     row52[4] = "为安全生产采取的信号装置、报警装置维护检查费用";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row52[b] = payRegistrations.Sum(x => x.SMonthType4_19 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_20 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_21 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_22 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_23 ?? 0);
+                            row52[b] = payRegistrations.Sum(x => x.SMonthType4_23 ?? 0);
                             row52[b] = Funs.GetNewDecimalOrZero(row52[b].ToString()).ToString("N2");
                             b++;
-                            row52[b] = yearPayRegistrations.Sum(x => x.SMonthType4_19 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_20 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_21 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_22 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_23 ?? 0);
+                            row52[b] = yearPayRegistrations.Sum(x => x.SMonthType4_23 ?? 0);
                             row52[b] = Funs.GetNewDecimalOrZero(row52[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1589,7 +1583,7 @@ namespace FineUIPro.Web.CostGoods
                     row53[4] = "现场拆封、检查、安装准备工作所需要脚手架平台";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
                             row53[b] = payRegistrations.Sum(x => x.SMonthType4_24 ?? 0);
                             row53[b] = Funs.GetNewDecimalOrZero(row53[b].ToString()).ToString("N2");
@@ -1618,7 +1612,7 @@ namespace FineUIPro.Web.CostGoods
                     row54[4] = "吸尘、降尘系统";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
                             row54[b] = payRegistrations.Sum(x => x.SMonthType4_25 ?? 0);
                             row54[b] = Funs.GetNewDecimalOrZero(row54[b].ToString()).ToString("N2");
@@ -1647,7 +1641,7 @@ namespace FineUIPro.Web.CostGoods
                     row55[4] = "封固、隔离、保护设施及临时平台、通道搭设";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
                             row55[b] = payRegistrations.Sum(x => x.SMonthType4_26 ?? 0);
                             row55[b] = Funs.GetNewDecimalOrZero(row55[b].ToString()).ToString("N2");
@@ -1676,12 +1670,12 @@ namespace FineUIPro.Web.CostGoods
                     row56[4] = "动土作业时的人工探挖、探查等措施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row56[b] = payRegistrations.Sum(x => x.SMonthType4_27 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_28 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_29 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_30 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_31 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_32 ?? 0);
+                            row56[b] = payRegistrations.Sum(x => x.SMonthType4_27 ?? 0) ;
                             row56[b] = Funs.GetNewDecimalOrZero(row56[b].ToString()).ToString("N2");
                             b++;
-                            row56[b] = yearPayRegistrations.Sum(x => x.SMonthType4_27 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_28 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_29 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_30 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_31 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_32 ?? 0);
+                            row56[b] = yearPayRegistrations.Sum(x => x.SMonthType4_27 ?? 0) ;
                             row56[b] = Funs.GetNewDecimalOrZero(row56[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1705,12 +1699,12 @@ namespace FineUIPro.Web.CostGoods
                     row57[4] = "车辆阻火器和施工机具、临时用电设备、照明设备、锤击工具防爆设施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row57[b] = payRegistrations.Sum(x => x.SMonthType4_27 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_28 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_29 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_30 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_31 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_32 ?? 0);
+                            row57[b] = payRegistrations.Sum(x => x.SMonthType4_28 ?? 0) ;
                             row57[b] = Funs.GetNewDecimalOrZero(row57[b].ToString()).ToString("N2");
                             b++;
-                            row57[b] = yearPayRegistrations.Sum(x => x.SMonthType4_27 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_28 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_29 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_30 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_31 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_32 ?? 0);
+                            row57[b] = yearPayRegistrations.Sum(x => x.SMonthType4_28 ?? 0) ;
                             row57[b] = Funs.GetNewDecimalOrZero(row57[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1734,12 +1728,12 @@ namespace FineUIPro.Web.CostGoods
                     row58[4] = "地沟、阀门井、排污井等封闭、冲洗";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row58[b] = payRegistrations.Sum(x => x.SMonthType4_27 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_28 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_29 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_30 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_31 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_32 ?? 0);
+                            row58[b] =  payRegistrations.Sum(x => x.SMonthType4_29 ?? 0) ;
                             row58[b] = Funs.GetNewDecimalOrZero(row58[b].ToString()).ToString("N2");
                             b++;
-                            row58[b] = yearPayRegistrations.Sum(x => x.SMonthType4_27 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_28 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_29 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_30 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_31 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_32 ?? 0);
+                            row58[b] =  yearPayRegistrations.Sum(x => x.SMonthType4_29 ?? 0) ;
                             row58[b] = Funs.GetNewDecimalOrZero(row58[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1763,12 +1757,12 @@ namespace FineUIPro.Web.CostGoods
                     row59[4] = "施工区域与生产的空间隔离和系统隔离及警戒措施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row59[b] = payRegistrations.Sum(x => x.SMonthType4_27 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_28 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_29 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_30 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_31 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_32 ?? 0);
+                            row59[b] =  payRegistrations.Sum(x => x.SMonthType4_30 ?? 0) ;
                             row59[b] = Funs.GetNewDecimalOrZero(row59[b].ToString()).ToString("N2");
                             b++;
-                            row59[b] = yearPayRegistrations.Sum(x => x.SMonthType4_27 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_28 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_29 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_30 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_31 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_32 ?? 0);
+                            row59[b] = yearPayRegistrations.Sum(x => x.SMonthType4_30 ?? 0) ;
                             row59[b] = Funs.GetNewDecimalOrZero(row59[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1792,12 +1786,12 @@ namespace FineUIPro.Web.CostGoods
                     row60[4] = "清污、限污所用器材专用安全防护器材和隔离设施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row60[b] = payRegistrations.Sum(x => x.SMonthType4_27 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_28 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_29 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_30 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_31 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_32 ?? 0);
+                            row60[b] = payRegistrations.Sum(x => x.SMonthType4_31 ?? 0);
                             row60[b] = Funs.GetNewDecimalOrZero(row60[b].ToString()).ToString("N2");
                             b++;
-                            row60[b] = yearPayRegistrations.Sum(x => x.SMonthType4_27 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_28 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_29 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_30 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_31 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_32 ?? 0);
+                            row60[b] = yearPayRegistrations.Sum(x => x.SMonthType4_31 ?? 0) ;
                             row60[b] = Funs.GetNewDecimalOrZero(row60[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1821,12 +1815,12 @@ namespace FineUIPro.Web.CostGoods
                     row61[4] = "消音及噪声隔离设施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row61[b] = payRegistrations.Sum(x => x.SMonthType4_27 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_28 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_29 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_30 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_31 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_32 ?? 0);
+                            row61[b] =  payRegistrations.Sum(x => x.SMonthType4_32 ?? 0);
                             row61[b] = Funs.GetNewDecimalOrZero(row61[b].ToString()).ToString("N2");
                             b++;
-                            row61[b] = yearPayRegistrations.Sum(x => x.SMonthType4_27 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_28 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_29 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_30 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_31 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_32 ?? 0);
+                            row61[b] =  yearPayRegistrations.Sum(x => x.SMonthType4_32 ?? 0);
                             row61[b] = Funs.GetNewDecimalOrZero(row61[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1850,7 +1844,7 @@ namespace FineUIPro.Web.CostGoods
                     row62[4] = "特种作业防护服，绝缘鞋，酸碱，绝缘手套，焊工面罩，鞋盖，护膝，护袖，披肩，各种专用防护眼镜，面罩，绝缘靴，自主呼吸器，防毒面具等，安全帽、安全带等";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
                             row62[b] = payRegistrations.Sum(x => x.SMonthType4_33 ?? 0);
                             row62[b] = Funs.GetNewDecimalOrZero(row62[b].ToString()).ToString("N2");
@@ -1879,12 +1873,12 @@ namespace FineUIPro.Web.CostGoods
                     row63[4] = "灭火器、灭火器箱、水带、消防池、消防铲、消防桶、太平斧、消防器材架等";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row63[b] = payRegistrations.Sum(x => x.SMonthType4_34 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_35 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_36 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_37 ?? 0);
+                            row63[b] = payRegistrations.Sum(x => x.SMonthType4_34 ?? 0);
                             row63[b] = Funs.GetNewDecimalOrZero(row63[b].ToString()).ToString("N2");
                             b++;
-                            row63[b] = yearPayRegistrations.Sum(x => x.SMonthType4_34 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_35 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_36 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_37 ?? 0);
+                            row63[b] = yearPayRegistrations.Sum(x => x.SMonthType4_34 ?? 0);
                             row63[b] = Funs.GetNewDecimalOrZero(row63[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1908,12 +1902,12 @@ namespace FineUIPro.Web.CostGoods
                     row64[4] = "防火毯、防火布、接火盆、挡火板、挡风用三防布、临时消防水管安装、拆除";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row64[b] = payRegistrations.Sum(x => x.SMonthType4_34 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_35 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_36 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_37 ?? 0);
+                            row64[b] = payRegistrations.Sum(x => x.SMonthType4_35 ?? 0) ;
                             row64[b] = Funs.GetNewDecimalOrZero(row64[b].ToString()).ToString("N2");
                             b++;
-                            row64[b] = yearPayRegistrations.Sum(x => x.SMonthType4_34 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_35 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_36 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_37 ?? 0);
+                            row64[b] =  yearPayRegistrations.Sum(x => x.SMonthType4_35 ?? 0);
                             row64[b] = Funs.GetNewDecimalOrZero(row64[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1937,12 +1931,12 @@ namespace FineUIPro.Web.CostGoods
                     row65[4] = "应急器材及演练器材动用费用、消耗费用和工时损失费用等";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row65[b] = payRegistrations.Sum(x => x.SMonthType4_34 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_35 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_36 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_37 ?? 0);
+                            row65[b] =  payRegistrations.Sum(x => x.SMonthType4_36 ?? 0) ;
                             row65[b] = Funs.GetNewDecimalOrZero(row65[b].ToString()).ToString("N2");
                             b++;
-                            row65[b] = yearPayRegistrations.Sum(x => x.SMonthType4_34 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_35 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_36 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_37 ?? 0);
+                            row65[b] =  yearPayRegistrations.Sum(x => x.SMonthType4_36 ?? 0) ;
                             row65[b] = Funs.GetNewDecimalOrZero(row65[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1966,12 +1960,12 @@ namespace FineUIPro.Web.CostGoods
                     row66[4] = "应急淋浴和洗眼器、酸碱灼伤专用药品等现场医务室应急器材和消防、救护车辆";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row66[b] = payRegistrations.Sum(x => x.SMonthType4_34 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_35 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_36 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_37 ?? 0);
+                            row66[b] =  payRegistrations.Sum(x => x.SMonthType4_37 ?? 0);
                             row66[b] = Funs.GetNewDecimalOrZero(row66[b].ToString()).ToString("N2");
                             b++;
-                            row66[b] = yearPayRegistrations.Sum(x => x.SMonthType4_34 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_35 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_36 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_37 ?? 0);
+                            row66[b] = yearPayRegistrations.Sum(x => x.SMonthType4_37 ?? 0);
                             row66[b] = Funs.GetNewDecimalOrZero(row66[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -1995,12 +1989,12 @@ namespace FineUIPro.Web.CostGoods
                     row67[4] = "风雨季、沙尘暴、雷击、地质灾害、大水体防护和防洪特殊环境及临时处置费用";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row67[b] = payRegistrations.Sum(x => x.SMonthType4_38 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_39 ?? 0);
+                            row67[b] = payRegistrations.Sum(x => x.SMonthType4_38 ?? 0) ;
                             row67[b] = Funs.GetNewDecimalOrZero(row67[b].ToString()).ToString("N2");
                             b++;
-                            row67[b] = yearPayRegistrations.Sum(x => x.SMonthType4_38 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_39 ?? 0);
+                            row67[b] = yearPayRegistrations.Sum(x => x.SMonthType4_38 ?? 0) ;
                             row67[b] = Funs.GetNewDecimalOrZero(row67[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -2024,12 +2018,12 @@ namespace FineUIPro.Web.CostGoods
                     row68[4] = "雨季、台风、沙尘暴等恶劣天气下，加固临时设施、大型施工机具等费用";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row68[b] = payRegistrations.Sum(x => x.SMonthType4_38 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_39 ?? 0);
+                            row68[b] = payRegistrations.Sum(x => x.SMonthType4_39 ?? 0);
                             row68[b] = Funs.GetNewDecimalOrZero(row68[b].ToString()).ToString("N2");
                             b++;
-                            row68[b] = yearPayRegistrations.Sum(x => x.SMonthType4_38 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType4_39 ?? 0);
+                            row68[b] =  yearPayRegistrations.Sum(x => x.SMonthType4_39 ?? 0);
                             row68[b] = Funs.GetNewDecimalOrZero(row68[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -2053,7 +2047,7 @@ namespace FineUIPro.Web.CostGoods
                     row69[4] = "其他";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
                             row69[b] = payRegistrations.Sum(x => x.SMonthType4_40 ?? 0);
                             row69[b] = Funs.GetNewDecimalOrZero(row69[b].ToString()).ToString("N2");
@@ -2082,7 +2076,7 @@ namespace FineUIPro.Web.CostGoods
                     row70[4] = "费用小计：";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
                             row70[b] = payRegistrations.Sum(x => x.SMonthType4_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_5 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_6 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_7 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_8 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_9 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_10 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_11 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_12 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_13 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_14 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_15 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_16 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_17 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_18 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_19 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_20 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_21 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_22 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_23 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_24 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_25 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_26 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_27 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_28 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_29 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_30 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_31 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_32 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_33 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_34 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_35 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_36 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_37 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_38 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_39 ?? 0) + payRegistrations.Sum(x => x.SMonthType4_40 ?? 0);
                             row70[b] = Funs.GetNewDecimalOrZero(row70[b].ToString()).ToString("N2");
@@ -2113,7 +2107,7 @@ namespace FineUIPro.Web.CostGoods
                     row71[4] = "装置区域封闭用围挡";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
                             row71[b] = payRegistrations.Sum(x => x.SMonthType5_1 ?? 0);
                             row71[b] = Funs.GetNewDecimalOrZero(row71[b].ToString()).ToString("N2");
@@ -2142,7 +2136,7 @@ namespace FineUIPro.Web.CostGoods
                     row72[4] = "防爆电箱、防爆插头插座、防爆灯具、防爆施工机具器具";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
                             row72[b] = payRegistrations.Sum(x => x.SMonthType5_2 ?? 0);
                             row72[b] = Funs.GetNewDecimalOrZero(row72[b].ToString()).ToString("N2");
@@ -2171,7 +2165,7 @@ namespace FineUIPro.Web.CostGoods
                     row73[4] = "盲板管理用货架、专用锁具、专用标签与警示标志";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
                             row73[b] = payRegistrations.Sum(x => x.SMonthType5_3 ?? 0);
                             row73[b] = Funs.GetNewDecimalOrZero(row73[b].ToString()).ToString("N2");
@@ -2200,7 +2194,7 @@ namespace FineUIPro.Web.CostGoods
                     row74[4] = "专区封闭管理措施费用";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
                             row74[b] = payRegistrations.Sum(x => x.SMonthType5_4 ?? 0);
                             row74[b] = Funs.GetNewDecimalOrZero(row74[b].ToString()).ToString("N2");
@@ -2229,7 +2223,7 @@ namespace FineUIPro.Web.CostGoods
                     row75[4] = "防毒、放辐射措施和加氢点警戒、监护";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
                             row75[b] = payRegistrations.Sum(x => x.SMonthType5_5 ?? 0);
                             row75[b] = Funs.GetNewDecimalOrZero(row75[b].ToString()).ToString("N2");
@@ -2258,7 +2252,7 @@ namespace FineUIPro.Web.CostGoods
                     row76[4] = "其他专项措施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
                             row76[b] = payRegistrations.Sum(x => x.SMonthType5_6 ?? 0);
                             row76[b] = Funs.GetNewDecimalOrZero(row76[b].ToString()).ToString("N2");
@@ -2288,7 +2282,7 @@ namespace FineUIPro.Web.CostGoods
                     row77[4] = "费用小计：";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
                             row77[b] = payRegistrations.Sum(x => x.SMonthType5_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType5_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType5_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType5_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType5_5 ?? 0) + payRegistrations.Sum(x => x.SMonthType5_6 ?? 0);
                             row77[b] = Funs.GetNewDecimalOrZero(row77[b].ToString()).ToString("N2");
@@ -2319,12 +2313,12 @@ namespace FineUIPro.Web.CostGoods
                     row78[4] = "安全教育培训工时占用费（入场教育、专项培训、违章停工教育）";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row78[b] = payRegistrations.Sum(x => x.SMonthType6_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType6_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType6_3 ?? 0);
+                            row78[b] = payRegistrations.Sum(x => x.SMonthType6_1 ?? 0) ;
                             row78[b] = Funs.GetNewDecimalOrZero(row78[b].ToString()).ToString("N2");
                             b++;
-                            row78[b] = yearPayRegistrations.Sum(x => x.SMonthType6_1 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType6_2 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType6_3 ?? 0);
+                            row78[b] = yearPayRegistrations.Sum(x => x.SMonthType6_1 ?? 0) ;
                             row78[b] = Funs.GetNewDecimalOrZero(row78[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -2348,12 +2342,12 @@ namespace FineUIPro.Web.CostGoods
                     row79[4] = "师资费用";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row79[b] = payRegistrations.Sum(x => x.SMonthType6_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType6_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType6_3 ?? 0);
+                            row79[b] = payRegistrations.Sum(x => x.SMonthType6_2 ?? 0) ;
                             row79[b] = Funs.GetNewDecimalOrZero(row79[b].ToString()).ToString("N2");
                             b++;
-                            row79[b] = yearPayRegistrations.Sum(x => x.SMonthType6_1 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType6_2 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType6_3 ?? 0);
+                            row79[b] =  yearPayRegistrations.Sum(x => x.SMonthType6_2 ?? 0) ;
                             row79[b] = Funs.GetNewDecimalOrZero(row79[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -2377,12 +2371,12 @@ namespace FineUIPro.Web.CostGoods
                     row80[4] = "安全培训教育器材、教材";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row80[b] = payRegistrations.Sum(x => x.SMonthType6_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType6_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType6_3 ?? 0);
+                            row80[b] =  payRegistrations.Sum(x => x.SMonthType6_3 ?? 0);
                             row80[b] = Funs.GetNewDecimalOrZero(row80[b].ToString()).ToString("N2");
                             b++;
-                            row80[b] = yearPayRegistrations.Sum(x => x.SMonthType6_1 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType6_2 ?? 0) + yearPayRegistrations.Sum(x => x.SMonthType6_3 ?? 0);
+                            row80[b] =  yearPayRegistrations.Sum(x => x.SMonthType6_3 ?? 0);
                             row80[b] = Funs.GetNewDecimalOrZero(row80[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -2406,7 +2400,7 @@ namespace FineUIPro.Web.CostGoods
                     row81[4] = "费用小计：";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
                             row81[b] = payRegistrations.Sum(x => x.SMonthType6_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType6_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType6_3 ?? 0);
                             row81[b] = Funs.GetNewDecimalOrZero(row81[b].ToString()).ToString("N2");
@@ -2437,12 +2431,12 @@ namespace FineUIPro.Web.CostGoods
                     row82[4] = "减震与降低噪音设施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row82[b] = payRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row82[b] = payRegistrations.Sum(x => x.TMonthType1_1 ?? 0) ;
                             row82[b] = Funs.GetNewDecimalOrZero(row82[b].ToString()).ToString("N2");
                             b++;
-                            row82[b] = yearPayRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row82[b] = yearPayRegistrations.Sum(x => x.TMonthType1_1 ?? 0);
                             row82[b] = Funs.GetNewDecimalOrZero(row82[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -2466,12 +2460,12 @@ namespace FineUIPro.Web.CostGoods
                     row83[4] = "射线防护的设施、措施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row83[b] = payRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row83[b] = payRegistrations.Sum(x => x.TMonthType1_2 ?? 0) ;
                             row83[b] = Funs.GetNewDecimalOrZero(row83[b].ToString()).ToString("N2");
                             b++;
-                            row83[b] = yearPayRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row83[b] = yearPayRegistrations.Sum(x => x.TMonthType1_2 ?? 0) ;
                             row83[b] = Funs.GetNewDecimalOrZero(row83[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -2495,12 +2489,12 @@ namespace FineUIPro.Web.CostGoods
                     row84[4] = "声、光、尘、有害物质防逸散控制措施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row84[b] = payRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row84[b] =   payRegistrations.Sum(x => x.TMonthType1_3 ?? 0);
                             row84[b] = Funs.GetNewDecimalOrZero(row84[b].ToString()).ToString("N2");
                             b++;
-                            row84[b] = yearPayRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row84[b] =  yearPayRegistrations.Sum(x => x.TMonthType1_3 ?? 0) ;
                             row84[b] = Funs.GetNewDecimalOrZero(row84[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -2524,12 +2518,12 @@ namespace FineUIPro.Web.CostGoods
                     row85[4] = "现场出入口和特定场所车辆、器材、人员清洗盥洗设施或设备";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row85[b] = payRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row85[b] = payRegistrations.Sum(x => x.TMonthType1_4 ?? 0) ;
                             row85[b] = Funs.GetNewDecimalOrZero(row85[b].ToString()).ToString("N2");
                             b++;
-                            row85[b] = yearPayRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row85[b] =  yearPayRegistrations.Sum(x => x.TMonthType1_4 ?? 0) ;
                             row85[b] = Funs.GetNewDecimalOrZero(row85[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -2553,12 +2547,12 @@ namespace FineUIPro.Web.CostGoods
                     row86[4] = "土方覆盖遮挡与洒水及其他施工扬尘控制设施设备";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row86[b] = payRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row86[b] =  payRegistrations.Sum(x => x.TMonthType1_5 ?? 0);
                             row86[b] = Funs.GetNewDecimalOrZero(row86[b].ToString()).ToString("N2");
                             b++;
-                            row86[b] = yearPayRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row86[b] =  yearPayRegistrations.Sum(x => x.TMonthType1_5 ?? 0) ;
                             row86[b] = Funs.GetNewDecimalOrZero(row86[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -2582,12 +2576,12 @@ namespace FineUIPro.Web.CostGoods
                     row87[4] = "运输车辆及输送装置封闭或覆盖设施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row87[b] = payRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row87[b] = payRegistrations.Sum(x => x.TMonthType1_6 ?? 0) ;
                             row87[b] = Funs.GetNewDecimalOrZero(row87[b].ToString()).ToString("N2");
                             b++;
-                            row87[b] = yearPayRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row87[b] = yearPayRegistrations.Sum(x => x.TMonthType1_6 ?? 0);
                             row87[b] = Funs.GetNewDecimalOrZero(row87[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -2611,12 +2605,12 @@ namespace FineUIPro.Web.CostGoods
                     row88[4] = "消纳施工污水的设施、措施（沟渠、槽池、管线、机泵及附属临建）";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row88[b] = payRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row88[b] = payRegistrations.Sum(x => x.TMonthType1_7 ?? 0);
                             row88[b] = Funs.GetNewDecimalOrZero(row88[b].ToString()).ToString("N2");
                             b++;
-                            row88[b] = yearPayRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row88[b] = yearPayRegistrations.Sum(x => x.TMonthType1_7 ?? 0);
                             row88[b] = Funs.GetNewDecimalOrZero(row88[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -2640,12 +2634,12 @@ namespace FineUIPro.Web.CostGoods
                     row89[4] = "易燃易爆、有毒有害、高腐蚀物质的使用保管、运输、回收过程中的安全防护设施和措施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row89[b] = payRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row89[b] =  payRegistrations.Sum(x => x.TMonthType1_8 ?? 0) ;
                             row89[b] = Funs.GetNewDecimalOrZero(row89[b].ToString()).ToString("N2");
                             b++;
-                            row89[b] = yearPayRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row89[b] =  yearPayRegistrations.Sum(x => x.TMonthType1_8 ?? 0) ;
                             row89[b] = Funs.GetNewDecimalOrZero(row89[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -2669,12 +2663,12 @@ namespace FineUIPro.Web.CostGoods
                     row90[4] = "现场毒害物质使用、消纳及意外应急相关设施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row90[b] = payRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row90[b] =   payRegistrations.Sum(x => x.TMonthType1_9 ?? 0) ;
                             row90[b] = Funs.GetNewDecimalOrZero(row90[b].ToString()).ToString("N2");
                             b++;
-                            row90[b] = yearPayRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row90[b] = yearPayRegistrations.Sum(x => x.TMonthType1_9 ?? 0) ;
                             row90[b] = Funs.GetNewDecimalOrZero(row90[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -2698,12 +2692,12 @@ namespace FineUIPro.Web.CostGoods
                     row91[4] = "危险物质特性说明书展示牌";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row91[b] = payRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row91[b] =  payRegistrations.Sum(x => x.TMonthType1_10 ?? 0) ;
                             row91[b] = Funs.GetNewDecimalOrZero(row91[b].ToString()).ToString("N2");
                             b++;
-                            row91[b] = yearPayRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row91[b] = yearPayRegistrations.Sum(x => x.TMonthType1_10 ?? 0) ;
                             row91[b] = Funs.GetNewDecimalOrZero(row91[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -2727,12 +2721,12 @@ namespace FineUIPro.Web.CostGoods
                     row92[4] = "施工废弃物、生活垃圾分类存放和消纳的设施、措施";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row92[b] = payRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row92[b] =  payRegistrations.Sum(x => x.TMonthType1_11 ?? 0) ;
                             row92[b] = Funs.GetNewDecimalOrZero(row92[b].ToString()).ToString("N2");
                             b++;
-                            row92[b] = yearPayRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row92[b] = yearPayRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
                             row92[b] = Funs.GetNewDecimalOrZero(row92[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -2756,12 +2750,22 @@ namespace FineUIPro.Web.CostGoods
                     row93[4] = "费用小计：";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
-                            row93[b] = payRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row93[b] = payRegistrations.Sum(x => x.TMonthType1_1 ?? 0)+ payRegistrations.Sum(x => x.TMonthType1_2 ?? 0)
+                                + payRegistrations.Sum(x => x.TMonthType1_3 ?? 0)+ payRegistrations.Sum(x => x.TMonthType1_4 ?? 0)
+                                + payRegistrations.Sum(x => x.TMonthType1_5 ?? 0)+ payRegistrations.Sum(x => x.TMonthType1_6 ?? 0)
+                                + payRegistrations.Sum(x => x.TMonthType1_7 ?? 0)+ payRegistrations.Sum(x => x.TMonthType1_8 ?? 0)
+                                + payRegistrations.Sum(x => x.TMonthType1_9 ?? 0)+ payRegistrations.Sum(x => x.TMonthType1_10 ?? 0)
+                                + payRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
                             row93[b] = Funs.GetNewDecimalOrZero(row93[b].ToString()).ToString("N2");
                             b++;
-                            row93[b] = yearPayRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_2 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_4 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_6 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_8 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_10 ?? 0) + yearPayRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
+                            row93[b] = yearPayRegistrations.Sum(x => x.TMonthType1_1 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_2 ?? 0)
+                                + payRegistrations.Sum(x => x.TMonthType1_3 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_4 ?? 0)
+                                + payRegistrations.Sum(x => x.TMonthType1_5 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_6 ?? 0)
+                                + payRegistrations.Sum(x => x.TMonthType1_7 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_8 ?? 0)
+                                + payRegistrations.Sum(x => x.TMonthType1_9 ?? 0) + payRegistrations.Sum(x => x.TMonthType1_10 ?? 0)
+                                + payRegistrations.Sum(x => x.TMonthType1_11 ?? 0);
                             row93[b] = Funs.GetNewDecimalOrZero(row93[b].ToString()).ToString("N2");
                             b++;
                         }
@@ -2787,7 +2791,7 @@ namespace FineUIPro.Web.CostGoods
                     row94[4] = "费用累计：";
                     for (int i = 0; i < units.Count; i++)
                     {
-                        if (i == 0)   //五环
+                        if (units[i].UnitId  == BLL.Const.UnitId_CWCEC)   //五环
                         {
                             row94[b] = payRegistrations.Sum(x => x.SMonthType1_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_4 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_5 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_6 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_7 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_8 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_9 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_10 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_11 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_12 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_13 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_14 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_15 ?? 0) + payRegistrations.Sum(x => x.SMonthType1_16 ?? 0)
                                 + payRegistrations.Sum(x => x.SMonthType2_1 ?? 0) + payRegistrations.Sum(x => x.SMonthType2_2 ?? 0) + payRegistrations.Sum(x => x.SMonthType2_3 ?? 0) + payRegistrations.Sum(x => x.SMonthType2_4 ?? 0)
@@ -2841,9 +2845,7 @@ namespace FineUIPro.Web.CostGoods
         /// <param name="e"></param>
         protected void gvTotalPayRegistration_DataBound(object sender, EventArgs e)
         {
-            int row1 = 1, t1 = 0, row2 = 1, t2 = 0, row0 = 1, t0 = 0;
-            int row5 = 1, t5 = 0, row6 = 1, t6 = 0, row7 = 1, t7 = 0, row8 = 1, t8 = 0, row9 = 1, t9 = 0, row10 = 1, t10 = 0, row11 = 1, t11 = 0, row12 = 1, t12 = 0,
-                row13 = 1, t13 = 0, row14 = 1, t14 = 0, row15 = 1, t15 = 0, row16 = 1, t16 = 0, row17 = 1, t17 = 0, row18 = 1, t18 = 0, row19 = 1, t19 = 0, row20 = 1, t20 = 0;
+            int row1 = 1, t1 = 0, row2 = 1, t2 = 0, row3 = 1, t3 = 0;
             for (int i = 0; i < this.gvTotalPayRegistration.Rows.Count - 1; i++)
             {
                 GridViewRow gvr = this.gvTotalPayRegistration.Rows[i];
@@ -2873,258 +2875,157 @@ namespace FineUIPro.Web.CostGoods
                 if (gvr.Cells[3].Text == gvrNext.Cells[3].Text)
                 {
                     gvrNext.Cells[3].Visible = false;
-                    row0++;
-                    this.gvTotalPayRegistration.Rows[t0].Cells[3].RowSpan = row0;
+                    row3++;
+                    this.gvTotalPayRegistration.Rows[t3].Cells[3].RowSpan = row3;
                 }
                 else
                 {
-                    t0 = row0 + t0;
-                    row0 = 1;
+                    t3 = row3 + t3;
+                    row3 = 1;
                 }
-                if (this.gvTotalPayRegistration.Rows[i].Cells.Count > 5)
+                //if (gvr.Cells[3].Text == gvr.Cells[4].Text)
+                //{
+                //    gvr.Cells[4].Visible = false;
+                //    gvr.Cells[3].ColumnSpan = 2;
+                //}
+                //if (gvrNext.Cells[3].Text == gvrNext.Cells[4].Text)
+                //{
+                //    gvrNext.Cells[4].Visible = false;
+                //    gvrNext.Cells[3].ColumnSpan = 2;
+                //}
+                if (gvrNext.Cells[0].Text == gvrNext.Cells[1].Text)
                 {
-                    if (gvr.Cells[5].Text == gvrNext.Cells[5].Text)
-                    {
-                        gvrNext.Cells[5].Visible = false;
-                        row5++;
-                        this.gvTotalPayRegistration.Rows[t5].Cells[5].RowSpan = row5;
-                    }
-                    else
-                    {
-                        t5 = row5 + t5;
-                        row5 = 1;
-                    }
+                    gvrNext.Cells[1].Visible = false;
+                    gvrNext.Cells[2].Visible = false;
+                    gvrNext.Cells[3].Visible = false;
+                    gvrNext.Cells[4].Visible = false;
+                    gvrNext.Cells[0].ColumnSpan = 5;
                 }
-                if (this.gvTotalPayRegistration.Rows[i].Cells.Count > 6)
+                for (int j = 7; j <= this.gvTotalPayRegistration.Rows[i].Cells.Count - 1; j++)
                 {
-                    if (gvr.Cells[6].Text == gvrNext.Cells[6].Text)
+                    if (i == 0)
                     {
-                        gvrNext.Cells[6].Visible = false;
-                        row6++;
-                        this.gvTotalPayRegistration.Rows[t6].Cells[6].RowSpan = row6;
+                        gvr.Cells[j].RowSpan = 5;
                     }
-                    else
+                    if (i >= 1 && i <= 4)
                     {
-                        t6 = row6 + t6;
-                        row6 = 1;
+                        gvr.Cells[j].Visible = false;
                     }
-                }
-                if (this.gvTotalPayRegistration.Rows[i].Cells.Count > 7)
-                {
-                    if (gvr.Cells[7].Text == gvrNext.Cells[7].Text)
+                    if (i == 5)
                     {
-                        gvrNext.Cells[7].Visible = false;
-                        row7++;
-                        this.gvTotalPayRegistration.Rows[t7].Cells[7].RowSpan = row7;
+                        gvr.Cells[j].RowSpan = 6;
                     }
-                    else
+                    if (i >= 6 && i <= 10)
                     {
-                        t7 = row7 + t7;
-                        row7 = 1;
+                        gvr.Cells[j].Visible = false;
                     }
-                }
-                if (this.gvTotalPayRegistration.Rows[i].Cells.Count > 8)
-                {
-                    if (gvr.Cells[8].Text == gvrNext.Cells[8].Text)
+                    if (i == 11)
                     {
-                        gvrNext.Cells[8].Visible = false;
-                        row8++;
-                        this.gvTotalPayRegistration.Rows[t8].Cells[8].RowSpan = row8;
+                        gvr.Cells[j].RowSpan = 5;
                     }
-                    else
+                    if (i >= 12 && i <= 15)
                     {
-                        t8 = row8 + t8;
-                        row8 = 1;
+                        gvr.Cells[j].Visible = false;
                     }
-                }
-                if (this.gvTotalPayRegistration.Rows[i].Cells.Count > 9)
-                {
-                    if (gvr.Cells[9].Text == gvrNext.Cells[9].Text)
+
+                    if (i == 17)
                     {
-                        gvrNext.Cells[9].Visible = false;
-                        row9++;
-                        this.gvTotalPayRegistration.Rows[t9].Cells[9].RowSpan = row9;
+                        gvr.Cells[j].RowSpan =4;
                     }
-                    else
+                    if (i >= 18 && i <= 20)
                     {
-                        t9 = row9 + t9;
-                        row9 = 1;
+                        gvr.Cells[j].Visible = false;
                     }
-                }
-                if (this.gvTotalPayRegistration.Rows[i].Cells.Count > 10)
-                {
-                    if (gvr.Cells[10].Text == gvrNext.Cells[10].Text)
+                    if (i == 22)
                     {
-                        gvrNext.Cells[10].Visible = false;
-                        row10++;
-                        this.gvTotalPayRegistration.Rows[t10].Cells[10].RowSpan = row10;
+                        gvr.Cells[j].RowSpan =6;
                     }
-                    else
+                    if (i >= 23 && i <= 27)
                     {
-                        t10 = row10 + t10;
-                        row10 = 1;
+                        gvr.Cells[j].Visible = false;
                     }
-                }
-                if (this.gvTotalPayRegistration.Rows[i].Cells.Count > 11)
-                {
-                    if (gvr.Cells[11].Text == gvrNext.Cells[11].Text)
+                    if (i == 29)
                     {
-                        gvrNext.Cells[11].Visible = false;
-                        row11++;
-                        this.gvTotalPayRegistration.Rows[t11].Cells[11].RowSpan = row11;
+                        gvr.Cells[j].RowSpan = 3;
                     }
-                    else
+                    if (i >= 30 && i <= 31)
                     {
-                        t11 = row11 + t11;
-                        row11 = 1;
+                        gvr.Cells[j].Visible = false;
                     }
-                }
-                if (this.gvTotalPayRegistration.Rows[i].Cells.Count > 12)
-                {
-                    if (gvr.Cells[12].Text == gvrNext.Cells[12].Text)
+                    if (i == 32)
                     {
-                        gvrNext.Cells[12].Visible = false;
-                        row12++;
-                        this.gvTotalPayRegistration.Rows[t12].Cells[12].RowSpan = row12;
+                        gvr.Cells[j].RowSpan = 8;
                     }
-                    else
+                    if (i >= 33 && i <= 39)
                     {
-                        t12 = row12 + t12;
-                        row12 = 1;
+                        gvr.Cells[j].Visible = false;
                     }
-                }
-                if (this.gvTotalPayRegistration.Rows[i].Cells.Count > 13)
-                {
-                    if (gvr.Cells[13].Text == gvrNext.Cells[13].Text)
+                    if (i == 41)
                     {
-                        gvrNext.Cells[13].Visible = false;
-                        row13++;
-                        this.gvTotalPayRegistration.Rows[t13].Cells[13].RowSpan = row13;
+                        gvr.Cells[j].RowSpan = 3;
                     }
-                    else
+                    if (i >= 42 && i <= 43)
                     {
-                        t13 = row13 + t13;
-                        row13 = 1;
+                        gvr.Cells[j].Visible = false;
                     }
-                }
-                if (this.gvTotalPayRegistration.Rows[i].Cells.Count > 14)
-                {
-                    if (gvr.Cells[14].Text == gvrNext.Cells[14].Text)
+                    if (i == 44)
                     {
-                        gvrNext.Cells[14].Visible = false;
-                        row14++;
-                        this.gvTotalPayRegistration.Rows[t14].Cells[14].RowSpan = row14;
+                        gvr.Cells[j].RowSpan = 3;
                     }
-                    else
+                    if (i >= 45 && i <= 46)
                     {
-                        t14 = row14 + t14;
-                        row14 = 1;
+                        gvr.Cells[j].Visible = false;
                     }
-                }
-                if (this.gvTotalPayRegistration.Rows[i].Cells.Count > 15)
-                {
-                    if (gvr.Cells[15].Text == gvrNext.Cells[15].Text)
+                    if (i == 47)
                     {
-                        gvrNext.Cells[15].Visible = false;
-                        row15++;
-                        this.gvTotalPayRegistration.Rows[t15].Cells[15].RowSpan = row15;
+                        gvr.Cells[j].RowSpan = 5;
                     }
-                    else
+                    if (i >= 48 && i <= 51)
                     {
-                        t15 = row15 + t15;
-                        row15 = 1;
+                        gvr.Cells[j].Visible = false;
                     }
-                }
-                if (this.gvTotalPayRegistration.Rows[i].Cells.Count > 16)
-                {
-                    if (gvr.Cells[16].Text == gvrNext.Cells[16].Text)
+                    if (i == 55)
                     {
-                        gvrNext.Cells[16].Visible = false;
-                        row16++;
-                        this.gvTotalPayRegistration.Rows[t16].Cells[16].RowSpan = row16;
+                        gvr.Cells[j].RowSpan =6;
                     }
-                    else
+                    if (i >= 56 && i <= 60)
                     {
-                        t16 = row16 + t16;
-                        row16 = 1;
+                        gvr.Cells[j].Visible = false;
                     }
-                }
-                if (this.gvTotalPayRegistration.Rows[i].Cells.Count > 17)
-                {
-                    if (gvr.Cells[17].Text == gvrNext.Cells[17].Text)
+                    if (i == 62)
                     {
-                        gvrNext.Cells[17].Visible = false;
-                        row17++;
-                        this.gvTotalPayRegistration.Rows[t17].Cells[17].RowSpan = row17;
+                        gvr.Cells[j].RowSpan = 4;
                     }
-                    else
+                    if (i >= 63 && i <= 65)
                     {
-                        t17 = row17 + t17;
-                        row17 = 1;
+                        gvr.Cells[j].Visible = false;
                     }
-                }
-                if (this.gvTotalPayRegistration.Rows[i].Cells.Count > 18)
-                {
-                    if (gvr.Cells[18].Text == gvrNext.Cells[18].Text)
+                    if (i == 66)
                     {
-                        gvrNext.Cells[18].Visible = false;
-                        row18++;
-                        this.gvTotalPayRegistration.Rows[t18].Cells[18].RowSpan = row18;
+                        gvr.Cells[j].RowSpan = 2;
                     }
-                    else
+                    if (i >= 67 && i <= 67)
                     {
-                        t18 = row18 + t18;
-                        row18 = 1;
+                        gvr.Cells[j].Visible = false;
                     }
-                }
-                if (this.gvTotalPayRegistration.Rows[i].Cells.Count > 19)
-                {
-                    if (gvr.Cells[19].Text == gvrNext.Cells[19].Text)
+                    if (i == 77)
                     {
-                        gvrNext.Cells[19].Visible = false;
-                        row19++;
-                        this.gvTotalPayRegistration.Rows[t19].Cells[19].RowSpan = row19;
+                        gvr.Cells[j].RowSpan = 3;
                     }
-                    else
+                    if (i >= 78 && i <= 79)
                     {
-                        t19 = row19 + t19;
-                        row19 = 1;
+                        gvr.Cells[j].Visible = false;
                     }
-                }
-                if (this.gvTotalPayRegistration.Rows[i].Cells.Count > 20)
-                {
-                    if (gvr.Cells[20].Text == gvrNext.Cells[20].Text)
+                    if (i == 81)
                     {
-                        gvrNext.Cells[20].Visible = false;
-                        row20++;
-                        this.gvTotalPayRegistration.Rows[t20].Cells[20].RowSpan = row20;
+                        gvr.Cells[j].RowSpan = 11;
                     }
-                    else
+                    if (i >= 82 && i <= 91)
                     {
-                        t20 = row20 + t20;
-                        row20 = 1;
+                        gvr.Cells[j].Visible = false;
                     }
                 }
             }
-            //if (this.gvTotalPayRegistration.Rows.Count > 0)
-            //{
-            //    for (int i = 5; i < this.gvTotalPayRegistration.Rows[0].Cells.Count; i++)
-            //    {
-            //        GridViewRow gvr = this.gvTotalPayRegistration.Rows[i];
-            //        GridViewRow gvrNext = this.gvTotalPayRegistration.Rows[i + 1];
-            //        if (gvr.Cells[i].Text == gvrNext.Cells[i].Text)
-            //        {
-            //            gvrNext.Cells[i].Visible = false;
-            //            rowN++;
-            //            this.gvTotalPayRegistration.Rows[tN].Cells[i].RowSpan = rowN;
-            //        }
-            //        else
-            //        {
-            //            tN = rowN + tN;
-            //            rowN = 1;
-            //        }
-            //    }
-            //}
         }
 
         #region 导出

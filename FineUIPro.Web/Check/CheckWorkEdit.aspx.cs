@@ -277,6 +277,7 @@ namespace FineUIPro.Web.Check
                                             CheckContent = x.CheckContent,
                                             CheckItemStr = x.CheckContent,
                                             SortIndex =x.SortIndex,
+                                            CheckResult="合格",
                                         }).ToList();
                     foreach (var item in checkWorkDetails)
                     {
@@ -287,6 +288,7 @@ namespace FineUIPro.Web.Check
                             CheckItem = item.CheckItem,
                             CheckContent = item.CheckContent,
                             SortIndex = item.SortIndex,
+                            CheckResult = item.CheckResult,
                         };
                         
                         BLL.Check_CheckWorkDetailService.AddCheckWorkDetail(detail);
@@ -326,11 +328,11 @@ namespace FineUIPro.Web.Check
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (!IsAllFix())
-            {
-                Alert.ShowInTop("请将检查项的检查结果补充完整！", MessageBoxIcon.Warning);
-                return;
-            }
+            //if (!IsAllFix())
+            //{
+            //    Alert.ShowInTop("请将检查项的检查结果补充完整！", MessageBoxIcon.Warning);
+            //    return;
+            //}
             this.SaveData(BLL.Const.BtnSave);
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }

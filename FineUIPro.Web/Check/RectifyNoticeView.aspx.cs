@@ -46,6 +46,14 @@ namespace FineUIPro.Web.Check
                             this.txtUnitName.Text = unit.UnitName;
                         }
                     }
+                    if (!string.IsNullOrEmpty(rectifyNotice.DutyPersonId))
+                    {
+                        var duser = BLL.UserService.GetUserByUserId(rectifyNotice.DutyPersonId);
+                        if (duser != null)
+                        {
+                            this.drpDutyPerson.Text = duser.UserName;
+                        }
+                    }
                     if (!string.IsNullOrEmpty(rectifyNotice.WorkAreaId))
                     {
                         var workArea = BLL.WorkAreaService.GetWorkAreaByWorkAreaId(rectifyNotice.WorkAreaId);
@@ -82,6 +90,10 @@ namespace FineUIPro.Web.Check
                     if (rectifyNotice.CompleteDate != null)
                     {
                         this.txtCompleteDate.Text = string.Format("{0:yyyy-MM-dd}", rectifyNotice.CompleteDate);
+                    }
+                    if (rectifyNotice.ReCheckDate != null)
+                    {
+                        this.txtReCheckDate.Text = string.Format("{0:yyyy-MM-dd}", rectifyNotice.ReCheckDate);
                     }
                     if (rectifyNotice.IsRectify==true)
                     {

@@ -75,7 +75,7 @@ namespace FineUIPro.Web.CostGoods
                 {
                     Model.CostGoods_SubPayRegistration subPayRegistration = BLL.SubPayRegistrationService.GetSubPayRegistrationById(this.SubPayRegistrationId);
                     if (subPayRegistration != null)
-                    {
+                    {                    
                         this.txtDate.Text = string.Format("{0:yyyy-MM-dd}", subPayRegistration.PayDate);
                         if (!string.IsNullOrEmpty(subPayRegistration.UnitId))
                         {

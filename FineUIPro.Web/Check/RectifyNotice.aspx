@@ -61,14 +61,8 @@
                         </Items>
                     </f:Toolbar>
                 </Toolbars>
-                <Columns>
-                    <f:TemplateField ColumnID="tfNumber" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
-                        TextAlign="Center">
-                        <ItemTemplate>
-                            <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>
-                    <f:RenderField Width="100px" ColumnID="RectifyNoticesCode" DataField="RectifyNoticesCode"
+                <Columns>                   
+                    <f:RenderField Width="170px" ColumnID="RectifyNoticesCode" DataField="RectifyNoticesCode"
                         SortField="RectifyNoticesCode" FieldType="String" HeaderText="整改单号" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
@@ -83,11 +77,11 @@
                         SortField="WrongContent" FieldType="String" HeaderText="详细内容" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="95px" ColumnID="CheckPersonName" DataField="CheckPersonName"
-                         SortField="CheckPersonName" FieldType="String" HeaderText="本单位检查人"
+                    <f:RenderField Width="90px" ColumnID="CheckPersonName" DataField="CheckPersonName"
+                         SortField="CheckPersonName" FieldType="String" HeaderText="检查人"
                         TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="95px" ColumnID="CheckedDate" DataField="CheckedDate" SortField="CheckedDate"
+                    <f:RenderField Width="100px" ColumnID="CheckedDate" DataField="CheckedDate" SortField="CheckedDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="检查日期"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
@@ -114,7 +108,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="编辑隐患整改通知单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
-        Width="900px" Height="550px">
+        Width="900px" Height="600px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <Items>

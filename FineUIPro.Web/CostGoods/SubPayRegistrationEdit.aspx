@@ -651,8 +651,8 @@
                 </Items>
             </f:Panel>
         </Items>
-    </f:Panel>
-    <toolbars>
+
+        <Toolbars>
             <f:Toolbar ID="Toolbar2" Position="Bottom" ToolbarAlign="Right" runat="server">
                 <Items>
                     <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
@@ -667,7 +667,9 @@
                     </f:Button>
                 </Items>
             </f:Toolbar>
-        </toolbars>
+        </Toolbars>
+    </f:Panel>
+    
     </form>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"

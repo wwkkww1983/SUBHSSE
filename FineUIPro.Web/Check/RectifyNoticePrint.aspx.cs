@@ -48,6 +48,14 @@ namespace FineUIPro.Web.Check
         {
             if (!IsPostBack)
             {
+                var thisUnit = BLL.CommonService.GetIsThisUnit();
+                if (thisUnit != null)
+                {
+                    this.Label8.Text = thisUnit.UnitName + this.Label8.Text;
+                    this.Label18.Text = thisUnit.UnitName + this.Label18.Text;
+                    this.Label19.Text = thisUnit.UnitName + this.Label19.Text;
+                }
+
                 this.RectifyNoticeId = Request.Params["RectifyNoticeId"];
                 var rectifyNotice = BLL.RectifyNoticesService.GetRectifyNoticesById(this.RectifyNoticeId);
                 if (rectifyNotice != null)

@@ -73,14 +73,14 @@
                             <asp:Label ID="labNumber" runat="server" Text=' <%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1%>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:TemplateField ColumnID="tfManageRuleCode" Width="110px" HeaderText="文件编号" HeaderTextAlign="Center" TextAlign="Left"
+                    <f:TemplateField ColumnID="tfManageRuleCode" Width="130px" HeaderText="文件编号" HeaderTextAlign="Center" TextAlign="Left"
                         SortField="ManageRuleCode">
                         <ItemTemplate>
                             <asp:Label ID="lblManageRuleCode" runat="server" Text='<%# Bind("ManageRuleCode") %>'
                                 ToolTip='<%#Bind("ManageRuleCode") %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:TemplateField ColumnID="tfOldManageRuleCode" Width="240px" HeaderText="原编号" HeaderTextAlign="Center" TextAlign="Left"
+                    <f:TemplateField ColumnID="tfOldManageRuleCode" Width="200px" HeaderText="原编号" HeaderTextAlign="Center" TextAlign="Left"
                         SortField="OldManageRuleCode">
                         <ItemTemplate>
                             <asp:Label ID="lblOldManageRuleCode" runat="server" Text='<%# Bind("OldManageRuleCode") %>' ToolTip='<%#Bind("OldManageRuleCode") %>'></asp:Label>

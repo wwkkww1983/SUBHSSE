@@ -39,8 +39,9 @@
                                 <f:ListItem Text="专项检查" Value="2" />
                                 <f:ListItem Text="综合检查" Value="3" />
                                 <f:ListItem Text="开工前检查" Value="4" />
-                                <f:ListItem Text="季节性/节假日检查" Value="5" />
+                                <f:ListItem Text="节假日检查" Value="5" />
                             </f:DropDownList>
+                            <f:DropDownList runat="server" ID="drpCheckPerson" Label="检查人" LabelWidth="70px" Width="300px"></f:DropDownList>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
                             <f:Button ID="BtnAnalyse" ToolTip="查询" Icon="ChartPie" runat="server" OnClick="BtnAnalyse_Click">
@@ -58,45 +59,61 @@
                             <asp:Label ID="labNumber" runat="server" Text=' <%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1%>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="100px" ColumnID="CheckTime" DataField="CheckTime" SortField="CheckTime"
+                     <f:RenderField Width="250px" ColumnID="Unqualified" DataField="Unqualified" SortField="Unqualified"
+                        FieldType="String" HeaderText="问题描述" EnableFilter="true" HeaderTextAlign="Center"
+                        TextAlign="Left">
+                    </f:RenderField>
+                     <f:RenderField Width="100px" ColumnID="CheckTime" DataField="CheckTime" SortField="CheckTime"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="检查时间"
                         HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="CheckCode" DataField="CheckCode" SortField="CheckCode"
-                        FieldType="String" HeaderText="检查编号" EnableFilter="true" HeaderTextAlign="Center"
+                     <f:RenderField Width="120px" ColumnID="HiddenDangerType" DataField="HiddenDangerType" SortField="HiddenDangerType"
+                        FieldType="String" HeaderText="隐患类型" EnableFilter="true" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:TemplateField Width="120px" HeaderText="检查类型" HeaderTextAlign="Center" TextAlign="Left"
+                   <%-- <f:TemplateField Width="120px" HeaderText="检查类型" HeaderTextAlign="Center" TextAlign="Left"
                         ColumnID="CheckItemType">
                         <ItemTemplate>
                             <asp:Label ID="lbCheckType" runat="server" Text='<%# ConvertCheckItemType(Eval("CheckItem")) %>'
                                 ToolTip='<%# ConvertCheckItemType(Eval("CheckItem")) %>'></asp:Label>
                         </ItemTemplate>
-                    </f:TemplateField>
-                    <f:RenderField Width="100px" ColumnID="WorkArea" DataField="WorkArea" SortField="WorkArea"
-                        FieldType="String" HeaderText="检查区域" EnableFilter="true" HeaderTextAlign="Center"
+                    </f:TemplateField>--%>
+                    <f:RenderField Width="90px" ColumnID="HiddenDangerLevel" DataField="HiddenDangerLevel" SortField="HiddenDangerLevel"
+                        FieldType="String" HeaderText="隐患级别" EnableFilter="true" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="200px" ColumnID="Unqualified" DataField="Unqualified" SortField="Unqualified"
-                        FieldType="String" HeaderText="问题描述" EnableFilter="true" HeaderTextAlign="Center"
-                        TextAlign="Left">
-                    </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="CheckPerson" DataField="CheckPerson" SortField="CheckPerson"
-                        FieldType="String" HeaderText="提出人" EnableFilter="true" HeaderTextAlign="Center"
-                        TextAlign="Left">
-                    </f:RenderField>
-                    <f:RenderField Width="200px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
+                     <f:RenderField Width="220px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
                         FieldType="String" HeaderText="责任单位" EnableFilter="true" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="HandleStepStr" DataField="HandleStepStr" SortField="HandleStepStr"
+                    <f:RenderField Width="100px" ColumnID="PersonName" DataField="PersonName" SortField="PersonName"
+                        FieldType="String" HeaderText="责任人" EnableFilter="true" HeaderTextAlign="Center"
+                        TextAlign="Left">
+                    </f:RenderField>
+                    <f:RenderField Width="100px" ColumnID="LimitedDate" DataField="LimitedDate" SortField="LimitedDate"
+                        FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="整改期限"
+                        HeaderTextAlign="Center" TextAlign="Left">
+                    </f:RenderField>
+                   <f:RenderField Width="120px" ColumnID="HandleStepStr" DataField="HandleStepStr" SortField="HandleStepStr"
                         FieldType="String" HeaderText="处置措施" EnableFilter="true" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="CompleteStatusName" DataField="CompleteStatusName" SortField="CompleteStatusName"
-                        FieldType="String" HeaderText="完成情况" EnableFilter="true" HeaderTextAlign="Center"
+                     <f:RenderField Width="80px" ColumnID="IsRectifyName" DataField="IsRectifyName" SortField="IsRectifyName"
+                        FieldType="String" HeaderText="复查结果" EnableFilter="true" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
+                     <f:RenderField Width="100px" ColumnID="ReCheckDate" DataField="ReCheckDate" SortField="ReCheckDate"
+                        FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="复查日期"
+                        HeaderTextAlign="Center" TextAlign="Left">
+                    </f:RenderField>
+                     <f:RenderField Width="80px" ColumnID="ReCheckPersonName" DataField="ReCheckPersonName" SortField="ReCheckPersonName"
+                        FieldType="String" HeaderText="复查人" EnableFilter="true" HeaderTextAlign="Center"
+                        TextAlign="Left">
+                    </f:RenderField>
+                    <f:RenderField Width="80px" ColumnID="CompleteStatusName" DataField="CompleteStatusName" SortField="CompleteStatusName"
+                        FieldType="String" HeaderText="隐患状态" EnableFilter="true" HeaderTextAlign="Center"
+                        TextAlign="Left">
+                    </f:RenderField>                   
                 </Columns>
                 <PageItems>
                     <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">

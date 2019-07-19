@@ -1,7 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SubUploadWeek.aspx.cs" Inherits="FineUIPro.Web.Manager.SubUploadWeek" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SubUploadWeek.aspx.cs"
+    Inherits="FineUIPro.Web.Manager.SubUploadWeek" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>分包商上传周报</title>
@@ -18,7 +18,8 @@
                 AllowCellEditing="true" ClicksToEdit="2" DataIDField="SubUploadWeekId" AllowSorting="true"
                 SortField="StartDate" SortDirection="DESC" OnSort="Grid1_Sort" AllowPaging="true"
                 IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"
-                EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True">
+                EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True"
+                OnRowCommand="Grid1_RowCommand">
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
@@ -33,27 +34,30 @@
                         </Items>
                     </f:Toolbar>
                 </Toolbars>
-                <Columns>              
+                <Columns>
                     <f:TemplateField ColumnID="tfNumber" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
                         TextAlign="Center">
                         <ItemTemplate>
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="150px" ColumnID="StartDate" DataField="StartDate" SortField="StartDate"
+                    <f:RenderField Width="200px" ColumnID="StartDate" DataField="StartDate" SortField="StartDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="开始日期"
                         HeaderTextAlign="Center" TextAlign="Center">
-                    </f:RenderField>      
-                    <f:RenderField Width="150px" ColumnID="EndDate" DataField="EndDate" SortField="EndDate"
+                    </f:RenderField>
+                    <f:RenderField Width="200px" ColumnID="EndDate" DataField="EndDate" SortField="EndDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="结束日期"
                         HeaderTextAlign="Center" TextAlign="Center">
-                    </f:RenderField>                 
-                    <f:RenderField Width="150px" ColumnID="CompileMan" DataField="CompileMan" SortField="CompileMan"
+                    </f:RenderField>
+                    <f:RenderField Width="200px" ColumnID="CompileMan" DataField="CompileMan" SortField="CompileMan"
                         FieldType="String" HeaderText="编制人" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:WindowField TextAlign="Left" Width="150px" WindowID="WindowAtt" HeaderText="附件" Text="附件" ToolTip="附件上传查看"
-                        DataIFrameUrlFields="SubUploadWeekId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SubUploadWeekAttachUrl&menuId=9EFF1A0F-87AA-43E7-83B0-79EEAAC8848E"
-                        HeaderTextAlign="Center" />
+                    <f:WindowField TextAlign="Left" Width="200px" WindowID="WindowAtt" HeaderText="附件"
+                        Text="附件" ToolTip="附件上传查看" DataIFrameUrlFields="SubUploadWeekId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SubUploadWeekAttachUrl&menuId=9EFF1A0F-87AA-43E7-83B0-79EEAAC8848E"
+                        HeaderTextAlign="Center" ExpandUnusedSpace="true" />
+                    <f:LinkButtonField ID="lbtPrint" HeaderText="打印" Icon="Printer" CommandName="print"
+                        HeaderTextAlign="Center" TextAlign="Center" ToolTip="打印" Width="200px">
+                    </f:LinkButtonField>
                     <%--<f:RenderField Width="140px" ColumnID="FlowOperateName" DataField="FlowOperateName"
                         SortField="FlowOperateName" FieldType="String" HeaderText="状态" HeaderTextAlign="Center"
                         TextAlign="Left">

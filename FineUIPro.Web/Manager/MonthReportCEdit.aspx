@@ -23,8 +23,10 @@
                     </f:Label>
                     <f:TextBox ID="txtReportMan" runat="server" Label="报告人" Readonly="true" LabelAlign="right" Width="250px" LabelWidth="100px">
                     </f:TextBox>
-                    <f:Label ID="Label1" runat="server" Label="" Width="150px">
-                    </f:Label>
+                     <f:ToolbarFill runat="server"></f:ToolbarFill>
+                    <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
+                        EnableAjax="false" DisableControlBeforePostBack="false">
+                    </f:Button>
                     <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
                         OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1">
                     </f:Button>
@@ -44,6 +46,10 @@
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
         Height="500px">
+    </f:Window>
+    <f:Window ID="Window1" Title="导出HSE月报告" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true"  CloseAction="HidePostBack"
+        Width="1300px" Height="600px">
     </f:Window>
     <script type="text/javascript">
         var leftTreeID = '<%= leftTree.ClientID %>';

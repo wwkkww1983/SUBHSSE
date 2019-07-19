@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Timers;
 using System.DirectoryServices;
+using System.Linq;
 
 namespace BLL
 {
@@ -164,7 +165,11 @@ namespace BLL
             ///五环单位执行 人员 培训考试 与博晟同步数据
             if (thisUnit != null && thisUnit.UnitId == Const.UnitId_CWCEC)
             {
-                GetDataService.AddData();
+                var sysSet5 = BLL.ConstValue.drpConstItemList(BLL.ConstValue.Group_ChangeData).FirstOrDefault();
+                if (sysSet5 != null && sysSet5.ConstValue == "1")
+                {
+                    GetDataService.AddData();
+                }
             }
         }
     }

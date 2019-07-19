@@ -206,7 +206,6 @@ D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Release\BLL.dll.config
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Release\BLL.dll
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Release\BLL.pdb
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Release\Apache.NMS.ActiveMQ.dll
-D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Release\Apache.NMS.dll
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Release\FineUIPro.dll
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Release\Microsoft.SQLServer.ManagedDTS.dll
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Release\Model.dll
@@ -215,8 +214,6 @@ D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Release\Microsoft.SqlServer.DTSRun
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Release\Microsoft.SqlServer.PipelineHost.dll
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Release\Microsoft.SqlServer.DTSPipelineWrap.dll
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Release\Model.pdb
-D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Release\Apache.NMS.pdb
-D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Release\Apache.NMS.xml
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Release\Apache.NMS.ActiveMQ.pdb
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Release\Apache.NMS.ActiveMQ.xml
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Release\FineUIPro.xml
@@ -226,3 +223,4 @@ D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\obj\Release\BLL.csproj.CoreCompileInpu
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\obj\Release\BLL.csproj.CopyComplete
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\obj\Release\BLL.dll
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\obj\Release\BLL.pdb
+D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Release\Newtonsoft.Json.pdb

@@ -69,20 +69,14 @@ namespace FineUIPro.Web.CostGoods
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @" SELECT SubPayRegistration.SubPayRegistrationId, "
-                          + @" SubPayRegistration.ProjectId,"
-                          + @" SubPayRegistration.UnitId,"
-                          + @" SubPayRegistration.PayDate,"
-                          + @" SubPayRegistration.State,"
-                          + @" Users.UserName AS CompileMan,"
-                          + @" SubPayRegistration.CompileDate,"
-                          + @" Unit.UnitName"
-                           + @" ,(CASE WHEN SubPayRegistration.State = " + BLL.Const.State_0 + " OR SubPayRegistration.State IS NULL THEN '待['+OperateUser.UserName+']提交' WHEN SubPayRegistration.State =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
-                          + @" FROM CostGoods_SubPayRegistration AS SubPayRegistration "
-                          + @" LEFT JOIN Sys_User AS Users ON Users.UserId = SubPayRegistration.CompileMan "
+            string strSql = @" SELECT SubPayRegistration.SubPayRegistrationId, SubPayRegistration.ProjectId, SubPayRegistration.UnitId,"
+                        + @" SubPayRegistration.PayDate, SubPayRegistration.State, Users.UserName AS CompileMan, SubPayRegistration.CompileDate,Unit.UnitName"
+                        + @" ,(CASE WHEN SubPayRegistration.State = " + BLL.Const.State_0 + " OR SubPayRegistration.State IS NULL THEN '待['+OperateUser.UserName+']提交' WHEN SubPayRegistration.State =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
+                        + @" FROM CostGoods_SubPayRegistration AS SubPayRegistration "
+                        + @" LEFT JOIN Sys_User AS Users ON Users.UserId = SubPayRegistration.CompileMan "
                         + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON SubPayRegistration.SubPayRegistrationId=FlowOperate.DataId AND FlowOperate.IsClosed <> 1"
                         + @" LEFT JOIN Sys_User AS OperateUser ON FlowOperate.OperaterId=OperateUser.UserId "
-                          + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId = SubPayRegistration.UnitId WHERE 1=1 ";
+                        + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId = SubPayRegistration.UnitId WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND SubPayRegistration.ProjectId = @ProjectId";
             if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
@@ -97,7 +91,7 @@ namespace FineUIPro.Web.CostGoods
             }
             if (BLL.ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.ProjectId, this.CurrUser.UnitId))
             {
-                strSql += " AND SubPayRegistration.UnitId = @UnitId";  ///状态为已完成
+                strSql += " AND SubPayRegistration.UnitId = @UnitId";  
                 listStr.Add(new SqlParameter("@UnitId", this.CurrUser.UnitId));
             }
             if (this.rblState.SelectedValue != "0")
@@ -105,6 +99,7 @@ namespace FineUIPro.Web.CostGoods
                 strSql += " AND SubPayRegistration.State = @State";
                 listStr.Add(new SqlParameter("@State", this.rblState.SelectedValue));
             }
+
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 
@@ -182,7 +177,7 @@ namespace FineUIPro.Web.CostGoods
             }
             string id = Grid1.SelectedRowID;
             var payRegistration = BLL.SubPayRegistrationService.GetSubPayRegistrationById(id);
-            if (payRegistration != null)
+            if (payRegistration != null )
             {
                 PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("SubPayRegistrationEdit.aspx?SubPayRegistrationId={0}", id, "编辑 - ")));
             }
