@@ -22,21 +22,21 @@
                 DataKeyNames="StandardId" AllowCellEditing="true" OnPageIndexChange="Grid1_PageIndexChange"
                 EnableColumnLines="true" ClicksToEdit="1" DataIDField="StandardId" AllowSorting="true"
                 OnRowCommand="Grid1_RowCommand" AllowFilters="true" OnFilterChange="Grid1_FilterChange"
-                EnableTextSelection="true">
+                EnableTextSelection="true" Height="350px">
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server">
                         <Items>
-                            <f:TextBox runat="server" EmptyText="输入查询条件" AutoPostBack="True" Label="标准级别" LabelWidth="70px"
+                            <f:TextBox runat="server" EmptyText="输入查询条件" AutoPostBack="True" Label="标准级别" LabelWidth="80px"
                                 Width="200px" ID="txtStandardGrade" OnTextChanged="TextBox_TextChanged">
                             </f:TextBox>
-                            <f:TextBox runat="server" EmptyText="输入查询条件" AutoPostBack="True" Label="标准号" LabelWidth="60px"
+                            <f:TextBox runat="server" EmptyText="输入查询条件" AutoPostBack="True" Label="标准号" LabelWidth="70px"
                                 Width="200px" ID="txtStandardNo" OnTextChanged="TextBox_TextChanged">
                             </f:TextBox>
-                            <f:TextBox runat="server" EmptyText="输入查询条件" AutoPostBack="True" Label="标准名称" LabelWidth="70px"
+                            <f:TextBox runat="server" EmptyText="输入查询条件" AutoPostBack="True" Label="标准名称" LabelWidth="80px"
                                 Width="250px" ID="txtStandardName" OnTextChanged="TextBox_TextChanged">
                             </f:TextBox>
                              <f:DropDownList ID="drpCNProfessional" runat="server" Label="对应方案" AutoPostBack="true"
-                                Width="300px" LabelWidth="120px" LabelAlign="right" OnSelectedIndexChanged="TextBox_TextChanged">                            </f:DropDownList>
+                                  Width="300px" LabelWidth="120px" LabelAlign="right" OnSelectedIndexChanged="TextBox_TextChanged">                            </f:DropDownList>
                             <f:CheckBox ID="ckbAll" runat="server" AutoPostBack="True" OnCheckedChanged="ckbAll_CheckedChanged"
                                 Text="显示所有" LabelAlign="Right">
                             </f:CheckBox>
@@ -149,7 +149,7 @@
                     </f:DropDownList>
                 </PageItems>
             </f:Grid>
-        </Items>
+        </Items>       
         <Items>
             <f:TextBox ID="txtConstructionStandardIdentifyCode" runat="server" Label="编号" LabelAlign="Right"
                 MaxLength="30" Readonly="true">

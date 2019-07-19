@@ -24,13 +24,13 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server">
                         <Items>
-                            <f:TextBox runat="server" EmptyText="输入查询条件" AutoPostBack="True" Label="标准级别" LabelWidth="70px"
+                            <f:TextBox runat="server" EmptyText="输入查询条件" AutoPostBack="True" Label="标准级别" LabelWidth="80px"
                                 Width="200px" ID="txtStandardGrade" OnTextChanged="TextBox_TextChanged">
                             </f:TextBox>
-                            <f:TextBox runat="server" EmptyText="输入查询条件" AutoPostBack="True" Label="标准号" LabelWidth="60px"
+                            <f:TextBox runat="server" EmptyText="输入查询条件" AutoPostBack="True" Label="标准号" LabelWidth="70px"
                                 Width="200px" ID="txtStandardNo" OnTextChanged="TextBox_TextChanged">
                             </f:TextBox>
-                            <f:TextBox runat="server" EmptyText="输入查询条件" AutoPostBack="True" Label="标准名称" LabelWidth="70px"
+                            <f:TextBox runat="server" EmptyText="输入查询条件" AutoPostBack="True" Label="标准名称" LabelWidth="80px"
                                 Width="250px" ID="txtStandardName" OnTextChanged="TextBox_TextChanged">
                             </f:TextBox>
                              <f:DropDownList ID="drpCNProfessional" runat="server" Label="对应方案" AutoPostBack="true"

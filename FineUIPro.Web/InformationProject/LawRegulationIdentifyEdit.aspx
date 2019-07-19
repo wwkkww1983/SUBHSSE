@@ -28,7 +28,7 @@
                         FocusOnPageLoad="true" MaxLength="30" LabelWidth="70px">
                     </f:TextBox>
                     <f:DatePicker runat="server" Label="实施日期" ID="txtCheckDate" 
-                        EnableEdit="true" FocusOnPageLoad="true" LabelWidth="70px">
+                        EnableEdit="true" FocusOnPageLoad="true" LabelWidth="80px">
                     </f:DatePicker>
                     <f:TextBox ID="txtCompileMan" runat="server" Label="整理人" Readonly="true" LabelWidth="70px">
                     </f:TextBox>

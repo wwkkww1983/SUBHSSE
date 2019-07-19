@@ -85,15 +85,6 @@ namespace FineUIPro.Web.ActionPlan {
         protected global::FineUIPro.TextBox txtManageRuleTypeName;
         
         /// <summary>
-        /// ToolbarFill1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.ToolbarFill ToolbarFill1;
-        
-        /// <summary>
         /// btnQuery 控件。
         /// </summary>
         /// <remarks>
@@ -103,6 +94,15 @@ namespace FineUIPro.Web.ActionPlan {
         protected global::FineUIPro.Button btnQuery;
         
         /// <summary>
+        /// ToolbarFill1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.ToolbarFill ToolbarFill1;
+        
+        /// <summary>
         /// btnOut 控件。
         /// </summary>
         /// <remarks>
@@ -110,15 +110,6 @@ namespace FineUIPro.Web.ActionPlan {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Button btnOut;
-        
-        /// <summary>
-        /// lblNumber 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNumber;
         
         /// <summary>
         /// lblManageRuleCode 控件。

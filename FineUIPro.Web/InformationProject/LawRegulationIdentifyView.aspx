@@ -26,7 +26,7 @@
                     <f:TextBox ID="txtLawRegulationIdentifyCode" runat="server" Label="编号" Readonly="true"
                         FocusOnPageLoad="true" MaxLength="30" LabelWidth="70px">
                     </f:TextBox>
-                    <f:TextBox ID="txtCheckDate" runat="server" Label="实施日期" Readonly="true" MaxLength="50" LabelWidth="70px">
+                    <f:TextBox ID="txtCheckDate" runat="server" Label="实施日期" Readonly="true" MaxLength="50" LabelWidth="80px">
                     </f:TextBox>
                     <f:TextBox ID="txtCompileMan" runat="server" Label="整理人" Readonly="true" MaxLength="50" LabelWidth="70px">
                     </f:TextBox>

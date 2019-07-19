@@ -52,11 +52,9 @@
                 AllowFilters="true" OnFilterChange="Grid1_FilterChange" EnableTextSelection="True"> 
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
-                        <Items>
-                                       
-                            <f:ToolbarFill runat="server">
-                            </f:ToolbarFill>
-                            
+                        <Items>                                       
+                        <f:ToolbarFill runat="server">
+                        </f:ToolbarFill>                            
                         <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch" EnablePostBack="true" 	OnClick="TextBox_TextChanged" runat="server" >
                             </f:Button>
                             <f:Button ID="btnCompile" ToolTip="编制" Icon="Add" Hidden="true" runat="server" OnClick="btnCompile_Click">
@@ -68,11 +66,11 @@
                     </f:Toolbar>
                 </Toolbars> 
                 <Columns>
-                    <f:TemplateField ColumnID="tfNumber" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center">
+                    <%--<f:TemplateField ColumnID="tfNumber" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center">
                         <ItemTemplate>
                             <asp:Label ID="labNumber" runat="server" Text=' <%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1%>'></asp:Label>
                         </ItemTemplate>
-                    </f:TemplateField>
+                    </f:TemplateField>--%>
                     <f:TemplateField ColumnID="tfManageRuleCode" Width="130px" HeaderText="文件编号" HeaderTextAlign="Center" TextAlign="Left"
                         SortField="ManageRuleCode">
                         <ItemTemplate>
@@ -80,7 +78,7 @@
                                 ToolTip='<%#Bind("ManageRuleCode") %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:TemplateField ColumnID="tfOldManageRuleCode" Width="200px" HeaderText="原编号" HeaderTextAlign="Center" TextAlign="Left"
+                    <f:TemplateField ColumnID="tfOldManageRuleCode" Width="100px" HeaderText="原编号" HeaderTextAlign="Center" TextAlign="Left"
                         SortField="OldManageRuleCode">
                         <ItemTemplate>
                             <asp:Label ID="lblOldManageRuleCode" runat="server" Text='<%# Bind("OldManageRuleCode") %>' ToolTip='<%#Bind("OldManageRuleCode") %>'></asp:Label>

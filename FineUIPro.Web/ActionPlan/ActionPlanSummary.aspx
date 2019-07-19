@@ -30,11 +30,11 @@
                                Width="250px" LabelWidth="100px"
                                 LabelAlign="right">
                             </f:TextBox>
-                            <f:ToolbarFill ID="ToolbarFill1" runat="server">
-                            </f:ToolbarFill>
-                             <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch" 
+                            <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch" 
                                  EnablePostBack="true" OnClick="TextBox_TextChanged" runat="server" >
                             </f:Button>
+                            <f:ToolbarFill ID="ToolbarFill1" runat="server">
+                            </f:ToolbarFill>
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" Hidden="true"
                                 runat="server">
                             </f:Button>
@@ -55,7 +55,7 @@
                         SortField="Code" FieldType="String" HeaderText="总结编号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="200px" ColumnID="Name" DataField="Name"
+                    <f:RenderField Width="200px" ColumnID="Name" DataField="Name" ExpandUnusedSpace="True"
                         SortField="Name" FieldType="String" HeaderText="总结名称" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
@@ -65,7 +65,7 @@
                     <f:RenderField Width="90px" ColumnID="CompileManName" DataField="CompileManName" SortField="CompileManName"
                         FieldType="String" HeaderText="编制人" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
+                    <f:RenderField Width="100px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="编制日期"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>                    
@@ -73,9 +73,9 @@
                         SortField="FlowOperateName" FieldType="String" HeaderText="状态" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:WindowField TextAlign="Left" Width="160px" WindowID="WindowAtt" HeaderText="附件"
+                    <f:WindowField TextAlign="Left" Width="80px" WindowID="WindowAtt" HeaderText="附件"
                         Text="上传查看" ToolTip="附件上传查看" DataIFrameUrlFields="ActionPlanSummaryId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ActionPlanSummaryAttachUrl&menuId=CBC47C8B-141C-446B-90D9-CE8F5AE66CE4"
-                         ExpandUnusedSpace="True" HeaderTextAlign="Center" />
+                          HeaderTextAlign="Center" />
                 </Columns>
                 <Listeners>
                     <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />

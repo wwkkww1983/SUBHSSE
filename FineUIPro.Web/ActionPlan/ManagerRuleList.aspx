@@ -38,47 +38,41 @@
                             <f:TextBox runat="server" Label="分类" ID="txtManageRuleTypeName" EmptyText="输入查询条件"
                                 Width="210px" LabelWidth="60px"
                                 LabelAlign="right">
-                            </f:TextBox>    
-                            <f:ToolbarFill ID="ToolbarFill1" runat="server">
-                            </f:ToolbarFill>
-                            <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch" EnablePostBack="true" 	
+                            </f:TextBox>   
+                             <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch" EnablePostBack="true" 	
                                 OnClick="TextBox_TextChanged" runat="server" >
                             </f:Button>
+                            <f:ToolbarFill ID="ToolbarFill1" runat="server">
+                            </f:ToolbarFill>
                             <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
                                 EnableAjax="false" DisableControlBeforePostBack="false">
                             </f:Button>
                         </Items>
                     </f:Toolbar>
                 </Toolbars>
-                <Columns>
-                    <f:TemplateField ColumnID="tfNumber" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
-                        TextAlign="Center">
-                        <ItemTemplate>
-                            <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>
-                    <f:TemplateField ColumnID="tfManageRuleCode" Width="120px" HeaderText="文件编号" HeaderTextAlign="Center" TextAlign="Left"
+                <Columns>                  
+                    <f:TemplateField ColumnID="tfManageRuleCode" Width="140px" HeaderText="文件编号" HeaderTextAlign="Center" TextAlign="Left"
                         SortField="ManageRuleCode">
                         <ItemTemplate>
                             <asp:Label ID="lblManageRuleCode" runat="server" Text='<%# Bind("ManageRuleCode") %>'
                                 ToolTip='<%#Bind("ManageRuleCode") %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:TemplateField ColumnID="tfOldManageRuleCode" Width="240px" HeaderText="原编号" HeaderTextAlign="Center" TextAlign="Left"
+                    <f:TemplateField ColumnID="tfOldManageRuleCode" Width="140px" HeaderText="原编号" HeaderTextAlign="Center" TextAlign="Left"
                         SortField="OldManageRuleCode">
                         <ItemTemplate>
                             <asp:Label ID="lblOldManageRuleCode" runat="server" Text='<%# Bind("OldManageRuleCode") %>'
                                 ToolTip='<%#Bind("OldManageRuleCode") %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:TemplateField ColumnID="tfManageRuleName" Width="230px" HeaderText="文件名称" HeaderTextAlign="Center" TextAlign="Left"
+                    <f:TemplateField ColumnID="tfManageRuleName" Width="250px" HeaderText="文件名称" HeaderTextAlign="Center" TextAlign="Left"
                         SortField="ManageRuleName">
                         <ItemTemplate>
                             <asp:Label ID="lblManageRuleName" runat="server" Text='<%# Bind("ManageRuleName") %>'
                                 ToolTip='<%#Bind("ManageRuleName") %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:TemplateField ColumnID="tfManageRuleTypeName" Width="140px" HeaderText="分类" HeaderTextAlign="Center" TextAlign="Left"
+                    <f:TemplateField ColumnID="tfManageRuleTypeName" Width="120px" HeaderText="分类" HeaderTextAlign="Center" TextAlign="Left"
                         SortField="ManageRuleTypeName">
                         <ItemTemplate>
                             <asp:Label ID="lblManageRuleTypeName" runat="server" Text='<%# Bind("ManageRuleTypeName") %>'
