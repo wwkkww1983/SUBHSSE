@@ -158,10 +158,10 @@ namespace FineUIPro.Web.Hazard
         {
             /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertSupervise_SuperviseCheckRectifyTableCompleted += new EventHandler<HSSEService.DataInsertSupervise_SuperviseCheckRectifyTableCompletedEventArgs>(poxy_DataInsertSupervise_SuperviseCheckRectifyTableCompleted);
+            poxy.DataInsertSupervise_SuperviseCheckRectifyTableCompleted += new EventHandler<BLL.HSSEService.DataInsertSupervise_SuperviseCheckRectifyTableCompletedEventArgs>(poxy_DataInsertSupervise_SuperviseCheckRectifyTableCompleted);
             var rectify = from x in Funs.DB.View_SuperviseCheckRectify
                           where x.RealEndDate != null && x.SuperviseCheckRectifyId == superviseCheckRectifyId && x.IsFromMainUnit == true
-                          select new HSSEService.Supervise_SuperviseCheckRectify
+                          select new BLL.HSSEService.Supervise_SuperviseCheckRectify
                           {
                               SuperviseCheckRectifyId = x.SuperviseCheckRectifyId,
                               SuperviseCheckRectifyCode = x.SuperviseCheckRectifyCode,
@@ -190,7 +190,7 @@ namespace FineUIPro.Web.Hazard
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertSupervise_SuperviseCheckRectifyTableCompleted(object sender, HSSEService.DataInsertSupervise_SuperviseCheckRectifyTableCompletedEventArgs e)
+        private void poxy_DataInsertSupervise_SuperviseCheckRectifyTableCompleted(object sender, BLL.HSSEService.DataInsertSupervise_SuperviseCheckRectifyTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

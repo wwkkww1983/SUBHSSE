@@ -90,7 +90,8 @@ namespace BLL
         public static List<Model.Information_MillionsMonthlyReportItem> GetItemsNoSum(string MillionsMonthlyReportId)
         {
             return (from x in Funs.DB.Information_MillionsMonthlyReportItem
-                    where x.MillionsMonthlyReportId == MillionsMonthlyReportId && x.Affiliation != "本月合计"
+                    where x.MillionsMonthlyReportId == MillionsMonthlyReportId 
+                    && (x.Affiliation != "本月合计" || x.Affiliation == null)
                     orderby x.SortIndex
                     select x).ToList();
         }

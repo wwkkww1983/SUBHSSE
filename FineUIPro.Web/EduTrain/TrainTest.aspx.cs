@@ -21,7 +21,7 @@ namespace FineUIPro.Web.EduTrain
         {
             if (!IsPostBack)
             {
-                ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
+              //  ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
                 BindGrid();
             }
@@ -32,11 +32,9 @@ namespace FineUIPro.Web.EduTrain
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT TrainTestId,TrainingId,QsnCode,COrder, QsnContent, QsnAnswer, QsnCategory,QsnKind,QsnImportant,"
-                        + @"(CASE QsnCategory WHEN '2' THEN '多媒体题' WHEN '3' THEN '图片题' ELSE '文字题' END) AS QsnCategoryName,"
-                        + @" (CASE QsnKind WHEN '1' THEN '单选' WHEN '2' THEN '多选' WHEN '3' THEN '判断' ELSE '' END) AS QsnKindName, "
-                        + @"(CASE QsnImportant WHEN '0' THEN '容易' WHEN '1' THEN '一般' WHEN '2' THEN '困难' ELSE '' END) AS QsnImportantName,Analysis"
-                        + @" FROM EduTrain_TrainTest WHERE TrainingId=@TrainingId ";
+            string strSql = @"SELECT TrainTestId,TrainingId,QsnCode,COrder,QsnContent,QsnAnswer,QsnCategory,QsnKind,QsnImportant,QsnCategoryName"
+                        + @",QsnKindName,QsnImportantName,Analysis,Description,UploadTime"                    
+                        + @" FROM View_EduTrain_TrainTest WHERE TrainingId=@TrainingId ";
             List<SqlParameter> listStr = new List<SqlParameter>
             {
                 new SqlParameter("@TrainingId", Request.Params["TrainingId"])
@@ -66,30 +64,7 @@ namespace FineUIPro.Web.EduTrain
             Grid1.PageIndex = e.NewPageIndex;
             BindGrid();
         }
-
-        /// <summary>
-        /// 表头过滤
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Grid1_FilterChange(object sender, EventArgs e)
-        {
-            BindGrid();
-        }
-
-        #region 分页下拉选择
-        /// <summary>
-        /// 分页下拉选择
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Grid1.PageSize = Convert.ToInt32(ddlPageSize.SelectedValue);
-            BindGrid();
-        }
-        #endregion        
-
+        
         /// <summary>
         /// 查询
         /// </summary>
@@ -99,5 +74,24 @@ namespace FineUIPro.Web.EduTrain
         {
             this.BindGrid();
         }
+
+        #region 导出按钮
+        /// 导出按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnOut_Click(object sender, EventArgs e)
+        {
+            Response.ClearContent();
+            string filename = Funs.GetNewFileName();
+            Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("考试试题" + filename, System.Text.Encoding.UTF8) + ".xls");
+            Response.ContentType = "application/excel";
+            Response.ContentEncoding = System.Text.Encoding.UTF8;
+            this.Grid1.PageSize = this.Grid1.Rows.Count();
+            BindGrid();
+            Response.Write(GetGridTableHtml(Grid1));
+            Response.End();
+        }
+        #endregion
     }
 }

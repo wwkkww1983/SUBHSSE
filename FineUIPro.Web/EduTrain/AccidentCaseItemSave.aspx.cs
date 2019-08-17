@@ -159,10 +159,10 @@ namespace FineUIPro.Web.EduTrain
         public void UpAccidentCaseItem(string accidentCaseItemId, string unitId)
         {  /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertEduTrain_AccidentCaseItemTableCompleted += new EventHandler<HSSEService.DataInsertEduTrain_AccidentCaseItemTableCompletedEventArgs>(poxy_DataInsertEduTrain_AccidentCaseItemTableCompleted);
+            poxy.DataInsertEduTrain_AccidentCaseItemTableCompleted += new EventHandler<BLL.HSSEService.DataInsertEduTrain_AccidentCaseItemTableCompletedEventArgs>(poxy_DataInsertEduTrain_AccidentCaseItemTableCompleted);
             var AccidentCaseItemList = from x in Funs.DB.EduTrain_AccidentCaseItem
                                        where x.AccidentCaseItemId == accidentCaseItemId && x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4)
-                                       select new HSSEService.EduTrain_AccidentCaseItem
+                                       select new BLL.HSSEService.EduTrain_AccidentCaseItem
                                        {
                                            AccidentCaseItemId = x.AccidentCaseItemId,
                                            AccidentCaseId = x.AccidentCaseId,
@@ -183,7 +183,7 @@ namespace FineUIPro.Web.EduTrain
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertEduTrain_AccidentCaseItemTableCompleted(object sender, HSSEService.DataInsertEduTrain_AccidentCaseItemTableCompletedEventArgs e)
+        private void poxy_DataInsertEduTrain_AccidentCaseItemTableCompleted(object sender, BLL.HSSEService.DataInsertEduTrain_AccidentCaseItemTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

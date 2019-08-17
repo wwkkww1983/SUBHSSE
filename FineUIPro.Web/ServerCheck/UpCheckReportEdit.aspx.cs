@@ -367,10 +367,10 @@ namespace FineUIPro.Web.ServerCheck
         {
             /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertSupervise_UpCheckReportTableCompleted += new EventHandler<HSSEService.DataInsertSupervise_UpCheckReportTableCompletedEventArgs>(poxy_DataInsertSupervise_UpCheckReportTableCompleted);
+            poxy.DataInsertSupervise_UpCheckReportTableCompleted += new EventHandler<BLL.HSSEService.DataInsertSupervise_UpCheckReportTableCompletedEventArgs>(poxy_DataInsertSupervise_UpCheckReportTableCompleted);
             var upCheckReport = from x in Funs.DB.Supervise_UpCheckReport
                                      where x.UpCheckReportId == upCheckReportId
-                                     select new HSSEService.Supervise_UpCheckReport
+                                     select new BLL.HSSEService.Supervise_UpCheckReport
                                      {
                                          UpCheckReportId = x.UpCheckReportId,
                                          UnitId = x.UnitId,
@@ -389,7 +389,7 @@ namespace FineUIPro.Web.ServerCheck
 
             var upCheckReportItem = from x in Funs.DB.Supervise_UpCheckReportItem
                                           where x.UpCheckReportId == upCheckReportId
-                                          select new HSSEService.Supervise_UpCheckReportItem
+                                          select new BLL.HSSEService.Supervise_UpCheckReportItem
                                           {
                                               UpCheckReportItemId = x.UpCheckReportItemId,
                                               UpCheckReportId = x.UpCheckReportId,
@@ -404,7 +404,7 @@ namespace FineUIPro.Web.ServerCheck
                                           };
             var upCheckReportItem2 = from x in Funs.DB.Supervise_UpCheckReportItem2
                                     where x.UpCheckReportId == upCheckReportId
-                                    select new HSSEService.Supervise_UpCheckReportItem2
+                                    select new BLL.HSSEService.Supervise_UpCheckReportItem2
                                     {
                                         UpCheckReportItem2Id = x.UpCheckReportItem2Id,
                                         UpCheckReportId = x.UpCheckReportId,
@@ -430,7 +430,7 @@ namespace FineUIPro.Web.ServerCheck
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertSupervise_UpCheckReportTableCompleted(object sender, HSSEService.DataInsertSupervise_UpCheckReportTableCompletedEventArgs e)
+        private void poxy_DataInsertSupervise_UpCheckReportTableCompleted(object sender, BLL.HSSEService.DataInsertSupervise_UpCheckReportTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

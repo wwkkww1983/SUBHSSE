@@ -161,11 +161,11 @@ namespace FineUIPro.Web.Technique
         {
             /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertTechnique_AppraiseTableCompleted += new EventHandler<HSSEService.DataInsertTechnique_AppraiseTableCompletedEventArgs>(poxy_DataInsertTechnique_AppraiseTableCompleted);
+            poxy.DataInsertTechnique_AppraiseTableCompleted += new EventHandler<BLL.HSSEService.DataInsertTechnique_AppraiseTableCompletedEventArgs>(poxy_DataInsertTechnique_AppraiseTableCompleted);
             var appraise = from x in Funs.DB.View_Technique_Appraise
                            join y in Funs.DB.AttachFile on x.AppraiseId equals y.ToKeyId
                            where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == false || x.IsBuild == null)
-                           select new HSSEService.Technique_Appraise
+                           select new BLL.HSSEService.Technique_Appraise
                            {
                                AppraiseId = x.AppraiseId,
                                AppraiseCode = x.AppraiseCode,
@@ -194,7 +194,7 @@ namespace FineUIPro.Web.Technique
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertTechnique_AppraiseTableCompleted(object sender, HSSEService.DataInsertTechnique_AppraiseTableCompletedEventArgs e)
+        private void poxy_DataInsertTechnique_AppraiseTableCompleted(object sender, BLL.HSSEService.DataInsertTechnique_AppraiseTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

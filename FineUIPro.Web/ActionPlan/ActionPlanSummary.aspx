@@ -122,7 +122,6 @@
             F(menuID).show();  //showAt(event.pageX, event.pageY);
             return false;
         }
-
         function reloadGrid() {
             __doPostBack(null, 'reloadGrid');
         }

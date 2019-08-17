@@ -68,7 +68,7 @@
                         EnableMultiSelect="false" ShowGridHeader="true" Height="160" EnableColumnLines="true">
                         <Columns>
                             <f:RowNumberField HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center" />
-                            <f:RenderField Width="220px" ColumnID="Unqualified" DataField="Unqualified" SortField="Unqualified"
+                            <f:RenderField Width="300px" ColumnID="Unqualified" DataField="Unqualified" SortField="Unqualified"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="隐患内容"
                                 ExpandUnusedSpace="true">
                             </f:RenderField>
@@ -79,7 +79,7 @@
                                 SortField="HiddenDangerType" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
                                 HeaderText="隐患类型">
                             </f:RenderField>
-                            <f:RenderField Width="100px" ColumnID="HiddenDangerLevel" DataField="HiddenDangerLevel"
+                            <f:RenderField Width="90px" ColumnID="HiddenDangerLevel" DataField="HiddenDangerLevel"
                                 SortField="HiddenDangerLevel" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
                                 HeaderText="隐患级别">
                             </f:RenderField>
@@ -93,10 +93,10 @@
                                 FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="整改限时"
                                 HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="100px" ColumnID="Suggestions" DataField="Suggestions" SortField="Suggestions"
+                            <f:RenderField Width="200px" ColumnID="Suggestions" DataField="Suggestions" SortField="Suggestions"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="整改要求">
                             </f:RenderField>
-                            <f:TemplateField Width="200px" HeaderText="处理措施" HeaderTextAlign="Center" TextAlign="Center">
+                            <f:TemplateField Width="100px" HeaderText="处理措施" HeaderTextAlign="Center" TextAlign="Center">
                                 <ItemTemplate>
                                     <asp:Label ID="Label3" runat="server" Text='<%# HandleStepStr(Eval("HandleStep")) %>'
                                         ToolTip='<%# HandleStepStr(Eval("HandleStep")) %>'></asp:Label>

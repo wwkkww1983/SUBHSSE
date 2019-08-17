@@ -77,17 +77,14 @@ namespace BLL
                 errLog.Append(String.Format(CultureInfo.InvariantCulture, "³ö´íÊ±¼ä:{0}\r\n", DateTime.Now));
                 newErr.ErrTime = DateTime.Now;
 
-                if (!string.IsNullOrEmpty(ErrId))
+                var errlogInfo = Funs.DB.Sys_ErrLogInfo.FirstOrDefault(x => x.ErrLogId == ErrId);
+                if (errlogInfo != null)
                 {
-                    var errlogInfo = Funs.DB.Sys_ErrLogInfo.FirstOrDefault(x => x.ErrLogId == ErrId);
-                    if (errlogInfo != null)
-                    {
-                        errlogInfo.ErrType = newErr.ErrType;
-                        errlogInfo.ErrMessage = newErr.ErrMessage;
-                        errlogInfo.ErrStackTrace = newErr.ErrStackTrace;
-                        errlogInfo.ErrTime = newErr.ErrTime;
-                        Funs.DB.SubmitChanges();
-                    }
+                    errlogInfo.ErrType = newErr.ErrType;
+                    errlogInfo.ErrMessage = newErr.ErrMessage;
+                    errlogInfo.ErrStackTrace = newErr.ErrStackTrace;
+                    errlogInfo.ErrTime = newErr.ErrTime;
+                    Funs.DB.SubmitChanges();
                 }
                 else
                 {

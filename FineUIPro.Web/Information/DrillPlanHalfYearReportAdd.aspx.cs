@@ -334,10 +334,10 @@ namespace FineUIPro.Web.Information
         {
             /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertInformation_DrillPlanHalfYearReportTableCompleted += new EventHandler<HSSEService.DataInsertInformation_DrillPlanHalfYearReportTableCompletedEventArgs>(poxy_DataInsertInformation_DrillPlanHalfYearReportTableCompleted);
+            poxy.DataInsertInformation_DrillPlanHalfYearReportTableCompleted += new EventHandler<BLL.HSSEService.DataInsertInformation_DrillPlanHalfYearReportTableCompletedEventArgs>(poxy_DataInsertInformation_DrillPlanHalfYearReportTableCompleted);
             var report = from x in Funs.DB.Information_DrillPlanHalfYearReport
                          where x.DrillPlanHalfYearReportId == drillPlanHalfYearReportId && x.UpState == BLL.Const.UpState_2
-                         select new HSSEService.Information_DrillPlanHalfYearReport
+                         select new BLL.HSSEService.Information_DrillPlanHalfYearReport
                          {
                              DrillPlanHalfYearReportId = x.DrillPlanHalfYearReportId,
                              UnitId = x.UnitId,
@@ -350,7 +350,7 @@ namespace FineUIPro.Web.Information
 
             var reportItem = from x in Funs.DB.Information_DrillPlanHalfYearReportItem
                              where x.DrillPlanHalfYearReportId == drillPlanHalfYearReportId
-                             select new HSSEService.Information_DrillPlanHalfYearReportItem
+                             select new BLL.HSSEService.Information_DrillPlanHalfYearReportItem
                              {
                                  DrillPlanHalfYearReportItemId = x.DrillPlanHalfYearReportItemId,
                                  DrillPlanHalfYearReportId = x.DrillPlanHalfYearReportId,
@@ -370,7 +370,7 @@ namespace FineUIPro.Web.Information
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertInformation_DrillPlanHalfYearReportTableCompleted(object sender, HSSEService.DataInsertInformation_DrillPlanHalfYearReportTableCompletedEventArgs e)
+        private void poxy_DataInsertInformation_DrillPlanHalfYearReportTableCompleted(object sender, BLL.HSSEService.DataInsertInformation_DrillPlanHalfYearReportTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

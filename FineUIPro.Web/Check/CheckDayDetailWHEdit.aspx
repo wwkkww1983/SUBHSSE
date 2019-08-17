@@ -41,9 +41,10 @@
                     <f:TextBox ID="txtHiddenDangerType" runat="server" Label="隐患类型" ShowRedStar="true"
                         Required="true">
                     </f:TextBox>
-                    <f:TextBox ID="txtHiddenDangerLevel" runat="server" Label="隐患级别" ShowRedStar="true"
+                    <f:DropDownList ID="drpHiddenDangerLevel" runat="server" Label="隐患级别" EnableEdit="false" Required="true" ShowRedStar="true"></f:DropDownList>
+                    <%--<f:TextBox ID="txtHiddenDangerLevel" runat="server" Label="隐患级别" ShowRedStar="true"
                         Required="true">
-                    </f:TextBox>
+                    </f:TextBox>--%>
                 </Items>
             </f:FormRow>
             <f:FormRow>

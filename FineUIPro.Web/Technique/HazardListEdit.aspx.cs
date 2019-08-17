@@ -234,10 +234,10 @@ namespace FineUIPro.Web.Technique
         {
             /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertTechnique_HazardListTableCompleted += new EventHandler<HSSEService.DataInsertTechnique_HazardListTableCompletedEventArgs>(poxy_DataInsertTechnique_HazardListTableCompleted);
+            poxy.DataInsertTechnique_HazardListTableCompleted += new EventHandler<BLL.HSSEService.DataInsertTechnique_HazardListTableCompletedEventArgs>(poxy_DataInsertTechnique_HazardListTableCompleted);
             var hazardListList = from x in Funs.DB.Technique_HazardList
                                  where x.HazardId == hazardId && x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4)
-                                 select new HSSEService.Technique_HazardList
+                                 select new BLL.HSSEService.Technique_HazardList
                                  {
                                      HazardId = x.HazardId,
                                      HazardListTypeId = x.HazardListTypeId,
@@ -265,7 +265,7 @@ namespace FineUIPro.Web.Technique
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertTechnique_HazardListTableCompleted(object sender, HSSEService.DataInsertTechnique_HazardListTableCompletedEventArgs e)
+        private void poxy_DataInsertTechnique_HazardListTableCompleted(object sender, BLL.HSSEService.DataInsertTechnique_HazardListTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

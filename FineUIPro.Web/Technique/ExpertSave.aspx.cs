@@ -288,11 +288,11 @@ namespace FineUIPro.Web.Technique
         {
             /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertTechnique_ExpertTableCompleted += new EventHandler<HSSEService.DataInsertTechnique_ExpertTableCompletedEventArgs>(poxy_DataInsertTechnique_ExpertTableCompleted);
+            poxy.DataInsertTechnique_ExpertTableCompleted += new EventHandler<BLL.HSSEService.DataInsertTechnique_ExpertTableCompletedEventArgs>(poxy_DataInsertTechnique_ExpertTableCompleted);
             var expertList = from x in Funs.DB.View_Expert
                              join y in Funs.DB.AttachFile on x.ExpertId equals y.ToKeyId
                                  where x.ExpertId == expertId && x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4)
-                             select new HSSEService.Technique_Expert
+                             select new BLL.HSSEService.Technique_Expert
                                  {
                                      ExpertId = x.ExpertId,
                                      ExpertCode = x.ExpertCode,
@@ -340,7 +340,7 @@ namespace FineUIPro.Web.Technique
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertTechnique_ExpertTableCompleted(object sender, HSSEService.DataInsertTechnique_ExpertTableCompletedEventArgs e)
+        private void poxy_DataInsertTechnique_ExpertTableCompleted(object sender, BLL.HSSEService.DataInsertTechnique_ExpertTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

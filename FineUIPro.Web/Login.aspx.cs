@@ -31,7 +31,7 @@
                             {
                                 /////创建客户端服务
                                 var poxy = Web.ServiceProxy.CreateServiceClient();
-                                poxy.GetSys_VersionToSUBCompleted += new EventHandler<HSSEService.GetSys_VersionToSUBCompletedEventArgs>(poxy_GetSys_VersionToSUBCompleted);
+                                poxy.GetSys_VersionToSUBCompleted += new EventHandler<BLL.HSSEService.GetSys_VersionToSUBCompletedEventArgs>(poxy_GetSys_VersionToSUBCompleted);
                                 poxy.GetSys_VersionToSUBAsync();
                             }
                             catch
@@ -153,7 +153,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_GetSys_VersionToSUBCompleted(object sender, HSSEService.GetSys_VersionToSUBCompletedEventArgs e)
+        private void poxy_GetSys_VersionToSUBCompleted(object sender, BLL.HSSEService.GetSys_VersionToSUBCompletedEventArgs e)
         {
             int count = 0;
             if (e.Error == null && e.Result != null)

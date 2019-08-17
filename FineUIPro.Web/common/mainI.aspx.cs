@@ -253,12 +253,15 @@ namespace FineUIPro.Web.common
 
             if (this.CurrUser.UnitId == this.ThisUnitId)
             {
-                var listProjectIds = (from x in Funs.DB.Project_ProjectUser where x.UserId == this.CurrUser.UserId select x.ProjectId).ToList();
-                if (listProjectIds.Count() > 0)
+                var listIds = (from x in Funs.DB.Project_ProjectUser
+                                      join y in Funs.DB.Base_Project on x.ProjectId equals y.ProjectId
+                                      where x.UserId == this.CurrUser.UserId && (y.ProjectState == Const.ProjectState_1 || y.ProjectState == null)
+                                      select x.ProjectId).ToList();
+                if (listIds.Count() > 0)
                 {
                     //隐患复查提醒
                     var reCheckRectifyNotices = (from x in Funs.DB.Check_RectifyNotices
-                                                 where listProjectIds.Contains(x.ProjectId) &&
+                                                 where listIds.Contains(x.ProjectId) &&
                                                   x.CompleteDate.HasValue && (!x.ReCheckDate.HasValue || x.ReCheckDate == null)
                                                  select x).ToList();
                     foreach (var item in reCheckRectifyNotices)
@@ -283,7 +286,7 @@ namespace FineUIPro.Web.common
                     //日常巡检未关闭提醒
                     var checkDays = (from x in Funs.DB.Check_CheckDay
                                      join y in Funs.DB.Check_CheckDayDetail on x.CheckDayId equals y.CheckDayId
-                                     where listProjectIds.Contains(x.ProjectId) &&
+                                     where listIds.Contains(x.ProjectId) &&
                                       x.States == BLL.Const.State_2 && !y.CompletedDate.HasValue
                                      select x).Distinct();
                     foreach (var item in checkDays)
@@ -307,7 +310,7 @@ namespace FineUIPro.Web.common
                     //专项检查未关闭提醒
                     var checkSpecials = (from x in Funs.DB.Check_CheckSpecial
                                      join y in Funs.DB.Check_CheckSpecialDetail on x.CheckSpecialId equals y.CheckSpecialId
-                                     where listProjectIds.Contains(x.ProjectId) &&
+                                     where listIds.Contains(x.ProjectId) &&
                                       x.States == BLL.Const.State_2 && !y.CompletedDate.HasValue
                                      select x).Distinct();
                     foreach (var item in checkSpecials)
@@ -331,7 +334,7 @@ namespace FineUIPro.Web.common
                     //综合大检查未关闭提醒
                     var checkColligations = (from x in Funs.DB.Check_CheckColligation
                                          join y in Funs.DB.Check_CheckColligationDetail on x.CheckColligationId equals y.CheckColligationId
-                                             where listProjectIds.Contains(x.ProjectId) &&
+                                             where listIds.Contains(x.ProjectId) &&
                                           x.States == BLL.Const.State_2 && !y.CompletedDate.HasValue
                                          select x).Distinct();
                     foreach (var item in checkColligations)

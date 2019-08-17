@@ -51,7 +51,11 @@ namespace FineUIPro.Web.Check
                             this.txtLimitedDate.Text = string.Format("{0:yyyy-MM-dd}", checkDayDetail.LimitedDate);
                         }
                         this.txtHiddenDangerType.Text = checkDayDetail.HiddenDangerType;
-                        this.txtHiddenDangerLevel.Text = checkDayDetail.HiddenDangerLevel;
+                        if (!string.IsNullOrEmpty(checkDayDetail.HiddenDangerLevel))
+                        {
+                            this.drpHiddenDangerLevel.SelectedValue = checkDayDetail.HiddenDangerLevel;
+                            //this.txtHiddenDangerLevel.Text = checkDayDetail.HiddenDangerLevel;
+                        }
                         if (!string.IsNullOrEmpty(checkDayDetail.UnitId))
                         {
                             this.drpUnit.SelectedValue = checkDayDetail.UnitId;
@@ -83,6 +87,8 @@ namespace FineUIPro.Web.Check
             BLL.UnitService.InitUnitDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, false);
             //责任人
             BLL.PersonService.InitPersonByProjectUnitDropDownList(this.drpPerson, this.CurrUser.LoginProjectId, this.drpUnit.SelectedValue, true);
+            //隐患级别
+            BLL.ConstValue.InitConstValueDropDownList(this.drpHiddenDangerLevel, ConstValue.Group_HiddenDangerLevel, true);
         }
 
         /// <summary>
@@ -97,13 +103,20 @@ namespace FineUIPro.Web.Check
                 Alert.ShowInTop("请选择处理措施！", MessageBoxIcon.Warning);
                 return;
             }
-
+            if (this.drpHiddenDangerLevel.SelectedValue==BLL.Const._Null)
+            {
+                Alert.ShowInTop("请选择隐患级别！", MessageBoxIcon.Warning);
+                return;
+            }
             Model.Check_CheckDayDetail detail = new Model.Check_CheckDayDetail();
             detail.Unqualified = this.txtUnqualified.Text.Trim();
             detail.WorkArea = this.txtWorkArea.Text.Trim();
             detail.LimitedDate = Funs.GetNewDateTime(this.txtLimitedDate.Text.Trim());
             detail.HiddenDangerType = this.txtHiddenDangerType.Text.Trim();
-            detail.HiddenDangerLevel = this.txtHiddenDangerLevel.Text.Trim();
+            if (this.drpHiddenDangerLevel.SelectedValue != BLL.Const._Null)
+            {
+                detail.HiddenDangerLevel = this.drpHiddenDangerLevel.SelectedValue;
+            }
             if (this.drpUnit.SelectedValue != BLL.Const._Null)
             {
                 detail.UnitId = this.drpUnit.SelectedValue;
@@ -161,7 +174,7 @@ namespace FineUIPro.Web.Check
         /// <param name="e"></param>
         protected void drpUnit_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.drpUnit.SelectedValue!=BLL.Const._Null)
+            if (this.drpUnit.SelectedValue != BLL.Const._Null)
             {
                 BLL.PersonService.InitPersonByProjectUnitDropDownList(this.drpPerson, this.CurrUser.LoginProjectId, this.drpUnit.SelectedValue, false);
             }

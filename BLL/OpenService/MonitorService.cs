@@ -27,7 +27,6 @@ namespace BLL
             //{
             //    adTimeJ += adomain.AdTimeM.Value;
             //}
-
             if (messageTimer != null)
             {
                 messageTimer.Stop();

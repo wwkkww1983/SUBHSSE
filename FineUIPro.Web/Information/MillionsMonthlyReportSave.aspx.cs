@@ -59,23 +59,23 @@ namespace FineUIPro.Web.Information
                 if (!String.IsNullOrEmpty(MillionsMonthlyReportId))
                 {
                     items = BLL.MillionsMonthlyReportItemService.GetItemsNoSum(MillionsMonthlyReportId);
-                    int i = items.Count * 10;
-                    int count = items.Count;
-                    if (items.Count < 10)
-                    {
-                        for (int j = 0; j < (10 - count); j++)
-                        {
-                            i += 10;
-                            Model.Information_MillionsMonthlyReportItem newItem = new Information_MillionsMonthlyReportItem
-                            {
-                                MillionsMonthlyReportItemId = SQLHelper.GetNewID(typeof(Model.Information_MillionsMonthlyReportItem)),
-                                Affiliation = string.Empty,
-                                Name = string.Empty,
-                                SortIndex = i
-                            };
-                            items.Add(newItem);
-                        }
-                    }
+                    //int i = items.Count * 10;
+                    //int count = items.Count;
+                    //if (items.Count < 10)
+                    //{
+                    //    for (int j = 0; j < (10 - count); j++)
+                    //    {
+                    //        i += 10;
+                    //        Model.Information_MillionsMonthlyReportItem newItem = new Information_MillionsMonthlyReportItem
+                    //        {
+                    //            MillionsMonthlyReportItemId = SQLHelper.GetNewID(typeof(Model.Information_MillionsMonthlyReportItem)),
+                    //            Affiliation = string.Empty,
+                    //            Name = string.Empty,
+                    //            SortIndex = i
+                    //        };
+                    //        items.Add(newItem);
+                    //    }
+                    //}
                     this.Grid1.DataSource = items;
                     this.Grid1.DataBind();
                     Model.Information_MillionsMonthlyReport report = BLL.MillionsMonthlyReportService.GetMillionsMonthlyReportByMillionsMonthlyReportId(MillionsMonthlyReportId);
@@ -301,10 +301,10 @@ namespace FineUIPro.Web.Information
         {
             /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertInformation_MillionsMonthlyReportTableCompleted += new EventHandler<HSSEService.DataInsertInformation_MillionsMonthlyReportTableCompletedEventArgs>(poxy_DataInsertInformation_MillionsMonthlyReportTableCompleted);
+            poxy.DataInsertInformation_MillionsMonthlyReportTableCompleted += new EventHandler<BLL.HSSEService.DataInsertInformation_MillionsMonthlyReportTableCompletedEventArgs>(poxy_DataInsertInformation_MillionsMonthlyReportTableCompleted);
             var report = from x in Funs.DB.Information_MillionsMonthlyReport
                          where x.MillionsMonthlyReportId == millionsMonthlyReportId && x.UpState == BLL.Const.UpState_2
-                         select new HSSEService.Information_MillionsMonthlyReport
+                         select new BLL.HSSEService.Information_MillionsMonthlyReport
                          {
                              MillionsMonthlyReportId = x.MillionsMonthlyReportId,
                              UnitId = x.UnitId,
@@ -322,7 +322,7 @@ namespace FineUIPro.Web.Information
 
             var reportItem = from x in Funs.DB.Information_MillionsMonthlyReportItem
                              where x.MillionsMonthlyReportId == millionsMonthlyReportId
-                             select new HSSEService.Information_MillionsMonthlyReportItem
+                             select new BLL.HSSEService.Information_MillionsMonthlyReportItem
                              {
                                  MillionsMonthlyReportItemId = x.MillionsMonthlyReportItemId,
                                  MillionsMonthlyReportId = x.MillionsMonthlyReportId,
@@ -366,7 +366,7 @@ namespace FineUIPro.Web.Information
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertInformation_MillionsMonthlyReportTableCompleted(object sender, HSSEService.DataInsertInformation_MillionsMonthlyReportTableCompletedEventArgs e)
+        private void poxy_DataInsertInformation_MillionsMonthlyReportTableCompleted(object sender, BLL.HSSEService.DataInsertInformation_MillionsMonthlyReportTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

@@ -7,12 +7,12 @@
 <TreeNode id="DF1413F3-4CE5-40B3-A574-E01CE64FEA25" Text="政府部门安全规章制度" NavigateUrl="Law/RulesRegulations.aspx" Icon="Page"></TreeNode>
 <TreeNode id="56960940-81A8-43D1-9565-C306EC7AFD12" Text="安全管理规定" NavigateUrl="Law/ManageRule.aspx" Icon="Page"></TreeNode>
 </TreeNode>
+<TreeNode id="8IDKGJE2-09B1-4607-DCS2-DCC3O48F080F" Text="安全体系" NavigateUrl="" Icon="LayoutContent"><TreeNode id="3ACE25CE-C5CE-4CEC-AD27-0D5CF1DF2F01" Text="安全主体责任" NavigateUrl="HSSESystem/HSSEMainDuty.aspx" Icon="Page"></TreeNode>
+</TreeNode>
 <TreeNode id="E26D223B-4CA2-4A6D-82D0-224CC9C8676D" Text="安全教育" NavigateUrl="" Icon="PagePortraitShot"><TreeNode id="9D99A981-7380-4085-84FA-8C3B1AFA6202" Text="培训教材库" NavigateUrl="EduTrain/TrainDB.aspx" Icon="Page"></TreeNode>
 <TreeNode id="F58EE8ED-9EB5-47C7-9D7F-D751EFEA44CA" Text="安全试题库" NavigateUrl="EduTrain/TrainTestDB.aspx" Icon="Page"></TreeNode>
 <TreeNode id="D86917DB-D00A-4E18-9793-C290B5BBA84C" Text="事故案例库" NavigateUrl="EduTrain/AccidentCase.aspx" Icon="Page"></TreeNode>
 <TreeNode id="AB7A3D78-2D89-4488-97E3-8F8616BDDE30" Text="应知应会库" NavigateUrl="EduTrain/KnowledgeDB.aspx" Icon="Page"></TreeNode>
-</TreeNode>
-<TreeNode id="8IDKGJE2-09B1-4607-DCS2-DCC3O48F080F" Text="安全体系" NavigateUrl="" Icon="LayoutContent"><TreeNode id="3ACE25CE-C5CE-4CEC-AD27-0D5CF1DF2F01" Text="安全主体责任" NavigateUrl="HSSESystem/HSSEMainDuty.aspx" Icon="Page"></TreeNode>
 </TreeNode>
 <TreeNode id="D1A8637F-D2D2-40D9-89A6-10C428D0C90E" Text="学习考核" NavigateUrl="" Icon="BookOpenMark"><TreeNode id="C7454B8C-017F-4C8A-B9C7-D9D2F46F3CB1" Text="试题库维护" NavigateUrl="OnlineCheck/TestDB.aspx" Icon="Page"></TreeNode>
 <TreeNode id="86E75631-BB9B-432E-BE5C-0F8C7C58BDE3" Text="生成试卷" NavigateUrl="OnlineCheck/BuildTest.aspx" Icon="Page"></TreeNode>

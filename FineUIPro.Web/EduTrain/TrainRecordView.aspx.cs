@@ -105,6 +105,7 @@ namespace FineUIPro.Web.EduTrain
                 else if (thisUnit.UnitId == BLL.Const.UnitId_CWCEC)
                 {
                     this.btnTrainTest.Hidden = false;
+                    this.btnMenuView.Hidden = false;
                 }
                 ///初始化审核菜单
                 this.ctlAuditFlow.MenuId = BLL.Const.ProjectTrainRecordMenuId;
@@ -136,6 +137,18 @@ namespace FineUIPro.Web.EduTrain
         protected void btnTrainTest_Click(object sender, EventArgs e)
         {           
             PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("TrainTest.aspx?TrainingId={0}", this.TrainingId, "查看 - ")));
+        }
+
+        protected void btnMenuView_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length > 0)
+            {
+                foreach (int rowIndex in Grid1.SelectedRowIndexArray)
+                {
+                    string rowID = Grid1.DataKeys[rowIndex][0].ToString();
+                    PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("TrainTestView.aspx?TrainDetailId={0}", rowID, "查看试卷 - ")));
+                }
+            }
         }
     }
 }

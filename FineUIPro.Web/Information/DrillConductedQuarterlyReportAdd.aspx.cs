@@ -395,10 +395,10 @@ namespace FineUIPro.Web.Information
         {
             /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertInformation_DrillConductedQuarterlyReportTableCompleted += new EventHandler<HSSEService.DataInsertInformation_DrillConductedQuarterlyReportTableCompletedEventArgs>(poxy_DataInsertInformation_DrillConductedQuarterlyReportTableCompleted);
+            poxy.DataInsertInformation_DrillConductedQuarterlyReportTableCompleted += new EventHandler<BLL.HSSEService.DataInsertInformation_DrillConductedQuarterlyReportTableCompletedEventArgs>(poxy_DataInsertInformation_DrillConductedQuarterlyReportTableCompleted);
             var report = from x in Funs.DB.Information_DrillConductedQuarterlyReport
                          where x.DrillConductedQuarterlyReportId == drillConductedQuarterlyReportId && x.UpState == BLL.Const.UpState_2
-                         select new HSSEService.Information_DrillConductedQuarterlyReport
+                         select new BLL.HSSEService.Information_DrillConductedQuarterlyReport
                          {
                              DrillConductedQuarterlyReportId = x.DrillConductedQuarterlyReportId,
                              UnitId = x.UnitId,
@@ -410,7 +410,7 @@ namespace FineUIPro.Web.Information
 
             var reportItem = from x in Funs.DB.Information_DrillConductedQuarterlyReportItem
                              where x.DrillConductedQuarterlyReportId == drillConductedQuarterlyReportId
-                             select new HSSEService.Information_DrillConductedQuarterlyReportItem
+                             select new BLL.HSSEService.Information_DrillConductedQuarterlyReportItem
                              {
                                  DrillConductedQuarterlyReportItemId = x.DrillConductedQuarterlyReportItemId,
                                  DrillConductedQuarterlyReportId = x.DrillConductedQuarterlyReportId,
@@ -441,7 +441,7 @@ namespace FineUIPro.Web.Information
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertInformation_DrillConductedQuarterlyReportTableCompleted(object sender, HSSEService.DataInsertInformation_DrillConductedQuarterlyReportTableCompletedEventArgs e)
+        private void poxy_DataInsertInformation_DrillConductedQuarterlyReportTableCompleted(object sender, BLL.HSSEService.DataInsertInformation_DrillConductedQuarterlyReportTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

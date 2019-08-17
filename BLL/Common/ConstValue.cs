@@ -290,6 +290,10 @@ namespace BLL
         /// -东华管理月报内容项：组id
         /// </summary>
         public const string Group_MonthReportDItem = "MonthReportDItem";
+        /// <summary>
+        /// 隐患级别 组id
+        /// </summary>
+        public const string Group_HiddenDangerLevel = "HiddenDangerLevel";
         #endregion
     }
 }

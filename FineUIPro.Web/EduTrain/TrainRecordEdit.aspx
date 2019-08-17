@@ -171,13 +171,16 @@
         Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
-    <f:Menu ID="Menu1" runat="server">
+    <f:Menu ID="Menu1" runat="server">  
+        <f:MenuButton ID="btnMenuView" OnClick="btnMenuView_Click" EnablePostBack="true"
+            runat="server" Text="查看"  Icon="TableGo" Hidden="true">
+        </f:MenuButton>   
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
             Icon="Delete" ConfirmText="确定删除当前数据？" ConfirmTarget="Parent" runat="server" Text="删除">
         </f:MenuButton>
     </f:Menu>
     </form>
-    <script>
+    <script type="text/jscript">
         var menuID = '<%= Menu1.ClientID %>';
 
         // 返回false，来阻止浏览器右键菜单

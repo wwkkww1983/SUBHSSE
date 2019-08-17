@@ -421,6 +421,21 @@ namespace BLL
             return System.DateTime.Now.ToString("yyyyMMddhhmmss") + rm.Next(1000, 9999).ToString();
         }
 
+        /// <summary>
+        /// 指定上传文件的名称
+        /// </summary>
+        /// <returns></returns>
+        public static string GetNewFileName(DateTime? dateTime)
+        {
+            string str = string.Empty;
+            Random rm = new Random(System.Environment.TickCount);
+            if (dateTime.HasValue)
+            {
+                str= dateTime.Value.ToString("yyyyMMddhhmmss") + rm.Next(1000, 9999).ToString();
+            }
+            return str;
+        }
+
         #region 时间转换
         /// <summary>
         /// 输入文本转换时间类型

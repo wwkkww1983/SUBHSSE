@@ -2,7 +2,7 @@
 using BLL;
 
 namespace FineUIPro.Web.Check
-{
+{ 
     public partial class CheckColligationDetailWHEdit : PageBase
     {
         #region 定义项
@@ -63,7 +63,11 @@ namespace FineUIPro.Web.Check
                             this.txtLimitedDate.Text = string.Format("{0:yyyy-MM-dd}", checkColligationDetail.LimitedDate);
                         }
                         this.txtHiddenDangerType.Text = checkColligationDetail.HiddenDangerType;
-                        this.txtHiddenDangerLevel.Text = checkColligationDetail.HiddenDangerLevel;
+                        if (!string.IsNullOrEmpty(checkColligationDetail.HiddenDangerLevel))
+                        {
+                            this.drpHiddenDangerLevel.SelectedValue = checkColligationDetail.HiddenDangerLevel;
+                            //this.txtHiddenDangerLevel.Text = checkColligationDetail.HiddenDangerLevel;
+                        }
                         if (!string.IsNullOrEmpty(checkColligationDetail.UnitId))
                         {
                             this.drpUnit.SelectedValue = checkColligationDetail.UnitId;
@@ -95,6 +99,8 @@ namespace FineUIPro.Web.Check
             BLL.UnitService.InitUnitDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, false);
             //责任人
             BLL.PersonService.InitPersonByProjectUnitDropDownList(this.drpPerson, this.CurrUser.LoginProjectId, this.drpUnit.SelectedValue, true);
+            //隐患级别
+            BLL.ConstValue.InitConstValueDropDownList(this.drpHiddenDangerLevel, ConstValue.Group_HiddenDangerLevel, true);
         }
         #endregion
 
@@ -112,12 +118,20 @@ namespace FineUIPro.Web.Check
                 return;
             }
 
+            if (this.drpHiddenDangerLevel.SelectedValue == BLL.Const._Null)
+            {
+                Alert.ShowInTop("请选择隐患级别！", MessageBoxIcon.Warning);
+                return;
+            }
             Model.Check_CheckColligationDetail detail = new Model.Check_CheckColligationDetail();
             detail.Unqualified = this.txtUnqualified.Text.Trim();
             detail.WorkArea = this.txtWorkArea.Text.Trim();
             detail.LimitedDate = Funs.GetNewDateTime(this.txtLimitedDate.Text.Trim());
             detail.HiddenDangerType = this.txtHiddenDangerType.Text.Trim();
-            detail.HiddenDangerLevel = this.txtHiddenDangerLevel.Text.Trim();
+            if (this.drpHiddenDangerLevel.SelectedValue!=BLL.Const._Null)
+            {
+                detail.HiddenDangerLevel = this.drpHiddenDangerLevel.SelectedValue;
+            }            
             if (this.drpUnit.SelectedValue != BLL.Const._Null)
             {
                 detail.UnitId = this.drpUnit.SelectedValue;

@@ -213,11 +213,11 @@ namespace FineUIPro.Web.Technique
         {
             /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertTechnique_HAZOPTableCompleted += new EventHandler<HSSEService.DataInsertTechnique_HAZOPTableCompletedEventArgs>(poxy_DataInsertTechnique_HAZOPTableCompleted);
+            poxy.DataInsertTechnique_HAZOPTableCompleted += new EventHandler<BLL.HSSEService.DataInsertTechnique_HAZOPTableCompletedEventArgs>(poxy_DataInsertTechnique_HAZOPTableCompleted);
             var hazop = from x in Funs.DB.View_Technique_HAZOP
                         join y in Funs.DB.AttachFile on x.HAZOPId equals y.ToKeyId
                         where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == false || x.IsBuild == null)
-                        select new HSSEService.Technique_HAZOP
+                        select new BLL.HSSEService.Technique_HAZOP
                         {
                             HAZOPId = x.HAZOPId,
                             UnitId = unitId,
@@ -243,7 +243,7 @@ namespace FineUIPro.Web.Technique
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertTechnique_HAZOPTableCompleted(object sender, HSSEService.DataInsertTechnique_HAZOPTableCompletedEventArgs e)
+        private void poxy_DataInsertTechnique_HAZOPTableCompleted(object sender, BLL.HSSEService.DataInsertTechnique_HAZOPTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

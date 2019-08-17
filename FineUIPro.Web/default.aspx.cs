@@ -471,7 +471,7 @@ namespace FineUIPro.Web
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_GetSys_VersionToSUBCompleted(object sender, HSSEService.GetSys_VersionToSUBCompletedEventArgs e)
+        private void poxy_GetSys_VersionToSUBCompleted(object sender, BLL.HSSEService.GetSys_VersionToSUBCompletedEventArgs e)
         {
             int count = 0;
             if (e.Error == null && e.Result != null)

@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
+using System.Collections.Generic;
+using System.Text;
 
 namespace BLL
 {
@@ -15,73 +17,93 @@ namespace BLL
             var getDataList = (from x in Funs.DB.Sys_DataExchange where x.IsUpdate == false select x).ToList();
             if (getDataList.Count() > 0)
             {
-                bool isOk = false;
-                foreach (var item in getDataList)
+                var getDataList0 = getDataList.Where(x => x.MessageText.Contains("\"Type\":0")).ToList();
+                var getDataList1 = getDataList.Where(x => x.MessageText.Contains("\"Type\":1")).ToList();
+                var getDataList2 = getDataList.Where(x => x.MessageText.Contains("\"Type\":2")).ToList();
+                var getDataList3 = getDataList.Where(x => x.MessageText.Contains("\"Type\":3")).ToList();
+                var getDataList4 = getDataList.Where(x => x.MessageText.Contains("\"Type\":4")).ToList();
+                var getDataList5 = getDataList.Where(x => x.MessageText.Contains("\"Type\":5")).ToList();
+
+                AddDataItem(getDataList1);
+                AddDataItem(getDataList0);
+                AddDataItem(getDataList2);
+                AddDataItem(getDataList3);
+                AddDataItem(getDataList4);
+                AddDataItem(getDataList5);
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// 数据插入明细方法
+        /// </summary>
+        /// <param name="getDataExchange"></param>
+        private static void AddDataItem(List<Model.Sys_DataExchange> getDataExchange)
+        {
+            bool isOk = false;
+            foreach (var item in getDataExchange)
+            {
+                JObject obj = JObject.Parse(item.MessageText);
+                string type = obj["Type"].ToString();
+                string code = obj["Code"].ToString();
+                string fromprojectId = obj["DepartId"].ToString();
+                JArray arr = JArray.Parse(obj["Data"].ToString());
+                string projectId = string.Empty;
+                ////根据传值项目主键
+                var getProjectByFromProjectId = Funs.DB.Base_Project.FirstOrDefault(x => x.FromProjectId == fromprojectId);
+                if (getProjectByFromProjectId != null)
                 {
-                    JObject obj = JObject.Parse(item.MessageText);
-                    string type = obj["Type"].ToString();
-                    string code = obj["Code"].ToString();
-                    string fromprojectId = obj["DepartId"].ToString();
-                    JArray arr = JArray.Parse(obj["Data"].ToString());
-
-                    string projectId = string.Empty;
-                    ////根据传值项目主键
-                    var getProjectByFromProjectId = Funs.DB.Base_Project.FirstOrDefault(x => x.FromProjectId == fromprojectId);
-                    if (getProjectByFromProjectId != null)
+                    projectId = getProjectByFromProjectId.ProjectId;
+                }
+                else
+                {
+                    if (type == "1")
                     {
-                        projectId = getProjectByFromProjectId.ProjectId;
+                        projectId = AddProject(arr);
                     }
-                    else
-                    {
-                        if (type == "1")
-                        {
-                            projectId = AddProject(arr);
-                        }
-                    }  
-                    
-                    if (!string.IsNullOrEmpty(projectId))
-                    {
-                        var sysUser = BLL.UserService.GetUserByUserId(BLL.Const.sysglyId);
-                        if (sysUser != null)
-                        {
-                            sysUser.LoginProjectId = projectId;
-                        }
+                }
 
-                        if (type == "0")
-                        {
-                            isOk = AddPerson(projectId, arr, sysUser);
-                        }
-                        else if (type == "1")
-                        {
-                            isOk = AddUnit(projectId, arr, sysUser);
-                        }
-                        else if (type == "2")
-                        {
-                            isOk = AddTrainRecord(projectId, arr, sysUser);
-                        }
-                        else if (type == "3")
-                        {
-                            isOk = AddTrainRecordPerson(projectId, arr, sysUser);
-                        }
-                        else if (type == "4")
-                        {
-                            isOk = AddEduTrain_TrainTest(projectId, arr, sysUser);
-                        }
-                        else if (type == "5")
-                        {
-                            isOk = AddPersonTrainRecord(projectId, arr, sysUser);
-                        }
+                if (!string.IsNullOrEmpty(projectId))
+                {
+                    var sysUser = BLL.UserService.GetUserByUserId(BLL.Const.sysglyId);
+                    if (sysUser != null)
+                    {
+                        sysUser.LoginProjectId = projectId;
+                    }
 
-                        if (isOk) ///更新数据接收状态
-                        {
-                            item.IsUpdate = true;
-                            Funs.DB.SubmitChanges();
-                        }
+                    if (type == "0")
+                    {
+                        isOk = AddPerson(projectId, arr, sysUser);
+                    }
+                    else if (type == "1")
+                    {
+                        isOk = AddUnit(projectId, arr, sysUser);
+                    }
+                    else if (type == "2")
+                    {
+                        isOk = AddTrainRecord(projectId, arr, sysUser);
+                    }
+                    else if (type == "3")
+                    {
+                        isOk = AddTrainRecordPerson(projectId, arr, sysUser);
+                    }
+                    else if (type == "4")
+                    {
+                        isOk = AddEduTrain_TrainTest(projectId, arr, sysUser);
+                    }
+                    else if (type == "5")
+                    {
+                        isOk = AddPersonTrainRecord(projectId, arr, sysUser);
+                    }
+
+                    if (isOk) ///更新数据接收状态
+                    {
+                        item.IsUpdate = true;
+                        Funs.DB.SubmitChanges();
                     }
                 }
             }
         }
-        #endregion
 
         #region 插入信息-项目信息
         /// <summary>
@@ -340,25 +362,42 @@ namespace BLL
                     {
                         trainTypeId = getTrainType.TrainTypeId;
                     }
-
                     string unitId = null;
-                    var getUnit = db.Base_Unit.FirstOrDefault(x => x.UnitName == item["TrainDepart"].ToString());
-                    if (getUnit != null)
+                    if (!string.IsNullOrEmpty(item["TrainDepart"].ToString()))
                     {
-                        unitId = getUnit.UnitId;
+                        var lists = Funs.GetStrListByStr(item["TrainDepart"].ToString(), ',');
+                        if (lists.Count() > 0)
+                        {
+                            foreach (var itemList in lists)
+                            {
+                                var getUnit = db.Base_Unit.FirstOrDefault(x => x.UnitName == itemList);
+                                if (getUnit != null)
+                                {
+                                    if (string.IsNullOrEmpty(unitId))
+                                    {
+                                        unitId = getUnit.UnitId;
+                                    }
+                                    else
+                                    {
+                                        unitId += ("," + getUnit.UnitId);
+                                    }
+                                }
+                            }
+                        }
                     }
+
                     if (!string.IsNullOrEmpty(unitId) && !string.IsNullOrEmpty(fromRecordId))
                     {
                         Model.EduTrain_TrainRecord newTrainRecord = new Model.EduTrain_TrainRecord
                         {
                             FromRecordId = fromRecordId,
-                            TrainingCode = item["DeviceNo"].ToString(),
+
                             ProjectId = projectId,
                             TrainTitle = item["RecordName"].ToString(),
                             TrainContent = item["TrainContent"].ToString(),
                             TrainStartDate = Funs.GetNewDateTime(item["TrainStartDate"].ToString()),
                             TrainEndDate = Funs.GetNewDateTime(item["TrainEndDate"].ToString()),
-                            TeachHour = Funs.GetNewInt(item["CourseDuration"].ToString()),
+                            TeachHour = Funs.GetNewDecimalOrZero(item["TrainPeriod"].ToString()),
                             TeachMan = item["TrainPrincipal"].ToString(),
                             Remark = item["TrainDescript"].ToString(),
                             TrainTypeId = trainTypeId,
@@ -368,7 +407,8 @@ namespace BLL
                             TrainPersonNum = Funs.GetNewInt(item["PersonCount"].ToString()),
                         };
 
-                        var getTrainRecord = db.EduTrain_TrainRecord.FirstOrDefault(x => x.FromRecordId == fromRecordId);
+                        newTrainRecord.TrainingCode = Funs.GetNewFileName(newTrainRecord.TrainStartDate);
+                        var getTrainRecord = Funs.DB.EduTrain_TrainRecord.FirstOrDefault(x => x.FromRecordId == fromRecordId);
                         if (getTrainRecord == null)
                         {
                             newTrainRecord.TrainingId = SQLHelper.GetNewID(typeof(Model.EduTrain_TrainRecord));
@@ -377,8 +417,10 @@ namespace BLL
                         }
                         else
                         {
+                            getTrainRecord.TrainingCode = newTrainRecord.TrainingCode;
                             getTrainRecord.TrainTitle = newTrainRecord.TrainTitle;
                             getTrainRecord.TrainContent = newTrainRecord.TrainContent;
+                            getTrainRecord.UnitIds = newTrainRecord.UnitIds;
                             getTrainRecord.TrainStartDate = newTrainRecord.TrainStartDate;
                             if (newTrainRecord.TrainEndDate.HasValue)
                             {
@@ -391,6 +433,7 @@ namespace BLL
                             getTrainRecord.TeachHour = newTrainRecord.TeachHour;
                             getTrainRecord.TeachMan = newTrainRecord.TeachMan;
                             getTrainRecord.TeachAddress = newTrainRecord.TeachAddress;
+
                             getTrainRecord.Remark = newTrainRecord.Remark;
                             EduTrain_TrainRecordService.UpdateTraining(getTrainRecord);
                             BLL.LogService.AddSys_Log(user, getTrainRecord.TrainingCode, getTrainRecord.TrainingId, BLL.Const.ProjectTrainRecordMenuId, BLL.Const.BtnModify);
@@ -449,7 +492,7 @@ namespace BLL
                         {
                             TrainingId = trainingId,
                             PersonId = personId,
-                            CheckScore = Funs.GetNewInt(item["Score"].ToString()),
+                            CheckScore = Funs.GetNewDecimal(item["Score"].ToString()),
                             CheckResult = checkResult,
                         };
 

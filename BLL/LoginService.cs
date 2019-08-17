@@ -5,6 +5,7 @@ namespace BLL
     using System.Linq;
     using System.Web.Security;
     using System.Web;
+    using EmitMapper;
 
     public static class LoginService
     {

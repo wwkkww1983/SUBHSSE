@@ -181,11 +181,11 @@ namespace FineUIPro.Web.Technique
         {
             ////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertTechnique_EmergencyTableCompleted += new EventHandler<HSSEService.DataInsertTechnique_EmergencyTableCompletedEventArgs>(poxy_DataInsertTechnique_EmergencyTableCompleted);
+            poxy.DataInsertTechnique_EmergencyTableCompleted += new EventHandler<BLL.HSSEService.DataInsertTechnique_EmergencyTableCompletedEventArgs>(poxy_DataInsertTechnique_EmergencyTableCompleted);
             var emergency = from x in Funs.DB.View_Technique_Emergency
                             join y in Funs.DB.AttachFile on x.EmergencyId equals y.ToKeyId
                             where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == false || x.IsBuild == null)
-                            select new HSSEService.Technique_Emergency
+                            select new BLL.HSSEService.Technique_Emergency
                             {
                                 EmergencyId = x.EmergencyId,
                                 EmergencyTypeId = x.EmergencyTypeId,
@@ -215,7 +215,7 @@ namespace FineUIPro.Web.Technique
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertTechnique_EmergencyTableCompleted(object sender, HSSEService.DataInsertTechnique_EmergencyTableCompletedEventArgs e)
+        private void poxy_DataInsertTechnique_EmergencyTableCompleted(object sender, BLL.HSSEService.DataInsertTechnique_EmergencyTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

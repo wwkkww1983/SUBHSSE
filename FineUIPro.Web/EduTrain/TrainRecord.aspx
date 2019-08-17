@@ -61,11 +61,14 @@
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="100px" ColumnID="TrainingCode" DataField="TrainingCode" SortField="TrainingCode"
+                    <f:RenderField Width="120px" ColumnID="TrainingCode" DataField="TrainingCode" SortField="TrainingCode"
                         FieldType="String" HeaderText="培训编号" HeaderTextAlign="Center" TextAlign="Left">                        
                     </f:RenderField>
-                    <f:TemplateField ColumnID="tfUnitIds" Width="400px" HeaderText="单位名称" HeaderTextAlign="Center"
-                        TextAlign="left" ExpandUnusedSpace="true"> 
+                    <f:RenderField Width="300px" ColumnID="TrainTitle" DataField="TrainTitle" SortField="TrainTitle"
+                        FieldType="String" HeaderText="标题" HeaderTextAlign="Center" TextAlign="Left">                        
+                    </f:RenderField>
+                    <f:TemplateField ColumnID="tfUnitIds" Width="260px" HeaderText="单位名称" HeaderTextAlign="Center"
+                        TextAlign="left"> 
                         <ItemTemplate>
                             <asp:Label ID="lblUnitId" runat="server" Text='<%# ConvertUnitName(Eval("UnitIds")) %>'></asp:Label>
                         </ItemTemplate>

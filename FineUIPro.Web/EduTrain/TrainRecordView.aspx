@@ -76,6 +76,14 @@
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1"
                         DataIDField="TrainDetailId" DataKeyNames="TrainDetailId" EnableMultiSelect="false"
                         ShowGridHeader="true" Height="220px" EnableColumnLines="true" >
+                         <Toolbars>
+                            <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
+                                <Items>
+                                   <f:Button ID="btnTrainTest" runat="server" ToolTip="培训试卷" Hidden="true"
+                        Icon="ApplicationFormEdit" OnClick="btnTrainTest_Click"></f:Button>
+                                </Items>
+                            </f:Toolbar>
+                        </Toolbars>
                         <Columns>
                             <f:RowNumberField HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center" />
                             <f:RenderField Width="180px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
@@ -100,6 +108,7 @@
                         </Columns>
                         <Listeners>
                             <f:Listener Event="dataload" Handler="onGridDataLoad" />
+                            <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
                         </Listeners>
                     </f:Grid>
                 </Items>
@@ -121,8 +130,7 @@
                     <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
                         OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1">
                     </f:Button>
-                    <f:Button ID="btnTrainTest" runat="server" ToolTip="培训试卷" Hidden="true"
-                        Icon="ApplicationFormEdit" OnClick="btnTrainTest_Click"></f:Button>
+                   
                     <f:ToolbarFill ID="ToolbarFill1" runat="server">
                     </f:ToolbarFill>
                     <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
@@ -139,8 +147,20 @@
         Target="Parent" EnableResize="true" runat="server" IsModal="true"
         Width="1200px" Height="520px">
     </f:Window>
+         <f:Menu ID="Menu1" runat="server">  
+        <f:MenuButton ID="btnMenuView" OnClick="btnMenuView_Click" EnablePostBack="true"
+            runat="server" Text="查看"  Icon="TableGo" Hidden="true">
+        </f:MenuButton>   
+    </f:Menu>
     </form>
     <script type="text/jscript">
+         var menuID = '<%= Menu1.ClientID %>';
+
+        // 返回false，来阻止浏览器右键菜单
+        function onRowContextMenu(event, rowId) {
+            F(menuID).show();  //showAt(event.pageX, event.pageY);
+            return false;
+        }
         function renderCheckResult(value) {
             return value == true ? '合格' : '不合格';
         }

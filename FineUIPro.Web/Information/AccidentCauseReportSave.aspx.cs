@@ -786,11 +786,11 @@ namespace FineUIPro.Web.Information
         {
             /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertInformation_AccidentCauseReportTableCompleted += new EventHandler<HSSEService.DataInsertInformation_AccidentCauseReportTableCompletedEventArgs>(poxy_DataInsertInformation_AccidentCauseReportTableCompleted);
+            poxy.DataInsertInformation_AccidentCauseReportTableCompleted += new EventHandler<BLL.HSSEService.DataInsertInformation_AccidentCauseReportTableCompletedEventArgs>(poxy_DataInsertInformation_AccidentCauseReportTableCompleted);
             var report = from x in Funs.DB.Information_AccidentCauseReport
                          where x.AccidentCauseReportId == accidentCauseReportId 
                          && x.UpState == BLL.Const.UpState_2
-                         select new HSSEService.Information_AccidentCauseReport
+                         select new BLL.HSSEService.Information_AccidentCauseReport
                          {
                              AccidentCauseReportId = x.AccidentCauseReportId,
                              UnitId = x.UnitId,
@@ -820,7 +820,7 @@ namespace FineUIPro.Web.Information
 
             var reportItem = from x in Funs.DB.Information_AccidentCauseReportItem
                              where x.AccidentCauseReportId == accidentCauseReportId 
-                             select new HSSEService.Information_AccidentCauseReportItem
+                             select new BLL.HSSEService.Information_AccidentCauseReportItem
                              {
                                  AccidentCauseReportItemId = x.AccidentCauseReportItemId,
                                  AccidentCauseReportId = x.AccidentCauseReportId,
@@ -871,7 +871,7 @@ namespace FineUIPro.Web.Information
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertInformation_AccidentCauseReportTableCompleted(object sender, HSSEService.DataInsertInformation_AccidentCauseReportTableCompletedEventArgs e)
+        private void poxy_DataInsertInformation_AccidentCauseReportTableCompleted(object sender, BLL.HSSEService.DataInsertInformation_AccidentCauseReportTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

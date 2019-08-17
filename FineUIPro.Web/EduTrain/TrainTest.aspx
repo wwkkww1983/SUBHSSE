@@ -19,16 +19,20 @@
         <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" Title="培训试题" Layout="Fit"
             ShowHeader="false">
             <Items>
-                <f:Grid ID="Grid1" Title="培训试题" ShowHeader="false" EnableCollapse="true" PageSize="10"
-                    ShowBorder="true" AllowPaging="true" IsDatabasePaging="true" runat="server" DataKeyNames="TrainTestId"
-                    DataIDField="TrainTestId" OnPageIndexChange="Grid1_PageIndexChange" AllowFilters="true" SortField="COrder" SortDirection="ASC"
-                    OnFilterChange="Grid1_FilterChange" EnableTextSelection="True" EnableColumnLines="true">
+                <f:Grid ID="Grid1" Title="培训试题" ShowHeader="false" EnableCollapse="true" PageSize="500"
+                    ShowBorder="true" AllowPaging="false" IsDatabasePaging="true" runat="server" DataKeyNames="TrainTestId"
+                    DataIDField="TrainTestId" SortField="COrder" SortDirection="ASC"
+                    EnableTextSelection="True" EnableColumnLines="true">
                     <Toolbars>
                         <f:Toolbar ID="Toolbar3" Position="Top" runat="server">
                             <Items>
                                 <f:TextBox ID="txtQsnContent" runat="server" Label="内容" EmptyText="输入查询条件" AutoPostBack="true"
                                     OnTextChanged="TextBox_TextChanged" Width="300px" LabelWidth="70px" LabelAlign="Right">
                                 </f:TextBox>
+                                <f:ToolbarFill runat="server"></f:ToolbarFill>
+                                <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
+                                EnableAjax="false" DisableControlBeforePostBack="false">
+                            </f:Button>
                             </Items>
                         </f:Toolbar>
                     </Toolbars>
@@ -55,20 +59,6 @@
                             HeaderText="试题解析" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
                         </f:RenderField>
                     </Columns>
-                    <PageItems>
-                        <f:ToolbarSeparator ID="ToolbarSeparator1" runat="server">
-                        </f:ToolbarSeparator>
-                        <f:ToolbarText ID="ToolbarText1" runat="server" Text="每页记录数：">
-                        </f:ToolbarText>
-                        <f:DropDownList runat="server" ID="ddlPageSize" Width="80px" AutoPostBack="true"
-                            OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">
-                            <f:ListItem Text="10" Value="10" />
-                            <f:ListItem Text="15" Value="15" />
-                            <f:ListItem Text="20" Value="20" />
-                            <f:ListItem Text="25" Value="25" />
-                            <f:ListItem Text="所有行" Value="100000" />
-                        </f:DropDownList>
-                    </PageItems>
                 </f:Grid>
             </Items>
         </f:Panel>

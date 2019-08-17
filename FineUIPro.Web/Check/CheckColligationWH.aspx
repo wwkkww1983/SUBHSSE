@@ -63,10 +63,10 @@
                                 LabelAlign="right">
                             </f:TextBox>
                             <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="开始日期" ID="txtStartTime"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="180px" LabelWidth="80px">
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="210px" LabelWidth="80px">
                             </f:DatePicker>
                             <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="结束日期" ID="txtEndTime"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="180px" LabelWidth="80px">
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="210px" LabelWidth="80px">
                             </f:DatePicker>
                             <f:ToolbarFill ID="ToolbarFill2" runat="server">
                             </f:ToolbarFill>
@@ -89,7 +89,7 @@
                             <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="150px" ColumnID="CheckColligationCode" DataField="CheckColligationCode"
+                    <f:RenderField Width="120px" ColumnID="CheckColligationCode" DataField="CheckColligationCode"
                         SortField="CheckColligationCode" FieldType="String" HeaderText="检查编号" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
@@ -97,13 +97,13 @@
                         SortField="CheckCount" FieldType="Int" HeaderText="不合格数" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>                   
-                    <f:RenderField Width="150px" ColumnID="WorkArea" DataField="WorkArea" SortField="WorkArea"
+                    <f:RenderField Width="120px" ColumnID="WorkArea" DataField="WorkArea" SortField="WorkArea"
                         FieldType="String" HeaderText="检查区域" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="220px" ColumnID="UnitName" DataField="UnitName"
+                    <f:RenderField Width="200px" ColumnID="UnitName" DataField="UnitName"
                         SortField="UnitName" FieldType="String" HeaderText="责任单位" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="Unqualified" DataField="Unqualified"
+                    <f:RenderField Width="280px" ColumnID="Unqualified" DataField="Unqualified"
                         SortField="Unqualified" FieldType="String" HeaderText="隐患内容" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
@@ -114,21 +114,21 @@
                         SortField="HiddenDangerType" FieldType="String" HeaderText="隐患类型" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="HiddenDangerLevel" DataField="HiddenDangerLevel"
+                    <f:RenderField Width="90px" ColumnID="HiddenDangerLevel" DataField="HiddenDangerLevel"
                         SortField="HiddenDangerLevel" FieldType="String" HeaderText="隐患级别" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="220px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
                         FieldType="String" HeaderText="责任单位" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="PersonName" DataField="PersonName" SortField="PersonName"
+                    <f:RenderField Width="90px" ColumnID="PersonName" DataField="PersonName" SortField="PersonName"
                         FieldType="String" HeaderText="责任人" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
                    <f:RenderField Width="100px" ColumnID="LimitedDate" DataField="LimitedDate" SortField="LimitedDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="整改限时"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="150px" ColumnID="FlowOperateName" DataField="FlowOperateName"
+                    <f:RenderField Width="120px" ColumnID="FlowOperateName" DataField="FlowOperateName"
                         SortField="FlowOperateName" FieldType="String" HeaderText="状态" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
@@ -188,7 +188,7 @@
         }
 
         function onGridDataLoad(event) {
-            this.mergeColumns(['CheckColligationCode', 'CheckCount', 'CheckTime', 'FlowOperateName'], { depends: true });
+            this.mergeColumns(['CheckColligationCode', 'CheckCount', 'FlowOperateName'], { depends: true });
            
         }
     </script>

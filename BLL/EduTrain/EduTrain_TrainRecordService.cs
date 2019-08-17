@@ -77,6 +77,7 @@ namespace BLL
             Model.EduTrain_TrainRecord newTraining = db.EduTrain_TrainRecord.FirstOrDefault(e => e.TrainingId == training.TrainingId);
             if (newTraining != null)
             {
+                newTraining.TrainingCode = training.TrainingCode;
                 newTraining.TrainTitle = training.TrainTitle;
                 newTraining.TrainContent = training.TrainContent;
                 newTraining.TrainStartDate = training.TrainStartDate;
