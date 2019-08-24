@@ -12,7 +12,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <f:PageManager ID="PageManager1" runat="server" />
+    <f:PageManager ID="PageManager1" runat="server" AutoSizePanelID="SimpleForm1"/>
     <f:Panel ID="Panel1" BodyPadding="5px" runat="server" ShowHeader="false" EnableCollapse="True"
         Title="百万工时安全统计月报">
         <Items>

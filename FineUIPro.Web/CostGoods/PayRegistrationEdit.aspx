@@ -16,7 +16,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <f:PageManager ID="PageManager1" runat="server" />
+    <f:PageManager ID="PageManager1" runat="server" AutoSizePanelID="SimpleForm1"/>
     <f:Panel ID="Panel1" runat="server" Width="1170px" ShowBorder="True" EnableCollapse="true"
         CssClass="mytable" Layout="Table" TableConfigColumns="3" ShowHeader="False" Title="安全费用投入登记">
         <Toolbars>

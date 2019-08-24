@@ -12,7 +12,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <f:PageManager ID="PageManager1" runat="server" />
+        <f:PageManager ID="PageManager1" runat="server" AutoSizePanelID="SimpleForm1"/>
         <f:Window ID="Window1" runat="server" Title="登录表单" IsModal="false" EnableClose="false" EnableCollapse="true"
             WindowPosition="GoldenSection" Width="350px" IconFont="SignIn">
             <Items>

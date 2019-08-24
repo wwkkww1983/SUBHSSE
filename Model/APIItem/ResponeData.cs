@@ -12,9 +12,9 @@ namespace Model
         /// </summary>
         public int code
         {
-           get;
-           set;
-       }
+            get;
+            set;
+        } = 1;
 
        /// <summary>
        /// 消息

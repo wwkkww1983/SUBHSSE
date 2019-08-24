@@ -9,7 +9,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <f:PageManager ID="PageManager1" runat="server" />
+    <f:PageManager ID="PageManager1" runat="server" AutoSizePanelID="SimpleForm1"/>
     <f:TabStrip ID="TabStrip1" Width="860px" Height="430px" ShowBorder="true" TabPosition="Top"
         EnableTabCloseMenu="false" runat="server" ActiveTabIndex="1">
         <Tabs>

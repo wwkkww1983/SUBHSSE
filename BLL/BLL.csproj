@@ -95,7 +95,11 @@
     <Compile Include="Administrative\ManageCheckItemService.cs" />
     <Compile Include="Administrative\ManageCheckService.cs" />
     <Compile Include="Administrative\DriverManagerService.cs" />
-    <Compile Include="APIBLL\UserAPIService.cs" />
+    <Compile Include="API\APIProjectService.cs" />
+    <Compile Include="API\APIBaseInfoService.cs" />
+    <Compile Include="API\APIHazardRegisterService.cs" />
+    <Compile Include="API\APIUnitService.cs" />
+    <Compile Include="API\APIUserService.cs" />
     <Compile Include="BaseInfo\AccidentTypeService.cs" />
     <Compile Include="BaseInfo\CertificateService.cs" />
     <Compile Include="BaseInfo\CheckItemDetailService.cs" />
@@ -148,6 +152,7 @@
     <Compile Include="Check\RegistrationService.cs" />
     <Compile Include="Check\ViolationPersonService.cs" />
     <Compile Include="Check\SupervisionNoticeService.cs" />
+    <Compile Include="API\APIUpLoadFileService.cs" />
     <Compile Include="CostGoods\SubPayRegistrationService.cs" />
     <Compile Include="EduTrain\EduTrain_TrainTestService.cs" />
     <Compile Include="Manager\PerformanceManagementReportService.cs" />
@@ -203,7 +208,7 @@
     <Compile Include="Hazard\Hazard_EnvironmentalRiskListService.cs" />
     <Compile Include="Hazard\Hazard_HazardListService.cs" />
     <Compile Include="Hazard\Hazard_HazardSelectedItemService.cs" />
-    <Compile Include="HiddenInspection\AttachFileService.cs" />
+    <Compile Include="Common\AttachFileService.cs" />
     <Compile Include="HiddenInspection\HSSE_Hazard_CheckSpecialAuditService.cs" />
     <Compile Include="HiddenInspection\HSSE_Hazard_CheckSpecialService.cs" />
     <Compile Include="HiddenInspection\HSSE_Hazard_HazardRegisterRecordService.cs" />

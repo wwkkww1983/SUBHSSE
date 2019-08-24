@@ -10,7 +10,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <f:PageManager ID="PageManager1" runat="server" />
+    <f:PageManager ID="PageManager1" runat="server" AutoSizePanelID="SimpleForm1"/>
     <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" Title="安全措施费使用计划"
         AutoScroll="false" BodyPadding="10px" runat="server" RedStarPosition="BeforeText"
         LabelAlign="Right">

@@ -20,6 +20,7 @@ namespace WebAPI
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             BLL.Funs.ConnString = ConfigurationManager.AppSettings["ConnectionString"];
+            BLL.Funs.PageSize = Convert.ToInt32(ConfigurationManager.AppSettings["PageSize"]);
 
             // 使api返回为json 
             GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();

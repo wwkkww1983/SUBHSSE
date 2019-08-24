@@ -22,8 +22,7 @@
 <TreeNode id="195D508D-E929-4B91-891E-307DC4E4338F" Text="资源来源统计" NavigateUrl="Information/AnalyseResource.aspx" Icon="Page"></TreeNode>
 </TreeNode>
 </TreeNode>
-<TreeNode id="70E51ABF-81C8-49CB-89AC-CF0542A201D6" Text="HSE管理工作报告" NavigateUrl="" Icon="CalendarEdit"><TreeNode id="8051C9AA-801D-4001-9CB6-833CB407A169" Text="HSE月总结" NavigateUrl="Manager/ManagerTotalMonthServer.aspx" Icon="LayoutSidebar"></TreeNode>
-<TreeNode id="D67D1C85-3798-47A9-A0DB-B4DB47FF2E7D" Text="报表上报情况" NavigateUrl="ManagementReport/ReportRemind.aspx" Icon="LayoutSidebar"></TreeNode>
+<TreeNode id="70E51ABF-81C8-49CB-89AC-CF0542A201D6" Text="HSE管理工作报告" NavigateUrl="" Icon="CalendarEdit"><TreeNode id="D67D1C85-3798-47A9-A0DB-B4DB47FF2E7D" Text="报表上报情况" NavigateUrl="ManagementReport/ReportRemind.aspx" Icon="LayoutSidebar"></TreeNode>
 </TreeNode>
 <TreeNode id="CD9FC4C8-4B02-4619-8B02-50DA6AE6146E" Text="企业安全大检查" NavigateUrl="" Icon="DateMagnify"><TreeNode id="1C6F9CA9-FDAC-4CE5-A19C-5536538851E1" Text="安全监督检查报告" NavigateUrl="Supervise/SuperviseCheckReport.aspx" Icon="BorderDraw"></TreeNode>
 <TreeNode id="55976B16-2C33-406E-B514-2FE42D031071" Text="安全监督检查整改" NavigateUrl="Supervise/SuperviseCheckRectify.aspx" Icon="LayoutSidebar"></TreeNode>

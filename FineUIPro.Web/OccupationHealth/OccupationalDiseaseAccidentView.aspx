@@ -10,7 +10,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <f:PageManager ID="PageManager1" runat="server" />
+    <f:PageManager ID="PageManager1" runat="server" AutoSizePanelID="SimpleForm1"/>
     <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" Title="职业病事故" AutoScroll="true"
         BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
         <Rows>

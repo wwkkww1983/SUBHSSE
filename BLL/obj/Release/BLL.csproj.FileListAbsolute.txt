@@ -290,3 +290,4 @@ D:\DepCode\SUBHSSE-API\SUBHSSE\BLL\obj\Release\BLL.csproj.CoreCompileInputs.cach
 D:\DepCode\SUBHSSE-API\SUBHSSE\BLL\obj\Release\BLL.csproj.CopyComplete
 D:\DepCode\SUBHSSE-API\SUBHSSE\BLL\obj\Release\BLL.dll
 D:\DepCode\SUBHSSE-API\SUBHSSE\BLL\obj\Release\BLL.pdb
+D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Release\EmitMapper.dll

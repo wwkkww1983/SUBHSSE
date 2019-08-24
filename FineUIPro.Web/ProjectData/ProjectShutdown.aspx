@@ -5,6 +5,12 @@
 <head runat="server">
     <title>项目状态及软件关闭</title>
     <link href="../res/css/common.css" rel="stylesheet" type="text/css" />
+      <style type="text/css">
+        .f-grid-row .f-grid-cell-inner {
+            white-space: normal;
+            word-break: break-all;
+        }     
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">

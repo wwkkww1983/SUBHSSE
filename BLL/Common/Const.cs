@@ -2306,5 +2306,12 @@ namespace BLL
         public static string APPCheckSpecial_ApproveCompleted = "3";
 
         #endregion
+
+        #region 移动端菜单
+        /// <summary>
+        /// 安全巡检
+        /// </summary>
+        public const string APP_HazardRegisterMenuId = "F21FFCAA-872A-4995-BB5B-E9C430950845";
+        #endregion
     }
 }

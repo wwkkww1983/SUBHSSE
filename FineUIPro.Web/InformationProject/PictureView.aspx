@@ -9,7 +9,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <f:PageManager ID="PageManager1" runat="server" />
+   <f:PageManager ID="PageManager1" AutoSizePanelID="SimpleForm1" runat="server" />
     <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="true"
         BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
         <Rows>
@@ -21,7 +21,7 @@
                     </f:TextBox>
                 </Items>
             </f:FormRow>
-             <f:FormRow ColumnWidths="5% 95%">
+             <f:FormRow ColumnWidths="5% 90%">
                 <Items>
                      <f:Label ID="Label1" runat="server" Label="图片"></f:Label>
                      <f:Button ID="btnAttachUrl" Text="上传及查看" ToolTip="附件上传及查看" Icon="TableCell" runat="server"

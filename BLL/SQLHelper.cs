@@ -951,6 +951,18 @@ namespace BLL
         }
 
         /// <summary>
+        /// 生成一个新的用于指定表的主键。
+        /// </summary>
+        /// <returns></returns>
+        public static string GetNewID()
+        {
+            lock (newIdLocker)
+            {
+                return Guid.NewGuid().ToString();
+            }
+        }
+
+        /// <summary>
         /// 表数据中的主键最大值
         /// </summary>
         /// <param name="tableName">表名</param>

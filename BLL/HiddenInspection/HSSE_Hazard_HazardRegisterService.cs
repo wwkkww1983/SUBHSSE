@@ -22,6 +22,16 @@ namespace BLL
         }
 
         /// <summary>
+        ///  获取项目风险列表
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static List<Model.HSSE_Hazard_HazardRegister> GetHazardRegisterListByProjectId(string projectId)
+        {
+            return (from x in Funs.DB.HSSE_Hazard_HazardRegister where x.ProjectId == projectId select x).ToList();
+        }
+
+        /// <summary>
         /// 增加危险观察登记信息
         /// </summary>
         /// <param name="hazardRegister">危险观察登记实体</param>

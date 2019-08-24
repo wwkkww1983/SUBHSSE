@@ -10,18 +10,18 @@ namespace Model
     using System.Collections.Generic;
 
     public partial class SUBHSSEDB : System.Data.Linq.DataContext
-    {     
-        ///// <summary>
-        ///// 得到菜单
-        ///// </summary>
-        ///// <param name="unitcode"></param>
-        ///// <param name="isono"></param>
-        ///// <returns></returns>
-        //[Function(Name = "[dbo].[sp_Sys_GetMenuByUserId]")]
-        //public IEnumerable<SpSysMenuItem> SpGetMenuByUserId([Parameter(DbType = "nvarchar(50)")] string UserName, [Parameter(DbType = "nvarchar(50)")] string projectId)
-        //{                        
-        //    IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()), UserName, projectId);
-        //    return (ISingleResult<SpSysMenuItem>)result.ReturnValue;
-        //}
+    {
+        /// <summary>
+        /// 获取当前用户在移动端待办事项
+        /// </summary>
+        /// <param name="unitcode"></param>
+        /// <param name="isono"></param>
+        /// <returns></returns>
+        [Function(Name = "[dbo].[Sp_APP_GetToDoItems]")]
+        public IEnumerable<ToDoItem> Sp_APP_GetToDoItems([Parameter(DbType = "nvarchar(50)")] string projectId, [Parameter(DbType = "nvarchar(50)")] string userId)
+        {
+            IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)MethodInfo.GetCurrentMethod()), projectId, userId);
+            return (ISingleResult<ToDoItem>)result.ReturnValue;
+        }
     }
 }

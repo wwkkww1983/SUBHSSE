@@ -43,20 +43,11 @@ namespace WebAPI.Controllers
             return new Model.ResponeData() { code = 1, message = userInfo.name, data = "" };
         }
 
-        //[HttpPost]
-        //public Model.ResponeData login5([FromBody] Model.UserItem userInfo)
-        //{
-        //    ///登录方法 Model.UserItem
-        //    var user = BLL.LoginService.UserLogOn(userInfo.Account, userInfo.Password);
-        //  //  var userList = BLL.UserService.GetUserList();
-        //    return new Model.ResponeData() { code = 1, message = "xxx", data = user }; 
-        //}
-
         [HttpPost]
-        public Model.ResponeData login6([FromBody] Model.UserItem userInfo)
+        public Model.ResponeData login6()
         {
             ///List<Model.UserItem>
-            var user = BLL.UserAPIService.UserLogOn2(userInfo.Account, userInfo.Password);
+            var user = BLL.APIUserService.UserLogOn2();
             return new Model.ResponeData() { code = 1, message = "xxx", data = user };
         }
     }

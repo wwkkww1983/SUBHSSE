@@ -297,3 +297,5 @@ D:\DepCode\SUBHSSE-API\SUBHSSE\WebAPI\obj\Release\WebAPI.csproj.CoreCompileInput
 D:\DepCode\SUBHSSE-API\SUBHSSE\WebAPI\obj\Release\WebAPI.csproj.CopyComplete
 D:\DepCode\SUBHSSE-API\SUBHSSE\WebAPI\obj\Release\WebAPI.dll
 D:\DepCode\SUBHSSE-API\SUBHSSE\WebAPI\obj\Release\WebAPI.pdb
+D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\bin\EmitMapper.dll
+D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\bin\Newtonsoft.Json.pdb

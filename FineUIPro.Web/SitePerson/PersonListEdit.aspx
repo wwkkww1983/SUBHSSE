@@ -24,7 +24,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <f:PageManager ID="PageManager1" runat="server" />
+    <f:PageManager ID="PageManager1" runat="server" AutoSizePanelID="SimpleForm1"/>
     <f:Form ID="Form2" LabelAlign="Right" MessageTarget="Qtip" RedStarPosition="BeforeText"
         LabelWidth="90px" BodyPadding="5px" ShowBorder="false" ShowHeader="false" runat="server"
         AutoScroll="true" EnableCollapse="true">

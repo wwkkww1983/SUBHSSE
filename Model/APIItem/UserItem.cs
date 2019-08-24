@@ -64,6 +64,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 单位名称
+        /// </summary>
+        public string UnitName
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 当前项目ID
         /// </summary>
         public string LoginProjectId
@@ -91,6 +99,14 @@ namespace Model
         /// 电话
         /// </summary>
         public string Telephone
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 是否本部
+        /// </summary>
+        public string IsOffice
         {
             get;
             set;

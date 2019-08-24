@@ -59,6 +59,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIItem\BaseInfoItem.cs" />
+    <Compile Include="APIItem\ProjectItem.cs" />
+    <Compile Include="APIItem\Hazard_HazardRegisterItem.cs" />
+    <Compile Include="APIItem\UnitItem.cs" />
+    <Compile Include="APIItem\ToDoItem.cs" />
     <Compile Include="APIItem\UserItem.cs" />
     <Compile Include="Chart\DataSourceChart.cs" />
     <Compile Include="Chart\DataSourcePoint.cs" />

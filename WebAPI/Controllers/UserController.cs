@@ -4,47 +4,87 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using BLL;
 
 namespace WebAPI.Controllers
 {
     public class UserController : ApiController
     {
+        #region 根据账号或手机号码登录方法
         /// <summary>
         /// 登录方法
         /// </summary>
         /// <param name="userInfo"></param>
         /// <returns></returns>
-        [HttpPost]      
+        [HttpPost]
         public Model.ResponeData postLoginOn([FromBody] Model.UserItem userInfo)
         {
             ///登录方法 Model.UserItem
-            string msg = "账号密码不匹配！";
-            int code= 1;
-            object data = new object();
+            var responeData = new Model.ResponeData
+            {
+                message = "账号密码不匹配！"
+            };
             try
             {
-                var user = UserAPIService.UserLogOn(userInfo);
+                var user = BLL.APIUserService.UserLogOn(userInfo);
                 if (user != null)
                 {
-                    msg = "登录成功！";
+                    responeData.message = "登录成功！";
                 }
-                data = user;
+                responeData.data = user;
             }
             catch (Exception ex)
             {
-                code = 0;
-                msg = ex.Message;
+                responeData.code = 0;
+                responeData.message = ex.Message;
             }
 
-            return new Model.ResponeData() { code = code, message = msg, data = data };
+            return responeData;
         }
+        #endregion
 
-
-        public Model.ResponeData getUser(string userId)
+        #region 根据userid获取用户信息
+        /// <summary>
+        /// 根据userid获取用户信息
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getUserByUserId(string userId)
         {
-            var getUser = UserAPIService.getUserByUserId(userId);
-            return new Model.ResponeData() { code = 1, message = "", data = getUser };
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = BLL.APIUserService.getUserByUserId(userId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
         }
+        #endregion
+
+        #region 根据projectId、unitid获取用户信息
+        /// <summary>
+        /// 根据projectId、unitid获取用户信息
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getUserByProjectIdUnitId(string projectId, string unitId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = BLL.APIUserService.getUserByProjectIdUnitId(projectId, unitId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
     }
 }

@@ -21,7 +21,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <f:PageManager ID="PageManager1" runat="server" />
+        <f:PageManager ID="PageManager1" runat="server" AutoSizePanelID="SimpleForm1"/>
         <f:Grid ID="Grid1" runat="server" ShowHeader="false" ShowBorder="true" Title="文件上传"
             Width="650px" Height="360px" EnableColumnLines="true"
             EnableCollapse="false" EnableCheckBoxSelect="false" EmptyText="尚未上传文件"

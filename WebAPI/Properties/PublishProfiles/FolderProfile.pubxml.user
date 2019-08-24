@@ -6,7 +6,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>D:\DepCode\SUBHSSE-WPI\SUBHSSE\WebAPI\bin\Release\Publish</_PublishTargetUrl>
+    <_PublishTargetUrl>E:\WebApi</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="Areas/HelpPage/HelpPage.css">
@@ -79,13 +79,16 @@
       <publishTime>09/10/2013 16:29:20</publishTime>
     </File>
     <File Include="bin/BLL.dll">
-      <publishTime>08/10/2019 13:42:39</publishTime>
+      <publishTime>08/24/2019 14:23:24</publishTime>
     </File>
     <File Include="bin/BLL.dll.config">
-      <publishTime>08/10/2019 13:37:00</publishTime>
+      <publishTime>08/17/2019 10:51:41</publishTime>
     </File>
     <File Include="bin/BLL.pdb">
-      <publishTime>08/10/2019 13:42:39</publishTime>
+      <publishTime>08/24/2019 14:23:24</publishTime>
+    </File>
+    <File Include="bin/EmitMapper.dll">
+      <publishTime>05/10/2011 13:28:12</publishTime>
     </File>
     <File Include="bin/FineUIPro.dll">
       <publishTime>12/05/2018 14:46:58</publishTime>
@@ -97,10 +100,10 @@
       <publishTime>07/25/2012 11:48:56</publishTime>
     </File>
     <File Include="bin/Model.dll">
-      <publishTime>08/10/2019 13:42:36</publishTime>
+      <publishTime>08/24/2019 14:23:22</publishTime>
     </File>
     <File Include="bin/Model.pdb">
-      <publishTime>08/10/2019 13:42:36</publishTime>
+      <publishTime>08/24/2019 14:23:22</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>11/27/2018 18:07:34</publishTime>
@@ -277,10 +280,10 @@
       <publishTime>02/01/2018 12:20:56</publishTime>
     </File>
     <File Include="bin/WebAPI.dll">
-      <publishTime>08/10/2019 13:42:39</publishTime>
+      <publishTime>08/24/2019 14:23:25</publishTime>
     </File>
     <File Include="bin/WebAPI.pdb">
-      <publishTime>08/10/2019 13:42:39</publishTime>
+      <publishTime>08/24/2019 14:23:25</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>01/23/2014 13:57:34</publishTime>
@@ -370,7 +373,7 @@
       <publishTime>08/10/2019 11:40:38</publishTime>
     </File>
     <File Include="Scripts/jquery-3.3.1.js">
-      <publishTime>08/10/2019 11:40:39</publishTime>
+      <publishTime>08/20/2019 12:34:05</publishTime>
     </File>
     <File Include="Scripts/jquery-3.3.1.min.js">
       <publishTime>08/10/2019 11:40:39</publishTime>
@@ -391,7 +394,7 @@
       <publishTime>08/10/2019 11:40:47</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>08/10/2019 11:40:35</publishTime>
+      <publishTime>08/17/2019 16:08:56</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>08/10/2019 11:40:35</publishTime>
@@ -406,7 +409,7 @@
       <publishTime>08/10/2019 11:40:35</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/10/2019 13:42:40</publishTime>
+      <publishTime>08/24/2019 14:23:53</publishTime>
     </File>
   </ItemGroup>
 </Project>

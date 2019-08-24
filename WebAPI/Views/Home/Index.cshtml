@@ -24,16 +24,4 @@
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
     </div>
 </div>
-<div id="login" style="color:red">click</div>
-<span id="span"></span>
-@section scripts{
-    <script>
-        $("#login").click(function () {
-            $.post("http://localhost:7040/api/values/PostLogin", { username: "1", pwd: "2" }, function (result) {
-                $("#span").html(result);
-            });
-        })
-
-    </script>
-}
 

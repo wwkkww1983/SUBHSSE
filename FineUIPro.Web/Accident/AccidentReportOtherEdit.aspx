@@ -30,7 +30,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <f:PageManager ID="PageManager1" runat="server" />
+    <f:PageManager ID="PageManager1" runat="server" AutoSizePanelID="SimpleForm1"/>
     <f:Panel ID="Panel2" runat="server" Height="80px" Width="980px" ShowBorder="false"
         Title="事故调查处理报告表头" Layout="Table" TableConfigColumns="3" ShowHeader="false" BodyPadding="1px">
         <Items>

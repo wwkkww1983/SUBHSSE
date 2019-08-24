@@ -95,6 +95,15 @@ namespace BLL
         }
 
         /// <summary>
+        /// 每页数量
+        /// </summary>
+        public static int PageSize
+        {
+            get;
+            set;
+        } = 15;
+
+        /// <summary>
         /// 数据库上下文。
         /// </summary>
         public static Model.SUBHSSEDB DB

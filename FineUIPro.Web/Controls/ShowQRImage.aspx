@@ -25,7 +25,7 @@
 </head>
 <body>
     <form id="form1" runat="server">   
-    <f:PageManager ID="PageManager1" runat="server" />
+    <f:PageManager ID="PageManager1" runat="server" AutoSizePanelID="SimpleForm1"/>
         <f:ContentPanel ID="ContentPanel1" runat="server" ShowHeader="false" ShowBorder="false">
             <table width="100%">                            
                 <tr runat="server" id="trImageUrl" align="center">
