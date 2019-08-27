@@ -40,7 +40,7 @@ namespace WebAPI.Controllers
                     HttpPostedFile file = files[key];//file.ContentLength文件长度
                     if (!string.IsNullOrEmpty(file.FileName))
                     {
-                        string fileName = BLL.Funs.GetNewFileName() + Path.GetExtension(file.FileName);
+                        string fileName = BLL.SQLHelper.GetNewID()+ Path.GetExtension(file.FileName);
                         file.SaveAs(localRoot + fileName);
                         if (string.IsNullOrEmpty(reUrl))
                         {

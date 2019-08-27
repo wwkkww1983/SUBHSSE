@@ -77,8 +77,8 @@ namespace WebAPI.Controllers
             try
             {
                 ///总数
-                var getDataList = BLL.HSSE_Hazard_HazardRegisterService.GetHazardRegisterListByProjectId(projectId);
-                int tatalCount = getDataList.Count;
+                var getDataList = BLL.Funs.DB.HSSE_Hazard_HazardRegister.Where(x => x.ProjectId == projectId);
+                int tatalCount = getDataList.Count();
                 ///待整改
                 int count1 = getDataList.Where(x => x.States == "1").Count();
                 ///待确认
@@ -112,8 +112,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                BLL.APIHazardRegisterService.SaveHazardRegister(hazardRegister);
-                responeData.message = "保存成功！";              
+                BLL.APIHazardRegisterService.SaveHazardRegister(hazardRegister);                 
             }
             catch (Exception ex)
             {

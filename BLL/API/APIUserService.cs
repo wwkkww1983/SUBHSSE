@@ -41,40 +41,18 @@ namespace BLL
             IQueryable <Model.View_Sys_User> users =null;
             if (!string.IsNullOrEmpty(projectId))
             {
-                if (!string.IsNullOrEmpty(unitId))
-                {
-                    users = (from x in Funs.DB.View_Sys_User
-                             join y in Funs.DB.Project_ProjectUser on x.UserId equals y.UserId
-                             join u in Funs.DB.Project_ProjectUnit on new { y.ProjectId, y.UnitId } equals new { u.ProjectId, u.UnitId }
-                             where y.ProjectId == projectId && x.IsAuditFlow == true && (u.UnitId == unitId || u.UnitType == BLL.Const.ProjectUnitType_1 || u.UnitType == BLL.Const.ProjectUnitType_3 || u.UnitType == BLL.Const.ProjectUnitType_4)
-                             orderby x.RoleCode, x.UserCode
-                             select x);
-                }
-                else
-                {
-                    users = (from x in Funs.DB.View_Sys_User
-                             join y in Funs.DB.Project_ProjectUser on x.UserId equals y.UserId              
-                             where y.ProjectId == projectId && x.IsAuditFlow == true
-                             orderby x.UnitCode, x.RoleCode, x.UserCode
-                             select x);
-                }
+                users = (from x in Funs.DB.View_Sys_User
+                         join y in Funs.DB.Project_ProjectUser on x.UserId equals y.UserId
+                         where y.ProjectId == projectId && x.IsAuditFlow == true && (x.UnitId == unitId || unitId == null)
+                         orderby x.RoleCode, x.UserCode
+                         select x);
             }
             else
             {
-                if (!string.IsNullOrEmpty(unitId))
-                {
-                    users = (from x in Funs.DB.View_Sys_User                          
-                             where x.IsPost == true && x.IsAuditFlow == true && x.UnitId == unitId
-                             orderby x.UserCode
-                             select x);
-                }
-                else
-                {
-                    users = (from x in Funs.DB.View_Sys_User
-                             where x.IsPost == true && x.IsAuditFlow == true
-                             orderby x.UserCode
-                             select x);
-                }
+                users = (from x in Funs.DB.View_Sys_User
+                         where x.IsPost == true && x.IsAuditFlow == true && (x.UnitId == unitId || unitId == null)
+                         orderby x.UserCode
+                         select x);
             }
             return ObjectMapperManager.DefaultInstance.GetMapper<List<Model.View_Sys_User>, List<Model.UserItem>>().Map(users.ToList());
         }
