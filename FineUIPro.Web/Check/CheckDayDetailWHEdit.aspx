@@ -52,7 +52,8 @@
                     <f:DropDownList ID="drpUnit" runat="server" Label="责任单位" ShowRedStar="true" Required="true"
                         AutoPostBack="true" OnSelectedIndexChanged="drpUnit_SelectedIndexChanged">
                     </f:DropDownList>
-                    <f:DropDownList ID="drpPerson" runat="server" Label="责任人" ShowRedStar="true" Required="true">
+                    <f:DropDownList ID="drpPerson" runat="server" Label="责任人" ShowRedStar="true" 
+                        Required="true" EnableEdit="true">
                     </f:DropDownList>
                 </Items>
             </f:FormRow>

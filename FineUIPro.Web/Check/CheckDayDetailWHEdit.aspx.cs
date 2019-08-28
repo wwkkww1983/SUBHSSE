@@ -86,7 +86,7 @@ namespace FineUIPro.Web.Check
             ///单位下拉框
             BLL.UnitService.InitUnitDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, false);
             //责任人
-            BLL.PersonService.InitPersonByProjectUnitDropDownList(this.drpPerson, this.CurrUser.LoginProjectId, this.drpUnit.SelectedValue, true);
+            BLL.UserService.InitUserProjectIdUnitIdDropDownList(this.drpPerson, this.CurrUser.LoginProjectId, this.drpUnit.SelectedValue, true);
             //隐患级别
             BLL.ConstValue.InitConstValueDropDownList(this.drpHiddenDangerLevel, ConstValue.Group_HiddenDangerLevel, true);
         }
@@ -176,7 +176,8 @@ namespace FineUIPro.Web.Check
         {
             if (this.drpUnit.SelectedValue != BLL.Const._Null)
             {
-                BLL.PersonService.InitPersonByProjectUnitDropDownList(this.drpPerson, this.CurrUser.LoginProjectId, this.drpUnit.SelectedValue, false);
+                this.drpPerson.Items.Clear();
+                BLL.UserService.InitUserProjectIdUnitIdDropDownList(this.drpPerson, this.CurrUser.LoginProjectId, this.drpUnit.SelectedValue, false);
             }
         }
 

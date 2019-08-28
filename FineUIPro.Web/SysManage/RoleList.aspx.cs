@@ -48,7 +48,7 @@
             }
             if (!string.IsNullOrEmpty(this.txtRoleTypeName.Text.Trim()))
             {
-                strSql += " AND RoleTypeName LIKE @RoleTypeName";
+                strSql += " AND Const13.ConstText LIKE @RoleTypeName";
                 listStr.Add(new SqlParameter("@RoleTypeName", "%" + this.txtRoleTypeName.Text.Trim() + "%"));
             }
             SqlParameter[] parameter = listStr.ToArray();

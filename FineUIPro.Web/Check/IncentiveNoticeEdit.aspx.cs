@@ -94,6 +94,7 @@ namespace FineUIPro.Web.Check
                             {
                                 this.drpTeamGroup.SelectedValue = incentiveNotice.TeamGroupId;
                             }
+
                             BLL.PersonService.InitPersonByProjectUnitDropDownList(this.drpPerson, this.ProjectId, incentiveNotice.UnitId, true);
                             if (!string.IsNullOrEmpty(incentiveNotice.PersonId))
                             {
