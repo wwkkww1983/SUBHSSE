@@ -197,6 +197,10 @@ namespace FineUIPro.Web.EduTrain
             {
                 trainingItem.AnswerItems = String.Join(",", DropDownBox2.Values);
             }
+            else
+            {
+                trainingItem.AnswerItems = string.Empty;
+            }
             if (String.IsNullOrEmpty(TrainingItemId))
             {
                 trainingItem.TrainingItemId = SQLHelper.GetNewID(typeof(Model.Training_TestTrainingItem));
@@ -294,7 +298,23 @@ namespace FineUIPro.Web.EduTrain
             this.trC.Hidden = false;
             this.trD.Hidden = false;
             this.trE.Hidden = false;
+
+            this.txtAItem.Text = string.Empty;
+            this.txtBItem.Text = string.Empty;
+            this.txtCItem.Text = string.Empty;
+            this.txtDItem.Text = string.Empty;
+            this.txtEItem.Text = string.Empty;
+
             string testType = this.rblTestType.SelectedValue;
+            System.Web.UI.WebControls.ListItem[] myList2 = BLL.TestTrainingItemService.GetAnswerItemsList(testType);
+            RadioButtonList2.DataTextField = "Text";
+            RadioButtonList2.DataValueField = "Value";
+            RadioButtonList2.DataSource = myList2;
+            RadioButtonList2.DataBind();
+
+            DropDownBox2.Text = string.Empty;
+            DropDownBox2.Values = null;
+
             if (testType == "1")
             {
                 this.lbScore.Text = "1";
@@ -313,12 +333,6 @@ namespace FineUIPro.Web.EduTrain
                 this.txtAItem.Text = "对";
                 this.txtBItem.Text = "错";
             }
-
-            System.Web.UI.WebControls.ListItem[] myList2 = BLL.TestTrainingItemService.GetAnswerItemsList(testType);
-            RadioButtonList2.DataTextField = "Text";
-            RadioButtonList2.DataValueField = "Value";
-            RadioButtonList2.DataSource = myList2;
-            RadioButtonList2.DataBind();
         }
     }
 }

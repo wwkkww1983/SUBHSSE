@@ -64,7 +64,7 @@
                                 <f:CheckBox runat="server" Label="记住" ID="ckRememberMe" Margin="5px 0 0 0"></f:CheckBox>                                
                             </Items>
                         </f:Panel>
-                        <f:Panel ID="Panel4" ShowBorder="false" ShowHeader="false" Layout="HBox" BoxConfigAlign="Stretch" runat="server" Margin="70px 160px 0 350px">
+                        <f:Panel ID="Panel4" ShowBorder="false" ShowHeader="false" Layout="HBox" BoxConfigAlign="Stretch" runat="server" Margin="70px 160px 0 400px">
                             <Items>   
                                 <f:Label ID="lbSubName" runat="server" CssClass="text"></f:Label>                               
                             </Items>

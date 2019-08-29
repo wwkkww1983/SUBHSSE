@@ -21,8 +21,8 @@
     <f:Panel ID="Panel1" runat="server" ShowBorder="false" ShowHeader="false" Layout="Region">
         <Items>
             <f:Panel runat="server" ID="panelLeftRegion" RegionPosition="Left" RegionSplit="true"
-                EnableCollapse="true" Width="250" Title="考试试题库" TitleToolTip="考试试题库" ShowBorder="true"
-                ShowHeader="false" AutoScroll="true" BodyPadding="5px" IconFont="ArrowCircleLeft"
+                EnableCollapse="true" Width="210px" Title="考试试题库" TitleToolTip="考试试题库" ShowBorder="true"
+                ShowHeader="false" AutoScroll="true" BodyPadding="2px" IconFont="ArrowCircleLeft"
                 Layout="Fit">
                 <Items>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
@@ -88,16 +88,16 @@
                         </Toolbars>
                         <Columns>                         
                             <f:RenderField ColumnID="TrainingItemCode" DataField="TrainingItemCode" SortField="TrainingItemCode" 
-                                Width="90px" FieldType="String" HeaderText="编号" HeaderTextAlign="Center" TextAlign="left">
+                                Width="80px" FieldType="String" HeaderText="编号" HeaderTextAlign="Center" TextAlign="left">
                             </f:RenderField>
                             <f:RenderField ColumnID="Abstracts" DataField="Abstracts" SortField="Abstracts" 
                                 Width="150px" ExpandUnusedSpace="true" FieldType="String" HeaderText="教材内容" HeaderTextAlign="Center" TextAlign="left">
                             </f:RenderField>
                              <f:RenderField ColumnID="WorkPostNames" DataField="WorkPostNames" SortField="WorkPostNames" 
-                                Width="220px"  FieldType="String" HeaderText="适合岗位" HeaderTextAlign="Center" TextAlign="left">
+                                Width="250px"  FieldType="String" HeaderText="适合岗位" HeaderTextAlign="Center" TextAlign="left">
                             </f:RenderField> 
                              <f:RenderField ColumnID="TestTypeName" DataField="TestTypeName" SortField="TestTypeName" 
-                                Width="80px"  FieldType="String" HeaderText="题型" HeaderTextAlign="Center" TextAlign="left">
+                                Width="70px"  FieldType="String" HeaderText="题型" HeaderTextAlign="Center" TextAlign="left">
                             </f:RenderField>     
                         </Columns>
                         <Listeners>
@@ -124,7 +124,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="考试试题" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="400px" Height="200px">
+        Width="600px" Height="350px">
     </f:Window>
     <f:Window ID="Window2" Title="考试试题科详情" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="true"

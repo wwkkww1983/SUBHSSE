@@ -38,19 +38,19 @@
                 <Columns>
                     <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
                         TextAlign="Center" />
-                     <f:RenderField Width="100px" ColumnID="CardNo" DataField="CardNo" SortField="CardNo"
+                     <f:RenderField Width="120px" ColumnID="CardNo" DataField="CardNo" SortField="CardNo"
                         HeaderText="编号" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                      <f:RenderField Width="90px" ColumnID="PersonName" DataField="PersonName" SortField="PersonName"
                         HeaderText="姓名" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="150px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
-                        HeaderText="单位" HeaderTextAlign="Center" TextAlign="Left">
+                    <f:RenderField Width="250px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
+                        HeaderText="单位" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="DepartName" DataField="DepartName" SortField="DepartName"
+                   <%-- <f:RenderField Width="100px" ColumnID="DepartName" DataField="DepartName" SortField="DepartName"
                         HeaderText="部门" HeaderTextAlign="Center" TextAlign="Left">
-                    </f:RenderField>
-                     <f:RenderField Width="230px" ColumnID="WorkPostName" DataField="WorkPostName" SortField="WorkPostName"
+                    </f:RenderField>--%>
+                     <f:RenderField Width="180px" ColumnID="WorkPostName" DataField="WorkPostName" SortField="WorkPostName"
                         HeaderText="岗位" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="100px" ColumnID="TestCount" DataField="TestCount" SortField="TestCount"
