@@ -64,6 +64,30 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+        
+        #region 根据unitId获取用户信息
+        /// <summary>
+        /// 根据unitId获取用户信息
+        /// </summary>
+        /// <param name="unitid"></param>
+        /// <returns></returns>
+        public Model.ResponeData getUserByUnitid(string unitId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = BLL.APIUserService.getUserByUnitId(unitId);
+                responeData.data = new { getDataList.Count, getDataList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
 
         #region 根据projectId、unitid获取用户信息
         /// <summary>

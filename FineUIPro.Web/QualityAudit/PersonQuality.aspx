@@ -78,11 +78,11 @@
                         SortField="CertificateNo" FieldType="String" HeaderText="证书编号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="SendDate" DataField="SendDate" SortField="SendDate"
+                    <f:RenderField Width="100px" ColumnID="SendDate" DataField="SendDate" SortField="SendDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="发证时间"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="LimitDate" DataField="LimitDate" SortField="LimitDate"
+                    <f:RenderField Width="100px" ColumnID="LimitDate" DataField="LimitDate" SortField="LimitDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="有效期至"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
@@ -94,7 +94,7 @@
                         SortField="SendUnit" FieldType="String" HeaderText="发证单位" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:WindowField TextAlign="Center" Width="90px" WindowID="WindowAtt" HeaderText="证书扫描件"
+                    <f:WindowField TextAlign="Center" Width="90px" WindowID="WindowAtt" HeaderText="扫描件"
                         Text="查看" ToolTip="附件查看" DataIFrameUrlFields="PersonQualityId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonQualityAttachUrl&menuId=EBEA762D-1F46-47C5-9EAD-759E13D9B41C&type=-1"
                         HeaderTextAlign="Center" ColumnID="attWindow" />
                 </Columns>

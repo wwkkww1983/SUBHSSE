@@ -95,10 +95,12 @@
     <Compile Include="Administrative\ManageCheckItemService.cs" />
     <Compile Include="Administrative\ManageCheckService.cs" />
     <Compile Include="Administrative\DriverManagerService.cs" />
+    <Compile Include="API\APIEquipmentQualityService.cs" />
     <Compile Include="API\APIProjectService.cs" />
     <Compile Include="API\APIBaseInfoService.cs" />
     <Compile Include="API\APIHazardRegisterService.cs" />
     <Compile Include="API\APIUnitService.cs" />
+    <Compile Include="API\APIPersonService.cs" />
     <Compile Include="API\APIUserService.cs" />
     <Compile Include="BaseInfo\AccidentTypeService.cs" />
     <Compile Include="BaseInfo\CertificateService.cs" />

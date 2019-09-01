@@ -22,18 +22,6 @@ namespace BLL
                                           orderby x.TypeCode
                                           select new Model.BaseInfoItem { BaseInfoId = x.RegisterTypesId, BaseInfoCode = x.TypeCode, BaseInfoName = x.RegisterTypesName }).ToList();
             return getDataLists;
-            //var mapper = ObjectMapperManager.DefaultInstance.GetMapper<List<Model.HSSE_Hazard_HazardRegisterTypes>, List<Model.BaseInfoItem>>(
-            //   new DefaultMapConfig().MatchMembers((x, y) =>
-            //   {
-            //       if (x == "RegisterTypesId" && y == "BaseInfoId")
-            //       {
-            //           return true;
-            //       }
-            //       return x == y;
-            //   })
-            //   );
-            //return mapper.Map(getHazardRegisterTypes);
-
         }
 
         /// <summary>

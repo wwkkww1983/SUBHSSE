@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using BLL;
 
 namespace WebAPI.Controllers
 {
@@ -20,7 +21,29 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = BLL.APIUnitService.getUnitByUnitId(unitId);
+                responeData.data = APIUnitService.getUnitByUnitId(unitId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region 获取所有单位
+        /// <summary>
+        /// 获取所有单位
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getUnitLists()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIUnitService.getUnitLists();
             }
             catch (Exception ex)
             {
@@ -43,7 +66,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = BLL.APIUnitService.getUnitByProjectIdUnitType(projectId, unitType);
+                responeData.data = APIUnitService.getUnitByProjectIdUnitType(projectId, unitType);
             }
             catch (Exception ex)
             {
@@ -53,6 +76,6 @@ namespace WebAPI.Controllers
 
             return responeData;
         }
-        #endregion
+        #endregion        
     }
 }

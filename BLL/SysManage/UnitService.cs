@@ -44,6 +44,7 @@ namespace BLL
             return (unit != null);
         }
 
+        #region 单位信息维护
         /// <summary>
         /// 添加单位信息
         /// </summary>
@@ -114,6 +115,7 @@ namespace BLL
                 UpdateUnit(newUnit);
             }
         }
+        #endregion
 
         /// <summary>
         /// 获取单位下拉选项

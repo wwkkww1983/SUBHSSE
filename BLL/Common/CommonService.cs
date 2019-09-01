@@ -335,6 +335,24 @@ namespace BLL
         }
         #endregion
 
+        #region 判断UnitId是否本单位
+        /// <summary>
+        /// 判断UnitId是否本单位
+        /// </summary>
+        /// <returns></returns>
+        public static bool GetIsThisUnit(string unitId)
+        {
+            bool isU = false;
+            //本单位
+            var unitThis = Funs.DB.Base_Unit.FirstOrDefault(e => e.IsThisUnit == true && e.UnitId == unitId);
+            if (unitThis != null)
+            {
+                isU = true;
+            }
+            return isU;  
+        }
+        #endregion
+
         #region 根据用户UnitId返回是否 化学内置单位
         /// <summary>
         /// 根据用户UnitId返回对应的UnitId

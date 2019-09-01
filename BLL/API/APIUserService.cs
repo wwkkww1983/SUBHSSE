@@ -32,6 +32,22 @@ namespace BLL
         }
 
         /// <summary>
+        /// 根据unitid获取用户信息
+        /// </summary>
+        /// <param name="unitid"></param>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getUserByUnitId(string unitId)
+        {
+            var getUser = (from x in Funs.DB.Sys_User
+                           join y in Funs.DB.Sys_Role on x.RoleId equals y.RoleId
+                           where x.UnitId == unitId && x.IsPost == true
+                           orderby x.UserName 
+                           select new Model.BaseInfoItem { BaseInfoId = x.UserId, BaseInfoName = x.UserName, BaseInfoCode = x.Telephone }).ToList();
+
+            return getUser;
+        }
+
+        /// <summary>
         /// 根据projectId、unitid获取用户信息
         /// </summary>
         /// <param name="userId"></param>

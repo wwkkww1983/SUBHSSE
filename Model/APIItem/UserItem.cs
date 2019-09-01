@@ -56,6 +56,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 角色名称
+        /// </summary>
+        public string RoleName
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 单位ID
         /// </summary>
         public string UnitId

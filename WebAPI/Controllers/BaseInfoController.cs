@@ -69,7 +69,7 @@ namespace WebAPI.Controllers
             {
                 var getLists = (from x in Funs.DB.InformationProject_Picture
                                 join y in Funs.DB.AttachFile on x.PictureId equals y.ToKeyId
-                                where x.States == BLL.Const.State_2 && y.AttachUrl != null
+                                where x.States == Const.State_2 && y.AttachUrl != null
                                 orderby x.UploadDate descending
                                 select new Model.BaseInfoItem { BaseInfoId = x.PictureId, BaseInfoName = x.Title, ImageUrl = y.AttachUrl.Replace('\\', '/') }).Take(5).ToList();
                 responeData.data = getLists;
@@ -86,20 +86,96 @@ namespace WebAPI.Controllers
 
         #region 根据通知通告
         /// <summary>
-        ///  根据通知通告
+        /// 获取头条通知
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="projectId"></param>
         /// <returns></returns>
-        public Model.ResponeData getNotices(string projectId)
+        public Model.ResponeData getTopNotices()
         {
             var responeData = new Model.ResponeData();
             try
             {
-                var noticeList = (from x in BLL.Funs.DB.InformationProject_Notice
-                                  join y in BLL.Funs.DB.AttachFile on x.NoticeId equals y.ToKeyId
-                                  where x.AccessProjectId.Contains(projectId)
-                                  select new Model.BaseInfoItem { BaseInfoId = x.NoticeId, BaseInfoCode = x.NoticeCode, BaseInfoName = x.NoticeTitle, ImageUrl = y.AttachUrl.Replace('\\','/') }).ToList();
-                responeData.data = new { noticeList.Count, noticeList };
+                string returnValue = string.Empty;
+                var notice = (from x in Funs.DB.InformationProject_Notice
+                              where x.IsRelease== true
+                              orderby x.CompileDate descending
+                              select x).FirstOrDefault();
+
+                if (notice != null)
+                {
+                    returnValue = notice.NoticeTitle;
+                }
+
+                responeData.data = new { returnValue };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
+        ///  根据通知通告
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getNotices(string projectId, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var noticeList = (from x in Funs.DB.InformationProject_Notice
+                                  join y in Funs.DB.AttachFile on x.NoticeId equals y.ToKeyId
+                                  where x.AccessProjectId.Contains(projectId) && x.IsRelease == true
+                                  select new Model.NoticeItem
+                                  {
+                                      NoticeId = x.NoticeId,
+                                      NoticeCode = x.NoticeCode,
+                                      NoticeTitle = x.NoticeTitle,
+                                      ReleaseDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ReleaseDate)
+                                  }).ToList();
+
+                int pageCount = noticeList.Count();
+                if (pageCount > 0)
+                {
+                    noticeList = noticeList.OrderByDescending(u => u.ReleaseDate).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                }
+                responeData.data = new { pageCount, noticeList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
+        ///  根据通知通告
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getNoticesByNoticeId(string noticeId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var notice = (from x in Funs.DB.InformationProject_Notice
+                              where x.NoticeId == noticeId
+                              select new Model.NoticeItem
+                              {
+                                  NoticeId = x.NoticeId,
+                                  NoticeCode = x.NoticeCode,
+                                  NoticeTitle = x.NoticeTitle,
+                                  ReleaseDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ReleaseDate),
+                                  MainContent = x.MainContent,
+                                  AttachUrl = Funs.DB.AttachFile.FirstOrDefault(y => y.ToKeyId == x.NoticeId).AttachUrl.Replace("\\", "/")
+                              });
+                responeData.data = new { notice };
             }
             catch (Exception ex)
             {

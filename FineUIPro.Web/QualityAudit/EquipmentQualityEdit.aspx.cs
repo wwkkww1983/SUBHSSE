@@ -255,6 +255,7 @@ namespace FineUIPro.Web.QualityAudit
         //生成二维码方法一
         private void CreateCode_Simple(string nr)
         {
+            nr = "equipment$" + nr;
             var equipmentQuality = BLL.EquipmentQualityService.GetEquipmentQualityById(this.EquipmentQualityId);
             if (equipmentQuality != null)
             {

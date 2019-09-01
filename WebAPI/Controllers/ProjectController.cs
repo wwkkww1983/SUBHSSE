@@ -31,5 +31,28 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region 根据userid获取用户参与项目
+        /// <summary>
+        /// 根据userid获取用户参与项目
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getALLProjectsByUserId(string userId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = BLL.APIProjectService.getALLProjectsByUserId(userId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
     }
 }

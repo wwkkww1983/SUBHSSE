@@ -21,6 +21,20 @@ namespace BLL
         }
 
         /// <summary>
+        /// 获取所有单位信息
+        /// </summary>
+        /// <param name="unitId"></param>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getUnitLists()
+        {
+            var units = (from x in Funs.DB.Base_Unit
+                         where  x.IsHide == null || x.IsHide == false
+                         orderby x.UnitCode
+                         select new Model.BaseInfoItem {BaseInfoId=x.UnitId,BaseInfoCode=x.UnitCode,BaseInfoName=x.UnitName }).ToList();
+            return units;
+        }
+
+        /// <summary>
         /// 根据projectId、unitType获取单位信息（总包1;施工分包2;监理3;业主4;其他5）
         /// </summary>
         /// <param name="unitId"></param>

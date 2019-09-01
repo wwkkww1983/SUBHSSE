@@ -33,5 +33,21 @@ namespace BLL
             
             return ObjectMapperManager.DefaultInstance.GetMapper<List<Model.Base_Project>, List<Model.ProjectItem>>().Map(projects);
         }
+
+        /// <summary>
+        /// 根据userId获取用户信息
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static List<Model.ProjectItem> getALLProjectsByUserId(string userId)
+        {
+            var projects = (from x in Funs.DB.Project_ProjectUser
+                            join y in Funs.DB.Base_Project on x.ProjectId equals y.ProjectId
+                            where x.UserId == userId
+                            orderby y.ProjectCode
+                            select y).ToList();
+
+            return ObjectMapperManager.DefaultInstance.GetMapper<List<Model.Base_Project>, List<Model.ProjectItem>>().Map(projects);
+        }
     }
 }

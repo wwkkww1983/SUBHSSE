@@ -495,22 +495,33 @@ namespace FineUIPro.Web.SitePerson
             {
                 this.SaveData();
             }
-            this.CreateCode_Simple(this.txtCardNo.Text.Trim());
+            var unit = BLL.CommonService.GetIsThisUnit();
+            if (unit != null && unit.UnitId == BLL.Const.UnitId_TCC_)
+            {
+                this.CreateCode_Simple(this.txtCardNo.Text.Trim());
+            }
+            else
+            {
+                this.CreateCode_Simple(this.txtIdentityCard.Text.Trim());
+            }
         }
 
         //生成二维码方法一
         private void CreateCode_Simple(string nr)
         {
+            nr = "person&" + nr;
             var person = BLL.PersonService.GetPersonById(this.PersonId);
             if (person != null)
             {
                 BLL.UploadFileService.DeleteFile(Funs.RootPath, person.QRCodeAttachUrl);//删除二维码
                 string imageUrl = string.Empty;
-                QRCodeEncoder qrCodeEncoder = new QRCodeEncoder();
-                qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
-                qrCodeEncoder.QRCodeScale = nr.Length;
-                qrCodeEncoder.QRCodeVersion = 0;
-                qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.M;
+                QRCodeEncoder qrCodeEncoder = new QRCodeEncoder
+                {
+                    QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE,
+                    QRCodeScale = nr.Length,
+                    QRCodeVersion = 0,
+                    QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.M
+                };
                 System.Drawing.Image image = qrCodeEncoder.Encode(nr, Encoding.UTF8);
 
                 string filepath = Server.MapPath("~/") + BLL.UploadFileService.QRCodeImageFilePath;
