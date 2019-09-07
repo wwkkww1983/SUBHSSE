@@ -10,7 +10,7 @@
 namespace FineUIPro.Web.SysManage {
     
     
-    public partial class UserList {
+    public partial class UserList { 
         
         /// <summary>
         /// form1 控件。

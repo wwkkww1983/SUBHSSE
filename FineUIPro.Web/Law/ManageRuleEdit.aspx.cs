@@ -184,7 +184,7 @@ namespace FineUIPro.Web.Law
         {
             /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertLaw_ManageRuleTableCompleted += new EventHandler<BLL.HSSEService.DataInsertLaw_ManageRuleTableCompletedEventArgs>(poxy_DataInsertLaw_ManageRuleTableCompleted);
+            poxy.DataInsertLaw_ManageRuleTableCompleted += new EventHandler<HSSEService.DataInsertLaw_ManageRuleTableCompletedEventArgs>(poxy_DataInsertLaw_ManageRuleTableCompleted);
             var manageRule = from x in Funs.DB.View_Law_ManageRule
                              join y in Funs.DB.AttachFile on x.ManageRuleId equals y.ToKeyId
                              where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == false || x.IsBuild == null)
@@ -216,7 +216,7 @@ namespace FineUIPro.Web.Law
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertLaw_ManageRuleTableCompleted(object sender, BLL.HSSEService.DataInsertLaw_ManageRuleTableCompletedEventArgs e)
+        private void poxy_DataInsertLaw_ManageRuleTableCompleted(object sender, HSSEService.DataInsertLaw_ManageRuleTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

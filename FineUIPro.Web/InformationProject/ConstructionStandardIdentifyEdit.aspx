@@ -57,77 +57,77 @@
                     </f:RenderField>
                     <f:GroupField EnableLock="true" HeaderText="对应方案" TextAlign="Center">
                         <Columns>
-                            <f:RenderField Width="40px" ColumnID="IsSelected1" DataField="IsSelected1" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="01" HeaderToolTip="地基处理" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected1" DataField="IsSelected1" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="01(地基处理)" HeaderToolTip="地基处理" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected2" DataField="IsSelected2" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="02" HeaderToolTip="打桩" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected2" DataField="IsSelected2" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="02(打桩)" HeaderToolTip="打桩" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected3" DataField="IsSelected3" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="03" HeaderToolTip="基坑支护与降水工程" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected3" DataField="IsSelected3" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="03(基坑支护与降水工程)" HeaderToolTip="基坑支护与降水工程" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected4" DataField="IsSelected4" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="04" HeaderToolTip="土方开挖工程" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected4" DataField="IsSelected4" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="04(土方开挖工程)" HeaderToolTip="土方开挖工程" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected5" DataField="IsSelected5" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="05" HeaderToolTip="模板工程" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected5" DataField="IsSelected5" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="05(模板工程)" HeaderToolTip="模板工程" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected6" DataField="IsSelected6" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="06" HeaderToolTip="基础施工" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected6" DataField="IsSelected6" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="06(基础施工)" HeaderToolTip="基础施工" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected7" DataField="IsSelected7" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="07" HeaderToolTip="钢筋混凝土结构" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected7" DataField="IsSelected7" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="07(钢筋混凝土结构)" HeaderToolTip="钢筋混凝土结构" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected8" DataField="IsSelected8" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="08" HeaderToolTip="地下管道" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected8" DataField="IsSelected8" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="08(地下管道)" HeaderToolTip="地下管道" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected9" DataField="IsSelected9" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="09" HeaderToolTip="钢结构" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected9" DataField="IsSelected9" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="09(钢结构)" HeaderToolTip="钢结构" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected10" DataField="IsSelected10" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="10" HeaderToolTip="设备安装" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected10" DataField="IsSelected10" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="10(设备安装)" HeaderToolTip="设备安装" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected11" DataField="IsSelected11" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="11" HeaderToolTip="大型起重吊装工程" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected11" DataField="IsSelected11" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="11(大型起重吊装工程)" HeaderToolTip="大型起重吊装工程" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected12" DataField="IsSelected12" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="12" HeaderToolTip="脚手架工程" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected12" DataField="IsSelected12" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="12(脚手架工程)" HeaderToolTip="脚手架工程" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected13" DataField="IsSelected13" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="13" HeaderToolTip="机械安装" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected13" DataField="IsSelected13" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="13(机械安装)" HeaderToolTip="机械安装" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected14" DataField="IsSelected14" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="14" HeaderToolTip="管道安装" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected14" DataField="IsSelected14" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="14(管道安装)" HeaderToolTip="管道安装" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected15" DataField="IsSelected15" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="15" HeaderToolTip="电气仪表安装" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected15" DataField="IsSelected15" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="15(电气仪表安装)" HeaderToolTip="电气仪表安装" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected16" DataField="IsSelected16" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="16" HeaderToolTip="防腐保温防火" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected16" DataField="IsSelected16" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="16(防腐保温防火)" HeaderToolTip="防腐保温防火" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected17" DataField="IsSelected17" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="17" HeaderToolTip="拆除" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected17" DataField="IsSelected17" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="17(拆除)" HeaderToolTip="拆除" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected18" DataField="IsSelected18" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="18" HeaderToolTip="爆破工程" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected18" DataField="IsSelected18" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="18(爆破工程)" HeaderToolTip="爆破工程" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected19" DataField="IsSelected19" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="19" HeaderToolTip="试压" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected19" DataField="IsSelected19" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="19(试压)" HeaderToolTip="试压" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected20" DataField="IsSelected20" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="20" HeaderToolTip="吹扫" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected20" DataField="IsSelected20" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="20(吹扫)" HeaderToolTip="吹扫" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected21" DataField="IsSelected21" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="21" HeaderToolTip="试车" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected21" DataField="IsSelected21" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="21(试车)" HeaderToolTip="试车" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected22" DataField="IsSelected22" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="22" HeaderToolTip="试车方案" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected22" DataField="IsSelected22" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="22(试车方案)" HeaderToolTip="试车方案" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected23" DataField="IsSelected23" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="23" HeaderToolTip="无损检测" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected23" DataField="IsSelected23" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="23(无损检测)" HeaderToolTip="无损检测" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="40px" ColumnID="IsSelected90" DataField="IsSelected90" FieldType="String"
-                                RendererFunction="renderSelect" HeaderText="90" HeaderToolTip="全部标准" TextAlign="Center">
+                            <f:RenderField Width="90px" ColumnID="IsSelected90" DataField="IsSelected90" FieldType="String"
+                                RendererFunction="renderSelect" HeaderText="90(全部标准)" HeaderToolTip="全部标准" TextAlign="Center">
                             </f:RenderField>
                             <f:WindowField TextAlign="Center" Width="120px" WindowID="WindowAtt" HeaderText="原文"
                              Text="查看" ToolTip="查看" DataIFrameUrlFields="StandardId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&type=-1&path=FileUpload/HSSEStandardsList&menuId=EFDSFVDE-RTHN-7UMG-4THA-5TGED48F8IOL"/>

@@ -166,14 +166,29 @@ namespace FineUIPro.Web.Manager
                 this.nbMainCost7.Text = tMonthType1.ToString();
                 this.nbMainCost.Text = (sMonthType1 + sMonthType2 + sMonthType3 + sMonthType4 + sMonthType5 + sMonthType6 + tMonthType1).ToString();
             }
-            this.nbMainProjectCost1.Text = ((mr.MainProjectCost1 ?? 0) + sMonthType1).ToString();
-            this.nbMainProjectCost2.Text = ((mr.MainProjectCost2 ?? 0) + sMonthType2).ToString();
-            this.nbMainProjectCost3.Text = ((mr.MainProjectCost3 ?? 0) + sMonthType3).ToString();
-            this.nbMainProjectCost4.Text = ((mr.MainProjectCost4 ?? 0) + sMonthType4).ToString();
-            this.nbMainProjectCost5.Text = ((mr.MainProjectCost5 ?? 0) + sMonthType5).ToString();
-            this.nbMainProjectCost6.Text = ((mr.MainProjectCost6 ?? 0) + sMonthType6).ToString();
-            this.nbMainProjectCost7.Text = ((mr.MainProjectCost7 ?? 0) + tMonthType1).ToString();
-            this.nbMainProjectCost.Text = ((mr.MainProjectCost ?? 0) + (sMonthType1 + sMonthType2 + sMonthType3 + sMonthType4 + sMonthType5 + sMonthType6 + tMonthType1)).ToString();
+            if (mr != null)
+            {
+                this.nbMainProjectCost1.Text = ((mr.MainProjectCost1 ?? 0) + sMonthType1).ToString();
+                this.nbMainProjectCost2.Text = ((mr.MainProjectCost2 ?? 0) + sMonthType2).ToString();
+                this.nbMainProjectCost3.Text = ((mr.MainProjectCost3 ?? 0) + sMonthType3).ToString();
+                this.nbMainProjectCost4.Text = ((mr.MainProjectCost4 ?? 0) + sMonthType4).ToString();
+                this.nbMainProjectCost5.Text = ((mr.MainProjectCost5 ?? 0) + sMonthType5).ToString();
+                this.nbMainProjectCost6.Text = ((mr.MainProjectCost6 ?? 0) + sMonthType6).ToString();
+                this.nbMainProjectCost7.Text = ((mr.MainProjectCost7 ?? 0) + tMonthType1).ToString();
+                this.nbMainProjectCost.Text = ((mr.MainProjectCost ?? 0) + (sMonthType1 + sMonthType2 + sMonthType3 + sMonthType4 + sMonthType5 + sMonthType6 + tMonthType1)).ToString();
+            }
+            else
+            {
+
+                this.nbMainProjectCost1.Text = sMonthType1.ToString();
+                this.nbMainProjectCost2.Text = sMonthType2.ToString();
+                this.nbMainProjectCost3.Text = sMonthType3.ToString();
+                this.nbMainProjectCost4.Text = sMonthType4.ToString();
+                this.nbMainProjectCost5.Text = sMonthType5.ToString();
+                this.nbMainProjectCost6.Text = sMonthType6.ToString();
+                this.nbMainProjectCost7.Text = tMonthType1.ToString();
+                this.nbMainProjectCost.Text =  (sMonthType1 + sMonthType2 + sMonthType3 + sMonthType4 + sMonthType5 + sMonthType6 + tMonthType1).ToString();
+            }
 
             decimal? subMonthType1 = 0, subMonthType2 = 0, subMonthType3 = 0, subMonthType4 = 0, subMonthType5 = 0, subMonthType6 = 0, subMonthType7 = 0;
             List<Model.CostGoods_SubPayRegistration> subPayRegistrations = BLL.SubPayRegistrationService.GetSubPayRegistrationByPayDate(startTime, endTime, this.ProjectId);
@@ -198,16 +213,29 @@ namespace FineUIPro.Web.Manager
                 this.nbSubCost7.Text = subMonthType7.ToString();
                 this.nbSubCost.Text = (subMonthType1 + subMonthType2 + subMonthType3 + subMonthType4 + subMonthType5 + subMonthType6 + subMonthType7).ToString();
             }
-            this.nbSubProjectCost1.Text = ((mr.SubProjectCost1 ?? 0) + subMonthType1).ToString();
-            this.nbSubProjectCost2.Text = ((mr.SubProjectCost2 ?? 0) + subMonthType2).ToString();
-            this.nbSubProjectCost3.Text = ((mr.SubProjectCost3 ?? 0) + subMonthType3).ToString();
-            this.nbSubProjectCost4.Text = ((mr.SubProjectCost4 ?? 0) + subMonthType4).ToString();
-            this.nbSubProjectCost5.Text = ((mr.SubProjectCost5 ?? 0) + subMonthType5).ToString();
-            this.nbSubProjectCost6.Text = ((mr.SubProjectCost6 ?? 0) + subMonthType6).ToString();
-            this.nbSubProjectCost7.Text = ((mr.SubProjectCost7 ?? 0) + subMonthType7).ToString();
-            this.nbSubProjectCost.Text = ((mr.SubProjectCost ?? 0) + (subMonthType1 + subMonthType2 + subMonthType3 + subMonthType4 + subMonthType5 + subMonthType6 + subMonthType7)).ToString();
-
-            this.nbJianAnProjectCost.Text = (mr.JianAnProjectCost ?? 0).ToString();
+            if (mr != null)
+            {
+                this.nbSubProjectCost1.Text = ((mr.SubProjectCost1 ?? 0) + subMonthType1).ToString();
+                this.nbSubProjectCost2.Text = ((mr.SubProjectCost2 ?? 0) + subMonthType2).ToString();
+                this.nbSubProjectCost3.Text = ((mr.SubProjectCost3 ?? 0) + subMonthType3).ToString();
+                this.nbSubProjectCost4.Text = ((mr.SubProjectCost4 ?? 0) + subMonthType4).ToString();
+                this.nbSubProjectCost5.Text = ((mr.SubProjectCost5 ?? 0) + subMonthType5).ToString();
+                this.nbSubProjectCost6.Text = ((mr.SubProjectCost6 ?? 0) + subMonthType6).ToString();
+                this.nbSubProjectCost7.Text = ((mr.SubProjectCost7 ?? 0) + subMonthType7).ToString();
+                this.nbSubProjectCost.Text = ((mr.SubProjectCost ?? 0) + (subMonthType1 + subMonthType2 + subMonthType3 + subMonthType4 + subMonthType5 + subMonthType6 + subMonthType7)).ToString();
+                this.nbJianAnProjectCost.Text = (mr.JianAnProjectCost ?? 0).ToString();
+            }
+            else
+            {
+                this.nbSubProjectCost1.Text = subMonthType1.ToString();
+                this.nbSubProjectCost2.Text = subMonthType2.ToString();
+                this.nbSubProjectCost3.Text = subMonthType3.ToString();
+                this.nbSubProjectCost4.Text = subMonthType4.ToString();
+                this.nbSubProjectCost5.Text = subMonthType5.ToString();
+                this.nbSubProjectCost6.Text = subMonthType6.ToString();
+                this.nbSubProjectCost7.Text = subMonthType7.ToString();
+                this.nbSubProjectCost.Text = (subMonthType1 + subMonthType2 + subMonthType3 + subMonthType4 + subMonthType5 + subMonthType6 + subMonthType7).ToString();
+            }
         }
         #endregion
 

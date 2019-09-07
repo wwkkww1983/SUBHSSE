@@ -8,7 +8,36 @@ using EmitMapper;
 namespace BLL
 {
     public static class APIPersonService
-    {        
+    {
+        /// <summary>
+        /// 获取用户登录信息
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
+        public static Model.UserItem PersonLogOn(Model.UserItem userInfo)
+        {
+            var getUser = from x in Funs.DB.SitePerson_Person
+                          join y in Funs.DB.Base_Unit on x.UnitId equals y.UnitId
+                          join z in Funs.DB.Base_Project on x.ProjectId equals z.ProjectId
+                          where x.Telephone == userInfo.Account && x.Password == Funs.EncryptionPassword(userInfo.Password)
+                          && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)
+                          select new Model.UserItem
+                          {
+                              UserId = x.PersonId,
+                              UserCode = x.CardNo,
+                              Password = x.Password,
+                              UserName = x.PersonName,
+                              UnitId = x.UnitId,
+                              LoginProjectId = x.ProjectId,
+                              IdentityCard = x.IdentityCard,
+                              Account = x.Telephone,
+                              UnitName = y.UnitName,
+                              LoginProjectName = z.ProjectName
+                          };
+
+            return getUser.FirstOrDefault();
+        }
+
         /// <summary>
         /// 根据personId获取人员信息
         /// </summary>

@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using BLL;
 
 namespace FineUIPro.Web.SysManage
-{
+{ 
     public partial class UserListEdit : PageBase
     {
         #region 定义项
@@ -164,6 +164,7 @@ namespace FineUIPro.Web.SysManage
                 newUser.UserId = SQLHelper.GetNewID(typeof(Model.Sys_User));
                 newUser.DataSources = this.CurrUser.LoginProjectId;
                 BLL.UserService.AddUser(newUser);
+                SaveHSSEManageItem();//增加组织机构明细
                 BLL.LogService.AddSys_Log(this.CurrUser, newUser.UserCode, newUser.UserId, BLL.Const.UserMenuId, BLL.Const.BtnAdd);
             }
             else
@@ -174,6 +175,24 @@ namespace FineUIPro.Web.SysManage
             }
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }
+
+        #region 增加组织机构明细
+        /// <summary>
+        /// 增加组织机构明细
+        /// </summary>
+        private void SaveHSSEManageItem()
+        {
+            var hsseManage = Funs.DB.HSSESystem_HSSEManage.FirstOrDefault(x => x.HSSEManageName == this.drpUnit.SelectedText.Trim());
+            if (hsseManage != null)
+            {
+                Model.HSSESystem_HSSEManageItem hsseManageItem = new Model.HSSESystem_HSSEManageItem();
+                hsseManageItem.HSSEManageItemId = SQLHelper.GetNewID(typeof(Model.HSSESystem_HSSEManageItem));
+                hsseManageItem.HSSEManageId = hsseManage.HSSEManageId;
+                hsseManageItem.Names = this.txtUserName.Text.Trim();
+                BLL.HSSEManageItemService.AddHSSEManageItem(hsseManageItem);
+            }
+        }
+        #endregion
 
         #region 获取按钮权限
         /// <summary>

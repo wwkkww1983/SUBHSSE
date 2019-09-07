@@ -161,7 +161,7 @@ namespace FineUIPro.Web.EduTrain
         public void UpTrainingItem(string trainingItemId, string unitId)
         {  /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertTraining_TrainingItemTableCompleted += new EventHandler<BLL.HSSEService.DataInsertTraining_TrainingItemTableCompletedEventArgs>(poxy_DataInsertTraining_TrainingItemTableCompleted);
+            poxy.DataInsertTraining_TrainingItemTableCompleted += new EventHandler<HSSEService.DataInsertTraining_TrainingItemTableCompletedEventArgs>(poxy_DataInsertTraining_TrainingItemTableCompleted);
             var TrainingItemList = from x in Funs.DB.Training_TrainingItem
                                    join y in Funs.DB.AttachFile on x.TrainingItemId equals y.ToKeyId
                                    where x.TrainingItemId == trainingItemId && x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4)
@@ -195,7 +195,7 @@ namespace FineUIPro.Web.EduTrain
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertTraining_TrainingItemTableCompleted(object sender, BLL.HSSEService.DataInsertTraining_TrainingItemTableCompletedEventArgs e)
+        private void poxy_DataInsertTraining_TrainingItemTableCompleted(object sender, HSSEService.DataInsertTraining_TrainingItemTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

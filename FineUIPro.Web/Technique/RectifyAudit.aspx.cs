@@ -189,7 +189,7 @@ namespace FineUIPro.Web.Technique
         {
             /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertTechnique_RectifyItemTableCompleted += new EventHandler<BLL.HSSEService.DataInsertTechnique_RectifyItemTableCompletedEventArgs>(poxy_DataInsertTechnique_RectifyItemTableCompleted);
+            poxy.DataInsertTechnique_RectifyItemTableCompleted += new EventHandler<HSSEService.DataInsertTechnique_RectifyItemTableCompletedEventArgs>(poxy_DataInsertTechnique_RectifyItemTableCompleted);
             var rectifyItemList = from x in Funs.DB.Technique_RectifyItem
                                  where x.RectifyItemId == rectifyItemId && x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4)
                                  select new BLL.HSSEService.Technique_RectifyItem
@@ -213,7 +213,7 @@ namespace FineUIPro.Web.Technique
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertTechnique_RectifyItemTableCompleted(object sender, BLL.HSSEService.DataInsertTechnique_RectifyItemTableCompletedEventArgs e)
+        private void poxy_DataInsertTechnique_RectifyItemTableCompleted(object sender, HSSEService.DataInsertTechnique_RectifyItemTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

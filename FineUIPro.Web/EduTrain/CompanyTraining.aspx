@@ -16,7 +16,7 @@
             <f:Panel runat="server" ID="panelLeftRegion" RegionPosition="Left" RegionSplit="true"
                 EnableCollapse="true" Width="250" Title="公司教材库" TitleToolTip="公司教材库" ShowBorder="true"
                 ShowHeader="true" AutoScroll="true" BodyPadding="5px" IconFont="ArrowCircleLeft"
-                Layout="Fit">
+                Layout="VBox">
                 <Items>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
                         <Items>

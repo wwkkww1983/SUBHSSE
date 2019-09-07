@@ -283,7 +283,7 @@ namespace FineUIPro.Web.ServerCheck
         {
             ///创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertSupervise_SubUnitReportItemItemTableCompleted += new EventHandler<BLL.HSSEService.DataInsertSupervise_SubUnitReportItemItemTableCompletedEventArgs>(poxy_DataInsertSupervise_SubUnitReportTableCompleted);
+            poxy.DataInsertSupervise_SubUnitReportItemItemTableCompleted += new EventHandler<HSSEService.DataInsertSupervise_SubUnitReportItemItemTableCompletedEventArgs>(poxy_DataInsertSupervise_SubUnitReportTableCompleted);
             var subUnitReport = from x in Funs.DB.View_Supervise_SubUnitReportItem
                                // join y in Funs.DB.AttachFile on x.SubUnitReportItemId equals y.ToKeyId
                                 where x.SubUnitReportId == SubUnitReportId && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4 || x.UpState == null)
@@ -314,7 +314,7 @@ namespace FineUIPro.Web.ServerCheck
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertSupervise_SubUnitReportTableCompleted(object sender, BLL.HSSEService.DataInsertSupervise_SubUnitReportItemItemTableCompletedEventArgs e)
+        private void poxy_DataInsertSupervise_SubUnitReportTableCompleted(object sender, HSSEService.DataInsertSupervise_SubUnitReportItemItemTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

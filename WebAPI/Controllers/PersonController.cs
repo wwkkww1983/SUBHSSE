@@ -98,7 +98,33 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = Funs.DB.View_QualityAudit_PersonQuality.FirstOrDefault(x => x.IdentityCard == identityCard);
+                responeData.data =from x in Funs.DB.View_QualityAudit_PersonQuality
+                                  where x.IdentityCard == identityCard
+                                  select new
+                                  {
+                                      x.PersonQualityId,
+                                      x.PersonId,
+                                      x.CardNo,
+                                      x.IdentityCard,
+                                      x.ProjectId,
+                                      x.UnitId,
+                                      x.ProjectName,
+                                      x.ProjectCode,
+                                      x.CertificateNo,
+                                      x.Grade,
+                                      x.SendUnit,
+                                      x.SendDate,
+                                      LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
+                                      LateCheckDate = string.Format("{0:yyyy-MM-dd}", x.LateCheckDate),
+                                      x.ApprovalPerson,
+                                      x.Remark,
+                                      x.CompileMan,
+                                      x.CompileManName,
+                                      CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                      AuditDate = string.Format("{0:yyyy-MM-dd}", x.AuditDate),
+                                      x.CertificateId,
+                                      x.CertificateName
+                                  };
             }
             catch (Exception ex)
             {
@@ -177,9 +203,35 @@ namespace WebAPI.Controllers
                 int pageCount = getQualityLists.Count;
                 if (pageCount > 0)
                 {
-                    getQualityLists = getQualityLists.OrderBy(u => u.LimitDate).Skip(BLL.Funs.PageSize * (pageIndex - 1)).Take(BLL.Funs.PageSize).ToList();
+                    var getdata = from x in getQualityLists.OrderBy(u => u.LimitDate).Skip(BLL.Funs.PageSize * (pageIndex - 1)).Take(BLL.Funs.PageSize)
+                                      select new
+                                      {
+                                          x.PersonQualityId,
+                                          x.PersonId,
+                                          x.CardNo,
+                                          x.IdentityCard,
+                                          x.ProjectId,
+                                          x.UnitId,
+                                          x.ProjectName,
+                                          x.ProjectCode,
+                                          x.CertificateNo,
+                                          x.Grade,
+                                          x.SendUnit,
+                                          x.SendDate,
+                                          LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
+                                          LateCheckDate= string.Format("{0:yyyy-MM-dd}", x.LateCheckDate),
+                                          x.ApprovalPerson,
+                                          x.Remark,
+                                          x.CompileMan,
+                                          x.CompileManName,
+                                          CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                          AuditDate = string.Format("{0:yyyy-MM-dd}", x.AuditDate),
+                                          x.CertificateId,
+                                          x.CertificateName
+                                      };
+
+                    responeData.data = new { pageCount, getdata };
                 }
-                responeData.data = new { pageCount, getQualityLists };
             }
             catch (Exception ex)
             {

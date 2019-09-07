@@ -84,7 +84,7 @@ namespace WebAPI.Controllers
         }
         #endregion
 
-        #region 根据通知通告
+        #region 获取通知通告
         /// <summary>
         /// 获取头条通知
         /// </summary>
@@ -176,6 +176,58 @@ namespace WebAPI.Controllers
                                   AttachUrl = Funs.DB.AttachFile.FirstOrDefault(y => y.ToKeyId == x.NoticeId).AttachUrl.Replace("\\", "/")
                               });
                 responeData.data = new { notice };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region  获取法律法规类型
+        /// <summary>
+        ///   获取法律法规类型
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getLawsRegulationsType()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getLists = from x in Funs.DB.Base_LawsRegulationsType
+                               orderby x.Code
+                               select new { x.Id, x.Code, x.Name };
+                responeData.data = getLists;
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region  获取标准规范类型
+        /// <summary>
+        ///   获取标准规范类型
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getHSSEStandardListType()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getLists = from x in Funs.DB.Base_HSSEStandardListType
+                               orderby x.TypeCode
+                               select new { x.TypeId, x.TypeCode, x.TypeName };
+                responeData.data = getLists;
             }
             catch (Exception ex)
             {

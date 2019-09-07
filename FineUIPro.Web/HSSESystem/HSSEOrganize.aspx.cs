@@ -89,7 +89,7 @@ namespace FineUIPro.Web.HSSESystem
         public void UpHSSEOrganize(Model.HSSESystem_HSSEOrganize organize)
         {  /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertHSSESystem_HSSEOrganizeTableCompleted += new EventHandler<BLL.HSSEService.DataInsertHSSESystem_HSSEOrganizeTableCompletedEventArgs>(poxy_DataInsertHSSESystem_HSSEOrganizeTableCompleted);
+            poxy.DataInsertHSSESystem_HSSEOrganizeTableCompleted += new EventHandler<HSSEService.DataInsertHSSESystem_HSSEOrganizeTableCompletedEventArgs>(poxy_DataInsertHSSESystem_HSSEOrganizeTableCompleted);
             var newOrganize = new BLL.HSSEService.HSSESystem_HSSEOrganize
             {
                 UnitId = organize.UnitId,
@@ -103,7 +103,7 @@ namespace FineUIPro.Web.HSSESystem
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertHSSESystem_HSSEOrganizeTableCompleted(object sender, BLL.HSSEService.DataInsertHSSESystem_HSSEOrganizeTableCompletedEventArgs e)
+        private void poxy_DataInsertHSSESystem_HSSEOrganizeTableCompleted(object sender, HSSEService.DataInsertHSSESystem_HSSEOrganizeTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

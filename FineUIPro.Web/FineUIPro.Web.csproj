@@ -574,6 +574,13 @@
     <Content Include="ReportPrint\ReportTabFile\项目现场职工伤亡事故原因分析报.tab" />
     <Content Include="ReportPrint\ReportTabFile\职业健康安全危险源辨识与评价.tab" />
     <Content Include="ReportPrint\ReportTabFile\职业健康安全危险源辨识与评价（重大危险源）.tab" />
+    <None Include="Service References\HSSEService\HSSEService.disco" />
+    <None Include="Service References\HSSEService\configuration91.svcinfo" />
+    <None Include="Service References\HSSEService\configuration.svcinfo" />
+    <None Include="Service References\HSSEService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="SiteConstruction\ConstructionDynamic.aspx" />
     <Content Include="SiteConstruction\ConstructionDynamicEdit.aspx" />
     <Content Include="SiteConstruction\ConstructionDynamicView.aspx" />
@@ -3890,6 +3897,7 @@
     <Content Include="SysManage\UnitEdit.aspx" />
     <Content Include="SysManage\RoleList.aspx" />
     <Content Include="SysManage\RoleListEdit.aspx" />
+    <Content Include="SysManage\UnitIn.aspx" />
     <Content Include="SysManage\UserList.aspx" />
     <Content Include="SysManage\UserListEdit.aspx" />
     <Content Include="SysManage\UpdatePassword.aspx" />
@@ -3951,6 +3959,20 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <None Include="Service References\HSSEService\HSSEService.wsdl" />
+    <None Include="Service References\HSSEService\HSSEService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\HSSEService\HSSEService1.wsdl" />
+    <None Include="Service References\HSSEService\HSSEService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\HSSEService\HSSEService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\HSSEService\HSSEService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accident\AccidentHandle.aspx.cs">
@@ -7057,6 +7079,11 @@
     <Compile Include="ServerCheck\CheckNotice.aspx.designer.cs">
       <DependentUpon>CheckNotice.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Service References\HSSEService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="SiteConstruction\ConstructionDynamic.aspx.cs">
       <DependentUpon>ConstructionDynamic.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -10111,6 +10138,13 @@
     <Compile Include="SysManage\RoleListEdit.aspx.designer.cs">
       <DependentUpon>RoleListEdit.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SysManage\UnitIn.aspx.cs">
+      <DependentUpon>UnitIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysManage\UnitIn.aspx.designer.cs">
+      <DependentUpon>UnitIn.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SysManage\UserList.aspx.cs">
       <DependentUpon>UserList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -10512,6 +10546,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\HSSEService\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -88,6 +88,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 当前项目名称
+        /// </summary>
+        public string LoginProjectName
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 身份证
         /// </summary>
         public string IdentityCard

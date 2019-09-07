@@ -13,11 +13,11 @@
         /// <summary>
         /// 创建客户端服务
         /// </summary>
-        public static BLL.HSSEService.HSSEServiceClient CreateServiceClient()
+        public static HSSEService.HSSEServiceClient CreateServiceClient()
         {           
             string address = ConfigurationManager.AppSettings["endpoint"];            
-            var proxy = new BLL.HSSEService.HSSEServiceClient();
-            ConfigEndpointAddress<BLL.HSSEService.HSSEService>(proxy, address);
+            var proxy = new HSSEService.HSSEServiceClient();
+            ConfigEndpointAddress<HSSEService.HSSEService>(proxy, address);
             return proxy;
         }
 

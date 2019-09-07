@@ -301,7 +301,7 @@ namespace FineUIPro.Web.Information
         {
             /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertInformation_MillionsMonthlyReportTableCompleted += new EventHandler<BLL.HSSEService.DataInsertInformation_MillionsMonthlyReportTableCompletedEventArgs>(poxy_DataInsertInformation_MillionsMonthlyReportTableCompleted);
+            poxy.DataInsertInformation_MillionsMonthlyReportTableCompleted += new EventHandler<HSSEService.DataInsertInformation_MillionsMonthlyReportTableCompletedEventArgs>(poxy_DataInsertInformation_MillionsMonthlyReportTableCompleted);
             var report = from x in Funs.DB.Information_MillionsMonthlyReport
                          where x.MillionsMonthlyReportId == millionsMonthlyReportId && x.UpState == BLL.Const.UpState_2
                          select new BLL.HSSEService.Information_MillionsMonthlyReport
@@ -366,7 +366,7 @@ namespace FineUIPro.Web.Information
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertInformation_MillionsMonthlyReportTableCompleted(object sender, BLL.HSSEService.DataInsertInformation_MillionsMonthlyReportTableCompletedEventArgs e)
+        private void poxy_DataInsertInformation_MillionsMonthlyReportTableCompleted(object sender, HSSEService.DataInsertInformation_MillionsMonthlyReportTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

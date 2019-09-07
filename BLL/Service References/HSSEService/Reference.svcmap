@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="7da2bedb-5d97-4347-9818-bce815e09bdb" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ea48905f-4a67-493f-af2b-e144468e3641" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -23,13 +23,13 @@
     <MetadataSource Address="http://localhost/cncechsse/HSSEService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="HSSEService.xsd" MetadataType="Schema" ID="c7d12104-c8cc-4e7e-9c0c-850f81ed4a4a" SourceId="1" SourceUrl="http://localhost/cncechsse/HSSEService.svc?xsd=xsd2" />
-    <MetadataFile FileName="HSSEService1.xsd" MetadataType="Schema" ID="2b94a497-fde6-4861-9a7d-1cd6b0461459" SourceId="1" SourceUrl="http://localhost/cncechsse/HSSEService.svc?xsd=xsd3" />
-    <MetadataFile FileName="HSSEService2.xsd" MetadataType="Schema" ID="23886be7-9557-4412-b5bb-f432e267e1ff" SourceId="1" SourceUrl="http://localhost/cncechsse/HSSEService.svc?xsd=xsd1" />
-    <MetadataFile FileName="HSSEService.wsdl" MetadataType="Wsdl" ID="93a28b02-6041-497d-a00d-67b256a410c0" SourceId="1" SourceUrl="http://localhost/cncechsse/HSSEService.svc?wsdl" />
-    <MetadataFile FileName="HSSEService.disco" MetadataType="Disco" ID="e86c53d7-0066-40d0-820f-bd5be98bddb0" SourceId="1" SourceUrl="http://localhost/cncechsse/HSSEService.svc?disco" />
-    <MetadataFile FileName="HSSEService3.xsd" MetadataType="Schema" ID="cac658f8-e411-4bad-950d-5e340a463d12" SourceId="1" SourceUrl="http://localhost/cncechsse/HSSEService.svc?xsd=xsd0" />
-    <MetadataFile FileName="HSSEService1.wsdl" MetadataType="Wsdl" ID="8a7766f3-cee9-4e69-a9f6-b0d0eaa14e6d" SourceId="1" SourceUrl="http://localhost/cncechsse/HSSEService.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="HSSEService.xsd" MetadataType="Schema" ID="2f693087-af36-41d8-b737-b10ff0411707" SourceId="1" SourceUrl="http://localhost/cncechsse/HSSEService.svc?xsd=xsd2" />
+    <MetadataFile FileName="HSSEService1.xsd" MetadataType="Schema" ID="f0e34acd-0885-49e3-9ace-6f2bc32f15f7" SourceId="1" SourceUrl="http://localhost/cncechsse/HSSEService.svc?xsd=xsd3" />
+    <MetadataFile FileName="HSSEService2.xsd" MetadataType="Schema" ID="8e616758-68cf-4463-b524-43127d01b89a" SourceId="1" SourceUrl="http://localhost/cncechsse/HSSEService.svc?xsd=xsd1" />
+    <MetadataFile FileName="HSSEService.wsdl" MetadataType="Wsdl" ID="0e7a3ca2-b4de-44bc-92fc-82f0f686703d" SourceId="1" SourceUrl="http://localhost/cncechsse/HSSEService.svc?wsdl" />
+    <MetadataFile FileName="HSSEService.disco" MetadataType="Disco" ID="2f2c2f74-4e57-4227-863a-27fb0fc617eb" SourceId="1" SourceUrl="http://localhost/cncechsse/HSSEService.svc?disco" />
+    <MetadataFile FileName="HSSEService3.xsd" MetadataType="Schema" ID="22368fda-6d09-4ee4-8904-84d7c38443dd" SourceId="1" SourceUrl="http://localhost/cncechsse/HSSEService.svc?xsd=xsd0" />
+    <MetadataFile FileName="HSSEService1.wsdl" MetadataType="Wsdl" ID="b6701afd-af04-4999-b72a-f082529b921e" SourceId="1" SourceUrl="http://localhost/cncechsse/HSSEService.svc?wsdl=wsdl0" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

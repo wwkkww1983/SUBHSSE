@@ -136,7 +136,7 @@ namespace FineUIPro.Web.HSSESystem
 
                 ////创建客户端服务
                 var poxy = Web.ServiceProxy.CreateServiceClient();
-                poxy.DataInsertHSSESystem_HSSEManageItemTableCompleted += new EventHandler<BLL.HSSEService.DataInsertHSSESystem_HSSEManageItemTableCompletedEventArgs>(poxy_DataInsertHSSESystem_HSSEManageItemTableCompleted);
+                poxy.DataInsertHSSESystem_HSSEManageItemTableCompleted += new EventHandler<HSSEService.DataInsertHSSESystem_HSSEManageItemTableCompletedEventArgs>(poxy_DataInsertHSSESystem_HSSEManageItemTableCompleted);
                 var HSSEStandardsList = from x in Funs.DB.HSSESystem_HSSEManageItem
                                         where x.HSSEManageId == hsseManageId
                                         select new BLL.HSSEService.HSSESystem_HSSEManageItem
@@ -160,7 +160,7 @@ namespace FineUIPro.Web.HSSESystem
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertHSSESystem_HSSEManageItemTableCompleted(object sender, BLL.HSSEService.DataInsertHSSESystem_HSSEManageItemTableCompletedEventArgs e)
+        private void poxy_DataInsertHSSESystem_HSSEManageItemTableCompleted(object sender, HSSEService.DataInsertHSSESystem_HSSEManageItemTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {               

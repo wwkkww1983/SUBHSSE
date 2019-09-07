@@ -190,7 +190,7 @@ namespace FineUIPro.Web.ServerCheck
 
             /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertCheck_CheckRectifyTableCompleted += new EventHandler<BLL.HSSEService.DataInsertCheck_CheckRectifyTableCompletedEventArgs>(poxy_DataInsertCheck_CheckRectifyTableCompleted);
+            poxy.DataInsertCheck_CheckRectifyTableCompleted += new EventHandler<HSSEService.DataInsertCheck_CheckRectifyTableCompletedEventArgs>(poxy_DataInsertCheck_CheckRectifyTableCompleted);
             var rectify = from x in Funs.DB.View_CheckRectifyListFromSUB
                           where x.RealEndDate.HasValue && x.CheckRectifyId == this.CheckRectifyId
                           select new BLL.HSSEService.Check_CheckRectify
@@ -227,7 +227,7 @@ namespace FineUIPro.Web.ServerCheck
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertCheck_CheckRectifyTableCompleted(object sender, BLL.HSSEService.DataInsertCheck_CheckRectifyTableCompletedEventArgs e)
+        private void poxy_DataInsertCheck_CheckRectifyTableCompleted(object sender, HSSEService.DataInsertCheck_CheckRectifyTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

@@ -14,11 +14,38 @@ namespace BLL
         /// </summary>
         /// <param name="equipmentQualityId"></param>
         /// <returns></returns>
-        public static Model.EquipmentQualityItem getEquipmentQualityByEquipmentQualityId(string equipmentQualityId)
-        {
-            var getEquipmentQuality = Funs.DB.View_QualityAudit_EquipmentQuality.FirstOrDefault(x => x.EquipmentQualityId == equipmentQualityId);
-            return ObjectMapperManager.DefaultInstance.GetMapper<Model.View_QualityAudit_EquipmentQuality, Model.EquipmentQualityItem>().Map(getEquipmentQuality);
-        }
+        //public static Model.EquipmentQualityItem getEquipmentQualityByEquipmentQualityId(string equipmentQualityId)
+        //{
+        //    var getEquipmentQuality = from x in Funs.DB.View_QualityAudit_EquipmentQuality
+        //                              where x.EquipmentQualityId == equipmentQualityId
+        //                              select new
+        //                              {
+        //                                  x.EquipmentQualityId,
+        //                                  x.ProjectId,
+        //                                  x.EquipmentQualityCode,
+        //                                  x.UnitId,
+        //                                  x.UnitName,
+        //                                  x.SpecialEquipmentId,
+        //                                  x.SpecialEquipmentName,
+        //                                  x.EquipmentQualityName,
+        //                                  x.SizeModel,
+        //                                  x.FactoryCode,
+        //                                  x.CertificateCode,
+        //                                  CheckDate = string.Format("{0:yyyy-MM-dd}", x.CheckDate),
+        //                                  LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
+        //                                  InDate = string.Format("{0:yyyy-MM-dd}", x.InDate),
+        //                                  OutDate = string.Format("{0:yyyy-MM-dd}", x.OutDate),
+        //                                  x.ApprovalPerson,
+        //                                  x.CarNum,
+        //                                  x.Remark,
+        //                                  x.CompileMan,
+        //                                  x.CompileManName,
+        //                                  CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+        //                                  x.QRCodeAttachUrl,
+        //                                  x.AttachUrl
+        //                              };
+        //    return ObjectMapperManager.DefaultInstance.GetMapper<Model.View_QualityAudit_EquipmentQuality, Model.EquipmentQualityItem>().Map(getEquipmentQuality);
+        //}
 
         /// <summary>
         /// 根据factoryCode获取机具设备资质信息

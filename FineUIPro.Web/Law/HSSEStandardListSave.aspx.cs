@@ -216,7 +216,7 @@ namespace FineUIPro.Web.Law
         {
             ////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertLaw_HSSEStandardsListTableCompleted += new EventHandler<BLL.HSSEService.DataInsertLaw_HSSEStandardsListTableCompletedEventArgs>(poxy_DataInsertLaw_HSSEStandardsListTableCompleted);
+            poxy.DataInsertLaw_HSSEStandardsListTableCompleted += new EventHandler<HSSEService.DataInsertLaw_HSSEStandardsListTableCompletedEventArgs>(poxy_DataInsertLaw_HSSEStandardsListTableCompleted);
             var HSSEStandardsList = from x in Funs.DB.View_HSSEStandardsList
                                     join y in Funs.DB.AttachFile on x.StandardId equals y.ToKeyId
                                     where x.IsPass == true && x.StandardId == standardId
@@ -275,7 +275,7 @@ namespace FineUIPro.Web.Law
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertLaw_HSSEStandardsListTableCompleted(object sender, BLL.HSSEService.DataInsertLaw_HSSEStandardsListTableCompletedEventArgs e)
+        private void poxy_DataInsertLaw_HSSEStandardsListTableCompleted(object sender, HSSEService.DataInsertLaw_HSSEStandardsListTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

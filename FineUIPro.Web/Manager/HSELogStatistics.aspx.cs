@@ -66,8 +66,9 @@ namespace FineUIPro.Web.Manager
                 outputDT.Columns.Add("序号", typeof(string));
                 outputDT.Columns.Add("类别", typeof(string));
                 outputDT.Columns.Add("填写要求", typeof(string));
+
                 var hseLogDate = from x in Funs.DB.Manager_HSSELog
-                                 where  x.ProjectId == this.CurrUser.LoginProjectId && x.CompileMan == this.drpCompileMan.SelectedValue && x.CompileDate >= Convert.ToDateTime(this.txtStartDate.Text) && x.CompileDate <= Convert.ToDateTime(this.txtEndDate.Text)
+                                 where x.ProjectId == this.CurrUser.LoginProjectId && x.CompileMan == this.drpCompileMan.SelectedValue && x.CompileDate >= Convert.ToDateTime(this.txtStartDate.Text) && x.CompileDate <= Convert.ToDateTime(this.txtEndDate.Text)
                                  orderby x.CompileDate
                                  select new { x.CompileDate, x.HSSELogId, x.Weather };
                 foreach (var incol in hseLogDate)
@@ -119,7 +120,7 @@ namespace FineUIPro.Web.Manager
                 DataRow row12 = outputDT.NewRow();
                 row12["序号"] = "2";
                 row12["类别"] = "不安全行为绩效统计";
-                row12["填写要求"] = "依据《施工现场不安全行为管理绩效》每日统计，注明被考核单位今日得分";
+                row12["填写要求"] = " 不安全行为指数：不安全行书指数=（不安全行为数/审核小时数）×100%";
                 foreach (var item in hseLogDate)
                 {
                     Model.Manager_HSSELog d2 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
@@ -132,8 +133,8 @@ namespace FineUIPro.Web.Manager
 
                 DataRow row13 = outputDT.NewRow();
                 row13["序号"] = "3";
-                row13["类别"] = "事故情况统计";
-                row13["填写要求"] = "填写事故发生情况";
+                row13["类别"] = "事故及未遂事件情况统计";
+                row13["填写要求"] = "事故及未遂事件情况统计";
                 foreach (var item in hseLogDate)
                 {
                     Model.Manager_HSSELog d3 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
@@ -156,8 +157,8 @@ namespace FineUIPro.Web.Manager
 
                 DataRow row21 = outputDT.NewRow();
                 row21["序号"] = "1";
-                row21["类别"] = "HSE检查情况";
-                row21["填写要求"] = "检查类型、参与人员及检查的基本情况";
+                row21["类别"] = "HSE检查类型";
+                row21["填写要求"] = "描述是日巡检或××专项检查，参加人员";
                 foreach (var item in hseLogDate)
                 {
                     Model.Manager_HSSELog d4 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
@@ -185,7 +186,7 @@ namespace FineUIPro.Web.Manager
                 DataRow row23 = outputDT.NewRow();
                 row23["序号"] = "2";
                 row23["类别"] = "隐患整改情况";
-                row23["填写要求"] = "存在的隐患类型、整改要求及安排";
+                row23["填写要求"] = "存在的隐患、整改要求及安排";
                 foreach (var item in hseLogDate)
                 {
                     Model.Manager_HSSELog d6 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
@@ -266,148 +267,148 @@ namespace FineUIPro.Web.Manager
                 }
                 outputDT.Rows.Add(row28);
 
-                DataRow row29 = outputDT.NewRow();
-                row29["序号"] = "5";
-                row29["类别"] = "危险源辨识工作情况";
-                row29["填写要求"] = "对危险源的动态识别工作情况，重点描述工作内容及成果";
-                foreach (var item in hseLogDate)
-                {
-                    Model.Manager_HSSELog d12 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
-                    if (d12 != null)
-                    {
-                        row29[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d12.Contents25;
-                    }
-                }
-                outputDT.Rows.Add(row29);
+                //DataRow row29 = outputDT.NewRow();
+                //row29["序号"] = "5";
+                //row29["类别"] = "危险源辨识工作情况";
+                //row29["填写要求"] = "对危险源的动态识别工作情况，重点描述工作内容及成果";
+                //foreach (var item in hseLogDate)
+                //{
+                //    Model.Manager_HSSELog d12 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
+                //    if (d12 != null)
+                //    {
+                //        row29[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d12.Contents25;
+                //    }
+                //}
+                //outputDT.Rows.Add(row29);
 
-                DataRow row200 = outputDT.NewRow();
-                row200["序号"] = string.Empty;
-                row200["类别"] = "危险源辨识活动次数（同存档文件对应）";
-                row200["填写要求"] = "开展的危险源辨识活动次数，同危险源辨识记录存档数量相对应";
-                foreach (var item in hseLogDate)
-                {
-                    Model.Manager_HSSELog d13 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
-                    if (d13 != null)
-                    {
-                        row200[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d13.Num25 != null ? d13.Num25.ToString() : string.Empty;
-                    }
-                }
-                outputDT.Rows.Add(row200);
+                //DataRow row200 = outputDT.NewRow();
+                //row200["序号"] = string.Empty;
+                //row200["类别"] = "危险源辨识活动次数（同存档文件对应）";
+                //row200["填写要求"] = "开展的危险源辨识活动次数，同危险源辨识记录存档数量相对应";
+                //foreach (var item in hseLogDate)
+                //{
+                //    Model.Manager_HSSELog d13 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
+                //    if (d13 != null)
+                //    {
+                //        row200[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d13.Num25 != null ? d13.Num25.ToString() : string.Empty;
+                //    }
+                //}
+                //outputDT.Rows.Add(row200);
 
-                DataRow row201 = outputDT.NewRow();
-                row201["序号"] = "6";
-                row201["类别"] = "应急计划修编、演练及物资准备情况";
-                row201["填写要求"] = "各类应急计划的编制、升版工作情况，预案演练活动情况，应急物资准备情况等。";
-                foreach (var item in hseLogDate)
-                {
-                    Model.Manager_HSSELog d14 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
-                    if (d14 != null)
-                    {
-                        row201[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d14.Contents26;
-                    }
-                }
-                outputDT.Rows.Add(row201);
+                //DataRow row201 = outputDT.NewRow();
+                //row201["序号"] = "6";
+                //row201["类别"] = "应急计划修编、演练及物资准备情况";
+                //row201["填写要求"] = "各类应急计划的编制、升版工作情况，预案演练活动情况，应急物资准备情况等。";
+                //foreach (var item in hseLogDate)
+                //{
+                //    Model.Manager_HSSELog d14 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
+                //    if (d14 != null)
+                //    {
+                //        row201[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d14.Contents26;
+                //    }
+                //}
+                //outputDT.Rows.Add(row201);
 
-                DataRow row202 = outputDT.NewRow();
-                row202["序号"] = string.Empty;
-                row202["类别"] = "应急活动次数（同存档文件对应）";
-                row202["填写要求"] = "开展的应急预案修编、演练等活动次数，同存档文件对应";
-                foreach (var item in hseLogDate)
-                {
-                    Model.Manager_HSSELog d15 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
-                    if (d15 != null)
-                    {
-                        row202[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d15.Num26 != null ? d15.Num26.ToString() : string.Empty;
-                    }
-                }
-                outputDT.Rows.Add(row202);
+                //DataRow row202 = outputDT.NewRow();
+                //row202["序号"] = string.Empty;
+                //row202["类别"] = "应急活动次数（同存档文件对应）";
+                //row202["填写要求"] = "开展的应急预案修编、演练等活动次数，同存档文件对应";
+                //foreach (var item in hseLogDate)
+                //{
+                //    Model.Manager_HSSELog d15 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
+                //    if (d15 != null)
+                //    {
+                //        row202[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d15.Num26 != null ? d15.Num26.ToString() : string.Empty;
+                //    }
+                //}
+                //outputDT.Rows.Add(row202);
 
-                DataRow row203 = outputDT.NewRow();
-                row203["序号"] = "7";
-                row203["类别"] = "HSE教育培训情况";
-                row203["填写要求"] = "次数、参与人员、内容、课时等";
-                foreach (var item in hseLogDate)
-                {
-                    Model.Manager_HSSELog d16 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
-                    if (d16 != null)
-                    {
-                        row203[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d16.Contents27;
-                    }
-                }
-                outputDT.Rows.Add(row203);
+                //DataRow row203 = outputDT.NewRow();
+                //row203["序号"] = "7";
+                //row203["类别"] = "HSE教育培训情况";
+                //row203["填写要求"] = "次数、参与人员、内容、课时等";
+                //foreach (var item in hseLogDate)
+                //{
+                //    Model.Manager_HSSELog d16 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
+                //    if (d16 != null)
+                //    {
+                //        row203[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d16.Contents27;
+                //    }
+                //}
+                //outputDT.Rows.Add(row203);
 
-                DataRow row204 = outputDT.NewRow();
-                row204["序号"] = string.Empty;
-                row204["类别"] = "HSE培训人次";
-                row204["填写要求"] = "参加各类HSE培训的人次，同存档文件对应";
-                foreach (var item in hseLogDate)
-                {
-                    Model.Manager_HSSELog d17 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
-                    if (d17 != null)
-                    {
-                        row204[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d17.Num27 != null ? d17.Num27.ToString() : string.Empty;
-                    }
-                }
-                outputDT.Rows.Add(row204);
+                //DataRow row204 = outputDT.NewRow();
+                //row204["序号"] = string.Empty;
+                //row204["类别"] = "HSE培训人次";
+                //row204["填写要求"] = "参加各类HSE培训的人次，同存档文件对应";
+                //foreach (var item in hseLogDate)
+                //{
+                //    Model.Manager_HSSELog d17 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
+                //    if (d17 != null)
+                //    {
+                //        row204[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d17.Num27 != null ? d17.Num27.ToString() : string.Empty;
+                //    }
+                //}
+                //outputDT.Rows.Add(row204);
 
-                DataRow row205 = outputDT.NewRow();
-                row205["序号"] = "8";
-                row205["类别"] = "HSE会议情况";
-                row205["填写要求"] = "类型、主题、参与方等";
-                foreach (var item in hseLogDate)
-                {
-                    Model.Manager_HSSELog d18 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
-                    if (d18 != null)
-                    {
-                        row205[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d18.Contents28;
-                    }
-                }
-                outputDT.Rows.Add(row205);
+                //DataRow row205 = outputDT.NewRow();
+                //row205["序号"] = "8";
+                //row205["类别"] = "HSE会议情况";
+                //row205["填写要求"] = "类型、主题、参与方等";
+                //foreach (var item in hseLogDate)
+                //{
+                //    Model.Manager_HSSELog d18 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
+                //    if (d18 != null)
+                //    {
+                //        row205[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d18.Contents28;
+                //    }
+                //}
+                //outputDT.Rows.Add(row205);
 
-                DataRow row206 = outputDT.NewRow();
-                row206["序号"] = string.Empty;
-                row206["类别"] = "HSE会议次数";
-                row206["填写要求"] = "召开的各类HSE会议的数量";
-                foreach (var item in hseLogDate)
-                {
-                    Model.Manager_HSSELog d19 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
-                    if (d19 != null)
-                    {
-                        row206[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d19.Num28 != null ? d19.Num28.ToString() : string.Empty;
-                    }
-                }
-                outputDT.Rows.Add(row206);
+                //DataRow row206 = outputDT.NewRow();
+                //row206["序号"] = string.Empty;
+                //row206["类别"] = "HSE会议次数";
+                //row206["填写要求"] = "召开的各类HSE会议的数量";
+                //foreach (var item in hseLogDate)
+                //{
+                //    Model.Manager_HSSELog d19 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
+                //    if (d19 != null)
+                //    {
+                //        row206[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d19.Num28 != null ? d19.Num28.ToString() : string.Empty;
+                //    }
+                //}
+                //outputDT.Rows.Add(row206);
 
-                DataRow row207 = outputDT.NewRow();
-                row207["序号"] = "9";
-                row207["类别"] = "HSE宣传工作情况";
-                row207["填写要求"] = "与HSE相关的各类宣传活动进行情况";
-                foreach (var item in hseLogDate)
-                {
-                    Model.Manager_HSSELog d20 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
-                    if (d20 != null)
-                    {
-                        row207[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d20.Contents29;
-                    }
-                }
-                outputDT.Rows.Add(row207);
+                //DataRow row207 = outputDT.NewRow();
+                //row207["序号"] = "9";
+                //row207["类别"] = "HSE宣传工作情况";
+                //row207["填写要求"] = "与HSE相关的各类宣传活动进行情况";
+                //foreach (var item in hseLogDate)
+                //{
+                //    Model.Manager_HSSELog d20 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
+                //    if (d20 != null)
+                //    {
+                //        row207[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d20.Contents29;
+                //    }
+                //}
+                //outputDT.Rows.Add(row207);
 
-                DataRow row208 = outputDT.NewRow();
-                row208["序号"] = string.Empty;
-                row208["类别"] = "HSE宣传活动次数";
-                row208["填写要求"] = "开展的各类HSE宣传活动的数量";
-                foreach (var item in hseLogDate)
-                {
-                    Model.Manager_HSSELog d21 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
-                    if (d21 != null)
-                    {
-                        row208[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d21.Num29 != null ? d21.Num29.ToString() : string.Empty;
-                    }
-                }
-                outputDT.Rows.Add(row208);
+                //DataRow row208 = outputDT.NewRow();
+                //row208["序号"] = string.Empty;
+                //row208["类别"] = "HSE宣传活动次数";
+                //row208["填写要求"] = "开展的各类HSE宣传活动的数量";
+                //foreach (var item in hseLogDate)
+                //{
+                //    Model.Manager_HSSELog d21 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
+                //    if (d21 != null)
+                //    {
+                //        row208[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d21.Num29 != null ? d21.Num29.ToString() : string.Empty;
+                //    }
+                //}
+                //outputDT.Rows.Add(row208);
 
                 DataRow row209 = outputDT.NewRow();
-                row209["序号"] = "10";
+                row209["序号"] = "5";
                 row209["类别"] = "HSE奖惩工作情况";
                 row209["填写要求"] = "对不安全行为的违章处罚，对优秀员工的奖励";
                 foreach (var item in hseLogDate)
@@ -460,7 +461,7 @@ namespace FineUIPro.Web.Manager
 
                 DataRow row31 = outputDT.NewRow();
                 row31["序号"] = "1";
-                row31["类别"] = "HSE体系文件修编情况";
+                row31["类别"] = "HSE文件修编情况";
                 row31["填写要求"] = "各类HSE实施计划、方案、措施等的编制、审核，包括分包商的HSE体系文件审核工作";
                 foreach (var item in hseLogDate)
                 {
@@ -474,7 +475,7 @@ namespace FineUIPro.Web.Manager
 
                 DataRow row32 = outputDT.NewRow();
                 row32["序号"] = string.Empty;
-                row32["类别"] = "HSE体系文件修编数量";
+                row32["类别"] = "HSE文件修编数量";
                 row32["填写要求"] = "HSE体系文件修编、审核的数量，同存档文件对应";
                 foreach (var item in hseLogDate)
                 {
@@ -488,8 +489,8 @@ namespace FineUIPro.Web.Manager
 
                 DataRow row33 = outputDT.NewRow();
                 row33["序号"] = "2";
-                row33["类别"] = "HSE资质、方案核查工作情况";
-                row33["填写要求"] = "本公司及各分包商企业、人员资质核查等";
+                row33["类别"] = "HSE文件审核情况";
+                row33["填写要求"] = "五环公司及各分包商企业、人员资质核查、HSE费用核查等";
                 foreach (var item in hseLogDate)
                 {
                     Model.Manager_HSSELog d27 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
@@ -502,8 +503,8 @@ namespace FineUIPro.Web.Manager
 
                 DataRow row34 = outputDT.NewRow();
                 row34["序号"] = string.Empty;
-                row34["类别"] = "HSE资质、方案核查数量";
-                row34["填写要求"] = "本公司及各分包商企业、人员资质核查的数量，同存档文件对应";
+                row34["类别"] = "HSE文件审核数量";
+                row34["填写要求"] = "五环公司及各分包商企业、人员资质核查的数量，同存档文件对应";
                 foreach (var item in hseLogDate)
                 {
                     Model.Manager_HSSELog d28 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
@@ -514,51 +515,51 @@ namespace FineUIPro.Web.Manager
                 }
                 outputDT.Rows.Add(row34);
 
-                DataRow row35 = outputDT.NewRow();
-                row35["序号"] = "3";
-                row35["类别"] = "HSE费用使用、审核情况";
-                row35["填写要求"] = "HSE费用发生核查、申请审核等方面的工作情况";
-                foreach (var item in hseLogDate)
-                {
-                    Model.Manager_HSSELog d29 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
-                    if (d29 != null)
-                    {
-                        row35[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d29.Contents33;
-                    }
-                }
-                outputDT.Rows.Add(row35);
+                //DataRow row35 = outputDT.NewRow();
+                //row35["序号"] = "3";
+                //row35["类别"] = "HSE费用使用、审核情况";
+                //row35["填写要求"] = "HSE费用发生核查、申请审核等方面的工作情况";
+                //foreach (var item in hseLogDate)
+                //{
+                //    Model.Manager_HSSELog d29 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
+                //    if (d29 != null)
+                //    {
+                //        row35[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d29.Contents33;
+                //    }
+                //}
+                //outputDT.Rows.Add(row35);
 
-                DataRow row36 = outputDT.NewRow();
-                row36["序号"] = string.Empty;
-                row36["类别"] = "HSE费用核查次数";
-                row36["填写要求"] = "HSE费用的核查次数，每核查或审核一次就计1次，但需同存档文件对应";
-                foreach (var item in hseLogDate)
-                {
-                    Model.Manager_HSSELog d30 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
-                    if (d30 != null)
-                    {
-                        row36[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d30.Num33 != null ? d30.Num33.ToString() : string.Empty;
-                    }
-                }
-                outputDT.Rows.Add(row36);
+                //DataRow row36 = outputDT.NewRow();
+                //row36["序号"] = string.Empty;
+                //row36["类别"] = "HSE费用核查次数";
+                //row36["填写要求"] = "HSE费用的核查次数，每核查或审核一次就计1次，但需同存档文件对应";
+                //foreach (var item in hseLogDate)
+                //{
+                //    Model.Manager_HSSELog d30 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
+                //    if (d30 != null)
+                //    {
+                //        row36[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d30.Num33 != null ? d30.Num33.ToString() : string.Empty;
+                //    }
+                //}
+                //outputDT.Rows.Add(row36);
 
-                DataRow row37 = outputDT.NewRow();
-                row37["序号"] = "4";
-                row37["类别"] = "文件资料归档数量";
-                row37["填写要求"] = "归档的各类文件数量";
-                foreach (var item in hseLogDate)
-                {
-                    Model.Manager_HSSELog d31 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
-                    if (d31 != null)
-                    {
-                        row37[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d31.Num34 != null ? d31.Num34.ToString() : string.Empty;
-                    }
-                }
-                outputDT.Rows.Add(row37);
+                //DataRow row37 = outputDT.NewRow();
+                //row37["序号"] = "4";
+                //row37["类别"] = "文件资料归档数量";
+                //row37["填写要求"] = "归档的各类文件数量";
+                //foreach (var item in hseLogDate)
+                //{
+                //    Model.Manager_HSSELog d31 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
+                //    if (d31 != null)
+                //    {
+                //        row37[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d31.Num34 != null ? d31.Num34.ToString() : string.Empty;
+                //    }
+                //}
+                //outputDT.Rows.Add(row37);
 
                 DataRow row40 = outputDT.NewRow();
                 row40["序号"] = "四";
-                row40["类别"] = "其它管理";
+                row40["类别"] = "每周总结";
                 row40["填写要求"] = "重点描述完成的工作内容";
                 foreach (var item in hseLogDate)
                 {
@@ -568,8 +569,8 @@ namespace FineUIPro.Web.Manager
 
                 DataRow row41 = outputDT.NewRow();
                 row41["序号"] = "1";
-                row41["类别"] = "HSE工程师工作安排";
-                row41["填写要求"] = "HSE经理填写，对工程师的工作安排";
+                row41["类别"] = "每周工作小结";
+                row41["填写要求"] = "对本周的工作要点进行总结";
                 foreach (var item in hseLogDate)
                 {
                     Model.Manager_HSSELog d32 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
@@ -582,8 +583,8 @@ namespace FineUIPro.Web.Manager
 
                 DataRow row42 = outputDT.NewRow();
                 row42["序号"] = "2";
-                row42["类别"] = "治安保卫工作情况";
-                row42["填写要求"] = "项目治安保卫工作情况";
+                row42["类别"] = "下周/下阶段工作计划";
+                row42["填写要求"] = "提出下周或下阶段的工作要点";
                 foreach (var item in hseLogDate)
                 {
                     Model.Manager_HSSELog d33 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
@@ -594,57 +595,57 @@ namespace FineUIPro.Web.Manager
                 }
                 outputDT.Rows.Add(row42);
 
-                DataRow row43 = outputDT.NewRow();
-                row43["序号"] = "3";
-                row43["类别"] = "其它";
-                row43["填写要求"] = string.Empty;
-                foreach (var item in hseLogDate)
-                {
-                    Model.Manager_HSSELog d34 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
-                    if (d34 != null)
-                    {
-                        row43[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d34.Contents43;
-                    }
-                }
-                outputDT.Rows.Add(row43);
+                //DataRow row43 = outputDT.NewRow();
+                //row43["序号"] = "3";
+                //row43["类别"] = "其它";
+                //row43["填写要求"] = string.Empty;
+                //foreach (var item in hseLogDate)
+                //{
+                //    Model.Manager_HSSELog d34 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
+                //    if (d34 != null)
+                //    {
+                //        row43[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d34.Contents43;
+                //    }
+                //}
+                //outputDT.Rows.Add(row43);
 
-                DataRow row50 = outputDT.NewRow();
-                row50["序号"] = "五";
-                row50["类别"] = "总结";
-                row50["填写要求"] = "重点描述完成的工作内容";
-                foreach (var item in hseLogDate)
-                {
-                    row50[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = string.Empty;
-                }
-                outputDT.Rows.Add(row50);
+                //DataRow row50 = outputDT.NewRow();
+                //row50["序号"] = "五";
+                //row50["类别"] = "总结";
+                //row50["填写要求"] = "重点描述完成的工作内容";
+                //foreach (var item in hseLogDate)
+                //{
+                //    row50[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = string.Empty;
+                //}
+                //outputDT.Rows.Add(row50);
 
-                DataRow row51 = outputDT.NewRow();
-                row51["序号"] = "1";
-                row51["类别"] = "当日工作小结";
-                row51["填写要求"] = "对今日的工作要点进行总结";
-                foreach (var item in hseLogDate)
-                {
-                    Model.Manager_HSSELog d35 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
-                    if (d35 != null)
-                    {
-                        row51[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d35.Contents51;
-                    }
-                }
-                outputDT.Rows.Add(row51);
+                //DataRow row51 = outputDT.NewRow();
+                //row51["序号"] = "1";
+                //row51["类别"] = "当日工作小结";
+                //row51["填写要求"] = "对今日的工作要点进行总结";
+                //foreach (var item in hseLogDate)
+                //{
+                //    Model.Manager_HSSELog d35 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
+                //    if (d35 != null)
+                //    {
+                //        row51[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d35.Contents51;
+                //    }
+                //}
+                //outputDT.Rows.Add(row51);
 
-                DataRow row52 = outputDT.NewRow();
-                row52["序号"] = "2";
-                row52["类别"] = "明日/下阶段工作计划";
-                row52["填写要求"] = "提出明日或下阶段的工作要点";
-                foreach (var item in hseLogDate)
-                {
-                    Model.Manager_HSSELog d36 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
-                    if (d36 != null)
-                    {
-                        row52[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d36.Contents52;
-                    }
-                }
-                outputDT.Rows.Add(row52);
+                //DataRow row52 = outputDT.NewRow();
+                //row52["序号"] = "2";
+                //row52["类别"] = "明日/下阶段工作计划";
+                //row52["填写要求"] = "提出明日或下阶段的工作要点";
+                //foreach (var item in hseLogDate)
+                //{
+                //    Model.Manager_HSSELog d36 = BLL.HSSELogService.GetHSSELogByHSSELogId(item.HSSELogId);
+                //    if (d36 != null)
+                //    {
+                //        row52[string.Format("{0:yyyy-MM-dd}", item.CompileDate)] = d36.Contents52;
+                //    }
+                //}
+                //outputDT.Rows.Add(row52);
             }
 
             return outputDT;

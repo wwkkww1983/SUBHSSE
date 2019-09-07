@@ -86,6 +86,10 @@ namespace FineUIPro.Web.SysManage
                 {
                     this.btnMenuDelete.Hidden = false;
                 }
+                if (buttonList.Contains(BLL.Const.BtnIn))
+                {
+                    this.btnImport.Hidden = false;
+                }
             }
         }
         #endregion
@@ -273,6 +277,28 @@ namespace FineUIPro.Web.SysManage
 
             return content;
         }
-        #endregion       
+        #endregion
+
+        #region 导入
+        /// <summary>
+        /// 导入按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnImport_Click(object sender, EventArgs e)
+        {
+            PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("UnitIn.aspx","","导入 - ")));
+        }
+
+        /// <summary>
+        /// 关闭导入弹出窗口
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Window2_Close(object sender, WindowCloseEventArgs e)
+        {
+            BindGrid();
+        }
+        #endregion
     }
 }

@@ -137,16 +137,16 @@ namespace FineUIPro.Web.Manager
             this.txtNum23.Text = getHSSELog.Num23.ToString();
             this.txtContents24.Text = getHSSELog.Contents24;
             this.txtNum24.Text = getHSSELog.Num24.ToString();
-            this.txtContents25.Text = getHSSELog.Contents25;
-            this.txtNum25.Text = getHSSELog.Num25.ToString();
-            this.txtContents26.Text = getHSSELog.Contents26;
-            this.txtNum26.Text = getHSSELog.Num26.ToString();
-            this.txtContents27.Text = getHSSELog.Contents27;
-            this.txtNum27.Text = getHSSELog.Num27.ToString();
-            this.txtContents28.Text = getHSSELog.Contents28;
-            this.txtNum28.Text = getHSSELog.Num28.ToString();
-            this.txtContents29.Text = getHSSELog.Contents29;
-            this.txtNum29.Text = getHSSELog.Num29.ToString();
+            //this.txtContents25.Text = getHSSELog.Contents25;
+            //this.txtNum25.Text = getHSSELog.Num25.ToString();
+            //this.txtContents26.Text = getHSSELog.Contents26;
+            //this.txtNum26.Text = getHSSELog.Num26.ToString();
+            //this.txtContents27.Text = getHSSELog.Contents27;
+            //this.txtNum27.Text = getHSSELog.Num27.ToString();
+            //this.txtContents28.Text = getHSSELog.Contents28;
+            //this.txtNum28.Text = getHSSELog.Num28.ToString();
+            //this.txtContents29.Text = getHSSELog.Contents29;
+            //this.txtNum29.Text = getHSSELog.Num29.ToString();
             this.txtContents210.Text = getHSSELog.Contents210;
             this.txtNum210.Text = getHSSELog.Num210.ToString();
             this.txtNum211.Text = getHSSELog.Num211.ToString();
@@ -154,14 +154,14 @@ namespace FineUIPro.Web.Manager
             this.txtNum31.Text = getHSSELog.Num31.ToString();
             this.txtContents32.Text = getHSSELog.Contents32;
             this.txtNum32.Text = getHSSELog.Num32.ToString();
-            this.txtContents33.Text = getHSSELog.Contents33;
-            this.txtNum33.Text = getHSSELog.Num33.ToString();
-            this.txtNum34.Text = getHSSELog.Num34.ToString();
+            //this.txtContents33.Text = getHSSELog.Contents33;
+            //this.txtNum33.Text = getHSSELog.Num33.ToString();
+            //this.txtNum34.Text = getHSSELog.Num34.ToString();
             this.txtContents41.Text = getHSSELog.Contents41;
             this.txtContents42.Text = getHSSELog.Contents42;
-            this.txtContents43.Text = getHSSELog.Contents43;
-            this.txtContents51.Text = getHSSELog.Contents51;
-            this.txtContents52.Text = getHSSELog.Contents52;
+            //this.txtContents43.Text = getHSSELog.Contents43;
+            //this.txtContents51.Text = getHSSELog.Contents51;
+            //this.txtContents52.Text = getHSSELog.Contents52;
         }
 
         /// <summary>
@@ -189,16 +189,16 @@ namespace FineUIPro.Web.Manager
             this.txtNum23.Text = string.Empty;
             this.txtContents24.Text = string.Empty;
             this.txtNum24.Text = string.Empty;
-            this.txtContents25.Text = string.Empty;
-            this.txtNum25.Text = string.Empty;
-            this.txtContents26.Text = string.Empty;
-            this.txtNum26.Text = string.Empty;
-            this.txtContents27.Text = string.Empty;
-            this.txtNum27.Text = string.Empty;
-            this.txtContents28.Text = string.Empty;
-            this.txtNum28.Text = string.Empty;
-            this.txtContents29.Text = string.Empty;
-            this.txtNum29.Text = string.Empty;
+            //this.txtContents25.Text = string.Empty;
+            //this.txtNum25.Text = string.Empty;
+            //this.txtContents26.Text = string.Empty;
+            //this.txtNum26.Text = string.Empty;
+            //this.txtContents27.Text = string.Empty;
+            //this.txtNum27.Text = string.Empty;
+            //this.txtContents28.Text = string.Empty;
+            //this.txtNum28.Text = string.Empty;
+            //this.txtContents29.Text = string.Empty;
+            //this.txtNum29.Text = string.Empty;
             this.txtContents210.Text = string.Empty;
             this.txtNum210.Text = string.Empty;
             this.txtNum211.Text = string.Empty;
@@ -206,14 +206,14 @@ namespace FineUIPro.Web.Manager
             this.txtNum31.Text = string.Empty;
             this.txtContents32.Text = string.Empty;
             this.txtNum32.Text = string.Empty;
-            this.txtContents33.Text = string.Empty;
-            this.txtNum33.Text = string.Empty;
-            this.txtNum34.Text = string.Empty;
+            //this.txtContents33.Text = string.Empty;
+            //this.txtNum33.Text = string.Empty;
+            //this.txtNum34.Text = string.Empty;
             this.txtContents41.Text = string.Empty;
             this.txtContents42.Text = string.Empty;
-            this.txtContents43.Text = string.Empty;
-            this.txtContents51.Text = string.Empty;
-            this.txtContents52.Text = string.Empty; 
+            //this.txtContents43.Text = string.Empty;
+            //this.txtContents51.Text = string.Empty;
+            //this.txtContents52.Text = string.Empty; 
         }
         #endregion
 
@@ -256,16 +256,16 @@ namespace FineUIPro.Web.Manager
             newHSSELog.Num23 = Funs.GetNewInt(this.txtNum23.Text.Trim());
             newHSSELog.Contents24 = this.txtContents24.Text.Trim();
             newHSSELog.Num24 = Funs.GetNewInt(this.txtNum24.Text.Trim());
-            newHSSELog.Contents25 = this.txtContents25.Text.Trim();
-            newHSSELog.Num25 = Funs.GetNewInt(this.txtNum25.Text.Trim());
-            newHSSELog.Contents26 = this.txtContents26.Text.Trim();
-            newHSSELog.Num26 = Funs.GetNewInt(this.txtNum26.Text.Trim());
-            newHSSELog.Contents27 = this.txtContents27.Text.Trim();
-            newHSSELog.Num27 = Funs.GetNewInt(this.txtNum27.Text.Trim());
-            newHSSELog.Contents28 = this.txtContents28.Text.Trim();
-            newHSSELog.Num28 = Funs.GetNewInt(this.txtNum28.Text.Trim());
-            newHSSELog.Contents29 = this.txtContents29.Text.Trim();
-            newHSSELog.Num29 = Funs.GetNewInt(this.txtNum29.Text.Trim());
+            //newHSSELog.Contents25 = this.txtContents25.Text.Trim();
+            //newHSSELog.Num25 = Funs.GetNewInt(this.txtNum25.Text.Trim());
+            //newHSSELog.Contents26 = this.txtContents26.Text.Trim();
+            //newHSSELog.Num26 = Funs.GetNewInt(this.txtNum26.Text.Trim());
+            //newHSSELog.Contents27 = this.txtContents27.Text.Trim();
+            //newHSSELog.Num27 = Funs.GetNewInt(this.txtNum27.Text.Trim());
+            //newHSSELog.Contents28 = this.txtContents28.Text.Trim();
+            //newHSSELog.Num28 = Funs.GetNewInt(this.txtNum28.Text.Trim());
+            //newHSSELog.Contents29 = this.txtContents29.Text.Trim();
+            //newHSSELog.Num29 = Funs.GetNewInt(this.txtNum29.Text.Trim());
             newHSSELog.Contents210 = this.txtContents210.Text.Trim();
             newHSSELog.Num210 = Funs.GetNewInt(this.txtNum210.Text.Trim());
             newHSSELog.Num211 = Funs.GetNewInt(this.txtNum211.Text.Trim());
@@ -273,14 +273,14 @@ namespace FineUIPro.Web.Manager
             newHSSELog.Num31 = Funs.GetNewInt(this.txtNum31.Text.Trim());
             newHSSELog.Contents32 = this.txtContents32.Text.Trim();
             newHSSELog.Num32 = Funs.GetNewInt(this.txtNum32.Text.Trim());
-            newHSSELog.Contents33 = this.txtContents33.Text.Trim();
-            newHSSELog.Num33 = Funs.GetNewInt(this.txtNum33.Text.Trim());
-            newHSSELog.Num34 = Funs.GetNewInt(this.txtNum34.Text.Trim());
+            //newHSSELog.Contents33 = this.txtContents33.Text.Trim();
+            //newHSSELog.Num33 = Funs.GetNewInt(this.txtNum33.Text.Trim());
+            //newHSSELog.Num34 = Funs.GetNewInt(this.txtNum34.Text.Trim());
             newHSSELog.Contents41 = this.txtContents41.Text.Trim();
             newHSSELog.Contents42 = this.txtContents42.Text.Trim();
-            newHSSELog.Contents43 = this.txtContents43.Text.Trim();
-            newHSSELog.Contents51 = this.txtContents51.Text.Trim();
-            newHSSELog.Contents52 = this.txtContents52.Text.Trim();
+            //newHSSELog.Contents43 = this.txtContents43.Text.Trim();
+            //newHSSELog.Contents51 = this.txtContents51.Text.Trim();
+            //newHSSELog.Contents52 = this.txtContents52.Text.Trim();
             newHSSELog.IsVisible = true;   
             if (!string.IsNullOrEmpty(this.HSSELogId))
             {

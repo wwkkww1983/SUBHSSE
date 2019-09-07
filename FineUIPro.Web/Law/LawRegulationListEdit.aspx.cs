@@ -178,7 +178,7 @@ namespace FineUIPro.Web.Law
         {  /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
 
-            poxy.DataInsertLaw_LawRegulationListTableCompleted += new EventHandler<BLL.HSSEService.DataInsertLaw_LawRegulationListTableCompletedEventArgs>(poxy_DataInsertLaw_LawRegulationListTableCompleted);
+            poxy.DataInsertLaw_LawRegulationListTableCompleted += new EventHandler<HSSEService.DataInsertLaw_LawRegulationListTableCompletedEventArgs>(poxy_DataInsertLaw_LawRegulationListTableCompleted);
             var LawRegulationList = from x in Funs.DB.View_Law_LawRegulationList                                    
                                     where x.LawRegulationId == LawRegulationId && x.IsPass == true 
                                         && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4)
@@ -213,7 +213,7 @@ namespace FineUIPro.Web.Law
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertLaw_LawRegulationListTableCompleted(object sender, BLL.HSSEService.DataInsertLaw_LawRegulationListTableCompletedEventArgs e)
+        private void poxy_DataInsertLaw_LawRegulationListTableCompleted(object sender, HSSEService.DataInsertLaw_LawRegulationListTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

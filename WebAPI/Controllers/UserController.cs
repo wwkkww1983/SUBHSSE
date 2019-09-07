@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using BLL;
 
 namespace WebAPI.Controllers
 {
@@ -29,8 +30,18 @@ namespace WebAPI.Controllers
                 if (user != null)
                 {
                     responeData.message = "登录成功！";
+                    responeData.data = user;
                 }
-                responeData.data = user;
+                else
+                {
+                    var user1= BLL.APIPersonService.PersonLogOn(userInfo);
+                    if (user1 != null)
+                    {
+                        responeData.message = "登录成功！";
+                        responeData.code = 2;
+                        responeData.data = user1;
+                    }
+                }                
             }
             catch (Exception ex)
             {

@@ -30,7 +30,10 @@
                                 AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px"></f:TextBox>                       
                             <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>    
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" runat="server" Hidden="true">
-                            </f:Button>                           
+                            </f:Button>   
+                            <f:Button ID="btnImport" ToolTip="导入" Icon="ApplicationGet" Hidden="true" runat="server"
+                                        OnClick="btnImport_Click">
+                                    </f:Button>                     
                         </Items>
                     </f:Toolbar>
                 </Toolbars>
@@ -83,6 +86,10 @@
     <f:Window ID="Window1" Title="单位设置" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Self" EnableResize="true" runat="server"  IsModal="true"
         Width="1000px" Height="420px">
+    </f:Window>
+    <f:Window ID="Window2" Title="导入单位信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="false"
+        CloseAction="HidePostBack" Width="1200px" Height="600px">
     </f:Window>
     <f:Window ID="WindowSubUnit" Title="分包商资质详细信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true"

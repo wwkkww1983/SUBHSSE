@@ -208,7 +208,7 @@ namespace FineUIPro.Web.Technique
         {
             ////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertTechnique_SpecialSchemeTableCompleted += new EventHandler<BLL.HSSEService.DataInsertTechnique_SpecialSchemeTableCompletedEventArgs>(poxy_DataInsertTechnique_SpecialSchemeTableCompleted);
+            poxy.DataInsertTechnique_SpecialSchemeTableCompleted += new EventHandler<HSSEService.DataInsertTechnique_SpecialSchemeTableCompletedEventArgs>(poxy_DataInsertTechnique_SpecialSchemeTableCompleted);
             var specialScheme = from x in Funs.DB.View_Technique_SpecialScheme
                                 join y in Funs.DB.AttachFile on x.SpecialSchemeId equals y.ToKeyId
                                 where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == false || x.IsBuild == null)
@@ -240,7 +240,7 @@ namespace FineUIPro.Web.Technique
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertTechnique_SpecialSchemeTableCompleted(object sender, BLL.HSSEService.DataInsertTechnique_SpecialSchemeTableCompletedEventArgs e)
+        private void poxy_DataInsertTechnique_SpecialSchemeTableCompleted(object sender, HSSEService.DataInsertTechnique_SpecialSchemeTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

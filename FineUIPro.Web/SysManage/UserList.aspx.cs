@@ -8,7 +8,7 @@
     using BLL;
 
     public partial class UserList : PageBase
-    {        
+    { 
         /// <summary>
         /// 加载页面
         /// </summary>
@@ -17,7 +17,7 @@
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            { 
+            {
                 ////权限按钮方法
                 this.GetButtonPower();
                 this.btnNew.OnClientClick = Window1.GetShowReference("UserListEdit.aspx") + "return false;";
@@ -25,8 +25,8 @@
                 {
                     Grid1.PageSize = this.CurrUser.PageSize.Value;
                 }
-                
-                this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();              
+
+                this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
                 this.BindGrid();
             }
@@ -45,7 +45,7 @@
                           + @" LEFT JOIN Sys_Const AS Const13 ON Roles.RoleType=Const13.ConstValue AND Const13.GroupId='" + BLL.ConstValue.Group_0013 + "'"
                           + @" WHERE Users.UserId !='" + Const.sysglyId + "' AND Users.UserId !='" + BLL.Const.hfnbdId + "'";
 
-            List<SqlParameter> listStr = new List<SqlParameter>();            
+            List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtUserName.Text.Trim()))
             {
                 strSql += " AND Users.UserName LIKE @UserName";
@@ -79,7 +79,7 @@
             //tb = GetFilteredTable(Grid1.FilteredData, tb);
             var table = this.GetPagedDataTable(Grid1, tb);
             Grid1.DataSource = table;
-            Grid1.DataBind();           
+            Grid1.DataBind();
         }
 
         #region 查询
@@ -120,7 +120,7 @@
             }
         }
         #endregion
-        
+
         #region  删除数据
         /// <summary>
         /// 右键删除事件
@@ -150,7 +150,7 @@
                         if (string.IsNullOrEmpty(cont))
                         {
                             BLL.LogService.AddSys_Log(this.CurrUser, user.UserCode, user.UserId, BLL.Const.UserMenuId, BLL.Const.BtnAdd);
-                            BLL.UserService.DeleteUser(rowID);                      
+                            BLL.UserService.DeleteUser(rowID);
                         }
                         else
                         {
@@ -179,7 +179,7 @@
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Grid1_PageIndexChange(object sender, GridPageEventArgs e)
-        {           
+        {
             BindGrid();
         }
 
@@ -275,7 +275,30 @@
         /// <param name="e"></param>
         protected void lbtnPro_Click(object sender, EventArgs e)
         {
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ParticipateProject.aspx?userId={0}", Grid1.SelectedRowID, "参与项目情况 - "),"参与项目",1000,520));
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ParticipateProject.aspx?userId={0}", Grid1.SelectedRowID, "参与项目情况 - "), "参与项目", 1000, 520));
+        }
+
+        protected string ConvertProject(object userId)
+        {
+            string projectName = string.Empty;
+            if (userId != null)
+            {
+                var projectUsers = ProjectUserService.GetProjectUserByUserId(userId.ToString());
+
+                if (projectUsers.Count() == 1)
+                {
+                    projectName = BLL.ProjectService.GetProjectByProjectId(projectUsers.FirstOrDefault().ProjectId).ProjectName;
+                }
+                else if (projectUsers.Count() > 1)
+                {
+                    projectName = "查看";
+                }
+                else
+                {
+                    projectName = "无";
+                }
+            }
+            return projectName;
         }
     }
 }

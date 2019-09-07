@@ -208,7 +208,7 @@ namespace FineUIPro.Web.EduTrain
         public void UpKnowledgeItem(string knowledgeItemId, string unitId)
         {  /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertTraining_KnowledgeItemTableCompleted += new EventHandler<BLL.HSSEService.DataInsertTraining_KnowledgeItemTableCompletedEventArgs>(poxy_DataInsertTraining_KnowledgeItemTableCompleted);
+            poxy.DataInsertTraining_KnowledgeItemTableCompleted += new EventHandler<HSSEService.DataInsertTraining_KnowledgeItemTableCompletedEventArgs>(poxy_DataInsertTraining_KnowledgeItemTableCompleted);
             var TrainingItemList = from x in Funs.DB.Training_KnowledgeItem
                                    where x.KnowledgeItemId == knowledgeItemId && x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4)
                                    select new BLL.HSSEService.Training_KnowledgeItem
@@ -231,7 +231,7 @@ namespace FineUIPro.Web.EduTrain
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertTraining_KnowledgeItemTableCompleted(object sender, BLL.HSSEService.DataInsertTraining_KnowledgeItemTableCompletedEventArgs e)
+        private void poxy_DataInsertTraining_KnowledgeItemTableCompleted(object sender, HSSEService.DataInsertTraining_KnowledgeItemTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {

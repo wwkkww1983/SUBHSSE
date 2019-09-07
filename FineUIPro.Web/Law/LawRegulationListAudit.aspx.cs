@@ -165,7 +165,7 @@
         public void UpLawRegulation(string LawRegulationId, string unitId)
         {  /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
-            poxy.DataInsertLaw_LawRegulationListTableCompleted += new EventHandler<BLL.HSSEService.DataInsertLaw_LawRegulationListTableCompletedEventArgs>(poxy_DataInsertLaw_LawRegulationListTableCompleted);
+            poxy.DataInsertLaw_LawRegulationListTableCompleted += new EventHandler<HSSEService.DataInsertLaw_LawRegulationListTableCompletedEventArgs>(poxy_DataInsertLaw_LawRegulationListTableCompleted);
             var LawRegulationList = from x in Funs.DB.View_Law_LawRegulationList
                                     join y in Funs.DB.AttachFile on x.LawRegulationId equals y.ToKeyId
                                     where x.LawRegulationId == LawRegulationId && x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == null || x.IsBuild == false)
@@ -200,7 +200,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void poxy_DataInsertLaw_LawRegulationListTableCompleted(object sender, BLL.HSSEService.DataInsertLaw_LawRegulationListTableCompletedEventArgs e)
+        private void poxy_DataInsertLaw_LawRegulationListTableCompleted(object sender, HSSEService.DataInsertLaw_LawRegulationListTableCompletedEventArgs e)
         {
             if (e.Error == null)
             {
