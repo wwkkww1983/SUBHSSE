@@ -14,7 +14,7 @@
         <Items>
             <f:Panel runat="server" ID="panelLeftRegion" RegionPosition="Left" RegionSplit="true"
                 EnableCollapse="true" Width="250" Title="培训教材库" TitleToolTip="培训教材库" ShowBorder="true"
-                ShowHeader="true" AutoScroll="true" BodyPadding="5px" IconFont="ArrowCircleLeft" Layout="Fit">
+                ShowHeader="true" AutoScroll="true" BodyPadding="5px" IconFont="ArrowCircleLeft">
                 <Items>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
                         <Items>

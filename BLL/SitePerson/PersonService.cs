@@ -163,7 +163,9 @@ namespace BLL
                 IsCardUsed = person.IsCardUsed,
                 DepartId = person.DepartId,
                 FromPersonId =person.FromPersonId,
+                Password= GetPersonPassWord(person.IdentityCard),
             };
+           
 
             if (person.InTime.HasValue)
             {
@@ -234,6 +236,7 @@ namespace BLL
                 newPerson.IsCardUsed = person.IsCardUsed;
                 newPerson.DepartId = person.DepartId;
                 newPerson.QRCodeAttachUrl = person.QRCodeAttachUrl;
+                newPerson.Password = GetPersonPassWord(person.IdentityCard);
                 db.SubmitChanges();
 
                 ///写入人员出入场时间表 
@@ -384,5 +387,28 @@ namespace BLL
             }
         }
         #endregion
+
+        /// <summary>
+        /// 获取人员密码
+        /// </summary>
+        /// <param name="idCard"></param>
+        /// <returns></returns>
+        public static string GetPersonPassWord(string idCard)
+        {
+            string passWord= Funs.EncryptionPassword(Const.Password);
+            ////现场人员密码
+            if (!string.IsNullOrEmpty(idCard))
+            {
+                if (idCard.Length > 3)
+                {
+                    passWord = Funs.EncryptionPassword(idCard.Substring(idCard.Length - 4));
+                }
+                else
+                {
+                    passWord = Funs.EncryptionPassword(idCard);
+                }
+            }
+            return passWord;
+        }
     }
 }

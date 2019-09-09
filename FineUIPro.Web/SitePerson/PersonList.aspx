@@ -183,7 +183,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="编辑人员信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="1000px" Height="520px">
+        Width="900px" Height="600px">
     </f:Window>
     <f:Window ID="Window2" Title="导入人员信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="false"

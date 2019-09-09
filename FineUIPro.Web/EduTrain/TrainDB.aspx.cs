@@ -83,7 +83,8 @@ namespace FineUIPro.Web.EduTrain
         /// <returns></returns>
         private List<Model.Training_Training> GetNewTraining(string parentId)
         {
-            return (from x in Funs.DB.Training_Training where x.SupTrainingId == parentId orderby x.TrainingCode select x).ToList(); ;
+            return (from x in Funs.DB.Training_Training where x.SupTrainingId == parentId
+                    orderby x.TrainingCode select x).ToList();
         }
 
         protected void btnNew_Click(object sender, EventArgs e)

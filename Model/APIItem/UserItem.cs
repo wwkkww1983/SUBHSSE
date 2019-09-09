@@ -96,6 +96,22 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 岗位ID
+        /// </summary>
+        public string WorkPostId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 岗位名称
+        /// </summary>
+        public string WorkPostName
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 身份证
         /// </summary>
         public string IdentityCard

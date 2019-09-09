@@ -95,6 +95,8 @@
     <Compile Include="Administrative\ManageCheckItemService.cs" />
     <Compile Include="Administrative\ManageCheckService.cs" />
     <Compile Include="Administrative\DriverManagerService.cs" />
+    <Compile Include="API\APICompanyTrainingService.cs" />
+    <Compile Include="API\APITrainingService.cs" />
     <Compile Include="API\APIEquipmentQualityService.cs" />
     <Compile Include="API\APIProjectService.cs" />
     <Compile Include="API\APIBaseInfoService.cs" />

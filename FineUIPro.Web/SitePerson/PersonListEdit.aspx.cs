@@ -210,12 +210,7 @@ namespace FineUIPro.Web.SitePerson
             {
                 ShowNotify("入场时间不能为空！", MessageBoxIcon.Warning);
                 return;
-            }
-            if (string.IsNullOrEmpty(this.txtCardNo.Text))
-            {
-                ShowNotify("人员卡号不能为空！", MessageBoxIcon.Warning);
-                return;
-            }
+            }           
             SaveData();
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
@@ -480,12 +475,7 @@ namespace FineUIPro.Web.SitePerson
             {
                 ShowNotify("人员姓名不能为空！", MessageBoxIcon.Warning);
                 return;
-            }
-            if (string.IsNullOrEmpty(this.txtCardNo.Text))
-            {
-                ShowNotify("人员卡号不能为空！", MessageBoxIcon.Warning);
-                return;
-            }
+            }            
             if (string.IsNullOrEmpty(this.txtInTime.Text))
             {
                 ShowNotify("入场时间不能为空！", MessageBoxIcon.Warning);
@@ -498,6 +488,11 @@ namespace FineUIPro.Web.SitePerson
             var unit = BLL.CommonService.GetIsThisUnit();
             if (unit != null && unit.UnitId == BLL.Const.UnitId_TCC_)
             {
+                if (string.IsNullOrEmpty(this.txtCardNo.Text))
+                {
+                    ShowNotify("人员卡号不能为空！", MessageBoxIcon.Warning);
+                    return;
+                }
                 this.CreateCode_Simple(this.txtCardNo.Text.Trim());
             }
             else

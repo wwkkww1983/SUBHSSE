@@ -24,7 +24,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <f:PageManager ID="PageManager1" runat="server" AutoSizePanelID="SimpleForm1"/>
+    <f:PageManager ID="PageManager1" runat="server" AutoSizePanelID="Form2"/>
     <f:Form ID="Form2" LabelAlign="Right" MessageTarget="Qtip" RedStarPosition="BeforeText"
         LabelWidth="90px" BodyPadding="5px" ShowBorder="false" ShowHeader="false" runat="server"
         AutoScroll="true" EnableCollapse="true">
@@ -38,7 +38,7 @@
                             <f:TextBox ID="txtPersonName" runat="server" Label="人员姓名" MaxLength="200" LabelAlign="Right"
                                 Required="True" ShowRedStar="True" FocusOnPageLoad="true">
                             </f:TextBox>
-                            <f:TextBox ID="txtIdentityCard" runat="server" Label="身份证/证件号" MaxLength="50" LabelAlign="Right"
+                            <f:TextBox ID="txtIdentityCard" runat="server" Label="身份证/证件号" MaxLength="50" LabelAlign="Right" LabelWidth="120px"
                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Required="true" ShowRedStar="true">
                             </f:TextBox>
                            <%-- <f:DropDownList ID="drpUnit" runat="server" Label="所属单位" LabelAlign="Right" Required="True"
@@ -106,7 +106,8 @@
                         <Items>
                             <f:DatePicker ID="txtCertificateLimitTime" runat="server" Label="证书有效期" LabelAlign="Right">
                             </f:DatePicker>
-                            <f:RadioButtonList ID="rblIsCardUsed" runat="server" Label="考勤卡启用" LabelAlign="Right" Required="True" ShowRedStar="True">
+                            <f:RadioButtonList ID="rblIsCardUsed" runat="server" Label="考勤卡启用" LabelWidth="110px"
+                                LabelAlign="Right" Required="True" ShowRedStar="True">
                                 <f:RadioItem Value="True" Text="是" />
                                 <f:RadioItem Value="False" Text="否" />
                             </f:RadioButtonList>

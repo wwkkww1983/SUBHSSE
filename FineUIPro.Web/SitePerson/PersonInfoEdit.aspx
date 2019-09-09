@@ -81,18 +81,18 @@
             <f:FormRow ColumnWidths="40% 25% 35%">
                 <Items>
                     <f:TextBox ID="txtWorkArea" runat="server" Label="作业区域" MaxLength="100" ShowRedStar="true"
-                                        Required="true" LabelAlign="Right">
-                                    </f:TextBox>
-                                    <f:DropDownList ID="drpWorkArea" runat="server" AutoPostBack="true" OnSelectedIndexChanged="drpWorkArea_SelectedIndexChanged">
-                                    </f:DropDownList>
-                                    <f:Label ID="Label4" runat="server" Text="说明：检查区域可从下拉框选择也可手动编辑。" CssClass="lab" MarginLeft="5px">
-                                    </f:Label>
+                        Required="true" LabelAlign="Right">
+                    </f:TextBox>
+                    <f:DropDownList ID="drpWorkArea" runat="server" AutoPostBack="true" OnSelectedIndexChanged="drpWorkArea_SelectedIndexChanged">
+                    </f:DropDownList>
+                    <f:Label ID="Label4" runat="server" Text="说明：检查区域可从下拉框选择也可手动编辑。" CssClass="lab" MarginLeft="5px">
+                    </f:Label>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtAddress" runat="server" Label="进出地点" MaxLength="50" LabelAlign="Right">
-                                        </f:TextBox>
+                    </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>

@@ -19,6 +19,7 @@ namespace BLL
             var getUser = from x in Funs.DB.SitePerson_Person
                           join y in Funs.DB.Base_Unit on x.UnitId equals y.UnitId
                           join z in Funs.DB.Base_Project on x.ProjectId equals z.ProjectId
+                          join w in Funs.DB.Base_WorkPost on x.WorkPostId equals w.WorkPostId
                           where x.Telephone == userInfo.Account && x.Password == Funs.EncryptionPassword(userInfo.Password)
                           && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)
                           select new Model.UserItem
@@ -32,7 +33,10 @@ namespace BLL
                               IdentityCard = x.IdentityCard,
                               Account = x.Telephone,
                               UnitName = y.UnitName,
-                              LoginProjectName = z.ProjectName
+                              LoginProjectName = z.ProjectName,
+                              Telephone = x.Telephone,
+                              WorkPostId=x.WorkPostId,
+                              WorkPostName=w.WorkPostName,
                           };
 
             return getUser.FirstOrDefault();

@@ -34,7 +34,7 @@ namespace Model
         }
 
         /// <summary>
-        /// 图片
+        /// 图片/附件
         /// </summary>
         public string ImageUrl
         {

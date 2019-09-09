@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIItem\ResourcesItem.cs" />
     <Compile Include="APIItem\NoticeItem.cs" />
     <Compile Include="APIItem\BaseInfoItem.cs" />
     <Compile Include="APIItem\ProjectItem.cs" />

@@ -4,6 +4,8 @@ namespace BLL
     using System.Collections.Generic;
     using System.Globalization;
     using System.Data.Linq;
+    using System.Web;
+    using System.Text;
 
     /// <summary>
     /// 通用方法类。
@@ -127,7 +129,10 @@ namespace BLL
         /// <returns>加密后的密码</returns>
         public static string EncryptionPassword(string password)
         {
-            return System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
+            System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
+            return BitConverter.ToString(md5.ComputeHash(Encoding.UTF8.GetBytes(password))).Replace("-", null);
+
+            //return System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
         }
 
         ///// <summary>
