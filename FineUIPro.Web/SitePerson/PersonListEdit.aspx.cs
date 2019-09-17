@@ -504,7 +504,7 @@ namespace FineUIPro.Web.SitePerson
         //生成二维码方法一
         private void CreateCode_Simple(string nr)
         {
-            nr = "person&" + nr;
+            nr = "person$" + nr;
             var person = BLL.PersonService.GetPersonById(this.PersonId);
             if (person != null)
             {

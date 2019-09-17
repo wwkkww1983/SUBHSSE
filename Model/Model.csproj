@@ -65,6 +65,7 @@
     <Compile Include="APIItem\ProjectItem.cs" />
     <Compile Include="APIItem\Hazard_HazardRegisterItem.cs" />
     <Compile Include="APIItem\EquipmentQualityItem.cs" />
+    <Compile Include="APIItem\SubUnitQualityItem.cs" />
     <Compile Include="APIItem\UnitItem.cs" />
     <Compile Include="APIItem\ToDoItem.cs" />
     <Compile Include="APIItem\PersonItem.cs" />

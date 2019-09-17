@@ -49,5 +49,43 @@ namespace BLL
                         select x).ToList();
             return ObjectMapperManager.DefaultInstance.GetMapper<List<Model.Base_Unit>, List<Model.UnitItem>>().Map(units.ToList());
         }
+
+        /// <summary>
+        /// 根据subUnitQualityId获取分包商资质信息
+        /// </summary>
+        /// <param name="unitId"></param>
+        /// <returns></returns>
+        public static List<Model.SubUnitQualityItem> getSubUnitQualityBySubUnitQualityId(string subUnitQualityId)
+        {
+            var getData = from x in Funs.DB.QualityAudit_SubUnitQuality
+                          join y in Funs.DB.Base_Unit on x.UnitId equals y.UnitId
+                          where x.SubUnitQualityId == subUnitQualityId
+                          select new Model.SubUnitQualityItem
+                          {
+                              UnitId = y.UnitId,
+                              UnitName = y.UnitName,
+                              SubUnitQualityId = x.SubUnitQualityId,
+                              SubUnitQualityName = x.SubUnitQualityName,
+                              BusinessLicense = x.BusinessLicense,
+                              BL_EnableDate = string.Format("{0:yyyy-MM-dd}", x.BL_EnableDate),
+                              BL_ScanUrl = x.BL_ScanUrl.Replace("\\", "/"),
+                              Certificate = x.Certificate,
+                              C_EnableDate = string.Format("{0:yyyy-MM-dd}", x.C_EnableDate),
+                              C_ScanUrl = x.C_ScanUrl.Replace("\\", "/"),
+                              QualityLicense = x.QualityLicense,
+                              QL_EnableDate = string.Format("{0:yyyy-MM-dd}", x.QL_EnableDate),
+                              QL_ScanUrl = x.QL_ScanUrl.Replace("\\", "/"),
+                              HSELicense = x.HSELicense,
+                              H_EnableDate = string.Format("{0:yyyy-MM-dd}", x.H_EnableDate),
+                              H_ScanUrl = x.H_ScanUrl.Replace("\\", "/"),
+                              HSELicense2 = x.HSELicense2,
+                              H_EnableDate2 = string.Format("{0:yyyy-MM-dd}", x.H_EnableDate2),
+                              H_ScanUrl2 = x.H_ScanUrl2.Replace("\\", "/"),
+                              SecurityLicense = x.SecurityLicense,
+                              SL_EnableDate = string.Format("{0:yyyy-MM-dd}", x.SL_EnableDate),
+                              SL_ScanUrl = x.SL_ScanUrl.Replace("\\", "/")
+                          };
+            return getData.ToList();
+        }
     }
 }

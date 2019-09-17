@@ -305,7 +305,9 @@ D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Debug\BLL.dll.config
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Debug\BLL.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Debug\BLL.pdb
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Debug\Apache.NMS.ActiveMQ.dll
+D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Debug\EmitMapper.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Debug\FineUIPro.dll
+D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Debug\Microsoft.QualityTools.Testing.Fakes.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Debug\Microsoft.SQLServer.ManagedDTS.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Debug\Model.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Debug\Newtonsoft.Json.dll
@@ -318,12 +320,9 @@ D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Debug\Apache.NMS.ActiveMQ.xml
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Debug\FineUIPro.xml
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Debug\Newtonsoft.Json.pdb
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Debug\Newtonsoft.Json.xml
+D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Debug\zh-Hans\Microsoft.QualityTools.Testing.Fakes.resources.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\obj\Debug\BLL.csprojAssemblyReference.cache
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cache
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\obj\Debug\BLL.csproj.CopyComplete
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\obj\Debug\BLL.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\obj\Debug\BLL.pdb
-D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Debug\EmitMapper.dll
-D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Debug\Microsoft.QualityTools.Testing.Fakes.dll
-D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Debug\Apache.NMS.dll
-D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Debug\zh-Hans\Microsoft.QualityTools.Testing.Fakes.resources.dll

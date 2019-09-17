@@ -22,7 +22,7 @@ namespace WebAPI.Controllers
             try
             {
                 responeData.data = from x in Funs.DB.View_QualityAudit_EquipmentQuality
-                                   where x.EquipmentQualityId == equipmentQualityId                                   
+                                   where x.EquipmentQualityId == equipmentQualityId || x.FactoryCode == equipmentQualityId
                                    select new
                                    {
                                        x.EquipmentQualityId,
@@ -72,7 +72,7 @@ namespace WebAPI.Controllers
             try
             {
                 responeData.data = from x in Funs.DB.View_QualityAudit_EquipmentQuality
-                                   where x.FactoryCode == factoryCode
+                                   where x.FactoryCode == factoryCode || x.EquipmentQualityId == factoryCode
                                    select new
                                    {
                                        x.EquipmentQualityId,

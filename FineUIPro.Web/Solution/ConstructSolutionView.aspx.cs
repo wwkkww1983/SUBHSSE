@@ -152,22 +152,25 @@ namespace FineUIPro.Web.Solution
         /// <param name="e"></param>
         protected void btnQR_Click(object sender, EventArgs e)
         {
-            this.CreateCode_Simple(this.txtConstructSolutionCode.Text.Trim());
+            this.CreateCode_Simple();
         }
 
         //生成二维码方法一
-        private void CreateCode_Simple(string nr)
+        private void CreateCode_Simple()
         {
             var constructSolution = BLL.ConstructSolutionService.GetConstructSolutionById(this.ConstructSolutionId);
             if (constructSolution != null)
             {
+                string nr = "constructSolution$" +this.ConstructSolutionId;
                 BLL.UploadFileService.DeleteFile(Funs.RootPath, constructSolution.QRCodeAttachUrl);//删除二维码
                 string imageUrl = string.Empty;
-                QRCodeEncoder qrCodeEncoder = new QRCodeEncoder();
-                qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
-                qrCodeEncoder.QRCodeScale = nr.Length;
-                qrCodeEncoder.QRCodeVersion = 0;
-                qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.M;
+                QRCodeEncoder qrCodeEncoder = new QRCodeEncoder
+                {
+                    QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE,
+                    QRCodeScale = nr.Length,
+                    QRCodeVersion = 0,
+                    QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.M
+                };
                 System.Drawing.Image image = qrCodeEncoder.Encode(nr, Encoding.UTF8);
 
                 string filepath = Server.MapPath("~/") + BLL.UploadFileService.QRCodeImageFilePath;

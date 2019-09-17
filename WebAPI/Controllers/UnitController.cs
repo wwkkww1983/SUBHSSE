@@ -89,31 +89,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = from x in Funs.DB.View_QualityAudit_SubUnitQuality
-                                   where x.SubUnitQualityId == subUnitQualityId
-                                   select new
-                                   {
-                                       x.UnitId,
-                                       x.UnitName,
-                                       x.ProjectId,
-                                       x.SubUnitQualityId,
-                                       x.SubUnitQualityName,
-                                       x.BusinessLicense,
-                                       BL_EnableDate = string.Format("{0:yyyy-MM-dd}", x.BL_EnableDate),
-                                       BL_ScanUrl = x.BL_ScanUrl.Replace("\\", "/"),
-                                       x.Certificate,
-                                       C_EnableDate = string.Format("{0:yyyy-MM-dd}", x.C_EnableDate),
-                                       C_ScanUrl = x.C_ScanUrl.Replace("\\", "/"),
-                                       x.QualityLicense,
-                                       QL_EnableDate = string.Format("{0:yyyy-MM-dd}", x.QL_EnableDate),
-                                       QL_ScanUrl = x.QL_ScanUrl.Replace("\\", "/"),
-                                       x.HSELicense,
-                                       H_EnableDate = string.Format("{0:yyyy-MM-dd}", x.H_EnableDate),
-                                       H_ScanUrl = x.H_ScanUrl.Replace("\\", "/"),
-                                       x.SecurityLicense,
-                                       SL_EnableDate = string.Format("{0:yyyy-MM-dd}", x.SL_EnableDate),
-                                       SL_ScanUrl = x.SL_ScanUrl.Replace("\\", "/")
-                                   };
+                responeData.data = BLL.APIUnitService.getSubUnitQualityBySubUnitQualityId(subUnitQualityId);
             }
             catch (Exception ex)
             {
