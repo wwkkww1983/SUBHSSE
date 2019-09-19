@@ -120,7 +120,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="编制培训记录" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="1024px" Height="768px">
+        Width="1200px" Height="800px">
     </f:Window>
     <f:Window ID="Window2" Title="打印培训记录" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1024px"

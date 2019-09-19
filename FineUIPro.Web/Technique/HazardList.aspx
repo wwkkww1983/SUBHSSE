@@ -85,70 +85,69 @@
                                     <f:Button ID="btnImport" ToolTip="导入" Icon="ApplicationGet" Hidden="true" runat="server"
                                         OnClick="btnImport_Click">
                                     </f:Button>
-                                    <f:Button ID="btnSelectColumns" runat="server" ToolTip="导出" Icon="FolderUp" EnablePostBack="false" Hidden="true">
+                                    <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
+                                        EnableAjax="false" DisableControlBeforePostBack="false">
                                     </f:Button>
                                 </Items>
                             </f:Toolbar>
                         </Toolbars>                        
                         <Columns>
-                            <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center"/>
-                            <f:TemplateField Width="120px" HeaderText="代码" HeaderTextAlign="Center" TextAlign="Left"
+                            <f:TemplateField ColumnID="tfNumber" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
+                                TextAlign="Center">
+                                <ItemTemplate>
+                                    <asp:Label ID="lbNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
+                                </ItemTemplate>
+                            </f:TemplateField>
+                            <f:TemplateField Width="130px" HeaderText="代码" HeaderTextAlign="Center" TextAlign="Left" ColumnID="tfHazardCode"
                                 SortField="HazardCode">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblHazardCode" runat="server" Text='<%# Bind("HazardCode") %>' ToolTip='<%#Bind("HazardCode") %>'></asp:Label>
+                                    <asp:Label ID="lbHazardCode" runat="server" Text='<%# Bind("HazardCode") %>' ToolTip='<%#Bind("HazardCode") %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-                            <%--<f:TemplateField Width="95px" HeaderText="类别编号" HeaderTextAlign="Center" TextAlign="Left"
-                                SortField="HazardListTypeCode">
+                            <f:TemplateField Width="200px" HeaderText="危险因素明细" HeaderTextAlign="Center" TextAlign="Left" ColumnID="tfHazardItems">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblHazardListTypeCode" runat="server" Text='<%# Bind("HazardListTypeCode") %>'
-                                        ToolTip='<%#Bind("HazardListTypeCode") %>'></asp:Label>
-                                </ItemTemplate>
-                            </f:TemplateField>--%>
-                            <f:TemplateField Width="200px" HeaderText="危险因素明细" HeaderTextAlign="Center" TextAlign="Left">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblHazardItems" runat="server" Text='<%# Bind("HazardItems") %>' ToolTip='<%#Bind("HazardItems") %>'></asp:Label>
+                                    <asp:Label ID="lbHazardItems" runat="server" Text='<%# Bind("HazardItems") %>' ToolTip='<%#Bind("HazardItems") %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-                            <f:TemplateField Width="100px" HeaderText="缺陷类型" HeaderTextAlign="Center" TextAlign="Left"
+                            <f:TemplateField Width="100px" HeaderText="缺陷类型" HeaderTextAlign="Center" TextAlign="Left" ColumnID="tfDefectsType"
                                 SortField="DefectsType">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblDefectsType" runat="server" Text='<%# Bind("DefectsType") %>' ToolTip='<%#Bind("DefectsType") %>'></asp:Label>
+                                    <asp:Label ID="lbDefectsType" runat="server" Text='<%# Bind("DefectsType") %>' ToolTip='<%#Bind("DefectsType") %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-                            <f:TemplateField Width="120px" HeaderText="可能导致的事故" HeaderTextAlign="Center" TextAlign="Left"
+                            <f:TemplateField Width="120px" HeaderText="可能导致的事故" HeaderTextAlign="Center" TextAlign="Left" ColumnID="tfMayLeadAccidents"
                                 SortField="MayLeadAccidents">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblMayLeadAccidents" runat="server" Text='<%# Bind("MayLeadAccidents") %>'
+                                    <asp:Label ID="lbMayLeadAccidents" runat="server" Text='<%# Bind("MayLeadAccidents") %>'
                                         ToolTip='<%#Bind("MayLeadAccidents") %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-                            <f:TemplateField Width="80px" HeaderText="辅助方法" HeaderTextAlign="Center" TextAlign="Left"
+                            <f:TemplateField Width="80px" HeaderText="辅助方法" HeaderTextAlign="Center" TextAlign="Left" ColumnID="tfHelperMethod"
                                 SortField="HelperMethod">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblHelperMethod" runat="server" Text='<%# Bind("HelperMethod") %>'
+                                    <asp:Label ID="lbHelperMethod" runat="server" Text='<%# Bind("HelperMethod") %>'
                                         ToolTip='<%#Bind("HelperMethod") %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
                             <f:RenderField Width="95px" ColumnID="HazardJudge_L" DataField="HazardJudge_L" SortField="HazardJudge_L"
-                                FieldType="Float" HeaderTextAlign="Center" TextAlign="Center" HeaderText="危险评价(L)">
+                                FieldType="Float" HeaderTextAlign="Center" TextAlign="Center" HeaderText="评价(L)">
                             </f:RenderField>
                             <f:RenderField Width="95px" ColumnID="HazardJudge_E" DataField="HazardJudge_E" SortField="HazardJudge_E"
-                                FieldType="Float" HeaderTextAlign="Center" TextAlign="Center" HeaderText="危险评价(E)">
+                                FieldType="Float" HeaderTextAlign="Center" TextAlign="Center" HeaderText="评价(E)">
                             </f:RenderField>
                             <f:RenderField Width="95px" ColumnID="HazardJudge_C" DataField="HazardJudge_C" SortField="HazardJudge_C"
-                                FieldType="Float" HeaderTextAlign="Center" TextAlign="Center" HeaderText="危险评价(C)">
+                                FieldType="Float" HeaderTextAlign="Center" TextAlign="Center" HeaderText="评价(C)">
                             </f:RenderField>
                             <f:RenderField Width="95px" ColumnID="HazardJudge_D" DataField="HazardJudge_D" SortField="HazardJudge_D"
-                                FieldType="Float" HeaderTextAlign="Center" TextAlign="Center" HeaderText="危险评价(D)">
+                                FieldType="Float" HeaderTextAlign="Center" TextAlign="Center" HeaderText="评价(D)">
                             </f:RenderField>
                             <f:RenderField Width="95px" ColumnID="HazardLevel" DataField="HazardLevel" SortField="HazardLevel"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Center" HeaderText="危险级别">
                             </f:RenderField>
-                            <f:TemplateField Width="180px" HeaderText="控制措施" HeaderTextAlign="Center" TextAlign="Left"
+                            <f:TemplateField Width="180px" HeaderText="控制措施" HeaderTextAlign="Center" TextAlign="Left" ColumnID="tfControlMeasures"
                                 SortField="ControlMeasures">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblControlMeasures" runat="server" Text='<%# Bind("ControlMeasures") %>'
+                                    <asp:Label ID="lbControlMeasures" runat="server" Text='<%# Bind("ControlMeasures") %>'
                                         ToolTip='<%#Bind("ControlMeasures") %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
@@ -190,10 +189,6 @@
     <f:Window ID="Window4" Title="审核资源" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Self" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
         Width="1024px" Height="500px">
-    </f:Window>
-    <f:Window ID="Window5" Title="选择需要导出的列" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window5_Close" IsModal="true"
-        Width="450px" Height="250px" EnableAjax="false">
     </f:Window>
     <f:Window ID="Window6" Title="导入危险源与评价清单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close" 

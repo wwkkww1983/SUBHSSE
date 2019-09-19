@@ -67,10 +67,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = (from x in Funs.DB.View_SitePerson_Person
-                                   where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
-                                   orderby x.UnitCode, x.PersonName
-                                   select x).ToList();
+                var getDataList = APIPersonService.getPersonByProjectIdUnitId(projectId, unitId);
                 int pageCount = getDataList.Count;
                 if (pageCount > 0)
                 {

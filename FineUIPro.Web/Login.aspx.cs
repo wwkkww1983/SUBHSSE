@@ -17,7 +17,7 @@
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {                
+            {
                 string userName = Request.QueryString["Account"];
                 // string password = Request.QueryString["Password"];
 

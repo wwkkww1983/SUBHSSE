@@ -139,13 +139,22 @@ namespace FineUIPro.Web.Technique {
         protected global::FineUIPro.Button btnImport;
         
         /// <summary>
-        /// btnSelectColumns 控件。
+        /// btnOut 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Button btnSelectColumns;
+        protected global::FineUIPro.Button btnOut;
+        
+        /// <summary>
+        /// lbNumber 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbNumber;
         
         /// <summary>
         /// ToolbarSeparator1 控件。
@@ -191,15 +200,6 @@ namespace FineUIPro.Web.Technique {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Window Window2;
-        
-        /// <summary>
-        /// Window5 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Window Window5;
         
         /// <summary>
         /// WindowAtt 控件。

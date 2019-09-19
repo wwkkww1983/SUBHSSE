@@ -1,12 +1,13 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
-using BLL;
 using System.Text;
 using System.Web.UI;
+using AspNet = System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.EduTrain
 {
@@ -24,7 +25,7 @@ namespace FineUIPro.Web.EduTrain
                 this.GetButtonPower();
                 btnDeleteDetail.OnClientClick = Grid1.GetNoSelectionAlertReference("请至少选择一项！");
                 btnDeleteDetail.ConfirmText = String.Format("你确定要删除选中的&nbsp;<b><script>{0}</script></b>&nbsp;行数据吗？", Grid1.GetSelectedCountReference());
-                btnAuditResources.OnClientClick = Window4.GetShowReference("TrainingAudit.aspx") + "return false;";                                 btnSelectColumns.OnClientClick = Window5.GetShowReference("TrainingSelectCloumn.aspx");
+                btnAuditResources.OnClientClick = Window4.GetShowReference("TrainingAudit.aspx") + "return false;";
                 InitTreeMenu();
             }
         }
@@ -157,16 +158,18 @@ namespace FineUIPro.Web.EduTrain
 
         private void BindGrid()
         {
-            if (!string.IsNullOrEmpty(this.trTraining.SelectedNode.NodeID))
+            if (this.trTraining.SelectedNode !=null && !string.IsNullOrEmpty(this.trTraining.SelectedNode.NodeID))
             {
                 string strSql = @"SELECT TrainingItemId,TrainingId,TrainingItemCode,TrainingItemName,AttachUrl,VersionNum,ApproveState,ResourcesFrom "
                                 + @" ,CompileMan,CompileDate,ResourcesFromType,AuditMan,AuditDate,IsPass,UnitId,UnitCode,UnitName,TrainingCode,TrainingName,AttachUrlName "
                                 + @" FROM dbo.View_Training_TrainingItem"
                                 + @" WHERE TrainingId=@TrainingId and IsPass=@IsPass";
 
-                List<SqlParameter> listStr = new List<SqlParameter>();
-                listStr.Add(new SqlParameter("@TrainingId", this.trTraining.SelectedNode.NodeID));
-                listStr.Add(new SqlParameter("@IsPass", true));
+                List<SqlParameter> listStr = new List<SqlParameter>
+                {
+                    new SqlParameter("@TrainingId", this.trTraining.SelectedNode.NodeID),
+                    new SqlParameter("@IsPass", true)
+                };
                 if (!string.IsNullOrEmpty(this.TrainingItemCode.Text.Trim()))
                 {
                     strSql += " AND TrainingItemCode LIKE @TrainingItemCode";
@@ -483,10 +486,6 @@ namespace FineUIPro.Web.EduTrain
                 {
                     this.btnAuditResources.Hidden = false;
                 }
-                if (buttonList.Contains(BLL.Const.BtnOut))
-                {
-                    this.btnSelectColumns.Hidden = false;
-                }
             }
         }
         #endregion
@@ -513,5 +512,84 @@ namespace FineUIPro.Web.EduTrain
                 Alert.ShowInTop("附件不存在或数据不同步！", MessageBoxIcon.Warning);
             }
         }
+
+        /// <summary>
+        /// 导出
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnOut_Click(object sender, EventArgs e)
+        {
+            Response.ClearContent();
+            string filename = Funs.GetNewFileName();
+            Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("培训教材库" + filename, System.Text.Encoding.UTF8) + ".xls");
+            Response.ContentType = "application/excel";
+            Response.ContentEncoding = System.Text.Encoding.UTF8;
+            this.Grid1.PageSize = Grid1.RecordCount;
+            BindGrid();
+            Response.Write(GetGridTableHtml(Grid1, 3));
+            Response.End();
+        }
+
+        #region 导出方法
+        /// <summary>
+        /// 导出方法
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public static string GetGridTableHtml(Grid grid, int count)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
+            sb.Append("<table cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;\">");
+            sb.Append("<tr>");
+            foreach (GridColumn column in grid.Columns)
+            {
+                if (column.ColumnIndex < count)
+                {
+                    sb.AppendFormat("<td>{0}</td>", column.HeaderText);
+                }
+            }
+            sb.Append("</tr>");
+            foreach (GridRow row in grid.Rows)
+            {
+                sb.Append("<tr>");
+                foreach (GridColumn column in grid.Columns)
+                {
+                    if (column.ColumnIndex < count)
+                    {
+                        string html = row.Values[column.ColumnIndex].ToString();
+                        if (column.ColumnID == "tfNumber" && (row.FindControl("lbNumber") as AspNet.Label) != null)
+                        {
+                            html = (row.FindControl("lbNumber") as AspNet.Label).Text;
+                        }
+                        if (column.ColumnID == "tfTrainingItemCode" && (row.FindControl("lbTrainingItemCode") as AspNet.Label) != null)
+                        {
+                            html = (row.FindControl("lbTrainingItemCode") as AspNet.Label).Text;
+                        }
+                        if (column.ColumnID == "tfTrainingItemName" && (row.FindControl("lbTrainingItemName") as AspNet.Label) != null)
+                        {
+                            html = (row.FindControl("lbTrainingItemName") as AspNet.Label).Text;
+                        }
+                        if (column.ColumnID == "tfCompileMan" && (row.FindControl("lbCompileMan") as AspNet.Label) != null)
+                        {
+                            html = (row.FindControl("lbCompileMan") as AspNet.Label).Text;
+                        }
+                        if (column.ColumnID == "tfCompileDate" && (row.FindControl("lbCompileDate") as AspNet.Label) != null)
+                        {
+                            html = (row.FindControl("lbCompileDate") as AspNet.Label).Text;
+                        }
+                        sb.AppendFormat("<td>{0}</td>", html);
+                    }
+                }
+
+                sb.Append("</tr>");
+            }
+
+            sb.Append("</table>");
+
+            return sb.ToString();
+        }
+        #endregion
     }
 }

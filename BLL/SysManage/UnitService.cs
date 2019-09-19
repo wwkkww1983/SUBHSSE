@@ -348,5 +348,35 @@ namespace BLL
                 Funs.FineUIPleaseSelect(dropName);
             }
         }
+
+        #region 根据多单位ID得到单位名称字符串
+        /// <summary>
+        /// 根据多单位ID得到单位名称字符串
+        /// </summary>
+        /// <param name="bigType"></param>
+        /// <returns></returns>
+        public static string getUnitNamesUnitIds(object unitIds)
+        {
+            string unitName = string.Empty;
+            if (unitIds != null)
+            {
+                string[] ids = unitIds.ToString().Split(',');
+                foreach (string id in ids)
+                {
+                    var q = GetUnitByUnitId(id);
+                    if (q != null)
+                    {
+                        unitName += q.UnitName + ",";
+                    }
+                }
+                if (unitName != string.Empty)
+                {
+                    unitName = unitName.Substring(0, unitName.Length - 1); ;
+                }
+            }
+
+            return unitName;
+        }
+        #endregion
     }
 }

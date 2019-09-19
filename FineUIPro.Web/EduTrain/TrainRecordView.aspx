@@ -35,39 +35,52 @@
                     </f:TextBox>
                     <f:TextBox ID="txtTrainLevel" runat="server" Label="培训级别" Readonly="true" MaxLength="50">
                     </f:TextBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:NumberBox ID="txtTeachHour" NoDecimal="false" NoNegative="true" MaxValue="100"
+                      <f:NumberBox ID="txtTeachHour" NoDecimal="false" NoNegative="true" MaxValue="100"
                         DecimalPrecision="1" MinValue="0" runat="server" Label="学时" Readonly="true">
                     </f:NumberBox>
-                    <f:TextBox ID="txtTrainStartDate" runat="server" Label="培训日期" Readonly="true">
-                    </f:TextBox>
-                    <f:TextBox ID="txtTrainPersonNum" runat="server" Label="培训人数" Readonly="true">
-                    </f:TextBox>
                 </Items>
-            </f:FormRow>
+            </f:FormRow>          
             <f:FormRow ColumnWidths="33% 67%">
                 <Items>
                     <f:TextBox ID="txtTrainTitle" runat="server" Label="标题" MaxLength="200" Readonly="true">
                     </f:TextBox>
+                    <f:TextBox ID="txtTeachAddress" runat="server" Label="培训地点" MaxLength="100" Readonly="true">
+                    </f:TextBox>
+                </Items>
+            </f:FormRow>
+              <f:FormRow>
+                <Items>
+                  
+                    <f:TextBox ID="txtTrainStartDate" runat="server" Label="培训日期" Readonly="true">
+                    </f:TextBox>
+                    <f:TextBox ID="txtTrainPersonNum" runat="server" Label="培训人数" Readonly="true">
+                    </f:TextBox>
+                     <f:TextBox ID="txtTeachMan" runat="server" Label="授课人" MaxLength="50" Readonly="true">
+                    </f:TextBox>
+                    <f:DropDownList ID="drpTrainStates" runat="server" Label="培训状态" Hidden="true" Readonly="true">
+                         <f:ListItem Text="计划中" Value="0" Selected="true"/>
+                         <f:ListItem Text="待考试" Value="1"/>
+                         <f:ListItem Text="考试中" Value="2"/>
+                         <f:ListItem Text="已结束" Value="3"/>
+                    </f:DropDownList>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
                     <f:TextBox ID="txtUnits" runat="server" Label="培训单位" Readonly="true">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="33% 67%">
+             <f:FormRow runat="server" ID="trWorkPost" Hidden="true">
                 <Items>
-                    <f:TextBox ID="txtTeachMan" runat="server" Label="授课人" MaxLength="50" Readonly="true">
-                    </f:TextBox>
-                    <f:TextBox ID="txtTeachAddress" runat="server" Label="培训地点" MaxLength="100" Readonly="true">
+                    <f:TextBox ID="txtWorkPostIds" runat="server" Label="培训岗位" Readonly="true">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:TextArea ID="txtTrainContent" runat="server" Label="培训内容" Readonly="true" LabelAlign="right"
-                        Height="80px">
+                        Height="50px">
                     </f:TextArea>
                 </Items>
             </f:FormRow>
@@ -79,8 +92,11 @@
                          <Toolbars>
                             <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
                                 <Items>
+                                    <f:Button ID="btnTrainingType" runat="server" ToolTip="教材类型" Icon="BorderDraw" Hidden="true"
+                                        OnClick="btnTrainingType_Click">
+                                    </f:Button>
                                    <f:Button ID="btnTrainTest" runat="server" ToolTip="培训试卷" Hidden="true"
-                        Icon="ApplicationFormEdit" OnClick="btnTrainTest_Click"></f:Button>
+                                             Icon="ApplicationFormEdit" OnClick="btnTrainTest_Click"></f:Button>
                                 </Items>
                             </f:Toolbar>
                         </Toolbars>

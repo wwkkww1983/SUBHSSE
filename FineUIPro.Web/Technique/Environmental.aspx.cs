@@ -1,11 +1,10 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.IO;
 using System.Text;
-using System.Web.UI;
-using BLL;
+using AspNet = System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.Technique
 {
@@ -26,7 +25,7 @@ namespace FineUIPro.Web.Technique
                 btnNew.OnClientClick = Window1.GetShowReference("EnvironmentalEdit.aspx?IsCompany=False") + "return false;";
                 btnDelete.OnClientClick = Grid1.GetNoSelectionAlertReference("请至少选择一项！");
                 btnDelete.ConfirmText = String.Format("你确定要删除选中的&nbsp;<b><script>{0}</script></b>&nbsp;行数据吗？", Grid1.GetSelectedCountReference());
-                btnSelectColumns.OnClientClick = Window5.GetShowReference("EnvironmentalSelectCloumn.aspx");
+                
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 //环境因素类型             
                 BLL.ConstValue.InitConstValueDropDownList(this.drpEType, ConstValue.Group_EnvironmentalType, true);
@@ -278,123 +277,6 @@ namespace FineUIPro.Web.Technique
         }
         #endregion
 
-        #region 导出
-        /// <summary>
-        /// 关闭导出窗口
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Window5_Close(object sender, WindowCloseEventArgs e)
-        {
-            Response.ClearContent();
-            Response.AddHeader("content-disposition", "attachment; filename=MyExcelFile.xls");
-            Response.ContentType = "application/excel";
-            Response.ContentEncoding = System.Text.Encoding.UTF8;
-            Response.Write(GetGridTableHtml(Grid1, e.CloseArgument.Split('#')));
-            Response.End();
-        }
-
-        /// <summary>
-        /// 导出
-        /// </summary>
-        /// <param name="grid"></param>
-        /// <param name="columns"></param>
-        /// <returns></returns>
-        private string GetGridTableHtml(Grid grid, string[] columns)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
-            List<string> columnHeaderTexts = new List<string>(columns);
-            List<int> columnIndexs = new List<int>();
-            sb.Append("<table cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;\">");
-            sb.Append("<tr>");
-            foreach (GridColumn column in grid.Columns)
-            {
-                if (columnHeaderTexts.Contains(column.HeaderText))
-                {
-                    sb.AppendFormat("<td>{0}</td>", column.HeaderText);
-                    columnIndexs.Add(column.ColumnIndex);
-                }
-            }
-            sb.Append("</tr>");
-            foreach (GridRow row in grid.Rows)
-            {
-                sb.Append("<tr>");
-                int columnIndex = 0;
-                foreach (object value in row.Values)
-                {
-                    if (columnIndexs.Contains(columnIndex))
-                    {
-                        string str=value.ToString();
-                        if (value.ToString() == "False")
-                        {
-                            str = "否";
-                        }
-                        else if(value.ToString()=="True")
-                        {
-                            str = "是";
-                        }
-                        string html = str;
-                        if (html.StartsWith(Grid.TEMPLATE_PLACEHOLDER_PREFIX))
-                        {
-                            // 模板列                            
-                            string templateID = html.Substring(Grid.TEMPLATE_PLACEHOLDER_PREFIX.Length);
-                            Control templateCtrl = row.FindControl(templateID);
-                            html = GetRenderedHtmlSource(templateCtrl);
-                        }
-                        //else
-                        //{
-                        //    // 处理CheckBox             
-                        //    if (html.Contains("f-grid-static-checkbox"))
-                        //    {
-                        //        if (!html.Contains("f-checked"))
-                        //        {
-                        //            html = "×";
-                        //        }
-                        //        else
-                        //        {
-                        //            html = "√";
-                        //        }
-                        //    }
-                        //    // 处理图片                           
-                        //    if (html.Contains("<img"))
-                        //    {
-                        //        string prefix = Request.Url.AbsoluteUri.Replace(Request.Url.AbsolutePath, ""); 
-                        //        html = html.Replace("src=\"", "src=\"" + prefix);
-                        //    }
-                        //}
-                        sb.AppendFormat("<td>{0}</td>", html);
-                    }
-                    columnIndex++;
-                }
-                sb.Append("</tr>");
-            }
-            sb.Append("</table>");
-            return sb.ToString();
-        }
-
-        /// <summary>        
-        /// 获取控件渲染后的HTML源代码        
-        /// </summary>        
-        /// <param name="ctrl"></param>        
-        /// <returns></returns>        
-        private string GetRenderedHtmlSource(Control ctrl)
-        {
-            if (ctrl != null)
-            {
-                using (StringWriter sw = new StringWriter())
-                {
-                    using (HtmlTextWriter htw = new HtmlTextWriter(sw))
-                    {
-                        ctrl.RenderControl(htw);
-                        return sw.ToString();
-                    }
-                }
-            }
-            return String.Empty;
-        }
-        #endregion
-
         #region 获取权限按钮
         /// <summary>
         /// 获取按钮权限
@@ -422,7 +304,7 @@ namespace FineUIPro.Web.Technique
                 }
                 if (buttonList.Contains(BLL.Const.BtnAdd))
                 {
-                    this.btnSelectColumns.Hidden = false;
+                    this.btnOut.Hidden = false;
                 }
                 if (buttonList.Contains(BLL.Const.BtnIn))
                 {
@@ -453,6 +335,63 @@ namespace FineUIPro.Web.Technique
         protected void btnImport_Click(object sender, EventArgs e)
         {
             PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("EnvironmentalIn.aspx?IsCompany=False", "导入 - ")));
+        }
+        #endregion
+        
+        /// <summary>
+        /// 导出
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnOut_Click(object sender, EventArgs e)
+        {
+            Response.ClearContent();
+            string filename = Funs.GetNewFileName();
+            Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("环境危险源清单" + filename, Encoding.UTF8) + ".xls");
+            Response.ContentType = "application/excel";
+            Response.ContentEncoding = System.Text.Encoding.UTF8;
+            this.Grid1.PageSize = Grid1.RecordCount;
+            BindGrid();
+            Response.Write(GetGridTableHtmlPage(Grid1));
+            Response.End();
+        }
+
+        #region 导出方法
+        /// <summary>
+        /// 导出方法
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public static string GetGridTableHtmlPage(Grid grid)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
+            sb.Append("<table cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;\">");
+            sb.Append("<tr>");
+            foreach (GridColumn column in grid.Columns)
+            {
+                sb.AppendFormat("<td>{0}</td>", column.HeaderText);
+            }
+            sb.Append("</tr>");
+            foreach (GridRow row in grid.Rows)
+            {
+                sb.Append("<tr>");
+                foreach (GridColumn column in grid.Columns)
+                {
+                    string html = row.Values[column.ColumnIndex].ToString();
+                    if (column.ColumnID == "tfNumber" && (row.FindControl("lbNumber") as AspNet.Label) != null)
+                    {
+                        html = (row.FindControl("lbNumber") as AspNet.Label).Text;
+                    }                    
+                    sb.AppendFormat("<td>{0}</td>", html);
+                }
+
+                sb.Append("</tr>");
+            }
+
+            sb.Append("</table>");
+
+            return sb.ToString();
         }
         #endregion
     }

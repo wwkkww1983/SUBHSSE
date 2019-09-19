@@ -202,67 +202,76 @@ namespace FineUIPro.Web.Technique {
         protected global::FineUIPro.Button btnImport;
         
         /// <summary>
-        /// btnSelectColumns 控件。
+        /// btnOut 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Button btnSelectColumns;
+        protected global::FineUIPro.Button btnOut;
         
         /// <summary>
-        /// lblHazardCode 控件。
+        /// lbNumber 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHazardCode;
+        protected global::System.Web.UI.WebControls.Label lbNumber;
         
         /// <summary>
-        /// lblHazardItems 控件。
+        /// lbHazardCode 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHazardItems;
+        protected global::System.Web.UI.WebControls.Label lbHazardCode;
         
         /// <summary>
-        /// lblDefectsType 控件。
+        /// lbHazardItems 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDefectsType;
+        protected global::System.Web.UI.WebControls.Label lbHazardItems;
         
         /// <summary>
-        /// lblMayLeadAccidents 控件。
+        /// lbDefectsType 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMayLeadAccidents;
+        protected global::System.Web.UI.WebControls.Label lbDefectsType;
         
         /// <summary>
-        /// lblHelperMethod 控件。
+        /// lbMayLeadAccidents 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHelperMethod;
+        protected global::System.Web.UI.WebControls.Label lbMayLeadAccidents;
         
         /// <summary>
-        /// lblControlMeasures 控件。
+        /// lbHelperMethod 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblControlMeasures;
+        protected global::System.Web.UI.WebControls.Label lbHelperMethod;
+        
+        /// <summary>
+        /// lbControlMeasures 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbControlMeasures;
         
         /// <summary>
         /// ToolbarSeparator1 控件。
@@ -326,15 +335,6 @@ namespace FineUIPro.Web.Technique {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Window Window4;
-        
-        /// <summary>
-        /// Window5 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Window Window5;
         
         /// <summary>
         /// Window6 控件。

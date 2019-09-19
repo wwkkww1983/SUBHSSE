@@ -29,47 +29,59 @@
         <Rows>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtTrainingCode" runat="server" Label="培训编号" Readonly="true" MaxLength="50">
+                    <f:TextBox ID="txtTrainingCode" runat="server" Label="编号" Readonly="true" MaxLength="50">
                     </f:TextBox>
                     <f:DropDownList ID="drpTrainType" runat="server" Label="培训类型" ShowRedStar="true"
                         Required="true">
                     </f:DropDownList>
                     <f:DropDownList ID="drpTrainLevel" runat="server" Label="培训级别" >
                     </f:DropDownList>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
                     <f:NumberBox ID="txtTeachHour" NoDecimal="false" NoNegative="true" MaxValue="100"
                         DecimalPrecision="1" MinValue="0" runat="server" Label="学时" ShowRedStar="true" Required="true">
                     </f:NumberBox>
-                    <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="培训日期" ID="txtTrainStartDate">
-                    </f:DatePicker>
-                   <f:NumberBox ID="txtTrainPersonNum" NoDecimal="true" NoNegative="true" MinValue="0" Readonly="true" runat="server" Label="培训人数" >
-                    </f:NumberBox>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="33% 67%">
+             <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtTrainTitle" runat="server" Label="标题" MaxLength="200" >
-                    </f:TextBox>
-                    <f:DropDownList ID="drpUnits" runat="server" Label="培训单位" EnableCheckBoxSelect="true"
-                        EnableMultiSelect="true">
-                    </f:DropDownList>
-                </Items>
-            </f:FormRow>
-            <f:FormRow ColumnWidths="33% 67%">
-                <Items>
-                    <f:TextBox ID="txtTeachMan" runat="server" Label="授课人" MaxLength="50">
                     </f:TextBox>
                     <f:TextBox ID="txtTeachAddress" runat="server" Label="培训地点" MaxLength="100">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
-            
             <f:FormRow>
                 <Items>
-                    <f:TextArea ID="txtTrainContent" runat="server" Label="培训内容" LabelAlign="right" Height="80px">
+                    <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="培训日期" ID="txtTrainStartDate">
+                    </f:DatePicker>
+                   <f:NumberBox ID="txtTrainPersonNum" NoDecimal="true" NoNegative="true" MinValue="0" Readonly="true" runat="server" Label="培训人数" >
+                    </f:NumberBox>
+                    <f:TextBox ID="txtTeachMan" runat="server" Label="授课人" MaxLength="50">
+                    </f:TextBox>
+                    <f:DropDownList ID="drpTrainStates" runat="server" Label="培训状态" Hidden="true" Readonly="true">
+                         <f:ListItem Text="计划中" Value="0"/>
+                         <f:ListItem Text="待考试" Value="1"/>
+                         <f:ListItem Text="考试中" Value="2"/>
+                         <f:ListItem Text="已结束" Value="3" Selected="true"/>
+                    </f:DropDownList>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
+                    <f:DropDownList ID="drpUnits" runat="server" Label="培训单位" EnableCheckBoxSelect="true"
+                        EnableMultiSelect="true">
+                    </f:DropDownList>
+                </Items>
+            </f:FormRow>
+            <f:FormRow runat="server" ID="trWorkPost" Hidden="true">
+                <Items>
+                    <f:DropDownList ID="drpWorkPostIds" runat="server" Label="培训岗位" EnableCheckBoxSelect="true"
+                        EnableMultiSelect="true">
+                    </f:DropDownList>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
+                    <f:TextArea ID="txtTrainContent" runat="server" Label="培训内容" LabelAlign="right" Height="50px">
                     </f:TextArea>
                 </Items>
             </f:FormRow>
@@ -81,8 +93,12 @@
                         <Toolbars>
                             <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
                                 <Items>
+                                    <f:Button ID="btnTrainingType" runat="server" ToolTip="教材类型" Icon="BorderDraw" Hidden="true"
+                                        OnClick="btnTrainingType_Click">
+                                    </f:Button>
                                     <f:Button ID="btnTrainTest" runat="server" ToolTip="培训试卷" Icon="ApplicationFormEdit" Hidden="true"
-                                        OnClick="btnTrainTest_Click"></f:Button>
+                                        OnClick="btnTrainTest_Click">
+                                    </f:Button>
                                     <f:Button ID="btnImport" ToolTip="导入" Icon="PageExcel" runat="server" ValidateForms="SimpleForm1"
                                             OnClick="btnImport_Click">
                                     </f:Button>
@@ -93,14 +109,14 @@
                             </f:Toolbar>
                         </Toolbars>
                         <Columns>
-                            <f:RowNumberField HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center" />
+                            <f:RowNumberField HeaderText="序号" Width="60px" HeaderTextAlign="Center" TextAlign="Center" />
                             <f:RenderField Width="180px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName" ExpandUnusedSpace="true"
                                 FieldType="String" HeaderText="单位" TextAlign="Left" HeaderTextAlign="Center">
                             </f:RenderField>
                             <f:RenderField Width="150px" ColumnID="PersonName" DataField="PersonName" SortField="PersonName"
                                 FieldType="String" HeaderText="培训人员" TextAlign="Left" HeaderTextAlign="Center">
                             </f:RenderField>                       
-                            <f:RenderField Width="100px" ColumnID="CheckResult" DataField="CheckResult" FieldType="Int"
+                            <f:RenderField Width="150px" ColumnID="CheckResult" DataField="CheckResult" FieldType="Int"
                                     RendererFunction="renderGender" HeaderText="考核结果">
                                     <Editor>
                                         <f:DropDownList ID="drpCheckResult" Required="true" runat="server">

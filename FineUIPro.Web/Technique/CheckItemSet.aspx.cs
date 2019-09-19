@@ -20,6 +20,15 @@ namespace FineUIPro.Web.Technique
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 this.ckType.SelectedValue = "1";
                 CheckItemSetDataBind();//加载树
+                var thisUnit = BLL.CommonService.GetIsThisUnit();
+                if (thisUnit != null)
+                {
+                    if (thisUnit.UnitId == Const.UnitId_SEDIN)
+                    {
+                        this.ckType.Items.Remove(this.ckType.Items[4]);
+                        this.ckType.Items.Remove(this.ckType.Items[3]);
+                    }
+                }
             }
         }
 

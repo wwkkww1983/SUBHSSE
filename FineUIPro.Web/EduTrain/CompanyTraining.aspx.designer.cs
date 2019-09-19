@@ -175,49 +175,58 @@ namespace FineUIPro.Web.EduTrain {
         protected global::FineUIPro.Button btnDeleteDetail;
         
         /// <summary>
-        /// btnSelectColumns 控件。
+        /// btnOut 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Button btnSelectColumns;
+        protected global::FineUIPro.Button btnOut;
         
         /// <summary>
-        /// lblCompanyTrainingItemCode 控件。
+        /// lbNumber 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCompanyTrainingItemCode;
+        protected global::System.Web.UI.WebControls.Label lbNumber;
         
         /// <summary>
-        /// lblCompanyTrainingItemName 控件。
+        /// lbCompanyTrainingItemCode 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCompanyTrainingItemName;
+        protected global::System.Web.UI.WebControls.Label lbCompanyTrainingItemCode;
         
         /// <summary>
-        /// lblCompileMan 控件。
+        /// lbCompanyTrainingItemName 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCompileMan;
+        protected global::System.Web.UI.WebControls.Label lbCompanyTrainingItemName;
         
         /// <summary>
-        /// lblCompileDate 控件。
+        /// lbCompileMan 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCompileDate;
+        protected global::System.Web.UI.WebControls.Label lbCompileMan;
+        
+        /// <summary>
+        /// lbCompileDate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbCompileDate;
         
         /// <summary>
         /// ToolbarSeparator1 控件。
@@ -263,15 +272,6 @@ namespace FineUIPro.Web.EduTrain {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Window Window2;
-        
-        /// <summary>
-        /// Window5 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Window Window5;
         
         /// <summary>
         /// WindowAtt 控件。

@@ -83,6 +83,10 @@ namespace FineUIPro.Web.EduTrain
                     {
                         this.drpUnits.SelectedValueArray = trainRecord.UnitIds.Split(',');
                     }
+                    if (!string.IsNullOrEmpty(trainRecord.WorkPostIds))
+                    {
+                        this.drpWorkPostIds.SelectedValueArray = trainRecord.WorkPostIds.Split(',');
+                    }
                     this.txtTeachMan.Text = trainRecord.TeachMan;
                     this.txtTeachAddress.Text = trainRecord.TeachAddress;
                     if (trainRecord.TeachHour != null)
@@ -98,12 +102,16 @@ namespace FineUIPro.Web.EduTrain
                         this.txtTrainPersonNum.Text = Convert.ToString(trainRecord.TrainPersonNum);
                     }
                     this.txtTrainContent.Text = trainRecord.TrainContent;
-                    trainRecordDetails = (from x in Funs.DB.View_EduTrain_TrainRecordDetail where x.TrainingId == this.TrainingId orderby x.UnitName select x).ToList();
+                    this.drpTrainStates.SelectedValue = trainRecord.TrainStates;
+                    trainRecordDetails = (from x in Funs.DB.View_EduTrain_TrainRecordDetail
+                                          where x.TrainingId == this.TrainingId
+                                          orderby x.UnitName,x.PersonName
+                                          select x).ToList();
                 }
                 else
                 {
                     ////自动生成编码
-                    this.txtTrainingCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectTrainRecordMenuId, this.ProjectId, this.CurrUser.UnitId);
+                    this.txtTrainingCode.Text = CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectTrainRecordMenuId, this.ProjectId, this.CurrUser.UnitId);
                     this.txtTrainStartDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                     this.txtTeachMan.Text = this.CurrUser.UserName;
                     this.txtTeachAddress.Text = "办公室";
@@ -120,10 +128,19 @@ namespace FineUIPro.Web.EduTrain
                 this.ctlAuditFlow.UnitId = this.CurrUser.UnitId;
 
                 var thisUnit = BLL.CommonService.GetIsThisUnit();
-                if (thisUnit.UnitId == BLL.Const.UnitId_CWCEC)
+                if (thisUnit != null)
                 {
-                    this.btnTrainTest.Hidden = false;
-                    this.btnMenuView.Hidden = false;
+                    if (thisUnit.UnitId == Const.UnitId_CWCEC)
+                    {
+                        this.btnTrainTest.Hidden = false;
+                        this.btnMenuView.Hidden = false;
+                    }
+                    if (thisUnit.UnitId == Const.UnitId_SEDIN)
+                    {
+                        this.drpTrainStates.Hidden = false;
+                        this.btnTrainingType.Hidden = false;
+                        this.trWorkPost.Hidden = false;
+                    }
                 }
             }
         }
@@ -135,11 +152,12 @@ namespace FineUIPro.Web.EduTrain
         private void InitDropDownList()
         {
             //培训类型
-            BLL.TrainTypeService.InitTrainTypeDropDownList(this.drpTrainType, true);
+            TrainTypeService.InitTrainTypeDropDownList(this.drpTrainType, true);
             //培训级别
-            BLL.TrainLevelService.InitTrainLevelDropDownList(this.drpTrainLevel, true);
+            TrainLevelService.InitTrainLevelDropDownList(this.drpTrainLevel, true);
             //培训单位
-            BLL.UnitService.InitUnitDropDownList(this.drpUnits, this.ProjectId, false);
+            UnitService.InitUnitDropDownList(this.drpUnits, this.ProjectId, false);
+            WorkPostService.InitWorkPostDropDownList(this.drpWorkPostIds, true);
             this.drpUnits.SelectedValue = this.CurrUser.UnitId;
         }
 
@@ -150,17 +168,11 @@ namespace FineUIPro.Web.EduTrain
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void btnSelect_Click(object sender, EventArgs e)
-        {
-            if (this.drpTrainType.SelectedValue == BLL.Const._Null)
-            {
-                ShowNotify("请选择培训类型！", MessageBoxIcon.Warning);
-                return;
-            }
+        {           
             if (string.IsNullOrEmpty(this.TrainingId))
             {
                 this.SaveData(BLL.Const.BtnSave);
             }
-
             PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ShowPerson.aspx?TrainingId={0}&TrainTypeId={1}", this.TrainingId, this.drpTrainType.SelectedValue, "编辑 - ")));
         }
         #endregion
@@ -200,12 +212,6 @@ namespace FineUIPro.Web.EduTrain
                 ShowNotify("请选择下一步办理人！", MessageBoxIcon.Warning);
                 return;
             }
-            if (this.drpTrainType.SelectedValue == BLL.Const._Null)
-            {
-                ShowNotify("请选择培训类型！", MessageBoxIcon.Warning);
-                return;
-            }
-
             this.SaveData(BLL.Const.BtnSubmit);
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }
@@ -219,11 +225,6 @@ namespace FineUIPro.Web.EduTrain
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (this.drpTrainType.SelectedValue == BLL.Const._Null)
-            {
-                ShowNotify("请选择培训类型！", MessageBoxIcon.Warning);
-                return;
-            }
             this.SaveData(BLL.Const.BtnSave);
             PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
         }
@@ -236,6 +237,14 @@ namespace FineUIPro.Web.EduTrain
         /// <param name="type"></param>
         private void SaveData(string type)
         {
+            int i = 0;
+            if (this.drpTrainType.SelectedValue == BLL.Const._Null)
+            {
+                ShowNotify("请选择培训类型！", MessageBoxIcon.Warning);
+                i++;
+                return;
+            }
+
             Model.EduTrain_TrainRecord trainRecord = new Model.EduTrain_TrainRecord
             {
                 TrainingCode = this.txtTrainingCode.Text.Trim(),
@@ -246,7 +255,7 @@ namespace FineUIPro.Web.EduTrain
                 TrainPersonNum = this.Grid1.Rows.Count,
                 TeachHour = Funs.GetNewDecimalOrZero(this.txtTeachHour.Text.Trim()),
                 TeachMan = this.txtTeachMan.Text.Trim(),
-                TeachAddress = this.txtTeachAddress.Text.Trim()
+                TeachAddress = this.txtTeachAddress.Text.Trim(),
             };
             if (this.drpTrainType.SelectedValue != BLL.Const._Null)
             {
@@ -255,6 +264,10 @@ namespace FineUIPro.Web.EduTrain
             if (this.drpTrainLevel.SelectedValue != BLL.Const._Null)
             {
                 trainRecord.TrainLevelId = this.drpTrainLevel.SelectedValue;
+            }
+            if (!this.drpTrainStates.Hidden)
+            {
+                trainRecord.TrainStates = this.drpTrainStates.SelectedValue;
             }
             //培训单位
             string unitIds = string.Empty;
@@ -267,11 +280,30 @@ namespace FineUIPro.Web.EduTrain
                 unitIds = unitIds.Substring(0, unitIds.LastIndexOf(","));
             }
             trainRecord.UnitIds = unitIds;
+
+            //培训岗位
+            string workPostIds = string.Empty;
+            foreach (var item in this.drpWorkPostIds.SelectedValueArray)
+            {
+                workPostIds += item + ",";
+            }
+            if (!string.IsNullOrEmpty(workPostIds))
+            {
+                workPostIds = workPostIds.Substring(0, workPostIds.LastIndexOf(","));
+            }
+            trainRecord.WorkPostIds = workPostIds;
+
             ////单据状态
             trainRecord.States = BLL.Const.State_0;
             if (type == BLL.Const.BtnSubmit)
             {
                 trainRecord.States = this.ctlAuditFlow.NextStep;
+                //if (!this.drpTrainStates.Hidden && trainRecord.TrainStates != "3" && trainRecord.States == Const.State_2)
+                //{
+                //    ShowNotify("当前培训还未结束，不能审核完成！", MessageBoxIcon.Warning);
+                //    i++;
+                //    return;
+                //}
             }
             if (!string.IsNullOrEmpty(this.TrainingId))
             {
@@ -282,7 +314,6 @@ namespace FineUIPro.Web.EduTrain
                 }
 
                 trainRecord.TrainingId = this.TrainingId;
-               
                 BLL.EduTrain_TrainRecordService.UpdateTraining(trainRecord);
                 BLL.LogService.AddSys_Log(this.CurrUser, trainRecord.TrainingCode, trainRecord.TrainingId, BLL.Const.ProjectTrainRecordMenuId, BLL.Const.BtnModify);
             }
@@ -311,13 +342,16 @@ namespace FineUIPro.Web.EduTrain
                     {
                         detail.CheckResult = false;
                     }
-                    detail.CheckScore =Funs.GetNewDecimalOrZero(values.Value<string>("CheckScore").ToString()); ;
+                    detail.CheckScore = Funs.GetNewDecimalOrZero(values.Value<string>("CheckScore").ToString()); ;
                     BLL.EduTrain_TrainRecordDetailService.UpdateTrainDetail(detail);
                 }
             }
-
-            ////保存流程审核数据         
-            this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectTrainRecordMenuId, this.TrainingId, (type == BLL.Const.BtnSubmit ? true : false), this.txtTrainTitle.Text.Trim(), "../EduTrain/TrainRecordView.aspx?TrainingId={0}");
+            
+            if (i == 0)
+            {
+                ////保存流程审核数据         
+                this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectTrainRecordMenuId, this.TrainingId, (type == BLL.Const.BtnSubmit ? true : false), this.txtTrainTitle.Text.Trim(), "../EduTrain/TrainRecordView.aspx?TrainingId={0}");
+            }
         }
         #endregion
 
@@ -411,6 +445,20 @@ namespace FineUIPro.Web.EduTrain
                     PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("TrainTestView.aspx?TrainDetailId={0}", rowID, "查看试卷 - ")));
                 }                               
             }
+        }
+
+        /// <summary>
+        ///  选择培训教材类型
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnTrainingType_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.TrainingId))
+            {
+                this.SaveData(BLL.Const.BtnSave);
+            }
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ShowTrainingType.aspx?TrainingId={0}&TrainTypeId={1}", this.TrainingId, this.drpTrainType.SelectedValue, "编辑 - ")));
         }
     }
 }

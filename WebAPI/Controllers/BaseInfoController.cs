@@ -62,6 +62,27 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
+        public Model.ResponeData getProjectPictureByProjectId(string projectId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getProjectPictureByProjectId(projectId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
+        ///   获项目图片
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public Model.ResponeData getProjectPicture()
         {
             var responeData = new Model.ResponeData();
@@ -118,7 +139,7 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
-        ///  根据通知通告
+        ///  根据项目ID通知通告
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
@@ -127,17 +148,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var noticeList = (from x in Funs.DB.InformationProject_Notice
-                                  join y in Funs.DB.AttachFile on x.NoticeId equals y.ToKeyId
-                                  where x.AccessProjectId.Contains(projectId) && x.IsRelease == true
-                                  select new Model.NoticeItem
-                                  {
-                                      NoticeId = x.NoticeId,
-                                      NoticeCode = x.NoticeCode,
-                                      NoticeTitle = x.NoticeTitle,
-                                      ReleaseDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ReleaseDate)
-                                  }).ToList();
-
+                var noticeList = APIBaseInfoService.getNotices(projectId);
                 int pageCount = noticeList.Count();
                 if (pageCount > 0)
                 {
@@ -155,7 +166,7 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
-        ///  根据通知通告
+        ///  根据noticeId获取通知通告详细
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
@@ -164,18 +175,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var notice = (from x in Funs.DB.InformationProject_Notice
-                              where x.NoticeId == noticeId
-                              select new Model.NoticeItem
-                              {
-                                  NoticeId = x.NoticeId,
-                                  NoticeCode = x.NoticeCode,
-                                  NoticeTitle = x.NoticeTitle,
-                                  ReleaseDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ReleaseDate),
-                                  MainContent = x.MainContent,
-                                  AttachUrl = Funs.DB.AttachFile.FirstOrDefault(y => y.ToKeyId == x.NoticeId).AttachUrl.Replace("\\", "/")
-                              });
-                responeData.data = new { notice };
+                responeData.data = APIBaseInfoService.getNoticesByNoticeId(noticeId);
             }
             catch (Exception ex)
             {
@@ -235,6 +235,48 @@ namespace WebAPI.Controllers
                 responeData.message = ex.Message;
             }
 
+            return responeData;
+        }
+        #endregion
+
+        #region  获取培训类别
+        /// <summary>
+        ///   获取培训类别
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getTrainType()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {              
+                responeData.data = APIBaseInfoService.getTrainType();
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region  获取培训级别
+        /// <summary>
+        ///   获取培训级别
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getTrainLevel()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getTrainLevel();
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
             return responeData;
         }
         #endregion

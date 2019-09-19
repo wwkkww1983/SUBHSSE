@@ -1,1 +1,65 @@
 ﻿
+错误信息开始=====>
+错误类型:HttpParseException
+错误信息:类型“FineUIPro.FormRow”不具有名为“DropDownList”的公共属性。
+错误堆栈:
+   在 System.Web.UI.TemplateParser.ProcessException(Exception ex)
+   在 System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+   在 System.Web.UI.TemplateParser.ParseString(String text, VirtualPath virtualPath, Encoding fileEncoding)
+----错误类型:HttpException
+----错误信息:
+----类型“FineUIPro.FormRow”不具有名为“DropDownList”的公共属性。
+----错误堆栈:
+       在 System.Web.UI.ControlBuilder.GetChildPropertyBuilder(String tagName, IDictionary attribs, Type& childType, TemplateParser templateParser, Boolean defaultProperty)
+       在 System.Web.UI.ControlBuilder.CreateChildBuilder(String filter, String tagName, IDictionary attribs, TemplateParser parser, ControlBuilder parentBuilder, String id, Int32 line, VirtualPath virtualPath, Type& childType, Boolean defaultProperty)
+       在 System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+       在 System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+出错时间:09/17/2019 17:10:30
+出错文件:http://localhost:8118/EduTrain/TrainRecordEdit.aspx?TrainingId=eb806c8f-e6b6-43d1-a677-652b1ad0e71b
+IP地址:::1
+
+出错时间:09/17/2019 17:10:30
+
+
+错误信息开始=====>
+错误类型:HttpParseException
+错误信息:类型“FineUIPro.FormRow”不具有名为“DropDownList”的公共属性。
+错误堆栈:
+   在 System.Web.UI.TemplateParser.ProcessException(Exception ex)
+   在 System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+   在 System.Web.UI.TemplateParser.ParseString(String text, VirtualPath virtualPath, Encoding fileEncoding)
+----错误类型:HttpException
+----错误信息:
+----类型“FineUIPro.FormRow”不具有名为“DropDownList”的公共属性。
+----错误堆栈:
+       在 System.Web.UI.ControlBuilder.GetChildPropertyBuilder(String tagName, IDictionary attribs, Type& childType, TemplateParser templateParser, Boolean defaultProperty)
+       在 System.Web.UI.ControlBuilder.CreateChildBuilder(String filter, String tagName, IDictionary attribs, TemplateParser parser, ControlBuilder parentBuilder, String id, Int32 line, VirtualPath virtualPath, Type& childType, Boolean defaultProperty)
+       在 System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+       在 System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+出错时间:09/17/2019 17:12:34
+出错文件:http://localhost:8118/EduTrain/TrainRecordEdit.aspx?TrainingId=eb806c8f-e6b6-43d1-a677-652b1ad0e71b
+IP地址:::1
+
+出错时间:09/17/2019 17:12:34
+
+
+错误信息开始=====>
+错误类型:HttpException
+错误信息:文件“/EduTrain/ShowTrainingType.aspx”不存在。
+错误堆栈:
+   在 System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   在 System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   在 System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.UI.PageHandlerFactory.GetHandler(HttpContext context, String requestType, String virtualPath, String path)
+   在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+出错时间:09/17/2019 19:29:28
+出错文件:http://localhost:8118/EduTrain/ShowTrainingType.aspx?TrainingId=eb806c8f-e6b6-43d1-a677-652b1ad0e71b&TrainTypeId=null
+IP地址:::1
+
+出错时间:09/17/2019 19:29:28
+

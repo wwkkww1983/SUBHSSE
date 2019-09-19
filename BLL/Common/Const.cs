@@ -146,6 +146,10 @@ namespace BLL
         /// </summary>
         public const string UnitId_TCC_ = "b4f3d912-ca6d-440c-a8d7-bc6a5d5a1f84";
         /// <summary>
+        /// 赛鼎单位id
+        /// </summary>
+        public const string UnitId_SEDIN = "d72a27c9-4ba9-41c5-ab0b-c010409f20f2";
+        /// <summary>
         /// 五环单位id
         /// </summary>
         public const string UnitId_CWCEC = "6d29ed79-e20a-4c19-bb91-d280ea2e442e";
@@ -1441,31 +1445,31 @@ namespace BLL
         /// <summary>
         /// 培训计划
         /// </summary>
-        public const string PlanMenuId = "B782A26B-D85C-4F84-8B45-F7AA47B3159E";
+        public const string ProjectTrainingPlanMenuId = "B782A26B-D85C-4F84-8B45-F7AA47B3159E";
         /// <summary>
         /// 培训任务
         /// </summary>
-        public const string TaskMenuId = "E108F75D-89D0-4DCA-8356-A156C328805C";
+        public const string ProjectTrainingTaskMenuId = "E108F75D-89D0-4DCA-8356-A156C328805C";
         /// <summary>
         /// 培训试题
         /// </summary>
-        public const string TrainTestRecordMenuId = "6C314522-AF62-4476-893E-5F42C09C3077";
+        public const string ProjectTrainTestRecordMenuId = "6C314522-AF62-4476-893E-5F42C09C3077";
         /// <summary>
         /// 考试计划
         /// </summary>
-        public const string TestPlanMenuId = "FAF7F4A4-A4BC-4D94-9E88-0CF5A380DB34";
+        public const string ProjectTestPlanMenuId = "FAF7F4A4-A4BC-4D94-9E88-0CF5A380DB34";
         /// <summary>
         /// 考试记录
         /// </summary>
-        public const string TestRecordMenuId = "0EEB138D-84F9-4686-8CBB-CAEAA6CF1B2A";
+        public const string ProjectTestRecordMenuId = "0EEB138D-84F9-4686-8CBB-CAEAA6CF1B2A";
         /// <summary>
         /// 模拟考试
         /// </summary>
-        public const string ModelTestRecordMenuId = "1C80EF15-B75B-473D-B190-CE12E4DDA287";
+        public const string ProjectModelTestRecordMenuId = "1C80EF15-B75B-473D-B190-CE12E4DDA287";
         /// <summary>
         /// 考试统计
         /// </summary>
-        public const string TestStatisticsMenuId = "6FF941C1-8A00-4A74-8111-C892FC30A8DA";
+        public const string ProjectTestStatisticsMenuId = "6FF941C1-8A00-4A74-8111-C892FC30A8DA";
         #endregion
 
         #region HSSE许可管理

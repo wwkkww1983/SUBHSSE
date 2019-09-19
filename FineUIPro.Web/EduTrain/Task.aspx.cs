@@ -165,7 +165,7 @@ namespace FineUIPro.Web.EduTrain
                     var getV = BLL.TaskService.GetTaskById(rowID);
                     if (getV != null)
                     {
-                        BLL.LogService.AddSys_Log(this.CurrUser, null, rowID, BLL.Const.TaskMenuId, BLL.Const.BtnDelete);
+                        BLL.LogService.AddSys_Log(this.CurrUser, null, rowID, BLL.Const.ProjectTrainingTaskMenuId, BLL.Const.BtnDelete);
                         BLL.TaskService.DeleteTaskById(rowID);
                     }
                 }
@@ -196,7 +196,7 @@ namespace FineUIPro.Web.EduTrain
         /// <returns></returns>
         private void GetButtonPower()
         {
-            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.TaskMenuId);
+            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.ProjectTrainingTaskMenuId);
             if (buttonList.Count() > 0)
             {
                 if (buttonList.Contains(BLL.Const.BtnDelete))

@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web.UI;
+using AspNet = System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.Technique
 {
@@ -560,11 +561,10 @@ namespace FineUIPro.Web.Technique
                     this.btnMenuDelete2.Hidden = false;
                     this.btnMenuDelete.Hidden = false;
                     this.btnDeleteDetail.Hidden = false;
-                }
-               
+                }               
                 if (buttonList.Contains(BLL.Const.BtnOut))
                 {
-                    this.btnSelectColumns.Hidden = false;
+                    this.btnOut.Hidden = false;
                 }
                 if (buttonList.Contains(BLL.Const.BtnIn))
                 {
@@ -596,6 +596,87 @@ namespace FineUIPro.Web.Technique
         {
             InitTreeMenu();
             BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.CompanyHazardListMenuId, Const.BtnQuery);
+        }
+        #endregion
+        
+        /// <summary>
+        /// 导出
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnOut_Click(object sender, EventArgs e)
+        {
+            Response.ClearContent();
+            string filename = Funs.GetNewFileName();
+            Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("公司危险源清单" + filename, System.Text.Encoding.UTF8) + ".xls");
+            Response.ContentType = "application/excel";
+            Response.ContentEncoding = System.Text.Encoding.UTF8;
+            this.Grid1.PageSize = Grid1.RecordCount;
+            BindGrid();
+            Response.Write(GetGridTableHtmlPage(Grid1));
+            Response.End();
+        }
+
+        #region 导出方法
+        /// <summary>
+        /// 导出方法
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public static string GetGridTableHtmlPage(Grid grid)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
+            sb.Append("<table cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;\">");
+            sb.Append("<tr>");
+            foreach (GridColumn column in grid.Columns)
+            {
+                sb.AppendFormat("<td>{0}</td>", column.HeaderText);
+            }
+            sb.Append("</tr>");
+            foreach (GridRow row in grid.Rows)
+            {
+                sb.Append("<tr>");
+                foreach (GridColumn column in grid.Columns)
+                {
+                    string html = row.Values[column.ColumnIndex].ToString();
+                    if (column.ColumnID == "tfNumber" && (row.FindControl("lbNumber") as AspNet.Label) != null)
+                    {
+                        html = (row.FindControl("lbNumber") as AspNet.Label).Text;
+                    }
+                    if (column.ColumnID == "tfHazardCode" && (row.FindControl("lbHazardCode") as AspNet.Label) != null)
+                    {
+                        html = (row.FindControl("lbHazardCode") as AspNet.Label).Text;
+                    }
+                    if (column.ColumnID == "tfHazardItems" && (row.FindControl("lbHazardItems") as AspNet.Label) != null)
+                    {
+                        html = (row.FindControl("lbHazardItems") as AspNet.Label).Text;
+                    }
+                    if (column.ColumnID == "tfDefectsType" && (row.FindControl("lbDefectsType") as AspNet.Label) != null)
+                    {
+                        html = (row.FindControl("lbDefectsType") as AspNet.Label).Text;
+                    }
+                    if (column.ColumnID == "tfMayLeadAccidents" && (row.FindControl("lbMayLeadAccidents") as AspNet.Label) != null)
+                    {
+                        html = (row.FindControl("lbMayLeadAccidents") as AspNet.Label).Text;
+                    }
+                    if (column.ColumnID == "tfHelperMethod" && (row.FindControl("lbHelperMethod") as AspNet.Label) != null)
+                    {
+                        html = (row.FindControl("lbHelperMethod") as AspNet.Label).Text;
+                    }
+                    if (column.ColumnID == "tfControlMeasures" && (row.FindControl("lbControlMeasures") as AspNet.Label) != null)
+                    {
+                        html = (row.FindControl("lbControlMeasures") as AspNet.Label).Text;
+                    }
+                    sb.AppendFormat("<td>{0}</td>", html);
+                }
+
+                sb.Append("</tr>");
+            }
+
+            sb.Append("</table>");
+
+            return sb.ToString();
         }
         #endregion
     }

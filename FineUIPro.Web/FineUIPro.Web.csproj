@@ -317,7 +317,6 @@
     <Content Include="EduTrain\CompanyTraining.aspx" />
     <Content Include="EduTrain\CompanyTrainingItemSave.aspx" />
     <Content Include="EduTrain\CompanyTrainingSave.aspx" />
-    <Content Include="EduTrain\CompanyTrainingSelectCloumn.aspx" />
     <Content Include="EduTrain\ModelTestRecord.aspx" />
     <Content Include="EduTrain\ModelTestRecordItem.aspx" />
     <Content Include="EduTrain\ModelTestRecordView.aspx" />
@@ -904,7 +903,6 @@
     <Content Include="EduTrain\KnowledgeDBItemUpload.aspx" />
     <Content Include="OnlineCheck\ExamineeDetail.aspx" />
     <Content Include="EduTrain\TrainingAudit.aspx" />
-    <Content Include="EduTrain\TrainingSelectCloumn.aspx" />
     <Content Include="EduTrain\TrainingUpload.aspx" />
     <Content Include="EduTrain\TrainTestDB.aspx" />
     <Content Include="EduTrain\TrainDB.aspx" />
@@ -3929,7 +3927,6 @@
     <Content Include="Technique\HazardListAudit.aspx" />
     <Content Include="Technique\HazardListEdit.aspx" />
     <Content Include="Technique\HazardListIn.aspx" />
-    <Content Include="Technique\HazardListSelectCloumn.aspx" />
     <Content Include="Technique\HazardListTypeEdit.aspx" />
     <Content Include="Technique\HazardListUpload.aspx" />
     <Content Include="Technique\HAZOP.aspx" />
@@ -5419,13 +5416,6 @@
     </Compile>
     <Compile Include="EduTrain\CompanyTrainingSave.aspx.designer.cs">
       <DependentUpon>CompanyTrainingSave.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="EduTrain\CompanyTrainingSelectCloumn.aspx.cs">
-      <DependentUpon>CompanyTrainingSelectCloumn.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="EduTrain\CompanyTrainingSelectCloumn.aspx.designer.cs">
-      <DependentUpon>CompanyTrainingSelectCloumn.aspx</DependentUpon>
     </Compile>
     <Compile Include="EduTrain\ModelTestRecord.aspx.cs">
       <DependentUpon>ModelTestRecord.aspx</DependentUpon>
@@ -9055,13 +9045,6 @@
     <Compile Include="EduTrain\TrainingAudit.aspx.designer.cs">
       <DependentUpon>TrainingAudit.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EduTrain\TrainingSelectCloumn.aspx.cs">
-      <DependentUpon>TrainingSelectCloumn.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="EduTrain\TrainingSelectCloumn.aspx.designer.cs">
-      <DependentUpon>TrainingSelectCloumn.aspx</DependentUpon>
-    </Compile>
     <Compile Include="EduTrain\TrainingUpload.aspx.cs">
       <DependentUpon>TrainingUpload.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -10361,13 +10344,6 @@
     </Compile>
     <Compile Include="Technique\HazardListIn.aspx.designer.cs">
       <DependentUpon>HazardListIn.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Technique\HazardListSelectCloumn.aspx.cs">
-      <DependentUpon>HazardListSelectCloumn.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Technique\HazardListSelectCloumn.aspx.designer.cs">
-      <DependentUpon>HazardListSelectCloumn.aspx</DependentUpon>
     </Compile>
     <Compile Include="Technique\HazardListTypeEdit.aspx.cs">
       <DependentUpon>HazardListTypeEdit.aspx</DependentUpon>

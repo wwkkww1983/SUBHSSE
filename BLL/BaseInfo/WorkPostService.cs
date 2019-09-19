@@ -100,6 +100,36 @@ namespace BLL
                Funs.FineUIPleaseSelect(dropName);
            }
        }
-       #endregion
-   }
+        #endregion
+
+        #region 根据多岗位ID得到岗位名称字符串
+        /// <summary>
+        /// 根据多岗位ID得到岗位名称字符串
+        /// </summary>
+        /// <param name="bigType"></param>
+        /// <returns></returns>
+        public static string getWorkPostNamesWorkPostIds(object workPostIds)
+        {
+            string workPostName = string.Empty;
+            if (workPostIds != null)
+            {
+                string[] ids = workPostIds.ToString().Split(',');
+                foreach (string id in ids)
+                {
+                    var q = GetWorkPostById(id);
+                    if (q != null)
+                    {
+                        workPostName += q.WorkPostName + ",";
+                    }
+                }
+                if (workPostName != string.Empty)
+                {
+                    workPostName = workPostName.Substring(0, workPostName.Length - 1); ;
+                }
+            }
+
+            return workPostName;
+        }
+        #endregion
+    }
 }

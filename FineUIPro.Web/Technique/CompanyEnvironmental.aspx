@@ -31,14 +31,14 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar1" Position="Top" runat="server">
                         <Items>
-                            <f:DropDownList ID="drpSmallType" runat="server" Label="危险源类型"
-                                EnableEdit="true" LabelWidth="120px" Width="230px" LabelAlign="right" >
+                            <f:DropDownList ID="drpSmallType" runat="server" Label="类型"
+                                EnableEdit="true" LabelWidth="60px" Width="160px" LabelAlign="right" >
                             </f:DropDownList>
                             <f:DropDownList ID="drpEType" runat="server" Label="环境类型" EnableEdit="true"
-                                LabelWidth="100px" Width="210px" LabelAlign="right" >
+                                LabelWidth="80px" Width="200px" LabelAlign="right" >
                             </f:DropDownList>
-                            <f:TextBox ID="txtActivePoint" runat="server" Label="分项工程/活动点" EmptyText="输入查询名称"
-                                Width="210px" LabelWidth="115px"
+                            <f:TextBox ID="txtActivePoint" runat="server" Label="活动点" EmptyText="输入查询名称"
+                                Width="200px" LabelWidth="70px"
                                 LabelAlign="Right">
                             </f:TextBox>
                             <f:TextBox ID="txtEnvironmentalFactors" runat="server" Label="环境因素" EmptyText="输入查询名称"
@@ -62,20 +62,24 @@
                             <f:Button ID="btnImport" ToolTip="导入" Icon="ApplicationGet" Hidden="true" runat="server"
                                 OnClick="btnImport_Click">
                             </f:Button>
-                            <f:Button ID="btnSelectColumns" runat="server" ToolTip="导出" Icon="FolderUp" EnablePostBack="false"
-                                Hidden="true">
+                              <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
+                                EnableAjax="false" DisableControlBeforePostBack="false">
                             </f:Button>
                         </Items>
                     </f:Toolbar>
                 </Toolbars>
                 <Columns>
-                    <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="45px" HeaderTextAlign="Center"
-                        TextAlign="Center" Locked="true" />
-                    <f:RenderField Width="90px" ColumnID="Code" DataField="Code" FieldType="String" HeaderText="危险源代码"
+                    <f:TemplateField ColumnID="tfNumber" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
+                        TextAlign="Center">
+                        <ItemTemplate>
+                            <asp:Label ID="lbNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
+                        </ItemTemplate>
+                    </f:TemplateField>
+                    <f:RenderField Width="90px" ColumnID="Code" DataField="Code" FieldType="String" HeaderText="代码"
                         HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="90px" ColumnID="SmallTypeName" DataField="SmallTypeName" FieldType="String"
-                        HeaderText="危险源类型" HeaderTextAlign="Center" TextAlign="Left">
+                        HeaderText="类型" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="90px" ColumnID="ETypeName" DataField="ETypeName" FieldType="String"
                         HeaderText="环境类型" HeaderTextAlign="Center" TextAlign="Left">
@@ -158,10 +162,6 @@
     <f:Window ID="Window2" Title="导入公司环境因素危险源" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="1024px" Height="600px">
-    </f:Window>
-    <f:Window ID="Window5" Title="选择需要导出的列" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window5_Close" IsModal="true"
-        Width="500px" Height="400px" EnableAjax="false">
     </f:Window>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Self" EnableResize="true" runat="server" IsModal="true" Width="670px"

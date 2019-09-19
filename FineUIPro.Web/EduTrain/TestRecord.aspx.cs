@@ -206,7 +206,7 @@ namespace FineUIPro.Web.EduTrain
 
                 if (!string.IsNullOrEmpty(values) && values.Length <= 1850)
                 {
-                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../InformationProject/FileCabinetAChange.aspx?values={0}&menuId={1}", values, BLL.Const.TestRecordMenuId, "查看 - "), "归档", 600, 540));
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../InformationProject/FileCabinetAChange.aspx?values={0}&menuId={1}", values, BLL.Const.ProjectTestRecordMenuId, "查看 - "), "归档", 600, 540));
                 }
                 else
                 {
@@ -259,7 +259,7 @@ namespace FineUIPro.Web.EduTrain
                     var getV = BLL.TestRecordService.GetTestRecordById(rowID);
                     if (getV != null)
                     {
-                        BLL.LogService.AddSys_Log(this.CurrUser, "考试记录", rowID, BLL.Const.TestRecordMenuId, BLL.Const.BtnDelete);
+                        BLL.LogService.AddSys_Log(this.CurrUser, "考试记录", rowID, BLL.Const.ProjectTestRecordMenuId, BLL.Const.BtnDelete);
                         BLL.TestRecordService.DeleteTestRecordByTestRecordId(rowID);
                     }
                 }

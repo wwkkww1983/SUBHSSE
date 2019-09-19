@@ -173,6 +173,9 @@
     <Compile Include="Controllers\ResourcesController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\ToDoItemController.cs" />
+    <Compile Include="Controllers\TrainingPlanController.cs" />
+    <Compile Include="Controllers\TrainingTaskController.cs" />
+    <Compile Include="Controllers\TrainRecordController.cs" />
     <Compile Include="Controllers\UnitController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">

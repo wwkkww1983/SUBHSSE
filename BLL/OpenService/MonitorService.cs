@@ -161,13 +161,19 @@ namespace BLL
         {
             SynchronizationService.SynchDataTime();
             var thisUnit = CommonService.GetIsThisUnit();
-            ///五环单位执行 人员 培训考试 与博晟同步数据
-            if (thisUnit != null && thisUnit.UnitId == Const.UnitId_CWCEC)
+            if (thisUnit != null)
             {
-                var sysSet5 = BLL.ConstValue.drpConstItemList(BLL.ConstValue.Group_ChangeData).FirstOrDefault();
-                if (sysSet5 != null && sysSet5.ConstValue == "1")
+                if (thisUnit.UnitId == Const.UnitId_CWCEC) ////五环单位执行 人员 培训考试 与博晟同步数据
                 {
-                    GetDataService.AddData();
+                    var sysSet5 = BLL.ConstValue.drpConstItemList(BLL.ConstValue.Group_ChangeData).FirstOrDefault();
+                    if (sysSet5 != null && sysSet5.ConstValue == "1")
+                    {
+                        GetDataService.AddData();
+                    }
+                }
+                else if (thisUnit.UnitId == Const.UnitId_SEDIN) ////赛鼎
+                {
+                    GetDataService.CreateTrainingTaskItemByTaskId(null);
                 }
             }
         }

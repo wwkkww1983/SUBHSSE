@@ -50,6 +50,8 @@ namespace BLL
                 CompileMan = training.CompileMan,
                 TrainPersonNum = training.TrainPersonNum,
                 FromRecordId = training.FromRecordId,
+                TrainStates = training.TrainStates,
+                WorkPostIds = training.WorkPostIds,
             };
 
             if (training.TrainEndDate.HasValue)
@@ -100,6 +102,8 @@ namespace BLL
                 newTraining.States = training.States;
                 newTraining.TrainPersonNum = training.TrainPersonNum;
                 newTraining.FromRecordId = training.FromRecordId;
+                newTraining.TrainStates = training.TrainStates;
+                newTraining.WorkPostIds = training.WorkPostIds;
                 db.SubmitChanges();
             }            
         }

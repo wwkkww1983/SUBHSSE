@@ -9,8 +9,9 @@ namespace BLL
 {
     public static class APIPersonService
     {
+        #region 获取项目现场人员登录信息
         /// <summary>
-        /// 获取用户登录信息
+        /// 获取项目现场人员登录信息
         /// </summary>
         /// <param name="userInfo"></param>
         /// <returns></returns>
@@ -41,7 +42,9 @@ namespace BLL
 
             return getUser.FirstOrDefault();
         }
+        #endregion
 
+        #region 根据personId获取人员信息
         /// <summary>
         /// 根据personId获取人员信息
         /// </summary>
@@ -52,7 +55,9 @@ namespace BLL
             var getPerson = Funs.DB.View_SitePerson_Person.FirstOrDefault(x => x.PersonId == personId);
             return ObjectMapperManager.DefaultInstance.GetMapper<Model.View_SitePerson_Person, Model.PersonItem>().Map(getPerson);
         }
+        #endregion
 
+        #region 根据identityCard获取人员信息
         /// <summary>
         /// 根据identityCard获取人员信息
         /// </summary>
@@ -63,7 +68,9 @@ namespace BLL
             var getPerson = Funs.DB.View_SitePerson_Person.FirstOrDefault(x => x.IdentityCard == identityCard);
             return ObjectMapperManager.DefaultInstance.GetMapper<Model.View_SitePerson_Person, Model.PersonItem>().Map(getPerson);
         }
+        #endregion
 
+        #region 根据projectId、unitid获取人员信息
         /// <summary>
         /// 根据projectId、unitid获取人员信息
         /// </summary>
@@ -77,5 +84,6 @@ namespace BLL
                        select x);
             return ObjectMapperManager.DefaultInstance.GetMapper<List<Model.View_SitePerson_Person>, List<Model.PersonItem>>().Map(persons.ToList());
         }
+        #endregion
     }
 }

@@ -84,20 +84,21 @@ namespace BLL
             }
             else
             {
-                if (hazardRegister.States == "2")
+                if (newHazardRegister.States == "2")
                 {
                     isUpdate.RectificationTime = DateTime.Now;
-                    isUpdate.Rectification = hazardRegister.Rectification;
-                    isUpdate.RectificationImageUrl = hazardRegister.RectificationImageUrl;
+                    isUpdate.Rectification = newHazardRegister.Rectification;
+                    isUpdate.RectificationImageUrl = newHazardRegister.RectificationImageUrl;
                 }
-                else if (hazardRegister.States == "3")
+                else if (newHazardRegister.States == "3")
                 {
                     isUpdate.ConfirmDate = DateTime.Now;
-                    isUpdate.ConfirmMan = hazardRegister.ConfirmMan;
-                    isUpdate.HandleIdea = hazardRegister.HandleIdea;
-                    isUpdate.SafeSupervisionIsOK = hazardRegister.SafeSupervisionIsOK;
+                    isUpdate.ConfirmMan = newHazardRegister.ConfirmMan;
+                    isUpdate.HandleIdea = newHazardRegister.HandleIdea;
+                    isUpdate.SafeSupervisionIsOK = newHazardRegister.SafeSupervisionIsOK;
                 }
-                isUpdate.States = hazardRegister.States;
+
+                isUpdate.States = newHazardRegister.States;
             }
             db.SubmitChanges();
         }

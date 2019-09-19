@@ -117,9 +117,11 @@ namespace FineUIPro.Web.Check
                     this.txtCheckHolidayCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectCheckHolidayMenuId, this.ProjectId, this.CurrUser.UnitId);
                     this.txtCheckDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                 }
+
                 Grid1.DataSource = checkHolidayDetails;
                 Grid1.DataBind();
                 ChangeGridColor();
+
                 ///初始化审核菜单
                 this.ctlAuditFlow.MenuId = BLL.Const.ProjectCheckHolidayMenuId;
                 this.ctlAuditFlow.DataId = this.CheckHolidayId;

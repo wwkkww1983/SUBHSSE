@@ -69,27 +69,34 @@
                                     </f:Button>
                                     <f:Button ID="btnAuditResources" runat="server" Icon="ZoomIn" ToolTip="审核资源" Hidden="true">
                                     </f:Button>
-                                    <f:Button ID="btnSelectColumns" runat="server" ToolTip="导出" Icon="FolderUp" EnablePostBack="false" Hidden="true">
+                                    <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
+                                        EnableAjax="false" DisableControlBeforePostBack="false">
                                     </f:Button>
                                 </Items>
                             </f:Toolbar>
                         </Toolbars>
                         <Columns>
-                           <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center"/>
-                            <f:TemplateField Width="120px" HeaderText="教材编号" HeaderTextAlign="Center" TextAlign="Left" SortField="TrainingItemCode">
+                            <f:TemplateField ColumnID="tfNumber" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
+                                TextAlign="Center">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblTrainingItemCode" runat="server" Text='<%# Bind("TrainingItemCode") %>'
+                                    <asp:Label ID="lbNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
+                                </ItemTemplate>
+                            </f:TemplateField>
+                            <f:TemplateField Width="120px" HeaderText="教材编号" HeaderTextAlign="Center" TextAlign="Left"  ColumnID="tfTrainingItemCode"
+                                SortField="TrainingItemCode">
+                                <ItemTemplate>
+                                    <asp:Label ID="lbTrainingItemCode" runat="server" Text='<%# Bind("TrainingItemCode") %>'
                                         ToolTip='<%#Bind("TrainingItemCode") %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-                            <f:TemplateField Width="300px" HeaderText="教材名称" HeaderTextAlign="Center" TextAlign="Left" SortField="TrainingItemName">
+                            <f:TemplateField Width="300px" HeaderText="教材名称" HeaderTextAlign="Center" TextAlign="Left" ColumnID="tfTrainingItemName"
+                                SortField="TrainingItemName">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblTrainingItemName" runat="server" Text='<%# Bind("TrainingItemName") %>' ToolTip='<%#Bind("TrainingItemName") %>'></asp:Label>
+                                    <asp:Label ID="lbTrainingItemName" runat="server" Text='<%# Bind("TrainingItemName") %>' ToolTip='<%#Bind("TrainingItemName") %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
                             <f:WindowField TextAlign="Left" Width="80px" WindowID="WindowAtt" HeaderText="附件" Text="查看"
-                               ToolTip="附件上传查看" DataIFrameUrlFields="TrainingItemId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/Training&menuId=9D99A981-7380-4085-84FA-8C3B1AFA6202"
-                               />
+                               ToolTip="附件上传查看" DataIFrameUrlFields="TrainingItemId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/Training&menuId=9D99A981-7380-4085-84FA-8C3B1AFA6202"/>
                             <f:LinkButtonField Width="80px" TextAlign="Center" CommandName="Action1" Text="下载" HeaderText="集团附件" />
                             <f:RenderField Width="1px" ColumnID="AttachUrl" DataField="AttachUrl" FieldType="String" HeaderText="路径"
                                 Hidden="true" HeaderTextAlign="Center">                                        
@@ -135,10 +142,6 @@
     <f:Window ID="Window4" Title="审核资源" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Self" EnableResize="true" runat="server" IsModal="true" Width="1024px"
         Height="500px">
-    </f:Window>
-    <f:Window ID="Window5" Title="选择需要导出的列" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window5_Close" IsModal="true"
-        Width="450px" Height="250px" EnableAjax="false">
     </f:Window>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true"
             EnableMaximize="true" Target="Self" EnableResize="true" runat="server"

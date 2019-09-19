@@ -8,7 +8,8 @@ namespace BLL
 {
     public static class GetDataService
     {
-        #region 获取数据 并按类型 插入相应表单
+        #region 与博晟培训考试接口
+        #region 与博晟培训考试接口 获取数据 并按类型 插入相应表单
         /// <summary>
         /// 获取数据 并按类型 插入相应表单
         /// </summary>
@@ -34,8 +35,9 @@ namespace BLL
         }
         #endregion
 
+        #region 与博晟培训考试接口数据插入明细方法
         /// <summary>
-        /// 数据插入明细方法
+        ///  与博晟培训考试接口数据插入明细方法
         /// </summary>
         /// <param name="getDataExchange"></param>
         private static void AddDataItem(List<Model.Sys_DataExchange> getDataExchange)
@@ -104,6 +106,7 @@ namespace BLL
                 }
             }
         }
+        #endregion
 
         #region 插入信息-项目信息
         /// <summary>
@@ -686,6 +689,57 @@ namespace BLL
                 ErrLogInfo.WriteLog(string.Empty, ex);
             }
             return isOk;
+        }
+        #endregion
+        #endregion
+
+        #region 培训计划提交后 按照培训任务 生成培训人员的培训教材明细
+        /// <summary>
+        /// 生成培训人员的培训教材明细
+        /// </summary>
+        /// <param name="taskId"></param>
+        public static void CreateTrainingTaskItemByTaskId(string taskId)
+        {           
+            /////查找未生成教材明细的 培训任务
+            var getTasks = from x in Funs.DB.Training_Task
+                           where x.States == Const.State_0 && (x.TaskId == taskId || taskId == null)
+                           select x;
+            if (getTasks.Count() > 0)
+            {
+                foreach (var item in getTasks)
+                {
+                    var getPerson = PersonService.GetPersonById(item.UserId);
+                    if (getPerson != null)
+                    {
+                        ////获取计划下 人员培训教材明细
+                        var getDataList = BLL.Funs.DB.Sp_GetTraining_TaskItemTraining(item.PlanId, getPerson.WorkAreaId);
+                        foreach (var dataItem in getDataList)
+                        {
+                            Model.Training_TaskItem newTaskItem = new Model.Training_TaskItem
+                            {
+                                TaskId = item.TaskId,
+                                PlanId = item.PlanId,
+                                PersonId = item.UserId,
+                                TrainingItemCode = dataItem.TrainingItemCode,
+                                TrainingItemName = dataItem.TrainingItemName,
+                                AttachUrl = dataItem.AttachUrl,
+                            };
+
+                            var getTaskItem = Funs.DB.Training_TaskItem.FirstOrDefault(x => x.TaskId == item.TaskId && x.TrainingItemName == newTaskItem.TrainingItemName && x.AttachUrl == newTaskItem.AttachUrl);
+                            if (getTaskItem == null)
+                            {
+                                newTaskItem.TaskItemId = SQLHelper.GetNewID();
+                                Funs.DB.Training_TaskItem.InsertOnSubmit(newTaskItem);
+                                Funs.DB.SubmitChanges();
+                            }
+                        }
+                    }
+
+                    ////更新培训任务
+                    item.States = Const.State_1;
+                    Funs.DB.SubmitChanges();
+                }
+            }
         }
         #endregion
     }

@@ -28,7 +28,7 @@
                 EnableCollapse="true" Width="350" Title="检查项目设置" TitleToolTip="右键点击添加、修改、删除"
                 ShowBorder="true" ShowHeader="false" AutoScroll="true" BodyPadding="5px" IconFont="ArrowCircleLeft">
                 <Toolbars>
-                    <f:Toolbar ID="Toolbar1" Position="Top" ToolbarAlign="Right" runat="server">
+                    <f:Toolbar ID="Toolbar1" Position="Top" ToolbarAlign="Center" runat="server">
                         <Items>
                             <f:RadioButtonList ID="ckType" runat="server" AutoPostBack="true" ColumnNumber="3"
                                 AutoColumnWidth="true" Width="340px" OnSelectedIndexChanged="ckType_SelectedIndexChanged">

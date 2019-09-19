@@ -179,7 +179,7 @@ namespace FineUIPro.Web.EduTrain
                     var ModelTestRecord = BLL.ModelTestRecordItemService.GetModelTestRecordItemModelTestRecordItemId(rowID);
                     if (ModelTestRecord != null)
                     {
-                        BLL.LogService.AddSys_Log(this.CurrUser, null, rowID,BLL.Const.ModelTestRecordMenuId,BLL.Const.BtnDelete);
+                        BLL.LogService.AddSys_Log(this.CurrUser, null, rowID,BLL.Const.ProjectModelTestRecordMenuId,BLL.Const.BtnDelete);
                         BLL.ModelTestRecordItemService.DeleteModelTestRecordItemmByModelTestRecordItemId(rowID);                        
                     }
                 }

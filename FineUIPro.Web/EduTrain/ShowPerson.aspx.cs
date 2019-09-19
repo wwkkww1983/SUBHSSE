@@ -103,6 +103,15 @@ namespace FineUIPro.Web.EduTrain
                             CheckResult = true,
                             CheckScore = 100
                         };
+                        var thisUnit = BLL.CommonService.GetIsThisUnit();
+                        if (thisUnit != null)
+                        {
+                            if (thisUnit.UnitId == Const.UnitId_SEDIN)
+                            {
+                                detail.CheckScore = null;
+                            }
+                        }
+
                         BLL.EduTrain_TrainRecordDetailService.AddTrainDetail(detail);
                     }
                 }

@@ -41,9 +41,7 @@ namespace FineUIPro.Web.EduTrain
             if (!IsPostBack)
             {
                 btnClose.OnClientClick = ActiveWindow.GetHideReference();
-
                 trainRecordDetails.Clear();
-
                 this.TrainingId = Request.Params["TrainingId"];
                 var trainRecord = BLL.EduTrain_TrainRecordService.GetTrainingByTrainingId(this.TrainingId);
                 if (trainRecord != null)
@@ -78,6 +76,26 @@ namespace FineUIPro.Web.EduTrain
                         }
                         this.txtUnits.Text = unitNames;
                     }
+
+                    if (!string.IsNullOrEmpty(trainRecord.WorkPostIds))
+                    {
+                        string WorkPostNames = string.Empty;
+                        string[] WorkPostIds = trainRecord.WorkPostIds.Split(',');
+                        foreach (var item in WorkPostIds)
+                        {
+                            Model.Base_WorkPost WorkPost = BLL.WorkPostService.GetWorkPostById(item);
+                            if (WorkPost != null)
+                            {
+                                WorkPostNames += WorkPost.WorkPostName + ",";
+                            }
+                        }
+                        if (!string.IsNullOrEmpty(WorkPostNames))
+                        {
+                            WorkPostNames = WorkPostNames.Substring(0, WorkPostNames.LastIndexOf(","));
+                        }
+                        this.txtWorkPostIds.Text = WorkPostNames;
+                    }
+                    this.drpTrainStates.SelectedValue = trainRecord.TrainStates;
                     this.txtTeachMan.Text = trainRecord.TeachMan;
                     this.txtTeachAddress.Text = trainRecord.TeachAddress;
                     if (trainRecord.TeachHour != null)
@@ -98,15 +116,25 @@ namespace FineUIPro.Web.EduTrain
                 Grid1.DataSource = trainRecordDetails;
                 Grid1.DataBind();
                 var thisUnit = BLL.CommonService.GetIsThisUnit();
-                if (thisUnit.UnitId == BLL.Const.UnitId_14)
+                if (thisUnit != null)
                 {
-                    this.Grid1.Columns[4].Hidden = true;
+                    if (thisUnit.UnitId == BLL.Const.UnitId_14)
+                    {
+                        this.Grid1.Columns[4].Hidden = true;
+                    }
+                    else if (thisUnit.UnitId == BLL.Const.UnitId_CWCEC)
+                    {
+                        this.btnTrainTest.Hidden = false;
+                        this.btnMenuView.Hidden = false;
+                    }
+                    if (thisUnit.UnitId == Const.UnitId_SEDIN)
+                    {
+                        this.drpTrainStates.Hidden = false;
+                        this.btnTrainingType.Hidden = false;
+                        this.trWorkPost.Hidden = false;
+                    }
                 }
-                else if (thisUnit.UnitId == BLL.Const.UnitId_CWCEC)
-                {
-                    this.btnTrainTest.Hidden = false;
-                    this.btnMenuView.Hidden = false;
-                }
+
                 ///初始化审核菜单
                 this.ctlAuditFlow.MenuId = BLL.Const.ProjectTrainRecordMenuId;
                 this.ctlAuditFlow.DataId = this.TrainingId;
@@ -149,6 +177,11 @@ namespace FineUIPro.Web.EduTrain
                     PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("TrainTestView.aspx?TrainDetailId={0}", rowID, "查看试卷 - ")));
                 }
             }
+        }
+
+        protected void btnTrainingType_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

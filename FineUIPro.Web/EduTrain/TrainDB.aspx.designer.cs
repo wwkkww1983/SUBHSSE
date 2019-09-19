@@ -202,31 +202,40 @@ namespace FineUIPro.Web.EduTrain {
         protected global::FineUIPro.Button btnAuditResources;
         
         /// <summary>
-        /// btnSelectColumns 控件。
+        /// btnOut 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Button btnSelectColumns;
+        protected global::FineUIPro.Button btnOut;
         
         /// <summary>
-        /// lblTrainingItemCode 控件。
+        /// lbNumber 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTrainingItemCode;
+        protected global::System.Web.UI.WebControls.Label lbNumber;
         
         /// <summary>
-        /// lblTrainingItemName 控件。
+        /// lbTrainingItemCode 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTrainingItemName;
+        protected global::System.Web.UI.WebControls.Label lbTrainingItemCode;
+        
+        /// <summary>
+        /// lbTrainingItemName 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbTrainingItemName;
         
         /// <summary>
         /// ToolbarSeparator1 控件。
@@ -290,15 +299,6 @@ namespace FineUIPro.Web.EduTrain {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Window Window4;
-        
-        /// <summary>
-        /// Window5 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Window Window5;
         
         /// <summary>
         /// WindowAtt 控件。

@@ -47,11 +47,11 @@
                         <Toolbars>
                             <f:Toolbar ID="Toolbar3" Position="Top" runat="server">
                                 <Items>
-                                    <f:TextBox ID="txtCompanyTrainingItemCode" runat="server" Label="教材编号" EmptyText="输入查询教材编号"
+                                    <f:TextBox ID="txtCompanyTrainingItemCode" runat="server" Label="编号" EmptyText="输入查询教材编号"
                                         AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px"
                                         LabelAlign="Right">
                                     </f:TextBox>
-                                    <f:TextBox ID="txtCompanyTrainingItemName" runat="server" Label="教材名称" EmptyText="输入查询教材名称"
+                                    <f:TextBox ID="txtCompanyTrainingItemName" runat="server" Label="名称" EmptyText="输入查询教材名称"
                                         AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px"
                                         LabelAlign="Right">
                                     </f:TextBox>
@@ -66,40 +66,44 @@
                                     <f:Button ID="btnDeleteDetail" ToolTip="删除" Icon="Delete" ConfirmText="确定删除当前数据？"
                                         OnClick="btnDeleteDetail_Click" runat="server" Hidden="true">
                                     </f:Button>
-                                    <f:Button ID="btnSelectColumns" runat="server" ToolTip="导出" Icon="FolderUp" EnablePostBack="false"
-                                        Hidden="true">
+                                   <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
+                                        EnableAjax="false" DisableControlBeforePostBack="false">
                                     </f:Button>
                                 </Items>
                             </f:Toolbar>
                         </Toolbars>
                         <Columns>
-                            <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
-                                TextAlign="Center" />
-                            <f:TemplateField Width="120px" HeaderText="教材编号" HeaderTextAlign="Center" TextAlign="Left"
-                                SortField="CompanyTrainingItemCode">
+                            <f:TemplateField ColumnID="tfNumber" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
+                                TextAlign="Center">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblCompanyTrainingItemCode" runat="server" Text='<%# Bind("CompanyTrainingItemCode") %>'
+                                    <asp:Label ID="lbNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
+                                </ItemTemplate>
+                            </f:TemplateField>
+                            <f:TemplateField Width="120px" HeaderText="编号" HeaderTextAlign="Center" TextAlign="Left"
+                                SortField="CompanyTrainingItemCode" ColumnID="tfCompanyTrainingItemCode">
+                                <ItemTemplate>
+                                    <asp:Label ID="lbCompanyTrainingItemCode" runat="server" Text='<%# Bind("CompanyTrainingItemCode") %>'
                                         ToolTip='<%#Bind("CompanyTrainingItemCode") %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-                            <f:TemplateField Width="300px" HeaderText="教材名称" HeaderTextAlign="Center" TextAlign="Left"
-                                SortField="CompanyTrainingItemName" ExpandUnusedSpace="true">
+                            <f:TemplateField Width="300px" HeaderText="名称" HeaderTextAlign="Center" TextAlign="Left"
+                                SortField="CompanyTrainingItemName" ExpandUnusedSpace="true" ColumnID="tfCompanyTrainingItemName">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblCompanyTrainingItemName" runat="server" Text='<%# Bind("CompanyTrainingItemName") %>'
+                                    <asp:Label ID="lbCompanyTrainingItemName" runat="server" Text='<%# Bind("CompanyTrainingItemName") %>'
                                         ToolTip='<%#Bind("CompanyTrainingItemName") %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-                            <f:TemplateField Width="120px" HeaderText="整理人" HeaderTextAlign="Center" TextAlign="Left"
+                            <f:TemplateField Width="120px" HeaderText="整理人" HeaderTextAlign="Center" TextAlign="Left" ColumnID="tfCompileMan"
                                 SortField="CompileMan">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblCompileMan" runat="server" Text='<%# Bind("CompileMan") %>' ToolTip='<%#Bind("CompileMan") %>'>
+                                    <asp:Label ID="lbCompileMan" runat="server" Text='<%# Bind("CompileMan") %>' ToolTip='<%#Bind("CompileMan") %>'>
                                     </asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-                            <f:TemplateField Width="120px" HeaderText="整理时间" HeaderTextAlign="Center" TextAlign="Left"
+                            <f:TemplateField Width="120px" HeaderText="整理时间" HeaderTextAlign="Center" TextAlign="Left" ColumnID="tfCompileDate"
                                 SortField="CompileDate">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblCompileDate" runat="server" Text='<%# Bind("CompileDate","{0:yyyy-MM-dd}") %>'
+                                    <asp:Label ID="lbCompileDate" runat="server" Text='<%# Bind("CompileDate","{0:yyyy-MM-dd}") %>'
                                         ToolTip='<%#Bind("CompileDate") %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
@@ -129,19 +133,15 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="公司教材库类别" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Self" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="400px" Height="200px">
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
+        Width="600px" Height="400px">
     </f:Window>
     <f:Window ID="Window2" Title="公司教材库详情" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Self" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="true"
-        Width="500px" Height="280px">
-    </f:Window>
-    <f:Window ID="Window5" Title="选择需要导出的列" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" OnClose="Window5_Close" IsModal="true"
-        Width="450px" Height="250px" EnableAjax="false">
+        Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="true"
+        Width="600px" Height="400px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Self" EnableResize="true" runat="server" IsModal="true" Width="670px"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="670px"
         Height="460px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">

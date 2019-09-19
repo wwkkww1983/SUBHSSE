@@ -1,12 +1,11 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web.UI;
-using BLL;
-using System.Data.SqlClient;
 using System.Data;
-using System.IO;
+using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
+using AspNet = System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.EduTrain
 {
@@ -25,7 +24,7 @@ namespace FineUIPro.Web.EduTrain
                 this.GetButtonPower();
                 btnDeleteDetail.OnClientClick = Grid1.GetNoSelectionAlertReference("请至少选择一项！");
                 btnDeleteDetail.ConfirmText = String.Format("你确定要删除选中的&nbsp;<b><script>{0}</script></b>&nbsp;行数据吗？", Grid1.GetSelectedCountReference());
-                btnSelectColumns.OnClientClick = Window5.GetShowReference("CompanyTrainingSelectCloumn.aspx");
+                
                 InitTreeMenu();
             }
         }
@@ -181,20 +180,22 @@ namespace FineUIPro.Web.EduTrain
         /// </summary>
         private void BindGrid()
         {
-            if (!string.IsNullOrEmpty(this.trCompanyTraining.SelectedNode.NodeID))
+            if (this.trCompanyTraining.SelectedNode != null && !string.IsNullOrEmpty(this.trCompanyTraining.SelectedNode.NodeID))
             {
-                string strSql = @"SELECT CompanyTrainingItem.CompanyTrainingItemId,
-                                         CompanyTrainingItem.CompanyTrainingId,
-                                         CompanyTrainingItem.CompanyTrainingItemCode,
-                                         CompanyTrainingItem.CompanyTrainingItemName,
-                                         CompanyTrainingItem.AttachUrl,
-                                         CompanyTrainingItem.CompileMan,
-                                         CompanyTrainingItem.CompileDate "
-                                + @" FROM dbo.Training_CompanyTrainingItem AS CompanyTrainingItem "
-                                + @" WHERE CompanyTrainingItem.CompanyTrainingId=@CompanyTrainingId";
+                string strSql = @"SELECT item.CompanyTrainingItemId,
+                                         item.CompanyTrainingId,
+                                         item.CompanyTrainingItemCode,
+                                         item.CompanyTrainingItemName,
+                                         item.AttachUrl,
+                                         item.CompileMan,
+                                         item.CompileDate "
+                                + @" FROM dbo.Training_CompanyTrainingItem AS item "
+                                + @" WHERE item.CompanyTrainingId=@CompanyTrainingId";
 
-                List<SqlParameter> listStr = new List<SqlParameter>();
-                listStr.Add(new SqlParameter("@CompanyTrainingId", this.trCompanyTraining.SelectedNode.NodeID));
+                List<SqlParameter> listStr = new List<SqlParameter>
+                {
+                    new SqlParameter("@CompanyTrainingId", this.trCompanyTraining.SelectedNode.NodeID)
+                };
                 if (!string.IsNullOrEmpty(this.txtCompanyTrainingItemCode.Text.Trim()))
                 {
                     strSql += " AND CompanyTrainingItemCode LIKE @CompanyTrainingItemCode";
@@ -370,115 +371,7 @@ namespace FineUIPro.Web.EduTrain
         }
         #endregion
         #endregion
-
-        #region 导出
-        /// <summary>
-        /// 关闭导出窗口
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Window5_Close(object sender, WindowCloseEventArgs e)
-        {
-            Response.ClearContent();
-            Response.AddHeader("content-disposition", "attachment; filename=MyExcelFile.xls");
-            Response.ContentType = "application/excel";
-            Response.ContentEncoding = System.Text.Encoding.UTF8;
-            Response.Write(GetGridTableHtml(Grid1, e.CloseArgument.Split('#')));
-            Response.End();
-        }
-
-        /// <summary>
-        /// 导出
-        /// </summary>
-        /// <param name="grid"></param>
-        /// <param name="columns"></param>
-        /// <returns></returns>
-        private string GetGridTableHtml(Grid grid, string[] columns)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
-            List<string> columnHeaderTexts = new List<string>(columns);
-            List<int> columnIndexs = new List<int>();
-            sb.Append("<table cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;\">");
-            sb.Append("<tr>");
-            foreach (GridColumn column in grid.Columns)
-            {
-                if (columnHeaderTexts.Contains(column.HeaderText))
-                {
-                    sb.AppendFormat("<td>{0}</td>", column.HeaderText);
-                    columnIndexs.Add(column.ColumnIndex);
-                }
-            }
-            sb.Append("</tr>");
-            foreach (GridRow row in grid.Rows)
-            {
-                sb.Append("<tr>");
-                int columnIndex = 0;
-                foreach (object value in row.Values)
-                {
-                    if (columnIndexs.Contains(columnIndex))
-                    {
-                        string html = value.ToString();
-                        if (html.StartsWith(Grid.TEMPLATE_PLACEHOLDER_PREFIX))
-                        {
-                            // 模板列                            
-                            string templateID = html.Substring(Grid.TEMPLATE_PLACEHOLDER_PREFIX.Length);
-                            Control templateCtrl = row.FindControl(templateID);
-                            html = GetRenderedHtmlSource(templateCtrl);
-                        }
-                        //else
-                        //{
-                        //    // 处理CheckBox             
-                        //    if (html.Contains("f-grid-static-checkbox"))
-                        //    {
-                        //        if (!html.Contains("f-checked"))
-                        //        {
-                        //            html = "×";
-                        //        }
-                        //        else
-                        //        {
-                        //            html = "√";
-                        //        }
-                        //    }
-                        //    // 处理图片                           
-                        //    if (html.Contains("<img"))
-                        //    {
-                        //        string prefix = Request.Url.AbsoluteUri.Replace(Request.Url.AbsolutePath, ""); 
-                        //        html = html.Replace("src=\"", "src=\"" + prefix);
-                        //    }
-                        //}
-                        sb.AppendFormat("<td>{0}</td>", html);
-                    }
-                    columnIndex++;
-                }
-                sb.Append("</tr>");
-            }
-            sb.Append("</table>");
-            return sb.ToString();
-        }
-
-        /// <summary>        
-        /// 获取控件渲染后的HTML源代码        
-        /// </summary>        
-        /// <param name="ctrl"></param>        
-        /// <returns></returns>        
-        private string GetRenderedHtmlSource(Control ctrl)
-        {
-            if (ctrl != null)
-            {
-                using (StringWriter sw = new StringWriter())
-                {
-                    using (HtmlTextWriter htw = new HtmlTextWriter(sw))
-                    {
-                        ctrl.RenderControl(htw);
-                        return sw.ToString();
-                    }
-                }
-            }
-            return String.Empty;
-        }
-        #endregion         
-
+                
         #region 按钮权限
         /// <summary>
         /// 获取按钮权限
@@ -506,12 +399,87 @@ namespace FineUIPro.Web.EduTrain
                     this.btnDelete.Hidden = false;
                     this.btnDeleteDetail.Hidden = false;
                     this.btnMenuDelete.Hidden = false;
-                }                
-                if (buttonList.Contains(BLL.Const.BtnOut))
+                }         
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// 导出
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnOut_Click(object sender, EventArgs e)
+        {
+            Response.ClearContent();
+            string filename = Funs.GetNewFileName();
+            Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("公司教材库" + filename, System.Text.Encoding.UTF8) + ".xls");
+            Response.ContentType = "application/excel";
+            Response.ContentEncoding = System.Text.Encoding.UTF8;
+            this.Grid1.PageSize = Grid1.RecordCount;
+            BindGrid();
+            Response.Write(GetGridTableHtml(Grid1, 5));
+            Response.End();
+        }
+
+        #region 导出方法
+        /// <summary>
+        /// 导出方法
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public static string GetGridTableHtml(Grid grid, int count)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
+            sb.Append("<table cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;\">");
+            sb.Append("<tr>");
+            foreach (GridColumn column in grid.Columns)
+            {
+                if (column.ColumnIndex < count)
                 {
-                    this.btnSelectColumns.Hidden = false;
+                    sb.AppendFormat("<td>{0}</td>", column.HeaderText);
                 }
             }
+            sb.Append("</tr>");
+            foreach (GridRow row in grid.Rows)
+            {
+                sb.Append("<tr>");
+                foreach (GridColumn column in grid.Columns)
+                {
+                    if (column.ColumnIndex < count)
+                    {
+                        string html = row.Values[column.ColumnIndex].ToString();
+                        if (column.ColumnID == "tfNumber" && (row.FindControl("lbNumber") as AspNet.Label) != null)
+                        {
+                            html = (row.FindControl("lbNumber") as AspNet.Label).Text;
+                        }
+                        if (column.ColumnID == "tfCompanyTrainingItemCode" && (row.FindControl("lbCompanyTrainingItemCode") as AspNet.Label) != null)
+                        {
+                            html = (row.FindControl("lbCompanyTrainingItemCode") as AspNet.Label).Text;
+                        }
+                        if (column.ColumnID == "tfCompanyTrainingItemName" && (row.FindControl("lbCompanyTrainingItemName") as AspNet.Label) != null)
+                        {
+                            html = (row.FindControl("lbCompanyTrainingItemName") as AspNet.Label).Text;
+                        }
+                        if (column.ColumnID == "tfCompileMan" && (row.FindControl("lbCompileMan") as AspNet.Label) != null)
+                        {
+                            html = (row.FindControl("lbCompileMan") as AspNet.Label).Text;
+                        }
+                        if (column.ColumnID == "tfCompileDate" && (row.FindControl("lbCompileDate") as AspNet.Label) != null)
+                        {
+                            html = (row.FindControl("lbCompileDate") as AspNet.Label).Text;
+                        }
+                        sb.AppendFormat("<td>{0}</td>", html);
+                    }
+                }
+
+                sb.Append("</tr>");
+            }
+
+            sb.Append("</table>");
+
+            return sb.ToString();
         }
         #endregion
     }

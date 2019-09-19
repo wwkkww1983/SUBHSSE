@@ -49,6 +49,15 @@ namespace FineUIPro.Web.Check
                 }
                 this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString();                
                 CheckItemSetDataBind();//加载树
+                var thisUnit = BLL.CommonService.GetIsThisUnit();
+                if (thisUnit != null)
+                {
+                    if (thisUnit.UnitId == Const.UnitId_SEDIN)
+                    {
+                        this.ckType.Items.Remove(this.ckType.Items[4]);
+                        this.ckType.Items.Remove(this.ckType.Items[3]);
+                    }
+                }
             }
         }
 
