@@ -162,11 +162,11 @@ namespace FineUIPro.Web.EduTrain
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    var getV = BLL.TaskService.GetTaskById(rowID);
+                    var getV = BLL.TrainingTaskService.GetTaskById(rowID);
                     if (getV != null)
                     {
                         BLL.LogService.AddSys_Log(this.CurrUser, null, rowID, BLL.Const.ProjectTrainingTaskMenuId, BLL.Const.BtnDelete);
-                        BLL.TaskService.DeleteTaskById(rowID);
+                        BLL.TrainingTaskService.DeleteTaskById(rowID);
                     }
                 }
 

@@ -712,7 +712,7 @@ namespace BLL
                     if (getPerson != null)
                     {
                         ////获取计划下 人员培训教材明细
-                        var getDataList = BLL.Funs.DB.Sp_GetTraining_TaskItemTraining(item.PlanId, getPerson.WorkAreaId);
+                        var getDataList = Funs.DB.Sp_GetTraining_TaskItemTraining(item.PlanId, getPerson.WorkPostId);
                         foreach (var dataItem in getDataList)
                         {
                             Model.Training_TaskItem newTaskItem = new Model.Training_TaskItem

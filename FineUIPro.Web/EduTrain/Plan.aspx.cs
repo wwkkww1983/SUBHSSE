@@ -180,12 +180,13 @@ namespace FineUIPro.Web.EduTrain
                     string content = judgementDelete(rowID);
                     if (string.IsNullOrEmpty(content))
                     {
-                        var getV = BLL.PlanService.GetPlanById(rowID);
+                        var getV = BLL.TrainingPlanService.GetPlanById(rowID);
                         if (getV != null)
                         {
-                            BLL.LogService.AddSys_Log(this.CurrUser, getV.PlanCode, rowID, BLL.Const.ProjectTrainingPlanMenuId, BLL.Const.BtnDelete);
-                            BLL.PlanItemService.DeletePlanItemByPlanId(rowID);
-                            BLL.PlanService.DeletePlanById(rowID);
+                            LogService.AddSys_Log(this.CurrUser, getV.PlanCode, rowID, BLL.Const.ProjectTrainingPlanMenuId, BLL.Const.BtnDelete);
+                            TrainingTaskService.DeleteTaskByPlanId(rowID);
+                            TrainingPlanItemService.DeletePlanItemByPlanId(rowID);
+                            TrainingPlanService.DeletePlanById(rowID);
                         }
                     }
                     else
@@ -245,9 +246,13 @@ namespace FineUIPro.Web.EduTrain
         private string judgementDelete(string id)
         {
             string content = string.Empty;
-            if (Funs.DB.Training_Task.FirstOrDefault(x => x.PlanId == id) != null)
+            if (Funs.DB.EduTrain_TrainRecord.FirstOrDefault(x => x.PlanId == id) != null)
             {
-                content = "该计划已存在【培训任务】，不能删除！";
+                content = "该计划已归档【培训记录】，不能删除！";
+            }
+            if (Funs.DB.Training_TestPlan.FirstOrDefault(x => x.PlanId == id) != null)
+            {
+                content = "该计划已做【考试计划】，不能删除！";
             }
 
             return content;

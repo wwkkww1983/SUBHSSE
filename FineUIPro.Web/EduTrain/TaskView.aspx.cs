@@ -95,7 +95,7 @@ namespace FineUIPro.Web.EduTrain
         /// </summary>
         private void BindGrid()
         {
-            var task = BLL.TaskService.GetTaskById(this.TaskId);
+            var task = BLL.TrainingTaskService.GetTaskById(this.TaskId);
             if (task != null)
             {
                 string strSql = @"SELECT PlanItem.PlanItemId,PlanItem.PlanId,PlanItem.TrainingEduId,Training.TrainingCode,Training.TrainingId,Training.TrainingName"

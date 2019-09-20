@@ -52,8 +52,34 @@ namespace BLL
         /// <returns></returns>
         public static Model.PersonItem getPersonByPersonId(string personId)
         {
-            var getPerson = Funs.DB.View_SitePerson_Person.FirstOrDefault(x => x.PersonId == personId);
-            return ObjectMapperManager.DefaultInstance.GetMapper<Model.View_SitePerson_Person, Model.PersonItem>().Map(getPerson);
+            var getPerson = from x in Funs.DB.View_SitePerson_Person
+                            where x.PersonId == personId || x.IdentityCard == personId
+                            select new Model.PersonItem 
+                            {
+                                PersonId = x.PersonId,
+                                CardNo = x.CardNo,
+                                PersonName = x.PersonName,
+                                SexName = x.Sex,
+                                IdentityCard = x.IdentityCard,
+                                Address = x.Address,
+                                ProjectId = x.ProjectId,
+                                ProjectCode = x.ProjectCode,
+                                ProjectName = x.ProjectName,
+                                UnitId = x.UnitId,
+                                UnitCode = x.UnitCode,
+                                UnitName = x.UnitName,
+                                TeamGroupId = x.TeamGroupId,
+                                TeamGroupName = x.TeamGroupName,
+                                WorkPostId = x.WorkPostId,
+                                WorkPostName = x.WorkPostName,
+                                InTime = string.Format("{0:yyyy-MM-dd}", x.InTime),
+                                OutTime = string.Format("{0:yyyy-MM-dd}", x.OutTime),
+                                OutResult = x.OutResult,
+                                Telephone = x.Telephone,
+                                PhotoUrl = x.PhotoUrl,
+                                DepartName = x.DepartName,
+                            };
+            return  getPerson.FirstOrDefault();
         }
         #endregion
 
@@ -77,12 +103,112 @@ namespace BLL
         /// <param name="personId"></param>
         /// <returns></returns>
         public static List<Model.PersonItem> getPersonByProjectIdUnitId(string projectId, string unitId)
-        {           
-           var persons = (from x in Funs.DB.View_SitePerson_Person
-                       where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
-                       orderby x.UnitCode, x.PersonName
-                       select x);
-            return ObjectMapperManager.DefaultInstance.GetMapper<List<Model.View_SitePerson_Person>, List<Model.PersonItem>>().Map(persons.ToList());
+        {
+            var persons = from x in Funs.DB.View_SitePerson_Person
+                          where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null) && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)
+                          orderby x.UnitCode, x.PersonName
+                          select new Model.PersonItem
+                          {
+                              PersonId = x.PersonId,
+                              CardNo = x.CardNo,
+                              PersonName = x.PersonName,
+                              SexName = x.Sex,
+                              IdentityCard = x.IdentityCard,
+                              Address = x.Address,
+                              ProjectId = x.ProjectId,
+                              ProjectCode = x.ProjectCode,
+                              ProjectName = x.ProjectName,
+                              UnitId = x.UnitId,
+                              UnitCode = x.UnitCode,
+                              UnitName = x.UnitName,
+                              TeamGroupId = x.TeamGroupId,
+                              TeamGroupName = x.TeamGroupName,
+                              WorkPostId = x.WorkPostId,
+                              WorkPostName = x.WorkPostName,
+                              InTime = string.Format("{0:yyyy-MM-dd}", x.InTime),
+                              OutTime = string.Format("{0:yyyy-MM-dd}", x.OutTime),
+                              OutResult = x.OutResult,
+                              Telephone = x.Telephone,
+                              PhotoUrl = x.PhotoUrl,
+                              DepartName = x.DepartName,
+                          };
+            return persons.ToList();
+        }
+        #endregion
+
+        #region 根据培训类型获取项目培训人员信息
+        /// <summary>
+        /// 根据培训类型获取项目培训人员信息
+        /// </summary>
+        /// <param name="projectId">项目ID</param>
+        /// <param name="unitIds">培训单位ID</param>
+        /// <param name="workPostIds">培训岗位ID</param>
+        /// <param name="trainTypeId">培训类型ID</param>
+        /// <returns></returns>
+        public static List<Model.PersonItem> getTrainingPersonListByTrainTypeId(string projectId, string unitIds, string workPostIds, string trainTypeId)
+        {
+            List<string> unitIdList = Funs.GetStrListByStr(unitIds, ',');
+            var getPersons = from x in Funs.DB.View_SitePerson_Person
+                             where x.ProjectId == projectId && unitIdList.Contains(x.UnitId) && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)
+                             select new Model.PersonItem
+                             {
+                                 PersonId = x.PersonId,
+                                 CardNo = x.CardNo,
+                                 PersonName = x.PersonName,
+                                 SexName = x.Sex,
+                                 IdentityCard = x.IdentityCard,
+                                 Address = x.Address,
+                                 ProjectId = x.ProjectId,
+                                 ProjectCode = x.ProjectCode,
+                                 ProjectName = x.ProjectName,
+                                 UnitId = x.UnitId,
+                                 UnitCode = x.UnitCode,
+                                 UnitName = x.UnitName,
+                                 TeamGroupId = x.TeamGroupId,
+                                 TeamGroupName = x.TeamGroupName,
+                                 WorkPostId = x.WorkPostId,
+                                 WorkPostName = x.WorkPostName,
+                                 InTime = string.Format("{0:yyyy-MM-dd}", x.InTime),
+                                 OutTime = string.Format("{0:yyyy-MM-dd}", x.OutTime),
+                                 OutResult = x.OutResult,
+                                 Telephone = x.Telephone,
+                                 PhotoUrl = x.PhotoUrl,
+                                 DepartName = x.DepartName,
+                             };
+            if (!string.IsNullOrEmpty(workPostIds))
+            {
+                List<string> workPostIdList = Funs.GetStrListByStr(workPostIds, ',');
+                getPersons = getPersons.Where(x => workPostIdList.Contains(x.WorkPostId));
+            }
+            
+            List<Model.PersonItem> getTrainPersonList = new List<Model.PersonItem>();
+            var getTrainType = TrainTypeService.GetTrainTypeById(trainTypeId);
+            if (getTrainType != null && (!getTrainType.IsRepeat.HasValue || getTrainType.IsRepeat == false))
+            {
+                foreach (var item in getPersons)
+                {
+                    var getTrainPersonIdList1 = (from x in Funs.DB.EduTrain_TrainRecordDetail
+                                                 join y in Funs.DB.EduTrain_TrainRecord on x.TrainingId equals y.TrainingId
+                                                 where y.ProjectId == projectId && y.TrainTypeId == trainTypeId && x.CheckResult == true && x.PersonId == item.PersonId
+                                                 select x).FirstOrDefault();
+                    if (getTrainPersonIdList1 == null)
+                    {
+                        var getTrainPersonIdList2 = (from x in Funs.DB.Training_Task
+                                                     join y in Funs.DB.Training_Plan on x.PlanId equals y.PlanId
+                                                     where y.ProjectId == projectId && y.TrainTypeId == trainTypeId && y.States != "3"
+                                                     select x).FirstOrDefault();
+                        if (getTrainPersonIdList2 == null)
+                        {
+                            getTrainPersonList.Add(item);
+                        }
+                    }
+                }
+                return getTrainPersonList;
+            }
+            else
+            {
+                return getPersons.ToList();
+            }
         }
         #endregion
     }

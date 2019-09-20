@@ -19,7 +19,7 @@ namespace FineUIPro.Web.EduTrain
             {
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 string planId = Request.Params["PlanId"];
-                var plan = BLL.PlanService.GetPlanById(planId);
+                var plan = BLL.TrainingPlanService.GetPlanById(planId);
                 if (plan != null)
                 {
                     this.txtPlanCode.Text = plan.PlanCode;

@@ -21,7 +21,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = Funs.DB.View_SitePerson_Person.FirstOrDefault(x => x.PersonId == personId);
+                responeData.data = APIPersonService.getPersonByPersonId(personId);
             }
             catch (Exception ex)
             {
@@ -44,7 +44,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = Funs.DB.View_SitePerson_Person.FirstOrDefault(x => x.IdentityCard == identityCard);
+                responeData.data = APIPersonService.getPersonByPersonId(identityCard);
             }
             catch (Exception ex)
             {
@@ -229,6 +229,38 @@ namespace WebAPI.Controllers
 
                     responeData.data = new { pageCount, getdata };
                 }
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 根据培训类型获取项目培训人员信息
+        /// <summary>
+        /// 根据培训类型获取项目培训人员信息
+        /// </summary>
+        /// <param name="projectId">项目ID</param>
+        /// <param name="unitIds">培训单位ID</param>
+        /// <param name="workPostIds">培训岗位ID</param>
+        /// <param name="trainTypeId">培训类型ID</param>
+        /// <param name="pageIndex">分页</param>
+        /// <returns></returns>
+        public Model.ResponeData getTrainingPersonListByTrainTypeId(string projectId, string unitIds, string workPostIds, string trainTypeId, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APIPersonService.getTrainingPersonListByTrainTypeId(projectId, unitIds, workPostIds, trainTypeId);
+                int pageCount = getDataList.Count;
+                if (pageCount > 0)
+                {
+                    getDataList = getDataList.OrderBy(u => u.UnitCode).ThenBy(u => u.PersonName).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                }
+                responeData.data = new { pageCount, getDataList };
             }
             catch (Exception ex)
             {

@@ -10,6 +10,7 @@ namespace BLL
 {
     public static class APIBaseInfoService
     {
+        #region 根据类型获取巡检隐患类型表
         /// <summary>
         /// 根据类型获取巡检隐患类型表
         /// </summary>
@@ -23,7 +24,9 @@ namespace BLL
                                           select new Model.BaseInfoItem { BaseInfoId = x.RegisterTypesId, BaseInfoCode = x.TypeCode, BaseInfoName = x.RegisterTypesName }).ToList();
             return getDataLists;
         }
+        #endregion
 
+        #region 根据项目id获取区域表
         /// <summary>
         /// 根据项目id获取区域表
         /// </summary>
@@ -37,7 +40,9 @@ namespace BLL
                                           select new Model.BaseInfoItem { BaseInfoId = x.WorkAreaId, BaseInfoCode = x.WorkAreaCode, BaseInfoName = x.WorkAreaName }).ToList();
             return getDataLists;
         }
+        #endregion
 
+        #region 根据项目id获取项目图片
         /// <summary>
         /// 根据项目id获取项目图片
         /// </summary>
@@ -52,7 +57,9 @@ namespace BLL
                                 select new Model.BaseInfoItem { BaseInfoId = x.PictureId, BaseInfoName = x.Title, ImageUrl = y.AttachUrl.Replace('\\', '/') }).Take(5).ToList();
             return getDataLists;
         }
+        #endregion
 
+        #region 获取通知通告
         /// <summary>
         /// 根据项目id获取通知通告
         /// </summary>
@@ -93,7 +100,9 @@ namespace BLL
                                 }).FirstOrDefault(); 
             return getDataLists;
         }
+        #endregion
 
+        #region 获取培训类别
         /// <summary>
         /// 获取培训类别
         /// </summary>
@@ -105,7 +114,9 @@ namespace BLL
                                 select new Model.BaseInfoItem { BaseInfoId = x.TrainTypeId, BaseInfoCode = x.TrainTypeCode, BaseInfoName = x.TrainTypeName }).ToList();
             return getDataLists;
         }
+        #endregion
 
+        #region 获取培训级别
         /// <summary>
         /// 获取培训级别
         /// </summary>
@@ -117,5 +128,62 @@ namespace BLL
                                 select new Model.BaseInfoItem { BaseInfoId = x.TrainLevelId, BaseInfoCode = x.TrainLevelCode, BaseInfoName = x.TrainLevelName }).ToList();
             return getDataLists;
         }
+        #endregion
+
+        #region 获取法律法规类型
+        /// <summary>
+        /// 获取法律法规类型
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getLawsRegulationsType()
+        {
+            var getDataLists = (from x in Funs.DB.Base_LawsRegulationsType
+                                orderby x.Code
+                                select new Model.BaseInfoItem { BaseInfoId = x.Id, BaseInfoCode = x.Code, BaseInfoName = x.Name }).ToList();
+            return getDataLists;
+        }
+        #endregion
+
+        #region 获取标准规范类型
+        /// <summary>
+        /// 获取标准规范类型
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getHSSEStandardListType()
+        {
+            var getDataLists = (from x in Funs.DB.Base_HSSEStandardListType
+                                orderby x.TypeCode
+                                select new Model.BaseInfoItem { BaseInfoId = x.TypeId, BaseInfoCode = x.TypeCode, BaseInfoName = x.TypeName }).ToList();
+            return getDataLists;
+        }
+        #endregion
+
+        #region 获取规章制度类型
+        /// <summary>
+        /// 获取规章制度类型
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getRulesRegulationsType()
+        {
+            var getDataLists = (from x in Funs.DB.Base_RulesRegulationsType
+                                orderby x.RulesRegulationsTypeCode
+                                select new Model.BaseInfoItem { BaseInfoId = x.RulesRegulationsTypeId, BaseInfoCode = x.RulesRegulationsTypeCode, BaseInfoName = x.RulesRegulationsTypeName }).ToList();
+            return getDataLists;
+        }
+        #endregion
+
+        #region 获取管理规定类型
+        /// <summary>
+        /// 获取管理规定类型
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getManageRuleType()
+        {
+            var getDataLists = (from x in Funs.DB.Base_ManageRuleType
+                                orderby x.ManageRuleTypeCode
+                                select new Model.BaseInfoItem { BaseInfoId = x.ManageRuleTypeId, BaseInfoCode = x.ManageRuleTypeCode, BaseInfoName = x.ManageRuleTypeName }).ToList();
+            return getDataLists;
+        }
+        #endregion
     }
 }

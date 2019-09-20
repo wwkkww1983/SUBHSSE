@@ -198,10 +198,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getLists = from x in Funs.DB.Base_LawsRegulationsType
-                               orderby x.Code
-                               select new { x.Id, x.Code, x.Name };
-                responeData.data = getLists;
+                responeData.data = APIBaseInfoService.getLawsRegulationsType();
             }
             catch (Exception ex)
             {
@@ -224,10 +221,53 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getLists = from x in Funs.DB.Base_HSSEStandardListType
-                               orderby x.TypeCode
-                               select new { x.TypeId, x.TypeCode, x.TypeName };
-                responeData.data = getLists;
+                responeData.data = APIBaseInfoService.getHSSEStandardListType(); 
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region  获取规章制度类型
+        /// <summary>
+        ///   获取规章制度类型
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getRulesRegulationsType()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getRulesRegulationsType();
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region  获取管理规定类型
+        /// <summary>
+        ///   获取管理规定类型
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getManageRuleType()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getManageRuleType();
             }
             catch (Exception ex)
             {

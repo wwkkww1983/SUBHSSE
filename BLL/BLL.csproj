@@ -190,9 +190,9 @@
     <Compile Include="EduTrain\EduTrain_TrainRecordService.cs" />
     <Compile Include="EduTrain\ModelTestRecordItemService.cs" />
     <Compile Include="EduTrain\ModelTestRecordService.cs" />
-    <Compile Include="EduTrain\PlanItemService.cs" />
-    <Compile Include="EduTrain\PlanService.cs" />
-    <Compile Include="EduTrain\TaskService.cs" />
+    <Compile Include="EduTrain\TrainingPlanItemService.cs" />
+    <Compile Include="EduTrain\TrainingPlanService.cs" />
+    <Compile Include="EduTrain\TrainingTaskService.cs" />
     <Compile Include="EduTrain\TestPlanService.cs" />
     <Compile Include="EduTrain\TestRecordItemService.cs" />
     <Compile Include="EduTrain\TestRecordService.cs" />

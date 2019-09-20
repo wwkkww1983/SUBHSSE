@@ -70,7 +70,6 @@ namespace WebAPI.Controllers
                                           x.StandardGrade,
                                           x.StandardNo,
                                           x.StandardName,
-                                          AttachUrl = x.AttachUrl.Replace('\\', '/')
                                       };
                     responeData.data = new { pageCount, getDataList };
                 }

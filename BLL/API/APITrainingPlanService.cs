@@ -153,6 +153,7 @@ namespace BLL
                     {
                         ///TODO 生成培训人员 培训任务 Training_TaskItem 在人员点击自己任务列表时展示 
                         ///空时查找生成任务教材明细
+                        ////已做定时器、或点击查询时实现
                     }
                 }
 
@@ -161,23 +162,11 @@ namespace BLL
             }
 
             if (newTrainingPlan.States == "0" || newTrainingPlan.States == "1")
-            {           
-                var tasks = from x in db.Training_Task where x.PlanId == newTrainingPlan.PlanId select x;
-                if (tasks.Count() > 0)
-                {
-                    var taskItems = from x in db.Training_TaskItem where x.PlanId == newTrainingPlan.PlanId select x;
-                    if (tasks.Count() > 0)
-                    {
-                        db.Training_TaskItem.DeleteAllOnSubmit(taskItems);
-                    }
-
-                    db.Training_Task.DeleteAllOnSubmit(tasks);
-                }
-                var planItems = from x in db.Training_PlanItem where x.PlanId == newTrainingPlan.PlanId select x;
-                if (planItems.Count() > 0)
-                {
-                    db.Training_PlanItem.DeleteAllOnSubmit(planItems);
-                }
+            {
+                ////删除培训任务
+                TrainingTaskService.DeleteTaskByPlanId(newTrainingPlan.PlanId);
+                ////删除培训教材类型
+                TrainingPlanItemService.DeletePlanItemByPlanId(newTrainingPlan.PlanId);
                 ////新增培训人员明细
                 AddTraining_Task(trainingTasks, newTrainingPlan.PlanId, newTrainingPlan.ProjectId);
                 ////新增培训教材类型明细
