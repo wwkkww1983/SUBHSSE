@@ -8,6 +8,9 @@ using BLL;
 
 namespace WebAPI.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class UnitController : ApiController
     {
         #region 根据UnitId获取单位信息
@@ -59,7 +62,8 @@ namespace WebAPI.Controllers
         /// <summary>
         /// 根据projectId、unitType获取单位信息（总包1;施工分包2;监理3;业主4;其他5）
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="projectId">项目ID</param>
+        /// <param name="unitType">类型（null 所有单位）</param>
         /// <returns></returns>
         public Model.ResponeData getUnitByProjectIdUnitType(string projectId, string unitType)
         {
@@ -143,6 +147,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="projectId">项目ID</param>
         /// <param name="type">数据类型0-已过期；1-即将过期</param>
+        /// <param name="pageIndex">项目ID</param>
         /// <returns></returns>
         public Model.ResponeData getSubUnitQualityByProjectId(string projectId, string type, int pageIndex)
         {

@@ -48,6 +48,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 计划人姓名
+        /// </summary>
+        public string DesignerName
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 制定时间
         /// </summary>
         public string DesignerDate
@@ -168,7 +176,15 @@ namespace Model
             get;
             set;
         }
-       
+        /// <summary>
+        /// 二维码路径
+        /// </summary>
+        public string QRCodeUrl
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// 状态
         /// </summary>

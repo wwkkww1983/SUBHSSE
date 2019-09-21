@@ -30,12 +30,18 @@ namespace FineUIPro.Web.SysManage
                     {
                         this.frChangeData.Hidden = false;
                     }
+                    if (thisUnit.UnitId == BLL.Const.UnitId_SEDIN)
+                    {
+                        this.Tab3.Hidden = false;
+                    }
                 }
 
                 /// TAB1加载页面方法
                 this.LoadTab1Data();
                 /// TAB2加载页面方法
-                this.LoadTab2Data();     
+                this.LoadTab2Data();
+                /// TAB2加载页面方法
+                this.LoadTab3Data();
             }
         }
 
@@ -731,6 +737,72 @@ namespace FineUIPro.Web.SysManage
 
         #endregion
 
+        #region TAB3加载页面方法
+        /// <summary>
+        /// 加载页面方法
+        /// </summary>
+        private void LoadTab3Data()
+        {
+            var sysTestRule = Funs.DB.Sys_TestRule.FirstOrDefault();
+            if (sysTestRule != null)
+            {
+                this.txtDuration.Text = sysTestRule.Duration.ToString();
+                this.txtSValue.Text = sysTestRule.SValue.ToString();
+                this.txtMValue.Text = sysTestRule.MValue.ToString();
+                this.txtJValue.Text = sysTestRule.JValue.ToString();
+                this.txtSCount.Text = sysTestRule.SCount.ToString();
+                this.txtMCount.Text = sysTestRule.MCount.ToString();
+                this.txtJCount.Text = sysTestRule.JCount.ToString();
+                txtTab3_TextChanged(null, null);
+            }
+        }
+
+        /// <summary>
+        /// 保存按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnTab3Save_Click(object sender, EventArgs e)
+        {
+            var getTestRule = from x in Funs.DB.Sys_TestRule select x;
+            if (getTestRule.Count() >0 )
+            {
+                Funs.DB.Sys_TestRule.DeleteAllOnSubmit(getTestRule);
+            }
+
+            Model.Sys_TestRule newTestRule = new Model.Sys_TestRule
+            {
+                TestRuleId = SQLHelper.GetNewID(),
+                Duration = Funs.GetNewIntOrZero(this.txtDuration.Text),
+                SValue = Funs.GetNewIntOrZero(this.txtSValue.Text),
+                MValue = Funs.GetNewIntOrZero(this.txtMValue.Text),
+                JValue = Funs.GetNewIntOrZero(this.txtJValue.Text),
+                SCount = Funs.GetNewIntOrZero(this.txtSCount.Text),
+                MCount = Funs.GetNewIntOrZero(this.txtMCount.Text),
+                JCount = Funs.GetNewIntOrZero(this.txtJCount.Text),
+            };
+
+            ShowNotify("保存成功！", MessageBoxIcon.Success);
+            BLL.LogService.AddSys_Log(this.CurrUser, "修改考试规则设置！", string.Empty, Const.SysConstSetMenuId, Const.BtnModify);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void txtTab3_TextChanged(object sender, EventArgs e)
+        {
+            int SValue = Funs.GetNewIntOrZero(this.txtSValue.Text);
+            int MValue = Funs.GetNewIntOrZero(this.txtMValue.Text);
+            int JValue = Funs.GetNewIntOrZero(this.txtJValue.Text);
+            int SCount = Funs.GetNewIntOrZero(this.txtSCount.Text);
+            int MCount = Funs.GetNewIntOrZero(this.txtMCount.Text);
+            int JCount = Funs.GetNewIntOrZero(this.txtJCount.Text);
+            this.lbTotalScore.Text = (SCount * SValue + MCount * MValue + JCount * JValue).ToString();
+            this.lbTotalCount.Text = (SCount + MCount + JCount).ToString();
+        }
+        #endregion
+
         /// <summary>
         ///  选择菜单类型
         /// </summary>
@@ -742,13 +814,5 @@ namespace FineUIPro.Web.SysManage
             this.drpMenu.Text = string.Empty;
             this.drpMenu.Value = string.Empty;
         }
-
-        /// <summary>
-        /// 保存按钮
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnTab3Save_Click(object sender, EventArgs e)
-        { }
     }
 }

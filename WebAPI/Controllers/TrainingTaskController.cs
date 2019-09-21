@@ -8,6 +8,9 @@ using BLL;
 
 namespace WebAPI.Controllers
 {
+    /// <summary>
+    /// 培训任务
+    /// </summary>
     public class TrainingTaskController : ApiController
     {
         #region 根据ProjectId、PersonId获取培训任务教材明细列表
@@ -16,15 +19,14 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="personId"></param>
-        /// <param name="states"></param>
-        /// <param name="pageIndex">0-未发布；1-已发布；2-已完成</param>
+        /// <param name="pageIndex">1-培训中；2-已完成</param>
         /// <returns></returns>
-        public Model.ResponeData getTrainingTaskListByProjectIdPersonId(string projectId, string personId, string states, int pageIndex)
+        public Model.ResponeData getTrainingTaskListByProjectIdPersonId(string projectId, string personId, int pageIndex)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                var getQualityLists = APITrainingTaskService.getTrainingTaskListByProjectIdPersonId(projectId, personId, states);
+                var getQualityLists = APITrainingTaskService.getTrainingTaskListByProjectIdPersonId(projectId, personId);
                 int pageCount = getQualityLists.Count;
                 if (pageCount > 0)
                 {
@@ -61,6 +63,38 @@ namespace WebAPI.Controllers
                     var getdata = from x in getQualityLists.OrderByDescending(u => u.TrainingItemCode).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize)
                                   select x;
                     responeData.data = new { pageCount, getdata };
+                }
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 根据PlanId、PersonId将人员加入培训任务
+        /// <summary>
+        /// 根据PlanId、PersonId将人员加入培训任务
+        /// </summary>
+        /// <param name="planId">培训计划ID</param>
+        /// <param name="personId">人员ID</param>
+        /// <returns></returns>
+        public Model.ResponeData getTrainingTaskByPlanIdPersonId(string planId, string personId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                personId = PersonService.GetPersonByUserId(personId);
+                responeData.message = APITrainingTaskService.getTrainingTaskByPlanIdPersonIdCondition(planId, personId);
+                if (string.IsNullOrEmpty(responeData.message))
+                {
+                    APITrainingTaskService.getTrainingTaskByPlanIdPersonId(planId, personId);
+                }
+                else
+                {
+                    responeData.code = 2;
                 }
             }
             catch (Exception ex)

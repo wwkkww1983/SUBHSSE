@@ -55,9 +55,16 @@ namespace FineUIPro.Web.EduTrain
                         this.SupTrainingId = q.SupTrainingId;
                         txtTrainingCode.Text = q.TrainingCode;
                         txtTrainingName.Text = q.TrainingName;
+                        if (q.IsEndLever == true)
+                        {
+                            ckIsEndLever.Checked = true;
+                        }
+                        else
+                        {
+                            ckIsEndLever.Checked = false;
+                        }
                     }
                 }
-
                 var supq = BLL.TestTrainingService.GetTestTrainingById(this.SupTrainingId);
                 if (supq != null)
                 {
@@ -71,7 +78,11 @@ namespace FineUIPro.Web.EduTrain
             }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
             Model.Training_TestTraining training = new Training_TestTraining
@@ -79,6 +90,7 @@ namespace FineUIPro.Web.EduTrain
                 TrainingCode = txtTrainingCode.Text.Trim(),
                 TrainingName = txtTrainingName.Text.Trim(),
                 SupTrainingId = this.SupTrainingId,
+                IsEndLever = this.ckIsEndLever.Checked,
             };
 
             if (String.IsNullOrEmpty(TrainingId))

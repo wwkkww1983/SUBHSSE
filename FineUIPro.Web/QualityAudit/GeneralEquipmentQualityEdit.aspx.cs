@@ -223,56 +223,8 @@ namespace FineUIPro.Web.QualityAudit
             {
                 this.SaveData(false);
             }
-            this.CreateCode_Simple(this.GeneralEquipmentQualityId);
-        }
 
-        //生成二维码方法一
-        private void CreateCode_Simple(string nr)
-        {
-            var generalEquipmentQuality = BLL.GeneralEquipmentQualityService.GetGeneralEquipmentQualityById(this.GeneralEquipmentQualityId);
-            if (generalEquipmentQuality != null)
-            {
-                BLL.UploadFileService.DeleteFile(Funs.RootPath, generalEquipmentQuality.QRCodeAttachUrl);//删除二维码
-                string imageUrl = string.Empty;
-                QRCodeEncoder qrCodeEncoder = new QRCodeEncoder();
-                qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
-                qrCodeEncoder.QRCodeScale = nr.Length;
-                qrCodeEncoder.QRCodeVersion = 0;
-                qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.M;
-                System.Drawing.Image image = qrCodeEncoder.Encode(nr, Encoding.UTF8);
-
-                string filepath = Server.MapPath("~/") + BLL.UploadFileService.QRCodeImageFilePath;
-
-                //如果文件夹不存在，则创建
-                if (!Directory.Exists(filepath))
-                {
-                    Directory.CreateDirectory(filepath);
-                }
-
-                string filename = DateTime.Now.ToString("yyyymmddhhmmssfff").ToString() + ".jpg";
-                imageUrl = filepath + filename;
-
-                System.IO.FileStream fs = new System.IO.FileStream(imageUrl, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write);
-                image.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
-
-                fs.Close();
-                image.Dispose();
-                this.QRCodeAttachUrl = BLL.UploadFileService.QRCodeImageFilePath + filename;
-                generalEquipmentQuality.QRCodeAttachUrl = this.QRCodeAttachUrl;
-                BLL.GeneralEquipmentQualityService.UpdateGeneralEquipmentQuality(generalEquipmentQuality);
-                this.btnQR.Hidden = false;
-                this.btnQR.Text = "二维码重新生成";
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../Controls/SeeQRImage.aspx?GeneralEquipmentQualityId={0}", this.GeneralEquipmentQualityId), "二维码查看", 400, 400));
-            }
-            else
-            {
-                Alert.ShowInTop("操作有误，重新生成！", MessageBoxIcon.Warning);
-            }
-
-            //二维码解码
-            //var codeDecoder = CodeDecoder(filepath);
-
-            //this.Image1.ImageUrl = "~/image/" + filename + ".jpg";
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../Controls/SeeQRImage.aspx?GeneralEquipmentQualityId={0}&strCode={1}", this.GeneralEquipmentQualityId, "equipment$" + this.GeneralEquipmentQualityId), "二维码查看", 400, 400));            
         }
     }
 }

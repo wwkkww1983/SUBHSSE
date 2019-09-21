@@ -8,13 +8,16 @@ using System.Web.Http;
 
 namespace WebAPI.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class HazardRegisterController : ApiController
     {
         #region 根据hazardRegisterId获取风险信息
         /// <summary>
         /// 根据hazardRegisterId获取风险信息
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="hazardRegisterId"></param>
         /// <returns></returns>
         public Model.ResponeData getHazardRegisterByHazardRegisterId(string hazardRegisterId)
         {

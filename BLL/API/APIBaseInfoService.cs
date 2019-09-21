@@ -46,15 +46,20 @@ namespace BLL
         /// <summary>
         /// 根据项目id获取项目图片
         /// </summary>
-        /// <param name="projectId"></param>
+        /// <param name="projectId"></param>        
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getProjectPictureByProjectId(string projectId)
         {
             var getDataLists = (from x in Funs.DB.InformationProject_Picture
                                 join y in Funs.DB.AttachFile on x.PictureId equals y.ToKeyId
                                 where x.States == Const.State_2 && y.AttachUrl != null && x.ProjectId == projectId
-                                orderby x.UploadDate descending
-                                select new Model.BaseInfoItem { BaseInfoId = x.PictureId, BaseInfoName = x.Title, ImageUrl = y.AttachUrl.Replace('\\', '/') }).Take(5).ToList();
+                                select new Model.BaseInfoItem
+                                {
+                                    BaseInfoId = x.PictureId,
+                                    BaseInfoName = x.Title,
+                                    BaseInfoCode = string.Format("{0:yyyy-MM-dd}", x.UploadDate),
+                                    ImageUrl = y.AttachUrl.Replace('\\', '/'),
+                                }).ToList();
             return getDataLists;
         }
         #endregion

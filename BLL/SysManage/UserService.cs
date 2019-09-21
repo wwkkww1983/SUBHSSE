@@ -16,7 +16,7 @@ namespace BLL
         {
             return Funs.DB.Sys_User.FirstOrDefault(e => e.UserId == userId);
         }
-
+        
         /// <summary>
         /// 获取用户账号是否存在
         /// </summary>

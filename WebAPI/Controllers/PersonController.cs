@@ -8,6 +8,9 @@ using BLL;
 
 namespace WebAPI.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class PersonController : ApiController
     {
         #region 根据personid获取人员信息
@@ -60,7 +63,9 @@ namespace WebAPI.Controllers
         /// <summary>
         /// 根据projectId、unitid获取人员信息
         /// </summary>
-        /// <param name="personId"></param>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
+        /// <param name="pageIndex"></param>
         /// <returns></returns>
         public Model.ResponeData getPersonByProjectIdUnitId(string projectId, string unitId, int pageIndex)
         {

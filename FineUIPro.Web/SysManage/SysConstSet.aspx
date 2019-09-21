@@ -215,13 +215,80 @@
                                 </f:TabStrip>
                              </Items>                           
                         </f:Tab>
-                        <f:Tab ID="Tab3" Title="其他设置" BodyPadding="5px" Layout="Fit" IconFont="Bookmark" runat="server">
-                            <Items>                                                               
+                        <f:Tab ID="Tab3" Title="考试规则" BodyPadding="5px" Layout="Fit" IconFont="Bookmark" runat="server" Hidden="true">
+                            <Items> 
+                                 <f:Form ID="frTestSet" ShowBorder="false" ShowHeader="false" AutoScroll="true" 
+                                    BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
+                                    <Rows>
+                                        <f:FormRow ColumnWidths="35% 65%">
+                                            <Items>
+                                                <f:NumberBox ID="txtDuration" runat="server" Label="考试时长(分钟)" ShowRedStar="true" Required="true"
+                                                    NoDecimal="true" NoNegative="true" LabelWidth="200px"> 
+                                                </f:NumberBox>
+                                                <f:Label ID="Label14" runat="server" Text="说明：一场考试的用时。" MarginLeft="50px"></f:Label>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow ColumnWidths="35% 65%">
+                                            <Items>
+                                                <f:NumberBox ID="txtSValue" runat="server" Label="单选题分值" ShowRedStar="true" Required="true"
+                                                    NoDecimal="true" NoNegative="true" LabelWidth="200px" OnTextChanged="txtTab3_TextChanged" AutoPostBack="true"> 
+                                                </f:NumberBox>
+                                                <f:Label ID="Label15" runat="server" Text="说明：一个单选题多少分。" MarginLeft="50px"></f:Label>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow ColumnWidths="35% 65%">
+                                            <Items>
+                                                <f:NumberBox ID="txtMValue" runat="server" Label="多选题分值" ShowRedStar="true" Required="true"
+                                                    NoDecimal="true" NoNegative="true" LabelWidth="200px" OnTextChanged="txtTab3_TextChanged" AutoPostBack="true"> 
+                                                </f:NumberBox>
+                                                <f:Label ID="Label16" runat="server" Text="说明：一个多选题多少分。" MarginLeft="50px"></f:Label>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow ColumnWidths="35% 65%">
+                                            <Items>
+                                                <f:NumberBox ID="txtJValue" runat="server" Label="判断题分值" ShowRedStar="true" Required="true"
+                                                    NoDecimal="true" NoNegative="true" LabelWidth="200px" OnTextChanged="txtTab3_TextChanged" AutoPostBack="true"> 
+                                                </f:NumberBox>
+                                                <f:Label ID="Label17" runat="server" Text="说明：一个判断题多少分。" MarginLeft="50px"></f:Label>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow ColumnWidths="35% 65%">
+                                            <Items>
+                                                <f:NumberBox ID="txtSCount" runat="server" Label="单选题数量" ShowRedStar="true" Required="true"
+                                                    NoDecimal="true" NoNegative="true" LabelWidth="200px" OnTextChanged="txtTab3_TextChanged" AutoPostBack="true"> 
+                                                </f:NumberBox>
+                                                <f:Label ID="Label18" runat="server" Text="说明：一张试卷有多少个单选题。" MarginLeft="50px"></f:Label>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow ColumnWidths="35% 65%">
+                                            <Items>
+                                                <f:NumberBox ID="txtMCount" runat="server" Label="多选题数量" ShowRedStar="true" Required="true"
+                                                    NoDecimal="true" NoNegative="true" LabelWidth="200px" OnTextChanged="txtTab3_TextChanged" AutoPostBack="true"> 
+                                                </f:NumberBox>
+                                                <f:Label ID="Label19" runat="server" Text="说明：一张试卷有多少个多选题。" MarginLeft="50px"></f:Label>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow ColumnWidths="35% 65%">
+                                            <Items>
+                                                <f:NumberBox ID="txtJCount" runat="server" Label="判断题数量" ShowRedStar="true" Required="true"
+                                                    NoDecimal="true" NoNegative="true" LabelWidth="200px" OnTextChanged="txtTab3_TextChanged" AutoPostBack="true"> 
+                                                </f:NumberBox>
+                                                <f:Label ID="Label20" runat="server" Text="说明：一张试卷有多少个判断题。" MarginLeft="50px"></f:Label>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow>
+                                            <Items>
+                                                 <f:Label ID="lbTotalScore" Label="总分" runat="server"></f:Label>
+                                                 <f:Label ID="lbTotalCount" Label="题目数量" runat="server"></f:Label>
+                                            </Items>
+                                        </f:FormRow>
+                                    </Rows>
+                                </f:Form>
                             </Items>
                             <Toolbars>
                                 <f:Toolbar ID="Toolbar2" Position="Top" ToolbarAlign="Right" runat="server">
                                    <Items>
-                                    <f:Button ID="Button2" Icon="SystemSave" runat="server"  ValidateForms="SimpleForm1"
+                                    <f:Button ID="btnTab3Save" Icon="SystemSave" runat="server" ValidateForms="frTestSet"
                                         OnClick="btnTab3Save_Click">
                                     </f:Button>                                     
                                 </Items>

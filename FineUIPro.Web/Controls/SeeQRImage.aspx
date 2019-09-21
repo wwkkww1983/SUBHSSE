@@ -27,35 +27,31 @@
 <body>
     <form id="form1" runat="server">
     <f:PageManager ID="PageManager1" runat="server" AutoSizePanelID="SimpleForm1"/>
-         <f:Panel ID="Panel2" runat="server" ShowHeader="false" ShowBorder="false" ColumnWidth="100%" MarginRight="5px">
+         <f:Panel ID="Panel2" runat="server" ShowHeader="false" ShowBorder="false">
             <Items>
-                   <f:Form ID="SimpleForm1" LabelAlign="Top" MessageTarget="Qtip" RedStarPosition="BeforeText"
-                             BodyPadding="5px" ShowBorder="false" ShowHeader="false" runat="server"
-                            AutoScroll="false">
-                              <Items>
-                               <f:Panel ID="Panel5" Title="面板1" BoxFlex="3" runat="server" ShowBorder="false" ShowHeader="false" Layout="VBox">
-                                <Items>
-                                    <f:Image ID="Image1" CssClass="userphoto" ImageUrl="~/res/images/blank_180.png" runat="server"
-                                        BoxFlex="1">
-                                    </f:Image>
-                                </Items>                                                                                                                             
-                            </f:Panel>                              
-                        </Items>
+                 <f:Panel ID="Panel5" Title="面板1" BoxFlex="3" runat="server" ShowBorder="false" ShowHeader="false" Layout="Fit" >
+                    <Items>
+                        <f:Image ID="Image1" CssClass="userphoto" ImageUrl="~/res/images/blank_180.png" runat="server"
+                            BoxFlex="1" MarginLeft="50px" Width="160px" Height="160px">
+                        </f:Image>
+                    </Items>
                         <Toolbars>
-                            <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Right">
-                                <Items>                                        
-                                    <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>
-                                    <f:Button ID="btnSave" Icon="Printer" runat="server" Text="打印"  OnClick="btnSave_Click" >
-                                    </f:Button>                            
-                                </Items>
-                            </f:Toolbar>
-                        </Toolbars> 
-                </f:Form>
+                        <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Center">
+                            <Items>                                        
+                                <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>
+                                    <f:Button ID="btnReSave" Icon="ArrowRefresh" runat="server" ToolTip="重新生成"  OnClick="btnReSave_Click" >
+                                </f:Button>
+                                <f:Button ID="btnPrint" Icon="Printer" runat="server" ToolTip="打印"  OnClick="btnPrint_Click" >
+                                </f:Button>                            
+                            </Items>
+                        </f:Toolbar>
+                    </Toolbars> 
+                </f:Panel>  
             </Items>
       </f:Panel>
       <f:Window ID="Window1" Title="二维码打印" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true" 
-        Width="1100px" Height="640px">
+        Width="600px" Height="400px">
     </f:Window>
     </form>
 </body>

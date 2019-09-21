@@ -31,10 +31,12 @@ namespace BLL
                                     TrainTypeName = Funs.DB.Base_TrainType.First(y => y.TrainTypeId == x.TrainTypeId).TrainTypeName,
                                     TrainLevelId = x.TrainLevelId,
                                     TrainLevelName = Funs.DB.Base_TrainLevel.First(y => y.TrainLevelId == x.TrainLevelId).TrainLevelName,
+                                    DesignerName=Funs.DB.Sys_User.First(y=>y.UserId == x.DesignerId).UserName,
                                     TeachHour = x.TeachHour ?? 0,
                                     TeachAddress = x.TeachAddress,
                                     TrainStartDate = string.Format("{0:yyyy-MM-dd}", x.TrainStartDate),
                                     States = x.States,
+                                    QRCodeUrl = x.QRCodeUrl.Replace('\\', '/'),
                                 }).ToList();
             return getDataLists;
         }
@@ -68,9 +70,11 @@ namespace BLL
                                    WorkPostId = x.WorkPostId,
                                    TrainContent = x.TrainContent,
                                    UnitNames = UnitService.getUnitNamesUnitIds(x.UnitIds),
-                                   WorkPostNames= WorkPostService.getWorkPostNamesWorkPostIds(x.WorkPostId),
-                                   DesignerId= x.DesignerId,
+                                   WorkPostNames = WorkPostService.getWorkPostNamesWorkPostIds(x.WorkPostId),
+                                   DesignerId = x.DesignerId,
+                                   DesignerName = Funs.DB.Sys_User.First(y => y.UserId == x.DesignerId).UserName,
                                    DesignerDate = string.Format("{0:yyyy-MM-dd}", x.TrainStartDate),
+                                   QRCodeUrl=x.QRCodeUrl.Replace('\\', '/'),
                                };
             return getDataLists.FirstOrDefault();
         }
@@ -80,8 +84,9 @@ namespace BLL
         /// <summary>
         /// 保存TrainingPlan
         /// </summary>
-        /// <param name="trainingPlan"></param>
-        /// <returns></returns>
+        /// <param name="trainingPlan">培训计划记录</param>
+        /// <param name="trainingTasks">培训人员list</param>
+        /// <param name="trainingPlanItems">培训教材类型list</param>
         public static void SaveTrainingPlan(Model.TrainingPlanItem trainingPlan, List<Model.TrainingTaskItem> trainingTasks, List<Model.TrainingPlanItemItem> trainingPlanItems)
         {
             Model.SUBHSSEDB db = Funs.DB;
@@ -128,15 +133,7 @@ namespace BLL
             }
             else
             {
-                if (trainingPlan.States == "2")
-                {
-                    ///TODO 生成考试计划。 Training_TestPlan
-                }
-                else if (trainingPlan.States == "3")
-                {
-                    ////由考试完成后 回写状态。插入培训记录表EduTrain_TrainRecord、EduTrain_TrainRecordDetail
-                }
-                else
+                if (newTrainingPlan.States == "0" || newTrainingPlan.States == "1")
                 {
                     isUpdate.PlanName = newTrainingPlan.PlanName;
                     isUpdate.TrainContent = newTrainingPlan.TrainContent;
@@ -148,29 +145,38 @@ namespace BLL
                     isUpdate.TrainTypeId = newTrainingPlan.TrainTypeId;
                     isUpdate.TrainLevelId = newTrainingPlan.TrainLevelId;
                     isUpdate.UnitIds = newTrainingPlan.UnitIds;
-                    isUpdate.WorkPostId= newTrainingPlan.WorkPostId;
-                    if (newTrainingPlan.States == "1")
-                    {
-                        ///TODO 生成培训人员 培训任务 Training_TaskItem 在人员点击自己任务列表时展示 
-                        ///空时查找生成任务教材明细
-                        ////已做定时器、或点击查询时实现
-                    }
+                    isUpdate.WorkPostId = newTrainingPlan.WorkPostId;
+                    isUpdate.States = newTrainingPlan.States;
+                    db.SubmitChanges();
+
+                    ////删除培训任务
+                    TrainingTaskService.DeleteTaskByPlanId(newTrainingPlan.PlanId);
+                    ////删除培训教材类型
+                    TrainingPlanItemService.DeletePlanItemByPlanId(newTrainingPlan.PlanId);
+                    ////新增培训人员明细
+                    AddTraining_Task(trainingTasks, newTrainingPlan.PlanId, newTrainingPlan.ProjectId);
+                    ////新增培训教材类型明细
+                    AddTraining_PlanItem(trainingPlanItems, newTrainingPlan.PlanId);
                 }
 
-                isUpdate.States = newTrainingPlan.States;
-                db.SubmitChanges();
-            }
+                //if (trainingPlan.States == "2")
+                //{
+                //    ///TODO 生成考试计划。 Training_TestPlan
+                //}
+                //else if (trainingPlan.States == "3")
+                //{
+                //    ////由考试完成后 回写状态。插入培训记录表EduTrain_TrainRecord、EduTrain_TrainRecordDetail
+                //}
+                //else
+                //{
 
-            if (newTrainingPlan.States == "0" || newTrainingPlan.States == "1")
-            {
-                ////删除培训任务
-                TrainingTaskService.DeleteTaskByPlanId(newTrainingPlan.PlanId);
-                ////删除培训教材类型
-                TrainingPlanItemService.DeletePlanItemByPlanId(newTrainingPlan.PlanId);
-                ////新增培训人员明细
-                AddTraining_Task(trainingTasks, newTrainingPlan.PlanId, newTrainingPlan.ProjectId);
-                ////新增培训教材类型明细
-                AddTraining_PlanItem(trainingPlanItems, newTrainingPlan.PlanId);
+                //    if (newTrainingPlan.States == "1")
+                //    {
+                //        ///TODO 生成培训人员 培训任务 Training_TaskItem 在人员点击自己任务列表时展示 
+                //        ///空时查找生成任务教材明细
+                //        ////已做定时器、或点击查询时实现
+                //    }
+                //}
             }
         }
 
@@ -185,7 +191,7 @@ namespace BLL
                 {
                     TaskId = SQLHelper.GetNewID(),
                     ProjectId = projectId,
-                    PlanId = item.PlanId,
+                    PlanId = planId,
                     UserId = item.PersonId,
                     TaskDate = DateTime.Now,
                     States = Const.State_0, ////未生成培训教材明细

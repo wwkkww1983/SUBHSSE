@@ -57,6 +57,49 @@ namespace FineUIPro.Web.EduTrain
                 ViewState["AttachUrl"] = value;
             }
         }
+        /// <summary>
+        /// 单选题分值
+        /// </summary>
+        private int SValue
+        {
+            get
+            {
+                return (int)ViewState["SValue"];
+            }
+            set
+            {
+                ViewState["SValue"] = value;
+            }
+        }
+        /// <summary>
+        /// 多选题分值
+        /// </summary>
+        private int MValue
+        {
+            get
+            {
+                return (int)ViewState["MValue"];
+            }
+            set
+            {
+                ViewState["MValue"] = value;
+            }
+        } 
+
+        /// <summary>
+        /// 判断题分值
+        /// </summary>
+        private int JValue
+        {
+            get
+            {
+                return (int)ViewState["JValue"];
+            }
+            set
+            {
+                ViewState["JValue"] = value;
+            }
+        }
         #endregion
 
         #region 加载页面
@@ -64,6 +107,17 @@ namespace FineUIPro.Web.EduTrain
         {
             if (!IsPostBack)
             {
+                SValue = 1;
+                MValue = 2;
+                JValue = 1;
+                var testRule = Funs.DB.Sys_TestRule.FirstOrDefault();
+                if (testRule != null)
+                {
+                    SValue = testRule.SValue;
+                    MValue = testRule.MValue;
+                    JValue = testRule.JValue;
+                }
+
                 this.GetButtonPower();
                 LoadData();
                 BindEnumrableToDropDownList();
@@ -80,16 +134,16 @@ namespace FineUIPro.Web.EduTrain
                             this.rblTestType.SelectedValue = q.TestType;
                             if (q.TestType == "1")
                             {
-                                this.lbScore.Text = "1";
+                                this.lbScore.Text = SValue.ToString();
                                 this.trE.Hidden = true;
                             }
                             else if (q.TestType == "2")
                             {
-                                this.lbScore.Text = "2";
+                                this.lbScore.Text = MValue.ToString();
                             }
                             else if (q.TestType == "3")
                             {
-                                this.lbScore.Text = "1";
+                                this.lbScore.Text = JValue.ToString();
                                 this.trC.Hidden = true;
                                 this.trD.Hidden = true;
                                 this.trE.Hidden = true;
@@ -130,11 +184,12 @@ namespace FineUIPro.Web.EduTrain
                 }
                 else
                 {
-                    this.lbScore.Text = "1";
+                    this.lbScore.Text = SValue.ToString();
                     this.trE.Hidden = true;
                 }
             }
         }
+
         /// <summary>
         /// 删除附件
         /// </summary>
@@ -317,16 +372,16 @@ namespace FineUIPro.Web.EduTrain
 
             if (testType == "1")
             {
-                this.lbScore.Text = "1";
+                this.lbScore.Text = SValue.ToString();
                 this.trE.Hidden = true;
             }
             else if (testType == "2")
             {
-                this.lbScore.Text = "2";
+                this.lbScore.Text = MValue.ToString();
             }
             else if (testType == "3")
             {
-                this.lbScore.Text = "1";
+                this.lbScore.Text = JValue.ToString();
                 this.trC.Hidden = true;
                 this.trD.Hidden = true;
                 this.trE.Hidden = true;

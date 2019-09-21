@@ -94,7 +94,7 @@
                                 Width="150px" ExpandUnusedSpace="true" FieldType="String" HeaderText="教材内容" HeaderTextAlign="Center" TextAlign="left">
                             </f:RenderField>
                              <f:RenderField ColumnID="WorkPostNames" DataField="WorkPostNames" SortField="WorkPostNames" 
-                                Width="250px"  FieldType="String" HeaderText="适合岗位" HeaderTextAlign="Center" TextAlign="left">
+                                Width="350px"  FieldType="String" HeaderText="适合岗位" HeaderTextAlign="Center" TextAlign="left">
                             </f:RenderField> 
                              <f:RenderField ColumnID="TestTypeName" DataField="TestTypeName" SortField="TestTypeName" 
                                 Width="70px"  FieldType="String" HeaderText="题型" HeaderTextAlign="Center" TextAlign="left">

@@ -23,6 +23,31 @@ namespace BLL
         }
 
         /// <summary>
+        /// 根据UserId主键获取人员信息
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static string GetPersonByUserId(string userId)
+        {
+            string personId = userId;
+            var getPerson = GetPersonById(userId);
+            if (getPerson == null)
+            {
+                var getUser = UserService.GetUserByUserId(userId);
+                if (getUser != null)
+                {
+                    getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(e => e.IdentityCard == getUser.IdentityCard);
+                    if (getPerson != null)
+                    {
+                        personId = getPerson.PersonId;
+                    }
+                }
+            }
+
+            return personId;
+        }
+
+        /// <summary>
         /// 根据项目单位获取人员信息
         /// </summary>
         /// <param name="personId"></param>

@@ -16,13 +16,14 @@ namespace BLL
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="personId"></param>
-        /// <param name="states">0-未发布；1-已发布；2-已完成</param>
+        /// <param name="states">1-培训中；2-已完成</param>
         /// <returns></returns>
-        public static List<Model.TrainingTaskItem> getTrainingTaskListByProjectIdPersonId(string projectId, string personId, string states)
+        public static List<Model.TrainingTaskItem> getTrainingTaskListByProjectIdPersonId(string projectId, string personId)
         {
+            personId = PersonService.GetPersonByUserId(personId);
             var getDataLists = (from x in Funs.DB.Training_Task
                                 join y in Funs.DB.Training_Plan on x.PlanId equals y.PlanId
-                                where x.ProjectId == projectId && x.UserId == personId && (x.States == states || states == null)
+                                where x.ProjectId == projectId && x.UserId == personId && y.States != "0"
                                 orderby x.TaskDate descending
                                 select new Model.TrainingTaskItem
                                 {
@@ -37,6 +38,7 @@ namespace BLL
                                     TaskDate = string.Format("{0:yyyy-MM-dd}", x.TaskDate),
                                     TrainTypeName = Funs.DB.Base_TrainType.FirstOrDefault(b => b.TrainTypeId == y.TrainTypeId).TrainTypeName,
                                     TrainLevelName = Funs.DB.Base_TrainLevel.FirstOrDefault(b => b.TrainLevelId == y.TrainLevelId).TrainLevelName,
+                                    PlanStatesName = y.States == "3" ? "已完成" : "培训中",
                                 }).ToList();
             return getDataLists;
         }
@@ -67,6 +69,96 @@ namespace BLL
                                     AttachUrl = x.AttachUrl.Replace('\\', '/'),
                                 }).ToList();
             return getDataLists;
+        }
+        #endregion
+
+        #region 根据PlanId、PersonId将人员加入培训任务条件
+        /// <summary>
+        /// 根据PlanId、PersonId将人员加入培训任务条件
+        /// </summary>
+        /// <param name="planId">培训计划ID</param>
+        /// <param name="personId">人员ID</param>
+        /// <returns></returns>
+        public static string getTrainingTaskByPlanIdPersonIdCondition(string planId, string personId)
+        {
+            string alterString = string.Empty;
+            var task = Funs.DB.Training_Task.FirstOrDefault(x => x.PlanId == planId && x.UserId == personId);
+            if (task != null)
+            {
+                alterString = "人员已在培训任务中！";
+            }
+            else
+            {
+                var plan = TrainingPlanService.GetPlanById(planId);
+                if (plan != null && (plan.States == "0" || plan.States == "1"))
+                {
+                    var person = PersonService.GetPersonById(personId);
+                    if (person != null && plan.ProjectId == person.ProjectId && plan.UnitIds.Contains(person.UnitId)
+                            && (string.IsNullOrEmpty(plan.WorkPostId) || plan.WorkPostId.Contains(person.WorkPostId)))
+                    {
+                        var trainType = BLL.TrainTypeService.GetTrainTypeById(plan.TrainTypeId);
+                        if (trainType != null && trainType.IsRepeat == true)
+                        {
+                            var trainRecord = (from x in Funs.DB.EduTrain_TrainRecord
+                                               join y in Funs.DB.EduTrain_TrainRecordDetail on x.TrainingId equals y.TrainingId
+                                               where x.TrainTypeId == plan.TrainTypeId && y.PersonId == personId && y.CheckResult == true
+                                               select x).FirstOrDefault();
+                            if (trainRecord != null)
+                            {
+                                alterString = "人员已参加过当前类型的培训!";
+                            }
+                            else
+                            {
+                                var getTask = (from x in Funs.DB.Training_Plan
+                                               join y in Funs.DB.Training_Task on x.PlanId equals y.PlanId
+                                               where x.TrainTypeId == plan.TrainTypeId && y.UserId == personId && x.PlanId !="3"
+                                               select x).FirstOrDefault();
+                                if (getTask != null)
+                                {
+                                    alterString = "人员已再同培训类型的培训中!";
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        alterString = "人员与培训计划不匹配!";
+                    }
+                }
+                else
+                {
+                    alterString = "当前培训计划不允许再增加人员!";
+                }
+            }
+
+            return alterString;
+        }
+        #endregion
+
+        #region 根据PlanId、PersonId将人员加入培训任务
+        /// <summary>
+        /// 根据PlanId、PersonId将人员加入培训任务
+        /// </summary>
+        /// <param name="planId">培训计划ID</param>
+        /// <param name="personId">人员ID</param>
+        /// <returns></returns>
+        public static void getTrainingTaskByPlanIdPersonId(string planId, string personId)
+        {
+            var plan = TrainingPlanService.GetPlanById(planId);
+            Model.Training_Task newTask = new Model.Training_Task
+            {
+                TaskId = SQLHelper.GetNewID(),
+                PlanId = planId,
+                UserId = personId,
+                TaskDate = DateTime.Now,
+                States = "0",
+            };
+            if (plan != null)
+            {
+                newTask.ProjectId = plan.ProjectId;
+                Funs.DB.Training_Task.InsertOnSubmit(newTask);
+                Funs.DB.SubmitChanges();
+            }
         }
         #endregion
     }

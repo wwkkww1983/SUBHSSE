@@ -71,7 +71,7 @@
                     this.ckRememberMe.Checked = true;
                 }
                 string sysVersion = ConfigurationManager.AppSettings["SystemVersion"];
-                this.lbVevion.Text = "请使用IE10以上版本浏览器 系统版本号：" + sysVersion;   
+                this.lbVevion.Text = "请使用IE10以上版本浏览器 版本号：" + sysVersion;   
             }
         }
         #endregion

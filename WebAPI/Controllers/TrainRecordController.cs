@@ -64,29 +64,5 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
-
-        //#region 保存 TrainRecord
-        ///// <summary>
-        ///// 保存 TrainRecord
-        ///// </summary>
-        ///// <param name="hazardRegister"></param>
-        ///// <returns></returns>
-        //[HttpPost]
-        //public Model.ResponeData SaveTrainRecord([FromBody] Model.TrainRecordItem trainRecord, [FromBody] List<Model.TrainRecordDetailItem> trainRecordDetail, [FromBody] List<Model.TrainRecordTrainingItem> trainRecordTraining)
-        //{
-        //    var responeData = new Model.ResponeData();
-        //    try
-        //    {
-        //        BLL.APITrainRecordService.SaveTrainRecord(trainRecord, trainRecordDetail, trainRecordTraining);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        responeData.code = 0;
-        //        responeData.message = ex.Message;
-        //    }
-
-        //    return responeData;
-        //}
-        //#endregion
     }
 }

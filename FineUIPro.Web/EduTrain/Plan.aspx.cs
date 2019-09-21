@@ -38,8 +38,8 @@ namespace FineUIPro.Web.EduTrain
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT Plans.PlanId,Plans.PlanCode, Plans.PlanName, Plans.DesignerId, Plans.DesignerDate, Plans.WorkPostId,
-                                     (CASE Plans.States WHEN '0' THEN '待提交' WHEN '1' THEN '已提交' WHEN '-1' THEN '已作废' END ) AS States,
+            string strSql = @"SELECT Plans.PlanId,Plans.PlanCode, Plans.PlanName, Plans.DesignerId, Plans.DesignerDate, Plans.WorkPostId,UnitIds,TrainStartDate,TeachHour,TeachAddress,
+                                     (CASE Plans.States WHEN '0' THEN '计划中' WHEN '1' THEN '待考试' WHEN '2' THEN '考试中' WHEN '3' THEN '已结束' WHEN '-1' THEN '已作废' END ) AS States,
                                      Users.UserName AS DesignerName,WorkPostNames"
                              + @" FROM dbo.Training_Plan AS Plans "
                              + @" LEFT JOIN Sys_User AS Users ON Users.UserId = Plans.DesignerId "
@@ -207,6 +207,33 @@ namespace FineUIPro.Web.EduTrain
         }
         #endregion
 
+        #region 格式化字符串
+        /// <summary>
+        /// 格式化受伤情况
+        /// </summary>
+        /// <param name="injury"></param>
+        /// <returns></returns>
+        protected string ConvertWorkPostName(object workPostIds)
+        {
+            string name = string.Empty;
+            if (workPostIds != null)
+            {
+                name = BLL.WorkPostService.getWorkPostNamesWorkPostIds(workPostIds);
+            }
+            return name;
+        }
+
+        protected string ConvertUnitName(object unitIds)
+        {
+            string name = string.Empty;
+            if (unitIds != null)
+            {
+                name = BLL.UnitService.getUnitNamesUnitIds(unitIds);
+            }
+            return name;
+        }
+        #endregion
+
         #region 输入框查询事件
         /// <summary>
         /// 查询
@@ -258,5 +285,21 @@ namespace FineUIPro.Web.EduTrain
             return content;
         }
         #endregion
+
+        /// <summary>
+        /// 查看二维码
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnQR_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../Controls/SeeQRImage.aspx?TrainingPlanId={0}&strCode={1}", Grid1.SelectedRowID, "trainingPlan$" + Grid1.SelectedRowID), "二维码查看", 400, 400));
+        }
     }
 }

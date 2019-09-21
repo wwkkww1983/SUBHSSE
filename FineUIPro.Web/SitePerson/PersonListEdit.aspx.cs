@@ -485,7 +485,8 @@ namespace FineUIPro.Web.SitePerson
             {
                 this.SaveData();
             }
-            var unit = BLL.CommonService.GetIsThisUnit();
+            string strCode = string.Empty;
+            var unit = CommonService.GetIsThisUnit();
             if (unit != null && unit.UnitId == BLL.Const.UnitId_TCC_)
             {
                 if (string.IsNullOrEmpty(this.txtCardNo.Text))
@@ -493,64 +494,14 @@ namespace FineUIPro.Web.SitePerson
                     ShowNotify("人员卡号不能为空！", MessageBoxIcon.Warning);
                     return;
                 }
-                this.CreateCode_Simple(this.txtCardNo.Text.Trim());
+                strCode= "person$" + this.txtCardNo.Text.Trim();
             }
             else
             {
-                this.CreateCode_Simple(this.txtIdentityCard.Text.Trim());
-            }
-        }
-
-        //生成二维码方法一
-        private void CreateCode_Simple(string nr)
-        {
-            nr = "person$" + nr;
-            var person = BLL.PersonService.GetPersonById(this.PersonId);
-            if (person != null)
-            {
-                BLL.UploadFileService.DeleteFile(Funs.RootPath, person.QRCodeAttachUrl);//删除二维码
-                string imageUrl = string.Empty;
-                QRCodeEncoder qrCodeEncoder = new QRCodeEncoder
-                {
-                    QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE,
-                    QRCodeScale = nr.Length,
-                    QRCodeVersion = 0,
-                    QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.M
-                };
-                System.Drawing.Image image = qrCodeEncoder.Encode(nr, Encoding.UTF8);
-
-                string filepath = Server.MapPath("~/") + BLL.UploadFileService.QRCodeImageFilePath;
-
-                //如果文件夹不存在，则创建
-                if (!Directory.Exists(filepath))
-                {
-                    Directory.CreateDirectory(filepath);
-                }
-
-                string filename = DateTime.Now.ToString("yyyymmddhhmmssfff").ToString() + ".jpg";
-                imageUrl = filepath + filename;
-
-                System.IO.FileStream fs = new System.IO.FileStream(imageUrl, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write);
-                image.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
-
-                fs.Close();
-                image.Dispose();
-                this.QRCodeAttachUrl = BLL.UploadFileService.QRCodeImageFilePath + filename;
-                person.QRCodeAttachUrl = this.QRCodeAttachUrl;
-                BLL.PersonService.UpdatePerson(person);
-                this.btnQR.Hidden = false;
-                this.btnQR.Text = "二维码重新生成";
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../Controls/SeeQRImage.aspx?PersonId={0}", this.PersonId), "二维码查看", 400, 400));
-            }
-            else
-            {
-                Alert.ShowInTop("操作有误，重新生成！", MessageBoxIcon.Warning);
+                strCode = "person$" + this.txtIdentityCard.Text.Trim();
             }
 
-            //二维码解码
-            //var codeDecoder = CodeDecoder(filepath);
-
-            //this.Image1.ImageUrl = "~/image/" + filename + ".jpg";
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../Controls/SeeQRImage.aspx?PersonId={0}&strCode={1}", this.PersonId, strCode), "二维码查看", 400, 400));
         }
     }
 }

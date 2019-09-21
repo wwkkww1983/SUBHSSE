@@ -69,9 +69,9 @@
                                 <f:Label ID="lbSubName" runat="server" CssClass="text"></f:Label>                               
                             </Items>
                         </f:Panel>
-                        <f:Panel ID="Panel3" ShowBorder="false" ShowHeader="false" Layout="HBox" BoxConfigAlign="Stretch" runat="server"  Margin="0px 160px 0 200px">
+                        <f:Panel ID="Panel3" ShowBorder="false" ShowHeader="false" Layout="HBox" BoxConfigAlign="Stretch" runat="server" MarginLeft="200px">
                             <Items>                                   
-                                <f:Label ID="lbVevion" runat="server" MarginLeft="50px" ToolTip="当前软件运行环境要求及当前系统版本。">                                 
+                                <f:Label ID="lbVevion" runat="server" MarginLeft="50px" ToolTip="当前软件运行环境要求及当前系统版本。" Width="800px">                                 
                                 </f:Label>                                              
                             </Items>
                         </f:Panel>

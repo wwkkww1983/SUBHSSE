@@ -8,6 +8,9 @@ using BLL;
 
 namespace WebAPI.Controllers
 {
+    /// <summary>
+    /// 施工方案
+    /// </summary>
     public class ConstructSolutionController : ApiController
     {
         #region 根据 constructSolutionId获取施工方案

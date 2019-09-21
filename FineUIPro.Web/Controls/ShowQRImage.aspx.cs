@@ -51,11 +51,13 @@ namespace FineUIPro.Web.Controls
         private void CreateCode_Simple(string nr, string urlName)
         {
             string imageUrl = string.Empty;
-            QRCodeEncoder qrCodeEncoder = new QRCodeEncoder();
-            qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
-            qrCodeEncoder.QRCodeScale = nr.Length;
-            qrCodeEncoder.QRCodeVersion = 0;
-            qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.M;
+            QRCodeEncoder qrCodeEncoder = new QRCodeEncoder
+            {
+                QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE,
+                QRCodeScale = nr.Length,
+                QRCodeVersion = 0,
+                QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.M
+            };
             System.Drawing.Image image = qrCodeEncoder.Encode(nr, Encoding.UTF8);
             
             string filepath = Funs.RootPath + this.FileUrl;
@@ -68,7 +70,7 @@ namespace FineUIPro.Web.Controls
             string filename = urlName + ".jpg";
             imageUrl = filepath + filename;
 
-            System.IO.FileStream fs = new System.IO.FileStream(imageUrl, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write);
+            FileStream fs = new FileStream(imageUrl, FileMode.OpenOrCreate, FileAccess.Write);
             image.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
 
             fs.Close();

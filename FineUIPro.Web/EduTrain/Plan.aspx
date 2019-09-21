@@ -39,23 +39,36 @@
                 <Columns>
                     <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
                         TextAlign="Center" />
-                    <f:RenderField Width="150px" ColumnID="PlanCode" DataField="PlanCode" SortField="PlanCode"
+                    <f:RenderField Width="90px" ColumnID="PlanCode" DataField="PlanCode" SortField="PlanCode"
                         HeaderText="编号" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="180px" ColumnID="PlanName" DataField="PlanName" FieldType="String"
+                    <f:RenderField Width="150px" ColumnID="PlanName" DataField="PlanName" FieldType="String"
                         HeaderText="名称" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="300px" ColumnID="WorkPostNames" DataField="WorkPostNames" ExpandUnusedSpace="true"
-                        FieldType="String" HeaderText="接受培训岗位" HeaderTextAlign="Center" TextAlign="Left">
-                    </f:RenderField>
+                    <f:TemplateField Width="400px" HeaderText="接受培训单位" HeaderTextAlign="Center" TextAlign="Left" ColumnID="tfUnitNames">
+                        <ItemTemplate>
+                            <asp:Label ID="lbUnitNames" runat="server"  Text='<%#ConvertUnitName(Eval("UnitIds")) %>'></asp:Label>
+                        </ItemTemplate>
+                    </f:TemplateField>
+                    <f:TemplateField Width="200px" HeaderText="接受培训岗位" HeaderTextAlign="Center" TextAlign="Left" ColumnID="tfWorkPostNames">
+                        <ItemTemplate>
+                            <asp:Label ID="lbtfWorkPostNames" runat="server"  Text='<%#ConvertWorkPostName(Eval("WorkPostId")) %>'></asp:Label>
+                        </ItemTemplate>
+                    </f:TemplateField>
                     <f:RenderField Width="100px" ColumnID="DesignerName" DataField="DesignerName" FieldType="String"
-                        HeaderText="制定人" HeaderTextAlign="Center" TextAlign="Left">
+                        HeaderText="制定人" HeaderTextAlign="Center" TextAlign="Left" >
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="DesignerDate" DataField="DesignerDate" 
+                    <f:RenderField Width="100px" ColumnID="DesignerDate" DataField="DesignerDate" SortField="DesignerDate"
                         FieldType="Date" Renderer="Date" HeaderText="制定时间" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
+                    <f:RenderField Width="150px" ColumnID="TeachAddress" DataField="TeachAddress" 
+                        HeaderText="地点" HeaderTextAlign="Center" TextAlign="Left">
+                    </f:RenderField>
+                     <f:RenderField Width="100px" ColumnID="TrainStartDate" DataField="TrainStartDate" SortField="TrainStartDate"
+                        FieldType="Date" Renderer="Date" HeaderText="培训时间" HeaderTextAlign="Center" TextAlign="Left">
+                    </f:RenderField>
                     <f:RenderField Width="100px" ColumnID="States" DataField="States" 
-                        FieldType="String" HeaderText="计划状态" HeaderTextAlign="Center" TextAlign="Left">
+                        FieldType="String" HeaderText="状态" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                 </Columns>
                 <Listeners>
@@ -86,6 +99,9 @@
         <f:MenuButton ID="btnMenuView" OnClick="btnMenuView_Click" EnablePostBack="true"
             runat="server" Text="查看"  Icon="TableGo">
         </f:MenuButton>  
+        <f:MenuButton ID="btnQR" OnClick="btnQR_Click" EnablePostBack="true"
+            runat="server" Text="二维码"  Icon="Shading">
+        </f:MenuButton> 
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
             Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除"
             Hidden="true">

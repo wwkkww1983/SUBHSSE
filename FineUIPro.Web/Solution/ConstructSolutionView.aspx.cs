@@ -152,59 +152,7 @@ namespace FineUIPro.Web.Solution
         /// <param name="e"></param>
         protected void btnQR_Click(object sender, EventArgs e)
         {
-            this.CreateCode_Simple();
-        }
-
-        //生成二维码方法一
-        private void CreateCode_Simple()
-        {
-            var constructSolution = BLL.ConstructSolutionService.GetConstructSolutionById(this.ConstructSolutionId);
-            if (constructSolution != null)
-            {
-                string nr = "constructSolution$" +this.ConstructSolutionId;
-                BLL.UploadFileService.DeleteFile(Funs.RootPath, constructSolution.QRCodeAttachUrl);//删除二维码
-                string imageUrl = string.Empty;
-                QRCodeEncoder qrCodeEncoder = new QRCodeEncoder
-                {
-                    QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE,
-                    QRCodeScale = nr.Length,
-                    QRCodeVersion = 0,
-                    QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.M
-                };
-                System.Drawing.Image image = qrCodeEncoder.Encode(nr, Encoding.UTF8);
-
-                string filepath = Server.MapPath("~/") + BLL.UploadFileService.QRCodeImageFilePath;
-
-                //如果文件夹不存在，则创建
-                if (!Directory.Exists(filepath))
-                {
-                    Directory.CreateDirectory(filepath);
-                }
-
-                string filename = DateTime.Now.ToString("yyyymmddhhmmssfff").ToString() + ".jpg";
-                imageUrl = filepath + filename;
-
-                System.IO.FileStream fs = new System.IO.FileStream(imageUrl, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write);
-                image.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
-
-                fs.Close();
-                image.Dispose();
-                this.QRCodeAttachUrl = BLL.UploadFileService.QRCodeImageFilePath + filename;
-                constructSolution.QRCodeAttachUrl = this.QRCodeAttachUrl;
-                BLL.ConstructSolutionService.UpdateConstructSolution(constructSolution);
-                this.btnQR.Hidden = false;
-                this.btnQR.Text = "二维码重新生成";
-                PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("../Controls/SeeQRImage.aspx?ConstructSolutionId={0}", this.ConstructSolutionId), "二维码查看", 400, 400));
-            }
-            else
-            {
-                Alert.ShowInTop("操作有误，重新生成！", MessageBoxIcon.Warning);
-            }
-
-            //二维码解码
-            //var codeDecoder = CodeDecoder(filepath);
-
-            //this.Image1.ImageUrl = "~/image/" + filename + ".jpg";
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../Controls/SeeQRImage.aspx?ConstructSolutionId={0}&strCode={1}", this.ConstructSolutionId, "constructSolution$" + this.ConstructSolutionId), "二维码查看", 400, 400));           
         }
     }
 }

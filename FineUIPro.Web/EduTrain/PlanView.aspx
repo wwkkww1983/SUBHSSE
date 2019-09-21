@@ -29,16 +29,22 @@
                     <f:TextBox ID="txtDesignerDate" runat="server" Label="制定时间" LabelAlign="Right" Readonly="true">
                     </f:TextBox>
                 </Items>
-            </f:FormRow>           
+            </f:FormRow>  
             <f:FormRow>
                 <Items>
-                   <f:TextBox ID="txtInstallationNames" runat="server" Label="适合岗位" LabelAlign="Right" Readonly="true">
+                   <f:TextBox ID="txtUnitName" runat="server" Label="培训单位" LabelAlign="Right" Readonly="true">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextArea runat="server" ID="txtTrainingEdu" Label="培训教材类型" Readonly="true"></f:TextArea>
+                   <f:TextBox ID="txtInstallationNames" runat="server" Label="培训岗位" LabelAlign="Right" Readonly="true">
+                    </f:TextBox>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
+                    <f:TextArea runat="server" ID="txtTrainingEdu" Label="教材类型" Readonly="true"></f:TextArea>
                 </Items>
             </f:FormRow>
         </Rows>

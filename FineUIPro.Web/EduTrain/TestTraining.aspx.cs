@@ -165,8 +165,10 @@ namespace FineUIPro.Web.EduTrain
                                 + @" ,(CASE WHEN WorkPostNames IS NULL THEN '通用' ELSE WorkPostNames END) AS WorkPostNames,AItem,BItem,CItem,DItem,EItem,Score,AnswerItems "
                                 + @" FROM dbo.Training_TestTrainingItem"
                                 + @" WHERE TrainingId=@TrainingId ";
-                List<SqlParameter> listStr = new List<SqlParameter>();
-                listStr.Add(new SqlParameter("@TrainingId", this.tvTestTraining.SelectedNode.NodeID));
+                List<SqlParameter> listStr = new List<SqlParameter>
+                {
+                    new SqlParameter("@TrainingId", this.tvTestTraining.SelectedNode.NodeID)
+                };
                 if (!string.IsNullOrEmpty(this.txtName.Text.Trim()))
                 {
                     strSql += " AND (TrainingItemCode LIKE @Name OR TrainingItemName LIKE @Name OR Abstracts LIKE @Name OR WorkPostNames LIKE @Name)";
@@ -307,10 +309,19 @@ namespace FineUIPro.Web.EduTrain
         }
 
         protected void btnNewDetail_Click(object sender, EventArgs e)
-        {
-            if (this.tvTestTraining.SelectedNode != null && this.tvTestTraining.SelectedNodeID != "0")
+        {            
+            if (this.tvTestTraining.SelectedNode != null)
             {
-                PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("TestTrainingItemSave.aspx?TrainingId={0}", this.tvTestTraining.SelectedNode.NodeID, "编辑 - ")));
+                string id = this.tvTestTraining.SelectedNodeID;
+                var testTrain = BLL.TestTrainingService.GetTestTrainingById(id);
+                if (testTrain != null && testTrain.IsEndLever == true)
+                {
+                    PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("TestTrainingItemSave.aspx?TrainingId={0}", this.tvTestTraining.SelectedNode.NodeID, "编辑 - ")));
+                }
+                else
+                {
+                    ShowNotify("请选择末级树节点！", MessageBoxIcon.Warning);
+                }
             }
             else
             {

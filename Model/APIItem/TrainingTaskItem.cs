@@ -40,6 +40,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 培训计划状态
+        /// </summary>
+        public string PlanStatesName
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 培训计划时间
         /// </summary>
         public string TrainStartDate

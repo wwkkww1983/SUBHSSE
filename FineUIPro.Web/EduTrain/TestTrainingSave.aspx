@@ -27,7 +27,12 @@
                 <Items>
                    <f:TextBox ID="txtTrainingName" runat="server" Label="名称" Required="true" ShowRedStar="true" MaxLength="50" AutoPostBack="true" OnTextChanged="TextBox_TextChanged"></f:TextBox>
                 </Items>
-            </f:FormRow>  
+            </f:FormRow> 
+             <f:FormRow>
+                <Items>
+                   <f:CheckBox ID="ckIsEndLever" runat="server" Label="末级" ></f:CheckBox>
+                </Items>
+            </f:FormRow> 
         </Rows>
         <Toolbars>
             <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">

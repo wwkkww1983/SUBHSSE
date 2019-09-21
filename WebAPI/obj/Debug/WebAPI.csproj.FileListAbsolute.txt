@@ -99,3 +99,4 @@ D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\obj\Debug\WebAPI.csproj.CoreCompileInput
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\obj\Debug\WebAPI.csproj.CopyComplete
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\obj\Debug\WebAPI.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\obj\Debug\WebAPI.pdb
+D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\bin\WebAPI.xml

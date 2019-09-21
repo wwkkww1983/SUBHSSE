@@ -65,12 +65,12 @@
                     <table id="tabbtn" runat="server" width="100%" style="background: url('../Images/bg-1.gif')"
                         cellpadding="0" cellspacing="0">
                         <tr>
-                            <td align="left" valign="middle" style="width: 50%; font-size: 11pt; font-weight: bold;
+                            <td align="left" valign="middle" style="width: 20%;font-size: 11pt; font-weight: bold;
                                 border-width: 0px;">
                                 <asp:Image ImageUrl="~/Images/lv-1.gif" ImageAlign="AbsMiddle" ID="image15" runat="server" />
-                                &nbsp;打印二维码信息
+                                &nbsp;二维码
                             </td>
-                            <td align="right" valign="middle" style="width: 50%; height: 30px; border-width: 0px;
+                            <td align="right" valign="middle" style="width: 80%; height: 30px; border-width: 0px;
                                 border-width: 0px;">
                                 <img src="../Images/PageSetup.gif" runat="server" id="Img2" onclick="document.all.WebBrowser.ExecWB(8,1)"
                                     alt="页面设置" style="cursor: pointer" />
@@ -90,6 +90,9 @@
             </td>
         </tr>
         <tr>
+            <td align="left" valign="middle" style="width: 100%;height=5px;"></td>
+        </tr>
+        <tr>
             <td style="width: 50%">
                 <table id="Table5" runat="server" width="100%" border="0" cellpadding="0" cellspacing="0">
                     <tr>
@@ -99,6 +102,9 @@
                                     <td align="center">
                                         <img alt="" runat="server" id="imgPhoto" width="130" height="150" />
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" valign="middle" style="width: 100%;height=5px;"></td>
                                 </tr>
                                 <tr>
                                     <td align="center">

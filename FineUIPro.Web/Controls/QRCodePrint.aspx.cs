@@ -18,6 +18,15 @@ namespace FineUIPro.Web.Controls
         {
             if (!IsPostBack)
             {
+                this.getQRUrl();
+            }
+        }
+
+        private void getQRUrl()
+        {
+            if (!string.IsNullOrEmpty(Request.Params["PersonId"]))
+            {
+                ////人员
                 var person = BLL.PersonService.GetPersonById(Request.Params["PersonId"]);
                 if (person != null && !string.IsNullOrEmpty(person.QRCodeAttachUrl))
                 {
@@ -32,6 +41,10 @@ namespace FineUIPro.Web.Controls
                     }
                     this.lbUnitName.Text = "人员单位：" + unitName;
                 }
+            }
+            else if (!string.IsNullOrEmpty(Request.Params["EquipmentQualityId"]))
+            {
+                ////设备
                 var equipmentQuality = BLL.EquipmentQualityService.GetEquipmentQualityById(Request.Params["EquipmentQualityId"]);
                 if (equipmentQuality != null && !string.IsNullOrEmpty(equipmentQuality.QRCodeAttachUrl))
                 {
@@ -46,6 +59,10 @@ namespace FineUIPro.Web.Controls
                     }
                     this.lbUnitName.Text = "所属单位：" + unitName;
                 }
+            }
+            else if (!string.IsNullOrEmpty(Request.Params["GeneralEquipmentQualityId"]))
+            {
+                ///一般设备
                 var generalEquipmentQuality = BLL.GeneralEquipmentQualityService.GetGeneralEquipmentQualityById(Request.Params["GeneralEquipmentQualityId"]);
                 if (generalEquipmentQuality != null && !string.IsNullOrEmpty(generalEquipmentQuality.QRCodeAttachUrl))
                 {
@@ -66,6 +83,10 @@ namespace FineUIPro.Web.Controls
                     }
                     this.lbUnitName.Text = "所属单位：" + unitName;
                 }
+            }
+            else if (!string.IsNullOrEmpty(Request.Params["ConstructSolutionId"]))
+            {
+                ///施工方案
                 var constructSolution = BLL.ConstructSolutionService.GetConstructSolutionById(Request.Params["ConstructSolutionId"]);
                 if (constructSolution != null && !string.IsNullOrEmpty(constructSolution.QRCodeAttachUrl))
                 {
@@ -88,6 +109,27 @@ namespace FineUIPro.Web.Controls
                         unitName = unit.UnitName;
                     }
                     this.lbUnitName.Text = "所属单位：" + unitName;
+                }
+            }
+            else if (!string.IsNullOrEmpty(Request.Params["TrainingPlanId"]))
+            {
+                ///培训计划
+                var trainingPlan = BLL.TrainingPlanService.GetPlanById(Request.Params["TrainingPlanId"]);
+                if (trainingPlan != null && !string.IsNullOrEmpty(trainingPlan.QRCodeUrl))
+                {
+                    this.imgPhoto.Src = "../" + trainingPlan.QRCodeUrl;
+                    string code = string.Empty;
+                    if (!string.IsNullOrEmpty(trainingPlan.PlanCode))
+                    {
+                        code = trainingPlan.PlanCode;
+                    }
+                    else
+                    {
+                        code = BLL.CodeRecordsService.ReturnCodeByDataId(trainingPlan.PlanId);
+                    }
+                    this.lbWedCode.Text = "编号：" + code;
+                    this.lbWedName.Text = "名称：" + trainingPlan.PlanName;
+                    this.lbUnitName.Text = "培训时间：" + string.Format("{0:yyyy-MM-dd}",trainingPlan.TrainStartDate)+"；培训地点："+trainingPlan.TeachAddress;
                 }
             }
         }

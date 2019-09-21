@@ -8,6 +8,9 @@ using BLL;
 
 namespace WebAPI.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class BaseInfoController : ApiController
     {
         #region 根据groupType获取检查类型
@@ -58,16 +61,24 @@ namespace WebAPI.Controllers
 
         #region  获项目图片
         /// <summary>
-        ///   获项目图片
+        ///  获项目图片
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="projectId"></param>
+        /// <param name="pageIndex"></param>
         /// <returns></returns>
-        public Model.ResponeData getProjectPictureByProjectId(string projectId)
+        public Model.ResponeData getProjectPictureByProjectId(string projectId, int pageIndex)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = APIBaseInfoService.getProjectPictureByProjectId(projectId);
+                var getDataList = APIBaseInfoService.getProjectPictureByProjectId(projectId);
+                int pageCount = getDataList.Count();
+                if (pageCount > 0)
+                {
+                    getDataList = getDataList.OrderByDescending(u => u.BaseInfoCode).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+
+                }
+                responeData.data = new { pageCount, getDataList };
             }
             catch (Exception ex)
             {
@@ -81,7 +92,6 @@ namespace WebAPI.Controllers
         /// <summary>
         ///   获项目图片
         /// </summary>
-        /// <param name="userId"></param>
         /// <returns></returns>
         public Model.ResponeData getProjectPicture()
         {
@@ -109,7 +119,6 @@ namespace WebAPI.Controllers
         /// <summary>
         /// 获取头条通知
         /// </summary>
-        /// <param name="projectId"></param>
         /// <returns></returns>
         public Model.ResponeData getTopNotices()
         {
@@ -139,9 +148,10 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
-        ///  根据项目ID通知通告
+        /// 根据项目ID通知通告
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="projectId"></param>
+        /// <param name="pageIndex"></param>
         /// <returns></returns>
         public Model.ResponeData getNotices(string projectId, int pageIndex)
         {
@@ -166,9 +176,9 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
-        ///  根据noticeId获取通知通告详细
+        /// 根据noticeId获取通知通告详细
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="noticeId"></param>
         /// <returns></returns>
         public Model.ResponeData getNoticesByNoticeId(string noticeId)
         {
@@ -191,7 +201,6 @@ namespace WebAPI.Controllers
         /// <summary>
         ///   获取法律法规类型
         /// </summary>
-        /// <param name="userId"></param>
         /// <returns></returns>
         public Model.ResponeData getLawsRegulationsType()
         {
@@ -214,7 +223,6 @@ namespace WebAPI.Controllers
         /// <summary>
         ///   获取标准规范类型
         /// </summary>
-        /// <param name="userId"></param>
         /// <returns></returns>
         public Model.ResponeData getHSSEStandardListType()
         {
@@ -237,7 +245,6 @@ namespace WebAPI.Controllers
         /// <summary>
         ///   获取规章制度类型
         /// </summary>
-        /// <param name="userId"></param>
         /// <returns></returns>
         public Model.ResponeData getRulesRegulationsType()
         {
@@ -260,7 +267,6 @@ namespace WebAPI.Controllers
         /// <summary>
         ///   获取管理规定类型
         /// </summary>
-        /// <param name="userId"></param>
         /// <returns></returns>
         public Model.ResponeData getManageRuleType()
         {
