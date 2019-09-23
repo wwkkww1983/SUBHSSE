@@ -86,7 +86,7 @@ namespace WebAPI.Controllers
         /// <summary>
         /// 根据subUnitQualityId获取分包商资质信息
         /// </summary>
-        /// <param name="personId"></param>
+        /// <param name="subUnitQualityId"></param>
         /// <returns></returns>
         public Model.ResponeData getSubUnitQualityBySubUnitQualityId(string subUnitQualityId)
         {
@@ -147,7 +147,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="projectId">项目ID</param>
         /// <param name="type">数据类型0-已过期；1-即将过期</param>
-        /// <param name="pageIndex">项目ID</param>
+        /// <param name="pageIndex">页码</param>
         /// <returns></returns>
         public Model.ResponeData getSubUnitQualityByProjectId(string projectId, string type, int pageIndex)
         {

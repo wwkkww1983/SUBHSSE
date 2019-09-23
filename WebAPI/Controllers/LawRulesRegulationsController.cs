@@ -8,13 +8,16 @@ using BLL;
 
 namespace WebAPI.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class LawRulesRegulationsController : ApiController
     {
         #region 根据rulesRegulationsId获取规章制度信息
         /// <summary>
         /// 根据rulesRegulationsId获取规章制度信息
         /// </summary>
-        /// <param name="personId"></param>
+        /// <param name="rulesRegulationsId"></param>
         /// <returns></returns>
         public Model.ResponeData getRulesRegulationsListByRulesRegulationsId(string rulesRegulationsId)
         {

@@ -142,8 +142,9 @@ namespace WebAPI.Controllers
         /// <summary>
         /// 根据projectId、unitid获取特岗人员资质各状态数
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <returns></returns>
+        /// <param name="projectId">项目ID</param>
+        /// <param name="unitId">单位ID</param>
+        /// <returns>人员资质数量</returns>
         public Model.ResponeData getPersonQualityCount(string projectId, string unitId)
         {
             var responeData = new Model.ResponeData();
@@ -154,11 +155,11 @@ namespace WebAPI.Controllers
                 {
                     getDataList = getDataList.Where(x => x.UnitId == unitId);
                 }
-                ///总数
+                //总数
                 int tatalCount = getDataList.Count();
-                ///过期
+                //过期
                 int count1 = getDataList.Where(x => x.LimitDate < DateTime.Now).Count();
-                ///即将过期
+                //即将过期
                 int count2 = getDataList.Where(x => x.LimitDate >= DateTime.Now && x.LimitDate < DateTime.Now.AddMonths(1)).Count();
 
                 responeData.data = new { tatalCount, count1, count2 };
@@ -180,6 +181,7 @@ namespace WebAPI.Controllers
         /// <param name="projectId">项目ID</param>
         /// <param name="unitId">单位ID</param>
         /// <param name="type">数据类型0-已过期；1-即将过期</param>
+        /// <param name="pageIndex">页码</param>
         /// <returns></returns>
         public Model.ResponeData getPersonQualityByProjectIdUnitId(string projectId, string unitId, string type, int pageIndex)
         {

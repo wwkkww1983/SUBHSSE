@@ -8,6 +8,9 @@ using BLL;
 
 namespace WebAPI.Controllers
 {
+    /// <summary>
+    /// 培训记录
+    /// </summary>
     public class TrainRecordController : ApiController
     {
         #region 根据projectId、trainTypeId、TrainStates获取培训记录列表
@@ -46,7 +49,7 @@ namespace WebAPI.Controllers
         /// <summary>
         ///  根据noticeId获取通知通告详细
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="trainRecordId"></param>
         /// <returns></returns>
         public Model.ResponeData getTrainRecordByTrainingId(string trainRecordId)
         {

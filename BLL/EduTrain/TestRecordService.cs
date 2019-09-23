@@ -37,7 +37,21 @@ namespace BLL
                 TestManId = testRecord.TestManId,
                 TestType=testRecord.TestType,
             };
-           
+
+            if (string.IsNullOrEmpty(newTestRecord.TestType))
+            {
+                var getTrainTypeName = (from x in Funs.DB.Training_TestPlan
+                                      join y in Funs.DB.Training_Plan on x.PlanId equals y.PlanId
+                                      join z in Funs.DB.Base_TrainType on y.TrainTypeId equals z.TrainTypeId
+                                      where x.TestPlanId == testRecord.TestPlanId
+                                      select z).FirstOrDefault();
+                    
+                if (getTrainTypeName != null)
+                {
+                    testRecord.TestType = getTrainTypeName.TrainTypeName;
+                }
+            }
+
             db.Training_TestRecord.InsertOnSubmit(newTestRecord);
             db.SubmitChanges();
         }
@@ -52,6 +66,8 @@ namespace BLL
             Model.Training_TestRecord newTestRecord = db.Training_TestRecord.FirstOrDefault(e => e.TestRecordId == testRecord.TestRecordId);
             if (newTestRecord != null)
             {
+                newTestRecord.TestScores = testRecord.TestScores;
+                newTestRecord.TestEndTime = testRecord.TestEndTime;
                 newTestRecord.IsFiled = testRecord.IsFiled;
                 db.SubmitChanges();
             }

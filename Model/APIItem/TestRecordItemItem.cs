@@ -60,6 +60,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 题型（1-单选；2-多选；3-判断题）
+        /// </summary>
+        public string TestTypeName
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 答案项A
         /// </summary>
         public string AItem

@@ -67,10 +67,27 @@ namespace Model
             get;
             set;
         }
+        
         /// <summary>
         /// 考试结束时间
         /// </summary>
         public string TestEndTime
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 考试计划结束时间
+        /// </summary>
+        public string TestPlanEndTime
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 考试时长
+        /// </summary>
+        public int Duration
         {
             get;
             set;

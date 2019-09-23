@@ -17,7 +17,7 @@ namespace WebAPI.Controllers
         /// <summary>
         ///  根据groupType获取检查类型
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="type"></param>
         /// <returns></returns>
         public Model.ResponeData getHazardRegisterTypes(string type)
         {

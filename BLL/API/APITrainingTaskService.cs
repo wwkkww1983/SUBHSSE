@@ -20,7 +20,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.TrainingTaskItem> getTrainingTaskListByProjectIdPersonId(string projectId, string personId)
         {
-            personId = PersonService.GetPersonByUserId(personId);
+            personId = PersonService.GetPersonIdByUserId(personId);
             var getDataLists = (from x in Funs.DB.Training_Task
                                 join y in Funs.DB.Training_Plan on x.PlanId equals y.PlanId
                                 where x.ProjectId == projectId && x.UserId == personId && y.States != "0"

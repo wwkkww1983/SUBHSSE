@@ -79,16 +79,16 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                ///总数
+                //总数
                 var getDataList = BLL.Funs.DB.HSSE_Hazard_HazardRegister.Where(x => x.ProjectId == projectId);
                 int tatalCount = getDataList.Count();
-                ///待整改
+                //待整改
                 int count1 = getDataList.Where(x => x.States == "1").Count();
-                ///待确认
+                //待确认
                 int count2 = getDataList.Where(x => x.States == "2").Count();
-                ///已闭环
+                //已闭环
                 int count3 = getDataList.Where(x => x.States == "3").Count();
-                ///已作废
+                //已作废
                 int count4 = getDataList.Where(x => x.States == "4").Count();
 
                 responeData.data = new { tatalCount, count1, count2, count3, count4 };

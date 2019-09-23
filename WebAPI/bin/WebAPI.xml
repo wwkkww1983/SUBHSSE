@@ -490,7 +490,7 @@
             <summary>
              根据groupType获取检查类型
             </summary>
-            <param name="userId"></param>
+            <param name="type"></param>
             <returns></returns>
         </member>
         <member name="M:WebAPI.Controllers.BaseInfoController.getProjectWorkArea(System.String)">
@@ -707,11 +707,16 @@
             <param name="pageIndex"></param>
             <returns></returns>
         </member>
+        <member name="T:WebAPI.Controllers.LawRegulationListController">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:WebAPI.Controllers.LawRegulationListController.getLawRegulationListByLawRegulationId(System.String)">
             <summary>
             根据lawRegulationId获取法律法规信息
             </summary>
-            <param name="personId"></param>
+            <param name="lawRegulationId"></param>
             <returns></returns>
         </member>
         <member name="M:WebAPI.Controllers.LawRegulationListController.getLawRegulationListByTypeId(System.String,System.Int32)">
@@ -719,6 +724,7 @@
             根据lawsRegulationsTypeId获取法律法规
             </summary>
             <param name="type"></param>
+            <param name="pageIndex"></param>
             <returns></returns>
         </member>
         <member name="T:WebAPI.Controllers.LawManageRuleController">
@@ -780,8 +786,9 @@
             <summary>
             根据projectId、unitid获取特岗人员资质各状态数
             </summary>
-            <param name="projectId"></param>
-            <returns></returns>
+            <param name="projectId">项目ID</param>
+            <param name="unitId">单位ID</param>
+            <returns>人员资质数量</returns>
         </member>
         <member name="M:WebAPI.Controllers.PersonController.getPersonQualityByProjectIdUnitId(System.String,System.String,System.String,System.Int32)">
             <summary>
@@ -790,16 +797,17 @@
             <param name="projectId">项目ID</param>
             <param name="unitId">单位ID</param>
             <param name="type">数据类型0-已过期；1-即将过期</param>
+            <param name="pageIndex">页码</param>
             <returns></returns>
         </member>
         <member name="M:WebAPI.Controllers.PersonController.getTrainingPersonListByTrainTypeId(System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
-            根据培训类型获取项目培训人员信息
+            根据项目\单位\岗位\培训类型获取项目培训\考试人员信息
             </summary>
             <param name="projectId">项目ID</param>
             <param name="unitIds">培训单位ID</param>
-            <param name="workPostIds">培训岗位ID</param>
-            <param name="trainTypeId">培训类型ID</param>
+            <param name="workPostIds">培训岗位ID(可为空)</param>
+            <param name="trainTypeId">培训类型ID(可为空)</param>
             <param name="pageIndex">分页</param>
             <returns></returns>
         </member>
@@ -896,11 +904,16 @@
             <param name="trainingItemId"></param>
             <returns></returns>
         </member>
+        <member name="T:WebAPI.Controllers.LawRulesRegulationsController">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:WebAPI.Controllers.LawRulesRegulationsController.getRulesRegulationsListByRulesRegulationsId(System.String)">
             <summary>
             根据rulesRegulationsId获取规章制度信息
             </summary>
-            <param name="personId"></param>
+            <param name="rulesRegulationsId"></param>
             <returns></returns>
         </member>
         <member name="M:WebAPI.Controllers.LawRulesRegulationsController.getRulesRegulationsListByTypeId(System.String,System.Int32)">
@@ -909,6 +922,56 @@
             </summary>
             <param name="type"></param>
             <returns></returns>
+        </member>
+        <member name="T:WebAPI.Controllers.TestController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.TestController.Get(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestController.login">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestController.getUser(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestController.login3(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestController.login4(WebAPI.Controllers.userInfo)">
+            <summary>
+            
+            </summary>
+            <param name="userInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestController.login6">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:WebAPI.Controllers.userInfo">
+            <summary>
+            
+            </summary>
         </member>
         <member name="T:WebAPI.Controllers.TestPlanController">
             <summary>
@@ -941,7 +1004,7 @@
         </member>
         <member name="M:WebAPI.Controllers.TestPlanController.SaveTestPlan(Model.TestPlanItem)">
             <summary>
-            保存TestPlan
+            保存TestPlan [增加、修改、开始考试、结束考试]
             </summary>
             <param name="testPlan">考试计划项目</param>
         </member>
@@ -952,6 +1015,14 @@
             <param name="testPlanId">考试计划ID</param>
             <returns>试题类型</returns>
         </member>
+        <member name="M:WebAPI.Controllers.TestPlanController.getTestPlanRecordItemByTestPlanIdPersonId(System.String,System.String)">
+            <summary>
+            根据PersonId、TestPlanId扫描考试计划二维码
+            </summary>
+            <param name="testPlanId">培训考试计划ID</param>
+            <param name="personId">人员ID</param>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.TestRecordController">
             <summary>
             考试-考生记录信息
@@ -959,10 +1030,62 @@
         </member>
         <member name="M:WebAPI.Controllers.TestRecordController.getTestRecordListByTestPlanId(System.String)">
             <summary>
-            根据TestPlanId获取考试人员列表
+            根据TestPlanId获取考生及试卷列表
             </summary>
             <param name="testPlanId"></param>
             <returns>考试人员</returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestRecordController.getTestRecordByTestRecordId(System.String)">
+            <summary>
+            根据试卷ID获取试卷记录详细
+            </summary>
+            <param name="testRecordId"></param>
+            <returns>试卷详细</returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestRecordController.geTestRecordItemListByTestRecordId(System.String,System.Int32)">
+            <summary>
+            根据TestRecordId获取试卷题目列表
+            </summary>
+            <param name="testRecordId"></param>
+            <param name="pageIndex">页码</param>
+            <returns>试卷题目列表</returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestRecordController.geTestRecordItemByTestRecordItemId(System.String)">
+            <summary>
+            根据TestRecordItemId获取试卷题目详细
+            </summary>
+            <param name="testRecordItemId"></param>
+            <returns>考试人员</returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestRecordController.geTrainingTestRecordListByProjectIdPersonId(System.String,System.String,System.Int32)">
+            <summary>
+            根据ProjectId、PersonId获取当前人试卷列表
+            </summary>
+            <param name="projectId">项目ID</param>
+            <param name="personId">人员ID(null查全部)</param>
+            <param name="pageIndex">页码</param>
+            <returns>考试记录列表</returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestRecordController.geTrainingTestRecordListByProjectId(System.String,System.Int32)">
+            <summary>
+            根据ProjectId获取所有考试记录列表
+            </summary>
+            <param name="projectId">项目ID</param>
+            <param name="pageIndex">页码</param>
+            <returns>考试记录列表</returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestRecordController.getTestRecordItemAnswerBySelectedItem(System.String,System.String)">
+            <summary>
+            根据TestRecordItemId、AnswerItems 考生答题
+            </summary>
+            <param name="testRecordItemId">题目ID</param>
+            <param name="selectedItem">选项</param>
+        </member>
+        <member name="M:WebAPI.Controllers.TestRecordController.getSubmitTestRecordByTestRecordId(System.String)">
+            <summary>
+             交卷(1)当前题得分(2)是否存在未答(3)交卷
+            </summary>
+            <param name="testRecordId">试卷ID</param>
         </member>
         <member name="T:WebAPI.Controllers.ToDoItemController">
             <summary>
@@ -1036,7 +1159,7 @@
         </member>
         <member name="M:WebAPI.Controllers.TrainingTaskController.getTrainingTaskByPlanIdPersonId(System.String,System.String)">
             <summary>
-            根据PlanId、PersonId将人员加入培训任务
+            根据PlanId、PersonId将人员加入培训任务(扫码)
             </summary>
             <param name="planId">培训计划ID</param>
             <param name="personId">人员ID</param>
@@ -1048,6 +1171,11 @@
             </summary>
             <param name="trainingPlanId"></param>
             <returns>培训人员</returns>
+        </member>
+        <member name="T:WebAPI.Controllers.TrainRecordController">
+            <summary>
+            培训记录
+            </summary>
         </member>
         <member name="M:WebAPI.Controllers.TrainRecordController.getTrainRecordListByProjectIdTrainTypeIdTrainStates(System.String,System.String,System.String,System.Int32)">
             <summary>
@@ -1063,7 +1191,7 @@
             <summary>
              根据noticeId获取通知通告详细
             </summary>
-            <param name="userId"></param>
+            <param name="trainRecordId"></param>
             <returns></returns>
         </member>
         <member name="T:WebAPI.Controllers.UnitController">
@@ -1096,7 +1224,7 @@
             <summary>
             根据subUnitQualityId获取分包商资质信息
             </summary>
-            <param name="personId"></param>
+            <param name="subUnitQualityId"></param>
             <returns></returns>
         </member>
         <member name="M:WebAPI.Controllers.UnitController.getSubUnitQualityCount(System.String)">
@@ -1112,7 +1240,7 @@
             </summary>
             <param name="projectId">项目ID</param>
             <param name="type">数据类型0-已过期；1-即将过期</param>
-            <param name="pageIndex">项目ID</param>
+            <param name="pageIndex">页码</param>
             <returns></returns>
         </member>
         <member name="T:WebAPI.Controllers.UserController">

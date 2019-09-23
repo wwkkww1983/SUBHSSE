@@ -22,7 +22,7 @@ namespace WebAPI.Controllers
         [HttpPost]
         public Model.ResponeData postLoginOn([FromBody] Model.UserItem userInfo)
         {
-            ///登录方法 Model.UserItem
+            //登录方法 Model.UserItem
             var responeData = new Model.ResponeData
             {
                 message = "账号密码不匹配！"

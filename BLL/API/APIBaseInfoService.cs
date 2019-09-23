@@ -101,7 +101,7 @@ namespace BLL
                                     NoticeTitle = x.NoticeTitle,
                                     ReleaseDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ReleaseDate),
                                     MainContent = x.MainContent,
-                                    AttachUrl = Funs.DB.AttachFile.FirstOrDefault(y => y.ToKeyId == x.NoticeId).AttachUrl.Replace("\\", "/")
+                                    AttachUrl = Funs.DB.AttachFile.FirstOrDefault(y => y.ToKeyId == x.NoticeId).AttachUrl.Replace("\\", "/"),
                                 }).FirstOrDefault(); 
             return getDataLists;
         }

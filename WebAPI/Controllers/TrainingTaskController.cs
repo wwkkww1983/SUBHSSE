@@ -74,9 +74,9 @@ namespace WebAPI.Controllers
         }
         #endregion
 
-        #region 根据PlanId、PersonId将人员加入培训任务
+        #region 根据PlanId、PersonId将人员加入培训任务(扫码)
         /// <summary>
-        /// 根据PlanId、PersonId将人员加入培训任务
+        /// 根据PlanId、PersonId将人员加入培训任务(扫码)
         /// </summary>
         /// <param name="planId">培训计划ID</param>
         /// <param name="personId">人员ID</param>
@@ -86,7 +86,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                personId = PersonService.GetPersonByUserId(personId);
+                personId = PersonService.GetPersonIdByUserId(personId);
                 responeData.message = APITrainingTaskService.getTrainingTaskByPlanIdPersonIdCondition(planId, personId);
                 if (string.IsNullOrEmpty(responeData.message))
                 {
@@ -94,7 +94,7 @@ namespace WebAPI.Controllers
                 }
                 else
                 {
-                    responeData.code = 2;
+                    responeData.code = 0;
                 }
             }
             catch (Exception ex)

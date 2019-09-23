@@ -27,7 +27,7 @@ namespace BLL
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public static string GetPersonByUserId(string userId)
+        public static string GetPersonIdByUserId(string userId)
         {
             string personId = userId;
             var getPerson = GetPersonById(userId);
@@ -45,6 +45,26 @@ namespace BLL
             }
 
             return personId;
+        }
+
+        /// <summary>
+        /// 根据UserId主键获取人员信息
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static Model.SitePerson_Person GetPersonByUserId(string userId)
+        {
+            var getPerson = GetPersonById(userId);
+            if (getPerson == null)
+            {
+                var getUser = UserService.GetUserByUserId(userId);
+                if (getUser != null)
+                {
+                    getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(e => e.IdentityCard == getUser.IdentityCard);                   
+                }
+            }
+
+            return getPerson;
         }
 
         /// <summary>

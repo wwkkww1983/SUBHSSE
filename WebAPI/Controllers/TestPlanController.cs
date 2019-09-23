@@ -91,9 +91,9 @@ namespace WebAPI.Controllers
         }
         #endregion
 
-        #region 保存 TestPlan
+        #region 保存 TestPlan [增加、修改、开始考试、结束考试]
         /// <summary>
-        /// 保存TestPlan
+        /// 保存TestPlan [增加、修改、开始考试、结束考试]
         /// </summary>
         /// <param name="testPlan">考试计划项目</param>
         [HttpPost]
@@ -126,6 +126,74 @@ namespace WebAPI.Controllers
             try
             {
                 responeData.data = APITestPlanService.getTestPlanTrainingListByTestPlanId(testPlanId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 根据PersonId、TestPlanId扫描考试计划二维码
+        /// <summary>
+        /// 根据PersonId、TestPlanId扫描考试计划二维码
+        /// </summary>
+        /// <param name="testPlanId">培训考试计划ID</param>
+        /// <param name="personId">人员ID</param>
+        /// <returns></returns>
+        public Model.ResponeData getTestPlanRecordItemByTestPlanIdPersonId(string testPlanId, string personId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getTestPlan = TestPlanService.GetTestPlanById(testPlanId);
+                if (getTestPlan != null)
+                {
+                    var person = PersonService.GetPersonByUserId(personId);
+                    if (person != null && person.ProjectId == getTestPlan.ProjectId)
+                    {
+                        //2-考试中；生成考试试卷     
+                        if (getTestPlan.States == "2" && getTestPlan.TestStartTime <= DateTime.Now && getTestPlan.TestEndTime >= DateTime.Now)
+                        {
+                            string testRecordId = APITestRecordService.getTestRecordItemByTestPlanIdPersonId(getTestPlan, person);
+                            responeData.code = 2;
+                            responeData.data = new { testRecordId };
+                        }
+                        else
+                        {
+                            if (string.IsNullOrEmpty(getTestPlan.PlanId) && getTestPlan.UnitIds.Contains(person.UnitId) && (getTestPlan.WorkPostIds == null || getTestPlan.WorkPostIds.Contains(person.WorkPostId)))
+                            {
+                                //0-待提交；1-已发布未考试 将人员添加进考试记录                        
+                                var testTRecord = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == testPlanId && x.TestManId == personId);
+                                if ((getTestPlan.States == "0" || getTestPlan.States == "1") && testTRecord == null)
+                                {
+                                    Model.Training_TestRecord newTestRecord = new Model.Training_TestRecord
+                                    {
+                                        TestRecordId = SQLHelper.GetNewID(),
+                                        ProjectId = getTestPlan.ProjectId,
+                                        TestPlanId = getTestPlan.TestPlanId,
+                                        TestManId = personId,
+                                    };
+                                    TestRecordService.AddTestRecord(newTestRecord);
+                                    responeData.code = 3;
+                                    responeData.message = "您已加入考试计划！";
+                                }
+                            }
+                        }
+                    }
+                    if (responeData.code == 1)
+                    {
+                        //其他状态时 查看考试计划详细页
+                        responeData.data = APITestPlanService.getTestPlanByTestPlanId(testPlanId);
+                    }
+                }
+                else
+                {
+                    responeData.message = "扫描有误！";
+                    responeData.code = 0;
+                }
             }
             catch (Exception ex)
             {

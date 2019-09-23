@@ -33,7 +33,7 @@ namespace WebAPI.Controllers
             if (files != null && files.Count > 0)
             {
                 string folderUrl = "FileUpLoad/" + typeName + "/" + DateTime.Now.ToString("yyyy-MM") + "/";
-                string localRoot = ConfigurationManager.AppSettings["localRoot"] + folderUrl; ///物理路径
+                string localRoot = ConfigurationManager.AppSettings["localRoot"] + folderUrl; //物理路径
                 if (!Directory.Exists(localRoot))
                 {
                     Directory.CreateDirectory(localRoot);
