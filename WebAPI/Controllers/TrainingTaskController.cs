@@ -105,5 +105,27 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region 根据TrainingPlanId获取培训人员任务列表
+        /// <summary>
+        /// 根据TrainingPlanId获取培训人员任务列表
+        /// </summary>
+        /// <param name="trainingPlanId"></param>
+        /// <returns>培训人员</returns>
+        public Model.ResponeData getTrainingTaskListByTrainingPlanId(string trainingPlanId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APITrainingTaskService.getTrainingTaskListByTrainingPlanId(trainingPlanId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
     }
 }

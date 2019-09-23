@@ -25,29 +25,32 @@ namespace BLL
         /// <summary>
         /// 添加培训计划
         /// </summary>
-        /// <param name="TestPlan"></param>
-        public static void AddTestPlan(Model.Training_TestPlan TestPlan)
+        /// <param name="testPlan"></param>
+        public static void AddTestPlan(Model.Training_TestPlan testPlan)
         {
             Model.Training_TestPlan newTestPlan = new Model.Training_TestPlan
             {
-                TestPlanId = TestPlan.TestPlanId,
-                PlanCode = TestPlan.PlanCode,
-                PlanName = TestPlan.PlanName,
-                PlanManId = TestPlan.PlanManId,
-                PlanDate = TestPlan.PlanDate,
-                TestStartTime = TestPlan.TestStartTime,
-                Duration = TestPlan.Duration,
-                TotalScore = TestPlan.TotalScore,
-                QuestionCount = TestPlan.QuestionCount,
-                TestPalce = TestPlan.TestPalce,
-                UnitIds = TestPlan.UnitIds,
-                UnitNames = TestPlan.UnitNames,
-                DepartIds = TestPlan.DepartIds,
-                DepartNames = TestPlan.DepartNames,
-                WorkPostIds = TestPlan.WorkPostIds,
-                WorkPostNames = TestPlan.WorkPostNames,
-                States = TestPlan.States
+                TestPlanId = testPlan.TestPlanId,
+                ProjectId = testPlan.ProjectId,
+                PlanCode = testPlan.PlanCode,
+                PlanName = testPlan.PlanName,
+                PlanManId = testPlan.PlanManId,
+                PlanDate = testPlan.PlanDate,
+                TestStartTime = testPlan.TestStartTime,
+                Duration = testPlan.Duration,
+                TotalScore = testPlan.TotalScore,
+                QuestionCount = testPlan.QuestionCount,
+                TestPalce = testPlan.TestPalce,
+                UnitIds = testPlan.UnitIds,
+                UnitNames = testPlan.UnitNames,
+                DepartIds = testPlan.DepartIds,
+                DepartNames = testPlan.DepartNames,
+                WorkPostIds = testPlan.WorkPostIds,
+                WorkPostNames = testPlan.WorkPostNames,
+                PlanId= testPlan.PlanId,
+                States = testPlan.States
             };
+
             db.Training_TestPlan.InsertOnSubmit(newTestPlan);
             db.SubmitChanges();
         }
@@ -77,7 +80,6 @@ namespace BLL
                 newTestPlan.WorkPostIds = TestPlan.WorkPostIds;
                 newTestPlan.WorkPostNames = TestPlan.WorkPostNames;
                 newTestPlan.States = TestPlan.States;
-                //newTestPlan.States = TestPlan.States;
                 db.SubmitChanges();
             }
         }

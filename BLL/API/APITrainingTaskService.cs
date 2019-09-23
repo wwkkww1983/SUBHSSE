@@ -31,11 +31,11 @@ namespace BLL
                                     //PlanId = x.PlanId,
                                     PlanCode = y.PlanCode,
                                     PlanName = y.PlanName,
-                                    TrainStartDate = string.Format("{0:yyyy-MM-dd}", y.TrainStartDate),
+                                    TrainStartDate = string.Format("{0:yyyy-MM-dd HH:mm}", y.TrainStartDate),
                                     TeachAddress = y.TeachAddress,
                                     //PersonId = x.UserId,
                                     PersonName = Funs.DB.SitePerson_Person.FirstOrDefault(p => p.PersonId == x.UserId).PersonName,
-                                    TaskDate = string.Format("{0:yyyy-MM-dd}", x.TaskDate),
+                                    TaskDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.TaskDate),
                                     TrainTypeName = Funs.DB.Base_TrainType.FirstOrDefault(b => b.TrainTypeId == y.TrainTypeId).TrainTypeName,
                                     TrainLevelName = Funs.DB.Base_TrainLevel.FirstOrDefault(b => b.TrainLevelId == y.TrainLevelId).TrainLevelName,
                                     PlanStatesName = y.States == "3" ? "已完成" : "培训中",
@@ -159,6 +159,30 @@ namespace BLL
                 Funs.DB.Training_Task.InsertOnSubmit(newTask);
                 Funs.DB.SubmitChanges();
             }
+        }
+        #endregion
+
+        #region 根据TrainingPlanId获取培训任务教材明细列表
+        /// <summary>
+        /// 根据TrainingPlanId获取培训任务教材明细列表
+        /// </summary>
+        /// <param name="trainingPlanId"></param>
+        /// <returns>培训计划人员</returns>
+        public static List<Model.TrainingTaskItem> getTrainingTaskListByTrainingPlanId(string trainingPlanId)
+        {
+            var getDataLists = (from x in Funs.DB.Training_Task
+                                where x.PlanId == trainingPlanId
+                                orderby x.TaskDate descending
+                                select new Model.TrainingTaskItem
+                                {
+                                    TaskId = x.TaskId,
+                                    PlanId = x.PlanId,
+                                    PersonId = x.UserId,
+                                    PersonName = Funs.DB.SitePerson_Person.FirstOrDefault(p => p.PersonId == x.UserId).PersonName,
+                                    TaskDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.TaskDate),
+                                    States = x.States,
+                                }).ToList();
+            return getDataLists;
         }
         #endregion
     }

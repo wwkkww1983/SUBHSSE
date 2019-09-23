@@ -107,6 +107,20 @@ namespace BLL
         }
         #endregion
 
+        #region 获取岗位信息
+        /// <summary>
+        /// 获取岗位信息
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getWorkPost()
+        {
+            var getDataLists = (from x in Funs.DB.Base_WorkPost
+                                orderby x.WorkPostName
+                                select new Model.BaseInfoItem { BaseInfoId = x.WorkPostId, BaseInfoCode = x.WorkPostCode, BaseInfoName = x.WorkPostName }).ToList();
+            return getDataLists;
+        }
+        #endregion
+
         #region 获取培训类别
         /// <summary>
         /// 获取培训类别

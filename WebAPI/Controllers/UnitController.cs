@@ -117,12 +117,12 @@ namespace WebAPI.Controllers
             try
             {
                 var getDataList = Funs.DB.View_QualityAudit_SubUnitQuality.Where(x => x.ProjectId == projectId);                
-                ///总数
+                //// 总数
                 int tatalCount = getDataList.Count();
-                ///过期
+                //// 过期
                 int count1 = getDataList.Where(x => x.BL_EnableDate < DateTime.Now || x.C_EnableDate < DateTime.Now || x.QL_EnableDate < DateTime.Now
                 || x.H_EnableDate < DateTime.Now || x.SL_EnableDate < DateTime.Now).Count();
-                ///即将过期
+                ////即将过期
                 int count2 = getDataList.Where(x => (x.BL_EnableDate >= DateTime.Now && x.BL_EnableDate < DateTime.Now.AddMonths(1)) 
                 || (x.C_EnableDate >= DateTime.Now && x.C_EnableDate < DateTime.Now.AddMonths(1))
                 || (x.QL_EnableDate >= DateTime.Now && x.QL_EnableDate < DateTime.Now.AddMonths(1))

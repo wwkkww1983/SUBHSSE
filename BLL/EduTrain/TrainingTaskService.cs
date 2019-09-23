@@ -23,6 +23,16 @@ namespace BLL
         }
 
         /// <summary>
+        /// 根据培训计划主键获取培训任务
+        /// </summary>
+        /// <param name="taskId"></param>
+        /// <returns></returns>
+        public static List<Model.Training_Task> GetTaskListByPlanId(string planId)
+        {
+            return (from x in db.Training_Task where x.PlanId == planId select x).ToList();
+        }
+
+        /// <summary>
         /// 添加培训任务
         /// </summary>
         /// <param name="task"></param>

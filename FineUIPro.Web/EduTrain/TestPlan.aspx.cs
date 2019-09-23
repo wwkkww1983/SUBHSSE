@@ -287,5 +287,21 @@ namespace FineUIPro.Web.EduTrain
             string urlName = strValue.Replace("$", "");
             PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../Controls/ShowQRImage.aspx?strValue={0}&urlName={1}&title={2}", strValue, urlName, System.Web.HttpUtility.UrlEncode(title), "查看 - "), "二维码查看", 340, 400));
         }
+
+        /// <summary>
+        /// 查看二维码
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnQR_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../Controls/SeeQRImage.aspx?TestPlanId={0}&strCode={1}", Grid1.SelectedRowID, "testPlan$" + Grid1.SelectedRowID), "二维码查看", 400, 400));
+        }
     }
 }

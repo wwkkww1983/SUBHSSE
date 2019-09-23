@@ -76,7 +76,7 @@ namespace WebAPI.Controllers
                 int pageCount = getDataList.Count;
                 if (pageCount > 0)
                 {
-                    getDataList = getDataList.OrderBy(u => u.UnitCode).ThenBy(u=>u.PersonName).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                    getDataList = getDataList.OrderBy(u => u.UnitName).ThenBy(u=>u.PersonName).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
                 responeData.data = new { pageCount, getDataList };
             }
@@ -244,14 +244,14 @@ namespace WebAPI.Controllers
         }
         #endregion
 
-        #region 根据培训类型获取项目培训人员信息
+        #region 根据项目\单位\岗位\培训类型获取项目培训\考试人员信息
         /// <summary>
-        /// 根据培训类型获取项目培训人员信息
+        /// 根据项目\单位\岗位\培训类型获取项目培训\考试人员信息
         /// </summary>
         /// <param name="projectId">项目ID</param>
         /// <param name="unitIds">培训单位ID</param>
-        /// <param name="workPostIds">培训岗位ID</param>
-        /// <param name="trainTypeId">培训类型ID</param>
+        /// <param name="workPostIds">培训岗位ID(可为空)</param>
+        /// <param name="trainTypeId">培训类型ID(可为空)</param>
         /// <param name="pageIndex">分页</param>
         /// <returns></returns>
         public Model.ResponeData getTrainingPersonListByTrainTypeId(string projectId, string unitIds, string workPostIds, string trainTypeId, int pageIndex)
@@ -263,7 +263,7 @@ namespace WebAPI.Controllers
                 int pageCount = getDataList.Count;
                 if (pageCount > 0)
                 {
-                    getDataList = getDataList.OrderBy(u => u.UnitCode).ThenBy(u => u.PersonName).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                    getDataList = getDataList.OrderBy(u => u.UnitName).ThenBy(u => u.PersonName).Skip(200 * (pageIndex - 1)).Take(200).ToList(); ////200 ->Funs.PageSize
                 }
                 responeData.data = new { pageCount, getDataList };
             }

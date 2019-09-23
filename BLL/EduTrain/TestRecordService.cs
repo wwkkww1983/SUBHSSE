@@ -21,6 +21,26 @@ namespace BLL
         {
             return db.Training_TestRecord.FirstOrDefault(e => e.TestRecordId == testRecordId);
         }
+        
+        /// <summary>
+        /// 新增考生记录信息
+        /// </summary>
+        /// <param name="Training"></param>
+        public static void AddTestRecord(Model.Training_TestRecord testRecord)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.Training_TestRecord newTestRecord = new Model.Training_TestRecord
+            {
+                TestRecordId = testRecord.TestRecordId,
+                ProjectId = testRecord.ProjectId,
+                TestPlanId = testRecord.TestPlanId,
+                TestManId = testRecord.TestManId,
+                TestType=testRecord.TestType,
+            };
+           
+            db.Training_TestRecord.InsertOnSubmit(newTestRecord);
+            db.SubmitChanges();
+        }
 
         /// <summary>
         /// 修改考试记录信息
@@ -38,7 +58,23 @@ namespace BLL
         }
 
         /// <summary>
-        /// 根据主键删除培训计划信息
+        /// 根据计划主键删除考试人员信息
+        /// </summary>
+        /// <param name="planId"></param>
+        public static void DeleteTestRecordByTestPlanId(string testPlanId)
+        {
+            var deleteRecords = from x in db.Training_TestRecord where x.TestPlanId == testPlanId select x;
+            if (deleteRecords.Count() > 0)
+            {
+                foreach (var item in deleteRecords)
+                {
+                    DeleteTestRecordByTestRecordId(item.TestRecordId);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 根据考生主键删除考生信息
         /// </summary>
         /// <param name="planId"></param>
         public static void DeleteTestRecordByTestRecordId(string testRecordId)

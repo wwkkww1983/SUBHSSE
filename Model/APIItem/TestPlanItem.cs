@@ -19,17 +19,25 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 编号
+        /// 培训计划ID
         /// </summary>
-        public string PlanCode
+        public string TrainingPlanId
         {
             get;
             set;
         }
         /// <summary>
-        /// 计划名称
+        /// 考试计划编号
         /// </summary>
-        public string PlanName
+        public string TestPlanCode
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 考试计划名称
+        /// </summary>
+        public string TestPlanName
         {
             get;
             set;
@@ -45,7 +53,7 @@ namespace Model
         /// <summary>
         /// 计划人
         /// </summary>
-        public string PlanManId
+        public string TestPlanManId
         {
             get;
             set;
@@ -53,7 +61,7 @@ namespace Model
         /// <summary>
         /// 计划人姓名
         /// </summary>
-        public string PlanManName
+        public string TestPlanManName
         {
             get;
             set;
@@ -61,7 +69,7 @@ namespace Model
         /// <summary>
         /// 制定时间
         /// </summary>
-        public string PlanDate
+        public string TestPlanDate
         {
             get;
             set;
@@ -154,11 +162,36 @@ namespace Model
         {
             get;
             set;
-        }       
+        }  
+        ///// <summary>
+        ///// 考试类型
+        ///// </summary>
+        //public string TestType
+        //{
+        //    get;
+        //    set;
+        //}     
         /// <summary>
         /// 状态
         /// </summary>
         public string States
+        {
+            get;
+            set;
+        }
+      
+        /// <summary>
+        /// 考卷设置项
+        /// </summary>
+        public List<TestPlanTrainingItem> TestPlanTrainingItems
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 考生记录
+        /// </summary>
+        public List<TestRecordItem> TestRecordItems
         {
             get;
             set;

@@ -193,5 +193,22 @@ namespace Model
             get;
             set;
         }
+
+        /// <summary>
+        /// 培训计划教材类型
+        /// </summary>
+        public List<TrainingPlanItemItem> TrainingPlanItems
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 培训计划人员任务
+        /// </summary>
+        public List<TrainingTaskItem> TrainingTasks
+        {
+            get;
+            set;
+        }
     }
 }

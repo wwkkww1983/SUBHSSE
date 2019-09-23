@@ -11,6 +11,9 @@ using System.Configuration;
 
 namespace WebAPI.Controllers
 {
+    /// <summary>
+    /// 附件上传
+    /// </summary>
     public class FileUploadController : ApiController
     {
         #region 附件上传

@@ -31,10 +31,13 @@ namespace BLL
                                     TrainTypeName = Funs.DB.Base_TrainType.First(y => y.TrainTypeId == x.TrainTypeId).TrainTypeName,
                                     TrainLevelId = x.TrainLevelId,
                                     TrainLevelName = Funs.DB.Base_TrainLevel.First(y => y.TrainLevelId == x.TrainLevelId).TrainLevelName,
-                                    DesignerName=Funs.DB.Sys_User.First(y=>y.UserId == x.DesignerId).UserName,
+                                    DesignerName = Funs.DB.Sys_User.First(y => y.UserId == x.DesignerId).UserName,
+                                    DesignerId = x.DesignerId,
+                                    DesignerDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.DesignerDate),
                                     TeachHour = x.TeachHour ?? 0,
                                     TeachAddress = x.TeachAddress,
-                                    TrainStartDate = string.Format("{0:yyyy-MM-dd}", x.TrainStartDate),
+                                    TeachMan = x.TeachMan,
+                                    TrainStartDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.TrainStartDate),
                                     States = x.States,
                                     QRCodeUrl = x.QRCodeUrl.Replace('\\', '/'),
                                 }).ToList();
@@ -64,8 +67,8 @@ namespace BLL
                                    TrainLevelName = Funs.DB.Base_TrainLevel.First(y => y.TrainLevelId == x.TrainLevelId).TrainLevelName,
                                    TeachHour = x.TeachHour ?? 0,
                                    TeachAddress = x.TeachAddress,
-                                   TrainStartDate = string.Format("{0:yyyy-MM-dd}", x.TrainStartDate),
-                                   States = x.States,
+                                   TrainStartDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.TrainStartDate),
+                                   TeachMan=x.TeachMan,
                                    UnitIds = x.UnitIds,
                                    WorkPostId = x.WorkPostId,
                                    TrainContent = x.TrainContent,
@@ -73,10 +76,35 @@ namespace BLL
                                    WorkPostNames = WorkPostService.getWorkPostNamesWorkPostIds(x.WorkPostId),
                                    DesignerId = x.DesignerId,
                                    DesignerName = Funs.DB.Sys_User.First(y => y.UserId == x.DesignerId).UserName,
-                                   DesignerDate = string.Format("{0:yyyy-MM-dd}", x.TrainStartDate),
-                                   QRCodeUrl=x.QRCodeUrl.Replace('\\', '/'),
+                                   DesignerDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.TrainStartDate),
+                                   States = x.States,
+                                   QRCodeUrl =x.QRCodeUrl.Replace('\\', '/'),
                                };
             return getDataLists.FirstOrDefault();
+        }
+        #endregion
+
+        #region 根据TrainingPlanId获取培训教材类型列表
+        /// <summary>
+        /// 根据TrainingPlanId获取培训教材类型列表
+        /// </summary>
+        /// <param name="trainingPlanId"></param>
+        /// <returns>培训计划人员</returns>
+        public static List<Model.TrainingPlanItemItem> getTrainingPlanItemListByTrainingPlanId(string trainingPlanId)
+        {
+            var getDataLists = (from x in Funs.DB.Training_PlanItem
+                                join y in Funs.DB.Training_CompanyTraining on x.CompanyTrainingId equals y.CompanyTrainingId
+                                where x.PlanId == trainingPlanId
+                                orderby y.CompanyTrainingCode
+                                select new Model.TrainingPlanItemItem
+                                {
+                                    PlanItemId = x.PlanItemId,
+                                    PlanId = x.PlanId,
+                                    CompanyTrainingId = x.CompanyTrainingId,
+                                    CompanyTrainingName = y.CompanyTrainingName,
+                                    CompanyTrainingCode = y.CompanyTrainingCode,
+                                }).ToList();
+            return getDataLists;
         }
         #endregion
 
@@ -87,7 +115,7 @@ namespace BLL
         /// <param name="trainingPlan">培训计划记录</param>
         /// <param name="trainingTasks">培训人员list</param>
         /// <param name="trainingPlanItems">培训教材类型list</param>
-        public static void SaveTrainingPlan(Model.TrainingPlanItem trainingPlan, List<Model.TrainingTaskItem> trainingTasks, List<Model.TrainingPlanItemItem> trainingPlanItems)
+        public static void SaveTrainingPlan(Model.TrainingPlanItem trainingPlan)
         {
             Model.SUBHSSEDB db = Funs.DB;
             Model.Training_Plan newTrainingPlan = new Model.Training_Plan
@@ -114,6 +142,9 @@ namespace BLL
                 newTrainingPlan.TrainEndDate = newTrainingPlan.TrainStartDate.Value.AddHours(dd);
             }
 
+            List<Model.TrainingTaskItem> trainingTasks = trainingPlan.TrainingTasks;
+            List<Model.TrainingPlanItemItem> trainingPlanItems = trainingPlan.TrainingPlanItems;
+
             var isUpdate = Funs.DB.Training_Plan.FirstOrDefault(x => x.PlanId == newTrainingPlan.PlanId);
             if (isUpdate == null)
             {
@@ -124,12 +155,13 @@ namespace BLL
                 {
                     unitId = user.UnitId;
                 }
-                newTrainingPlan.PlanCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectTrainingPlanMenuId, newTrainingPlan.ProjectId, unitId);
+                newTrainingPlan.PlanCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectTrainingPlanMenuId, newTrainingPlan.ProjectId, unitId);
                 if (string.IsNullOrEmpty(newTrainingPlan.PlanId))
                 {
                     newTrainingPlan.PlanId = SQLHelper.GetNewID();
                 }
                 db.Training_Plan.InsertOnSubmit(newTrainingPlan);
+                db.SubmitChanges();
             }
             else
             {
@@ -148,16 +180,11 @@ namespace BLL
                     isUpdate.WorkPostId = newTrainingPlan.WorkPostId;
                     isUpdate.States = newTrainingPlan.States;
                     db.SubmitChanges();
-
-                    ////删除培训任务
-                    TrainingTaskService.DeleteTaskByPlanId(newTrainingPlan.PlanId);
-                    ////删除培训教材类型
-                    TrainingPlanItemService.DeletePlanItemByPlanId(newTrainingPlan.PlanId);
-                    ////新增培训人员明细
-                    AddTraining_Task(trainingTasks, newTrainingPlan.PlanId, newTrainingPlan.ProjectId);
-                    ////新增培训教材类型明细
-                    AddTraining_PlanItem(trainingPlanItems, newTrainingPlan.PlanId);
                 }
+                ////删除培训任务
+                TrainingTaskService.DeleteTaskByPlanId(newTrainingPlan.PlanId);
+                ////删除培训教材类型
+                TrainingPlanItemService.DeletePlanItemByPlanId(newTrainingPlan.PlanId);              
 
                 //if (trainingPlan.States == "2")
                 //{
@@ -168,15 +195,24 @@ namespace BLL
                 //    ////由考试完成后 回写状态。插入培训记录表EduTrain_TrainRecord、EduTrain_TrainRecordDetail
                 //}
                 //else
-                //{
-
-                //    if (newTrainingPlan.States == "1")
+                //{                //    if (newTrainingPlan.States == "1")
                 //    {
                 //        ///TODO 生成培训人员 培训任务 Training_TaskItem 在人员点击自己任务列表时展示 
                 //        ///空时查找生成任务教材明细
                 //        ////已做定时器、或点击查询时实现
                 //    }
                 //}
+            }
+
+            if (trainingTasks.Count() > 0)
+            {
+                ////新增培训人员明细
+                AddTraining_Task(trainingTasks, newTrainingPlan.PlanId, newTrainingPlan.ProjectId);
+            }
+            if (trainingPlanItems.Count() > 0)
+            {
+                ////新增培训教材类型明细
+                AddTraining_PlanItem(trainingPlanItems, newTrainingPlan.PlanId);
             }
         }
 

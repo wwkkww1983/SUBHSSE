@@ -42,16 +42,16 @@
                             </f:TextBox>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>
                              <f:Button ID="btnA" EnablePostBack="true" Text="A" ToolTip="A新员工厂级考试" 
-                                 runat="server" OnClick="btnA_Click">
+                                 runat="server" OnClick="btnA_Click" Hidden="true">
                             </f:Button>
                             <f:Button ID="btnB" EnablePostBack="true" Text="B" ToolTip="B新员工车间级考试" 
-                                 runat="server" OnClick="btnB_Click">
+                                 runat="server" OnClick="btnB_Click" Hidden="true">
                             </f:Button>
                             <f:Button ID="btnC" EnablePostBack="true" Text="C" ToolTip="C新员工班组级考试" 
-                                 runat="server" OnClick="btnC_Click">
+                                 runat="server" OnClick="btnC_Click" Hidden="true">
                             </f:Button>
                             <f:Button ID="btnD" EnablePostBack="true" Text="D" ToolTip="D外委单位人员考试" 
-                                 runat="server" OnClick="btnD_Click">
+                                 runat="server" OnClick="btnD_Click" Hidden="true">
                             </f:Button> 
                         </Items>
                     </f:Toolbar>
@@ -122,7 +122,10 @@
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuView" OnClick="btnMenuView_Click" EnablePostBack="true"
             runat="server" Text="查看"  Icon="TableGo">
-        </f:MenuButton>  
+        </f:MenuButton> 
+        <f:MenuButton ID="btnQR" OnClick="btnQR_Click" EnablePostBack="true"
+            runat="server" Text="二维码"  Icon="Shading">
+        </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
             Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除"
             Hidden="true">

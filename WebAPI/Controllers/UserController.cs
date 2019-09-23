@@ -8,6 +8,9 @@ using BLL;
 
 namespace WebAPI.Controllers
 {
+    /// <summary>
+    /// 用户
+    /// </summary>
     public class UserController : ApiController
     {
         #region 根据账号或手机号码登录方法
@@ -75,12 +78,12 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
-        
+
         #region 根据unitId获取用户信息
         /// <summary>
         /// 根据unitId获取用户信息
         /// </summary>
-        /// <param name="unitid"></param>
+        /// <param name="unitId"></param>
         /// <returns></returns>
         public Model.ResponeData getUserByUnitid(string unitId)
         {
@@ -104,7 +107,8 @@ namespace WebAPI.Controllers
         /// <summary>
         /// 根据projectId、unitid获取用户信息
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
         /// <returns></returns>
         public Model.ResponeData getUserByProjectIdUnitId(string projectId, string unitId)
         {

@@ -176,6 +176,8 @@
     <Compile Include="Controllers\ResourcesController.cs" />
     <Compile Include="Controllers\LawRulesRegulationsController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\TestPlanController.cs" />
+    <Compile Include="Controllers\TestRecordController.cs" />
     <Compile Include="Controllers\ToDoItemController.cs" />
     <Compile Include="Controllers\TrainingPlanController.cs" />
     <Compile Include="Controllers\TrainingTaskController.cs" />

@@ -59,6 +59,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIItem\SysTestRuleItem.cs" />
+    <Compile Include="APIItem\TestTrainingResourcesItem.cs" />
+    <Compile Include="APIItem\TestRecordItemItem.cs" />
+    <Compile Include="APIItem\TestRecordItem.cs" />
+    <Compile Include="APIItem\TestPlanTrainingItem.cs" />
     <Compile Include="APIItem\TestPlanItem.cs" />
     <Compile Include="APIItem\TrainingTaskItemItem.cs" />
     <Compile Include="APIItem\TrainingTaskItem.cs" />

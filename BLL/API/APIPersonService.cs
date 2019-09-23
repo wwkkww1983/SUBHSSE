@@ -195,7 +195,7 @@ namespace BLL
                     {
                         var getTrainPersonIdList2 = (from x in Funs.DB.Training_Task
                                                      join y in Funs.DB.Training_Plan on x.PlanId equals y.PlanId
-                                                     where y.ProjectId == projectId && y.TrainTypeId == trainTypeId && y.States != "3"
+                                                     where y.ProjectId == projectId && y.TrainTypeId == trainTypeId && y.States != "3" && x.UserId == item.PersonId
                                                      select x).FirstOrDefault();
                         if (getTrainPersonIdList2 == null)
                         {

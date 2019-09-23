@@ -29,7 +29,7 @@ namespace BLL
         {
             var units = (from x in Funs.DB.Base_Unit
                          where  x.IsHide == null || x.IsHide == false
-                         orderby x.UnitCode
+                         orderby x.UnitName
                          select new Model.BaseInfoItem {BaseInfoId=x.UnitId,BaseInfoCode=x.UnitCode,BaseInfoName=x.UnitName }).ToList();
             return units;
         }
@@ -45,7 +45,7 @@ namespace BLL
                         join y in Funs.DB.Project_ProjectUnit
                         on x.UnitId equals y.UnitId
                         where y.ProjectId == projectId && (y.UnitType == unitType || unitType == null) && (x.IsHide == null || x.IsHide == false) 
-                        orderby x.UnitCode
+                        orderby x.UnitName
                         select x).ToList();
             return ObjectMapperManager.DefaultInstance.GetMapper<List<Model.Base_Unit>, List<Model.UnitItem>>().Map(units.ToList());
         }

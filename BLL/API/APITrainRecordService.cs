@@ -33,7 +33,7 @@ namespace BLL
                                     TrainLevelName = Funs.DB.Base_TrainLevel.First(y => y.TrainLevelId == x.TrainLevelId).TrainLevelName,
                                     TeachHour = x.TeachHour ?? 0,
                                     TeachAddress = x.TeachAddress,
-                                    TrainStartDate = string.Format("{0:yyyy-MM-dd}", x.TrainStartDate),
+                                    TrainStartDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.TrainStartDate),
                                     TrainStates = x.TrainStates,
                                 }).ToList();
             return getDataLists;
@@ -62,7 +62,7 @@ namespace BLL
                                    TrainLevelName = Funs.DB.Base_TrainLevel.First(y => y.TrainLevelId == x.TrainLevelId).TrainLevelName,
                                    TeachHour = x.TeachHour ?? 0,
                                    TeachAddress = x.TeachAddress,
-                                   TrainStartDate = string.Format("{0:yyyy-MM-dd}", x.TrainStartDate),
+                                   TrainStartDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.TrainStartDate),
                                    TrainStates = x.TrainStates,
                                    UnitIds = x.UnitIds,
                                    WorkPostIds = x.WorkPostIds,

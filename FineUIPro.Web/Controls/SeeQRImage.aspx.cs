@@ -30,6 +30,11 @@ namespace FineUIPro.Web.Controls
         }
         #endregion
 
+        /// <summary>
+        /// 加载页面
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -39,7 +44,7 @@ namespace FineUIPro.Web.Controls
         }
 
         /// <summary>
-        /// 
+        ///  二维码显示
         /// </summary>
         private void ShowQRCode()
         {
@@ -128,6 +133,23 @@ namespace FineUIPro.Web.Controls
                     }
                 }
             }
+            else if (!string.IsNullOrEmpty(Request.Params["TestPlanId"]))
+            {
+                var testPlan = BLL.TestPlanService.GetTestPlanById(Request.Params["TestPlanId"]);
+                if (testPlan != null)
+                {
+                    if (!string.IsNullOrEmpty(testPlan.QRCodeUrl))
+                    {
+                        this.QRCodeAttachUrl = testPlan.QRCodeUrl;
+                    }
+                    else
+                    {
+                        this.CreateCode_Simple(Request.Params["strCode"]);
+                        testPlan.QRCodeUrl = this.QRCodeAttachUrl;
+                        TestPlanService.UpdateTestPlan(testPlan);
+                    }
+                }
+            }
 
             this.Image1.ImageUrl = "~/" + this.QRCodeAttachUrl;            
         }
@@ -208,6 +230,10 @@ namespace FineUIPro.Web.Controls
             else if(!string.IsNullOrEmpty(Request.Params["TrainingPlanId"]))
             {
                 PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("QRCodePrint.aspx?TrainingPlanId={0}", Request.Params["TrainingPlanId"], "打印 - ")));
+            }
+            else if (!string.IsNullOrEmpty(Request.Params["TestPlanId"]))
+            {
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("QRCodePrint.aspx?TestPlanId={0}", Request.Params["TestPlanId"], "打印 - ")));
             }
         }
     }

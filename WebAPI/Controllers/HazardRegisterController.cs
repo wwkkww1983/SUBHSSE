@@ -9,7 +9,7 @@ using System.Web.Http;
 namespace WebAPI.Controllers
 {
     /// <summary>
-    /// 
+    /// 安全巡检
     /// </summary>
     public class HazardRegisterController : ApiController
     {

@@ -9,7 +9,7 @@ using BLL;
 namespace WebAPI.Controllers
 {
     /// <summary>
-    /// 
+    /// 基础数据信息
     /// </summary>
     public class BaseInfoController : ApiController
     {
@@ -40,7 +40,7 @@ namespace WebAPI.Controllers
         /// <summary>
         ///  根据projectId获取区域表
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="projectId"></param>
         /// <returns></returns>
         public Model.ResponeData getProjectWorkArea(string projectId)
         {
@@ -197,6 +197,28 @@ namespace WebAPI.Controllers
         }
         #endregion
 
+        #region  获取岗位信息
+        /// <summary>
+        ///   获取岗位信息
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getWorkPost()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getWorkPost();
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
         #region  获取法律法规类型
         /// <summary>
         ///   获取法律法规类型
@@ -317,6 +339,28 @@ namespace WebAPI.Controllers
             try
             {
                 responeData.data = APIBaseInfoService.getTrainLevel();
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region  获取考试规则信息
+        /// <summary>
+        ///   获取考试规则信息
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getSysTestRule()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getTestRule = Funs.DB.Sys_TestRule.FirstOrDefault();                
+                responeData.data = new { getTestRule };
             }
             catch (Exception ex)
             {

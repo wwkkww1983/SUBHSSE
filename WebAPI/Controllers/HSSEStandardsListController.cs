@@ -8,13 +8,16 @@ using BLL;
 
 namespace WebAPI.Controllers
 {
+    /// <summary>
+    /// 标准规范信息
+    /// </summary>
     public class HSSEStandardsListController : ApiController
     {
         #region 根据standardId获取标准规范信息
         /// <summary>
         /// 根据standardId获取标准规范信息
         /// </summary>
-        /// <param name="personId"></param>
+        /// <param name="standardId"></param>
         /// <returns></returns>
         public Model.ResponeData getHSSEStandardsListByStandardId(string standardId)
         {
@@ -47,6 +50,7 @@ namespace WebAPI.Controllers
         /// 根据lawsRegulationsTypeId获取标准规范
         /// </summary>
         /// <param name="type"></param>
+        /// <param name="pageIndex"></param>
         /// <returns></returns>
         public Model.ResponeData getHSSEStandardsListByTypeId(string type, int pageIndex)
         {

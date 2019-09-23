@@ -57,6 +57,7 @@ namespace BLL
                 newPlan.DesignerDate = plan.DesignerDate;
                 newPlan.WorkPostId = plan.WorkPostId;
                 newPlan.QRCodeUrl = plan.QRCodeUrl;
+                newPlan.States = plan.States;
                 db.SubmitChanges();
             }
         }

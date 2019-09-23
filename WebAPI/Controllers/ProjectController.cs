@@ -7,6 +7,9 @@ using System.Web.Http;
 
 namespace WebAPI.Controllers
 {
+    /// <summary>
+    /// 项目
+    /// </summary>
     public class ProjectController : ApiController
     {
         #region 根据userid获取用户参与项目

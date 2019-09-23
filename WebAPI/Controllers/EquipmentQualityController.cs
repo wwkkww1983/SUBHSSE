@@ -8,13 +8,16 @@ using BLL;
 
 namespace WebAPI.Controllers
 {
+    /// <summary>
+    ///  机具设备资质
+    /// </summary>
     public class EquipmentQualityController : ApiController
-    {        
+    {
         #region 根据equipmentQualityId获取机具设备资质信息
         /// <summary>
         /// 根据equipmentQualityId获取机具设备资质信息
         /// </summary>
-        /// <param name="personId"></param>
+        /// <param name="equipmentQualityId"></param>
         /// <returns></returns>
         public Model.ResponeData getEquipmentQualityByEquipmentQualityId(string equipmentQualityId)
         {
@@ -114,7 +117,9 @@ namespace WebAPI.Controllers
         /// <summary>
         /// 根据projectId、unitid获取机具设备资质信息
         /// </summary>
-        /// <param name="personId"></param>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
+        /// <param name="pageIndex"></param>
         /// <returns></returns>
         public Model.ResponeData getEquipmentQualityByProjectIdUnitId(string projectId, string unitId, int pageIndex)
         {
@@ -174,6 +179,7 @@ namespace WebAPI.Controllers
         /// 根据projectId、unitid获取特岗机具设备资质资质各状态数
         /// </summary>
         /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
         /// <returns></returns>
         public Model.ResponeData getEquipmentQualityCount(string projectId, string unitId)
         {
@@ -185,11 +191,11 @@ namespace WebAPI.Controllers
                 {
                     getDataList = getDataList.Where(x => x.UnitId == unitId);
                 }
-                ///总数
+                ////总数
                 int tatalCount = getDataList.Count();
-                ///过期
+                ////过期
                 int count1 = getDataList.Where(x => x.LimitDate < DateTime.Now).Count();
-                ///即将过期
+                ////即将过期
                 int count2 = getDataList.Where(x => x.LimitDate >= DateTime.Now && x.LimitDate < DateTime.Now.AddMonths(1)).Count();
 
                 responeData.data = new { tatalCount, count1, count2 };
@@ -211,6 +217,7 @@ namespace WebAPI.Controllers
         /// <param name="projectId">项目ID</param>
         /// <param name="unitId">单位ID</param>
         /// <param name="type">数据类型0-已过期；1-即将过期</param>
+        /// <param name="pageIndex">分页</param>
         /// <returns></returns>
         public Model.ResponeData getEquipmentQualityByProjectIdUnitId(string projectId, string unitId, string type, int pageIndex)
         {
