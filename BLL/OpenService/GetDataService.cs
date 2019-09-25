@@ -742,5 +742,25 @@ namespace BLL
             }
         }
         #endregion
+
+        /// <summary>
+        ///  自动结束考试
+        /// </summary>
+        public static void UpdateTestPlanStates()
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            var getTestPlans = from x in db.Training_TestPlan
+                               where x.States == "2" && x.TestEndTime.AddMinutes(x.Duration) < DateTime.Now
+                               select x;
+            if (getTestPlans.Count() > 0)
+            {
+                foreach (var item in getTestPlans)
+                {
+                    APITestPlanService.SubmitTest(item);
+                    item.States = "3";
+                    db.SubmitChanges();
+                }
+            }
+        }
     }
 }

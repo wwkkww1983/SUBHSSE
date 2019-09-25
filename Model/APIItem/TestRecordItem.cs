@@ -77,6 +77,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 考试时长
+        /// </summary>
+        public int Duration
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 考试计划结束时间
         /// </summary>
         public string TestPlanEndTime
@@ -85,9 +93,9 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 考试时长
+        /// 总分
         /// </summary>
-        public int Duration
+        public int TotalScore
         {
             get;
             set;

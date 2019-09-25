@@ -95,7 +95,7 @@ namespace FineUIPro.Web.EduTrain
                         }
                         this.txtWorkPostIds.Text = WorkPostNames;
                     }
-                    this.drpTrainStates.SelectedValue = trainRecord.TrainStates;
+
                     this.txtTeachMan.Text = trainRecord.TeachMan;
                     this.txtTeachAddress.Text = trainRecord.TeachAddress;
                     if (trainRecord.TeachHour != null)

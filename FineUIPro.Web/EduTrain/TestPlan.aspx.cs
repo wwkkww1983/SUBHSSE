@@ -168,11 +168,15 @@ namespace FineUIPro.Web.EduTrain
                     string content = judgementDelete(rowID);
                     if (string.IsNullOrEmpty(content))
                     {
-                        var getV = BLL.TestPlanService.GetTestPlanById(rowID);
+                        var getV = TestPlanService.GetTestPlanById(rowID);
                         if (getV != null)
                         {
                             BLL.LogService.AddSys_Log(this.CurrUser, getV.PlanCode, rowID, BLL.Const.ProjectTestPlanMenuId, BLL.Const.BtnDelete);
                             BLL.TestPlanService.DeleteTestPlanById(rowID);                            
+                        }
+                        else
+                        {
+                            alterString += "第" + (rowIndex + 1) + "行" + content;
                         }
                     }
                     else

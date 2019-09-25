@@ -70,7 +70,7 @@ namespace WebAPI.Controllers
             {
                 var getDataLists = APITestRecordService.geTestRecordItemListByTestRecordId(testRecordId);
                 int pageCount = getDataLists.Count;
-                if (pageCount > 0)
+                if (pageCount > 0 && pageIndex > 0)
                 {
                     getDataLists = getDataLists.OrderBy(x => x.TestType).ThenBy(x=>x.TrainingItemCode).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
@@ -115,14 +115,14 @@ namespace WebAPI.Controllers
         /// <param name="personId">人员ID(null查全部)</param>
         /// <param name="pageIndex">页码</param>
         /// <returns>考试记录列表</returns>
-        public Model.ResponeData geTrainingTestRecordListByProjectIdPersonId(string projectId, string personId, int pageIndex)
+        public Model.ResponeData getTrainingTestRecordListByProjectIdPersonId(string projectId, string personId, int pageIndex)
         {
             var responeData = new Model.ResponeData();
             try
-            {
-                var getDataLists = APITestRecordService.geTrainingTestRecordListByProjectIdPersonId(projectId, personId);
+            {                
+                var getDataLists = APITestRecordService.getTrainingTestRecordListByProjectIdPersonId(projectId, personId);
                 int pageCount = getDataLists.Count;
-                if (pageCount > 0)
+                if (pageCount > 0 && pageIndex > 0)
                 {
                     getDataLists = getDataLists.OrderByDescending(x => x.TestStartTime).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
@@ -144,14 +144,14 @@ namespace WebAPI.Controllers
         /// <param name="projectId">项目ID</param>
         /// <param name="pageIndex">页码</param>
         /// <returns>考试记录列表</returns>
-        public Model.ResponeData geTrainingTestRecordListByProjectId(string projectId, int pageIndex)
+        public Model.ResponeData getTrainingTestRecordListByProjectId(string projectId, int pageIndex)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataLists= APITestRecordService.geTrainingTestRecordListByProjectIdPersonId(projectId, null);
+                var getDataLists= APITestRecordService.getTrainingTestRecordListByProjectId(projectId);
                 int pageCount = getDataLists.Count;
-                if (pageCount > 0)
+                if (pageCount > 0 && pageIndex > 0)
                 {
                     getDataLists = getDataLists.OrderByDescending(x => x.TestStartTime).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
@@ -166,9 +166,9 @@ namespace WebAPI.Controllers
         }
         #endregion
 
-        #region 根据TestRecordItemId、AnswerItems 考生答题
+        #region 根据TestRecordItemId、selectedItem 考生答题
         /// <summary>
-        /// 根据TestRecordItemId、AnswerItems 考生答题
+        /// 根据TestRecordItemId、selectedItem 考生答题
         /// </summary>
         /// <param name="testRecordItemId">题目ID</param>
         /// <param name="selectedItem">选项</param>
@@ -177,7 +177,21 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                APITestRecordService.getTestRecordItemAnswerBySelectedItem(testRecordItemId, selectedItem);
+                var getItem = BLL.TestRecordItemService.GetTestRecordItemTestRecordItemId(testRecordItemId);
+                if (getItem != null)
+                {
+                    //更新没有结束时间且超时的考试记录
+                    int closeCount = TestRecordService.UpdateTestEndTimeNull(getItem.TestRecordId);
+                    if (closeCount > 0)
+                    {
+                        responeData.code = 2;
+                        responeData.message = "本次考试已结束，系统自动交卷！";
+                    }
+                    else
+                    {
+                        APITestRecordService.getTestRecordItemAnswerBySelectedItem(getItem, selectedItem);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -189,9 +203,9 @@ namespace WebAPI.Controllers
         }
         #endregion
 
-        #region 交卷 (1)当前题得分(2)是否存在未答(3)交卷
+        #region 交卷 
         /// <summary>
-        ///  交卷(1)当前题得分(2)是否存在未答(3)交卷
+        ///  交卷
         /// </summary>
         /// <param name="testRecordId">试卷ID</param>
         public Model.ResponeData getSubmitTestRecordByTestRecordId(string testRecordId)

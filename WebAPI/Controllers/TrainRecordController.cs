@@ -29,7 +29,7 @@ namespace WebAPI.Controllers
             {
                 var getQualityLists = APITrainRecordService.getTrainRecordListByProjectIdTrainTypeIdTrainStates(projectId, trainTypeId, trainStates);
                 int pageCount = getQualityLists.Count;
-                if (pageCount > 0)
+                if (pageCount > 0 && pageIndex > 0)
                 {
                     var getdata = from x in getQualityLists.OrderByDescending(u => u.TrainStartDate).Skip(BLL.Funs.PageSize * (pageIndex - 1)).Take(BLL.Funs.PageSize)
                                   select x;

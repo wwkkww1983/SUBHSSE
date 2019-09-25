@@ -26,7 +26,7 @@ namespace FineUIPro.Web.EduTrain
                 }
 
                 ///更新没有结束时间且超时的考试记录
-                BLL.TestRecordService.UpdateTestEndTimeNull();
+                GetDataService.UpdateTestPlanStates();
                 // 绑定表格
                 BindGrid();
             }

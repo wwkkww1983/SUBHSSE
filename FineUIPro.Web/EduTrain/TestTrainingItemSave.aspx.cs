@@ -113,7 +113,7 @@ namespace FineUIPro.Web.EduTrain
                 var testRule = Funs.DB.Sys_TestRule.FirstOrDefault();
                 if (testRule != null)
                 {
-                    SValue = testRule.SValue;
+                    SValue = testRule.SValue ;
                     MValue = testRule.MValue;
                     JValue = testRule.JValue;
                 }
@@ -234,7 +234,6 @@ namespace FineUIPro.Web.EduTrain
                 TrainingItemCode = txtTrainingItemCode.Text.Trim(),
                 Abstracts = txtAbstracts.Text.Trim(),
                 TestType = this.rblTestType.SelectedValue,
-                Score = Funs.GetNewIntOrZero(this.lbScore.Text.Trim()),
                 AItem = txtAItem.Text.Trim(),
                 BItem = txtBItem.Text.Trim(),
                 CItem = txtCItem.Text.Trim(),

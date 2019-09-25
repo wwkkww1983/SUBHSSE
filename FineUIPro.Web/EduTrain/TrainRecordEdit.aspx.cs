@@ -101,8 +101,7 @@ namespace FineUIPro.Web.EduTrain
                     {
                         this.txtTrainPersonNum.Text = Convert.ToString(trainRecord.TrainPersonNum);
                     }
-                    this.txtTrainContent.Text = trainRecord.TrainContent;
-                    this.drpTrainStates.SelectedValue = trainRecord.TrainStates;
+                    this.txtTrainContent.Text = trainRecord.TrainContent;                   
                     trainRecordDetails = (from x in Funs.DB.View_EduTrain_TrainRecordDetail
                                           where x.TrainingId == this.TrainingId
                                           orderby x.UnitName,x.PersonName
@@ -264,11 +263,7 @@ namespace FineUIPro.Web.EduTrain
             if (this.drpTrainLevel.SelectedValue != BLL.Const._Null)
             {
                 trainRecord.TrainLevelId = this.drpTrainLevel.SelectedValue;
-            }
-            if (!this.drpTrainStates.Hidden)
-            {
-                trainRecord.TrainStates = this.drpTrainStates.SelectedValue;
-            }
+            }           
             //培训单位
             string unitIds = string.Empty;
             foreach (var item in this.drpUnits.SelectedValueArray)

@@ -162,7 +162,7 @@ namespace FineUIPro.Web.EduTrain
             {
                 string strSql = @"SELECT TrainingItemId,TrainingId,TrainingItemCode,TrainingItemName,Abstracts,AttachUrl,VersionNum,TestType "
                                 + @" ,(CASE WHEN TestType = '1' THEN '单选题' WHEN TestType = '2' THEN '多选题' ELSE '判断题' END) AS TestTypeName "
-                                + @" ,(CASE WHEN WorkPostNames IS NULL THEN '通用' ELSE WorkPostNames END) AS WorkPostNames,AItem,BItem,CItem,DItem,EItem,Score,AnswerItems "
+                                + @" ,(CASE WHEN WorkPostNames IS NULL THEN '通用' ELSE WorkPostNames END) AS WorkPostNames,AItem,BItem,CItem,DItem,EItem,AnswerItems "
                                 + @" FROM dbo.Training_TestTrainingItem"
                                 + @" WHERE TrainingId=@TrainingId ";
                 List<SqlParameter> listStr = new List<SqlParameter>
@@ -308,6 +308,11 @@ namespace FineUIPro.Web.EduTrain
             PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("TestTrainingItemSave.aspx?TrainingItemId={0}", trainingItemId, "编辑 - ")));
         }
 
+        /// <summary>
+        ///  增加
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnNewDetail_Click(object sender, EventArgs e)
         {            
             if (this.tvTestTraining.SelectedNode != null)

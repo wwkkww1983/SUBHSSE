@@ -51,7 +51,7 @@ namespace WebAPI.Controllers
             {
                 var getDataList = BLL.APIHazardRegisterService.getHazardRegisterByProjectIdStates(projectId, states);
                 int pageCount = getDataList.Count();
-                if (pageCount > 0)
+                if (pageCount > 0 && pageIndex > 0)
                 {
                     getDataList = getDataList.OrderByDescending(u => u.CheckTime).Skip(BLL.Funs.PageSize * (pageIndex - 1)).Take(BLL.Funs.PageSize).ToList();
                    

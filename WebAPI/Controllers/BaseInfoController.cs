@@ -73,7 +73,7 @@ namespace WebAPI.Controllers
             {
                 var getDataList = APIBaseInfoService.getProjectPictureByProjectId(projectId);
                 int pageCount = getDataList.Count();
-                if (pageCount > 0)
+                if (pageCount > 0 && pageIndex > 0)
                 {
                     getDataList = getDataList.OrderByDescending(u => u.BaseInfoCode).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
 
@@ -160,7 +160,7 @@ namespace WebAPI.Controllers
             {
                 var noticeList = APIBaseInfoService.getNotices(projectId);
                 int pageCount = noticeList.Count();
-                if (pageCount > 0)
+                if (pageCount > 0 && pageIndex > 0)
                 {
                     noticeList = noticeList.OrderByDescending(u => u.ReleaseDate).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }

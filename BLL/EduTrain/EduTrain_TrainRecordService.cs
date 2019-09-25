@@ -50,7 +50,6 @@ namespace BLL
                 CompileMan = training.CompileMan,
                 TrainPersonNum = training.TrainPersonNum,
                 FromRecordId = training.FromRecordId,
-                TrainStates = training.TrainStates,
                 WorkPostIds = training.WorkPostIds,
             };
 
@@ -66,7 +65,7 @@ namespace BLL
             db.EduTrain_TrainRecord.InsertOnSubmit(newTraining);
             db.SubmitChanges();
             ////增加一条编码记录
-            BLL.CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(BLL.Const.ProjectTrainRecordMenuId, training.ProjectId, null, training.TrainingId, training.TrainStartDate);
+            BLL.CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectTrainRecordMenuId, training.ProjectId, null, training.TrainingId, training.TrainStartDate);
         }
 
         /// <summary>
@@ -102,7 +101,6 @@ namespace BLL
                 newTraining.States = training.States;
                 newTraining.TrainPersonNum = training.TrainPersonNum;
                 newTraining.FromRecordId = training.FromRecordId;
-                newTraining.TrainStates = training.TrainStates;
                 newTraining.WorkPostIds = training.WorkPostIds;
                 db.SubmitChanges();
             }            
@@ -118,10 +116,12 @@ namespace BLL
             Model.EduTrain_TrainRecord training = db.EduTrain_TrainRecord.FirstOrDefault(e => e.TrainingId == trainingId);
             if (training != null)
             {
+                ///删除培训明细
+                EduTrain_TrainRecordDetailService.DeleteTrainDetailByTrainingId(trainingId);
                 ///删除编码表记录
-                BLL.CodeRecordsService.DeleteCodeRecordsByDataId(training.TrainingId);
+                CodeRecordsService.DeleteCodeRecordsByDataId(training.TrainingId);
                 ////删除附件表
-                BLL.CommonService.DeleteAttachFileById(training.TrainingId);
+                CommonService.DeleteAttachFileById(training.TrainingId);
                 ///删除工程师日志收集记录
                 var flowOperate = from x in db.Sys_FlowOperate where x.DataId == training.TrainingId select x;
                 if (flowOperate.Count() > 0)

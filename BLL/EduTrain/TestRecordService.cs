@@ -95,43 +95,45 @@ namespace BLL
         /// <param name="planId"></param>
         public static void DeleteTestRecordByTestRecordId(string testRecordId)
         {
-            var testRecord = db.Training_TestRecord.FirstOrDefault(e => e.TestRecordId == testRecordId);
+            var testRecord = Funs.DB.Training_TestRecord.FirstOrDefault(e => e.TestRecordId == testRecordId);
             if (testRecord != null)
             {
-                var testRecordItem = from x in db.Training_TestRecordItem where x.TestRecordId == testRecordId select x;
+                var testRecordItem = from x in Funs.DB.Training_TestRecordItem where x.TestRecordId == testRecordId select x;
                 if (testRecordItem.Count() > 0)
                 {
                     foreach (var item in testRecordItem)
                     {
-                        BLL.TestRecordItemService.DeleteTestRecordItemmByTestRecordItemId(item.TestRecordItemId);
+                        TestRecordItemService.DeleteTestRecordItemmByTestRecordItemId(item.TestRecordItemId);
                     }
                 }
-                db.Training_TestRecord.DeleteOnSubmit(testRecord);
-                db.SubmitChanges();
+
+                Funs.DB.Training_TestRecord.DeleteOnSubmit(testRecord);
+                Funs.DB.SubmitChanges();
             }
         }
 
         /// <summary>
         /// 更新没有结束时间且超时的考试记录
         /// </summary>
-        public static void UpdateTestEndTimeNull()
+        public static int UpdateTestEndTimeNull(string testRecordId)
         {
+            int icount = 0;
             var testRecord = from x in Funs.DB.Training_TestRecord
-                             join y in Funs.DB.Training_TestPlan on x.TestPlanId equals y.TestPlanId
-                             where !x.TestEndTime.HasValue && x.TestStartTime.Value.AddMinutes(y.Duration.Value) < DateTime.Now
+                             where !x.TestEndTime.HasValue && x.TestStartTime.HasValue
+                             && x.TestStartTime.Value.AddMinutes(x.Duration) < DateTime.Now
+                             && x.TestRecordId == testRecordId
                              select x;
             if (testRecord.Count() > 0)
             {
                 foreach (var item in testRecord)
                 {
-                    item.TestEndTime = item.TestStartTime.Value.AddMinutes(100);
-                    if (!item.TestScores.HasValue)
-                    {
-                        item.TestScores = 0;
-                    }
+                    item.TestEndTime = item.TestStartTime.Value.AddMinutes(item.Duration);
+                    item.TestScores = Funs.DB.Training_TestRecordItem.Where(x => x.TestRecordId == item.TestRecordId).Sum(x => x.SubjectScore) ?? 0;
                     Funs.DB.SubmitChanges();
+                    icount++;                   
                 }
             }
+            return icount;
         }
     }
 }

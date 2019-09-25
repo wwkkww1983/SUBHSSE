@@ -38,10 +38,11 @@ namespace BLL
         /// <param name="planId"></param>
         public static void DeleteTestPlanTrainingByTestPlanId(string testPlanId)
         {
-            var deleteTestPlanTrainings = from x in db.Training_TestPlanTraining where x.TestPlanId == testPlanId select x;
+            var deleteTestPlanTrainings = from x in Funs.DB.Training_TestPlanTraining where x.TestPlanId == testPlanId select x;
             if (deleteTestPlanTrainings.Count() > 0)
             {
-                db.Training_TestPlanTraining.DeleteAllOnSubmit(deleteTestPlanTrainings);
+                Funs.DB.Training_TestPlanTraining.DeleteAllOnSubmit(deleteTestPlanTrainings);
+                Funs.DB.SubmitChanges();
             }
         }
     }

@@ -28,7 +28,7 @@ namespace WebAPI.Controllers
             {
                 var getDataList = APIResourcesService.getTrainingListBySupTrainingId(supTypeId);
                 int pageCount = getDataList.Count;
-                if (pageCount > 0)
+                if (pageCount > 0 && pageIndex > 0)
                 {
                     getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
@@ -57,7 +57,7 @@ namespace WebAPI.Controllers
             {
                 var getDataList = APIResourcesService.getTrainingItemListByTrainingId(trainingId);
                 int pageCount = getDataList.Count;
-                if (pageCount > 0)
+                if (pageCount > 0 && pageIndex > 0)
                 {
                     getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
@@ -111,7 +111,7 @@ namespace WebAPI.Controllers
             {
                 var getDataList = APIResourcesService.getCompanyTrainingListBySupTrainingId(supTypeId);
                 int pageCount = getDataList.Count;
-                if (pageCount > 0)
+                if (pageCount > 0 && pageIndex > 0)
                 {
                     getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
@@ -140,7 +140,7 @@ namespace WebAPI.Controllers
             {
                 var getDataList = APIResourcesService.getCompanyTrainingItemListByTrainingId(trainingId);
                 int pageCount = getDataList.Count;
-                if (pageCount > 0)
+                if (pageCount > 0 && pageIndex > 0)
                 {
                     getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
@@ -194,7 +194,7 @@ namespace WebAPI.Controllers
             {
                 var getDataList = APIResourcesService.getTestTrainingListBySupTrainingId(supTypeId);
                 int pageCount = getDataList.Count;
-                if (pageCount > 0)
+                if (pageCount > 0 && pageIndex > 0)
                 {
                     getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
@@ -223,7 +223,7 @@ namespace WebAPI.Controllers
             {
                 var getDataList = APIResourcesService.getTestTrainingItemListByTrainingId(trainingId);
                 int pageCount = getDataList.Count;
-                if (pageCount > 0)
+                if (pageCount > 0 && pageIndex > 0)
                 {
                     getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }

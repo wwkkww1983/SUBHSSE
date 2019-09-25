@@ -1057,7 +1057,7 @@
             <param name="testRecordItemId"></param>
             <returns>考试人员</returns>
         </member>
-        <member name="M:WebAPI.Controllers.TestRecordController.geTrainingTestRecordListByProjectIdPersonId(System.String,System.String,System.Int32)">
+        <member name="M:WebAPI.Controllers.TestRecordController.getTrainingTestRecordListByProjectIdPersonId(System.String,System.String,System.Int32)">
             <summary>
             根据ProjectId、PersonId获取当前人试卷列表
             </summary>
@@ -1066,7 +1066,7 @@
             <param name="pageIndex">页码</param>
             <returns>考试记录列表</returns>
         </member>
-        <member name="M:WebAPI.Controllers.TestRecordController.geTrainingTestRecordListByProjectId(System.String,System.Int32)">
+        <member name="M:WebAPI.Controllers.TestRecordController.getTrainingTestRecordListByProjectId(System.String,System.Int32)">
             <summary>
             根据ProjectId获取所有考试记录列表
             </summary>
@@ -1076,14 +1076,14 @@
         </member>
         <member name="M:WebAPI.Controllers.TestRecordController.getTestRecordItemAnswerBySelectedItem(System.String,System.String)">
             <summary>
-            根据TestRecordItemId、AnswerItems 考生答题
+            根据TestRecordItemId、selectedItem 考生答题
             </summary>
             <param name="testRecordItemId">题目ID</param>
             <param name="selectedItem">选项</param>
         </member>
         <member name="M:WebAPI.Controllers.TestRecordController.getSubmitTestRecordByTestRecordId(System.String)">
             <summary>
-             交卷(1)当前题得分(2)是否存在未答(3)交卷
+             交卷
             </summary>
             <param name="testRecordId">试卷ID</param>
         </member>

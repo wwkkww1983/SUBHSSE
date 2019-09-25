@@ -20,17 +20,19 @@
             </f:FormRow>  
             <f:FormRow>
                 <Items>
-                   <f:TextBox ID="txtTrainingCode" runat="server" Label="编号" Required="true" ShowRedStar="true" FocusOnPageLoad="true" MaxLength="50"></f:TextBox>                    
+                   <f:TextBox ID="txtTrainingCode" runat="server" Label="编号" 
+                       Required="true" ShowRedStar="true" FocusOnPageLoad="true" MaxLength="50"></f:TextBox>                    
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                   <f:TextBox ID="txtTrainingName" runat="server" Label="名称" Required="true" ShowRedStar="true" MaxLength="50" AutoPostBack="true" OnTextChanged="TextBox_TextChanged"></f:TextBox>
+                   <f:TextArea ID="txtTrainingName" runat="server" Label="名称" Required="true" ShowRedStar="true" 
+                       MaxLength="100" AutoPostBack="true" OnTextChanged="TextBox_TextChanged"></f:TextArea>
                 </Items>
             </f:FormRow> 
              <f:FormRow>
                 <Items>
-                   <f:CheckBox ID="ckIsEndLever" runat="server" Label="末级" ></f:CheckBox>
+                   <f:CheckBox ID="ckIsEndLever" runat="server" Label="末级" Checked="true"></f:CheckBox>
                 </Items>
             </f:FormRow> 
         </Rows>

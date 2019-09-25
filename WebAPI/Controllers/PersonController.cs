@@ -74,7 +74,7 @@ namespace WebAPI.Controllers
             {
                 var getDataList = APIPersonService.getPersonByProjectIdUnitId(projectId, unitId);
                 int pageCount = getDataList.Count;
-                if (pageCount > 0)
+                if (pageCount > 0 && pageIndex > 0)
                 {
                     getDataList = getDataList.OrderBy(u => u.UnitName).ThenBy(u=>u.PersonName).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
@@ -205,7 +205,7 @@ namespace WebAPI.Controllers
                     getQualityLists = getQualityLists.Where(x => x.LimitDate >= DateTime.Now && x.LimitDate < DateTime.Now.AddMonths(1)).ToList();
                 }
                 int pageCount = getQualityLists.Count;
-                if (pageCount > 0)
+                if (pageCount > 0 && pageIndex > 0)
                 {
                     var getdata = from x in getQualityLists.OrderBy(u => u.LimitDate).Skip(BLL.Funs.PageSize * (pageIndex - 1)).Take(BLL.Funs.PageSize)
                                       select new
@@ -263,7 +263,7 @@ namespace WebAPI.Controllers
             {
                 var getDataList = APIPersonService.getTrainingPersonListByTrainTypeId(projectId, unitIds, workPostIds, trainTypeId);
                 int pageCount = getDataList.Count;
-                if (pageCount > 0)
+                if (pageCount > 0 && pageIndex > 0)
                 {
                     getDataList = getDataList.OrderBy(u => u.UnitName).ThenBy(u => u.PersonName).Skip(200 * (pageIndex - 1)).Take(200).ToList(); ////200 ->Funs.PageSize
                 }

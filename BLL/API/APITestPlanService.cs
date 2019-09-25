@@ -64,7 +64,10 @@ namespace BLL
                                    TestPlanDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.PlanDate),
                                    TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime),
                                    TestEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestEndTime),
-                                   Duration = x.Duration ?? 0,
+                                   Duration = x.Duration,
+                                   SValue = x.SValue,
+                                   MValue=x.MValue,
+                                   JValue=x.JValue,
                                    TotalScore = x.TotalScore ?? 0,
                                    QuestionCount = x.QuestionCount ?? 0,
                                    TestPalce = x.TestPalce,
@@ -96,17 +99,21 @@ namespace BLL
                 PlanName = getTestPlan.TestPlanName,
                 PlanManId = getTestPlan.TestPlanManId,
                 //PlanDate= getTestPlan.TestPlanDate,
-                TestStartTime = Funs.GetNewDateTime(getTestPlan.TestStartTime),
-                TestEndTime = Funs.GetNewDateTime(getTestPlan.TestEndTime),
+                TestStartTime = Funs.GetNewDateTimeOrNow(getTestPlan.TestStartTime),
+                TestEndTime = Funs.GetNewDateTimeOrNow(getTestPlan.TestEndTime),
                 Duration = getTestPlan.Duration,
+                SValue = getTestPlan.SValue,
+                MValue = getTestPlan.MValue,
+                JValue = getTestPlan.JValue,
                 TotalScore = getTestPlan.TotalScore,
                 QuestionCount = getTestPlan.QuestionCount,
                 TestPalce = getTestPlan.TestPalce,
                 UnitIds = getTestPlan.UnitIds,
                 WorkPostIds = getTestPlan.WorkPostIds,
-                States = getTestPlan.States,                
+                States = getTestPlan.States,
                 PlanDate = DateTime.Now,
             };
+
             if (!string.IsNullOrEmpty(getTestPlan.TrainingPlanId))
             {
                 newTestPlan.PlanId = getTestPlan.TrainingPlanId;
@@ -190,6 +197,7 @@ namespace BLL
                         TestPlanId = newTestPlan.TestPlanId,
                         TestManId = item.TestManId,
                         TestType = item.TestType,
+                        Duration= newTestPlan.Duration,
                     };
                     TestRecordService.AddTestRecord(newTrainDetail);
                 }
@@ -253,6 +261,7 @@ namespace BLL
                     PlanId = getTrainingPlan.PlanId,
                     States = "0",
                 };
+
                 string unitId = string.Empty;
                 var user = UserService.GetUserByUserId(userId);
                 if (user != null)
@@ -261,19 +270,32 @@ namespace BLL
                 }
                 newTestPlan.PlanCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectTestPlanMenuId, newTestPlan.ProjectId, unitId);
 
-                int testType1Count = 0;
-                int testType2Count = 0;
-                int testType3Count = 0;
+                int Duration = 90;
+                int SValue = 1;
+                int MValue = 2;
+                int JValue = 1;
+                int testType1Count = 40;
+                int testType2Count = 10;
+                int testType3Count = 40;
                 var getTestRule = Funs.DB.Sys_TestRule.FirstOrDefault(); ////考试数据设置
                 if (getTestRule != null)
                 {
+                    Duration = getTestRule.Duration;
+                    SValue = getTestRule.SValue;
+                    MValue = getTestRule.MValue;
+                    JValue = getTestRule.JValue;
                     testType1Count = getTestRule.SCount;
                     testType2Count = getTestRule.MCount;
                     testType3Count = getTestRule.JCount;
-                    newTestPlan.Duration = getTestRule.Duration;
-                    newTestPlan.TotalScore = testType1Count * getTestRule.SValue + testType2Count * getTestRule.MValue + testType3Count * getTestRule.JValue;
-                    newTestPlan.QuestionCount = testType1Count + testType2Count + testType3Count;
                 }
+
+                newTestPlan.Duration = getTestRule.Duration;
+                newTestPlan.SValue = getTestRule.SValue;
+                newTestPlan.MValue = getTestRule.MValue;
+                newTestPlan.JValue = getTestRule.JValue;
+                newTestPlan.TotalScore = testType1Count * SValue + testType2Count * MValue + testType3Count * JValue;
+                newTestPlan.QuestionCount = testType1Count + testType2Count + testType3Count;
+
                 ////新增考试计划记录
                 TestPlanService.AddTestPlan(newTestPlan);
                 ///培训人员
@@ -339,7 +361,7 @@ namespace BLL
         /// 结束考试
         /// </summary>
         public static void SubmitTest(Model.Training_TestPlan getTestPlan)
-        {
+        {           
             ////所有交卷的人员 交卷 并计算分数
             var getTrainingTestRecords = from x in Funs.DB.Training_TestRecord
                                          where x.TestPlanId == getTestPlan.TestPlanId && (!x.TestEndTime.HasValue || !x.TestScores.HasValue)
@@ -366,6 +388,7 @@ namespace BLL
                 }
 
                 ////TODO 讲培训计划 考试记录 写入到培训记录
+                APITrainRecordService.InsertTrainRecord(getTestPlan);
             }
         }
     }

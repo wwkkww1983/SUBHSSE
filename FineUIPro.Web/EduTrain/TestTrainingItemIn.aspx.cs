@@ -204,21 +204,11 @@ namespace FineUIPro.Web.EduTrain
                     }
                     else
                     {
-                        int SValue = 1;
-                        int MValue = 2;
-                        int JValue = 1;
-                        var testRule = Funs.DB.Sys_TestRule.FirstOrDefault();
-                        if (testRule != null)
-                        {
-                            SValue = testRule.SValue;
-                            MValue = testRule.MValue;
-                            JValue = testRule.JValue;
-                        }
-
+                    
                         if (col3 == "单选题")
                         {
                             newViewTrainingItem.TestType = "1";
-                            newViewTrainingItem.Score = SValue;
+                            //newViewTrainingItem.Score = SValue;
                             newViewTrainingItem.CItem = pds.Rows[i][8].ToString().Trim();
                             newViewTrainingItem.DItem = pds.Rows[i][9].ToString().Trim();
                             //if (string.IsNullOrEmpty(newViewTrainingItem.AItem) || string.IsNullOrEmpty(newViewTrainingItem.BItem) || string.IsNullOrEmpty(newViewTrainingItem.CItem) || string.IsNullOrEmpty(newViewTrainingItem.DItem))
@@ -230,7 +220,7 @@ namespace FineUIPro.Web.EduTrain
                         else if (col3 == "多选题")
                         {
                             newViewTrainingItem.TestType = "2";
-                            newViewTrainingItem.Score = MValue;
+                            //newViewTrainingItem.Score = MValue;
                             newViewTrainingItem.CItem = pds.Rows[i][8].ToString().Trim();
                             newViewTrainingItem.DItem = pds.Rows[i][9].ToString().Trim();
                             newViewTrainingItem.EItem = pds.Rows[i][10].ToString().Trim();
@@ -242,7 +232,7 @@ namespace FineUIPro.Web.EduTrain
                         else
                         {
                             newViewTrainingItem.TestType = "3";
-                            newViewTrainingItem.Score = JValue;
+                            //newViewTrainingItem.Score = JValue;
                             //if (string.IsNullOrEmpty(newViewTrainingItem.AItem) || string.IsNullOrEmpty(newViewTrainingItem.BItem))
                             //{
                             //    result += "第" + (i + 2).ToString() + "行," + "判断题AB不能为空！" + "|";
@@ -297,7 +287,7 @@ namespace FineUIPro.Web.EduTrain
                         }
                         if (icount == 0)
                         {
-                            newViewTrainingItem.AnswerItems = col11.Replace("a", "1").Replace("A", "1").Replace("b", "2").Replace("B", "2").Replace("c", "3").Replace("C", "3").Replace("d", "4").Replace("D", "4").Replace("e", "5").Replace("E", "5");
+                            newViewTrainingItem.AnswerItems = col11.Replace("a", "A").Replace("b", "B").Replace("c", "C").Replace("d", "D").Replace("e", "E");
                         }
                         else
                         {
@@ -332,7 +322,7 @@ namespace FineUIPro.Web.EduTrain
                                 CItem = newViewTrainingItem.CItem,
                                 DItem = newViewTrainingItem.DItem,
                                 EItem = newViewTrainingItem.EItem,
-                                Score = newViewTrainingItem.Score,
+                               // Score = newViewTrainingItem.Score,
                                 AnswerItems = newViewTrainingItem.AnswerItems,
                             };
                             BLL.TestTrainingItemService.AddTestTrainingItem(newTrainingItem);

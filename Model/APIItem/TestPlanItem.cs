@@ -99,6 +99,30 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 单选题分值
+        /// </summary>
+        public int SValue
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 多选题分值
+        /// </summary>
+        public int MValue
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 判断题分值
+        /// </summary>
+        public int JValue
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 总分数
         /// </summary>
         public int TotalScore

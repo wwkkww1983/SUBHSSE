@@ -174,6 +174,7 @@ namespace BLL
                 else if (thisUnit.UnitId == Const.UnitId_SEDIN) ////赛鼎
                 {
                     GetDataService.CreateTrainingTaskItemByTaskId(null);
+                    GetDataService.UpdateTestPlanStates();
                 }
             }
         }

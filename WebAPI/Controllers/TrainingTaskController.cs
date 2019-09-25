@@ -28,7 +28,7 @@ namespace WebAPI.Controllers
             {
                 var getQualityLists = APITrainingTaskService.getTrainingTaskListByProjectIdPersonId(projectId, personId);
                 int pageCount = getQualityLists.Count;
-                if (pageCount > 0)
+                if (pageCount > 0 && pageIndex > 0)
                 {
                     var getdata = from x in getQualityLists.OrderByDescending(u => u.TrainStartDate).Skip(BLL.Funs.PageSize * (pageIndex - 1)).Take(BLL.Funs.PageSize)
                                   select x;
@@ -58,7 +58,7 @@ namespace WebAPI.Controllers
             {
                 var getQualityLists = APITrainingTaskService.getTrainingTaskItemListByTaskId(taskId);
                 int pageCount = getQualityLists.Count;
-                if (pageCount > 0)
+                if (pageCount > 0 && pageIndex > 0)
                 {
                     var getdata = from x in getQualityLists.OrderByDescending(u => u.TrainingItemCode).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize)
                                   select x;

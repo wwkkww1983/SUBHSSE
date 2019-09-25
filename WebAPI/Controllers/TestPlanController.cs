@@ -28,7 +28,7 @@ namespace WebAPI.Controllers
             {
                 var getQualityLists = APITestPlanService.getTestPlanListByProjectIdStates(projectId, states);
                 int pageCount = getQualityLists.Count;
-                if (pageCount > 0)
+                if (pageCount > 0 && pageIndex > 0)
                 {
                     var getdata = from x in getQualityLists.OrderByDescending(u => u.TestStartTime).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize)
                                   select x;

@@ -44,7 +44,6 @@ namespace BLL
                 CItem = TestTrainingItem.CItem,
                 DItem = TestTrainingItem.DItem,
                 EItem = TestTrainingItem.EItem,
-                Score = TestTrainingItem.Score,
                 AnswerItems = TestTrainingItem.AnswerItems,
             };
             db.Training_TestTrainingItem.InsertOnSubmit(newTestTrainingItem);
@@ -74,7 +73,6 @@ namespace BLL
                 newTestTrainingItem.CItem = TestTrainingItem.CItem;
                 newTestTrainingItem.DItem = TestTrainingItem.DItem;
                 newTestTrainingItem.EItem = TestTrainingItem.EItem;
-                newTestTrainingItem.Score = TestTrainingItem.Score;
                 newTestTrainingItem.AnswerItems = TestTrainingItem.AnswerItems;
                 db.SubmitChanges();
             }
@@ -105,27 +103,27 @@ namespace BLL
             if (testType == "1")   //单选题
             {
                 ListItem[] item = new ListItem[4];
-                item[0] = new ListItem("A", "1");
-                item[1] = new ListItem("B", "2");
-                item[2] = new ListItem("C", "3");
-                item[3] = new ListItem("D", "4");
+                item[0] = new ListItem("A", "A");
+                item[1] = new ListItem("B", "B");
+                item[2] = new ListItem("C", "C");
+                item[3] = new ListItem("D", "D");
                 return item;
             }
             else if (testType == "2")   //多选题
             {
                 ListItem[] item = new ListItem[5];
-                item[0] = new ListItem("A", "1");
-                item[1] = new ListItem("B", "2");
-                item[2] = new ListItem("C", "3");
-                item[3] = new ListItem("D", "4");
-                item[4] = new ListItem("E", "5");
+                item[0] = new ListItem("A", "A");
+                item[1] = new ListItem("B", "B");
+                item[2] = new ListItem("C", "C");
+                item[3] = new ListItem("D", "D");
+                item[4] = new ListItem("E", "E");
                 return item;
             }
             else    //判断题
             {
                 ListItem[] item = new ListItem[2];
-                item[0] = new ListItem("A", "1");
-                item[1] = new ListItem("B", "2");
+                item[0] = new ListItem("A", "A");
+                item[1] = new ListItem("B", "B");
                 return item;
             }
         }

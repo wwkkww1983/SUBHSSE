@@ -52,7 +52,7 @@ namespace BLL
             if (rainRecord != null)
             {
                 rainRecord.TrainPersonNum += 1;
-                BLL.EduTrain_TrainRecordService.UpdateTraining(rainRecord);
+                EduTrain_TrainRecordService.UpdateTraining(rainRecord);
             }
         }
 

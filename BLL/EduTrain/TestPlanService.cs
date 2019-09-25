@@ -38,6 +38,9 @@ namespace BLL
                 PlanDate = testPlan.PlanDate,
                 TestStartTime = testPlan.TestStartTime,
                 Duration = testPlan.Duration,
+                SValue = testPlan.SValue,
+                MValue = testPlan.MValue,
+                JValue = testPlan.JValue,
                 TotalScore = testPlan.TotalScore,
                 QuestionCount = testPlan.QuestionCount,
                 TestPalce = testPlan.TestPalce,
@@ -90,16 +93,42 @@ namespace BLL
         /// <param name="TestPlanId"></param>
         public static void DeleteTestPlanById(string TestPlanId)
         {
-            Model.Training_TestPlan TestPlan = db.Training_TestPlan.FirstOrDefault(e => e.TestPlanId == TestPlanId);
-            if (TestPlan != null)
+            var getTestPlan = GetTestPlanById(TestPlanId);
+            if (getTestPlan != null)
             {
                 var testPlanTrainings = from x in db.Training_TestPlanTraining where x.TestPlanId == TestPlanId select x;
                 if (testPlanTrainings.Count() > 0)
                 {
                     db.Training_TestPlanTraining.DeleteAllOnSubmit(testPlanTrainings);
                 }
-                db.Training_TestPlan.DeleteOnSubmit(TestPlan);
+                if (getTestPlan.States == "3") //状态考试结束
+                {
+                    var updateTrainingPlan = TrainingPlanService.GetPlanById(getTestPlan.PlanId);
+                    if (updateTrainingPlan != null)
+                    {
+                        updateTrainingPlan.States = "2";
+                        TrainingPlanService.UpdatePlan(updateTrainingPlan);
+                        var getTrainingTasks = from x in Funs.DB.Training_Task
+                                               where x.PlanId == updateTrainingPlan.PlanId 
+                                               select x;
+                        foreach (var item in getTrainingTasks)
+                        {
+                            item.States = "1";
+                            TrainingTaskService.UpdateTask(item);
+                        }
+                        ////删除归档的培训记录
+                        var trainRecord = Funs.DB.EduTrain_TrainRecord.FirstOrDefault(x => x.PlanId == getTestPlan.PlanId);
+                        if (trainRecord != null)
+                        {
+                            EduTrain_TrainRecordService.DeleteTrainingByTrainingId(trainRecord.TrainingId);
+                        }
+                    }
+                }
+
+                db.Training_TestPlan.DeleteOnSubmit(getTestPlan);
                 db.SubmitChanges();
+
+               
             }
         }
 

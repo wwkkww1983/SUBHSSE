@@ -199,9 +199,7 @@ namespace BLL
                                   CItem = x.CItem,
                                   DItem = x.DItem,
                                   EItem = x.EItem,
-                                  Score = x.Score ?? 0,
                                   AnswerItems = x.AnswerItems,
-
                               };
             return getDataInfo.FirstOrDefault();
         }
