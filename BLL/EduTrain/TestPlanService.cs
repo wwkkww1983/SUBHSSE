@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Training_TestPlan GetTestPlanById(string TestPlanId)
         {
-            return db.Training_TestPlan.FirstOrDefault(e => e.TestPlanId == TestPlanId);
+            return Funs.DB.Training_TestPlan.FirstOrDefault(e => e.TestPlanId == TestPlanId);
         }
 
         /// <summary>
@@ -37,6 +37,7 @@ namespace BLL
                 PlanManId = testPlan.PlanManId,
                 PlanDate = testPlan.PlanDate,
                 TestStartTime = testPlan.TestStartTime,
+                TestEndTime = testPlan.TestEndTime,
                 Duration = testPlan.Duration,
                 SValue = testPlan.SValue,
                 MValue = testPlan.MValue,
@@ -72,6 +73,7 @@ namespace BLL
                 newTestPlan.PlanManId = TestPlan.PlanManId;
                 newTestPlan.PlanDate = TestPlan.PlanDate;
                 newTestPlan.TestStartTime = TestPlan.TestStartTime;
+                newTestPlan.TestEndTime = TestPlan.TestEndTime;
                 newTestPlan.Duration = TestPlan.Duration;
                 newTestPlan.TotalScore = TestPlan.TotalScore;
                 newTestPlan.QuestionCount = TestPlan.QuestionCount;

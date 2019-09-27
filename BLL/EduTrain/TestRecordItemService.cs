@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Training_TestRecordItem GetTestRecordItemTestRecordItemId(string testRecordItemId)
         {
-            return db.Training_TestRecordItem.FirstOrDefault(e => e.TestRecordItemId == testRecordItemId);
+            return Funs.DB.Training_TestRecordItem.FirstOrDefault(e => e.TestRecordItemId == testRecordItemId);
         }
 
         /// <summary>

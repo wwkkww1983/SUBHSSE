@@ -102,7 +102,11 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                BLL.APITestPlanService.SaveTestPlan(testPlan);
+                responeData.message = APITestPlanService.SaveTestPlan(testPlan);
+                if (!string.IsNullOrEmpty(responeData.message))
+                {
+                    responeData.code = 2;
+                }
             }
             catch (Exception ex)
             {

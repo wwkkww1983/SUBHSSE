@@ -63,7 +63,7 @@ namespace WebAPI.Controllers
         /// <param name="testRecordId"></param>
         /// <param name="pageIndex">页码</param>
         /// <returns>试卷题目列表</returns>
-        public Model.ResponeData geTestRecordItemListByTestRecordId(string testRecordId, int pageIndex)
+        public Model.ResponeData getTestRecordItemListByTestRecordId(string testRecordId, int pageIndex)
         {
             var responeData = new Model.ResponeData();
             try
@@ -72,9 +72,36 @@ namespace WebAPI.Controllers
                 int pageCount = getDataLists.Count;
                 if (pageCount > 0 && pageIndex > 0)
                 {
-                    getDataLists = getDataLists.OrderBy(x => x.TestType).ThenBy(x=>x.TrainingItemCode).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                        getDataLists = getDataLists.OrderBy(x => x.TestType).ThenBy(x => x.TrainingItemCode).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();                   
                 }
                 responeData.data = new { pageCount, getDataLists };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+
+        /// <summary>
+        /// 获取当前试卷的答题倒计时
+        /// </summary>
+        /// <param name="testRecordId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getTestTimesByTestRecordId(string testRecordId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                int mTime = 0;
+                var getTestRecord = TestRecordService.GetTestRecordById(testRecordId);
+                if (getTestRecord != null && getTestRecord.TestStartTime.HasValue)
+                {
+                    mTime = Convert.ToInt32((getTestRecord.TestStartTime.Value.AddMinutes(getTestRecord.Duration) - DateTime.Now).TotalSeconds);
+                }
+               
+                responeData.data = new { mTime };
             }
             catch (Exception ex)
             {
@@ -91,7 +118,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="testRecordItemId"></param>
         /// <returns>考试人员</returns>
-        public Model.ResponeData geTestRecordItemByTestRecordItemId(string testRecordItemId)
+        public Model.ResponeData getTestRecordItemByTestRecordItemId(string testRecordItemId)
         {
             var responeData = new Model.ResponeData();
             try
@@ -119,7 +146,8 @@ namespace WebAPI.Controllers
         {
             var responeData = new Model.ResponeData();
             try
-            {                
+            {
+                personId = PersonService.GetPersonIdByUserId(personId);
                 var getDataLists = APITestRecordService.getTrainingTestRecordListByProjectIdPersonId(projectId, personId);
                 int pageCount = getDataLists.Count;
                 if (pageCount > 0 && pageIndex > 0)
@@ -191,6 +219,11 @@ namespace WebAPI.Controllers
                     {
                         APITestRecordService.getTestRecordItemAnswerBySelectedItem(getItem, selectedItem);
                     }
+                }
+                else
+                {
+                    responeData.code = 0;
+                    responeData.message = "试题有问题！";
                 }
             }
             catch (Exception ex)

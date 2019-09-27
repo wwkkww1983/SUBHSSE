@@ -39,7 +39,11 @@ namespace BLL
                 ClassMeetingContents = classMeeting.ClassMeetingContents,
                 CompileMan = classMeeting.CompileMan,
                 CompileDate = classMeeting.CompileDate,
-                States = classMeeting.States
+                States = classMeeting.States,
+                MeetingPlace = classMeeting.MeetingPlace,
+                MeetingHours = classMeeting.MeetingHours,
+                MeetingHostMan = classMeeting.MeetingHostMan,
+                AttentPerson = classMeeting.AttentPerson,
             };
             db.Meeting_ClassMeeting.InsertOnSubmit(newClassMeeting);
             db.SubmitChanges();
@@ -65,6 +69,10 @@ namespace BLL
                 newClassMeeting.CompileMan = classMeeting.CompileMan;
                 newClassMeeting.CompileDate = classMeeting.CompileDate;
                 newClassMeeting.States = classMeeting.States;
+                newClassMeeting.MeetingPlace = classMeeting.MeetingPlace;
+                newClassMeeting.MeetingHours = classMeeting.MeetingHours;
+                newClassMeeting.MeetingHostMan = classMeeting.MeetingHostMan;
+                newClassMeeting.AttentPerson = classMeeting.AttentPerson;
                 db.SubmitChanges();
             }
         }

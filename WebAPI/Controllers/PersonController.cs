@@ -207,7 +207,7 @@ namespace WebAPI.Controllers
                 int pageCount = getQualityLists.Count;
                 if (pageCount > 0 && pageIndex > 0)
                 {
-                    var getdata = from x in getQualityLists.OrderBy(u => u.LimitDate).Skip(BLL.Funs.PageSize * (pageIndex - 1)).Take(BLL.Funs.PageSize)
+                    var getdata = from x in getQualityLists.OrderBy(u => u.LimitDate).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize)
                                       select new
                                       {
                                           x.PersonQualityId,
@@ -265,7 +265,7 @@ namespace WebAPI.Controllers
                 int pageCount = getDataList.Count;
                 if (pageCount > 0 && pageIndex > 0)
                 {
-                    getDataList = getDataList.OrderBy(u => u.UnitName).ThenBy(u => u.PersonName).Skip(200 * (pageIndex - 1)).Take(200).ToList(); ////200 ->Funs.PageSize
+                    getDataList = getDataList.OrderBy(u => u.UnitName).ThenBy(u => u.PersonName).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList(); ////200 ->Funs.PageSize
                 }
                 responeData.data = new { pageCount, getDataList };
             }

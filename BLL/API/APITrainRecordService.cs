@@ -105,7 +105,7 @@ namespace BLL
                     WorkPostIds = getTrainingPlan.WorkPostId,
                     PlanId = getTrainingPlan.PlanId,
                 };
-                newTrainRecord.CompileMan = UserService.GetUserNameByUserId(getTrainingPlan.PlanId);
+                newTrainRecord.CompileMan = UserService.GetUserNameByUserId(getTrainingPlan.DesignerId);
                 ///获取培训人员
                 var getTrainingTasks = from x in Funs.DB.Training_Task
                                        where x.PlanId == getTrainingPlan.PlanId
@@ -139,6 +139,8 @@ namespace BLL
                     ////新增培训记录明细
                     EduTrain_TrainRecordDetailService.AddTrainDetail(newDetail);
                 }
+
+                CommonService.btnSaveData(newTrainRecord.ProjectId, Const.ProjectTrainRecordMenuId, newTrainRecord.TrainingId, getTrainingPlan.DesignerId, true, newTrainRecord.TrainTitle, "../EduTrain/TrainRecordView.aspx?TrainingId={0}");
             }
         }
         #endregion

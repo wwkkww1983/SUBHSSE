@@ -747,6 +747,36 @@
             <param name="pageIndex"></param>
             <returns></returns>
         </member>
+        <member name="T:WebAPI.Controllers.MeetingController">
+            <summary>
+            会议接口
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.MeetingController.getMeetingByMeetingId(System.String,System.String)">
+            <summary>
+            根据MeetingId获取会议详细信息
+            </summary>
+            <param name="meetingId">会议ID</param>
+            <param name="meetingType">会议类型(C-班前会；W-周例会；M-例会；S-专题例会；A-其他会议)</param>
+            <returns>会议详细</returns>
+        </member>
+        <member name="M:WebAPI.Controllers.MeetingController.getMeetingByProjectIdStates(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            根据projectId、meetingType获取会议列表
+            </summary>
+            <param name="projectId"></param>
+            <param name="meetingType">会议类型(C-班前会；W-周例会；M-例会；S-专题例会；A-其他会议)</param>
+            <param name="states">状态（0-待提交；1-已提交）</param>
+            <param name="pageIndex">页码</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.MeetingController.SaveMeeting(Model.MeetingItem)">
+            <summary>
+            保存Meeting
+            </summary>
+            <param name="meeting">会议信息</param>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.PersonController">
             <summary>
             
@@ -1042,7 +1072,7 @@
             <param name="testRecordId"></param>
             <returns>试卷详细</returns>
         </member>
-        <member name="M:WebAPI.Controllers.TestRecordController.geTestRecordItemListByTestRecordId(System.String,System.Int32)">
+        <member name="M:WebAPI.Controllers.TestRecordController.getTestRecordItemListByTestRecordId(System.String,System.Int32)">
             <summary>
             根据TestRecordId获取试卷题目列表
             </summary>
@@ -1050,7 +1080,14 @@
             <param name="pageIndex">页码</param>
             <returns>试卷题目列表</returns>
         </member>
-        <member name="M:WebAPI.Controllers.TestRecordController.geTestRecordItemByTestRecordItemId(System.String)">
+        <member name="M:WebAPI.Controllers.TestRecordController.getTestTimesByTestRecordId(System.String)">
+            <summary>
+            获取当前试卷的答题倒计时
+            </summary>
+            <param name="testRecordId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestRecordController.getTestRecordItemByTestRecordItemId(System.String)">
             <summary>
             根据TestRecordItemId获取试卷题目详细
             </summary>

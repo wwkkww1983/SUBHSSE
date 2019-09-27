@@ -87,63 +87,67 @@ namespace BLL
                 {
                     ////考试时长
                     testRecord.Duration = getTestPlan.Duration;
+                    testRecord.TestStartTime = DateTime.Now;
                     Funs.DB.SubmitChanges();
 
-                    List<Model.Training_TestTrainingItem> getTestTrainingItemList = new List<Model.Training_TestTrainingItem>();
-                    var testPlanTrainings = from x in Funs.DB.Training_TestPlanTraining
-                                            where x.TestPlanId == getTestPlan.TestPlanId
-                                            select x;
-                    foreach (var itemT in testPlanTrainings)
+                    if (Funs.DB.Training_TestRecordItem.FirstOrDefault(x => x.TestRecordId == testRecord.TestRecordId) == null)
                     {
-                        ////获取类型下适合岗位试题集合
-                        var getTestTrainingItems = Funs.DB.Training_TestTrainingItem.Where(x => x.TrainingId == itemT.TrainingId && (x.WorkPostIds == null || (x.WorkPostIds.Contains(person.WorkAreaId) && person.WorkAreaId != null)));
-                        if (getTestTrainingItems.Count() > 0)
+                        List<Model.Training_TestTrainingItem> getTestTrainingItemList = new List<Model.Training_TestTrainingItem>();
+                        var testPlanTrainings = from x in Funs.DB.Training_TestPlanTraining
+                                                where x.TestPlanId == getTestPlan.TestPlanId
+                                                select x;
+                        foreach (var itemT in testPlanTrainings)
                         {
-                            getTestTrainingItems = getTestTrainingItems.OrderBy(q => Guid.NewGuid());
-                            ////单选题
-                            var getSItem = getTestTrainingItems.Where(x => x.TestType == "1").Take(itemT.TestType1Count ?? 1);
-                            if (getSItem.Count() > 0)
+                            ////获取类型下适合岗位试题集合
+                            var getTestTrainingItems = Funs.DB.Training_TestTrainingItem.Where(x => x.TrainingId == itemT.TrainingId && (x.WorkPostIds == null || (x.WorkPostIds.Contains(person.WorkAreaId) && person.WorkAreaId != null)));
+                            if (getTestTrainingItems.Count() > 0)
                             {
-                                getTestTrainingItemList.AddRange(getSItem);
-                            }
-                            ///多选题
-                            var getMItem = getTestTrainingItems.Where(x => x.TestType == "2").Take(itemT.TestType1Count ?? 1);
-                            if (getMItem.Count() > 0)
-                            {
-                                getTestTrainingItemList.AddRange(getMItem);
-                            }
-                            ///判断题
-                            var getJItem = getTestTrainingItems.Where(x => x.TestType == "3").Take(itemT.TestType1Count ?? 1);
-                            if (getJItem.Count() > 0)
-                            {
-                                getTestTrainingItemList.AddRange(getJItem);
+                                getTestTrainingItems = getTestTrainingItems.OrderBy(q => Guid.NewGuid());
+                                ////单选题
+                                var getSItem = getTestTrainingItems.Where(x => x.TestType == "1").Take(itemT.TestType1Count ?? 1);
+                                if (getSItem.Count() > 0)
+                                {
+                                    getTestTrainingItemList.AddRange(getSItem);
+                                }
+                                ///多选题
+                                var getMItem = getTestTrainingItems.Where(x => x.TestType == "2").Take(itemT.TestType2Count ?? 1);
+                                if (getMItem.Count() > 0)
+                                {
+                                    getTestTrainingItemList.AddRange(getMItem);
+                                }
+                                ///判断题
+                                var getJItem = getTestTrainingItems.Where(x => x.TestType == "3").Take(itemT.TestType3Count ?? 1);
+                                if (getJItem.Count() > 0)
+                                {
+                                    getTestTrainingItemList.AddRange(getJItem);
+                                }
                             }
                         }
-                    }
 
-                    if (getTestTrainingItemList.Count() > 0)
-                    {                       
-                        var getItems = from x in getTestTrainingItemList
-                                       select new Model.Training_TestRecordItem
-                                       {
-                                           TestRecordItemId = SQLHelper.GetNewID(),
-                                           TestRecordId = testRecordId,
-                                           TrainingItemName = x.TrainingItemName,
-                                           TrainingItemCode = x.TrainingItemCode,
-                                           Abstracts = x.Abstracts,
-                                           AttachUrl = x.AttachUrl,
-                                           TestType = x.TestType,
-                                           AItem = x.AItem,
-                                           BItem = x.BItem,
-                                           CItem = x.CItem,
-                                           DItem = x.DItem,
-                                           EItem = x.EItem,
-                                           AnswerItems = x.AnswerItems,
-                                           Score = x.TestType == "1" ? getTestPlan.SValue : (x.TestType == "2" ? getTestPlan.MValue : getTestPlan.JValue),
-                                       };
+                        if (getTestTrainingItemList.Count() > 0)
+                        {
+                            var getItems = from x in getTestTrainingItemList
+                                           select new Model.Training_TestRecordItem
+                                           {
+                                               TestRecordItemId = SQLHelper.GetNewID(),
+                                               TestRecordId = testRecordId,
+                                               TrainingItemName = x.TrainingItemName,
+                                               TrainingItemCode = x.TrainingItemCode,
+                                               Abstracts = x.Abstracts,
+                                               AttachUrl = x.AttachUrl,
+                                               TestType = x.TestType,
+                                               AItem = x.AItem,
+                                               BItem = x.BItem,
+                                               CItem = x.CItem,
+                                               DItem = x.DItem,
+                                               EItem = x.EItem,
+                                               AnswerItems = x.AnswerItems,
+                                               Score = x.TestType == "1" ? getTestPlan.SValue : (x.TestType == "2" ? getTestPlan.MValue : getTestPlan.JValue),
+                                           };
 
-                        Funs.DB.Training_TestRecordItem.InsertAllOnSubmit(getItems);
-                        Funs.DB.SubmitChanges();
+                            Funs.DB.Training_TestRecordItem.InsertAllOnSubmit(getItems);
+                            Funs.DB.SubmitChanges();
+                        }
                     }
                 }
             }
@@ -229,6 +233,7 @@ namespace BLL
         {
             var getDataLists = (from x in Funs.DB.Training_TestRecordItem
                                 where x.TestRecordId == testRecordId
+                                orderby x.TestType,x.TrainingItemCode
                                 select new Model.TestRecordItemItem
                                 {
                                     TestRecordItemId = x.TestRecordItemId,

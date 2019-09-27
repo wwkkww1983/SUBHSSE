@@ -88,8 +88,9 @@ namespace BLL
         /// 保存TestPlan
         /// </summary>
         /// <param name="getTestPlan">考试计划记录</param>
-        public static void SaveTestPlan(Model.TestPlanItem getTestPlan)
+        public static string SaveTestPlan(Model.TestPlanItem getTestPlan)
         {
+            string alterStr =string.Empty ;
             Model.SUBHSSEDB db = Funs.DB;
             Model.Training_TestPlan newTestPlan = new Model.Training_TestPlan
             {
@@ -137,7 +138,8 @@ namespace BLL
             }
             else
             {
-                if (newTestPlan.States == "0" || newTestPlan.States == "1")
+                isUpdate.States = newTestPlan.States;
+                if (isUpdate.States == "0" || isUpdate.States == "1")
                 {
                     isUpdate.PlanName = newTestPlan.PlanName;
                     isUpdate.PlanManId = newTestPlan.PlanManId;
@@ -150,19 +152,39 @@ namespace BLL
                     isUpdate.TestPalce = newTestPlan.TestPalce;
                     isUpdate.UnitIds = newTestPlan.UnitIds;
                     isUpdate.WorkPostIds = newTestPlan.WorkPostIds;
-
                     ////删除 考生记录
-                    TestRecordService.DeleteTestRecordByTestPlanId(newTestPlan.TestPlanId);
+                    TestRecordService.DeleteTestRecordByTestPlanId(isUpdate.TestPlanId);
                     ////删除 考试题目类型
-                    TestPlanTrainingService.DeleteTestPlanTrainingByTestPlanId(newTestPlan.TestPlanId);
+                    TestPlanTrainingService.DeleteTestPlanTrainingByTestPlanId(isUpdate.TestPlanId);
                 }
-                else if (newTestPlan.States == "3") ////考试状态3时 更新培训计划状态 把培训计划写入培训记录中
+                else if (isUpdate.States == "3") ////考试状态3时 更新培训计划状态 把培训计划写入培训记录中
                 {
-                    SubmitTest(newTestPlan);
+                    ////判断是否有未考完的考生
+                    var getTrainingTestRecords = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == isUpdate.TestPlanId
+                                        && (!x.TestStartTime.HasValue ||
+                                         ((!x.TestEndTime.HasValue || !x.TestScores.HasValue) && x.TestStartTime.Value.AddMinutes(isUpdate.Duration) >= DateTime.Now)));
+                    if (getTrainingTestRecords != null)
+                    {
+                        alterStr = "当前存在未交卷考生，不能提前结束考试！";
+                        isUpdate.States = "2";
+                    }
+                    else
+                    {
+                        SubmitTest(isUpdate);
+                    }
                 }
-                ////newTestPlan.States == "2" 只更新考试计划状态为考试中。
-                isUpdate.States = newTestPlan.States;
-                db.SubmitChanges();
+                else if (newTestPlan.States == "2") ////开始考试 只更新考试计划状态为考试中。
+                {                  
+                    if (isUpdate.TestStartTime > DateTime.Now)
+                    {
+                        isUpdate.States = "1";
+                        alterStr =  "未到考试扫码开始时间，不能开始考试！";
+                    }                    
+                }
+                if(string.IsNullOrEmpty(alterStr))
+                {
+                    db.SubmitChanges();
+                }
             }
 
             if (newTestPlan.States == "0" || newTestPlan.States == "1")
@@ -178,6 +200,7 @@ namespace BLL
                     AddTrainingTestPlanTraining(getTestPlan.TestPlanTrainingItems, newTestPlan.TestPlanId);
                 }
             }
+            return alterStr;
         }
 
         /// <summary>
@@ -295,7 +318,7 @@ namespace BLL
                 newTestPlan.JValue = getTestRule.JValue;
                 newTestPlan.TotalScore = testType1Count * SValue + testType2Count * MValue + testType3Count * JValue;
                 newTestPlan.QuestionCount = testType1Count + testType2Count + testType3Count;
-
+                newTestPlan.TestEndTime = newTestPlan.TestStartTime.AddMinutes(newTestPlan.Duration);
                 ////新增考试计划记录
                 TestPlanService.AddTestPlan(newTestPlan);
                 ///培训人员

@@ -110,7 +110,7 @@ namespace FineUIPro.Web.EduTrain
                 else
                 {
                     ////自动生成编码
-                    this.txtTrainingCode.Text = CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectTrainRecordMenuId, this.ProjectId, this.CurrUser.UnitId);
+                    this.txtTrainingCode.Text = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectTrainRecordMenuId, this.ProjectId, this.CurrUser.UnitId);
                     this.txtTrainStartDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                     this.txtTeachMan.Text = this.CurrUser.UserName;
                     this.txtTeachAddress.Text = "办公室";
@@ -121,7 +121,7 @@ namespace FineUIPro.Web.EduTrain
                 Grid1.DataBind();
                
                 ///初始化审核菜单
-                this.ctlAuditFlow.MenuId = BLL.Const.ProjectTrainRecordMenuId;
+                this.ctlAuditFlow.MenuId = Const.ProjectTrainRecordMenuId;
                 this.ctlAuditFlow.DataId = this.TrainingId;
                 this.ctlAuditFlow.ProjectId = this.ProjectId;
                 this.ctlAuditFlow.UnitId = this.CurrUser.UnitId;

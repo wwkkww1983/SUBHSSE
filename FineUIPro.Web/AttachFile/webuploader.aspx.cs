@@ -281,48 +281,13 @@ namespace FineUIPro.Web.AttachFile
         #endregion
 
         /// <summary>
-        /// 
+        ///  保存附件
         /// </summary>
         /// <param name="source"></param>
         /// <param name="attachUrl"></param>
         private void SaveData(string source, string attachUrl)
         {
-            Model.SUBHSSEDB db = Funs.DB;
-            List<Model.AttachFile> sour = new List<Model.AttachFile>();
-            if (!string.IsNullOrEmpty(this.MenuId))
-            {
-                sour = (from x in db.AttachFile where x.ToKeyId == ToKeyId && x.MenuId== this.MenuId select x).ToList();
-            }
-            else
-            {
-                sour = (from x in db.AttachFile where x.ToKeyId == ToKeyId select x).ToList();
-            }
-           
-            if (sour.Count() == 0)
-            {
-                Model.AttachFile att = new Model.AttachFile
-                {
-                    AttachFileId = BLL.SQLHelper.GetNewID(typeof(Model.AttachFile)),
-                    ToKeyId = ToKeyId,
-                    AttachSource = source.ToString(),
-                    AttachUrl = attachUrl,
-                    MenuId = MenuId
-                };
-                db.AttachFile.InsertOnSubmit(att);
-                db.SubmitChanges();
-            }
-            else
-            {
-                Model.AttachFile att = db.AttachFile.FirstOrDefault(x => x.AttachFileId == sour.First().AttachFileId);
-                if (att != null)
-                {
-                    att.ToKeyId = ToKeyId;
-                    att.AttachSource = source.ToString();
-                    att.AttachUrl = attachUrl;
-                    att.MenuId = MenuId;
-                    db.SubmitChanges();
-                }
-            }
+            UploadFileService.SaveAttachUrl(source, attachUrl, MenuId, ToKeyId);
         }
 
         /// <summary>

@@ -94,7 +94,7 @@ namespace FineUIPro.Web.Meeting
                     }
 
                     ////自动生成编码
-                    this.txtMonthMeetingCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectMonthMeetingMenuId, this.ProjectId, this.CurrUser.UnitId);
+                    this.txtMonthMeetingCode.Text = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectMonthMeetingMenuId, this.ProjectId, this.CurrUser.UnitId);
                     this.txtMonthMeetingName.Text = this.SimpleForm1.Title;
                     this.txtMeetingHours.Text = "1";
                     this.txtMeetingHostMan.Text = this.CurrUser.UserName;
