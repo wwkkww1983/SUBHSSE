@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Training_TestRecord GetTestRecordById(string testRecordId)
         {
-            return db.Training_TestRecord.FirstOrDefault(e => e.TestRecordId == testRecordId);
+            return Funs.DB.Training_TestRecord.FirstOrDefault(e => e.TestRecordId == testRecordId);
         }
         
         /// <summary>
@@ -40,9 +40,9 @@ namespace BLL
 
             if (string.IsNullOrEmpty(newTestRecord.TestType))
             {
-                var getTrainTypeName = (from x in Funs.DB.Training_TestPlan
-                                      join y in Funs.DB.Training_Plan on x.PlanId equals y.PlanId
-                                      join z in Funs.DB.Base_TrainType on y.TrainTypeId equals z.TrainTypeId
+                var getTrainTypeName = (from x in db.Training_TestPlan
+                                      join y in db.Training_Plan on x.PlanId equals y.PlanId
+                                      join z in db.Base_TrainType on y.TrainTypeId equals z.TrainTypeId
                                       where x.TestPlanId == testRecord.TestPlanId
                                       select z).FirstOrDefault();
                     
@@ -79,7 +79,7 @@ namespace BLL
         /// <param name="planId"></param>
         public static void DeleteTestRecordByTestPlanId(string testPlanId)
         {
-            var deleteRecords = from x in db.Training_TestRecord where x.TestPlanId == testPlanId select x;
+            var deleteRecords = from x in Funs.DB.Training_TestRecord where x.TestPlanId == testPlanId select x;
             if (deleteRecords.Count() > 0)
             {
                 foreach (var item in deleteRecords)

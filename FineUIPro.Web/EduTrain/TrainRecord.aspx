@@ -61,9 +61,15 @@
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="120px" ColumnID="TrainingCode" DataField="TrainingCode" SortField="TrainingCode"
+                    <%--<f:RenderField Width="120px" ColumnID="TrainingCode" DataField="TrainingCode" SortField="TrainingCode"
                         FieldType="String" HeaderText="培训编号" HeaderTextAlign="Center" TextAlign="Left">                        
-                    </f:RenderField>
+                    </f:RenderField>--%>                    
+                    <f:TemplateField ColumnID="tfTrainingCode" Width="120px" HeaderText="培训编号" HeaderTextAlign="Center"
+                        TextAlign="Center"> 
+                        <ItemTemplate>
+                            <asp:Label ID="lblTrainingCode" runat="server" Text='<%# Bind("TrainingCode") %>'></asp:Label>
+                        </ItemTemplate>
+                    </f:TemplateField>
                     <f:RenderField Width="300px" ColumnID="TrainTitle" DataField="TrainTitle" SortField="TrainTitle"
                         FieldType="String" HeaderText="标题" HeaderTextAlign="Center" TextAlign="Left">                        
                     </f:RenderField>

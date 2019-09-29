@@ -27,11 +27,11 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getQualityLists = APITrainingPlanService.getTrainingPlanListByProjectIdTrainTypeIdTrainStates(projectId, trainTypeId, states);
-                int pageCount = getQualityLists.Count;
+                var getDataLists = APITrainingPlanService.getTrainingPlanListByProjectIdTrainTypeIdTrainStates(projectId, trainTypeId, states);
+                int pageCount = getDataLists.Count;
                 if (pageCount > 0 && pageIndex > 0)
                 {
-                    var getdata = from x in getQualityLists.OrderByDescending(u => u.TrainStartDate).Skip(BLL.Funs.PageSize * (pageIndex - 1)).Take(BLL.Funs.PageSize)
+                    var getdata = from x in getDataLists.Skip(BLL.Funs.PageSize * (pageIndex - 1)).Take(BLL.Funs.PageSize)
                                   select x;
                     responeData.data = new { pageCount, getdata };
                 }
@@ -101,7 +101,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                BLL.APITrainingPlanService.SaveTrainingPlan(trainingPlan);
+                APITrainingPlanService.SaveTrainingPlan(trainingPlan);
             }
             catch (Exception ex)
             {

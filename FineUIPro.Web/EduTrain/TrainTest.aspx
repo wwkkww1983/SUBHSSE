@@ -37,9 +37,16 @@
                         </f:Toolbar>
                     </Toolbars>
                     <Columns>                       
-                        <f:RenderField Width="60px" ColumnID="COrder" DataField="COrder" FieldType="String"
+                        <%--<f:RenderField Width="60px" ColumnID="COrder" DataField="COrder" FieldType="String"
                             HeaderText="序号" HeaderTextAlign="Center" TextAlign="Left" SortField="COrder">
-                        </f:RenderField>
+                        </f:RenderField>--%>
+                        
+                    <f:TemplateField ColumnID="tfNumber" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
+                        TextAlign="Center">
+                        <ItemTemplate>
+                            <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
+                        </ItemTemplate>
+                    </f:TemplateField>
                         <f:RenderField Width="500px" ColumnID="QsnContent" DataField="QsnContent" FieldType="String"
                             HeaderText="试题内容" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>

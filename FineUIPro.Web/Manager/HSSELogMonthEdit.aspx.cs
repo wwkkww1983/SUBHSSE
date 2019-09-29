@@ -175,6 +175,8 @@ namespace FineUIPro.Web.Manager
             this.ProjectId = hsseLogMonth.ProjectId;
             this.SetProject();  //设置页面项目信息
             this.HSSELogMonthId = hsseLogMonth.HSSELogMonthId;
+            this.lbHSSELogMonthCode.Text = hsseLogMonth.HSSELogMonthCode;
+            this.txtMonths.Text = string.Format("{0:yyyy-MM}", hsseLogMonth.Months);
             this.lbHSSELogMonthCode.Text = BLL.CodeRecordsService.ReturnCodeByDataId(this.HSSELogMonthId);
             this.txtCompileMan.Text = BLL.UserService.GetUserNameByUserId(hsseLogMonth.CompileMan);
             this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", hsseLogMonth.CompileDate);
@@ -267,7 +269,23 @@ namespace FineUIPro.Web.Manager
             Model.Manager_HSSELogMonth hsseLogMonth = new Model.Manager_HSSELogMonth
             {
                 ProjectId = this.ProjectId,
-                CompileDate = Funs.GetNewDateTime(this.txtCompileDate.Text)
+                CompileDate = Funs.GetNewDateTime(this.txtCompileDate.Text),
+                HSSELogMonthCode = this.lbHSSELogMonthCode.Text.Trim(),
+                Num1 = Funs.GetNewInt(this.txtNum1.Text.Trim()),
+                Num2 = Funs.GetNewInt(this.txtNum2.Text.Trim()),
+                Num3 = Funs.GetNewInt(this.txtNum3.Text.Trim()),
+                Num4 = Funs.GetNewInt(this.txtNum4.Text.Trim()),
+                Num5 = Funs.GetNewInt(this.txtNum5.Text.Trim()),
+                Num6 = Funs.GetNewInt(this.txtNum6.Text.Trim()),
+                Num7 = Funs.GetNewInt(this.txtNum7.Text.Trim()),
+                Num8 = Funs.GetNewInt(this.txtNum8.Text.Trim()),
+                Num9 = Funs.GetNewInt(this.txtNum9.Text.Trim()),
+                Num10 = Funs.GetNewInt(this.txtNum10.Text.Trim()),
+                Num11 = Funs.GetNewInt(this.txtNum11.Text.Trim()),
+                Num12 = Funs.GetNewInt(this.txtNum12.Text.Trim()),
+                Num13 = Funs.GetNewInt(this.txtNum13.Text.Trim()),
+                Num14 = Funs.GetNewInt(this.txtNum14.Text.Trim()),
+                Num15 = Funs.GetNewInt(this.txtNum15.Text.Trim())
             };
             if (!string.IsNullOrEmpty(this.HSSELogMonthId))
             {  

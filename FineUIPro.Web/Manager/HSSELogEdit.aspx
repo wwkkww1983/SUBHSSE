@@ -53,8 +53,8 @@
                         <f:Label ID="Label11" runat="server" Text="2"></f:Label>
                         <f:Label ID="Label12" runat="server" Text="不安全行为指数"></f:Label>
                         <f:Label ID="Label13" runat="server" Text="不安全行为指数：不安全行书指数=（不安全行为数/审核小时数）×100%"></f:Label>
-                        <f:TextBox ID="txtContents12" runat="server" LabelAlign="Left" MaxLength="2000">
-                        </f:TextBox>
+                        <f:TextArea ID="txtContents12" runat="server" LabelAlign="Left" MaxLength="2000" Height="50px">
+                        </f:TextArea>
                     </Items>
                 </f:FormRow>
                 <f:FormRow ColumnWidths="5% 15% 30% 50%">
@@ -62,8 +62,8 @@
                         <f:Label ID="Label14" runat="server" Text="3"></f:Label>
                         <f:Label ID="Label15" runat="server" Text="事故及未遂事件情况统计"></f:Label>
                         <f:Label ID="Label16" runat="server" Text="填写事故及未遂事件发生情况"></f:Label>
-                        <f:TextBox ID="txtContents13" runat="server" LabelAlign="Left" MaxLength="2000">
-                        </f:TextBox>
+                        <f:TextArea ID="txtContents13" runat="server" LabelAlign="Left" MaxLength="2000" Height="50px">
+                        </f:TextArea>
                     </Items>
                 </f:FormRow>
                 <f:FormRow ColumnWidths="5% 15% 30% 50%">
@@ -79,8 +79,8 @@
                         <f:Label ID="Label21" runat="server" Text="1"></f:Label>
                         <f:Label ID="Label22" runat="server" Text="HSE检查类型"></f:Label>
                         <f:Label ID="Label23" runat="server" Text="描述是日巡检或××专项检查，参加人员"></f:Label>
-                        <f:TextBox ID="txtContents21" runat="server" LabelAlign="Left" MaxLength="2000">
-                        </f:TextBox>
+                        <f:TextArea ID="txtContents21" runat="server" LabelAlign="Left" MaxLength="2000" Height="50px">
+                        </f:TextArea>
                     </Items>
                 </f:FormRow>
                 <f:FormRow ColumnWidths="5% 15% 30% 50%">
@@ -96,8 +96,8 @@
                         <f:Label ID="Label27" runat="server" Text="2"></f:Label>
                         <f:Label ID="Label28" runat="server" Text="隐患整改情况"></f:Label>
                         <f:Label ID="Label29" runat="server" Text="存在的隐患、整改要求及安排"></f:Label>
-                        <f:TextBox ID="txtContents22" runat="server" LabelAlign="Left" MaxLength="2000">
-                        </f:TextBox>
+                        <f:TextArea ID="txtContents22" runat="server" LabelAlign="Left" MaxLength="2000" Height="50px">
+                        </f:TextArea>
                     </Items>
                 </f:FormRow>
                 <f:FormRow ColumnWidths="5% 15% 30% 50%">
@@ -113,8 +113,8 @@
                         <f:Label ID="Label33" runat="server" Text="3"></f:Label>
                         <f:Label ID="Label34" runat="server" Text="作业许可情况"></f:Label>
                         <f:Label ID="Label35" runat="server" Text="各类作业许可证办理、检查工作情况"></f:Label>
-                        <f:TextBox ID="txtContents23" runat="server" LabelAlign="Left" MaxLength="2000">
-                        </f:TextBox>
+                        <f:TextArea ID="txtContents23" runat="server" LabelAlign="Left" MaxLength="2000" Height="50px">
+                        </f:TextArea>
                     </Items>
                 </f:FormRow>
                 <f:FormRow ColumnWidths="5% 15% 30% 50%">
@@ -130,8 +130,8 @@
                         <f:Label ID="Label39" runat="server" Text="4"></f:Label>
                         <f:Label ID="Label40" runat="server" Text="施工机具、安全设施检查、验收情况"></f:Label>
                         <f:Label ID="Label41" runat="server" Text="各类施工机具、安全设施的检查、检验等工作，包括施工机械报审"></f:Label>
-                        <f:TextBox ID="txtContents24" runat="server" LabelAlign="Left" MaxLength="2000">
-                        </f:TextBox>
+                        <f:TextArea ID="txtContents24" runat="server" LabelAlign="Left" MaxLength="2000" Height="50px">
+                        </f:TextArea>
                     </Items>
                 </f:FormRow>
                 <f:FormRow ColumnWidths="5% 15% 30% 50%">
@@ -232,8 +232,8 @@
                         <f:Label ID="Label75" runat="server" Text="5"></f:Label>
                         <f:Label ID="Label76" runat="server" Text="HSE奖惩工作情况"></f:Label>
                         <f:Label ID="Label77" runat="server" Text="对不安全行为的违章处罚，对优秀员工的奖励"></f:Label>
-                        <f:TextBox ID="txtContents210" runat="server" LabelAlign="Left" MaxLength="2000">
-                        </f:TextBox>
+                        <f:TextArea ID="txtContents210" runat="server" LabelAlign="Left" MaxLength="2000" Height="50px">
+                        </f:TextArea>
                     </Items>
                 </f:FormRow>
                 <f:FormRow ColumnWidths="5% 15% 30% 50%">
@@ -265,8 +265,8 @@
                         <f:Label ID="Label88" runat="server" Text="1"></f:Label>
                         <f:Label ID="Label89" runat="server" Text="HSE文件修编情况"></f:Label>
                         <f:Label ID="Label90" runat="server" Text="各类HSE实施计划、方案、措施等的编制、审核，包括分包商的HSE体系文件审核工作"></f:Label>
-                        <f:TextBox ID="txtContents31" runat="server" LabelAlign="Left" MaxLength="2000">
-                        </f:TextBox>
+                        <f:TextArea ID="txtContents31" runat="server" LabelAlign="Left" MaxLength="2000" Height="50px">
+                        </f:TextArea>
                     </Items>
                 </f:FormRow>
                 <f:FormRow ColumnWidths="5% 15% 30% 50%">
@@ -282,8 +282,8 @@
                         <f:Label ID="Label94" runat="server" Text="2"></f:Label>
                         <f:Label ID="Label95" runat="server" Text="HSE文件审核情况"></f:Label>
                         <f:Label ID="Label96" runat="server" Text="五环公司及各分包商企业、人员资质核查、HSE费用核查等"></f:Label>
-                        <f:TextBox ID="txtContents32" runat="server" LabelAlign="Left" MaxLength="2000">
-                        </f:TextBox>
+                        <f:TextArea ID="txtContents32" runat="server" LabelAlign="Left" MaxLength="2000" Height="50px">
+                        </f:TextArea>
                     </Items>
                 </f:FormRow>
                 <f:FormRow ColumnWidths="5% 15% 30% 50%">
@@ -332,8 +332,8 @@
                         <f:Label ID="Label113" runat="server" Text="1"></f:Label>
                         <f:Label ID="Label114" runat="server" Text="每周工作小结"></f:Label>
                         <f:Label ID="Label115" runat="server" Text="对本周的工作要点进行总结"></f:Label>
-                        <f:TextBox ID="txtContents41" runat="server" LabelAlign="Left" MaxLength="2000">
-                        </f:TextBox>
+                        <f:TextArea ID="txtContents41" runat="server" LabelAlign="Left" MaxLength="2000" Height="50px">
+                        </f:TextArea>
                     </Items>
                 </f:FormRow>
                 <f:FormRow ColumnWidths="5% 15% 30% 50%">
@@ -341,8 +341,8 @@
                         <f:Label ID="Label116" runat="server" Text="2"></f:Label>
                         <f:Label ID="Label117" runat="server" Text="下周/下阶段工作计划"></f:Label>
                         <f:Label ID="Label118" runat="server" Text="提出下周或下阶段的工作要点"></f:Label>
-                        <f:TextBox ID="txtContents42" runat="server" LabelAlign="Left" MaxLength="2000">
-                        </f:TextBox>
+                        <f:TextArea ID="txtContents42" runat="server" LabelAlign="Left" MaxLength="2000" Height="50px">
+                        </f:TextArea>
                     </Items>
                 </f:FormRow>
                 <%--<f:FormRow ColumnWidths="5% 15% 30% 50%">

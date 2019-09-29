@@ -58,7 +58,7 @@
                 ShowBorder="false" ShowHeader="false">
                 <Items>
                      <f:TextBox ID="lbHSSELogMonthCode" runat="server" LabelAlign="Right" Label="编号"
-                        Required="true" ShowRedStar="true" Readonly="true" LabelWidth="60px" Width="200px">
+                        Required="true" ShowRedStar="true" LabelWidth="60px" Width="200px">
                     </f:TextBox>            
                 </Items>
             </f:Panel>
@@ -129,98 +129,98 @@
                     </f:FormRow> 
                     <f:FormRow >
                         <Items>                           
-                            <f:TextBox ID="txtNum1" runat="server" Label="HSE检查次数" LabelAlign="Right" Readonly="true" LabelWidth="250px">
-                            </f:TextBox>
+                            <f:NumberBox ID="txtNum1" runat="server" Label="HSE检查次数" LabelAlign="Right" LabelWidth="250px" NoDecimal="true" NoNegative="true">
+                            </f:NumberBox>
                          </Items>
                     </f:FormRow>
                     <f:FormRow >
                         <Items> 
-                            <f:TextBox ID="txtNum2" runat="server" Label="隐患整改数量" LabelAlign="Right" Readonly="true" LabelWidth="250px">
-                            </f:TextBox>
+                            <f:NumberBox ID="txtNum2" runat="server" Label="隐患整改数量" LabelAlign="Right"  LabelWidth="250px" NoDecimal="true" NoNegative="true">
+                            </f:NumberBox>
                      </Items>
                     </f:FormRow>
                     <f:FormRow >
                         <Items> 
-                            <f:TextBox ID="txtNum3" runat="server" Label="作业票办理数量" LabelAlign="Right" Readonly="true" LabelWidth="250px">
-                            </f:TextBox>
+                            <f:NumberBox ID="txtNum3" runat="server" Label="作业票办理数量" LabelAlign="Right"  LabelWidth="250px" NoDecimal="true" NoNegative="true">
+                            </f:NumberBox>
                              </Items>
                     </f:FormRow>
                     <f:FormRow >
                         <Items> 
-                            <f:TextBox ID="txtNum4" runat="server" Label="机械、安全设施验收数量" LabelAlign="Right" Readonly="true" LabelWidth="250px">
-                            </f:TextBox>
+                            <f:NumberBox ID="txtNum4" runat="server" Label="机械、安全设施验收数量" LabelAlign="Right"  LabelWidth="250px" NoDecimal="true" NoNegative="true">
+                            </f:NumberBox>
                              </Items>
                     </f:FormRow>
                     <f:FormRow >
                         <Items> 
-                            <f:TextBox ID="txtNum5" runat="server" Label="危险源辨识活动次数" LabelAlign="Right" Readonly="true" LabelWidth="250px">
-                            </f:TextBox>
+                            <f:NumberBox ID="txtNum5" runat="server" Label="危险源辨识活动次数" LabelAlign="Right" LabelWidth="250px" NoDecimal="true" NoNegative="true">
+                            </f:NumberBox>
                              </Items>
                     </f:FormRow>
                     <f:FormRow >
                         <Items> 
-                            <f:TextBox ID="txtNum6" runat="server" Label="应急计划方案修编、应急活动次数" LabelAlign="Right" Readonly="true" LabelWidth="250px">
-                            </f:TextBox>
+                            <f:NumberBox ID="txtNum6" runat="server" Label="应急计划方案修编、应急活动次数" LabelAlign="Right" LabelWidth="250px" NoDecimal="true" NoNegative="true">
+                            </f:NumberBox>
                              </Items>
                     </f:FormRow>
                     <f:FormRow >
                         <Items> 
-                            <f:TextBox ID="txtNum7" runat="server" Label="HSE培训人次" LabelAlign="Right" Readonly="true" LabelWidth="250px">
-                            </f:TextBox>
+                            <f:NumberBox ID="txtNum7" runat="server" Label="HSE培训人次" LabelAlign="Right"  LabelWidth="250px" NoDecimal="true" NoNegative="true">
+                            </f:NumberBox>
                              </Items>
                     </f:FormRow>
                     <f:FormRow >
                         <Items> 
-                            <f:TextBox ID="txtNum8" runat="server" Label="HSE会议数量" LabelAlign="Right" Readonly="true" LabelWidth="250px">
-                            </f:TextBox>
+                            <f:NumberBox ID="txtNum8" runat="server" Label="HSE会议数量" LabelAlign="Right" LabelWidth="250px" NoDecimal="true" NoNegative="true">
+                            </f:NumberBox>
                              </Items>
                     </f:FormRow>
                     <f:FormRow >
                         <Items> 
-                            <f:TextBox ID="txtNum9" runat="server" Label="HSE宣传活动次数" LabelAlign="Right" Readonly="true" LabelWidth="250px">
-                            </f:TextBox>
+                            <f:NumberBox ID="txtNum9" runat="server" Label="HSE宣传活动次数" LabelAlign="Right" LabelWidth="250px" NoDecimal="true" NoNegative="true">
+                            </f:NumberBox>
                              </Items>
                     </f:FormRow>
                     <f:FormRow >
                         <Items> 
-                            <f:TextBox ID="txtNum10" runat="server" Label="HSE奖励次数" LabelAlign="Right" Readonly="true" LabelWidth="250px">
-                            </f:TextBox>
+                            <f:NumberBox ID="txtNum10" runat="server" Label="HSE奖励次数" LabelAlign="Right"  LabelWidth="250px" NoDecimal="true" NoNegative="true">
+                            </f:NumberBox>
                              </Items>
                     </f:FormRow>
                     <f:FormRow >
                         <Items> 
-                            <f:TextBox ID="txtNum11" runat="server" Label="HSE处罚次数" LabelAlign="Right" Readonly="true" LabelWidth="250px">
-                            </f:TextBox>
+                            <f:NumberBox ID="txtNum11" runat="server" Label="HSE处罚次数" LabelAlign="Right"  LabelWidth="250px" NoDecimal="true" NoNegative="true">
+                            </f:NumberBox>
                         </Items>
                     </f:FormRow> 
                     <f:FormRow >
                         <Items>
-                            <f:Label ID="Label8" runat="server" CssClass="titler" Text="4.HSE内业管理" LabelAlign="Left">
+                            <f:Label ID="Label8" runat="server" CssClass="titler" Text="4.HSE内业管理" LabelAlign="Left" >
                             </f:Label>
                         </Items>
                     </f:FormRow> 
                     <f:FormRow >
                         <Items>                           
-                            <f:TextBox ID="txtNum12" runat="server" Label="HSE体系文件修编数量" LabelAlign="Right" Readonly="true" LabelWidth="250px">
-                            </f:TextBox>
+                            <f:NumberBox ID="txtNum12" runat="server" Label="HSE体系文件修编数量" LabelAlign="Right"  LabelWidth="250px" NoDecimal="true" NoNegative="true">
+                            </f:NumberBox>
                         </Items>
                     </f:FormRow>
                     <f:FormRow >
                         <Items>                           
-                            <f:TextBox ID="txtNum13" runat="server" Label="HSE资质方案核查数量" LabelAlign="Right" Readonly="true" LabelWidth="250px">
-                            </f:TextBox>
+                            <f:NumberBox ID="txtNum13" runat="server" Label="HSE资质方案核查数量" LabelAlign="Right" LabelWidth="250px" NoDecimal="true" NoNegative="true">
+                            </f:NumberBox>
                         </Items>
                     </f:FormRow>
                     <f:FormRow >
                         <Items>                           
-                            <f:TextBox ID="txtNum14" runat="server" Label="HSE费用核查次数" LabelAlign="Right" Readonly="true" LabelWidth="250px">
-                            </f:TextBox>
+                            <f:NumberBox ID="txtNum14" runat="server" Label="HSE费用核查次数" LabelAlign="Right" LabelWidth="250px" NoDecimal="true" NoNegative="true">
+                            </f:NumberBox>
                         </Items>
                     </f:FormRow>
                     <f:FormRow >
                         <Items>                           
-                            <f:TextBox ID="txtNum15" runat="server" Label="HSE文件资料分类上档数量" LabelAlign="Right" Readonly="true" LabelWidth="250px">
-                            </f:TextBox>
+                            <f:NumberBox ID="txtNum15" runat="server" Label="HSE文件资料分类上档数量" LabelAlign="Right" LabelWidth="250px" NoDecimal="true" NoNegative="true">
+                            </f:NumberBox>
                         </Items>
                     </f:FormRow>                       
                 </Items>

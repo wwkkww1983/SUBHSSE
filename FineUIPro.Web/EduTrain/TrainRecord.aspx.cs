@@ -401,7 +401,12 @@ namespace FineUIPro.Web.EduTrain
                     {
                         html = (row.FindControl("lblUnitId") as AspNet.Label).Text;
                     }
-                    sb.AppendFormat("<td>{0}</td>", html);
+                    if (column.ColumnID == "tfTrainingCode")
+                    {
+                        html = (row.FindControl("lblTrainingCode") as AspNet.Label).Text;
+                    }
+                    //sb.AppendFormat("<td>{0}</td>", html);
+                    sb.AppendFormat("<td style='vnd.ms-excel.numberformat:@;width:140px;'>{0}</td>", html);
                 }
 
                 sb.Append("</tr>");

@@ -89,7 +89,7 @@
                             <asp:Label ID="lbTrainTypeName" runat="server" Text='<%# Bind("TrainTypeName") %>' ToolTip='<%#Bind("TrainTypeName") %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:TemplateField Width="80px" ColumnID="tfTrainLevelName" HeaderText="培训类别" HeaderTextAlign="Center" TextAlign="Left">
+                    <f:TemplateField Width="80px" ColumnID="tfTrainLevelName" HeaderText="培训级别" HeaderTextAlign="Center" TextAlign="Left">
                         <ItemTemplate>
                             <asp:Label ID="lbTrainLevelName" runat="server" Text='<%# Bind("TrainLevelName") %>' ToolTip='<%#Bind("TrainLevelName") %>'></asp:Label>
                         </ItemTemplate>

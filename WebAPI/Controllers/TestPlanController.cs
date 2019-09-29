@@ -152,7 +152,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getTestPlan = TestPlanService.GetTestPlanById(testPlanId);
+                var getTestPlan = Funs.DB.Training_TestPlan.FirstOrDefault(e => e.TestPlanId == testPlanId); 
                 if (getTestPlan != null)
                 {
                     var person = PersonService.GetPersonByUserId(personId);
@@ -161,6 +161,13 @@ namespace WebAPI.Controllers
                         //2-考试中；生成考试试卷     
                         if (getTestPlan.States == "2" && getTestPlan.TestStartTime <= DateTime.Now && getTestPlan.TestEndTime >= DateTime.Now)
                         {
+                            var testRecord = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == getTestPlan.TestPlanId && x.TestManId == person.PersonId);
+                            if (testRecord != null && !testRecord.TestStartTime.HasValue)
+                            {////考试时长
+                                testRecord.Duration = getTestPlan.Duration;
+                                testRecord.TestStartTime = DateTime.Now;
+                                Funs.DB.SubmitChanges();                               
+                            }
                             string testRecordId = APITestRecordService.getTestRecordItemByTestPlanIdPersonId(getTestPlan, person);
                             responeData.code = 2;
                             responeData.data = new { testRecordId };
@@ -171,7 +178,7 @@ namespace WebAPI.Controllers
                             {
                                 //0-待提交；1-已发布未考试 将人员添加进考试记录                        
                                 var testTRecord = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == testPlanId && x.TestManId == personId);
-                                if ((getTestPlan.States == "0" || getTestPlan.States == "1") && testTRecord == null)
+                                if ((getTestPlan.States == "0" || getTestPlan.States == "1") && testTRecord == null && !string.IsNullOrEmpty(personId))
                                 {
                                     Model.Training_TestRecord newTestRecord = new Model.Training_TestRecord
                                     {

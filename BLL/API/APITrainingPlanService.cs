@@ -116,8 +116,7 @@ namespace BLL
         /// <param name="trainingTasks">培训人员list</param>
         /// <param name="trainingPlanItems">培训教材类型list</param>
         public static void SaveTrainingPlan(Model.TrainingPlanItem trainingPlan)
-        {
-            Model.SUBHSSEDB db = Funs.DB;
+        {            
             Model.Training_Plan newTrainingPlan = new Model.Training_Plan
             {
                 PlanId = trainingPlan.PlanId,
@@ -160,8 +159,10 @@ namespace BLL
                 {
                     newTrainingPlan.PlanId = SQLHelper.GetNewID();
                 }
-                db.Training_Plan.InsertOnSubmit(newTrainingPlan);
-                db.SubmitChanges();
+                Funs.DB.Training_Plan.InsertOnSubmit(newTrainingPlan);
+                Funs.DB.SubmitChanges();
+
+                CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectTrainingPlanMenuId, newTrainingPlan.ProjectId, null, newTrainingPlan.PlanId, newTrainingPlan.DesignerDate);
             }
             else
             {
@@ -179,29 +180,12 @@ namespace BLL
                     isUpdate.UnitIds = newTrainingPlan.UnitIds;
                     isUpdate.WorkPostId = newTrainingPlan.WorkPostId;
                     isUpdate.States = newTrainingPlan.States;
-                    db.SubmitChanges();
+                    Funs.DB.SubmitChanges();
                 }
                 ////删除培训任务
                 TrainingTaskService.DeleteTaskByPlanId(newTrainingPlan.PlanId);
                 ////删除培训教材类型
                 TrainingPlanItemService.DeletePlanItemByPlanId(newTrainingPlan.PlanId);              
-
-                //if (trainingPlan.States == "2")
-                //{
-                //    ///TODO 生成考试计划。 Training_TestPlan
-                //}
-                //else if (trainingPlan.States == "3")
-                //{
-                //    ////由考试完成后 回写状态。插入培训记录表EduTrain_TrainRecord、EduTrain_TrainRecordDetail
-                //}
-                //else
-                //{                //    if (newTrainingPlan.States == "1")
-                //    {
-                //        ///TODO 生成培训人员 培训任务 Training_TaskItem 在人员点击自己任务列表时展示 
-                //        ///空时查找生成任务教材明细
-                //        ////已做定时器、或点击查询时实现
-                //    }
-                //}
             }
 
             if (trainingTasks.Count() > 0)
@@ -220,21 +204,24 @@ namespace BLL
         ///  新增 培训人员明细
         /// </summary>
         public static void AddTraining_Task(List<Model.TrainingTaskItem> trainingTasks, string planId, string projectId)
-        {            
+        {
             foreach (var item in trainingTasks)
             {
-                Model.Training_Task newTrainDetail = new Model.Training_Task
+                if (!string.IsNullOrEmpty(item.PersonId))
                 {
-                    TaskId = SQLHelper.GetNewID(),
-                    ProjectId = projectId,
-                    PlanId = planId,
-                    UserId = item.PersonId,
-                    TaskDate = DateTime.Now,
-                    States = Const.State_0, ////未生成培训教材明细
-                };
+                    Model.Training_Task newTrainDetail = new Model.Training_Task
+                    {
+                        TaskId = SQLHelper.GetNewID(),
+                        ProjectId = projectId,
+                        PlanId = planId,
+                        UserId = item.PersonId,
+                        TaskDate = DateTime.Now,
+                        States = Const.State_0, ////未生成培训教材明细
+                    };
 
-                Funs.DB.Training_Task.InsertOnSubmit(newTrainDetail);
-                Funs.DB.SubmitChanges();
+                    Funs.DB.Training_Task.InsertOnSubmit(newTrainDetail);
+                    Funs.DB.SubmitChanges();
+                }
             }
         }
 
@@ -245,15 +232,18 @@ namespace BLL
         {
             foreach (var item in trainingPlanItems)
             {
-                Model.Training_PlanItem newPlanItem = new Model.Training_PlanItem
+                if (!string.IsNullOrEmpty(item.CompanyTrainingId))
                 {
-                    PlanItemId = SQLHelper.GetNewID(),
-                    PlanId = planId,
-                    CompanyTrainingId = item.CompanyTrainingId,
-                };
+                    Model.Training_PlanItem newPlanItem = new Model.Training_PlanItem
+                    {
+                        PlanItemId = SQLHelper.GetNewID(),
+                        PlanId = planId,
+                        CompanyTrainingId = item.CompanyTrainingId,
+                    };
 
-                Funs.DB.Training_PlanItem.InsertOnSubmit(newPlanItem);
-                Funs.DB.SubmitChanges();
+                    Funs.DB.Training_PlanItem.InsertOnSubmit(newPlanItem);
+                    Funs.DB.SubmitChanges();
+                }
             }
         }
         #endregion

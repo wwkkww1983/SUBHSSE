@@ -199,7 +199,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtContents12;
+        protected global::FineUIPro.TextArea txtContents12;
         
         /// <summary>
         /// Label14 控件。
@@ -235,7 +235,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtContents13;
+        protected global::FineUIPro.TextArea txtContents13;
         
         /// <summary>
         /// Label17 控件。
@@ -307,7 +307,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtContents21;
+        protected global::FineUIPro.TextArea txtContents21;
         
         /// <summary>
         /// Label24 控件。
@@ -379,7 +379,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtContents22;
+        protected global::FineUIPro.TextArea txtContents22;
         
         /// <summary>
         /// Label30 控件。
@@ -451,7 +451,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtContents23;
+        protected global::FineUIPro.TextArea txtContents23;
         
         /// <summary>
         /// Label36 控件。
@@ -523,7 +523,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtContents24;
+        protected global::FineUIPro.TextArea txtContents24;
         
         /// <summary>
         /// Label42 控件。
@@ -595,7 +595,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtContents210;
+        protected global::FineUIPro.TextArea txtContents210;
         
         /// <summary>
         /// Label78 控件。
@@ -739,7 +739,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtContents31;
+        protected global::FineUIPro.TextArea txtContents31;
         
         /// <summary>
         /// Label91 控件。
@@ -811,7 +811,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtContents32;
+        protected global::FineUIPro.TextArea txtContents32;
         
         /// <summary>
         /// Label97 控件。
@@ -919,7 +919,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtContents41;
+        protected global::FineUIPro.TextArea txtContents41;
         
         /// <summary>
         /// Label116 控件。
@@ -955,7 +955,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtContents42;
+        protected global::FineUIPro.TextArea txtContents42;
         
         /// <summary>
         /// Toolbar1 控件。

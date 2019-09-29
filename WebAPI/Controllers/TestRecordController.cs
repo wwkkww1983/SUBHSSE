@@ -246,7 +246,8 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                APITestRecordService.getSubmitTestRecordByTestRecordId(testRecordId);
+                decimal getData = APITestRecordService.getSubmitTestRecordByTestRecordId(testRecordId);
+                responeData.data = new { getData };
             }
             catch (Exception ex)
             {

@@ -106,7 +106,7 @@ namespace BLL
         {
             var persons = from x in Funs.DB.View_SitePerson_Person
                           where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null) && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)
-                          orderby x.UnitCode, x.PersonName
+                          orderby x.UnitName, x.PersonName
                           select new Model.PersonItem
                           {
                               PersonId = x.PersonId,
@@ -149,7 +149,7 @@ namespace BLL
         {
             List<string> unitIdList = Funs.GetStrListByStr(unitIds, ',');
             var getPersons = from x in Funs.DB.View_SitePerson_Person
-                             where x.ProjectId == projectId && unitIdList.Contains(x.UnitId) && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)
+                             where x.ProjectId == projectId && unitIdList.Contains(x.UnitId) && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)                         
                              select new Model.PersonItem
                              {
                                  PersonId = x.PersonId,

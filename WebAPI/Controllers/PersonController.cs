@@ -261,7 +261,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = APIPersonService.getTrainingPersonListByTrainTypeId(projectId, unitIds, workPostIds, trainTypeId);
+                var getDataList = APIPersonService.getTrainingPersonListByTrainTypeId(projectId, unitIds, workPostIds, trainTypeId).OrderBy(x => x.UnitName).ThenBy(x => x.ProjectName).ToList();
                 int pageCount = getDataList.Count;
                 if (pageCount > 0 && pageIndex > 0)
                 {

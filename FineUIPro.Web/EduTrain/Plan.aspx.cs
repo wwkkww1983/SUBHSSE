@@ -228,7 +228,7 @@ namespace FineUIPro.Web.EduTrain
             string name = string.Empty;
             if (unitIds != null)
             {
-                name = BLL.UnitService.getUnitNamesUnitIds(unitIds);
+                name = UnitService.getUnitNamesUnitIds(unitIds);
             }
             return name;
         }

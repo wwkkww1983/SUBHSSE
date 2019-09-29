@@ -51,6 +51,7 @@ namespace BLL
                 TrainPersonNum = training.TrainPersonNum,
                 FromRecordId = training.FromRecordId,
                 WorkPostIds = training.WorkPostIds,
+                PlanId = training.PlanId,
             };
 
             if (training.TrainEndDate.HasValue)

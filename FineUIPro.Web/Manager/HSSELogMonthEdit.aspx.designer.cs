@@ -298,7 +298,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtNum1;
+        protected global::FineUIPro.NumberBox txtNum1;
         
         /// <summary>
         /// txtNum2 控件。
@@ -307,7 +307,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtNum2;
+        protected global::FineUIPro.NumberBox txtNum2;
         
         /// <summary>
         /// txtNum3 控件。
@@ -316,7 +316,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtNum3;
+        protected global::FineUIPro.NumberBox txtNum3;
         
         /// <summary>
         /// txtNum4 控件。
@@ -325,7 +325,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtNum4;
+        protected global::FineUIPro.NumberBox txtNum4;
         
         /// <summary>
         /// txtNum5 控件。
@@ -334,7 +334,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtNum5;
+        protected global::FineUIPro.NumberBox txtNum5;
         
         /// <summary>
         /// txtNum6 控件。
@@ -343,7 +343,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtNum6;
+        protected global::FineUIPro.NumberBox txtNum6;
         
         /// <summary>
         /// txtNum7 控件。
@@ -352,7 +352,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtNum7;
+        protected global::FineUIPro.NumberBox txtNum7;
         
         /// <summary>
         /// txtNum8 控件。
@@ -361,7 +361,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtNum8;
+        protected global::FineUIPro.NumberBox txtNum8;
         
         /// <summary>
         /// txtNum9 控件。
@@ -370,7 +370,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtNum9;
+        protected global::FineUIPro.NumberBox txtNum9;
         
         /// <summary>
         /// txtNum10 控件。
@@ -379,7 +379,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtNum10;
+        protected global::FineUIPro.NumberBox txtNum10;
         
         /// <summary>
         /// txtNum11 控件。
@@ -388,7 +388,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtNum11;
+        protected global::FineUIPro.NumberBox txtNum11;
         
         /// <summary>
         /// Label8 控件。
@@ -406,7 +406,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtNum12;
+        protected global::FineUIPro.NumberBox txtNum12;
         
         /// <summary>
         /// txtNum13 控件。
@@ -415,7 +415,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtNum13;
+        protected global::FineUIPro.NumberBox txtNum13;
         
         /// <summary>
         /// txtNum14 控件。
@@ -424,7 +424,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtNum14;
+        protected global::FineUIPro.NumberBox txtNum14;
         
         /// <summary>
         /// txtNum15 控件。
@@ -433,7 +433,7 @@ namespace FineUIPro.Web.Manager {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtNum15;
+        protected global::FineUIPro.NumberBox txtNum15;
         
         /// <summary>
         /// Toolbar1 控件。

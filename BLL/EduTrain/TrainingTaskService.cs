@@ -29,7 +29,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Training_Task> GetTaskListByPlanId(string planId)
         {
-            return (from x in db.Training_Task where x.PlanId == planId select x).ToList();
+            return (from x in Funs.DB.Training_Task where x.PlanId == planId select x).ToList();
         }
 
         /// <summary>
@@ -56,14 +56,14 @@ namespace BLL
         /// <param name="task"></param>
         public static void UpdateTask(Model.Training_Task task)
         {
-            Model.Training_Task newTask = db.Training_Task.FirstOrDefault(e => e.TaskId == task.TaskId);
-            if (newTask != null)
+            Model.Training_Task newTask = Funs.DB.Training_Task.FirstOrDefault(e => e.TaskId == task.TaskId);
+            if (newTask != null  && !string.IsNullOrEmpty(task.UserId))
             {
                 newTask.PlanId = task.PlanId;
                 newTask.UserId = task.UserId;
                 newTask.TaskDate = task.TaskDate;
                 //newTask.States = task.States;
-                db.SubmitChanges();
+                Funs.DB.SubmitChanges();
             }
         }
 

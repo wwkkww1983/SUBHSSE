@@ -82,14 +82,14 @@ namespace FineUIPro.Web.Meeting
                 {
                     this.drpCompileMan.SelectedValue = this.CurrUser.UserId;
                     this.txtAttendMeetingDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
-                    var codeTemplateRule = BLL.ProjectData_CodeTemplateRuleService.GetProjectData_CodeTemplateRuleByMenuIdProjectId(BLL.Const.ProjectAttendMeetingMenuId, this.ProjectId);
+                    var codeTemplateRule = ProjectData_CodeTemplateRuleService.GetProjectData_CodeTemplateRuleByMenuIdProjectId(BLL.Const.ProjectAttendMeetingMenuId, this.ProjectId);
                     if (codeTemplateRule != null)
                     {
                         this.txtAttendMeetingContents.Text = HttpUtility.HtmlDecode(codeTemplateRule.Template);
                     }
 
                     ////自动生成编码
-                    this.txtAttendMeetingCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectAttendMeetingMenuId, this.ProjectId, this.CurrUser.UnitId);
+                    this.txtAttendMeetingCode.Text = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectAttendMeetingMenuId, this.ProjectId, this.CurrUser.UnitId);
                     this.txtAttendMeetingName.Text = this.SimpleForm1.Title;
                 }
 

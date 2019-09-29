@@ -71,13 +71,12 @@ namespace BLL
             {
                 ////项目
                 string ruleCode = string.Empty;
-
-                var project = BLL.ProjectService.GetProjectByProjectId(projectId);
+                var project = ProjectService.GetProjectByProjectId(projectId);
                 if (project != null)
                 {
                     string projectCode = project.ProjectCode; ///项目编号                               
                     ////编码规则表
-                    var sysCodeTemplateRule = BLL.ProjectData_CodeTemplateRuleService.GetProjectData_CodeTemplateRuleByMenuIdProjectId(menuId, project.ProjectId);
+                    var sysCodeTemplateRule = ProjectData_CodeTemplateRuleService.GetProjectData_CodeTemplateRuleByMenuIdProjectId(menuId, project.ProjectId);
                     if (sysCodeTemplateRule != null)
                     {
                         symbol = sysCodeTemplateRule.Symbol;
@@ -95,7 +94,7 @@ namespace BLL
                         }
                         if (sysCodeTemplateRule.IsUnitCode == true)
                         {
-                            var unit = BLL.UnitService.GetUnitByUnitId(unitId);
+                            var unit = UnitService.GetUnitByUnitId(unitId);
                             if (unit != null)
                             {
                                 ruleCode += unit.UnitCode + symbol;

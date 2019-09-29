@@ -689,17 +689,10 @@ namespace FineUIPro.Web.SitePerson
                     }
                     if (column.ColumnID == "tfI")
                     {
-                        string value = (row.FindControl("lbI") as AspNet.Label).Text;
-                        if (!string.IsNullOrEmpty(value))
-                        {
-                            html = "‘" + value;
-                        }
-                        else
-                        {
-                            html = value;
-                        }
+                        html = (row.FindControl("lbI") as AspNet.Label).Text;                        
                     }
-                    sb.AppendFormat("<td>{0}</td>", html);
+                    //sb.AppendFormat("<td>{0}</td>", html);
+                    sb.AppendFormat("<td style='vnd.ms-excel.numberformat:@;width:140px;'>{0}</td>", html);
                 }
 
                 sb.Append("</tr>");

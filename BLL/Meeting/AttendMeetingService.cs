@@ -72,7 +72,7 @@ namespace BLL
             db.Meeting_AttendMeeting.InsertOnSubmit(attendMeeting);
             db.SubmitChanges();
             ////增加一条编码记录
-            BLL.CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(BLL.Const.ProjectAttendMeetingMenuId, attendMeeting.ProjectId, null, attendMeeting.AttendMeetingId, attendMeeting.CompileDate);
+            CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectAttendMeetingMenuId, attendMeeting.ProjectId, null, attendMeeting.AttendMeetingId, attendMeeting.CompileDate);
         }
 
         /// <summary>

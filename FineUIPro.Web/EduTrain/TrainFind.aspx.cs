@@ -251,6 +251,10 @@ namespace FineUIPro.Web.EduTrain
                     {
                         html = (row.FindControl("lbTrainTypeName") as AspNet.Label).Text;
                     }
+                    if (column.ColumnID == "tfTrainLevelName")
+                    {
+                        html = (row.FindControl("lbTrainLevelName") as AspNet.Label).Text;
+                    }
                     if (column.ColumnID == "tfTrainTitle")
                     {
                         html = (row.FindControl("lbTrainTitle") as AspNet.Label).Text;

@@ -90,8 +90,7 @@ namespace BLL
         /// <param name="getTestPlan">考试计划记录</param>
         public static string SaveTestPlan(Model.TestPlanItem getTestPlan)
         {
-            string alterStr =string.Empty ;
-            Model.SUBHSSEDB db = Funs.DB;
+            string alterStr =string.Empty ;    
             Model.Training_TestPlan newTestPlan = new Model.Training_TestPlan
             {
                 TestPlanId = getTestPlan.TestPlanId,
@@ -133,8 +132,10 @@ namespace BLL
                 {
                     newTestPlan.TestPlanId = SQLHelper.GetNewID();
                 }
-                db.Training_TestPlan.InsertOnSubmit(newTestPlan);
-                db.SubmitChanges();
+                Funs.DB.Training_TestPlan.InsertOnSubmit(newTestPlan);
+                Funs.DB.SubmitChanges();
+
+                CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectTestPlanMenuId, newTestPlan.ProjectId, null, newTestPlan.TestPlanId, newTestPlan.PlanDate);
             }
             else
             {
@@ -183,7 +184,7 @@ namespace BLL
                 }
                 if(string.IsNullOrEmpty(alterStr))
                 {
-                    db.SubmitChanges();
+                    Funs.DB.SubmitChanges();
                 }
             }
 
@@ -263,7 +264,7 @@ namespace BLL
         {
             string testPlanId = string.Empty;
             ////培训计划
-            var getTrainingPlan = TrainingPlanService.GetPlanById(trainingPlanId);
+            var getTrainingPlan = Funs.DB.Training_Plan.FirstOrDefault(x => x.PlanId == trainingPlanId); ;
             if (getTrainingPlan != null && getTrainingPlan.States=="1")
             {
                 testPlanId = SQLHelper.GetNewID();

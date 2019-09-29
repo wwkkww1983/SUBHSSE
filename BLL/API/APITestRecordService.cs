@@ -80,74 +80,68 @@ namespace BLL
             string testRecordId = string.Empty;
             ////当前人考试记录  未加入考试计划的 当考试开始扫码时 不允许再参与考试
             var testRecord = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == getTestPlan.TestPlanId && x.TestManId == person.PersonId);
-            if (testRecord != null)
+            if (testRecord != null && testRecord.TestStartTime.HasValue)
             {
                 testRecordId = testRecord.TestRecordId;
-                if (!testRecord.TestStartTime.HasValue)
-                {
-                    ////考试时长
-                    testRecord.Duration = getTestPlan.Duration;
-                    testRecord.TestStartTime = DateTime.Now;
-                    Funs.DB.SubmitChanges();
 
-                    if (Funs.DB.Training_TestRecordItem.FirstOrDefault(x => x.TestRecordId == testRecord.TestRecordId) == null)
+                var item = Funs.DB.Training_TestRecordItem.FirstOrDefault(x => x.TestRecordId == testRecord.TestRecordId);
+                if (item == null)
+                {
+                    List<Model.Training_TestTrainingItem> getTestTrainingItemList = new List<Model.Training_TestTrainingItem>();
+                    var testPlanTrainings = from x in Funs.DB.Training_TestPlanTraining
+                                            where x.TestPlanId == getTestPlan.TestPlanId
+                                            select x;
+                    foreach (var itemT in testPlanTrainings)
                     {
-                        List<Model.Training_TestTrainingItem> getTestTrainingItemList = new List<Model.Training_TestTrainingItem>();
-                        var testPlanTrainings = from x in Funs.DB.Training_TestPlanTraining
-                                                where x.TestPlanId == getTestPlan.TestPlanId
-                                                select x;
-                        foreach (var itemT in testPlanTrainings)
+                        ////获取类型下适合岗位试题集合
+                        var getTestTrainingItems = Funs.DB.Training_TestTrainingItem.Where(x => x.TrainingId == itemT.TrainingId && (x.WorkPostIds == null || (x.WorkPostIds.Contains(person.WorkAreaId) && person.WorkAreaId != null)));
+                        if (getTestTrainingItems.Count() > 0)
                         {
-                            ////获取类型下适合岗位试题集合
-                            var getTestTrainingItems = Funs.DB.Training_TestTrainingItem.Where(x => x.TrainingId == itemT.TrainingId && (x.WorkPostIds == null || (x.WorkPostIds.Contains(person.WorkAreaId) && person.WorkAreaId != null)));
-                            if (getTestTrainingItems.Count() > 0)
+                            getTestTrainingItems = getTestTrainingItems.OrderBy(q => Guid.NewGuid());
+                            ////单选题
+                            var getSItem = getTestTrainingItems.Where(x => x.TestType == "1").Take(itemT.TestType1Count ?? 1);
+                            if (getSItem.Count() > 0)
                             {
-                                getTestTrainingItems = getTestTrainingItems.OrderBy(q => Guid.NewGuid());
-                                ////单选题
-                                var getSItem = getTestTrainingItems.Where(x => x.TestType == "1").Take(itemT.TestType1Count ?? 1);
-                                if (getSItem.Count() > 0)
-                                {
-                                    getTestTrainingItemList.AddRange(getSItem);
-                                }
-                                ///多选题
-                                var getMItem = getTestTrainingItems.Where(x => x.TestType == "2").Take(itemT.TestType2Count ?? 1);
-                                if (getMItem.Count() > 0)
-                                {
-                                    getTestTrainingItemList.AddRange(getMItem);
-                                }
-                                ///判断题
-                                var getJItem = getTestTrainingItems.Where(x => x.TestType == "3").Take(itemT.TestType3Count ?? 1);
-                                if (getJItem.Count() > 0)
-                                {
-                                    getTestTrainingItemList.AddRange(getJItem);
-                                }
+                                getTestTrainingItemList.AddRange(getSItem);
+                            }
+                            ///多选题
+                            var getMItem = getTestTrainingItems.Where(x => x.TestType == "2").Take(itemT.TestType2Count ?? 1);
+                            if (getMItem.Count() > 0)
+                            {
+                                getTestTrainingItemList.AddRange(getMItem);
+                            }
+                            ///判断题
+                            var getJItem = getTestTrainingItems.Where(x => x.TestType == "3").Take(itemT.TestType3Count ?? 1);
+                            if (getJItem.Count() > 0)
+                            {
+                                getTestTrainingItemList.AddRange(getJItem);
                             }
                         }
+                    }
 
-                        if (getTestTrainingItemList.Count() > 0)
-                        {
-                            var getItems = from x in getTestTrainingItemList
-                                           select new Model.Training_TestRecordItem
-                                           {
-                                               TestRecordItemId = SQLHelper.GetNewID(),
-                                               TestRecordId = testRecordId,
-                                               TrainingItemName = x.TrainingItemName,
-                                               TrainingItemCode = x.TrainingItemCode,
-                                               Abstracts = x.Abstracts,
-                                               AttachUrl = x.AttachUrl,
-                                               TestType = x.TestType,
-                                               AItem = x.AItem,
-                                               BItem = x.BItem,
-                                               CItem = x.CItem,
-                                               DItem = x.DItem,
-                                               EItem = x.EItem,
-                                               AnswerItems = x.AnswerItems,
-                                               Score = x.TestType == "1" ? getTestPlan.SValue : (x.TestType == "2" ? getTestPlan.MValue : getTestPlan.JValue),
-                                           };
+                    if (getTestTrainingItemList.Count() > 0)
+                    {
+                        var getItems = from x in getTestTrainingItemList
+                                       select new Model.Training_TestRecordItem
+                                       {
+                                           TestRecordItemId = SQLHelper.GetNewID(),
+                                           TestRecordId = testRecordId,
+                                           TrainingItemName = x.TrainingItemName,
+                                           TrainingItemCode = x.TrainingItemCode,
+                                           Abstracts = x.Abstracts,
+                                           AttachUrl = x.AttachUrl,
+                                           TestType = x.TestType,
+                                           AItem = x.AItem,
+                                           BItem = x.BItem,
+                                           CItem = x.CItem,
+                                           DItem = x.DItem,
+                                           EItem = x.EItem,
+                                           AnswerItems = x.AnswerItems,
+                                           Score = x.TestType == "1" ? getTestPlan.SValue : (x.TestType == "2" ? getTestPlan.MValue : getTestPlan.JValue),
+                                       };
 
-                            Funs.DB.Training_TestRecordItem.InsertAllOnSubmit(getItems);
-                            Funs.DB.SubmitChanges();
-                        }
+                        Funs.DB.Training_TestRecordItem.InsertAllOnSubmit(getItems);
+                        Funs.DB.SubmitChanges();
                     }
                 }
             }
@@ -347,18 +341,21 @@ namespace BLL
         /// 根据TestRecordId 提交试卷
         /// </summary>
         /// <param name="testRecordId"></param>
-        public static void getSubmitTestRecordByTestRecordId(string testRecordId)
+        public static decimal getSubmitTestRecordByTestRecordId(string testRecordId)
         {
+            decimal getCode = 0;
             //试卷
-            var getTestRecord = TestRecordService.GetTestRecordById(testRecordId);
+            var getTestRecord = Funs.DB.Training_TestRecord.FirstOrDefault(e => e.TestRecordId == testRecordId); 
             if (getTestRecord != null && getTestRecord.TestStartTime.HasValue)
             {
                 getTestRecord.TestEndTime = DateTime.Now;
                 getTestRecord.TestScores= Funs.DB.Training_TestRecordItem.Where(x => x.TestRecordId == testRecordId).Sum(x => x.SubjectScore) ?? 0;
                 getTestRecord.TestEndTime = getTestRecord.TestStartTime.Value.AddMinutes(getTestRecord.Duration);
                 Funs.DB.SubmitChanges();
+
+                getCode = getTestRecord.TestScores ?? 0;
                 //考试计划
-                var getTestPlan = TestPlanService.GetTestPlanById(getTestRecord.TestPlanId);
+                var getTestPlan = Funs.DB.Training_TestPlan.FirstOrDefault(e => e.TestPlanId == getTestRecord.TestPlanId);
                 if (getTestPlan != null)
                 {
                     ////所有人员 都交卷时 考试计划结束 状态置为3
@@ -371,6 +368,8 @@ namespace BLL
                     }
                 }
             }
+
+            return getCode;
         }
         #endregion
     }

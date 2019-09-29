@@ -19,7 +19,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.Training_Plan GetPlanById(string planId)
         {
-            return db.Training_Plan.FirstOrDefault(e => e.PlanId == planId);
+            return Funs.DB.Training_Plan.FirstOrDefault(e => e.PlanId == planId);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace BLL
         /// <param name="plan"></param>
         public static void UpdatePlan(Model.Training_Plan plan)
         {
-            Model.Training_Plan newPlan = db.Training_Plan.FirstOrDefault(e => e.PlanId == plan.PlanId);
+            Model.Training_Plan newPlan = Funs.DB.Training_Plan.FirstOrDefault(e => e.PlanId == plan.PlanId);
             if (newPlan != null)
             {
                 newPlan.PlanCode = plan.PlanCode;

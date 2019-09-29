@@ -127,7 +127,7 @@ namespace BLL
                     if (getTestRecord != null)
                     {
                         newDetail.CheckScore = getTestRecord.TestScores;
-                        if (newDetail.CheckScore >= 60)
+                        if (newDetail.CheckScore >= 80)
                         {
                             newDetail.CheckResult = true;
                         }
