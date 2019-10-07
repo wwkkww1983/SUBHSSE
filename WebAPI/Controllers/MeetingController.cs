@@ -25,7 +25,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = BLL.APIMeetingService.getMeetingByMeetingId(meetingId, meetingType);
+                responeData.data = APIMeetingService.getMeetingByMeetingId(meetingId, meetingType);
             }
             catch (Exception ex)
             {
@@ -51,7 +51,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = BLL.APIMeetingService.getMeetingByProjectIdStates(projectId, meetingType, states);
+                var getDataList = APIMeetingService.getMeetingByProjectIdStates(projectId, meetingType, states);
                 int pageCount = getDataList.Count();
                 if (pageCount > 0 && pageIndex > 0)
                 {
@@ -82,7 +82,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                BLL.APIMeetingService.SaveMeeting(meeting);
+                APIMeetingService.SaveMeeting(meeting);
             }
             catch (Exception ex)
             {

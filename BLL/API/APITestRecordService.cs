@@ -359,7 +359,7 @@ namespace BLL
                 if (getTestPlan != null)
                 {
                     ////所有人员 都交卷时 考试计划结束 状态置为3
-                    var getAllTestRecord = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == getTestPlan.TestPlanId && x.TestEndTime.HasValue && x.TestRecordId != testRecordId);
+                    var getAllTestRecord = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == getTestPlan.TestPlanId && !x.TestEndTime.HasValue && x.TestRecordId != testRecordId);
                     if (getAllTestRecord == null)
                     {
                         getTestPlan.States = "3";

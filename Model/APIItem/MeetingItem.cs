@@ -99,6 +99,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 参会人数
+        /// </summary>
+        public int AttentPersonNum
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 编制时间
         /// </summary>
         public string CompileDate

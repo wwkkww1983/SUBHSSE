@@ -38,7 +38,7 @@ namespace BLL
                                    MeetingType = meetingType,
                                    MeetingHours = x.MeetingHours ?? 0,
                                    MeetingHostMan = x.MeetingHostMan,
-                                   AttentPerson = x.AttentPerson,
+                                   AttentPerson = x.AttentPerson,                                   
                                    CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
                                    CompileManId = x.CompileMan,
                                    CompileManName = y.UserName,
@@ -64,6 +64,7 @@ namespace BLL
                                    MeetingHours = x.MeetingHours ?? 0,
                                    MeetingHostMan = x.MeetingHostMan,
                                    AttentPerson = x.AttentPerson,
+                                   AttentPersonNum = x.AttentPersonNum ?? 0,
                                    CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
                                    CompileManId = x.CompileMan,
                                    CompileManName = y.UserName,
@@ -89,6 +90,7 @@ namespace BLL
                                    MeetingHours = x.MeetingHours ?? 0,
                                    MeetingHostMan = x.MeetingHostMan,
                                    AttentPerson = x.AttentPerson,
+                                   AttentPersonNum = x.AttentPersonNum ?? 0,
                                    CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
                                    CompileManId = x.CompileMan,
                                    CompileManName = y.UserName,
@@ -114,6 +116,7 @@ namespace BLL
                                    MeetingHours = x.MeetingHours ?? 0,
                                    MeetingHostMan = x.MeetingHostMan,
                                    AttentPerson = x.AttentPerson,
+                                   AttentPersonNum = x.AttentPersonNum ?? 0,
                                    CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
                                    CompileManId = x.CompileMan,
                                    CompileManName = y.UserName,
@@ -208,6 +211,7 @@ namespace BLL
                                    MeetingHours = x.MeetingHours ?? 0,
                                    MeetingHostMan = x.MeetingHostMan,
                                    AttentPerson = x.AttentPerson,
+                                   AttentPersonNum = x.AttentPersonNum ?? 0,
                                    CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
                                    CompileManId = x.CompileMan,
                                    CompileManName = y.UserName,
@@ -235,6 +239,7 @@ namespace BLL
                                    MeetingHours = x.MeetingHours ?? 0,
                                    MeetingHostMan = x.MeetingHostMan,
                                    AttentPerson = x.AttentPerson,
+                                   AttentPersonNum = x.AttentPersonNum ?? 0,
                                    CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
                                    CompileManId = x.CompileMan,
                                    CompileManName = y.UserName,
@@ -262,6 +267,7 @@ namespace BLL
                                    MeetingHours = x.MeetingHours ?? 0,
                                    MeetingHostMan = x.MeetingHostMan,
                                    AttentPerson = x.AttentPerson,
+                                   AttentPersonNum = x.AttentPersonNum ?? 0,
                                    CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
                                    CompileManId = x.CompileMan,
                                    CompileManName = y.UserName,
@@ -324,7 +330,7 @@ namespace BLL
                     MeetingPlace = meeting.MeetingPlace,
                     MeetingHours = meeting.MeetingHours,
                     MeetingHostMan = meeting.MeetingHostMan,
-                    AttentPerson = meeting.AttentPerson,
+                    AttentPerson = meeting.AttentPerson,                   
                     States = Const.State_2,
                 };
 
@@ -375,6 +381,7 @@ namespace BLL
                     MeetingHours = meeting.MeetingHours,
                     MeetingHostMan = meeting.MeetingHostMan,
                     AttentPerson = meeting.AttentPerson,
+                    AttentPersonNum = meeting.AttentPersonNum,
                     States = Const.State_2,
                 };
 
@@ -401,6 +408,7 @@ namespace BLL
                     updateMeet.MeetingHours = newWeekMeeting.MeetingHours;
                     updateMeet.MeetingHostMan = newWeekMeeting.MeetingHostMan;
                     updateMeet.AttentPerson = newWeekMeeting.AttentPerson;
+                    updateMeet.AttentPersonNum = newWeekMeeting.AttentPersonNum;
                 }
                 if (meeting.States == "1")
                 {
@@ -425,6 +433,7 @@ namespace BLL
                     MeetingHours = meeting.MeetingHours,
                     MeetingHostMan = meeting.MeetingHostMan,
                     AttentPerson = meeting.AttentPerson,
+                    AttentPersonNum = meeting.AttentPersonNum,
                     States = Const.State_2,
                 };
 
@@ -451,6 +460,7 @@ namespace BLL
                     updateMeet.MeetingHours = newMonthMeeting.MeetingHours;
                     updateMeet.MeetingHostMan = newMonthMeeting.MeetingHostMan;
                     updateMeet.AttentPerson = newMonthMeeting.AttentPerson;
+                    updateMeet.AttentPersonNum = newMonthMeeting.AttentPersonNum;
                 }
                 if (meeting.States == "1")
                 {
@@ -475,6 +485,7 @@ namespace BLL
                     MeetingHours = meeting.MeetingHours,
                     MeetingHostMan = meeting.MeetingHostMan,
                     AttentPerson = meeting.AttentPerson,
+                    AttentPersonNum = meeting.AttentPersonNum,
                     States = Const.State_2,
                 };
 
@@ -501,6 +512,7 @@ namespace BLL
                     updateMeet.MeetingHours = newSpecialMeeting.MeetingHours;
                     updateMeet.MeetingHostMan = newSpecialMeeting.MeetingHostMan;
                     updateMeet.AttentPerson = newSpecialMeeting.AttentPerson;
+                    updateMeet.AttentPersonNum = newSpecialMeeting.AttentPersonNum;
                 }
                 if (meeting.States == "1")
                 {

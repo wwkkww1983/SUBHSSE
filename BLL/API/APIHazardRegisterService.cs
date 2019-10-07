@@ -41,8 +41,7 @@ namespace BLL
         /// <param name="userInfo"></param>
         /// <returns></returns>
         public static void SaveHazardRegister(Model.Hazard_HazardRegisterItem hazardRegister)
-        {
-            Model.SUBHSSEDB db = Funs.DB;
+        {            
             Model.HSSE_Hazard_HazardRegister newHazardRegister = new Model.HSSE_Hazard_HazardRegister
             {
                 HazardRegisterId = hazardRegister.HazardRegisterId,
@@ -80,7 +79,7 @@ namespace BLL
                 {
                     newHazardRegister.HazardRegisterId = SQLHelper.GetNewID();
                 }
-                db.HSSE_Hazard_HazardRegister.InsertOnSubmit(newHazardRegister);
+                Funs.DB.HSSE_Hazard_HazardRegister.InsertOnSubmit(newHazardRegister);
             }
             else
             {
@@ -100,7 +99,7 @@ namespace BLL
 
                 isUpdate.States = newHazardRegister.States;
             }
-            db.SubmitChanges();
+            Funs.DB.SubmitChanges();
         }
     }
 }

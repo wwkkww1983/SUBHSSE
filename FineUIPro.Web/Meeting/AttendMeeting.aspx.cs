@@ -301,7 +301,7 @@ namespace FineUIPro.Web.Meeting
             string filename = Funs.GetNewFileName();
             Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("其他会议记录" + filename, System.Text.Encoding.UTF8) + ".xls");
             Response.ContentType = "application/excel";
-            Response.ContentEncoding = System.Text.Encoding.UTF8;
+            Response.ContentEncoding = Encoding.UTF8;
             this.Grid1.PageSize = 500;
             this.BindGrid();
             Response.Write(GetGridTableHtml(Grid1));
