@@ -128,7 +128,7 @@ namespace WebAPI.Controllers
                 string returnValue = string.Empty;
                 var notice = (from x in Funs.DB.InformationProject_Notice
                               where x.IsRelease== true
-                              orderby x.CompileDate descending
+                              orderby x.ReleaseDate descending
                               select x).FirstOrDefault();
 
                 if (notice != null)

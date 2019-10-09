@@ -288,6 +288,7 @@
     <Compile Include="Personal\Attach_ImageService.cs" />
     <Compile Include="ProjectData\ProjectSateService.cs" />
     <Compile Include="ProjectData\ProjectSendReceiveService.cs" />
+    <Compile Include="ProjectData\ProjectPageDataService.cs" />
     <Compile Include="QualityAudit\EquipmentQualityAuditDetailService.cs" />
     <Compile Include="QualityAudit\ManagePersonQualityItemService.cs" />
     <Compile Include="QualityAudit\SubUnitQualityAuditDetailService.cs" />

@@ -496,6 +496,8 @@
     <Content Include="ProjectAccident\AccidentData.aspx" />
     <Content Include="ProjectAccident\AccidentReportView.aspx" />
     <Content Include="ProjectAccident\AccidentStatisticsView.aspx" />
+    <Content Include="ProjectData\ProjectPageData.aspx" />
+    <Content Include="ProjectData\ProjectPageDataSave.aspx" />
     <Content Include="ProjectData\ProjectShutdown.aspx" />
     <Content Include="ProjectData\ProjectShutdownEdit.aspx" />
     <Content Include="ProjectData\ProjectShutdownView.aspx" />
@@ -6662,6 +6664,20 @@
     </Compile>
     <Compile Include="ProjectAccident\AccidentStatisticsView.aspx.designer.cs">
       <DependentUpon>AccidentStatisticsView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectData\ProjectPageData.aspx.cs">
+      <DependentUpon>ProjectPageData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectData\ProjectPageData.aspx.designer.cs">
+      <DependentUpon>ProjectPageData.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectData\ProjectPageDataSave.aspx.cs">
+      <DependentUpon>ProjectPageDataSave.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectData\ProjectPageDataSave.aspx.designer.cs">
+      <DependentUpon>ProjectPageDataSave.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProjectData\ProjectShutdown.aspx.cs">
       <DependentUpon>ProjectShutdown.aspx</DependentUpon>

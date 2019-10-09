@@ -72,7 +72,7 @@ namespace WebAPI.Controllers
                 int pageCount = getDataLists.Count;
                 if (pageCount > 0 && pageIndex > 0)
                 {
-                        getDataLists = getDataLists.OrderBy(x => x.TestType).ThenBy(x => x.TrainingItemCode).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();                   
+                    getDataLists = getDataLists.OrderBy(x => x.TestType).ThenBy(x => x.TrainingItemCode).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
                 responeData.data = new { pageCount, getDataLists };
             }
@@ -83,7 +83,9 @@ namespace WebAPI.Controllers
             }
             return responeData;
         }
+        #endregion
 
+        #region 获取当前试卷的答题倒计时
         /// <summary>
         /// 获取当前试卷的答题倒计时
         /// </summary>
@@ -100,7 +102,7 @@ namespace WebAPI.Controllers
                 {
                     mTime = Convert.ToInt32((getTestRecord.TestStartTime.Value.AddMinutes(getTestRecord.Duration) - DateTime.Now).TotalSeconds);
                 }
-               
+
                 responeData.data = new { mTime };
             }
             catch (Exception ex)
@@ -177,7 +179,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataLists= APITestRecordService.getTrainingTestRecordListByProjectId(projectId);
+                var getDataLists = APITestRecordService.getTrainingTestRecordListByProjectId(projectId);
                 int pageCount = getDataLists.Count;
                 if (pageCount > 0 && pageIndex > 0)
                 {

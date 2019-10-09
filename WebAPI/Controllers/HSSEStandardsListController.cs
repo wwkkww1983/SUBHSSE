@@ -86,5 +86,52 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region 根据lawsRegulationsTypeId获取标准规范-查询
+        /// <summary>
+        /// 根据lawsRegulationsTypeId获取标准规范
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="strParam"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns></returns>
+        public Model.ResponeData getHSSEStandardsListByTypeIdQuery(string type, string strParam, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                IQueryable<Model.Law_HSSEStandardsList> q = from x in Funs.DB.Law_HSSEStandardsList
+                                                            where x.TypeId == type && x.IsPass == true
+                                                            select x;
+                if (!string.IsNullOrEmpty(strParam))
+                {
+                    q = q.Where(x => x.StandardName.Contains(strParam));
+                }
+                int pageCount = q.Count();
+                if (pageCount == 0)
+                {
+                    responeData.data = new { pageCount, q };
+                }
+                else
+                {
+                    var getDataList = from x in q.OrderBy(u => u.StandardNo).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize)
+                                      select new
+                                      {
+                                          x.StandardId,
+                                          x.StandardGrade,
+                                          x.StandardNo,
+                                          x.StandardName,
+                                      };
+                    responeData.data = new { pageCount, getDataList };
+                }
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
     }
 }

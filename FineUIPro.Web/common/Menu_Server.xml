@@ -22,12 +22,15 @@
 <TreeNode id="195D508D-E929-4B91-891E-307DC4E4338F" Text="资源来源统计" NavigateUrl="Information/AnalyseResource.aspx" Icon="Page"></TreeNode>
 </TreeNode>
 </TreeNode>
-<TreeNode id="70E51ABF-81C8-49CB-89AC-CF0542A201D6" Text="HSE管理工作报告" NavigateUrl="" Icon="CalendarEdit"><TreeNode id="D67D1C85-3798-47A9-A0DB-B4DB47FF2E7D" Text="报表上报情况" NavigateUrl="ManagementReport/ReportRemind.aspx" Icon="LayoutSidebar"></TreeNode>
+<TreeNode id="70E51ABF-81C8-49CB-89AC-CF0542A201D6" Text="安全管理工作报告" NavigateUrl="" Icon="CalendarEdit"><TreeNode id="26CE4208-7DEE-46A2-A1D2-9C182D9C1DFC" Text="管理月报" NavigateUrl="ManagementReport/MonthReport.aspx" Icon="BorderDraw"></TreeNode>
+<TreeNode id="B995396A-B01C-4F03-858A-FFDC853BA4B8" Text="管理月报B" NavigateUrl="ManagementReport/MonthReportB.aspx" Icon="BorderDraw"></TreeNode>
+<TreeNode id="D67D1C85-3798-47A9-A0DB-B4DB47FF2E7D" Text="报表上报情况" NavigateUrl="ManagementReport/ReportRemind.aspx" Icon="LayoutSidebar"></TreeNode>
 </TreeNode>
 <TreeNode id="CD9FC4C8-4B02-4619-8B02-50DA6AE6146E" Text="企业安全大检查" NavigateUrl="" Icon="DateMagnify"><TreeNode id="1C6F9CA9-FDAC-4CE5-A19C-5536538851E1" Text="安全监督检查报告" NavigateUrl="Supervise/SuperviseCheckReport.aspx" Icon="BorderDraw"></TreeNode>
 <TreeNode id="55976B16-2C33-406E-B514-2FE42D031071" Text="安全监督检查整改" NavigateUrl="Supervise/SuperviseCheckRectify.aspx" Icon="LayoutSidebar"></TreeNode>
 </TreeNode>
-<TreeNode id="A24B7926-EF69-456E-8A24-936D30384680" Text="集团安全监督" NavigateUrl="" Icon="PageFind"><TreeNode id="B9950CB5-C47A-4C0A-A6CC-C7DDBBDE7D1E" Text="企业上报监督检查报告" NavigateUrl="ServerCheck/UpCheckReport.aspx" Icon="Page"></TreeNode>
+<TreeNode id="A24B7926-EF69-456E-8A24-936D30384680" Text="集团安全监督" NavigateUrl="" Icon="PageFind"><TreeNode id="1969C3C3-9257-49CD-977D-546CA18DC91C" Text="安全监督检查通知单" NavigateUrl="ServerCheck/CheckNotice.aspx" Icon="Page"></TreeNode>
+<TreeNode id="B9950CB5-C47A-4C0A-A6CC-C7DDBBDE7D1E" Text="企业上报监督检查报告" NavigateUrl="ServerCheck/UpCheckReport.aspx" Icon="Page"></TreeNode>
 <TreeNode id="3D1CFA31-96A9-496E-9A94-318670C9D658" Text="企业安全文件上报" NavigateUrl="ServerCheck/SubUnitReport.aspx" Icon="Page"></TreeNode>
 <TreeNode id="4A87774E-FEA5-479A-97A3-9BBA09E4862E" Text="集团下发监督检查整改" NavigateUrl="ServerCheck/CheckRectify.aspx" Icon="Page"></TreeNode>
 <TreeNode id="091D7D24-E706-465A-95FD-8EF359CB8667" Text="集团下发监督检查报告" NavigateUrl="ServerCheck/CheckInfoReport.aspx" Icon="Page"></TreeNode>
@@ -46,7 +49,6 @@
 <TreeNode id="192147D8-FFD1-44BD-8BC4-9DCA3E73D708" Text="安全事故" NavigateUrl="" Icon="BookError"><TreeNode id="DC871FCA-FBA8-4533-B5D6-DF64BCE40287" Text="事故快报" NavigateUrl="ProjectAccident/AccidentReport.aspx" Icon="Page"></TreeNode>
 <TreeNode id="BE2F6161-7C17-41FF-A314-8C0AE323D5A4" Text="事故处理" NavigateUrl="ProjectAccident/AccidentStatistics.aspx" Icon="Page"></TreeNode>
 <TreeNode id="71A5556F-1590-4D4C-9A31-703DCD5C2910" Text="事故统计" NavigateUrl="ProjectAccident/AccidentAnalysis.aspx" Icon="Page"></TreeNode>
-<TreeNode id="6F2C0F0A-3CF6-4B28-AFE2-FB7415ECDB91" Text="事故台账" NavigateUrl="ProjectAccident/AccidentData.aspx" Icon="Page"></TreeNode>
 </TreeNode>
 <TreeNode id="3CF6CF02-6994-4D90-9061-E4D837AA5FDA" Text="信息管理" NavigateUrl="" Icon="ComputerMagnify"><TreeNode id="E2F56879-5337-4BEF-8113-62845DF616EF" Text="管理通知" NavigateUrl="InformationProject/Notice.aspx" Icon="Page"></TreeNode>
 <TreeNode id="278DF0FE-35E2-470F-9AE4-23C57EDF797F" Text="项目图片" NavigateUrl="InformationProject/Picture.aspx" Icon="Page"></TreeNode>

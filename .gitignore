@@ -2,6 +2,6 @@
 # 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
 ################################################################################
 
-/.vs/
-/FineUIPro.Web/bin/
-/FineUIPro.Web/obj/
+.vs/
+FineUIPro.Web/bin/
+FineUIPro.Web/obj/

@@ -707,9 +707,18 @@
             <param name="pageIndex"></param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.HSSEStandardsListController.getHSSEStandardsListByTypeIdQuery(System.String,System.String,System.Int32)">
+            <summary>
+            根据lawsRegulationsTypeId获取标准规范
+            </summary>
+            <param name="type"></param>
+            <param name="strParam"></param>
+            <param name="pageIndex"></param>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.LawRegulationListController">
             <summary>
-            
+            法律法规信息
             </summary>
         </member>
         <member name="M:WebAPI.Controllers.LawRegulationListController.getLawRegulationListByLawRegulationId(System.String)">
@@ -724,6 +733,15 @@
             根据lawsRegulationsTypeId获取法律法规
             </summary>
             <param name="type"></param>
+            <param name="pageIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.LawRegulationListController.getLawRegulationListByTypeIdQuery(System.String,System.String,System.Int32)">
+            <summary>
+            根据lawsRegulationsTypeId获取法律法规-查询
+            </summary>
+            <param name="type"></param>
+            <param name="strParam"></param>
             <param name="pageIndex"></param>
             <returns></returns>
         </member>
@@ -744,6 +762,15 @@
             根据lawsRegulationsTypeId获取管理规定
             </summary>
             <param name="type"></param>
+            <param name="pageIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.LawManageRuleController.getManageRuleListByTypeIdQuery(System.String,System.String,System.Int32)">
+            <summary>
+            根据lawsRegulationsTypeId获取管理规定-查询
+            </summary>
+            <param name="type"></param>
+            <param name="strParam"></param>
             <param name="pageIndex"></param>
             <returns></returns>
         </member>
@@ -775,6 +802,18 @@
             保存Meeting
             </summary>
             <param name="meeting">会议信息</param>
+            <returns></returns>
+        </member>
+        <member name="T:WebAPI.Controllers.PageDataController">
+            <summary>
+            首页数据
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.PageDataController.getPageDataByProject(System.String)">
+            <summary>
+            根据projectId获取首页数据
+            </summary>
+            <param name="projectId"></param>
             <returns></returns>
         </member>
         <member name="T:WebAPI.Controllers.PersonController">
@@ -936,7 +975,7 @@
         </member>
         <member name="T:WebAPI.Controllers.LawRulesRegulationsController">
             <summary>
-            
+            规章制度信息
             </summary>
         </member>
         <member name="M:WebAPI.Controllers.LawRulesRegulationsController.getRulesRegulationsListByRulesRegulationsId(System.String)">
@@ -951,6 +990,16 @@
             根据lawsRegulationsTypeId获取规章制度
             </summary>
             <param name="type"></param>
+            <param name="pageIndex">分页</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.LawRulesRegulationsController.getRulesRegulationsListByTypeIdQuery(System.String,System.String,System.Int32)">
+            <summary>
+            根据lawsRegulationsTypeId获取规章制度-查询
+            </summary>
+            <param name="type"></param>
+            <param name="strParam"></param>
+            <param name="pageIndex"></param>
             <returns></returns>
         </member>
         <member name="T:WebAPI.Controllers.TestController">

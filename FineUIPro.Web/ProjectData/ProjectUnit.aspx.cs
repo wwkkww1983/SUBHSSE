@@ -1,10 +1,10 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
-using BLL;
 using AspNet = System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.ProjectData
@@ -27,7 +27,7 @@ namespace FineUIPro.Web.ProjectData
                     Grid1.PageSize = this.CurrUser.PageSize.Value;
                 } 
                 this.ddlPageSize.SelectedValue = Grid1.PageSize.ToString(); 
-                BLL.ProjectService.InitAllProjectDropDownList(this.drpProject, false);
+                ProjectService.InitAllProjectDropDownList(this.drpProject, false);
                 if (!string.IsNullOrEmpty(this.CurrUser.LoginProjectId))
                 {
                     this.drpProject.SelectedValue = this.CurrUser.LoginProjectId;

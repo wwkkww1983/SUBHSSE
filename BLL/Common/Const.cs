@@ -1211,6 +1211,10 @@ namespace BLL
         /// 编码/模板
         /// </summary>
         public const string ProjectCodeTemplateRuleMenuId = "09769041-79BB-4456-8DF1-45548E72E423";
+        /// <summary>
+        /// 项目移动端首页
+        /// </summary>
+        public const string ProjectPageDataMenuId = "44140854-701D-4D67-AD8E-AA8DD48B6D6A";
         #endregion
 
         #region 安全体系

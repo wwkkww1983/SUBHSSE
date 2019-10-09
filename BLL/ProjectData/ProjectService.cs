@@ -7,7 +7,7 @@
 
     public static class ProjectService
     {
-        public static Model.SUBHSSEDB db = Funs.DB;
+        public static SUBHSSEDB db = Funs.DB;
 
         /// <summary>
         ///获取项目信息

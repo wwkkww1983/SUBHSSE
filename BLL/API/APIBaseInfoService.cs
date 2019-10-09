@@ -72,9 +72,9 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.NoticeItem> getNotices(string projectId)
         {
-            var getDataLists = (from x in Funs.DB.InformationProject_Notice
-                                join y in Funs.DB.AttachFile on x.NoticeId equals y.ToKeyId
+            var getDataLists = (from x in Funs.DB.InformationProject_Notice                              
                                 where x.AccessProjectId.Contains(projectId) && x.IsRelease == true
+                                orderby x.ReleaseDate descending
                                 select new Model.NoticeItem
                                 {
                                     NoticeId = x.NoticeId,
