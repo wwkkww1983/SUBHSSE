@@ -35,8 +35,8 @@
                             </f:TextBox>
                             <f:DropDownList ID="drpUnitId" runat="server" Label="单位" AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged"  LabelWidth="70px" Width="250px">
                             </f:DropDownList>
-                            <f:TextBox runat="server" Label="特种机具设备类别" ID="txtSpecialEquipmentName" EmptyText="输入查询条件"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="300px" LabelWidth="140px"
+                            <f:TextBox runat="server" Label="类别" ID="txtSpecialEquipmentName" EmptyText="输入查询条件"
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="300px" LabelWidth="80px"
                                 LabelAlign="right">
                             </f:TextBox>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
@@ -73,7 +73,7 @@
                          SortField="EquipmentQualityName" FieldType="String"
                         HeaderText="设备名称" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="110px" ColumnID="SizeModel" DataField="SizeModel" 
+                    <f:RenderField Width="140px" ColumnID="SizeModel" DataField="SizeModel" 
                         SortField="SizeModel" FieldType="String" HeaderText="规格型号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
@@ -81,7 +81,7 @@
                         SortField="FactoryCode" FieldType="String" HeaderText="出厂编号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="110px" ColumnID="CertificateCode" DataField="CertificateCode"
+                    <f:RenderField Width="140px" ColumnID="CertificateCode" DataField="CertificateCode"
                          SortField="CertificateCode" FieldType="String" HeaderText="合格证编号"
                         HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
@@ -89,12 +89,12 @@
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="最近检验时间"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="LimitDate" DataField="LimitDate" SortField="LimitDate"
+                    <f:RenderField Width="100px" ColumnID="LimitDate" DataField="LimitDate" SortField="LimitDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="有效期至"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:WindowField TextAlign="Left" Width="90px" WindowID="WindowAtt" HeaderText="证书扫描件"
-                        Text="附件查看" ToolTip="附件上传查看" DataIFrameUrlFields="EquipmentQualityId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/EquipmentQualityAttachUrl&menuId=2DEDD752-8BAF-43CD-933D-932AF9AF2F58"
+                    <f:WindowField TextAlign="Left" Width="90px" WindowID="WindowAtt" HeaderText="证书"
+                        Text="详细" ToolTip="附件上传查看" DataIFrameUrlFields="EquipmentQualityId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/EquipmentQualityAttachUrl&menuId=2DEDD752-8BAF-43CD-933D-932AF9AF2F58"
                         HeaderTextAlign="Center" />
                         <f:LinkButtonField Width="100px" HeaderText="审查记录" ConfirmTarget="Parent" CommandName="auditDetail"
                         TextAlign="Center" ToolTip="审查记录" Text="审查记录"/>
@@ -120,8 +120,8 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="特殊机具设备资质" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="800px"
-        Height="450px">
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1000px"
+        Height="500px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件页面" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"

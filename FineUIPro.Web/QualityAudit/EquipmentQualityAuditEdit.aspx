@@ -22,8 +22,7 @@
                 <Items>
                     <f:DropDownList ID="drpAuditMan" runat="server" Label="审查人">
                     </f:DropDownList>
-                    <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="审查时间" ID="txtAuditDate"
-                        >
+                    <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="审查时间" ID="txtAuditDate">
                     </f:DatePicker>
                 </Items>
             </f:FormRow>

@@ -623,6 +623,16 @@
             <param name="pageIndex"></param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.EquipmentQualityController.getEquipmentQualityByProjectIdUnitIdQuery(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            根据projectId、unitid获取机具设备资质信息
+            </summary>
+            <param name="projectId"></param>
+            <param name="unitId"></param>
+            <param name="pageIndex"></param>
+             <param name="strParam">查询条件</param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.EquipmentQualityController.getEquipmentQualityCount(System.String,System.String)">
             <summary>
             根据projectId、unitid获取特岗机具设备资质资质各状态数
@@ -639,6 +649,13 @@
             <param name="unitId">单位ID</param>
             <param name="type">数据类型0-已过期；1-即将过期</param>
             <param name="pageIndex">分页</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.EquipmentQualityController.SaveEquipmentQuality(Model.EquipmentQualityItem)">
+            <summary>
+            保存QualityAudit_EquipmentQuality
+            </summary>
+            <param name="newitem">机具设备资质</param>
             <returns></returns>
         </member>
         <member name="T:WebAPI.Controllers.FileUploadController">

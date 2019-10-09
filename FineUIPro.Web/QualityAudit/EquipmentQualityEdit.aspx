@@ -24,66 +24,71 @@
             <f:FormRow>
                 <Items>
                     <f:DropDownList ID="drpUnitId" runat="server" Label="单位名称" LabelAlign="Right" EnableEdit="true"
-                        Required="true" ShowRedStar="true">
+                        Required="true" ShowRedStar="true" LabelWidth="110px">
                     </f:DropDownList>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                      <f:TextBox ID="txtEquipmentQualityCode" runat="server" Label="编号" LabelAlign="Right"
-                        MaxLength="50" Readonly="true">
+                        MaxLength="50" Readonly="true" LabelWidth="110px">
                     </f:TextBox>
-                    <f:DropDownList ID="drpSpecialEquipmentId" runat="server" Label="类型" LabelAlign="Right"
-                        EnableEdit="true" Required="true" ShowRedStar="true" LabelWidth="130px" FocusOnPageLoad="true">
+                    <f:DropDownList ID="drpSpecialEquipmentId" runat="server" Label="类型" LabelAlign="Right" LabelWidth="110px"
+                        EnableEdit="true" Required="true" ShowRedStar="true"  FocusOnPageLoad="true">
                     </f:DropDownList>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtEquipmentQualityName" runat="server" Label="设备名称" LabelAlign="Right"
+                    <f:TextBox ID="txtEquipmentQualityName" runat="server" Label="设备名称" LabelAlign="Right" LabelWidth="110px"
                         MaxLength="50">
                     </f:TextBox>
-                    <f:TextBox ID="txtSizeModel" runat="server" Label="规格型号" LabelAlign="Right" MaxLength="50" LabelWidth="130px">
+                    <f:TextBox ID="txtSizeModel" runat="server" Label="规格型号" LabelAlign="Right" MaxLength="50" LabelWidth="110px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtFactoryCode" runat="server" Label="出厂编号" LabelAlign="Right" MaxLength="50" ShowRedStar="true" Required="true">
+                    <f:TextBox ID="txtFactoryCode" runat="server" Label="出厂编号" LabelAlign="Right"  LabelWidth="110px"
+                        MaxLength="50" ShowRedStar="true" Required="true">
                     </f:TextBox>
                     <f:TextBox ID="txtCertificateCode" runat="server" Label="合格证编号" LabelAlign="Right"
-                        MaxLength="50" LabelWidth="130px">
+                        MaxLength="50" LabelWidth="110px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:DatePicker ID="txtCheckDate" Label="最近检验时间" runat="server" LabelAlign="Right" EnableEdit="true">
+                    <f:DatePicker ID="txtCheckDate" Label="最近检验时间" runat="server" 
+                        LabelAlign="Right" EnableEdit="true" LabelWidth="110px">
                     </f:DatePicker>
                     <f:DatePicker ID="txtLimitDate" Label="有效期至" runat="server" LabelAlign="Right" EnableEdit="true"
-                        Required="true" ShowRedStar="true" LabelWidth="130px">
+                        Required="true" ShowRedStar="true" LabelWidth="110px">
                     </f:DatePicker>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:DatePicker ID="txtInDate" Label="入场时间" runat="server" LabelAlign="Right" EnableEdit="true">
+                    <f:DatePicker ID="txtInDate" Label="入场时间" runat="server" LabelWidth="110px" 
+                        LabelAlign="Right" EnableEdit="true">
                     </f:DatePicker>
-                    <f:DatePicker ID="txtOutDate" Label="出场时间" runat="server" LabelAlign="Right" EnableEdit="true" LabelWidth="130px">
+                    <f:DatePicker ID="txtOutDate" Label="出场时间" runat="server" 
+                        LabelAlign="Right" EnableEdit="true" LabelWidth="110px">
                     </f:DatePicker>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtApprovalPerson" runat="server" Label="审批人" LabelAlign="Right" MaxLength="20">
+                    <f:TextBox ID="txtApprovalPerson" runat="server" Label="审批人" LabelWidth="110px"
+                        LabelAlign="Right" MaxLength="20">
                     </f:TextBox>
-                    <f:TextBox ID="txtCarNum" runat="server" Label="车辆编号" LabelAlign="Right" MaxLength="50" LabelWidth="130px">
+                    <f:TextBox ID="txtCarNum" runat="server" Label="车牌号" LabelAlign="Right" MaxLength="50" LabelWidth="110px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="Right" MaxLength="500">
+                    <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="Right" MaxLength="500" LabelWidth="110px">
                     </f:TextArea>
                 </Items>
             </f:FormRow>

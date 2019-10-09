@@ -60,8 +60,8 @@ namespace WebAPI.Controllers
             try
             {
                 IQueryable<Model.Law_ManageRule> q = from x in Funs.DB.Law_ManageRule
-                                                           where x.ManageRuleTypeId == type && x.IsPass == true
-                                                           select x;
+                                                     where x.ManageRuleTypeId == type && x.IsPass == true
+                                                     select x;
                 int pageCount = q.Count();
                 if (pageCount == 0)
                 {
@@ -76,7 +76,7 @@ namespace WebAPI.Controllers
                                           x.ManageRuleCode,
                                           x.ManageRuleName,
                                           x.SeeFile,
-                                          CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),                                          
+                                          CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
                                       };
                     responeData.data = new { pageCount, getDataList };
                 }
@@ -98,7 +98,7 @@ namespace WebAPI.Controllers
         /// <param name="strParam"></param>
         /// <param name="pageIndex"></param>
         /// <returns></returns>
-        public Model.ResponeData getManageRuleListByTypeIdQuery(string type,string strParam,  int pageIndex)
+        public Model.ResponeData getManageRuleListByTypeIdQuery(string type, string strParam, int pageIndex)
         {
             var responeData = new Model.ResponeData();
             try

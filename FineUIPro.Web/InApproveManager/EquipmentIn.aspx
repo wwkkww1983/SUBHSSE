@@ -21,7 +21,7 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
-                            <f:TextBox runat="server" Label="设备入场编号" ID="txtEquipmentInCode" EmptyText="输入查询条件"
+                            <f:TextBox runat="server" Label="编号" ID="txtEquipmentInCode" EmptyText="输入查询条件"
                                 AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="330px" LabelAlign="right">
                             </f:TextBox>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">

@@ -24,34 +24,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = from x in Funs.DB.View_QualityAudit_EquipmentQuality
-                                   where x.EquipmentQualityId == equipmentQualityId || x.FactoryCode == equipmentQualityId
-                                   select new
-                                   {
-                                       x.EquipmentQualityId,
-                                       x.ProjectId,
-                                       x.EquipmentQualityCode,
-                                       x.UnitId,
-                                       x.UnitName,
-                                       x.SpecialEquipmentId,
-                                       x.SpecialEquipmentName,
-                                       x.EquipmentQualityName,
-                                       x.SizeModel,
-                                       x.FactoryCode,
-                                       x.CertificateCode,
-                                       CheckDate = string.Format("{0:yyyy-MM-dd}", x.CheckDate),
-                                       LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
-                                       InDate = string.Format("{0:yyyy-MM-dd}", x.InDate),
-                                       OutDate = string.Format("{0:yyyy-MM-dd}", x.OutDate),
-                                       x.ApprovalPerson,
-                                       x.CarNum,
-                                       x.Remark,
-                                       x.CompileMan,
-                                       x.CompileManName,
-                                       CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),                                      
-                                       AttachUrl=x.AttachUrl.Replace('\\', '/')                                    
-                                   };
-                    //APIEquipmentQualityService.getEquipmentQualityByEquipmentQualityId(equipmentQualityId);
+                responeData.data = APIEquipmentQualityService.getEquipmentQualityByEquipmentQualityIdFactoryCode(equipmentQualityId);
             }
             catch (Exception ex)
             {
@@ -74,34 +47,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = from x in Funs.DB.View_QualityAudit_EquipmentQuality
-                                   where x.FactoryCode == factoryCode || x.EquipmentQualityId == factoryCode
-                                   select new
-                                   {
-                                       x.EquipmentQualityId,
-                                       x.ProjectId,
-                                       x.EquipmentQualityCode,
-                                       x.UnitId,
-                                       x.UnitName,
-                                       x.SpecialEquipmentId,
-                                       x.SpecialEquipmentName,
-                                       x.EquipmentQualityName,
-                                       x.SizeModel,
-                                       x.FactoryCode,
-                                       x.CertificateCode,
-                                       CheckDate = string.Format("{0:yyyy-MM-dd}", x.CheckDate),
-                                       LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
-                                       InDate = string.Format("{0:yyyy-MM-dd}", x.InDate),
-                                       OutDate = string.Format("{0:yyyy-MM-dd}", x.OutDate),
-                                       x.ApprovalPerson,
-                                       x.CarNum,
-                                       x.Remark,
-                                       x.CompileMan,
-                                       x.CompileManName,
-                                       CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                                       AttachUrl = x.AttachUrl.Replace('\\', '/')
-                                   };
-                //APIEquipmentQualityService.getEquipmentQualityByFactoryCode(factoryCode);
+                responeData.data = APIEquipmentQualityService.getEquipmentQualityByEquipmentQualityIdFactoryCode(factoryCode);
             }
             catch (Exception ex)
             {
@@ -126,44 +72,44 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                IQueryable<Model.View_QualityAudit_EquipmentQuality> q = from x in Funs.DB.View_QualityAudit_EquipmentQuality
-                                                                         where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
-                                                                         select x;
-                int pageCount = q.Count();
-                if (pageCount == 0)
+                var getDataList = APIEquipmentQualityService.getEquipmentQualityList(projectId, unitId, null);
+                int pageCount = getDataList.Count();
+                if (pageCount > 0 && pageIndex > 0)
                 {
-                    responeData.data = new { pageCount, q };
+                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
-                else
+                responeData.data = new { pageCount, getDataList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 根据projectId、unitid获取机具设备资质信息-查询
+        /// <summary>
+        /// 根据projectId、unitid获取机具设备资质信息
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
+        /// <param name="pageIndex"></param>
+        ///  <param name="strParam">查询条件</param>
+        /// <returns></returns>
+        public Model.ResponeData getEquipmentQualityByProjectIdUnitIdQuery(string projectId, string unitId, string strParam, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APIEquipmentQualityService.getEquipmentQualityList(projectId, unitId, strParam);
+                int pageCount = getDataList.Count();
+                if (pageCount > 0 && pageIndex > 0)
                 {
-                    var getDataList = from x in q.OrderBy(u => u.EquipmentQualityCode).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize)
-                                      select new
-                                      {
-                                          x.EquipmentQualityId,
-                                          x.ProjectId,
-                                          x.EquipmentQualityCode,
-                                          x.UnitId,
-                                          x.UnitName,
-                                          x.SpecialEquipmentId,
-                                          x.SpecialEquipmentName,
-                                          x.EquipmentQualityName,
-                                          x.SizeModel,
-                                          x.FactoryCode,
-                                          x.CertificateCode,
-                                          CheckDate = string.Format("{0:yyyy-MM-dd}", x.CheckDate),
-                                          LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
-                                          InDate = string.Format("{0:yyyy-MM-dd}", x.InDate),
-                                          OutDate = string.Format("{0:yyyy-MM-dd}", x.OutDate),
-                                          x.ApprovalPerson,
-                                          x.CarNum,
-                                          x.Remark,
-                                          x.CompileMan,
-                                          x.CompileManName,
-                                          CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                                          AttachUrl = x.AttachUrl.Replace('\\', '/')
-                                      };
-                    responeData.data = new { pageCount, getDataList };
+                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
+                responeData.data = new { pageCount, getDataList };
             }
             catch (Exception ex)
             {
@@ -281,6 +227,30 @@ namespace WebAPI.Controllers
                 responeData.code = 0;
                 responeData.message = ex.Message;
             }
+            return responeData;
+        }
+        #endregion
+
+        #region 保存QualityAudit_EquipmentQuality
+        /// <summary>
+        /// 保存QualityAudit_EquipmentQuality
+        /// </summary>
+        /// <param name="newitem">机具设备资质</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData SaveEquipmentQuality([FromBody] Model.EquipmentQualityItem newitem)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APIEquipmentQualityService.SaveEquipmentQuality(newitem);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
             return responeData;
         }
         #endregion

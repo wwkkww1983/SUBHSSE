@@ -19,56 +19,40 @@
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtEquipmentSafetyListCode" runat="server" Label="编号" LabelAlign="Right"
-                        MaxLength="50" Readonly="true" LabelWidth="170px">
+                        MaxLength="50" Readonly="true" LabelWidth="90px">
                     </f:TextBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:TextBox ID="txtEquipmentSafetyListName" runat="server" Label="名称" Required="true"
-                        ShowRedStar="true" LabelAlign="Right" MaxLength="50" LabelWidth="170px">
+                      <f:TextBox ID="txtEquipmentSafetyListName" runat="server" Label="名称" Required="true"
+                        ShowRedStar="true" LabelAlign="Right" MaxLength="50" LabelWidth="90px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:DropDownList ID="drpUnitId" runat="server" Label="申请单位" LabelAlign="Right" Required="true"
-                        ShowRedStar="true" ForceSelection="false" LabelWidth="170px">
+                        ShowRedStar="true" ForceSelection="false" LabelWidth="90px" EnableEdit="true">
+                    </f:DropDownList>
+                      <f:DropDownList ID="drpWorkAreaId" runat="server" Label="所属区域" LabelAlign="Right"
+                        LabelWidth="90px">
                     </f:DropDownList>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:DropDownList ID="drpCompileMan" runat="server" Label="申请人" LabelAlign="Right"
-                        LabelWidth="170px">
+                        LabelWidth="90px" EnableEdit="true">
                     </f:DropDownList>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:DropDownList ID="drpWorkAreaId" runat="server" Label="所属区域" LabelAlign="Right"
-                        LabelWidth="170px">
-                    </f:DropDownList>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:NumberBox ID="txtEquipmentSafetyListCount" runat="server" Label="数量" NoDecimal="true"
-                        NoNegative="true" LabelAlign="Right" LabelWidth="170px">
-                    </f:NumberBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:TextBox ID="txtSendMan" runat="server" Label="发证人" LabelAlign="Right" LabelWidth="170px">
-                    </f:TextBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:DatePicker ID="txtCompileDate" runat="server" Label="编制日期" LabelAlign="Right"
-                        EnableEdit="true" LabelWidth="170px">
+                      <f:DatePicker ID="txtCompileDate" runat="server" Label="编制日期" LabelAlign="Right"
+                        EnableEdit="true" LabelWidth="90px">
                     </f:DatePicker>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
+                       <f:TextBox ID="txtSendMan" runat="server" Label="发证人" LabelAlign="Right" LabelWidth="90px">
+                    </f:TextBox>
+                    <f:NumberBox ID="txtEquipmentSafetyListCount" runat="server" Label="数量" NoDecimal="true"
+                        NoNegative="true" LabelAlign="Right" LabelWidth="90px">
+                    </f:NumberBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>

@@ -55,8 +55,7 @@ namespace WebAPI.Controllers
                 int pageCount = getDataList.Count();
                 if (pageCount > 0 && pageIndex > 0)
                 {
-                    getDataList = getDataList.OrderByDescending(u => u.MeetingDate).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
-
+                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
                 responeData.data = new { pageCount, getDataList };
             }

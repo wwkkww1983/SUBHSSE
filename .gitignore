@@ -5,3 +5,6 @@
 .vs/
 FineUIPro.Web/bin/
 FineUIPro.Web/obj/
+TestResults/
+WebAPI/bin/
+WebAPI/obj/

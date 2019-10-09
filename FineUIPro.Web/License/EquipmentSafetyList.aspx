@@ -107,7 +107,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="施工机具、安全设施检查验收" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="900px" Height="550px">
+        Width="1000px" Height="500px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"

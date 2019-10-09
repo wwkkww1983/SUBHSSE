@@ -155,6 +155,7 @@ namespace BLL
                 getMeetItem = (from x in Funs.DB.Meeting_ClassMeeting                              
                                where x.ProjectId == projectId && ((states == "0" && (x.States =="0" || x.States==null)) 
                                     || (states == "1" && (x.States =="1" || x.States =="2")))
+                                    orderby x.ClassMeetingDate descending
                                select new Model.MeetingItem
                                {
                                    MeetingId = x.ClassMeetingId,
@@ -178,6 +179,7 @@ namespace BLL
                 getMeetItem = (from x in Funs.DB.Meeting_WeekMeeting
                                where x.ProjectId == projectId && ((states == "0" && (x.States == "0" || x.States == null))
                                     || (states == "1" && (x.States == "1" || x.States == "2")))
+                               orderby x.WeekMeetingDate descending
                                select new Model.MeetingItem
                                {
                                    MeetingId = x.WeekMeetingId,
@@ -202,6 +204,7 @@ namespace BLL
                 getMeetItem = (from x in Funs.DB.Meeting_MonthMeeting
                                where x.ProjectId == projectId && ((states == "0" && (x.States == "0" || x.States == null))
                                     || (states == "1" && (x.States == "1" || x.States == "2")))
+                               orderby x.MonthMeetingDate descending
                                select new Model.MeetingItem
                                {
                                    MeetingId = x.MonthMeetingId,
@@ -226,6 +229,7 @@ namespace BLL
                 getMeetItem = (from x in Funs.DB.Meeting_SpecialMeeting
                                where x.ProjectId == projectId && ((states == "0" && (x.States == "0" || x.States == null))
                                     || (states == "1" && (x.States == "1" || x.States == "2")))
+                               orderby x.SpecialMeetingDate descending
                                select new Model.MeetingItem
                                {
                                    MeetingId = x.SpecialMeetingId,
@@ -250,6 +254,7 @@ namespace BLL
                 getMeetItem = (from x in Funs.DB.Meeting_AttendMeeting
                                where x.ProjectId == projectId && ((states == "0" && (x.States == "0" || x.States == null))
                                     || (states == "1" && (x.States == "1" || x.States == "2")))
+                               orderby x.AttendMeetingDate descending
                                select new Model.MeetingItem
                                {
                                    MeetingId = x.AttendMeetingId,
@@ -284,6 +289,7 @@ namespace BLL
             {
                 Model.Meeting_ClassMeeting newClassMeeting = new Model.Meeting_ClassMeeting
                 {
+                    ClassMeetingId=meeting.MeetingId,
                     ProjectId = meeting.ProjectId,
                     ClassMeetingCode = meeting.MeetingCode,
                     ClassMeetingName = meeting.MeetingName,
@@ -312,15 +318,7 @@ namespace BLL
                 }
                 else
                 {
-                    updateMeet.ClassMeetingName = newClassMeeting.ClassMeetingName;
-                    updateMeet.ClassMeetingDate = newClassMeeting.ClassMeetingDate;
-                    updateMeet.ClassMeetingContents = newClassMeeting.ClassMeetingContents;
-                    updateMeet.CompileMan = newClassMeeting.CompileMan;
-                    updateMeet.States = newClassMeeting.States;
-                    updateMeet.MeetingPlace = newClassMeeting.MeetingPlace;
-                    updateMeet.MeetingHours = newClassMeeting.MeetingHours;
-                    updateMeet.MeetingHostMan = newClassMeeting.MeetingHostMan;
-                    updateMeet.AttentPerson = newClassMeeting.AttentPerson;
+                    ClassMeetingService.UpdateClassMeeting(newClassMeeting);
                 }
                 if (meeting.States == "1")
                 {
@@ -336,6 +334,7 @@ namespace BLL
             {
                 Model.Meeting_WeekMeeting newWeekMeeting = new Model.Meeting_WeekMeeting
                 {
+                    WeekMeetingId = meeting.MeetingId,
                     ProjectId = meeting.ProjectId,
                     WeekMeetingCode = meeting.MeetingCode,
                     WeekMeetingName = meeting.MeetingName,
@@ -366,16 +365,7 @@ namespace BLL
                 }
                 else
                 {
-                    updateMeet.WeekMeetingName = newWeekMeeting.WeekMeetingName;
-                    updateMeet.WeekMeetingDate = newWeekMeeting.WeekMeetingDate;
-                    updateMeet.WeekMeetingContents = newWeekMeeting.WeekMeetingContents;
-                    updateMeet.CompileMan = newWeekMeeting.CompileMan;
-                    updateMeet.States = newWeekMeeting.States;
-                    updateMeet.MeetingPlace = newWeekMeeting.MeetingPlace;
-                    updateMeet.MeetingHours = newWeekMeeting.MeetingHours;
-                    updateMeet.MeetingHostMan = newWeekMeeting.MeetingHostMan;
-                    updateMeet.AttentPerson = newWeekMeeting.AttentPerson;
-                    updateMeet.AttentPersonNum = newWeekMeeting.AttentPersonNum;
+                    WeekMeetingService.UpdateWeekMeeting(newWeekMeeting);
                 }
                 if (meeting.States == "1")
                 {
@@ -391,6 +381,7 @@ namespace BLL
             {
                 Model.Meeting_MonthMeeting newMonthMeeting = new Model.Meeting_MonthMeeting
                 {
+                    MonthMeetingId=meeting.MeetingId,
                     ProjectId = meeting.ProjectId,
                     MonthMeetingCode = meeting.MeetingCode,
                     MonthMeetingName = meeting.MeetingName,
@@ -421,16 +412,7 @@ namespace BLL
                 }
                 else
                 {
-                    updateMeet.MonthMeetingName = newMonthMeeting.MonthMeetingName;
-                    updateMeet.MonthMeetingDate = newMonthMeeting.MonthMeetingDate;
-                    updateMeet.MonthMeetingContents = newMonthMeeting.MonthMeetingContents;
-                    updateMeet.CompileMan = newMonthMeeting.CompileMan;
-                    updateMeet.States = newMonthMeeting.States;
-                    updateMeet.MeetingPlace = newMonthMeeting.MeetingPlace;
-                    updateMeet.MeetingHours = newMonthMeeting.MeetingHours;
-                    updateMeet.MeetingHostMan = newMonthMeeting.MeetingHostMan;
-                    updateMeet.AttentPerson = newMonthMeeting.AttentPerson;
-                    updateMeet.AttentPersonNum = newMonthMeeting.AttentPersonNum;
+                    MonthMeetingService.UpdateMonthMeeting(newMonthMeeting);
                 }
                 if (meeting.States == "1")
                 {
@@ -446,6 +428,7 @@ namespace BLL
             {
                 Model.Meeting_SpecialMeeting newSpecialMeeting = new Model.Meeting_SpecialMeeting
                 {
+                    SpecialMeetingId = meeting.MeetingId,
                     ProjectId = meeting.ProjectId,
                     SpecialMeetingCode = meeting.MeetingCode,
                     SpecialMeetingName = meeting.MeetingName,
@@ -476,16 +459,7 @@ namespace BLL
                 }
                 else
                 {
-                    updateMeet.SpecialMeetingName = newSpecialMeeting.SpecialMeetingName;
-                    updateMeet.SpecialMeetingDate = newSpecialMeeting.SpecialMeetingDate;
-                    updateMeet.SpecialMeetingContents = newSpecialMeeting.SpecialMeetingContents;
-                    updateMeet.CompileMan = newSpecialMeeting.CompileMan;
-                    updateMeet.States = newSpecialMeeting.States;
-                    updateMeet.MeetingPlace = newSpecialMeeting.MeetingPlace;
-                    updateMeet.MeetingHours = newSpecialMeeting.MeetingHours;
-                    updateMeet.MeetingHostMan = newSpecialMeeting.MeetingHostMan;
-                    updateMeet.AttentPerson = newSpecialMeeting.AttentPerson;
-                    updateMeet.AttentPersonNum = newSpecialMeeting.AttentPersonNum;
+                    SpecialMeetingService.UpdateSpecialMeeting(newSpecialMeeting);
                 }
                 if (meeting.States == "1")
                 {
@@ -501,6 +475,7 @@ namespace BLL
             {
                 Model.Meeting_AttendMeeting newAttendMeeting = new Model.Meeting_AttendMeeting
                 {
+                    AttendMeetingId = meeting.MeetingId,
                     ProjectId = meeting.ProjectId,
                     AttendMeetingCode = meeting.MeetingCode,
                     AttendMeetingName = meeting.MeetingName,
@@ -530,15 +505,7 @@ namespace BLL
                 }
                 else
                 {
-                    updateMeet.AttendMeetingName = newAttendMeeting.AttendMeetingName;
-                    updateMeet.AttendMeetingDate = newAttendMeeting.AttendMeetingDate;
-                    updateMeet.AttendMeetingContents = newAttendMeeting.AttendMeetingContents;
-                    updateMeet.CompileMan = newAttendMeeting.CompileMan;
-                    updateMeet.States = newAttendMeeting.States;
-                    updateMeet.MeetingPlace = newAttendMeeting.MeetingPlace;
-                    updateMeet.MeetingHours = newAttendMeeting.MeetingHours;
-                    updateMeet.MeetingHostMan = newAttendMeeting.MeetingHostMan;
-                    updateMeet.AttentPerson = newAttendMeeting.AttentPerson;
+                    AttendMeetingService.UpdateAttendMeeting(newAttendMeeting);
                 }
                 if (meeting.States == "1")
                 {
