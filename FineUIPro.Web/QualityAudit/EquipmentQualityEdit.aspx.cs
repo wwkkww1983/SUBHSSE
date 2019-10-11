@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using ThoughtWorks.QRCode.Codec;
-using ThoughtWorks.QRCode.Codec.Data;
-using System.Text;
-using System.IO;
-using BLL;
+﻿using BLL;
+using System;
 
 namespace FineUIPro.Web.QualityAudit
 {
@@ -57,9 +48,9 @@ namespace FineUIPro.Web.QualityAudit
             {
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
               
-                BLL.UnitService.InitUnitDropDownList(this.drpUnitId, this.CurrUser.LoginProjectId, true);
+                UnitService.InitUnitDropDownList(this.drpUnitId, this.CurrUser.LoginProjectId, true);
                 ///机具设备下拉框
-                BLL.SpecialEquipmentService.InitSpecialEquipmentDropDownList(this.drpSpecialEquipmentId, true, true);
+                SpecialEquipmentService.InitSpecialEquipmentDropDownList(this.drpSpecialEquipmentId, true, true);
                 this.EquipmentQualityId = Request.Params["EquipmentQualityId"];
                 if (!string.IsNullOrEmpty(this.EquipmentQualityId))
                 {

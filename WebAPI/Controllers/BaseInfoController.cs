@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BLL;
+using System;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using BLL;
 
 namespace WebAPI.Controllers
 {
@@ -361,6 +358,91 @@ namespace WebAPI.Controllers
             {
                 var getTestRule = Funs.DB.Sys_TestRule.FirstOrDefault();                
                 responeData.data = new { getTestRule };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region  获取机具类型
+        /// <summary>
+        /// 获取机具类型
+        /// </summary>
+        /// <param name="isSpecial">是否特殊</param>
+        /// <returns></returns>
+        public Model.ResponeData getSpecialEquipment(bool isSpecial)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getSpecialEquipment(isSpecial);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region  获取施工方案审核类型
+        /// <summary>
+        ///   获取施工方案审核类型
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getInvestigateType()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getSysConst(ConstValue.Group_InvestigateType);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region  获取施工方案类别
+        /// <summary>
+        ///   获取施工方案类别
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getSolutinType()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getSysConst(ConstValue.Group_CNProfessional);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+        
+        #region  获取工作阶段
+        /// <summary>
+        ///   获取施工方案类别
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getWorkStage()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getWorkStage();
             }
             catch (Exception ex)
             {

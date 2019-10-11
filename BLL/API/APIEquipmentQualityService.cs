@@ -134,6 +134,10 @@ namespace BLL
                 ////保存附件
                 UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(newItem.AttachUrl, 10, null), newItem.AttachUrl, Const.EquipmentQualityMenuId, newEquipmentQuality.EquipmentQualityId);
             }
+            else
+            {
+                CommonService.DeleteAttachFileById(newEquipmentQuality.EquipmentQualityId);
+            }
         }
         #endregion
     }

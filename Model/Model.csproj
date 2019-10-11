@@ -59,6 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIItem\FileInfoItem.cs" />
+    <Compile Include="APIItem\HazardListSelectedItem.cs" />
     <Compile Include="APIItem\MeetingItem.cs" />
     <Compile Include="APIItem\SysTestRuleItem.cs" />
     <Compile Include="APIItem\TestTrainingResourcesItem.cs" />
@@ -75,9 +77,10 @@
     <Compile Include="APIItem\NoticeItem.cs" />
     <Compile Include="APIItem\BaseInfoItem.cs" />
     <Compile Include="APIItem\ProjectItem.cs" />
-    <Compile Include="APIItem\Hazard_HazardRegisterItem.cs" />
+    <Compile Include="APIItem\HazardRegisterItem.cs" />
     <Compile Include="APIItem\EquipmentQualityItem.cs" />
     <Compile Include="APIItem\SubUnitQualityItem.cs" />
+    <Compile Include="APIItem\HazardListItem.cs" />
     <Compile Include="APIItem\UnitItem.cs" />
     <Compile Include="APIItem\ToDoItem.cs" />
     <Compile Include="APIItem\PersonItem.cs" />

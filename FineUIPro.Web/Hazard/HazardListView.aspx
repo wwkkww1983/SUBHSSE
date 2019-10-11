@@ -238,19 +238,9 @@
                                     </f:TextBox>
                                 </Editor>
                             </f:RenderField>
-                            <%--<f:RenderField Width="10px" ColumnID="HL" DataField="HazardJudge_L"
-                         FieldType="String" HeaderText="" Hidden="true" HeaderTextAlign="Center" TextAlign="Left">
-                         </f:RenderField>
-                         <f:RenderField Width="10px" ColumnID="HE" DataField="HazardJudge_L"
-                         FieldType="String" HeaderText="" Hidden="true" HeaderTextAlign="Center" TextAlign="Left">
-                         </f:RenderField>
-                         <f:RenderField Width="10px" ColumnID="HC" DataField="HazardJudge_L"
-                         FieldType="String" HeaderText="" Hidden="true" HeaderTextAlign="Center" TextAlign="Left">
-                         </f:RenderField>--%>
                         </Columns>
                         <Listeners>
                             <f:Listener Event="afteredit" Handler="onGridAfterEdit" />
-                             <%--<f:Listener Event="dataload" Handler="onGridDataLoad" />--%>
                         </Listeners>
                     </f:Grid>
                 </Items>

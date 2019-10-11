@@ -57,8 +57,8 @@ namespace FineUIPro.Web.Solution
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 this.ProjectId = this.CurrUser.LoginProjectId;
                 BLL.UnitService.InitUnitDropDownList(this.drpUnitId, this.ProjectId, true);
-                BLL.ConstValue.InitConstValueDropDownList(this.drpSolutinType, BLL.ConstValue.Group_CNProfessional, false);
-                BLL.ConstValue.InitConstValueDropDownList(this.drpInvestigateType, BLL.ConstValue.Group_InvestigateType, false);
+                BLL.ConstValue.InitConstValueDropDownList(this.drpSolutinType, ConstValue.Group_CNProfessional, false);
+                BLL.ConstValue.InitConstValueDropDownList(this.drpInvestigateType, ConstValue.Group_InvestigateType, false);
                
                 this.ConstructSolutionId = Request.Params["ConstructSolutionId"];
                 if (!string.IsNullOrEmpty(this.ConstructSolutionId))
@@ -104,7 +104,7 @@ namespace FineUIPro.Web.Solution
                     this.txtCompileManName.Text = this.CurrUser.UserName;
                     this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                     ////自动生成编码
-                    this.txtConstructSolutionCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectConstructSolutionMenuId, this.ProjectId, this.CurrUser.UnitId);
+                    this.txtConstructSolutionCode.Text = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectConstructSolutionMenuId, this.ProjectId, this.CurrUser.UnitId);
                 }
                 ///初始化审核菜单
                 this.ctlAuditFlow.MenuId = BLL.Const.ProjectConstructSolutionMenuId;

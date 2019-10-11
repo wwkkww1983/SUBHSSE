@@ -14,10 +14,10 @@ namespace BLL
         /// </summary>
         /// <param name="hazardRegisterId"></param>
         /// <returns></returns>
-        public static Model.Hazard_HazardRegisterItem getHazardRegisterByHazardRegisterId(string hazardRegisterId)
+        public static Model.HazardRegisterItem getHazardRegisterByHazardRegisterId(string hazardRegisterId)
         {
             var getHazardRegister = Funs.DB.View_Hazard_HazardRegister.FirstOrDefault(x => x.HazardRegisterId == hazardRegisterId);
-            return ObjectMapperManager.DefaultInstance.GetMapper<Model.View_Hazard_HazardRegister, Model.Hazard_HazardRegisterItem>().Map(getHazardRegister);
+            return ObjectMapperManager.DefaultInstance.GetMapper<Model.View_Hazard_HazardRegister, Model.HazardRegisterItem>().Map(getHazardRegister);
         }
 
         /// <summary>
@@ -26,13 +26,13 @@ namespace BLL
         /// <param name="projectId"></param>
         /// <param name="states"></param>
         /// <returns></returns>
-        public static List<Model.Hazard_HazardRegisterItem> getHazardRegisterByProjectIdStates(string projectId, string states)
+        public static List<Model.HazardRegisterItem> getHazardRegisterByProjectIdStates(string projectId, string states)
         {
             var hazardRegisters = (from x in Funs.DB.View_Hazard_HazardRegister
                                    where x.ProjectId == projectId && (x.States == states || states == null)
                                    orderby x.RegisterDate descending
                                    select x).ToList();
-            return ObjectMapperManager.DefaultInstance.GetMapper<List<Model.View_Hazard_HazardRegister>, List<Model.Hazard_HazardRegisterItem>>().Map(hazardRegisters.ToList());
+            return ObjectMapperManager.DefaultInstance.GetMapper<List<Model.View_Hazard_HazardRegister>, List<Model.HazardRegisterItem>>().Map(hazardRegisters.ToList());
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace BLL
         /// </summary>
         /// <param name="userInfo"></param>
         /// <returns></returns>
-        public static void SaveHazardRegister(Model.Hazard_HazardRegisterItem hazardRegister)
+        public static void SaveHazardRegister(Model.HazardRegisterItem hazardRegister)
         {            
             Model.HSSE_Hazard_HazardRegister newHazardRegister = new Model.HSSE_Hazard_HazardRegister
             {

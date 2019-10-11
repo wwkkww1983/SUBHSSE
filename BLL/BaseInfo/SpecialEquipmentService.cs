@@ -80,9 +80,9 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_SpecialEquipment> GetSpecialEquipmentList(bool isSpecial)
         {
-            return (from x in Funs.DB.Base_SpecialEquipment where x.IsSpecial == isSpecial orderby x.SpecialEquipmentCode select x).ToList();
+            return (from x in Funs.DB.Base_SpecialEquipment where x.IsSpecial == isSpecial
+                    orderby x.SpecialEquipmentCode select x).ToList();
         }
-
 
         /// <summary>
         /// 用户下拉框

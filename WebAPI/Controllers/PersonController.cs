@@ -101,7 +101,7 @@ namespace WebAPI.Controllers
             try
             {
                 responeData.data =from x in Funs.DB.View_QualityAudit_PersonQuality
-                                  where x.IdentityCard == identityCard
+                                  where x.IdentityCard == identityCard || x.PersonId ==identityCard
                                   select new
                                   {
                                       x.PersonQualityId,

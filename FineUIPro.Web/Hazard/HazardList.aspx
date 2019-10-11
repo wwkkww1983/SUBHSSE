@@ -75,7 +75,7 @@
                         SortField="WorkAreaName" FieldType="String" HeaderText="项目区域" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="IdentificationDate" DataField="IdentificationDate"
+                    <f:RenderField Width="100px" ColumnID="IdentificationDate" DataField="IdentificationDate"
                         SortField="IdentificationDate" FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd"
                         HeaderText="辨识时间" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>

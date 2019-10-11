@@ -61,7 +61,7 @@
                         SortField="EmergencyTypeName" FieldType="String" HeaderText="预案类型" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                     <f:RenderField Width="80px" ColumnID="VersionCode" DataField="VersionCode"
+                     <f:RenderField Width="75px" ColumnID="VersionCode" DataField="VersionCode"
                         SortField="VersionCode" FieldType="String" HeaderText="版次" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
@@ -73,7 +73,7 @@
                         SortField="CompileManName" FieldType="String" HeaderText="整理人" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                     <f:RenderField Width="90px" ColumnID="CompileDate" DataField="CompileDate"
+                     <f:RenderField Width="100px" ColumnID="CompileDate" DataField="CompileDate"
                         SortField="CompileDate" FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd"
                         HeaderText="整理日期" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>                    

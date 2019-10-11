@@ -10,6 +10,21 @@ namespace BLL
 {
     public static class APIBaseInfoService
     {
+        #region 获取常量
+        /// <summary>
+        /// 获取培训级别
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getSysConst(string  groupId)
+        {
+            var getDataLists = (from x in Funs.DB.Sys_Const
+                                where x.GroupId == groupId
+                                orderby x.SortIndex
+                                select new Model.BaseInfoItem { BaseInfoId = x.ConstValue, BaseInfoCode = x.SortIndex.ToString(), BaseInfoName = x.ConstText }).ToList();
+            return getDataLists;
+        }
+        #endregion
+
         #region 根据类型获取巡检隐患类型表
         /// <summary>
         /// 根据类型获取巡检隐患类型表
@@ -201,6 +216,35 @@ namespace BLL
             var getDataLists = (from x in Funs.DB.Base_ManageRuleType
                                 orderby x.ManageRuleTypeCode
                                 select new Model.BaseInfoItem { BaseInfoId = x.ManageRuleTypeId, BaseInfoCode = x.ManageRuleTypeCode, BaseInfoName = x.ManageRuleTypeName }).ToList();
+            return getDataLists;
+        }
+        #endregion
+
+        #region 获取机具设备类型
+        /// <summary>
+        /// 获取机具设备类型
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getSpecialEquipment(bool isSpecial)
+        {
+            var getDataLists = (from x in Funs.DB.Base_SpecialEquipment
+                                where x.IsSpecial == isSpecial
+                                orderby x.SpecialEquipmentCode
+                                select new Model.BaseInfoItem { BaseInfoId = x.SpecialEquipmentId, BaseInfoCode = x.SpecialEquipmentCode, BaseInfoName = x.SpecialEquipmentName }).ToList();
+            return getDataLists;
+        }
+        #endregion
+
+        #region 获取工作阶段
+        /// <summary>
+        /// 获取工作阶段
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getWorkStage()
+        {
+            var getDataLists = (from x in Funs.DB.Base_WorkStage                            
+                                orderby x.WorkStageCode
+                                select new Model.BaseInfoItem { BaseInfoId = x.WorkStageId, BaseInfoCode = x.WorkStageCode, BaseInfoName = x.WorkStageName }).ToList();
             return getDataLists;
         }
         #endregion

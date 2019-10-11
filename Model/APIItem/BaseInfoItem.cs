@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Model
 {
+    /// <summary>
+    /// 基础信息项
+    /// </summary>
     public class BaseInfoItem
     {
         /// <summary>

@@ -110,7 +110,7 @@ namespace WebAPI.Controllers
         /// <param name="hazardRegister"></param>
         /// <returns></returns>
         [HttpPost]
-        public Model.ResponeData SaveHazardRegister([FromBody] Model.Hazard_HazardRegisterItem hazardRegister)
+        public Model.ResponeData SaveHazardRegister([FromBody] Model.HazardRegisterItem hazardRegister)
         {           
             var responeData = new Model.ResponeData();
             try

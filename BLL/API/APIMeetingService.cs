@@ -152,14 +152,14 @@ namespace BLL
             List<Model.MeetingItem> getMeetItem = new List<Model.MeetingItem>();
             if (meetingType == "C")
             {
-                getMeetItem = (from x in Funs.DB.Meeting_ClassMeeting                              
-                               where x.ProjectId == projectId && ((states == "0" && (x.States =="0" || x.States==null)) 
-                                    || (states == "1" && (x.States =="1" || x.States =="2")))
-                                    orderby x.ClassMeetingDate descending
+                getMeetItem = (from x in Funs.DB.Meeting_ClassMeeting
+                               where x.ProjectId == projectId && ((states == "0" && (x.States == "0" || x.States == null))
+                                    || (states == "1" && (x.States == "1" || x.States == "2")))
+                               orderby x.ClassMeetingDate descending
                                select new Model.MeetingItem
                                {
                                    MeetingId = x.ClassMeetingId,
-                                   ProjectId=x.ProjectId,
+                                   ProjectId = x.ProjectId,
                                    MeetingCode = x.ClassMeetingCode,
                                    MeetingName = x.ClassMeetingName,
                                    MeetingDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ClassMeetingDate),
@@ -170,7 +170,8 @@ namespace BLL
                                    MeetingHostMan = x.MeetingHostMan,
                                    AttentPerson = x.AttentPerson,
                                    CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
-                                   CompileManId = x.CompileMan,                              
+                                   CompileManId = x.CompileMan,
+                                   CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
                                    AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.ClassMeetingId).AttachUrl.Replace('\\', '/'),
                                }).ToList();
             }
@@ -195,7 +196,8 @@ namespace BLL
                                    AttentPerson = x.AttentPerson,
                                    AttentPersonNum = x.AttentPersonNum ?? 0,
                                    CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
-                                   CompileManId = x.CompileMan,                                 
+                                   CompileManId = x.CompileMan,
+                                   CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
                                    AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.WeekMeetingId).AttachUrl.Replace('\\', '/'),
                                }).ToList();
             }
@@ -220,7 +222,8 @@ namespace BLL
                                    AttentPerson = x.AttentPerson,
                                    AttentPersonNum = x.AttentPersonNum ?? 0,
                                    CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
-                                   CompileManId = x.CompileMan,                                  
+                                   CompileManId = x.CompileMan,
+                                   CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
                                    AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.MonthMeetingId).AttachUrl.Replace('\\', '/'),
                                }).ToList();
             }
@@ -246,6 +249,7 @@ namespace BLL
                                    AttentPersonNum = x.AttentPersonNum ?? 0,
                                    CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
                                    CompileManId = x.CompileMan,
+                                   CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
                                    AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.SpecialMeetingId).AttachUrl.Replace('\\', '/'),
                                }).ToList();
             }
@@ -268,6 +272,8 @@ namespace BLL
                                    MeetingHours = x.MeetingHours ?? 0,
                                    MeetingHostMan = x.MeetingHostMan,
                                    AttentPerson = x.AttentPerson,
+                                   CompileManId=x.CompileMan,
+                                   CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
                                    CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),                                  
                                    AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.AttendMeetingId).AttachUrl.Replace('\\', '/'),
                                }).ToList();
@@ -317,7 +323,7 @@ namespace BLL
                     ClassMeetingService.AddClassMeeting(newClassMeeting);
                 }
                 else
-                {
+                {                    
                     ClassMeetingService.UpdateClassMeeting(newClassMeeting);
                 }
                 if (meeting.States == "1")
@@ -328,6 +334,10 @@ namespace BLL
                 {
                     ////保存附件
                     UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(meeting.AttachUrl, 10, null), meeting.AttachUrl, Const.ProjectClassMeetingMenuId, newClassMeeting.ClassMeetingId);
+                }
+                else
+                {
+                    CommonService.DeleteAttachFileById(meeting.MeetingId);
                 }
             }
             else if (meeting.MeetingType == "W")
@@ -376,6 +386,10 @@ namespace BLL
                     ////保存附件
                     UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(meeting.AttachUrl, 10, null), meeting.AttachUrl, Const.ProjectWeekMeetingMenuId, newWeekMeeting.WeekMeetingId);
                 }
+                else
+                {
+                    CommonService.DeleteAttachFileById(meeting.MeetingId);
+                }
             }
             else if (meeting.MeetingType == "M")
             {
@@ -422,6 +436,10 @@ namespace BLL
                 {
                     ////保存附件
                     UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(meeting.AttachUrl, 10, null), meeting.AttachUrl, Const.ProjectMonthMeetingMenuId, newMonthMeeting.MonthMeetingId);
+                }
+                else
+                {
+                    CommonService.DeleteAttachFileById(meeting.MeetingId);
                 }
             }
             else if (meeting.MeetingType == "S")
@@ -470,6 +488,10 @@ namespace BLL
                     ////保存附件
                     UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(meeting.AttachUrl, 10, null), meeting.AttachUrl, Const.ProjectSpecialMeetingMenuId, newSpecialMeeting.SpecialMeetingId);
                 }
+                else
+                {
+                    CommonService.DeleteAttachFileById(meeting.MeetingId);
+                }
             }
             else
             {
@@ -515,6 +537,10 @@ namespace BLL
                 {
                     ////保存附件
                     UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(meeting.AttachUrl, 10, null), meeting.AttachUrl, Const.ProjectAttendMeetingMenuId, newAttendMeeting.AttendMeetingId);
+                }
+                else
+                {
+                    CommonService.DeleteAttachFileById(meeting.MeetingId);
                 }
             }
         }

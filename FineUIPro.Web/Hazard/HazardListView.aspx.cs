@@ -97,24 +97,17 @@ namespace FineUIPro.Web.Hazard
                 {
                     this.ProjectId = Request.Params["projectId"];
                 }
-                //this.tvHazardTemplate.Nodes.Clear();
-                //TreeNode rootNode = new TreeNode();//定义根节点
-                //rootNode.Text = "危险源辨识与评价清单";
-                //rootNode.NodeID = "0";
-                //this.tvHazardTemplate.Nodes.Add(rootNode);
-
                 hazardTemplates.Clear();
                 newHazardTemplates.Clear();
-                //hazardSorts.Clear();
 
                 this.HazardListId = Request.Params["HazardListId"];
                 if (!string.IsNullOrEmpty(this.HazardListId))
                 {
-                    Model.Hazard_HazardList hazardList = BLL.Hazard_HazardListService.GetHazardList(this.HazardListId);
+                    Model.Hazard_HazardList hazardList = Hazard_HazardListService.GetHazardList(this.HazardListId);
                     if (hazardList != null)
                     {
                         this.ProjectId = hazardList.ProjectId;
-                        this.txtHazardListCode.Text = BLL.CodeRecordsService.ReturnCodeByDataId(this.HazardListId);
+                        this.txtHazardListCode.Text = CodeRecordsService.ReturnCodeByDataId(this.HazardListId);
                         if (!string.IsNullOrEmpty(hazardList.WorkStage))
                         {
                             List<string> workStages = hazardList.WorkStage.Split(',').ToList();
@@ -222,18 +215,10 @@ namespace FineUIPro.Web.Hazard
         /// </summary>
         private void SelectedCheckedHazardItem()
         {
-            //CheckedTvHazardTemplate(this.tvHazardTemplate.Nodes);
-            //hazardTemplates.Clear();
-            //GetTvHazardTemplateChecked(this.tvHazardTemplate.Nodes);
-
             List<Model.HSSE_HazardTemplate> newHazardTemplates = new List<Model.HSSE_HazardTemplate>();
-            List<Model.Hazard_HazardSelectedItem> hazardSelectedItems = BLL.Hazard_HazardSelectedItemService.GetHazardSelectedItemsByHazardListId(HazardListId);
-            //foreach (Model.HSSE_HazardTemplate hazardTemplate in hazardTemplates)
-            //{
+            List<Model.Hazard_HazardSelectedItem> hazardSelectedItems = Hazard_HazardSelectedItemService.GetHazardSelectedItemsByHazardListId(HazardListId);           
             foreach (Model.Hazard_HazardSelectedItem hazardSelectedItem in hazardSelectedItems)
             {
-                //if (hazardSelectedItem.HazardId == hazardTemplate.HazardId && hazardSelectedItem.WorkStage.Trim() == hazardTemplate.WorkStage.Trim())
-                //{
                 Model.HSSE_HazardTemplate newHazardTemplate = new Model.HSSE_HazardTemplate
                 {
                     HazardId = hazardSelectedItem.HazardId,
@@ -248,12 +233,9 @@ namespace FineUIPro.Web.Hazard
                     HazardJudge_D = hazardSelectedItem.HazardJudge_D,
                     HazardLevel = hazardSelectedItem.HazardLevel,
                     ControlMeasures = hazardSelectedItem.ControlMeasures,
-                    //newHazardTemplate.State = hazardTemplate.State;
                     WorkStage = hazardSelectedItem.WorkStage.Trim()
                 };
                 newHazardTemplates.Add(newHazardTemplate);
-                //}
-                //}
             }
             hazardTemplates = newHazardTemplates;
             this.Grid1.DataSource = hazardTemplates;
@@ -512,10 +494,10 @@ namespace FineUIPro.Web.Hazard
         {
             if (hazardListTypeId != null)
             {
-                Model.Technique_HazardListType hazardListType = BLL.HazardListTypeService.GetHazardListTypeById(hazardListTypeId.ToString());
+                Model.Technique_HazardListType hazardListType = HazardListTypeService.GetHazardListTypeById(hazardListTypeId.ToString());
                 if (hazardListType != null)
                 {
-                    var hazard = BLL.HazardListTypeService.GetHazardListTypeById(hazardListType.SupHazardListTypeId);
+                    var hazard = HazardListTypeService.GetHazardListTypeById(hazardListType.SupHazardListTypeId);
                     if (hazard != null)
                     {
                         return hazard.HazardListTypeName;
@@ -756,23 +738,6 @@ namespace FineUIPro.Web.Hazard
         }
         #endregion
 
-        #region GV被选择项列表
-        ///// <summary>
-        ///// GV被选择项列表
-        ///// </summary>
-        //public List<string> ItemSelectedList
-        //{
-        //    get
-        //    {
-        //        return (List<string>)ViewState["ItemSelectedList"];
-        //    }
-        //    set
-        //    {
-        //        ViewState["ItemSelectedList"] = value;
-        //    }
-        //}
-        #endregion
-
         #region 导出按钮
         /// 导出按钮
         /// </summary>
@@ -843,7 +808,6 @@ namespace FineUIPro.Web.Hazard
             return sb.ToString();
         }
         #endregion
-
 
         #region 附件上传
         /// <summary>

@@ -88,20 +88,20 @@ namespace BLL
             Model.SUBHSSEDB db = Funs.DB;
             Model.Solution_ConstructSolution newConstructSolution = db.Solution_ConstructSolution.FirstOrDefault(e => e.ConstructSolutionId == constructSolution.ConstructSolutionId);
             if (newConstructSolution != null)
-            {
-                newConstructSolution.ProjectId = constructSolution.ProjectId;
-                newConstructSolution.ConstructSolutionCode = constructSolution.ConstructSolutionCode;
+            {                
                 newConstructSolution.ConstructSolutionName = constructSolution.ConstructSolutionName;
                 newConstructSolution.VersionNo = constructSolution.VersionNo;
                 newConstructSolution.UnitId = constructSolution.UnitId;
                 newConstructSolution.InvestigateType = constructSolution.InvestigateType;
                 newConstructSolution.SolutinType = constructSolution.SolutinType;
                 newConstructSolution.FileContents = constructSolution.FileContents;
-                newConstructSolution.Remark = constructSolution.Remark;
-                newConstructSolution.CompileManName = constructSolution.CompileManName;
-                newConstructSolution.CompileDate = constructSolution.CompileDate;
+                newConstructSolution.Remark = constructSolution.Remark;            
                 newConstructSolution.States = constructSolution.States;
-                newConstructSolution.QRCodeAttachUrl = constructSolution.QRCodeAttachUrl;
+                if(!string.IsNullOrEmpty(constructSolution.QRCodeAttachUrl))
+                {
+                    newConstructSolution.QRCodeAttachUrl = constructSolution.QRCodeAttachUrl;
+                }
+                
                 db.SubmitChanges();
                 if (constructSolution.ConstructSolutionCode != CodeRecordsService.ReturnCodeByDataId(constructSolution.ConstructSolutionId))
                 {

@@ -106,5 +106,33 @@ namespace BLL
             }
         }
         #endregion
+
+        // <summary>
+        /// 得到角色名称字符串
+        /// </summary>
+        /// <param name="bigType"></param>
+        /// <returns></returns>
+        public static string getWorkStageNamesWorkStageIds(object workStageIds)
+        {
+            string workStageName = string.Empty;
+            if (workStageIds != null)
+            {
+                string[] workStages = workStageIds.ToString().Split(',');
+                foreach (string workStageId in workStages)
+                {
+                    var q = GetWorkStageById(workStageId);
+                    if (q != null)
+                    {
+                        workStageName += q.WorkStageName + ",";
+                    }
+                }
+                if (workStageName != string.Empty)
+                {
+                    workStageName = workStageName.Substring(0, workStageName.Length - 1); ;
+                }
+            }
+
+            return workStageName;
+        }
     }
 }

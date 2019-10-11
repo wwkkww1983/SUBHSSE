@@ -75,7 +75,9 @@ namespace BLL
        /// <returns></returns>
        public static List<Model.Base_EmergencyType> GetEmergencyTypeList()
        {
-           var list = (from x in Funs.DB.Base_EmergencyType orderby x.EmergencyTypeCode select x).ToList();
+           var list = (from x in Funs.DB.Base_EmergencyType
+                       where x.EmergencyTypeName != null
+                       orderby x.EmergencyTypeCode select x).ToList();
            return list;
        }
        /// <summary>

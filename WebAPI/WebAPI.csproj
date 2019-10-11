@@ -164,8 +164,10 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\BaseInfoController.cs" />
     <Compile Include="Controllers\ConstructSolutionController.cs" />
+    <Compile Include="Controllers\EmergencyController.cs" />
     <Compile Include="Controllers\EquipmentQualityController.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
+    <Compile Include="Controllers\HazardListController.cs" />
     <Compile Include="Controllers\HazardRegisterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HSSEStandardsListController.cs" />

@@ -93,7 +93,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = BLL.APIUnitService.getSubUnitQualityBySubUnitQualityId(subUnitQualityId);
+                responeData.data = APIUnitService.getSubUnitQualityBySubUnitQualityId(subUnitQualityId);
             }
             catch (Exception ex)
             {
