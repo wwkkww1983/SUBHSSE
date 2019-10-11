@@ -36,6 +36,7 @@ namespace BLL
                                           OutDate = string.Format("{0:yyyy-MM-dd}", x.OutDate),
                                           ApprovalPerson = x.ApprovalPerson,
                                           CarNum = x.CarNum,
+                                          SizeModel =x.SizeModel,
                                           Remark = x.Remark,
                                           CompileManId = x.CompileMan,
                                           CompileManName = x.CompileManName,
@@ -59,7 +60,7 @@ namespace BLL
             var getEquipmentQuality = from x in Funs.DB.View_QualityAudit_EquipmentQuality
                                       where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
                                       && (strParam == null || x.FactoryCode.Contains(strParam) || x.SpecialEquipmentName.Contains(strParam) || x.EquipmentQualityName.Contains(strParam))
-                                      orderby x.EquipmentQualityCode descending 
+                                      orderby x.EquipmentQualityCode descending
                                       select new Model.EquipmentQualityItem
                                       {
                                           EquipmentQualityId = x.EquipmentQualityId,
@@ -75,11 +76,12 @@ namespace BLL
                                           LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
                                           InDate = string.Format("{0:yyyy-MM-dd}", x.InDate),
                                           OutDate = string.Format("{0:yyyy-MM-dd}", x.OutDate),
-                                          ApprovalPerson=x.ApprovalPerson,
-                                          CarNum= x.CarNum,
-                                          Remark=x.Remark,
-                                          CompileManId=x.CompileMan,
-                                          CompileManName=x.CompileManName,
+                                          ApprovalPerson = x.ApprovalPerson,
+                                          CarNum = x.CarNum,
+                                          Remark = x.Remark,
+                                          SizeModel = x.SizeModel,
+                                          CompileManId = x.CompileMan,
+                                          CompileManName = x.CompileManName,
                                           CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
                                           AttachUrl = x.AttachUrl.Replace('\\', '/')
                                       };

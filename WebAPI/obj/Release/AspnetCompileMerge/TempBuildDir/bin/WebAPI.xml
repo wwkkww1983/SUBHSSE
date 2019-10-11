@@ -620,14 +620,15 @@
             <param name="constructSolutionId"></param>
             <returns></returns>
         </member>
-        <member name="M:WebAPI.Controllers.ConstructSolutionController.getConstructSolutionListQuery(System.String,System.String,System.String,System.Int32)">
+        <member name="M:WebAPI.Controllers.ConstructSolutionController.getConstructSolutionListQuery(System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             根据projectId、unitid获取施工方案信息
             </summary>
             <param name="projectId"></param>
             <param name="unitId"></param>
-            <param name="pageIndex"></param>
              <param name="strParam">查询条件</param>
+             <param name="states">查询条件</param>
+            <param name="pageIndex"></param>  
             <returns></returns>
         </member>
         <member name="M:WebAPI.Controllers.ConstructSolutionController.SaveConstructSolution(Model.ConstructSolutionItem)">

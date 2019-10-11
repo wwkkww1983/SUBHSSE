@@ -42,15 +42,16 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="unitId"></param>
-        /// <param name="pageIndex"></param>
         ///  <param name="strParam">查询条件</param>
+        ///  <param name="states">查询条件</param>
+        /// <param name="pageIndex"></param>  
         /// <returns></returns>
-        public Model.ResponeData getConstructSolutionListQuery(string projectId, string unitId, string strParam, int pageIndex)
+        public Model.ResponeData getConstructSolutionListQuery(string projectId, string unitId, string strParam, string states, int pageIndex)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = APIConstructSolutionService.getConstructSolutionList(projectId, unitId, strParam);
+                var getDataList = APIConstructSolutionService.getConstructSolutionList(projectId, unitId, strParam, states);
                 int pageCount = getDataList.Count();
                 if (pageCount > 0 && pageIndex > 0)
                 {
