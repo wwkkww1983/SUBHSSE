@@ -448,6 +448,5 @@ namespace FineUIPro.Web.Check
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectIncentiveNoticeMenuId, this.IncentiveNoticeId, (type == BLL.Const.BtnSubmit ? true : false), incentiveNotice.IncentiveNoticeCode, "../Check/IncentiveNoticeView.aspx?IncentiveNoticeId={0}");
         }
         #endregion
-
     }
 }

@@ -391,6 +391,26 @@ namespace BLL
         }
 
         /// <summary>
+        ///根据主键删除附件
+        /// </summary>
+        /// <param name="lawRegulationId"></param>
+        public static void DeleteAttachFileById(string menuId,string id)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.AttachFile attachFile = db.AttachFile.FirstOrDefault(e =>e.MenuId == menuId && e.ToKeyId == id);
+            if (attachFile != null)
+            {
+                if (!string.IsNullOrEmpty(attachFile.AttachUrl))
+                {
+                    BLL.UploadFileService.DeleteFile(Funs.RootPath, attachFile.AttachUrl);
+                }
+
+                db.AttachFile.DeleteOnSubmit(attachFile);
+                db.SubmitChanges();
+            }
+        }
+
+        /// <summary>
         ///根据主键删除流程
         /// </summary>
         /// <param name="lawRegulationId"></param>

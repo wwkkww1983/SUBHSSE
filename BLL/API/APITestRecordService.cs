@@ -96,22 +96,21 @@ namespace BLL
                         ////获取类型下适合岗位试题集合
                         var getTestTrainingItems = Funs.DB.Training_TestTrainingItem.Where(x => x.TrainingId == itemT.TrainingId && (x.WorkPostIds == null || (x.WorkPostIds.Contains(person.WorkAreaId) && person.WorkAreaId != null)));
                         if (getTestTrainingItems.Count() > 0)
-                        {
-                            getTestTrainingItems = getTestTrainingItems.OrderBy(q => Guid.NewGuid());
+                        {                           
                             ////单选题
-                            var getSItem = getTestTrainingItems.Where(x => x.TestType == "1").Take(itemT.TestType1Count ?? 1);
+                            var getSItem = getTestTrainingItems.Where(x => x.TestType == "1").OrderBy(x => Guid.NewGuid()).Take(itemT.TestType1Count ?? 1);
                             if (getSItem.Count() > 0)
                             {
                                 getTestTrainingItemList.AddRange(getSItem);
                             }
                             ///多选题
-                            var getMItem = getTestTrainingItems.Where(x => x.TestType == "2").Take(itemT.TestType2Count ?? 1);
+                            var getMItem = getTestTrainingItems.Where(x => x.TestType == "2").OrderBy(x => Guid.NewGuid()).Take(itemT.TestType2Count ?? 1);
                             if (getMItem.Count() > 0)
                             {
                                 getTestTrainingItemList.AddRange(getMItem);
                             }
                             ///判断题
-                            var getJItem = getTestTrainingItems.Where(x => x.TestType == "3").Take(itemT.TestType3Count ?? 1);
+                            var getJItem = getTestTrainingItems.Where(x => x.TestType == "3").OrderBy(x => Guid.NewGuid()).Take(itemT.TestType3Count ?? 1);
                             if (getJItem.Count() > 0)
                             {
                                 getTestTrainingItemList.AddRange(getJItem);

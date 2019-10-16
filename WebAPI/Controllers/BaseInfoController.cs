@@ -155,7 +155,36 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var noticeList = APIBaseInfoService.getNotices(projectId);
+                var noticeList = APIBaseInfoService.getNoticesList(projectId, null);
+                int pageCount = noticeList.Count();
+                if (pageCount > 0 && pageIndex > 0)
+                {
+                    noticeList = noticeList.OrderByDescending(u => u.ReleaseDate).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                }
+                responeData.data = new { pageCount, noticeList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
+        /// 根据项目ID通知通告
+        /// </summary>
+        /// <param name="projectId">项目ID</param>
+        /// <param name="strParam">查询条件</param>
+        /// <param name="pageIndex"></param>
+        /// <returns></returns>
+        public Model.ResponeData getNoticesQuery(string projectId, string strParam, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var noticeList = APIBaseInfoService.getNoticesList(projectId,strParam);
                 int pageCount = noticeList.Count();
                 if (pageCount > 0 && pageIndex > 0)
                 {
@@ -443,6 +472,27 @@ namespace WebAPI.Controllers
             try
             {
                 responeData.data = APIBaseInfoService.getWorkStage();
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region  获取奖励类型
+        /// <summary>
+        ///   获取奖励类型
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getRewardType()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getSysConst(ConstValue.Group_RewardType);
             }
             catch (Exception ex)
             {

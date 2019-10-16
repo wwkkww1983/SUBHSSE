@@ -176,7 +176,7 @@ namespace BLL
             if (newIncentiveNotice != null)
             {
                 //newIncentiveNotice.ProjectId = incentiveNotice.ProjectId;
-                newIncentiveNotice.IncentiveNoticeCode = incentiveNotice.IncentiveNoticeCode;
+                //newIncentiveNotice.IncentiveNoticeCode = incentiveNotice.IncentiveNoticeCode;
                 newIncentiveNotice.UnitId = incentiveNotice.UnitId;
                 newIncentiveNotice.IncentiveDate = incentiveNotice.IncentiveDate;
                 newIncentiveNotice.TeamGroupId = incentiveNotice.TeamGroupId;

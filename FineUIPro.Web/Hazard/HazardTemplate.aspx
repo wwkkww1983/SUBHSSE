@@ -48,7 +48,7 @@
                                         EnableCheckBoxSelect="true" LabelAlign="Right" Width="600px" EmptyText="-请选择-"
                                         AutoPostBack="true" AutoSelectFirstItem="false" OnSelectedIndexChanged="TextBox_TextChanged">
                                     </f:DropDownList>
-                                    <f:RadioButtonList ID="rblIsCompany" runat="server" Width="120px" 
+                                    <f:RadioButtonList ID="rblIsCompany" runat="server" Width="150px" 
                                         AutoPostBack="true" OnSelectedIndexChanged="rblIsCompany_SelectedIndexChanged" >
                                         <f:RadioItem Value="0" Text="内置" Selected="true" />
                                         <f:RadioItem Value="1" Text="本公司" />

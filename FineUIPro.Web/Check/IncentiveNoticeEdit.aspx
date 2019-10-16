@@ -28,8 +28,7 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:DropDownList ID="drpTeamGroup" runat="server" Label="受奖班组" LabelAlign="Right" EnableEdit="true" LabelWidth="120px"
-                        >
+                    <f:DropDownList ID="drpTeamGroup" runat="server" Label="受奖班组" LabelAlign="Right" EnableEdit="true" LabelWidth="120px">
                     </f:DropDownList>
                     <f:DropDownList ID="drpPerson" runat="server" Label="受奖个人" LabelAlign="Right" EnableEdit="true"
                         >

@@ -66,7 +66,7 @@
                     <f:RenderField Width="220px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
                         FieldType="String" HeaderText="处罚单位" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="PunishNoticeDate" DataField="PunishNoticeDate"
+                    <f:RenderField Width="100px" ColumnID="PunishNoticeDate" DataField="PunishNoticeDate"
                         SortField="PunishNoticeDate" FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd"
                         HeaderText="处罚时间" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>

@@ -85,10 +85,11 @@ namespace BLL
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        public static List<Model.NoticeItem> getNotices(string projectId)
+        public static List<Model.NoticeItem> getNoticesList(string projectId, string strParam)
         {
             var getDataLists = (from x in Funs.DB.InformationProject_Notice                              
                                 where x.AccessProjectId.Contains(projectId) && x.IsRelease == true
+                                && (strParam == null || x.NoticeTitle.Contains(strParam))
                                 orderby x.ReleaseDate descending
                                 select new Model.NoticeItem
                                 {

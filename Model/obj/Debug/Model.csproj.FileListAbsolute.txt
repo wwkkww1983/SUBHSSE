@@ -131,13 +131,14 @@ D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Debug\Model.csproj.CopyComplete
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Debug\Model.dll
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Debug\Model.pdb
 D:\开发代码\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Debug\Model.csprojAssemblyReference.cache
+D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\bin\Debug\Model.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\bin\Debug\Model.pdb
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\bin\Debug\EmitMapper.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\bin\Debug\Newtonsoft.Json.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\bin\Debug\Newtonsoft.Json.pdb
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\bin\Debug\Newtonsoft.Json.xml
-D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Debug\Model.csproj.CopyComplete
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Debug\Model.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Debug\Model.pdb
+D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Debug\Model.csprojAssemblyReference.cache

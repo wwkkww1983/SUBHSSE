@@ -60,6 +60,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIItem\FileInfoItem.cs" />
+    <Compile Include="APIItem\PunishNoticeItem.cs" />
+    <Compile Include="APIItem\IncentiveNoticeItem.cs" />
     <Compile Include="APIItem\HazardListSelectedItem.cs" />
     <Compile Include="APIItem\MeetingItem.cs" />
     <Compile Include="APIItem\SysTestRuleItem.cs" />

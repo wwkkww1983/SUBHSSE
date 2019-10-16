@@ -175,7 +175,7 @@ namespace FineUIPro.Web.Check
                 this.SaveData(BLL.Const.BtnSave);
             }
 
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PunishNotice&menuId=" + BLL.Const.ProjectPunishNoticeMenuId, this.PunishNoticeId)));
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PunishNotice&menuId=" + Const.ProjectPunishNoticeMenuId, this.PunishNoticeId)));
         }
         
         /// <summary>
@@ -189,7 +189,7 @@ namespace FineUIPro.Web.Check
             {
                 this.SaveData(BLL.Const.BtnSave);
             }
-            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.ProjectPunishNoticeMenuId);
+            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.ProjectPunishNoticeMenuId);
             if (buttonList.Count() > 0)
             {
                 PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&type=0&path=FileUpload/PunishNoticeStatistics&menuId=" + BLL.Const.ProjectPunishNoticeStatisticsMenuId, this.PunishNoticeId)));
