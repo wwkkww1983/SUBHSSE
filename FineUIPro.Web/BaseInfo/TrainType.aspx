@@ -99,12 +99,19 @@
             </f:SimpleForm>
         </Items>
     </f:Panel>
+    <f:Window ID="Window1" Title="题型设置" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true"
+        Width="1000px" Height="600px">
+    </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true"
             runat="server" Text="编辑" Icon="TableEdit">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
             ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除" Icon="Delete">
+        </f:MenuButton>
+        <f:MenuButton ID="btnMenuSet" OnClick="btnMenuSet_Click" EnablePostBack="true" Hidden="true"
+            runat="server" Text="题型设置" Icon="CalendarAdd">
         </f:MenuButton>
     </f:Menu>
     </form>

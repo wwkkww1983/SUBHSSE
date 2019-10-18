@@ -51,6 +51,23 @@ namespace BLL
         }
 
         /// <summary>
+        /// 根据projectId、unitType获取单位信息（总包1;施工分包2;监理3;业主4;其他5）
+        /// </summary>
+        /// <param name="unitId"></param>
+        /// <returns></returns>
+        public static List<Model.UnitItem> getUnitByProjectIdUnitTypeQuery(string projectId, string strParam, string unitType)
+        {
+            var units = (from x in Funs.DB.Base_Unit
+                         join y in Funs.DB.Project_ProjectUnit
+                         on x.UnitId equals y.UnitId
+                         where y.ProjectId == projectId && (strParam==null || x.UnitName.Contains(strParam))
+                         && (y.UnitType == unitType || unitType == null) && (x.IsHide == null || x.IsHide == false)
+                         orderby x.UnitName
+                         select x).ToList();
+            return ObjectMapperManager.DefaultInstance.GetMapper<List<Model.Base_Unit>, List<Model.UnitItem>>().Map(units.ToList());
+        }
+
+        /// <summary>
         /// 根据subUnitQualityId获取分包商资质信息
         /// </summary>
         /// <param name="unitId"></param>

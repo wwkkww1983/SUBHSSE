@@ -21,7 +21,7 @@ namespace BLL
         {
             return Funs.DB.Base_TrainType.FirstOrDefault(e => e.TrainTypeId == trainTypeId);
         }
-
+        
         /// <summary>
         /// 添加培训类型
         /// </summary>
@@ -71,6 +71,14 @@ namespace BLL
             Model.Base_TrainType trainType = db.Base_TrainType.FirstOrDefault(e => e.TrainTypeId == trainTypeId);
             if (trainType != null)
             {
+                var getItems = from x in db.Base_TrainTypeItem where x.TrainTypeId == trainType.TrainTypeId select x;
+                if (getItems.Count() > 0)
+                {
+                    foreach (var item in getItems)
+                    {
+                        DeleteTrainTypeItemById(item.TrainTypeItemId);
+                    }
+                }
                 db.Base_TrainType.DeleteOnSubmit(trainType);
                 db.SubmitChanges();
             }
@@ -84,7 +92,7 @@ namespace BLL
         {
             return (from x in Funs.DB.Base_TrainType orderby x.TrainTypeCode select x).ToList();
         }
-
+        
         /// <summary>
         /// 获取关联人员发卡的培训类型列表
         /// </summary>
@@ -109,6 +117,60 @@ namespace BLL
             if (isShowPlease)
             {
                 Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+        #endregion
+
+        #region 培训类型题型
+        /// <summary>
+        /// 根据主键获取培训类型题型数量
+        /// </summary>
+        /// <param name="trainTypeItemId"></param>
+        /// <returns></returns>
+        public static Model.Base_TrainTypeItem GetTrainTypeItemById(string trainTypeItemId)
+        {
+            return Funs.DB.Base_TrainTypeItem.FirstOrDefault(e => e.TrainTypeItemId == trainTypeItemId);
+        }
+        /// <summary>
+        /// 获取培训类型题型数量列表
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Base_TrainTypeItem> GetTrainTypeItemList()
+        {
+            return (from x in Funs.DB.Base_TrainTypeItem select x).ToList();
+        }
+        /// <summary>
+        /// 添加培训类型题型数量
+        /// </summary>
+        /// <param name="getTrainTypeItem"></param>
+        public static void AddTrainTypeItem(Model.Base_TrainTypeItem getTrainTypeItem)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.Base_TrainTypeItem newTrainTypeItem = new Model.Base_TrainTypeItem
+            {
+                TrainTypeItemId = SQLHelper.GetNewID(),
+                TrainTypeId = getTrainTypeItem.TrainTypeId,
+                TrainingId = getTrainTypeItem.TrainingId,
+                SCount = getTrainTypeItem.SCount,
+                MCount = getTrainTypeItem.MCount,
+                JCount = getTrainTypeItem.JCount
+            };
+            db.Base_TrainTypeItem.InsertOnSubmit(newTrainTypeItem);
+            db.SubmitChanges();
+        }
+
+        /// <summary>
+        /// 根据主键删除培训类型
+        /// </summary>
+        /// <param name="trainTypeId"></param>
+        public static void DeleteTrainTypeItemById(string trainTypeItemId)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.Base_TrainTypeItem delTrainTypeItem = db.Base_TrainTypeItem.FirstOrDefault(e => e.TrainTypeItemId == trainTypeItemId);
+            if (delTrainTypeItem != null)
+            {
+                db.Base_TrainTypeItem.DeleteOnSubmit(delTrainTypeItem);
+                db.SubmitChanges();
             }
         }
         #endregion

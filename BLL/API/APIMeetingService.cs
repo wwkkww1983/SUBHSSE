@@ -153,8 +153,8 @@ namespace BLL
             if (meetingType == "C")
             {
                 getMeetItem = (from x in Funs.DB.Meeting_ClassMeeting
-                               where x.ProjectId == projectId && ((states == "0" && (x.States == "0" || x.States == null))
-                                    || (states == "1" && (x.States == "1" || x.States == "2")))
+                               where x.ProjectId == projectId
+                               && (states == null || (states == "0" && (x.States == "0" || x.States == null)) || (states == "1" && (x.States == "1" || x.States == "2")))
                                orderby x.ClassMeetingDate descending
                                select new Model.MeetingItem
                                {
@@ -178,8 +178,8 @@ namespace BLL
             else if (meetingType == "W")
             {
                 getMeetItem = (from x in Funs.DB.Meeting_WeekMeeting
-                               where x.ProjectId == projectId && ((states == "0" && (x.States == "0" || x.States == null))
-                                    || (states == "1" && (x.States == "1" || x.States == "2")))
+                               where x.ProjectId == projectId
+                               && (states == null || (states == "0" && (x.States == "0" || x.States == null)) || (states == "1" && (x.States == "1" || x.States == "2")))
                                orderby x.WeekMeetingDate descending
                                select new Model.MeetingItem
                                {
@@ -204,8 +204,8 @@ namespace BLL
             else if (meetingType == "M")
             {
                 getMeetItem = (from x in Funs.DB.Meeting_MonthMeeting
-                               where x.ProjectId == projectId && ((states == "0" && (x.States == "0" || x.States == null))
-                                    || (states == "1" && (x.States == "1" || x.States == "2")))
+                               where x.ProjectId == projectId
+                               && (states == null || (states == "0" && (x.States == "0" || x.States == null)) || (states == "1" && (x.States == "1" || x.States == "2")))
                                orderby x.MonthMeetingDate descending
                                select new Model.MeetingItem
                                {
@@ -230,8 +230,8 @@ namespace BLL
             else if (meetingType == "S")
             {
                 getMeetItem = (from x in Funs.DB.Meeting_SpecialMeeting
-                               where x.ProjectId == projectId && ((states == "0" && (x.States == "0" || x.States == null))
-                                    || (states == "1" && (x.States == "1" || x.States == "2")))
+                               where x.ProjectId == projectId
+                               && (states == null || (states == "0" && (x.States == "0" || x.States == null)) || (states == "1" && (x.States == "1" || x.States == "2")))
                                orderby x.SpecialMeetingDate descending
                                select new Model.MeetingItem
                                {
@@ -256,8 +256,8 @@ namespace BLL
             else
             {
                 getMeetItem = (from x in Funs.DB.Meeting_AttendMeeting
-                               where x.ProjectId == projectId && ((states == "0" && (x.States == "0" || x.States == null))
-                                    || (states == "1" && (x.States == "1" || x.States == "2")))
+                               where x.ProjectId == projectId
+                               && (states == null || (states == "0" && (x.States == "0" || x.States == null)) || (states == "1" && (x.States == "1" || x.States == "2")))
                                orderby x.AttendMeetingDate descending
                                select new Model.MeetingItem
                                {

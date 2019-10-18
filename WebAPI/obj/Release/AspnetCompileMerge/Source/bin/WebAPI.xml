@@ -528,6 +528,15 @@
             <param name="pageIndex"></param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getNoticesQuery(System.String,System.String,System.Int32)">
+            <summary>
+            根据项目ID通知通告
+            </summary>
+            <param name="projectId">项目ID</param>
+            <param name="strParam">查询条件</param>
+            <param name="pageIndex"></param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.BaseInfoController.getNoticesByNoticeId(System.String)">
             <summary>
             根据noticeId获取通知通告详细
@@ -606,6 +615,96 @@
             <summary>
               获取施工方案类别
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getRewardType">
+            <summary>
+              获取奖励类型
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getTeamGroup(System.String,System.String)">
+            <summary>
+            获取项目班组
+            </summary>
+            <param name="projectId"></param>
+            <param name="unitId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getWorkArea(System.String,System.String)">
+            <summary>
+            获取项目区域
+            </summary>
+            <param name="projectId"></param>
+            <param name="unitId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WebAPI.Controllers.PunishNoticeController">
+            <summary>
+            处罚通知单
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.PunishNoticeController.getPunishNoticeById(System.String)">
+            <summary>
+             根据主键ID获取处罚通知单
+            </summary>
+            <param name="punishNoticeId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PunishNoticeController.getPunishNoticeList(System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            根据projectId、unitid获取处罚通知单信息
+            </summary>
+            <param name="projectId"></param>
+            <param name="unitId"></param>
+             <param name="strParam">查询条件</param>
+             <param name="states">查询条件</param>
+            <param name="pageIndex"></param>  
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PunishNoticeController.SavePunishNotice(Model.PunishNoticeItem)">
+            <summary>
+            保存处罚通知单 Check_PunishNotice
+            </summary>
+            <param name="newItem">处罚通知单</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PunishNoticeController.getSavePunishNoticeReceiptUrl(System.String,System.String)">
+            <summary>
+             上报处罚单-回执单
+            </summary>
+            <param name="punishNoticeId">主键</param>
+            <param name="attachUrl">回执单路径</param>
+            <returns></returns>
+        </member>
+        <member name="T:WebAPI.Controllers.IncentiveNoticeController">
+            <summary>
+            奖励通知单
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.IncentiveNoticeController.getIncentiveNoticeById(System.String)">
+            <summary>
+             根据主键ID获取奖励通知单
+            </summary>
+            <param name="incentiveNoticeId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.IncentiveNoticeController.getIncentiveNoticeList(System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            根据projectId、unitid获取奖励通知单信息
+            </summary>
+            <param name="projectId"></param>
+            <param name="unitId"></param>
+             <param name="strParam">查询条件</param>
+             <param name="states">查询条件</param>
+            <param name="pageIndex"></param>  
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.IncentiveNoticeController.SaveIncentiveNotice(Model.IncentiveNoticeItem)">
+            <summary>
+            保存奖励通知单 Check_IncentiveNotice
+            </summary>
+            <param name="newItem">奖励通知单</param>
             <returns></returns>
         </member>
         <member name="T:WebAPI.Controllers.ConstructSolutionController">
@@ -1439,6 +1538,15 @@
             根据projectId、unitType获取单位信息（总包1;施工分包2;监理3;业主4;其他5）
             </summary>
             <param name="projectId">项目ID</param>
+            <param name="unitType">类型（null 所有单位）</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.UnitController.getUnitByProjectIdUnitTypeQuery(System.String,System.String,System.String)">
+            <summary>
+            根据projectId、unitType获取单位信息（总包1;施工分包2;监理3;业主4;其他5）
+            </summary>
+            <param name="projectId">项目ID</param>
+            <param name="strParam">查询条件</param>
             <param name="unitType">类型（null 所有单位）</param>
             <returns></returns>
         </member>

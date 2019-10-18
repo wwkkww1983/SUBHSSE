@@ -124,7 +124,7 @@ namespace WebAPI.Controllers
             {
                 string returnValue = string.Empty;
                 var notice = (from x in Funs.DB.InformationProject_Notice
-                              where x.IsRelease== true
+                              where x.IsRelease == true
                               orderby x.ReleaseDate descending
                               select x).FirstOrDefault();
 
@@ -184,7 +184,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var noticeList = APIBaseInfoService.getNoticesList(projectId,strParam);
+                var noticeList = APIBaseInfoService.getNoticesList(projectId, strParam);
                 int pageCount = noticeList.Count();
                 if (pageCount > 0 && pageIndex > 0)
                 {
@@ -277,7 +277,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = APIBaseInfoService.getHSSEStandardListType(); 
+                responeData.data = APIBaseInfoService.getHSSEStandardListType();
             }
             catch (Exception ex)
             {
@@ -342,7 +342,7 @@ namespace WebAPI.Controllers
         {
             var responeData = new Model.ResponeData();
             try
-            {              
+            {
                 responeData.data = APIBaseInfoService.getTrainType();
             }
             catch (Exception ex)
@@ -385,7 +385,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getTestRule = Funs.DB.Sys_TestRule.FirstOrDefault();                
+                var getTestRule = Funs.DB.Sys_TestRule.FirstOrDefault();
                 responeData.data = new { getTestRule };
             }
             catch (Exception ex)
@@ -460,7 +460,7 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
-        
+
         #region  获取工作阶段
         /// <summary>
         ///   获取施工方案类别
@@ -493,6 +493,52 @@ namespace WebAPI.Controllers
             try
             {
                 responeData.data = APIBaseInfoService.getSysConst(ConstValue.Group_RewardType);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region  获取项目班组
+        /// <summary>
+        /// 获取项目班组
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getTeamGroup(string projectId, string unitId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getTeamGroup(projectId, unitId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region  获取项目区域
+        /// <summary>
+        /// 获取项目区域
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getWorkArea(string projectId, string unitId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getWorkArea(projectId, unitId);
             }
             catch (Exception ex)
             {

@@ -280,6 +280,21 @@ namespace Model
             get;
             set;
         }
-        
+        /// <summary>
+        /// 抄送人员IDs
+        /// </summary>
+        public string CCManIds
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 抄送姓名IDs
+        /// </summary>
+        public string CCManNames
+        {
+            get;
+            set;
+        }
     }
 }

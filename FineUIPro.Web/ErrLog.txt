@@ -56,3 +56,64 @@ IP地址:127.0.0.1
 
 出错时间:10/16/2019 11:26:03
 
+
+错误信息开始=====>
+错误类型:HttpCompileException
+错误信息:d:\DepCode\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\BaseInfo\TrainTypeEdit.aspx(40): error CS1061: “ASP.baseinfo_traintypeedit_aspx”不包含“btnMenuEdit_Click”的定义，并且找不到可接受类型为“ASP.baseinfo_traintypeedit_aspx”的第一个参数的扩展方法“btnMenuEdit_Click”(是否缺少 using 指令或程序集引用?)
+错误堆栈:
+   在 System.Web.Compilation.BuildManager.PostProcessFoundBuildResult(BuildResult result, Boolean keyFromVPP, VirtualPath virtualPath)
+   在 System.Web.Compilation.BuildManager.GetBuildResultFromCacheInternal(String cacheKey, Boolean keyFromVPP, VirtualPath virtualPath, Int64 hashCode, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultFromCacheInternal(VirtualPath virtualPath, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   在 System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   在 System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.UI.PageHandlerFactory.GetHandler(HttpContext context, String requestType, String virtualPath, String path)
+   在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+出错时间:10/17/2019 11:36:41
+出错文件:http://localhost:8118/BaseInfo/TrainTypeEdit.aspx?TrainTypeId=8920c9cc-fa92-49b2-9493-775a55da27bb
+IP地址:::1
+
+出错时间:10/17/2019 11:36:42
+
+
+错误信息开始=====>
+错误类型:HttpCompileException
+错误信息:d:\DepCode\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\BaseInfo\TrainTypeEdit.aspx(48): error CS1061: “ASP.baseinfo_traintypeedit_aspx”不包含“TextBox_TextChanged”的定义，并且找不到可接受类型为“ASP.baseinfo_traintypeedit_aspx”的第一个参数的扩展方法“TextBox_TextChanged”(是否缺少 using 指令或程序集引用?)
+错误堆栈:
+   在 System.Web.Compilation.BuildManager.PostProcessFoundBuildResult(BuildResult result, Boolean keyFromVPP, VirtualPath virtualPath)
+   在 System.Web.Compilation.BuildManager.GetBuildResultFromCacheInternal(String cacheKey, Boolean keyFromVPP, VirtualPath virtualPath, Int64 hashCode, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultFromCacheInternal(VirtualPath virtualPath, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   在 System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   在 System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.UI.PageHandlerFactory.GetHandler(HttpContext context, String requestType, String virtualPath, String path)
+   在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+出错时间:10/17/2019 14:59:47
+出错文件:http://localhost:8118/BaseInfo/TrainTypeEdit.aspx?TrainTypeId=8920c9cc-fa92-49b2-9493-775a55da27bb
+IP地址:::1
+
+出错时间:10/17/2019 14:59:47
+
+
+错误信息开始=====>
+错误类型:HttpException
+错误信息:服务器标记的格式不正确。
+错误堆栈:
+   在 System.Web.UI.TemplateParser.ProcessError(String message)
+   在 System.Web.UI.TemplateParser.DetectSpecialServerTagError(String text, Int32 textPos)
+   在 System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+   在 System.Web.UI.TemplateParser.ParseString(String text, VirtualPath virtualPath, Encoding fileEncoding)
+出错时间:10/17/2019 15:04:39
+出错文件:http://localhost:8118/BaseInfo/TrainTypeEdit.aspx?TrainTypeId=6868d885-8172-4877-94e4-28ec28cb8930
+IP地址:::1
+
+出错时间:10/17/2019 15:04:39
+

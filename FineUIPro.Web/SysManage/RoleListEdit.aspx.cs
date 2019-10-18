@@ -70,7 +70,7 @@ namespace FineUIPro.Web.SysManage
                     }
                 }
 
-                if (this.CurrUser.UserId != BLL.Const.sysglyId)
+                if (this.CurrUser.UserId != Const.sysglyId)
                 {
                     this.drpRole.Enabled = false;
                 }

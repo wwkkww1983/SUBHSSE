@@ -80,7 +80,30 @@ namespace WebAPI.Controllers
 
             return responeData;
         }
-        #endregion        
+
+        /// <summary>
+        /// 根据projectId、unitType获取单位信息（总包1;施工分包2;监理3;业主4;其他5）
+        /// </summary>
+        /// <param name="projectId">项目ID</param>
+        /// <param name="strParam">查询条件</param>
+        /// <param name="unitType">类型（null 所有单位）</param>
+        /// <returns></returns>
+        public Model.ResponeData getUnitByProjectIdUnitTypeQuery(string projectId, string strParam, string unitType)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIUnitService.getUnitByProjectIdUnitTypeQuery(projectId, strParam,unitType);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion    
 
         #region 根据subUnitQualityId获取分包商资质信息
         /// <summary>

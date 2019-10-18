@@ -165,6 +165,7 @@
     <Content Include="BaseInfo\HazardRegisterTypesSupervisionEdit.aspx" />
     <Content Include="BaseInfo\HSSEStandardListType.aspx" />
     <Content Include="BaseInfo\LawsRegulationsType.aspx" />
+    <Content Include="BaseInfo\TrainTypeEdit.aspx" />
     <Content Include="BaseInfo\LicenseType.aspx" />
     <Content Include="BaseInfo\ManageRuleType.aspx" />
     <Content Include="BaseInfo\PersonSpecialty.aspx" />
@@ -4361,6 +4362,13 @@
     </Compile>
     <Compile Include="BaseInfo\LawsRegulationsType.aspx.designer.cs">
       <DependentUpon>LawsRegulationsType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BaseInfo\TrainTypeEdit.aspx.cs">
+      <DependentUpon>TrainTypeEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BaseInfo\TrainTypeEdit.aspx.designer.cs">
+      <DependentUpon>TrainTypeEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="BaseInfo\LicenseType.aspx.cs">
       <DependentUpon>LicenseType.aspx</DependentUpon>

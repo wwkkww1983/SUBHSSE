@@ -301,6 +301,7 @@ namespace BLL
                 int testType1Count = 40;
                 int testType2Count = 10;
                 int testType3Count = 40;
+                ////获取考试规则设置数据
                 var getTestRule = Funs.DB.Sys_TestRule.FirstOrDefault(); ////考试数据设置
                 if (getTestRule != null)
                 {
@@ -311,6 +312,16 @@ namespace BLL
                     testType1Count = getTestRule.SCount;
                     testType2Count = getTestRule.MCount;
                     testType3Count = getTestRule.JCount;
+                }
+                ////按照培训类型获取试题类型及题型数量
+                var getTrainTypeItems = from x in Funs.DB.Base_TrainTypeItem
+                                       where x.TrainTypeId == getTrainingPlan.TrainTypeId
+                                       select x;
+                if (getTrainTypeItems.Count() > 0)
+                {
+                    testType1Count = getTrainTypeItems.Sum(x => x.SCount);
+                    testType2Count = getTrainTypeItems.Sum(x => x.MCount);
+                    testType3Count = getTrainTypeItems.Sum(x => x.JCount);
                 }
 
                 newTestPlan.Duration = getTestRule.Duration;
@@ -336,21 +347,40 @@ namespace BLL
                    
                     TestRecordService.AddTestRecord(newTestRecord);
                 }
-                /////考试题型类别及数量
-                Model.Training_TestPlanTraining newTestPlanTraining = new Model.Training_TestPlanTraining
+                if (getTrainTypeItems.Count() == 0)
                 {
-                    TestPlanTrainingId = SQLHelper.GetNewID(),
-                    TestPlanId = testPlanId,
-                    TestType1Count = testType1Count,
-                    TestType2Count = testType2Count,
-                    TestType3Count = testType3Count,
-                };
-                TestPlanTrainingService.AddTestPlanTraining(newTestPlanTraining);
+                    /////考试题型类别及数量
+                    Model.Training_TestPlanTraining newTestPlanTraining = new Model.Training_TestPlanTraining
+                    {
+                        TestPlanTrainingId = SQLHelper.GetNewID(),
+                        TestPlanId = testPlanId,
+                        TestType1Count = testType1Count,
+                        TestType2Count = testType2Count,
+                        TestType3Count = testType3Count,
+                    };
+                    TestPlanTrainingService.AddTestPlanTraining(newTestPlanTraining);
+                }
+                else
+                {
+                    foreach (var item in getTrainTypeItems)
+                    {
+                        /////考试题型类别及数量
+                        Model.Training_TestPlanTraining newTestPlanTraining = new Model.Training_TestPlanTraining
+                        {
+                            TestPlanTrainingId = SQLHelper.GetNewID(),
+                            TestPlanId = testPlanId,
+                            TrainingId = item.TrainingId,
+                            TestType1Count = item.SCount,
+                            TestType2Count = item.MCount,
+                            TestType3Count = item.JCount,
+                        };
+                        TestPlanTrainingService.AddTestPlanTraining(newTestPlanTraining);
+                    }
+                }
                 ////回写培训计划状态
                 getTrainingPlan.States = "2";
                 TrainingPlanService.UpdatePlan(getTrainingPlan);
             }
-
             return testPlanId;
         }
         #endregion

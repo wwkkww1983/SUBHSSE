@@ -123,7 +123,7 @@
                         TextAlign="Left">
                     </f:RenderField>
                     <f:WindowField TextAlign="Left" Width="70px" WindowID="WindowAtt" HeaderTextAlign="Center"
-                        Text="附件" HeaderText="附件" ToolTip="附件上传查看" DataIFrameUrlFields="PictureId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PictureAttachUrl&menuId=B58179BE-FE6E-4E91-84FC-D211E4692354"/>
+                        Text="附件" HeaderText="附件" ToolTip="附件上传查看" DataIFrameUrlFields="PictureId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PictureAttachUrl&type=-1&menuId=B58179BE-FE6E-4E91-84FC-D211E4692354"/>
                 </Columns>
                 <Listeners>
                     <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />

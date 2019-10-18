@@ -188,15 +188,14 @@ namespace FineUIPro.Web.AttachFile
             {
                 Session[sessionName] = new JArray();
                 Model.AttachFile sour = new Model.AttachFile();
-                sour = BLL.Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId);
-                //if (!string.IsNullOrEmpty(this.MenuId))
-                //{
-                //    sour = BLL.Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId && x.MenuId == this.MenuId);
-                //}
-                //else
-                //{
-                //    sour = BLL.Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId);
-                //}
+                if (this.MenuId == Const.ProjectPunishNoticeMenuId || this.MenuId == Const.ProjectPunishNoticeStatisticsMenuId)
+                {
+                    sour = BLL.Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId && x.MenuId == this.MenuId);
+                }
+                else
+                {
+                    sour = BLL.Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId);
+                }
 
                 if (sour != null)
                 {
@@ -396,12 +395,12 @@ namespace FineUIPro.Web.AttachFile
             }
             else
             {
-                if (this.CurrUser != null)
+                if (this.CurrUser != null && this.MenuId != Const.ProjectPunishNoticeStatisticsMenuId)
                 {
-                    var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, MenuId);
+                    var buttonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, MenuId);
                     if (buttonList.Count > 0)
                     {
-                        if (buttonList.Contains(BLL.Const.BtnSave) || buttonList.Contains(BLL.Const.BtnAuditing))
+                        if (buttonList.Contains(Const.BtnSave) || buttonList.Contains(Const.BtnAuditing))
                         {
                             this.toolBar.Hidden = false;
                         }

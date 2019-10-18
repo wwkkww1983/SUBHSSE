@@ -48,9 +48,10 @@ namespace BLL
         }
 
         /// <summary>
-        /// 根据projectId、unitid获取用户信息
+        ///  根据projectId、unitid获取用户信息
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
         /// <returns></returns>
         public static List<Model.UserItem> getUserByProjectIdUnitId(string projectId, string unitId)
         {
@@ -74,10 +75,8 @@ namespace BLL
         }
 
         /// <summary>
-        /// 
+        ///  获取所有在岗用户
         /// </summary>
-        /// <param name="account"></param>
-        /// <param name="password"></param>
         /// <returns></returns>
         public static List<Model.UserItem> UserLogOn2()
         {

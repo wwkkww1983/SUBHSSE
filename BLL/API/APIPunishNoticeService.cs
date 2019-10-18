@@ -63,8 +63,8 @@ namespace BLL
         {
             var getPunishNotice = from x in Funs.DB.Check_PunishNotice
                                   where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
-                                 //&& (strParam == null || x.PunishNoticeName.Contains(strParam)) 
-                                 && ((states == "0" && (x.States == "0" || x.States == null)) || (states == "1" && (x.States == "1" || x.States == "2")))
+                               //&& (strParam == null || x.PunishNoticeName.Contains(strParam)) 
+                                && (states == null || (states == "0" && (x.States == "0" || x.States == null)) || (states == "1" && (x.States == "1" || x.States == "2")))
                                   orderby x.PunishNoticeCode descending
                                   select new Model.PunishNoticeItem
                                   {

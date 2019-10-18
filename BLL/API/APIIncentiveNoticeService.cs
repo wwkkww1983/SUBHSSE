@@ -69,8 +69,8 @@ namespace BLL
             var getIncentiveNotice = from x in Funs.DB.Check_IncentiveNotice
                                        where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
                                       //&& (strParam == null || x.IncentiveNoticeName.Contains(strParam)) 
-                                      && ((states == "0" && (x.States == "0" || x.States == null)) || (states == "1" && (x.States == "1" || x.States == "2")))
-                                       orderby x.IncentiveNoticeCode descending
+                                      && (states == null || (states == "0" && (x.States == "0" || x.States == null)) || (states == "1" && (x.States == "1" || x.States == "2")))
+                                     orderby x.IncentiveNoticeCode descending
                                        select new Model.IncentiveNoticeItem
                                        {
                                            IncentiveNoticeId = x.IncentiveNoticeId,

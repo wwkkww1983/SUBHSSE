@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EmitMapper;
-using EmitMapper.MappingConfiguration;
 
 namespace BLL
 {
@@ -15,7 +10,7 @@ namespace BLL
         /// 获取培训级别
         /// </summary>
         /// <returns></returns>
-        public static List<Model.BaseInfoItem> getSysConst(string  groupId)
+        public static List<Model.BaseInfoItem> getSysConst(string groupId)
         {
             var getDataLists = (from x in Funs.DB.Sys_Const
                                 where x.GroupId == groupId
@@ -33,10 +28,10 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getHazardRegisterTypes(string type)
         {
-            var getDataLists = (from x in Funs.DB.HSSE_Hazard_HazardRegisterTypes                                        
-                                          where x.HazardRegisterType == type
-                                          orderby x.TypeCode
-                                          select new Model.BaseInfoItem { BaseInfoId = x.RegisterTypesId, BaseInfoCode = x.TypeCode, BaseInfoName = x.RegisterTypesName }).ToList();
+            var getDataLists = (from x in Funs.DB.HSSE_Hazard_HazardRegisterTypes
+                                where x.HazardRegisterType == type
+                                orderby x.TypeCode
+                                select new Model.BaseInfoItem { BaseInfoId = x.RegisterTypesId, BaseInfoCode = x.TypeCode, BaseInfoName = x.RegisterTypesName }).ToList();
             return getDataLists;
         }
         #endregion
@@ -49,10 +44,10 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getProjectWorkArea(string projectId)
         {
-            var getDataLists = (from x in Funs.DB.ProjectData_WorkArea                                          
-                                          where x.ProjectId == projectId
-                                          orderby x.WorkAreaCode
-                                          select new Model.BaseInfoItem { BaseInfoId = x.WorkAreaId, BaseInfoCode = x.WorkAreaCode, BaseInfoName = x.WorkAreaName }).ToList();
+            var getDataLists = (from x in Funs.DB.ProjectData_WorkArea
+                                where x.ProjectId == projectId
+                                orderby x.WorkAreaCode
+                                select new Model.BaseInfoItem { BaseInfoId = x.WorkAreaId, BaseInfoCode = x.WorkAreaCode, BaseInfoName = x.WorkAreaName }).ToList();
             return getDataLists;
         }
         #endregion
@@ -87,7 +82,7 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.NoticeItem> getNoticesList(string projectId, string strParam)
         {
-            var getDataLists = (from x in Funs.DB.InformationProject_Notice                              
+            var getDataLists = (from x in Funs.DB.InformationProject_Notice
                                 where x.AccessProjectId.Contains(projectId) && x.IsRelease == true
                                 && (strParam == null || x.NoticeTitle.Contains(strParam))
                                 orderby x.ReleaseDate descending
@@ -118,7 +113,7 @@ namespace BLL
                                     ReleaseDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ReleaseDate),
                                     MainContent = x.MainContent,
                                     AttachUrl = Funs.DB.AttachFile.FirstOrDefault(y => y.ToKeyId == x.NoticeId).AttachUrl.Replace("\\", "/"),
-                                }).FirstOrDefault(); 
+                                }).FirstOrDefault();
             return getDataLists;
         }
         #endregion
@@ -243,9 +238,41 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getWorkStage()
         {
-            var getDataLists = (from x in Funs.DB.Base_WorkStage                            
+            var getDataLists = (from x in Funs.DB.Base_WorkStage
                                 orderby x.WorkStageCode
                                 select new Model.BaseInfoItem { BaseInfoId = x.WorkStageId, BaseInfoCode = x.WorkStageCode, BaseInfoName = x.WorkStageName }).ToList();
+            return getDataLists;
+        }
+        #endregion
+
+        #region 获取项目班组
+        /// <summary>
+        /// 获取项目班组
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getTeamGroup(string projectId, string unitId)
+        {
+            var getDataLists = (from x in Funs.DB.ProjectData_TeamGroup
+                                where x.ProjectId == projectId && (unitId == null || x.UnitId == unitId)
+                                orderby x.TeamGroupCode
+                                select new Model.BaseInfoItem { BaseInfoId = x.TeamGroupId, BaseInfoCode = x.TeamGroupCode, BaseInfoName = x.TeamGroupName }).ToList();
+            return getDataLists;
+        }
+        #endregion
+
+        #region 获取项目区域
+        /// <summary>
+        /// 获取项目区域
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getWorkArea(string projectId, string unitId)
+        {
+            var getDataLists = (from x in Funs.DB.ProjectData_WorkArea
+                                where x.ProjectId == projectId && (unitId == null || x.UnitId == unitId)
+                                orderby x.WorkAreaCode
+                                select new Model.BaseInfoItem { BaseInfoId = x.WorkAreaId, BaseInfoCode = x.WorkAreaCode, BaseInfoName = x.WorkAreaName }).ToList();
             return getDataLists;
         }
         #endregion

@@ -11,6 +11,7 @@ namespace BLL
     public static class TestPlanTrainingService
     {
         public static Model.SUBHSSEDB db = Funs.DB;
+
         /// <summary>
         /// 新增考生记录信息
         /// </summary>

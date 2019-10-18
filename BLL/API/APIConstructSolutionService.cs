@@ -58,8 +58,8 @@ namespace BLL
         {
             var getConstructSolution = from x in Funs.DB.Solution_ConstructSolution
                                        where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
-                                      && (strParam == null || x.ConstructSolutionName.Contains(strParam)) && ((states == "0" && (x.States == "0" || x.States == null))
-                                    || (states == "1" && (x.States == "1" || x.States == "2")))
+                                      && (strParam == null || x.ConstructSolutionName.Contains(strParam)) 
+                                      && (states== null || (states == "0" && (x.States == "0" || x.States == null)) || (states == "1" && (x.States == "1" || x.States == "2")))
                                        orderby x.ConstructSolutionCode descending
                                        select new Model.ConstructSolutionItem
                                        {

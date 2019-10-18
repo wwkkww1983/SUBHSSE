@@ -242,25 +242,31 @@ namespace FineUIPro.Web.BaseInfo
         /// <returns></returns>
         private void GetButtonPower()
         {
-            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.TrainTypeMenuId);
+            var buttonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.TrainTypeMenuId);
             if (buttonList.Count() > 0)
             {
-                if (buttonList.Contains(BLL.Const.BtnAdd))
+                if (buttonList.Contains(Const.BtnAdd))
                 {
                     this.btnNew.Hidden = false;
                 }
-                if (buttonList.Contains(BLL.Const.BtnModify))
+                if (buttonList.Contains(Const.BtnModify))
                 {
                     this.btnMenuEdit.Hidden = false;
                 }
-                if (buttonList.Contains(BLL.Const.BtnDelete))
+                if (buttonList.Contains(Const.BtnDelete))
                 {
                     this.btnDelete.Hidden = false;
                     this.btnMenuDelete.Hidden = false;
                 }
-                if (buttonList.Contains(BLL.Const.BtnSave))
+                if (buttonList.Contains(Const.BtnSave))
                 {
                     this.btnSave.Hidden = false;
+                }
+                ////赛鼎单位 显示题型设置按钮
+                var getThisUnit = CommonService.GetIsThisUnit();
+                if (getThisUnit != null && getThisUnit.UnitId == Const.UnitId_SEDIN)
+                {
+                    this.btnMenuSet.Hidden = false;
                 }
             }
         }
@@ -313,6 +319,22 @@ namespace FineUIPro.Web.BaseInfo
                 }
                 return false;
             }
+        }
+
+        /// <summary>
+        /// 设置培训题型设置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnMenuSet_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("TrainTypeEdit.aspx?TrainTypeId={0}", Grid1.SelectedRowID, "设置 - ")));
         }
     }
 }
