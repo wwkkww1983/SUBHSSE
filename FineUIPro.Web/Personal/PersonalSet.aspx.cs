@@ -25,6 +25,20 @@ namespace FineUIPro.Web.Personal
                 ViewState["PhotoAttachUrl"] = value;
             }
         }
+        /// <summary>
+        /// 签名附件路径
+        /// </summary>
+        public string SignatureUrl
+        {
+            get
+            {
+                return (string)ViewState["SignatureUrl"];
+            }
+            set
+            {
+                ViewState["SignatureUrl"] = value;
+            }
+        }
         #endregion
 
         /// <summary>
@@ -36,6 +50,11 @@ namespace FineUIPro.Web.Personal
         {
             if (!IsPostBack)
             {
+                if (CommonService.GetIsThisUnit(Const.UnitId_SEDIN))
+                {
+                    this.Image2.Hidden = false;
+                    this.fileSignature.Hidden = false;
+                }
                 /// Tab1加载页面方法
                 this.Tab1LoadData();
             }
@@ -101,7 +120,11 @@ namespace FineUIPro.Web.Personal
                     this.PhotoAttachUrl = user.PhotoUrl;
                     this.Image1.ImageUrl = "~/" + this.PhotoAttachUrl;
                 }
-
+                if (!string.IsNullOrEmpty(user.SignatureUrl))
+                {
+                    this.SignatureUrl = user.SignatureUrl;
+                    this.Image2.ImageUrl = "~/" + this.SignatureUrl;
+                }
                 this.LabelName.Text = user.UserName;
                 this.LabelAccount.Text = user.Account;
                 if (user.PageSize.HasValue)
@@ -126,14 +149,32 @@ namespace FineUIPro.Web.Personal
             if (filePhoto.HasFile)
             {
                 string fileName = filePhoto.ShortFileName;
-
                 if (!ValidateFileType(fileName))
                 {
                     ShowNotify("无效的文件类型！", MessageBoxIcon.Warning);
                     return;
                 }
-                this.PhotoAttachUrl = BLL.UploadFileService.UploadAttachment(BLL.Funs.RootPath, this.filePhoto, this.PhotoAttachUrl, UploadFileService.ExpertFilePath);
+                this.PhotoAttachUrl = UploadFileService.UploadAttachment(Funs.RootPath, this.filePhoto, this.PhotoAttachUrl, UploadFileService.UserFilePath);
                 this.Image1.ImageUrl = "~/" + this.PhotoAttachUrl;
+            }
+        }
+        /// <summary>
+        /// 上传签名
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnSignature_Click(object sender, EventArgs e)
+        {
+            if (fileSignature.HasFile)
+            {
+                string fileName = fileSignature.ShortFileName;
+                if (!ValidateFileType(fileName))
+                {
+                    ShowNotify("无效的文件类型！", MessageBoxIcon.Warning);
+                    return;
+                }
+                this.SignatureUrl = UploadFileService.UploadAttachment(Funs.RootPath, this.fileSignature, this.SignatureUrl, UploadFileService.UserFilePath);
+                this.Image2.ImageUrl = "~/" + this.SignatureUrl;
             }
         }
         #endregion     
@@ -156,7 +197,7 @@ namespace FineUIPro.Web.Personal
                 ShowNotify("身份证号码已存在，请修改后再保存！", MessageBoxIcon.Warning);
                 return;
             }
-            var newUser = BLL.UserService.GetUserByUserId(this.CurrUser.UserId);
+            var newUser = UserService.GetUserByUserId(this.CurrUser.UserId);
             if (newUser != null)
             {
                 newUser.UserName = this.txtUserName.Text.Trim();
@@ -193,9 +234,10 @@ namespace FineUIPro.Web.Personal
                 }
                 newUser.Performance = this.txtPerformance.Text.Trim();
                 newUser.PhotoUrl = this.PhotoAttachUrl;
+                newUser.SignatureUrl = this.SignatureUrl;
                 newUser.PageSize = Funs.GetNewInt(this.drpPageSize.SelectedValue);
                 ShowNotify("保存成功！", MessageBoxIcon.Success);
-                BLL.LogService.AddSys_Log(this.CurrUser, newUser.UserCode, newUser.UserId, BLL.Const.UserMenuId, BLL.Const.BtnModify);
+                LogService.AddSys_Log(this.CurrUser, newUser.UserCode, newUser.UserId, BLL.Const.UserMenuId, BLL.Const.BtnModify);
                 PageContext.RegisterStartupScript(ActiveWindow.GetHideReference());
             }            
         }
@@ -236,5 +278,6 @@ namespace FineUIPro.Web.Personal
             }
         }
         #endregion
+
     }
 }

@@ -143,5 +143,13 @@ namespace Model
             get;
             set;
         }
+        /// <summary>
+        /// 签名
+        /// </summary>
+        public string SignatureUrl
+        {
+            get;
+            set;
+        }
     }
 }

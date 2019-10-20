@@ -39,6 +39,20 @@ namespace FineUIPro.Web.SysManage
                 ViewState["UnitId"] = value;
             }
         }
+        /// <summary>
+        /// 签名附件路径
+        /// </summary>
+        public string SignatureUrl
+        {
+            get
+            {
+                return (string)ViewState["SignatureUrl"];
+            }
+            set
+            {
+                ViewState["SignatureUrl"] = value;
+            }
+        }
         #endregion
 
         /// <summary>
@@ -50,6 +64,11 @@ namespace FineUIPro.Web.SysManage
         {
             if (!IsPostBack)
             {
+                if (CommonService.GetIsThisUnit(Const.UnitId_SEDIN))
+                {
+                    this.Image2.Hidden = false;
+                    this.fileSignature.Hidden = false;
+                }
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 ///权限
                 this.GetButtonPower();
@@ -103,6 +122,11 @@ namespace FineUIPro.Web.SysManage
                             this.drpIsOffice.SelectedValue = "False";
                         }
                         this.txtIdentityCard.Text = user.IdentityCard;
+                        if (!string.IsNullOrEmpty(user.SignatureUrl))
+                        {
+                            this.SignatureUrl = user.SignatureUrl;
+                            this.Image2.ImageUrl = "~/" + this.SignatureUrl;
+                        }
                     }
                 }
             }
@@ -155,7 +179,7 @@ namespace FineUIPro.Web.SysManage
             {
                 newUser.RoleId = this.drpRole.SelectedValue;
             }
-
+            newUser.SignatureUrl = this.SignatureUrl;
             newUser.IsPost = Convert.ToBoolean(this.drpIsPost.SelectedValue);
             newUser.IsOffice = Convert.ToBoolean(this.drpIsOffice.SelectedValue);
             if (string.IsNullOrEmpty(this.UserId))
@@ -163,15 +187,15 @@ namespace FineUIPro.Web.SysManage
                 newUser.Password = Funs.EncryptionPassword(Const.Password);
                 newUser.UserId = SQLHelper.GetNewID(typeof(Model.Sys_User));
                 newUser.DataSources = this.CurrUser.LoginProjectId;
-                BLL.UserService.AddUser(newUser);
+                UserService.AddUser(newUser);
                 SaveHSSEManageItem();//增加组织机构明细
-                BLL.LogService.AddSys_Log(this.CurrUser, newUser.UserCode, newUser.UserId, BLL.Const.UserMenuId, BLL.Const.BtnAdd);
+                LogService.AddSys_Log(this.CurrUser, newUser.UserCode, newUser.UserId, BLL.Const.UserMenuId, BLL.Const.BtnAdd);
             }
             else
             {
                 newUser.UserId = this.UserId;
-                BLL.UserService.UpdateUser(newUser);
-                BLL.LogService.AddSys_Log(this.CurrUser, newUser.UserCode, newUser.UserId, BLL.Const.UserMenuId, BLL.Const.BtnModify);
+                UserService.UpdateUser(newUser);
+                LogService.AddSys_Log(this.CurrUser, newUser.UserCode, newUser.UserId, BLL.Const.UserMenuId, BLL.Const.BtnModify);
             }
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }
@@ -239,5 +263,27 @@ namespace FineUIPro.Web.SysManage
             }
         }
         #endregion
+
+        #region 上传签名
+        /// <summary>
+        /// 上传签名
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnSignature_Click(object sender, EventArgs e)
+        {
+            if (fileSignature.HasFile)
+            {
+                string fileName = fileSignature.ShortFileName;
+                if (!ValidateFileType(fileName))
+                {
+                    ShowNotify("无效的文件类型！", MessageBoxIcon.Warning);
+                    return;
+                }
+                this.SignatureUrl = UploadFileService.UploadAttachment(Funs.RootPath, this.fileSignature, this.SignatureUrl, UploadFileService.UserFilePath);
+                this.Image2.ImageUrl = "~/" + this.SignatureUrl;
+            }
+        }
+        #endregion   
     }
 }

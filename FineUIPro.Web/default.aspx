@@ -267,7 +267,7 @@
             EnableMaximize="true" EnableResize="true">
         </f:Window>
         <f:Window ID="windowUserProfile" Title="个人设置" Hidden="true" EnableIFrame="true" IFrameUrl="./Personal/PersonalSet.aspx" ClearIFrameAfterClose="false"
-            runat="server" IsModal="true" Width="1000px" Height="520px" EnableClose="true"
+            runat="server" IsModal="true" Width="1000px" Height="560px" EnableClose="true"
             EnableMaximize="true" EnableResize="true">
         </f:Window>
          <f:Window ID="windowtoolPageSet" Title="待办信息" Hidden="true" EnableIFrame="true" IFrameUrl="./common/mainI.aspx" ClearIFrameAfterClose="false"

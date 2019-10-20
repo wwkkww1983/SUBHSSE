@@ -28,14 +28,14 @@
     <f:PageManager ID="PageManager1" runat="server" AutoSizePanelID="SimpleForm1"/>         
       <f:Panel ID="Panel2" runat="server" ShowHeader="false" ShowBorder="false" ColumnWidth="100%" MarginRight="5px">
             <Items>
-               <f:TabStrip ID="TabStrip1" CssClass="f-tabstrip-theme-simple" Height="440px" ShowBorder="true"
+               <f:TabStrip ID="TabStrip1" CssClass="f-tabstrip-theme-simple" Height="480px" ShowBorder="true"
                 TabPosition="Top" MarginBottom="5px" EnableTabCloseMenu="false" runat="server">              
                    <Tabs>                   
                         <f:Tab ID="Tab1" Title="基础信息" BodyPadding="5px" Layout="VBox" IconFont="Bookmark" runat="server">
                         <Items>                        
                           <f:Form ID="SimpleForm1" LabelAlign="Right" MessageTarget="Qtip" RedStarPosition="BeforeText"
                             LabelWidth="90px" BodyPadding="5px" ShowBorder="false" ShowHeader="false" runat="server"
-                            AutoScroll="false">
+                            AutoScroll="false" EnableTableStyle="true">
                                 <Items>
                                     <f:Panel ID="Panel3" runat="server" ShowBorder="false" ShowHeader="false" Layout="HBox"
                                         BoxConfigAlign="StretchMax">
@@ -78,23 +78,23 @@
                                                     </f:DropDownList>
                                                 </Items>
                                             </f:Panel>
-                                                <f:Panel ID="Panel5" Title="面板1" BoxFlex="3" runat="server" ShowBorder="false" ShowHeader="false"
-                                                    Layout="VBox">
-                                                    <Items>
-                                                        <f:Image ID="Image1" CssClass="userphoto" ImageUrl="~/res/images/blank_180.png" runat="server"
-                                                            BoxFlex="1">
-                                                        </f:Image>
-                                                    </Items>
-                                                    <Items>                                              
-                                                        <f:FileUpload runat="server" ID="filePhoto" EmptyText="请选择照片" OnFileSelected="btnPhoto_Click" AutoPostBack="true">
-                                                        </f:FileUpload>
-                                                    </Items>
-                                                </f:Panel>                                                     
+                                            <f:Panel ID="Panel5" Title="面板1" BoxFlex="3" runat="server" ShowBorder="false" ShowHeader="false"
+                                                Layout="VBox">
+                                                <Items>
+                                                    <f:Image ID="Image1" CssClass="userphoto" ImageUrl="~/res/images/blank_180.png" runat="server"
+                                                        BoxFlex="1">
+                                                    </f:Image>
+                                                </Items>
+                                                <Items>                                              
+                                                    <f:FileUpload runat="server" ID="filePhoto" EmptyText="请选择照片" OnFileSelected="btnPhoto_Click" AutoPostBack="true">
+                                                    </f:FileUpload>
+                                                </Items>
+                                            </f:Panel>                                                     
                                         </Items>
                                     </f:Panel>
                                 </Items>  
                                 <Items>
-                                  <f:Form ID="Form7" ShowBorder="false" ShowHeader="false" runat="server">
+                                  <f:Form ID="Form7" ShowBorder="true" ShowHeader="false" runat="server">
                                         <Rows>                                                                            
                                             <f:FormRow>
                                                 <Items>
@@ -116,7 +116,13 @@
                                         <f:ListItem Text="20" Value="20" />
                                         <f:ListItem Text="25" Value="25" />
                                         <f:ListItem Text="所有行" Value="100000" />
-                                    </f:DropDownList>                                      
+                                    </f:DropDownList>      
+                                    <f:Image ID="Image2" ImageUrl="~/res/images/Signature0.png" runat="server" Height="35px" Width="100px"
+                                        BoxFlex="1" Hidden="true">
+                                    </f:Image>
+                                    <f:FileUpload runat="server" ID="fileSignature" EmptyText="请选择签名" Hidden="true"
+                                        OnFileSelected="btnSignature_Click" AutoPostBack="true" Width="150px">
+                                    </f:FileUpload>
                                     <f:ToolbarFill runat="server"></f:ToolbarFill>
                                     <f:Button ID="btnTab1Save" Icon="SystemSave" runat="server" ValidateForms="SimpleForm1"
                                         OnClick="btnTab1Save_Click"  >

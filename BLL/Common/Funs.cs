@@ -176,6 +176,20 @@ namespace BLL
         }
 
         /// <summary>
+        /// 页码下拉框
+        /// </summary>
+        /// <param name="DLL">目标下拉框</param>
+        public static void DropDownPageSize(FineUIPro.DropDownList DDL)
+        {
+            DDL.Items.Insert(0, new FineUIPro.ListItem("10", "10"));
+            DDL.Items.Insert(1, new FineUIPro.ListItem("20", "20", true));
+            DDL.Items.Insert(2, new FineUIPro.ListItem("30", "30"));
+            DDL.Items.Insert(3, new FineUIPro.ListItem("50", "50"));
+            DDL.Items.Insert(4, new FineUIPro.ListItem("所有行", "1000000"));
+            return;
+        }
+
+        /// <summary>
         /// 字符串是否为浮点数
         /// </summary>
         /// <param name="decimalStr">要检查的字符串</param>

@@ -117,3 +117,42 @@ IP地址:::1
 
 出错时间:10/17/2019 15:04:39
 
+
+错误信息开始=====>
+错误类型:NullReferenceException
+错误信息:未将对象引用设置到对象的实例。
+错误堆栈:
+   在 FineUIPro.Web.Personal.PersonalSet.Tab1LoadData() 位置 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\Personal\PersonalSet.aspx.cs:行号 57
+   在 FineUIPro.Web.Personal.PersonalSet.Page_Load(Object sender, EventArgs e) 位置 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\Personal\PersonalSet.aspx.cs:行号 40
+   在 System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   在 System.EventHandler.Invoke(Object sender, EventArgs e)
+   在 System.Web.UI.Control.OnLoad(EventArgs e)
+   在 System.Web.UI.Control.LoadRecursive()
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:10/19/2019 20:41:19
+出错文件:http://localhost:8118/Personal/PersonalSet.aspx
+IP地址:::1
+
+出错时间:10/19/2019 20:41:19
+
+
+错误信息开始=====>
+错误类型:HttpCompileException
+错误信息:d:\DepCode\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\Personal\PersonalSet.aspx(123): error CS1061: “ASP.personal_personalset_aspx”不包含“btnSignature_Click”的定义，并且找不到可接受类型为“ASP.personal_personalset_aspx”的第一个参数的扩展方法“btnSignature_Click”(是否缺少 using 指令或程序集引用?)
+错误堆栈:
+   在 System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   在 System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp)
+   在 System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.UI.PageHandlerFactory.GetHandler(HttpContext context, String requestType, String virtualPath, String path)
+   在 System.Web.HttpApplication.MaterializeHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+出错时间:10/19/2019 20:50:23
+出错文件:http://localhost:8118/Personal/PersonalSet.aspx
+IP地址:::1
+
+出错时间:10/19/2019 20:50:23
+

@@ -199,8 +199,7 @@ namespace BLL
                             writer.WriteStartElement("TreeNode");    //创建子节点
                             writer.WriteAttributeString("id", item.MenuId);    //添加属性
                             string name = item.MenuName;
-                            var isUnit = BLL.CommonService.GetIsThisUnit();
-                            if (isUnit != null && isUnit.UnitId == BLL.Const.UnitId_CWCEC && name.Contains("HSSE")) //五环
+                            if (CommonService.GetIsThisUnit(Const.UnitId_CWCEC) && name.Contains("HSSE")) //五环
                             {
                                 name = name.Replace("HSSE","HSE");
                             }
@@ -244,9 +243,8 @@ namespace BLL
                             writer.Formatting = Formatting.Indented;
                             writer.WriteStartElement("TreeNode");    //创建子节点
                             writer.WriteAttributeString("id", item.MenuId);    //添加属性
-                            string name = item.MenuName;
-                            var isUnit = BLL.CommonService.GetIsThisUnit();
-                            if (isUnit != null && isUnit.UnitId == BLL.Const.UnitId_CWCEC && name.Contains("HSSE"))
+                            string name = item.MenuName;                            
+                            if (CommonService.GetIsThisUnit(Const.UnitId_CWCEC) && name.Contains("HSSE"))
                             {
                                 name = name.Replace("HSSE", "HSE");
                             }

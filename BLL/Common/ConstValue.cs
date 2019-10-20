@@ -294,6 +294,10 @@ namespace BLL
         /// 隐患级别 组id
         /// </summary>
         public const string Group_HiddenDangerLevel = "HiddenDangerLevel";
+        /// <summary>
+        /// 作业票 组id
+        /// </summary>
+        public const string Group_LicenseType = "LicenseType";
         #endregion
     }
 }

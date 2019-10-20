@@ -5,7 +5,7 @@ namespace BLL
 
     public static class UserService
     {
-        public static Model.SUBHSSEDB db = Funs.DB;        
+        public static Model.SUBHSSEDB db = Funs.DB;
 
         /// <summary>
         /// 获取用户信息
@@ -16,7 +16,7 @@ namespace BLL
         {
             return Funs.DB.Sys_User.FirstOrDefault(e => e.UserId == userId);
         }
-        
+
         /// <summary>
         /// 获取用户账号是否存在
         /// </summary>
@@ -26,7 +26,7 @@ namespace BLL
         public static bool IsExistUserAccount(string userId, string account)
         {
             bool isExist = false;
-            var role = Funs.DB.Sys_User.FirstOrDefault(x => x.Account == account && (x.UserId != userId || (userId==null && x.UserId != null)));
+            var role = Funs.DB.Sys_User.FirstOrDefault(x => x.Account == account && (x.UserId != userId || (userId == null && x.UserId != null)));
             if (role != null)
             {
                 isExist = true;
@@ -73,7 +73,7 @@ namespace BLL
             Model.Sys_User user = Funs.DB.Sys_User.FirstOrDefault(e => e.UserId == userId);
             if (user != null)
             {
-                userName = user.UserName; 
+                userName = user.UserName;
             }
 
             return userName;
@@ -119,7 +119,8 @@ namespace BLL
                 IsDeletePosts = true,
                 PageSize = 10,
                 IsOffice = user.IsOffice,
-                DataSources=user.DataSources,
+                DataSources = user.DataSources,
+                SignatureUrl = user.SignatureUrl,
             };
             db.Sys_User.InsertOnSubmit(newUser);
             db.SubmitChanges();
@@ -144,9 +145,10 @@ namespace BLL
                 }
                 newUser.IdentityCard = user.IdentityCard;
                 newUser.UnitId = user.UnitId;
-                newUser.RoleId = user.RoleId;              
+                newUser.RoleId = user.RoleId;
                 newUser.IsPost = user.IsPost;
-                newUser.IsOffice = user.IsOffice;                
+                newUser.IsOffice = user.IsOffice;
+                newUser.SignatureUrl = user.SignatureUrl;
                 db.SubmitChanges();
             }
         }
@@ -170,7 +172,7 @@ namespace BLL
                 db.SubmitChanges();
             }
         }
-        
+
         /// <summary>
         /// 获取用户下拉选项
         /// </summary>
@@ -200,7 +202,7 @@ namespace BLL
                              orderby z.RoleCode, x.UserCode
                              select new Model.SpSysUserItem
                              {
-                                 UserName =  z.RoleName + "- " + x.UserName,
+                                 UserName = z.RoleName + "- " + x.UserName,
                                  UserId = x.UserId,
                              });
                 }
@@ -248,7 +250,7 @@ namespace BLL
             }
             return users.ToList();
         }
-        
+
         /// <summary>
         /// 根据项目号和单位Id获取用户下拉选项
         /// </summary>
@@ -283,7 +285,7 @@ namespace BLL
         public static List<Model.Sys_User> GetProjectUserListByProjectId(string projectId)
         {
             var users = (from x in Funs.DB.Sys_User
-                         where x.IsPost == true && x.UserId != BLL.Const.hfnbdId
+                         where x.IsPost == true && x.UserId != Const.hfnbdId
                          orderby x.UserName
                          select x).ToList();
             if (!string.IsNullOrEmpty(projectId))
@@ -387,7 +389,7 @@ namespace BLL
         /// <param name="dropName">下拉框名字</param>
         /// <param name="projectId">项目id</param>
         /// <param name="isShowPlease">是否显示请选择</param>
-        public static void InitUserProjectIdUnitIdDropDownList(FineUIPro.DropDownList dropName, string projectId,string unitId, bool isShowPlease)
+        public static void InitUserProjectIdUnitIdDropDownList(FineUIPro.DropDownList dropName, string projectId, string unitId, bool isShowPlease)
         {
             dropName.DataValueField = "UserId";
             dropName.DataTextField = "UserName";

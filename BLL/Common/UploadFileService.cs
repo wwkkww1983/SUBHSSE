@@ -98,6 +98,10 @@ namespace BLL
 
         #region 上传文件路径
         /// <summary>
+        /// 用户-附件路径
+        /// </summary>
+        public static string UserFilePath = "FileUpload\\User\\";
+        /// <summary>
         /// 安全组织体系
         /// </summary>
         public const string HSSEOrganizeFilePath = "FileUpload\\HSSEOrganize\\";

@@ -154,7 +154,7 @@ namespace BLL
         public static void GollSafetyData(string projectId)
         {
             var thisUnit = BLL.CommonService.GetIsThisUnit();
-            if (thisUnit != null && thisUnit.UnitId == BLL.Const.UnitId_ECEC)
+            if (CommonService.GetIsThisUnit(Const.UnitId_ECEC))
             {
                 ////判断单据是否 加入到企业管理资料
                 string menuId = BLL.Const.ProjectCheckDayMenuId;

@@ -45,9 +45,18 @@
                     </f:DropDownList>
                     <f:DropDownList ID="drpRole" runat="server" Label="角色" EnableEdit="true" ForceSelection="false">
                     </f:DropDownList>
-                    
                 </Items>
-            </f:FormRow>             
+            </f:FormRow>  
+            <f:FormRow>
+                <Items>
+                     <f:Image ID="Image2" ImageUrl="~/res/images/Signature0.png" runat="server" Height="35px" Width="100px"
+                            BoxFlex="1" Hidden="true" Label="签名">
+                    </f:Image>
+                    <f:FileUpload runat="server" ID="fileSignature" EmptyText="请选择" Hidden="true"
+                        OnFileSelected="btnSignature_Click" AutoPostBack="true" Width="150px">
+                    </f:FileUpload>
+                </Items>
+            </f:FormRow>
         </Rows>
         <Toolbars>
             <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">

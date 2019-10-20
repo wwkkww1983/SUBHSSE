@@ -445,9 +445,8 @@ namespace FineUIPro.Web
                 this.InitMenuModeButton();
                 this.InitLangMenuButton();
                 this.ShowVeionInfo();
-
-                var thisUnit = BLL.CommonService.GetIsThisUnit();
-                if (thisUnit != null && thisUnit.UnitId == BLL.Const.UnitId_14)
+                
+                if (CommonService.GetIsThisUnit(Const.UnitId_14))
                 {
                     this.trEHtml.Visible = true;
                     this.trEHtml1.Visible = true;

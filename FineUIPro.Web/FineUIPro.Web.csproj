@@ -53,6 +53,8 @@
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
+  <Target Name="GatherAllFilesToPublish">
+  </Target>
   <ItemGroup>
     <Reference Include="Apache.NMS, Version=1.8.0.0, Culture=neutral, PublicKeyToken=82756feee3957618, processorArchitecture=MSIL">
       <HintPath>..\packages\Apache.NMS.1.8.0\lib\net40\Apache.NMS.dll</HintPath>
@@ -165,6 +167,8 @@
     <Content Include="BaseInfo\HazardRegisterTypesSupervisionEdit.aspx" />
     <Content Include="BaseInfo\HSSEStandardListType.aspx" />
     <Content Include="BaseInfo\LawsRegulationsType.aspx" />
+    <Content Include="BaseInfo\SafetyMeasures.aspx" />
+    <Content Include="BaseInfo\SafetyMeasuresEdit.aspx" />
     <Content Include="BaseInfo\TrainTypeEdit.aspx" />
     <Content Include="BaseInfo\LicenseType.aspx" />
     <Content Include="BaseInfo\ManageRuleType.aspx" />
@@ -576,6 +580,7 @@
     <Content Include="ReportPrint\ReportTabFile\项目现场职工伤亡事故原因分析报.tab" />
     <Content Include="ReportPrint\ReportTabFile\职业健康安全危险源辨识与评价.tab" />
     <Content Include="ReportPrint\ReportTabFile\职业健康安全危险源辨识与评价（重大危险源）.tab" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Service References\HSSEService\HSSEService.disco" />
     <None Include="Service References\HSSEService\configuration91.svcinfo" />
     <None Include="Service References\HSSEService\configuration.svcinfo" />
@@ -4362,6 +4367,20 @@
     </Compile>
     <Compile Include="BaseInfo\LawsRegulationsType.aspx.designer.cs">
       <DependentUpon>LawsRegulationsType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BaseInfo\SafetyMeasures.aspx.cs">
+      <DependentUpon>SafetyMeasures.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BaseInfo\SafetyMeasures.aspx.designer.cs">
+      <DependentUpon>SafetyMeasures.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BaseInfo\SafetyMeasuresEdit.aspx.cs">
+      <DependentUpon>SafetyMeasuresEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BaseInfo\SafetyMeasuresEdit.aspx.designer.cs">
+      <DependentUpon>SafetyMeasuresEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="BaseInfo\TrainTypeEdit.aspx.cs">
       <DependentUpon>TrainTypeEdit.aspx</DependentUpon>

@@ -82,17 +82,9 @@ namespace FineUIPro.Web.ProjectData
                         {
                             this.ckbIsForeign.Checked = true;
                         }
-                        var thisUnit = BLL.CommonService.GetIsThisUnit();
-                        if (thisUnit != null)
+                        if (CommonService.GetIsThisUnit(Const.UnitId_6))
                         {
-                            if (thisUnit.UnitId == BLL.Const.UnitId_6)
-                            {
-                                this.txtUnitName.Label = "所属分公司";
-                            }
-                            //if (thisUnit.UnitId == BLL.Const.UnitId_ECEC)
-                            //{
-                            //    this.ckIsUpTotalMonth.Hidden = false;
-                            //}
+                            this.txtUnitName.Label = "所属分公司";
                         }
                     }
                 }

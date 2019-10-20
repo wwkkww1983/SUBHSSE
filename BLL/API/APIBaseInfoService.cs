@@ -276,5 +276,20 @@ namespace BLL
             return getDataLists;
         }
         #endregion
+
+        #region 获取作业票-安全措施
+        /// <summary>
+        /// 获取作业票-安全措施
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getSafetyMeasures(string licenseType)
+        {
+            var getDataLists = (from x in Funs.DB.Base_SafetyMeasures
+                                where x.LicenseType == licenseType
+                                orderby x.SortIndex
+                                select new Model.BaseInfoItem { BaseInfoId = x.SafetyMeasuresId, BaseInfoCode = x.SortIndex.ToString(), BaseInfoName = x.SafetyMeasures }).ToList();
+            return getDataLists;
+        }
+        #endregion
     }
 }

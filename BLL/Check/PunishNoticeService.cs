@@ -146,7 +146,7 @@ namespace BLL
             if (newPunishNotice != null)
             {
                 //newPunishNotice.ProjectId = punishNotice.ProjectId;
-                newPunishNotice.PunishNoticeCode = punishNotice.PunishNoticeCode;
+                //newPunishNotice.PunishNoticeCode = punishNotice.PunishNoticeCode;
                 newPunishNotice.UnitId = punishNotice.UnitId;
                 newPunishNotice.PunishNoticeDate = punishNotice.PunishNoticeDate;
                 newPunishNotice.BasicItem = punishNotice.BasicItem;

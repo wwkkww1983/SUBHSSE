@@ -56,19 +56,19 @@
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="120px" ColumnID="WeekMeetingCode" DataField="WeekMeetingCode"
+                    <f:RenderField Width="100px" ColumnID="WeekMeetingCode" DataField="WeekMeetingCode"
                         SortField="WeekMeetingCode" FieldType="String" HeaderText="会议编号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="120px" ColumnID="WeekMeetingName" DataField="WeekMeetingName"
-                        ExpandUnusedSpace="true" SortField="WeekMeetingName" FieldType="String" HeaderText="会议名称"
+                         SortField="WeekMeetingName" FieldType="String" HeaderText="会议名称"
                         HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="200px" ColumnID="UnitName" DataField="UnitName"
+                    <f:RenderField Width="200px" ColumnID="UnitName" DataField="UnitName" ExpandUnusedSpace="true"
                         SortField="UnitName" FieldType="String" HeaderText="单位" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="WeekMeetingDate" DataField="WeekMeetingDate"
+                    <f:RenderField Width="100px" ColumnID="WeekMeetingDate" DataField="WeekMeetingDate"
                         SortField="WeekMeetingDate" FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd"
                         HeaderText="会议日期" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
@@ -80,7 +80,7 @@
                         SortField="MeetingHours" FieldType="Int" HeaderText="时数" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="MeetingHostMan" DataField="MeetingHostMan"
+                    <f:RenderField Width="95px" ColumnID="MeetingHostMan" DataField="MeetingHostMan"
                         SortField="MeetingHostMan" FieldType="String" HeaderText="主持人" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
@@ -96,7 +96,7 @@
                         SortField="FlowOperateName" FieldType="String" HeaderText="状态" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:WindowField TextAlign="Left" Width="60px" WindowID="WindowAtt" HeaderText="附件" Text="附件" ToolTip="附件上传查看"
+                    <f:WindowField TextAlign="Left" Width="60px" WindowID="WindowAtt" HeaderText="附件" Text="查看" ToolTip="附件上传查看"
                         DataIFrameUrlFields="WeekMeetingId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/WeekMeetingAttachUrl&menuId=5236B1D9-8B57-495E-8644-231DF5D066CE"
                         HeaderTextAlign="Center" />
                 </Columns>

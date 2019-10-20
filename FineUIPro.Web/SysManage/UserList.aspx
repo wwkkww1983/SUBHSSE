@@ -53,13 +53,13 @@
                         <f:RenderField Width="80px" ColumnID="UserName" DataField="UserName" SortField="UserName"
                             FieldType="String" HeaderText="姓名" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
-                        <f:RenderField Width="210px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
-                            FieldType="String" HeaderText="单位" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
+                        <f:RenderField Width="200px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
+                            FieldType="String" HeaderText="单位" HeaderTextAlign="Center" TextAlign="Left" >
                         </f:RenderField>
-                        <f:RenderField Width="140px" ColumnID="Account" DataField="Account" SortField="Account"
+                        <f:RenderField Width="100px" ColumnID="Account" DataField="Account" SortField="Account"
                             FieldType="String" HeaderText="账号" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
-                        <f:RenderField Width="160px" ColumnID="IdentityCard" DataField="IdentityCard" SortField="IdentityCard"
+                        <f:RenderField Width="10px" ColumnID="IdentityCard" DataField="IdentityCard" SortField="IdentityCard"
                             FieldType="String" HeaderText="身份证号码" HeaderTextAlign="Center" TextAlign="Right" Hidden="true">
                         </f:RenderField>
                         <f:RenderField Width="150px" ColumnID="RoleName" DataField="RoleName" SortField="RoleName"
@@ -71,10 +71,10 @@
                         <f:CheckBoxField Width="50px" SortField="IsPost" RenderAsStaticField="true" DataField="IsPost"
                             HeaderText="在岗" HeaderTextAlign="Center" TextAlign="Center">
                         </f:CheckBoxField>
-                        <f:CheckBoxField Width="80px" SortField="IsOffice" RenderAsStaticField="true" DataField="IsOffice"
-                            HeaderText="本部人员" HeaderTextAlign="Center" TextAlign="Center">
+                        <f:CheckBoxField Width="50px" SortField="IsOffice" RenderAsStaticField="true" DataField="IsOffice"
+                            HeaderText="本部" HeaderTextAlign="Center" TextAlign="Center">
                         </f:CheckBoxField>
-                        <f:TemplateField Width="200px" ColumnID="UserId" HeaderText="参与项目" TextAlign="Center">
+                        <f:TemplateField Width="200px" ColumnID="UserId" HeaderText="参与项目" TextAlign="Left" ExpandUnusedSpace="true">
                             <ItemTemplate>
                                 <asp:LinkButton ID="lbtnPro" runat="server" Text='<%# ConvertProject(Eval("UserId")) %>' OnClick="lbtnPro_Click"></asp:LinkButton>
                             </ItemTemplate>

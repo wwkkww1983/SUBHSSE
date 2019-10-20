@@ -67,7 +67,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = BLL.APIUserService.getUserByUserId(userId);
+                responeData.data = APIUserService.getUserByUserId(userId);
             }
             catch (Exception ex)
             {

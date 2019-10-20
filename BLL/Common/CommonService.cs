@@ -334,7 +334,7 @@ namespace BLL
             return (Funs.DB.Base_Unit.FirstOrDefault(e => e.IsThisUnit == true));  //本单位
         }
         #endregion
-
+        
         #region 判断UnitId是否本单位
         /// <summary>
         /// 判断UnitId是否本单位

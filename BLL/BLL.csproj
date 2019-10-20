@@ -135,6 +135,7 @@
     <Compile Include="BaseInfo\PersonSpecialtyService.cs" />
     <Compile Include="BaseInfo\PositionService.cs" />
     <Compile Include="BaseInfo\PostTitleService.cs" />
+    <Compile Include="BaseInfo\SafetyMeasuresService.cs" />
     <Compile Include="BaseInfo\SolutionTempleteTypeService.cs" />
     <Compile Include="BaseInfo\TrainLevelService.cs" />
     <Compile Include="BaseInfo\TrainTypeService.cs" />

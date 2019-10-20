@@ -706,6 +706,10 @@ namespace BLL
         /// 专项检查类型
         /// </summary>
         public const string SpecialCheckTypesMenuId = "7AC97581-08C2-4848-A117-BDC034EF6666";
+        /// <summary>
+        /// 安全措施
+        /// </summary>
+        public const string SafetyMeasuresMenuId = "4BB6AC40-D4D5-439B-85CC-100E431CF3F1";
         #endregion
 
         #region 公共资源

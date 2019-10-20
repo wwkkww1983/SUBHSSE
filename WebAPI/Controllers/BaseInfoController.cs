@@ -548,5 +548,48 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region  获取作业票类型
+        /// <summary>
+        ///   获取作业票类型
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getLicenseType()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getSysConst(ConstValue.Group_LicenseType);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 获取作业票-安全措施
+        /// <summary>
+        /// 获取作业票-安全措施
+        /// </summary>
+        /// <param name="licenseType">作业票类型</param>
+        /// <returns></returns>
+        public Model.ResponeData getSafetyMeasures(string licenseType)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getSafetyMeasures(licenseType);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
     }
 }
