@@ -432,6 +432,7 @@
     <Content Include="InformationProject\Exposure.aspx" />
     <Content Include="InformationProject\ExposureEdit.aspx" />
     <Content Include="InformationProject\ExposureView.aspx" />
+    <Content Include="License\FireWork.aspx" />
     <Content Include="ManagementReport\HeadMonthReportBEdit.aspx" />
     <Content Include="ManagementReport\HeadMonthReportBView.aspx" />
     <Content Include="ManagementReport\HeadMonthReportDView.aspx" />
@@ -6208,6 +6209,13 @@
     </Compile>
     <Compile Include="InformationProject\ExposureView.aspx.designer.cs">
       <DependentUpon>ExposureView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="License\FireWork.aspx.cs">
+      <DependentUpon>FireWork.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="License\FireWork.aspx.designer.cs">
+      <DependentUpon>FireWork.aspx</DependentUpon>
     </Compile>
     <Compile Include="ManagementReport\HeadMonthReportBEdit.aspx.cs">
       <DependentUpon>HeadMonthReportBEdit.aspx</DependentUpon>

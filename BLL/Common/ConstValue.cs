@@ -18,7 +18,7 @@ namespace BLL
         {
             dropName.DataValueField = "ConstValue";
             dropName.DataTextField = "ConstText";
-            dropName.DataSource = BLL.ConstValue.drpConstItemList(groupId);
+            dropName.DataSource = ConstValue.drpConstItemList(groupId);
             dropName.DataBind();
             if (isShowPlease)
             {
@@ -35,7 +35,7 @@ namespace BLL
         {
             rblName.DataValueField = "ConstValue";
             rblName.DataTextField = "ConstText";
-            rblName.DataSource = BLL.ConstValue.drpConstItemList(groupId);
+            rblName.DataSource = ConstValue.drpConstItemList(groupId);
             rblName.DataBind();
             if (!string.IsNullOrEmpty(selectValue))
             {

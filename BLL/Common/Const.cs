@@ -1485,22 +1485,22 @@ namespace BLL
         /// 现场HSSE作业许可证
         /// </summary>
         public const string ProjectLicenseManagerMenuId = "0E9B7084-D021-4CA3-B9D2-9CBAA27A571B";
-
         /// <summary>
         /// 新开项目作业许可证
         /// </summary>
         public const string ProjectSecurityLicenseMenuId = "915F5AB2-CDCA-4025-A462-AC873D8FB037";
-
         /// <summary>
         /// 施工机具、安全设施检查验收
         /// </summary>
         public const string ProjectEquipmentSafetyListMenuId = "9703D711-85DA-4A0B-B08B-70F791418696";
-
         /// <summary>
         /// 安全技术交底
         /// </summary>
         public const string ProjectHSETechnicalMenuId = "49485F7E-8E71-4EED-87B4-BF6CC180C69C";
-
+        /// <summary>
+        /// 动火作业票
+        /// </summary>
+        public const string ProjectFireWorkMenuId = "2E58D4F1-2FF1-450E-8A00-1CE3BBCF8D4B";
         #endregion
 
         #region HSSE检查管理
