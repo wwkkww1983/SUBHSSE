@@ -1,0 +1,118 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Model
+{
+    /// <summary>
+    /// 审核信息项
+    /// </summary>
+    public class FlowOperateItem
+    {
+        /// <summary>
+        /// 主键ID
+        /// </summary>
+        public string FlowOperateId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 单据ID
+        /// </summary>
+        public string DataId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 步骤名称
+        /// </summary>
+        public string AuditFlowName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 审核步骤序号
+        /// </summary>
+        public int SortIndex
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 审核角色IDs
+        /// </summary>
+        public string RoleIds
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 审核角色名称s
+        /// </summary>
+        public string RoleNames
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 审核人ID
+        /// </summary>
+        public string OperaterId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 审核人姓名
+        /// </summary>
+        public string OperaterName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 审核时间
+        /// </summary>
+        public string OperaterTime
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 是否同意
+        /// </summary>
+        public bool? IsAgree
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 审核意见
+        /// </summary>
+        public string Opinion
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 流程是否结束
+        /// </summary>
+        public bool IsFlowEnd
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 审核是否关闭
+        /// </summary>
+        public bool IsClosed
+        {
+            get;
+            set;
+        }
+    }
+}

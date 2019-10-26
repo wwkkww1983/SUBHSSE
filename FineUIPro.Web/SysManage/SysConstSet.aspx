@@ -22,7 +22,7 @@
     <f:PageManager ID="PageManager1" runat="server" AutoSizePanelID="SimpleForm1"/>         
       <f:Panel ID="Panel2" runat="server" ShowHeader="false" ShowBorder="false" ColumnWidth="100%" MarginRight="5px">
             <Items>
-               <f:TabStrip ID="TabStrip1" CssClass="f-tabstrip-theme-simple" Height="510px" ShowBorder="true"
+               <f:TabStrip ID="TabStrip1" CssClass="f-tabstrip-theme-simple" Height="550px" ShowBorder="true"
                     TabPosition="Top" MarginBottom="5px" EnableTabCloseMenu="false" runat="server" 
                     ActiveTabIndex="1">              
                    <Tabs>                   
@@ -118,7 +118,7 @@
                               </f:Toolbar>
                             </Toolbars>                            
                             <Items>
-                                <f:TabStrip ID="TabStrip2" CssClass="f-tabstrip-theme-simple" ShowBorder="true" Height="400px"
+                                <f:TabStrip ID="TabStrip2" CssClass="f-tabstrip-theme-simple" ShowBorder="true" Height="450px"
                                     TabPosition="Top" MarginBottom="5px" EnableTabCloseMenu="false" 
                                     runat="server" ActiveTabIndex="2">
                                     <Tabs>
@@ -176,7 +176,7 @@
                                         <f:Tab ID="Tab4" Title="模板设置" BodyPadding="5px"  Layout="Fit" runat="server">
                                             <Items>
                                              <f:HtmlEditor runat="server" Label="模板" ID="txtTemplate" ShowLabel="false"
-                                                Editor="UMEditor" BasePath="~/res/umeditor/" ToolbarSet="Full" Height="380px">
+                                                Editor="UMEditor" BasePath="~/res/umeditor/" ToolbarSet="Full" Height="400px">
                                                </f:HtmlEditor>
                                             </Items>
                                         </f:Tab>
@@ -184,7 +184,7 @@
                                            <Items>
                                             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false"  EnableCollapse="true" EnableColumnLines="true" EnableColumnMove="true"
                                                 runat="server" BoxFlex="1" DataKeyNames="FlowOperateId" AllowCellEditing="true" ClicksToEdit="2"
-                                                DataIDField="FlowOperateId" AllowSorting="true" SortField="FlowStep" SortDirection="ASC" 
+                                                DataIDField="FlowOperateId" AllowSorting="true" SortField="FlowStep" SortDirection="ASC" Height="320px"
                                                 OnSort="Grid1_Sort" AllowPaging="true"  EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick"
                                                 EnableTextSelection="True">
                                                 <Toolbars>

@@ -16,12 +16,23 @@ namespace BLL
        {
            return  Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(x=> x.FlowOperateId == flowOperateId);
        }
-        
-       /// <summary>
-       /// 添加工作流信息
-       /// </summary>
-       /// <param name="flow"></param>
-       public static void AddAuditFlow(Model.Sys_MenuFlowOperate flow)
+
+        /// <summary>
+        ///  根据工作流主键获取工作流信息
+        /// </summary>
+        /// <param name="menuId"></param>
+        /// <returns></returns>
+        public static List<Model.Sys_MenuFlowOperate> GetMenuFlowOperateListByMenuId(string menuId)
+        {
+            return (from x in Funs.DB.Sys_MenuFlowOperate where x.MenuId == menuId
+                    orderby x.FlowStep select x).ToList();
+        }
+
+        /// <summary>
+        /// 添加工作流信息
+        /// </summary>
+        /// <param name="flow"></param>
+        public static void AddAuditFlow(Model.Sys_MenuFlowOperate flow)
       {
             Model.Sys_MenuFlowOperate newMenuFlowOperate = new Model.Sys_MenuFlowOperate
             {

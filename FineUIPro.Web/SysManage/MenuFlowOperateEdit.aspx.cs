@@ -71,6 +71,8 @@ namespace FineUIPro.Web.SysManage
                         }
                         drpRoles.Value = menuFlowOperate.RoleId;
                     }
+
+                    this.SetIsFlowEnd();
                 }
                 else
                 {
@@ -159,6 +161,11 @@ namespace FineUIPro.Web.SysManage
         /// <param name="e"></param>
         protected void IsFlowEnd_CheckedChanged(object sender, CheckedEventArgs e)
         {
+            this.SetIsFlowEnd();
+        }
+
+        private void SetIsFlowEnd()
+        {
             if (IsFlowEnd.Checked)
             {
                 this.drpRoles.Value = null;
@@ -172,6 +179,11 @@ namespace FineUIPro.Web.SysManage
             else
             {
                 this.drpRoles.Hidden = false;
+                var getIsEnd = Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(x => x.FlowOperateId != this.FlowOperateId && x.IsFlowEnd == true);
+                if (getIsEnd != null)
+                {
+                    this.IsFlowEnd.Enabled = false;
+                }
             }
         }
         #endregion

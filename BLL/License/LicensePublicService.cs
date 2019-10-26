@@ -111,7 +111,7 @@ namespace BLL
             {
                 ///删除编码表记录
                 CodeRecordsService.DeleteCodeRecordsByDataId(fireWorkId);
-                ///删除安全检查单
+                ///删除-安全措施
                 DeleteLicenseItemByDataId(fireWorkId);
                 ///删除作业票审核信息
                 DeleteFlowOperateByDataId(fireWorkId);
@@ -121,9 +121,9 @@ namespace BLL
         }
         #endregion
 
-        #region 作业票安全检查单
+        #region 作业票-安全措施
         /// <summary>
-        /// 根据主键获取安全检查单
+        /// 根据主键获取-安全措施
         /// </summary>
         /// <param name="licenseItemId"></param>
         /// <returns></returns>
@@ -133,7 +133,7 @@ namespace BLL
         }
 
         /// <summary>
-        /// 根据作业票主键获取安全检查单列表
+        /// 根据作业票主键获取-安全措施列表
         /// </summary>
         /// <param name="dataId"></param>
         /// <returns></returns>
@@ -146,7 +146,7 @@ namespace BLL
         }
 
         /// <summary>
-        /// 添加安全检查单
+        /// 添加-安全措施
         /// </summary>
         /// <param name="licenseItem"></param>
         public static void AddLicenseItem(Model.License_LicenseItem licenseItem)
@@ -154,7 +154,7 @@ namespace BLL
             Model.SUBHSSEDB db = Funs.DB;
             Model.License_LicenseItem newLicenseItem = new Model.License_LicenseItem
             {
-                LicenseItemId = licenseItem.LicenseItemId,
+                LicenseItemId = SQLHelper.GetNewID(),
                 DataId = licenseItem.DataId,
                 SortIndex = licenseItem.SortIndex,
                 SafetyMeasures = licenseItem.SafetyMeasures,
@@ -166,7 +166,7 @@ namespace BLL
         }
 
         /// <summary>
-        /// 修改安全检查单
+        /// 修改-安全措施
         /// </summary>
         /// <param name="licenseItem"></param>
         public static void UpdateLicenseItem(Model.License_LicenseItem licenseItem)
@@ -182,7 +182,7 @@ namespace BLL
         }
 
         /// <summary>
-        /// 根据主键删除安全检查单
+        /// 根据主键删除-安全措施
         /// </summary>
         /// <param name="licenseItemId"></param>
         public static void DeleteLicenseItemById(string licenseItemId)
@@ -197,7 +197,7 @@ namespace BLL
         }
 
         /// <summary>
-        /// 根据作业票主键删除安全检查单
+        /// 根据作业票主键删除-安全措施
         /// </summary>
         /// <param name="dataId"></param>
         public static void DeleteLicenseItemByDataId(string dataId)

@@ -454,24 +454,17 @@ namespace FineUIPro.Web.SysManage
             {
                 foreach (var item in menuItemList)
                 {
-                    var noMenu = BLL.Const.noSysSetMenusList.FirstOrDefault(x => x == item.MenuId);
+                    var noMenu = Const.noSysSetMenusList.FirstOrDefault(x => x == item.MenuId);
                     if (noMenu == null)
                     {
                         TreeNode newNode = new TreeNode
                         {
                             Text = item.MenuName,
-                            NodeID = item.MenuId
+                            NodeID = item.MenuId,                          
                         };
-                        //if (item.IsEnd == true)
-                        //{
-                        //    newNode.Selectable = true;
-                        //}
-                        //else
-                        //{
-                        //    newNode.Selectable = false;
-                        //}
+                        
                         if (node == null)
-                        {
+                        {                            
                             this.treeMenu.Nodes.Add(newNode);
                         }
                         else
@@ -624,10 +617,19 @@ namespace FineUIPro.Web.SysManage
         /// <param name="e"></param>
         protected void btnFlowOperateNew_Click(object sender, EventArgs e)
         {
-            var sysMenu = BLL.SysMenuService.GetSysMenuByMenuId(this.drpMenu.Value);
+            var sysMenu = SysMenuService.GetSysMenuByMenuId(this.drpMenu.Value);
             if (sysMenu != null && sysMenu.IsEnd == true)
             {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("MenuFlowOperateEdit.aspx?MenuId={0}&FlowOperateId={1}", sysMenu.MenuId, string.Empty, "增加 - ")));
+                var getMenuFlowOperate = Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(x => x.MenuId == sysMenu.MenuId && x.IsFlowEnd == true);
+                if (getMenuFlowOperate == null)
+                {
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("MenuFlowOperateEdit.aspx?MenuId={0}&FlowOperateId={1}", sysMenu.MenuId, string.Empty, "增加 - ")));
+                }
+                else
+                {
+                    Alert.ShowInParent("流程已存在结束步骤！", MessageBoxIcon.Warning);
+                }
+                
             }           
         }
 

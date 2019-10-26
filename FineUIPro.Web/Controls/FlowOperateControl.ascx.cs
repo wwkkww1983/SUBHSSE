@@ -144,18 +144,17 @@ namespace FineUIPro.Web.Controls
                         }
 
                         var nextMenuFlowOperate = Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(x => x.MenuId == this.MenuId && x.FlowStep == nextSortIndex);
-                        if (nextMenuFlowOperate != null && nextMenuFlowOperate.IsFlowEnd != true)
+                        if (nextMenuFlowOperate != null)
                         {
                             this.rblFlowOperate.Enabled = false;
                             this.txtAuditFlowName.Text = nextMenuFlowOperate.AuditFlowName;
                             this.drpPerson.Items.Clear();
-                            BLL.UserService.InitUserProjectIdRoleIdDropDownList(this.drpPerson, this.ProjectId, nextMenuFlowOperate.RoleId, true);
-                        }
-                        else
-                        {
-                            this.rblFlowOperate.Enabled = false;
-                            this.rblFlowOperate.SelectedValue = BLL.Const.State_2;
-                            this.SetFlowOperateEnd();
+                            UserService.InitUserProjectIdRoleIdDropDownList(this.drpPerson, this.ProjectId, nextMenuFlowOperate.RoleId, true);
+                            if (nextMenuFlowOperate.IsFlowEnd == true)
+                            {
+                                this.rblFlowOperate.SelectedValue = Const.State_2;
+                                this.SetFlowOperateEnd();
+                            }
                         }
                     }
                 }
@@ -212,7 +211,7 @@ namespace FineUIPro.Web.Controls
             if (this.rblFlowOperate.SelectedValue == BLL.Const.State_2)
             {
                 this.txtAuditFlowName.Text = "审核完成";
-                this.drpPerson.SelectedValue = BLL.Const._Null;
+                this.drpPerson.SelectedValue = Const._Null;
                 this.drpPerson.Hidden = true;
                 this.IsFileCabinetA.Hidden = false;
                 var codeTemplateRule = Funs.DB.Sys_CodeTemplateRule.FirstOrDefault(x => x.MenuId == this.getMenuId && x.IsFileCabinetA == true);

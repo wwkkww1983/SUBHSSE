@@ -59,7 +59,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIItem\FlowOperateItem.cs" />
     <Compile Include="APIItem\FileInfoItem.cs" />
+    <Compile Include="APIItem\LicenseItem.cs" />
     <Compile Include="APIItem\PunishNoticeItem.cs" />
     <Compile Include="APIItem\IncentiveNoticeItem.cs" />
     <Compile Include="APIItem\HazardListSelectedItem.cs" />
