@@ -652,6 +652,55 @@
             <param name="licenseType">作业票类型</param>
             <returns></returns>
         </member>
+        <member name="T:WebAPI.Controllers.LicenseController">
+            <summary>
+            作业票控制器
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.LicenseController.getLicenseDataList(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            获取作业票列表
+            </summary>
+            <param name="licenseType">作业票类型</param>
+            <param name="projectId">项目ID</param>
+            <param name="states">状态</param>
+            <param name="pageIndex">页码</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.LicenseController.getLicenseDataById(System.String,System.String)">
+            <summary>
+             根据ID获取作业票详细
+            </summary>
+            <param name="licenseType">作业票类型</param>
+            <param name="id">作业票ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.LicenseController.getLicenseLicenseItemList(System.String)">
+            <summary>
+             获取作业票安全措施列表信息
+            </summary>
+            <param name="dataId">作业票ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.LicenseController.getLicenseFlowOperateList(System.String)">
+            <summary>
+             获取作业票审核列表信息
+            </summary>
+            <param name="dataId">作业票ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.LicenseController.SaveLicenseData(Model.LicenseDataItem)">
+            <summary>
+            保存作业票信息
+            </summary>
+            <param name="licenseDataItem">作业票记录</param>
+        </member>
+        <member name="M:WebAPI.Controllers.LicenseController.SaveLicenseFlowOperate(Model.FlowOperateItem)">
+            <summary>
+            保存作业票信息
+            </summary>
+            <param name="flowOperateItem">作业票记录</param>
+        </member>
         <member name="T:WebAPI.Controllers.PunishNoticeController">
             <summary>
             处罚通知单
@@ -933,6 +982,17 @@
             保存HazardRegister
             </summary>
             <param name="hazardRegister"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WebAPI.Controllers.HomeController">
+            <summary>
+            首页
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.HomeController.Index">
+            <summary>
+            
+            </summary>
             <returns></returns>
         </member>
         <member name="T:WebAPI.Controllers.HSSEStandardsListController">
@@ -1249,56 +1309,6 @@
             <param name="strParam"></param>
             <param name="pageIndex"></param>
             <returns></returns>
-        </member>
-        <member name="T:WebAPI.Controllers.TestController">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:WebAPI.Controllers.TestController.Get(System.String)">
-            <summary>
-            
-            </summary>
-            <param name="name"></param>
-            <returns></returns>
-        </member>
-        <member name="M:WebAPI.Controllers.TestController.login">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:WebAPI.Controllers.TestController.getUser(System.String)">
-            <summary>
-            
-            </summary>
-            <param name="name"></param>
-            <returns></returns>
-        </member>
-        <member name="M:WebAPI.Controllers.TestController.login3(System.String)">
-            <summary>
-            
-            </summary>
-            <param name="name"></param>
-            <returns></returns>
-        </member>
-        <member name="M:WebAPI.Controllers.TestController.login4(WebAPI.Controllers.userInfo)">
-            <summary>
-            
-            </summary>
-            <param name="userInfo"></param>
-            <returns></returns>
-        </member>
-        <member name="M:WebAPI.Controllers.TestController.login6">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:WebAPI.Controllers.userInfo">
-            <summary>
-            
-            </summary>
         </member>
         <member name="T:WebAPI.Controllers.TestPlanController">
             <summary>
@@ -1618,6 +1628,17 @@
             </summary>
             <param name="projectId"></param>
             <param name="unitId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.UserController.getUserByProjectIdUnitIdQuery(System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            根据projectId、unitid获取用户信息
+            </summary>
+            <param name="projectId"></param>
+            <param name="unitId"></param>
+            <param name="roleIds"></param>
+            <param name="strParam"></param>
+            <param name="pageIndex"></param>
             <returns></returns>
         </member>
     </members>

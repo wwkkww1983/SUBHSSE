@@ -19,6 +19,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 菜单ID
+        /// </summary>
+        public string MenuId
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 单据ID
         /// </summary>
         public string DataId
@@ -114,5 +122,13 @@ namespace Model
             get;
             set;
         }
+        /// <summary>
+        /// 下一步审核人ID
+        /// </summary>
+        public string NextOperaterId
+        {
+            get;
+            set;
+        }        
     }
 }

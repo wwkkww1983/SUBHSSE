@@ -46,21 +46,24 @@ namespace BLL
 
             return getUser;
         }
-
+        
         /// <summary>
         ///  根据projectId、unitid获取用户信息
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="unitId"></param>
+        /// <param name="strParam"></param>
         /// <returns></returns>
-        public static List<Model.UserItem> getUserByProjectIdUnitId(string projectId, string unitId)
+        public static List<Model.UserItem> getUserByProjectIdUnitIdQuery(string projectId, string unitId, string roleIds, string strParam)
         {
-            IQueryable <Model.View_Sys_User> users =null;
+            IQueryable<Model.View_Sys_User> users = null;
+            List<string> roleList = Funs.GetStrListByStr(roleIds, ',');
             if (!string.IsNullOrEmpty(projectId))
             {
                 users = (from x in Funs.DB.View_Sys_User
                          join y in Funs.DB.Project_ProjectUser on x.UserId equals y.UserId
                          where y.ProjectId == projectId && x.IsAuditFlow == true && (x.UnitId == unitId || unitId == null)
+                            && (roleIds == null || roleList.Contains(y.RoleId)) && (strParam == null || x.UserName.Contains(strParam))
                          orderby x.RoleCode, x.UserCode
                          select x);
             }
@@ -68,6 +71,7 @@ namespace BLL
             {
                 users = (from x in Funs.DB.View_Sys_User
                          where x.IsPost == true && x.IsAuditFlow == true && (x.UnitId == unitId || unitId == null)
+                          && (roleIds == null || roleList.Contains(x.RoleId)) && (strParam == null || x.UserName.Contains(strParam))
                          orderby x.UserCode
                          select x);
             }

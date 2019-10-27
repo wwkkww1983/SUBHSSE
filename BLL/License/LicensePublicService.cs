@@ -65,6 +65,7 @@ namespace BLL
                 CloseManId = fireWork.CloseManId,
                 CloseReasons = fireWork.CloseReasons,
                 CloseTime = fireWork.CloseTime,
+                NextManId=fireWork.NextManId,
                 States = fireWork.States,
             };
             db.License_FireWork.InsertOnSubmit(newFireWork);
@@ -246,16 +247,12 @@ namespace BLL
             Model.SUBHSSEDB db = Funs.DB;
             Model.License_FlowOperate newFlowOperate = new Model.License_FlowOperate
             {
-                FlowOperateId = flowOperate.FlowOperateId,
+                FlowOperateId = SQLHelper.GetNewID(),
                 DataId = flowOperate.DataId,
+                MenuId = flowOperate.MenuId,
                 AuditFlowName = flowOperate.AuditFlowName,
                 SortIndex = flowOperate.SortIndex,
-                RoleIds = flowOperate.RoleIds,
-                OperaterId = flowOperate.OperaterId,
-                OperaterTime = flowOperate.OperaterTime,
-                IsAgree = flowOperate.IsAgree,
-                Opinion = flowOperate.Opinion,
-                IsClosed = flowOperate.IsClosed,
+                RoleIds = flowOperate.RoleIds,               
                 IsFlowEnd = flowOperate.IsFlowEnd,
             };
             db.License_FlowOperate.InsertOnSubmit(newFlowOperate);

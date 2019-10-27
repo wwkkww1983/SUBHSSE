@@ -90,7 +90,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = BLL.APIUserService.getUserByUnitId(unitId);
+                var getDataList = APIUserService.getUserByUnitId(unitId);
                 responeData.data = new { getDataList.Count, getDataList };
             }
             catch (Exception ex)
@@ -115,7 +115,39 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = BLL.APIUserService.getUserByProjectIdUnitId(projectId, unitId);
+                responeData.data = APIUserService.getUserByProjectIdUnitIdQuery(projectId, unitId, null, null);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 根据projectId、unitid获取用户信息
+        /// <summary>
+        /// 根据projectId、unitid获取用户信息
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
+        /// <param name="roleIds"></param>
+        /// <param name="strParam"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns></returns>
+        public Model.ResponeData getUserByProjectIdUnitIdQuery(string projectId, string unitId, string roleIds, string strParam, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APIUserService.getUserByProjectIdUnitIdQuery(projectId, unitId, roleIds, strParam);
+                int pageCount = getDataList.Count();
+                if (pageCount > 0 && pageIndex > 0)
+                {
+                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                }
+                responeData.data = new { pageCount, getDataList };
             }
             catch (Exception ex)
             {

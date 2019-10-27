@@ -163,6 +163,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\BaseInfoController.cs" />
+    <Compile Include="Controllers\LicenseController.cs" />
     <Compile Include="Controllers\PunishNoticeController.cs" />
     <Compile Include="Controllers\IncentiveNoticeController.cs" />
     <Compile Include="Controllers\ConstructSolutionController.cs" />
@@ -181,7 +182,6 @@
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
     <Compile Include="Controllers\LawRulesRegulationsController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TestPlanController.cs" />
     <Compile Include="Controllers\TestRecordController.cs" />
     <Compile Include="Controllers\ToDoItemController.cs" />
