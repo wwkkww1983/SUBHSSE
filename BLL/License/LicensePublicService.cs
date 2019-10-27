@@ -95,7 +95,8 @@ namespace BLL
                 newFireWork.CloseManId = fireWork.CloseManId;
                 newFireWork.CloseReasons = fireWork.CloseReasons;
                 newFireWork.CloseTime = fireWork.CloseTime;
-                newFireWork.States = fireWork.States;
+                newFireWork.NextManId = fireWork.NextManId;
+                newFireWork.States = fireWork.States;                
                 db.SubmitChanges();
             }
         }
@@ -250,6 +251,7 @@ namespace BLL
                 FlowOperateId = SQLHelper.GetNewID(),
                 DataId = flowOperate.DataId,
                 MenuId = flowOperate.MenuId,
+                OperaterId=flowOperate.OperaterId,
                 AuditFlowName = flowOperate.AuditFlowName,
                 SortIndex = flowOperate.SortIndex,
                 RoleIds = flowOperate.RoleIds,               

@@ -138,7 +138,7 @@ namespace Model
         /// <summary>
         /// 是否本部
         /// </summary>
-        public string IsOffice
+        public bool? IsOffice
         {
             get;
             set;

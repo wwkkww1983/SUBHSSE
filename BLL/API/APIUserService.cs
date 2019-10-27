@@ -56,26 +56,64 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.UserItem> getUserByProjectIdUnitIdQuery(string projectId, string unitId, string roleIds, string strParam)
         {
-            IQueryable<Model.View_Sys_User> users = null;
+            List<Model.UserItem> getDataList = new List<Model.UserItem>();
             List<string> roleList = Funs.GetStrListByStr(roleIds, ',');
             if (!string.IsNullOrEmpty(projectId))
             {
-                users = (from x in Funs.DB.View_Sys_User
-                         join y in Funs.DB.Project_ProjectUser on x.UserId equals y.UserId
-                         where y.ProjectId == projectId && x.IsAuditFlow == true && (x.UnitId == unitId || unitId == null)
-                            && (roleIds == null || roleList.Contains(y.RoleId)) && (strParam == null || x.UserName.Contains(strParam))
-                         orderby x.RoleCode, x.UserCode
-                         select x);
+                getDataList = (from x in Funs.DB.Sys_User
+                               join y in Funs.DB.Project_ProjectUser on x.UserId equals y.UserId
+                               where y.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
+                                  && (roleIds == null || roleList.Contains(y.RoleId)) && (strParam == null || x.UserName.Contains(strParam))
+                               orderby x.UserName
+                               select new Model.UserItem
+                               {
+                                   UserId = x.UserId,
+                                   Account = x.Account,
+                                   UserCode = x.UserCode,
+                                   Password = x.Password,
+                                   UserName = x.UserName,
+                                   RoleId = y.RoleId,
+                                   RoleName = Funs.DB.Sys_Role.First(z => z.RoleId == y.RoleId).RoleName,
+                                   UnitId = y.UnitId,
+                                   UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                                   LoginProjectId = y.ProjectId,
+                                   LoginProjectName = Funs.DB.Base_Project.First(z => z.ProjectId == y.ProjectId).ProjectName,
+                                   IdentityCard = x.IdentityCard,
+                                   Email = x.Email,
+                                   Telephone = x.Telephone,
+                                   IsOffice = x.IsOffice,
+                                   SignatureUrl = x.SignatureUrl.Replace('\\', '/'),
+
+                               }).ToList();
             }
             else
             {
-                users = (from x in Funs.DB.View_Sys_User
-                         where x.IsPost == true && x.IsAuditFlow == true && (x.UnitId == unitId || unitId == null)
-                          && (roleIds == null || roleList.Contains(x.RoleId)) && (strParam == null || x.UserName.Contains(strParam))
-                         orderby x.UserCode
-                         select x);
+                getDataList = (from x in Funs.DB.Sys_User
+                               where x.IsPost == true && (x.UnitId == unitId || unitId == null)
+                              && (roleIds == null || roleList.Contains(x.RoleId)) && (strParam == null || x.UserName.Contains(strParam))
+                               orderby x.UserName
+                               select new Model.UserItem
+                               {
+                                   UserId = x.UserId,
+                                   Account = x.Account,
+                                   UserCode = x.UserCode,
+                                   Password = x.Password,
+                                   UserName = x.UserName,
+                                   RoleId = x.RoleId,
+                                   RoleName = Funs.DB.Sys_Role.First(z => z.RoleId == x.RoleId).RoleName,
+                                   UnitId = x.UnitId,
+                                   UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == x.UnitId).UnitName,
+                                   //LoginProjectId = y.ProjectId,
+                                   //LoginProjectName = Funs.DB.Base_Project.First(z => z.ProjectId == y.ProjectId).ProjectName,
+                                   IdentityCard = x.IdentityCard,
+                                   Email = x.Email,
+                                   Telephone = x.Telephone,
+                                   IsOffice = x.IsOffice,
+                                   SignatureUrl = x.SignatureUrl.Replace('\\', '/'),
+
+                               }).ToList();
             }
-            return ObjectMapperManager.DefaultInstance.GetMapper<List<Model.View_Sys_User>, List<Model.UserItem>>().Map(users.ToList());
+            return getDataList;
         }
 
         /// <summary>

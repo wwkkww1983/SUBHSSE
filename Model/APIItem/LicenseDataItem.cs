@@ -227,13 +227,5 @@ namespace Model
             get;
             set;
         }
-        /// <summary>
-        /// 审核流程
-        /// </summary>
-        public FlowOperateItem FlowOperateItem
-        {
-            get;
-            set;
-        }
     }
 }

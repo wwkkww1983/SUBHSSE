@@ -61,11 +61,22 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
+                Model.LicenseDataItem getInfo = new Model.LicenseDataItem();
+                string strMenuId = string.Empty;
+
                 ////动火作业票
                 if (licenseType == "DH")
                 {
-                    responeData.data = APILicenseDataService.getLicenseDataById(licenseType, id);
+                    strMenuId = Const.ProjectFireWorkMenuId;
+                    if (!string.IsNullOrEmpty(id))
+                    {
+                        getInfo = APILicenseDataService.getLicenseDataById(licenseType, id);
+                    }
                 }
+                var getLicenseFlowOperate = APILicenseDataService.getLicenseFlowOperate(id);
+                var getNextLicenseFlowOperate = APILicenseDataService.getNextLicenseFlowOperate(strMenuId, getInfo);
+
+                responeData.data = new { getInfo, getLicenseFlowOperate, getNextLicenseFlowOperate };
             }
             catch (Exception ex)
             {

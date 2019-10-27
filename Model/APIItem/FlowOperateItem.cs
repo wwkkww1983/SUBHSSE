@@ -129,6 +129,6 @@ namespace Model
         {
             get;
             set;
-        }        
+        }
     }
 }

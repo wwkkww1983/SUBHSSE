@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EmitMapper;
 
 namespace BLL
 {
@@ -22,9 +19,11 @@ namespace BLL
         public static Model.LicenseDataItem getLicenseDataById(string licenseType, string id)
         {
             Model.LicenseDataItem getInfo = new Model.LicenseDataItem();
+            string strMenuId = string.Empty;
             if (licenseType == "DH")
             {
                 #region 作业票
+                strMenuId = Const.ProjectFireWorkMenuId;
                 getInfo = (from x in Funs.DB.License_FireWork
                            where x.FireWorkId == id
                            select new Model.LicenseDataItem
@@ -202,56 +201,79 @@ namespace BLL
                     CloseManId = newItem.CloseManId,
                     CloseReasons = newItem.CloseReasons,
                     CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
+                    NextManId = newItem.NextManId,
                     States = newItem.States,
                 };
-
+                if (newItem.States == Const.State_0)
+                {
+                    newFireWork.NextManId = newItem.ApplyManId;
+                }
+                ////保存
                 var updateFireWork = Funs.DB.License_FireWork.FirstOrDefault(x => x.FireWorkId == newItem.LicenseId);
                 if (updateFireWork == null)
                 {
                     newFireWork.ApplyDate = DateTime.Now;
-                    newFireWork.FireWorkId = SQLHelper.GetNewID();
-                    newFireWork.NextManId = newItem.ApplyManId;
+                    newItem.LicenseId = newFireWork.FireWorkId = SQLHelper.GetNewID();                                      
                     newFireWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectFireWorkMenuId, newFireWork.ProjectId, newFireWork.ApplyUnitId);
                     LicensePublicService.AddFireWork(newFireWork);
                 }
                 else
                 {
-                    updateFireWork.WorkPalce = newFireWork.WorkPalce;
-                    updateFireWork.FireWatchManId = newFireWork.FireWatchManId;
-                    updateFireWork.ValidityStartTime = newFireWork.ValidityStartTime;
-                    updateFireWork.ValidityEndTime = newFireWork.ValidityEndTime;
-                    updateFireWork.WorkMeasures = newFireWork.WorkMeasures;
-                    updateFireWork.CancelManId = newFireWork.CancelManId;
-                    updateFireWork.CancelReasons = newFireWork.CancelReasons;
-                    updateFireWork.CancelTime = newFireWork.CancelTime;
-                    updateFireWork.CloseManId = newFireWork.CloseManId;
-                    updateFireWork.CloseReasons = newFireWork.CloseReasons;
-                    updateFireWork.CloseTime = newFireWork.CloseTime;
+                    if (newItem.States == Const.State_3)
+                    {
+                        updateFireWork.CloseManId = newFireWork.CloseManId;
+                        updateFireWork.CloseReasons = newFireWork.CloseReasons;
+                        updateFireWork.CloseTime = DateTime.Now;
+                    }
+                    else if (newItem.States == Const.State_R)
+                    {
+                        updateFireWork.CancelManId = newFireWork.CancelManId;
+                        updateFireWork.CancelReasons = newFireWork.CancelReasons;
+                        updateFireWork.CancelTime = DateTime.Now;
+                    }
+                    else
+                    {
+                        ////删除安全措施
+                        LicensePublicService.DeleteLicenseItemByDataId(newItem.LicenseId);
+                        updateFireWork.WorkPalce = newFireWork.WorkPalce;
+                        updateFireWork.FireWatchManId = newFireWork.FireWatchManId;
+                        updateFireWork.ValidityStartTime = newFireWork.ValidityStartTime;
+                        updateFireWork.ValidityEndTime = newFireWork.ValidityEndTime;
+                        updateFireWork.WorkMeasures = newFireWork.WorkMeasures;
+                        updateFireWork.NextManId = newFireWork.NextManId;
+                        updateFireWork.States = newFireWork.States;
+                    }
+
                     updateFireWork.States = newFireWork.States;
-                    LicensePublicService.UpdateFireWork(newFireWork);
-                    ////删除安全措施
-                    LicensePublicService.DeleteLicenseItemByDataId(newItem.LicenseId);
+                    LicensePublicService.UpdateFireWork(updateFireWork);
                 }
                 #endregion
             }
-            ///// 新增安全措施
-            var getLicenseItemList = newItem.LicenseItems;
-            if (getLicenseItemList.Count() > 0)
+            #region 保存安全措施明细
+            if (newItem.States == Const.State_0 || newItem.States == Const.State_1)
             {
-                foreach (var item in getLicenseItemList)
+                ///// 新增安全措施
+                var getLicenseItemList = newItem.LicenseItems;
+                if (getLicenseItemList.Count() > 0)
                 {
-                    Model.License_LicenseItem newLicenseItem = new Model.License_LicenseItem
+                    foreach (var item in getLicenseItemList)
                     {
-                        DataId = newItem.LicenseId,
-                        SortIndex = item.SortIndex,
-                        SafetyMeasures = item.SafetyMeasures,
-                        IsUsed = item.IsUsed,
-                        ConfirmManId = item.ConfirmManId,
-                    };
+                        Model.License_LicenseItem newLicenseItem = new Model.License_LicenseItem
+                        {
+                            DataId = newItem.LicenseId,
+                            SortIndex = item.SortIndex,
+                            SafetyMeasures = item.SafetyMeasures,
+                            IsUsed = item.IsUsed,
+                            ConfirmManId = item.ConfirmManId,
+                        };
 
-                    LicensePublicService.AddLicenseItem(newLicenseItem);
+                        LicensePublicService.AddLicenseItem(newLicenseItem);
+                    }
                 }
             }
+            #endregion
+
+            #region 新增审核初始流程
             ////单据提交时 新增审核初始流程
             if (newItem.States == Const.State_1)
             {
@@ -265,6 +287,15 @@ namespace BLL
                         noAgree.Opinion = null;
                         noAgree.OperaterTime = null;
                         db.SubmitChanges();
+                    }
+                    else
+                    {
+                        var firtFlow = gteFlowOperates.Where(x => x.IsClosed == false || !x.IsClosed.HasValue).OrderBy(x => x.SortIndex).FirstOrDefault();
+                        if (firtFlow != null)
+                        {
+                            firtFlow.OperaterId = newItem.NextManId;
+                            LicensePublicService.UpdateFlowOperate(firtFlow);
+                        }
                     }
                 }
                 else
@@ -285,23 +316,199 @@ namespace BLL
                                 RoleIds = item.RoleId,
                                 IsFlowEnd = item.IsFlowEnd,
                             };
+                            if (newFlowOperate.SortIndex == 1)
+                            {
+                                newFlowOperate.OperaterId = newItem.NextManId;
+                            }
+
                             LicensePublicService.AddFlowOperate(newFlowOperate);
                         }
                     }
                 }
+                #endregion
             }
         }
         #endregion
 
+        #region 保存作业票审核信息
         /// <summary>
         /// 保存作业票审核信息
         /// </summary>
         /// <param name="newItem">保存作业票审核信息</param>
         /// <returns></returns>
         public static void SaveLicenseFlowOperate(Model.FlowOperateItem newItem)
-        { 
-            ////审核记录
-            //var getFlowOperate = newItem.FlowOperateItem;
+        {
+            var updateFlowOperate = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.FlowOperateId == newItem.FlowOperateId);
+            if (updateFlowOperate != null)
+            {
+                updateFlowOperate.OperaterId = newItem.OperaterId;
+                updateFlowOperate.OperaterTime = DateTime.Now;
+                updateFlowOperate.IsAgree = newItem.IsAgree;
+                updateFlowOperate.Opinion = newItem.Opinion;
+                if (newItem.IsAgree == true)
+                {
+                    updateFlowOperate.IsClosed = true;
+                }
+                LicensePublicService.UpdateFlowOperate(updateFlowOperate);
+                /////增加一条审核明细记录
+                Model.License_FlowOperateItem newFlowOperateItem = new Model.License_FlowOperateItem
+                {
+                    FlowOperateItemId = SQLHelper.GetNewID(),
+                    FlowOperateId = updateFlowOperate.FlowOperateId,
+                    OperaterId = updateFlowOperate.OperaterId,
+                    OperaterTime = updateFlowOperate.OperaterTime,
+                    IsAgree = updateFlowOperate.IsAgree,
+                    Opinion = updateFlowOperate.Opinion,
+                };
+                LicensePublicService.AddFlowOperateItem(newFlowOperateItem);
+
+                #region 新增下一步审核记录
+                if (newItem.IsAgree == true)
+                {
+                    var getNextFlowOperate = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.DataId == newItem.DataId && x.SortIndex == (newItem.SortIndex + 1));
+                    ////判断审核步骤是否结束
+                    if (getNextFlowOperate != null)
+                    {
+                        if (!getNextFlowOperate.IsFlowEnd.HasValue || getNextFlowOperate.IsFlowEnd == false)
+                        {
+                            getNextFlowOperate.OperaterId = newItem.NextOperaterId;
+                            LicensePublicService.UpdateFlowOperate(getNextFlowOperate);
+                        }
+                        else
+                        {
+                            /////最后一步是关闭所有 步骤
+                            var isCloseFlows = from x in Funs.DB.License_FlowOperate
+                                               where x.DataId == newItem.DataId && (!x.IsClosed.HasValue || x.IsClosed == false)
+                                               select x;
+                            if (isCloseFlows.Count() > 0)
+                            {
+                                foreach (var item in isCloseFlows)
+                                {
+                                    item.IsClosed = true;
+                                    item.OperaterTime = DateTime.Now;
+                                    item.IsAgree = true;
+                                    LicensePublicService.UpdateFlowOperate(item);
+                                }
+                            }
+                            newItem.IsFlowEnd = true;
+                        }
+                    }
+                }
+                #endregion
+
+                #region 动火作业票
+                if (newItem.MenuId == Const.ProjectFireWorkMenuId)
+                {
+                    var getFireWork = Funs.DB.License_FireWork.FirstOrDefault(x => x.FireWorkId == newItem.DataId);
+                    if (getFireWork != null)
+                    {
+                        if (newItem.IsAgree == true)
+                        {
+                            getFireWork.NextManId = newItem.NextOperaterId;
+                            if (newItem.IsFlowEnd == true)
+                            {
+                                getFireWork.States = Const.State_2;
+                                if (getFireWork.ValidityStartTime.HasValue && getFireWork.ValidityStartTime < DateTime.Now)
+                                {
+                                    int days = 1;
+                                    if (getFireWork.ValidityEndTime.HasValue)
+                                    {
+                                        days = Convert.ToInt32((getFireWork.ValidityEndTime - getFireWork.ValidityStartTime).Value.TotalDays);
+                                    }
+                                    getFireWork.ValidityStartTime = DateTime.Now;
+                                    getFireWork.ValidityEndTime = DateTime.Now.AddDays(days);
+                                }
+                            }
+                        }
+                        else                        
+                        {
+                            getFireWork.NextManId = getFireWork.ApplyManId;
+                            getFireWork.States = Const.State_0;
+                        }
+                        LicensePublicService.UpdateFireWork(getFireWork);
+                    }
+                }
+                #endregion
+            }
         }
+        #endregion
+
+        #region 获取当前审核记录
+        /// <summary>
+        /// 获取当前审核记录
+        /// </summary>
+        /// <param name="dataId">主键ID</param>
+        /// <returns></returns>
+        public static Model.FlowOperateItem getLicenseFlowOperate(string dataId)
+        {
+            ////审核记录
+            var getFlowOperate = from x in Funs.DB.License_FlowOperate
+                                 where x.DataId == dataId && (!x.IsAgree.HasValue || x.IsAgree == true) && x.OperaterId != null && (!x.IsClosed.HasValue || x.IsClosed == false)
+                                 select new Model.FlowOperateItem
+                                 {
+                                     FlowOperateId = x.FlowOperateId,
+                                     MenuId = x.MenuId,
+                                     DataId = x.DataId,
+                                     AuditFlowName = x.AuditFlowName,
+                                     SortIndex = x.SortIndex ?? 0,
+                                     RoleIds = x.RoleIds,
+                                     OperaterId = x.OperaterId,
+                                     IsAgree = x.IsAgree,
+                                     Opinion = x.Opinion,
+                                     IsFlowEnd = x.IsFlowEnd ?? false,
+                                 };
+            return getFlowOperate.FirstOrDefault();
+        }
+        #endregion
+
+        #region 获取下一步审核
+        /// <summary>
+        /// 获取下一步审核
+        /// </summary>
+        /// <param name="dataId">主键ID</param>
+        /// <returns></returns>
+        public static Model.FlowOperateItem getNextLicenseFlowOperate(string strMenuId, Model.LicenseDataItem licenseInfo)
+        {
+            Model.FlowOperateItem getFlowOperate = new Model.FlowOperateItem();
+            if (licenseInfo == null)
+            {
+                getFlowOperate = (from x in Funs.DB.Sys_MenuFlowOperate
+                                  where x.MenuId == strMenuId && x.FlowStep == 1
+                                  select new Model.FlowOperateItem
+                                  {
+                                      FlowOperateId = x.FlowOperateId,
+                                      MenuId = x.MenuId,
+                                      AuditFlowName = x.AuditFlowName,
+                                      SortIndex = x.FlowStep ?? 0,
+                                      RoleIds = x.RoleId,
+                                      IsFlowEnd = x.IsFlowEnd ?? false,
+                                  }).FirstOrDefault();
+            }
+            else
+            {
+                if (licenseInfo.States == Const.State_0 || licenseInfo.States == Const.State_1)
+                {
+                    getFlowOperate = (from x in Funs.DB.License_FlowOperate
+                                      where x.DataId == licenseInfo.LicenseId && (!x.IsClosed.HasValue || x.IsClosed == false)
+                                      orderby x.SortIndex
+                                      select new Model.FlowOperateItem
+                                      {
+                                          FlowOperateId = x.FlowOperateId,
+                                          MenuId = x.MenuId,
+                                          DataId = x.DataId,
+                                          AuditFlowName = x.AuditFlowName,
+                                          SortIndex = x.SortIndex ?? 0,
+                                          RoleIds = x.RoleIds,
+                                          OperaterId = x.OperaterId,
+                                          IsAgree = x.IsAgree,
+                                          Opinion = x.Opinion,
+                                          IsFlowEnd = x.IsFlowEnd ?? false,
+                                      }).FirstOrDefault();
+                }
+            }
+
+            return getFlowOperate;
+        }
+        #endregion
     }
 }
