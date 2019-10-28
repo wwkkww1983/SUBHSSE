@@ -123,6 +123,103 @@ namespace BLL
         }
         #endregion
 
+        #region 高处作业票
+        /// <summary>
+        /// 根据主键获取高处作业票
+        /// </summary>
+        /// <param name="heightWorkId"></param>
+        /// <returns></returns>
+        public static Model.License_HeightWork GetHeightWorkById(string heightWorkId)
+        {
+            return Funs.DB.License_HeightWork.FirstOrDefault(e => e.HeightWorkId == heightWorkId);
+        }
+
+        /// <summary>
+        /// 添加高处作业票
+        /// </summary>
+        /// <param name="heightWork"></param>
+        public static void AddHeightWork(Model.License_HeightWork heightWork)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.License_HeightWork newHeightWork = new Model.License_HeightWork
+            {
+                HeightWorkId = heightWork.HeightWorkId,
+                ProjectId = heightWork.ProjectId,
+                LicenseCode = heightWork.LicenseCode,
+                ApplyUnitId = heightWork.ApplyUnitId,
+                ApplyManId = heightWork.ApplyManId,
+                ApplyDate = heightWork.ApplyDate,
+                WorkPalce = heightWork.WorkPalce,
+                WorkType = heightWork.WorkType,
+                ValidityStartTime = heightWork.ValidityStartTime,
+                ValidityEndTime = heightWork.ValidityEndTime,
+                WorkMeasures = heightWork.WorkMeasures,
+                EquipmentTools= heightWork.EquipmentTools,
+                CancelManId = heightWork.CancelManId,
+                CancelReasons = heightWork.CancelReasons,
+                CancelTime = heightWork.CancelTime,
+                CloseManId = heightWork.CloseManId,
+                CloseReasons = heightWork.CloseReasons,
+                CloseTime = heightWork.CloseTime,
+                NextManId = heightWork.NextManId,
+                States = heightWork.States,
+            };
+            db.License_HeightWork.InsertOnSubmit(newHeightWork);
+            db.SubmitChanges();
+            ////增加一条编码记录
+            CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectHeightWorkMenuId, heightWork.ProjectId, heightWork.ApplyUnitId, heightWork.HeightWorkId, heightWork.ApplyDate);
+        }
+
+        /// <summary>
+        /// 修改高处作业票
+        /// </summary>
+        /// <param name="heightWork"></param>
+        public static void UpdateHeightWork(Model.License_HeightWork heightWork)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.License_HeightWork newHeightWork = db.License_HeightWork.FirstOrDefault(e => e.HeightWorkId == heightWork.HeightWorkId);
+            if (newHeightWork != null)
+            {
+                newHeightWork.WorkPalce = heightWork.WorkPalce;
+                newHeightWork.WorkType = heightWork.WorkType;
+                newHeightWork.ValidityStartTime = heightWork.ValidityStartTime;
+                newHeightWork.ValidityEndTime = heightWork.ValidityEndTime;
+                newHeightWork.WorkMeasures = heightWork.WorkMeasures;
+                newHeightWork.EquipmentTools = heightWork.EquipmentTools;
+                newHeightWork.CancelManId = heightWork.CancelManId;
+                newHeightWork.CancelReasons = heightWork.CancelReasons;
+                newHeightWork.CancelTime = heightWork.CancelTime;
+                newHeightWork.CloseManId = heightWork.CloseManId;
+                newHeightWork.CloseReasons = heightWork.CloseReasons;
+                newHeightWork.CloseTime = heightWork.CloseTime;
+                newHeightWork.NextManId = heightWork.NextManId;
+                newHeightWork.States = heightWork.States;
+                db.SubmitChanges();
+            }
+        }
+
+        /// <summary>
+        /// 根据主键删除高处作业票
+        /// </summary>
+        /// <param name="heightWorkId"></param>
+        public static void DeleteHeightWorkById(string heightWorkId)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.License_HeightWork heightWork = db.License_HeightWork.FirstOrDefault(e => e.HeightWorkId == heightWorkId);
+            if (heightWork != null)
+            {
+                ///删除编码表记录
+                CodeRecordsService.DeleteCodeRecordsByDataId(heightWorkId);
+                ///删除-安全措施
+                DeleteLicenseItemByDataId(heightWorkId);
+                ///删除作业票审核信息
+                DeleteFlowOperateByDataId(heightWorkId);
+                db.License_HeightWork.DeleteOnSubmit(heightWork);
+                db.SubmitChanges();
+            }
+        }
+        #endregion
+
         #region 作业票-安全措施
         /// <summary>
         /// 根据主键获取-安全措施

@@ -4,6 +4,4 @@
   </TreeNode>
 <TreeNode id="D363BD9D-4DEC-45D8-89C8-B0E49DEF61B4" Text="操作日志" NavigateUrl="Personal/RunLog.aspx" Icon="DateEdit"></TreeNode>
 <TreeNode id="A6994B53-6237-4C2B-BDC5-E7E79A1E7F88" Text="个人文件夹" NavigateUrl="Personal/PersonalFolder.aspx" Icon="FolderPageWhite"></TreeNode>
-<TreeNode id="3ACE1F4B-9D7F-4923-8668-9B6AA3CA17CA" Text="数据检索" NavigateUrl="Personal/FileSearch.aspx" Icon="FolderFind"></TreeNode>
-<TreeNode id="DB4F6793-24F8-4C3F-B6CD-4ACBA38CCB25" Text="移动端上传" NavigateUrl="Personal/APPFile.aspx" Icon="SmartphoneDisk"></TreeNode>
 </Tree>

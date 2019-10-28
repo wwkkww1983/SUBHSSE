@@ -10,7 +10,6 @@
 <TreeNode id="B7926494-8CCD-40BD-1111-6BD10176DA0D" Text="机具设备*" NavigateUrl="BaseInfo/SpecialEquipment.aspx" Icon="WrenchOrange"></TreeNode>
 <TreeNode id="000F8328-AB84-4235-95F8-E826DB292D83" Text="费用类型*" NavigateUrl="BaseInfo/CostType.aspx" Icon="Money"></TreeNode>
 <TreeNode id="F6C0E3DE-84CB-45CE-A46A-84DD51B8FBCB" Text="事故类型*" NavigateUrl="BaseInfo/AccidentType.aspx" Icon="DiskError"></TreeNode>
-<TreeNode id="87F312AD-8611-49F9-8487-66B5240568E0" Text="货物类型" NavigateUrl="BaseInfo/GoodsType.aspx" Icon="CartFull"></TreeNode>
 <TreeNode id="9922D495-76ED-4951-AC61-7559C00597DF" Text="气瓶类型" NavigateUrl="BaseInfo/GasCylinder.aspx" Icon="Drink"></TreeNode>
 <TreeNode id="B3FF303D-1A3E-40A3-8E9C-DDE4F32FFA91" Text="违章种类" NavigateUrl="BaseInfo/ViolationSort.aspx" Icon="JoystickError"></TreeNode>
 <TreeNode id="4C86AEA0-5D8A-4677-8F53-D1C757141CD3" Text="许可证类型*" NavigateUrl="BaseInfo/LicenseType.aspx" Icon="ScriptKey"></TreeNode>
@@ -30,9 +29,4 @@
 <TreeNode id="7353F3C1-0EAF-4DB7-86B4-93E3B96805F8" Text="行政管理检查类别" NavigateUrl="Administrative/CheckTypeSet.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="38143A01-D17C-4234-A1A1-D90A3F887438" Text="工作阶段" NavigateUrl="BaseInfo/WorkStage.aspx" Icon="Clock"></TreeNode>
 <TreeNode id="179F286B-6DF8-414E-947F-82267076D4C8" Text="施工方案类型*" NavigateUrl="BaseInfo/SolutionTempleteType.aspx" Icon="BookNext"></TreeNode>
-<TreeNode id="3EC2676A-70EB-400E-BE17-EEBBA0B7E9D7" Text="安全巡检类型*" NavigateUrl="BaseInfo/HazardRegisterTypes.aspx" Icon="BookNext"></TreeNode>
-<TreeNode id="7AC97581-08C2-4848-A117-BDC034EF6666" Text="专项检查类型*" NavigateUrl="BaseInfo/SpecialCheckTypes.aspx" Icon="TableRelationship"></TreeNode>
-<TreeNode id="60BFBA33-B5C7-4EBF-A4AE-1B820559676D" Text="领导督查类型*" NavigateUrl="BaseInfo/HazardRegisterTypesSupervision.aspx" Icon="StatusBeRightBack"></TreeNode>
-<TreeNode id="015F94F0-F2EB-403F-B8CA-FF44AB9BDA5B" Text="处罚项信息*" NavigateUrl="BaseInfo/PunishItem.aspx" Icon="Vcard"></TreeNode>
-<TreeNode id="4BB6AC40-D4D5-439B-85CC-100E431CF3F1" Text="安全措施" NavigateUrl="BaseInfo/SafetyMeasures.aspx" Icon="VcardEdit"></TreeNode>
 </Tree>

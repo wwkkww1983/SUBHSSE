@@ -11,6 +11,23 @@ namespace FineUIPro.Web.Manager
 {
     public partial class HSSELog : PageBase
     {
+        #region 自定义项
+        /// <summary>
+        /// 项目主键
+        /// </summary>
+        public string ProjectId
+        {
+            get
+            {
+                return (string)ViewState["ProjectId"];
+            }
+            set
+            {
+                ViewState["ProjectId"] = value;
+            }
+        }
+        #endregion
+
         #region 加载
         /// <summary>
         /// 加载页面
@@ -21,6 +38,11 @@ namespace FineUIPro.Web.Manager
         {
             if (!IsPostBack)
             {
+                this.ProjectId = this.CurrUser.LoginProjectId;
+                if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
+                {
+                    this.ProjectId = Request.Params["projectId"];
+                }
                 ////权限按钮方法
                 this.GetButtonPower();
                 this.btnNew.OnClientClick = Window1.GetShowReference("HSSELogEdit.aspx") + "return false;";
@@ -45,17 +67,10 @@ namespace FineUIPro.Web.Manager
                           + @" WHERE IsVisible != 0 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND HSSELog.ProjectId = @ProjectId";
-            if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
-            {
-                listStr.Add(new SqlParameter("@ProjectId", Request.Params["projectId"]));
-            }
-            else
-            {
-                listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
-            }
+            listStr.Add(new SqlParameter("@ProjectId", this.ProjectId));
             if (!string.IsNullOrEmpty(this.txtCompileMan.Text.Trim()))
             {
-                strSql += " AND CompileManName LIKE @CompileManName";
+                strSql += " AND Users.UserName LIKE @CompileManName";
                 listStr.Add(new SqlParameter("@CompileManName", "%" + this.txtCompileMan.Text.Trim() + "%"));
             }
             if (!string.IsNullOrEmpty(this.txtCompileDate.Text.Trim()))
@@ -67,7 +82,7 @@ namespace FineUIPro.Web.Manager
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 
             Grid1.RecordCount = tb.Rows.Count;
-            tb = GetFilteredTable(Grid1.FilteredData, tb);
+            //tb = GetFilteredTable(Grid1.FilteredData, tb);
             var table = this.GetPagedDataTable(Grid1, tb);
             Grid1.DataSource = table;
             Grid1.DataBind();

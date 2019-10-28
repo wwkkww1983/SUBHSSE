@@ -61,8 +61,8 @@
                     <f:RenderField Width="160px" ColumnID="WorkPalce" DataField="WorkPalce" SortField="WorkPalce"
                         FieldType="String" HeaderText="作业地点" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>                   
-                    <f:RenderField Width="100px" ColumnID="ApplyDate" DataField="ApplyDate" SortField="ApplyDate"
-                        FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="申请日期"
+                    <f:RenderField Width="140px" ColumnID="ApplyDate" DataField="ApplyDate" SortField="ApplyDate"
+                        FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd HH:mm" HeaderText="申请日期"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="140px" ColumnID="ValidityStartTime" DataField="ValidityStartTime" SortField="ValidityStartTime"
@@ -73,7 +73,7 @@
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd HH:mm" HeaderText="有效期结束时间"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="200px" ColumnID="WorkMeasures" DataField="WorkMeasures" ExpandUnusedSpace="true"
+                    <f:RenderField Width="200px" ColumnID="WorkMeasures" DataField="WorkMeasures" 
                         SortField="WorkMeasures" FieldType="String" HeaderText="作业内容、机具及安全措施" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>

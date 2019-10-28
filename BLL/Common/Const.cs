@@ -1501,6 +1501,10 @@ namespace BLL
         /// 动火作业票
         /// </summary>
         public const string ProjectFireWorkMenuId = "2E58D4F1-2FF1-450E-8A00-1CE3BBCF8D4B";
+        /// <summary>
+        /// 高处作业票
+        /// </summary>
+        public const string ProjectHeightWorkMenuId = "DA1CAE8E-B5BF-4AC0-9996-AF6CAA412CA9";
         #endregion
 
         #region HSSE检查管理

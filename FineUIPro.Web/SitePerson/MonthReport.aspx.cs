@@ -26,6 +26,21 @@ namespace FineUIPro.Web.SitePerson
                 ViewState["MonthReportId"] = value;
             }
         }
+
+        /// <summary>
+        /// 项目ID
+        /// </summary>
+        public string ProjectId
+        {
+            get
+            {
+                return (string)ViewState["ProjectId"];
+            }
+            set
+            {
+                ViewState["ProjectId"] = value;
+            }
+        }
         #endregion
 
         #region 加载页面
@@ -38,10 +53,15 @@ namespace FineUIPro.Web.SitePerson
         {
             if (!IsPostBack)
             {
+                this.ProjectId = this.CurrUser.LoginProjectId;
+                if (!string.IsNullOrEmpty(Request.Params["projectId"]))
+                {
+                    this.ProjectId = Request.Params["projectId"];
+                }
                 ////权限按钮方法
                 this.GetButtonPower();
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
-                this.txtCompileDate.Text = string.Format("{0:yyyy-MM}",DateTime.Now);
+                this.txtCompileDate.Text = string.Format("{0:yyyy-MM}", DateTime.Now);
                 // 绑定表格
                 BindGrid();
             }
@@ -61,16 +81,13 @@ namespace FineUIPro.Web.SitePerson
                           + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON MonthReport.MonthReportId=CodeRecords.DataId WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND MonthReport.ProjectId = @ProjectId";
+            listStr.Add(new SqlParameter("@ProjectId", this.ProjectId));
             if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
-            {
-                listStr.Add(new SqlParameter("@ProjectId", Request.Params["projectId"]));
+            {              
                 strSql += " AND MonthReport.States = @States";  ///状态为已完成
-                listStr.Add(new SqlParameter("@States", BLL.Const.State_2));
+                listStr.Add(new SqlParameter("@States", Const.State_2));
             }
-            else
-            {
-                listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
-            }
+           
             if (!string.IsNullOrEmpty(this.txtMonthReportCode.Text.Trim()))
             {
                 strSql += " AND CodeRecords.Code LIKE @MonthReportCode";

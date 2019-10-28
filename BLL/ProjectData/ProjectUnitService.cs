@@ -125,7 +125,7 @@
                 var pUnit = Funs.DB.Project_ProjectUnit.FirstOrDefault(e => e.ProjectId == projectId && e.UnitId == unitId);
                 if (pUnit != null)
                 {
-                    if (pUnit.UnitType == BLL.Const.ProjectUnitType_2 || pUnit.UnitType == BLL.Const.ProjectUnitType_5)
+                    if (pUnit.UnitType == Const.ProjectUnitType_2 || pUnit.UnitType == Const.ProjectUnitType_5)
                     {
                         isShow = true;
                     }

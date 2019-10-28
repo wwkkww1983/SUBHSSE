@@ -72,8 +72,8 @@ namespace FineUIPro.Web.License
         /// </summary>
         private void BindGrid()
         {
-            string strSql = "SELECT Fire.FireWorkId,Fire.ProjectId,Fire.LicenseCode,Fire.ApplyUnitId,ApplyUnit.UnitName AS ApplyUnitName,Fire.ApplyManId,Fire.ApplyDate,Fire.WorkPalce    ,Fire.ValidityStartTime,Fire.ValidityEndTime,Fire.WorkMeasures,Fire.States"
-                        + @" ,(CASE WHEN Fire.States=0 THEN '待提交' WHEN Fire.States=1 THEN '审核中'  WHEN Fire.States=2 THEN '作业中' WHEN Fire.States=3 THEN '已关闭' WHEN Fire.States=-1 THEN '已取消'  ELSE '未知' END) AS StatesName "
+            string strSql = "SELECT Fire.FireWorkId,Fire.ProjectId,Fire.LicenseCode,Fire.ApplyUnitId,ApplyUnit.UnitName AS ApplyUnitName,Fire.ApplyManId,Fire.ApplyDate,Fire.WorkPalce,Fire.ValidityStartTime,Fire.ValidityEndTime,Fire.WorkMeasures,Fire.States"
+                        + @" ,(CASE WHEN Fire.States=0 THEN '待提交' WHEN Fire.States=1 THEN '审核中'  WHEN Fire.States=2 THEN '作业中' WHEN Fire.States=3 THEN '已关闭' WHEN Fire.States=-1 THEN '已取消' ELSE '未知' END) AS StatesName "
                         + @" FROM dbo.License_FireWork AS Fire "
                         + @" LEFT JOIN Base_Unit AS ApplyUnit ON Fire.ApplyUnitId =ApplyUnit.UnitId"
                         + @" WHERE Fire.ProjectId= '" + this.ProjectId +"'";

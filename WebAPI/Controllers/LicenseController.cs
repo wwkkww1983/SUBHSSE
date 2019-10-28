@@ -17,28 +17,25 @@ namespace WebAPI.Controllers
         /// <summary>
         /// 获取作业票列表
         /// </summary>
-        /// <param name="licenseType">作业票类型</param>
+        /// <param name="strMenuId">菜单ID</param>
         /// <param name="projectId">项目ID</param>
+        /// <param name="unitId">单位ID</param>
         /// <param name="states">状态</param>
         /// <param name="pageIndex">页码</param>
         /// <returns></returns>
-        public Model.ResponeData getLicenseDataList(string licenseType, string projectId, string states, int pageIndex)
+        public Model.ResponeData getLicenseDataList(string strMenuId, string projectId, string unitId, string states, int pageIndex)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                ////动火作业票
-                if (licenseType == "DH") 
+                var getDataList = APILicenseDataService.getLicenseDataList(strMenuId, projectId, unitId, states);
+                int pageCount = getDataList.Count;
+                if (pageCount > 0 && pageIndex > 0)
                 {
-                    var getDataList = APILicenseDataService.getLicenseDataList(licenseType, projectId, null, states);
-                    int pageCount = getDataList.Count;
-                    if (pageCount > 0 && pageIndex > 0)
-                    {
-                        getDataList = (from x in getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize)
-                                      select x).ToList();                       
-                    }
-                    responeData.data = new { pageCount, getDataList };
+                    getDataList = (from x in getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize)
+                                   select x).ToList();
                 }
+                responeData.data = new { pageCount, getDataList };
             }
             catch (Exception ex)
             {
@@ -53,29 +50,25 @@ namespace WebAPI.Controllers
         /// <summary>
         ///  根据ID获取作业票详细
         /// </summary>
-        /// <param name="licenseType">作业票类型</param>
+        /// <param name="strMenuId">菜单ID</param>
         /// <param name="id">作业票ID</param>
         /// <returns></returns>
-        public Model.ResponeData getLicenseDataById(string licenseType, string id)
+        public Model.ResponeData getLicenseDataById(string strMenuId, string id)
         {
             var responeData = new Model.ResponeData();
             try
             {
                 Model.LicenseDataItem getInfo = new Model.LicenseDataItem();
-                string strMenuId = string.Empty;
-
-                ////动火作业票
-                if (licenseType == "DH")
-                {
-                    strMenuId = Const.ProjectFireWorkMenuId;
-                    if (!string.IsNullOrEmpty(id))
+                if (!string.IsNullOrEmpty(id))
+                { 
+                    ////动火作业票
+                    if (strMenuId == Const.ProjectFireWorkMenuId)
                     {
-                        getInfo = APILicenseDataService.getLicenseDataById(licenseType, id);
+                        getInfo = APILicenseDataService.getLicenseDataById(strMenuId, id);
                     }
                 }
                 var getLicenseFlowOperate = APILicenseDataService.getLicenseFlowOperate(id);
                 var getNextLicenseFlowOperate = APILicenseDataService.getNextLicenseFlowOperate(strMenuId, getInfo);
-
                 responeData.data = new { getInfo, getLicenseFlowOperate, getNextLicenseFlowOperate };
             }
             catch (Exception ex)

@@ -66,11 +66,13 @@ namespace FineUIPro.Web.Manager
                 outputDT.Columns.Add("序号", typeof(string));
                 outputDT.Columns.Add("类别", typeof(string));
                 outputDT.Columns.Add("填写要求", typeof(string));
-
-                var hseLogDate = from x in Funs.DB.Manager_HSSELog
-                                 where x.ProjectId == this.CurrUser.LoginProjectId && x.CompileMan == this.drpCompileMan.SelectedValue && x.CompileDate >= Convert.ToDateTime(this.txtStartDate.Text) && x.CompileDate <= Convert.ToDateTime(this.txtEndDate.Text)
+                
+                var hseLogDate = (from x in Funs.DB.Manager_HSSELog
+                                 where x.ProjectId == this.CurrUser.LoginProjectId && x.CompileMan == this.drpCompileMan.SelectedValue && x.IsVisible == true
+                                    && x.CompileDate >= Convert.ToDateTime(this.txtStartDate.Text) && x.CompileDate <= Convert.ToDateTime(this.txtEndDate.Text)                                   
                                  orderby x.CompileDate
-                                 select new { x.CompileDate, x.HSSELogId, x.Weather };
+                                 select new { x.CompileDate, x.HSSELogId, x.Weather }).ToList();
+                hseLogDate = hseLogDate.GroupBy(x => x.CompileDate).Select(g => g.First()).ToList();
                 foreach (var incol in hseLogDate)
                 {
                     outputDT.Columns.Add(string.Format("{0:yyyy-MM-dd}", incol.CompileDate), typeof(string));

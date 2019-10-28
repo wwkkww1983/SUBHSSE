@@ -20,9 +20,9 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 作业票类型
+        /// 菜单ID
         /// </summary>
-        public string LicenseType
+        public string MenuId
         {
             get;
             set;
@@ -92,7 +92,7 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 监火人ID
+        /// 监火人ID（动火）
         /// </summary>
         public string FireWatchManId
         {
@@ -100,7 +100,7 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 监火人名称
+        /// 监火人名称（动火）
         /// </summary>
         public string FireWatchManName
         {
@@ -223,6 +223,22 @@ namespace Model
         /// 安全措施明细
         /// </summary>
         public List<LicenseItem> LicenseItems
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 作业类别（高处）
+        /// </summary>
+        public string WorkType
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 设备及工具（高处）
+        /// </summary>
+        public string EquipmentTools
         {
             get;
             set;
