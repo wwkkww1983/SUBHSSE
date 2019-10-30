@@ -140,7 +140,7 @@ namespace BLL
                                        };
 
                         Funs.DB.Training_TestRecordItem.InsertAllOnSubmit(getItems);
-                        Funs.DB.SubmitChanges();
+                        Funs.SubmitChanges();
                     }
                 }
             }
@@ -331,7 +331,7 @@ namespace BLL
                     }
                 }
             }
-            Funs.DB.SubmitChanges();
+            Funs.SubmitChanges();
         }
         #endregion
 
@@ -350,7 +350,7 @@ namespace BLL
                 getTestRecord.TestEndTime = DateTime.Now;
                 getTestRecord.TestScores= Funs.DB.Training_TestRecordItem.Where(x => x.TestRecordId == testRecordId).Sum(x => x.SubjectScore) ?? 0;
                 getTestRecord.TestEndTime = getTestRecord.TestStartTime.Value.AddMinutes(getTestRecord.Duration);
-                Funs.DB.SubmitChanges();
+                Funs.SubmitChanges();
 
                 getCode = getTestRecord.TestScores ?? 0;
                 //考试计划
@@ -362,7 +362,7 @@ namespace BLL
                     if (getAllTestRecord == null)
                     {
                         getTestPlan.States = "3";
-                        Funs.DB.SubmitChanges();
+                        Funs.SubmitChanges();
                         APITestPlanService.SubmitTest(getTestPlan);
                     }
                 }

@@ -133,7 +133,7 @@ namespace BLL
                     newTestPlan.TestPlanId = SQLHelper.GetNewID();
                 }
                 Funs.DB.Training_TestPlan.InsertOnSubmit(newTestPlan);
-                Funs.DB.SubmitChanges();
+                Funs.SubmitChanges();
 
                 CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectTestPlanMenuId, newTestPlan.ProjectId, null, newTestPlan.TestPlanId, newTestPlan.PlanDate);
             }
@@ -184,7 +184,7 @@ namespace BLL
                 }
                 if(string.IsNullOrEmpty(alterStr))
                 {
-                    Funs.DB.SubmitChanges();
+                    Funs.SubmitChanges();
                 }
             }
 
@@ -249,7 +249,7 @@ namespace BLL
                     };
 
                     Funs.DB.Training_TestPlanTraining.InsertOnSubmit(newPlanItem);
-                    Funs.DB.SubmitChanges();
+                    Funs.SubmitChanges();
                 }
             }
         }

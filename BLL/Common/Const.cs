@@ -1505,6 +1505,30 @@ namespace BLL
         /// 高处作业票
         /// </summary>
         public const string ProjectHeightWorkMenuId = "DA1CAE8E-B5BF-4AC0-9996-AF6CAA412CA9";
+        /// <summary>
+        /// 受限空间作业票
+        /// </summary>
+        public const string ProjectLimitedSpaceMenuId = "AEC9166D-1C91-45F0-8BFE-D3D0479A28C7";
+        /// <summary>
+        /// 射线作业票
+        /// </summary>
+        public const string ProjectRadialWorkMenuId = "F72FF20B-D3EB-46A5-97F7-C99B2473A140";
+        /// <summary>
+        /// 断路(占道)作业票
+        /// </summary>
+        public const string ProjectOpenCircuitMenuId = "4E607E83-41FC-4F49-B26F-A21CFE38328F";
+        /// <summary>
+        /// 动土作业票
+        /// </summary>
+        public const string ProjectBreakGroundMenuId = "755C6AC9-2E38-4D4F-AF33-33CB1744A907";
+        /// <summary>
+        /// 夜间施工作业票
+        /// </summary>
+        public const string ProjectNightWorkMenuId = "7BBAE649-7B00-4475-A911-BFE3A37AC55B";
+        /// <summary>
+        /// 吊装作业票
+        /// </summary>
+        public const string ProjectLiftingWorkMenuId = "A1BE3AB6-9D4A-41E7-8870-E73423165451";
         #endregion
 
         #region HSSE检查管理

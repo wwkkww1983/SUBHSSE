@@ -160,7 +160,7 @@ namespace BLL
                     newTrainingPlan.PlanId = SQLHelper.GetNewID();
                 }
                 Funs.DB.Training_Plan.InsertOnSubmit(newTrainingPlan);
-                Funs.DB.SubmitChanges();
+                Funs.SubmitChanges();
 
                 CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectTrainingPlanMenuId, newTrainingPlan.ProjectId, null, newTrainingPlan.PlanId, newTrainingPlan.DesignerDate);
             }
@@ -180,7 +180,7 @@ namespace BLL
                     isUpdate.UnitIds = newTrainingPlan.UnitIds;
                     isUpdate.WorkPostId = newTrainingPlan.WorkPostId;
                     isUpdate.States = newTrainingPlan.States;
-                    Funs.DB.SubmitChanges();
+                    Funs.SubmitChanges();
                 }
                 ////删除培训任务
                 TrainingTaskService.DeleteTaskByPlanId(newTrainingPlan.PlanId);
@@ -220,7 +220,7 @@ namespace BLL
                     };
 
                     Funs.DB.Training_Task.InsertOnSubmit(newTrainDetail);
-                    Funs.DB.SubmitChanges();
+                    Funs.SubmitChanges();
                 }
             }
         }
@@ -242,7 +242,7 @@ namespace BLL
                     };
 
                     Funs.DB.Training_PlanItem.InsertOnSubmit(newPlanItem);
-                    Funs.DB.SubmitChanges();
+                    Funs.SubmitChanges();
                 }
             }
         }

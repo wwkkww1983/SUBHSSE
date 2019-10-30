@@ -92,7 +92,7 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 监火人ID（动火）
+        /// 监火人ID（动火、受限、射线）
         /// </summary>
         public string FireWatchManId
         {
@@ -100,7 +100,7 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 监火人名称（动火）
+        /// 监火人名称（动火、受限射线）
         /// </summary>
         public string FireWatchManName
         {
@@ -124,7 +124,7 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 作业内容、措施
+        /// 【动火-作业内容、措施；受限-作业内容；射线：安全距离及受影响区域/单位】
         /// </summary>
         public string WorkMeasures
         {
@@ -239,6 +239,46 @@ namespace Model
         /// 设备及工具（高处）
         /// </summary>
         public string EquipmentTools
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 射线类型（χ射线/γ射线）（射线）
+        /// </summary>
+        public string RadialType
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 作业负责人ID（射线）
+        /// </summary>
+        public string WorkLeaderId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 作业负责人名字（射线）
+        /// </summary>
+        public string WorkLeaderName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 作业负责人电话（射线）
+        /// </summary>
+        public string WorkLeaderTel
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 监护人联系方式（射线）
+        /// </summary>
+        public string WatchManContact
         {
             get;
             set;

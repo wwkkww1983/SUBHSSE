@@ -4,6 +4,28 @@
         <name>WebAPI</name>
     </assembly>
     <members>
+        <member name="T:WebAPI.FilterConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebAPI.FilterConfig.RegisterGlobalFilters(System.Web.Mvc.GlobalFilterCollection)">
+            <summary>
+            
+            </summary>
+            <param name="filters"></param>
+        </member>
+        <member name="T:WebAPI.WebApiConfig">
+            <summary>
+            配置
+            </summary>
+        </member>
+        <member name="M:WebAPI.WebApiConfig.Register(System.Web.Http.HttpConfiguration)">
+            <summary>
+            注册
+            </summary>
+            <param name="config"></param>
+        </member>
         <member name="M:WebAPI.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
             <summary>
             Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
@@ -1641,6 +1663,16 @@
             <param name="strParam"></param>
             <param name="pageIndex"></param>
             <returns></returns>
+        </member>
+        <member name="T:WebAPI.WebApiApplication">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebAPI.WebApiApplication.Application_Start">
+            <summary>
+            启动
+            </summary>
         </member>
     </members>
 </doc>

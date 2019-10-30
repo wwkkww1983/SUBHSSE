@@ -157,7 +157,7 @@ namespace BLL
             {
                 newTask.ProjectId = plan.ProjectId;
                 Funs.DB.Training_Task.InsertOnSubmit(newTask);
-                Funs.DB.SubmitChanges();
+                Funs.SubmitChanges();
 
                 ////生成培训任务下培训明细
                 GetDataService.CreateTrainingTaskItemByTaskId(newTask.TaskId);

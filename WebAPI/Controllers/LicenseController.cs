@@ -25,9 +25,9 @@ namespace WebAPI.Controllers
         /// <returns></returns>
         public Model.ResponeData getLicenseDataList(string strMenuId, string projectId, string unitId, string states, int pageIndex)
         {
-            var responeData = new Model.ResponeData();
+            var responeData = new Model.ResponeData();            
             try
-            {
+            {              
                 var getDataList = APILicenseDataService.getLicenseDataList(strMenuId, projectId, unitId, states);
                 int pageCount = getDataList.Count;
                 if (pageCount > 0 && pageIndex > 0)
@@ -57,22 +57,19 @@ namespace WebAPI.Controllers
         {
             var responeData = new Model.ResponeData();
             try
-            {
+            {                
                 Model.LicenseDataItem getInfo = new Model.LicenseDataItem();
                 if (!string.IsNullOrEmpty(id))
-                { 
-                    ////动火作业票
-                    if (strMenuId == Const.ProjectFireWorkMenuId)
-                    {
-                        getInfo = APILicenseDataService.getLicenseDataById(strMenuId, id);
-                    }
+                {
+                    getInfo = APILicenseDataService.getLicenseDataById(strMenuId, id);
                 }
+
                 var getLicenseFlowOperate = APILicenseDataService.getLicenseFlowOperate(id);
                 var getNextLicenseFlowOperate = APILicenseDataService.getNextLicenseFlowOperate(strMenuId, getInfo);
                 responeData.data = new { getInfo, getLicenseFlowOperate, getNextLicenseFlowOperate };
             }
             catch (Exception ex)
-            {
+            {                
                 responeData.code = 0;
                 responeData.message = ex.Message;
             }
@@ -144,6 +141,7 @@ namespace WebAPI.Controllers
             {
                 responeData.code = 0;
                 responeData.message = ex.Message;
+                ErrLogInfo.WriteLog(string.Empty, ex);
             }
 
             return responeData;
@@ -165,11 +163,10 @@ namespace WebAPI.Controllers
             {
                 responeData.code = 0;
                 responeData.message = ex.Message;
+                ErrLogInfo.WriteLog(string.Empty, ex);
             }
-
             return responeData;
         }
         #endregion
-
     }
 }

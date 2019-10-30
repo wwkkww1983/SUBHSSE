@@ -100,7 +100,7 @@ namespace BLL
 
                 isUpdate.States = newHazardRegister.States;
             }
-            Funs.DB.SubmitChanges();
+            Funs.SubmitChanges();
         }
     }
 }

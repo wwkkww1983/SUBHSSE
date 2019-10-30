@@ -5,8 +5,15 @@ using System.Web.Http;
 
 namespace WebAPI
 {
+    /// <summary>
+    /// 配置
+    /// </summary>
     public static class WebApiConfig
     {
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <param name="config"></param>
         public static void Register(HttpConfiguration config)
         {
             // Web API 配置和服务

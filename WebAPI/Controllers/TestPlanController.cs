@@ -166,7 +166,7 @@ namespace WebAPI.Controllers
                             {////考试时长
                                 testRecord.Duration = getTestPlan.Duration;
                                 testRecord.TestStartTime = DateTime.Now;
-                                Funs.DB.SubmitChanges();                               
+                                Funs.SubmitChanges();                               
                             }
                             string testRecordId = APITestRecordService.getTestRecordItemByTestPlanIdPersonId(getTestPlan, person);
                             responeData.code = 2;

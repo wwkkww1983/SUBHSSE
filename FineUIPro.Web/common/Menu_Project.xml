@@ -65,6 +65,12 @@
 <TreeNode id="49485F7E-8E71-4EED-87B4-BF6CC180C69C" Text="安全技术交底" NavigateUrl="License/HSETechnical.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="2E58D4F1-2FF1-450E-8A00-1CE3BBCF8D4B" Text="动火作业票" NavigateUrl="License/FireWork.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="DA1CAE8E-B5BF-4AC0-9996-AF6CAA412CA9" Text="高处作业票" NavigateUrl="License/HeightWork.aspx" Icon="PageHeaderFooter"></TreeNode>
+<TreeNode id="AEC9166D-1C91-45F0-8BFE-D3D0479A28C7" Text="受限空间作业票" NavigateUrl="License/LimitedSpace.aspx" Icon="PageHeaderFooter"></TreeNode>
+<TreeNode id="F72FF20B-D3EB-46A5-97F7-C99B2473A140" Text="射线作业票" NavigateUrl="License/RadialWork.aspx" Icon="PageHeaderFooter"></TreeNode>
+<TreeNode id="4E607E83-41FC-4F49-B26F-A21CFE38328F" Text="断路(占道)作业票" NavigateUrl="License/OpenCircuit.aspx" Icon="PageHeaderFooter"></TreeNode>
+<TreeNode id="755C6AC9-2E38-4D4F-AF33-33CB1744A907" Text="动土作业票" NavigateUrl="License/BreakGround.aspx" Icon="PageHeaderFooter"></TreeNode>
+<TreeNode id="7BBAE649-7B00-4475-A911-BFE3A37AC55B" Text="夜间施工作业票" NavigateUrl="License/NightWork.aspx" Icon="PageHeaderFooter"></TreeNode>
+<TreeNode id="A1BE3AB6-9D4A-41E7-8870-E73423165451" Text="吊装作业票" NavigateUrl="License/LiftingWork.aspx" Icon="PageHeaderFooter"></TreeNode>
 </TreeNode>
 <TreeNode id="9A3212F8-2392-4F21-A8C7-FF5EE3B191F1" Text="危险源辨识与评价" NavigateUrl="" Icon="FolderError"><TreeNode id="762F0BF9-471B-4115-B35E-03A26C573877" Text="环境因素识别与评价" NavigateUrl="Hazard/EnvironmentalRiskList.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="EDC50857-7762-4498-83C6-5BDE85036BAB" Text="职业健康安全危险源辨识与评价" NavigateUrl="Hazard/HazardList.aspx" Icon="PageHeaderFooter"></TreeNode>
@@ -185,8 +191,8 @@
 <TreeNode id="5D006DDC-3AED-4E5A-8597-3C972D96F983" Text="管理月报" NavigateUrl="Manager/ManagerMonth.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="68A52EEA-2661-4CB0-9382-A36AA5DCC480" Text="HSE管理月报" NavigateUrl="Manager/ManagerMonthC.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="E18AF205-9C5B-40F8-B77B-B30C31B10BB5" Text="安全生产月报" NavigateUrl="Manager/ManagerMonthD.aspx" Icon="PageHeaderFooter"></TreeNode>
-<TreeNode id="EDRF6YUJ-SDEW-2389-DW31-23D42D966YUJ" Text="安全数据汇总" NavigateUrl="Manager/ManagerStatistic.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="A97295B1-86C5-45F6-B8EC-A520E8CF3A4B" Text="项目HSE绩效管理报告" NavigateUrl="Manager/PerformanceManagementReport.aspx" Icon="PageHeaderFooter"></TreeNode>
+<TreeNode id="EDRF6YUJ-SDEW-2389-DW31-23D42D966YUJ" Text="安全数据汇总" NavigateUrl="Manager/ManagerStatistic.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="288C6A04-456F-4364-B4FE-82C14B8B3CC9" Text="海外工程项目月度安全统计表" NavigateUrl="Manager/ManagerMonthE.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="4RYM5TYF-3DBA-4727-B3E8-FB21F3EDDF4R" Text="人工时和投入安全费用比率分析" NavigateUrl="Manager/ManagerAnalyse.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="28668BD9-3E14-438F-8BEE-24BAF6031B63" Text="管理季报" NavigateUrl="Manager/ManagerQuarterly.aspx" Icon="PageHeaderFooter"></TreeNode>

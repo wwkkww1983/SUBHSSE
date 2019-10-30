@@ -91,6 +91,83 @@ namespace BLL
                            }).FirstOrDefault();
             }
             #endregion
+            #region 受限空间作业票
+            if (strMenuId == Const.ProjectLimitedSpaceMenuId)
+            {
+                getInfo = (from x in Funs.DB.License_LimitedSpace
+                           where x.LimitedSpaceId == id
+                           select new Model.LicenseDataItem
+                           {
+                               LicenseId = x.LimitedSpaceId,
+                               MenuId = strMenuId,
+                               ProjectId = x.ProjectId,
+                               LicenseCode = x.LicenseCode,
+                               ApplyUnitId = x.ApplyUnitId,
+                               ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                               ApplyManId = x.ApplyManId,
+                               ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                               ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                               WorkPalce = x.WorkPalce,
+                               FireWatchManId = x.FireWatchManId,
+                               FireWatchManName = Funs.DB.Sys_User.First(u => u.UserId == x.FireWatchManId).UserName,
+                               ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                               ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                               WorkMeasures = x.WorkMeasures,
+                               CancelManId = x.CancelManId,
+                               CancelManName = Funs.DB.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                               CancelReasons = x.CancelReasons,
+                               CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                               CloseManId = x.CloseManId,
+                               CloseManName = Funs.DB.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                               CloseReasons = x.CloseReasons,
+                               CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                               NextManId = x.NextManId,
+                               NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                               States = x.States,
+                           }).FirstOrDefault();
+            }
+            #endregion
+            #region 射线作业票
+            if (strMenuId == Const.ProjectRadialWorkMenuId)
+            {
+                getInfo = (from x in Funs.DB.License_RadialWork
+                           where x.RadialWorkId == id
+                           select new Model.LicenseDataItem
+                           {
+                               LicenseId = x.RadialWorkId,
+                               MenuId = strMenuId,
+                               ProjectId = x.ProjectId,
+                               LicenseCode = x.LicenseCode,
+                               ApplyUnitId = x.ApplyUnitId,
+                               ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                               ApplyManId = x.ApplyManId,
+                               ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                               ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                               RadialType = x.RadialType,
+                               WorkLeaderId = x.WorkLeaderId,
+                               WorkLeaderName = Funs.DB.Sys_User.First(u => u.UserId == x.WorkLeaderId).UserName,
+                               WorkLeaderTel=x.WorkLeaderTel,
+                               ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                               ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                               WorkPalce = x.WorkPalce,
+                               WorkMeasures = x.WorkMeasures,
+                               FireWatchManId = x.FireWatchManId,
+                               FireWatchManName = Funs.DB.Sys_User.First(u => u.UserId == x.FireWatchManId).UserName,
+                               WatchManContact=x.WatchManContact,
+                               CancelManId = x.CancelManId,
+                               CancelManName = Funs.DB.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                               CancelReasons = x.CancelReasons,
+                               CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                               CloseManId = x.CloseManId,
+                               CloseManName = Funs.DB.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                               CloseReasons = x.CloseReasons,
+                               CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                               NextManId = x.NextManId,
+                               NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                               States = x.States,
+                           }).FirstOrDefault();
+            }
+            #endregion
             return getInfo;
         }
         #endregion        
@@ -183,6 +260,85 @@ namespace BLL
                                }).ToList();
             }
             #endregion
+            #region 受限空间作业票
+            if (strMenuId == Const.ProjectLimitedSpaceMenuId)
+            {
+                getInfoList = (from x in Funs.DB.License_LimitedSpace
+                               where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                    && (states == null || x.States == states)
+                               orderby x.LicenseCode descending
+                               select new Model.LicenseDataItem
+                               {
+                                   LicenseId = x.LimitedSpaceId,
+                                   MenuId = strMenuId,
+                                   ProjectId = x.ProjectId,
+                                   LicenseCode = x.LicenseCode,
+                                   ApplyUnitId = x.ApplyUnitId,
+                                   ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                   ApplyManId = x.ApplyManId,
+                                   ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                   WorkPalce = x.WorkPalce,
+                                   FireWatchManId = x.FireWatchManId,
+                                   FireWatchManName = Funs.DB.Sys_User.First(u => u.UserId == x.FireWatchManId).UserName,
+                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                   WorkMeasures = x.WorkMeasures,
+                                   CancelManId = x.CancelManId,
+                                   CancelManName = Funs.DB.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                   CancelReasons = x.CancelReasons,
+                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                   CloseManId = x.CloseManId,
+                                   CloseManName = Funs.DB.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                   CloseReasons = x.CloseReasons,
+                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                   States = x.States,
+                               }).ToList();
+            }
+            #endregion
+            #region 射线作业票
+            if (strMenuId == Const.ProjectRadialWorkMenuId)
+            {
+                getInfoList = (from x in Funs.DB.License_RadialWork
+                               where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                    && (states == null || x.States == states)
+                               orderby x.LicenseCode descending
+                               select new Model.LicenseDataItem
+                               {
+                                   LicenseId = x.RadialWorkId,
+                                   MenuId = strMenuId,
+                                   ProjectId = x.ProjectId,
+                                   LicenseCode = x.LicenseCode,
+                                   ApplyUnitId = x.ApplyUnitId,
+                                   ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                   ApplyManId = x.ApplyManId,
+                                   ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                   RadialType = x.RadialType,
+                                   WorkLeaderId = x.WorkLeaderId,
+                                   WorkLeaderName = Funs.DB.Sys_User.First(u => u.UserId == x.WorkLeaderId).UserName,
+                                   WorkLeaderTel = x.WorkLeaderTel,
+                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                   WorkPalce = x.WorkPalce,
+                                   WorkMeasures = x.WorkMeasures,
+                                   FireWatchManId = x.FireWatchManId,
+                                   FireWatchManName = Funs.DB.Sys_User.First(u => u.UserId == x.FireWatchManId).UserName,
+                                   WatchManContact = x.WatchManContact,
+                                   CancelManId = x.CancelManId,
+                                   CancelManName = Funs.DB.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                   CancelReasons = x.CancelReasons,
+                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                   CloseManId = x.CloseManId,
+                                   CloseManName = Funs.DB.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                   CloseReasons = x.CloseReasons,
+                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                   NextManId = x.NextManId,
+                                   NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                                   States = x.States,
+                               }).ToList();
+            }
+            #endregion
             return getInfoList;
         }
         #endregion        
@@ -202,7 +358,7 @@ namespace BLL
                                {
                                    LicenseItemId = x.LicenseItemId,
                                    DataId = x.DataId,
-                                   SortIndex = x.SortIndex ?? 1,
+                                   SortIndex = x.SortIndex ?? 0,
                                    SafetyMeasures = x.SafetyMeasures,
                                    IsUsed = x.IsUsed ?? false,
                                    ConfirmManId = x.ConfirmManId,
@@ -228,7 +384,7 @@ namespace BLL
                                {
                                    FlowOperateId = x.FlowOperateId,
                                    AuditFlowName = x.AuditFlowName,
-                                   SortIndex = x.SortIndex ?? 1,
+                                   SortIndex = x.SortIndex ?? 0,
                                    OperaterId = x.OperaterId,
                                    OperaterName = Funs.DB.Sys_User.First(u => u.UserId == x.OperaterId).UserName,
                                    OperaterTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.OperaterTime),
@@ -249,13 +405,13 @@ namespace BLL
         /// <returns></returns>
         public static void SaveLicenseData(Model.LicenseDataItem newItem)
         {
-            Model.SUBHSSEDB db = Funs.DB;
+            string strLicenseId = newItem.LicenseId;
             #region 动火作业票
             if (newItem.MenuId == Const.ProjectFireWorkMenuId)
             {
                 Model.License_FireWork newFireWork = new Model.License_FireWork
                 {
-                    FireWorkId = newItem.LicenseId,
+                    FireWorkId = strLicenseId,
                     ProjectId = newItem.ProjectId,
                     LicenseCode = newItem.LicenseCode,
                     ApplyUnitId = newItem.ApplyUnitId,
@@ -280,13 +436,15 @@ namespace BLL
                     newFireWork.NextManId = newItem.ApplyManId;
                 }
                 ////保存
-                var updateFireWork = Funs.DB.License_FireWork.FirstOrDefault(x => x.FireWorkId == newItem.LicenseId);
+                var updateFireWork = Funs.DB.License_FireWork.FirstOrDefault(x => x.FireWorkId == strLicenseId);
                 if (updateFireWork == null)
                 {
                     newFireWork.ApplyDate = DateTime.Now;
-                    newItem.LicenseId = newFireWork.FireWorkId = SQLHelper.GetNewID();                                      
+                    strLicenseId = newFireWork.FireWorkId = SQLHelper.GetNewID();                                      
                     newFireWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectFireWorkMenuId, newFireWork.ProjectId, newFireWork.ApplyUnitId);
-                    LicensePublicService.AddFireWork(newFireWork);
+                    Funs.DB.License_FireWork.InsertOnSubmit(newFireWork);                   
+                    ////增加一条编码记录
+                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectFireWorkMenuId, newFireWork.ProjectId, newFireWork.ApplyUnitId, newFireWork.FireWorkId, newFireWork.ApplyDate);
                 }
                 else
                 {
@@ -303,9 +461,7 @@ namespace BLL
                         updateFireWork.CancelTime = DateTime.Now;
                     }
                     else
-                    {
-                        ////删除安全措施
-                        LicensePublicService.DeleteLicenseItemByDataId(newItem.LicenseId);
+                    {                        
                         updateFireWork.WorkPalce = newFireWork.WorkPalce;
                         updateFireWork.FireWatchManId = newFireWork.FireWatchManId;
                         updateFireWork.ValidityStartTime = newFireWork.ValidityStartTime;
@@ -314,8 +470,7 @@ namespace BLL
                         updateFireWork.NextManId = newFireWork.NextManId;
                         updateFireWork.States = newFireWork.States;
                     }
-                    updateFireWork.States = newFireWork.States;
-                    LicensePublicService.UpdateFireWork(updateFireWork);
+                    updateFireWork.States = newFireWork.States;                    
                 }
             }
             #endregion
@@ -324,7 +479,7 @@ namespace BLL
             {
                 Model.License_HeightWork newHeightWork = new Model.License_HeightWork
                 {
-                    HeightWorkId = newItem.LicenseId,
+                    HeightWorkId = strLicenseId,
                     ProjectId = newItem.ProjectId,
                     LicenseCode = newItem.LicenseCode,
                     ApplyUnitId = newItem.ApplyUnitId,
@@ -350,13 +505,16 @@ namespace BLL
                     newHeightWork.NextManId = newItem.ApplyManId;
                 }
                 ////保存
-                var updateHeightWork = Funs.DB.License_HeightWork.FirstOrDefault(x => x.HeightWorkId == newItem.LicenseId);
+                var updateHeightWork = Funs.DB.License_HeightWork.FirstOrDefault(x => x.HeightWorkId == strLicenseId);
                 if (updateHeightWork == null)
                 {
                     newHeightWork.ApplyDate = DateTime.Now;
-                    newItem.LicenseId = newHeightWork.HeightWorkId = SQLHelper.GetNewID();
+                    strLicenseId = newHeightWork.HeightWorkId = SQLHelper.GetNewID();
                     newHeightWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectHeightWorkMenuId, newHeightWork.ProjectId, newHeightWork.ApplyUnitId);
-                    LicensePublicService.AddHeightWork(newHeightWork);
+                    Funs.DB.License_HeightWork.InsertOnSubmit(newHeightWork);
+                  
+                    ////增加一条编码记录
+                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectHeightWorkMenuId, newHeightWork.ProjectId, newHeightWork.ApplyUnitId, newHeightWork.HeightWorkId, newHeightWork.ApplyDate);
                 }
                 else
                 {
@@ -373,9 +531,7 @@ namespace BLL
                         updateHeightWork.CancelTime = DateTime.Now;
                     }
                     else
-                    {
-                        ////删除安全措施
-                        LicensePublicService.DeleteLicenseItemByDataId(newItem.LicenseId);
+                    {                       
                         updateHeightWork.WorkPalce = newHeightWork.WorkPalce;
                         updateHeightWork.WorkType = newHeightWork.WorkType;
                         updateHeightWork.ValidityStartTime = newHeightWork.ValidityStartTime;
@@ -385,8 +541,151 @@ namespace BLL
                         updateHeightWork.NextManId = newHeightWork.NextManId;
                         updateHeightWork.States = newHeightWork.States;
                     }
-                    updateHeightWork.States = newHeightWork.States;
-                    LicensePublicService.UpdateHeightWork(updateHeightWork);
+                    updateHeightWork.States = newHeightWork.States;                   
+                }
+            }
+            #endregion
+            #region 受限空间作业票           
+            if (newItem.MenuId == Const.ProjectLimitedSpaceMenuId)
+            {
+                Model.License_LimitedSpace newLimitedSpace = new Model.License_LimitedSpace
+                {
+                    LimitedSpaceId = strLicenseId,
+                    ProjectId = newItem.ProjectId,
+                    LicenseCode = newItem.LicenseCode,
+                    ApplyUnitId = newItem.ApplyUnitId,
+                    ApplyManId = newItem.ApplyManId,
+                    ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
+                    WorkPalce = newItem.WorkPalce,
+                    FireWatchManId = newItem.FireWatchManId,
+                    ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
+                    ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
+                    WorkMeasures = newItem.WorkMeasures,
+                    CancelManId = newItem.CancelManId,
+                    CancelReasons = newItem.CancelReasons,
+                    CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
+                    CloseManId = newItem.CloseManId,
+                    CloseReasons = newItem.CloseReasons,
+                    CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
+                    NextManId = newItem.NextManId,
+                    States = newItem.States,
+                };
+                if (newItem.States == Const.State_0)
+                {
+                    newLimitedSpace.NextManId = newItem.ApplyManId;
+                }
+                ////保存
+                var updateLimitedSpace = Funs.DB.License_LimitedSpace.FirstOrDefault(x => x.LimitedSpaceId == strLicenseId);
+                if (updateLimitedSpace == null)
+                {
+                    newLimitedSpace.ApplyDate = DateTime.Now;
+                    strLicenseId = newLimitedSpace.LimitedSpaceId = SQLHelper.GetNewID();
+                    newLimitedSpace.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectLimitedSpaceMenuId, newLimitedSpace.ProjectId, newLimitedSpace.ApplyUnitId);
+                    Funs.DB.License_LimitedSpace.InsertOnSubmit(newLimitedSpace);
+                    ////增加一条编码记录
+                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectLimitedSpaceMenuId, newLimitedSpace.ProjectId, newLimitedSpace.ApplyUnitId, newLimitedSpace.LimitedSpaceId, newLimitedSpace.ApplyDate);
+                }
+                else
+                {
+                    if (newItem.States == Const.State_3)
+                    {
+                        updateLimitedSpace.CloseManId = newLimitedSpace.CloseManId;
+                        updateLimitedSpace.CloseReasons = newLimitedSpace.CloseReasons;
+                        updateLimitedSpace.CloseTime = DateTime.Now;
+                    }
+                    else if (newItem.States == Const.State_R)
+                    {
+                        updateLimitedSpace.CancelManId = newLimitedSpace.CancelManId;
+                        updateLimitedSpace.CancelReasons = newLimitedSpace.CancelReasons;
+                        updateLimitedSpace.CancelTime = DateTime.Now;
+                    }
+                    else
+                    {
+                        updateLimitedSpace.WorkPalce = newLimitedSpace.WorkPalce;
+                        updateLimitedSpace.FireWatchManId = newLimitedSpace.FireWatchManId;
+                        updateLimitedSpace.ValidityStartTime = newLimitedSpace.ValidityStartTime;
+                        updateLimitedSpace.ValidityEndTime = newLimitedSpace.ValidityEndTime;
+                        updateLimitedSpace.WorkMeasures = newLimitedSpace.WorkMeasures;
+                        updateLimitedSpace.NextManId = newLimitedSpace.NextManId;
+                        updateLimitedSpace.States = newLimitedSpace.States;
+                    }
+                    updateLimitedSpace.States = newLimitedSpace.States;
+                }
+            }
+            #endregion
+            #region 射线作业票
+            if (newItem.MenuId == Const.ProjectRadialWorkMenuId)
+            {
+                Model.License_RadialWork newRadialWork = new Model.License_RadialWork
+                {
+                    RadialWorkId = strLicenseId,
+                    ProjectId = newItem.ProjectId,
+                    LicenseCode = newItem.LicenseCode,
+                    ApplyUnitId = newItem.ApplyUnitId,
+                    ApplyManId = newItem.ApplyManId,
+                    ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
+                    RadialType=newItem.RadialType,
+                    WorkLeaderId = newItem.WorkLeaderId,
+                    WorkLeaderTel = newItem.WorkLeaderTel,
+                    ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
+                    ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
+                    WorkPalce = newItem.WorkPalce,
+                    WorkMeasures = newItem.WorkMeasures,
+                    FireWatchManId = newItem.FireWatchManId,
+                    WatchManContact=newItem.WatchManContact,
+                    CancelManId = newItem.CancelManId,
+                    CancelReasons = newItem.CancelReasons,
+                    CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
+                    CloseManId = newItem.CloseManId,
+                    CloseReasons = newItem.CloseReasons,
+                    CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
+                    NextManId = newItem.NextManId,
+                    States = newItem.States,
+                };
+                if (newItem.States == Const.State_0)
+                {
+                    newRadialWork.NextManId = newItem.ApplyManId;
+                }
+                ////保存
+                var updateRadialWork = Funs.DB.License_RadialWork.FirstOrDefault(x => x.RadialWorkId == strLicenseId);
+                if (updateRadialWork == null)
+                {
+                    newRadialWork.ApplyDate = DateTime.Now;
+                    strLicenseId = newRadialWork.RadialWorkId = SQLHelper.GetNewID();
+                    newRadialWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectRadialWorkMenuId, newRadialWork.ProjectId, newRadialWork.ApplyUnitId);
+                    Funs.DB.License_RadialWork.InsertOnSubmit(newRadialWork);
+                    ////增加一条编码记录
+                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectRadialWorkMenuId, newRadialWork.ProjectId, newRadialWork.ApplyUnitId, newRadialWork.RadialWorkId, newRadialWork.ApplyDate);
+                }
+                else
+                {
+                    if (newItem.States == Const.State_3)
+                    {
+                        updateRadialWork.CloseManId = newRadialWork.CloseManId;
+                        updateRadialWork.CloseReasons = newRadialWork.CloseReasons;
+                        updateRadialWork.CloseTime = DateTime.Now;
+                    }
+                    else if (newItem.States == Const.State_R)
+                    {
+                        updateRadialWork.CancelManId = newRadialWork.CancelManId;
+                        updateRadialWork.CancelReasons = newRadialWork.CancelReasons;
+                        updateRadialWork.CancelTime = DateTime.Now;
+                    }
+                    else
+                    {
+                        updateRadialWork.RadialType = newRadialWork.RadialType;
+                        updateRadialWork.WorkLeaderId = newRadialWork.WorkLeaderId;
+                        updateRadialWork.WorkLeaderTel = newRadialWork.WorkLeaderTel;
+                        updateRadialWork.ValidityStartTime = newRadialWork.ValidityStartTime;
+                        updateRadialWork.ValidityEndTime = newRadialWork.ValidityEndTime;
+                        updateRadialWork.WorkPalce = newRadialWork.WorkPalce;
+                        updateRadialWork.WorkMeasures = newRadialWork.WorkMeasures;
+                        updateRadialWork.FireWatchManId = newRadialWork.FireWatchManId;
+                        updateRadialWork.WatchManContact = newRadialWork.WatchManContact;                        
+                        updateRadialWork.NextManId = newRadialWork.NextManId;
+                        updateRadialWork.States = newRadialWork.States;
+                    }
+                    updateRadialWork.States = newRadialWork.States;
                 }
             }
             #endregion
@@ -394,6 +693,12 @@ namespace BLL
             #region 保存安全措施明细
             if (newItem.States == Const.State_0 || newItem.States == Const.State_1)
             {
+                ////删除安全措施                       
+                var licenseItems = from x in Funs.DB.License_LicenseItem where x.DataId == strLicenseId select x;
+                if (licenseItems.Count() > 0)
+                {
+                    Funs.DB.License_LicenseItem.DeleteAllOnSubmit(licenseItems);
+                }
                 ///// 新增安全措施
                 var getLicenseItemList = newItem.LicenseItems;
                 if (getLicenseItemList.Count() > 0)
@@ -402,14 +707,15 @@ namespace BLL
                     {
                         Model.License_LicenseItem newLicenseItem = new Model.License_LicenseItem
                         {
-                            DataId = newItem.LicenseId,
+                            LicenseItemId = SQLHelper.GetNewID(),
+                            DataId = strLicenseId,
                             SortIndex = item.SortIndex,
                             SafetyMeasures = item.SafetyMeasures,
                             IsUsed = item.IsUsed,
                             ConfirmManId = item.ConfirmManId,
                         };
 
-                        LicensePublicService.AddLicenseItem(newLicenseItem);
+                        Funs.DB.License_LicenseItem.InsertOnSubmit(newLicenseItem);                       
                     }
                 }
             }
@@ -419,30 +725,31 @@ namespace BLL
             ////单据提交时 新增审核初始流程
             if (newItem.States == Const.State_1)
             {
-                var gteFlowOperates = from x in db.License_FlowOperate where x.DataId == newItem.LicenseId select x;
-                if (gteFlowOperates.Count() > 0)
+                var gteIsNullOperates = Funs.DB.License_FlowOperate.FirstOrDefault(x=> x.DataId == strLicenseId);
+                if (gteIsNullOperates != null)
                 {
-                    var noAgree = gteFlowOperates.FirstOrDefault(x => x.IsAgree == false && (x.IsClosed == false || x.IsClosed == null));
+                    var noAgree = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.DataId == strLicenseId && x.IsAgree == false && (x.IsClosed == false || x.IsClosed == null));
                     if (noAgree != null)
                     {
                         noAgree.IsAgree = null;
                         noAgree.Opinion = null;
                         noAgree.OperaterTime = null;
-                        db.SubmitChanges();
                     }
                     else
                     {
-                        var firtFlow = gteFlowOperates.Where(x => x.IsClosed == false || !x.IsClosed.HasValue).OrderBy(x => x.SortIndex).FirstOrDefault();
+                        var firtFlow = (from x in Funs.DB.License_FlowOperate
+                                        where x.DataId == strLicenseId && (x.IsClosed == false || !x.IsClosed.HasValue)
+                                        orderby x.SortIndex
+                                        select x).FirstOrDefault();
                         if (firtFlow != null)
                         {
                             firtFlow.OperaterId = newItem.NextManId;
-                            LicensePublicService.UpdateFlowOperate(firtFlow);
                         }
                     }
                 }
                 else
                 {
-                    var SysMenuFlowOperate = from x in db.Sys_MenuFlowOperate
+                    var SysMenuFlowOperate = from x in Funs.DB.Sys_MenuFlowOperate
                                              where x.MenuId == newItem.MenuId
                                              select x;
                     if (SysMenuFlowOperate.Count() > 0)
@@ -451,7 +758,8 @@ namespace BLL
                         {
                             Model.License_FlowOperate newFlowOperate = new Model.License_FlowOperate
                             {
-                                DataId = newItem.LicenseId,
+                                FlowOperateId = SQLHelper.GetNewID(),
+                                DataId = strLicenseId,
                                 MenuId = item.MenuId,
                                 AuditFlowName = item.AuditFlowName,
                                 SortIndex = item.FlowStep,
@@ -462,13 +770,13 @@ namespace BLL
                             {
                                 newFlowOperate.OperaterId = newItem.NextManId;
                             }
-
-                            LicensePublicService.AddFlowOperate(newFlowOperate);
+                            Funs.DB.License_FlowOperate.InsertOnSubmit(newFlowOperate);
                         }
                     }
                 }                
             }
             #endregion
+            Funs.SubmitChanges();
         }
         #endregion
 
@@ -481,6 +789,7 @@ namespace BLL
         public static void SaveLicenseFlowOperate(Model.FlowOperateItem newItem)
         {
             string strMenuId = string.Empty;
+            bool boolIsFlowEnd = false;
             var updateFlowOperate = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.FlowOperateId == newItem.FlowOperateId);
             if (updateFlowOperate != null)
             {
@@ -493,7 +802,7 @@ namespace BLL
                 {
                     updateFlowOperate.IsClosed = true;
                 }
-                LicensePublicService.UpdateFlowOperate(updateFlowOperate);
+                
                 /////增加一条审核明细记录
                 Model.License_FlowOperateItem newFlowOperateItem = new Model.License_FlowOperateItem
                 {
@@ -504,7 +813,7 @@ namespace BLL
                     IsAgree = updateFlowOperate.IsAgree,
                     Opinion = updateFlowOperate.Opinion,
                 };
-                LicensePublicService.AddFlowOperateItem(newFlowOperateItem);
+                Funs.DB.License_FlowOperateItem.InsertOnSubmit(newFlowOperateItem);              
 
                 #region 新增下一步审核记录
                 if (newItem.IsAgree == true)
@@ -516,7 +825,6 @@ namespace BLL
                         if (!getNextFlowOperate.IsFlowEnd.HasValue || getNextFlowOperate.IsFlowEnd == false)
                         {
                             getNextFlowOperate.OperaterId = newItem.NextOperaterId;
-                            LicensePublicService.UpdateFlowOperate(getNextFlowOperate);
                         }
                         else
                         {
@@ -531,10 +839,9 @@ namespace BLL
                                     item.IsClosed = true;
                                     item.OperaterTime = DateTime.Now;
                                     item.IsAgree = true;
-                                    LicensePublicService.UpdateFlowOperate(item);
                                 }
                             }
-                            newItem.IsFlowEnd = true;
+                            boolIsFlowEnd = true;
                         }
                     }
                 }
@@ -549,7 +856,7 @@ namespace BLL
                         if (newItem.IsAgree == true)
                         {
                             getFireWork.NextManId = newItem.NextOperaterId;
-                            if (newItem.IsFlowEnd == true)
+                            if (boolIsFlowEnd == true)
                             {
                                 getFireWork.NextManId = null;
                                 getFireWork.States = Const.State_2;
@@ -570,7 +877,6 @@ namespace BLL
                             getFireWork.NextManId = getFireWork.ApplyManId;
                             getFireWork.States = Const.State_0;
                         }
-                        LicensePublicService.UpdateFireWork(getFireWork);
                     }
                 }
                 #endregion
@@ -583,7 +889,7 @@ namespace BLL
                         if (newItem.IsAgree == true)
                         {
                             getHeightWork.NextManId = newItem.NextOperaterId;
-                            if (newItem.IsFlowEnd == true)
+                            if (boolIsFlowEnd == true)
                             {
                                 getHeightWork.NextManId = null;
                                 getHeightWork.States = Const.State_2;
@@ -604,11 +910,77 @@ namespace BLL
                             getHeightWork.NextManId = getHeightWork.ApplyManId;
                             getHeightWork.States = Const.State_0;
                         }
-                        LicensePublicService.UpdateHeightWork(getHeightWork);
+                    }
+                }
+                #endregion
+                #region 受限空间作业票
+                if (strMenuId == Const.ProjectLimitedSpaceMenuId)
+                {
+                    var getLimitedSpace = Funs.DB.License_LimitedSpace.FirstOrDefault(x => x.LimitedSpaceId == updateFlowOperate.DataId);
+                    if (getLimitedSpace != null)
+                    {
+                        if (newItem.IsAgree == true)
+                        {
+                            getLimitedSpace.NextManId = newItem.NextOperaterId;
+                            if (boolIsFlowEnd == true)
+                            {
+                                getLimitedSpace.NextManId = null;
+                                getLimitedSpace.States = Const.State_2;
+                                if (getLimitedSpace.ValidityStartTime.HasValue && getLimitedSpace.ValidityStartTime < DateTime.Now)
+                                {
+                                    int days = 1;
+                                    if (getLimitedSpace.ValidityEndTime.HasValue)
+                                    {
+                                        days = Convert.ToInt32((getLimitedSpace.ValidityEndTime - getLimitedSpace.ValidityStartTime).Value.TotalDays);
+                                    }
+                                    getLimitedSpace.ValidityStartTime = DateTime.Now;
+                                    getLimitedSpace.ValidityEndTime = DateTime.Now.AddDays(days);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            getLimitedSpace.NextManId = getLimitedSpace.ApplyManId;
+                            getLimitedSpace.States = Const.State_0;
+                        }
+                    }
+                }
+                #endregion
+                #region 射线作业票
+                if (strMenuId == Const.ProjectRadialWorkMenuId)
+                {
+                    var getRadialWork = Funs.DB.License_RadialWork.FirstOrDefault(x => x.RadialWorkId == updateFlowOperate.DataId);
+                    if (getRadialWork != null)
+                    {
+                        if (newItem.IsAgree == true)
+                        {
+                            getRadialWork.NextManId = newItem.NextOperaterId;
+                            if (boolIsFlowEnd == true)
+                            {
+                                getRadialWork.NextManId = null;
+                                getRadialWork.States = Const.State_2;
+                                if (getRadialWork.ValidityStartTime.HasValue && getRadialWork.ValidityStartTime < DateTime.Now)
+                                {
+                                    int hours = 24;
+                                    if (getRadialWork.ValidityEndTime.HasValue)
+                                    {
+                                        hours = Convert.ToInt32((getRadialWork.ValidityEndTime - getRadialWork.ValidityStartTime).Value.TotalHours);
+                                    }
+                                    getRadialWork.ValidityStartTime = DateTime.Now;
+                                    getRadialWork.ValidityEndTime = DateTime.Now.AddHours(hours);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            getRadialWork.NextManId = getRadialWork.ApplyManId;
+                            getRadialWork.States = Const.State_0;
+                        }
                     }
                 }
                 #endregion
             }
+            Funs.SubmitChanges();
         }
         #endregion
 
@@ -623,6 +995,7 @@ namespace BLL
             ////审核记录
             var getFlowOperate = from x in Funs.DB.License_FlowOperate
                                  where x.DataId == dataId && (!x.IsAgree.HasValue || x.IsAgree == true) && x.OperaterId != null && (!x.IsClosed.HasValue || x.IsClosed == false)
+                                 orderby x.SortIndex
                                  select new Model.FlowOperateItem
                                  {
                                      FlowOperateId = x.FlowOperateId,
@@ -636,6 +1009,7 @@ namespace BLL
                                      IsAgree = x.IsAgree,
                                      Opinion = x.Opinion,
                                      IsFlowEnd = x.IsFlowEnd ?? false,
+                                     SignatureUrl= Funs.DB.Sys_User.First(y => y.UserId == x.OperaterId).SignatureUrl.Replace('\\', '/'),
                                  };
             return getFlowOperate.FirstOrDefault();
         }
@@ -653,7 +1027,8 @@ namespace BLL
             if (licenseInfo == null)
             {
                 getFlowOperate = (from x in Funs.DB.Sys_MenuFlowOperate
-                                  where x.MenuId == strMenuId && x.FlowStep == 1
+                                  where x.MenuId == strMenuId
+                                  orderby x.FlowStep
                                   select new Model.FlowOperateItem
                                   {
                                       FlowOperateId = x.FlowOperateId,
@@ -670,6 +1045,7 @@ namespace BLL
                 {
                     getFlowOperate = (from x in Funs.DB.License_FlowOperate
                                       where x.DataId == licenseInfo.LicenseId && x.IsAgree == false && (!x.IsClosed.HasValue || x.IsClosed == false)
+                                      orderby x.SortIndex
                                       select new Model.FlowOperateItem
                                       {
                                           FlowOperateId = x.FlowOperateId,
@@ -689,6 +1065,7 @@ namespace BLL
                 {
                     getFlowOperate = (from x in Funs.DB.License_FlowOperate
                                       where x.DataId == licenseInfo.LicenseId && x.OperaterId == null && (!x.IsClosed.HasValue || x.IsClosed == false)
+                                      orderby x.SortIndex
                                       select new Model.FlowOperateItem
                                       {
                                           FlowOperateId = x.FlowOperateId,
