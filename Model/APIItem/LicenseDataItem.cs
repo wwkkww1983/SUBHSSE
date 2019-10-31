@@ -261,7 +261,7 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 作业负责人ID（射线）
+        /// 作业负责人ID（射线、夜间）
         /// </summary>
         public string WorkLeaderId
         {
@@ -269,7 +269,7 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 作业负责人名字（射线）
+        /// 作业负责人名字（射线、夜间）
         /// </summary>
         public string WorkLeaderName
         {
@@ -277,9 +277,33 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 作业负责人电话（射线）
+        /// 作业负责人电话（射线、夜间）
         /// </summary>
         public string WorkLeaderTel
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 安全作业负责人ID（夜间）
+        /// </summary>
+        public string SafeLeaderId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 安全作业负责人名字（夜间）
+        /// </summary>
+        public string SafeLeaderName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 安全作业负责人电话（夜间）
+        /// </summary>
+        public string SafeLeaderTel
         {
             get;
             set;
@@ -312,6 +336,22 @@ namespace Model
         /// 开挖深度（动土）
         /// </summary>
         public string WorkDepth
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 级别（吊装）
+        /// </summary>
+        public string WorkLevel
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 起重机能力及索具规格（吊装）
+        /// </summary>
+        public string CraneCapacity
         {
             get;
             set;
