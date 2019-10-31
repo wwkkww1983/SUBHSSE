@@ -124,7 +124,8 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 【动火-作业内容、措施；受限-作业内容；射线：安全距离及受影响区域/单位】
+        /// 【动火-作业内容、措施；受限-作业内容；射线：安全距离及受影响区域/单位；】
+        /// 【断路：作业内容；动土：作业内容、机具及安全措施】
         /// </summary>
         public string WorkMeasures
         {
@@ -220,6 +221,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 附件路径
+        /// </summary>
+        public string AttachUrl
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 安全措施明细
         /// </summary>
         public List<LicenseItem> LicenseItems
@@ -279,6 +288,30 @@ namespace Model
         /// 监护人联系方式（射线）
         /// </summary>
         public string WatchManContact
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 占用道路名称（断路）
+        /// </summary>
+        public string RoadName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 安全措施及使用的工机具说明（断路）
+        /// </summary>
+        public string SafeMeasures
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 开挖深度（动土）
+        /// </summary>
+        public string WorkDepth
         {
             get;
             set;

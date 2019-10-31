@@ -72,26 +72,26 @@ namespace FineUIPro.Web.License
         /// </summary>
         private void BindGrid()
         {
-            string strSql = "SELECT Fire.LimitedSpaceId,Fire.ProjectId,Fire.LicenseCode,Fire.ApplyUnitId,ApplyUnit.UnitName AS ApplyUnitName,Fire.ApplyManId,Fire.ApplyDate,Fire.WorkPalce,Fire.ValidityStartTime,Fire.ValidityEndTime,Fire.WorkMeasures,Fire.States"
-                        + @" ,(CASE WHEN Fire.States=0 THEN '待提交' WHEN Fire.States=1 THEN '审核中'  WHEN Fire.States=2 THEN '作业中' WHEN Fire.States=3 THEN '已关闭' WHEN Fire.States=-1 THEN '已取消' ELSE '未知' END) AS StatesName "
-                        + @" FROM dbo.License_LimitedSpace AS Fire "
-                        + @" LEFT JOIN Base_Unit AS ApplyUnit ON Fire.ApplyUnitId =ApplyUnit.UnitId"
-                        + @" WHERE Fire.ProjectId= '" + this.ProjectId +"'";
+            string strSql = "SELECT license.LimitedSpaceId,license.ProjectId,license.LicenseCode,license.ApplyUnitId,ApplyUnit.UnitName AS ApplyUnitName,license.ApplyManId,license.ApplyDate,license.WorkPalce,license.ValidityStartTime,license.ValidityEndTime,license.WorkMeasures,license.States"
+                        + @" ,(CASE WHEN license.States=0 THEN '待提交' WHEN license.States=1 THEN '审核中'  WHEN license.States=2 THEN '作业中' WHEN license.States=3 THEN '已关闭' WHEN license.States=-1 THEN '已取消' ELSE '未知' END) AS StatesName "
+                        + @" FROM dbo.License_LimitedSpace AS license "
+                        + @" LEFT JOIN Base_Unit AS ApplyUnit ON license.ApplyUnitId =ApplyUnit.UnitId"
+                        + @" WHERE license.ProjectId= '" + this.ProjectId +"'";
             List<SqlParameter> listStr = new List<SqlParameter>();
            
             if (ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.ProjectId, this.CurrUser.UnitId))
             {
-                strSql += " AND Fire.ApplyUnitId = @UnitId";  ///状态为已完成
+                strSql += " AND license.ApplyUnitId = @UnitId";  ///状态为已完成
                 listStr.Add(new SqlParameter("@UnitId", this.CurrUser.UnitId));
             }       
             if (this.drpUnit.SelectedValue != Const._Null)
             {
-                strSql += " AND Fire.ApplyUnitId = @UnitId2";
+                strSql += " AND license.ApplyUnitId = @UnitId2";
                 listStr.Add(new SqlParameter("@UnitId2", this.drpUnit.SelectedValue));
             }
             if (!string.IsNullOrEmpty(this.drpStates.SelectedValue) && this.drpStates.SelectedValue != Const._Null)
             {
-                strSql += " AND Fire.States = @States";
+                strSql += " AND license.States = @States";
                 listStr.Add(new SqlParameter("@States", this.drpStates.SelectedValue));
             }
             SqlParameter[] parameter = listStr.ToArray();

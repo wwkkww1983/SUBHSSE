@@ -432,6 +432,14 @@
     <Content Include="InformationProject\Exposure.aspx" />
     <Content Include="InformationProject\ExposureEdit.aspx" />
     <Content Include="InformationProject\ExposureView.aspx" />
+    <Content Include="License\BreakGround.aspx" />
+    <Content Include="License\BreakGroundView.aspx" />
+    <Content Include="License\OpenCircuit.aspx" />
+    <Content Include="License\OpenCircuitView.aspx" />
+    <Content Include="License\RadialWorkView.aspx" />
+    <Content Include="License\LimitedSpaceView.aspx" />
+    <Content Include="License\HeightWorkView.aspx" />
+    <Content Include="License\FireWorkView.aspx" />
     <Content Include="License\RadialWork.aspx" />
     <Content Include="License\LimitedSpace.aspx" />
     <Content Include="License\HeightWork.aspx" />
@@ -6212,6 +6220,62 @@
     </Compile>
     <Compile Include="InformationProject\ExposureView.aspx.designer.cs">
       <DependentUpon>ExposureView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="License\BreakGround.aspx.cs">
+      <DependentUpon>BreakGround.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="License\BreakGround.aspx.designer.cs">
+      <DependentUpon>BreakGround.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="License\BreakGroundView.aspx.cs">
+      <DependentUpon>BreakGroundView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="License\BreakGroundView.aspx.designer.cs">
+      <DependentUpon>BreakGroundView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="License\OpenCircuit.aspx.cs">
+      <DependentUpon>OpenCircuit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="License\OpenCircuit.aspx.designer.cs">
+      <DependentUpon>OpenCircuit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="License\OpenCircuitView.aspx.cs">
+      <DependentUpon>OpenCircuitView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="License\OpenCircuitView.aspx.designer.cs">
+      <DependentUpon>OpenCircuitView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="License\RadialWorkView.aspx.cs">
+      <DependentUpon>RadialWorkView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="License\RadialWorkView.aspx.designer.cs">
+      <DependentUpon>RadialWorkView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="License\LimitedSpaceView.aspx.cs">
+      <DependentUpon>LimitedSpaceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="License\LimitedSpaceView.aspx.designer.cs">
+      <DependentUpon>LimitedSpaceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="License\HeightWorkView.aspx.cs">
+      <DependentUpon>HeightWorkView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="License\HeightWorkView.aspx.designer.cs">
+      <DependentUpon>HeightWorkView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="License\FireWorkView.aspx.cs">
+      <DependentUpon>FireWorkView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="License\FireWorkView.aspx.designer.cs">
+      <DependentUpon>FireWorkView.aspx</DependentUpon>
     </Compile>
     <Compile Include="License\RadialWork.aspx.cs">
       <DependentUpon>RadialWork.aspx</DependentUpon>

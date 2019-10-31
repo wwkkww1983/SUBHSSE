@@ -9,11 +9,11 @@ namespace BLL
     /// </summary>
     public static class APILicenseDataService
     {
-        #region 根据FireWorkId获取作业票
+        #region 根据主键ID获取作业票
         /// <summary>
-        ///  根据 FireWorkId获取作业票
+        ///  根据主键ID获取作业票
         /// </summary>
-        /// <param name="licenseType"></param>
+        /// <param name="strMenuId"></param>
         /// <param name="id"></param>
         /// <returns></returns>
         public static Model.LicenseDataItem getLicenseDataById(string strMenuId, string id)
@@ -164,10 +164,84 @@ namespace BLL
                                CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
                                NextManId = x.NextManId,
                                NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                               AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.RadialWorkId).AttachUrl.Replace('\\', '/'),
                                States = x.States,
                            }).FirstOrDefault();
             }
             #endregion
+            #region 断路(占道)作业票
+            if (strMenuId == Const.ProjectOpenCircuitMenuId)
+            {
+                getInfo = (from x in Funs.DB.License_OpenCircuit
+                           where x.OpenCircuitId == id
+                           select new Model.LicenseDataItem
+                           {
+                               LicenseId = x.OpenCircuitId,
+                               MenuId = strMenuId,
+                               ProjectId = x.ProjectId,
+                               LicenseCode = x.LicenseCode,
+                               ApplyUnitId = x.ApplyUnitId,
+                               ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                               ApplyManId = x.ApplyManId,
+                               ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                               ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                               WorkPalce = x.WorkPalce,
+                               WorkMeasures = x.WorkMeasures,                             
+                               ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                               ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                               RoadName = x.RoadName,
+                               SafeMeasures = x.SafeMeasures,
+                               CancelManId = x.CancelManId,
+                               CancelManName = Funs.DB.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                               CancelReasons = x.CancelReasons,
+                               CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                               CloseManId = x.CloseManId,
+                               CloseManName = Funs.DB.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                               CloseReasons = x.CloseReasons,
+                               CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                               NextManId = x.NextManId,
+                               NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                               States = x.States,
+                           }).FirstOrDefault();
+            }
+            #endregion
+            #region 动土作业票
+            if (strMenuId == Const.ProjectBreakGroundMenuId)
+            {
+                getInfo = (from x in Funs.DB.License_BreakGround
+                           where x.BreakGroundId == id
+                           select new Model.LicenseDataItem
+                           {
+                               LicenseId = x.BreakGroundId,
+                               MenuId = strMenuId,
+                               ProjectId = x.ProjectId,
+                               LicenseCode = x.LicenseCode,
+                               ApplyUnitId = x.ApplyUnitId,
+                               ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                               ApplyManId = x.ApplyManId,
+                               ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                               ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                               WorkPalce = x.WorkPalce,
+                               WorkDepth = x.WorkDepth,
+                               ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                               ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                               WorkMeasures = x.WorkMeasures,
+                               CancelManId = x.CancelManId,
+                               CancelManName = Funs.DB.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                               CancelReasons = x.CancelReasons,
+                               CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                               CloseManId = x.CloseManId,
+                               CloseManName = Funs.DB.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                               CloseReasons = x.CloseReasons,
+                               CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                               NextManId = x.NextManId,
+                               NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                               AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.BreakGroundId).AttachUrl.Replace('\\', '/'),
+                               States = x.States,
+                           }).FirstOrDefault();
+            }
+            #endregion
+
             return getInfo;
         }
         #endregion        
@@ -339,6 +413,78 @@ namespace BLL
                                }).ToList();
             }
             #endregion
+            #region 断路(占道)作业票
+            if (strMenuId == Const.ProjectOpenCircuitMenuId)
+            {
+                getInfoList = (from x in Funs.DB.License_OpenCircuit
+                               where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                    && (states == null || x.States == states)
+                               orderby x.LicenseCode descending
+                               select new Model.LicenseDataItem
+                               {
+                                   LicenseId = x.OpenCircuitId,
+                                   MenuId = strMenuId,
+                                   ProjectId = x.ProjectId,
+                                   LicenseCode = x.LicenseCode,
+                                   ApplyUnitId = x.ApplyUnitId,
+                                   ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                   ApplyManId = x.ApplyManId,
+                                   ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                   WorkPalce = x.WorkPalce,
+                                   WorkMeasures = x.WorkMeasures,
+                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                   RoadName = x.RoadName,
+                                   SafeMeasures = x.SafeMeasures,
+                                   CancelManId = x.CancelManId,
+                                   CancelManName = Funs.DB.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                   CancelReasons = x.CancelReasons,
+                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                   CloseManId = x.CloseManId,
+                                   CloseManName = Funs.DB.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                   CloseReasons = x.CloseReasons,
+                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                   States = x.States,
+                               }).ToList();
+            }
+            #endregion
+            #region 动土作业票
+            if (strMenuId == Const.ProjectBreakGroundMenuId)
+            {
+                getInfoList = (from x in Funs.DB.License_BreakGround
+                               where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                    && (states == null || x.States == states)
+                               orderby x.LicenseCode descending
+                               select new Model.LicenseDataItem
+                               {
+                                   LicenseId = x.BreakGroundId,
+                                   MenuId = strMenuId,
+                                   ProjectId = x.ProjectId,
+                                   LicenseCode = x.LicenseCode,
+                                   ApplyUnitId = x.ApplyUnitId,
+                                   ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                   ApplyManId = x.ApplyManId,
+                                   ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                   WorkPalce = x.WorkPalce,
+                                   WorkDepth = x.WorkDepth,
+                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                   WorkMeasures = x.WorkMeasures,
+                                   CancelManId = x.CancelManId,
+                                   CancelManName = Funs.DB.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                   CancelReasons = x.CancelReasons,
+                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                   CloseManId = x.CloseManId,
+                                   CloseManName = Funs.DB.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                   CloseReasons = x.CloseReasons,
+                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                   States = x.States,
+                               }).ToList();
+            }
+            #endregion
+
             return getInfoList;
         }
         #endregion        
@@ -689,6 +835,144 @@ namespace BLL
                 }
             }
             #endregion
+            #region 断路(占道)作业票
+            if (newItem.MenuId == Const.ProjectOpenCircuitMenuId)
+            {
+                Model.License_OpenCircuit newOpenCircuit = new Model.License_OpenCircuit
+                {
+                    OpenCircuitId = strLicenseId,
+                    ProjectId = newItem.ProjectId,
+                    LicenseCode = newItem.LicenseCode,
+                    ApplyUnitId = newItem.ApplyUnitId,
+                    ApplyManId = newItem.ApplyManId,
+                    ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
+                    WorkPalce = newItem.WorkPalce,
+                    WorkMeasures = newItem.WorkMeasures,
+                    ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
+                    ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
+                    RoadName = newItem.RoadName,
+                    SafeMeasures = newItem.SafeMeasures,
+                    CancelManId = newItem.CancelManId,
+                    CancelReasons = newItem.CancelReasons,
+                    CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
+                    CloseManId = newItem.CloseManId,
+                    CloseReasons = newItem.CloseReasons,
+                    CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
+                    NextManId = newItem.NextManId,
+                    States = newItem.States,
+                };
+                if (newItem.States == Const.State_0)
+                {
+                    newOpenCircuit.NextManId = newItem.ApplyManId;
+                }
+                ////保存
+                var updateOpenCircuit = Funs.DB.License_OpenCircuit.FirstOrDefault(x => x.OpenCircuitId == strLicenseId);
+                if (updateOpenCircuit == null)
+                {
+                    newOpenCircuit.ApplyDate = DateTime.Now;
+                    strLicenseId = newOpenCircuit.OpenCircuitId = SQLHelper.GetNewID();
+                    newOpenCircuit.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectOpenCircuitMenuId, newOpenCircuit.ProjectId, newOpenCircuit.ApplyUnitId);
+                    Funs.DB.License_OpenCircuit.InsertOnSubmit(newOpenCircuit);
+                    ////增加一条编码记录
+                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectOpenCircuitMenuId, newOpenCircuit.ProjectId, newOpenCircuit.ApplyUnitId, newOpenCircuit.OpenCircuitId, newOpenCircuit.ApplyDate);
+                }
+                else
+                {
+                    if (newItem.States == Const.State_3)
+                    {
+                        updateOpenCircuit.CloseManId = newOpenCircuit.CloseManId;
+                        updateOpenCircuit.CloseReasons = newOpenCircuit.CloseReasons;
+                        updateOpenCircuit.CloseTime = DateTime.Now;
+                    }
+                    else if (newItem.States == Const.State_R)
+                    {
+                        updateOpenCircuit.CancelManId = newOpenCircuit.CancelManId;
+                        updateOpenCircuit.CancelReasons = newOpenCircuit.CancelReasons;
+                        updateOpenCircuit.CancelTime = DateTime.Now;
+                    }
+                    else
+                    {
+                        updateOpenCircuit.WorkPalce = newOpenCircuit.WorkPalce;
+                        updateOpenCircuit.WorkMeasures = newOpenCircuit.WorkMeasures;
+                        updateOpenCircuit.ValidityStartTime = newOpenCircuit.ValidityStartTime;
+                        updateOpenCircuit.ValidityEndTime = newOpenCircuit.ValidityEndTime;                        
+                        updateOpenCircuit.RoadName = newOpenCircuit.RoadName;
+                        updateOpenCircuit.SafeMeasures = newOpenCircuit.SafeMeasures;
+                        updateOpenCircuit.NextManId = newOpenCircuit.NextManId;
+                        updateOpenCircuit.States = newOpenCircuit.States;
+                    }
+                    updateOpenCircuit.States = newOpenCircuit.States;
+                }
+            }
+            #endregion
+            #region 动土作业票
+            if (newItem.MenuId == Const.ProjectBreakGroundMenuId)
+            {
+                Model.License_BreakGround newBreakGround = new Model.License_BreakGround
+                {
+                    BreakGroundId = strLicenseId,
+                    ProjectId = newItem.ProjectId,
+                    LicenseCode = newItem.LicenseCode,
+                    ApplyUnitId = newItem.ApplyUnitId,
+                    ApplyManId = newItem.ApplyManId,
+                    ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
+                    WorkPalce = newItem.WorkPalce,
+                    WorkDepth = newItem.WorkDepth,
+                    ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
+                    ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
+                    WorkMeasures = newItem.WorkMeasures,
+                    CancelManId = newItem.CancelManId,
+                    CancelReasons = newItem.CancelReasons,
+                    CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
+                    CloseManId = newItem.CloseManId,
+                    CloseReasons = newItem.CloseReasons,
+                    CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
+                    NextManId = newItem.NextManId,
+                    States = newItem.States,
+                };
+                if (newItem.States == Const.State_0)
+                {
+                    newBreakGround.NextManId = newItem.ApplyManId;
+                }
+                ////保存
+                var updateBreakGround = Funs.DB.License_BreakGround.FirstOrDefault(x => x.BreakGroundId == strLicenseId);
+                if (updateBreakGround == null)
+                {
+                    newBreakGround.ApplyDate = DateTime.Now;
+                    strLicenseId = newBreakGround.BreakGroundId = SQLHelper.GetNewID();
+                    newBreakGround.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectBreakGroundMenuId, newBreakGround.ProjectId, newBreakGround.ApplyUnitId);
+                    Funs.DB.License_BreakGround.InsertOnSubmit(newBreakGround);
+                    ////增加一条编码记录
+                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectBreakGroundMenuId, newBreakGround.ProjectId, newBreakGround.ApplyUnitId, newBreakGround.BreakGroundId, newBreakGround.ApplyDate);
+                }
+                else
+                {
+                    if (newItem.States == Const.State_3)
+                    {
+                        updateBreakGround.CloseManId = newBreakGround.CloseManId;
+                        updateBreakGround.CloseReasons = newBreakGround.CloseReasons;
+                        updateBreakGround.CloseTime = DateTime.Now;
+                    }
+                    else if (newItem.States == Const.State_R)
+                    {
+                        updateBreakGround.CancelManId = newBreakGround.CancelManId;
+                        updateBreakGround.CancelReasons = newBreakGround.CancelReasons;
+                        updateBreakGround.CancelTime = DateTime.Now;
+                    }
+                    else
+                    {
+                        updateBreakGround.WorkPalce = newBreakGround.WorkPalce;
+                        updateBreakGround.WorkDepth = newBreakGround.WorkDepth;
+                        updateBreakGround.ValidityStartTime = newBreakGround.ValidityStartTime;
+                        updateBreakGround.ValidityEndTime = newBreakGround.ValidityEndTime;
+                        updateBreakGround.WorkMeasures = newBreakGround.WorkMeasures;
+                        updateBreakGround.NextManId = newBreakGround.NextManId;
+                        updateBreakGround.States = newBreakGround.States;
+                    }
+                    updateBreakGround.States = newBreakGround.States;
+                }
+            }
+            #endregion
 
             #region 保存安全措施明细
             if (newItem.States == Const.State_0 || newItem.States == Const.State_1)
@@ -777,6 +1061,18 @@ namespace BLL
             }
             #endregion
             Funs.SubmitChanges();
+
+            #region 保存附件
+            ////保存附件
+            if (!string.IsNullOrEmpty(newItem.AttachUrl))
+            {
+                UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(newItem.AttachUrl, 10, null), newItem.AttachUrl, newItem.MenuId, strLicenseId);
+            }
+            else
+            {
+                CommonService.DeleteAttachFileById(strLicenseId);
+            }
+            #endregion
         }
         #endregion
 
@@ -790,6 +1086,7 @@ namespace BLL
         {
             string strMenuId = string.Empty;
             bool boolIsFlowEnd = false;
+            string applyManId = string.Empty;
             var updateFlowOperate = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.FlowOperateId == newItem.FlowOperateId);
             if (updateFlowOperate != null)
             {
@@ -853,6 +1150,7 @@ namespace BLL
                     var getFireWork = Funs.DB.License_FireWork.FirstOrDefault(x => x.FireWorkId == updateFlowOperate.DataId);
                     if (getFireWork != null)
                     {
+                        applyManId = getFireWork.ApplyManId;
                         if (newItem.IsAgree == true)
                         {
                             getFireWork.NextManId = newItem.NextOperaterId;
@@ -874,8 +1172,8 @@ namespace BLL
                         }
                         else                        
                         {
-                            getFireWork.NextManId = getFireWork.ApplyManId;
-                            getFireWork.States = Const.State_0;
+                            getFireWork.NextManId = applyManId;
+                            getFireWork.States = Const.State_0;                            
                         }
                     }
                 }
@@ -886,6 +1184,7 @@ namespace BLL
                     var getHeightWork = Funs.DB.License_HeightWork.FirstOrDefault(x => x.HeightWorkId == updateFlowOperate.DataId);
                     if (getHeightWork != null)
                     {
+                        applyManId = getHeightWork.ApplyManId;
                         if (newItem.IsAgree == true)
                         {
                             getHeightWork.NextManId = newItem.NextOperaterId;
@@ -907,7 +1206,7 @@ namespace BLL
                         }
                         else
                         {
-                            getHeightWork.NextManId = getHeightWork.ApplyManId;
+                            getHeightWork.NextManId = applyManId;
                             getHeightWork.States = Const.State_0;
                         }
                     }
@@ -919,6 +1218,7 @@ namespace BLL
                     var getLimitedSpace = Funs.DB.License_LimitedSpace.FirstOrDefault(x => x.LimitedSpaceId == updateFlowOperate.DataId);
                     if (getLimitedSpace != null)
                     {
+                        applyManId = getLimitedSpace.ApplyManId;
                         if (newItem.IsAgree == true)
                         {
                             getLimitedSpace.NextManId = newItem.NextOperaterId;
@@ -940,7 +1240,7 @@ namespace BLL
                         }
                         else
                         {
-                            getLimitedSpace.NextManId = getLimitedSpace.ApplyManId;
+                            getLimitedSpace.NextManId = applyManId;
                             getLimitedSpace.States = Const.State_0;
                         }
                     }
@@ -952,6 +1252,7 @@ namespace BLL
                     var getRadialWork = Funs.DB.License_RadialWork.FirstOrDefault(x => x.RadialWorkId == updateFlowOperate.DataId);
                     if (getRadialWork != null)
                     {
+                        applyManId = getRadialWork.ApplyManId;
                         if (newItem.IsAgree == true)
                         {
                             getRadialWork.NextManId = newItem.NextOperaterId;
@@ -973,8 +1274,76 @@ namespace BLL
                         }
                         else
                         {
-                            getRadialWork.NextManId = getRadialWork.ApplyManId;
+                            getRadialWork.NextManId = applyManId;
                             getRadialWork.States = Const.State_0;
+                        }
+                    }
+                }
+                #endregion
+                #region 断路(占道)作业票
+                if (strMenuId == Const.ProjectOpenCircuitMenuId)
+                {
+                    var getOpenCircuit = Funs.DB.License_OpenCircuit.FirstOrDefault(x => x.OpenCircuitId == updateFlowOperate.DataId);
+                    if (getOpenCircuit != null)
+                    {
+                        applyManId = getOpenCircuit.ApplyManId;
+                        if (newItem.IsAgree == true)
+                        {
+                            getOpenCircuit.NextManId = newItem.NextOperaterId;
+                            if (boolIsFlowEnd == true)
+                            {
+                                getOpenCircuit.NextManId = null;
+                                getOpenCircuit.States = Const.State_2;
+                                if (getOpenCircuit.ValidityStartTime.HasValue && getOpenCircuit.ValidityStartTime < DateTime.Now)
+                                {
+                                    int days = 7;
+                                    if (getOpenCircuit.ValidityEndTime.HasValue)
+                                    {
+                                        days = Convert.ToInt32((getOpenCircuit.ValidityEndTime - getOpenCircuit.ValidityStartTime).Value.TotalDays);
+                                    }
+                                    getOpenCircuit.ValidityStartTime = DateTime.Now;
+                                    getOpenCircuit.ValidityEndTime = DateTime.Now.AddDays(days);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            getOpenCircuit.NextManId = applyManId;
+                            getOpenCircuit.States = Const.State_0;
+                        }
+                    }
+                }
+                #endregion
+                #region 动土作业票
+                if (strMenuId == Const.ProjectBreakGroundMenuId)
+                {
+                    var getBreakGround = Funs.DB.License_BreakGround.FirstOrDefault(x => x.BreakGroundId == updateFlowOperate.DataId);
+                    if (getBreakGround != null)
+                    {
+                        applyManId = getBreakGround.ApplyManId;
+                        if (newItem.IsAgree == true)
+                        {
+                            getBreakGround.NextManId = newItem.NextOperaterId;
+                            if (boolIsFlowEnd == true)
+                            {
+                                getBreakGround.NextManId = null;
+                                getBreakGround.States = Const.State_2;
+                                if (getBreakGround.ValidityStartTime.HasValue && getBreakGround.ValidityStartTime < DateTime.Now)
+                                {
+                                    int days = 7;
+                                    if (getBreakGround.ValidityEndTime.HasValue)
+                                    {
+                                        days = Convert.ToInt32((getBreakGround.ValidityEndTime - getBreakGround.ValidityStartTime).Value.TotalDays);
+                                    }
+                                    getBreakGround.ValidityStartTime = DateTime.Now;
+                                    getBreakGround.ValidityEndTime = DateTime.Now.AddDays(days);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            getBreakGround.NextManId = applyManId;
+                            getBreakGround.States = Const.State_0;
                         }
                     }
                 }
@@ -994,7 +1363,8 @@ namespace BLL
         {
             ////审核记录
             var getFlowOperate = from x in Funs.DB.License_FlowOperate
-                                 where x.DataId == dataId && (!x.IsAgree.HasValue || x.IsAgree == true) && x.OperaterId != null && (!x.IsClosed.HasValue || x.IsClosed == false)
+                                 where x.DataId == dataId && x.OperaterId != null
+                                 && (!x.IsClosed.HasValue || x.IsClosed == false)
                                  orderby x.SortIndex
                                  select new Model.FlowOperateItem
                                  {

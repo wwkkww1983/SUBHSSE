@@ -872,7 +872,7 @@ namespace BLL
                     occ.Resolve(RefreshMode.KeepChanges);
                 }
                 // 这个地方要注意，Catch方法中，我们前面只是指明了怎样来解决冲突，这个地方还需要再次提交更新，这样的话，值    //才会提交到数据库。
-                DB.SubmitChanges();
+                DB.SubmitChanges();                
                 ErrLogInfo.WriteLog(string.Empty, ex);
             }
         }

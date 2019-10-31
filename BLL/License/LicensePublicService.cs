@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web.UI.WebControls;
 
 namespace BLL
@@ -415,11 +413,207 @@ namespace BLL
             {
                 ///删除编码表记录
                 CodeRecordsService.DeleteCodeRecordsByDataId(radialWorkId);
+                ///删除附件
+                CommonService.DeleteAttachFileById(radialWorkId);
                 ///删除-安全措施
                 DeleteLicenseItemByDataId(radialWorkId);
                 ///删除作业票审核信息
                 DeleteFlowOperateByDataId(radialWorkId);
                 db.License_RadialWork.DeleteOnSubmit(radialWork);
+                db.SubmitChanges();
+            }
+        }
+        #endregion
+
+        #region 断路(占道)作业票
+        /// <summary>
+        /// 根据主键获取断路(占道)作业票
+        /// </summary>
+        /// <param name="openCircuitId"></param>
+        /// <returns></returns>
+        public static Model.License_OpenCircuit GetOpenCircuitById(string openCircuitId)
+        {
+            return Funs.DB.License_OpenCircuit.FirstOrDefault(e => e.OpenCircuitId == openCircuitId);
+        }
+
+        /// <summary>
+        /// 添加断路(占道)作业票
+        /// </summary>
+        /// <param name="openCircuit"></param>
+        public static void AddOpenCircuit(Model.License_OpenCircuit openCircuit)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.License_OpenCircuit newOpenCircuit = new Model.License_OpenCircuit
+            {
+                OpenCircuitId = openCircuit.OpenCircuitId,
+                ProjectId = openCircuit.ProjectId,
+                LicenseCode = openCircuit.LicenseCode,
+                ApplyUnitId = openCircuit.ApplyUnitId,
+                ApplyManId = openCircuit.ApplyManId,
+                ApplyDate = openCircuit.ApplyDate,
+                WorkPalce = openCircuit.WorkPalce,
+                WorkMeasures = openCircuit.WorkMeasures,
+                ValidityStartTime = openCircuit.ValidityStartTime,
+                ValidityEndTime = openCircuit.ValidityEndTime,
+                RoadName=openCircuit.RoadName,
+                SafeMeasures = openCircuit.SafeMeasures,
+                CancelManId = openCircuit.CancelManId,
+                CancelReasons = openCircuit.CancelReasons,
+                CancelTime = openCircuit.CancelTime,
+                CloseManId = openCircuit.CloseManId,
+                CloseReasons = openCircuit.CloseReasons,
+                CloseTime = openCircuit.CloseTime,
+                NextManId = openCircuit.NextManId,
+                States = openCircuit.States,
+            };
+            db.License_OpenCircuit.InsertOnSubmit(newOpenCircuit);
+            db.SubmitChanges();
+            ////增加一条编码记录
+            CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectOpenCircuitMenuId, openCircuit.ProjectId, openCircuit.ApplyUnitId, openCircuit.OpenCircuitId, openCircuit.ApplyDate);
+        }
+
+        /// <summary>
+        /// 修改断路(占道)作业票
+        /// </summary>
+        /// <param name="openCircuit"></param>
+        public static void UpdateOpenCircuit(Model.License_OpenCircuit openCircuit)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.License_OpenCircuit newOpenCircuit = db.License_OpenCircuit.FirstOrDefault(e => e.OpenCircuitId == openCircuit.OpenCircuitId);
+            if (newOpenCircuit != null)
+            {
+                newOpenCircuit.WorkPalce = openCircuit.WorkPalce;
+                newOpenCircuit.WorkMeasures = openCircuit.WorkMeasures;
+                newOpenCircuit.ValidityStartTime = openCircuit.ValidityStartTime;
+                newOpenCircuit.ValidityEndTime = openCircuit.ValidityEndTime;                
+                newOpenCircuit.RoadName = openCircuit.RoadName;
+                newOpenCircuit.SafeMeasures = openCircuit.SafeMeasures;
+                newOpenCircuit.CancelManId = openCircuit.CancelManId;
+                newOpenCircuit.CancelReasons = openCircuit.CancelReasons;
+                newOpenCircuit.CancelTime = openCircuit.CancelTime;
+                newOpenCircuit.CloseManId = openCircuit.CloseManId;
+                newOpenCircuit.CloseReasons = openCircuit.CloseReasons;
+                newOpenCircuit.CloseTime = openCircuit.CloseTime;
+                newOpenCircuit.NextManId = openCircuit.NextManId;
+                newOpenCircuit.States = openCircuit.States;
+                db.SubmitChanges();
+            }
+        }
+
+        /// <summary>
+        /// 根据主键删除断路(占道)作业票
+        /// </summary>
+        /// <param name="openCircuitId"></param>
+        public static void DeleteOpenCircuitById(string openCircuitId)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.License_OpenCircuit openCircuit = db.License_OpenCircuit.FirstOrDefault(e => e.OpenCircuitId == openCircuitId);
+            if (openCircuit != null)
+            {
+                ///删除编码表记录
+                CodeRecordsService.DeleteCodeRecordsByDataId(openCircuitId);
+                ///删除-安全措施
+                DeleteLicenseItemByDataId(openCircuitId);
+                ///删除作业票审核信息
+                DeleteFlowOperateByDataId(openCircuitId);
+                db.License_OpenCircuit.DeleteOnSubmit(openCircuit);
+                db.SubmitChanges();
+            }
+        }
+        #endregion
+
+        #region 动土作业票
+        /// <summary>
+        /// 根据主键获取动土作业票
+        /// </summary>
+        /// <param name="breakGroundId"></param>
+        /// <returns></returns>
+        public static Model.License_BreakGround GetBreakGroundById(string breakGroundId)
+        {
+            return Funs.DB.License_BreakGround.FirstOrDefault(e => e.BreakGroundId == breakGroundId);
+        }
+
+        /// <summary>
+        /// 添加动土作业票
+        /// </summary>
+        /// <param name="breakGround"></param>
+        public static void AddBreakGround(Model.License_BreakGround breakGround)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.License_BreakGround newBreakGround = new Model.License_BreakGround
+            {
+                BreakGroundId = breakGround.BreakGroundId,
+                ProjectId = breakGround.ProjectId,
+                LicenseCode = breakGround.LicenseCode,
+                ApplyUnitId = breakGround.ApplyUnitId,
+                ApplyManId = breakGround.ApplyManId,
+                ApplyDate = breakGround.ApplyDate,
+                WorkPalce = breakGround.WorkPalce,
+                WorkDepth = breakGround.WorkDepth,
+                ValidityStartTime = breakGround.ValidityStartTime,
+                ValidityEndTime = breakGround.ValidityEndTime,
+                WorkMeasures = breakGround.WorkMeasures,
+                CancelManId = breakGround.CancelManId,
+                CancelReasons = breakGround.CancelReasons,
+                CancelTime = breakGround.CancelTime,
+                CloseManId = breakGround.CloseManId,
+                CloseReasons = breakGround.CloseReasons,
+                CloseTime = breakGround.CloseTime,
+                NextManId = breakGround.NextManId,
+                States = breakGround.States,
+            };
+            db.License_BreakGround.InsertOnSubmit(newBreakGround);
+            db.SubmitChanges();
+            ////增加一条编码记录
+            CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectBreakGroundMenuId, breakGround.ProjectId, breakGround.ApplyUnitId, breakGround.BreakGroundId, breakGround.ApplyDate);
+        }
+
+        /// <summary>
+        /// 修改动土作业票
+        /// </summary>
+        /// <param name="breakGround"></param>
+        public static void UpdateBreakGround(Model.License_BreakGround breakGround)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.License_BreakGround newBreakGround = db.License_BreakGround.FirstOrDefault(e => e.BreakGroundId == breakGround.BreakGroundId);
+            if (newBreakGround != null)
+            {
+                newBreakGround.WorkPalce = breakGround.WorkPalce;
+                newBreakGround.WorkDepth = breakGround.WorkDepth;
+                newBreakGround.ValidityStartTime = breakGround.ValidityStartTime;
+                newBreakGround.ValidityEndTime = breakGround.ValidityEndTime;
+                newBreakGround.WorkMeasures = breakGround.WorkMeasures;
+                newBreakGround.CancelManId = breakGround.CancelManId;
+                newBreakGround.CancelReasons = breakGround.CancelReasons;
+                newBreakGround.CancelTime = breakGround.CancelTime;
+                newBreakGround.CloseManId = breakGround.CloseManId;
+                newBreakGround.CloseReasons = breakGround.CloseReasons;
+                newBreakGround.CloseTime = breakGround.CloseTime;
+                newBreakGround.NextManId = breakGround.NextManId;
+                newBreakGround.States = breakGround.States;
+                db.SubmitChanges();
+            }
+        }
+
+        /// <summary>
+        /// 根据主键删除动土作业票
+        /// </summary>
+        /// <param name="breakGroundId"></param>
+        public static void DeleteBreakGroundById(string breakGroundId)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.License_BreakGround breakGround = db.License_BreakGround.FirstOrDefault(e => e.BreakGroundId == breakGroundId);
+            if (breakGround != null)
+            {
+                ///删除编码表记录
+                CodeRecordsService.DeleteCodeRecordsByDataId(breakGroundId);
+                ////删除附件
+                CommonService.DeleteAttachFileById(breakGroundId);
+                ///删除-安全措施
+                DeleteLicenseItemByDataId(breakGroundId);
+                ///删除作业票审核信息
+                DeleteFlowOperateByDataId(breakGroundId);
+                db.License_BreakGround.DeleteOnSubmit(breakGround);
                 db.SubmitChanges();
             }
         }

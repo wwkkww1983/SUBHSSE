@@ -107,7 +107,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="高处作业票" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="1100px" Height="640px">
+        Width="1000px" Height="640px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuView" OnClick="btnMenuView_Click" EnablePostBack="true"
