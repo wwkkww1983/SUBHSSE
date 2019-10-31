@@ -434,6 +434,10 @@
     <Content Include="InformationProject\ExposureView.aspx" />
     <Content Include="License\BreakGround.aspx" />
     <Content Include="License\BreakGroundView.aspx" />
+    <Content Include="License\LiftingWork.aspx" />
+    <Content Include="License\LiftingWorkView.aspx" />
+    <Content Include="License\NightWork.aspx" />
+    <Content Include="License\NightWorkView.aspx" />
     <Content Include="License\OpenCircuit.aspx" />
     <Content Include="License\OpenCircuitView.aspx" />
     <Content Include="License\RadialWorkView.aspx" />
@@ -6234,6 +6238,34 @@
     </Compile>
     <Compile Include="License\BreakGroundView.aspx.designer.cs">
       <DependentUpon>BreakGroundView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="License\LiftingWork.aspx.cs">
+      <DependentUpon>LiftingWork.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="License\LiftingWork.aspx.designer.cs">
+      <DependentUpon>LiftingWork.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="License\LiftingWorkView.aspx.cs">
+      <DependentUpon>LiftingWorkView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="License\LiftingWorkView.aspx.designer.cs">
+      <DependentUpon>LiftingWorkView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="License\NightWork.aspx.cs">
+      <DependentUpon>NightWork.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="License\NightWork.aspx.designer.cs">
+      <DependentUpon>NightWork.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="License\NightWorkView.aspx.cs">
+      <DependentUpon>NightWorkView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="License\NightWorkView.aspx.designer.cs">
+      <DependentUpon>NightWorkView.aspx</DependentUpon>
     </Compile>
     <Compile Include="License\OpenCircuit.aspx.cs">
       <DependentUpon>OpenCircuit.aspx</DependentUpon>

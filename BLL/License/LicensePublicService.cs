@@ -618,6 +618,205 @@ namespace BLL
             }
         }
         #endregion
+
+        #region 夜间施工作业票
+        /// <summary>
+        /// 根据主键获取夜间施工作业票
+        /// </summary>
+        /// <param name="nightWorkId"></param>
+        /// <returns></returns>
+        public static Model.License_NightWork GetNightWorkById(string nightWorkId)
+        {
+            return Funs.DB.License_NightWork.FirstOrDefault(e => e.NightWorkId == nightWorkId);
+        }
+
+        /// <summary>
+        /// 添加夜间施工作业票
+        /// </summary>
+        /// <param name="nightWork"></param>
+        public static void AddNightWork(Model.License_NightWork nightWork)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.License_NightWork newNightWork = new Model.License_NightWork
+            {
+                NightWorkId = nightWork.NightWorkId,
+                ProjectId = nightWork.ProjectId,
+                LicenseCode = nightWork.LicenseCode,
+                ApplyUnitId = nightWork.ApplyUnitId,
+                ApplyManId = nightWork.ApplyManId,
+                ApplyDate = nightWork.ApplyDate,
+                WorkPalce = nightWork.WorkPalce,
+                WorkMeasures = nightWork.WorkMeasures,
+                ValidityStartTime = nightWork.ValidityStartTime,
+                ValidityEndTime = nightWork.ValidityEndTime,
+                WorkLeaderId = nightWork.WorkLeaderId,
+                WorkLeaderTel = nightWork.WorkLeaderTel,
+                SafeLeaderId = nightWork.SafeLeaderId,
+                SafeLeaderTel = nightWork.SafeLeaderTel,
+                CancelManId = nightWork.CancelManId,
+                CancelReasons = nightWork.CancelReasons,
+                CancelTime = nightWork.CancelTime,
+                CloseManId = nightWork.CloseManId,
+                CloseReasons = nightWork.CloseReasons,
+                CloseTime = nightWork.CloseTime,
+                NextManId = nightWork.NextManId,
+                States = nightWork.States,
+            };
+            db.License_NightWork.InsertOnSubmit(newNightWork);
+            db.SubmitChanges();
+            ////增加一条编码记录
+            CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectNightWorkMenuId, nightWork.ProjectId, nightWork.ApplyUnitId, nightWork.NightWorkId, nightWork.ApplyDate);
+        }
+
+        /// <summary>
+        /// 修改夜间施工作业票
+        /// </summary>
+        /// <param name="nightWork"></param>
+        public static void UpdateNightWork(Model.License_NightWork nightWork)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.License_NightWork newNightWork = db.License_NightWork.FirstOrDefault(e => e.NightWorkId == nightWork.NightWorkId);
+            if (newNightWork != null)
+            {
+                newNightWork.WorkPalce = nightWork.WorkPalce;
+                newNightWork.WorkMeasures = nightWork.WorkMeasures;
+                newNightWork.ValidityStartTime = nightWork.ValidityStartTime;
+                newNightWork.ValidityEndTime = nightWork.ValidityEndTime;
+                newNightWork.WorkLeaderId = nightWork.WorkLeaderId;
+                newNightWork.WorkLeaderTel = nightWork.WorkLeaderTel;
+                newNightWork.SafeLeaderId = nightWork.SafeLeaderId;
+                newNightWork.SafeLeaderTel = nightWork.SafeLeaderTel;
+                newNightWork.CancelManId = nightWork.CancelManId;
+                newNightWork.CancelReasons = nightWork.CancelReasons;
+                newNightWork.CancelTime = nightWork.CancelTime;
+                newNightWork.CloseManId = nightWork.CloseManId;
+                newNightWork.CloseReasons = nightWork.CloseReasons;
+                newNightWork.CloseTime = nightWork.CloseTime;
+                newNightWork.NextManId = nightWork.NextManId;
+                newNightWork.States = nightWork.States;
+                db.SubmitChanges();
+            }
+        }
+
+        /// <summary>
+        /// 根据主键删除夜间施工作业票
+        /// </summary>
+        /// <param name="nightWorkId"></param>
+        public static void DeleteNightWorkById(string nightWorkId)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.License_NightWork nightWork = db.License_NightWork.FirstOrDefault(e => e.NightWorkId == nightWorkId);
+            if (nightWork != null)
+            {
+                ///删除编码表记录
+                CodeRecordsService.DeleteCodeRecordsByDataId(nightWorkId);
+                ///删除-安全措施
+                DeleteLicenseItemByDataId(nightWorkId);
+                ///删除作业票审核信息
+                DeleteFlowOperateByDataId(nightWorkId);
+                db.License_NightWork.DeleteOnSubmit(nightWork);
+                db.SubmitChanges();
+            }
+        }
+        #endregion
+
+        #region 吊装作业票
+        /// <summary>
+        /// 根据主键获取吊装作业票
+        /// </summary>
+        /// <param name="liftingWorkId"></param>
+        /// <returns></returns>
+        public static Model.License_LiftingWork GetLiftingWorkById(string liftingWorkId)
+        {
+            return Funs.DB.License_LiftingWork.FirstOrDefault(e => e.LiftingWorkId == liftingWorkId);
+        }
+
+        /// <summary>
+        /// 添加吊装作业票
+        /// </summary>
+        /// <param name="liftingWork"></param>
+        public static void AddLiftingWork(Model.License_LiftingWork liftingWork)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.License_LiftingWork newLiftingWork = new Model.License_LiftingWork
+            {
+                LiftingWorkId = liftingWork.LiftingWorkId,
+                ProjectId = liftingWork.ProjectId,
+                LicenseCode = liftingWork.LicenseCode,
+                ApplyUnitId = liftingWork.ApplyUnitId,
+                ApplyManId = liftingWork.ApplyManId,
+                ApplyDate = liftingWork.ApplyDate,
+                WorkPalce = liftingWork.WorkPalce,
+                WorkLevel = liftingWork.WorkLevel,
+                ValidityStartTime = liftingWork.ValidityStartTime,
+                ValidityEndTime = liftingWork.ValidityEndTime,
+                WorkMeasures = liftingWork.WorkMeasures,
+                CraneCapacity = liftingWork.CraneCapacity,
+                CancelManId = liftingWork.CancelManId,
+                CancelReasons = liftingWork.CancelReasons,
+                CancelTime = liftingWork.CancelTime,
+                CloseManId = liftingWork.CloseManId,
+                CloseReasons = liftingWork.CloseReasons,
+                CloseTime = liftingWork.CloseTime,
+                NextManId = liftingWork.NextManId,
+                States = liftingWork.States,
+            };
+            db.License_LiftingWork.InsertOnSubmit(newLiftingWork);
+            db.SubmitChanges();
+            ////增加一条编码记录
+            CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectLiftingWorkMenuId, liftingWork.ProjectId, liftingWork.ApplyUnitId, liftingWork.LiftingWorkId, liftingWork.ApplyDate);
+        }
+
+        /// <summary>
+        /// 修改吊装作业票
+        /// </summary>
+        /// <param name="liftingWork"></param>
+        public static void UpdateLiftingWork(Model.License_LiftingWork liftingWork)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.License_LiftingWork newLiftingWork = db.License_LiftingWork.FirstOrDefault(e => e.LiftingWorkId == liftingWork.LiftingWorkId);
+            if (newLiftingWork != null)
+            {
+                newLiftingWork.WorkPalce = liftingWork.WorkPalce;
+                newLiftingWork.WorkLevel = liftingWork.WorkLevel;
+                newLiftingWork.ValidityStartTime = liftingWork.ValidityStartTime;
+                newLiftingWork.ValidityEndTime = liftingWork.ValidityEndTime;
+                newLiftingWork.WorkMeasures = liftingWork.WorkMeasures;
+                newLiftingWork.CraneCapacity = liftingWork.CraneCapacity;
+                newLiftingWork.CancelManId = liftingWork.CancelManId;
+                newLiftingWork.CancelReasons = liftingWork.CancelReasons;
+                newLiftingWork.CancelTime = liftingWork.CancelTime;
+                newLiftingWork.CloseManId = liftingWork.CloseManId;
+                newLiftingWork.CloseReasons = liftingWork.CloseReasons;
+                newLiftingWork.CloseTime = liftingWork.CloseTime;
+                newLiftingWork.NextManId = liftingWork.NextManId;
+                newLiftingWork.States = liftingWork.States;
+                db.SubmitChanges();
+            }
+        }
+
+        /// <summary>
+        /// 根据主键删除吊装作业票
+        /// </summary>
+        /// <param name="liftingWorkId"></param>
+        public static void DeleteLiftingWorkById(string liftingWorkId)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.License_LiftingWork liftingWork = db.License_LiftingWork.FirstOrDefault(e => e.LiftingWorkId == liftingWorkId);
+            if (liftingWork != null)
+            {
+                ///删除编码表记录
+                CodeRecordsService.DeleteCodeRecordsByDataId(liftingWorkId);
+                ///删除-安全措施
+                DeleteLicenseItemByDataId(liftingWorkId);
+                ///删除作业票审核信息
+                DeleteFlowOperateByDataId(liftingWorkId);
+                db.License_LiftingWork.DeleteOnSubmit(liftingWork);
+                db.SubmitChanges();
+            }
+        }
+        #endregion
+
         #endregion
 
         #region 作业票-安全措施

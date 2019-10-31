@@ -241,7 +241,82 @@ namespace BLL
                            }).FirstOrDefault();
             }
             #endregion
-
+            #region 夜间施工作业票
+            if (strMenuId == Const.ProjectNightWorkMenuId)
+            {
+                getInfo = (from x in Funs.DB.License_NightWork
+                           where x.NightWorkId == id
+                           select new Model.LicenseDataItem
+                           {
+                               LicenseId = x.NightWorkId,
+                               MenuId = strMenuId,
+                               ProjectId = x.ProjectId,
+                               LicenseCode = x.LicenseCode,
+                               ApplyUnitId = x.ApplyUnitId,
+                               ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                               ApplyManId = x.ApplyManId,
+                               ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                               ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                               WorkPalce = x.WorkPalce,
+                               WorkMeasures = x.WorkMeasures,
+                               WorkLeaderId = x.WorkLeaderId,
+                               WorkLeaderName = Funs.DB.Sys_User.First(u => u.UserId == x.WorkLeaderId).UserName,
+                               WorkLeaderTel = x.WorkLeaderTel,
+                               SafeLeaderId = x.SafeLeaderId,
+                               SafeLeaderName = Funs.DB.Sys_User.First(u => u.UserId == x.SafeLeaderId).UserName,
+                               SafeLeaderTel = x.SafeLeaderTel,
+                               ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                               ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),                              
+                               CancelManId = x.CancelManId,
+                               CancelManName = Funs.DB.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                               CancelReasons = x.CancelReasons,
+                               CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                               CloseManId = x.CloseManId,
+                               CloseManName = Funs.DB.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                               CloseReasons = x.CloseReasons,
+                               CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                               NextManId = x.NextManId,
+                               NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                               States = x.States,
+                           }).FirstOrDefault();
+            }
+            #endregion
+            #region 吊装作业票
+            if (strMenuId == Const.ProjectLiftingWorkMenuId)
+            {
+                getInfo = (from x in Funs.DB.License_LiftingWork
+                           where x.LiftingWorkId == id
+                           select new Model.LicenseDataItem
+                           {
+                               LicenseId = x.LiftingWorkId,
+                               MenuId = strMenuId,
+                               ProjectId = x.ProjectId,
+                               LicenseCode = x.LicenseCode,
+                               ApplyUnitId = x.ApplyUnitId,
+                               ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                               ApplyManId = x.ApplyManId,
+                               ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                               ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                               WorkPalce = x.WorkPalce,
+                               WorkLevel=x.WorkLevel,
+                               ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                               ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                               WorkMeasures = x.WorkMeasures,
+                               CraneCapacity=x.CraneCapacity,
+                               CancelManId = x.CancelManId,
+                               CancelManName = Funs.DB.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                               CancelReasons = x.CancelReasons,
+                               CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                               CloseManId = x.CloseManId,
+                               CloseManName = Funs.DB.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                               CloseReasons = x.CloseReasons,
+                               CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                               NextManId = x.NextManId,
+                               NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                               States = x.States,
+                           }).FirstOrDefault();
+            }
+            #endregion
             return getInfo;
         }
         #endregion        
@@ -480,6 +555,86 @@ namespace BLL
                                    CloseManName = Funs.DB.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
                                    CloseReasons = x.CloseReasons,
                                    CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                   States = x.States,
+                               }).ToList();
+            }
+            #endregion
+            #region 夜间作业票
+            if (strMenuId == Const.ProjectNightWorkMenuId)
+            {
+                getInfoList = (from x in Funs.DB.License_NightWork
+                               where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                    && (states == null || x.States == states)
+                               orderby x.LicenseCode descending
+                               select new Model.LicenseDataItem
+                               {
+                                   LicenseId = x.NightWorkId,
+                                   MenuId = strMenuId,
+                                   ProjectId = x.ProjectId,
+                                   LicenseCode = x.LicenseCode,
+                                   ApplyUnitId = x.ApplyUnitId,
+                                   ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                   ApplyManId = x.ApplyManId,
+                                   ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                   WorkPalce = x.WorkPalce,
+                                   WorkMeasures = x.WorkMeasures,
+                                   WorkLeaderId = x.WorkLeaderId,
+                                   WorkLeaderName = Funs.DB.Sys_User.First(u => u.UserId == x.WorkLeaderId).UserName,
+                                   WorkLeaderTel = x.WorkLeaderTel,
+                                   SafeLeaderId = x.SafeLeaderId,
+                                   SafeLeaderName = Funs.DB.Sys_User.First(u => u.UserId == x.SafeLeaderId).UserName,
+                                   SafeLeaderTel = x.SafeLeaderTel,
+                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                   CancelManId = x.CancelManId,
+                                   CancelManName = Funs.DB.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                   CancelReasons = x.CancelReasons,
+                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                   CloseManId = x.CloseManId,
+                                   CloseManName = Funs.DB.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                   CloseReasons = x.CloseReasons,
+                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                   NextManId = x.NextManId,
+                                   NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                                   States = x.States,
+                               }).ToList();
+            }
+            #endregion
+            #region 吊装作业票
+            if (strMenuId == Const.ProjectLiftingWorkMenuId)
+            {
+                getInfoList = (from x in Funs.DB.License_LiftingWork
+                               where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                    && (states == null || x.States == states)
+                               orderby x.LicenseCode descending
+                               select new Model.LicenseDataItem
+                               {
+                                   LicenseId = x.LiftingWorkId,
+                                   MenuId = strMenuId,
+                                   ProjectId = x.ProjectId,
+                                   LicenseCode = x.LicenseCode,
+                                   ApplyUnitId = x.ApplyUnitId,
+                                   ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                   ApplyManId = x.ApplyManId,
+                                   ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                   WorkPalce = x.WorkPalce,
+                                   WorkLevel = x.WorkLevel,
+                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                   WorkMeasures = x.WorkMeasures,
+                                   CraneCapacity = x.CraneCapacity,
+                                   CancelManId = x.CancelManId,
+                                   CancelManName = Funs.DB.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
+                                   CancelReasons = x.CancelReasons,
+                                   CancelTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CancelTime),
+                                   CloseManId = x.CloseManId,
+                                   CloseManName = Funs.DB.Sys_User.First(u => u.UserId == x.CloseManId).UserName,
+                                   CloseReasons = x.CloseReasons,
+                                   CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
+                                   NextManId = x.NextManId,
+                                   NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
                                    States = x.States,
                                }).ToList();
             }
@@ -973,6 +1128,150 @@ namespace BLL
                 }
             }
             #endregion
+            #region 夜间施工作业票
+            if (newItem.MenuId == Const.ProjectNightWorkMenuId)
+            {
+                Model.License_NightWork newNightWork = new Model.License_NightWork
+                {
+                    NightWorkId = strLicenseId,
+                    ProjectId = newItem.ProjectId,
+                    LicenseCode = newItem.LicenseCode,
+                    ApplyUnitId = newItem.ApplyUnitId,
+                    ApplyManId = newItem.ApplyManId,
+                    ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
+                    WorkPalce = newItem.WorkPalce,
+                    WorkMeasures = newItem.WorkMeasures,
+                    ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
+                    ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
+                    WorkLeaderId = newItem.WorkLeaderId,
+                    WorkLeaderTel = newItem.WorkLeaderTel,
+                    SafeLeaderId = newItem.SafeLeaderId,
+                    SafeLeaderTel = newItem.SafeLeaderTel,
+                    CancelManId = newItem.CancelManId,
+                    CancelReasons = newItem.CancelReasons,
+                    CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
+                    CloseManId = newItem.CloseManId,
+                    CloseReasons = newItem.CloseReasons,
+                    CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
+                    NextManId = newItem.NextManId,
+                    States = newItem.States,
+                };
+                if (newItem.States == Const.State_0)
+                {
+                    newNightWork.NextManId = newItem.ApplyManId;
+                }
+                ////保存
+                var updateNightWork = Funs.DB.License_NightWork.FirstOrDefault(x => x.NightWorkId == strLicenseId);
+                if (updateNightWork == null)
+                {
+                    newNightWork.ApplyDate = DateTime.Now;
+                    strLicenseId = newNightWork.NightWorkId = SQLHelper.GetNewID();
+                    newNightWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectNightWorkMenuId, newNightWork.ProjectId, newNightWork.ApplyUnitId);
+                    Funs.DB.License_NightWork.InsertOnSubmit(newNightWork);
+                    ////增加一条编码记录
+                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectNightWorkMenuId, newNightWork.ProjectId, newNightWork.ApplyUnitId, newNightWork.NightWorkId, newNightWork.ApplyDate);
+                }
+                else
+                {
+                    if (newItem.States == Const.State_3)
+                    {
+                        updateNightWork.CloseManId = newNightWork.CloseManId;
+                        updateNightWork.CloseReasons = newNightWork.CloseReasons;
+                        updateNightWork.CloseTime = DateTime.Now;
+                    }
+                    else if (newItem.States == Const.State_R)
+                    {
+                        updateNightWork.CancelManId = newNightWork.CancelManId;
+                        updateNightWork.CancelReasons = newNightWork.CancelReasons;
+                        updateNightWork.CancelTime = DateTime.Now;
+                    }
+                    else
+                    {
+                        updateNightWork.WorkPalce = newNightWork.WorkPalce;
+                        updateNightWork.WorkMeasures = newNightWork.WorkMeasures;
+                        updateNightWork.ValidityStartTime = newNightWork.ValidityStartTime;
+                        updateNightWork.ValidityEndTime = newNightWork.ValidityEndTime;
+                        updateNightWork.WorkLeaderId = newItem.WorkLeaderId;
+                        updateNightWork.WorkLeaderTel = newItem.WorkLeaderTel;
+                        updateNightWork.SafeLeaderId = newItem.SafeLeaderId;
+                        updateNightWork.SafeLeaderTel = newItem.SafeLeaderTel;
+                        updateNightWork.NextManId = newNightWork.NextManId;
+                        updateNightWork.States = newNightWork.States;
+                    }
+                    updateNightWork.States = newNightWork.States;
+                }
+            }
+            #endregion
+            #region 吊装作业票
+            if (newItem.MenuId == Const.ProjectLiftingWorkMenuId)
+            {
+                Model.License_LiftingWork newLiftingWork = new Model.License_LiftingWork
+                {
+                    LiftingWorkId = strLicenseId,
+                    ProjectId = newItem.ProjectId,
+                    LicenseCode = newItem.LicenseCode,
+                    ApplyUnitId = newItem.ApplyUnitId,
+                    ApplyManId = newItem.ApplyManId,
+                    ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
+                    WorkPalce = newItem.WorkPalce,
+                    WorkLevel = newItem.WorkLevel,
+                    ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
+                    ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
+                    WorkMeasures = newItem.WorkMeasures,
+                    CraneCapacity = newItem.CraneCapacity,
+                    CancelManId = newItem.CancelManId,
+                    CancelReasons = newItem.CancelReasons,
+                    CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
+                    CloseManId = newItem.CloseManId,
+                    CloseReasons = newItem.CloseReasons,
+                    CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
+                    NextManId = newItem.NextManId,
+                    States = newItem.States,
+                };
+                if (newItem.States == Const.State_0)
+                {
+                    newLiftingWork.NextManId = newItem.ApplyManId;
+                }
+                ////保存
+                var updateLiftingWork = Funs.DB.License_LiftingWork.FirstOrDefault(x => x.LiftingWorkId == strLicenseId);
+                if (updateLiftingWork == null)
+                {
+                    newLiftingWork.ApplyDate = DateTime.Now;
+                    strLicenseId = newLiftingWork.LiftingWorkId = SQLHelper.GetNewID();
+                    newLiftingWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectLiftingWorkMenuId, newLiftingWork.ProjectId, newLiftingWork.ApplyUnitId);
+                    Funs.DB.License_LiftingWork.InsertOnSubmit(newLiftingWork);
+                    ////增加一条编码记录
+                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectLiftingWorkMenuId, newLiftingWork.ProjectId, newLiftingWork.ApplyUnitId, newLiftingWork.LiftingWorkId, newLiftingWork.ApplyDate);
+                }
+                else
+                {
+                    if (newItem.States == Const.State_3)
+                    {
+                        updateLiftingWork.CloseManId = newLiftingWork.CloseManId;
+                        updateLiftingWork.CloseReasons = newLiftingWork.CloseReasons;
+                        updateLiftingWork.CloseTime = DateTime.Now;
+                    }
+                    else if (newItem.States == Const.State_R)
+                    {
+                        updateLiftingWork.CancelManId = newLiftingWork.CancelManId;
+                        updateLiftingWork.CancelReasons = newLiftingWork.CancelReasons;
+                        updateLiftingWork.CancelTime = DateTime.Now;
+                    }
+                    else
+                    {
+                        updateLiftingWork.WorkPalce = newLiftingWork.WorkPalce;
+                        updateLiftingWork.WorkLevel = newLiftingWork.WorkLevel;
+                        updateLiftingWork.ValidityStartTime = newLiftingWork.ValidityStartTime;
+                        updateLiftingWork.ValidityEndTime = newLiftingWork.ValidityEndTime;
+                        updateLiftingWork.WorkMeasures = newLiftingWork.WorkMeasures;
+                        updateLiftingWork.CraneCapacity = newLiftingWork.CraneCapacity;
+                        updateLiftingWork.NextManId = newLiftingWork.NextManId;
+                        updateLiftingWork.States = newLiftingWork.States;
+                    }
+                    updateLiftingWork.States = newLiftingWork.States;
+                }
+            }
+            #endregion
 
             #region 保存安全措施明细
             if (newItem.States == Const.State_0 || newItem.States == Const.State_1)
@@ -1344,6 +1643,74 @@ namespace BLL
                         {
                             getBreakGround.NextManId = applyManId;
                             getBreakGround.States = Const.State_0;
+                        }
+                    }
+                }
+                #endregion
+                #region 夜间施工作业票
+                if (strMenuId == Const.ProjectNightWorkMenuId)
+                {
+                    var getNightWork = Funs.DB.License_NightWork.FirstOrDefault(x => x.NightWorkId == updateFlowOperate.DataId);
+                    if (getNightWork != null)
+                    {
+                        applyManId = getNightWork.ApplyManId;
+                        if (newItem.IsAgree == true)
+                        {
+                            getNightWork.NextManId = newItem.NextOperaterId;
+                            if (boolIsFlowEnd == true)
+                            {
+                                getNightWork.NextManId = null;
+                                getNightWork.States = Const.State_2;
+                                if (getNightWork.ValidityStartTime.HasValue && getNightWork.ValidityStartTime < DateTime.Now)
+                                {
+                                    int days = 7;
+                                    if (getNightWork.ValidityEndTime.HasValue)
+                                    {
+                                        days = Convert.ToInt32((getNightWork.ValidityEndTime - getNightWork.ValidityStartTime).Value.TotalDays);
+                                    }
+                                    getNightWork.ValidityStartTime = DateTime.Now;
+                                    getNightWork.ValidityEndTime = DateTime.Now.AddDays(days);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            getNightWork.NextManId = applyManId;
+                            getNightWork.States = Const.State_0;
+                        }
+                    }
+                }
+                #endregion
+                #region 吊装作业票
+                if (strMenuId == Const.ProjectLiftingWorkMenuId)
+                {
+                    var getLiftingWork = Funs.DB.License_LiftingWork.FirstOrDefault(x => x.LiftingWorkId == updateFlowOperate.DataId);
+                    if (getLiftingWork != null)
+                    {
+                        applyManId = getLiftingWork.ApplyManId;
+                        if (newItem.IsAgree == true)
+                        {
+                            getLiftingWork.NextManId = newItem.NextOperaterId;
+                            if (boolIsFlowEnd == true)
+                            {
+                                getLiftingWork.NextManId = null;
+                                getLiftingWork.States = Const.State_2;
+                                if (getLiftingWork.ValidityStartTime.HasValue && getLiftingWork.ValidityStartTime < DateTime.Now)
+                                {
+                                    int days = 7;
+                                    if (getLiftingWork.ValidityEndTime.HasValue)
+                                    {
+                                        days = Convert.ToInt32((getLiftingWork.ValidityEndTime - getLiftingWork.ValidityStartTime).Value.TotalDays);
+                                    }
+                                    getLiftingWork.ValidityStartTime = DateTime.Now;
+                                    getLiftingWork.ValidityEndTime = DateTime.Now.AddDays(days);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            getLiftingWork.NextManId = applyManId;
+                            getLiftingWork.States = Const.State_0;
                         }
                     }
                 }
