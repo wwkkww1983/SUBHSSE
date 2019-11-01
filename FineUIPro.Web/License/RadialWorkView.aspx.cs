@@ -211,7 +211,7 @@
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT LicenseItemId,DataId,SortIndex,SafetyMeasures,(CASE WHEN IsUsed = 1 THEN '否' ELSE '是' END) AS NoUsedName,ConfirmManId,U.UserName AS ConfirmManName"
+            string strSql = @"SELECT LicenseItemId,DataId,SortIndex,SafetyMeasures,(CASE WHEN IsUsed = 1 THEN '适用' ELSE '不适用' END) AS NoUsedName,ConfirmManId,U.UserName AS ConfirmManName"
                          + @" FROM License_LicenseItem AS L "
                          + @" LEFT JOIN Sys_User AS U ON L.ConfirmManId =U.UserId"
                          + @" WHERE L.DataId ='" + this.RadialWorkId +"'";

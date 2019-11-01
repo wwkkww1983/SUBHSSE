@@ -302,7 +302,9 @@ namespace FineUIPro.Web.EduTrain
                     }
                     else
                     {
-                        var addTrainingItem = Funs.DB.Training_TestTrainingItem.FirstOrDefault(x => x.Abstracts == newViewTrainingItem.Abstracts && x.TrainingId == newViewTrainingItem.TrainingId && x.WorkPostIds == newViewTrainingItem.WorkPostIds);
+                        var addTrainingItem = Funs.DB.Training_TestTrainingItem.FirstOrDefault(x => x.Abstracts == newViewTrainingItem.Abstracts
+                                && x.TrainingId != newViewTrainingItem.TrainingId 
+                                && x.WorkPostIds == newViewTrainingItem.WorkPostIds);
                         if (addTrainingItem == null)
                         {
                             Model.Training_TestTrainingItem newTrainingItem = new Model.Training_TestTrainingItem

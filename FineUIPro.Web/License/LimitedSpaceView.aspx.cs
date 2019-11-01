@@ -208,7 +208,7 @@
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT LicenseItemId,DataId,SortIndex,SafetyMeasures,(CASE WHEN IsUsed = 1 THEN '否' ELSE '是' END) AS NoUsedName,ConfirmManId,U.UserName AS ConfirmManName"
+            string strSql = @"SELECT LicenseItemId,DataId,SortIndex,SafetyMeasures,(CASE WHEN IsUsed = 1 THEN '适用' ELSE '不适用' END) AS NoUsedName,ConfirmManId,U.UserName AS ConfirmManName"
                          + @" FROM License_LicenseItem AS L "
                          + @" LEFT JOIN Sys_User AS U ON L.ConfirmManId =U.UserId"
                          + @" WHERE L.DataId ='" + this.LimitedSpaceId +"'";
@@ -220,5 +220,20 @@
             Grid1.DataSource = table;
             Grid1.DataBind();
         }
+
+        #region 附件查看
+        /// <summary>
+        /// 附件查看
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnAttachUrl_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(this.LimitedSpaceId))
+            {
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&menuId={1}&type=-1", this.LimitedSpaceId, Const.ProjectLimitedSpaceMenuId)));
+            }
+        }
+        #endregion
     }
 }

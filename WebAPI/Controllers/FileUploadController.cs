@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.IO;
 using System.Web;
-using Newtonsoft.Json;
+using BLL;
 using System.Configuration;
 
 namespace WebAPI.Controllers
@@ -58,6 +58,28 @@ namespace WebAPI.Controllers
             }
 
             return Ok(reUrl);
+        }
+        #endregion
+
+        #region 保存附件信息
+        /// <summary>
+        /// 保存附件信息
+        /// </summary>
+        /// <param name="toDoItem">附件</param>
+        [HttpPost]
+        public Model.ResponeData SaveLicenseFlowOperate([FromBody] Model.ToDoItem toDoItem)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APIUpLoadFileService.SaveAttachUrl(toDoItem);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
         }
         #endregion
     }

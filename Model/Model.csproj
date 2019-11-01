@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIItem\HSEDiaryItem.cs" />
     <Compile Include="APIItem\FlowOperateItem.cs" />
     <Compile Include="APIItem\FileInfoItem.cs" />
     <Compile Include="APIItem\LicenseDataItem.cs" />

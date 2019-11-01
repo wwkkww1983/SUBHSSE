@@ -674,6 +674,36 @@
             <param name="licenseType">作业票类型</param>
             <returns></returns>
         </member>
+        <member name="T:WebAPI.Controllers.HSEDiaryController">
+            <summary>
+            HSE日志
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.HSEDiaryController.getHSEDiaryList(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            获取HSE日志列表
+            </summary>
+            <param name="projectId">项目ID</param>
+            <param name="userId">用户ID</param>
+            <param name="diaryDate">日期</param>
+            <param name="pageIndex">页码</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.HSEDiaryController.getHSEDiary(System.String,System.String,System.String)">
+            <summary>
+            获取HSE日志详细信息
+            </summary>
+            <param name="projectId">项目ID</param>
+            <param name="userId">用户ID</param>
+            <param name="diaryDate">日期</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.HSEDiaryController.SaveHSEDiary(Model.HSEDiaryItem)">
+            <summary>
+            保存HSE日志信息
+            </summary>
+            <param name="hseDiaryItem">HSE日志</param>
+        </member>
         <member name="T:WebAPI.Controllers.LicenseController">
             <summary>
             作业票控制器
@@ -951,6 +981,12 @@
             附件上传
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.FileUploadController.SaveLicenseFlowOperate(Model.ToDoItem)">
+            <summary>
+            保存附件信息
+            </summary>
+            <param name="toDoItem">附件</param>
         </member>
         <member name="T:WebAPI.Controllers.HazardListController">
             <summary>

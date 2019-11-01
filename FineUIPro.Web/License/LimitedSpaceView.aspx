@@ -226,10 +226,15 @@
                     </f:TextBox>
                 </Items>
             </f:FormRow>
-        </Rows>
-        <Toolbars>
+        </Rows>       
+         <Toolbars>
             <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
                 <Items>
+                    <f:Label runat="server" ID="lbTemp">
+                    </f:Label>
+                    <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件" Icon="TableCell" runat="server"
+                        OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1">
+                    </f:Button>
                     <f:ToolbarFill ID="ToolbarFill1" runat="server">
                     </f:ToolbarFill>
                     <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose" MarginRight="10px">
@@ -237,7 +242,11 @@
                 </Items>
             </f:Toolbar>
         </Toolbars>
-    </f:Form>
-    </form>
-</body>
+        </f:Form>
+         <f:Window ID="WindowAtt" Title="附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+            Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+            Height="500px">
+        </f:Window>
+        </form>
+    </body>
 </html>

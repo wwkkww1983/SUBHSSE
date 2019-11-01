@@ -462,6 +462,8 @@
     <Content Include="ManagementReport\ServerSafeReport.aspx" />
     <Content Include="ManagementReport\ServerSafeReportItemSave.aspx" />
     <Content Include="ManagementReport\ServerSafeReportSave.aspx" />
+    <Content Include="Manager\HSEDiary.aspx" />
+    <Content Include="Manager\HSEDiaryView.aspx" />
     <Content Include="Manager\HSELogStatistics.aspx" />
     <Content Include="Manager\HSSELogMonthEdit.aspx" />
     <Content Include="Manager\ManagerAnalyse.aspx" />
@@ -6434,6 +6436,20 @@
     </Compile>
     <Compile Include="ManagementReport\ServerSafeReportSave.aspx.designer.cs">
       <DependentUpon>ServerSafeReportSave.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\HSEDiary.aspx.cs">
+      <DependentUpon>HSEDiary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\HSEDiary.aspx.designer.cs">
+      <DependentUpon>HSEDiary.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\HSEDiaryView.aspx.cs">
+      <DependentUpon>HSEDiaryView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\HSEDiaryView.aspx.designer.cs">
+      <DependentUpon>HSEDiaryView.aspx</DependentUpon>
     </Compile>
     <Compile Include="Manager\HSELogStatistics.aspx.cs">
       <DependentUpon>HSELogStatistics.aspx</DependentUpon>

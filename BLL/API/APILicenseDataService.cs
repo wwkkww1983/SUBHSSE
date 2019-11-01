@@ -51,6 +51,7 @@ namespace BLL
                                CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
                                NextManId = x.NextManId,
                                NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                               AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.FireWorkId).AttachUrl.Replace('\\', '/'),
                                States = x.States,
                            }).FirstOrDefault();
             }
@@ -87,6 +88,7 @@ namespace BLL
                                CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
                                NextManId = x.NextManId,
                                NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                               AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.HeightWorkId).AttachUrl.Replace('\\', '/'),
                                States = x.States,
                            }).FirstOrDefault();
             }
@@ -123,6 +125,7 @@ namespace BLL
                                CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
                                NextManId = x.NextManId,
                                NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                               AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.LimitedSpaceId).AttachUrl.Replace('\\', '/'),
                                States = x.States,
                            }).FirstOrDefault();
             }
@@ -201,6 +204,7 @@ namespace BLL
                                CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
                                NextManId = x.NextManId,
                                NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                               AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.OpenCircuitId).AttachUrl.Replace('\\', '/'),
                                States = x.States,
                            }).FirstOrDefault();
             }
@@ -277,6 +281,7 @@ namespace BLL
                                CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
                                NextManId = x.NextManId,
                                NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                               AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.NightWorkId).AttachUrl.Replace('\\', '/'),
                                States = x.States,
                            }).FirstOrDefault();
             }
@@ -313,6 +318,7 @@ namespace BLL
                                CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
                                NextManId = x.NextManId,
                                NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
+                               AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.LiftingWorkId).AttachUrl.Replace('\\', '/'),
                                States = x.States,
                            }).FirstOrDefault();
             }

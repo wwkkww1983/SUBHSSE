@@ -190,9 +190,9 @@
 <TreeNode id="03235B30-960D-4FCF-99F7-97773A2EE108" Text="管理工作报告" NavigateUrl="" Icon="ApplicationViewColumns"><TreeNode id="AE118E9C-C309-43B7-A198-8CA90A8D98EB" Text="管理周报" NavigateUrl="Manager/ManagerWeek.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="5D006DDC-3AED-4E5A-8597-3C972D96F983" Text="管理月报" NavigateUrl="Manager/ManagerMonth.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="68A52EEA-2661-4CB0-9382-A36AA5DCC480" Text="HSE管理月报" NavigateUrl="Manager/ManagerMonthC.aspx" Icon="PageHeaderFooter"></TreeNode>
-<TreeNode id="E18AF205-9C5B-40F8-B77B-B30C31B10BB5" Text="安全生产月报" NavigateUrl="Manager/ManagerMonthD.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="A97295B1-86C5-45F6-B8EC-A520E8CF3A4B" Text="项目HSE绩效管理报告" NavigateUrl="Manager/PerformanceManagementReport.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="EDRF6YUJ-SDEW-2389-DW31-23D42D966YUJ" Text="安全数据汇总" NavigateUrl="Manager/ManagerStatistic.aspx" Icon="PageHeaderFooter"></TreeNode>
+<TreeNode id="E18AF205-9C5B-40F8-B77B-B30C31B10BB5" Text="安全生产月报" NavigateUrl="Manager/ManagerMonthD.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="288C6A04-456F-4364-B4FE-82C14B8B3CC9" Text="海外工程项目月度安全统计表" NavigateUrl="Manager/ManagerMonthE.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="4RYM5TYF-3DBA-4727-B3E8-FB21F3EDDF4R" Text="人工时和投入安全费用比率分析" NavigateUrl="Manager/ManagerAnalyse.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="28668BD9-3E14-438F-8BEE-24BAF6031B63" Text="管理季报" NavigateUrl="Manager/ManagerQuarterly.aspx" Icon="PageHeaderFooter"></TreeNode>
@@ -209,8 +209,7 @@
 <TreeNode id="E763BC17-EC0D-4AB3-A388-EC7F734B56F2" Text="HSE经理暨HSE工程师细则" NavigateUrl="Manager/HSSELogMonth.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="AB03E11C-8174-4B83-90F4-D07A3D933E1D" Text="分包商上传周报" NavigateUrl="Manager/SubUploadWeek.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="BD16BE8D-0F4D-4C80-A4D7-707156B541B8" Text="项目安全文件上报" NavigateUrl="Manager/ProjectSafeReport.aspx" Icon="PageHeaderFooter"></TreeNode>
-<TreeNode id="8E5B4A8E-B06E-4C8A-A2C8-1091A9BCAF72" Text="工程师HSE日志" NavigateUrl="Manager/PersonDayReport.aspx" Icon="PageHeaderFooter"></TreeNode>
-<TreeNode id="A3507DF7-F972-44F9-91BF-02E378F64653" Text="工程师HSE月报" NavigateUrl="Manager/PersonMonthReport.aspx" Icon="PageHeaderFooter"></TreeNode>
+<TreeNode id="8E5B4A8E-B06E-4C8A-A2C8-1091A9BCAF72" Text="工程师HSE日志" NavigateUrl="Manager/HSEDiary.aspx" Icon="PageHeaderFooter"></TreeNode>
 </TreeNode>
 <TreeNode id="66DFD649-FBC2-463F-BD1A-04095D713C8E" Text="信息管理" NavigateUrl="" Icon="ComputerMagnify"><TreeNode id="B06EC998-60D2-4CBF-8080-9F000A1595AA" Text="管理通知" NavigateUrl="InformationProject/Notice.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="16092FE7-938B-4713-8084-4FBFA030F386" Text="安全宣传活动" NavigateUrl="InformationProject/PromotionalActivities.aspx" Icon="PageHeaderFooter"></TreeNode>

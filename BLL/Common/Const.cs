@@ -1979,6 +1979,10 @@ namespace BLL
         /// 分包商上传周报
         /// </summary>
         public const string ProjectSubUploadWeekMenuId = "AB03E11C-8174-4B83-90F4-D07A3D933E1D";
+        /// <summary>
+        /// 工程师HSE日志
+        /// </summary>
+        public const string ProjectHSEDiaryMenuId = "8E5B4A8E-B06E-4C8A-A2C8-1091A9BCAF72";
         #endregion
 
         #region E项目安全管理资料

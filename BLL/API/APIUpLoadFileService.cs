@@ -106,7 +106,20 @@ namespace BLL
             return filepath;
         }
 
+        /// <summary>
+        /// 保存附件方法
+        /// </summary>
+        public static void SaveAttachUrl(Model.ToDoItem toDoItem)
+        {
+            ////保存附件
+            if (!string.IsNullOrEmpty(toDoItem.UrlStr))
+            {
+                UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(toDoItem.UrlStr, 10, null), toDoItem.UrlStr, toDoItem.MenuId, toDoItem.DataId);
+            }
+            else
+            {
+                CommonService.DeleteAttachFileById(toDoItem.DataId);
+            }
+        }
     }
-
-
 }
