@@ -9,11 +9,13 @@ namespace BLL
     /// </summary>
     public static class APIHSEDiaryService
     {
-        #region 根据主键ID获取作业票安全措施详细
+        #region 获取HSE日志信息
         /// <summary>
-        ///  根据主键ID获取安全措施详细
+        /// 获取HSE日志信息
         /// </summary>
-        /// <param name="licenseItemId">主键</param>
+        /// <param name="projectId"></param>
+        /// <param name="userId"></param>
+        /// <param name="diaryDate"></param>
         /// <returns></returns>
         public static Model.HSEDiaryItem getHSEDiary(string projectId, string userId, string diaryDate)
         {
@@ -23,7 +25,7 @@ namespace BLL
             {
                 getItem.ProjectId = projectId;
                 getItem.UserId = userId;
-                getItem.UserId = UserService.GetUserNameByUserId(userId);
+                getItem.UserName = UserService.GetUserNameByUserId(userId);
                 getItem.DiaryDate = diaryDate;
                 getItem.HSEDiaryId = SQLHelper.GetNewID();
                 getItem.Value1 = "0";
@@ -48,18 +50,20 @@ namespace BLL
         }
         #endregion        
 
-        #region 获取作业票安全措施列表信息
+        #region 获取HSE日志列表信息
         /// <summary>
-        /// 获取作业票安全措施列表信息
+        /// 获取HSE日志列表信息
         /// </summary>
-        /// <param name="dataId">单据ID</param>
+        /// <param name="projectId"></param>
+        /// <param name="userId"></param>
+        /// <param name="diaryDate"></param>
         /// <returns></returns>
         public static List<Model.HSEDiaryItem> getHSEDiaryList(string projectId, string userId, string diaryDate)
         {
             DateTime? getDiaryDate = Funs.GetNewDateTime(diaryDate);
             var getDataList = from x in Funs.DB.Project_HSEDiary
-                              where x.ProjectId == projectId && (userId == null && x.UserId == userId)
-                              && (diaryDate == null && x.DiaryDate == getDiaryDate)
+                              where x.ProjectId == projectId && (userId == null || x.UserId == userId)
+                              && (diaryDate == null || x.DiaryDate == getDiaryDate)
                               orderby x.DiaryDate descending
                               select new Model.HSEDiaryItem
                               {
@@ -75,12 +79,11 @@ namespace BLL
         }
         #endregion
 
-        #region 保存作业票-安全措施
+        #region 保存HSE日志
         /// <summary>
-        /// 保存作业票-安全措施
+        /// 保存HSE日志
         /// </summary>
-        /// <param name="licenseItem">安全措施集合</param>
-        /// <returns></returns>
+        /// <param name="item"></param>
         public static void SaveHSEDiary(Model.HSEDiaryItem item)
         {
             DeleteHSEDiary(item.HSEDiaryId);
@@ -103,7 +106,7 @@ namespace BLL
         #endregion
 
         /// <summary>
-        /// 删除
+        /// 删除日志
         /// </summary>
         /// <param name="hseDiaryId"></param>
         public static void DeleteHSEDiary(string hseDiaryId)

@@ -674,6 +674,27 @@
             <param name="licenseType">作业票类型</param>
             <returns></returns>
         </member>
+        <member name="T:WebAPI.Controllers.HSEMonthController">
+            <summary>
+            HSE管理月报
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.HSEMonthController.getHSEMonthList(System.String,System.String,System.Int32)">
+            <summary>
+            获取HSE管理月报列表
+            </summary>
+            <param name="projectId">项目ID</param>
+            <param name="reportMonths">月份</param>
+            <param name="pageIndex">页码</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.HSEMonthController.getHSEMonth(System.String)">
+            <summary>
+            获取HSE管理月报详细信息
+            </summary>
+            <param name="monthReportId">主键ID</param>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.HSEDiaryController">
             <summary>
             HSE日志
@@ -1679,6 +1700,14 @@
             根据unitId获取用户信息
             </summary>
             <param name="unitId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.UserController.getUserByUnitidQuery(System.String,System.String)">
+            <summary>
+            根据unitId获取用户信息
+            </summary>
+            <param name="unitId">单位ID</param>
+            <param name="strParam">查询</param>
             <returns></returns>
         </member>
         <member name="M:WebAPI.Controllers.UserController.getUserByProjectIdUnitId(System.String,System.String)">

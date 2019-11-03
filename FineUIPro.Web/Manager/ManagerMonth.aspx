@@ -67,11 +67,11 @@
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM" HeaderText="月份"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>      
-                     <f:RenderField Width="90px" ColumnID="MonthReportStartDate" DataField="MonthReportStartDate" SortField="MonthReportStartDate"
+                     <f:RenderField Width="100px" ColumnID="MonthReportStartDate" DataField="MonthReportStartDate" SortField="MonthReportStartDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="开始日期"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="MonthReportDate" DataField="MonthReportDate" SortField="MonthReportDate"
+                    <f:RenderField Width="100px" ColumnID="MonthReportDate" DataField="MonthReportDate" SortField="MonthReportDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="结束日期"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>

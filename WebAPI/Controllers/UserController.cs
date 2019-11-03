@@ -90,7 +90,32 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = APIUserService.getUserByUnitId(unitId);
+                var getDataList = APIUserService.getUserByUnitId(unitId, null);
+                responeData.data = new { getDataList.Count, getDataList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region 根据unitId获取用户信息
+        /// <summary>
+        /// 根据unitId获取用户信息
+        /// </summary>
+        /// <param name="unitId">单位ID</param>
+        /// <param name="strParam">查询</param>
+        /// <returns></returns>
+        public Model.ResponeData getUserByUnitidQuery(string unitId, string strParam)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APIUserService.getUserByUnitId(unitId, strParam);
                 responeData.data = new { getDataList.Count, getDataList };
             }
             catch (Exception ex)
