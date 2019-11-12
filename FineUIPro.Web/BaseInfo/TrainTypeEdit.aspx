@@ -36,9 +36,9 @@
                 <Items>
                      <f:NumberBox runat="server" ID="txtSCount" Label="单选题数量" LabelWidth="120px"
                         Required="true" ShowRedStar="true"  NoDecimal="true" NoNegative="true"></f:NumberBox>
-                    <f:NumberBox runat="server" ID="txtMCount" Label="单选题数量" LabelWidth="120px"
+                    <f:NumberBox runat="server" ID="txtMCount" Label="多选题数量" LabelWidth="120px"
                         Required="true" ShowRedStar="true"  NoDecimal="true" NoNegative="true"></f:NumberBox>
-                    <f:NumberBox runat="server" ID="txtJCount" Label="单选题数量" LabelWidth="120px"
+                    <f:NumberBox runat="server" ID="txtJCount" Label="判断题数量" LabelWidth="120px"
                         Required="true" ShowRedStar="true"  NoDecimal="true" NoNegative="true"></f:NumberBox>
                 </Items>
             </f:FormRow>

@@ -20,7 +20,6 @@
             {
                 string userName = Request.QueryString["Account"];
                 // string password = Request.QueryString["Password"];
-
                 if (!string.IsNullOrEmpty(userName)) ///单点登陆
                 {
                     if (BLL.LoginService.UserLogOn(userName, this.ckRememberMe.Checked, this.Page))

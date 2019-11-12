@@ -21,7 +21,7 @@ namespace BLL
                           join y in Funs.DB.Base_Unit on x.UnitId equals y.UnitId
                           join z in Funs.DB.Base_Project on x.ProjectId equals z.ProjectId
                           join w in Funs.DB.Base_WorkPost on x.WorkPostId equals w.WorkPostId
-                          where x.Telephone == userInfo.Account && x.Password == Funs.EncryptionPassword(userInfo.Password)
+                          where (x.Telephone == userInfo.Account || x.PersonName == userInfo.Account) && x.Password == Funs.EncryptionPassword(userInfo.Password)
                           && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)
                           select new Model.UserItem
                           {

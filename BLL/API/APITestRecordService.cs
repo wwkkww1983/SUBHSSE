@@ -83,7 +83,6 @@ namespace BLL
             if (testRecord != null && testRecord.TestStartTime.HasValue)
             {
                 testRecordId = testRecord.TestRecordId;
-
                 var item = Funs.DB.Training_TestRecordItem.FirstOrDefault(x => x.TestRecordId == testRecord.TestRecordId);
                 if (item == null)
                 {
@@ -94,11 +93,13 @@ namespace BLL
                     foreach (var itemT in testPlanTrainings)
                     {
                         ////获取类型下适合岗位试题集合
-                        var getTestTrainingItems = Funs.DB.Training_TestTrainingItem.Where(x => x.TrainingId == itemT.TrainingId && (x.WorkPostIds == null || (x.WorkPostIds.Contains(person.WorkAreaId) && person.WorkAreaId != null)));
+                        var getTestTrainingItems = (from x in Funs.DB.Training_TestTrainingItem
+                                                    where x.TrainingId == itemT.TrainingId && (x.WorkPostIds == null || (x.WorkPostIds.Contains(person.WorkPostId) && person.WorkPostId != null))
+                                                    select x).ToList();
                         if (getTestTrainingItems.Count() > 0)
                         {                           
                             ////单选题
-                            var getSItem = getTestTrainingItems.Where(x => x.TestType == "1").OrderBy(x => Guid.NewGuid()).Take(itemT.TestType1Count ?? 1);
+                            var getSItem = getTestTrainingItems.Where(x => x.TestType == "1").OrderBy(x =>Guid.NewGuid()).Take(itemT.TestType1Count ?? 1);
                             if (getSItem.Count() > 0)
                             {
                                 getTestTrainingItemList.AddRange(getSItem);
@@ -345,27 +346,32 @@ namespace BLL
             decimal getCode = 0;
             //试卷
             var getTestRecord = Funs.DB.Training_TestRecord.FirstOrDefault(e => e.TestRecordId == testRecordId); 
-            if (getTestRecord != null && getTestRecord.TestStartTime.HasValue)
+            if (getTestRecord != null)
             {
-                getTestRecord.TestEndTime = DateTime.Now;
-                getTestRecord.TestScores= Funs.DB.Training_TestRecordItem.Where(x => x.TestRecordId == testRecordId).Sum(x => x.SubjectScore) ?? 0;
-                getTestRecord.TestEndTime = getTestRecord.TestStartTime.Value.AddMinutes(getTestRecord.Duration);
-                Funs.SubmitChanges();
-
-                getCode = getTestRecord.TestScores ?? 0;
-                //考试计划
-                var getTestPlan = Funs.DB.Training_TestPlan.FirstOrDefault(e => e.TestPlanId == getTestRecord.TestPlanId);
-                if (getTestPlan != null)
+                if (getTestRecord.TestStartTime.HasValue)
                 {
-                    ////所有人员 都交卷时 考试计划结束 状态置为3
-                    var getAllTestRecord = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == getTestPlan.TestPlanId && !x.TestEndTime.HasValue && x.TestRecordId != testRecordId);
-                    if (getAllTestRecord == null)
+                    getTestRecord.TestEndTime = DateTime.Now;
+                    getTestRecord.TestScores = Funs.DB.Training_TestRecordItem.Where(x => x.TestRecordId == testRecordId).Sum(x => x.SubjectScore ?? 0);
+                    getTestRecord.TestEndTime = getTestRecord.TestStartTime.Value.AddMinutes(getTestRecord.Duration);
+                    Funs.SubmitChanges();
+
+                    getCode = getTestRecord.TestScores ?? 0;
+                    //考试计划
+                    var getTestPlan = Funs.DB.Training_TestPlan.FirstOrDefault(e => e.TestPlanId == getTestRecord.TestPlanId);
+                    if (getTestPlan != null)
                     {
-                        getTestPlan.States = "3";
-                        Funs.SubmitChanges();
-                        APITestPlanService.SubmitTest(getTestPlan);
+                        ////所有人员 都交卷时 考试计划结束 状态置为3
+                        var getAllTestRecord = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == getTestPlan.TestPlanId && !x.TestEndTime.HasValue && x.TestRecordId != testRecordId);
+                        if (getAllTestRecord == null)
+                        {
+                            getTestPlan.States = "3";
+                            Funs.SubmitChanges();
+                            APITestPlanService.SubmitTest(getTestPlan);
+                        }
                     }
                 }
+
+                getCode = getTestRecord.TestScores ?? 0;
             }
 
             return getCode;

@@ -129,12 +129,17 @@ namespace BLL
                 TeachHour = trainingPlan.TeachHour,
                 TeachMan = trainingPlan.TeachMan,
                 TeachAddress = trainingPlan.TeachAddress,
-                TrainTypeId = trainingPlan.TrainTypeId,
-                TrainLevelId = trainingPlan.TrainLevelId,
+                TrainTypeId = trainingPlan.TrainTypeId,                
                 UnitIds = trainingPlan.UnitIds,
                 WorkPostId = trainingPlan.WorkPostId,
                 States = trainingPlan.States,
             };
+
+            if (!string.IsNullOrEmpty(trainingPlan.TrainLevelId))
+            {
+                newTrainingPlan.TrainLevelId = trainingPlan.TrainLevelId;
+            }
+            
             if (newTrainingPlan.TrainStartDate.HasValue && newTrainingPlan.TeachHour.HasValue)
             {
                 double dd = (double)((decimal)newTrainingPlan.TeachHour.Value);

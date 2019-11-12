@@ -713,13 +713,14 @@ namespace BLL
         public static void SaveLicenseData(Model.LicenseDataItem newItem)
         {
             string strLicenseId = newItem.LicenseId;
+            string projectId = newItem.ProjectId;
             #region 动火作业票
             if (newItem.MenuId == Const.ProjectFireWorkMenuId)
             {
                 Model.License_FireWork newFireWork = new Model.License_FireWork
                 {
                     FireWorkId = strLicenseId,
-                    ProjectId = newItem.ProjectId,
+                    ProjectId = projectId,
                     LicenseCode = newItem.LicenseCode,
                     ApplyUnitId = newItem.ApplyUnitId,
                     ApplyManId = newItem.ApplyManId,
@@ -787,7 +788,7 @@ namespace BLL
                 Model.License_HeightWork newHeightWork = new Model.License_HeightWork
                 {
                     HeightWorkId = strLicenseId,
-                    ProjectId = newItem.ProjectId,
+                    ProjectId = projectId,
                     LicenseCode = newItem.LicenseCode,
                     ApplyUnitId = newItem.ApplyUnitId,
                     ApplyManId = newItem.ApplyManId,
@@ -858,7 +859,7 @@ namespace BLL
                 Model.License_LimitedSpace newLimitedSpace = new Model.License_LimitedSpace
                 {
                     LimitedSpaceId = strLicenseId,
-                    ProjectId = newItem.ProjectId,
+                    ProjectId = projectId,
                     LicenseCode = newItem.LicenseCode,
                     ApplyUnitId = newItem.ApplyUnitId,
                     ApplyManId = newItem.ApplyManId,
@@ -926,7 +927,7 @@ namespace BLL
                 Model.License_RadialWork newRadialWork = new Model.License_RadialWork
                 {
                     RadialWorkId = strLicenseId,
-                    ProjectId = newItem.ProjectId,
+                    ProjectId = projectId,
                     LicenseCode = newItem.LicenseCode,
                     ApplyUnitId = newItem.ApplyUnitId,
                     ApplyManId = newItem.ApplyManId,
@@ -1002,7 +1003,7 @@ namespace BLL
                 Model.License_OpenCircuit newOpenCircuit = new Model.License_OpenCircuit
                 {
                     OpenCircuitId = strLicenseId,
-                    ProjectId = newItem.ProjectId,
+                    ProjectId = projectId,
                     LicenseCode = newItem.LicenseCode,
                     ApplyUnitId = newItem.ApplyUnitId,
                     ApplyManId = newItem.ApplyManId,
@@ -1072,7 +1073,7 @@ namespace BLL
                 Model.License_BreakGround newBreakGround = new Model.License_BreakGround
                 {
                     BreakGroundId = strLicenseId,
-                    ProjectId = newItem.ProjectId,
+                    ProjectId = projectId,
                     LicenseCode = newItem.LicenseCode,
                     ApplyUnitId = newItem.ApplyUnitId,
                     ApplyManId = newItem.ApplyManId,
@@ -1140,7 +1141,7 @@ namespace BLL
                 Model.License_NightWork newNightWork = new Model.License_NightWork
                 {
                     NightWorkId = strLicenseId,
-                    ProjectId = newItem.ProjectId,
+                    ProjectId = projectId,
                     LicenseCode = newItem.LicenseCode,
                     ApplyUnitId = newItem.ApplyUnitId,
                     ApplyManId = newItem.ApplyManId,
@@ -1214,7 +1215,7 @@ namespace BLL
                 Model.License_LiftingWork newLiftingWork = new Model.License_LiftingWork
                 {
                     LiftingWorkId = strLicenseId,
-                    ProjectId = newItem.ProjectId,
+                    ProjectId = projectId,
                     LicenseCode = newItem.LicenseCode,
                     ApplyUnitId = newItem.ApplyUnitId,
                     ApplyManId = newItem.ApplyManId,
@@ -1348,6 +1349,7 @@ namespace BLL
                             Model.License_FlowOperate newFlowOperate = new Model.License_FlowOperate
                             {
                                 FlowOperateId = SQLHelper.GetNewID(),
+                                ProjectId =projectId,
                                 DataId = strLicenseId,
                                 MenuId = item.MenuId,
                                 AuditFlowName = item.AuditFlowName,

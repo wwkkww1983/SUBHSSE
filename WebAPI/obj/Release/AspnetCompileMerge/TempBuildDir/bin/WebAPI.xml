@@ -1432,6 +1432,13 @@
             <param name="testPlanId">考试计划ID</param>
             <returns>试题类型</returns>
         </member>
+        <member name="M:WebAPI.Controllers.TestPlanController.getTestPlanTrainingListByTestPlanId2(System.String)">
+            <summary>
+            根据TestPlanId获取考试试题类型列表
+            </summary>
+            <param name="testPlanId">考试计划ID</param>
+            <returns>试题类型</returns>
+        </member>
         <member name="M:WebAPI.Controllers.TestPlanController.getTestPlanRecordItemByTestPlanIdPersonId(System.String,System.String)">
             <summary>
             根据PersonId、TestPlanId扫描考试计划二维码

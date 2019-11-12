@@ -134,6 +134,7 @@
         function onNewButtonClick() {
             // 重置表单字段
             F(formClientID).reset();
+            F(hfFormIDClientID).reset();
             // 清空表格选中行
             F(gridClientID).clearSelections();
             // 禁用删除按钮

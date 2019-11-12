@@ -46,7 +46,7 @@ namespace BLL
             DateTime? getMonthDate = Funs.GetNewDateTime(reportMonths);
             var getDataList = from x in Funs.DB.Manager_MonthReport
                               where x.ProjectId == projectId 
-                              && (reportMonths == null || (x.ReportMonths.Value.Year == getMonthDate.Value.Year && x.ReportMonths.Value.Month == getMonthDate.Value.Month))
+                              && (!getMonthDate.HasValue || x.ReportMonths == getMonthDate)
                               orderby x.ReportMonths descending
                               select new Model.HSEMonthItem
                               {

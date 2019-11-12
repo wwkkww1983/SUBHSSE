@@ -128,8 +128,36 @@ namespace WebAPI.Controllers
         {
             var responeData = new Model.ResponeData();
             try
-            {
+            {                
                 responeData.data = APITestPlanService.getTestPlanTrainingListByTestPlanId(testPlanId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 根据TestPlanId获取考试试题类型列表
+        /// <summary>
+        /// 根据TestPlanId获取考试试题类型列表
+        /// </summary>
+        /// <param name="testPlanId">考试计划ID</param>
+        /// <returns>试题类型</returns>
+        public Model.ResponeData getTestPlanTrainingListByTestPlanId2(string testPlanId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APITestPlanService.getTestPlanTrainingListByTestPlanId(testPlanId);
+                int pageCount = 0;
+                if (CommonService.GetIsThisUnit(Const.UnitId_SEDIN))
+                {
+                    pageCount = getDataList.Count();
+                }
+                responeData.data = new { pageCount, getDataList };
             }
             catch (Exception ex)
             {
@@ -152,25 +180,30 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getTestPlan = Funs.DB.Training_TestPlan.FirstOrDefault(e => e.TestPlanId == testPlanId); 
+                var getTestPlan = Funs.DB.Training_TestPlan.FirstOrDefault(e => e.TestPlanId == testPlanId && e.States != "3" && e.TestStartTime <= DateTime.Now && e.TestEndTime >= DateTime.Now); 
                 if (getTestPlan != null)
                 {
                     var person = PersonService.GetPersonByUserId(personId);
                     if (person != null && person.ProjectId == getTestPlan.ProjectId)
                     {
                         //2-考试中；生成考试试卷     
-                        if (getTestPlan.States == "2" && getTestPlan.TestStartTime <= DateTime.Now && getTestPlan.TestEndTime >= DateTime.Now)
+                        if (getTestPlan.States == "2" )
                         {
-                            var testRecord = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == getTestPlan.TestPlanId && x.TestManId == person.PersonId);
-                            if (testRecord != null && !testRecord.TestStartTime.HasValue)
-                            {////考试时长
-                                testRecord.Duration = getTestPlan.Duration;
-                                testRecord.TestStartTime = DateTime.Now;
-                                Funs.SubmitChanges();                               
+                            var testRecord = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == getTestPlan.TestPlanId && x.TestManId == person.PersonId && !x.TestEndTime.HasValue);
+                            if (testRecord != null)
+                            {
+                                if (!testRecord.TestStartTime.HasValue)
+                                {
+                                    ////考试时长
+                                    testRecord.Duration = getTestPlan.Duration;
+                                    testRecord.TestStartTime = DateTime.Now;
+                                    Funs.SubmitChanges();
+                                }
+
+                                string testRecordId = APITestRecordService.getTestRecordItemByTestPlanIdPersonId(getTestPlan, person);
+                                responeData.code = 2;
+                                responeData.data = new { testRecordId };
                             }
-                            string testRecordId = APITestRecordService.getTestRecordItemByTestPlanIdPersonId(getTestPlan, person);
-                            responeData.code = 2;
-                            responeData.data = new { testRecordId };
                         }
                         else
                         {
@@ -193,17 +226,13 @@ namespace WebAPI.Controllers
                                 }
                             }
                         }
-                    }
-                    if (responeData.code == 1)
-                    {
-                        //其他状态时 查看考试计划详细页
-                        responeData.data = APITestPlanService.getTestPlanByTestPlanId(testPlanId);
-                    }
+                    }                    
                 }
-                else
+
+                if (responeData.code == 1)
                 {
-                    responeData.message = "扫描有误！";
-                    responeData.code = 0;
+                    //其他状态时 查看考试计划详细页
+                    responeData.data = APITestPlanService.getTestPlanByTestPlanId(testPlanId);
                 }
             }
             catch (Exception ex)

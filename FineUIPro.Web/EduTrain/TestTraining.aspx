@@ -91,9 +91,9 @@
                                 Width="80px" FieldType="String" HeaderText="编号" HeaderTextAlign="Center" TextAlign="left">
                             </f:RenderField>
                             <f:RenderField ColumnID="Abstracts" DataField="Abstracts" SortField="Abstracts" 
-                                Width="150px" ExpandUnusedSpace="true" FieldType="String" HeaderText="教材内容" HeaderTextAlign="Center" TextAlign="left">
+                                Width="550px"  FieldType="String" HeaderText="教材内容" HeaderTextAlign="Center" TextAlign="left">
                             </f:RenderField>
-                             <f:RenderField ColumnID="WorkPostNames" DataField="WorkPostNames" SortField="WorkPostNames" 
+                             <f:RenderField ColumnID="WorkPostNames" DataField="WorkPostNames" SortField="WorkPostNames" ExpandUnusedSpace="true"
                                 Width="350px"  FieldType="String" HeaderText="适合岗位" HeaderTextAlign="Center" TextAlign="left">
                             </f:RenderField> 
                              <f:RenderField ColumnID="TestTypeName" DataField="TestTypeName" SortField="TestTypeName" 
