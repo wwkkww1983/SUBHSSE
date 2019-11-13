@@ -18,7 +18,7 @@
     <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" ShowBorder="false"
         ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
         <Items>
-            <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="一般来文管理" EnableCollapse="true"
+            <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="一般来文" EnableCollapse="true"
                 runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="ReceiveFileManagerId"
                 AllowCellEditing="true" ClicksToEdit="2" DataIDField="ReceiveFileManagerId" AllowSorting="true"
                 SortField="ReceiveFileCode" SortDirection="DESC" OnSort="Grid1_Sort" AllowPaging="true"
@@ -47,49 +47,31 @@
                     </f:Toolbar>
                 </Toolbars>
                 <Columns>
-                   <f:TemplateField ColumnID="tfNumber" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
-                        TextAlign="Center">
-                        <ItemTemplate>
-                            <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>
                     <f:RenderField Width="100px" ColumnID="ReceiveFileCode" DataField="ReceiveFileCode"
                         SortField="ReceiveFileCode" FieldType="String" HeaderText="来文编号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="150px" ColumnID="ReceiveFileName" DataField="ReceiveFileName" 
+                    <f:RenderField Width="350px" ColumnID="ReceiveFileName" DataField="ReceiveFileName"  ExpandUnusedSpace="true"
                         SortField="ReceiveFileName" FieldType="String" HeaderText="文件名称" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField  ColumnID="UnitName" DataField="UnitName" ExpandUnusedSpace="true"
+                    <f:RenderField  ColumnID="UnitName" DataField="UnitName" Width="220px"
                         SortField="UnitName" FieldType="String" HeaderText="来文单位" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="GetFileDate" DataField="GetFileDate"
+                    <f:RenderField Width="100px" ColumnID="GetFileDate" DataField="GetFileDate"
                         SortField="GetFileDate" FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd"
                         HeaderText="来文日期" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                     <f:RenderField Width="80px" ColumnID="Version" DataField="Version"
-                        SortField="Version" FieldType="String" HeaderText="版本号" HeaderTextAlign="Center"
-                        TextAlign="Center">
-                    </f:RenderField>
-                     <f:RenderField Width="100px" ColumnID="FileCode" DataField="FileCode"
-                        SortField="FileCode" FieldType="String" HeaderText="原文编号" HeaderTextAlign="Center"
-                        TextAlign="Left">
-                    </f:RenderField>
-                    <f:RenderField Width="80px" ColumnID="FilePageNum" DataField="FilePageNum"
-                        SortField="FilePageNum" FieldType="Int" HeaderText="原文页数" HeaderTextAlign="Center"
-                        TextAlign="Center">
-                    </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="FlowOperateName" DataField="FlowOperateName"
+                    <f:RenderField Width="140px" ColumnID="FlowOperateName" DataField="FlowOperateName"
                         SortField="FlowOperateName" FieldType="String" HeaderText="状态" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:WindowField TextAlign="Center" Width="90px" WindowID="WindowAtt" HeaderText="来文回复" Text="附件" ToolTip="附件上传查看" 
+                    <f:WindowField TextAlign="Center" Width="70px" WindowID="WindowAtt" HeaderText="回复" Text="附件" ToolTip="附件上传查看" 
                         DataIFrameUrlFields="ReceiveFileManagerId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ReceiveFileManagerAttachUrl&menuId=4F5C00F3-DA7D-4B2D-B1EF-310DFFCA77DD"
                         HeaderTextAlign="Center" >
                      </f:WindowField>
-                     <f:RenderField Width="90px" ColumnID="RetrunSateName" DataField="RetrunSateName"
+                     <f:RenderField Width="80px" ColumnID="RetrunSateName" DataField="RetrunSateName"
                         SortField="RetrunSateName" FieldType="String" HeaderText="回复状态" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>

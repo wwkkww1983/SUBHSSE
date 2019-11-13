@@ -256,14 +256,23 @@ namespace WebAPI.Controllers
                     decimal getTestScores = APITestRecordService.getSubmitTestRecord(getTestRecord);
                     ////及格分数
                     int getPassScores = SysConstSetService.getPassScore();
-                    if(getTestScores <= getPassScores)
+                    if (getTestScores <= getPassScores)
                     {
-                        int testCount = Funs.DB.Training_TestRecord.Where(x => x.TestPlanId == getTestRecord.TestPlanId).Count();
+                        int testCount = Funs.DB.Training_TestRecord.Where(x => x.TestPlanId == getTestRecord.TestPlanId && x.TestManId == getTestRecord.TestManId).Count();
                         if (testCount < 2)
                         {
                             ////重新生成一条考试记录 以及考试试卷
                             returnTestRecordId = APITestRecordService.getResitTestRecord(getTestRecord);
+                            responeData.message = "考试不合格。成绩为：" + getTestScores.ToString() + "。您将进入补考。";
                         }
+                        else
+                        {
+                            responeData.message = "考试不合格。成绩为：" + getTestScores.ToString() + "。请培训后再参加考试。";
+                        }
+                    }
+                    else
+                    {
+                        responeData.message ="恭喜考试通过。成绩为："+ getTestScores.ToString();
                     }
                     
                     responeData.data = new { getTestScores, getPassScores, returnTestRecordId };

@@ -343,7 +343,7 @@ namespace BLL
             {
                 getTestRecord.TestEndTime = DateTime.Now;
                 getTestRecord.TestScores = Funs.DB.Training_TestRecordItem.Where(x => x.TestRecordId == getTestRecord.TestRecordId).Sum(x => x.SubjectScore ?? 0);
-                getTestRecord.TestEndTime = getTestRecord.TestStartTime.Value.AddMinutes(getTestRecord.Duration);
+                //getTestRecord.TestEndTime = getTestRecord.TestStartTime.Value.AddMinutes(getTestRecord.Duration);
                 Funs.SubmitChanges();
 
                 getCode = getTestRecord.TestScores ?? 0;
