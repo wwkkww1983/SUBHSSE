@@ -572,6 +572,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getWorkPostQuery(System.String)">
+            <summary>
+              获取岗位信息
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.BaseInfoController.getLawsRegulationsType">
             <summary>
               获取法律法规类型
@@ -1635,13 +1641,13 @@
             根据UnitId获取单位信息
             </summary>
             <param name="unitId"></param>
-            <returns></returns>
+            <returns></returns>    
         </member>
         <member name="M:WebAPI.Controllers.UnitController.getUnitLists">
             <summary>
             获取所有单位
             </summary>
-            <returns></returns>
+            <returns></returns>             
         </member>
         <member name="M:WebAPI.Controllers.UnitController.getUnitByProjectIdUnitType(System.String,System.String)">
             <summary>
@@ -1735,6 +1741,22 @@
             <param name="strParam"></param>
             <param name="pageIndex"></param>
             <returns></returns>
+        </member>
+        <member name="T:WebAPI.Filter.TestPermissionAttribute">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebAPI.Filter.TestPermissionAttribute.OnActionExecuting(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            
+            </summary>
+            <param name="actionContext"></param>
+        </member>
+        <member name="F:WebAPI.Filter.TestPermissionAttribute.lists">
+            <summary>
+            
+            </summary>
         </member>
         <member name="T:WebAPI.WebApiApplication">
             <summary>

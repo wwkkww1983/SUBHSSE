@@ -200,7 +200,7 @@ namespace WebAPI.Controllers
                                     Funs.SubmitChanges();
                                 }
 
-                                string testRecordId = APITestRecordService.getTestRecordItemByTestPlanIdPersonId(getTestPlan, person);
+                                string testRecordId = APITestRecordService.CreateTestRecordItem(getTestPlan, testRecord, person);
                                 responeData.code = 2;
                                 responeData.data = new { testRecordId };
                             }

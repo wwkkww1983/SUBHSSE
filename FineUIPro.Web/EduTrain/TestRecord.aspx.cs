@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
 using BLL;
+using System.Linq;
 
 namespace FineUIPro.Web.EduTrain
 {
@@ -105,8 +106,8 @@ namespace FineUIPro.Web.EduTrain
                 string testRecordId = Grid1.Rows[i].DataKeys[0].ToString();
                 var testRecord = BLL.TestRecordService.GetTestRecordById(testRecordId);
                 if (testRecord != null)
-                {
-                    if (testRecord.TestScores < 80)
+                {                   
+                    if (testRecord.TestScores < SysConstSetService.getPassScore())
                     {
                         Grid1.Rows[i].RowCssClass = "Red";
                     }

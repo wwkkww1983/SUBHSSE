@@ -38,6 +38,21 @@
             return Funs.DB.Sys_Set.FirstOrDefault(x => x.SetId == setId);
         }
 
+        /// <summary>
+        /// 获取及格分数
+        /// </summary>
+        /// <returns></returns>
+        public static int getPassScore()
+        {
+            int passScore = 80;
+            var testRule = Funs.DB.Sys_TestRule.FirstOrDefault();
+            if (testRule != null)
+            {
+                passScore = testRule.PassingScore;
+            }
+            return passScore;
+        }
+
         #region 菜单编码模板
         /// <summary>
         /// 获取菜单编码模板信息 根据MenuId

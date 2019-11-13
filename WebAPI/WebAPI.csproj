@@ -192,6 +192,7 @@
     <Compile Include="Controllers\TrainRecordController.cs" />
     <Compile Include="Controllers\UnitController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Filter\TestPermissionAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

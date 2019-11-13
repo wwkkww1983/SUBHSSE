@@ -221,11 +221,25 @@
                                     BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
                                     <Rows>
                                         <f:FormRow ColumnWidths="35% 65%">
+                                            <Items>                                               
+                                                 <f:Label ID="lbTotalScore" Label="总分" runat="server" LabelWidth="200px"></f:Label>
+                                                 <f:Label ID="lbTotalCount" Label="题目数量" runat="server" ></f:Label>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow ColumnWidths="35% 65%">
                                             <Items>
                                                 <f:NumberBox ID="txtDuration" runat="server" Label="考试时长(分钟)" ShowRedStar="true" Required="true"
                                                     NoDecimal="true" NoNegative="true" LabelWidth="200px"> 
                                                 </f:NumberBox>
                                                 <f:Label ID="Label14" runat="server" Text="说明：一场考试的用时。" MarginLeft="50px"></f:Label>
+                                            </Items>
+                                        </f:FormRow>
+                                         <f:FormRow ColumnWidths="35% 65%">
+                                            <Items>
+                                                  <f:NumberBox ID="txtPassingScore" runat="server" Label="及格分" ShowRedStar="true" Required="true"
+                                                        NoDecimal="true" NoNegative="true" LabelWidth="200px" > 
+                                                </f:NumberBox>
+                                                <f:Label ID="Label21" runat="server" Text="说明：及格分数线。" MarginLeft="50px"></f:Label>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow ColumnWidths="35% 65%">
@@ -275,13 +289,7 @@
                                                 </f:NumberBox>
                                                 <f:Label ID="Label20" runat="server" Text="说明：一张试卷有多少个判断题。" MarginLeft="50px"></f:Label>
                                             </Items>
-                                        </f:FormRow>
-                                        <f:FormRow>
-                                            <Items>
-                                                 <f:Label ID="lbTotalScore" Label="总分" runat="server"></f:Label>
-                                                 <f:Label ID="lbTotalCount" Label="题目数量" runat="server"></f:Label>
-                                            </Items>
-                                        </f:FormRow>
+                                        </f:FormRow>                                                                            
                                     </Rows>
                                 </f:Form>
                             </Items>

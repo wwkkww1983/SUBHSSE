@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using WebAPI.Filter;
 
 namespace WebAPI
 {
@@ -20,7 +21,7 @@ namespace WebAPI
             GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
             // Web API 路由
             config.MapHttpAttributeRoutes();
-
+            config.Filters.Add(new TestPermissionAttribute());
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{action}/{id}",

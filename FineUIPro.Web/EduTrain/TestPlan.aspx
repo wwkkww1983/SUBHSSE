@@ -60,14 +60,14 @@
                     <f:RenderField Width="80px" ColumnID="PlanCode" DataField="PlanCode" SortField="PlanCode"
                         HeaderText="编号" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="PlanName" DataField="PlanName" FieldType="String"
+                    <f:RenderField Width="150px" ColumnID="PlanName" DataField="PlanName" FieldType="String"
                         HeaderText="计划名称" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>                   
-                    <f:RenderField Width="85px" ColumnID="TestStartTime" DataField="TestStartTime" 
-                          HeaderText="开始时间</br>扫码" HeaderTextAlign="Center" TextAlign="Left">
+                    <f:RenderField Width="150px" ColumnID="TestStartTime" DataField="TestStartTime" 
+                          HeaderText="扫码开始时间" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                     <f:RenderField Width="85px" ColumnID="TestEndTime" DataField="TestEndTime" 
-                          HeaderText="结束时间</br>扫码" HeaderTextAlign="Center" TextAlign="Left">
+                     <f:RenderField Width="150px" ColumnID="TestEndTime" DataField="TestEndTime" 
+                          HeaderText="扫码结束时间" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                      <f:RenderField Width="120px" ColumnID="TestPalce" DataField="TestPalce" FieldType="String"
                         HeaderText="考试地点" HeaderTextAlign="Center" TextAlign="Left">
@@ -87,7 +87,7 @@
                      <f:RenderField Width="75px" ColumnID="PlanManName" DataField="PlanManName" FieldType="String"
                         HeaderText="制定人" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="PlanDate" DataField="PlanDate" FieldType="Date"
+                    <f:RenderField Width="100px" ColumnID="PlanDate" DataField="PlanDate" FieldType="Date"
                         Renderer="Date" HeaderText="制定时间" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                   <%--  <f:RenderField Width="80px" ColumnID="StatesName" DataField="StatesName" FieldType="String"

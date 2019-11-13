@@ -70,10 +70,10 @@
                     <f:RenderField Width="85px" ColumnID="TestManName" DataField="TestManName" FieldType="String"
                         HeaderText="用户名" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="145" ColumnID="TestStartTime" DataField="TestStartTime" FieldType="String"
+                    <f:RenderField Width="150px" ColumnID="TestStartTime" DataField="TestStartTime" FieldType="String"
                         HeaderText="考试开始时间" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="145" ColumnID="TestEndTime" DataField="TestEndTime" FieldType="String"
+                    <f:RenderField Width="150px" ColumnID="TestEndTime" DataField="TestEndTime" FieldType="String"
                         HeaderText="考试结束时间" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>                   
                      <f:RenderField Width="85px" ColumnID="TestScores" DataField="TestScores" FieldType="String"

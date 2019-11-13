@@ -123,9 +123,10 @@ namespace BLL
         /// 获取岗位信息
         /// </summary>
         /// <returns></returns>
-        public static List<Model.BaseInfoItem> getWorkPost()
+        public static List<Model.BaseInfoItem> getWorkPost(string strParam)
         {
             var getDataLists = (from x in Funs.DB.Base_WorkPost
+                                where strParam == null || x.WorkPostName.Contains(strParam)
                                 orderby x.WorkPostName
                                 select new Model.BaseInfoItem { BaseInfoId = x.WorkPostId, BaseInfoCode = x.WorkPostCode, BaseInfoName = x.WorkPostName }).ToList();
             return getDataLists;

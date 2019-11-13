@@ -754,8 +754,9 @@ namespace FineUIPro.Web.SysManage
                 this.txtJValue.Text = sysTestRule.JValue.ToString();
                 this.txtSCount.Text = sysTestRule.SCount.ToString();
                 this.txtMCount.Text = sysTestRule.MCount.ToString();
-                this.txtJCount.Text = sysTestRule.JCount.ToString();
+                this.txtJCount.Text = sysTestRule.JCount.ToString();                
                 txtTab3_TextChanged(null, null);
+                this.txtPassingScore.Text = sysTestRule.PassingScore.ToString();
             }
         }
 
@@ -782,10 +783,11 @@ namespace FineUIPro.Web.SysManage
                 SCount = Funs.GetNewIntOrZero(this.txtSCount.Text),
                 MCount = Funs.GetNewIntOrZero(this.txtMCount.Text),
                 JCount = Funs.GetNewIntOrZero(this.txtJCount.Text),
+                PassingScore = Funs.GetNewIntOrZero(this.txtPassingScore.Text),
             };
 
             ShowNotify("保存成功！", MessageBoxIcon.Success);
-            BLL.LogService.AddSys_Log(this.CurrUser, "修改考试规则设置！", string.Empty, Const.SysConstSetMenuId, Const.BtnModify);
+            LogService.AddSys_Log(this.CurrUser, "修改考试规则设置！", string.Empty, Const.SysConstSetMenuId, Const.BtnModify);
         }
         /// <summary>
         /// 

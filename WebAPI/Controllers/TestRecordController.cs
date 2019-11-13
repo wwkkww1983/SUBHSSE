@@ -248,8 +248,26 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                decimal getData = APITestRecordService.getSubmitTestRecordByTestRecordId(testRecordId);
-                responeData.data = new { getData };
+                var getTestRecord = Funs.DB.Training_TestRecord.FirstOrDefault(e => e.TestRecordId == testRecordId);
+                if (getTestRecord != null)
+                {
+                    string returnTestRecordId = string.Empty;
+                    ////考试分数
+                    decimal getTestScores = APITestRecordService.getSubmitTestRecord(getTestRecord);
+                    ////及格分数
+                    int getPassScores = SysConstSetService.getPassScore();
+                    if(getTestScores <= getPassScores)
+                    {
+                        int testCount = Funs.DB.Training_TestRecord.Where(x => x.TestPlanId == getTestRecord.TestPlanId).Count();
+                        if (testCount < 2)
+                        {
+                            ////重新生成一条考试记录 以及考试试卷
+                            returnTestRecordId = APITestRecordService.getResitTestRecord(getTestRecord);
+                        }
+                    }
+                    
+                    responeData.data = new { getTestScores, getPassScores, returnTestRecordId };
+                }
             }
             catch (Exception ex)
             {

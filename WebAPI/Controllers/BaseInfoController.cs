@@ -233,7 +233,26 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = APIBaseInfoService.getWorkPost();
+                responeData.data = APIBaseInfoService.getWorkPost(null);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        /// <summary>
+        ///   获取岗位信息
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getWorkPostQuery(string strParam)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getWorkPost(strParam);
             }
             catch (Exception ex)
             {

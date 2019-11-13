@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using BLL;
+using WebAPI.Filter;
 
 namespace WebAPI.Controllers
 {
@@ -12,13 +13,13 @@ namespace WebAPI.Controllers
     /// 
     /// </summary>
     public class UnitController : ApiController
-    {        
+    {
         #region 根据UnitId获取单位信息
         /// <summary>
         /// 根据UnitId获取单位信息
         /// </summary>
         /// <param name="unitId"></param>
-        /// <returns></returns>
+        /// <returns></returns>    
         public Model.ResponeData getUnitByUnitId(string unitId)
         {
             var responeData = new Model.ResponeData();
@@ -40,7 +41,7 @@ namespace WebAPI.Controllers
         /// <summary>
         /// 获取所有单位
         /// </summary>
-        /// <returns></returns>
+        /// <returns></returns>             
         public Model.ResponeData getUnitLists()
         {
             var responeData = new Model.ResponeData();

@@ -75,78 +75,72 @@ namespace BLL
         /// </summary>
         /// <param name="testPlanId"></param>
         /// <returns></returns>
-        public static string getTestRecordItemByTestPlanIdPersonId(Model.Training_TestPlan getTestPlan, Model.SitePerson_Person person)
+        public static string CreateTestRecordItem(Model.Training_TestPlan getTestPlan, Model.Training_TestRecord getTestRecord, Model.SitePerson_Person person)
         {
-            string testRecordId = string.Empty;
-            ////当前人考试记录  未加入考试计划的 当考试开始扫码时 不允许再参与考试
-            var testRecord = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == getTestPlan.TestPlanId && x.TestManId == person.PersonId);
-            if (testRecord != null && testRecord.TestStartTime.HasValue)
+            ////当前人考试记录  未加入考试计划的 当考试开始扫码时 不允许再参与考试          
+            var item = Funs.DB.Training_TestRecordItem.FirstOrDefault(x => x.TestRecordId == getTestRecord.TestRecordId);
+            if (item == null)
             {
-                testRecordId = testRecord.TestRecordId;
-                var item = Funs.DB.Training_TestRecordItem.FirstOrDefault(x => x.TestRecordId == testRecord.TestRecordId);
-                if (item == null)
+                List<Model.Training_TestTrainingItem> getTestTrainingItemList = new List<Model.Training_TestTrainingItem>();
+                var testPlanTrainings = from x in Funs.DB.Training_TestPlanTraining
+                                        where x.TestPlanId == getTestPlan.TestPlanId
+                                        select x;
+                foreach (var itemT in testPlanTrainings)
                 {
-                    List<Model.Training_TestTrainingItem> getTestTrainingItemList = new List<Model.Training_TestTrainingItem>();
-                    var testPlanTrainings = from x in Funs.DB.Training_TestPlanTraining
-                                            where x.TestPlanId == getTestPlan.TestPlanId
-                                            select x;
-                    foreach (var itemT in testPlanTrainings)
+                    ////获取类型下适合岗位试题集合
+                    var getTestTrainingItems = (from x in Funs.DB.Training_TestTrainingItem
+                                                where x.TrainingId == itemT.TrainingId && (x.WorkPostIds == null || (x.WorkPostIds.Contains(person.WorkPostId) && person.WorkPostId != null))
+                                                select x).ToList();
+                    if (getTestTrainingItems.Count() > 0)
                     {
-                        ////获取类型下适合岗位试题集合
-                        var getTestTrainingItems = (from x in Funs.DB.Training_TestTrainingItem
-                                                    where x.TrainingId == itemT.TrainingId && (x.WorkPostIds == null || (x.WorkPostIds.Contains(person.WorkPostId) && person.WorkPostId != null))
-                                                    select x).ToList();
-                        if (getTestTrainingItems.Count() > 0)
-                        {                           
-                            ////单选题
-                            var getSItem = getTestTrainingItems.Where(x => x.TestType == "1").OrderBy(x =>Guid.NewGuid()).Take(itemT.TestType1Count ?? 1);
-                            if (getSItem.Count() > 0)
-                            {
-                                getTestTrainingItemList.AddRange(getSItem);
-                            }
-                            ///多选题
-                            var getMItem = getTestTrainingItems.Where(x => x.TestType == "2").OrderBy(x => Guid.NewGuid()).Take(itemT.TestType2Count ?? 1);
-                            if (getMItem.Count() > 0)
-                            {
-                                getTestTrainingItemList.AddRange(getMItem);
-                            }
-                            ///判断题
-                            var getJItem = getTestTrainingItems.Where(x => x.TestType == "3").OrderBy(x => Guid.NewGuid()).Take(itemT.TestType3Count ?? 1);
-                            if (getJItem.Count() > 0)
-                            {
-                                getTestTrainingItemList.AddRange(getJItem);
-                            }
+                        ////单选题
+                        var getSItem = getTestTrainingItems.Where(x => x.TestType == "1").OrderBy(x => Guid.NewGuid()).Take(itemT.TestType1Count ?? 1);
+                        if (getSItem.Count() > 0)
+                        {
+                            getTestTrainingItemList.AddRange(getSItem);
+                        }
+                        ///多选题
+                        var getMItem = getTestTrainingItems.Where(x => x.TestType == "2").OrderBy(x => Guid.NewGuid()).Take(itemT.TestType2Count ?? 1);
+                        if (getMItem.Count() > 0)
+                        {
+                            getTestTrainingItemList.AddRange(getMItem);
+                        }
+                        ///判断题
+                        var getJItem = getTestTrainingItems.Where(x => x.TestType == "3").OrderBy(x => Guid.NewGuid()).Take(itemT.TestType3Count ?? 1);
+                        if (getJItem.Count() > 0)
+                        {
+                            getTestTrainingItemList.AddRange(getJItem);
                         }
                     }
+                }
 
-                    if (getTestTrainingItemList.Count() > 0)
-                    {
-                        var getItems = from x in getTestTrainingItemList
-                                       select new Model.Training_TestRecordItem
-                                       {
-                                           TestRecordItemId = SQLHelper.GetNewID(),
-                                           TestRecordId = testRecordId,
-                                           TrainingItemName = x.TrainingItemName,
-                                           TrainingItemCode = x.TrainingItemCode,
-                                           Abstracts = x.Abstracts,
-                                           AttachUrl = x.AttachUrl,
-                                           TestType = x.TestType,
-                                           AItem = x.AItem,
-                                           BItem = x.BItem,
-                                           CItem = x.CItem,
-                                           DItem = x.DItem,
-                                           EItem = x.EItem,
-                                           AnswerItems = x.AnswerItems,
-                                           Score = x.TestType == "1" ? getTestPlan.SValue : (x.TestType == "2" ? getTestPlan.MValue : getTestPlan.JValue),
-                                       };
+                if (getTestTrainingItemList.Count() > 0)
+                {
+                    var getItems = from x in getTestTrainingItemList
+                                   select new Model.Training_TestRecordItem
+                                   {
+                                       TestRecordItemId = SQLHelper.GetNewID(),
+                                       TestRecordId = getTestRecord.TestRecordId,
+                                       TrainingItemName = x.TrainingItemName,
+                                       TrainingItemCode = x.TrainingItemCode,
+                                       Abstracts = x.Abstracts,
+                                       AttachUrl = x.AttachUrl,
+                                       TestType = x.TestType,
+                                       AItem = x.AItem,
+                                       BItem = x.BItem,
+                                       CItem = x.CItem,
+                                       DItem = x.DItem,
+                                       EItem = x.EItem,
+                                       AnswerItems = x.AnswerItems,
+                                       Score = x.TestType == "1" ? getTestPlan.SValue : (x.TestType == "2" ? getTestPlan.MValue : getTestPlan.JValue),
+                                   };
 
-                        Funs.DB.Training_TestRecordItem.InsertAllOnSubmit(getItems);
-                        Funs.SubmitChanges();
-                    }
+                    Funs.DB.Training_TestRecordItem.InsertAllOnSubmit(getItems);
+                    Funs.SubmitChanges();
                 }
             }
 
-            return testRecordId;
+            return getTestRecord.TestRecordId;
         }
         #endregion
 
@@ -160,26 +154,26 @@ namespace BLL
         public static List<Model.TestRecordItem> getTrainingTestRecordListByProjectIdPersonId(string projectId, string personId)
         {
             var getDataLists = (from x in Funs.DB.Training_TestRecord
-                               join y in Funs.DB.Training_TestPlan on x.TestPlanId equals y.TestPlanId
-                               where x.ProjectId == projectId && x.TestManId == personId && x.TestStartTime.HasValue
-                               orderby x.TestStartTime descending
-                               select new Model.TestRecordItem
-                               {
-                                   TestRecordId = x.TestRecordId,
-                                   ProjectId = x.ProjectId,
-                                   TestPlanId = x.TestPlanId,
-                                   TestPlanName = y.PlanName,
-                                   TestManId = x.TestManId,
-                                   TestManName = Funs.DB.SitePerson_Person.FirstOrDefault(p => p.PersonId == x.TestManId).PersonName,
-                                   TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime),
-                                   TestEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestEndTime),
-                                   Duration = x.Duration,
-                                   TestPlanEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime.Value.AddMinutes(x.Duration)),
-                                   TotalScore = y.TotalScore ?? 0,
-                                   TestScores = x.TestScores ?? 0,
-                                   TestType = x.TestType,
-                                   TemporaryUser = x.TemporaryUser,
-                               }).ToList();
+                                join y in Funs.DB.Training_TestPlan on x.TestPlanId equals y.TestPlanId
+                                where x.ProjectId == projectId && x.TestManId == personId && x.TestStartTime.HasValue
+                                orderby x.TestStartTime descending
+                                select new Model.TestRecordItem
+                                {
+                                    TestRecordId = x.TestRecordId,
+                                    ProjectId = x.ProjectId,
+                                    TestPlanId = x.TestPlanId,
+                                    TestPlanName = y.PlanName,
+                                    TestManId = x.TestManId,
+                                    TestManName = Funs.DB.SitePerson_Person.FirstOrDefault(p => p.PersonId == x.TestManId).PersonName,
+                                    TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime),
+                                    TestEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestEndTime),
+                                    Duration = x.Duration,
+                                    TestPlanEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime.Value.AddMinutes(x.Duration)),
+                                    TotalScore = y.TotalScore ?? 0,
+                                    TestScores = x.TestScores ?? 0,
+                                    TestType = x.TestType,
+                                    TemporaryUser = x.TemporaryUser,
+                                }).ToList();
             return getDataLists;
         }
         #endregion
@@ -194,25 +188,25 @@ namespace BLL
         {
             var getDataLists = (from x in Funs.DB.Training_TestRecord
                                 join y in Funs.DB.Training_TestPlan on x.TestPlanId equals y.TestPlanId
-                               where  x.ProjectId == projectId && x.TestStartTime.HasValue && x.TestEndTime.HasValue 
-                               orderby x.TestStartTime descending
-                               select new Model.TestRecordItem
-                               {
-                                   TestRecordId = x.TestRecordId,
-                                   ProjectId = x.ProjectId,
-                                   TestPlanId = x.TestPlanId,
-                                   TestPlanName = y.PlanName,
-                                   TestManId = x.TestManId,
-                                   TestManName = Funs.DB.SitePerson_Person.FirstOrDefault(p => p.PersonId == x.TestManId).PersonName,
-                                   TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime),
-                                   TestEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestEndTime),
-                                   Duration = x.Duration,
-                                   TestPlanEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime.Value.AddMinutes(x.Duration)),
-                                   TotalScore = y.TotalScore ?? 0,
-                                   TestScores = x.TestScores ?? 0,
-                                   TestType = x.TestType,
-                                   TemporaryUser = x.TemporaryUser,
-                               }).ToList();
+                                where x.ProjectId == projectId && x.TestStartTime.HasValue && x.TestEndTime.HasValue
+                                orderby x.TestStartTime descending
+                                select new Model.TestRecordItem
+                                {
+                                    TestRecordId = x.TestRecordId,
+                                    ProjectId = x.ProjectId,
+                                    TestPlanId = x.TestPlanId,
+                                    TestPlanName = y.PlanName,
+                                    TestManId = x.TestManId,
+                                    TestManName = Funs.DB.SitePerson_Person.FirstOrDefault(p => p.PersonId == x.TestManId).PersonName,
+                                    TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime),
+                                    TestEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestEndTime),
+                                    Duration = x.Duration,
+                                    TestPlanEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime.Value.AddMinutes(x.Duration)),
+                                    TotalScore = y.TotalScore ?? 0,
+                                    TestScores = x.TestScores ?? 0,
+                                    TestType = x.TestType,
+                                    TemporaryUser = x.TemporaryUser,
+                                }).ToList();
             return getDataLists;
         }
         #endregion
@@ -227,7 +221,7 @@ namespace BLL
         {
             var getDataLists = (from x in Funs.DB.Training_TestRecordItem
                                 where x.TestRecordId == testRecordId
-                                orderby x.TestType,x.TrainingItemCode
+                                orderby x.TestType, x.TrainingItemCode
                                 select new Model.TestRecordItemItem
                                 {
                                     TestRecordItemId = x.TestRecordItemId,
@@ -341,40 +335,64 @@ namespace BLL
         /// 根据TestRecordId 提交试卷
         /// </summary>
         /// <param name="testRecordId"></param>
-        public static decimal getSubmitTestRecordByTestRecordId(string testRecordId)
+        public static decimal getSubmitTestRecord(Model.Training_TestRecord getTestRecord)
         {
             decimal getCode = 0;
-            //试卷
-            var getTestRecord = Funs.DB.Training_TestRecord.FirstOrDefault(e => e.TestRecordId == testRecordId); 
-            if (getTestRecord != null)
+            /////试卷
+            if (getTestRecord.TestStartTime.HasValue)
             {
-                if (getTestRecord.TestStartTime.HasValue)
-                {
-                    getTestRecord.TestEndTime = DateTime.Now;
-                    getTestRecord.TestScores = Funs.DB.Training_TestRecordItem.Where(x => x.TestRecordId == testRecordId).Sum(x => x.SubjectScore ?? 0);
-                    getTestRecord.TestEndTime = getTestRecord.TestStartTime.Value.AddMinutes(getTestRecord.Duration);
-                    Funs.SubmitChanges();
-
-                    getCode = getTestRecord.TestScores ?? 0;
-                    //考试计划
-                    var getTestPlan = Funs.DB.Training_TestPlan.FirstOrDefault(e => e.TestPlanId == getTestRecord.TestPlanId);
-                    if (getTestPlan != null)
-                    {
-                        ////所有人员 都交卷时 考试计划结束 状态置为3
-                        var getAllTestRecord = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == getTestPlan.TestPlanId && !x.TestEndTime.HasValue && x.TestRecordId != testRecordId);
-                        if (getAllTestRecord == null)
-                        {
-                            getTestPlan.States = "3";
-                            Funs.SubmitChanges();
-                            APITestPlanService.SubmitTest(getTestPlan);
-                        }
-                    }
-                }
+                getTestRecord.TestEndTime = DateTime.Now;
+                getTestRecord.TestScores = Funs.DB.Training_TestRecordItem.Where(x => x.TestRecordId == getTestRecord.TestRecordId).Sum(x => x.SubjectScore ?? 0);
+                getTestRecord.TestEndTime = getTestRecord.TestStartTime.Value.AddMinutes(getTestRecord.Duration);
+                Funs.SubmitChanges();
 
                 getCode = getTestRecord.TestScores ?? 0;
+                //考试计划
+                var getTestPlan = Funs.DB.Training_TestPlan.FirstOrDefault(e => e.TestPlanId == getTestRecord.TestPlanId);
+                if (getTestPlan != null)
+                {
+                    ////所有人员 都交卷时 考试计划结束 状态置为3
+                    var getAllTestRecord = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == getTestPlan.TestPlanId && !x.TestEndTime.HasValue && x.TestRecordId != getTestRecord.TestRecordId);
+                    if (getAllTestRecord == null)
+                    {
+                        getTestPlan.States = "3";
+                        Funs.SubmitChanges();
+                        APITestPlanService.SubmitTest(getTestPlan);
+                    }
+                }
             }
 
             return getCode;
+        }
+        #endregion
+
+        #region 根据TestRecord生成一条补考记录
+        /// <summary>
+        /// 根据TestRecord生成一条补考记录
+        /// </summary>
+        /// <param name="testRecord"></param>
+        public static string getResitTestRecord(Model.Training_TestRecord getTestRecord)
+        {          
+            Model.Training_TestRecord newTestRecord = new Model.Training_TestRecord
+            {
+                TestRecordId = SQLHelper.GetNewID(),
+                ProjectId = getTestRecord.ProjectId,
+                TestPlanId = getTestRecord.TestPlanId,
+                TestManId = getTestRecord.TestManId,
+                TestType = getTestRecord.TestType,
+                TemporaryUser = getTestRecord.TemporaryUser,
+                Duration = getTestRecord.Duration,
+            };
+            Funs.DB.Training_TestRecord.InsertOnSubmit(newTestRecord);
+            Funs.SubmitChanges();
+
+            var getTestPlan = Funs.DB.Training_TestPlan.FirstOrDefault(x => x.TestPlanId == newTestRecord.TestPlanId);
+            var person = PersonService.GetPersonByUserId(newTestRecord.TestManId);
+            if (getTestPlan != null && person != null)
+            {
+                CreateTestRecordItem(getTestPlan, newTestRecord, person);
+            }
+            return newTestRecord.TestRecordId;
         }
         #endregion
     }
