@@ -100,13 +100,14 @@ namespace FineUIPro.Web.InformationProject
         /// </summary>
         private void BindGrid()
         {
-            string strSql = "SELECT Picture.PictureId, Picture.ProjectId,Picture.Title,Picture.ContentDef, Picture.PictureType,Picture.UploadDate,Picture.States,Picture.AttachUrl,CodeRecords.Code,"
+            string strSql = "SELECT Picture.PictureId, Picture.ProjectId,Picture.Title,Picture.ContentDef, PictureType.Name AS PictureTypeName,Picture.UploadDate,Picture.States,Picture.AttachUrl,CodeRecords.Code,"
                         + @" (CASE WHEN LEN(Picture.ContentDef) > 40 THEN LEFT(Picture.ContentDef,40)+'...' ELSE Picture.ContentDef END) AS ShortContentDef, Users.UserName AS CompileManName,"
                         + @" (CASE WHEN Picture.States = " + BLL.Const.State_0 + " OR Picture.States IS NULL THEN '待['+OperateUser.UserName+']提交' WHEN Picture.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName "
                         + @" FROM InformationProject_Picture AS Picture "
                         + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON Picture.PictureId=CodeRecords.DataId  "
                         + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON Picture.PictureId=FlowOperate.DataId AND FlowOperate.IsClosed <> 1 "
                         + @" LEFT JOIN Sys_User AS OperateUser ON FlowOperate.OperaterId=OperateUser.UserId "
+                        + @" LEFT JOIN Base_PictureType AS PictureType ON PictureType.PictureTypeId=Picture.PictureType "
                         + @" LEFT JOIN Sys_User AS Users ON Picture.CompileMan=Users.UserId WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND Picture.ProjectId = @ProjectId";
@@ -289,42 +290,6 @@ namespace FineUIPro.Web.InformationProject
                 }
                 return false;
             }
-        }
-        #endregion
-
-        #region 格式化字符串
-        /// <summary>
-        /// 获取图片类型
-        /// </summary>
-        /// <param name="pictureType"></param>
-        /// <returns></returns>
-        protected string ConvertPictureType(object pictureType)
-        {
-            string name = string.Empty;
-            if (pictureType != null)
-            {
-                if (pictureType.ToString() == "1")
-                {
-                    name = "HSE管理";
-                }
-                else if (pictureType.ToString() == "2")
-                {
-                    name = "HSE安全";
-                }
-                else if (pictureType.ToString() == "3")
-                {
-                    name = "职业健康";
-                }
-                else if (pictureType.ToString() == "4")
-                {
-                    name = "环境保护";
-                }
-                else if (pictureType.ToString() == "5")
-                {
-                    name = "教育培训";
-                }
-            }
-            return name;
         }
         #endregion
 

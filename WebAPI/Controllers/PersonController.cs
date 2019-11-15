@@ -277,5 +277,37 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region 保存项目人员信息
+        /// <summary>
+        /// 保存项目人员信息
+        /// </summary>
+        /// <param name="person">人员信息</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData SaveSitePerson([FromBody] Model.PersonItem person)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                if (person != null && !string.IsNullOrEmpty(person.IdentityCard))
+                {
+                    APIPersonService.SaveSitePerson(person);
+                }
+                else
+                {
+                    responeData.code = 2;
+                    responeData.message = "人员信息有误！";
+                }
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
     }
 }

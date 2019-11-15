@@ -79,5 +79,14 @@ namespace Model
             get;
             set;
         }
+
+        /// <summary>
+        /// IsInsert 1:插入；2：更新
+        /// </summary>
+        public string IsInsert
+        {
+            get;
+            set;
+        }
     }
 }

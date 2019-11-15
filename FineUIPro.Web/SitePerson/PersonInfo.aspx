@@ -57,7 +57,7 @@
                                 ToolTip='<%#ConvertIntoOut(Eval("IntoOut")) %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="140px" ColumnID="IntoOutTime" DataField="IntoOutTime" SortField="IntoOutTime"
+                    <f:RenderField Width="150px" ColumnID="IntoOutTime" DataField="IntoOutTime" SortField="IntoOutTime"
                         HeaderText="出入现场时间" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:TemplateField ColumnID="tfAddress" Width="130px" HeaderText="进出地点" HeaderTextAlign="Center" TextAlign="Left">
@@ -74,7 +74,7 @@
                         FieldType="String" HeaderText="卡号" HeaderTextAlign="Center"
                         TextAlign="Center">
                     </f:RenderField>
-                    <f:TemplateField ColumnID="tfIdentityCard" Width="180px" HeaderText="身份证号" HeaderTextAlign="Center" TextAlign="Right">
+                    <f:TemplateField ColumnID="tfIdentityCard" Width="170px" HeaderText="身份证号" HeaderTextAlign="Center" TextAlign="Right">
                         <ItemTemplate>
                             <asp:Label ID="lblIdentityCard" runat="server" Text='<%# Bind("IdentityCard") %>' ToolTip='<%#Bind("IdentityCard") %>'></asp:Label>
                         </ItemTemplate>

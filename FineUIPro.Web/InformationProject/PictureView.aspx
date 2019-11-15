@@ -37,14 +37,9 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:DropDownList ID="drpPictureType" runat="server" Label="图片类型" LabelAlign="Right" Enabled="false" >
-                        <f:ListItem Value="0" Text="-请选择-" />
-                        <f:ListItem Value="1" Text="HSE管理" />
-                        <f:ListItem Value="2" Text="HSE安全" />
-                        <f:ListItem Value="3" Text="职业健康" />
-                        <f:ListItem Value="4" Text="环境保护" />
-                        <f:ListItem Value="5" Text="教育培训" />
+                    <f:DropDownList ID="drpPictureType" runat="server" Label="图片分类" LabelAlign="Right" Enabled="false" >                       
                     </f:DropDownList>
+                      <f:Label runat="server" ID="lb1"></f:Label>
                 </Items>
             </f:FormRow>
             <f:FormRow>

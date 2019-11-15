@@ -151,6 +151,7 @@
     <Content Include="AttachFile\res\webuploader\webuploader.nolog.js" />
     <Content Include="AttachFile\res\webuploader\webuploader.nolog.min.js" />
     <Content Include="AttachFile\webuploader.aspx" />
+    <Content Include="BaseInfo\PictureType.aspx" />
     <Content Include="BaseInfo\AccidentType.aspx" />
     <Content Include="BaseInfo\Certificate.aspx" />
     <Content Include="BaseInfo\ContentType.aspx" />
@@ -4273,6 +4274,13 @@
     </Compile>
     <Compile Include="AttachFile\webuploader.aspx.designer.cs">
       <DependentUpon>webuploader.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BaseInfo\PictureType.aspx.cs">
+      <DependentUpon>PictureType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BaseInfo\PictureType.aspx.designer.cs">
+      <DependentUpon>PictureType.aspx</DependentUpon>
     </Compile>
     <Compile Include="BaseInfo\AccidentType.aspx.cs">
       <DependentUpon>AccidentType.aspx</DependentUpon>

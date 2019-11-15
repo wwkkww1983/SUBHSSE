@@ -38,10 +38,11 @@ namespace FineUIPro.Web.InformationProject
             if (!IsPostBack)
             {
                 btnClose.OnClientClick = ActiveWindow.GetHideReference();
+                PictureTypeService.InitPictureTypeDropDownList(this.drpPictureType, true);
                 this.PictureId = Request.Params["PictureId"];
                 if (!string.IsNullOrEmpty(this.PictureId))
                 {
-                    Model.InformationProject_Picture picture = BLL.PictureService.GetPictureById(this.PictureId);
+                    Model.InformationProject_Picture picture = PictureService.GetPictureById(this.PictureId);
                     if (picture != null)
                     {
                         this.txtCode.Text = BLL.CodeRecordsService.ReturnCodeByDataId(this.PictureId);
@@ -54,7 +55,7 @@ namespace FineUIPro.Web.InformationProject
                 }
 
                 ///初始化审核菜单
-                this.ctlAuditFlow.MenuId = BLL.Const.ProjectPictureMenuId;
+                this.ctlAuditFlow.MenuId = Const.ProjectPictureMenuId;
                 this.ctlAuditFlow.DataId = this.PictureId;
             }
         }

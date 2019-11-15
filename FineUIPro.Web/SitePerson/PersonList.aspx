@@ -114,7 +114,7 @@
                             <%--<f:RenderField HeaderText="发卡号" ColumnID="SendCardNo" DataField="SendCardNo" SortField="SendCardNo"
                                  FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="110px">                               
                             </f:RenderField>--%>
-                             <f:RenderField HeaderText="性别" ColumnID="Sex" DataField="Sex" SortField="Sex"
+                             <f:RenderField HeaderText="性别" ColumnID="SexName" DataField="SexName" SortField="SexName"
                                  FieldType="String" HeaderTextAlign="Center" TextAlign="Center" Width="60px">                               
                             </f:RenderField>
                             <f:RenderField HeaderText="岗位名称" ColumnID="WorkPostName" DataField="WorkPostName" SortField="WorkPostName"
@@ -151,10 +151,10 @@
                               <f:RenderField HeaderText="电话" ColumnID="Telephone" DataField="Telephone" SortField="Telephone"
                                  FieldType="String" HeaderTextAlign="Center" TextAlign="Left" Width="110px">                               
                             </f:RenderField>
-                             <f:RenderField HeaderText="人员在场" ColumnID="IsUsed" DataField="IsUsed" SortField="IsUsed"
+                             <f:RenderField HeaderText="人员在场" ColumnID="IsUsedName" DataField="IsUsedName" SortField="IsUsedName"
                                  FieldType="String" HeaderTextAlign="Center" TextAlign="Center" Width="80px">                               
                             </f:RenderField>
-                             <f:RenderField HeaderText="考勤卡启用" ColumnID="IsCardUsed" DataField="IsCardUsed" SortField="IsCardUsed"
+                             <f:RenderField HeaderText="考勤卡启用" ColumnID="IsCardUsedName" DataField="IsCardUsedName" SortField="IsCardUsedName"
                                  FieldType="String" HeaderTextAlign="Center" TextAlign="Center" Width="90px">                               
                             </f:RenderField>
                         </Columns>

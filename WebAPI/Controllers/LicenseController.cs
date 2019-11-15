@@ -46,6 +46,38 @@ namespace WebAPI.Controllers
         }
         #endregion
 
+        #region 获取作业票列表-按状态
+        /// <summary>
+        /// 获取作业票列表-按状态
+        /// </summary>
+        /// <param name="projectId">项目ID</param>
+        /// <param name="unitId">单位ID</param>
+        /// <param name="states">状态</param>
+        /// <param name="pageIndex">页码</param>
+        /// <returns></returns>
+        public Model.ResponeData getLicenseDataListByStates(string projectId, string unitId, string states, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APILicenseDataService.getLicenseDataListByStates(projectId, unitId, states);
+                int pageCount = getDataList.Count;
+                if (pageCount > 0 && pageIndex > 0)
+                {
+                    getDataList = (from x in getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize)
+                                   select x).ToList();
+                }
+                responeData.data = new { pageCount, getDataList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
         #region 根据ID获取作业票详细
         /// <summary>
         ///  根据ID获取作业票详细

@@ -160,11 +160,11 @@ namespace BLL
                 }
                 else if (isUpdate.States == "3") ////考试状态3时 更新培训计划状态 把培训计划写入培训记录中
                 {
+                    DateTime? endTime = Funs.GetNewDateTime(getTestPlan.TestEndTime);
                     ////判断是否有未考完的考生
                     var getTrainingTestRecords = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == isUpdate.TestPlanId
-                                        && (!x.TestStartTime.HasValue ||
-                                         ((!x.TestEndTime.HasValue || !x.TestScores.HasValue) && x.TestStartTime.Value.AddMinutes(isUpdate.Duration) >= DateTime.Now)));
-                    if (getTrainingTestRecords != null)
+                                        && (!x.TestStartTime.HasValue || ((!x.TestEndTime.HasValue || !x.TestScores.HasValue) && x.TestStartTime.Value.AddMinutes(isUpdate.Duration) >= DateTime.Now)));
+                    if (getTrainingTestRecords != null && endTime.HasValue && endTime.Value.AddMinutes(isUpdate.Duration) < DateTime.Now)
                     {
                         alterStr = "当前存在未交卷考生，不能提前结束考试！";
                         isUpdate.States = "2";

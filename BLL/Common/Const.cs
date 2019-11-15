@@ -710,6 +710,10 @@ namespace BLL
         /// 安全措施
         /// </summary>
         public const string SafetyMeasuresMenuId = "4BB6AC40-D4D5-439B-85CC-100E431CF3F1";
+        /// <summary>
+        /// 项目图片分类
+        /// </summary>
+        public const string PictureTypeMenuId = "D95CA72C-182C-4718-92A4-3F665E0FB660";
         #endregion
 
         #region 公共资源

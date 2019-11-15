@@ -65,8 +65,8 @@
                                 SortField="PersonName" FieldType="String" HeaderText="人员姓名" HeaderTextAlign="Center"
                                 TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="70px" ColumnID="Sex" DataField="Sex"
-                                SortField="Sex" FieldType="String" HeaderText="性别" HeaderTextAlign="Center"
+                            <f:RenderField Width="70px" ColumnID="SexName" DataField="SexName"
+                                SortField="SexName" FieldType="String" HeaderText="性别" HeaderTextAlign="Center"
                                 TextAlign="Center">
                             </f:RenderField>
                             <f:RenderField Width="200px" ColumnID="IdentityCard" DataField="IdentityCard" SortField="IdentityCard"
@@ -111,10 +111,10 @@
                             <f:RenderField Width="100px" ColumnID="Telephone" DataField="Telephone" SortField="Telephone"
                                 FieldType="String" HeaderText="电话" HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="80px" ColumnID="IsUsed" DataField="IsUsed" FieldType="String"
+                            <f:RenderField Width="80px" ColumnID="IsUsedName" DataField="IsUsedName" FieldType="String"
                                 HeaderText="人员在场" HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="90px" ColumnID="IsCardUsed" DataField="IsCardUsed"
+                            <f:RenderField Width="90px" ColumnID="IsCardUsedName" DataField="IsCardUsedName"
                                 FieldType="String" HeaderText="考勤卡启用" HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
                         </Columns>

@@ -58,18 +58,18 @@ namespace BLL
         /// </summary>
         /// <param name="projectId"></param>        
         /// <returns></returns>
-        public static List<Model.BaseInfoItem> getProjectPictureByProjectId(string projectId)
+        public static List<Model.BaseInfoItem> getProjectPictureByProjectId(string projectId, string pictureType)
         {
             var getDataLists = (from x in Funs.DB.InformationProject_Picture
                                 join y in Funs.DB.AttachFile on x.PictureId equals y.ToKeyId
-                                where x.States == Const.State_2 && y.AttachUrl != null && x.ProjectId == projectId
+                                where x.States == Const.State_2 && y.AttachUrl != null && x.ProjectId == projectId && x.PictureType == pictureType
                                 select new Model.BaseInfoItem
                                 {
                                     BaseInfoId = x.PictureId,
                                     BaseInfoName = x.Title,
                                     BaseInfoCode = string.Format("{0:yyyy-MM-dd}", x.UploadDate),
                                     ImageUrl = y.AttachUrl.Replace('\\', '/'),
-                                }).ToList();
+                                }).Take(5).ToList();
             return getDataLists;
         }
         #endregion
@@ -289,6 +289,20 @@ namespace BLL
                                 where x.LicenseType == licenseType
                                 orderby x.SortIndex
                                 select new Model.BaseInfoItem { BaseInfoId = x.SafetyMeasuresId, BaseInfoCode = x.SortIndex.ToString(), BaseInfoName = x.SafetyMeasures }).ToList();
+            return getDataLists;
+        }
+        #endregion
+
+        #region 获取图片分类
+        /// <summary>
+        /// 获取图片分类
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getPictureType()
+        {
+            var getDataLists = (from x in Funs.DB.Base_PictureType
+                                orderby x.Code
+                                select new Model.BaseInfoItem { BaseInfoId = x.PictureTypeId, BaseInfoCode = x.Code, BaseInfoName = x.Name }).ToList();
             return getDataLists;
         }
         #endregion

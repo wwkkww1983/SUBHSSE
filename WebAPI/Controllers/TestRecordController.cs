@@ -98,8 +98,19 @@ namespace WebAPI.Controllers
             {
                 int mTime = 0;
                 var getTestRecord = TestRecordService.GetTestRecordById(testRecordId);
-                if (getTestRecord != null && getTestRecord.TestStartTime.HasValue)
+                if (getTestRecord != null)
                 {
+                    DateTime startTime = DateTime.Now;
+                    if (getTestRecord.TestStartTime.HasValue)
+                    {
+                        startTime = getTestRecord.TestStartTime.Value;
+                    }
+                    else
+                    {
+                        getTestRecord.TestStartTime = startTime;
+                        Funs.SubmitChanges();
+                    }
+
                     mTime = Convert.ToInt32((getTestRecord.TestStartTime.Value.AddMinutes(getTestRecord.Duration) - DateTime.Now).TotalSeconds);
                 }
 
@@ -207,7 +218,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getItem = BLL.TestRecordItemService.GetTestRecordItemTestRecordItemId(testRecordItemId);
+                var getItem = TestRecordItemService.GetTestRecordItemTestRecordItemId(testRecordItemId);
                 if (getItem != null)
                 {
                     //更新没有结束时间且超时的考试记录
@@ -263,16 +274,16 @@ namespace WebAPI.Controllers
                         {
                             ////重新生成一条考试记录 以及考试试卷
                             returnTestRecordId = APITestRecordService.getResitTestRecord(getTestRecord);
-                            responeData.message = "考试不合格。成绩为：" + getTestScores.ToString() + "。您将进入补考。";
+                            responeData.message = "考试不合格！您的成绩为：【" + getTestScores.ToString() + "】，您将进入补考。";
                         }
                         else
                         {
-                            responeData.message = "考试不合格。成绩为：" + getTestScores.ToString() + "。请培训后再参加考试。";
+                            responeData.message = "考试不合格！您的成绩为：【" + getTestScores.ToString() + "】，请再次参加培训后补考。";
                         }
                     }
                     else
                     {
-                        responeData.message ="恭喜考试通过。成绩为："+ getTestScores.ToString();
+                        responeData.message = "恭喜考试通过！您的成绩为：【" + getTestScores.ToString()+"】。";
                     }
                     
                     responeData.data = new { getTestScores, getPassScores, returnTestRecordId };

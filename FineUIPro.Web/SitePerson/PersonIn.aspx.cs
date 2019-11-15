@@ -541,7 +541,7 @@ namespace FineUIPro.Web.SitePerson
                         }
                         if (!string.IsNullOrEmpty(col2))//性别
                         {
-                            person.Sex = col2;
+                            person.SexName = col2;
                         }
                         if (!string.IsNullOrEmpty(col3))//身份证号码
                         {
@@ -617,11 +617,11 @@ namespace FineUIPro.Web.SitePerson
                         }
                         if (!string.IsNullOrEmpty(col16))//人员是否在场
                         {
-                            person.IsUsed = col16;
+                            person.IsUsedName = col16;
                         }
                         if (!string.IsNullOrEmpty(col17))//考勤卡是否启用
                         {
-                            person.IsCardUsed = col17;
+                            person.IsCardUsedName = col17;
                         }
                         person.PersonId = SQLHelper.GetNewID(typeof(Model.SitePerson_Person));
                         persons.Add(person);
@@ -669,7 +669,7 @@ namespace FineUIPro.Web.SitePerson
                         newPerson.ProjectId = Request.Params["ProjectId"];
                         newPerson.CardNo = persons[i].CardNo;
                         newPerson.PersonName = persons[i].PersonName;
-                        newPerson.Sex = persons[i].Sex == "男" ? "1" : "2";
+                        newPerson.Sex = persons[i].SexName == "男" ? "1" : "2";
                         newPerson.IdentityCard = persons[i].IdentityCard;
                         newPerson.Address = persons[i].Address;
                         newPerson.UnitId = persons[i].UnitId;
@@ -683,8 +683,8 @@ namespace FineUIPro.Web.SitePerson
                         newPerson.OutTime = persons[i].OutTime;
                         newPerson.OutResult = persons[i].OutResult;
                         newPerson.Telephone = persons[i].Telephone;
-                        newPerson.IsUsed = persons[i].IsUsed == "是" ? true : false;
-                        newPerson.IsCardUsed = persons[i].IsCardUsed == "是" ? true : false;
+                        newPerson.IsUsed = persons[i].IsUsedName == "是" ? true : false;
+                        newPerson.IsCardUsed = persons[i].IsCardUsedName == "是" ? true : false;
                         BLL.PersonService.AddPerson(newPerson);
 
                         var item = personQualitys.FirstOrDefault(x => x.Remark ==  newPerson.IdentityCard);

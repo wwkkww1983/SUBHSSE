@@ -209,8 +209,7 @@ namespace BLL
                 DepartId = person.DepartId,
                 FromPersonId =person.FromPersonId,
                 Password= GetPersonPassWord(person.IdentityCard),
-            };
-           
+            };          
 
             if (person.InTime.HasValue)
             {

@@ -114,6 +114,14 @@ namespace BLL
             ////保存附件
             if (!string.IsNullOrEmpty(toDoItem.UrlStr))
             {
+                if (toDoItem.IsInsert == "1")
+                {
+                    var att = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == toDoItem.DataId);
+                    if (att != null)
+                    {
+                        toDoItem.UrlStr = att.AttachUrl + "," + toDoItem.UrlStr;
+                    }
+                }
                 UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(toDoItem.UrlStr, 10, null), toDoItem.UrlStr, toDoItem.MenuId, toDoItem.DataId);
             }
             else

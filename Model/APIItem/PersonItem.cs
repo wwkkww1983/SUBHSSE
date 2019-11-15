@@ -24,6 +24,10 @@ namespace Model
         /// </summary>
         public string SexName { get; set; }
         /// <summary>
+        /// 性别
+        /// </summary>
+        public string Sex { get; set; }
+        /// <summary>
         /// 身份证号码
         /// </summary>
         public string IdentityCard { get; set; }
@@ -94,6 +98,14 @@ namespace Model
         /// <summary>
         /// 部门名称
         /// </summary>
-        public string DepartName { get; set; }                   
+        public string DepartName { get; set; }
+        /// <summary>
+        /// 是否启用
+        /// </summary>
+        public bool IsUsed { get; set; }
+        /// <summary>
+        /// 是否启用
+        /// </summary>
+        public string IsUsedName { get; set; }
     }
 }

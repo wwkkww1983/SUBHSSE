@@ -62,7 +62,7 @@
                     <f:RenderField Width="150px" ColumnID="CardNo" DataField="CardNo" FieldType="String"
                         HeaderText="卡号" HeaderTextAlign="Center" TextAlign="Left" SortField="CardNo">
                     </f:RenderField>
-                    <f:RenderField HeaderText="性别" ColumnID="Sex" DataField="Sex" SortField="Sex" FieldType="String"
+                    <f:RenderField HeaderText="性别" ColumnID="SexName" DataField="SexName" SortField="SexName" FieldType="String"
                         HeaderTextAlign="Center" TextAlign="Left" Width="60px">
                     </f:RenderField>
                     <f:RenderField HeaderText="岗位名称" ColumnID="WorkPostName" DataField="WorkPostName"
@@ -77,12 +77,6 @@
                         SortField="InTime" FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd"
                         HeaderText="入场时间" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                   <%-- <f:TemplateField ColumnID="tfI" HeaderText="身份证号" Width="160px" HeaderTextAlign="Center" SortField="IdentityCard"
-                        TextAlign="Center">
-                        <ItemTemplate>
-                            <asp:Label ID="lbI" runat="server" Text=' <%# Bind("IdentityCard") %>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>--%>
                     <f:RenderField HeaderText="所在班组" ColumnID="TeamGroupName" DataField="TeamGroupName"
                         SortField="TeamGroupName" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
                         Width="110px">

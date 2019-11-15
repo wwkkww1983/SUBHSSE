@@ -308,7 +308,7 @@ namespace BLL
             {
                 Model.AttachFile att = new Model.AttachFile
                 {
-                    AttachFileId = BLL.SQLHelper.GetNewID(typeof(Model.AttachFile)),
+                    AttachFileId = SQLHelper.GetNewID(typeof(Model.AttachFile)),
                     ToKeyId = toKeyId,
                     AttachSource = source.ToString(),
                     AttachUrl = attachUrl,
@@ -339,31 +339,35 @@ namespace BLL
         public static string GetSourceByAttachUrl(string attachUrl, int size, string oldSrouce)
         {
             string attachSource = string.Empty;
-            var allUrl = Funs.GetStrListByStr(attachUrl, ',');
-            foreach (var item in allUrl)
+            if (!string.IsNullOrEmpty(attachUrl))
             {
-                int strInt = item.LastIndexOf("~");
-                if (strInt < 0)
+                attachUrl= attachUrl.Replace('\\', '/');
+                var allUrl = Funs.GetStrListByStr(attachUrl, ',');
+                foreach (var item in allUrl)
                 {
-                    strInt = item.LastIndexOf("\\");
+                    int strInt = item.LastIndexOf("~");
+                    if (strInt < 0)
+                    {
+                        strInt = item.LastIndexOf("\\");
+                    }
+                    string name = item.Substring(strInt + 1);
+                    string type = item.Substring(item.LastIndexOf(".") + 1);
+                    string savedName = item.Substring(item.LastIndexOf("\\") + 1);
+
+                    string id = SQLHelper.GetNewID(typeof(Model.AttachFile));
+                    attachSource += "{    \"name\": \"" + name + "\",    \"type\": \"" + type + "\",    \"savedName\": \"" + savedName
+                        + "\",    \"size\": " + size + ",    \"id\": \"" + SQLHelper.GetNewID(typeof(Model.AttachFile)) + "\"  }@";
                 }
-                string name = item.Substring(strInt + 1);
-                string type = item.Substring(item.LastIndexOf(".") + 1);
-                string savedName = item.Substring(item.LastIndexOf("\\") + 1);
+                attachSource = attachSource.Substring(0, attachSource.LastIndexOf("@")).Replace("@", ",");
 
-                string id = SQLHelper.GetNewID(typeof(Model.AttachFile));
-                attachSource += "{    \"name\": \"" + name + "\",    \"type\": \"" + type + "\",    \"savedName\": \"" + savedName
-                    + "\",    \"size\": " + size + ",    \"id\": \"" + SQLHelper.GetNewID(typeof(Model.AttachFile)) + "\"  }@";
-            }
-            attachSource = attachSource.Substring(0, attachSource.LastIndexOf("@")).Replace("@", ",");
-
-            if (!string.IsNullOrEmpty(oldSrouce))
-            {
-                attachSource = oldSrouce.Replace("]", ",") + attachSource + "]";
-            }
-            else
-            {
-                attachSource = "[" + attachSource + "]";
+                if (!string.IsNullOrEmpty(oldSrouce))
+                {
+                    attachSource = oldSrouce.Replace("]", ",") + attachSource + "]";
+                }
+                else
+                {
+                    attachSource = "[" + attachSource + "]";
+                }
             }
             return attachSource;
         }

@@ -28,6 +28,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 菜单名称
+        /// </summary>
+        public string MenuName
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 项目ID
         /// </summary>
         public string ProjectId

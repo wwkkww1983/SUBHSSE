@@ -26,7 +26,7 @@
             <f:FormRow ColumnWidths="5% 45% 45%">
                 <Items>
                      <f:Label runat="server" Label="图片"></f:Label>
-                     <f:Button ID="btnAttachUrl" Text="上传及查看" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
+                     <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
                         OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1">
                     </f:Button>
                     <f:Label runat="server" Text="注：请上传图片要求JPG格式。"></f:Label>
@@ -40,14 +40,9 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:DropDownList ID="drpPictureType" runat="server" Label="图片类型" LabelAlign="Right">
-                        <f:ListItem Value="0" Text="-请选择-" />
-                        <f:ListItem Value="1" Text="HSE管理" />
-                        <f:ListItem Value="2" Text="HSE安全" />
-                        <f:ListItem Value="3" Text="职业健康" />
-                        <f:ListItem Value="4" Text="环境保护" />
-                        <f:ListItem Value="5" Text="教育培训" />
+                    <f:DropDownList ID="drpPictureType" runat="server" Label="图片分类" LabelAlign="Right" EnableEdit="true">                       
                     </f:DropDownList>
+                    <f:Label runat="server" ID="lb1"></f:Label>
                 </Items>
             </f:FormRow>
             <f:FormRow>

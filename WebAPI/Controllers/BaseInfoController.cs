@@ -68,7 +68,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = APIBaseInfoService.getProjectPictureByProjectId(projectId);
+                var getDataList = APIBaseInfoService.getProjectPictureByProjectId(projectId, null);
                 int pageCount = getDataList.Count();
                 if (pageCount > 0 && pageIndex > 0)
                 {
@@ -76,6 +76,28 @@ namespace WebAPI.Controllers
 
                 }
                 responeData.data = new { pageCount, getDataList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
+        ///  根据类型获项目图片
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public Model.ResponeData getProjectPictureByProjectIdType(string projectId, string type)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {                
+                responeData.data = APIBaseInfoService.getProjectPictureByProjectId(projectId, type); ;
             }
             catch (Exception ex)
             {
@@ -601,6 +623,27 @@ namespace WebAPI.Controllers
             try
             {
                 responeData.data = APIBaseInfoService.getSafetyMeasures(licenseType);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 获取项目图片分类
+        /// <summary>
+        ///   获取项目图片分类
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getPictureType()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getPictureType();
             }
             catch (Exception ex)
             {

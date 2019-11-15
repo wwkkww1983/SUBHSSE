@@ -372,7 +372,7 @@ namespace BLL
         /// </summary>
         /// <param name="testRecord"></param>
         public static string getResitTestRecord(Model.Training_TestRecord getTestRecord)
-        {          
+        {
             Model.Training_TestRecord newTestRecord = new Model.Training_TestRecord
             {
                 TestRecordId = SQLHelper.GetNewID(),
@@ -382,7 +382,9 @@ namespace BLL
                 TestType = getTestRecord.TestType,
                 TemporaryUser = getTestRecord.TemporaryUser,
                 Duration = getTestRecord.Duration,
+               // TestStartTime = DateTime.Now,
             };
+
             Funs.DB.Training_TestRecord.InsertOnSubmit(newTestRecord);
             Funs.SubmitChanges();
 

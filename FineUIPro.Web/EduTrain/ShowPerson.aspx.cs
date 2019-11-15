@@ -144,7 +144,7 @@ namespace FineUIPro.Web.EduTrain
             var trainType = BLL.TrainTypeService.GetTrainTypeById(type);
             if (trainType != null)
             {
-                string strSql = @"SELECT viewPerSon.PersonId,viewPerSon.UnitName,viewPerSon.PersonName,viewPerSon.CardNo,viewPerSon.Sex,WorkPostName,viewPerSon.IdentityCard,TeamGroupName,WorkAreaName,InTime "
+                string strSql = @"SELECT viewPerSon.PersonId,viewPerSon.UnitName,viewPerSon.PersonName,viewPerSon.CardNo,viewPerSon.SexName,WorkPostName,viewPerSon.IdentityCard,TeamGroupName,WorkAreaName,InTime "
                     + @" FROM View_SitePerson_Person AS viewPerSon   "
                     //+ @" LEFT JOIN EduTrain_TrainRecordDetail AS TrainRecordDetail ON viewPerSon.PersonId=TrainRecordDetail.PersonId "
                     //+ @" LEFT JOIN EduTrain_TrainRecord AS TrainRecord ON TrainRecord.TrainingId=TrainRecordDetail.TrainingId "

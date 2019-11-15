@@ -97,19 +97,17 @@
                     <f:RenderField Width="100px" ColumnID="Code" DataField="Code" SortField="Code"
                         FieldType="String" HeaderText="编号" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="220px" ColumnID="Title" DataField="Title" SortField="Title"
+                    <f:RenderField Width="220px" ColumnID="Title" DataField="Title" SortField="Title" ExpandUnusedSpace="true"
                         FieldType="String" HeaderText="标题" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:TemplateField ColumnID="tfPictureType" HeaderText="类型" Width="100px" HeaderTextAlign="Center" TextAlign="Left">
-                        <ItemTemplate>
-                            <asp:Label ID="lblPictureType" runat="server" Text='<%# ConvertPictureType(Eval("PictureType")) %>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>
-                    <f:RenderField Width="100px" ColumnID="UploadDate" DataField="UploadDate" SortField="UploadDate"
+                     <f:RenderField Width="100px" ColumnID="PictureTypeName" DataField="PictureTypeName" SortField="PictureTypeName"
+                        FieldType="String" HeaderText="分类" HeaderTextAlign="Center" TextAlign="Left">
+                    </f:RenderField>
+                    <f:RenderField Width="120px" ColumnID="UploadDate" DataField="UploadDate" SortField="UploadDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="上传日期"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                     <f:RenderField Width="90px" ColumnID="CompileManName" DataField="CompileManName"
+                <%--     <f:RenderField Width="90px" ColumnID="CompileManName" DataField="CompileManName"
                         SortField="CompileManName" FieldType="String" HeaderText="整理人" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
@@ -117,8 +115,8 @@
                         <ItemTemplate>
                             <asp:Label ID="lblShortContentDef" runat="server" Text='<%# Bind("ShortContentDef") %>' ToolTip='<%#Bind("ContentDef") %>'></asp:Label>
                         </ItemTemplate>
-                    </f:TemplateField>
-                      <f:RenderField Width="140px" ColumnID="FlowOperateName" DataField="FlowOperateName"
+                    </f:TemplateField>--%>
+                      <f:RenderField Width="160px" ColumnID="FlowOperateName" DataField="FlowOperateName"
                         SortField="FlowOperateName" FieldType="String" HeaderText="状态" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>

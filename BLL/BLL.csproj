@@ -119,6 +119,7 @@
     <Compile Include="API\APIUnitService.cs" />
     <Compile Include="API\APIPersonService.cs" />
     <Compile Include="API\APIUserService.cs" />
+    <Compile Include="BaseInfo\PictureTypeService.cs" />
     <Compile Include="BaseInfo\AccidentTypeService.cs" />
     <Compile Include="BaseInfo\CertificateService.cs" />
     <Compile Include="BaseInfo\CheckItemDetailService.cs" />

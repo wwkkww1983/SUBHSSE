@@ -22,7 +22,7 @@ namespace BLL
                           join z in Funs.DB.Base_Project on x.ProjectId equals z.ProjectId
                           join w in Funs.DB.Base_WorkPost on x.WorkPostId equals w.WorkPostId
                           where (x.Telephone == userInfo.Account || x.PersonName == userInfo.Account) && x.Password == Funs.EncryptionPassword(userInfo.Password)
-                          && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)
+                          && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now) && x.IsUsed == true
                           select new Model.UserItem
                           {
                               UserId = x.PersonId,
@@ -59,7 +59,7 @@ namespace BLL
                                 PersonId = x.PersonId,
                                 CardNo = x.CardNo,
                                 PersonName = x.PersonName,
-                                SexName = x.Sex,
+                                SexName = x.SexName,
                                 IdentityCard = x.IdentityCard,
                                 Address = x.Address,
                                 ProjectId = x.ProjectId,
@@ -105,14 +105,15 @@ namespace BLL
         public static List<Model.PersonItem> getPersonByProjectIdUnitId(string projectId, string unitId)
         {
             var persons = from x in Funs.DB.View_SitePerson_Person
-                          where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null) && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)
+                          where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null) && x.IsUsed == true
+                          && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)
                           orderby x.UnitName, x.PersonName
                           select new Model.PersonItem
                           {
                               PersonId = x.PersonId,
                               CardNo = x.CardNo,
                               PersonName = x.PersonName,
-                              SexName = x.Sex,
+                              SexName = x.SexName,
                               IdentityCard = x.IdentityCard,
                               Address = x.Address,
                               ProjectId = x.ProjectId,
@@ -149,13 +150,14 @@ namespace BLL
         {
             List<string> unitIdList = Funs.GetStrListByStr(unitIds, ',');
             var getPersons = from x in Funs.DB.View_SitePerson_Person
-                             where x.ProjectId == projectId && unitIdList.Contains(x.UnitId) && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)                         
+                             where x.ProjectId == projectId && unitIdList.Contains(x.UnitId) && x.IsUsed == true
+                             && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)                         
                              select new Model.PersonItem
                              {
                                  PersonId = x.PersonId,
                                  CardNo = x.CardNo,
                                  PersonName = x.PersonName,
-                                 SexName = x.Sex,
+                                 SexName = x.SexName,
                                  IdentityCard = x.IdentityCard,
                                  Address = x.Address,
                                  ProjectId = x.ProjectId,
@@ -211,5 +213,43 @@ namespace BLL
             }
         }
         #endregion
+
+        /// <summary>
+        /// 人员信息保存方法
+        /// </summary>
+        /// <param name="person">人员信息</param>
+        public static void SaveSitePerson(Model.PersonItem person)
+        {
+            Model.SitePerson_Person newPerson = new Model.SitePerson_Person
+            {
+                ProjectId = person.ProjectId,
+                CardNo = person.CardNo,
+                PersonName = person.PersonName,
+                IdentityCard = person.IdentityCard,
+                Address = person.Address,
+                UnitId = person.UnitId,
+                TeamGroupId = person.TeamGroupId,
+                WorkPostId = person.WorkPostId,
+                OutResult = person.OutResult,
+                Telephone = person.Telephone,
+                PhotoUrl = person.PhotoUrl,
+                InTime = Funs.GetNewDateTime(person.InTime),
+                OutTime = Funs.GetNewDateTime(person.OutTime),
+                IsUsed = person.IsUsed,
+                Sex = person.Sex,
+            };
+            
+            var getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.IdentityCard == newPerson.IdentityCard);
+            if (getPerson == null)
+            {
+                newPerson.PersonId = SQLHelper.GetNewID(typeof(Model.SitePerson_Person));
+                PersonService.AddPerson(newPerson);
+            }
+            else
+            {
+                newPerson.PersonId = getPerson.PersonId;
+                PersonService.UpdatePerson(newPerson);
+            }
+        }       
     }
 }

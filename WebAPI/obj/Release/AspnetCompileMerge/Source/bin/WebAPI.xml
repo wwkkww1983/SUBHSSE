@@ -530,6 +530,14 @@
             <param name="pageIndex"></param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getProjectPictureByProjectIdType(System.String,System.String)">
+            <summary>
+             根据类型获项目图片
+            </summary>
+            <param name="projectId"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.BaseInfoController.getProjectPicture">
             <summary>
               获项目图片
@@ -680,6 +688,12 @@
             <param name="licenseType">作业票类型</param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getPictureType">
+            <summary>
+              获取项目图片分类
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.HSEMonthController">
             <summary>
             HSE管理月报
@@ -741,6 +755,16 @@
             获取作业票列表
             </summary>
             <param name="strMenuId">菜单ID</param>
+            <param name="projectId">项目ID</param>
+            <param name="unitId">单位ID</param>
+            <param name="states">状态</param>
+            <param name="pageIndex">页码</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.LicenseController.getLicenseDataListByStates(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            获取作业票列表-按状态
+            </summary>
             <param name="projectId">项目ID</param>
             <param name="unitId">单位ID</param>
             <param name="states">状态</param>
@@ -1009,7 +1033,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:WebAPI.Controllers.FileUploadController.SaveLicenseFlowOperate(Model.ToDoItem)">
+        <member name="M:WebAPI.Controllers.FileUploadController.SaveAttachUrl(Model.ToDoItem)">
             <summary>
             保存附件信息
             </summary>
@@ -1272,6 +1296,13 @@
             <param name="workPostIds">培训岗位ID(可为空)</param>
             <param name="trainTypeId">培训类型ID(可为空)</param>
             <param name="pageIndex">分页</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PersonController.SaveSitePerson(Model.PersonItem)">
+            <summary>
+            保存项目人员信息
+            </summary>
+            <param name="person">人员信息</param>
             <returns></returns>
         </member>
         <member name="T:WebAPI.Controllers.ProjectController">

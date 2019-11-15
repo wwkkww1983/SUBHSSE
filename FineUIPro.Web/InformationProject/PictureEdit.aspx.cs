@@ -100,11 +100,8 @@ namespace FineUIPro.Web.InformationProject
         /// </summary>
         private void InitDropDownList()
         {
-            this.drpCompileMan.DataValueField = "UserId";
-            this.drpCompileMan.DataTextField = "UserName";
-            this.drpCompileMan.DataSource = BLL.UserService.GetProjectUserListByProjectId(this.ProjectId);
-            this.drpCompileMan.DataBind();
-            Funs.FineUIPleaseSelect(this.drpCompileMan);
+            UserService.InitUserDropDownList(this.drpCompileMan, this.ProjectId, true);
+            PictureTypeService.InitPictureTypeDropDownList(this.drpPictureType,true);
         }
 
         #region 保存

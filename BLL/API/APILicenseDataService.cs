@@ -331,7 +331,7 @@ namespace BLL
         /// <summary>
         /// 获取作业票列表信息
         /// </summary>
-        /// <param name="licenseType"></param>
+        /// <param name="strMenuId"></param>
         /// <param name="projectId"></param>
         /// <param name="unitId"></param>
         /// <param name="states"></param>
@@ -648,7 +648,248 @@ namespace BLL
 
             return getInfoList;
         }
-        #endregion        
+        #endregion 
+
+        #region 获取作业票列表信息-按状态
+        /// <summary>
+        /// 获取作业票列表信息-按状态
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
+        /// <param name="states"></param>
+        /// <returns></returns>
+        public static List<Model.LicenseDataItem> getLicenseDataListByStates(string projectId, string unitId, string states)
+        {
+            if (!ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(projectId, unitId))
+            {
+                unitId = null;
+            }
+            List<Model.LicenseDataItem> getInfoList = new List<Model.LicenseDataItem>();
+
+            #region 动火作业票
+            var getFireWork = (from x in Funs.DB.License_FireWork
+                               where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                    && (states == null || x.States == states)
+                               select new Model.LicenseDataItem
+                               {
+                                   LicenseId = x.FireWorkId,
+                                   MenuId = Const.ProjectFireWorkMenuId,
+                                   MenuName = "动火作业",
+                                   ProjectId = x.ProjectId,
+                                   LicenseCode = x.LicenseCode,
+                                   ApplyUnitId = x.ApplyUnitId,
+                                   ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                   ApplyManId = x.ApplyManId,
+                                   ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                   WorkPalce = x.WorkPalce,
+                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                   States = x.States,
+                               }).ToList();
+            if (getFireWork.Count() > 0)
+            {
+                getInfoList.AddRange(getFireWork);
+            }
+            #endregion
+
+            #region 高处作业票            
+            var getHeightWork = (from x in Funs.DB.License_HeightWork
+                                 where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                      && (states == null || x.States == states)
+                                 select new Model.LicenseDataItem
+                                 {
+                                     LicenseId = x.HeightWorkId,
+                                     MenuId = Const.ProjectHeightWorkMenuId,
+                                     MenuName = "高处作业",
+                                     ProjectId = x.ProjectId,
+                                     LicenseCode = x.LicenseCode,
+                                     ApplyUnitId = x.ApplyUnitId,
+                                     ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                     ApplyManId = x.ApplyManId,
+                                     ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                     ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                     WorkPalce = x.WorkPalce,
+                                     WorkType = x.WorkType,
+                                     ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                     ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                     States = x.States,
+                                 }).ToList();
+            if (getHeightWork.Count() > 0)
+            {
+                getInfoList.AddRange(getHeightWork);
+            }
+            #endregion
+
+            #region 受限空间作业票
+            var getLimitedSpace = (from x in Funs.DB.License_LimitedSpace
+                                   where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                        && (states == null || x.States == states)
+                                   select new Model.LicenseDataItem
+                                   {
+                                       LicenseId = x.LimitedSpaceId,
+                                       MenuId = Const.ProjectLimitedSpaceMenuId,
+                                       MenuName = "受限空间",
+                                       ProjectId = x.ProjectId,
+                                       LicenseCode = x.LicenseCode,
+                                       ApplyUnitId = x.ApplyUnitId,
+                                       ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                       ApplyManId = x.ApplyManId,
+                                       ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                       ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                       WorkPalce = x.WorkPalce,
+                                       ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                       ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                       States = x.States,
+                                   }).ToList();
+            if (getLimitedSpace.Count() > 0)
+            {
+                getInfoList.AddRange(getLimitedSpace);
+            }
+            #endregion
+
+            #region 射线作业票
+            var getRadialWork = (from x in Funs.DB.License_RadialWork
+                                 where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                      && (states == null || x.States == states)
+                                 select new Model.LicenseDataItem
+                                 {
+                                     LicenseId = x.RadialWorkId,
+                                     MenuId = Const.ProjectRadialWorkMenuId,
+                                     MenuName = "射线作业",
+                                     ProjectId = x.ProjectId,
+                                     LicenseCode = x.LicenseCode,
+                                     ApplyUnitId = x.ApplyUnitId,
+                                     ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                     ApplyManId = x.ApplyManId,
+                                     ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                     ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                     RadialType = x.RadialType,
+                                     ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                     ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                     WorkPalce = x.WorkPalce,
+                                     States = x.States,
+                                 }).ToList();
+            if (getRadialWork.Count() > 0)
+            {
+                getInfoList.AddRange(getRadialWork);
+            }
+            #endregion
+
+            #region 断路(占道)作业票
+            var getOpenCircuit = (from x in Funs.DB.License_OpenCircuit
+                                  where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                      && (states == null || x.States == states)
+                                  select new Model.LicenseDataItem
+                                  {
+                                      LicenseId = x.OpenCircuitId,
+                                      MenuId = Const.ProjectOpenCircuitMenuId,
+                                      MenuName = "断路(占道)",
+                                      ProjectId = x.ProjectId,
+                                      LicenseCode = x.LicenseCode,
+                                      ApplyUnitId = x.ApplyUnitId,
+                                      ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                      ApplyManId = x.ApplyManId,
+                                      ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                      ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                      WorkPalce = x.WorkPalce,
+                                      ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                      ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                      RoadName = x.RoadName,
+                                      States = x.States,
+                                  }).ToList();
+            if (getOpenCircuit.Count() > 0)
+            {
+                getInfoList.AddRange(getOpenCircuit);
+            }
+            #endregion
+
+            #region 动土作业票            
+            var getBreakGround = (from x in Funs.DB.License_BreakGround
+                                  where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                       && (states == null || x.States == states)
+                                  select new Model.LicenseDataItem
+                                  {
+                                      LicenseId = x.BreakGroundId,
+                                      MenuId = Const.ProjectBreakGroundMenuId,
+                                      MenuName = "动土作业",
+                                      ProjectId = x.ProjectId,
+                                      LicenseCode = x.LicenseCode,
+                                      ApplyUnitId = x.ApplyUnitId,
+                                      ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                      ApplyManId = x.ApplyManId,
+                                      ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                      ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                      WorkPalce = x.WorkPalce,
+                                      WorkDepth = x.WorkDepth,
+                                      ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                      ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                      States = x.States,
+                                  }).ToList();
+            if (getBreakGround.Count() > 0)
+            {
+                getInfoList.AddRange(getBreakGround);
+            }
+            #endregion
+
+            #region 夜间作业票
+            var getNightWork = (from x in Funs.DB.License_NightWork
+                                where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                     && (states == null || x.States == states)
+                                select new Model.LicenseDataItem
+                                {
+                                    LicenseId = x.NightWorkId,
+                                    MenuId = Const.ProjectNightWorkMenuId,
+                                    MenuName = "夜间作业",
+                                    ProjectId = x.ProjectId,
+                                    LicenseCode = x.LicenseCode,
+                                    ApplyUnitId = x.ApplyUnitId,
+                                    ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                    ApplyManId = x.ApplyManId,
+                                    ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                    ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                    WorkPalce = x.WorkPalce,
+                                    ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                    ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                    States = x.States,
+                                }).ToList();
+            if (getNightWork.Count() > 0)
+            {
+                getInfoList.AddRange(getNightWork);
+            }
+            #endregion
+
+            #region 吊装作业票
+            var getLiftingWork = (from x in Funs.DB.License_LiftingWork
+                                  where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
+                                       && (states == null || x.States == states)
+                                  select new Model.LicenseDataItem
+                                  {
+                                      LicenseId = x.LiftingWorkId,
+                                      MenuId = Const.ProjectLiftingWorkMenuId,
+                                      MenuName = "吊装作业",
+                                      ProjectId = x.ProjectId,
+                                      LicenseCode = x.LicenseCode,
+                                      ApplyUnitId = x.ApplyUnitId,
+                                      ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.ApplyUnitId).UnitName,
+                                      ApplyManId = x.ApplyManId,
+                                      ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
+                                      ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
+                                      WorkPalce = x.WorkPalce,
+                                      WorkLevel = x.WorkLevel,
+                                      ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
+                                      ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
+                                      States = x.States,
+                                  }).ToList();
+            if (getLiftingWork.Count() > 0)
+            {
+                getInfoList.AddRange(getLiftingWork);
+            }
+            #endregion
+
+            return getInfoList.OrderByDescending(x=>x.ValidityStartTime).ToList();
+        }
+        #endregion 
 
         #region 获取作业票审核列表信息
         /// <summary>
