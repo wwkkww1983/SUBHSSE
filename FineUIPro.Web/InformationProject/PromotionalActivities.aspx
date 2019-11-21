@@ -61,7 +61,7 @@
                         SortField="Title" FieldType="String" HeaderText="活动主题" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="ActivitiesDate" DataField="ActivitiesDate"
+                    <f:RenderField Width="100px" ColumnID="ActivitiesDate" DataField="ActivitiesDate"
                         SortField="ActivitiesDate" FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd"
                         HeaderText="活动日期" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
@@ -73,7 +73,7 @@
                         SortField="CompileManName" FieldType="String" HeaderText="整理人" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="CompileDate" DataField="CompileDate"
+                    <f:RenderField Width="100px" ColumnID="CompileDate" DataField="CompileDate"
                         SortField="CompileDate" FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd"
                         HeaderText="整理时间" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>

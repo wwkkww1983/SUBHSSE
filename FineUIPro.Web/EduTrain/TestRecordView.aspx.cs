@@ -36,7 +36,6 @@ namespace FineUIPro.Web.EduTrain
         {
             if (!IsPostBack)
             {
-                this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 this.TestRecordItemId = Request.Params["TestRecordItemId"];
                 if (!string.IsNullOrEmpty(this.TestRecordItemId))
                 {
@@ -103,10 +102,10 @@ namespace FineUIPro.Web.EduTrain
                             }
                             if (!string.IsNullOrEmpty(testRecord.TestManId))
                             {
-                                Model.Sys_User user = BLL.UserService.GetUserByUserId(testRecord.TestManId);
+                                var user = BLL.PersonService.GetPersonByUserId(testRecord.TestManId);
                                 if (user != null)
                                 {
-                                    this.txtTestManName.Text = user.UserName;
+                                    this.txtTestManName.Text = user.PersonName;
                                 }
                             }
                         }

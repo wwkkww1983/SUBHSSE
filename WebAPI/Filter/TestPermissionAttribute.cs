@@ -47,16 +47,16 @@ namespace WebAPI.Filter
                 }
             }
 
-            base.OnActionExecuting(actionContext);
-            //if (isOk)
-            //{
-            //    base.OnActionExecuting(actionContext);               
-            //}
-            //else
-            //{
-            //    actionContext.Response = actionContext.Request.CreateResponse(System.Net.HttpStatusCode.OK,
-            //           new { code = "0", message = "您没有权限！" }, actionContext.ControllerContext.Configuration.Formatters.JsonFormatter);
-            //}
+             // base.OnActionExecuting(actionContext);
+            if (isOk)
+            {
+                base.OnActionExecuting(actionContext);
+            }
+            else
+            {
+                actionContext.Response = actionContext.Request.CreateResponse(System.Net.HttpStatusCode.OK,
+                       new { code = "0", message = "您没有权限！" }, actionContext.ControllerContext.Configuration.Formatters.JsonFormatter);
+            }
         }
 
         /// <summary>

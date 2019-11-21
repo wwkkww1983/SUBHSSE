@@ -72,7 +72,7 @@
                         SortField="DrillCost" FieldType="Float" HeaderText="直接投入" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="DrillRecordDate" DataField="DrillRecordDate"
+                    <f:RenderField Width="100px" ColumnID="DrillRecordDate" DataField="DrillRecordDate"
                         SortField="DrillRecordDate" FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd"
                         HeaderText="演练日期" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>

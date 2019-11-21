@@ -29,7 +29,7 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server">
                         <Items>
-                            <f:TextBox runat="server" Label="项目区域" ID="txtWorkAreaName" EmptyText="输入查询条件" AutoPostBack="true"
+                            <f:TextBox runat="server" Label="区域" ID="txtWorkAreaName" EmptyText="输入查询条件" AutoPostBack="true"
                                 OnTextChanged="TextBox_TextChanged" LabelWidth="70px" LabelAlign="right" Width="210">
                             </f:TextBox>
                             <f:DropDownList ID="drpUnitId" runat="server" Label="单位" AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged"

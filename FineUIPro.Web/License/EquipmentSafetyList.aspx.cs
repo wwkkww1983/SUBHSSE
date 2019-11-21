@@ -77,7 +77,7 @@ namespace FineUIPro.Web.License
                              + @"Unit.UnitName,"
                              + @"WorkArea.WorkAreaName,"
                              + @"Users.UserName,"
-                             + @"(CASE WHEN EquipmentSafetyList.States = " + BLL.Const.State_0 + " OR EquipmentSafetyList.States IS NULL THEN 'ISNULL(OperateUser.UserName,Users.UserName)' WHEN EquipmentSafetyList.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
+                             + @"(CASE WHEN EquipmentSafetyList.States = " + Const.State_0 + " OR EquipmentSafetyList.States IS NULL THEN ISNULL(OperateUser.UserName,Users.UserName) WHEN EquipmentSafetyList.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
                     + @" FROM License_EquipmentSafetyList AS EquipmentSafetyList "
                     + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId = EquipmentSafetyList.UnitId "
                     + @" LEFT JOIN ProjectData_WorkArea AS WorkArea ON WorkArea.WorkAreaId = EquipmentSafetyList.WorkAreaId "

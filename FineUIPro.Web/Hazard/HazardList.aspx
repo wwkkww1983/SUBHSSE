@@ -48,30 +48,24 @@
                     </f:Toolbar>
                 </Toolbars>
                 <Columns>
-                    <f:TemplateField ColumnID="tfNumber" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
-                        TextAlign="Center">
-                        <ItemTemplate>
-                            <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>
                     <f:RenderField Width="150px" ColumnID="HazardListCode" DataField="HazardListCode"
                         SortField="HazardListCode" FieldType="String" HeaderText="清单编号" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:TemplateField ColumnID="tfVersionNo" Width="80px" HeaderText="版本号" HeaderTextAlign="Center"
+                    <f:TemplateField ColumnID="tfVersionNo" Width="70px" HeaderText="版本号" HeaderTextAlign="Center"
                         TextAlign="Left">
                         <ItemTemplate>
                             <asp:Label ID="lblVersionNo" runat="server" Text='<%# Bind("VersionNo") %>' ToolTip='<%#Bind("VersionNo") %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:TemplateField ColumnID="tfWorkStage" Width="220px" HeaderText="工作阶段" HeaderTextAlign="Center"
+                    <f:TemplateField ColumnID="tfWorkStage" Width="200px" HeaderText="工作阶段" HeaderTextAlign="Center"
                         TextAlign="Left" ExpandUnusedSpace="true">
                         <ItemTemplate>
                             <asp:Label ID="lblWorkStage" runat="server" Text='<%# ConvertWorkStage(Eval("WorkStage")) %>'
                                 ToolTip='<%# ConvertWorkStage(Eval("WorkStage")) %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="100px" ColumnID="WorkAreaName" DataField="WorkAreaName" ExpandUnusedSpace="true"
+                    <f:RenderField Width="160px" ColumnID="WorkAreaName" DataField="WorkAreaName" ExpandUnusedSpace="true"
                         SortField="WorkAreaName" FieldType="String" HeaderText="项目区域" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
@@ -90,7 +84,7 @@
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="编制日期"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="150px" ColumnID="FlowOperateName" DataField="FlowOperateName"
+                    <f:RenderField Width="120px" ColumnID="FlowOperateName" DataField="FlowOperateName"
                         SortField="FlowOperateName" FieldType="String" HeaderText="状态" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>

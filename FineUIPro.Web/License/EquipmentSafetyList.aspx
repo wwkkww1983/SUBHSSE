@@ -49,7 +49,7 @@
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="120px" ColumnID="EquipmentSafetyListCode" DataField="EquipmentSafetyListCode"
+                    <f:RenderField Width="100px" ColumnID="EquipmentSafetyListCode" DataField="EquipmentSafetyListCode"
                         SortField="EquipmentSafetyListCode" FieldType="String" HeaderText="编号"
                         HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
@@ -73,7 +73,7 @@
                     <f:RenderField Width="90px" ColumnID="SendMan" DataField="SendMan" SortField="SendMan"
                         FieldType="String" HeaderText="发证人" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
+                    <f:RenderField Width="100px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="编制日期"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>

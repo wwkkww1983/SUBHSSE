@@ -90,15 +90,33 @@
                             <f:RenderField ColumnID="TrainingItemCode" DataField="TrainingItemCode" SortField="TrainingItemCode" 
                                 Width="80px" FieldType="String" HeaderText="编号" HeaderTextAlign="Center" TextAlign="left">
                             </f:RenderField>
-                            <f:RenderField ColumnID="Abstracts" DataField="Abstracts" SortField="Abstracts" 
-                                Width="550px"  FieldType="String" HeaderText="教材内容" HeaderTextAlign="Center" TextAlign="left">
+                            <f:RenderField ColumnID="Abstracts" DataField="Abstracts" SortField="Abstracts" ExpandUnusedSpace="true"
+                                Width="500px"  FieldType="String" HeaderText="教材内容" HeaderTextAlign="Center" TextAlign="left">
                             </f:RenderField>
-                             <f:RenderField ColumnID="WorkPostNames" DataField="WorkPostNames" SortField="WorkPostNames" ExpandUnusedSpace="true"
-                                Width="350px"  FieldType="String" HeaderText="适合岗位" HeaderTextAlign="Center" TextAlign="left">
+                             <f:RenderField ColumnID="WorkPostNames" DataField="WorkPostNames" SortField="WorkPostNames" 
+                                Width="300px"  FieldType="String" HeaderText="适合岗位" HeaderTextAlign="Center" TextAlign="left">
                             </f:RenderField> 
                              <f:RenderField ColumnID="TestTypeName" DataField="TestTypeName" SortField="TestTypeName" 
                                 Width="70px"  FieldType="String" HeaderText="题型" HeaderTextAlign="Center" TextAlign="left">
-                            </f:RenderField>     
+                            </f:RenderField>  
+                            <%-- <f:RenderField Width="200px" ColumnID="AItem" DataField="AItem" FieldType="String"
+                                HeaderText="答案项A" HeaderTextAlign="Center" TextAlign="Left">
+                            </f:RenderField>
+                            <f:RenderField Width="200px" ColumnID="BItem" DataField="BItem" FieldType="String"
+                                HeaderText="答案项B" HeaderTextAlign="Center" TextAlign="Left">
+                            </f:RenderField>   
+                             <f:RenderField Width="200px" ColumnID="CItem" DataField="CItem" FieldType="String"
+                                HeaderText="答案项C" HeaderTextAlign="Center" TextAlign="Left">
+                            </f:RenderField>   
+                             <f:RenderField Width="200px" ColumnID="DItem" DataField="DItem" FieldType="String"
+                                HeaderText="答案项D" HeaderTextAlign="Center" TextAlign="Left">
+                            </f:RenderField>   
+                             <f:RenderField Width="200px" ColumnID="EItem" DataField="EItem" FieldType="String"
+                                HeaderText="答案项E" HeaderTextAlign="Center" TextAlign="Left">
+                            </f:RenderField>   
+                             <f:RenderField Width="90px" ColumnID="AnswerItems" DataField="AnswerItems" FieldType="String"
+                                HeaderText="正确答案项" HeaderTextAlign="Center" TextAlign="Left">
+                            </f:RenderField>  --%>
                         </Columns>
                         <Listeners>
                             <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />

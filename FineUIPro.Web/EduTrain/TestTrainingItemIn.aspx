@@ -63,7 +63,7 @@
                             <f:RenderField Width="90px" ColumnID="TestTypeName" DataField="TestTypeName" FieldType="String"
                                 HeaderText="题型" HeaderTextAlign="Center" TextAlign="Left">
                             </f:RenderField> 
-                             <f:RenderField Width="150px" ColumnID="InstallationNames" DataField="InstallationNames" FieldType="String"
+                             <f:RenderField Width="150px" ColumnID="WorkPostNames" DataField="WorkPostNames" FieldType="String"
                                 HeaderText="适合岗位" HeaderTextAlign="Center" TextAlign="Left">
                             </f:RenderField>
                              <f:RenderField Width="200px" ColumnID="Abstracts" DataField="Abstracts" FieldType="String"

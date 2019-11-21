@@ -97,16 +97,6 @@
                 </Items>
             </f:FormRow>
         </Rows>
-        <Toolbars>
-            <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
-                <Items>
-                    <f:ToolbarFill ID="ToolbarFill1" runat="server">
-                    </f:ToolbarFill>
-                    <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
-                    </f:Button>
-                </Items>
-            </f:Toolbar>
-        </Toolbars>
     </f:Form>
     </form>
 </body>

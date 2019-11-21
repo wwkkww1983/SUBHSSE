@@ -8,6 +8,23 @@ namespace FineUIPro.Web.EduTrain
 {
     public partial class TestRecordItem : PageBase
     {
+        #region 定义项
+        /// <summary>
+        /// 主键
+        /// </summary>
+        public string TestRecordId
+        {
+            get
+            {
+                return (string)ViewState["TestRecordId"];
+            }
+            set
+            {
+                ViewState["TestRecordId"] = value;
+            }
+        }
+        #endregion
+
         #region 加载页面
         /// <summary>
         /// 加载页面
@@ -19,6 +36,7 @@ namespace FineUIPro.Web.EduTrain
             if (!IsPostBack)
             {
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
+                this.TestRecordId = Request.Params["TestRecordId"];
                 // 绑定表格
                 BindGrid();
                 if (this.CurrUser.UserId == BLL.Const.sysglyId)
@@ -44,7 +62,7 @@ namespace FineUIPro.Web.EduTrain
                             ,Score,SubjectScore,Replace(Replace(Replace(Replace(Replace(SelectedItem,'1','A'),'2', 'B'),'3', 'C'),'4', 'D'),'5', 'E') AS SelectedItem"
                          + @",TestType,TrainingItemCode,(CASE WHEN TestType = '1' THEN '单选题' WHEN TestType = '2' THEN '多选题' ELSE '判断题' END) AS TestTypeName"
                          + @" FROM Training_TestRecordItem "
-                         + @" WHERE TestRecordId= '" + Request.Params["TestRecordId"] + "'";
+                         + @" WHERE TestRecordId= '" + this.TestRecordId + "'";
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtName.Text.Trim()))
             {
@@ -206,6 +224,21 @@ namespace FineUIPro.Web.EduTrain
             BindGrid();
             Response.Write(GetGridTableHtml(Grid1));
             Response.End();
+        }
+        #endregion
+
+        #region 附件
+        /// <summary>
+        /// 上传附件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnAttachUrl_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(this.TestRecordId))
+            {
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&menuId={1}&type=-1", this.TestRecordId, Const.ProjectTestRecordMenuId)));
+            }
         }
         #endregion
     }

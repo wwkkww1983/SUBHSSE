@@ -37,6 +37,9 @@
                             </f:TextBox>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
+                             <f:Button ID="btnAttachUrl"  ToolTip="考试图片查看" Icon="TableCell" runat="server"
+                                    OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1">
+                                </f:Button>
                              <f:Button ID="btnOut" OnClick="btnMenuOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
                                 EnableAjax="false" DisableControlBeforePostBack="false">
                             </f:Button>
@@ -105,7 +108,11 @@
     </f:Panel>
     <f:Window ID="Window1" Title="考试记录查看" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server"  IsModal="true"
-        Width="900px" Height="450px">
+        Width="900px" Height="500px">
+    </f:Window>
+    <f:Window ID="WindowAtt" Title="附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Height="500px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuView" OnClick="btnMenuView_Click" EnablePostBack="true"

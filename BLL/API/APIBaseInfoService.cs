@@ -63,6 +63,7 @@ namespace BLL
             var getDataLists = (from x in Funs.DB.InformationProject_Picture
                                 join y in Funs.DB.AttachFile on x.PictureId equals y.ToKeyId
                                 where x.States == Const.State_2 && y.AttachUrl != null && x.ProjectId == projectId && x.PictureType == pictureType
+                                orderby x.UploadDate descending
                                 select new Model.BaseInfoItem
                                 {
                                     BaseInfoId = x.PictureId,

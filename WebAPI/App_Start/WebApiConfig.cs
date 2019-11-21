@@ -21,6 +21,7 @@ namespace WebAPI
             GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
             // Web API 路由
             config.MapHttpAttributeRoutes();
+            // 
             config.Filters.Add(new TestPermissionAttribute());
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

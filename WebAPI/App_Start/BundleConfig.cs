@@ -3,8 +3,15 @@ using System.Web.Optimization;
 
 namespace WebAPI
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class BundleConfig
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bundles"></param>
         // 有关捆绑的详细信息，请访问 https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
