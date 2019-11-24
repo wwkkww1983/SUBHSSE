@@ -566,9 +566,9 @@ namespace FineUIPro.Web.SysManage
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT FlowOperateId,MenuId,FlowStep,AuditFlowName,RoleId,IsFlowEnd "
-                + @" FROM dbo.Sys_MenuFlowOperate "
-                + @" WHERE MenuId=@MenuId";
+            string strSql = @"SELECT flow.FlowOperateId,flow.MenuId,flow.FlowStep,flow.GroupNum,flow.OrderNum,flow.AuditFlowName,flow.RoleId,flow.IsFlowEnd"                
+                + @" FROM dbo.Sys_MenuFlowOperate AS flow "
+                + @" WHERE flow.MenuId=@MenuId";
             List<SqlParameter> listStr = new List<SqlParameter>();
             string menuId = string.Empty;
             if (!string.IsNullOrEmpty(this.drpMenu.Value))
@@ -585,8 +585,19 @@ namespace FineUIPro.Web.SysManage
             var table = this.GetPagedDataTable(Grid1, tb);
             Grid1.DataSource = table;
             Grid1.DataBind();
-        }
 
+            if (CommonService.GetIsThisUnit(Const.UnitId_SEDIN) && LicensePublicService.lisenWorkList.Contains(this.drpMenu.Value))
+            {
+                this.Grid1.Columns[1].Hidden = false;
+                this.Grid1.Columns[2].Hidden = false;
+            }
+            else
+            {
+                this.Grid1.Columns[1].Hidden = true;
+                this.Grid1.Columns[2].Hidden = true;               
+            }
+        }
+        
         /// <summary>
         /// 得到角色名称字符串
         /// </summary>

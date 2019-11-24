@@ -123,6 +123,8 @@ namespace BLL
                 BLL.CommonService.DeleteFlowOperateByID(Notice.NoticeId);
                 ///删除编码表记录
                 BLL.CodeRecordsService.DeleteCodeRecordsByDataId(noticeId);
+                //// 删除浏览记录
+                UserService.DeleteUserRead(noticeId);
                 db.InformationProject_Notice.DeleteOnSubmit(Notice);
                 db.SubmitChanges();
             }

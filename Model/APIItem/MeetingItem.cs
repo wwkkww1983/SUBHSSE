@@ -27,6 +27,38 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 单位ID
+        /// </summary>
+        public string UnitId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 单位名称
+        /// </summary>
+        public string UnitName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 班组ID
+        /// </summary>
+        public string TeamGroupId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 班组名称
+        /// </summary>
+        public string TeamGroupName
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 编号
         /// </summary>
         public string MeetingCode
@@ -122,7 +154,7 @@ namespace Model
             get;
             set;
         }
-        // <summary>
+        /// <summary>
         /// 编制姓名
         /// </summary>
         public string CompileManName
@@ -131,22 +163,6 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 单位ID
-        /// </summary>
-        public string UnitId
-        {
-            get;
-            set;
-        }
-        // <summary>
-        /// 单位名称
-        /// </summary>
-        public string UnitName
-        {
-            get;
-            set;
-        }
-        // <summary>
         /// 附件
         /// </summary>
         public string AttachUrl
@@ -154,7 +170,23 @@ namespace Model
             get;
             set;
         }
-        // <summary>
+        /// <summary>
+        /// 签到附件
+        /// </summary>
+        public string AttachUrl1
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 过程附件
+        /// </summary>
+        public string AttachUrl2
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 状态
         /// </summary>
         public string States

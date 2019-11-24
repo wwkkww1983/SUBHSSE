@@ -104,7 +104,7 @@
                                         <f:RadioItem Value="Menu_Project" Text="项目" Selected="true" />
                                     </f:RadioButtonList>
                                     <f:DropDownBox runat="server" ID="drpMenu" Values="henan" EmptyText="请选择末级菜单" Width="500px" 
-                                        EnableMultiSelect="false" AutoPostBack="true" OnTextChanged="drpMenu_TextChanged">
+                                        EnableMultiSelect="false" AutoPostBack="true" OnTextChanged="drpMenu_TextChanged" EnableEdit="true">
                                         <PopPanel>
                                             <f:Tree ID="treeMenu" ShowHeader="false" Hidden="true" runat="server" EnableSingleExpand="true">
                                             </f:Tree>
@@ -184,7 +184,7 @@
                                            <Items>
                                             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false"  EnableCollapse="true" EnableColumnLines="true" EnableColumnMove="true"
                                                 runat="server" BoxFlex="1" DataKeyNames="FlowOperateId" AllowCellEditing="true" ClicksToEdit="2"
-                                                DataIDField="FlowOperateId" AllowSorting="true" SortField="FlowStep" SortDirection="ASC" Height="320px"
+                                                DataIDField="FlowOperateId" AllowSorting="true" SortField="FlowStep,GroupNum,OrderNum" SortDirection="ASC" Height="320px"
                                                 OnSort="Grid1_Sort" AllowPaging="true"  EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick"
                                                 EnableTextSelection="True">
                                                 <Toolbars>
@@ -197,9 +197,16 @@
                                                     </f:Toolbar>
                                                 </Toolbars>
                                                 <Columns>
-                                                    <f:RenderField Width="100px" ColumnID="FlowStep" DataField="FlowStep" FieldType="Int" HeaderText="审批步骤"  HeaderTextAlign="Center" TextAlign="Center">
+                                                    <f:RenderField Width="100px" ColumnID="FlowStep" DataField="FlowStep" FieldType="Int"
+                                                        HeaderText="步骤"  HeaderTextAlign="Center" TextAlign="Center">
                                                     </f:RenderField>
-                                                        <f:RenderField Width="250px" ColumnID="AuditFlowName" DataField="AuditFlowName"  FieldType="String" HeaderText="步骤名称"  HeaderTextAlign="Center" TextAlign="Left">
+                                                     <f:RenderField Width="100px" ColumnID="GroupNum" DataField="GroupNum" FieldType="Int"
+                                                        HeaderText="组号"  HeaderTextAlign="Center" TextAlign="Center" Hidden="true">
+                                                    </f:RenderField>
+                                                     <f:RenderField Width="100px" ColumnID="OrderNum" DataField="OrderNum" FieldType="Int"
+                                                        HeaderText="组内序号"  HeaderTextAlign="Center" TextAlign="Center" Hidden="true">
+                                                    </f:RenderField>
+                                                    <f:RenderField Width="250px" ColumnID="AuditFlowName" DataField="AuditFlowName"  FieldType="String" HeaderText="名称"  HeaderTextAlign="Center" TextAlign="Left">
                                                     </f:RenderField>
                                                     <f:TemplateField Width="300px" HeaderText="审批角色" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true"> 
                                                         <ItemTemplate>
@@ -208,6 +215,9 @@
                                                     </f:TemplateField>
                                                     <f:CheckBoxField Width="80px" RenderAsStaticField="true" TextAlign="Center"  DataField="IsFlowEnd" HeaderText="是否结束" />
                                                 </Columns>
+                                                <Listeners>
+                                                    <f:Listener Event="dataload" Handler="onGridDataLoad" />
+                                                </Listeners>
                                             </f:Grid>
                                         </Items>
                                         </f:Tab>
@@ -309,8 +319,13 @@
         </f:Panel>
         <f:Window ID="Window1" Title="流程步骤设置" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Self" EnableResize="true" runat="server" IsModal="true"  OnClose="Window1_Close"
-            Width="640px" Height="320px">
+            Width="640px" Height="450px">
     </f:Window>
     </form>
+    <script type="text/javascript">      
+        function onGridDataLoad(event) {
+            this.mergeColumns(['FlowStep','GroupNum'], { depends: true });
+        }
+    </script>
 </body>
 </html>

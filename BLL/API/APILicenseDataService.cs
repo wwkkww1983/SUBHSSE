@@ -891,9 +891,9 @@ namespace BLL
         }
         #endregion 
 
-        #region 获取作业票审核列表信息
+        #region 获取作业票检查项列表信息
         /// <summary>
-        /// 获取作业票审核列表信息
+        /// 获取作业票检查项列表信息
         /// </summary>
         /// <param name="dataId"></param>
         /// <returns></returns>
@@ -927,12 +927,14 @@ namespace BLL
         {
             var getInfoList = (from x in Funs.DB.License_FlowOperate
                                where x.DataId == dataId && (!x.IsFlowEnd.HasValue || x.IsFlowEnd == false)
-                               orderby x.SortIndex
+                               orderby x.SortIndex, x.GroupNum, x.OrderNum
                                select new Model.FlowOperateItem
                                {
                                    FlowOperateId = x.FlowOperateId,
                                    AuditFlowName = x.AuditFlowName,
                                    SortIndex = x.SortIndex ?? 0,
+                                   GroupNum = x.GroupNum ?? 1,
+                                   OrderNum = x.OrderNum ?? 1,
                                    OperaterId = x.OperaterId,
                                    OperaterName = Funs.DB.Sys_User.First(u => u.UserId == x.OperaterId).UserName,
                                    OperaterTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.OperaterTime),
@@ -1521,6 +1523,7 @@ namespace BLL
             }
             #endregion
 
+            Funs.SubmitChanges();
             #region 保存安全措施明细
             if (newItem.States == Const.State_0 || newItem.States == Const.State_1)
             {
@@ -1549,6 +1552,8 @@ namespace BLL
                         Funs.DB.License_LicenseItem.InsertOnSubmit(newLicenseItem);                       
                     }
                 }
+
+                Funs.SubmitChanges();
             }
             #endregion
 
@@ -1570,57 +1575,53 @@ namespace BLL
                     {
                         var firtFlow = (from x in Funs.DB.License_FlowOperate
                                         where x.DataId == strLicenseId && (x.IsClosed == false || !x.IsClosed.HasValue)
-                                        orderby x.SortIndex
+                                        orderby x.SortIndex,x.GroupNum,x.OrderNum
                                         select x).FirstOrDefault();
                         if (firtFlow != null)
                         {
                             firtFlow.OperaterId = newItem.NextManId;
                         }
                     }
+                    Funs.SubmitChanges();
                 }
                 else
                 {
-                    var SysMenuFlowOperate = from x in Funs.DB.Sys_MenuFlowOperate
+                    var sysMenuFlowOperate = from x in Funs.DB.Sys_MenuFlowOperate
                                              where x.MenuId == newItem.MenuId
                                              select x;
-                    if (SysMenuFlowOperate.Count() > 0)
-                    {
-                        foreach (var item in SysMenuFlowOperate)
+                    if (sysMenuFlowOperate.Count() > 0)
+                    {                        
+                        foreach (var item in sysMenuFlowOperate)
                         {
                             Model.License_FlowOperate newFlowOperate = new Model.License_FlowOperate
                             {
                                 FlowOperateId = SQLHelper.GetNewID(),
-                                ProjectId =projectId,
+                                ProjectId = projectId,
                                 DataId = strLicenseId,
                                 MenuId = item.MenuId,
                                 AuditFlowName = item.AuditFlowName,
                                 SortIndex = item.FlowStep,
+                                GroupNum = item.GroupNum,
+                                OrderNum = item.OrderNum,
                                 RoleIds = item.RoleId,
                                 IsFlowEnd = item.IsFlowEnd,
                             };
-                            if (newFlowOperate.SortIndex == 1)
+
+                            if (newFlowOperate.SortIndex == 1 && newFlowOperate.GroupNum ==1 && newFlowOperate.OrderNum == 1)
                             {
                                 newFlowOperate.OperaterId = newItem.NextManId;
                             }
+
                             Funs.DB.License_FlowOperate.InsertOnSubmit(newFlowOperate);
+                            Funs.SubmitChanges();
                         }
                     }
                 }                
             }
             #endregion
-            Funs.SubmitChanges();
 
-            #region 保存附件
-            ////保存附件
-            if (!string.IsNullOrEmpty(newItem.AttachUrl))
-            {
-                UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(newItem.AttachUrl, 10, null), newItem.AttachUrl, newItem.MenuId, strLicenseId);
-            }
-            else
-            {
-                CommonService.DeleteAttachFileById(strLicenseId);
-            }
-            #endregion
+            //// 保存附件
+            APIUpLoadFileService.SaveAttachUrl(newItem.MenuId, strLicenseId, newItem.AttachUrl, "0");
         }
         #endregion
 

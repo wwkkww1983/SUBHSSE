@@ -92,6 +92,7 @@
     <Compile Include="APIItem\ToDoItem.cs" />
     <Compile Include="APIItem\PersonItem.cs" />
     <Compile Include="APIItem\ConstructSolutionItem.cs" />
+    <Compile Include="APIItem\UserReadItem.cs" />
     <Compile Include="APIItem\UserItem.cs" />
     <Compile Include="Chart\DataSourceChart.cs" />
     <Compile Include="Chart\DataSourcePoint.cs" />

@@ -578,6 +578,16 @@
             <param name="pageIndex"></param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getNoticesQuery(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            根据项目ID通知通告
+            </summary>
+            <param name="projectId">项目ID</param>
+            <param name="userId">用户ID</param>
+            <param name="strParam">查询条件</param>
+            <param name="pageIndex"></param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.BaseInfoController.getNoticesByNoticeId(System.String)">
             <summary>
             根据noticeId获取通知通告详细
@@ -1782,6 +1792,40 @@
             <param name="roleIds"></param>
             <param name="strParam"></param>
             <param name="pageIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.UserController.getSaveUserTel(System.String,System.String)">
+            <summary>
+            保存人员电话号码
+            </summary>
+            <param name="userId"></param>
+            <param name="tel">电话</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.UserController.getIsMainUnitOrAdmin(System.String)">
+            <summary>
+            根据用户UnitId判断是否为本单位用户或管理员
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.UserController.getMenuUnreadCount(System.String,System.String,System.String)">
+            <summary>
+            获取当前人未读数量
+            </summary>
+            <param name="menuId">菜单ID</param>
+            <param name="projectId">菜单ID</param>
+            <param name="userId">用户id</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.UserController.getSaveUserRead(System.String,System.String,System.String,System.String)">
+            <summary>
+            保存浏览记录
+            </summary>
+            <param name="menuId">菜单ID</param>
+            <param name="projectId">菜单ID</param>
+            <param name="userId">用户id</param>
+            <param name="dataId">主键ID</param>
             <returns></returns>
         </member>
         <member name="T:WebAPI.Filter.TestPermissionAttribute">

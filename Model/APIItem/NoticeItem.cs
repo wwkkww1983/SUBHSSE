@@ -57,5 +57,13 @@ namespace Model
             get;
             set;
         }
+        /// <summary>
+        /// 主要内容
+        /// </summary>
+        public bool IsRead
+        {
+            get;
+            set;
+        }
     }
 }

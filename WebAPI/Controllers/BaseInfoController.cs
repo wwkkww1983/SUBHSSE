@@ -224,6 +224,36 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
+        /// 根据项目ID通知通告
+        /// </summary>
+        /// <param name="projectId">项目ID</param>
+        /// <param name="userId">用户ID</param>
+        /// <param name="strParam">查询条件</param>
+        /// <param name="pageIndex"></param>
+        /// <returns></returns>
+        public Model.ResponeData getNoticesQuery(string projectId, string userId, string strParam, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var noticeList = APIBaseInfoService.getNoticesList(projectId, userId, strParam);
+                int pageCount = noticeList.Count();
+                if (pageCount > 0 && pageIndex > 0)
+                {
+                    noticeList = noticeList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                }
+                responeData.data = new { pageCount, noticeList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
         /// 根据noticeId获取通知通告详细
         /// </summary>
         /// <param name="noticeId"></param>

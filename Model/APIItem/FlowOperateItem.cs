@@ -51,6 +51,22 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 组号
+        /// </summary>
+        public int GroupNum
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 组内序号
+        /// </summary>
+        public int OrderNum
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 审核角色IDs
         /// </summary>
         public string RoleIds

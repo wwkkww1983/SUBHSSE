@@ -182,5 +182,103 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region 保存人员电话号码
+        /// <summary>
+        /// 保存人员电话号码
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="tel">电话</param>
+        /// <returns></returns>
+        public Model.ResponeData getSaveUserTel(string userId, string tel)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APIUserService.getSaveUserTel(userId, tel);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region 根据用户UnitId判断是否为本单位用户或管理员
+        /// <summary>
+        /// 根据用户UnitId判断是否为本单位用户或管理员
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getIsMainUnitOrAdmin(string userId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data= CommonService.IsMainUnitOrAdmin(userId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region 获取当前人未读数量
+        /// <summary>
+        /// 获取当前人未读数量
+        /// </summary>
+        /// <param name="menuId">菜单ID</param>
+        /// <param name="projectId">菜单ID</param>
+        /// <param name="userId">用户id</param>
+        /// <returns></returns>
+        public Model.ResponeData getMenuUnreadCount(string menuId, string projectId, string userId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIUserService.getMenuUnreadCount(menuId, projectId, userId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region 保存浏览记录
+        /// <summary>
+        /// 保存浏览记录
+        /// </summary>
+        /// <param name="menuId">菜单ID</param>
+        /// <param name="projectId">菜单ID</param>
+        /// <param name="userId">用户id</param>
+        /// <param name="dataId">主键ID</param>
+        /// <returns></returns>
+        public Model.ResponeData getSaveUserRead(string menuId, string projectId, string userId, string dataId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APIUserService.getSaveUserRead(menuId, projectId, userId, dataId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
     }
 }

@@ -102,6 +102,27 @@ namespace BLL
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
+        public static List<Model.NoticeItem> getNoticesList(string projectId, string userId, string strParam)
+        {
+            var getDataLists = (from x in Funs.DB.InformationProject_Notice
+                                where x.AccessProjectId.Contains(projectId) && x.IsRelease == true
+                                && (strParam == null || x.NoticeTitle.Contains(strParam))                               
+                                select new Model.NoticeItem
+                                {
+                                    NoticeId = x.NoticeId,
+                                    NoticeCode = x.NoticeCode,
+                                    NoticeTitle = x.NoticeTitle,
+                                    ReleaseDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ReleaseDate),
+                                    IsRead = Funs.DB.Sys_UserRead.FirstOrDefault(y => y.DataId == x.NoticeId && y.ProjectId == projectId && y.UserId == userId) == null ? false : true,
+                                }).ToList();
+            return getDataLists.OrderBy(x=>x.IsRead).ThenByDescending(x=>x.ReleaseDate).ToList();
+        }
+
+        /// <summary>
+        /// 根据项目id获取通知通告
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
         public static Model.NoticeItem getNoticesByNoticeId(string noticeId)
         {
             var getDataLists = (from x in Funs.DB.InformationProject_Notice

@@ -14,13 +14,19 @@
         BodyPadding="20px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
         <Rows>
               <f:FormRow>
-                <Items>
-                    <f:NumberBox ID="txtFlowStep" runat="server" Label="步骤" Readonly="true"></f:NumberBox>
+                <Items>                 
+                    <f:NumberBox ID="txtFlowStep" runat="server" Label="步骤" AutoPostBack="true" OnTextChanged="txtFlowStep_TextChanged"
+                        Required="true" NoDecimal="true" NoNegative="true"></f:NumberBox>
+                     <f:NumberBox ID="txtGroupNum" runat="server" Label="组号" AutoPostBack="true" OnTextChanged="txtGroupNum_TextChanged"
+                        Required="true" NoDecimal="true" NoNegative="true" Hidden="true"></f:NumberBox>
+                     <f:NumberBox ID="txtOrderNum" runat="server" Label="组内序号" 
+                        Required="true" NoDecimal="true" NoNegative="true" Hidden="true"></f:NumberBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                <Items>
-                     <f:TextBox ID="txtAuditFlowName" runat="server" Label="步骤名称" Required="true" ShowRedStar="true" FocusOnPageLoad="true">
+                     <f:TextBox ID="txtAuditFlowName" runat="server" Label="名称" 
+                         Required="true" ShowRedStar="true" FocusOnPageLoad="true">
                     </f:TextBox>
                 </Items>  
             </f:FormRow>

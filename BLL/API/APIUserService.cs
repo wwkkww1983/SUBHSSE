@@ -127,5 +127,63 @@ namespace BLL
                        select x;
             return ObjectMapperManager.DefaultInstance.GetMapper<List<Model.Sys_User>, List<Model.UserItem>>().Map(user.ToList());
         }
+
+        /// <summary>
+        /// 根据userId获取用户信息
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static void getSaveUserTel(string userId, string tel)
+        {
+            var getUser = Funs.DB.Sys_User.FirstOrDefault(x => x.UserId == userId);
+            if (getUser != null)
+            {
+                getUser.Telephone = tel;
+                Funs.SubmitChanges();
+            }
+        }
+
+        /// <summary>
+        /// 获取人员未浏览记录数
+        /// </summary>
+        /// <param name="unitid"></param>
+        /// <returns></returns>
+        public static int getMenuUnreadCount(string menuId, string projectId, string userId)
+        {
+            int count = 0;
+            var readCount = Funs.DB.Sys_UserRead.Where(x => x.MenuId == menuId && x.ProjectId ==projectId && x.UserId == userId).Select(x => x.DataId).Distinct().Count();
+            if (menuId == Const.ProjectNoticeMenuId)
+            {
+                var noticeCount = Funs.DB.InformationProject_Notice.Where(x => x.AccessProjectId.Contains(projectId)).Count();
+                count = noticeCount - readCount;
+            }
+            count = count < 0 ? 0 : count;
+            return count;
+        }
+
+        /// <summary>
+        /// 保存浏览记录
+        /// </summary>
+        /// <param name="unitid"></param>
+        /// <returns></returns>
+        public static void getSaveUserRead(string menuId, string projectId, string userId, string dataId)
+        {
+            var userRead = Funs.DB.Sys_UserRead.FirstOrDefault(x => x.ProjectId == projectId && x.UserId == userId && x.DataId == dataId);
+            if (userRead == null)
+            {
+                Model.Sys_UserRead newRead = new Model.Sys_UserRead
+                {
+                    UserReadId = SQLHelper.GetNewID(),
+                    UserId = userId,
+                    MenuId = menuId,
+                    ProjectId = projectId,
+                    DataId = dataId,
+                    ReadTime = DateTime.Now,
+                };
+
+                Funs.DB.Sys_UserRead.InsertOnSubmit(newRead);
+                Funs.SubmitChanges();
+            }
+        }
     }
 }

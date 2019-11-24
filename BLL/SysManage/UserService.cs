@@ -420,5 +420,20 @@ namespace BLL
             }
         }
         #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dataId"></param>
+        public static void DeleteUserRead(string dataId)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            var userRs = from x in Funs.DB.Sys_UserRead where x.DataId == dataId select x;
+            if (userRs.Count()>0)
+            {
+                Funs.DB.Sys_UserRead.DeleteAllOnSubmit(userRs);
+                Funs.DB.SubmitChanges();
+            }
+        }
     }
 }

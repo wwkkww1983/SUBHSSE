@@ -26,6 +26,15 @@ namespace BLL
             return list;
         }
 
+        /// <summary>
+        /// 作业票菜单
+        /// </summary>
+        public static List<string> lisenWorkList = new List<string>
+       {
+            Const.ProjectFireWorkMenuId,Const.ProjectHeightWorkMenuId,Const.ProjectLimitedSpaceMenuId,Const.ProjectRadialWorkMenuId,
+            Const.ProjectOpenCircuitMenuId,Const.ProjectBreakGroundMenuId,Const.ProjectNightWorkMenuId, Const.ProjectLiftingWorkMenuId
+       };
+
         #region 作业票
         #region 动火作业票
         /// <summary>

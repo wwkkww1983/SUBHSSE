@@ -261,7 +261,7 @@ namespace BLL
         public static bool IsThisUnitLeaderOrManage(string userId)
         {
             bool result = false;
-            if (userId == BLL.Const.sysglyId || userId == BLL.Const.hfnbdId)
+            if (userId == Const.sysglyId || userId == Const.hfnbdId)
             {
                 result = true;
             }
@@ -284,7 +284,7 @@ namespace BLL
                         isThisUnit = true;
                     }
 
-                    var unit = BLL.UnitService.GetUnitByUnitId(user.UnitId);
+                    var unit = UnitService.GetUnitByUnitId(user.UnitId);
                     if (unit != null)
                     {
                         if (unit.IsThisUnit == true)

@@ -21,7 +21,7 @@ namespace BLL
         /// <returns>会议详细</returns>
         public static Model.MeetingItem getMeetingByMeetingId(string meetingId,string meetingType)
         {
-            Model.MeetingItem getMeetItem = new Model.MeetingItem();
+            Model.MeetingItem getMeetItem = new Model.MeetingItem();            
             if (meetingType == "C")
             {
                 getMeetItem = (from x in Funs.DB.Meeting_ClassMeeting
@@ -29,6 +29,11 @@ namespace BLL
                                select new Model.MeetingItem
                                {
                                    MeetingId = x.ClassMeetingId,
+                                   ProjectId = x.ProjectId,
+                                   UnitId = x.UnitId,
+                                   UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                   TeamGroupId = x.TeamGroupId,
+                                   TeamGroupName = Funs.DB.ProjectData_TeamGroup.First(u => u.TeamGroupId == x.TeamGroupId).TeamGroupName,
                                    MeetingCode = x.ClassMeetingCode,
                                    MeetingName = x.ClassMeetingName,
                                    MeetingDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ClassMeetingDate),
@@ -37,11 +42,13 @@ namespace BLL
                                    MeetingType = meetingType,
                                    MeetingHours = x.MeetingHours ?? 0,
                                    MeetingHostMan = x.MeetingHostMan,
-                                   AttentPerson = x.AttentPerson,                                   
+                                   AttentPerson = x.AttentPerson,
                                    CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
                                    CompileManId = x.CompileMan,
-                                   CompileManName = Funs.DB.Sys_User.First(u => u.UserId ==x.CompileMan).UserName,
-                                   AttachUrl=Funs.DB.AttachFile.First(z=>z.ToKeyId == x.ClassMeetingId).AttachUrl.Replace('\\', '/'),
+                                   CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
+                                   AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.ClassMeetingId).AttachUrl.Replace('\\', '/'),
+                                   AttachUrl1 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.ClassMeetingId +"#1")).AttachUrl.Replace('\\', '/'),
+                                   AttachUrl2 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.ClassMeetingId + "#2")).AttachUrl.Replace('\\', '/'),
                                }).FirstOrDefault();
             }
             else if (meetingType == "W")
@@ -51,6 +58,9 @@ namespace BLL
                                select new Model.MeetingItem
                                {
                                    MeetingId = x.WeekMeetingId,
+                                   ProjectId = x.ProjectId,
+                                   UnitId = x.UnitId,
+                                   UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
                                    MeetingCode = x.WeekMeetingCode,
                                    MeetingName = x.WeekMeetingName,
                                    MeetingDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.WeekMeetingDate),
@@ -65,6 +75,8 @@ namespace BLL
                                    CompileManId = x.CompileMan,
                                    CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
                                    AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.WeekMeetingId).AttachUrl.Replace('\\', '/'),
+                                   AttachUrl1 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.WeekMeetingId + "#1")).AttachUrl.Replace('\\', '/'),
+                                   AttachUrl2 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.WeekMeetingId + "#2")).AttachUrl.Replace('\\', '/'),
                                }).FirstOrDefault();
             }
             else if (meetingType == "M")
@@ -74,6 +86,9 @@ namespace BLL
                                select new Model.MeetingItem
                                {
                                    MeetingId = x.MonthMeetingId,
+                                   ProjectId = x.ProjectId,
+                                   UnitId = x.UnitId,
+                                   UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
                                    MeetingCode = x.MonthMeetingCode,
                                    MeetingName = x.MonthMeetingName,
                                    MeetingDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.MonthMeetingDate),
@@ -88,6 +103,8 @@ namespace BLL
                                    CompileManId = x.CompileMan,
                                    CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
                                    AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.MonthMeetingId).AttachUrl.Replace('\\', '/'),
+                                   AttachUrl1 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.MonthMeetingId + "#1")).AttachUrl.Replace('\\', '/'),
+                                   AttachUrl2 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.MonthMeetingId + "#2")).AttachUrl.Replace('\\', '/'),
                                }).FirstOrDefault();
             }
             else if (meetingType == "S")
@@ -97,6 +114,9 @@ namespace BLL
                                select new Model.MeetingItem
                                {
                                    MeetingId = x.SpecialMeetingId,
+                                   ProjectId = x.ProjectId,
+                                   UnitId = x.UnitId,
+                                   UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
                                    MeetingCode = x.SpecialMeetingCode,
                                    MeetingName = x.SpecialMeetingName,
                                    MeetingDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.SpecialMeetingDate),
@@ -111,6 +131,8 @@ namespace BLL
                                    CompileManId = x.CompileMan,
                                    CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
                                    AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.SpecialMeetingId).AttachUrl.Replace('\\', '/'),
+                                   AttachUrl1 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.SpecialMeetingId + "#1")).AttachUrl.Replace('\\', '/'),
+                                   AttachUrl2 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.SpecialMeetingId + "#2")).AttachUrl.Replace('\\', '/'),
                                }).FirstOrDefault();
             }
             else
@@ -120,6 +142,9 @@ namespace BLL
                                select new Model.MeetingItem
                                {
                                    MeetingId = x.AttendMeetingId,
+                                   ProjectId = x.ProjectId,
+                                   UnitId = x.UnitId,
+                                   UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
                                    MeetingCode = x.AttendMeetingCode,
                                    MeetingName = x.AttendMeetingName,
                                    MeetingDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.AttendMeetingDate),
@@ -133,6 +158,8 @@ namespace BLL
                                    CompileManId = x.CompileMan,
                                    CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
                                    AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.AttendMeetingId).AttachUrl.Replace('\\', '/'),
+                                   AttachUrl1 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.AttendMeetingId + "#1")).AttachUrl.Replace('\\', '/'),
+                                   AttachUrl2 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.AttendMeetingId + "#2")).AttachUrl.Replace('\\', '/'),
                                }).FirstOrDefault();
             }
             return getMeetItem;
@@ -160,6 +187,10 @@ namespace BLL
                                {
                                    MeetingId = x.ClassMeetingId,
                                    ProjectId = x.ProjectId,
+                                   UnitId = x.UnitId,
+                                   UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                   TeamGroupId = x.TeamGroupId,
+                                   TeamGroupName = Funs.DB.ProjectData_TeamGroup.First(u => u.TeamGroupId == x.TeamGroupId).TeamGroupName,
                                    MeetingCode = x.ClassMeetingCode,
                                    MeetingName = x.ClassMeetingName,
                                    MeetingDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ClassMeetingDate),
@@ -185,6 +216,8 @@ namespace BLL
                                {
                                    MeetingId = x.WeekMeetingId,
                                    ProjectId = x.ProjectId,
+                                   UnitId = x.UnitId,
+                                   UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
                                    MeetingCode = x.WeekMeetingCode,
                                    MeetingName = x.WeekMeetingName,
                                    MeetingDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.WeekMeetingDate),
@@ -211,6 +244,8 @@ namespace BLL
                                {
                                    MeetingId = x.MonthMeetingId,
                                    ProjectId = x.ProjectId,
+                                   UnitId = x.UnitId,
+                                   UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
                                    MeetingCode = x.MonthMeetingCode,
                                    MeetingName = x.MonthMeetingName,
                                    MeetingDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.MonthMeetingDate),
@@ -237,6 +272,8 @@ namespace BLL
                                {
                                    MeetingId = x.SpecialMeetingId,
                                    ProjectId = x.ProjectId,
+                                   UnitId = x.UnitId,
+                                   UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
                                    MeetingCode = x.SpecialMeetingCode,
                                    MeetingName = x.SpecialMeetingName,
                                    MeetingDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.SpecialMeetingDate),
@@ -263,6 +300,8 @@ namespace BLL
                                {
                                    MeetingId = x.AttendMeetingId,
                                    ProjectId = x.ProjectId,
+                                   UnitId = x.UnitId,
+                                   UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
                                    MeetingCode = x.AttendMeetingCode,
                                    MeetingName = x.AttendMeetingName,
                                    MeetingDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.AttendMeetingDate),
@@ -291,17 +330,20 @@ namespace BLL
         public static void SaveMeeting(Model.MeetingItem meeting)
         {
             Model.SUBHSSEDB db = Funs.DB;
+            string menuId = string.Empty;
             if (meeting.MeetingType == "C")
             {
                 Model.Meeting_ClassMeeting newClassMeeting = new Model.Meeting_ClassMeeting
                 {
-                    ClassMeetingId=meeting.MeetingId,
+                    ClassMeetingId = meeting.MeetingId,
                     ProjectId = meeting.ProjectId,
+                    UnitId = meeting.UnitId == "" ? null : meeting.UnitId,
+                    TeamGroupId = meeting.TeamGroupId == "" ? null : meeting.TeamGroupId,
                     ClassMeetingCode = meeting.MeetingCode,
                     ClassMeetingName = meeting.MeetingName,
                     ClassMeetingDate = Funs.GetNewDateTime(meeting.MeetingDate),
                     ClassMeetingContents = meeting.MeetingContents,
-                    CompileMan = meeting.CompileManId,                  
+                    CompileMan = meeting.CompileManId,
                     MeetingPlace = meeting.MeetingPlace,
                     MeetingHours = meeting.MeetingHours,
                     MeetingHostMan = meeting.MeetingHostMan,
@@ -318,27 +360,20 @@ namespace BLL
                 if (updateMeet == null)
                 {
                     newClassMeeting.CompileDate = DateTime.Now;
-                    newClassMeeting.ClassMeetingId = SQLHelper.GetNewID();
+                    meeting.MeetingId = newClassMeeting.ClassMeetingId = SQLHelper.GetNewID();
                     newClassMeeting.ClassMeetingCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectClassMeetingMenuId, newClassMeeting.ProjectId, null);
                     ClassMeetingService.AddClassMeeting(newClassMeeting);
                 }
                 else
-                {                    
+                {
                     ClassMeetingService.UpdateClassMeeting(newClassMeeting);
                 }
                 if (meeting.States == "1")
                 {
                     CommonService.btnSaveData(meeting.ProjectId, Const.ProjectClassMeetingMenuId, newClassMeeting.ClassMeetingId, newClassMeeting.CompileMan, true, newClassMeeting.ClassMeetingName, "../Meeting/ClassMeetingView.aspx?ClassMeetingId={0}");
                 }
-                if (!string.IsNullOrEmpty(meeting.AttachUrl))
-                {
-                    ////保存附件
-                    UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(meeting.AttachUrl, 10, null), meeting.AttachUrl, Const.ProjectClassMeetingMenuId, newClassMeeting.ClassMeetingId);
-                }
-                else
-                {
-                    CommonService.DeleteAttachFileById(meeting.MeetingId);
-                }
+
+                menuId = Const.ProjectClassMeetingMenuId;
             }
             else if (meeting.MeetingType == "W")
             {
@@ -346,6 +381,7 @@ namespace BLL
                 {
                     WeekMeetingId = meeting.MeetingId,
                     ProjectId = meeting.ProjectId,
+                    UnitId = meeting.UnitId == "" ? null : meeting.UnitId,
                     WeekMeetingCode = meeting.MeetingCode,
                     WeekMeetingName = meeting.MeetingName,
                     WeekMeetingDate = Funs.GetNewDateTime(meeting.MeetingDate),
@@ -369,7 +405,7 @@ namespace BLL
                 if (updateMeet == null)
                 {
                     newWeekMeeting.CompileDate = DateTime.Now;
-                    newWeekMeeting.WeekMeetingId = SQLHelper.GetNewID();
+                    meeting.MeetingId = newWeekMeeting.WeekMeetingId = SQLHelper.GetNewID();
                     newWeekMeeting.WeekMeetingCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectWeekMeetingMenuId, newWeekMeeting.ProjectId, null);
                     WeekMeetingService.AddWeekMeeting(newWeekMeeting);
                 }
@@ -381,22 +417,15 @@ namespace BLL
                 {
                     CommonService.btnSaveData(meeting.ProjectId, Const.ProjectWeekMeetingMenuId, newWeekMeeting.WeekMeetingId, newWeekMeeting.CompileMan, true, newWeekMeeting.WeekMeetingName, "../Meeting/WeekMeetingView.aspx?WeekMeetingId={0}");
                 }
-                if (!string.IsNullOrEmpty(meeting.AttachUrl))
-                {
-                    ////保存附件
-                    UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(meeting.AttachUrl, 10, null), meeting.AttachUrl, Const.ProjectWeekMeetingMenuId, newWeekMeeting.WeekMeetingId);
-                }
-                else
-                {
-                    CommonService.DeleteAttachFileById(meeting.MeetingId);
-                }
+                menuId = Const.ProjectWeekMeetingMenuId;
             }
             else if (meeting.MeetingType == "M")
             {
                 Model.Meeting_MonthMeeting newMonthMeeting = new Model.Meeting_MonthMeeting
                 {
-                    MonthMeetingId=meeting.MeetingId,
+                    MonthMeetingId = meeting.MeetingId,
                     ProjectId = meeting.ProjectId,
+                    UnitId = meeting.UnitId == "" ? null : meeting.UnitId,
                     MonthMeetingCode = meeting.MeetingCode,
                     MonthMeetingName = meeting.MeetingName,
                     MonthMeetingDate = Funs.GetNewDateTime(meeting.MeetingDate),
@@ -420,7 +449,7 @@ namespace BLL
                 if (updateMeet == null)
                 {
                     newMonthMeeting.CompileDate = DateTime.Now;
-                    newMonthMeeting.MonthMeetingId = SQLHelper.GetNewID();
+                    meeting.MeetingId = newMonthMeeting.MonthMeetingId = SQLHelper.GetNewID();
                     newMonthMeeting.MonthMeetingCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectMonthMeetingMenuId, newMonthMeeting.ProjectId, null);
                     MonthMeetingService.AddMonthMeeting(newMonthMeeting);
                 }
@@ -432,15 +461,7 @@ namespace BLL
                 {
                     CommonService.btnSaveData(meeting.ProjectId, Const.ProjectMonthMeetingMenuId, newMonthMeeting.MonthMeetingId, newMonthMeeting.CompileMan, true, newMonthMeeting.MonthMeetingName, "../Meeting/MonthMeetingView.aspx?MonthMeetingId={0}");
                 }
-                if (!string.IsNullOrEmpty(meeting.AttachUrl))
-                {
-                    ////保存附件
-                    UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(meeting.AttachUrl, 10, null), meeting.AttachUrl, Const.ProjectMonthMeetingMenuId, newMonthMeeting.MonthMeetingId);
-                }
-                else
-                {
-                    CommonService.DeleteAttachFileById(meeting.MeetingId);
-                }
+                menuId = Const.ProjectMonthMeetingMenuId;
             }
             else if (meeting.MeetingType == "S")
             {
@@ -448,6 +469,7 @@ namespace BLL
                 {
                     SpecialMeetingId = meeting.MeetingId,
                     ProjectId = meeting.ProjectId,
+                    UnitId = meeting.UnitId == "" ? null : meeting.UnitId,
                     SpecialMeetingCode = meeting.MeetingCode,
                     SpecialMeetingName = meeting.MeetingName,
                     SpecialMeetingDate = Funs.GetNewDateTime(meeting.MeetingDate),
@@ -471,7 +493,7 @@ namespace BLL
                 if (updateMeet == null)
                 {
                     newSpecialMeeting.CompileDate = DateTime.Now;
-                    newSpecialMeeting.SpecialMeetingId = SQLHelper.GetNewID();
+                    meeting.MeetingId = newSpecialMeeting.SpecialMeetingId = SQLHelper.GetNewID();
                     newSpecialMeeting.SpecialMeetingCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectSpecialMeetingMenuId, newSpecialMeeting.ProjectId, null);
                     SpecialMeetingService.AddSpecialMeeting(newSpecialMeeting);
                 }
@@ -483,15 +505,7 @@ namespace BLL
                 {
                     CommonService.btnSaveData(meeting.ProjectId, Const.ProjectSpecialMeetingMenuId, newSpecialMeeting.SpecialMeetingId, newSpecialMeeting.CompileMan, true, newSpecialMeeting.SpecialMeetingName, "../Meeting/SpecialMeetingView.aspx?SpecialMeetingId={0}");
                 }
-                if (!string.IsNullOrEmpty(meeting.AttachUrl))
-                {
-                    ////保存附件
-                    UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(meeting.AttachUrl, 10, null), meeting.AttachUrl, Const.ProjectSpecialMeetingMenuId, newSpecialMeeting.SpecialMeetingId);
-                }
-                else
-                {
-                    CommonService.DeleteAttachFileById(meeting.MeetingId);
-                }
+                menuId = Const.ProjectSpecialMeetingMenuId;
             }
             else
             {
@@ -499,6 +513,7 @@ namespace BLL
                 {
                     AttendMeetingId = meeting.MeetingId,
                     ProjectId = meeting.ProjectId,
+                    UnitId = meeting.UnitId == "" ? null : meeting.UnitId,
                     AttendMeetingCode = meeting.MeetingCode,
                     AttendMeetingName = meeting.MeetingName,
                     AttendMeetingDate = Funs.GetNewDateTime(meeting.MeetingDate),
@@ -521,7 +536,7 @@ namespace BLL
                 if (updateMeet == null)
                 {
                     newAttendMeeting.CompileDate = DateTime.Now;
-                    newAttendMeeting.AttendMeetingId = SQLHelper.GetNewID();
+                    meeting.MeetingId = newAttendMeeting.AttendMeetingId = SQLHelper.GetNewID();
                     newAttendMeeting.AttendMeetingCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectAttendMeetingMenuId, newAttendMeeting.ProjectId, null);
                     AttendMeetingService.AddAttendMeeting(newAttendMeeting);
                 }
@@ -533,16 +548,34 @@ namespace BLL
                 {
                     CommonService.btnSaveData(meeting.ProjectId, Const.ProjectAttendMeetingMenuId, newAttendMeeting.AttendMeetingId, newAttendMeeting.CompileMan, true, newAttendMeeting.AttendMeetingName, "../Meeting/AttendMeetingView.aspx?AttendMeetingId={0}");
                 }
-                if (!string.IsNullOrEmpty(meeting.AttachUrl))
-                {
-                    ////保存附件
-                    UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(meeting.AttachUrl, 10, null), meeting.AttachUrl, Const.ProjectAttendMeetingMenuId, newAttendMeeting.AttendMeetingId);
-                }
-                else
-                {
-                    CommonService.DeleteAttachFileById(meeting.MeetingId);
-                }
+                menuId = Const.ProjectAttendMeetingMenuId;
             }
+            if (!string.IsNullOrEmpty(menuId) && !string.IsNullOrEmpty(meeting.MeetingId))
+            {
+                SaveMeetUrl(meeting.MeetingId, menuId, meeting.AttachUrl, meeting.AttachUrl1, meeting.AttachUrl2);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void SaveMeetUrl(string meetingId, string menuId, string url, string url1, string url2)
+        {
+            Model.ToDoItem toDoItem = new Model.ToDoItem
+            {
+                MenuId = menuId,
+                DataId = meetingId,
+                UrlStr = url,
+            };
+            APIUpLoadFileService.SaveAttachUrl(toDoItem);
+
+            toDoItem.DataId = meetingId + "#1";
+            toDoItem.UrlStr = url1;
+            APIUpLoadFileService.SaveAttachUrl(toDoItem);
+
+            toDoItem.DataId = meetingId + "#2";
+            toDoItem.UrlStr = url2;
+            APIUpLoadFileService.SaveAttachUrl(toDoItem);
         }
         #endregion
     }

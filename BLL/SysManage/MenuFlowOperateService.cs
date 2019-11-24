@@ -33,37 +33,41 @@ namespace BLL
         /// </summary>
         /// <param name="flow"></param>
         public static void AddAuditFlow(Model.Sys_MenuFlowOperate flow)
-      {
+        {
             Model.Sys_MenuFlowOperate newMenuFlowOperate = new Model.Sys_MenuFlowOperate
             {
                 FlowOperateId = SQLHelper.GetNewID(typeof(Model.Sys_MenuFlowOperate)),
                 MenuId = flow.MenuId,
                 FlowStep = flow.FlowStep,
+                GroupNum = flow.GroupNum,
+                OrderNum = flow.OrderNum,
                 AuditFlowName = flow.AuditFlowName,
                 RoleId = flow.RoleId,
-                IsFlowEnd = flow.IsFlowEnd
+                IsFlowEnd = flow.IsFlowEnd,                
             };
             Funs.DB.Sys_MenuFlowOperate.InsertOnSubmit(newMenuFlowOperate);
-           Funs.DB.SubmitChanges();
-       }
+            Funs.DB.SubmitChanges();
+        }
 
-       /// <summary>
-       /// 修改工作流信息
-       /// </summary>
-       /// <param name="flow"></param>
-       public static void UpdateAuditFlow(Model.Sys_MenuFlowOperate flow)
-       {           
-           Model.Sys_MenuFlowOperate newMenuFlowOperate = Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(e => e.FlowOperateId == flow.FlowOperateId);
-           if (newMenuFlowOperate != null)
-           {
-               newMenuFlowOperate.MenuId = flow.MenuId;
-               newMenuFlowOperate.FlowStep = flow.FlowStep;
-               newMenuFlowOperate.AuditFlowName = flow.AuditFlowName;
-               newMenuFlowOperate.RoleId = flow.RoleId;
-               newMenuFlowOperate.IsFlowEnd = flow.IsFlowEnd;
-               Funs.DB.SubmitChanges();
-           }
-       }
+        /// <summary>
+        /// 修改工作流信息
+        /// </summary>
+        /// <param name="flow"></param>
+        public static void UpdateAuditFlow(Model.Sys_MenuFlowOperate flow)
+        {
+            Model.Sys_MenuFlowOperate newMenuFlow = Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(e => e.FlowOperateId == flow.FlowOperateId);
+            if (newMenuFlow != null)
+            {
+                newMenuFlow.MenuId = flow.MenuId;
+                newMenuFlow.FlowStep = flow.FlowStep;
+                newMenuFlow.GroupNum = flow.GroupNum;
+                newMenuFlow.OrderNum = flow.OrderNum;
+                newMenuFlow.AuditFlowName = flow.AuditFlowName;
+                newMenuFlow.RoleId = flow.RoleId;
+                newMenuFlow.IsFlowEnd = flow.IsFlowEnd;
+                Funs.DB.SubmitChanges();
+            }
+        }
 
        /// <summary>
        /// 删除工作流信息
@@ -129,5 +133,25 @@ namespace BLL
 
            return returnValue;
        }
+
+        /// <summary>
+        /// 获取分公司表下拉框
+        /// </summary>
+        /// <param name="dropName"></param>
+        /// <param name="isShowPlease"></param>
+        public static void InitMenuFlowOperateDropDownList(FineUIPro.DropDownList dropName,string menuId, string thisId, bool isShowPlease)
+        {
+            dropName.DataValueField = "FlowOperateId";
+            dropName.DataTextField = "AuditFlowName";
+            dropName.DataSource = (from x in Funs.DB.Sys_MenuFlowOperate
+                                   where x.MenuId == menuId && x.IsFlowEnd == false && x.FlowOperateId != thisId
+                                   orderby x.FlowStep
+                                   select x).ToList();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
     }
 }

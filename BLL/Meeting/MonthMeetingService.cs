@@ -74,6 +74,7 @@ namespace BLL
             {
                 MonthMeetingId = monthMeeting.MonthMeetingId,
                 ProjectId = monthMeeting.ProjectId,
+                UnitId = monthMeeting.UnitId,
                 MonthMeetingCode = monthMeeting.MonthMeetingCode,
                 MonthMeetingName = monthMeeting.MonthMeetingName,
                 MonthMeetingDate = monthMeeting.MonthMeetingDate,
@@ -104,6 +105,7 @@ namespace BLL
             if (newMonthMeeting != null)
             {
                 //newMonthMeeting.ProjectId = monthMeeting.ProjectId;
+                newMonthMeeting.UnitId = monthMeeting.UnitId;
                 newMonthMeeting.MonthMeetingCode = monthMeeting.MonthMeetingCode;
                 newMonthMeeting.MonthMeetingName = monthMeeting.MonthMeetingName;
                 newMonthMeeting.MonthMeetingDate = monthMeeting.MonthMeetingDate;

@@ -33,6 +33,8 @@ namespace BLL
             {
                 ClassMeetingId = classMeeting.ClassMeetingId,
                 ProjectId = classMeeting.ProjectId,
+                UnitId = classMeeting.UnitId,
+                TeamGroupId = classMeeting.TeamGroupId,
                 ClassMeetingCode = classMeeting.ClassMeetingCode,
                 ClassMeetingName = classMeeting.ClassMeetingName,
                 ClassMeetingDate = classMeeting.ClassMeetingDate,
@@ -61,7 +63,9 @@ namespace BLL
             Model.Meeting_ClassMeeting newClassMeeting = db.Meeting_ClassMeeting.FirstOrDefault(e => e.ClassMeetingId == classMeeting.ClassMeetingId);
             if (newClassMeeting != null)
             {
-               // newClassMeeting.ProjectId = classMeeting.ProjectId;
+                // newClassMeeting.ProjectId = classMeeting.ProjectId;
+                newClassMeeting.UnitId = classMeeting.UnitId;
+                newClassMeeting.TeamGroupId = classMeeting.TeamGroupId;
                 newClassMeeting.ClassMeetingCode = classMeeting.ClassMeetingCode;
                 newClassMeeting.ClassMeetingName = classMeeting.ClassMeetingName;
                 newClassMeeting.ClassMeetingDate = classMeeting.ClassMeetingDate;

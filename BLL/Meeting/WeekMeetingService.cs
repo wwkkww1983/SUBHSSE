@@ -74,6 +74,7 @@ namespace BLL
             {
                 WeekMeetingId = weekMeeting.WeekMeetingId,
                 ProjectId = weekMeeting.ProjectId,
+                UnitId = weekMeeting.UnitId,
                 WeekMeetingCode = weekMeeting.WeekMeetingCode,
                 WeekMeetingName = weekMeeting.WeekMeetingName,
                 WeekMeetingDate = weekMeeting.WeekMeetingDate,
@@ -104,6 +105,7 @@ namespace BLL
             if (newWeekMeeting != null)
             {
                 //newWeekMeeting.ProjectId = weekMeeting.ProjectId;
+                newWeekMeeting.UnitId = weekMeeting.UnitId;
                 newWeekMeeting.WeekMeetingCode = weekMeeting.WeekMeetingCode;
                 newWeekMeeting.WeekMeetingName = weekMeeting.WeekMeetingName;
                 newWeekMeeting.WeekMeetingDate = weekMeeting.WeekMeetingDate;

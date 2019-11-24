@@ -74,6 +74,7 @@ namespace BLL
             {
                 SpecialMeetingId = specialMeeting.SpecialMeetingId,
                 ProjectId = specialMeeting.ProjectId,
+                UnitId = specialMeeting.UnitId,
                 SpecialMeetingCode = specialMeeting.SpecialMeetingCode,
                 SpecialMeetingName = specialMeeting.SpecialMeetingName,
                 SpecialMeetingDate = specialMeeting.SpecialMeetingDate,
@@ -104,6 +105,7 @@ namespace BLL
             if (newSpecialMeeting != null)
             {
                 //newSpecialMeeting.ProjectId = specialMeeting.ProjectId;
+                newSpecialMeeting.UnitId = specialMeeting.UnitId;
                 newSpecialMeeting.SpecialMeetingCode = specialMeeting.SpecialMeetingCode;
                 newSpecialMeeting.SpecialMeetingName = specialMeeting.SpecialMeetingName;
                 newSpecialMeeting.SpecialMeetingDate = specialMeeting.SpecialMeetingDate;

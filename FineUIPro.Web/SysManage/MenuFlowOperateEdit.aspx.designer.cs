@@ -58,6 +58,24 @@ namespace FineUIPro.Web.SysManage {
         protected global::FineUIPro.NumberBox txtFlowStep;
         
         /// <summary>
+        /// txtGroupNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtGroupNum;
+        
+        /// <summary>
+        /// txtOrderNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtOrderNum;
+        
+        /// <summary>
         /// txtAuditFlowName 控件。
         /// </summary>
         /// <remarks>

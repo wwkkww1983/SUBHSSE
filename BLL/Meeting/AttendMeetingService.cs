@@ -57,6 +57,7 @@ namespace BLL
             {
                 AttendMeetingId = attendMeeting.AttendMeetingId,
                 ProjectId = attendMeeting.ProjectId,
+                UnitId = attendMeeting.UnitId,
                 AttendMeetingCode = attendMeeting.AttendMeetingCode,
                 AttendMeetingName = attendMeeting.AttendMeetingName,
                 AttendMeetingDate = attendMeeting.AttendMeetingDate,
@@ -86,6 +87,7 @@ namespace BLL
             if (newAttendMeeting != null)
             {
                 //newAttendMeeting.ProjectId = attendMeeting.ProjectId;
+                newAttendMeeting.UnitId = attendMeeting.UnitId;
                 newAttendMeeting.AttendMeetingCode = attendMeeting.AttendMeetingCode;
                 newAttendMeeting.AttendMeetingName = attendMeeting.AttendMeetingName;
                 newAttendMeeting.AttendMeetingDate = attendMeeting.AttendMeetingDate;

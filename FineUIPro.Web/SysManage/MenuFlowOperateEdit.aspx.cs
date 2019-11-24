@@ -60,10 +60,13 @@ namespace FineUIPro.Web.SysManage
                 this.BindDropDownBox();
                 if (!string.IsNullOrEmpty(this.FlowOperateId))
                 {
-                    var menuFlowOperate = BLL.MenuFlowOperateService.GetMenuFlowOperateByFlowOperateId(this.FlowOperateId);
+                    var menuFlowOperate = MenuFlowOperateService.GetMenuFlowOperateByFlowOperateId(this.FlowOperateId);
                     if (menuFlowOperate != null)
                     {
                         this.txtFlowStep.Text = menuFlowOperate.FlowStep.ToString();
+                        this.txtGroupNum.Text = menuFlowOperate.GroupNum.ToString();
+                        this.txtOrderNum.Text = menuFlowOperate.OrderNum.ToString();
+
                         this.txtAuditFlowName.Text = menuFlowOperate.AuditFlowName;
                         if (menuFlowOperate.IsFlowEnd != null)
                         {
@@ -76,14 +79,26 @@ namespace FineUIPro.Web.SysManage
                 }
                 else
                 {
-                    int maxId = 0;
-                    string str = "SELECT (ISNULL(MAX(FlowStep),0)+1) FROM Sys_MenuFlowOperate WHERE MenuId='" + this.MenuId + "'";
-                    maxId = BLL.SQLHelper.GetIntValue(str);
-                    this.txtFlowStep.Text = maxId.ToString();
+                    this.SetFlowStep();
+                }
+                if (CommonService.GetIsThisUnit(Const.UnitId_SEDIN) && LicensePublicService.lisenWorkList.Contains(this.MenuId))
+                {
+                    this.txtGroupNum.Hidden = false;
+                    this.txtOrderNum.Hidden = false;
                 }
             }
         }
         #endregion
+
+        public void SetFlowStep()
+        {
+            int maxId = 0;
+            string str = "SELECT (ISNULL(MAX(FlowStep),0)+1) FROM Sys_MenuFlowOperate WHERE MenuId='" + this.MenuId + "'";
+            maxId = SQLHelper.GetIntValue(str);
+            this.txtFlowStep.Text = maxId.ToString();
+            this.txtGroupNum.Text = "1";
+            this.txtOrderNum.Text = "1";
+        }
 
         /// <summary>
         /// 保存按钮
@@ -95,9 +110,12 @@ namespace FineUIPro.Web.SysManage
             Model.Sys_MenuFlowOperate newMenuFlowOperate = new Model.Sys_MenuFlowOperate
             {
                 MenuId = this.MenuId,
-                FlowStep = Funs.GetNewIntOrZero(this.txtFlowStep.Text),
-                AuditFlowName = this.txtAuditFlowName.Text.Trim()
+                FlowStep = Funs.GetNewInt(this.txtFlowStep.Text).HasValue ? Funs.GetNewInt(this.txtFlowStep.Text) : 1,
+                GroupNum = Funs.GetNewInt(this.txtGroupNum.Text).HasValue ? Funs.GetNewInt(this.txtGroupNum.Text) : 1,
+                OrderNum = Funs.GetNewInt(this.txtOrderNum.Text).HasValue ? Funs.GetNewInt(this.txtOrderNum.Text) : 1,
+                AuditFlowName = this.txtAuditFlowName.Text.Trim(),
             };
+
             string[] roleIds = drpRoles.Values;
             newMenuFlowOperate.RoleId = this.ConvertRole(roleIds);
             newMenuFlowOperate.IsFlowEnd = this.IsFlowEnd.Checked;
@@ -187,5 +205,22 @@ namespace FineUIPro.Web.SysManage
             }
         }
         #endregion
+
+        protected void txtFlowStep_TextChanged(object sender, EventArgs e)
+        {
+            int maxId = 0;
+            string str = "SELECT (ISNULL(MAX(GroupNum),0)+1) FROM Sys_MenuFlowOperate WHERE MenuId='" + this.MenuId + "' AND FlowStep=" + this.txtFlowStep.Text;
+            maxId = SQLHelper.GetIntValue(str);
+            this.txtGroupNum.Text = maxId.ToString();
+            this.txtOrderNum.Text = "1";
+        }
+
+        protected void txtGroupNum_TextChanged(object sender, EventArgs e)
+        {
+            int maxId = 0;
+            string str = "SELECT (ISNULL(MAX(OrderNum),0)+1) FROM Sys_MenuFlowOperate WHERE MenuId='" + this.MenuId + "' AND FlowStep=" + this.txtFlowStep.Text + " AND GroupNum=" + this.txtGroupNum.Text;
+            maxId = SQLHelper.GetIntValue(str);
+            this.txtOrderNum.Text = maxId.ToString();
+        }
     }
 }

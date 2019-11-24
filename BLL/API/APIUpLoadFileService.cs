@@ -129,5 +129,26 @@ namespace BLL
                 CommonService.DeleteAttachFileById(toDoItem.DataId);
             }
         }
+
+        public static void SaveAttachUrl(string menuId, string dataId, string url, string isInsert)
+        {
+            ////保存附件
+            if (!string.IsNullOrEmpty(url))
+            {
+                if (isInsert == "1")
+                {
+                    var att = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == dataId);
+                    if (att != null)
+                    {
+                        url = att.AttachUrl + "," + url;
+                    }
+                }
+                UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(url, 10, null), url, menuId, dataId);
+            }
+            else
+            {
+                CommonService.DeleteAttachFileById(dataId);
+            }
+        }
     }
 }
