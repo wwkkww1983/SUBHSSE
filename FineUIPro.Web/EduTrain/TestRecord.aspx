@@ -123,6 +123,9 @@
         <f:MenuButton ID="btnMenuView" OnClick="btnMenuView_Click" EnablePostBack="true"
             runat="server" Text="查看" Icon="TableGo">
         </f:MenuButton>
+        <f:MenuButton ID="btnPrint" OnClick="btnPrint_Click" EnablePostBack="true"
+            runat="server" Text="打印" Icon="Printer">
+        </f:MenuButton>
         <%--<f:MenuButton ID="btnFile" OnClick="btnMenuFile_Click" EnablePostBack="true"
             runat="server" Text="归档" Icon="FolderPage">
         </f:MenuButton>--%>

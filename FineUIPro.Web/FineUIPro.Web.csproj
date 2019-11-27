@@ -328,6 +328,7 @@
     <Content Include="EduTrain\ModelTestRecordView.aspx" />
     <Content Include="EduTrain\Plan.aspx" />
     <Content Include="EduTrain\PlanView.aspx" />
+    <Content Include="EduTrain\TestRecordPrint.aspx" />
     <Content Include="EduTrain\Task.aspx" />
     <Content Include="EduTrain\TaskRecordView.aspx" />
     <Content Include="EduTrain\TaskView.aspx" />
@@ -424,7 +425,9 @@
     <Content Include="HiddenInspection\ViolationClassificationStatistics.aspx" />
     <Content Include="HSSESystem\SafetyInstitution.aspx" />
     <Content Include="HSSESystem\SafetyInstitutionEdit.aspx" />
+    <Content Include="Images\lv-1.gif" />
     <Content Include="Images\SUBimages\TCC-.gif" />
+    <Content Include="Images\Test_Null.jpg" />
     <Content Include="InformationAnalysis\CheckColligationAnalysis.aspx" />
     <Content Include="InformationAnalysis\CheckDayAnalysis.aspx" />
     <Content Include="InformationAnalysis\CheckHolidayAnalysis.aspx" />
@@ -5506,6 +5509,13 @@
     </Compile>
     <Compile Include="EduTrain\PlanView.aspx.designer.cs">
       <DependentUpon>PlanView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EduTrain\TestRecordPrint.aspx.cs">
+      <DependentUpon>TestRecordPrint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EduTrain\TestRecordPrint.aspx.designer.cs">
+      <DependentUpon>TestRecordPrint.aspx</DependentUpon>
     </Compile>
     <Compile Include="EduTrain\Task.aspx.cs">
       <DependentUpon>Task.aspx</DependentUpon>

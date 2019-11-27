@@ -288,6 +288,16 @@ namespace FineUIPro.Web.EduTrain
             Response.Write(GetGridTableHtml(Grid1));
             Response.End();
         }
-        #endregion        
+        #endregion
+
+        protected void btnPrint_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("TestRecordPrint.aspx?TestRecordId={0}", Grid1.SelectedRowID, "编辑 - "), "考试试卷", 1000, 650));
+        }
     }
 }

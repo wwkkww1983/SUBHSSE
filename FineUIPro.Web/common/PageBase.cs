@@ -197,7 +197,7 @@ namespace FineUIPro.Web
         /// <param name="Grid1">Grid表格</param>
         /// <param name="varlist">IEnumerable类型的集合</param>
         /// <returns>数据表</returns>
-        protected DataTable GetPagedDataTable<T>(FineUIPro.Grid Grid1, IEnumerable<T> varlist)
+        protected DataTable GetPagedDataTable<T>(Grid Grid1, IEnumerable<T> varlist)
         {
             int pageIndex = Grid1.PageIndex;
             int pageSize = Grid1.PageSize;
