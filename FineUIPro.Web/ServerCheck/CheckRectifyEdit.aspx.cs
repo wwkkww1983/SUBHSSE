@@ -193,7 +193,7 @@ namespace FineUIPro.Web.ServerCheck
             poxy.DataInsertCheck_CheckRectifyTableCompleted += new EventHandler<HSSEService.DataInsertCheck_CheckRectifyTableCompletedEventArgs>(poxy_DataInsertCheck_CheckRectifyTableCompleted);
             var rectify = from x in Funs.DB.View_CheckRectifyListFromSUB
                           where x.RealEndDate.HasValue && x.CheckRectifyId == this.CheckRectifyId
-                          select new BLL.HSSEService.Check_CheckRectify
+                          select new HSSEService.Check_CheckRectify
                           {
                               CheckRectifyId = x.CheckRectifyId,
                               CheckRectifyCode = x.CheckRectifyCode,

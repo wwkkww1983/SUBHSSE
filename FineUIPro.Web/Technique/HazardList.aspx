@@ -24,13 +24,16 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
                         <Items>
-                            <f:TextBox ID="txtHazardListType" runat="server" Label="危险源类别" LabelAlign="Right" LabelWidth="90px" 
+                            <f:TextBox ID="txtHazardListType" runat="server" LabelAlign="Right" Width="150px" 
                                EmptyText="输入查询条件">
                             </f:TextBox>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
                             <f:Button ID="btnQuery" ToolTip="查询" Icon="SystemSearch" EnablePostBack="true" 	
                                 OnClick="Text_TextChanged" runat="server" >
+                            </f:Button>
+                             <f:Button ID="btnAllOut" ToolTip="导出全部" Icon="FolderUp" runat="server" Hidden="true"
+                                OnClick="btnAllOut_Click">
                             </f:Button>
                         </Items>
                     </f:Toolbar>
@@ -190,7 +193,7 @@
         Target="Self" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
         Width="1024px" Height="500px">
     </f:Window>
-    <f:Window ID="Window6" Title="导入危险源与评价清单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+    <f:Window ID="Window6" Title="危险源与评价清单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close" 
         Width="1000px" Height="600px" EnableAjax="false">
     </f:Window>

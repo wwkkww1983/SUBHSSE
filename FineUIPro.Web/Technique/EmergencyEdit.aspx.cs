@@ -184,7 +184,7 @@ namespace FineUIPro.Web.Technique
             var emergency = from x in Funs.DB.View_Technique_Emergency
                             join y in Funs.DB.AttachFile on x.EmergencyId equals y.ToKeyId
                             where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == false || x.IsBuild == null)
-                            select new BLL.HSSEService.Technique_Emergency
+                            select new HSSEService.Technique_Emergency
                             {
                                 EmergencyId = x.EmergencyId,
                                 EmergencyTypeId = x.EmergencyTypeId,

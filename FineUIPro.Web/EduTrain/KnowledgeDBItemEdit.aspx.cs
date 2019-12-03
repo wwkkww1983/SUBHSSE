@@ -135,7 +135,7 @@ namespace FineUIPro.Web.EduTrain
             poxy.DataInsertTraining_KnowledgeItemTableCompleted += new EventHandler<HSSEService.DataInsertTraining_KnowledgeItemTableCompletedEventArgs>(poxy_DataInsertTraining_KnowledgeItemTableCompleted);
             var TrainingItemList = from x in Funs.DB.Training_KnowledgeItem
                                    where x.KnowledgeItemId == knowledgeItemId && x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4)
-                                   select new BLL.HSSEService.Training_KnowledgeItem
+                                   select new HSSEService.Training_KnowledgeItem
                                    {
                                        KnowledgeItemId = x.KnowledgeItemId,
                                        KnowledgeId = x.KnowledgeId,

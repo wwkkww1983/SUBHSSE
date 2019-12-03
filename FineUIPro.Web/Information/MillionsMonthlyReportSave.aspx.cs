@@ -269,10 +269,10 @@ namespace FineUIPro.Web.Information
             // 2. 关闭本窗体，然后刷新父窗体
             // PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
             // 2. 关闭本窗体，然后回发父窗体
-            if (type != "submit")
-            {
-                PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
-            }
+            //if (type != "submit")
+            //{
+            //    PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
+            //}
             //PageContext.RegisterStartupScript(ActiveWindow.GetWriteBackValueReference(wedId) + ActiveWindow.GetHideReference());
         }
 
@@ -304,7 +304,7 @@ namespace FineUIPro.Web.Information
             poxy.DataInsertInformation_MillionsMonthlyReportTableCompleted += new EventHandler<HSSEService.DataInsertInformation_MillionsMonthlyReportTableCompletedEventArgs>(poxy_DataInsertInformation_MillionsMonthlyReportTableCompleted);
             var report = from x in Funs.DB.Information_MillionsMonthlyReport
                          where x.MillionsMonthlyReportId == millionsMonthlyReportId && x.UpState == BLL.Const.UpState_2
-                         select new BLL.HSSEService.Information_MillionsMonthlyReport
+                         select new HSSEService.Information_MillionsMonthlyReport
                          {
                              MillionsMonthlyReportId = x.MillionsMonthlyReportId,
                              UnitId = x.UnitId,
@@ -322,7 +322,7 @@ namespace FineUIPro.Web.Information
 
             var reportItem = from x in Funs.DB.Information_MillionsMonthlyReportItem
                              where x.MillionsMonthlyReportId == millionsMonthlyReportId
-                             select new BLL.HSSEService.Information_MillionsMonthlyReportItem
+                             select new HSSEService.Information_MillionsMonthlyReportItem
                              {
                                  MillionsMonthlyReportItemId = x.MillionsMonthlyReportItemId,
                                  MillionsMonthlyReportId = x.MillionsMonthlyReportId,

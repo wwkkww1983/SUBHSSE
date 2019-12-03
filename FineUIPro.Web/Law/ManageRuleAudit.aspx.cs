@@ -229,7 +229,7 @@ namespace FineUIPro.Web.Law
             var manageRule = from x in Funs.DB.View_Law_ManageRule
                              join y in Funs.DB.AttachFile on x.ManageRuleId equals y.ToKeyId
                              where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == false || x.IsBuild == null)
-                             select new BLL.HSSEService.Law_ManageRule
+                             select new HSSEService.Law_ManageRule
                              {
                                  ManageRuleId = x.ManageRuleId,
                                  ManageRuleCode = x.ManageRuleCode,

@@ -139,7 +139,7 @@ namespace FineUIPro.Web.HSSESystem
                 poxy.DataInsertHSSESystem_HSSEManageItemTableCompleted += new EventHandler<HSSEService.DataInsertHSSESystem_HSSEManageItemTableCompletedEventArgs>(poxy_DataInsertHSSESystem_HSSEManageItemTableCompleted);
                 var HSSEStandardsList = from x in Funs.DB.HSSESystem_HSSEManageItem
                                         where x.HSSEManageId == hsseManageId
-                                        select new BLL.HSSEService.HSSESystem_HSSEManageItem
+                                        select new HSSEService.HSSESystem_HSSEManageItem
                                         {
                                             HSSEManageItemId = x.HSSEManageItemId,
                                             HSSEManageName = hsseMange.HSSEManageName,

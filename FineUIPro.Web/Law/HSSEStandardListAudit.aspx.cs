@@ -182,7 +182,7 @@ namespace FineUIPro.Web.Law
             var HSSEStandardsList = from x in Funs.DB.View_HSSEStandardsList
                                     join y in Funs.DB.AttachFile on x.StandardId equals y.ToKeyId
                                     where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == false || x.IsBuild == null)
-                                    select new BLL.HSSEService.Law_HSSEStandardsList
+                                    select new HSSEService.Law_HSSEStandardsList
                                     {
                                         StandardId = x.StandardId,
                                         StandardGrade = x.StandardGrade,

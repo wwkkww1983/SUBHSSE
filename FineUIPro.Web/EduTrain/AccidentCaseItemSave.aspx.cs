@@ -162,7 +162,7 @@ namespace FineUIPro.Web.EduTrain
             poxy.DataInsertEduTrain_AccidentCaseItemTableCompleted += new EventHandler<HSSEService.DataInsertEduTrain_AccidentCaseItemTableCompletedEventArgs>(poxy_DataInsertEduTrain_AccidentCaseItemTableCompleted);
             var AccidentCaseItemList = from x in Funs.DB.EduTrain_AccidentCaseItem
                                        where x.AccidentCaseItemId == accidentCaseItemId && x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4)
-                                       select new BLL.HSSEService.EduTrain_AccidentCaseItem
+                                       select new HSSEService.EduTrain_AccidentCaseItem
                                        {
                                            AccidentCaseItemId = x.AccidentCaseItemId,
                                            AccidentCaseId = x.AccidentCaseId,

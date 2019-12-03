@@ -790,7 +790,7 @@ namespace FineUIPro.Web.Information
             var report = from x in Funs.DB.Information_AccidentCauseReport
                          where x.AccidentCauseReportId == accidentCauseReportId 
                          && x.UpState == BLL.Const.UpState_2
-                         select new BLL.HSSEService.Information_AccidentCauseReport
+                         select new HSSEService.Information_AccidentCauseReport
                          {
                              AccidentCauseReportId = x.AccidentCauseReportId,
                              UnitId = x.UnitId,
@@ -820,7 +820,7 @@ namespace FineUIPro.Web.Information
 
             var reportItem = from x in Funs.DB.Information_AccidentCauseReportItem
                              where x.AccidentCauseReportId == accidentCauseReportId 
-                             select new BLL.HSSEService.Information_AccidentCauseReportItem
+                             select new HSSEService.Information_AccidentCauseReportItem
                              {
                                  AccidentCauseReportItemId = x.AccidentCauseReportItemId,
                                  AccidentCauseReportId = x.AccidentCauseReportId,

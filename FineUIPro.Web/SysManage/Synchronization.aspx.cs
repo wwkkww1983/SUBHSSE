@@ -321,7 +321,7 @@ namespace FineUIPro.Web.SysManage
                     var LawRegulationList = from x in Funs.DB.View_Law_LawRegulationList
                                             join y in Funs.DB.AttachFile on x.LawRegulationId equals y.ToKeyId
                                             where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == false || x.IsBuild == null)
-                                            select new BLL.HSSEService.Law_LawRegulationList
+                                            select new HSSEService.Law_LawRegulationList
                                             {
                                                 LawRegulationId = x.LawRegulationId,
                                                 ApprovalDate = x.ApprovalDate,                                               
@@ -357,7 +357,7 @@ namespace FineUIPro.Web.SysManage
                     var HSSEStandardsList = from x in Funs.DB.View_HSSEStandardsList
                                             join y in Funs.DB.AttachFile on x.StandardId equals y.ToKeyId
                                             where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == false || x.IsBuild == null)
-                                            select new BLL.HSSEService.Law_HSSEStandardsList
+                                            select new HSSEService.Law_HSSEStandardsList
                                             {
                                                 StandardId = x.StandardId,
                                                 StandardGrade = x.StandardGrade,
@@ -416,7 +416,7 @@ namespace FineUIPro.Web.SysManage
                     var RulesRegulations = from x in Funs.DB.View_Law_RulesRegulations
                                            join y in Funs.DB.AttachFile on x.RulesRegulationsId equals y.ToKeyId
                                            where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == false || x.IsBuild == null)
-                                           select new BLL.HSSEService.Law_RulesRegulations
+                                           select new HSSEService.Law_RulesRegulations
                                            {
                                                RulesRegulationsId = x.RulesRegulationsId,
                                                RulesRegulationsCode = x.RulesRegulationsCode,
@@ -449,7 +449,7 @@ namespace FineUIPro.Web.SysManage
                     var manageRule = from x in Funs.DB.View_Law_ManageRule
                                      join y in Funs.DB.AttachFile on x.ManageRuleId equals y.ToKeyId
                                      where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == false || x.IsBuild == null)
-                                     select new BLL.HSSEService.Law_ManageRule
+                                     select new HSSEService.Law_ManageRule
                                      {
                                          ManageRuleId = x.ManageRuleId,
                                          ManageRuleCode = x.ManageRuleCode,
@@ -479,7 +479,7 @@ namespace FineUIPro.Web.SysManage
                     poxy.DataInsertInformation_AccidentCauseReportTableCompleted += new EventHandler<HSSEService.DataInsertInformation_AccidentCauseReportTableCompletedEventArgs>(poxy_DataInsertInformation_AccidentCauseReportTableCompleted);
                     var report = from x in Funs.DB.Information_AccidentCauseReport
                                  where x.UpState == BLL.Const.UpState_2
-                                 select new BLL.HSSEService.Information_AccidentCauseReport
+                                 select new HSSEService.Information_AccidentCauseReport
                                  {
                                      AccidentCauseReportId = x.AccidentCauseReportId,
                                      UnitId = this.UnitId,
@@ -511,7 +511,7 @@ namespace FineUIPro.Web.SysManage
                                      join y in Funs.DB.Information_AccidentCauseReport
                                      on x.AccidentCauseReportId equals y.AccidentCauseReportId
                                      where y.UpState == BLL.Const.UpState_2
-                                     select new BLL.HSSEService.Information_AccidentCauseReportItem
+                                     select new HSSEService.Information_AccidentCauseReportItem
                                      {
                                          AccidentCauseReportItemId = x.AccidentCauseReportItemId,
                                          AccidentCauseReportId = x.AccidentCauseReportId,
@@ -563,7 +563,7 @@ namespace FineUIPro.Web.SysManage
                     poxy.DataInsertInformation_DrillConductedQuarterlyReportTableCompleted += new EventHandler<HSSEService.DataInsertInformation_DrillConductedQuarterlyReportTableCompletedEventArgs>(poxy_DataInsertInformation_DrillConductedQuarterlyReportTableCompleted);
                     var report = from x in Funs.DB.Information_DrillConductedQuarterlyReport
                                  where x.UpState == BLL.Const.UpState_2
-                                 select new BLL.HSSEService.Information_DrillConductedQuarterlyReport
+                                 select new HSSEService.Information_DrillConductedQuarterlyReport
                                  {
                                      DrillConductedQuarterlyReportId = x.DrillConductedQuarterlyReportId,
                                      UnitId = this.UnitId,
@@ -577,7 +577,7 @@ namespace FineUIPro.Web.SysManage
                                      join y in Funs.DB.Information_DrillConductedQuarterlyReport
                                      on x.DrillConductedQuarterlyReportId equals y.DrillConductedQuarterlyReportId
                                      where y.UpState == BLL.Const.UpState_2
-                                     select new BLL.HSSEService.Information_DrillConductedQuarterlyReportItem
+                                     select new HSSEService.Information_DrillConductedQuarterlyReportItem
                                      {
                                          DrillConductedQuarterlyReportItemId = x.DrillConductedQuarterlyReportItemId,
                                          DrillConductedQuarterlyReportId = x.DrillConductedQuarterlyReportId,
@@ -609,7 +609,7 @@ namespace FineUIPro.Web.SysManage
                     poxy.DataInsertInformation_DrillPlanHalfYearReportTableCompleted += new EventHandler<HSSEService.DataInsertInformation_DrillPlanHalfYearReportTableCompletedEventArgs>(poxy_DataInsertInformation_DrillPlanHalfYearReportTableCompleted);
                     var report = from x in Funs.DB.Information_DrillPlanHalfYearReport
                                  where x.UpState == BLL.Const.UpState_2
-                                 select new BLL.HSSEService.Information_DrillPlanHalfYearReport
+                                 select new HSSEService.Information_DrillPlanHalfYearReport
                                  {
                                      DrillPlanHalfYearReportId = x.DrillPlanHalfYearReportId,
                                      UnitId = this.UnitId,
@@ -624,7 +624,7 @@ namespace FineUIPro.Web.SysManage
                                      join y in Funs.DB.Information_DrillPlanHalfYearReport
                                      on x.DrillPlanHalfYearReportId equals y.DrillPlanHalfYearReportId
                                      where y.UpState == BLL.Const.UpState_2
-                                     select new BLL.HSSEService.Information_DrillPlanHalfYearReportItem
+                                     select new HSSEService.Information_DrillPlanHalfYearReportItem
                                      {
                                          DrillPlanHalfYearReportItemId = x.DrillPlanHalfYearReportItemId,
                                          DrillPlanHalfYearReportId = x.DrillPlanHalfYearReportId,
@@ -645,7 +645,7 @@ namespace FineUIPro.Web.SysManage
                     poxy.DataInsertInformation_MillionsMonthlyReportTableCompleted += new EventHandler<HSSEService.DataInsertInformation_MillionsMonthlyReportTableCompletedEventArgs>(poxy_DataInsertInformation_MillionsMonthlyReportTableCompleted);
                     var report = from x in Funs.DB.Information_MillionsMonthlyReport
                                  where x.UpState == BLL.Const.UpState_2
-                                 select new BLL.HSSEService.Information_MillionsMonthlyReport
+                                 select new HSSEService.Information_MillionsMonthlyReport
                                  {
                                      MillionsMonthlyReportId = x.MillionsMonthlyReportId,
                                      UnitId = this.UnitId,
@@ -665,7 +665,7 @@ namespace FineUIPro.Web.SysManage
                                      join y in Funs.DB.Information_MillionsMonthlyReport
                                      on x.MillionsMonthlyReportId equals y.MillionsMonthlyReportId
                                      where y.UpState == BLL.Const.UpState_2
-                                     select new BLL.HSSEService.Information_MillionsMonthlyReportItem
+                                     select new HSSEService.Information_MillionsMonthlyReportItem
                                      {
                                          MillionsMonthlyReportItemId = x.MillionsMonthlyReportItemId,
                                          MillionsMonthlyReportId = x.MillionsMonthlyReportId,
@@ -710,7 +710,7 @@ namespace FineUIPro.Web.SysManage
                     poxy.DataInsertInformation_SafetyQuarterlyReportTableCompleted += new EventHandler<HSSEService.DataInsertInformation_SafetyQuarterlyReportTableCompletedEventArgs>(poxy_DataInsertInformation_SafetyQuarterlyReportTableCompleted);
                     var report = from x in Funs.DB.Information_SafetyQuarterlyReport
                                  where x.UpState == BLL.Const.UpState_2
-                                 select new BLL.HSSEService.Information_SafetyQuarterlyReport
+                                 select new HSSEService.Information_SafetyQuarterlyReport
                                  {
                                      SafetyQuarterlyReportId = x.SafetyQuarterlyReportId,
                                      UnitId = this.UnitId,
@@ -805,7 +805,7 @@ namespace FineUIPro.Web.SysManage
                     var hazop = from x in Funs.DB.View_Technique_HAZOP
                                 join y in Funs.DB.AttachFile on x.HAZOPId equals y.ToKeyId
                                 where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == false || x.IsBuild == null)
-                                select new BLL.HSSEService.Technique_HAZOP
+                                select new HSSEService.Technique_HAZOP
                                 {
                                     HAZOPId = x.HAZOPId,
                                     UnitId = this.UnitId,
@@ -834,7 +834,7 @@ namespace FineUIPro.Web.SysManage
                     var appraise = from x in Funs.DB.View_Technique_Appraise
                                    join y in Funs.DB.AttachFile on x.AppraiseId equals y.ToKeyId
                                    where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == false || x.IsBuild == null)
-                                   select new BLL.HSSEService.Technique_Appraise
+                                   select new HSSEService.Technique_Appraise
                                    {
                                        AppraiseId = x.AppraiseId,
                                        AppraiseCode = x.AppraiseCode,
@@ -866,7 +866,7 @@ namespace FineUIPro.Web.SysManage
                     var emergency = from x in Funs.DB.View_Technique_Emergency
                                     join y in Funs.DB.AttachFile on x.EmergencyId equals y.ToKeyId
                                     where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == false || x.IsBuild == null)
-                                    select new BLL.HSSEService.Technique_Emergency
+                                    select new HSSEService.Technique_Emergency
                                     {
                                         EmergencyId = x.EmergencyId,
                                         EmergencyTypeId = x.EmergencyTypeId,
@@ -898,7 +898,7 @@ namespace FineUIPro.Web.SysManage
                     var specialScheme = from x in Funs.DB.View_Technique_SpecialScheme
                                         join y in Funs.DB.AttachFile on x.SpecialSchemeId equals y.ToKeyId
                                         where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == false || x.IsBuild == null)
-                                        select new BLL.HSSEService.Technique_SpecialScheme
+                                        select new HSSEService.Technique_SpecialScheme
                                         {
                                             SpecialSchemeId = x.SpecialSchemeId,
                                             SpecialSchemeTypeId = x.SpecialSchemeTypeId,
@@ -930,7 +930,7 @@ namespace FineUIPro.Web.SysManage
                     var TrainingItemList = from x in Funs.DB.Training_TrainingItem
                                            join y in Funs.DB.AttachFile on x.TrainingItemId equals y.ToKeyId
                                            where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4)
-                                           select new BLL.HSSEService.Training_TrainingItem
+                                           select new HSSEService.Training_TrainingItem
                                            {
                                                TrainingItemId = x.TrainingItemId,
                                                TrainingId = x.TrainingId,
@@ -962,7 +962,7 @@ namespace FineUIPro.Web.SysManage
                     var TrainTestDBItemList = from x in Funs.DB.Training_TrainTestDBItem
                                               join y in Funs.DB.AttachFile on x.TrainTestItemId equals y.ToKeyId
                                               where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4)
-                                              select new BLL.HSSEService.Training_TrainTestDBItem
+                                              select new HSSEService.Training_TrainTestDBItem
                                               {
                                                   TrainTestItemId = x.TrainTestItemId,
                                                   TrainTestId = x.TrainTestId,
@@ -991,7 +991,7 @@ namespace FineUIPro.Web.SysManage
                     poxy.DataInsertEduTrain_AccidentCaseItemTableCompleted += new EventHandler<HSSEService.DataInsertEduTrain_AccidentCaseItemTableCompletedEventArgs>(poxy_DataInsertEduTrain_AccidentCaseItemTableCompleted);
                     var AccidentCaseItemList = from x in Funs.DB.EduTrain_AccidentCaseItem
                                                where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4)
-                                               select new BLL.HSSEService.EduTrain_AccidentCaseItem
+                                               select new HSSEService.EduTrain_AccidentCaseItem
                                                {
                                                    AccidentCaseItemId = x.AccidentCaseItemId,
                                                    AccidentCaseId = x.AccidentCaseId,
@@ -1014,7 +1014,7 @@ namespace FineUIPro.Web.SysManage
                     poxy.DataInsertTraining_KnowledgeItemTableCompleted += new EventHandler<HSSEService.DataInsertTraining_KnowledgeItemTableCompletedEventArgs>(poxy_DataInsertTraining_KnowledgeItemTableCompleted);
                     var TrainingItemList = from x in Funs.DB.Training_KnowledgeItem
                                            where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4)
-                                           select new BLL.HSSEService.Training_KnowledgeItem
+                                           select new HSSEService.Training_KnowledgeItem
                                            {
                                                KnowledgeItemId = x.KnowledgeItemId,
                                                KnowledgeId = x.KnowledgeId,
@@ -1036,7 +1036,7 @@ namespace FineUIPro.Web.SysManage
                     poxy.DataInsertTechnique_HazardListTableCompleted += new EventHandler<HSSEService.DataInsertTechnique_HazardListTableCompletedEventArgs>(poxy_DataInsertTechnique_HazardListTableCompleted);
                     var hazardListList = from x in Funs.DB.Technique_HazardList
                                          where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4)
-                                         select new BLL.HSSEService.Technique_HazardList
+                                         select new HSSEService.Technique_HazardList
                                          {
                                              HazardId = x.HazardId,
                                              HazardListTypeId = x.HazardListTypeId,
@@ -1066,7 +1066,7 @@ namespace FineUIPro.Web.SysManage
                     poxy.DataInsertTechnique_RectifyItemTableCompleted += new EventHandler<HSSEService.DataInsertTechnique_RectifyItemTableCompletedEventArgs>(poxy_DataInsertTechnique_RectifyItemTableCompleted);
                     var rectifyItemList = from x in Funs.DB.Technique_RectifyItem
                                           where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4)
-                                          select new BLL.HSSEService.Technique_RectifyItem
+                                          select new HSSEService.Technique_RectifyItem
                                           {
                                               RectifyItemId = x.RectifyItemId,
                                               RectifyId = x.RectifyId,
@@ -1090,7 +1090,7 @@ namespace FineUIPro.Web.SysManage
                 //    var expertList = from x in Funs.DB.View_Expert
                 //                     join y in Funs.DB.AttachFile on x.ExpertId equals y.ToKeyId
                 //                     where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4)
-                //                     select new BLL.HSSEService.Technique_Expert
+                //                     select new HSSEService.Technique_Expert
                 //                     {
                 //                         ExpertId = x.ExpertId,
                 //                         ExpertCode = x.ExpertCode,
@@ -1142,7 +1142,7 @@ namespace FineUIPro.Web.SysManage
                     poxy.DataInsertCheck_CheckRectifyTableCompleted += new EventHandler<HSSEService.DataInsertCheck_CheckRectifyTableCompletedEventArgs>(poxy_DataInsertCheck_CheckRectifyTableCompleted);
                     var rectify = from x in Funs.DB.View_CheckRectifyListFromSUB
                                   where x.RealEndDate.HasValue && x.HandleState == "2"
-                                  select new BLL.HSSEService.Check_CheckRectify
+                                  select new HSSEService.Check_CheckRectify
                                   {
                                       CheckRectifyId = x.CheckRectifyId,
                                       CheckRectifyCode = x.CheckRectifyCode,
@@ -1182,7 +1182,7 @@ namespace FineUIPro.Web.SysManage
                     var subUnitReport = from x in Funs.DB.View_Supervise_SubUnitReportItem
                                         join y in Funs.DB.AttachFile on x.SubUnitReportItemId equals y.ToKeyId
                                         where x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4 || x.UpState == null
-                                        select new BLL.HSSEService.Supervise_SubUnitReportItem
+                                        select new HSSEService.Supervise_SubUnitReportItem
                                         {
                                             SubUnitReportItemId=x.SubUnitReportItemId,
                                             ReportTitle = x.ReportTitle,
@@ -1212,7 +1212,7 @@ namespace FineUIPro.Web.SysManage
                     var subUnitReport = from x in Funs.DB.HSSESystem_HSSEManageItem
                                         join y in Funs.DB.HSSESystem_HSSEManage on x.HSSEManageId equals y.HSSEManageId
                                         where y.HSSEManageName == this.UnitName
-                                        select new BLL.HSSEService.HSSESystem_HSSEManageItem
+                                        select new HSSEService.HSSESystem_HSSEManageItem
                                         {
                                             HSSEManageName = y.HSSEManageName,
                                             HSSEManageItemId = x.HSSEManageItemId,

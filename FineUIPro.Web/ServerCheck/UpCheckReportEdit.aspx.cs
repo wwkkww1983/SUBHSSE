@@ -370,7 +370,7 @@ namespace FineUIPro.Web.ServerCheck
             poxy.DataInsertSupervise_UpCheckReportTableCompleted += new EventHandler<HSSEService.DataInsertSupervise_UpCheckReportTableCompletedEventArgs>(poxy_DataInsertSupervise_UpCheckReportTableCompleted);
             var upCheckReport = from x in Funs.DB.Supervise_UpCheckReport
                                      where x.UpCheckReportId == upCheckReportId
-                                     select new BLL.HSSEService.Supervise_UpCheckReport
+                                     select new HSSEService.Supervise_UpCheckReport
                                      {
                                          UpCheckReportId = x.UpCheckReportId,
                                          UnitId = x.UnitId,
@@ -389,7 +389,7 @@ namespace FineUIPro.Web.ServerCheck
 
             var upCheckReportItem = from x in Funs.DB.Supervise_UpCheckReportItem
                                           where x.UpCheckReportId == upCheckReportId
-                                          select new BLL.HSSEService.Supervise_UpCheckReportItem
+                                          select new HSSEService.Supervise_UpCheckReportItem
                                           {
                                               UpCheckReportItemId = x.UpCheckReportItemId,
                                               UpCheckReportId = x.UpCheckReportId,
@@ -404,7 +404,7 @@ namespace FineUIPro.Web.ServerCheck
                                           };
             var upCheckReportItem2 = from x in Funs.DB.Supervise_UpCheckReportItem2
                                     where x.UpCheckReportId == upCheckReportId
-                                    select new BLL.HSSEService.Supervise_UpCheckReportItem2
+                                    select new HSSEService.Supervise_UpCheckReportItem2
                                     {
                                         UpCheckReportItem2Id = x.UpCheckReportItem2Id,
                                         UpCheckReportId = x.UpCheckReportId,

@@ -190,7 +190,7 @@ namespace FineUIPro.Web.Technique
             poxy.DataInsertTechnique_HazardListTableCompleted += new EventHandler<HSSEService.DataInsertTechnique_HazardListTableCompletedEventArgs>(poxy_DataInsertTechnique_HazardListTableCompleted);
             var hazardListList = from x in Funs.DB.Technique_HazardList
                                        where x.HazardId == hazardId && x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4)
-                                       select new BLL.HSSEService.Technique_HazardList
+                                       select new HSSEService.Technique_HazardList
                                        {
                                            HazardId = x.HazardId,
                                            HazardListTypeId = x.HazardListTypeId,

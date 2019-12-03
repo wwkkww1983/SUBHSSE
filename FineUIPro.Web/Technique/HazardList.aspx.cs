@@ -611,6 +611,7 @@ namespace FineUIPro.Web.Technique
                 if (buttonList.Contains(BLL.Const.BtnOut))
                 {
                     this.btnOut.Hidden = false;
+                    this.btnAllOut.Hidden = false;
                 }
                 if (buttonList.Contains(BLL.Const.BtnIn))
                 {
@@ -725,5 +726,10 @@ namespace FineUIPro.Web.Technique
             return sb.ToString();
         }
         #endregion
+
+        protected void btnAllOut_Click(object sender, EventArgs e)
+        {
+            PageContext.RegisterStartupScript(Window6.GetShowReference(String.Format("HazardListOut.aspx?IsCompany=False", "导出 - "),"导出",1200,650));
+        }
     }
 }

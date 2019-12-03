@@ -1,15 +1,1219 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:complexType name="ArrayOfbase64Binary">
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/BLL.OpenService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/BLL.OpenService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost/CNCEHSSE/HSSEService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="ArrayOfSys_Version">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Sys_Version" nillable="true" type="tns:Sys_Version" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfbase64Binary" nillable="true" type="tns:ArrayOfbase64Binary" />
-  <xs:complexType name="ArrayOfstring">
+  <xs:element name="ArrayOfSys_Version" nillable="true" type="tns:ArrayOfSys_Version" />
+  <xs:complexType name="Sys_Version">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompileMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsSub" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="VersionDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="VersionId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VersionName" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
+  <xs:element name="Sys_Version" nillable="true" type="tns:Sys_Version" />
+  <xs:complexType name="ArrayOfBase_Unit">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Base_Unit" nillable="true" type="tns:Base_Unit" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBase_Unit" nillable="true" type="tns:ArrayOfBase_Unit" />
+  <xs:complexType name="Base_Unit">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Corporate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Fax" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProjectRange" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Telephone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitTypeCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitTypeId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitTypeName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Base_Unit" nillable="true" type="tns:Base_Unit" />
+  <xs:complexType name="ArrayOfInformation_UrgeReport">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Information_UrgeReport" nillable="true" type="tns:Information_UrgeReport" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInformation_UrgeReport" nillable="true" type="tns:ArrayOfInformation_UrgeReport" />
+  <xs:complexType name="Information_UrgeReport">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HalfYearId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsCancel" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsComplete" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MonthId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="QuarterId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReprotType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UrgeDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UrgeReportId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="YearId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Information_UrgeReport" nillable="true" type="tns:Information_UrgeReport" />
+  <xs:complexType name="ArrayOfLaw_LawRegulationList">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Law_LawRegulationList" nillable="true" type="tns:Law_LawRegulationList" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLaw_LawRegulationList" nillable="true" type="tns:ArrayOfLaw_LawRegulationList" />
+  <xs:complexType name="Law_LawRegulationList">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ApprovalDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AttachFileId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachSource" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AuditDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AuditMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompileDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CompileMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EffectiveDate" nillable="true" type="xs:dateTime" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FileContext" nillable="true" type="q1:ArrayOfbase64Binary" />
+      <xs:element minOccurs="0" name="IsPass" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="LawRegulationCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LawRegulationId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LawRegulationName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LawsRegulationsTypeCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LawsRegulationsTypeId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LawsRegulationsTypeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LawsRegulationsTypeRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ToKeyId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Law_LawRegulationList" nillable="true" type="tns:Law_LawRegulationList" />
+  <xs:complexType name="ArrayOfLaw_HSSEStandardsList">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Law_HSSEStandardsList" nillable="true" type="tns:Law_HSSEStandardsList" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLaw_HSSEStandardsList" nillable="true" type="tns:ArrayOfLaw_HSSEStandardsList" />
+  <xs:complexType name="Law_HSSEStandardsList">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AttachFileId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachSource" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AuditDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AuditMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompileDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CompileMan" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FileContext" nillable="true" type="q2:ArrayOfbase64Binary" />
+      <xs:element minOccurs="0" name="IsPass" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected1" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected10" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected11" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected12" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected13" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected14" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected15" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected16" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected17" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected18" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected19" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected2" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected20" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected21" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected22" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected23" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected24" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected25" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected3" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected4" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected5" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected6" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected7" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected8" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected9" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSelected90" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Remark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StandardGrade" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StandardId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StandardName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StandardNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ToKeyId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TypeCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TypeId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TypeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Law_HSSEStandardsList" nillable="true" type="tns:Law_HSSEStandardsList" />
+  <xs:complexType name="ArrayOfLaw_RulesRegulations">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Law_RulesRegulations" nillable="true" type="tns:Law_RulesRegulations" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLaw_RulesRegulations" nillable="true" type="tns:ArrayOfLaw_RulesRegulations" />
+  <xs:complexType name="Law_RulesRegulations">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ApplicableScope" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachFileId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachSource" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AuditDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AuditMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompileDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CompileMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CustomDate" nillable="true" type="xs:dateTime" />
+      <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FileContext" nillable="true" type="q3:ArrayOfbase64Binary" />
+      <xs:element minOccurs="0" name="IsPass" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Remark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RulesRegulationsCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RulesRegulationsId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RulesRegulationsName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RulesRegulationsTypeCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RulesRegulationsTypeId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RulesRegulationsTypeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ToKeyId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Law_RulesRegulations" nillable="true" type="tns:Law_RulesRegulations" />
+  <xs:complexType name="ArrayOfLaw_ManageRule">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Law_ManageRule" nillable="true" type="tns:Law_ManageRule" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLaw_ManageRule" nillable="true" type="tns:ArrayOfLaw_ManageRule" />
+  <xs:complexType name="Law_ManageRule">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AttachFileId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachSource" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AuditDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AuditMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompileDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CompileMan" nillable="true" type="xs:string" />
+      <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FileContext" nillable="true" type="q4:ArrayOfbase64Binary" />
+      <xs:element minOccurs="0" name="IsPass" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ManageRuleCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ManageRuleId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ManageRuleName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ManageRuleTypeCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ManageRuleTypeId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ManageRuleTypeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Remark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ToKeyId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VersionNo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Law_ManageRule" nillable="true" type="tns:Law_ManageRule" />
+  <xs:complexType name="ArrayOfTechnique_HAZOP">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Technique_HAZOP" nillable="true" type="tns:Technique_HAZOP" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTechnique_HAZOP" nillable="true" type="tns:ArrayOfTechnique_HAZOP" />
+  <xs:complexType name="Technique_HAZOP">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Abstract" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachFileId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachSource" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AuditDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AuditMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompileDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CompileMan" nillable="true" type="xs:string" />
+      <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FileContext" nillable="true" type="q5:ArrayOfbase64Binary" />
+      <xs:element minOccurs="0" name="HAZOPDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="HAZOPId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HAZOPTitle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsPass" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ToKeyId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Technique_HAZOP" nillable="true" type="tns:Technique_HAZOP" />
+  <xs:complexType name="ArrayOfTechnique_Appraise">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Technique_Appraise" nillable="true" type="tns:Technique_Appraise" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTechnique_Appraise" nillable="true" type="tns:ArrayOfTechnique_Appraise" />
+  <xs:complexType name="Technique_Appraise">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Abstract" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AppraiseCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AppraiseDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AppraiseId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AppraiseTitle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ArrangementDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ArrangementPerson" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachFileId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachSource" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AuditDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AuditMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompileDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CompileMan" nillable="true" type="xs:string" />
+      <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FileContext" nillable="true" type="q6:ArrayOfbase64Binary" />
+      <xs:element minOccurs="0" name="IsPass" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ToKeyId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Technique_Appraise" nillable="true" type="tns:Technique_Appraise" />
+  <xs:complexType name="ArrayOfTechnique_Emergency">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Technique_Emergency" nillable="true" type="tns:Technique_Emergency" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTechnique_Emergency" nillable="true" type="tns:ArrayOfTechnique_Emergency" />
+  <xs:complexType name="Technique_Emergency">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AttachFileId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachSource" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AuditDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AuditMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompileDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CompileMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmergencyCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmergencyId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmergencyName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmergencyTypeCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmergencyTypeId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmergencyTypeName" nillable="true" type="xs:string" />
+      <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FileContext" nillable="true" type="q7:ArrayOfbase64Binary" />
+      <xs:element minOccurs="0" name="IsPass" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Remark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Summary" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ToKeyId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Technique_Emergency" nillable="true" type="tns:Technique_Emergency" />
+  <xs:complexType name="ArrayOfTechnique_SpecialScheme">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Technique_SpecialScheme" nillable="true" type="tns:Technique_SpecialScheme" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTechnique_SpecialScheme" nillable="true" type="tns:ArrayOfTechnique_SpecialScheme" />
+  <xs:complexType name="Technique_SpecialScheme">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AttachFileId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachSource" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AuditDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AuditMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompileDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CompileMan" nillable="true" type="xs:string" />
+      <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FileContext" nillable="true" type="q8:ArrayOfbase64Binary" />
+      <xs:element minOccurs="0" name="IsPass" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SpecialSchemeCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SpecialSchemeId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SpecialSchemeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SpecialSchemeTypeCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SpecialSchemeTypeId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SpecialSchemeTypeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Summary" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ToKeyId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Technique_SpecialScheme" nillable="true" type="tns:Technique_SpecialScheme" />
+  <xs:complexType name="ArrayOfTraining_Training">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Training_Training" nillable="true" type="tns:Training_Training" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTraining_Training" nillable="true" type="tns:ArrayOfTraining_Training" />
+  <xs:complexType name="Training_Training">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IsEndLever" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SupTrainingId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TrainingCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TrainingId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TrainingName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Training_Training" nillable="true" type="tns:Training_Training" />
+  <xs:complexType name="ArrayOfTraining_TrainingItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Training_TrainingItem" nillable="true" type="tns:Training_TrainingItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTraining_TrainingItem" nillable="true" type="tns:ArrayOfTraining_TrainingItem" />
+  <xs:complexType name="Training_TrainingItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ApproveState" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachFileId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachSource" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AuditDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AuditMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompileDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CompileMan" nillable="true" type="xs:string" />
+      <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FileContext" nillable="true" type="q9:ArrayOfbase64Binary" />
+      <xs:element minOccurs="0" name="IsPass" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ResourcesFrom" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ResourcesFromType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ToKeyId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TrainingId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TrainingItemCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TrainingItemId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TrainingItemName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VersionNum" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Training_TrainingItem" nillable="true" type="tns:Training_TrainingItem" />
+  <xs:complexType name="ArrayOfTraining_TrainTestDB">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Training_TrainTestDB" nillable="true" type="tns:Training_TrainTestDB" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTraining_TrainTestDB" nillable="true" type="tns:ArrayOfTraining_TrainTestDB" />
+  <xs:complexType name="Training_TrainTestDB">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IsEndLever" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SupTrainTestId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TrainTestCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TrainTestId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TrainTestName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Training_TrainTestDB" nillable="true" type="tns:Training_TrainTestDB" />
+  <xs:complexType name="ArrayOfTraining_TrainTestDBItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Training_TrainTestDBItem" nillable="true" type="tns:Training_TrainTestDBItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTraining_TrainTestDBItem" nillable="true" type="tns:ArrayOfTraining_TrainTestDBItem" />
+  <xs:complexType name="Training_TrainTestDBItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AttachFileId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachSource" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AuditDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AuditMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompileDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CompileMan" nillable="true" type="xs:string" />
+      <xs:element xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FileContext" nillable="true" type="q10:ArrayOfbase64Binary" />
+      <xs:element minOccurs="0" name="IsPass" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ToKeyId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TraiinTestItemName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TrainTestId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TrainTestItemCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TrainTestItemId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Training_TrainTestDBItem" nillable="true" type="tns:Training_TrainTestDBItem" />
+  <xs:complexType name="ArrayOfEduTrain_AccidentCase">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EduTrain_AccidentCase" nillable="true" type="tns:EduTrain_AccidentCase" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEduTrain_AccidentCase" nillable="true" type="tns:ArrayOfEduTrain_AccidentCase" />
+  <xs:complexType name="EduTrain_AccidentCase">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccidentCaseCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccidentCaseId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccidentCaseName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsEndLever" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SupAccidentCaseId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EduTrain_AccidentCase" nillable="true" type="tns:EduTrain_AccidentCase" />
+  <xs:complexType name="ArrayOfEduTrain_AccidentCaseItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EduTrain_AccidentCaseItem" nillable="true" type="tns:EduTrain_AccidentCaseItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEduTrain_AccidentCaseItem" nillable="true" type="tns:ArrayOfEduTrain_AccidentCaseItem" />
+  <xs:complexType name="EduTrain_AccidentCaseItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccidentCaseId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccidentCaseItemId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccidentName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccidentProfiles" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccidentReview" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Activities" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AuditDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AuditMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompileDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CompileMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsPass" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EduTrain_AccidentCaseItem" nillable="true" type="tns:EduTrain_AccidentCaseItem" />
+  <xs:complexType name="ArrayOfTraining_Knowledge">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Training_Knowledge" nillable="true" type="tns:Training_Knowledge" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTraining_Knowledge" nillable="true" type="tns:ArrayOfTraining_Knowledge" />
+  <xs:complexType name="Training_Knowledge">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IsEndLever" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="KnowledgeCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KnowledgeId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KnowledgeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SupKnowledgeId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Training_Knowledge" nillable="true" type="tns:Training_Knowledge" />
+  <xs:complexType name="ArrayOfTraining_KnowledgeItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Training_KnowledgeItem" nillable="true" type="tns:Training_KnowledgeItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTraining_KnowledgeItem" nillable="true" type="tns:ArrayOfTraining_KnowledgeItem" />
+  <xs:complexType name="Training_KnowledgeItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AuditDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AuditMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompileDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CompileMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsPass" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="KnowledgeId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KnowledgeItemCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KnowledgeItemId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KnowledgeItemName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Remark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Training_KnowledgeItem" nillable="true" type="tns:Training_KnowledgeItem" />
+  <xs:complexType name="ArrayOfTechnique_HazardListType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Technique_HazardListType" nillable="true" type="tns:Technique_HazardListType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTechnique_HazardListType" nillable="true" type="tns:ArrayOfTechnique_HazardListType" />
+  <xs:complexType name="Technique_HazardListType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HazardListTypeCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HazardListTypeId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HazardListTypeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsEndLevel" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SupHazardListTypeId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Technique_HazardListType" nillable="true" type="tns:Technique_HazardListType" />
+  <xs:complexType name="ArrayOfTechnique_HazardList">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Technique_HazardList" nillable="true" type="tns:Technique_HazardList" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTechnique_HazardList" nillable="true" type="tns:ArrayOfTechnique_HazardList" />
+  <xs:complexType name="Technique_HazardList">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AuditDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AuditMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompileDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CompileMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ControlMeasures" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DefectsType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HazardCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HazardId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HazardItems" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HazardJudge_C" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="HazardJudge_D" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="HazardJudge_E" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="HazardJudge_L" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="HazardLevel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HazardListTypeId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HelperMethod" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsPass" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MayLeadAccidents" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Technique_HazardList" nillable="true" type="tns:Technique_HazardList" />
+  <xs:complexType name="ArrayOfTechnique_Rectify">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Technique_Rectify" nillable="true" type="tns:Technique_Rectify" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTechnique_Rectify" nillable="true" type="tns:ArrayOfTechnique_Rectify" />
+  <xs:complexType name="Technique_Rectify">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IsEndLever" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="RectifyCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RectifyId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RectifyName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SupRectifyId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Technique_Rectify" nillable="true" type="tns:Technique_Rectify" />
+  <xs:complexType name="ArrayOfTechnique_RectifyItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Technique_RectifyItem" nillable="true" type="tns:Technique_RectifyItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTechnique_RectifyItem" nillable="true" type="tns:ArrayOfTechnique_RectifyItem" />
+  <xs:complexType name="Technique_RectifyItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AuditDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AuditMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompileDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CompileMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HazardSourcePoint" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsPass" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="RectifyId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RectifyItemId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RiskAnalysis" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RiskPrevention" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SimilarRisk" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Technique_RectifyItem" nillable="true" type="tns:Technique_RectifyItem" />
+  <xs:complexType name="ArrayOfTechnique_Expert">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Technique_Expert" nillable="true" type="tns:Technique_Expert" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTechnique_Expert" nillable="true" type="tns:ArrayOfTechnique_Expert" />
+  <xs:complexType name="Technique_Expert">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Age" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="AttachFileId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachSource" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachUrl" nillable="true" type="xs:string" />
+      <xs:element xmlns:q11="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AttachUrlFileContext" nillable="true" type="q11:ArrayOfbase64Binary" />
+      <xs:element minOccurs="0" name="AuditDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AuditMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Birthday" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CompileDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CompileMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Education" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EffectiveDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExpertCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExpertId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExpertName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExpertTypeCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExpertTypeId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExpertTypeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Hometown" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdentityCard" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsPass" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Marriage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nation" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Performance" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PersonSpecialtyCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PersonSpecialtyId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PersonSpecialtyName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PhotoUrl" nillable="true" type="xs:string" />
+      <xs:element xmlns:q12="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="PhotoUrlFileContext" nillable="true" type="q12:ArrayOfbase64Binary" />
+      <xs:element minOccurs="0" name="PostTitleCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PostTitleId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PostTitleName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Remark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sex" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Telephone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ToKeyId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Technique_Expert" nillable="true" type="tns:Technique_Expert" />
+  <xs:complexType name="ArrayOfSupervise_SuperviseCheckRectify">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Supervise_SuperviseCheckRectify" nillable="true" type="tns:Supervise_SuperviseCheckRectify" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSupervise_SuperviseCheckRectify" nillable="true" type="tns:ArrayOfSupervise_SuperviseCheckRectify" />
+  <xs:complexType name="Supervise_SuperviseCheckRectify">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AttachUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CheckDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ConfirmDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ConfirmMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HandleState" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsFromMainUnit" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IssueDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IssueMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrderEndDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="OrderEndPerson" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProjectId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RealEndDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="RectifyItemId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SuperviseCheckRectifyCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SuperviseCheckRectifyId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SuperviseCheckRectifyItemId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SuperviseCheckReportId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Supervise_SuperviseCheckRectify" nillable="true" type="tns:Supervise_SuperviseCheckRectify" />
+  <xs:complexType name="ArrayOfSupervise_SubUnitReport">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Supervise_SubUnitReport" nillable="true" type="tns:Supervise_SubUnitReport" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSupervise_SubUnitReport" nillable="true" type="tns:ArrayOfSupervise_SubUnitReport" />
+  <xs:complexType name="Supervise_SubUnitReport">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IsEndLever" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SubUnitReportCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubUnitReportId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubUnitReportName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SupSubUnitReportId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Supervise_SubUnitReport" nillable="true" type="tns:Supervise_SubUnitReport" />
+  <xs:complexType name="ArrayOfSupervise_SubUnitReportItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Supervise_SubUnitReportItem" nillable="true" type="tns:Supervise_SubUnitReportItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSupervise_SubUnitReportItem" nillable="true" type="tns:ArrayOfSupervise_SubUnitReportItem" />
+  <xs:complexType name="Supervise_SubUnitReportItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AttachFileId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachSource" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachUrl" nillable="true" type="xs:string" />
+      <xs:element xmlns:q13="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FileContext" nillable="true" type="q13:ArrayOfbase64Binary" />
+      <xs:element minOccurs="0" name="PlanReortDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ReportContent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReportDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ReportTitle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubUnitReportId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubUnitReportItemId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ToKeyId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Supervise_SubUnitReportItem" nillable="true" type="tns:Supervise_SubUnitReportItem" />
+  <xs:complexType name="ArrayOfCheck_CheckRectify">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Check_CheckRectify" nillable="true" type="tns:Check_CheckRectify" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCheck_CheckRectify" nillable="true" type="tns:ArrayOfCheck_CheckRectify" />
+  <xs:complexType name="Check_CheckRectify">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AttachFileId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachSource" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttachUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CheckDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CheckMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CheckRectifyCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CheckRectifyId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CheckRectifyItemId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfirmDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ConfirmMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DangerPoint" nillable="true" type="xs:string" />
+      <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FileContext" nillable="true" type="q14:ArrayOfbase64Binary" />
+      <xs:element minOccurs="0" name="HandleState" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsProject" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IssueDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IssueMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrderEndDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="OrderEndPerson" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProjectId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RealEndDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="RiskExists" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SortIndex" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SubjectUnitMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Table5ItemId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ToKeyId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Verification" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WorkType" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Check_CheckRectify" nillable="true" type="tns:Check_CheckRectify" />
+  <xs:complexType name="ArrayOfCheck_CheckInfo_Table8Item">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Check_CheckInfo_Table8Item" nillable="true" type="tns:Check_CheckInfo_Table8Item" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCheck_CheckInfo_Table8Item" nillable="true" type="tns:ArrayOfCheck_CheckInfo_Table8Item" />
+  <xs:complexType name="Check_CheckInfo_Table8Item">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CheckDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CheckEndTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CheckInfoId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CheckItemId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CheckPostName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CheckStartTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CheckTypeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PostName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sex" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SortIndex" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubjectObject" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubjectUnitAdd" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubjectUnitId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubjectUnitMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubjectUnitTel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Values1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Values2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Values3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Values4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Values5" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Values6" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Values7" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Values8" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WorkTitle" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Check_CheckInfo_Table8Item" nillable="true" type="tns:Check_CheckInfo_Table8Item" />
+  <xs:complexType name="ArrayOfInformation_AccidentCauseReport">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Information_AccidentCauseReport" nillable="true" type="tns:Information_AccidentCauseReport" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInformation_AccidentCauseReport" nillable="true" type="tns:ArrayOfInformation_AccidentCauseReport" />
+  <xs:complexType name="Information_AccidentCauseReport">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccidentCauseReportCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccidentCauseReportId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AuditPerson" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AverageManHours" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="AverageTotalHours" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DeathAccident" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="DeathToll" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="DirectLoss" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="FillCompanyPersonCharge" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FillingDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IndirectLosses" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="InjuredAccident" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="InjuredToll" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="KnockOffTotal" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="LastMonthLossHoursTotal" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MinorWoundAccident" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MinorWoundToll" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Month" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TabPeople" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TotalLoss" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TotalLossMan" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TotalLossTime" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Year" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Information_AccidentCauseReport" nillable="true" type="tns:Information_AccidentCauseReport" />
+  <xs:complexType name="ArrayOfInformation_AccidentCauseReportItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Information_AccidentCauseReportItem" nillable="true" type="tns:Information_AccidentCauseReportItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInformation_AccidentCauseReportItem" nillable="true" type="tns:ArrayOfInformation_AccidentCauseReportItem" />
+  <xs:complexType name="Information_AccidentCauseReportItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccidentCauseReportId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccidentCauseReportItemId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccidentType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Death1" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Death10" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Death11" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Death2" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Death3" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Death4" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Death5" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Death6" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Death7" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Death8" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Death9" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Injuries1" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Injuries10" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Injuries11" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Injuries2" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Injuries3" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Injuries4" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Injuries5" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Injuries6" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Injuries7" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Injuries8" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Injuries9" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MinorInjuries1" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MinorInjuries10" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MinorInjuries11" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MinorInjuries2" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MinorInjuries3" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MinorInjuries4" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MinorInjuries5" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MinorInjuries6" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MinorInjuries7" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MinorInjuries8" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MinorInjuries9" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TotalDeath" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TotalInjuries" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TotalMinorInjuries" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Information_AccidentCauseReportItem" nillable="true" type="tns:Information_AccidentCauseReportItem" />
+  <xs:complexType name="ArrayOfInformation_DrillConductedQuarterlyReport">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Information_DrillConductedQuarterlyReport" nillable="true" type="tns:Information_DrillConductedQuarterlyReport" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInformation_DrillConductedQuarterlyReport" nillable="true" type="tns:ArrayOfInformation_DrillConductedQuarterlyReport" />
+  <xs:complexType name="Information_DrillConductedQuarterlyReport">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CompileMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DrillConductedQuarterlyReportId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Quarter" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ReportDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="YearId" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Information_DrillConductedQuarterlyReport" nillable="true" type="tns:Information_DrillConductedQuarterlyReport" />
+  <xs:complexType name="ArrayOfInformation_DrillConductedQuarterlyReportItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Information_DrillConductedQuarterlyReportItem" nillable="true" type="tns:Information_DrillConductedQuarterlyReportItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInformation_DrillConductedQuarterlyReportItem" nillable="true" type="tns:ArrayOfInformation_DrillConductedQuarterlyReportItem" />
+  <xs:complexType name="Information_DrillConductedQuarterlyReportItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BasicConductCount" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="BasicInvestment" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="BasicPeopleCount" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CPDesktop" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CPScene" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ComprehensivePractice" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="DrillConductedQuarterlyReportId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DrillConductedQuarterlyReportItemId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HQConductCount" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="HQInvestment" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="HQPeopleCount" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="IndustryType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SDDesktop" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SDScene" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SortIndex" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SpecialDrill" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TotalConductCount" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TotalInvestment" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TotalPeopleCount" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Information_DrillConductedQuarterlyReportItem" nillable="true" type="tns:Information_DrillConductedQuarterlyReportItem" />
+  <xs:complexType name="ArrayOfInformation_DrillPlanHalfYearReport">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Information_DrillPlanHalfYearReport" nillable="true" type="tns:Information_DrillPlanHalfYearReport" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInformation_DrillPlanHalfYearReport" nillable="true" type="tns:ArrayOfInformation_DrillPlanHalfYearReport" />
+  <xs:complexType name="Information_DrillPlanHalfYearReport">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CompileDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CompileMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DrillPlanHalfYearReportId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HalfYearId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Telephone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="YearId" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Information_DrillPlanHalfYearReport" nillable="true" type="tns:Information_DrillPlanHalfYearReport" />
+  <xs:complexType name="ArrayOfInformation_DrillPlanHalfYearReportItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Information_DrillPlanHalfYearReportItem" nillable="true" type="tns:Information_DrillPlanHalfYearReportItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInformation_DrillPlanHalfYearReportItem" nillable="true" type="tns:ArrayOfInformation_DrillPlanHalfYearReportItem" />
+  <xs:complexType name="Information_DrillPlanHalfYearReportItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccidentScene" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DrillPlanDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DrillPlanHalfYearReportId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DrillPlanHalfYearReportItemId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DrillPlanName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExerciseWay" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrganizationUnit" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SortIndex" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Information_DrillPlanHalfYearReportItem" nillable="true" type="tns:Information_DrillPlanHalfYearReportItem" />
+  <xs:complexType name="ArrayOfInformation_MillionsMonthlyReport">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Information_MillionsMonthlyReport" nillable="true" type="tns:Information_MillionsMonthlyReport" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInformation_MillionsMonthlyReport" nillable="true" type="tns:ArrayOfInformation_MillionsMonthlyReport" />
+  <xs:complexType name="Information_MillionsMonthlyReport">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccidentMortality" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DeathAccidentFrequency" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DutyPerson" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FillingDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FillingMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LostTimeInjuryRate" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="LostTimeRate" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MillionsMonthlyReportId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Month" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="RecordableIncidentRate" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Year" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Information_MillionsMonthlyReport" nillable="true" type="tns:Information_MillionsMonthlyReport" />
+  <xs:complexType name="ArrayOfInformation_MillionsMonthlyReportItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Information_MillionsMonthlyReportItem" nillable="true" type="tns:Information_MillionsMonthlyReportItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInformation_MillionsMonthlyReportItem" nillable="true" type="tns:ArrayOfInformation_MillionsMonthlyReportItem" />
+  <xs:complexType name="Information_MillionsMonthlyReportItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Affiliation" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AttemptedEventNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ContractorNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="EquipmentNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ExplosionNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="FireNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="FirstAidDressingsNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="LossDayNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MedicalTreatmentLossHour" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MedicalTreatmentPersonNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MillionsMonthlyReportId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MillionsMonthlyReportItemId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MinorAccidentLossHour" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MinorAccidentNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MinorAccidentPersonNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OtherAccidentLossHour" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="OtherAccidentNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="OtherAccidentPersonNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="OtherNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PostPersonNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="QualityNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="RestrictedWorkLossHour" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="RestrictedWorkPersonNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SeriousInjuriesLossHour" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SeriousInjuriesNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SeriousInjuriesPersonNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SnapPersonNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SortIndex" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SumPersonNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TotalWorkNum" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TrafficNum" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Information_MillionsMonthlyReportItem" nillable="true" type="tns:Information_MillionsMonthlyReportItem" />
+  <xs:complexType name="ArrayOfInformation_SafetyQuarterlyReport">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Information_SafetyQuarterlyReport" nillable="true" type="tns:Information_SafetyQuarterlyReport" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInformation_SafetyQuarterlyReport" nillable="true" type="tns:ArrayOfInformation_SafetyQuarterlyReport" />
+  <xs:complexType name="Information_SafetyQuarterlyReport">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccidentFrequency" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="AccidentFrequencyRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BillionsOutputMortality" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="BillionsOutputMortalityRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ChemicalAreaProjectCount" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ChemicalAreaProjectCountRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompileMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConstructionRevenue" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ConstructionRevenueRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CorporateDirectorEdu" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CorporateDirectorEduRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EducationTrainIn" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="EducationTrainInRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EquipmentAccident" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="EquipmentAccidentRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FillingDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FireAccident" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="FireAccidentRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FullTimeEdu" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="FullTimeEduRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FullTimeMan" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="FullTimeManAttachUrl" nillable="true" type="xs:string" />
+      <xs:element xmlns:q15="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FullTimeManAttachUrlFileContext" nillable="true" type="q15:ArrayOfbase64Binary" />
+      <xs:element minOccurs="0" name="FullTimeManRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HarmfulMediumCoverCount" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="HarmfulMediumCoverCountRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HarmfulMediumCoverRate" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="HarmfulMediumCoverRateRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KeyEquipmentReportCount" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="KeyEquipmentReportCountRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KeyEquipmentTotal" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="KeyEquipmentTotalRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LaboAndHealthIn" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="LaborAndHealthInRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MainBusinessIncome" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MainBusinessIncomeRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MajorEquipAccident" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MajorEquipAccidentRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MajorFireAccident" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="MajorFireAccidentRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PMMan" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PMManAttachUrl" nillable="true" type="xs:string" />
+      <xs:element xmlns:q16="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="PMManAttachUrlFileContext" nillable="true" type="q16:ArrayOfbase64Binary" />
+      <xs:element minOccurs="0" name="PMManRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PoisoningAndInjuries" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PoisoningAndInjuriesRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductionInput" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ProductionInputRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductionSafetyInTotal" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ProductionSafetyInTotalRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProjectCostRate" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ProjectCostRateRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProjectLeaderEdu" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ProjectLeaderEduRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProtectionInput" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ProtectionInputRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Quarters" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Remarks" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Revenue" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="RevenueRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SafetyQuarterlyReportId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SeriousInjuryAccident" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SeriousInjuryAccidentRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TechnologyProgressIn" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TechnologyProgressInRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ThreeKidsEduRate" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ThreeKidsEduRateRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TotalInWorkHours" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TotalInWorkHoursRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TotalOutWorkHours" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TotalOutWorkHoursRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitTimeIncome" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="UnitTimeIncomeRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UplinReportRate" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="UplinReportRateRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WorkHoursAccuracy" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="WorkHoursAccuracyRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WorkHoursLossRate" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="WorkHoursLossRateRemark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="YearId" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Information_SafetyQuarterlyReport" nillable="true" type="tns:Information_SafetyQuarterlyReport" />
+  <xs:complexType name="ArrayOfHSSESystem_HSSEManageItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="HSSESystem_HSSEManageItem" nillable="true" type="tns:HSSESystem_HSSEManageItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfHSSESystem_HSSEManageItem" nillable="true" type="tns:ArrayOfHSSESystem_HSSEManageItem" />
+  <xs:complexType name="HSSESystem_HSSEManageItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Duty" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EMail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HSSEManageItemId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HSSEManageName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MobilePhone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Names" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Post" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SortIndex" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Telephone" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="HSSESystem_HSSEManageItem" nillable="true" type="tns:HSSESystem_HSSEManageItem" />
+  <xs:complexType name="ArrayOfSupervise_UpCheckReport">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Supervise_UpCheckReport" nillable="true" type="tns:Supervise_UpCheckReport" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSupervise_UpCheckReport" nillable="true" type="tns:ArrayOfSupervise_UpCheckReport" />
+  <xs:complexType name="Supervise_UpCheckReport">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AuditDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CheckEndTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CheckStartTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CompileDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UpCheckReportId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Values1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Values2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Values3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Values4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Values5" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Values6" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Values7" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Supervise_UpCheckReport" nillable="true" type="tns:Supervise_UpCheckReport" />
+  <xs:complexType name="ArrayOfSupervise_UpCheckReportItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Supervise_UpCheckReportItem" nillable="true" type="tns:Supervise_UpCheckReportItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSupervise_UpCheckReportItem" nillable="true" type="tns:ArrayOfSupervise_UpCheckReportItem" />
+  <xs:complexType name="Supervise_UpCheckReportItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CheckDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CheckPostName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PostName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sex" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SortIndex" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UpCheckReportId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UpCheckReportItemId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WorkTitle" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Supervise_UpCheckReportItem" nillable="true" type="tns:Supervise_UpCheckReportItem" />
+  <xs:complexType name="ArrayOfSupervise_UpCheckReportItem2">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Supervise_UpCheckReportItem2" nillable="true" type="tns:Supervise_UpCheckReportItem2" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSupervise_UpCheckReportItem2" nillable="true" type="tns:ArrayOfSupervise_UpCheckReportItem2" />
+  <xs:complexType name="Supervise_UpCheckReportItem2">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CheckDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CompRectifyCount" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="RectifyCount" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ResultLevel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SortIndex" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubjectObject" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubjectObjectInfo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TotalGetScore" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="UnitHSSEMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitHSSEManTel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitMan" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitManTel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UpCheckReportId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UpCheckReportItem2Id" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Supervise_UpCheckReportItem2" nillable="true" type="tns:Supervise_UpCheckReportItem2" />
+  <xs:complexType name="HSSESystem_HSSEOrganize">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="SeeFile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="HSSESystem_HSSEOrganize" nillable="true" type="tns:HSSESystem_HSSEOrganize" />
+  <xs:complexType name="ArrayOfSys_SubUnitLog">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Sys_SubUnitLog" nillable="true" type="tns:Sys_SubUnitLog" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSys_SubUnitLog" nillable="true" type="tns:ArrayOfSys_SubUnitLog" />
+  <xs:complexType name="Sys_SubUnitLog">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HostName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ip" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LogId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LogSource" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="MenuId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OperationLog" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OperationName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OperationTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ProjectName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Sys_SubUnitLog" nillable="true" type="tns:Sys_SubUnitLog" />
 </xs:schema>

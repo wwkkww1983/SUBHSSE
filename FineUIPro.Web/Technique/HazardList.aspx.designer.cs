@@ -85,6 +85,15 @@ namespace FineUIPro.Web.Technique {
         protected global::FineUIPro.Button btnQuery;
         
         /// <summary>
+        /// btnAllOut 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnAllOut;
+        
+        /// <summary>
         /// trHazardListType 控件。
         /// </summary>
         /// <remarks>

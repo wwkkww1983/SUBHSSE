@@ -287,7 +287,7 @@ namespace FineUIPro.Web.ServerCheck
             var subUnitReport = from x in Funs.DB.View_Supervise_SubUnitReportItem
                                // join y in Funs.DB.AttachFile on x.SubUnitReportItemId equals y.ToKeyId
                                 where x.SubUnitReportId == SubUnitReportId && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4 || x.UpState == null)
-                                select new BLL.HSSEService.Supervise_SubUnitReportItem
+                                select new HSSEService.Supervise_SubUnitReportItem
                                 {
                                     SubUnitReportItemId = x.SubUnitReportItemId,
                                     ReportTitle = x.ReportTitle,

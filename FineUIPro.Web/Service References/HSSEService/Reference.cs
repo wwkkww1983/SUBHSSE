@@ -9,519 +9,13589 @@
 //------------------------------------------------------------------------------
 
 namespace FineUIPro.Web.HSSEService {
+    using System.Runtime.Serialization;
+    using System;
     
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Sys_Version", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Sys_Version : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompileManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSubField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> VersionDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string VersionIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string VersionNameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachUrl {
+            get {
+                return this.AttachUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachUrlField, value) != true)) {
+                    this.AttachUrlField = value;
+                    this.RaisePropertyChanged("AttachUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompileMan {
+            get {
+                return this.CompileManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompileManField, value) != true)) {
+                    this.CompileManField = value;
+                    this.RaisePropertyChanged("CompileMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSub {
+            get {
+                return this.IsSubField;
+            }
+            set {
+                if ((this.IsSubField.Equals(value) != true)) {
+                    this.IsSubField = value;
+                    this.RaisePropertyChanged("IsSub");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> VersionDate {
+            get {
+                return this.VersionDateField;
+            }
+            set {
+                if ((this.VersionDateField.Equals(value) != true)) {
+                    this.VersionDateField = value;
+                    this.RaisePropertyChanged("VersionDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string VersionId {
+            get {
+                return this.VersionIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.VersionIdField, value) != true)) {
+                    this.VersionIdField = value;
+                    this.RaisePropertyChanged("VersionId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string VersionName {
+            get {
+                return this.VersionNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.VersionNameField, value) != true)) {
+                    this.VersionNameField = value;
+                    this.RaisePropertyChanged("VersionName");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Base_Unit", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Base_Unit : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AddressField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CorporateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FaxField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProjectRangeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TelephoneField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitTypeCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitTypeIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitTypeNameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Address {
+            get {
+                return this.AddressField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AddressField, value) != true)) {
+                    this.AddressField = value;
+                    this.RaisePropertyChanged("Address");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Corporate {
+            get {
+                return this.CorporateField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CorporateField, value) != true)) {
+                    this.CorporateField = value;
+                    this.RaisePropertyChanged("Corporate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Fax {
+            get {
+                return this.FaxField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FaxField, value) != true)) {
+                    this.FaxField = value;
+                    this.RaisePropertyChanged("Fax");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ProjectRange {
+            get {
+                return this.ProjectRangeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProjectRangeField, value) != true)) {
+                    this.ProjectRangeField = value;
+                    this.RaisePropertyChanged("ProjectRange");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Telephone {
+            get {
+                return this.TelephoneField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TelephoneField, value) != true)) {
+                    this.TelephoneField = value;
+                    this.RaisePropertyChanged("Telephone");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitCode {
+            get {
+                return this.UnitCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitCodeField, value) != true)) {
+                    this.UnitCodeField = value;
+                    this.RaisePropertyChanged("UnitCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitName {
+            get {
+                return this.UnitNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitNameField, value) != true)) {
+                    this.UnitNameField = value;
+                    this.RaisePropertyChanged("UnitName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitTypeCode {
+            get {
+                return this.UnitTypeCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitTypeCodeField, value) != true)) {
+                    this.UnitTypeCodeField = value;
+                    this.RaisePropertyChanged("UnitTypeCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitTypeId {
+            get {
+                return this.UnitTypeIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitTypeIdField, value) != true)) {
+                    this.UnitTypeIdField = value;
+                    this.RaisePropertyChanged("UnitTypeId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitTypeName {
+            get {
+                return this.UnitTypeNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitTypeNameField, value) != true)) {
+                    this.UnitTypeNameField = value;
+                    this.RaisePropertyChanged("UnitTypeName");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Information_UrgeReport", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Information_UrgeReport : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HalfYearIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsCancelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsCompleteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MonthIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string QuarterIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ReprotTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> UrgeDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UrgeReportIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string YearIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HalfYearId {
+            get {
+                return this.HalfYearIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HalfYearIdField, value) != true)) {
+                    this.HalfYearIdField = value;
+                    this.RaisePropertyChanged("HalfYearId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsCancel {
+            get {
+                return this.IsCancelField;
+            }
+            set {
+                if ((this.IsCancelField.Equals(value) != true)) {
+                    this.IsCancelField = value;
+                    this.RaisePropertyChanged("IsCancel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsComplete {
+            get {
+                return this.IsCompleteField;
+            }
+            set {
+                if ((this.IsCompleteField.Equals(value) != true)) {
+                    this.IsCompleteField = value;
+                    this.RaisePropertyChanged("IsComplete");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MonthId {
+            get {
+                return this.MonthIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MonthIdField, value) != true)) {
+                    this.MonthIdField = value;
+                    this.RaisePropertyChanged("MonthId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string QuarterId {
+            get {
+                return this.QuarterIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.QuarterIdField, value) != true)) {
+                    this.QuarterIdField = value;
+                    this.RaisePropertyChanged("QuarterId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ReprotType {
+            get {
+                return this.ReprotTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ReprotTypeField, value) != true)) {
+                    this.ReprotTypeField = value;
+                    this.RaisePropertyChanged("ReprotType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> UrgeDate {
+            get {
+                return this.UrgeDateField;
+            }
+            set {
+                if ((this.UrgeDateField.Equals(value) != true)) {
+                    this.UrgeDateField = value;
+                    this.RaisePropertyChanged("UrgeDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UrgeReportId {
+            get {
+                return this.UrgeReportIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UrgeReportIdField, value) != true)) {
+                    this.UrgeReportIdField = value;
+                    this.RaisePropertyChanged("UrgeReportId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string YearId {
+            get {
+                return this.YearIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.YearIdField, value) != true)) {
+                    this.YearIdField = value;
+                    this.RaisePropertyChanged("YearId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Law_LawRegulationList", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Law_LawRegulationList : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> ApprovalDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachFileIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachSourceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> AuditDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AuditManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CompileDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompileManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescriptionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> EffectiveDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<byte[]> FileContextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsPassField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LawRegulationCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LawRegulationIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LawRegulationNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LawsRegulationsTypeCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LawsRegulationsTypeIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LawsRegulationsTypeNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LawsRegulationsTypeRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ToKeyIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> ApprovalDate {
+            get {
+                return this.ApprovalDateField;
+            }
+            set {
+                if ((this.ApprovalDateField.Equals(value) != true)) {
+                    this.ApprovalDateField = value;
+                    this.RaisePropertyChanged("ApprovalDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachFileId {
+            get {
+                return this.AttachFileIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachFileIdField, value) != true)) {
+                    this.AttachFileIdField = value;
+                    this.RaisePropertyChanged("AttachFileId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachSource {
+            get {
+                return this.AttachSourceField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachSourceField, value) != true)) {
+                    this.AttachSourceField = value;
+                    this.RaisePropertyChanged("AttachSource");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachUrl {
+            get {
+                return this.AttachUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachUrlField, value) != true)) {
+                    this.AttachUrlField = value;
+                    this.RaisePropertyChanged("AttachUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> AuditDate {
+            get {
+                return this.AuditDateField;
+            }
+            set {
+                if ((this.AuditDateField.Equals(value) != true)) {
+                    this.AuditDateField = value;
+                    this.RaisePropertyChanged("AuditDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AuditMan {
+            get {
+                return this.AuditManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AuditManField, value) != true)) {
+                    this.AuditManField = value;
+                    this.RaisePropertyChanged("AuditMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CompileDate {
+            get {
+                return this.CompileDateField;
+            }
+            set {
+                if ((this.CompileDateField.Equals(value) != true)) {
+                    this.CompileDateField = value;
+                    this.RaisePropertyChanged("CompileDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompileMan {
+            get {
+                return this.CompileManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompileManField, value) != true)) {
+                    this.CompileManField = value;
+                    this.RaisePropertyChanged("CompileMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Description {
+            get {
+                return this.DescriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
+                    this.DescriptionField = value;
+                    this.RaisePropertyChanged("Description");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> EffectiveDate {
+            get {
+                return this.EffectiveDateField;
+            }
+            set {
+                if ((this.EffectiveDateField.Equals(value) != true)) {
+                    this.EffectiveDateField = value;
+                    this.RaisePropertyChanged("EffectiveDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<byte[]> FileContext {
+            get {
+                return this.FileContextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FileContextField, value) != true)) {
+                    this.FileContextField = value;
+                    this.RaisePropertyChanged("FileContext");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsPass {
+            get {
+                return this.IsPassField;
+            }
+            set {
+                if ((this.IsPassField.Equals(value) != true)) {
+                    this.IsPassField = value;
+                    this.RaisePropertyChanged("IsPass");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LawRegulationCode {
+            get {
+                return this.LawRegulationCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LawRegulationCodeField, value) != true)) {
+                    this.LawRegulationCodeField = value;
+                    this.RaisePropertyChanged("LawRegulationCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LawRegulationId {
+            get {
+                return this.LawRegulationIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LawRegulationIdField, value) != true)) {
+                    this.LawRegulationIdField = value;
+                    this.RaisePropertyChanged("LawRegulationId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LawRegulationName {
+            get {
+                return this.LawRegulationNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LawRegulationNameField, value) != true)) {
+                    this.LawRegulationNameField = value;
+                    this.RaisePropertyChanged("LawRegulationName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LawsRegulationsTypeCode {
+            get {
+                return this.LawsRegulationsTypeCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LawsRegulationsTypeCodeField, value) != true)) {
+                    this.LawsRegulationsTypeCodeField = value;
+                    this.RaisePropertyChanged("LawsRegulationsTypeCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LawsRegulationsTypeId {
+            get {
+                return this.LawsRegulationsTypeIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LawsRegulationsTypeIdField, value) != true)) {
+                    this.LawsRegulationsTypeIdField = value;
+                    this.RaisePropertyChanged("LawsRegulationsTypeId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LawsRegulationsTypeName {
+            get {
+                return this.LawsRegulationsTypeNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LawsRegulationsTypeNameField, value) != true)) {
+                    this.LawsRegulationsTypeNameField = value;
+                    this.RaisePropertyChanged("LawsRegulationsTypeName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LawsRegulationsTypeRemark {
+            get {
+                return this.LawsRegulationsTypeRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LawsRegulationsTypeRemarkField, value) != true)) {
+                    this.LawsRegulationsTypeRemarkField = value;
+                    this.RaisePropertyChanged("LawsRegulationsTypeRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ToKeyId {
+            get {
+                return this.ToKeyIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ToKeyIdField, value) != true)) {
+                    this.ToKeyIdField = value;
+                    this.RaisePropertyChanged("ToKeyId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Law_HSSEStandardsList", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Law_HSSEStandardsList : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachFileIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachSourceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> AuditDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AuditManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CompileDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompileManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<byte[]> FileContextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsPassField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected10Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected11Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected12Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected13Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected14Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected15Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected16Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected17Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected18Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected19Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected20Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected21Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected22Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected23Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected24Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected25Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected3Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected4Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected5Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected6Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected7Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected8Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected9Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsSelected90Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StandardGradeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StandardIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StandardNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StandardNoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ToKeyIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TypeCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TypeIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TypeNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachFileId {
+            get {
+                return this.AttachFileIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachFileIdField, value) != true)) {
+                    this.AttachFileIdField = value;
+                    this.RaisePropertyChanged("AttachFileId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachSource {
+            get {
+                return this.AttachSourceField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachSourceField, value) != true)) {
+                    this.AttachSourceField = value;
+                    this.RaisePropertyChanged("AttachSource");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachUrl {
+            get {
+                return this.AttachUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachUrlField, value) != true)) {
+                    this.AttachUrlField = value;
+                    this.RaisePropertyChanged("AttachUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> AuditDate {
+            get {
+                return this.AuditDateField;
+            }
+            set {
+                if ((this.AuditDateField.Equals(value) != true)) {
+                    this.AuditDateField = value;
+                    this.RaisePropertyChanged("AuditDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AuditMan {
+            get {
+                return this.AuditManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AuditManField, value) != true)) {
+                    this.AuditManField = value;
+                    this.RaisePropertyChanged("AuditMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CompileDate {
+            get {
+                return this.CompileDateField;
+            }
+            set {
+                if ((this.CompileDateField.Equals(value) != true)) {
+                    this.CompileDateField = value;
+                    this.RaisePropertyChanged("CompileDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompileMan {
+            get {
+                return this.CompileManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompileManField, value) != true)) {
+                    this.CompileManField = value;
+                    this.RaisePropertyChanged("CompileMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<byte[]> FileContext {
+            get {
+                return this.FileContextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FileContextField, value) != true)) {
+                    this.FileContextField = value;
+                    this.RaisePropertyChanged("FileContext");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsPass {
+            get {
+                return this.IsPassField;
+            }
+            set {
+                if ((this.IsPassField.Equals(value) != true)) {
+                    this.IsPassField = value;
+                    this.RaisePropertyChanged("IsPass");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected1 {
+            get {
+                return this.IsSelected1Field;
+            }
+            set {
+                if ((this.IsSelected1Field.Equals(value) != true)) {
+                    this.IsSelected1Field = value;
+                    this.RaisePropertyChanged("IsSelected1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected10 {
+            get {
+                return this.IsSelected10Field;
+            }
+            set {
+                if ((this.IsSelected10Field.Equals(value) != true)) {
+                    this.IsSelected10Field = value;
+                    this.RaisePropertyChanged("IsSelected10");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected11 {
+            get {
+                return this.IsSelected11Field;
+            }
+            set {
+                if ((this.IsSelected11Field.Equals(value) != true)) {
+                    this.IsSelected11Field = value;
+                    this.RaisePropertyChanged("IsSelected11");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected12 {
+            get {
+                return this.IsSelected12Field;
+            }
+            set {
+                if ((this.IsSelected12Field.Equals(value) != true)) {
+                    this.IsSelected12Field = value;
+                    this.RaisePropertyChanged("IsSelected12");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected13 {
+            get {
+                return this.IsSelected13Field;
+            }
+            set {
+                if ((this.IsSelected13Field.Equals(value) != true)) {
+                    this.IsSelected13Field = value;
+                    this.RaisePropertyChanged("IsSelected13");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected14 {
+            get {
+                return this.IsSelected14Field;
+            }
+            set {
+                if ((this.IsSelected14Field.Equals(value) != true)) {
+                    this.IsSelected14Field = value;
+                    this.RaisePropertyChanged("IsSelected14");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected15 {
+            get {
+                return this.IsSelected15Field;
+            }
+            set {
+                if ((this.IsSelected15Field.Equals(value) != true)) {
+                    this.IsSelected15Field = value;
+                    this.RaisePropertyChanged("IsSelected15");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected16 {
+            get {
+                return this.IsSelected16Field;
+            }
+            set {
+                if ((this.IsSelected16Field.Equals(value) != true)) {
+                    this.IsSelected16Field = value;
+                    this.RaisePropertyChanged("IsSelected16");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected17 {
+            get {
+                return this.IsSelected17Field;
+            }
+            set {
+                if ((this.IsSelected17Field.Equals(value) != true)) {
+                    this.IsSelected17Field = value;
+                    this.RaisePropertyChanged("IsSelected17");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected18 {
+            get {
+                return this.IsSelected18Field;
+            }
+            set {
+                if ((this.IsSelected18Field.Equals(value) != true)) {
+                    this.IsSelected18Field = value;
+                    this.RaisePropertyChanged("IsSelected18");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected19 {
+            get {
+                return this.IsSelected19Field;
+            }
+            set {
+                if ((this.IsSelected19Field.Equals(value) != true)) {
+                    this.IsSelected19Field = value;
+                    this.RaisePropertyChanged("IsSelected19");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected2 {
+            get {
+                return this.IsSelected2Field;
+            }
+            set {
+                if ((this.IsSelected2Field.Equals(value) != true)) {
+                    this.IsSelected2Field = value;
+                    this.RaisePropertyChanged("IsSelected2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected20 {
+            get {
+                return this.IsSelected20Field;
+            }
+            set {
+                if ((this.IsSelected20Field.Equals(value) != true)) {
+                    this.IsSelected20Field = value;
+                    this.RaisePropertyChanged("IsSelected20");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected21 {
+            get {
+                return this.IsSelected21Field;
+            }
+            set {
+                if ((this.IsSelected21Field.Equals(value) != true)) {
+                    this.IsSelected21Field = value;
+                    this.RaisePropertyChanged("IsSelected21");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected22 {
+            get {
+                return this.IsSelected22Field;
+            }
+            set {
+                if ((this.IsSelected22Field.Equals(value) != true)) {
+                    this.IsSelected22Field = value;
+                    this.RaisePropertyChanged("IsSelected22");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected23 {
+            get {
+                return this.IsSelected23Field;
+            }
+            set {
+                if ((this.IsSelected23Field.Equals(value) != true)) {
+                    this.IsSelected23Field = value;
+                    this.RaisePropertyChanged("IsSelected23");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected24 {
+            get {
+                return this.IsSelected24Field;
+            }
+            set {
+                if ((this.IsSelected24Field.Equals(value) != true)) {
+                    this.IsSelected24Field = value;
+                    this.RaisePropertyChanged("IsSelected24");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected25 {
+            get {
+                return this.IsSelected25Field;
+            }
+            set {
+                if ((this.IsSelected25Field.Equals(value) != true)) {
+                    this.IsSelected25Field = value;
+                    this.RaisePropertyChanged("IsSelected25");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected3 {
+            get {
+                return this.IsSelected3Field;
+            }
+            set {
+                if ((this.IsSelected3Field.Equals(value) != true)) {
+                    this.IsSelected3Field = value;
+                    this.RaisePropertyChanged("IsSelected3");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected4 {
+            get {
+                return this.IsSelected4Field;
+            }
+            set {
+                if ((this.IsSelected4Field.Equals(value) != true)) {
+                    this.IsSelected4Field = value;
+                    this.RaisePropertyChanged("IsSelected4");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected5 {
+            get {
+                return this.IsSelected5Field;
+            }
+            set {
+                if ((this.IsSelected5Field.Equals(value) != true)) {
+                    this.IsSelected5Field = value;
+                    this.RaisePropertyChanged("IsSelected5");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected6 {
+            get {
+                return this.IsSelected6Field;
+            }
+            set {
+                if ((this.IsSelected6Field.Equals(value) != true)) {
+                    this.IsSelected6Field = value;
+                    this.RaisePropertyChanged("IsSelected6");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected7 {
+            get {
+                return this.IsSelected7Field;
+            }
+            set {
+                if ((this.IsSelected7Field.Equals(value) != true)) {
+                    this.IsSelected7Field = value;
+                    this.RaisePropertyChanged("IsSelected7");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected8 {
+            get {
+                return this.IsSelected8Field;
+            }
+            set {
+                if ((this.IsSelected8Field.Equals(value) != true)) {
+                    this.IsSelected8Field = value;
+                    this.RaisePropertyChanged("IsSelected8");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected9 {
+            get {
+                return this.IsSelected9Field;
+            }
+            set {
+                if ((this.IsSelected9Field.Equals(value) != true)) {
+                    this.IsSelected9Field = value;
+                    this.RaisePropertyChanged("IsSelected9");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsSelected90 {
+            get {
+                return this.IsSelected90Field;
+            }
+            set {
+                if ((this.IsSelected90Field.Equals(value) != true)) {
+                    this.IsSelected90Field = value;
+                    this.RaisePropertyChanged("IsSelected90");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Remark {
+            get {
+                return this.RemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RemarkField, value) != true)) {
+                    this.RemarkField = value;
+                    this.RaisePropertyChanged("Remark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StandardGrade {
+            get {
+                return this.StandardGradeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StandardGradeField, value) != true)) {
+                    this.StandardGradeField = value;
+                    this.RaisePropertyChanged("StandardGrade");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StandardId {
+            get {
+                return this.StandardIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StandardIdField, value) != true)) {
+                    this.StandardIdField = value;
+                    this.RaisePropertyChanged("StandardId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StandardName {
+            get {
+                return this.StandardNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StandardNameField, value) != true)) {
+                    this.StandardNameField = value;
+                    this.RaisePropertyChanged("StandardName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StandardNo {
+            get {
+                return this.StandardNoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StandardNoField, value) != true)) {
+                    this.StandardNoField = value;
+                    this.RaisePropertyChanged("StandardNo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ToKeyId {
+            get {
+                return this.ToKeyIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ToKeyIdField, value) != true)) {
+                    this.ToKeyIdField = value;
+                    this.RaisePropertyChanged("ToKeyId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TypeCode {
+            get {
+                return this.TypeCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TypeCodeField, value) != true)) {
+                    this.TypeCodeField = value;
+                    this.RaisePropertyChanged("TypeCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TypeId {
+            get {
+                return this.TypeIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TypeIdField, value) != true)) {
+                    this.TypeIdField = value;
+                    this.RaisePropertyChanged("TypeId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TypeName {
+            get {
+                return this.TypeNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TypeNameField, value) != true)) {
+                    this.TypeNameField = value;
+                    this.RaisePropertyChanged("TypeName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Law_RulesRegulations", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Law_RulesRegulations : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ApplicableScopeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachFileIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachSourceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> AuditDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AuditManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CompileDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompileManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CustomDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<byte[]> FileContextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsPassField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RulesRegulationsCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RulesRegulationsIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RulesRegulationsNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RulesRegulationsTypeCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RulesRegulationsTypeIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RulesRegulationsTypeNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ToKeyIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ApplicableScope {
+            get {
+                return this.ApplicableScopeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ApplicableScopeField, value) != true)) {
+                    this.ApplicableScopeField = value;
+                    this.RaisePropertyChanged("ApplicableScope");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachFileId {
+            get {
+                return this.AttachFileIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachFileIdField, value) != true)) {
+                    this.AttachFileIdField = value;
+                    this.RaisePropertyChanged("AttachFileId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachSource {
+            get {
+                return this.AttachSourceField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachSourceField, value) != true)) {
+                    this.AttachSourceField = value;
+                    this.RaisePropertyChanged("AttachSource");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachUrl {
+            get {
+                return this.AttachUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachUrlField, value) != true)) {
+                    this.AttachUrlField = value;
+                    this.RaisePropertyChanged("AttachUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> AuditDate {
+            get {
+                return this.AuditDateField;
+            }
+            set {
+                if ((this.AuditDateField.Equals(value) != true)) {
+                    this.AuditDateField = value;
+                    this.RaisePropertyChanged("AuditDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AuditMan {
+            get {
+                return this.AuditManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AuditManField, value) != true)) {
+                    this.AuditManField = value;
+                    this.RaisePropertyChanged("AuditMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CompileDate {
+            get {
+                return this.CompileDateField;
+            }
+            set {
+                if ((this.CompileDateField.Equals(value) != true)) {
+                    this.CompileDateField = value;
+                    this.RaisePropertyChanged("CompileDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompileMan {
+            get {
+                return this.CompileManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompileManField, value) != true)) {
+                    this.CompileManField = value;
+                    this.RaisePropertyChanged("CompileMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CustomDate {
+            get {
+                return this.CustomDateField;
+            }
+            set {
+                if ((this.CustomDateField.Equals(value) != true)) {
+                    this.CustomDateField = value;
+                    this.RaisePropertyChanged("CustomDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<byte[]> FileContext {
+            get {
+                return this.FileContextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FileContextField, value) != true)) {
+                    this.FileContextField = value;
+                    this.RaisePropertyChanged("FileContext");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsPass {
+            get {
+                return this.IsPassField;
+            }
+            set {
+                if ((this.IsPassField.Equals(value) != true)) {
+                    this.IsPassField = value;
+                    this.RaisePropertyChanged("IsPass");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Remark {
+            get {
+                return this.RemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RemarkField, value) != true)) {
+                    this.RemarkField = value;
+                    this.RaisePropertyChanged("Remark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RulesRegulationsCode {
+            get {
+                return this.RulesRegulationsCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RulesRegulationsCodeField, value) != true)) {
+                    this.RulesRegulationsCodeField = value;
+                    this.RaisePropertyChanged("RulesRegulationsCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RulesRegulationsId {
+            get {
+                return this.RulesRegulationsIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RulesRegulationsIdField, value) != true)) {
+                    this.RulesRegulationsIdField = value;
+                    this.RaisePropertyChanged("RulesRegulationsId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RulesRegulationsName {
+            get {
+                return this.RulesRegulationsNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RulesRegulationsNameField, value) != true)) {
+                    this.RulesRegulationsNameField = value;
+                    this.RaisePropertyChanged("RulesRegulationsName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RulesRegulationsTypeCode {
+            get {
+                return this.RulesRegulationsTypeCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RulesRegulationsTypeCodeField, value) != true)) {
+                    this.RulesRegulationsTypeCodeField = value;
+                    this.RaisePropertyChanged("RulesRegulationsTypeCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RulesRegulationsTypeId {
+            get {
+                return this.RulesRegulationsTypeIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RulesRegulationsTypeIdField, value) != true)) {
+                    this.RulesRegulationsTypeIdField = value;
+                    this.RaisePropertyChanged("RulesRegulationsTypeId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RulesRegulationsTypeName {
+            get {
+                return this.RulesRegulationsTypeNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RulesRegulationsTypeNameField, value) != true)) {
+                    this.RulesRegulationsTypeNameField = value;
+                    this.RaisePropertyChanged("RulesRegulationsTypeName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ToKeyId {
+            get {
+                return this.ToKeyIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ToKeyIdField, value) != true)) {
+                    this.ToKeyIdField = value;
+                    this.RaisePropertyChanged("ToKeyId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Law_ManageRule", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Law_ManageRule : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachFileIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachSourceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> AuditDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AuditManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CompileDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompileManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<byte[]> FileContextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsPassField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ManageRuleCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ManageRuleIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ManageRuleNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ManageRuleTypeCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ManageRuleTypeIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ManageRuleTypeNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ToKeyIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string VersionNoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachFileId {
+            get {
+                return this.AttachFileIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachFileIdField, value) != true)) {
+                    this.AttachFileIdField = value;
+                    this.RaisePropertyChanged("AttachFileId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachSource {
+            get {
+                return this.AttachSourceField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachSourceField, value) != true)) {
+                    this.AttachSourceField = value;
+                    this.RaisePropertyChanged("AttachSource");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachUrl {
+            get {
+                return this.AttachUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachUrlField, value) != true)) {
+                    this.AttachUrlField = value;
+                    this.RaisePropertyChanged("AttachUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> AuditDate {
+            get {
+                return this.AuditDateField;
+            }
+            set {
+                if ((this.AuditDateField.Equals(value) != true)) {
+                    this.AuditDateField = value;
+                    this.RaisePropertyChanged("AuditDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AuditMan {
+            get {
+                return this.AuditManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AuditManField, value) != true)) {
+                    this.AuditManField = value;
+                    this.RaisePropertyChanged("AuditMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CompileDate {
+            get {
+                return this.CompileDateField;
+            }
+            set {
+                if ((this.CompileDateField.Equals(value) != true)) {
+                    this.CompileDateField = value;
+                    this.RaisePropertyChanged("CompileDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompileMan {
+            get {
+                return this.CompileManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompileManField, value) != true)) {
+                    this.CompileManField = value;
+                    this.RaisePropertyChanged("CompileMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<byte[]> FileContext {
+            get {
+                return this.FileContextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FileContextField, value) != true)) {
+                    this.FileContextField = value;
+                    this.RaisePropertyChanged("FileContext");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsPass {
+            get {
+                return this.IsPassField;
+            }
+            set {
+                if ((this.IsPassField.Equals(value) != true)) {
+                    this.IsPassField = value;
+                    this.RaisePropertyChanged("IsPass");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ManageRuleCode {
+            get {
+                return this.ManageRuleCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ManageRuleCodeField, value) != true)) {
+                    this.ManageRuleCodeField = value;
+                    this.RaisePropertyChanged("ManageRuleCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ManageRuleId {
+            get {
+                return this.ManageRuleIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ManageRuleIdField, value) != true)) {
+                    this.ManageRuleIdField = value;
+                    this.RaisePropertyChanged("ManageRuleId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ManageRuleName {
+            get {
+                return this.ManageRuleNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ManageRuleNameField, value) != true)) {
+                    this.ManageRuleNameField = value;
+                    this.RaisePropertyChanged("ManageRuleName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ManageRuleTypeCode {
+            get {
+                return this.ManageRuleTypeCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ManageRuleTypeCodeField, value) != true)) {
+                    this.ManageRuleTypeCodeField = value;
+                    this.RaisePropertyChanged("ManageRuleTypeCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ManageRuleTypeId {
+            get {
+                return this.ManageRuleTypeIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ManageRuleTypeIdField, value) != true)) {
+                    this.ManageRuleTypeIdField = value;
+                    this.RaisePropertyChanged("ManageRuleTypeId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ManageRuleTypeName {
+            get {
+                return this.ManageRuleTypeNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ManageRuleTypeNameField, value) != true)) {
+                    this.ManageRuleTypeNameField = value;
+                    this.RaisePropertyChanged("ManageRuleTypeName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Remark {
+            get {
+                return this.RemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RemarkField, value) != true)) {
+                    this.RemarkField = value;
+                    this.RaisePropertyChanged("Remark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ToKeyId {
+            get {
+                return this.ToKeyIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ToKeyIdField, value) != true)) {
+                    this.ToKeyIdField = value;
+                    this.RaisePropertyChanged("ToKeyId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string VersionNo {
+            get {
+                return this.VersionNoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.VersionNoField, value) != true)) {
+                    this.VersionNoField = value;
+                    this.RaisePropertyChanged("VersionNo");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Technique_HAZOP", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Technique_HAZOP : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AbstractField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachFileIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachSourceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> AuditDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AuditManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CompileDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompileManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<byte[]> FileContextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> HAZOPDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HAZOPIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HAZOPTitleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsPassField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ToKeyIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Abstract {
+            get {
+                return this.AbstractField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AbstractField, value) != true)) {
+                    this.AbstractField = value;
+                    this.RaisePropertyChanged("Abstract");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachFileId {
+            get {
+                return this.AttachFileIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachFileIdField, value) != true)) {
+                    this.AttachFileIdField = value;
+                    this.RaisePropertyChanged("AttachFileId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachSource {
+            get {
+                return this.AttachSourceField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachSourceField, value) != true)) {
+                    this.AttachSourceField = value;
+                    this.RaisePropertyChanged("AttachSource");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachUrl {
+            get {
+                return this.AttachUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachUrlField, value) != true)) {
+                    this.AttachUrlField = value;
+                    this.RaisePropertyChanged("AttachUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> AuditDate {
+            get {
+                return this.AuditDateField;
+            }
+            set {
+                if ((this.AuditDateField.Equals(value) != true)) {
+                    this.AuditDateField = value;
+                    this.RaisePropertyChanged("AuditDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AuditMan {
+            get {
+                return this.AuditManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AuditManField, value) != true)) {
+                    this.AuditManField = value;
+                    this.RaisePropertyChanged("AuditMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CompileDate {
+            get {
+                return this.CompileDateField;
+            }
+            set {
+                if ((this.CompileDateField.Equals(value) != true)) {
+                    this.CompileDateField = value;
+                    this.RaisePropertyChanged("CompileDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompileMan {
+            get {
+                return this.CompileManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompileManField, value) != true)) {
+                    this.CompileManField = value;
+                    this.RaisePropertyChanged("CompileMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<byte[]> FileContext {
+            get {
+                return this.FileContextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FileContextField, value) != true)) {
+                    this.FileContextField = value;
+                    this.RaisePropertyChanged("FileContext");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> HAZOPDate {
+            get {
+                return this.HAZOPDateField;
+            }
+            set {
+                if ((this.HAZOPDateField.Equals(value) != true)) {
+                    this.HAZOPDateField = value;
+                    this.RaisePropertyChanged("HAZOPDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HAZOPId {
+            get {
+                return this.HAZOPIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HAZOPIdField, value) != true)) {
+                    this.HAZOPIdField = value;
+                    this.RaisePropertyChanged("HAZOPId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HAZOPTitle {
+            get {
+                return this.HAZOPTitleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HAZOPTitleField, value) != true)) {
+                    this.HAZOPTitleField = value;
+                    this.RaisePropertyChanged("HAZOPTitle");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsPass {
+            get {
+                return this.IsPassField;
+            }
+            set {
+                if ((this.IsPassField.Equals(value) != true)) {
+                    this.IsPassField = value;
+                    this.RaisePropertyChanged("IsPass");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ToKeyId {
+            get {
+                return this.ToKeyIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ToKeyIdField, value) != true)) {
+                    this.ToKeyIdField = value;
+                    this.RaisePropertyChanged("ToKeyId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Technique_Appraise", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Technique_Appraise : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AbstractField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppraiseCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> AppraiseDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppraiseIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppraiseTitleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> ArrangementDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ArrangementPersonField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachFileIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachSourceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> AuditDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AuditManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CompileDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompileManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<byte[]> FileContextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsPassField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ToKeyIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Abstract {
+            get {
+                return this.AbstractField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AbstractField, value) != true)) {
+                    this.AbstractField = value;
+                    this.RaisePropertyChanged("Abstract");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppraiseCode {
+            get {
+                return this.AppraiseCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppraiseCodeField, value) != true)) {
+                    this.AppraiseCodeField = value;
+                    this.RaisePropertyChanged("AppraiseCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> AppraiseDate {
+            get {
+                return this.AppraiseDateField;
+            }
+            set {
+                if ((this.AppraiseDateField.Equals(value) != true)) {
+                    this.AppraiseDateField = value;
+                    this.RaisePropertyChanged("AppraiseDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppraiseId {
+            get {
+                return this.AppraiseIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppraiseIdField, value) != true)) {
+                    this.AppraiseIdField = value;
+                    this.RaisePropertyChanged("AppraiseId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppraiseTitle {
+            get {
+                return this.AppraiseTitleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppraiseTitleField, value) != true)) {
+                    this.AppraiseTitleField = value;
+                    this.RaisePropertyChanged("AppraiseTitle");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> ArrangementDate {
+            get {
+                return this.ArrangementDateField;
+            }
+            set {
+                if ((this.ArrangementDateField.Equals(value) != true)) {
+                    this.ArrangementDateField = value;
+                    this.RaisePropertyChanged("ArrangementDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ArrangementPerson {
+            get {
+                return this.ArrangementPersonField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ArrangementPersonField, value) != true)) {
+                    this.ArrangementPersonField = value;
+                    this.RaisePropertyChanged("ArrangementPerson");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachFileId {
+            get {
+                return this.AttachFileIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachFileIdField, value) != true)) {
+                    this.AttachFileIdField = value;
+                    this.RaisePropertyChanged("AttachFileId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachSource {
+            get {
+                return this.AttachSourceField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachSourceField, value) != true)) {
+                    this.AttachSourceField = value;
+                    this.RaisePropertyChanged("AttachSource");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachUrl {
+            get {
+                return this.AttachUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachUrlField, value) != true)) {
+                    this.AttachUrlField = value;
+                    this.RaisePropertyChanged("AttachUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> AuditDate {
+            get {
+                return this.AuditDateField;
+            }
+            set {
+                if ((this.AuditDateField.Equals(value) != true)) {
+                    this.AuditDateField = value;
+                    this.RaisePropertyChanged("AuditDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AuditMan {
+            get {
+                return this.AuditManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AuditManField, value) != true)) {
+                    this.AuditManField = value;
+                    this.RaisePropertyChanged("AuditMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CompileDate {
+            get {
+                return this.CompileDateField;
+            }
+            set {
+                if ((this.CompileDateField.Equals(value) != true)) {
+                    this.CompileDateField = value;
+                    this.RaisePropertyChanged("CompileDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompileMan {
+            get {
+                return this.CompileManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompileManField, value) != true)) {
+                    this.CompileManField = value;
+                    this.RaisePropertyChanged("CompileMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<byte[]> FileContext {
+            get {
+                return this.FileContextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FileContextField, value) != true)) {
+                    this.FileContextField = value;
+                    this.RaisePropertyChanged("FileContext");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsPass {
+            get {
+                return this.IsPassField;
+            }
+            set {
+                if ((this.IsPassField.Equals(value) != true)) {
+                    this.IsPassField = value;
+                    this.RaisePropertyChanged("IsPass");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ToKeyId {
+            get {
+                return this.ToKeyIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ToKeyIdField, value) != true)) {
+                    this.ToKeyIdField = value;
+                    this.RaisePropertyChanged("ToKeyId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Technique_Emergency", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Technique_Emergency : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachFileIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachSourceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> AuditDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AuditManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CompileDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompileManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EmergencyCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EmergencyIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EmergencyNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EmergencyTypeCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EmergencyTypeIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EmergencyTypeNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<byte[]> FileContextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsPassField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SummaryField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ToKeyIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachFileId {
+            get {
+                return this.AttachFileIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachFileIdField, value) != true)) {
+                    this.AttachFileIdField = value;
+                    this.RaisePropertyChanged("AttachFileId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachSource {
+            get {
+                return this.AttachSourceField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachSourceField, value) != true)) {
+                    this.AttachSourceField = value;
+                    this.RaisePropertyChanged("AttachSource");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachUrl {
+            get {
+                return this.AttachUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachUrlField, value) != true)) {
+                    this.AttachUrlField = value;
+                    this.RaisePropertyChanged("AttachUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> AuditDate {
+            get {
+                return this.AuditDateField;
+            }
+            set {
+                if ((this.AuditDateField.Equals(value) != true)) {
+                    this.AuditDateField = value;
+                    this.RaisePropertyChanged("AuditDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AuditMan {
+            get {
+                return this.AuditManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AuditManField, value) != true)) {
+                    this.AuditManField = value;
+                    this.RaisePropertyChanged("AuditMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CompileDate {
+            get {
+                return this.CompileDateField;
+            }
+            set {
+                if ((this.CompileDateField.Equals(value) != true)) {
+                    this.CompileDateField = value;
+                    this.RaisePropertyChanged("CompileDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompileMan {
+            get {
+                return this.CompileManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompileManField, value) != true)) {
+                    this.CompileManField = value;
+                    this.RaisePropertyChanged("CompileMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EmergencyCode {
+            get {
+                return this.EmergencyCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmergencyCodeField, value) != true)) {
+                    this.EmergencyCodeField = value;
+                    this.RaisePropertyChanged("EmergencyCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EmergencyId {
+            get {
+                return this.EmergencyIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmergencyIdField, value) != true)) {
+                    this.EmergencyIdField = value;
+                    this.RaisePropertyChanged("EmergencyId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EmergencyName {
+            get {
+                return this.EmergencyNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmergencyNameField, value) != true)) {
+                    this.EmergencyNameField = value;
+                    this.RaisePropertyChanged("EmergencyName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EmergencyTypeCode {
+            get {
+                return this.EmergencyTypeCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmergencyTypeCodeField, value) != true)) {
+                    this.EmergencyTypeCodeField = value;
+                    this.RaisePropertyChanged("EmergencyTypeCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EmergencyTypeId {
+            get {
+                return this.EmergencyTypeIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmergencyTypeIdField, value) != true)) {
+                    this.EmergencyTypeIdField = value;
+                    this.RaisePropertyChanged("EmergencyTypeId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EmergencyTypeName {
+            get {
+                return this.EmergencyTypeNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmergencyTypeNameField, value) != true)) {
+                    this.EmergencyTypeNameField = value;
+                    this.RaisePropertyChanged("EmergencyTypeName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<byte[]> FileContext {
+            get {
+                return this.FileContextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FileContextField, value) != true)) {
+                    this.FileContextField = value;
+                    this.RaisePropertyChanged("FileContext");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsPass {
+            get {
+                return this.IsPassField;
+            }
+            set {
+                if ((this.IsPassField.Equals(value) != true)) {
+                    this.IsPassField = value;
+                    this.RaisePropertyChanged("IsPass");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Remark {
+            get {
+                return this.RemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RemarkField, value) != true)) {
+                    this.RemarkField = value;
+                    this.RaisePropertyChanged("Remark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Summary {
+            get {
+                return this.SummaryField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SummaryField, value) != true)) {
+                    this.SummaryField = value;
+                    this.RaisePropertyChanged("Summary");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ToKeyId {
+            get {
+                return this.ToKeyIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ToKeyIdField, value) != true)) {
+                    this.ToKeyIdField = value;
+                    this.RaisePropertyChanged("ToKeyId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Technique_SpecialScheme", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Technique_SpecialScheme : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachFileIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachSourceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> AuditDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AuditManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CompileDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompileManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<byte[]> FileContextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsPassField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SpecialSchemeCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SpecialSchemeIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SpecialSchemeNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SpecialSchemeTypeCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SpecialSchemeTypeIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SpecialSchemeTypeNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SummaryField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ToKeyIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachFileId {
+            get {
+                return this.AttachFileIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachFileIdField, value) != true)) {
+                    this.AttachFileIdField = value;
+                    this.RaisePropertyChanged("AttachFileId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachSource {
+            get {
+                return this.AttachSourceField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachSourceField, value) != true)) {
+                    this.AttachSourceField = value;
+                    this.RaisePropertyChanged("AttachSource");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachUrl {
+            get {
+                return this.AttachUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachUrlField, value) != true)) {
+                    this.AttachUrlField = value;
+                    this.RaisePropertyChanged("AttachUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> AuditDate {
+            get {
+                return this.AuditDateField;
+            }
+            set {
+                if ((this.AuditDateField.Equals(value) != true)) {
+                    this.AuditDateField = value;
+                    this.RaisePropertyChanged("AuditDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AuditMan {
+            get {
+                return this.AuditManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AuditManField, value) != true)) {
+                    this.AuditManField = value;
+                    this.RaisePropertyChanged("AuditMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CompileDate {
+            get {
+                return this.CompileDateField;
+            }
+            set {
+                if ((this.CompileDateField.Equals(value) != true)) {
+                    this.CompileDateField = value;
+                    this.RaisePropertyChanged("CompileDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompileMan {
+            get {
+                return this.CompileManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompileManField, value) != true)) {
+                    this.CompileManField = value;
+                    this.RaisePropertyChanged("CompileMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<byte[]> FileContext {
+            get {
+                return this.FileContextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FileContextField, value) != true)) {
+                    this.FileContextField = value;
+                    this.RaisePropertyChanged("FileContext");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsPass {
+            get {
+                return this.IsPassField;
+            }
+            set {
+                if ((this.IsPassField.Equals(value) != true)) {
+                    this.IsPassField = value;
+                    this.RaisePropertyChanged("IsPass");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SpecialSchemeCode {
+            get {
+                return this.SpecialSchemeCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SpecialSchemeCodeField, value) != true)) {
+                    this.SpecialSchemeCodeField = value;
+                    this.RaisePropertyChanged("SpecialSchemeCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SpecialSchemeId {
+            get {
+                return this.SpecialSchemeIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SpecialSchemeIdField, value) != true)) {
+                    this.SpecialSchemeIdField = value;
+                    this.RaisePropertyChanged("SpecialSchemeId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SpecialSchemeName {
+            get {
+                return this.SpecialSchemeNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SpecialSchemeNameField, value) != true)) {
+                    this.SpecialSchemeNameField = value;
+                    this.RaisePropertyChanged("SpecialSchemeName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SpecialSchemeTypeCode {
+            get {
+                return this.SpecialSchemeTypeCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SpecialSchemeTypeCodeField, value) != true)) {
+                    this.SpecialSchemeTypeCodeField = value;
+                    this.RaisePropertyChanged("SpecialSchemeTypeCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SpecialSchemeTypeId {
+            get {
+                return this.SpecialSchemeTypeIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SpecialSchemeTypeIdField, value) != true)) {
+                    this.SpecialSchemeTypeIdField = value;
+                    this.RaisePropertyChanged("SpecialSchemeTypeId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SpecialSchemeTypeName {
+            get {
+                return this.SpecialSchemeTypeNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SpecialSchemeTypeNameField, value) != true)) {
+                    this.SpecialSchemeTypeNameField = value;
+                    this.RaisePropertyChanged("SpecialSchemeTypeName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Summary {
+            get {
+                return this.SummaryField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SummaryField, value) != true)) {
+                    this.SummaryField = value;
+                    this.RaisePropertyChanged("Summary");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ToKeyId {
+            get {
+                return this.ToKeyIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ToKeyIdField, value) != true)) {
+                    this.ToKeyIdField = value;
+                    this.RaisePropertyChanged("ToKeyId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Training_Training", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Training_Training : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsEndLeverField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SupTrainingIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TrainingCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TrainingIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TrainingNameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsEndLever {
+            get {
+                return this.IsEndLeverField;
+            }
+            set {
+                if ((this.IsEndLeverField.Equals(value) != true)) {
+                    this.IsEndLeverField = value;
+                    this.RaisePropertyChanged("IsEndLever");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SupTrainingId {
+            get {
+                return this.SupTrainingIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SupTrainingIdField, value) != true)) {
+                    this.SupTrainingIdField = value;
+                    this.RaisePropertyChanged("SupTrainingId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TrainingCode {
+            get {
+                return this.TrainingCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TrainingCodeField, value) != true)) {
+                    this.TrainingCodeField = value;
+                    this.RaisePropertyChanged("TrainingCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TrainingId {
+            get {
+                return this.TrainingIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TrainingIdField, value) != true)) {
+                    this.TrainingIdField = value;
+                    this.RaisePropertyChanged("TrainingId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TrainingName {
+            get {
+                return this.TrainingNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TrainingNameField, value) != true)) {
+                    this.TrainingNameField = value;
+                    this.RaisePropertyChanged("TrainingName");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Training_TrainingItem", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Training_TrainingItem : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ApproveStateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachFileIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachSourceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> AuditDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AuditManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CompileDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompileManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<byte[]> FileContextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsPassField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ResourcesFromField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ResourcesFromTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ToKeyIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TrainingIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TrainingItemCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TrainingItemIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TrainingItemNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string VersionNumField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ApproveState {
+            get {
+                return this.ApproveStateField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ApproveStateField, value) != true)) {
+                    this.ApproveStateField = value;
+                    this.RaisePropertyChanged("ApproveState");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachFileId {
+            get {
+                return this.AttachFileIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachFileIdField, value) != true)) {
+                    this.AttachFileIdField = value;
+                    this.RaisePropertyChanged("AttachFileId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachSource {
+            get {
+                return this.AttachSourceField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachSourceField, value) != true)) {
+                    this.AttachSourceField = value;
+                    this.RaisePropertyChanged("AttachSource");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachUrl {
+            get {
+                return this.AttachUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachUrlField, value) != true)) {
+                    this.AttachUrlField = value;
+                    this.RaisePropertyChanged("AttachUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> AuditDate {
+            get {
+                return this.AuditDateField;
+            }
+            set {
+                if ((this.AuditDateField.Equals(value) != true)) {
+                    this.AuditDateField = value;
+                    this.RaisePropertyChanged("AuditDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AuditMan {
+            get {
+                return this.AuditManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AuditManField, value) != true)) {
+                    this.AuditManField = value;
+                    this.RaisePropertyChanged("AuditMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CompileDate {
+            get {
+                return this.CompileDateField;
+            }
+            set {
+                if ((this.CompileDateField.Equals(value) != true)) {
+                    this.CompileDateField = value;
+                    this.RaisePropertyChanged("CompileDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompileMan {
+            get {
+                return this.CompileManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompileManField, value) != true)) {
+                    this.CompileManField = value;
+                    this.RaisePropertyChanged("CompileMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<byte[]> FileContext {
+            get {
+                return this.FileContextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FileContextField, value) != true)) {
+                    this.FileContextField = value;
+                    this.RaisePropertyChanged("FileContext");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsPass {
+            get {
+                return this.IsPassField;
+            }
+            set {
+                if ((this.IsPassField.Equals(value) != true)) {
+                    this.IsPassField = value;
+                    this.RaisePropertyChanged("IsPass");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ResourcesFrom {
+            get {
+                return this.ResourcesFromField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ResourcesFromField, value) != true)) {
+                    this.ResourcesFromField = value;
+                    this.RaisePropertyChanged("ResourcesFrom");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ResourcesFromType {
+            get {
+                return this.ResourcesFromTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ResourcesFromTypeField, value) != true)) {
+                    this.ResourcesFromTypeField = value;
+                    this.RaisePropertyChanged("ResourcesFromType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ToKeyId {
+            get {
+                return this.ToKeyIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ToKeyIdField, value) != true)) {
+                    this.ToKeyIdField = value;
+                    this.RaisePropertyChanged("ToKeyId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TrainingId {
+            get {
+                return this.TrainingIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TrainingIdField, value) != true)) {
+                    this.TrainingIdField = value;
+                    this.RaisePropertyChanged("TrainingId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TrainingItemCode {
+            get {
+                return this.TrainingItemCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TrainingItemCodeField, value) != true)) {
+                    this.TrainingItemCodeField = value;
+                    this.RaisePropertyChanged("TrainingItemCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TrainingItemId {
+            get {
+                return this.TrainingItemIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TrainingItemIdField, value) != true)) {
+                    this.TrainingItemIdField = value;
+                    this.RaisePropertyChanged("TrainingItemId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TrainingItemName {
+            get {
+                return this.TrainingItemNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TrainingItemNameField, value) != true)) {
+                    this.TrainingItemNameField = value;
+                    this.RaisePropertyChanged("TrainingItemName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string VersionNum {
+            get {
+                return this.VersionNumField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.VersionNumField, value) != true)) {
+                    this.VersionNumField = value;
+                    this.RaisePropertyChanged("VersionNum");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Training_TrainTestDB", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Training_TrainTestDB : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsEndLeverField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SupTrainTestIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TrainTestCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TrainTestIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TrainTestNameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsEndLever {
+            get {
+                return this.IsEndLeverField;
+            }
+            set {
+                if ((this.IsEndLeverField.Equals(value) != true)) {
+                    this.IsEndLeverField = value;
+                    this.RaisePropertyChanged("IsEndLever");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SupTrainTestId {
+            get {
+                return this.SupTrainTestIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SupTrainTestIdField, value) != true)) {
+                    this.SupTrainTestIdField = value;
+                    this.RaisePropertyChanged("SupTrainTestId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TrainTestCode {
+            get {
+                return this.TrainTestCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TrainTestCodeField, value) != true)) {
+                    this.TrainTestCodeField = value;
+                    this.RaisePropertyChanged("TrainTestCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TrainTestId {
+            get {
+                return this.TrainTestIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TrainTestIdField, value) != true)) {
+                    this.TrainTestIdField = value;
+                    this.RaisePropertyChanged("TrainTestId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TrainTestName {
+            get {
+                return this.TrainTestNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TrainTestNameField, value) != true)) {
+                    this.TrainTestNameField = value;
+                    this.RaisePropertyChanged("TrainTestName");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Training_TrainTestDBItem", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Training_TrainTestDBItem : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachFileIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachSourceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> AuditDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AuditManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CompileDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompileManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<byte[]> FileContextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsPassField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ToKeyIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TraiinTestItemNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TrainTestIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TrainTestItemCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TrainTestItemIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachFileId {
+            get {
+                return this.AttachFileIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachFileIdField, value) != true)) {
+                    this.AttachFileIdField = value;
+                    this.RaisePropertyChanged("AttachFileId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachSource {
+            get {
+                return this.AttachSourceField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachSourceField, value) != true)) {
+                    this.AttachSourceField = value;
+                    this.RaisePropertyChanged("AttachSource");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachUrl {
+            get {
+                return this.AttachUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachUrlField, value) != true)) {
+                    this.AttachUrlField = value;
+                    this.RaisePropertyChanged("AttachUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> AuditDate {
+            get {
+                return this.AuditDateField;
+            }
+            set {
+                if ((this.AuditDateField.Equals(value) != true)) {
+                    this.AuditDateField = value;
+                    this.RaisePropertyChanged("AuditDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AuditMan {
+            get {
+                return this.AuditManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AuditManField, value) != true)) {
+                    this.AuditManField = value;
+                    this.RaisePropertyChanged("AuditMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CompileDate {
+            get {
+                return this.CompileDateField;
+            }
+            set {
+                if ((this.CompileDateField.Equals(value) != true)) {
+                    this.CompileDateField = value;
+                    this.RaisePropertyChanged("CompileDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompileMan {
+            get {
+                return this.CompileManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompileManField, value) != true)) {
+                    this.CompileManField = value;
+                    this.RaisePropertyChanged("CompileMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<byte[]> FileContext {
+            get {
+                return this.FileContextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FileContextField, value) != true)) {
+                    this.FileContextField = value;
+                    this.RaisePropertyChanged("FileContext");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsPass {
+            get {
+                return this.IsPassField;
+            }
+            set {
+                if ((this.IsPassField.Equals(value) != true)) {
+                    this.IsPassField = value;
+                    this.RaisePropertyChanged("IsPass");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ToKeyId {
+            get {
+                return this.ToKeyIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ToKeyIdField, value) != true)) {
+                    this.ToKeyIdField = value;
+                    this.RaisePropertyChanged("ToKeyId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TraiinTestItemName {
+            get {
+                return this.TraiinTestItemNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TraiinTestItemNameField, value) != true)) {
+                    this.TraiinTestItemNameField = value;
+                    this.RaisePropertyChanged("TraiinTestItemName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TrainTestId {
+            get {
+                return this.TrainTestIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TrainTestIdField, value) != true)) {
+                    this.TrainTestIdField = value;
+                    this.RaisePropertyChanged("TrainTestId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TrainTestItemCode {
+            get {
+                return this.TrainTestItemCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TrainTestItemCodeField, value) != true)) {
+                    this.TrainTestItemCodeField = value;
+                    this.RaisePropertyChanged("TrainTestItemCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TrainTestItemId {
+            get {
+                return this.TrainTestItemIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TrainTestItemIdField, value) != true)) {
+                    this.TrainTestItemIdField = value;
+                    this.RaisePropertyChanged("TrainTestItemId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EduTrain_AccidentCase", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class EduTrain_AccidentCase : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AccidentCaseCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AccidentCaseIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AccidentCaseNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsEndLeverField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SupAccidentCaseIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AccidentCaseCode {
+            get {
+                return this.AccidentCaseCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AccidentCaseCodeField, value) != true)) {
+                    this.AccidentCaseCodeField = value;
+                    this.RaisePropertyChanged("AccidentCaseCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AccidentCaseId {
+            get {
+                return this.AccidentCaseIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AccidentCaseIdField, value) != true)) {
+                    this.AccidentCaseIdField = value;
+                    this.RaisePropertyChanged("AccidentCaseId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AccidentCaseName {
+            get {
+                return this.AccidentCaseNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AccidentCaseNameField, value) != true)) {
+                    this.AccidentCaseNameField = value;
+                    this.RaisePropertyChanged("AccidentCaseName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsEndLever {
+            get {
+                return this.IsEndLeverField;
+            }
+            set {
+                if ((this.IsEndLeverField.Equals(value) != true)) {
+                    this.IsEndLeverField = value;
+                    this.RaisePropertyChanged("IsEndLever");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SupAccidentCaseId {
+            get {
+                return this.SupAccidentCaseIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SupAccidentCaseIdField, value) != true)) {
+                    this.SupAccidentCaseIdField = value;
+                    this.RaisePropertyChanged("SupAccidentCaseId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EduTrain_AccidentCaseItem", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class EduTrain_AccidentCaseItem : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AccidentCaseIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AccidentCaseItemIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AccidentNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AccidentProfilesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AccidentReviewField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ActivitiesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> AuditDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AuditManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CompileDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompileManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsPassField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AccidentCaseId {
+            get {
+                return this.AccidentCaseIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AccidentCaseIdField, value) != true)) {
+                    this.AccidentCaseIdField = value;
+                    this.RaisePropertyChanged("AccidentCaseId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AccidentCaseItemId {
+            get {
+                return this.AccidentCaseItemIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AccidentCaseItemIdField, value) != true)) {
+                    this.AccidentCaseItemIdField = value;
+                    this.RaisePropertyChanged("AccidentCaseItemId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AccidentName {
+            get {
+                return this.AccidentNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AccidentNameField, value) != true)) {
+                    this.AccidentNameField = value;
+                    this.RaisePropertyChanged("AccidentName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AccidentProfiles {
+            get {
+                return this.AccidentProfilesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AccidentProfilesField, value) != true)) {
+                    this.AccidentProfilesField = value;
+                    this.RaisePropertyChanged("AccidentProfiles");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AccidentReview {
+            get {
+                return this.AccidentReviewField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AccidentReviewField, value) != true)) {
+                    this.AccidentReviewField = value;
+                    this.RaisePropertyChanged("AccidentReview");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Activities {
+            get {
+                return this.ActivitiesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ActivitiesField, value) != true)) {
+                    this.ActivitiesField = value;
+                    this.RaisePropertyChanged("Activities");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> AuditDate {
+            get {
+                return this.AuditDateField;
+            }
+            set {
+                if ((this.AuditDateField.Equals(value) != true)) {
+                    this.AuditDateField = value;
+                    this.RaisePropertyChanged("AuditDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AuditMan {
+            get {
+                return this.AuditManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AuditManField, value) != true)) {
+                    this.AuditManField = value;
+                    this.RaisePropertyChanged("AuditMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CompileDate {
+            get {
+                return this.CompileDateField;
+            }
+            set {
+                if ((this.CompileDateField.Equals(value) != true)) {
+                    this.CompileDateField = value;
+                    this.RaisePropertyChanged("CompileDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompileMan {
+            get {
+                return this.CompileManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompileManField, value) != true)) {
+                    this.CompileManField = value;
+                    this.RaisePropertyChanged("CompileMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsPass {
+            get {
+                return this.IsPassField;
+            }
+            set {
+                if ((this.IsPassField.Equals(value) != true)) {
+                    this.IsPassField = value;
+                    this.RaisePropertyChanged("IsPass");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Training_Knowledge", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Training_Knowledge : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsEndLeverField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KnowledgeCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KnowledgeIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KnowledgeNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SupKnowledgeIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsEndLever {
+            get {
+                return this.IsEndLeverField;
+            }
+            set {
+                if ((this.IsEndLeverField.Equals(value) != true)) {
+                    this.IsEndLeverField = value;
+                    this.RaisePropertyChanged("IsEndLever");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string KnowledgeCode {
+            get {
+                return this.KnowledgeCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KnowledgeCodeField, value) != true)) {
+                    this.KnowledgeCodeField = value;
+                    this.RaisePropertyChanged("KnowledgeCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string KnowledgeId {
+            get {
+                return this.KnowledgeIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KnowledgeIdField, value) != true)) {
+                    this.KnowledgeIdField = value;
+                    this.RaisePropertyChanged("KnowledgeId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string KnowledgeName {
+            get {
+                return this.KnowledgeNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KnowledgeNameField, value) != true)) {
+                    this.KnowledgeNameField = value;
+                    this.RaisePropertyChanged("KnowledgeName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SupKnowledgeId {
+            get {
+                return this.SupKnowledgeIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SupKnowledgeIdField, value) != true)) {
+                    this.SupKnowledgeIdField = value;
+                    this.RaisePropertyChanged("SupKnowledgeId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Training_KnowledgeItem", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Training_KnowledgeItem : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> AuditDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AuditManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CompileDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompileManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsPassField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KnowledgeIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KnowledgeItemCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KnowledgeItemIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KnowledgeItemNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> AuditDate {
+            get {
+                return this.AuditDateField;
+            }
+            set {
+                if ((this.AuditDateField.Equals(value) != true)) {
+                    this.AuditDateField = value;
+                    this.RaisePropertyChanged("AuditDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AuditMan {
+            get {
+                return this.AuditManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AuditManField, value) != true)) {
+                    this.AuditManField = value;
+                    this.RaisePropertyChanged("AuditMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CompileDate {
+            get {
+                return this.CompileDateField;
+            }
+            set {
+                if ((this.CompileDateField.Equals(value) != true)) {
+                    this.CompileDateField = value;
+                    this.RaisePropertyChanged("CompileDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompileMan {
+            get {
+                return this.CompileManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompileManField, value) != true)) {
+                    this.CompileManField = value;
+                    this.RaisePropertyChanged("CompileMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsPass {
+            get {
+                return this.IsPassField;
+            }
+            set {
+                if ((this.IsPassField.Equals(value) != true)) {
+                    this.IsPassField = value;
+                    this.RaisePropertyChanged("IsPass");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string KnowledgeId {
+            get {
+                return this.KnowledgeIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KnowledgeIdField, value) != true)) {
+                    this.KnowledgeIdField = value;
+                    this.RaisePropertyChanged("KnowledgeId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string KnowledgeItemCode {
+            get {
+                return this.KnowledgeItemCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KnowledgeItemCodeField, value) != true)) {
+                    this.KnowledgeItemCodeField = value;
+                    this.RaisePropertyChanged("KnowledgeItemCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string KnowledgeItemId {
+            get {
+                return this.KnowledgeItemIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KnowledgeItemIdField, value) != true)) {
+                    this.KnowledgeItemIdField = value;
+                    this.RaisePropertyChanged("KnowledgeItemId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string KnowledgeItemName {
+            get {
+                return this.KnowledgeItemNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KnowledgeItemNameField, value) != true)) {
+                    this.KnowledgeItemNameField = value;
+                    this.RaisePropertyChanged("KnowledgeItemName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Remark {
+            get {
+                return this.RemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RemarkField, value) != true)) {
+                    this.RemarkField = value;
+                    this.RaisePropertyChanged("Remark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Technique_HazardListType", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Technique_HazardListType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HazardListTypeCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HazardListTypeIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HazardListTypeNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsEndLevelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SupHazardListTypeIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HazardListTypeCode {
+            get {
+                return this.HazardListTypeCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HazardListTypeCodeField, value) != true)) {
+                    this.HazardListTypeCodeField = value;
+                    this.RaisePropertyChanged("HazardListTypeCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HazardListTypeId {
+            get {
+                return this.HazardListTypeIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HazardListTypeIdField, value) != true)) {
+                    this.HazardListTypeIdField = value;
+                    this.RaisePropertyChanged("HazardListTypeId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HazardListTypeName {
+            get {
+                return this.HazardListTypeNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HazardListTypeNameField, value) != true)) {
+                    this.HazardListTypeNameField = value;
+                    this.RaisePropertyChanged("HazardListTypeName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsEndLevel {
+            get {
+                return this.IsEndLevelField;
+            }
+            set {
+                if ((this.IsEndLevelField.Equals(value) != true)) {
+                    this.IsEndLevelField = value;
+                    this.RaisePropertyChanged("IsEndLevel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SupHazardListTypeId {
+            get {
+                return this.SupHazardListTypeIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SupHazardListTypeIdField, value) != true)) {
+                    this.SupHazardListTypeIdField = value;
+                    this.RaisePropertyChanged("SupHazardListTypeId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Technique_HazardList", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Technique_HazardList : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> AuditDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AuditManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CompileDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompileManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ControlMeasuresField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DefectsTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HazardCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HazardIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HazardItemsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> HazardJudge_CField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> HazardJudge_DField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> HazardJudge_EField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> HazardJudge_LField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HazardLevelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HazardListTypeIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HelperMethodField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsPassField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MayLeadAccidentsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> AuditDate {
+            get {
+                return this.AuditDateField;
+            }
+            set {
+                if ((this.AuditDateField.Equals(value) != true)) {
+                    this.AuditDateField = value;
+                    this.RaisePropertyChanged("AuditDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AuditMan {
+            get {
+                return this.AuditManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AuditManField, value) != true)) {
+                    this.AuditManField = value;
+                    this.RaisePropertyChanged("AuditMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CompileDate {
+            get {
+                return this.CompileDateField;
+            }
+            set {
+                if ((this.CompileDateField.Equals(value) != true)) {
+                    this.CompileDateField = value;
+                    this.RaisePropertyChanged("CompileDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompileMan {
+            get {
+                return this.CompileManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompileManField, value) != true)) {
+                    this.CompileManField = value;
+                    this.RaisePropertyChanged("CompileMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ControlMeasures {
+            get {
+                return this.ControlMeasuresField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ControlMeasuresField, value) != true)) {
+                    this.ControlMeasuresField = value;
+                    this.RaisePropertyChanged("ControlMeasures");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DefectsType {
+            get {
+                return this.DefectsTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DefectsTypeField, value) != true)) {
+                    this.DefectsTypeField = value;
+                    this.RaisePropertyChanged("DefectsType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HazardCode {
+            get {
+                return this.HazardCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HazardCodeField, value) != true)) {
+                    this.HazardCodeField = value;
+                    this.RaisePropertyChanged("HazardCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HazardId {
+            get {
+                return this.HazardIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HazardIdField, value) != true)) {
+                    this.HazardIdField = value;
+                    this.RaisePropertyChanged("HazardId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HazardItems {
+            get {
+                return this.HazardItemsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HazardItemsField, value) != true)) {
+                    this.HazardItemsField = value;
+                    this.RaisePropertyChanged("HazardItems");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> HazardJudge_C {
+            get {
+                return this.HazardJudge_CField;
+            }
+            set {
+                if ((this.HazardJudge_CField.Equals(value) != true)) {
+                    this.HazardJudge_CField = value;
+                    this.RaisePropertyChanged("HazardJudge_C");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> HazardJudge_D {
+            get {
+                return this.HazardJudge_DField;
+            }
+            set {
+                if ((this.HazardJudge_DField.Equals(value) != true)) {
+                    this.HazardJudge_DField = value;
+                    this.RaisePropertyChanged("HazardJudge_D");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> HazardJudge_E {
+            get {
+                return this.HazardJudge_EField;
+            }
+            set {
+                if ((this.HazardJudge_EField.Equals(value) != true)) {
+                    this.HazardJudge_EField = value;
+                    this.RaisePropertyChanged("HazardJudge_E");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> HazardJudge_L {
+            get {
+                return this.HazardJudge_LField;
+            }
+            set {
+                if ((this.HazardJudge_LField.Equals(value) != true)) {
+                    this.HazardJudge_LField = value;
+                    this.RaisePropertyChanged("HazardJudge_L");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HazardLevel {
+            get {
+                return this.HazardLevelField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HazardLevelField, value) != true)) {
+                    this.HazardLevelField = value;
+                    this.RaisePropertyChanged("HazardLevel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HazardListTypeId {
+            get {
+                return this.HazardListTypeIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HazardListTypeIdField, value) != true)) {
+                    this.HazardListTypeIdField = value;
+                    this.RaisePropertyChanged("HazardListTypeId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HelperMethod {
+            get {
+                return this.HelperMethodField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HelperMethodField, value) != true)) {
+                    this.HelperMethodField = value;
+                    this.RaisePropertyChanged("HelperMethod");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsPass {
+            get {
+                return this.IsPassField;
+            }
+            set {
+                if ((this.IsPassField.Equals(value) != true)) {
+                    this.IsPassField = value;
+                    this.RaisePropertyChanged("IsPass");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MayLeadAccidents {
+            get {
+                return this.MayLeadAccidentsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MayLeadAccidentsField, value) != true)) {
+                    this.MayLeadAccidentsField = value;
+                    this.RaisePropertyChanged("MayLeadAccidents");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Technique_Rectify", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Technique_Rectify : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsEndLeverField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RectifyCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RectifyIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RectifyNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SupRectifyIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsEndLever {
+            get {
+                return this.IsEndLeverField;
+            }
+            set {
+                if ((this.IsEndLeverField.Equals(value) != true)) {
+                    this.IsEndLeverField = value;
+                    this.RaisePropertyChanged("IsEndLever");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RectifyCode {
+            get {
+                return this.RectifyCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RectifyCodeField, value) != true)) {
+                    this.RectifyCodeField = value;
+                    this.RaisePropertyChanged("RectifyCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RectifyId {
+            get {
+                return this.RectifyIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RectifyIdField, value) != true)) {
+                    this.RectifyIdField = value;
+                    this.RaisePropertyChanged("RectifyId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RectifyName {
+            get {
+                return this.RectifyNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RectifyNameField, value) != true)) {
+                    this.RectifyNameField = value;
+                    this.RaisePropertyChanged("RectifyName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SupRectifyId {
+            get {
+                return this.SupRectifyIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SupRectifyIdField, value) != true)) {
+                    this.SupRectifyIdField = value;
+                    this.RaisePropertyChanged("SupRectifyId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Technique_RectifyItem", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Technique_RectifyItem : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> AuditDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AuditManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CompileDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompileManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HazardSourcePointField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsPassField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RectifyIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RectifyItemIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RiskAnalysisField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RiskPreventionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SimilarRiskField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> AuditDate {
+            get {
+                return this.AuditDateField;
+            }
+            set {
+                if ((this.AuditDateField.Equals(value) != true)) {
+                    this.AuditDateField = value;
+                    this.RaisePropertyChanged("AuditDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AuditMan {
+            get {
+                return this.AuditManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AuditManField, value) != true)) {
+                    this.AuditManField = value;
+                    this.RaisePropertyChanged("AuditMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CompileDate {
+            get {
+                return this.CompileDateField;
+            }
+            set {
+                if ((this.CompileDateField.Equals(value) != true)) {
+                    this.CompileDateField = value;
+                    this.RaisePropertyChanged("CompileDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompileMan {
+            get {
+                return this.CompileManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompileManField, value) != true)) {
+                    this.CompileManField = value;
+                    this.RaisePropertyChanged("CompileMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HazardSourcePoint {
+            get {
+                return this.HazardSourcePointField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HazardSourcePointField, value) != true)) {
+                    this.HazardSourcePointField = value;
+                    this.RaisePropertyChanged("HazardSourcePoint");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsPass {
+            get {
+                return this.IsPassField;
+            }
+            set {
+                if ((this.IsPassField.Equals(value) != true)) {
+                    this.IsPassField = value;
+                    this.RaisePropertyChanged("IsPass");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RectifyId {
+            get {
+                return this.RectifyIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RectifyIdField, value) != true)) {
+                    this.RectifyIdField = value;
+                    this.RaisePropertyChanged("RectifyId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RectifyItemId {
+            get {
+                return this.RectifyItemIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RectifyItemIdField, value) != true)) {
+                    this.RectifyItemIdField = value;
+                    this.RaisePropertyChanged("RectifyItemId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RiskAnalysis {
+            get {
+                return this.RiskAnalysisField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RiskAnalysisField, value) != true)) {
+                    this.RiskAnalysisField = value;
+                    this.RaisePropertyChanged("RiskAnalysis");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RiskPrevention {
+            get {
+                return this.RiskPreventionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RiskPreventionField, value) != true)) {
+                    this.RiskPreventionField = value;
+                    this.RaisePropertyChanged("RiskPrevention");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SimilarRisk {
+            get {
+                return this.SimilarRiskField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SimilarRiskField, value) != true)) {
+                    this.SimilarRiskField = value;
+                    this.RaisePropertyChanged("SimilarRisk");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Technique_Expert", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Technique_Expert : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> AgeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachFileIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachSourceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<byte[]> AttachUrlFileContextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> AuditDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AuditManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> BirthdayField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CompileDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompileManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EducationField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> EffectiveDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EmailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ExpertCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ExpertIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ExpertNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ExpertTypeCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ExpertTypeIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ExpertTypeNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HometownField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IdentityCardField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsPassField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MarriageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NationField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PerformanceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PersonSpecialtyCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PersonSpecialtyIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PersonSpecialtyNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PhotoUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<byte[]> PhotoUrlFileContextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PostTitleCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PostTitleIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PostTitleNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SexField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TelephoneField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ToKeyIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitNameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Age {
+            get {
+                return this.AgeField;
+            }
+            set {
+                if ((this.AgeField.Equals(value) != true)) {
+                    this.AgeField = value;
+                    this.RaisePropertyChanged("Age");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachFileId {
+            get {
+                return this.AttachFileIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachFileIdField, value) != true)) {
+                    this.AttachFileIdField = value;
+                    this.RaisePropertyChanged("AttachFileId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachSource {
+            get {
+                return this.AttachSourceField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachSourceField, value) != true)) {
+                    this.AttachSourceField = value;
+                    this.RaisePropertyChanged("AttachSource");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachUrl {
+            get {
+                return this.AttachUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachUrlField, value) != true)) {
+                    this.AttachUrlField = value;
+                    this.RaisePropertyChanged("AttachUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<byte[]> AttachUrlFileContext {
+            get {
+                return this.AttachUrlFileContextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachUrlFileContextField, value) != true)) {
+                    this.AttachUrlFileContextField = value;
+                    this.RaisePropertyChanged("AttachUrlFileContext");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> AuditDate {
+            get {
+                return this.AuditDateField;
+            }
+            set {
+                if ((this.AuditDateField.Equals(value) != true)) {
+                    this.AuditDateField = value;
+                    this.RaisePropertyChanged("AuditDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AuditMan {
+            get {
+                return this.AuditManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AuditManField, value) != true)) {
+                    this.AuditManField = value;
+                    this.RaisePropertyChanged("AuditMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> Birthday {
+            get {
+                return this.BirthdayField;
+            }
+            set {
+                if ((this.BirthdayField.Equals(value) != true)) {
+                    this.BirthdayField = value;
+                    this.RaisePropertyChanged("Birthday");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CompileDate {
+            get {
+                return this.CompileDateField;
+            }
+            set {
+                if ((this.CompileDateField.Equals(value) != true)) {
+                    this.CompileDateField = value;
+                    this.RaisePropertyChanged("CompileDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompileMan {
+            get {
+                return this.CompileManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompileManField, value) != true)) {
+                    this.CompileManField = value;
+                    this.RaisePropertyChanged("CompileMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Education {
+            get {
+                return this.EducationField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EducationField, value) != true)) {
+                    this.EducationField = value;
+                    this.RaisePropertyChanged("Education");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> EffectiveDate {
+            get {
+                return this.EffectiveDateField;
+            }
+            set {
+                if ((this.EffectiveDateField.Equals(value) != true)) {
+                    this.EffectiveDateField = value;
+                    this.RaisePropertyChanged("EffectiveDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Email {
+            get {
+                return this.EmailField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmailField, value) != true)) {
+                    this.EmailField = value;
+                    this.RaisePropertyChanged("Email");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ExpertCode {
+            get {
+                return this.ExpertCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ExpertCodeField, value) != true)) {
+                    this.ExpertCodeField = value;
+                    this.RaisePropertyChanged("ExpertCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ExpertId {
+            get {
+                return this.ExpertIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ExpertIdField, value) != true)) {
+                    this.ExpertIdField = value;
+                    this.RaisePropertyChanged("ExpertId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ExpertName {
+            get {
+                return this.ExpertNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ExpertNameField, value) != true)) {
+                    this.ExpertNameField = value;
+                    this.RaisePropertyChanged("ExpertName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ExpertTypeCode {
+            get {
+                return this.ExpertTypeCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ExpertTypeCodeField, value) != true)) {
+                    this.ExpertTypeCodeField = value;
+                    this.RaisePropertyChanged("ExpertTypeCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ExpertTypeId {
+            get {
+                return this.ExpertTypeIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ExpertTypeIdField, value) != true)) {
+                    this.ExpertTypeIdField = value;
+                    this.RaisePropertyChanged("ExpertTypeId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ExpertTypeName {
+            get {
+                return this.ExpertTypeNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ExpertTypeNameField, value) != true)) {
+                    this.ExpertTypeNameField = value;
+                    this.RaisePropertyChanged("ExpertTypeName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Hometown {
+            get {
+                return this.HometownField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HometownField, value) != true)) {
+                    this.HometownField = value;
+                    this.RaisePropertyChanged("Hometown");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string IdentityCard {
+            get {
+                return this.IdentityCardField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IdentityCardField, value) != true)) {
+                    this.IdentityCardField = value;
+                    this.RaisePropertyChanged("IdentityCard");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsPass {
+            get {
+                return this.IsPassField;
+            }
+            set {
+                if ((this.IsPassField.Equals(value) != true)) {
+                    this.IsPassField = value;
+                    this.RaisePropertyChanged("IsPass");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Marriage {
+            get {
+                return this.MarriageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MarriageField, value) != true)) {
+                    this.MarriageField = value;
+                    this.RaisePropertyChanged("Marriage");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nation {
+            get {
+                return this.NationField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NationField, value) != true)) {
+                    this.NationField = value;
+                    this.RaisePropertyChanged("Nation");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Performance {
+            get {
+                return this.PerformanceField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PerformanceField, value) != true)) {
+                    this.PerformanceField = value;
+                    this.RaisePropertyChanged("Performance");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PersonSpecialtyCode {
+            get {
+                return this.PersonSpecialtyCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PersonSpecialtyCodeField, value) != true)) {
+                    this.PersonSpecialtyCodeField = value;
+                    this.RaisePropertyChanged("PersonSpecialtyCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PersonSpecialtyId {
+            get {
+                return this.PersonSpecialtyIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PersonSpecialtyIdField, value) != true)) {
+                    this.PersonSpecialtyIdField = value;
+                    this.RaisePropertyChanged("PersonSpecialtyId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PersonSpecialtyName {
+            get {
+                return this.PersonSpecialtyNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PersonSpecialtyNameField, value) != true)) {
+                    this.PersonSpecialtyNameField = value;
+                    this.RaisePropertyChanged("PersonSpecialtyName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PhotoUrl {
+            get {
+                return this.PhotoUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PhotoUrlField, value) != true)) {
+                    this.PhotoUrlField = value;
+                    this.RaisePropertyChanged("PhotoUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<byte[]> PhotoUrlFileContext {
+            get {
+                return this.PhotoUrlFileContextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PhotoUrlFileContextField, value) != true)) {
+                    this.PhotoUrlFileContextField = value;
+                    this.RaisePropertyChanged("PhotoUrlFileContext");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PostTitleCode {
+            get {
+                return this.PostTitleCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PostTitleCodeField, value) != true)) {
+                    this.PostTitleCodeField = value;
+                    this.RaisePropertyChanged("PostTitleCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PostTitleId {
+            get {
+                return this.PostTitleIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PostTitleIdField, value) != true)) {
+                    this.PostTitleIdField = value;
+                    this.RaisePropertyChanged("PostTitleId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PostTitleName {
+            get {
+                return this.PostTitleNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PostTitleNameField, value) != true)) {
+                    this.PostTitleNameField = value;
+                    this.RaisePropertyChanged("PostTitleName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Remark {
+            get {
+                return this.RemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RemarkField, value) != true)) {
+                    this.RemarkField = value;
+                    this.RaisePropertyChanged("Remark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Sex {
+            get {
+                return this.SexField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SexField, value) != true)) {
+                    this.SexField = value;
+                    this.RaisePropertyChanged("Sex");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Telephone {
+            get {
+                return this.TelephoneField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TelephoneField, value) != true)) {
+                    this.TelephoneField = value;
+                    this.RaisePropertyChanged("Telephone");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ToKeyId {
+            get {
+                return this.ToKeyIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ToKeyIdField, value) != true)) {
+                    this.ToKeyIdField = value;
+                    this.RaisePropertyChanged("ToKeyId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitName {
+            get {
+                return this.UnitNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitNameField, value) != true)) {
+                    this.UnitNameField = value;
+                    this.RaisePropertyChanged("UnitName");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Supervise_SuperviseCheckRectify", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Supervise_SuperviseCheckRectify : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CheckDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> ConfirmDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ConfirmManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HandleStateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsFromMainUnitField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> IssueDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IssueManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> OrderEndDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OrderEndPersonField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProjectIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> RealEndDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RectifyItemIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SuperviseCheckRectifyCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SuperviseCheckRectifyIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SuperviseCheckRectifyItemIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SuperviseCheckReportIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachUrl {
+            get {
+                return this.AttachUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachUrlField, value) != true)) {
+                    this.AttachUrlField = value;
+                    this.RaisePropertyChanged("AttachUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CheckDate {
+            get {
+                return this.CheckDateField;
+            }
+            set {
+                if ((this.CheckDateField.Equals(value) != true)) {
+                    this.CheckDateField = value;
+                    this.RaisePropertyChanged("CheckDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> ConfirmDate {
+            get {
+                return this.ConfirmDateField;
+            }
+            set {
+                if ((this.ConfirmDateField.Equals(value) != true)) {
+                    this.ConfirmDateField = value;
+                    this.RaisePropertyChanged("ConfirmDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ConfirmMan {
+            get {
+                return this.ConfirmManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ConfirmManField, value) != true)) {
+                    this.ConfirmManField = value;
+                    this.RaisePropertyChanged("ConfirmMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HandleState {
+            get {
+                return this.HandleStateField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HandleStateField, value) != true)) {
+                    this.HandleStateField = value;
+                    this.RaisePropertyChanged("HandleState");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsFromMainUnit {
+            get {
+                return this.IsFromMainUnitField;
+            }
+            set {
+                if ((this.IsFromMainUnitField.Equals(value) != true)) {
+                    this.IsFromMainUnitField = value;
+                    this.RaisePropertyChanged("IsFromMainUnit");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> IssueDate {
+            get {
+                return this.IssueDateField;
+            }
+            set {
+                if ((this.IssueDateField.Equals(value) != true)) {
+                    this.IssueDateField = value;
+                    this.RaisePropertyChanged("IssueDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string IssueMan {
+            get {
+                return this.IssueManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IssueManField, value) != true)) {
+                    this.IssueManField = value;
+                    this.RaisePropertyChanged("IssueMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> OrderEndDate {
+            get {
+                return this.OrderEndDateField;
+            }
+            set {
+                if ((this.OrderEndDateField.Equals(value) != true)) {
+                    this.OrderEndDateField = value;
+                    this.RaisePropertyChanged("OrderEndDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OrderEndPerson {
+            get {
+                return this.OrderEndPersonField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OrderEndPersonField, value) != true)) {
+                    this.OrderEndPersonField = value;
+                    this.RaisePropertyChanged("OrderEndPerson");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ProjectId {
+            get {
+                return this.ProjectIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProjectIdField, value) != true)) {
+                    this.ProjectIdField = value;
+                    this.RaisePropertyChanged("ProjectId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> RealEndDate {
+            get {
+                return this.RealEndDateField;
+            }
+            set {
+                if ((this.RealEndDateField.Equals(value) != true)) {
+                    this.RealEndDateField = value;
+                    this.RaisePropertyChanged("RealEndDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RectifyItemId {
+            get {
+                return this.RectifyItemIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RectifyItemIdField, value) != true)) {
+                    this.RectifyItemIdField = value;
+                    this.RaisePropertyChanged("RectifyItemId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SuperviseCheckRectifyCode {
+            get {
+                return this.SuperviseCheckRectifyCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SuperviseCheckRectifyCodeField, value) != true)) {
+                    this.SuperviseCheckRectifyCodeField = value;
+                    this.RaisePropertyChanged("SuperviseCheckRectifyCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SuperviseCheckRectifyId {
+            get {
+                return this.SuperviseCheckRectifyIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SuperviseCheckRectifyIdField, value) != true)) {
+                    this.SuperviseCheckRectifyIdField = value;
+                    this.RaisePropertyChanged("SuperviseCheckRectifyId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SuperviseCheckRectifyItemId {
+            get {
+                return this.SuperviseCheckRectifyItemIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SuperviseCheckRectifyItemIdField, value) != true)) {
+                    this.SuperviseCheckRectifyItemIdField = value;
+                    this.RaisePropertyChanged("SuperviseCheckRectifyItemId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SuperviseCheckReportId {
+            get {
+                return this.SuperviseCheckReportIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SuperviseCheckReportIdField, value) != true)) {
+                    this.SuperviseCheckReportIdField = value;
+                    this.RaisePropertyChanged("SuperviseCheckReportId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Supervise_SubUnitReport", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Supervise_SubUnitReport : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsEndLeverField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SubUnitReportCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SubUnitReportIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SubUnitReportNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SupSubUnitReportIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsEndLever {
+            get {
+                return this.IsEndLeverField;
+            }
+            set {
+                if ((this.IsEndLeverField.Equals(value) != true)) {
+                    this.IsEndLeverField = value;
+                    this.RaisePropertyChanged("IsEndLever");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SubUnitReportCode {
+            get {
+                return this.SubUnitReportCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SubUnitReportCodeField, value) != true)) {
+                    this.SubUnitReportCodeField = value;
+                    this.RaisePropertyChanged("SubUnitReportCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SubUnitReportId {
+            get {
+                return this.SubUnitReportIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SubUnitReportIdField, value) != true)) {
+                    this.SubUnitReportIdField = value;
+                    this.RaisePropertyChanged("SubUnitReportId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SubUnitReportName {
+            get {
+                return this.SubUnitReportNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SubUnitReportNameField, value) != true)) {
+                    this.SubUnitReportNameField = value;
+                    this.RaisePropertyChanged("SubUnitReportName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SupSubUnitReportId {
+            get {
+                return this.SupSubUnitReportIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SupSubUnitReportIdField, value) != true)) {
+                    this.SupSubUnitReportIdField = value;
+                    this.RaisePropertyChanged("SupSubUnitReportId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Supervise_SubUnitReportItem", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Supervise_SubUnitReportItem : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachFileIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachSourceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<byte[]> FileContextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> PlanReortDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ReportContentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> ReportDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ReportTitleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SubUnitReportIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SubUnitReportItemIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ToKeyIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachFileId {
+            get {
+                return this.AttachFileIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachFileIdField, value) != true)) {
+                    this.AttachFileIdField = value;
+                    this.RaisePropertyChanged("AttachFileId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachSource {
+            get {
+                return this.AttachSourceField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachSourceField, value) != true)) {
+                    this.AttachSourceField = value;
+                    this.RaisePropertyChanged("AttachSource");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachUrl {
+            get {
+                return this.AttachUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachUrlField, value) != true)) {
+                    this.AttachUrlField = value;
+                    this.RaisePropertyChanged("AttachUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<byte[]> FileContext {
+            get {
+                return this.FileContextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FileContextField, value) != true)) {
+                    this.FileContextField = value;
+                    this.RaisePropertyChanged("FileContext");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> PlanReortDate {
+            get {
+                return this.PlanReortDateField;
+            }
+            set {
+                if ((this.PlanReortDateField.Equals(value) != true)) {
+                    this.PlanReortDateField = value;
+                    this.RaisePropertyChanged("PlanReortDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ReportContent {
+            get {
+                return this.ReportContentField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ReportContentField, value) != true)) {
+                    this.ReportContentField = value;
+                    this.RaisePropertyChanged("ReportContent");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> ReportDate {
+            get {
+                return this.ReportDateField;
+            }
+            set {
+                if ((this.ReportDateField.Equals(value) != true)) {
+                    this.ReportDateField = value;
+                    this.RaisePropertyChanged("ReportDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ReportTitle {
+            get {
+                return this.ReportTitleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ReportTitleField, value) != true)) {
+                    this.ReportTitleField = value;
+                    this.RaisePropertyChanged("ReportTitle");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string State {
+            get {
+                return this.StateField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StateField, value) != true)) {
+                    this.StateField = value;
+                    this.RaisePropertyChanged("State");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SubUnitReportId {
+            get {
+                return this.SubUnitReportIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SubUnitReportIdField, value) != true)) {
+                    this.SubUnitReportIdField = value;
+                    this.RaisePropertyChanged("SubUnitReportId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SubUnitReportItemId {
+            get {
+                return this.SubUnitReportItemIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SubUnitReportItemIdField, value) != true)) {
+                    this.SubUnitReportItemIdField = value;
+                    this.RaisePropertyChanged("SubUnitReportItemId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ToKeyId {
+            get {
+                return this.ToKeyIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ToKeyIdField, value) != true)) {
+                    this.ToKeyIdField = value;
+                    this.RaisePropertyChanged("ToKeyId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Check_CheckRectify", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Check_CheckRectify : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachFileIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachSourceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AttachUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CheckDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CheckManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CheckRectifyCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CheckRectifyIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CheckRectifyItemIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> ConfirmDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ConfirmManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DangerPointField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<byte[]> FileContextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HandleStateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> IsProjectField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> IssueDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IssueManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> OrderEndDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OrderEndPersonField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProjectIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> RealEndDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RiskExistsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> SortIndexField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SubjectUnitManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Table5ItemIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ToKeyIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string VerificationField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string WorkTypeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachFileId {
+            get {
+                return this.AttachFileIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachFileIdField, value) != true)) {
+                    this.AttachFileIdField = value;
+                    this.RaisePropertyChanged("AttachFileId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachSource {
+            get {
+                return this.AttachSourceField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachSourceField, value) != true)) {
+                    this.AttachSourceField = value;
+                    this.RaisePropertyChanged("AttachSource");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AttachUrl {
+            get {
+                return this.AttachUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AttachUrlField, value) != true)) {
+                    this.AttachUrlField = value;
+                    this.RaisePropertyChanged("AttachUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CheckDate {
+            get {
+                return this.CheckDateField;
+            }
+            set {
+                if ((this.CheckDateField.Equals(value) != true)) {
+                    this.CheckDateField = value;
+                    this.RaisePropertyChanged("CheckDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CheckMan {
+            get {
+                return this.CheckManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CheckManField, value) != true)) {
+                    this.CheckManField = value;
+                    this.RaisePropertyChanged("CheckMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CheckRectifyCode {
+            get {
+                return this.CheckRectifyCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CheckRectifyCodeField, value) != true)) {
+                    this.CheckRectifyCodeField = value;
+                    this.RaisePropertyChanged("CheckRectifyCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CheckRectifyId {
+            get {
+                return this.CheckRectifyIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CheckRectifyIdField, value) != true)) {
+                    this.CheckRectifyIdField = value;
+                    this.RaisePropertyChanged("CheckRectifyId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CheckRectifyItemId {
+            get {
+                return this.CheckRectifyItemIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CheckRectifyItemIdField, value) != true)) {
+                    this.CheckRectifyItemIdField = value;
+                    this.RaisePropertyChanged("CheckRectifyItemId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> ConfirmDate {
+            get {
+                return this.ConfirmDateField;
+            }
+            set {
+                if ((this.ConfirmDateField.Equals(value) != true)) {
+                    this.ConfirmDateField = value;
+                    this.RaisePropertyChanged("ConfirmDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ConfirmMan {
+            get {
+                return this.ConfirmManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ConfirmManField, value) != true)) {
+                    this.ConfirmManField = value;
+                    this.RaisePropertyChanged("ConfirmMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DangerPoint {
+            get {
+                return this.DangerPointField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DangerPointField, value) != true)) {
+                    this.DangerPointField = value;
+                    this.RaisePropertyChanged("DangerPoint");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<byte[]> FileContext {
+            get {
+                return this.FileContextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FileContextField, value) != true)) {
+                    this.FileContextField = value;
+                    this.RaisePropertyChanged("FileContext");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HandleState {
+            get {
+                return this.HandleStateField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HandleStateField, value) != true)) {
+                    this.HandleStateField = value;
+                    this.RaisePropertyChanged("HandleState");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> IsProject {
+            get {
+                return this.IsProjectField;
+            }
+            set {
+                if ((this.IsProjectField.Equals(value) != true)) {
+                    this.IsProjectField = value;
+                    this.RaisePropertyChanged("IsProject");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> IssueDate {
+            get {
+                return this.IssueDateField;
+            }
+            set {
+                if ((this.IssueDateField.Equals(value) != true)) {
+                    this.IssueDateField = value;
+                    this.RaisePropertyChanged("IssueDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string IssueMan {
+            get {
+                return this.IssueManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IssueManField, value) != true)) {
+                    this.IssueManField = value;
+                    this.RaisePropertyChanged("IssueMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> OrderEndDate {
+            get {
+                return this.OrderEndDateField;
+            }
+            set {
+                if ((this.OrderEndDateField.Equals(value) != true)) {
+                    this.OrderEndDateField = value;
+                    this.RaisePropertyChanged("OrderEndDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OrderEndPerson {
+            get {
+                return this.OrderEndPersonField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OrderEndPersonField, value) != true)) {
+                    this.OrderEndPersonField = value;
+                    this.RaisePropertyChanged("OrderEndPerson");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ProjectId {
+            get {
+                return this.ProjectIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProjectIdField, value) != true)) {
+                    this.ProjectIdField = value;
+                    this.RaisePropertyChanged("ProjectId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> RealEndDate {
+            get {
+                return this.RealEndDateField;
+            }
+            set {
+                if ((this.RealEndDateField.Equals(value) != true)) {
+                    this.RealEndDateField = value;
+                    this.RaisePropertyChanged("RealEndDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RiskExists {
+            get {
+                return this.RiskExistsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RiskExistsField, value) != true)) {
+                    this.RiskExistsField = value;
+                    this.RaisePropertyChanged("RiskExists");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> SortIndex {
+            get {
+                return this.SortIndexField;
+            }
+            set {
+                if ((this.SortIndexField.Equals(value) != true)) {
+                    this.SortIndexField = value;
+                    this.RaisePropertyChanged("SortIndex");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SubjectUnitMan {
+            get {
+                return this.SubjectUnitManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SubjectUnitManField, value) != true)) {
+                    this.SubjectUnitManField = value;
+                    this.RaisePropertyChanged("SubjectUnitMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Table5ItemId {
+            get {
+                return this.Table5ItemIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Table5ItemIdField, value) != true)) {
+                    this.Table5ItemIdField = value;
+                    this.RaisePropertyChanged("Table5ItemId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ToKeyId {
+            get {
+                return this.ToKeyIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ToKeyIdField, value) != true)) {
+                    this.ToKeyIdField = value;
+                    this.RaisePropertyChanged("ToKeyId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Verification {
+            get {
+                return this.VerificationField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.VerificationField, value) != true)) {
+                    this.VerificationField = value;
+                    this.RaisePropertyChanged("Verification");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string WorkType {
+            get {
+                return this.WorkTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.WorkTypeField, value) != true)) {
+                    this.WorkTypeField = value;
+                    this.RaisePropertyChanged("WorkType");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Check_CheckInfo_Table8Item", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Check_CheckInfo_Table8Item : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CheckDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CheckEndTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CheckInfoIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CheckItemIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CheckPostNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CheckStartTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CheckTypeNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PostNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SexField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SortIndexField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SubjectObjectField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SubjectUnitAddField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SubjectUnitIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SubjectUnitManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SubjectUnitTelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Values1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Values2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Values3Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Values4Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Values5Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Values6Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Values7Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Values8Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string WorkTitleField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CheckDate {
+            get {
+                return this.CheckDateField;
+            }
+            set {
+                if ((this.CheckDateField.Equals(value) != true)) {
+                    this.CheckDateField = value;
+                    this.RaisePropertyChanged("CheckDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CheckEndTime {
+            get {
+                return this.CheckEndTimeField;
+            }
+            set {
+                if ((this.CheckEndTimeField.Equals(value) != true)) {
+                    this.CheckEndTimeField = value;
+                    this.RaisePropertyChanged("CheckEndTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CheckInfoId {
+            get {
+                return this.CheckInfoIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CheckInfoIdField, value) != true)) {
+                    this.CheckInfoIdField = value;
+                    this.RaisePropertyChanged("CheckInfoId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CheckItemId {
+            get {
+                return this.CheckItemIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CheckItemIdField, value) != true)) {
+                    this.CheckItemIdField = value;
+                    this.RaisePropertyChanged("CheckItemId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CheckPostName {
+            get {
+                return this.CheckPostNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CheckPostNameField, value) != true)) {
+                    this.CheckPostNameField = value;
+                    this.RaisePropertyChanged("CheckPostName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CheckStartTime {
+            get {
+                return this.CheckStartTimeField;
+            }
+            set {
+                if ((this.CheckStartTimeField.Equals(value) != true)) {
+                    this.CheckStartTimeField = value;
+                    this.RaisePropertyChanged("CheckStartTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CheckTypeName {
+            get {
+                return this.CheckTypeNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CheckTypeNameField, value) != true)) {
+                    this.CheckTypeNameField = value;
+                    this.RaisePropertyChanged("CheckTypeName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ID {
+            get {
+                return this.IDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IDField, value) != true)) {
+                    this.IDField = value;
+                    this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PostName {
+            get {
+                return this.PostNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PostNameField, value) != true)) {
+                    this.PostNameField = value;
+                    this.RaisePropertyChanged("PostName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Sex {
+            get {
+                return this.SexField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SexField, value) != true)) {
+                    this.SexField = value;
+                    this.RaisePropertyChanged("Sex");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SortIndex {
+            get {
+                return this.SortIndexField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SortIndexField, value) != true)) {
+                    this.SortIndexField = value;
+                    this.RaisePropertyChanged("SortIndex");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SubjectObject {
+            get {
+                return this.SubjectObjectField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SubjectObjectField, value) != true)) {
+                    this.SubjectObjectField = value;
+                    this.RaisePropertyChanged("SubjectObject");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SubjectUnitAdd {
+            get {
+                return this.SubjectUnitAddField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SubjectUnitAddField, value) != true)) {
+                    this.SubjectUnitAddField = value;
+                    this.RaisePropertyChanged("SubjectUnitAdd");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SubjectUnitId {
+            get {
+                return this.SubjectUnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SubjectUnitIdField, value) != true)) {
+                    this.SubjectUnitIdField = value;
+                    this.RaisePropertyChanged("SubjectUnitId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SubjectUnitMan {
+            get {
+                return this.SubjectUnitManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SubjectUnitManField, value) != true)) {
+                    this.SubjectUnitManField = value;
+                    this.RaisePropertyChanged("SubjectUnitMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SubjectUnitTel {
+            get {
+                return this.SubjectUnitTelField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SubjectUnitTelField, value) != true)) {
+                    this.SubjectUnitTelField = value;
+                    this.RaisePropertyChanged("SubjectUnitTel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitName {
+            get {
+                return this.UnitNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitNameField, value) != true)) {
+                    this.UnitNameField = value;
+                    this.RaisePropertyChanged("UnitName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Values1 {
+            get {
+                return this.Values1Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Values1Field, value) != true)) {
+                    this.Values1Field = value;
+                    this.RaisePropertyChanged("Values1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Values2 {
+            get {
+                return this.Values2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Values2Field, value) != true)) {
+                    this.Values2Field = value;
+                    this.RaisePropertyChanged("Values2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Values3 {
+            get {
+                return this.Values3Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Values3Field, value) != true)) {
+                    this.Values3Field = value;
+                    this.RaisePropertyChanged("Values3");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Values4 {
+            get {
+                return this.Values4Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Values4Field, value) != true)) {
+                    this.Values4Field = value;
+                    this.RaisePropertyChanged("Values4");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Values5 {
+            get {
+                return this.Values5Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Values5Field, value) != true)) {
+                    this.Values5Field = value;
+                    this.RaisePropertyChanged("Values5");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Values6 {
+            get {
+                return this.Values6Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Values6Field, value) != true)) {
+                    this.Values6Field = value;
+                    this.RaisePropertyChanged("Values6");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Values7 {
+            get {
+                return this.Values7Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Values7Field, value) != true)) {
+                    this.Values7Field = value;
+                    this.RaisePropertyChanged("Values7");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Values8 {
+            get {
+                return this.Values8Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Values8Field, value) != true)) {
+                    this.Values8Field = value;
+                    this.RaisePropertyChanged("Values8");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string WorkTitle {
+            get {
+                return this.WorkTitleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.WorkTitleField, value) != true)) {
+                    this.WorkTitleField = value;
+                    this.RaisePropertyChanged("WorkTitle");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Information_AccidentCauseReport", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Information_AccidentCauseReport : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AccidentCauseReportCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AccidentCauseReportIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AuditPersonField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> AverageManHoursField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> AverageTotalHoursField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> DeathAccidentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> DeathTollField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> DirectLossField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FillCompanyPersonChargeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> FillingDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> IndirectLossesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> InjuredAccidentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> InjuredTollField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> KnockOffTotalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> LastMonthLossHoursTotalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MinorWoundAccidentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MinorWoundTollField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MonthField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TabPeopleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> TotalLossField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> TotalLossManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> TotalLossTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> YearField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AccidentCauseReportCode {
+            get {
+                return this.AccidentCauseReportCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AccidentCauseReportCodeField, value) != true)) {
+                    this.AccidentCauseReportCodeField = value;
+                    this.RaisePropertyChanged("AccidentCauseReportCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AccidentCauseReportId {
+            get {
+                return this.AccidentCauseReportIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AccidentCauseReportIdField, value) != true)) {
+                    this.AccidentCauseReportIdField = value;
+                    this.RaisePropertyChanged("AccidentCauseReportId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AuditPerson {
+            get {
+                return this.AuditPersonField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AuditPersonField, value) != true)) {
+                    this.AuditPersonField = value;
+                    this.RaisePropertyChanged("AuditPerson");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> AverageManHours {
+            get {
+                return this.AverageManHoursField;
+            }
+            set {
+                if ((this.AverageManHoursField.Equals(value) != true)) {
+                    this.AverageManHoursField = value;
+                    this.RaisePropertyChanged("AverageManHours");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> AverageTotalHours {
+            get {
+                return this.AverageTotalHoursField;
+            }
+            set {
+                if ((this.AverageTotalHoursField.Equals(value) != true)) {
+                    this.AverageTotalHoursField = value;
+                    this.RaisePropertyChanged("AverageTotalHours");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> DeathAccident {
+            get {
+                return this.DeathAccidentField;
+            }
+            set {
+                if ((this.DeathAccidentField.Equals(value) != true)) {
+                    this.DeathAccidentField = value;
+                    this.RaisePropertyChanged("DeathAccident");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> DeathToll {
+            get {
+                return this.DeathTollField;
+            }
+            set {
+                if ((this.DeathTollField.Equals(value) != true)) {
+                    this.DeathTollField = value;
+                    this.RaisePropertyChanged("DeathToll");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> DirectLoss {
+            get {
+                return this.DirectLossField;
+            }
+            set {
+                if ((this.DirectLossField.Equals(value) != true)) {
+                    this.DirectLossField = value;
+                    this.RaisePropertyChanged("DirectLoss");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FillCompanyPersonCharge {
+            get {
+                return this.FillCompanyPersonChargeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FillCompanyPersonChargeField, value) != true)) {
+                    this.FillCompanyPersonChargeField = value;
+                    this.RaisePropertyChanged("FillCompanyPersonCharge");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> FillingDate {
+            get {
+                return this.FillingDateField;
+            }
+            set {
+                if ((this.FillingDateField.Equals(value) != true)) {
+                    this.FillingDateField = value;
+                    this.RaisePropertyChanged("FillingDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> IndirectLosses {
+            get {
+                return this.IndirectLossesField;
+            }
+            set {
+                if ((this.IndirectLossesField.Equals(value) != true)) {
+                    this.IndirectLossesField = value;
+                    this.RaisePropertyChanged("IndirectLosses");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> InjuredAccident {
+            get {
+                return this.InjuredAccidentField;
+            }
+            set {
+                if ((this.InjuredAccidentField.Equals(value) != true)) {
+                    this.InjuredAccidentField = value;
+                    this.RaisePropertyChanged("InjuredAccident");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> InjuredToll {
+            get {
+                return this.InjuredTollField;
+            }
+            set {
+                if ((this.InjuredTollField.Equals(value) != true)) {
+                    this.InjuredTollField = value;
+                    this.RaisePropertyChanged("InjuredToll");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> KnockOffTotal {
+            get {
+                return this.KnockOffTotalField;
+            }
+            set {
+                if ((this.KnockOffTotalField.Equals(value) != true)) {
+                    this.KnockOffTotalField = value;
+                    this.RaisePropertyChanged("KnockOffTotal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> LastMonthLossHoursTotal {
+            get {
+                return this.LastMonthLossHoursTotalField;
+            }
+            set {
+                if ((this.LastMonthLossHoursTotalField.Equals(value) != true)) {
+                    this.LastMonthLossHoursTotalField = value;
+                    this.RaisePropertyChanged("LastMonthLossHoursTotal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MinorWoundAccident {
+            get {
+                return this.MinorWoundAccidentField;
+            }
+            set {
+                if ((this.MinorWoundAccidentField.Equals(value) != true)) {
+                    this.MinorWoundAccidentField = value;
+                    this.RaisePropertyChanged("MinorWoundAccident");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MinorWoundToll {
+            get {
+                return this.MinorWoundTollField;
+            }
+            set {
+                if ((this.MinorWoundTollField.Equals(value) != true)) {
+                    this.MinorWoundTollField = value;
+                    this.RaisePropertyChanged("MinorWoundToll");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Month {
+            get {
+                return this.MonthField;
+            }
+            set {
+                if ((this.MonthField.Equals(value) != true)) {
+                    this.MonthField = value;
+                    this.RaisePropertyChanged("Month");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TabPeople {
+            get {
+                return this.TabPeopleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TabPeopleField, value) != true)) {
+                    this.TabPeopleField = value;
+                    this.RaisePropertyChanged("TabPeople");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> TotalLoss {
+            get {
+                return this.TotalLossField;
+            }
+            set {
+                if ((this.TotalLossField.Equals(value) != true)) {
+                    this.TotalLossField = value;
+                    this.RaisePropertyChanged("TotalLoss");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> TotalLossMan {
+            get {
+                return this.TotalLossManField;
+            }
+            set {
+                if ((this.TotalLossManField.Equals(value) != true)) {
+                    this.TotalLossManField = value;
+                    this.RaisePropertyChanged("TotalLossMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> TotalLossTime {
+            get {
+                return this.TotalLossTimeField;
+            }
+            set {
+                if ((this.TotalLossTimeField.Equals(value) != true)) {
+                    this.TotalLossTimeField = value;
+                    this.RaisePropertyChanged("TotalLossTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Year {
+            get {
+                return this.YearField;
+            }
+            set {
+                if ((this.YearField.Equals(value) != true)) {
+                    this.YearField = value;
+                    this.RaisePropertyChanged("Year");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Information_AccidentCauseReportItem", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Information_AccidentCauseReportItem : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AccidentCauseReportIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AccidentCauseReportItemIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AccidentTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Death1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Death10Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Death11Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Death2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Death3Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Death4Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Death5Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Death6Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Death7Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Death8Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Death9Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Injuries1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Injuries10Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Injuries11Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Injuries2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Injuries3Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Injuries4Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Injuries5Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Injuries6Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Injuries7Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Injuries8Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> Injuries9Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MinorInjuries1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MinorInjuries10Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MinorInjuries11Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MinorInjuries2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MinorInjuries3Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MinorInjuries4Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MinorInjuries5Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MinorInjuries6Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MinorInjuries7Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MinorInjuries8Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MinorInjuries9Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> TotalDeathField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> TotalInjuriesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> TotalMinorInjuriesField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AccidentCauseReportId {
+            get {
+                return this.AccidentCauseReportIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AccidentCauseReportIdField, value) != true)) {
+                    this.AccidentCauseReportIdField = value;
+                    this.RaisePropertyChanged("AccidentCauseReportId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AccidentCauseReportItemId {
+            get {
+                return this.AccidentCauseReportItemIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AccidentCauseReportItemIdField, value) != true)) {
+                    this.AccidentCauseReportItemIdField = value;
+                    this.RaisePropertyChanged("AccidentCauseReportItemId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AccidentType {
+            get {
+                return this.AccidentTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AccidentTypeField, value) != true)) {
+                    this.AccidentTypeField = value;
+                    this.RaisePropertyChanged("AccidentType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Death1 {
+            get {
+                return this.Death1Field;
+            }
+            set {
+                if ((this.Death1Field.Equals(value) != true)) {
+                    this.Death1Field = value;
+                    this.RaisePropertyChanged("Death1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Death10 {
+            get {
+                return this.Death10Field;
+            }
+            set {
+                if ((this.Death10Field.Equals(value) != true)) {
+                    this.Death10Field = value;
+                    this.RaisePropertyChanged("Death10");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Death11 {
+            get {
+                return this.Death11Field;
+            }
+            set {
+                if ((this.Death11Field.Equals(value) != true)) {
+                    this.Death11Field = value;
+                    this.RaisePropertyChanged("Death11");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Death2 {
+            get {
+                return this.Death2Field;
+            }
+            set {
+                if ((this.Death2Field.Equals(value) != true)) {
+                    this.Death2Field = value;
+                    this.RaisePropertyChanged("Death2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Death3 {
+            get {
+                return this.Death3Field;
+            }
+            set {
+                if ((this.Death3Field.Equals(value) != true)) {
+                    this.Death3Field = value;
+                    this.RaisePropertyChanged("Death3");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Death4 {
+            get {
+                return this.Death4Field;
+            }
+            set {
+                if ((this.Death4Field.Equals(value) != true)) {
+                    this.Death4Field = value;
+                    this.RaisePropertyChanged("Death4");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Death5 {
+            get {
+                return this.Death5Field;
+            }
+            set {
+                if ((this.Death5Field.Equals(value) != true)) {
+                    this.Death5Field = value;
+                    this.RaisePropertyChanged("Death5");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Death6 {
+            get {
+                return this.Death6Field;
+            }
+            set {
+                if ((this.Death6Field.Equals(value) != true)) {
+                    this.Death6Field = value;
+                    this.RaisePropertyChanged("Death6");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Death7 {
+            get {
+                return this.Death7Field;
+            }
+            set {
+                if ((this.Death7Field.Equals(value) != true)) {
+                    this.Death7Field = value;
+                    this.RaisePropertyChanged("Death7");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Death8 {
+            get {
+                return this.Death8Field;
+            }
+            set {
+                if ((this.Death8Field.Equals(value) != true)) {
+                    this.Death8Field = value;
+                    this.RaisePropertyChanged("Death8");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Death9 {
+            get {
+                return this.Death9Field;
+            }
+            set {
+                if ((this.Death9Field.Equals(value) != true)) {
+                    this.Death9Field = value;
+                    this.RaisePropertyChanged("Death9");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Injuries1 {
+            get {
+                return this.Injuries1Field;
+            }
+            set {
+                if ((this.Injuries1Field.Equals(value) != true)) {
+                    this.Injuries1Field = value;
+                    this.RaisePropertyChanged("Injuries1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Injuries10 {
+            get {
+                return this.Injuries10Field;
+            }
+            set {
+                if ((this.Injuries10Field.Equals(value) != true)) {
+                    this.Injuries10Field = value;
+                    this.RaisePropertyChanged("Injuries10");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Injuries11 {
+            get {
+                return this.Injuries11Field;
+            }
+            set {
+                if ((this.Injuries11Field.Equals(value) != true)) {
+                    this.Injuries11Field = value;
+                    this.RaisePropertyChanged("Injuries11");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Injuries2 {
+            get {
+                return this.Injuries2Field;
+            }
+            set {
+                if ((this.Injuries2Field.Equals(value) != true)) {
+                    this.Injuries2Field = value;
+                    this.RaisePropertyChanged("Injuries2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Injuries3 {
+            get {
+                return this.Injuries3Field;
+            }
+            set {
+                if ((this.Injuries3Field.Equals(value) != true)) {
+                    this.Injuries3Field = value;
+                    this.RaisePropertyChanged("Injuries3");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Injuries4 {
+            get {
+                return this.Injuries4Field;
+            }
+            set {
+                if ((this.Injuries4Field.Equals(value) != true)) {
+                    this.Injuries4Field = value;
+                    this.RaisePropertyChanged("Injuries4");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Injuries5 {
+            get {
+                return this.Injuries5Field;
+            }
+            set {
+                if ((this.Injuries5Field.Equals(value) != true)) {
+                    this.Injuries5Field = value;
+                    this.RaisePropertyChanged("Injuries5");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Injuries6 {
+            get {
+                return this.Injuries6Field;
+            }
+            set {
+                if ((this.Injuries6Field.Equals(value) != true)) {
+                    this.Injuries6Field = value;
+                    this.RaisePropertyChanged("Injuries6");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Injuries7 {
+            get {
+                return this.Injuries7Field;
+            }
+            set {
+                if ((this.Injuries7Field.Equals(value) != true)) {
+                    this.Injuries7Field = value;
+                    this.RaisePropertyChanged("Injuries7");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Injuries8 {
+            get {
+                return this.Injuries8Field;
+            }
+            set {
+                if ((this.Injuries8Field.Equals(value) != true)) {
+                    this.Injuries8Field = value;
+                    this.RaisePropertyChanged("Injuries8");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Injuries9 {
+            get {
+                return this.Injuries9Field;
+            }
+            set {
+                if ((this.Injuries9Field.Equals(value) != true)) {
+                    this.Injuries9Field = value;
+                    this.RaisePropertyChanged("Injuries9");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MinorInjuries1 {
+            get {
+                return this.MinorInjuries1Field;
+            }
+            set {
+                if ((this.MinorInjuries1Field.Equals(value) != true)) {
+                    this.MinorInjuries1Field = value;
+                    this.RaisePropertyChanged("MinorInjuries1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MinorInjuries10 {
+            get {
+                return this.MinorInjuries10Field;
+            }
+            set {
+                if ((this.MinorInjuries10Field.Equals(value) != true)) {
+                    this.MinorInjuries10Field = value;
+                    this.RaisePropertyChanged("MinorInjuries10");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MinorInjuries11 {
+            get {
+                return this.MinorInjuries11Field;
+            }
+            set {
+                if ((this.MinorInjuries11Field.Equals(value) != true)) {
+                    this.MinorInjuries11Field = value;
+                    this.RaisePropertyChanged("MinorInjuries11");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MinorInjuries2 {
+            get {
+                return this.MinorInjuries2Field;
+            }
+            set {
+                if ((this.MinorInjuries2Field.Equals(value) != true)) {
+                    this.MinorInjuries2Field = value;
+                    this.RaisePropertyChanged("MinorInjuries2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MinorInjuries3 {
+            get {
+                return this.MinorInjuries3Field;
+            }
+            set {
+                if ((this.MinorInjuries3Field.Equals(value) != true)) {
+                    this.MinorInjuries3Field = value;
+                    this.RaisePropertyChanged("MinorInjuries3");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MinorInjuries4 {
+            get {
+                return this.MinorInjuries4Field;
+            }
+            set {
+                if ((this.MinorInjuries4Field.Equals(value) != true)) {
+                    this.MinorInjuries4Field = value;
+                    this.RaisePropertyChanged("MinorInjuries4");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MinorInjuries5 {
+            get {
+                return this.MinorInjuries5Field;
+            }
+            set {
+                if ((this.MinorInjuries5Field.Equals(value) != true)) {
+                    this.MinorInjuries5Field = value;
+                    this.RaisePropertyChanged("MinorInjuries5");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MinorInjuries6 {
+            get {
+                return this.MinorInjuries6Field;
+            }
+            set {
+                if ((this.MinorInjuries6Field.Equals(value) != true)) {
+                    this.MinorInjuries6Field = value;
+                    this.RaisePropertyChanged("MinorInjuries6");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MinorInjuries7 {
+            get {
+                return this.MinorInjuries7Field;
+            }
+            set {
+                if ((this.MinorInjuries7Field.Equals(value) != true)) {
+                    this.MinorInjuries7Field = value;
+                    this.RaisePropertyChanged("MinorInjuries7");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MinorInjuries8 {
+            get {
+                return this.MinorInjuries8Field;
+            }
+            set {
+                if ((this.MinorInjuries8Field.Equals(value) != true)) {
+                    this.MinorInjuries8Field = value;
+                    this.RaisePropertyChanged("MinorInjuries8");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MinorInjuries9 {
+            get {
+                return this.MinorInjuries9Field;
+            }
+            set {
+                if ((this.MinorInjuries9Field.Equals(value) != true)) {
+                    this.MinorInjuries9Field = value;
+                    this.RaisePropertyChanged("MinorInjuries9");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> TotalDeath {
+            get {
+                return this.TotalDeathField;
+            }
+            set {
+                if ((this.TotalDeathField.Equals(value) != true)) {
+                    this.TotalDeathField = value;
+                    this.RaisePropertyChanged("TotalDeath");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> TotalInjuries {
+            get {
+                return this.TotalInjuriesField;
+            }
+            set {
+                if ((this.TotalInjuriesField.Equals(value) != true)) {
+                    this.TotalInjuriesField = value;
+                    this.RaisePropertyChanged("TotalInjuries");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> TotalMinorInjuries {
+            get {
+                return this.TotalMinorInjuriesField;
+            }
+            set {
+                if ((this.TotalMinorInjuriesField.Equals(value) != true)) {
+                    this.TotalMinorInjuriesField = value;
+                    this.RaisePropertyChanged("TotalMinorInjuries");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Information_DrillConductedQuarterlyReport", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Information_DrillConductedQuarterlyReport : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompileManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DrillConductedQuarterlyReportIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> QuarterField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> ReportDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> YearIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompileMan {
+            get {
+                return this.CompileManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompileManField, value) != true)) {
+                    this.CompileManField = value;
+                    this.RaisePropertyChanged("CompileMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DrillConductedQuarterlyReportId {
+            get {
+                return this.DrillConductedQuarterlyReportIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DrillConductedQuarterlyReportIdField, value) != true)) {
+                    this.DrillConductedQuarterlyReportIdField = value;
+                    this.RaisePropertyChanged("DrillConductedQuarterlyReportId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Quarter {
+            get {
+                return this.QuarterField;
+            }
+            set {
+                if ((this.QuarterField.Equals(value) != true)) {
+                    this.QuarterField = value;
+                    this.RaisePropertyChanged("Quarter");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> ReportDate {
+            get {
+                return this.ReportDateField;
+            }
+            set {
+                if ((this.ReportDateField.Equals(value) != true)) {
+                    this.ReportDateField = value;
+                    this.RaisePropertyChanged("ReportDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> YearId {
+            get {
+                return this.YearIdField;
+            }
+            set {
+                if ((this.YearIdField.Equals(value) != true)) {
+                    this.YearIdField = value;
+                    this.RaisePropertyChanged("YearId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Information_DrillConductedQuarterlyReportItem", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Information_DrillConductedQuarterlyReportItem : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> BasicConductCountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> BasicInvestmentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> BasicPeopleCountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> CPDesktopField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> CPSceneField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> ComprehensivePracticeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DrillConductedQuarterlyReportIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DrillConductedQuarterlyReportItemIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> HQConductCountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> HQInvestmentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> HQPeopleCountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IndustryTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> SDDesktopField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> SDSceneField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> SortIndexField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> SpecialDrillField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> TotalConductCountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> TotalInvestmentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> TotalPeopleCountField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> BasicConductCount {
+            get {
+                return this.BasicConductCountField;
+            }
+            set {
+                if ((this.BasicConductCountField.Equals(value) != true)) {
+                    this.BasicConductCountField = value;
+                    this.RaisePropertyChanged("BasicConductCount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> BasicInvestment {
+            get {
+                return this.BasicInvestmentField;
+            }
+            set {
+                if ((this.BasicInvestmentField.Equals(value) != true)) {
+                    this.BasicInvestmentField = value;
+                    this.RaisePropertyChanged("BasicInvestment");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> BasicPeopleCount {
+            get {
+                return this.BasicPeopleCountField;
+            }
+            set {
+                if ((this.BasicPeopleCountField.Equals(value) != true)) {
+                    this.BasicPeopleCountField = value;
+                    this.RaisePropertyChanged("BasicPeopleCount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> CPDesktop {
+            get {
+                return this.CPDesktopField;
+            }
+            set {
+                if ((this.CPDesktopField.Equals(value) != true)) {
+                    this.CPDesktopField = value;
+                    this.RaisePropertyChanged("CPDesktop");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> CPScene {
+            get {
+                return this.CPSceneField;
+            }
+            set {
+                if ((this.CPSceneField.Equals(value) != true)) {
+                    this.CPSceneField = value;
+                    this.RaisePropertyChanged("CPScene");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> ComprehensivePractice {
+            get {
+                return this.ComprehensivePracticeField;
+            }
+            set {
+                if ((this.ComprehensivePracticeField.Equals(value) != true)) {
+                    this.ComprehensivePracticeField = value;
+                    this.RaisePropertyChanged("ComprehensivePractice");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DrillConductedQuarterlyReportId {
+            get {
+                return this.DrillConductedQuarterlyReportIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DrillConductedQuarterlyReportIdField, value) != true)) {
+                    this.DrillConductedQuarterlyReportIdField = value;
+                    this.RaisePropertyChanged("DrillConductedQuarterlyReportId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DrillConductedQuarterlyReportItemId {
+            get {
+                return this.DrillConductedQuarterlyReportItemIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DrillConductedQuarterlyReportItemIdField, value) != true)) {
+                    this.DrillConductedQuarterlyReportItemIdField = value;
+                    this.RaisePropertyChanged("DrillConductedQuarterlyReportItemId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> HQConductCount {
+            get {
+                return this.HQConductCountField;
+            }
+            set {
+                if ((this.HQConductCountField.Equals(value) != true)) {
+                    this.HQConductCountField = value;
+                    this.RaisePropertyChanged("HQConductCount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> HQInvestment {
+            get {
+                return this.HQInvestmentField;
+            }
+            set {
+                if ((this.HQInvestmentField.Equals(value) != true)) {
+                    this.HQInvestmentField = value;
+                    this.RaisePropertyChanged("HQInvestment");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> HQPeopleCount {
+            get {
+                return this.HQPeopleCountField;
+            }
+            set {
+                if ((this.HQPeopleCountField.Equals(value) != true)) {
+                    this.HQPeopleCountField = value;
+                    this.RaisePropertyChanged("HQPeopleCount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string IndustryType {
+            get {
+                return this.IndustryTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IndustryTypeField, value) != true)) {
+                    this.IndustryTypeField = value;
+                    this.RaisePropertyChanged("IndustryType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> SDDesktop {
+            get {
+                return this.SDDesktopField;
+            }
+            set {
+                if ((this.SDDesktopField.Equals(value) != true)) {
+                    this.SDDesktopField = value;
+                    this.RaisePropertyChanged("SDDesktop");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> SDScene {
+            get {
+                return this.SDSceneField;
+            }
+            set {
+                if ((this.SDSceneField.Equals(value) != true)) {
+                    this.SDSceneField = value;
+                    this.RaisePropertyChanged("SDScene");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> SortIndex {
+            get {
+                return this.SortIndexField;
+            }
+            set {
+                if ((this.SortIndexField.Equals(value) != true)) {
+                    this.SortIndexField = value;
+                    this.RaisePropertyChanged("SortIndex");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> SpecialDrill {
+            get {
+                return this.SpecialDrillField;
+            }
+            set {
+                if ((this.SpecialDrillField.Equals(value) != true)) {
+                    this.SpecialDrillField = value;
+                    this.RaisePropertyChanged("SpecialDrill");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> TotalConductCount {
+            get {
+                return this.TotalConductCountField;
+            }
+            set {
+                if ((this.TotalConductCountField.Equals(value) != true)) {
+                    this.TotalConductCountField = value;
+                    this.RaisePropertyChanged("TotalConductCount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> TotalInvestment {
+            get {
+                return this.TotalInvestmentField;
+            }
+            set {
+                if ((this.TotalInvestmentField.Equals(value) != true)) {
+                    this.TotalInvestmentField = value;
+                    this.RaisePropertyChanged("TotalInvestment");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> TotalPeopleCount {
+            get {
+                return this.TotalPeopleCountField;
+            }
+            set {
+                if ((this.TotalPeopleCountField.Equals(value) != true)) {
+                    this.TotalPeopleCountField = value;
+                    this.RaisePropertyChanged("TotalPeopleCount");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Information_DrillPlanHalfYearReport", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Information_DrillPlanHalfYearReport : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CompileDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompileManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DrillPlanHalfYearReportIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> HalfYearIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TelephoneField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> YearIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CompileDate {
+            get {
+                return this.CompileDateField;
+            }
+            set {
+                if ((this.CompileDateField.Equals(value) != true)) {
+                    this.CompileDateField = value;
+                    this.RaisePropertyChanged("CompileDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompileMan {
+            get {
+                return this.CompileManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompileManField, value) != true)) {
+                    this.CompileManField = value;
+                    this.RaisePropertyChanged("CompileMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DrillPlanHalfYearReportId {
+            get {
+                return this.DrillPlanHalfYearReportIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DrillPlanHalfYearReportIdField, value) != true)) {
+                    this.DrillPlanHalfYearReportIdField = value;
+                    this.RaisePropertyChanged("DrillPlanHalfYearReportId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> HalfYearId {
+            get {
+                return this.HalfYearIdField;
+            }
+            set {
+                if ((this.HalfYearIdField.Equals(value) != true)) {
+                    this.HalfYearIdField = value;
+                    this.RaisePropertyChanged("HalfYearId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Telephone {
+            get {
+                return this.TelephoneField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TelephoneField, value) != true)) {
+                    this.TelephoneField = value;
+                    this.RaisePropertyChanged("Telephone");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> YearId {
+            get {
+                return this.YearIdField;
+            }
+            set {
+                if ((this.YearIdField.Equals(value) != true)) {
+                    this.YearIdField = value;
+                    this.RaisePropertyChanged("YearId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Information_DrillPlanHalfYearReportItem", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Information_DrillPlanHalfYearReportItem : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AccidentSceneField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DrillPlanDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DrillPlanHalfYearReportIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DrillPlanHalfYearReportItemIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DrillPlanNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ExerciseWayField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OrganizationUnitField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> SortIndexField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AccidentScene {
+            get {
+                return this.AccidentSceneField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AccidentSceneField, value) != true)) {
+                    this.AccidentSceneField = value;
+                    this.RaisePropertyChanged("AccidentScene");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DrillPlanDate {
+            get {
+                return this.DrillPlanDateField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DrillPlanDateField, value) != true)) {
+                    this.DrillPlanDateField = value;
+                    this.RaisePropertyChanged("DrillPlanDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DrillPlanHalfYearReportId {
+            get {
+                return this.DrillPlanHalfYearReportIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DrillPlanHalfYearReportIdField, value) != true)) {
+                    this.DrillPlanHalfYearReportIdField = value;
+                    this.RaisePropertyChanged("DrillPlanHalfYearReportId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DrillPlanHalfYearReportItemId {
+            get {
+                return this.DrillPlanHalfYearReportItemIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DrillPlanHalfYearReportItemIdField, value) != true)) {
+                    this.DrillPlanHalfYearReportItemIdField = value;
+                    this.RaisePropertyChanged("DrillPlanHalfYearReportItemId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DrillPlanName {
+            get {
+                return this.DrillPlanNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DrillPlanNameField, value) != true)) {
+                    this.DrillPlanNameField = value;
+                    this.RaisePropertyChanged("DrillPlanName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ExerciseWay {
+            get {
+                return this.ExerciseWayField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ExerciseWayField, value) != true)) {
+                    this.ExerciseWayField = value;
+                    this.RaisePropertyChanged("ExerciseWay");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OrganizationUnit {
+            get {
+                return this.OrganizationUnitField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OrganizationUnitField, value) != true)) {
+                    this.OrganizationUnitField = value;
+                    this.RaisePropertyChanged("OrganizationUnit");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> SortIndex {
+            get {
+                return this.SortIndexField;
+            }
+            set {
+                if ((this.SortIndexField.Equals(value) != true)) {
+                    this.SortIndexField = value;
+                    this.RaisePropertyChanged("SortIndex");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Information_MillionsMonthlyReport", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Information_MillionsMonthlyReport : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> AccidentMortalityField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> DeathAccidentFrequencyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DutyPersonField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> FillingDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FillingManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> LostTimeInjuryRateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> LostTimeRateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MillionsMonthlyReportIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MonthField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> RecordableIncidentRateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> YearField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> AccidentMortality {
+            get {
+                return this.AccidentMortalityField;
+            }
+            set {
+                if ((this.AccidentMortalityField.Equals(value) != true)) {
+                    this.AccidentMortalityField = value;
+                    this.RaisePropertyChanged("AccidentMortality");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> DeathAccidentFrequency {
+            get {
+                return this.DeathAccidentFrequencyField;
+            }
+            set {
+                if ((this.DeathAccidentFrequencyField.Equals(value) != true)) {
+                    this.DeathAccidentFrequencyField = value;
+                    this.RaisePropertyChanged("DeathAccidentFrequency");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DutyPerson {
+            get {
+                return this.DutyPersonField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DutyPersonField, value) != true)) {
+                    this.DutyPersonField = value;
+                    this.RaisePropertyChanged("DutyPerson");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> FillingDate {
+            get {
+                return this.FillingDateField;
+            }
+            set {
+                if ((this.FillingDateField.Equals(value) != true)) {
+                    this.FillingDateField = value;
+                    this.RaisePropertyChanged("FillingDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FillingMan {
+            get {
+                return this.FillingManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FillingManField, value) != true)) {
+                    this.FillingManField = value;
+                    this.RaisePropertyChanged("FillingMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> LostTimeInjuryRate {
+            get {
+                return this.LostTimeInjuryRateField;
+            }
+            set {
+                if ((this.LostTimeInjuryRateField.Equals(value) != true)) {
+                    this.LostTimeInjuryRateField = value;
+                    this.RaisePropertyChanged("LostTimeInjuryRate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> LostTimeRate {
+            get {
+                return this.LostTimeRateField;
+            }
+            set {
+                if ((this.LostTimeRateField.Equals(value) != true)) {
+                    this.LostTimeRateField = value;
+                    this.RaisePropertyChanged("LostTimeRate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MillionsMonthlyReportId {
+            get {
+                return this.MillionsMonthlyReportIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MillionsMonthlyReportIdField, value) != true)) {
+                    this.MillionsMonthlyReportIdField = value;
+                    this.RaisePropertyChanged("MillionsMonthlyReportId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Month {
+            get {
+                return this.MonthField;
+            }
+            set {
+                if ((this.MonthField.Equals(value) != true)) {
+                    this.MonthField = value;
+                    this.RaisePropertyChanged("Month");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> RecordableIncidentRate {
+            get {
+                return this.RecordableIncidentRateField;
+            }
+            set {
+                if ((this.RecordableIncidentRateField.Equals(value) != true)) {
+                    this.RecordableIncidentRateField = value;
+                    this.RaisePropertyChanged("RecordableIncidentRate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Year {
+            get {
+                return this.YearField;
+            }
+            set {
+                if ((this.YearField.Equals(value) != true)) {
+                    this.YearField = value;
+                    this.RaisePropertyChanged("Year");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Information_MillionsMonthlyReportItem", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Information_MillionsMonthlyReportItem : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AffiliationField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> AttemptedEventNumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> ContractorNumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> EquipmentNumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> ExplosionNumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> FireNumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> FirstAidDressingsNumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> LossDayNumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MedicalTreatmentLossHourField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MedicalTreatmentPersonNumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MillionsMonthlyReportIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MillionsMonthlyReportItemIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MinorAccidentLossHourField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MinorAccidentNumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MinorAccidentPersonNumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> OtherAccidentLossHourField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> OtherAccidentNumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> OtherAccidentPersonNumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> OtherNumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> PostPersonNumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> QualityNumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> RestrictedWorkLossHourField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> RestrictedWorkPersonNumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> SeriousInjuriesLossHourField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> SeriousInjuriesNumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> SeriousInjuriesPersonNumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> SnapPersonNumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> SortIndexField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> SumPersonNumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> TotalWorkNumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> TrafficNumField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Affiliation {
+            get {
+                return this.AffiliationField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AffiliationField, value) != true)) {
+                    this.AffiliationField = value;
+                    this.RaisePropertyChanged("Affiliation");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> AttemptedEventNum {
+            get {
+                return this.AttemptedEventNumField;
+            }
+            set {
+                if ((this.AttemptedEventNumField.Equals(value) != true)) {
+                    this.AttemptedEventNumField = value;
+                    this.RaisePropertyChanged("AttemptedEventNum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> ContractorNum {
+            get {
+                return this.ContractorNumField;
+            }
+            set {
+                if ((this.ContractorNumField.Equals(value) != true)) {
+                    this.ContractorNumField = value;
+                    this.RaisePropertyChanged("ContractorNum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> EquipmentNum {
+            get {
+                return this.EquipmentNumField;
+            }
+            set {
+                if ((this.EquipmentNumField.Equals(value) != true)) {
+                    this.EquipmentNumField = value;
+                    this.RaisePropertyChanged("EquipmentNum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> ExplosionNum {
+            get {
+                return this.ExplosionNumField;
+            }
+            set {
+                if ((this.ExplosionNumField.Equals(value) != true)) {
+                    this.ExplosionNumField = value;
+                    this.RaisePropertyChanged("ExplosionNum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> FireNum {
+            get {
+                return this.FireNumField;
+            }
+            set {
+                if ((this.FireNumField.Equals(value) != true)) {
+                    this.FireNumField = value;
+                    this.RaisePropertyChanged("FireNum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> FirstAidDressingsNum {
+            get {
+                return this.FirstAidDressingsNumField;
+            }
+            set {
+                if ((this.FirstAidDressingsNumField.Equals(value) != true)) {
+                    this.FirstAidDressingsNumField = value;
+                    this.RaisePropertyChanged("FirstAidDressingsNum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> LossDayNum {
+            get {
+                return this.LossDayNumField;
+            }
+            set {
+                if ((this.LossDayNumField.Equals(value) != true)) {
+                    this.LossDayNumField = value;
+                    this.RaisePropertyChanged("LossDayNum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MedicalTreatmentLossHour {
+            get {
+                return this.MedicalTreatmentLossHourField;
+            }
+            set {
+                if ((this.MedicalTreatmentLossHourField.Equals(value) != true)) {
+                    this.MedicalTreatmentLossHourField = value;
+                    this.RaisePropertyChanged("MedicalTreatmentLossHour");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MedicalTreatmentPersonNum {
+            get {
+                return this.MedicalTreatmentPersonNumField;
+            }
+            set {
+                if ((this.MedicalTreatmentPersonNumField.Equals(value) != true)) {
+                    this.MedicalTreatmentPersonNumField = value;
+                    this.RaisePropertyChanged("MedicalTreatmentPersonNum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MillionsMonthlyReportId {
+            get {
+                return this.MillionsMonthlyReportIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MillionsMonthlyReportIdField, value) != true)) {
+                    this.MillionsMonthlyReportIdField = value;
+                    this.RaisePropertyChanged("MillionsMonthlyReportId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MillionsMonthlyReportItemId {
+            get {
+                return this.MillionsMonthlyReportItemIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MillionsMonthlyReportItemIdField, value) != true)) {
+                    this.MillionsMonthlyReportItemIdField = value;
+                    this.RaisePropertyChanged("MillionsMonthlyReportItemId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MinorAccidentLossHour {
+            get {
+                return this.MinorAccidentLossHourField;
+            }
+            set {
+                if ((this.MinorAccidentLossHourField.Equals(value) != true)) {
+                    this.MinorAccidentLossHourField = value;
+                    this.RaisePropertyChanged("MinorAccidentLossHour");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MinorAccidentNum {
+            get {
+                return this.MinorAccidentNumField;
+            }
+            set {
+                if ((this.MinorAccidentNumField.Equals(value) != true)) {
+                    this.MinorAccidentNumField = value;
+                    this.RaisePropertyChanged("MinorAccidentNum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MinorAccidentPersonNum {
+            get {
+                return this.MinorAccidentPersonNumField;
+            }
+            set {
+                if ((this.MinorAccidentPersonNumField.Equals(value) != true)) {
+                    this.MinorAccidentPersonNumField = value;
+                    this.RaisePropertyChanged("MinorAccidentPersonNum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> OtherAccidentLossHour {
+            get {
+                return this.OtherAccidentLossHourField;
+            }
+            set {
+                if ((this.OtherAccidentLossHourField.Equals(value) != true)) {
+                    this.OtherAccidentLossHourField = value;
+                    this.RaisePropertyChanged("OtherAccidentLossHour");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> OtherAccidentNum {
+            get {
+                return this.OtherAccidentNumField;
+            }
+            set {
+                if ((this.OtherAccidentNumField.Equals(value) != true)) {
+                    this.OtherAccidentNumField = value;
+                    this.RaisePropertyChanged("OtherAccidentNum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> OtherAccidentPersonNum {
+            get {
+                return this.OtherAccidentPersonNumField;
+            }
+            set {
+                if ((this.OtherAccidentPersonNumField.Equals(value) != true)) {
+                    this.OtherAccidentPersonNumField = value;
+                    this.RaisePropertyChanged("OtherAccidentPersonNum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> OtherNum {
+            get {
+                return this.OtherNumField;
+            }
+            set {
+                if ((this.OtherNumField.Equals(value) != true)) {
+                    this.OtherNumField = value;
+                    this.RaisePropertyChanged("OtherNum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> PostPersonNum {
+            get {
+                return this.PostPersonNumField;
+            }
+            set {
+                if ((this.PostPersonNumField.Equals(value) != true)) {
+                    this.PostPersonNumField = value;
+                    this.RaisePropertyChanged("PostPersonNum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> QualityNum {
+            get {
+                return this.QualityNumField;
+            }
+            set {
+                if ((this.QualityNumField.Equals(value) != true)) {
+                    this.QualityNumField = value;
+                    this.RaisePropertyChanged("QualityNum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> RestrictedWorkLossHour {
+            get {
+                return this.RestrictedWorkLossHourField;
+            }
+            set {
+                if ((this.RestrictedWorkLossHourField.Equals(value) != true)) {
+                    this.RestrictedWorkLossHourField = value;
+                    this.RaisePropertyChanged("RestrictedWorkLossHour");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> RestrictedWorkPersonNum {
+            get {
+                return this.RestrictedWorkPersonNumField;
+            }
+            set {
+                if ((this.RestrictedWorkPersonNumField.Equals(value) != true)) {
+                    this.RestrictedWorkPersonNumField = value;
+                    this.RaisePropertyChanged("RestrictedWorkPersonNum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> SeriousInjuriesLossHour {
+            get {
+                return this.SeriousInjuriesLossHourField;
+            }
+            set {
+                if ((this.SeriousInjuriesLossHourField.Equals(value) != true)) {
+                    this.SeriousInjuriesLossHourField = value;
+                    this.RaisePropertyChanged("SeriousInjuriesLossHour");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> SeriousInjuriesNum {
+            get {
+                return this.SeriousInjuriesNumField;
+            }
+            set {
+                if ((this.SeriousInjuriesNumField.Equals(value) != true)) {
+                    this.SeriousInjuriesNumField = value;
+                    this.RaisePropertyChanged("SeriousInjuriesNum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> SeriousInjuriesPersonNum {
+            get {
+                return this.SeriousInjuriesPersonNumField;
+            }
+            set {
+                if ((this.SeriousInjuriesPersonNumField.Equals(value) != true)) {
+                    this.SeriousInjuriesPersonNumField = value;
+                    this.RaisePropertyChanged("SeriousInjuriesPersonNum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> SnapPersonNum {
+            get {
+                return this.SnapPersonNumField;
+            }
+            set {
+                if ((this.SnapPersonNumField.Equals(value) != true)) {
+                    this.SnapPersonNumField = value;
+                    this.RaisePropertyChanged("SnapPersonNum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> SortIndex {
+            get {
+                return this.SortIndexField;
+            }
+            set {
+                if ((this.SortIndexField.Equals(value) != true)) {
+                    this.SortIndexField = value;
+                    this.RaisePropertyChanged("SortIndex");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> SumPersonNum {
+            get {
+                return this.SumPersonNumField;
+            }
+            set {
+                if ((this.SumPersonNumField.Equals(value) != true)) {
+                    this.SumPersonNumField = value;
+                    this.RaisePropertyChanged("SumPersonNum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> TotalWorkNum {
+            get {
+                return this.TotalWorkNumField;
+            }
+            set {
+                if ((this.TotalWorkNumField.Equals(value) != true)) {
+                    this.TotalWorkNumField = value;
+                    this.RaisePropertyChanged("TotalWorkNum");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> TrafficNum {
+            get {
+                return this.TrafficNumField;
+            }
+            set {
+                if ((this.TrafficNumField.Equals(value) != true)) {
+                    this.TrafficNumField = value;
+                    this.RaisePropertyChanged("TrafficNum");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Information_SafetyQuarterlyReport", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Information_SafetyQuarterlyReport : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> AccidentFrequencyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AccidentFrequencyRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> BillionsOutputMortalityField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string BillionsOutputMortalityRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> ChemicalAreaProjectCountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ChemicalAreaProjectCountRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CompileManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> ConstructionRevenueField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ConstructionRevenueRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> CorporateDirectorEduField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CorporateDirectorEduRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> EducationTrainInField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EducationTrainInRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> EquipmentAccidentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EquipmentAccidentRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> FillingDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> FireAccidentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FireAccidentRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> FullTimeEduField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FullTimeEduRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> FullTimeManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FullTimeManAttachUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<byte[]> FullTimeManAttachUrlFileContextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FullTimeManRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> HarmfulMediumCoverCountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HarmfulMediumCoverCountRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> HarmfulMediumCoverRateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HarmfulMediumCoverRateRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> KeyEquipmentReportCountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KeyEquipmentReportCountRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> KeyEquipmentTotalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KeyEquipmentTotalRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> LaboAndHealthInField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LaborAndHealthInRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> MainBusinessIncomeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MainBusinessIncomeRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MajorEquipAccidentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MajorEquipAccidentRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> MajorFireAccidentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MajorFireAccidentRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> PMManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PMManAttachUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<byte[]> PMManAttachUrlFileContextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PMManRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> PoisoningAndInjuriesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PoisoningAndInjuriesRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> ProductionInputField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProductionInputRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> ProductionSafetyInTotalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProductionSafetyInTotalRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> ProjectCostRateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProjectCostRateRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> ProjectLeaderEduField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProjectLeaderEduRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> ProtectionInputField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProtectionInputRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> QuartersField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RemarksField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> RevenueField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RevenueRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SafetyQuarterlyReportIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> SeriousInjuryAccidentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SeriousInjuryAccidentRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> TechnologyProgressInField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TechnologyProgressInRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> ThreeKidsEduRateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ThreeKidsEduRateRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> TotalInWorkHoursField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TotalInWorkHoursRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> TotalOutWorkHoursField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TotalOutWorkHoursRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> UnitTimeIncomeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitTimeIncomeRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> UplinReportRateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UplinReportRateRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> WorkHoursAccuracyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string WorkHoursAccuracyRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> WorkHoursLossRateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string WorkHoursLossRateRemarkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> YearIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> AccidentFrequency {
+            get {
+                return this.AccidentFrequencyField;
+            }
+            set {
+                if ((this.AccidentFrequencyField.Equals(value) != true)) {
+                    this.AccidentFrequencyField = value;
+                    this.RaisePropertyChanged("AccidentFrequency");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AccidentFrequencyRemark {
+            get {
+                return this.AccidentFrequencyRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AccidentFrequencyRemarkField, value) != true)) {
+                    this.AccidentFrequencyRemarkField = value;
+                    this.RaisePropertyChanged("AccidentFrequencyRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> BillionsOutputMortality {
+            get {
+                return this.BillionsOutputMortalityField;
+            }
+            set {
+                if ((this.BillionsOutputMortalityField.Equals(value) != true)) {
+                    this.BillionsOutputMortalityField = value;
+                    this.RaisePropertyChanged("BillionsOutputMortality");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string BillionsOutputMortalityRemark {
+            get {
+                return this.BillionsOutputMortalityRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BillionsOutputMortalityRemarkField, value) != true)) {
+                    this.BillionsOutputMortalityRemarkField = value;
+                    this.RaisePropertyChanged("BillionsOutputMortalityRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> ChemicalAreaProjectCount {
+            get {
+                return this.ChemicalAreaProjectCountField;
+            }
+            set {
+                if ((this.ChemicalAreaProjectCountField.Equals(value) != true)) {
+                    this.ChemicalAreaProjectCountField = value;
+                    this.RaisePropertyChanged("ChemicalAreaProjectCount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ChemicalAreaProjectCountRemark {
+            get {
+                return this.ChemicalAreaProjectCountRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ChemicalAreaProjectCountRemarkField, value) != true)) {
+                    this.ChemicalAreaProjectCountRemarkField = value;
+                    this.RaisePropertyChanged("ChemicalAreaProjectCountRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CompileMan {
+            get {
+                return this.CompileManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompileManField, value) != true)) {
+                    this.CompileManField = value;
+                    this.RaisePropertyChanged("CompileMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> ConstructionRevenue {
+            get {
+                return this.ConstructionRevenueField;
+            }
+            set {
+                if ((this.ConstructionRevenueField.Equals(value) != true)) {
+                    this.ConstructionRevenueField = value;
+                    this.RaisePropertyChanged("ConstructionRevenue");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ConstructionRevenueRemark {
+            get {
+                return this.ConstructionRevenueRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ConstructionRevenueRemarkField, value) != true)) {
+                    this.ConstructionRevenueRemarkField = value;
+                    this.RaisePropertyChanged("ConstructionRevenueRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> CorporateDirectorEdu {
+            get {
+                return this.CorporateDirectorEduField;
+            }
+            set {
+                if ((this.CorporateDirectorEduField.Equals(value) != true)) {
+                    this.CorporateDirectorEduField = value;
+                    this.RaisePropertyChanged("CorporateDirectorEdu");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CorporateDirectorEduRemark {
+            get {
+                return this.CorporateDirectorEduRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CorporateDirectorEduRemarkField, value) != true)) {
+                    this.CorporateDirectorEduRemarkField = value;
+                    this.RaisePropertyChanged("CorporateDirectorEduRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> EducationTrainIn {
+            get {
+                return this.EducationTrainInField;
+            }
+            set {
+                if ((this.EducationTrainInField.Equals(value) != true)) {
+                    this.EducationTrainInField = value;
+                    this.RaisePropertyChanged("EducationTrainIn");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EducationTrainInRemark {
+            get {
+                return this.EducationTrainInRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EducationTrainInRemarkField, value) != true)) {
+                    this.EducationTrainInRemarkField = value;
+                    this.RaisePropertyChanged("EducationTrainInRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> EquipmentAccident {
+            get {
+                return this.EquipmentAccidentField;
+            }
+            set {
+                if ((this.EquipmentAccidentField.Equals(value) != true)) {
+                    this.EquipmentAccidentField = value;
+                    this.RaisePropertyChanged("EquipmentAccident");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EquipmentAccidentRemark {
+            get {
+                return this.EquipmentAccidentRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EquipmentAccidentRemarkField, value) != true)) {
+                    this.EquipmentAccidentRemarkField = value;
+                    this.RaisePropertyChanged("EquipmentAccidentRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> FillingDate {
+            get {
+                return this.FillingDateField;
+            }
+            set {
+                if ((this.FillingDateField.Equals(value) != true)) {
+                    this.FillingDateField = value;
+                    this.RaisePropertyChanged("FillingDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> FireAccident {
+            get {
+                return this.FireAccidentField;
+            }
+            set {
+                if ((this.FireAccidentField.Equals(value) != true)) {
+                    this.FireAccidentField = value;
+                    this.RaisePropertyChanged("FireAccident");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FireAccidentRemark {
+            get {
+                return this.FireAccidentRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FireAccidentRemarkField, value) != true)) {
+                    this.FireAccidentRemarkField = value;
+                    this.RaisePropertyChanged("FireAccidentRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> FullTimeEdu {
+            get {
+                return this.FullTimeEduField;
+            }
+            set {
+                if ((this.FullTimeEduField.Equals(value) != true)) {
+                    this.FullTimeEduField = value;
+                    this.RaisePropertyChanged("FullTimeEdu");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FullTimeEduRemark {
+            get {
+                return this.FullTimeEduRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FullTimeEduRemarkField, value) != true)) {
+                    this.FullTimeEduRemarkField = value;
+                    this.RaisePropertyChanged("FullTimeEduRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> FullTimeMan {
+            get {
+                return this.FullTimeManField;
+            }
+            set {
+                if ((this.FullTimeManField.Equals(value) != true)) {
+                    this.FullTimeManField = value;
+                    this.RaisePropertyChanged("FullTimeMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FullTimeManAttachUrl {
+            get {
+                return this.FullTimeManAttachUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FullTimeManAttachUrlField, value) != true)) {
+                    this.FullTimeManAttachUrlField = value;
+                    this.RaisePropertyChanged("FullTimeManAttachUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<byte[]> FullTimeManAttachUrlFileContext {
+            get {
+                return this.FullTimeManAttachUrlFileContextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FullTimeManAttachUrlFileContextField, value) != true)) {
+                    this.FullTimeManAttachUrlFileContextField = value;
+                    this.RaisePropertyChanged("FullTimeManAttachUrlFileContext");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FullTimeManRemark {
+            get {
+                return this.FullTimeManRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FullTimeManRemarkField, value) != true)) {
+                    this.FullTimeManRemarkField = value;
+                    this.RaisePropertyChanged("FullTimeManRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> HarmfulMediumCoverCount {
+            get {
+                return this.HarmfulMediumCoverCountField;
+            }
+            set {
+                if ((this.HarmfulMediumCoverCountField.Equals(value) != true)) {
+                    this.HarmfulMediumCoverCountField = value;
+                    this.RaisePropertyChanged("HarmfulMediumCoverCount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HarmfulMediumCoverCountRemark {
+            get {
+                return this.HarmfulMediumCoverCountRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HarmfulMediumCoverCountRemarkField, value) != true)) {
+                    this.HarmfulMediumCoverCountRemarkField = value;
+                    this.RaisePropertyChanged("HarmfulMediumCoverCountRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> HarmfulMediumCoverRate {
+            get {
+                return this.HarmfulMediumCoverRateField;
+            }
+            set {
+                if ((this.HarmfulMediumCoverRateField.Equals(value) != true)) {
+                    this.HarmfulMediumCoverRateField = value;
+                    this.RaisePropertyChanged("HarmfulMediumCoverRate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HarmfulMediumCoverRateRemark {
+            get {
+                return this.HarmfulMediumCoverRateRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HarmfulMediumCoverRateRemarkField, value) != true)) {
+                    this.HarmfulMediumCoverRateRemarkField = value;
+                    this.RaisePropertyChanged("HarmfulMediumCoverRateRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> KeyEquipmentReportCount {
+            get {
+                return this.KeyEquipmentReportCountField;
+            }
+            set {
+                if ((this.KeyEquipmentReportCountField.Equals(value) != true)) {
+                    this.KeyEquipmentReportCountField = value;
+                    this.RaisePropertyChanged("KeyEquipmentReportCount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string KeyEquipmentReportCountRemark {
+            get {
+                return this.KeyEquipmentReportCountRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KeyEquipmentReportCountRemarkField, value) != true)) {
+                    this.KeyEquipmentReportCountRemarkField = value;
+                    this.RaisePropertyChanged("KeyEquipmentReportCountRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> KeyEquipmentTotal {
+            get {
+                return this.KeyEquipmentTotalField;
+            }
+            set {
+                if ((this.KeyEquipmentTotalField.Equals(value) != true)) {
+                    this.KeyEquipmentTotalField = value;
+                    this.RaisePropertyChanged("KeyEquipmentTotal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string KeyEquipmentTotalRemark {
+            get {
+                return this.KeyEquipmentTotalRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KeyEquipmentTotalRemarkField, value) != true)) {
+                    this.KeyEquipmentTotalRemarkField = value;
+                    this.RaisePropertyChanged("KeyEquipmentTotalRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> LaboAndHealthIn {
+            get {
+                return this.LaboAndHealthInField;
+            }
+            set {
+                if ((this.LaboAndHealthInField.Equals(value) != true)) {
+                    this.LaboAndHealthInField = value;
+                    this.RaisePropertyChanged("LaboAndHealthIn");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LaborAndHealthInRemark {
+            get {
+                return this.LaborAndHealthInRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LaborAndHealthInRemarkField, value) != true)) {
+                    this.LaborAndHealthInRemarkField = value;
+                    this.RaisePropertyChanged("LaborAndHealthInRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> MainBusinessIncome {
+            get {
+                return this.MainBusinessIncomeField;
+            }
+            set {
+                if ((this.MainBusinessIncomeField.Equals(value) != true)) {
+                    this.MainBusinessIncomeField = value;
+                    this.RaisePropertyChanged("MainBusinessIncome");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MainBusinessIncomeRemark {
+            get {
+                return this.MainBusinessIncomeRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MainBusinessIncomeRemarkField, value) != true)) {
+                    this.MainBusinessIncomeRemarkField = value;
+                    this.RaisePropertyChanged("MainBusinessIncomeRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MajorEquipAccident {
+            get {
+                return this.MajorEquipAccidentField;
+            }
+            set {
+                if ((this.MajorEquipAccidentField.Equals(value) != true)) {
+                    this.MajorEquipAccidentField = value;
+                    this.RaisePropertyChanged("MajorEquipAccident");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MajorEquipAccidentRemark {
+            get {
+                return this.MajorEquipAccidentRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MajorEquipAccidentRemarkField, value) != true)) {
+                    this.MajorEquipAccidentRemarkField = value;
+                    this.RaisePropertyChanged("MajorEquipAccidentRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> MajorFireAccident {
+            get {
+                return this.MajorFireAccidentField;
+            }
+            set {
+                if ((this.MajorFireAccidentField.Equals(value) != true)) {
+                    this.MajorFireAccidentField = value;
+                    this.RaisePropertyChanged("MajorFireAccident");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MajorFireAccidentRemark {
+            get {
+                return this.MajorFireAccidentRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MajorFireAccidentRemarkField, value) != true)) {
+                    this.MajorFireAccidentRemarkField = value;
+                    this.RaisePropertyChanged("MajorFireAccidentRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> PMMan {
+            get {
+                return this.PMManField;
+            }
+            set {
+                if ((this.PMManField.Equals(value) != true)) {
+                    this.PMManField = value;
+                    this.RaisePropertyChanged("PMMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PMManAttachUrl {
+            get {
+                return this.PMManAttachUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PMManAttachUrlField, value) != true)) {
+                    this.PMManAttachUrlField = value;
+                    this.RaisePropertyChanged("PMManAttachUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<byte[]> PMManAttachUrlFileContext {
+            get {
+                return this.PMManAttachUrlFileContextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PMManAttachUrlFileContextField, value) != true)) {
+                    this.PMManAttachUrlFileContextField = value;
+                    this.RaisePropertyChanged("PMManAttachUrlFileContext");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PMManRemark {
+            get {
+                return this.PMManRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PMManRemarkField, value) != true)) {
+                    this.PMManRemarkField = value;
+                    this.RaisePropertyChanged("PMManRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> PoisoningAndInjuries {
+            get {
+                return this.PoisoningAndInjuriesField;
+            }
+            set {
+                if ((this.PoisoningAndInjuriesField.Equals(value) != true)) {
+                    this.PoisoningAndInjuriesField = value;
+                    this.RaisePropertyChanged("PoisoningAndInjuries");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PoisoningAndInjuriesRemark {
+            get {
+                return this.PoisoningAndInjuriesRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PoisoningAndInjuriesRemarkField, value) != true)) {
+                    this.PoisoningAndInjuriesRemarkField = value;
+                    this.RaisePropertyChanged("PoisoningAndInjuriesRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> ProductionInput {
+            get {
+                return this.ProductionInputField;
+            }
+            set {
+                if ((this.ProductionInputField.Equals(value) != true)) {
+                    this.ProductionInputField = value;
+                    this.RaisePropertyChanged("ProductionInput");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ProductionInputRemark {
+            get {
+                return this.ProductionInputRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProductionInputRemarkField, value) != true)) {
+                    this.ProductionInputRemarkField = value;
+                    this.RaisePropertyChanged("ProductionInputRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> ProductionSafetyInTotal {
+            get {
+                return this.ProductionSafetyInTotalField;
+            }
+            set {
+                if ((this.ProductionSafetyInTotalField.Equals(value) != true)) {
+                    this.ProductionSafetyInTotalField = value;
+                    this.RaisePropertyChanged("ProductionSafetyInTotal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ProductionSafetyInTotalRemark {
+            get {
+                return this.ProductionSafetyInTotalRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProductionSafetyInTotalRemarkField, value) != true)) {
+                    this.ProductionSafetyInTotalRemarkField = value;
+                    this.RaisePropertyChanged("ProductionSafetyInTotalRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> ProjectCostRate {
+            get {
+                return this.ProjectCostRateField;
+            }
+            set {
+                if ((this.ProjectCostRateField.Equals(value) != true)) {
+                    this.ProjectCostRateField = value;
+                    this.RaisePropertyChanged("ProjectCostRate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ProjectCostRateRemark {
+            get {
+                return this.ProjectCostRateRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProjectCostRateRemarkField, value) != true)) {
+                    this.ProjectCostRateRemarkField = value;
+                    this.RaisePropertyChanged("ProjectCostRateRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> ProjectLeaderEdu {
+            get {
+                return this.ProjectLeaderEduField;
+            }
+            set {
+                if ((this.ProjectLeaderEduField.Equals(value) != true)) {
+                    this.ProjectLeaderEduField = value;
+                    this.RaisePropertyChanged("ProjectLeaderEdu");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ProjectLeaderEduRemark {
+            get {
+                return this.ProjectLeaderEduRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProjectLeaderEduRemarkField, value) != true)) {
+                    this.ProjectLeaderEduRemarkField = value;
+                    this.RaisePropertyChanged("ProjectLeaderEduRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> ProtectionInput {
+            get {
+                return this.ProtectionInputField;
+            }
+            set {
+                if ((this.ProtectionInputField.Equals(value) != true)) {
+                    this.ProtectionInputField = value;
+                    this.RaisePropertyChanged("ProtectionInput");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ProtectionInputRemark {
+            get {
+                return this.ProtectionInputRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProtectionInputRemarkField, value) != true)) {
+                    this.ProtectionInputRemarkField = value;
+                    this.RaisePropertyChanged("ProtectionInputRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Quarters {
+            get {
+                return this.QuartersField;
+            }
+            set {
+                if ((this.QuartersField.Equals(value) != true)) {
+                    this.QuartersField = value;
+                    this.RaisePropertyChanged("Quarters");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Remarks {
+            get {
+                return this.RemarksField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RemarksField, value) != true)) {
+                    this.RemarksField = value;
+                    this.RaisePropertyChanged("Remarks");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> Revenue {
+            get {
+                return this.RevenueField;
+            }
+            set {
+                if ((this.RevenueField.Equals(value) != true)) {
+                    this.RevenueField = value;
+                    this.RaisePropertyChanged("Revenue");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RevenueRemark {
+            get {
+                return this.RevenueRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RevenueRemarkField, value) != true)) {
+                    this.RevenueRemarkField = value;
+                    this.RaisePropertyChanged("RevenueRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SafetyQuarterlyReportId {
+            get {
+                return this.SafetyQuarterlyReportIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SafetyQuarterlyReportIdField, value) != true)) {
+                    this.SafetyQuarterlyReportIdField = value;
+                    this.RaisePropertyChanged("SafetyQuarterlyReportId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> SeriousInjuryAccident {
+            get {
+                return this.SeriousInjuryAccidentField;
+            }
+            set {
+                if ((this.SeriousInjuryAccidentField.Equals(value) != true)) {
+                    this.SeriousInjuryAccidentField = value;
+                    this.RaisePropertyChanged("SeriousInjuryAccident");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SeriousInjuryAccidentRemark {
+            get {
+                return this.SeriousInjuryAccidentRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SeriousInjuryAccidentRemarkField, value) != true)) {
+                    this.SeriousInjuryAccidentRemarkField = value;
+                    this.RaisePropertyChanged("SeriousInjuryAccidentRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> TechnologyProgressIn {
+            get {
+                return this.TechnologyProgressInField;
+            }
+            set {
+                if ((this.TechnologyProgressInField.Equals(value) != true)) {
+                    this.TechnologyProgressInField = value;
+                    this.RaisePropertyChanged("TechnologyProgressIn");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TechnologyProgressInRemark {
+            get {
+                return this.TechnologyProgressInRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TechnologyProgressInRemarkField, value) != true)) {
+                    this.TechnologyProgressInRemarkField = value;
+                    this.RaisePropertyChanged("TechnologyProgressInRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> ThreeKidsEduRate {
+            get {
+                return this.ThreeKidsEduRateField;
+            }
+            set {
+                if ((this.ThreeKidsEduRateField.Equals(value) != true)) {
+                    this.ThreeKidsEduRateField = value;
+                    this.RaisePropertyChanged("ThreeKidsEduRate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ThreeKidsEduRateRemark {
+            get {
+                return this.ThreeKidsEduRateRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ThreeKidsEduRateRemarkField, value) != true)) {
+                    this.ThreeKidsEduRateRemarkField = value;
+                    this.RaisePropertyChanged("ThreeKidsEduRateRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> TotalInWorkHours {
+            get {
+                return this.TotalInWorkHoursField;
+            }
+            set {
+                if ((this.TotalInWorkHoursField.Equals(value) != true)) {
+                    this.TotalInWorkHoursField = value;
+                    this.RaisePropertyChanged("TotalInWorkHours");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TotalInWorkHoursRemark {
+            get {
+                return this.TotalInWorkHoursRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TotalInWorkHoursRemarkField, value) != true)) {
+                    this.TotalInWorkHoursRemarkField = value;
+                    this.RaisePropertyChanged("TotalInWorkHoursRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> TotalOutWorkHours {
+            get {
+                return this.TotalOutWorkHoursField;
+            }
+            set {
+                if ((this.TotalOutWorkHoursField.Equals(value) != true)) {
+                    this.TotalOutWorkHoursField = value;
+                    this.RaisePropertyChanged("TotalOutWorkHours");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TotalOutWorkHoursRemark {
+            get {
+                return this.TotalOutWorkHoursRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TotalOutWorkHoursRemarkField, value) != true)) {
+                    this.TotalOutWorkHoursRemarkField = value;
+                    this.RaisePropertyChanged("TotalOutWorkHoursRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> UnitTimeIncome {
+            get {
+                return this.UnitTimeIncomeField;
+            }
+            set {
+                if ((this.UnitTimeIncomeField.Equals(value) != true)) {
+                    this.UnitTimeIncomeField = value;
+                    this.RaisePropertyChanged("UnitTimeIncome");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitTimeIncomeRemark {
+            get {
+                return this.UnitTimeIncomeRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitTimeIncomeRemarkField, value) != true)) {
+                    this.UnitTimeIncomeRemarkField = value;
+                    this.RaisePropertyChanged("UnitTimeIncomeRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> UplinReportRate {
+            get {
+                return this.UplinReportRateField;
+            }
+            set {
+                if ((this.UplinReportRateField.Equals(value) != true)) {
+                    this.UplinReportRateField = value;
+                    this.RaisePropertyChanged("UplinReportRate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UplinReportRateRemark {
+            get {
+                return this.UplinReportRateRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UplinReportRateRemarkField, value) != true)) {
+                    this.UplinReportRateRemarkField = value;
+                    this.RaisePropertyChanged("UplinReportRateRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> WorkHoursAccuracy {
+            get {
+                return this.WorkHoursAccuracyField;
+            }
+            set {
+                if ((this.WorkHoursAccuracyField.Equals(value) != true)) {
+                    this.WorkHoursAccuracyField = value;
+                    this.RaisePropertyChanged("WorkHoursAccuracy");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string WorkHoursAccuracyRemark {
+            get {
+                return this.WorkHoursAccuracyRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.WorkHoursAccuracyRemarkField, value) != true)) {
+                    this.WorkHoursAccuracyRemarkField = value;
+                    this.RaisePropertyChanged("WorkHoursAccuracyRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> WorkHoursLossRate {
+            get {
+                return this.WorkHoursLossRateField;
+            }
+            set {
+                if ((this.WorkHoursLossRateField.Equals(value) != true)) {
+                    this.WorkHoursLossRateField = value;
+                    this.RaisePropertyChanged("WorkHoursLossRate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string WorkHoursLossRateRemark {
+            get {
+                return this.WorkHoursLossRateRemarkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.WorkHoursLossRateRemarkField, value) != true)) {
+                    this.WorkHoursLossRateRemarkField = value;
+                    this.RaisePropertyChanged("WorkHoursLossRateRemark");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> YearId {
+            get {
+                return this.YearIdField;
+            }
+            set {
+                if ((this.YearIdField.Equals(value) != true)) {
+                    this.YearIdField = value;
+                    this.RaisePropertyChanged("YearId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="HSSESystem_HSSEManageItem", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class HSSESystem_HSSEManageItem : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DutyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EMailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HSSEManageItemIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HSSEManageNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MobilePhoneField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NamesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PostField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SortIndexField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TelephoneField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Duty {
+            get {
+                return this.DutyField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DutyField, value) != true)) {
+                    this.DutyField = value;
+                    this.RaisePropertyChanged("Duty");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EMail {
+            get {
+                return this.EMailField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EMailField, value) != true)) {
+                    this.EMailField = value;
+                    this.RaisePropertyChanged("EMail");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HSSEManageItemId {
+            get {
+                return this.HSSEManageItemIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HSSEManageItemIdField, value) != true)) {
+                    this.HSSEManageItemIdField = value;
+                    this.RaisePropertyChanged("HSSEManageItemId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HSSEManageName {
+            get {
+                return this.HSSEManageNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HSSEManageNameField, value) != true)) {
+                    this.HSSEManageNameField = value;
+                    this.RaisePropertyChanged("HSSEManageName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MobilePhone {
+            get {
+                return this.MobilePhoneField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MobilePhoneField, value) != true)) {
+                    this.MobilePhoneField = value;
+                    this.RaisePropertyChanged("MobilePhone");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Names {
+            get {
+                return this.NamesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NamesField, value) != true)) {
+                    this.NamesField = value;
+                    this.RaisePropertyChanged("Names");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Post {
+            get {
+                return this.PostField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PostField, value) != true)) {
+                    this.PostField = value;
+                    this.RaisePropertyChanged("Post");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SortIndex {
+            get {
+                return this.SortIndexField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SortIndexField, value) != true)) {
+                    this.SortIndexField = value;
+                    this.RaisePropertyChanged("SortIndex");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Telephone {
+            get {
+                return this.TelephoneField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TelephoneField, value) != true)) {
+                    this.TelephoneField = value;
+                    this.RaisePropertyChanged("Telephone");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Supervise_UpCheckReport", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Supervise_UpCheckReport : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> AuditDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CheckEndTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CheckStartTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CompileDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UpCheckReportIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Values1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Values2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Values3Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Values4Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Values5Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Values6Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Values7Field;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> AuditDate {
+            get {
+                return this.AuditDateField;
+            }
+            set {
+                if ((this.AuditDateField.Equals(value) != true)) {
+                    this.AuditDateField = value;
+                    this.RaisePropertyChanged("AuditDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CheckEndTime {
+            get {
+                return this.CheckEndTimeField;
+            }
+            set {
+                if ((this.CheckEndTimeField.Equals(value) != true)) {
+                    this.CheckEndTimeField = value;
+                    this.RaisePropertyChanged("CheckEndTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CheckStartTime {
+            get {
+                return this.CheckStartTimeField;
+            }
+            set {
+                if ((this.CheckStartTimeField.Equals(value) != true)) {
+                    this.CheckStartTimeField = value;
+                    this.RaisePropertyChanged("CheckStartTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CompileDate {
+            get {
+                return this.CompileDateField;
+            }
+            set {
+                if ((this.CompileDateField.Equals(value) != true)) {
+                    this.CompileDateField = value;
+                    this.RaisePropertyChanged("CompileDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UpCheckReportId {
+            get {
+                return this.UpCheckReportIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UpCheckReportIdField, value) != true)) {
+                    this.UpCheckReportIdField = value;
+                    this.RaisePropertyChanged("UpCheckReportId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Values1 {
+            get {
+                return this.Values1Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Values1Field, value) != true)) {
+                    this.Values1Field = value;
+                    this.RaisePropertyChanged("Values1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Values2 {
+            get {
+                return this.Values2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Values2Field, value) != true)) {
+                    this.Values2Field = value;
+                    this.RaisePropertyChanged("Values2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Values3 {
+            get {
+                return this.Values3Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Values3Field, value) != true)) {
+                    this.Values3Field = value;
+                    this.RaisePropertyChanged("Values3");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Values4 {
+            get {
+                return this.Values4Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Values4Field, value) != true)) {
+                    this.Values4Field = value;
+                    this.RaisePropertyChanged("Values4");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Values5 {
+            get {
+                return this.Values5Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Values5Field, value) != true)) {
+                    this.Values5Field = value;
+                    this.RaisePropertyChanged("Values5");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Values6 {
+            get {
+                return this.Values6Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Values6Field, value) != true)) {
+                    this.Values6Field = value;
+                    this.RaisePropertyChanged("Values6");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Values7 {
+            get {
+                return this.Values7Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Values7Field, value) != true)) {
+                    this.Values7Field = value;
+                    this.RaisePropertyChanged("Values7");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Supervise_UpCheckReportItem", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Supervise_UpCheckReportItem : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CheckDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CheckPostNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PostNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SexField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SortIndexField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UpCheckReportIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UpCheckReportItemIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string WorkTitleField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CheckDate {
+            get {
+                return this.CheckDateField;
+            }
+            set {
+                if ((this.CheckDateField.Equals(value) != true)) {
+                    this.CheckDateField = value;
+                    this.RaisePropertyChanged("CheckDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CheckPostName {
+            get {
+                return this.CheckPostNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CheckPostNameField, value) != true)) {
+                    this.CheckPostNameField = value;
+                    this.RaisePropertyChanged("CheckPostName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PostName {
+            get {
+                return this.PostNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PostNameField, value) != true)) {
+                    this.PostNameField = value;
+                    this.RaisePropertyChanged("PostName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Sex {
+            get {
+                return this.SexField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SexField, value) != true)) {
+                    this.SexField = value;
+                    this.RaisePropertyChanged("Sex");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SortIndex {
+            get {
+                return this.SortIndexField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SortIndexField, value) != true)) {
+                    this.SortIndexField = value;
+                    this.RaisePropertyChanged("SortIndex");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitName {
+            get {
+                return this.UnitNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitNameField, value) != true)) {
+                    this.UnitNameField = value;
+                    this.RaisePropertyChanged("UnitName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UpCheckReportId {
+            get {
+                return this.UpCheckReportIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UpCheckReportIdField, value) != true)) {
+                    this.UpCheckReportIdField = value;
+                    this.RaisePropertyChanged("UpCheckReportId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UpCheckReportItemId {
+            get {
+                return this.UpCheckReportItemIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UpCheckReportItemIdField, value) != true)) {
+                    this.UpCheckReportItemIdField = value;
+                    this.RaisePropertyChanged("UpCheckReportItemId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string WorkTitle {
+            get {
+                return this.WorkTitleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.WorkTitleField, value) != true)) {
+                    this.WorkTitleField = value;
+                    this.RaisePropertyChanged("WorkTitle");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Supervise_UpCheckReportItem2", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Supervise_UpCheckReportItem2 : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CheckDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> CompRectifyCountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> RectifyCountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ResultLevelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SortIndexField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SubjectObjectField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SubjectObjectInfoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> TotalGetScoreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitHSSEManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitHSSEManTelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitManField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitManTelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UpCheckReportIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UpCheckReportItem2IdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CheckDate {
+            get {
+                return this.CheckDateField;
+            }
+            set {
+                if ((this.CheckDateField.Equals(value) != true)) {
+                    this.CheckDateField = value;
+                    this.RaisePropertyChanged("CheckDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> CompRectifyCount {
+            get {
+                return this.CompRectifyCountField;
+            }
+            set {
+                if ((this.CompRectifyCountField.Equals(value) != true)) {
+                    this.CompRectifyCountField = value;
+                    this.RaisePropertyChanged("CompRectifyCount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> RectifyCount {
+            get {
+                return this.RectifyCountField;
+            }
+            set {
+                if ((this.RectifyCountField.Equals(value) != true)) {
+                    this.RectifyCountField = value;
+                    this.RaisePropertyChanged("RectifyCount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ResultLevel {
+            get {
+                return this.ResultLevelField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ResultLevelField, value) != true)) {
+                    this.ResultLevelField = value;
+                    this.RaisePropertyChanged("ResultLevel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SortIndex {
+            get {
+                return this.SortIndexField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SortIndexField, value) != true)) {
+                    this.SortIndexField = value;
+                    this.RaisePropertyChanged("SortIndex");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SubjectObject {
+            get {
+                return this.SubjectObjectField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SubjectObjectField, value) != true)) {
+                    this.SubjectObjectField = value;
+                    this.RaisePropertyChanged("SubjectObject");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SubjectObjectInfo {
+            get {
+                return this.SubjectObjectInfoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SubjectObjectInfoField, value) != true)) {
+                    this.SubjectObjectInfoField = value;
+                    this.RaisePropertyChanged("SubjectObjectInfo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> TotalGetScore {
+            get {
+                return this.TotalGetScoreField;
+            }
+            set {
+                if ((this.TotalGetScoreField.Equals(value) != true)) {
+                    this.TotalGetScoreField = value;
+                    this.RaisePropertyChanged("TotalGetScore");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitHSSEMan {
+            get {
+                return this.UnitHSSEManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitHSSEManField, value) != true)) {
+                    this.UnitHSSEManField = value;
+                    this.RaisePropertyChanged("UnitHSSEMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitHSSEManTel {
+            get {
+                return this.UnitHSSEManTelField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitHSSEManTelField, value) != true)) {
+                    this.UnitHSSEManTelField = value;
+                    this.RaisePropertyChanged("UnitHSSEManTel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitMan {
+            get {
+                return this.UnitManField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitManField, value) != true)) {
+                    this.UnitManField = value;
+                    this.RaisePropertyChanged("UnitMan");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitManTel {
+            get {
+                return this.UnitManTelField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitManTelField, value) != true)) {
+                    this.UnitManTelField = value;
+                    this.RaisePropertyChanged("UnitManTel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UpCheckReportId {
+            get {
+                return this.UpCheckReportIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UpCheckReportIdField, value) != true)) {
+                    this.UpCheckReportIdField = value;
+                    this.RaisePropertyChanged("UpCheckReportId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UpCheckReportItem2Id {
+            get {
+                return this.UpCheckReportItem2IdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UpCheckReportItem2IdField, value) != true)) {
+                    this.UpCheckReportItem2IdField = value;
+                    this.RaisePropertyChanged("UpCheckReportItem2Id");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="HSSESystem_HSSEOrganize", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class HSSESystem_HSSEOrganize : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SeeFileField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SeeFile {
+            get {
+                return this.SeeFileField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SeeFileField, value) != true)) {
+                    this.SeeFileField = value;
+                    this.RaisePropertyChanged("SeeFile");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Sys_SubUnitLog", Namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService")]
+    [System.SerializableAttribute()]
+    public partial class Sys_SubUnitLog : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HostNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IpField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LogIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<byte> LogSourceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MenuIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OperationLogField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OperationNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> OperationTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProjectNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UnitIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UserNameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HostName {
+            get {
+                return this.HostNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HostNameField, value) != true)) {
+                    this.HostNameField = value;
+                    this.RaisePropertyChanged("HostName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Ip {
+            get {
+                return this.IpField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IpField, value) != true)) {
+                    this.IpField = value;
+                    this.RaisePropertyChanged("Ip");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LogId {
+            get {
+                return this.LogIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LogIdField, value) != true)) {
+                    this.LogIdField = value;
+                    this.RaisePropertyChanged("LogId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<byte> LogSource {
+            get {
+                return this.LogSourceField;
+            }
+            set {
+                if ((this.LogSourceField.Equals(value) != true)) {
+                    this.LogSourceField = value;
+                    this.RaisePropertyChanged("LogSource");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MenuId {
+            get {
+                return this.MenuIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MenuIdField, value) != true)) {
+                    this.MenuIdField = value;
+                    this.RaisePropertyChanged("MenuId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OperationLog {
+            get {
+                return this.OperationLogField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OperationLogField, value) != true)) {
+                    this.OperationLogField = value;
+                    this.RaisePropertyChanged("OperationLog");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OperationName {
+            get {
+                return this.OperationNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OperationNameField, value) != true)) {
+                    this.OperationNameField = value;
+                    this.RaisePropertyChanged("OperationName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> OperationTime {
+            get {
+                return this.OperationTimeField;
+            }
+            set {
+                if ((this.OperationTimeField.Equals(value) != true)) {
+                    this.OperationTimeField = value;
+                    this.RaisePropertyChanged("OperationTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ProjectName {
+            get {
+                return this.ProjectNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProjectNameField, value) != true)) {
+                    this.ProjectNameField = value;
+                    this.RaisePropertyChanged("ProjectName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UnitId {
+            get {
+                return this.UnitIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitIdField, value) != true)) {
+                    this.UnitIdField = value;
+                    this.RaisePropertyChanged("UnitId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UserName {
+            get {
+                return this.UserNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UserNameField, value) != true)) {
+                    this.UserNameField = value;
+                    this.RaisePropertyChanged("UserName");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(Namespace="http://www.localhost.com", ConfigurationName="HSSEService.HSSEService")]
     public interface HSSEService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetSys_VersionToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetSys_VersionToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Sys_Version> GetSys_VersionToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Sys_Version> GetSys_VersionToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetSys_VersionToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetSys_VersionToSUBResponse")]
         System.IAsyncResult BeginGetSys_VersionToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Sys_Version> EndGetSys_VersionToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Sys_Version> EndGetSys_VersionToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetBase_UnitToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetBase_UnitToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Base_Unit> GetBase_UnitToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Base_Unit> GetBase_UnitToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetBase_UnitToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetBase_UnitToSUBResponse")]
         System.IAsyncResult BeginGetBase_UnitToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Base_Unit> EndGetBase_UnitToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Base_Unit> EndGetBase_UnitToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetInformation_UrgeReportToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetInformation_UrgeReportToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Information_UrgeReport> GetInformation_UrgeReportToSUB(string unitId);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_UrgeReport> GetInformation_UrgeReportToSUB(string unitId);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetInformation_UrgeReportToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetInformation_UrgeReportToSUBResponse")]
         System.IAsyncResult BeginGetInformation_UrgeReportToSUB(string unitId, System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Information_UrgeReport> EndGetInformation_UrgeReportToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_UrgeReport> EndGetInformation_UrgeReportToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetLaw_LawRegulationListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetLaw_LawRegulationListToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Law_LawRegulationList> GetLaw_LawRegulationListToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_LawRegulationList> GetLaw_LawRegulationListToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetLaw_LawRegulationListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetLaw_LawRegulationListToSUBResponse")]
         System.IAsyncResult BeginGetLaw_LawRegulationListToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Law_LawRegulationList> EndGetLaw_LawRegulationListToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_LawRegulationList> EndGetLaw_LawRegulationListToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetLaw_HSSEStandardsListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetLaw_HSSEStandardsListToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Law_HSSEStandardsList> GetLaw_HSSEStandardsListToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_HSSEStandardsList> GetLaw_HSSEStandardsListToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetLaw_HSSEStandardsListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetLaw_HSSEStandardsListToSUBResponse")]
         System.IAsyncResult BeginGetLaw_HSSEStandardsListToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Law_HSSEStandardsList> EndGetLaw_HSSEStandardsListToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_HSSEStandardsList> EndGetLaw_HSSEStandardsListToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetLaw_RulesRegulationsToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetLaw_RulesRegulationsToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Law_RulesRegulations> GetLaw_RulesRegulationsToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_RulesRegulations> GetLaw_RulesRegulationsToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetLaw_RulesRegulationsToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetLaw_RulesRegulationsToSUBResponse")]
         System.IAsyncResult BeginGetLaw_RulesRegulationsToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Law_RulesRegulations> EndGetLaw_RulesRegulationsToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_RulesRegulations> EndGetLaw_RulesRegulationsToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetLaw_ManageRuleToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetLaw_ManageRuleToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Law_ManageRule> GetLaw_ManageRuleToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_ManageRule> GetLaw_ManageRuleToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetLaw_ManageRuleToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetLaw_ManageRuleToSUBResponse")]
         System.IAsyncResult BeginGetLaw_ManageRuleToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Law_ManageRule> EndGetLaw_ManageRuleToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_ManageRule> EndGetLaw_ManageRuleToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetTechnique_HAZOPToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTechnique_HAZOPToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Technique_HAZOP> GetTechnique_HAZOPToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HAZOP> GetTechnique_HAZOPToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetTechnique_HAZOPToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTechnique_HAZOPToSUBResponse")]
         System.IAsyncResult BeginGetTechnique_HAZOPToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Technique_HAZOP> EndGetTechnique_HAZOPToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HAZOP> EndGetTechnique_HAZOPToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetTechnique_AppraiseToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTechnique_AppraiseToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Technique_Appraise> GetTechnique_AppraiseToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Appraise> GetTechnique_AppraiseToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetTechnique_AppraiseToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTechnique_AppraiseToSUBResponse")]
         System.IAsyncResult BeginGetTechnique_AppraiseToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Technique_Appraise> EndGetTechnique_AppraiseToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Appraise> EndGetTechnique_AppraiseToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetTechnique_EmergencyToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTechnique_EmergencyToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Technique_Emergency> GetTechnique_EmergencyToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Emergency> GetTechnique_EmergencyToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetTechnique_EmergencyToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTechnique_EmergencyToSUBResponse")]
         System.IAsyncResult BeginGetTechnique_EmergencyToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Technique_Emergency> EndGetTechnique_EmergencyToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Emergency> EndGetTechnique_EmergencyToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetTechnique_SpecialSchemeToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTechnique_SpecialSchemeToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Technique_SpecialScheme> GetTechnique_SpecialSchemeToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_SpecialScheme> GetTechnique_SpecialSchemeToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetTechnique_SpecialSchemeToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTechnique_SpecialSchemeToSUBResponse")]
         System.IAsyncResult BeginGetTechnique_SpecialSchemeToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Technique_SpecialScheme> EndGetTechnique_SpecialSchemeToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_SpecialScheme> EndGetTechnique_SpecialSchemeToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetTraining_TrainingListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTraining_TrainingListToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Training_Training> GetTraining_TrainingListToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_Training> GetTraining_TrainingListToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetTraining_TrainingListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTraining_TrainingListToSUBResponse")]
         System.IAsyncResult BeginGetTraining_TrainingListToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Training_Training> EndGetTraining_TrainingListToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_Training> EndGetTraining_TrainingListToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetTraining_TrainingItemListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTraining_TrainingItemListToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Training_TrainingItem> GetTraining_TrainingItemListToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainingItem> GetTraining_TrainingItemListToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetTraining_TrainingItemListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTraining_TrainingItemListToSUBResponse")]
         System.IAsyncResult BeginGetTraining_TrainingItemListToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Training_TrainingItem> EndGetTraining_TrainingItemListToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainingItem> EndGetTraining_TrainingItemListToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetTraining_TrainTestDBListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTraining_TrainTestDBListToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDB> GetTraining_TrainTestDBListToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDB> GetTraining_TrainTestDBListToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetTraining_TrainTestDBListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTraining_TrainTestDBListToSUBResponse")]
         System.IAsyncResult BeginGetTraining_TrainTestDBListToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDB> EndGetTraining_TrainTestDBListToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDB> EndGetTraining_TrainTestDBListToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetTraining_TrainTestDBItemListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTraining_TrainTestDBItemListToSUBResponse" +
             "")]
-        System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDBItem> GetTraining_TrainTestDBItemListToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDBItem> GetTraining_TrainTestDBItemListToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetTraining_TrainTestDBItemListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTraining_TrainTestDBItemListToSUBResponse" +
             "")]
         System.IAsyncResult BeginGetTraining_TrainTestDBItemListToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDBItem> EndGetTraining_TrainTestDBItemListToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDBItem> EndGetTraining_TrainTestDBItemListToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetEduTrain_AccidentCaseListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetEduTrain_AccidentCaseListToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCase> GetEduTrain_AccidentCaseListToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCase> GetEduTrain_AccidentCaseListToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetEduTrain_AccidentCaseListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetEduTrain_AccidentCaseListToSUBResponse")]
         System.IAsyncResult BeginGetEduTrain_AccidentCaseListToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCase> EndGetEduTrain_AccidentCaseListToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCase> EndGetEduTrain_AccidentCaseListToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetEduTrain_AccidentCaseItemListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetEduTrain_AccidentCaseItemListToSUBRespons" +
             "e")]
-        System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCaseItem> GetEduTrain_AccidentCaseItemListToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCaseItem> GetEduTrain_AccidentCaseItemListToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetEduTrain_AccidentCaseItemListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetEduTrain_AccidentCaseItemListToSUBRespons" +
             "e")]
         System.IAsyncResult BeginGetEduTrain_AccidentCaseItemListToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCaseItem> EndGetEduTrain_AccidentCaseItemListToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCaseItem> EndGetEduTrain_AccidentCaseItemListToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetTraining_KnowledgeListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTraining_KnowledgeListToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Training_Knowledge> GetTraining_KnowledgeListToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_Knowledge> GetTraining_KnowledgeListToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetTraining_KnowledgeListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTraining_KnowledgeListToSUBResponse")]
         System.IAsyncResult BeginGetTraining_KnowledgeListToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Training_Knowledge> EndGetTraining_KnowledgeListToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_Knowledge> EndGetTraining_KnowledgeListToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetTraining_KnowledgeItemListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTraining_KnowledgeItemListToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Training_KnowledgeItem> GetTraining_KnowledgeItemListToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_KnowledgeItem> GetTraining_KnowledgeItemListToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetTraining_KnowledgeItemListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTraining_KnowledgeItemListToSUBResponse")]
         System.IAsyncResult BeginGetTraining_KnowledgeItemListToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Training_KnowledgeItem> EndGetTraining_KnowledgeItemListToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_KnowledgeItem> EndGetTraining_KnowledgeItemListToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetTechnique_HazardListTypeListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTechnique_HazardListTypeListToSUBResponse" +
             "")]
-        System.Collections.Generic.List<BLL.HSSEService.Technique_HazardListType> GetTechnique_HazardListTypeListToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardListType> GetTechnique_HazardListTypeListToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetTechnique_HazardListTypeListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTechnique_HazardListTypeListToSUBResponse" +
             "")]
         System.IAsyncResult BeginGetTechnique_HazardListTypeListToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Technique_HazardListType> EndGetTechnique_HazardListTypeListToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardListType> EndGetTechnique_HazardListTypeListToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetTechnique_HazardListListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTechnique_HazardListListToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Technique_HazardList> GetTechnique_HazardListListToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardList> GetTechnique_HazardListListToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetTechnique_HazardListListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTechnique_HazardListListToSUBResponse")]
         System.IAsyncResult BeginGetTechnique_HazardListListToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Technique_HazardList> EndGetTechnique_HazardListListToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardList> EndGetTechnique_HazardListListToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetTechnique_RectifyListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTechnique_RectifyListToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Technique_Rectify> GetTechnique_RectifyListToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Rectify> GetTechnique_RectifyListToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetTechnique_RectifyListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTechnique_RectifyListToSUBResponse")]
         System.IAsyncResult BeginGetTechnique_RectifyListToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Technique_Rectify> EndGetTechnique_RectifyListToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Rectify> EndGetTechnique_RectifyListToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetTechnique_RectifyItemListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTechnique_RectifyItemListToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Technique_RectifyItem> GetTechnique_RectifyItemListToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_RectifyItem> GetTechnique_RectifyItemListToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetTechnique_RectifyItemListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTechnique_RectifyItemListToSUBResponse")]
         System.IAsyncResult BeginGetTechnique_RectifyItemListToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Technique_RectifyItem> EndGetTechnique_RectifyItemListToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_RectifyItem> EndGetTechnique_RectifyItemListToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetTechnique_ExpertListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTechnique_ExpertListToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Technique_Expert> GetTechnique_ExpertListToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Expert> GetTechnique_ExpertListToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetTechnique_ExpertListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetTechnique_ExpertListToSUBResponse")]
         System.IAsyncResult BeginGetTechnique_ExpertListToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Technique_Expert> EndGetTechnique_ExpertListToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Expert> EndGetTechnique_ExpertListToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetSupervise_SuperviseCheckRectifyListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetSupervise_SuperviseCheckRectifyListToSUBR" +
             "esponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Supervise_SuperviseCheckRectify> GetSupervise_SuperviseCheckRectifyListToSUB(string unitId);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SuperviseCheckRectify> GetSupervise_SuperviseCheckRectifyListToSUB(string unitId);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetSupervise_SuperviseCheckRectifyListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetSupervise_SuperviseCheckRectifyListToSUBR" +
             "esponse")]
         System.IAsyncResult BeginGetSupervise_SuperviseCheckRectifyListToSUB(string unitId, System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Supervise_SuperviseCheckRectify> EndGetSupervise_SuperviseCheckRectifyListToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SuperviseCheckRectify> EndGetSupervise_SuperviseCheckRectifyListToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetSupervise_SubUnitReportListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetSupervise_SubUnitReportListToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReport> GetSupervise_SubUnitReportListToSUB();
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReport> GetSupervise_SubUnitReportListToSUB();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetSupervise_SubUnitReportListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetSupervise_SubUnitReportListToSUBResponse")]
         System.IAsyncResult BeginGetSupervise_SubUnitReportListToSUB(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReport> EndGetSupervise_SubUnitReportListToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReport> EndGetSupervise_SubUnitReportListToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetSupervise_SubUnitReportItemListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetSupervise_SubUnitReportItemListToSUBRespo" +
             "nse")]
-        System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReportItem> GetSupervise_SubUnitReportItemListToSUB(string unitId);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReportItem> GetSupervise_SubUnitReportItemListToSUB(string unitId);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetSupervise_SubUnitReportItemListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetSupervise_SubUnitReportItemListToSUBRespo" +
             "nse")]
         System.IAsyncResult BeginGetSupervise_SubUnitReportItemListToSUB(string unitId, System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReportItem> EndGetSupervise_SubUnitReportItemListToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReportItem> EndGetSupervise_SubUnitReportItemListToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetCheck_CheckRectifyListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetCheck_CheckRectifyListToSUBResponse")]
-        System.Collections.Generic.List<BLL.HSSEService.Check_CheckRectify> GetCheck_CheckRectifyListToSUB(string unitId);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckRectify> GetCheck_CheckRectifyListToSUB(string unitId);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetCheck_CheckRectifyListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetCheck_CheckRectifyListToSUBResponse")]
         System.IAsyncResult BeginGetCheck_CheckRectifyListToSUB(string unitId, System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Check_CheckRectify> EndGetCheck_CheckRectifyListToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckRectify> EndGetCheck_CheckRectifyListToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/GetCheck_CheckInfo_Table8ItemListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetCheck_CheckInfo_Table8ItemListToSUBRespon" +
             "se")]
-        System.Collections.Generic.List<BLL.HSSEService.Check_CheckInfo_Table8Item> GetCheck_CheckInfo_Table8ItemListToSUB(string unitId);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckInfo_Table8Item> GetCheck_CheckInfo_Table8ItemListToSUB(string unitId);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/GetCheck_CheckInfo_Table8ItemListToSUB", ReplyAction="http://www.localhost.com/HSSEService/GetCheck_CheckInfo_Table8ItemListToSUBRespon" +
             "se")]
         System.IAsyncResult BeginGetCheck_CheckInfo_Table8ItemListToSUB(string unitId, System.AsyncCallback callback, object asyncState);
         
-        System.Collections.Generic.List<BLL.HSSEService.Check_CheckInfo_Table8Item> EndGetCheck_CheckInfo_Table8ItemListToSUB(System.IAsyncResult result);
+        System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckInfo_Table8Item> EndGetCheck_CheckInfo_Table8ItemListToSUB(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertLaw_LawRegulationListTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertLaw_LawRegulationListTableResponse" +
             "")]
-        System.Collections.Generic.List<string> DataInsertLaw_LawRegulationListTable(System.Collections.Generic.List<BLL.HSSEService.Law_LawRegulationList> lawRegulationList);
+        System.Collections.Generic.List<string> DataInsertLaw_LawRegulationListTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_LawRegulationList> lawRegulationList);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertLaw_LawRegulationListTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertLaw_LawRegulationListTableResponse" +
             "")]
-        System.IAsyncResult BeginDataInsertLaw_LawRegulationListTable(System.Collections.Generic.List<BLL.HSSEService.Law_LawRegulationList> lawRegulationList, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertLaw_LawRegulationListTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_LawRegulationList> lawRegulationList, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertLaw_LawRegulationListTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertLaw_HSSEStandardsListTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertLaw_HSSEStandardsListTableResponse" +
             "")]
-        System.Collections.Generic.List<string> DataInsertLaw_HSSEStandardsListTable(System.Collections.Generic.List<BLL.HSSEService.Law_HSSEStandardsList> hsseStandardsList);
+        System.Collections.Generic.List<string> DataInsertLaw_HSSEStandardsListTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_HSSEStandardsList> hsseStandardsList);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertLaw_HSSEStandardsListTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertLaw_HSSEStandardsListTableResponse" +
             "")]
-        System.IAsyncResult BeginDataInsertLaw_HSSEStandardsListTable(System.Collections.Generic.List<BLL.HSSEService.Law_HSSEStandardsList> hsseStandardsList, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertLaw_HSSEStandardsListTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_HSSEStandardsList> hsseStandardsList, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertLaw_HSSEStandardsListTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertLaw_RulesRegulationsTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertLaw_RulesRegulationsTableResponse")]
-        System.Collections.Generic.List<string> DataInsertLaw_RulesRegulationsTable(System.Collections.Generic.List<BLL.HSSEService.Law_RulesRegulations> rulesRegulations);
+        System.Collections.Generic.List<string> DataInsertLaw_RulesRegulationsTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_RulesRegulations> rulesRegulations);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertLaw_RulesRegulationsTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertLaw_RulesRegulationsTableResponse")]
-        System.IAsyncResult BeginDataInsertLaw_RulesRegulationsTable(System.Collections.Generic.List<BLL.HSSEService.Law_RulesRegulations> rulesRegulations, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertLaw_RulesRegulationsTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_RulesRegulations> rulesRegulations, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertLaw_RulesRegulationsTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertLaw_ManageRuleTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertLaw_ManageRuleTableResponse")]
-        System.Collections.Generic.List<string> DataInsertLaw_ManageRuleTable(System.Collections.Generic.List<BLL.HSSEService.Law_ManageRule> manageRule);
+        System.Collections.Generic.List<string> DataInsertLaw_ManageRuleTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_ManageRule> manageRule);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertLaw_ManageRuleTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertLaw_ManageRuleTableResponse")]
-        System.IAsyncResult BeginDataInsertLaw_ManageRuleTable(System.Collections.Generic.List<BLL.HSSEService.Law_ManageRule> manageRule, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertLaw_ManageRuleTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_ManageRule> manageRule, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertLaw_ManageRuleTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertTechnique_HAZOPTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertTechnique_HAZOPTableResponse")]
-        System.Collections.Generic.List<string> DataInsertTechnique_HAZOPTable(System.Collections.Generic.List<BLL.HSSEService.Technique_HAZOP> hazop);
+        System.Collections.Generic.List<string> DataInsertTechnique_HAZOPTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HAZOP> hazop);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertTechnique_HAZOPTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertTechnique_HAZOPTableResponse")]
-        System.IAsyncResult BeginDataInsertTechnique_HAZOPTable(System.Collections.Generic.List<BLL.HSSEService.Technique_HAZOP> hazop, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertTechnique_HAZOPTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HAZOP> hazop, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertTechnique_HAZOPTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertTechnique_AppraiseTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertTechnique_AppraiseTableResponse")]
-        System.Collections.Generic.List<string> DataInsertTechnique_AppraiseTable(System.Collections.Generic.List<BLL.HSSEService.Technique_Appraise> appraise);
+        System.Collections.Generic.List<string> DataInsertTechnique_AppraiseTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Appraise> appraise);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertTechnique_AppraiseTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertTechnique_AppraiseTableResponse")]
-        System.IAsyncResult BeginDataInsertTechnique_AppraiseTable(System.Collections.Generic.List<BLL.HSSEService.Technique_Appraise> appraise, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertTechnique_AppraiseTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Appraise> appraise, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertTechnique_AppraiseTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertTechnique_EmergencyTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertTechnique_EmergencyTableResponse")]
-        System.Collections.Generic.List<string> DataInsertTechnique_EmergencyTable(System.Collections.Generic.List<BLL.HSSEService.Technique_Emergency> emergency);
+        System.Collections.Generic.List<string> DataInsertTechnique_EmergencyTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Emergency> emergency);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertTechnique_EmergencyTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertTechnique_EmergencyTableResponse")]
-        System.IAsyncResult BeginDataInsertTechnique_EmergencyTable(System.Collections.Generic.List<BLL.HSSEService.Technique_Emergency> emergency, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertTechnique_EmergencyTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Emergency> emergency, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertTechnique_EmergencyTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertTechnique_SpecialSchemeTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertTechnique_SpecialSchemeTableRespon" +
             "se")]
-        System.Collections.Generic.List<string> DataInsertTechnique_SpecialSchemeTable(System.Collections.Generic.List<BLL.HSSEService.Technique_SpecialScheme> specialScheme);
+        System.Collections.Generic.List<string> DataInsertTechnique_SpecialSchemeTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_SpecialScheme> specialScheme);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertTechnique_SpecialSchemeTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertTechnique_SpecialSchemeTableRespon" +
             "se")]
-        System.IAsyncResult BeginDataInsertTechnique_SpecialSchemeTable(System.Collections.Generic.List<BLL.HSSEService.Technique_SpecialScheme> specialScheme, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertTechnique_SpecialSchemeTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_SpecialScheme> specialScheme, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertTechnique_SpecialSchemeTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertInformation_AccidentCauseReportTab" +
             "le", ReplyAction="http://www.localhost.com/HSSEService/DataInsertInformation_AccidentCauseReportTab" +
             "leResponse")]
-        System.Collections.Generic.List<string> DataInsertInformation_AccidentCauseReportTable(System.Collections.Generic.List<BLL.HSSEService.Information_AccidentCauseReport> accidentCauseReportList, System.Collections.Generic.List<BLL.HSSEService.Information_AccidentCauseReportItem> accidentCauseReportItemList);
+        System.Collections.Generic.List<string> DataInsertInformation_AccidentCauseReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_AccidentCauseReport> accidentCauseReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_AccidentCauseReportItem> accidentCauseReportItemList);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertInformation_AccidentCauseReportTab" +
             "le", ReplyAction="http://www.localhost.com/HSSEService/DataInsertInformation_AccidentCauseReportTab" +
             "leResponse")]
-        System.IAsyncResult BeginDataInsertInformation_AccidentCauseReportTable(System.Collections.Generic.List<BLL.HSSEService.Information_AccidentCauseReport> accidentCauseReportList, System.Collections.Generic.List<BLL.HSSEService.Information_AccidentCauseReportItem> accidentCauseReportItemList, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertInformation_AccidentCauseReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_AccidentCauseReport> accidentCauseReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_AccidentCauseReportItem> accidentCauseReportItemList, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertInformation_AccidentCauseReportTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertInformation_DrillConductedQuarterl" +
             "yReportTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertInformation_DrillConductedQuarterl" +
             "yReportTableResponse")]
-        System.Collections.Generic.List<string> DataInsertInformation_DrillConductedQuarterlyReportTable(System.Collections.Generic.List<BLL.HSSEService.Information_DrillConductedQuarterlyReport> drillConductedQuarterlyReportList, System.Collections.Generic.List<BLL.HSSEService.Information_DrillConductedQuarterlyReportItem> drillConductedQuarterlyReportItemList);
+        System.Collections.Generic.List<string> DataInsertInformation_DrillConductedQuarterlyReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillConductedQuarterlyReport> drillConductedQuarterlyReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillConductedQuarterlyReportItem> drillConductedQuarterlyReportItemList);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertInformation_DrillConductedQuarterl" +
             "yReportTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertInformation_DrillConductedQuarterl" +
             "yReportTableResponse")]
-        System.IAsyncResult BeginDataInsertInformation_DrillConductedQuarterlyReportTable(System.Collections.Generic.List<BLL.HSSEService.Information_DrillConductedQuarterlyReport> drillConductedQuarterlyReportList, System.Collections.Generic.List<BLL.HSSEService.Information_DrillConductedQuarterlyReportItem> drillConductedQuarterlyReportItemList, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertInformation_DrillConductedQuarterlyReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillConductedQuarterlyReport> drillConductedQuarterlyReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillConductedQuarterlyReportItem> drillConductedQuarterlyReportItemList, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertInformation_DrillConductedQuarterlyReportTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertInformation_DrillPlanHalfYearRepor" +
             "tTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertInformation_DrillPlanHalfYearRepor" +
             "tTableResponse")]
-        System.Collections.Generic.List<string> DataInsertInformation_DrillPlanHalfYearReportTable(System.Collections.Generic.List<BLL.HSSEService.Information_DrillPlanHalfYearReport> drillPlanHalfYearReportList, System.Collections.Generic.List<BLL.HSSEService.Information_DrillPlanHalfYearReportItem> drillPlanHalfYearReportItemList);
+        System.Collections.Generic.List<string> DataInsertInformation_DrillPlanHalfYearReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillPlanHalfYearReport> drillPlanHalfYearReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillPlanHalfYearReportItem> drillPlanHalfYearReportItemList);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertInformation_DrillPlanHalfYearRepor" +
             "tTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertInformation_DrillPlanHalfYearRepor" +
             "tTableResponse")]
-        System.IAsyncResult BeginDataInsertInformation_DrillPlanHalfYearReportTable(System.Collections.Generic.List<BLL.HSSEService.Information_DrillPlanHalfYearReport> drillPlanHalfYearReportList, System.Collections.Generic.List<BLL.HSSEService.Information_DrillPlanHalfYearReportItem> drillPlanHalfYearReportItemList, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertInformation_DrillPlanHalfYearReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillPlanHalfYearReport> drillPlanHalfYearReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillPlanHalfYearReportItem> drillPlanHalfYearReportItemList, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertInformation_DrillPlanHalfYearReportTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertInformation_MillionsMonthlyReportT" +
             "able", ReplyAction="http://www.localhost.com/HSSEService/DataInsertInformation_MillionsMonthlyReportT" +
             "ableResponse")]
-        System.Collections.Generic.List<string> DataInsertInformation_MillionsMonthlyReportTable(System.Collections.Generic.List<BLL.HSSEService.Information_MillionsMonthlyReport> millionsMonthlyReportList, System.Collections.Generic.List<BLL.HSSEService.Information_MillionsMonthlyReportItem> millionsMonthlyReportItemList);
+        System.Collections.Generic.List<string> DataInsertInformation_MillionsMonthlyReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_MillionsMonthlyReport> millionsMonthlyReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_MillionsMonthlyReportItem> millionsMonthlyReportItemList);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertInformation_MillionsMonthlyReportT" +
             "able", ReplyAction="http://www.localhost.com/HSSEService/DataInsertInformation_MillionsMonthlyReportT" +
             "ableResponse")]
-        System.IAsyncResult BeginDataInsertInformation_MillionsMonthlyReportTable(System.Collections.Generic.List<BLL.HSSEService.Information_MillionsMonthlyReport> millionsMonthlyReportList, System.Collections.Generic.List<BLL.HSSEService.Information_MillionsMonthlyReportItem> millionsMonthlyReportItemList, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertInformation_MillionsMonthlyReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_MillionsMonthlyReport> millionsMonthlyReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_MillionsMonthlyReportItem> millionsMonthlyReportItemList, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertInformation_MillionsMonthlyReportTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertInformation_SafetyQuarterlyReportT" +
             "able", ReplyAction="http://www.localhost.com/HSSEService/DataInsertInformation_SafetyQuarterlyReportT" +
             "ableResponse")]
-        System.Collections.Generic.List<string> DataInsertInformation_SafetyQuarterlyReportTable(System.Collections.Generic.List<BLL.HSSEService.Information_SafetyQuarterlyReport> safetyQuarterlyReportList);
+        System.Collections.Generic.List<string> DataInsertInformation_SafetyQuarterlyReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_SafetyQuarterlyReport> safetyQuarterlyReportList);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertInformation_SafetyQuarterlyReportT" +
             "able", ReplyAction="http://www.localhost.com/HSSEService/DataInsertInformation_SafetyQuarterlyReportT" +
             "ableResponse")]
-        System.IAsyncResult BeginDataInsertInformation_SafetyQuarterlyReportTable(System.Collections.Generic.List<BLL.HSSEService.Information_SafetyQuarterlyReport> safetyQuarterlyReportList, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertInformation_SafetyQuarterlyReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_SafetyQuarterlyReport> safetyQuarterlyReportList, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertInformation_SafetyQuarterlyReportTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertTraining_TrainingItemTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertTraining_TrainingItemTableResponse" +
             "")]
-        System.Collections.Generic.List<string> DataInsertTraining_TrainingItemTable(System.Collections.Generic.List<BLL.HSSEService.Training_TrainingItem> trainingItem);
+        System.Collections.Generic.List<string> DataInsertTraining_TrainingItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainingItem> trainingItem);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertTraining_TrainingItemTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertTraining_TrainingItemTableResponse" +
             "")]
-        System.IAsyncResult BeginDataInsertTraining_TrainingItemTable(System.Collections.Generic.List<BLL.HSSEService.Training_TrainingItem> trainingItem, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertTraining_TrainingItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainingItem> trainingItem, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertTraining_TrainingItemTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertTraining_TrainTestDBItemTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertTraining_TrainTestDBItemTableRespo" +
             "nse")]
-        System.Collections.Generic.List<string> DataInsertTraining_TrainTestDBItemTable(System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDBItem> trainTestDBItem);
+        System.Collections.Generic.List<string> DataInsertTraining_TrainTestDBItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDBItem> trainTestDBItem);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertTraining_TrainTestDBItemTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertTraining_TrainTestDBItemTableRespo" +
             "nse")]
-        System.IAsyncResult BeginDataInsertTraining_TrainTestDBItemTable(System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDBItem> trainTestDBItem, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertTraining_TrainTestDBItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDBItem> trainTestDBItem, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertTraining_TrainTestDBItemTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertEduTrain_AccidentCaseItemTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertEduTrain_AccidentCaseItemTableResp" +
             "onse")]
-        System.Collections.Generic.List<string> DataInsertEduTrain_AccidentCaseItemTable(System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCaseItem> accidentCaseItem);
+        System.Collections.Generic.List<string> DataInsertEduTrain_AccidentCaseItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCaseItem> accidentCaseItem);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertEduTrain_AccidentCaseItemTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertEduTrain_AccidentCaseItemTableResp" +
             "onse")]
-        System.IAsyncResult BeginDataInsertEduTrain_AccidentCaseItemTable(System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCaseItem> accidentCaseItem, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertEduTrain_AccidentCaseItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCaseItem> accidentCaseItem, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertEduTrain_AccidentCaseItemTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertTraining_KnowledgeItemTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertTraining_KnowledgeItemTableRespons" +
             "e")]
-        System.Collections.Generic.List<string> DataInsertTraining_KnowledgeItemTable(System.Collections.Generic.List<BLL.HSSEService.Training_KnowledgeItem> knowledgeItem);
+        System.Collections.Generic.List<string> DataInsertTraining_KnowledgeItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_KnowledgeItem> knowledgeItem);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertTraining_KnowledgeItemTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertTraining_KnowledgeItemTableRespons" +
             "e")]
-        System.IAsyncResult BeginDataInsertTraining_KnowledgeItemTable(System.Collections.Generic.List<BLL.HSSEService.Training_KnowledgeItem> knowledgeItem, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertTraining_KnowledgeItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_KnowledgeItem> knowledgeItem, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertTraining_KnowledgeItemTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertTechnique_HazardListTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertTechnique_HazardListTableResponse")]
-        System.Collections.Generic.List<string> DataInsertTechnique_HazardListTable(System.Collections.Generic.List<BLL.HSSEService.Technique_HazardList> hazardList);
+        System.Collections.Generic.List<string> DataInsertTechnique_HazardListTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardList> hazardList);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertTechnique_HazardListTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertTechnique_HazardListTableResponse")]
-        System.IAsyncResult BeginDataInsertTechnique_HazardListTable(System.Collections.Generic.List<BLL.HSSEService.Technique_HazardList> hazardList, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertTechnique_HazardListTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardList> hazardList, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertTechnique_HazardListTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertTechnique_RectifyItemTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertTechnique_RectifyItemTableResponse" +
             "")]
-        System.Collections.Generic.List<string> DataInsertTechnique_RectifyItemTable(System.Collections.Generic.List<BLL.HSSEService.Technique_RectifyItem> rectifyItem);
+        System.Collections.Generic.List<string> DataInsertTechnique_RectifyItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_RectifyItem> rectifyItem);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertTechnique_RectifyItemTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertTechnique_RectifyItemTableResponse" +
             "")]
-        System.IAsyncResult BeginDataInsertTechnique_RectifyItemTable(System.Collections.Generic.List<BLL.HSSEService.Technique_RectifyItem> rectifyItem, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertTechnique_RectifyItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_RectifyItem> rectifyItem, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertTechnique_RectifyItemTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertTechnique_ExpertTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertTechnique_ExpertTableResponse")]
-        System.Collections.Generic.List<string> DataInsertTechnique_ExpertTable(System.Collections.Generic.List<BLL.HSSEService.Technique_Expert> expert);
+        System.Collections.Generic.List<string> DataInsertTechnique_ExpertTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Expert> expert);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertTechnique_ExpertTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertTechnique_ExpertTableResponse")]
-        System.IAsyncResult BeginDataInsertTechnique_ExpertTable(System.Collections.Generic.List<BLL.HSSEService.Technique_Expert> expert, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertTechnique_ExpertTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Expert> expert, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertTechnique_ExpertTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertSupervise_SuperviseCheckRectifyTab" +
             "le", ReplyAction="http://www.localhost.com/HSSEService/DataInsertSupervise_SuperviseCheckRectifyTab" +
             "leResponse")]
-        System.Collections.Generic.List<string> DataInsertSupervise_SuperviseCheckRectifyTable(System.Collections.Generic.List<BLL.HSSEService.Supervise_SuperviseCheckRectify> superviseCheckRectify);
+        System.Collections.Generic.List<string> DataInsertSupervise_SuperviseCheckRectifyTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SuperviseCheckRectify> superviseCheckRectify);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertSupervise_SuperviseCheckRectifyTab" +
             "le", ReplyAction="http://www.localhost.com/HSSEService/DataInsertSupervise_SuperviseCheckRectifyTab" +
             "leResponse")]
-        System.IAsyncResult BeginDataInsertSupervise_SuperviseCheckRectifyTable(System.Collections.Generic.List<BLL.HSSEService.Supervise_SuperviseCheckRectify> superviseCheckRectify, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertSupervise_SuperviseCheckRectifyTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SuperviseCheckRectify> superviseCheckRectify, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertSupervise_SuperviseCheckRectifyTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertHSSESystem_HSSEManageItemTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertHSSESystem_HSSEManageItemTableResp" +
             "onse")]
-        System.Collections.Generic.List<string> DataInsertHSSESystem_HSSEManageItemTable(System.Collections.Generic.List<BLL.HSSEService.HSSESystem_HSSEManageItem> HSSEManageItem);
+        System.Collections.Generic.List<string> DataInsertHSSESystem_HSSEManageItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.HSSESystem_HSSEManageItem> HSSEManageItem);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertHSSESystem_HSSEManageItemTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertHSSESystem_HSSEManageItemTableResp" +
             "onse")]
-        System.IAsyncResult BeginDataInsertHSSESystem_HSSEManageItemTable(System.Collections.Generic.List<BLL.HSSEService.HSSESystem_HSSEManageItem> HSSEManageItem, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertHSSESystem_HSSEManageItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.HSSESystem_HSSEManageItem> HSSEManageItem, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertHSSESystem_HSSEManageItemTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertSupervise_UpCheckReportTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertSupervise_UpCheckReportTableRespon" +
             "se")]
-        System.Collections.Generic.List<string> DataInsertSupervise_UpCheckReportTable(System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReport> upCheckReport, System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReportItem> upCheckReportItem, System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReportItem2> upCheckReportItem2);
+        System.Collections.Generic.List<string> DataInsertSupervise_UpCheckReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReport> upCheckReport, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReportItem> upCheckReportItem, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReportItem2> upCheckReportItem2);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertSupervise_UpCheckReportTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertSupervise_UpCheckReportTableRespon" +
             "se")]
-        System.IAsyncResult BeginDataInsertSupervise_UpCheckReportTable(System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReport> upCheckReport, System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReportItem> upCheckReportItem, System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReportItem2> upCheckReportItem2, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertSupervise_UpCheckReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReport> upCheckReport, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReportItem> upCheckReportItem, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReportItem2> upCheckReportItem2, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertSupervise_UpCheckReportTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertSupervise_SubUnitReportItemItemTab" +
             "le", ReplyAction="http://www.localhost.com/HSSEService/DataInsertSupervise_SubUnitReportItemItemTab" +
             "leResponse")]
-        System.Collections.Generic.List<string> DataInsertSupervise_SubUnitReportItemItemTable(System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReportItem> subUnitReportItem);
+        System.Collections.Generic.List<string> DataInsertSupervise_SubUnitReportItemItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReportItem> subUnitReportItem);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertSupervise_SubUnitReportItemItemTab" +
             "le", ReplyAction="http://www.localhost.com/HSSEService/DataInsertSupervise_SubUnitReportItemItemTab" +
             "leResponse")]
-        System.IAsyncResult BeginDataInsertSupervise_SubUnitReportItemItemTable(System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReportItem> subUnitReportItem, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertSupervise_SubUnitReportItemItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReportItem> subUnitReportItem, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertSupervise_SubUnitReportItemItemTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertCheck_CheckRectifyTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertCheck_CheckRectifyTableResponse")]
-        System.Collections.Generic.List<string> DataInsertCheck_CheckRectifyTable(System.Collections.Generic.List<BLL.HSSEService.Check_CheckRectify> checkRectify);
+        System.Collections.Generic.List<string> DataInsertCheck_CheckRectifyTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckRectify> checkRectify);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertCheck_CheckRectifyTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertCheck_CheckRectifyTableResponse")]
-        System.IAsyncResult BeginDataInsertCheck_CheckRectifyTable(System.Collections.Generic.List<BLL.HSSEService.Check_CheckRectify> checkRectify, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertCheck_CheckRectifyTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckRectify> checkRectify, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertCheck_CheckRectifyTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertHSSESystem_HSSEOrganizeTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertHSSESystem_HSSEOrganizeTableRespon" +
             "se")]
-        string DataInsertHSSESystem_HSSEOrganizeTable(BLL.HSSEService.HSSESystem_HSSEOrganize hsseOrganize);
+        string DataInsertHSSESystem_HSSEOrganizeTable(FineUIPro.Web.HSSEService.HSSESystem_HSSEOrganize hsseOrganize);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertHSSESystem_HSSEOrganizeTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertHSSESystem_HSSEOrganizeTableRespon" +
             "se")]
-        System.IAsyncResult BeginDataInsertHSSESystem_HSSEOrganizeTable(BLL.HSSEService.HSSESystem_HSSEOrganize hsseOrganize, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertHSSESystem_HSSEOrganizeTable(FineUIPro.Web.HSSEService.HSSESystem_HSSEOrganize hsseOrganize, System.AsyncCallback callback, object asyncState);
         
         string EndDataInsertHSSESystem_HSSEOrganizeTable(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.localhost.com/HSSEService/DataInsertSys_SubUnitLogListTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertSys_SubUnitLogListTableResponse")]
-        System.Collections.Generic.List<string> DataInsertSys_SubUnitLogListTable(System.Collections.Generic.List<BLL.HSSEService.Sys_SubUnitLog> subUnitLogList);
+        System.Collections.Generic.List<string> DataInsertSys_SubUnitLogListTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Sys_SubUnitLog> subUnitLogList);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://www.localhost.com/HSSEService/DataInsertSys_SubUnitLogListTable", ReplyAction="http://www.localhost.com/HSSEService/DataInsertSys_SubUnitLogListTableResponse")]
-        System.IAsyncResult BeginDataInsertSys_SubUnitLogListTable(System.Collections.Generic.List<BLL.HSSEService.Sys_SubUnitLog> subUnitLogList, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDataInsertSys_SubUnitLogListTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Sys_SubUnitLog> subUnitLogList, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<string> EndDataInsertSys_SubUnitLogListTable(System.IAsyncResult result);
     }
@@ -541,10 +13611,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Sys_Version> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Sys_Version> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Sys_Version>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Sys_Version>)(this.results[0]));
             }
         }
     }
@@ -560,10 +13630,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Base_Unit> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Base_Unit> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Base_Unit>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Base_Unit>)(this.results[0]));
             }
         }
     }
@@ -579,10 +13649,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Information_UrgeReport> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_UrgeReport> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Information_UrgeReport>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_UrgeReport>)(this.results[0]));
             }
         }
     }
@@ -598,10 +13668,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Law_LawRegulationList> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_LawRegulationList> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Law_LawRegulationList>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_LawRegulationList>)(this.results[0]));
             }
         }
     }
@@ -617,10 +13687,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Law_HSSEStandardsList> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_HSSEStandardsList> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Law_HSSEStandardsList>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_HSSEStandardsList>)(this.results[0]));
             }
         }
     }
@@ -636,10 +13706,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Law_RulesRegulations> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_RulesRegulations> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Law_RulesRegulations>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_RulesRegulations>)(this.results[0]));
             }
         }
     }
@@ -655,10 +13725,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Law_ManageRule> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_ManageRule> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Law_ManageRule>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_ManageRule>)(this.results[0]));
             }
         }
     }
@@ -674,10 +13744,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_HAZOP> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HAZOP> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Technique_HAZOP>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HAZOP>)(this.results[0]));
             }
         }
     }
@@ -693,10 +13763,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_Appraise> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Appraise> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Technique_Appraise>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Appraise>)(this.results[0]));
             }
         }
     }
@@ -712,10 +13782,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_Emergency> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Emergency> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Technique_Emergency>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Emergency>)(this.results[0]));
             }
         }
     }
@@ -731,10 +13801,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_SpecialScheme> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_SpecialScheme> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Technique_SpecialScheme>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_SpecialScheme>)(this.results[0]));
             }
         }
     }
@@ -750,10 +13820,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Training_Training> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_Training> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Training_Training>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_Training>)(this.results[0]));
             }
         }
     }
@@ -769,10 +13839,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Training_TrainingItem> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainingItem> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Training_TrainingItem>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainingItem>)(this.results[0]));
             }
         }
     }
@@ -788,10 +13858,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDB> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDB> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDB>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDB>)(this.results[0]));
             }
         }
     }
@@ -807,10 +13877,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDBItem> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDBItem> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDBItem>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDBItem>)(this.results[0]));
             }
         }
     }
@@ -826,10 +13896,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCase> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCase> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCase>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCase>)(this.results[0]));
             }
         }
     }
@@ -845,10 +13915,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCaseItem> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCaseItem> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCaseItem>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCaseItem>)(this.results[0]));
             }
         }
     }
@@ -864,10 +13934,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Training_Knowledge> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_Knowledge> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Training_Knowledge>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_Knowledge>)(this.results[0]));
             }
         }
     }
@@ -883,10 +13953,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Training_KnowledgeItem> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_KnowledgeItem> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Training_KnowledgeItem>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_KnowledgeItem>)(this.results[0]));
             }
         }
     }
@@ -902,10 +13972,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_HazardListType> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardListType> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Technique_HazardListType>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardListType>)(this.results[0]));
             }
         }
     }
@@ -921,10 +13991,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_HazardList> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardList> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Technique_HazardList>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardList>)(this.results[0]));
             }
         }
     }
@@ -940,10 +14010,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_Rectify> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Rectify> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Technique_Rectify>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Rectify>)(this.results[0]));
             }
         }
     }
@@ -959,10 +14029,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_RectifyItem> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_RectifyItem> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Technique_RectifyItem>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_RectifyItem>)(this.results[0]));
             }
         }
     }
@@ -978,10 +14048,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_Expert> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Expert> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Technique_Expert>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Expert>)(this.results[0]));
             }
         }
     }
@@ -997,10 +14067,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Supervise_SuperviseCheckRectify> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SuperviseCheckRectify> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Supervise_SuperviseCheckRectify>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SuperviseCheckRectify>)(this.results[0]));
             }
         }
     }
@@ -1016,10 +14086,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReport> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReport> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReport>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReport>)(this.results[0]));
             }
         }
     }
@@ -1035,10 +14105,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReportItem> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReportItem> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReportItem>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReportItem>)(this.results[0]));
             }
         }
     }
@@ -1054,10 +14124,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Check_CheckRectify> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckRectify> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Check_CheckRectify>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckRectify>)(this.results[0]));
             }
         }
     }
@@ -1073,10 +14143,10 @@ namespace FineUIPro.Web.HSSEService {
             this.results = results;
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Check_CheckInfo_Table8Item> Result {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckInfo_Table8Item> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.Generic.List<BLL.HSSEService.Check_CheckInfo_Table8Item>)(this.results[0]));
+                return ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckInfo_Table8Item>)(this.results[0]));
             }
         }
     }
@@ -2065,7 +15135,7 @@ namespace FineUIPro.Web.HSSEService {
         
         public event System.EventHandler<DataInsertSys_SubUnitLogListTableCompletedEventArgs> DataInsertSys_SubUnitLogListTableCompleted;
         
-        public System.Collections.Generic.List<BLL.HSSEService.Sys_Version> GetSys_VersionToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Sys_Version> GetSys_VersionToSUB() {
             return base.Channel.GetSys_VersionToSUB();
         }
         
@@ -2075,7 +15145,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Sys_Version> EndGetSys_VersionToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Sys_Version> EndGetSys_VersionToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetSys_VersionToSUB(result);
         }
         
@@ -2084,7 +15154,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetSys_VersionToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Sys_Version> retVal = this.EndGetSys_VersionToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Sys_Version> retVal = this.EndGetSys_VersionToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -2113,7 +15183,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetSys_VersionToSUBDelegate, null, this.onEndGetSys_VersionToSUBDelegate, this.onGetSys_VersionToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Base_Unit> GetBase_UnitToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Base_Unit> GetBase_UnitToSUB() {
             return base.Channel.GetBase_UnitToSUB();
         }
         
@@ -2123,7 +15193,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Base_Unit> EndGetBase_UnitToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Base_Unit> EndGetBase_UnitToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetBase_UnitToSUB(result);
         }
         
@@ -2132,7 +15202,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetBase_UnitToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Base_Unit> retVal = this.EndGetBase_UnitToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Base_Unit> retVal = this.EndGetBase_UnitToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -2161,7 +15231,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetBase_UnitToSUBDelegate, null, this.onEndGetBase_UnitToSUBDelegate, this.onGetBase_UnitToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Information_UrgeReport> GetInformation_UrgeReportToSUB(string unitId) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_UrgeReport> GetInformation_UrgeReportToSUB(string unitId) {
             return base.Channel.GetInformation_UrgeReportToSUB(unitId);
         }
         
@@ -2171,7 +15241,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Information_UrgeReport> EndGetInformation_UrgeReportToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_UrgeReport> EndGetInformation_UrgeReportToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetInformation_UrgeReportToSUB(result);
         }
         
@@ -2181,7 +15251,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetInformation_UrgeReportToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Information_UrgeReport> retVal = this.EndGetInformation_UrgeReportToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_UrgeReport> retVal = this.EndGetInformation_UrgeReportToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -2211,7 +15281,7 @@ namespace FineUIPro.Web.HSSEService {
                         unitId}, this.onEndGetInformation_UrgeReportToSUBDelegate, this.onGetInformation_UrgeReportToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Law_LawRegulationList> GetLaw_LawRegulationListToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_LawRegulationList> GetLaw_LawRegulationListToSUB() {
             return base.Channel.GetLaw_LawRegulationListToSUB();
         }
         
@@ -2221,7 +15291,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Law_LawRegulationList> EndGetLaw_LawRegulationListToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_LawRegulationList> EndGetLaw_LawRegulationListToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetLaw_LawRegulationListToSUB(result);
         }
         
@@ -2230,7 +15300,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetLaw_LawRegulationListToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Law_LawRegulationList> retVal = this.EndGetLaw_LawRegulationListToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_LawRegulationList> retVal = this.EndGetLaw_LawRegulationListToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -2259,7 +15329,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetLaw_LawRegulationListToSUBDelegate, null, this.onEndGetLaw_LawRegulationListToSUBDelegate, this.onGetLaw_LawRegulationListToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Law_HSSEStandardsList> GetLaw_HSSEStandardsListToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_HSSEStandardsList> GetLaw_HSSEStandardsListToSUB() {
             return base.Channel.GetLaw_HSSEStandardsListToSUB();
         }
         
@@ -2269,7 +15339,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Law_HSSEStandardsList> EndGetLaw_HSSEStandardsListToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_HSSEStandardsList> EndGetLaw_HSSEStandardsListToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetLaw_HSSEStandardsListToSUB(result);
         }
         
@@ -2278,7 +15348,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetLaw_HSSEStandardsListToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Law_HSSEStandardsList> retVal = this.EndGetLaw_HSSEStandardsListToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_HSSEStandardsList> retVal = this.EndGetLaw_HSSEStandardsListToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -2307,7 +15377,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetLaw_HSSEStandardsListToSUBDelegate, null, this.onEndGetLaw_HSSEStandardsListToSUBDelegate, this.onGetLaw_HSSEStandardsListToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Law_RulesRegulations> GetLaw_RulesRegulationsToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_RulesRegulations> GetLaw_RulesRegulationsToSUB() {
             return base.Channel.GetLaw_RulesRegulationsToSUB();
         }
         
@@ -2317,7 +15387,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Law_RulesRegulations> EndGetLaw_RulesRegulationsToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_RulesRegulations> EndGetLaw_RulesRegulationsToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetLaw_RulesRegulationsToSUB(result);
         }
         
@@ -2326,7 +15396,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetLaw_RulesRegulationsToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Law_RulesRegulations> retVal = this.EndGetLaw_RulesRegulationsToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_RulesRegulations> retVal = this.EndGetLaw_RulesRegulationsToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -2355,7 +15425,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetLaw_RulesRegulationsToSUBDelegate, null, this.onEndGetLaw_RulesRegulationsToSUBDelegate, this.onGetLaw_RulesRegulationsToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Law_ManageRule> GetLaw_ManageRuleToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_ManageRule> GetLaw_ManageRuleToSUB() {
             return base.Channel.GetLaw_ManageRuleToSUB();
         }
         
@@ -2365,7 +15435,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Law_ManageRule> EndGetLaw_ManageRuleToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_ManageRule> EndGetLaw_ManageRuleToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetLaw_ManageRuleToSUB(result);
         }
         
@@ -2374,7 +15444,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetLaw_ManageRuleToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Law_ManageRule> retVal = this.EndGetLaw_ManageRuleToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_ManageRule> retVal = this.EndGetLaw_ManageRuleToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -2403,7 +15473,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetLaw_ManageRuleToSUBDelegate, null, this.onEndGetLaw_ManageRuleToSUBDelegate, this.onGetLaw_ManageRuleToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_HAZOP> GetTechnique_HAZOPToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HAZOP> GetTechnique_HAZOPToSUB() {
             return base.Channel.GetTechnique_HAZOPToSUB();
         }
         
@@ -2413,7 +15483,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_HAZOP> EndGetTechnique_HAZOPToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HAZOP> EndGetTechnique_HAZOPToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetTechnique_HAZOPToSUB(result);
         }
         
@@ -2422,7 +15492,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetTechnique_HAZOPToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Technique_HAZOP> retVal = this.EndGetTechnique_HAZOPToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HAZOP> retVal = this.EndGetTechnique_HAZOPToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -2451,7 +15521,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetTechnique_HAZOPToSUBDelegate, null, this.onEndGetTechnique_HAZOPToSUBDelegate, this.onGetTechnique_HAZOPToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_Appraise> GetTechnique_AppraiseToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Appraise> GetTechnique_AppraiseToSUB() {
             return base.Channel.GetTechnique_AppraiseToSUB();
         }
         
@@ -2461,7 +15531,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_Appraise> EndGetTechnique_AppraiseToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Appraise> EndGetTechnique_AppraiseToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetTechnique_AppraiseToSUB(result);
         }
         
@@ -2470,7 +15540,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetTechnique_AppraiseToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Technique_Appraise> retVal = this.EndGetTechnique_AppraiseToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Appraise> retVal = this.EndGetTechnique_AppraiseToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -2499,7 +15569,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetTechnique_AppraiseToSUBDelegate, null, this.onEndGetTechnique_AppraiseToSUBDelegate, this.onGetTechnique_AppraiseToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_Emergency> GetTechnique_EmergencyToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Emergency> GetTechnique_EmergencyToSUB() {
             return base.Channel.GetTechnique_EmergencyToSUB();
         }
         
@@ -2509,7 +15579,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_Emergency> EndGetTechnique_EmergencyToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Emergency> EndGetTechnique_EmergencyToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetTechnique_EmergencyToSUB(result);
         }
         
@@ -2518,7 +15588,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetTechnique_EmergencyToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Technique_Emergency> retVal = this.EndGetTechnique_EmergencyToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Emergency> retVal = this.EndGetTechnique_EmergencyToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -2547,7 +15617,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetTechnique_EmergencyToSUBDelegate, null, this.onEndGetTechnique_EmergencyToSUBDelegate, this.onGetTechnique_EmergencyToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_SpecialScheme> GetTechnique_SpecialSchemeToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_SpecialScheme> GetTechnique_SpecialSchemeToSUB() {
             return base.Channel.GetTechnique_SpecialSchemeToSUB();
         }
         
@@ -2557,7 +15627,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_SpecialScheme> EndGetTechnique_SpecialSchemeToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_SpecialScheme> EndGetTechnique_SpecialSchemeToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetTechnique_SpecialSchemeToSUB(result);
         }
         
@@ -2566,7 +15636,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetTechnique_SpecialSchemeToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Technique_SpecialScheme> retVal = this.EndGetTechnique_SpecialSchemeToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_SpecialScheme> retVal = this.EndGetTechnique_SpecialSchemeToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -2595,7 +15665,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetTechnique_SpecialSchemeToSUBDelegate, null, this.onEndGetTechnique_SpecialSchemeToSUBDelegate, this.onGetTechnique_SpecialSchemeToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Training_Training> GetTraining_TrainingListToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_Training> GetTraining_TrainingListToSUB() {
             return base.Channel.GetTraining_TrainingListToSUB();
         }
         
@@ -2605,7 +15675,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Training_Training> EndGetTraining_TrainingListToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_Training> EndGetTraining_TrainingListToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetTraining_TrainingListToSUB(result);
         }
         
@@ -2614,7 +15684,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetTraining_TrainingListToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Training_Training> retVal = this.EndGetTraining_TrainingListToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_Training> retVal = this.EndGetTraining_TrainingListToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -2643,7 +15713,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetTraining_TrainingListToSUBDelegate, null, this.onEndGetTraining_TrainingListToSUBDelegate, this.onGetTraining_TrainingListToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Training_TrainingItem> GetTraining_TrainingItemListToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainingItem> GetTraining_TrainingItemListToSUB() {
             return base.Channel.GetTraining_TrainingItemListToSUB();
         }
         
@@ -2653,7 +15723,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Training_TrainingItem> EndGetTraining_TrainingItemListToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainingItem> EndGetTraining_TrainingItemListToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetTraining_TrainingItemListToSUB(result);
         }
         
@@ -2662,7 +15732,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetTraining_TrainingItemListToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Training_TrainingItem> retVal = this.EndGetTraining_TrainingItemListToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainingItem> retVal = this.EndGetTraining_TrainingItemListToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -2691,7 +15761,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetTraining_TrainingItemListToSUBDelegate, null, this.onEndGetTraining_TrainingItemListToSUBDelegate, this.onGetTraining_TrainingItemListToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDB> GetTraining_TrainTestDBListToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDB> GetTraining_TrainTestDBListToSUB() {
             return base.Channel.GetTraining_TrainTestDBListToSUB();
         }
         
@@ -2701,7 +15771,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDB> EndGetTraining_TrainTestDBListToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDB> EndGetTraining_TrainTestDBListToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetTraining_TrainTestDBListToSUB(result);
         }
         
@@ -2710,7 +15780,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetTraining_TrainTestDBListToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDB> retVal = this.EndGetTraining_TrainTestDBListToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDB> retVal = this.EndGetTraining_TrainTestDBListToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -2739,7 +15809,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetTraining_TrainTestDBListToSUBDelegate, null, this.onEndGetTraining_TrainTestDBListToSUBDelegate, this.onGetTraining_TrainTestDBListToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDBItem> GetTraining_TrainTestDBItemListToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDBItem> GetTraining_TrainTestDBItemListToSUB() {
             return base.Channel.GetTraining_TrainTestDBItemListToSUB();
         }
         
@@ -2749,7 +15819,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDBItem> EndGetTraining_TrainTestDBItemListToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDBItem> EndGetTraining_TrainTestDBItemListToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetTraining_TrainTestDBItemListToSUB(result);
         }
         
@@ -2758,7 +15828,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetTraining_TrainTestDBItemListToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDBItem> retVal = this.EndGetTraining_TrainTestDBItemListToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDBItem> retVal = this.EndGetTraining_TrainTestDBItemListToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -2787,7 +15857,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetTraining_TrainTestDBItemListToSUBDelegate, null, this.onEndGetTraining_TrainTestDBItemListToSUBDelegate, this.onGetTraining_TrainTestDBItemListToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCase> GetEduTrain_AccidentCaseListToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCase> GetEduTrain_AccidentCaseListToSUB() {
             return base.Channel.GetEduTrain_AccidentCaseListToSUB();
         }
         
@@ -2797,7 +15867,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCase> EndGetEduTrain_AccidentCaseListToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCase> EndGetEduTrain_AccidentCaseListToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetEduTrain_AccidentCaseListToSUB(result);
         }
         
@@ -2806,7 +15876,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetEduTrain_AccidentCaseListToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCase> retVal = this.EndGetEduTrain_AccidentCaseListToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCase> retVal = this.EndGetEduTrain_AccidentCaseListToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -2835,7 +15905,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetEduTrain_AccidentCaseListToSUBDelegate, null, this.onEndGetEduTrain_AccidentCaseListToSUBDelegate, this.onGetEduTrain_AccidentCaseListToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCaseItem> GetEduTrain_AccidentCaseItemListToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCaseItem> GetEduTrain_AccidentCaseItemListToSUB() {
             return base.Channel.GetEduTrain_AccidentCaseItemListToSUB();
         }
         
@@ -2845,7 +15915,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCaseItem> EndGetEduTrain_AccidentCaseItemListToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCaseItem> EndGetEduTrain_AccidentCaseItemListToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetEduTrain_AccidentCaseItemListToSUB(result);
         }
         
@@ -2854,7 +15924,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetEduTrain_AccidentCaseItemListToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCaseItem> retVal = this.EndGetEduTrain_AccidentCaseItemListToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCaseItem> retVal = this.EndGetEduTrain_AccidentCaseItemListToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -2883,7 +15953,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetEduTrain_AccidentCaseItemListToSUBDelegate, null, this.onEndGetEduTrain_AccidentCaseItemListToSUBDelegate, this.onGetEduTrain_AccidentCaseItemListToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Training_Knowledge> GetTraining_KnowledgeListToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_Knowledge> GetTraining_KnowledgeListToSUB() {
             return base.Channel.GetTraining_KnowledgeListToSUB();
         }
         
@@ -2893,7 +15963,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Training_Knowledge> EndGetTraining_KnowledgeListToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_Knowledge> EndGetTraining_KnowledgeListToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetTraining_KnowledgeListToSUB(result);
         }
         
@@ -2902,7 +15972,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetTraining_KnowledgeListToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Training_Knowledge> retVal = this.EndGetTraining_KnowledgeListToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_Knowledge> retVal = this.EndGetTraining_KnowledgeListToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -2931,7 +16001,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetTraining_KnowledgeListToSUBDelegate, null, this.onEndGetTraining_KnowledgeListToSUBDelegate, this.onGetTraining_KnowledgeListToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Training_KnowledgeItem> GetTraining_KnowledgeItemListToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_KnowledgeItem> GetTraining_KnowledgeItemListToSUB() {
             return base.Channel.GetTraining_KnowledgeItemListToSUB();
         }
         
@@ -2941,7 +16011,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Training_KnowledgeItem> EndGetTraining_KnowledgeItemListToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_KnowledgeItem> EndGetTraining_KnowledgeItemListToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetTraining_KnowledgeItemListToSUB(result);
         }
         
@@ -2950,7 +16020,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetTraining_KnowledgeItemListToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Training_KnowledgeItem> retVal = this.EndGetTraining_KnowledgeItemListToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_KnowledgeItem> retVal = this.EndGetTraining_KnowledgeItemListToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -2979,7 +16049,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetTraining_KnowledgeItemListToSUBDelegate, null, this.onEndGetTraining_KnowledgeItemListToSUBDelegate, this.onGetTraining_KnowledgeItemListToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_HazardListType> GetTechnique_HazardListTypeListToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardListType> GetTechnique_HazardListTypeListToSUB() {
             return base.Channel.GetTechnique_HazardListTypeListToSUB();
         }
         
@@ -2989,7 +16059,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_HazardListType> EndGetTechnique_HazardListTypeListToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardListType> EndGetTechnique_HazardListTypeListToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetTechnique_HazardListTypeListToSUB(result);
         }
         
@@ -2998,7 +16068,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetTechnique_HazardListTypeListToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Technique_HazardListType> retVal = this.EndGetTechnique_HazardListTypeListToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardListType> retVal = this.EndGetTechnique_HazardListTypeListToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -3027,7 +16097,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetTechnique_HazardListTypeListToSUBDelegate, null, this.onEndGetTechnique_HazardListTypeListToSUBDelegate, this.onGetTechnique_HazardListTypeListToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_HazardList> GetTechnique_HazardListListToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardList> GetTechnique_HazardListListToSUB() {
             return base.Channel.GetTechnique_HazardListListToSUB();
         }
         
@@ -3037,7 +16107,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_HazardList> EndGetTechnique_HazardListListToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardList> EndGetTechnique_HazardListListToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetTechnique_HazardListListToSUB(result);
         }
         
@@ -3046,7 +16116,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetTechnique_HazardListListToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Technique_HazardList> retVal = this.EndGetTechnique_HazardListListToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardList> retVal = this.EndGetTechnique_HazardListListToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -3075,7 +16145,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetTechnique_HazardListListToSUBDelegate, null, this.onEndGetTechnique_HazardListListToSUBDelegate, this.onGetTechnique_HazardListListToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_Rectify> GetTechnique_RectifyListToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Rectify> GetTechnique_RectifyListToSUB() {
             return base.Channel.GetTechnique_RectifyListToSUB();
         }
         
@@ -3085,7 +16155,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_Rectify> EndGetTechnique_RectifyListToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Rectify> EndGetTechnique_RectifyListToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetTechnique_RectifyListToSUB(result);
         }
         
@@ -3094,7 +16164,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetTechnique_RectifyListToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Technique_Rectify> retVal = this.EndGetTechnique_RectifyListToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Rectify> retVal = this.EndGetTechnique_RectifyListToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -3123,7 +16193,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetTechnique_RectifyListToSUBDelegate, null, this.onEndGetTechnique_RectifyListToSUBDelegate, this.onGetTechnique_RectifyListToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_RectifyItem> GetTechnique_RectifyItemListToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_RectifyItem> GetTechnique_RectifyItemListToSUB() {
             return base.Channel.GetTechnique_RectifyItemListToSUB();
         }
         
@@ -3133,7 +16203,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_RectifyItem> EndGetTechnique_RectifyItemListToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_RectifyItem> EndGetTechnique_RectifyItemListToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetTechnique_RectifyItemListToSUB(result);
         }
         
@@ -3142,7 +16212,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetTechnique_RectifyItemListToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Technique_RectifyItem> retVal = this.EndGetTechnique_RectifyItemListToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_RectifyItem> retVal = this.EndGetTechnique_RectifyItemListToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -3171,7 +16241,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetTechnique_RectifyItemListToSUBDelegate, null, this.onEndGetTechnique_RectifyItemListToSUBDelegate, this.onGetTechnique_RectifyItemListToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_Expert> GetTechnique_ExpertListToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Expert> GetTechnique_ExpertListToSUB() {
             return base.Channel.GetTechnique_ExpertListToSUB();
         }
         
@@ -3181,7 +16251,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Technique_Expert> EndGetTechnique_ExpertListToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Expert> EndGetTechnique_ExpertListToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetTechnique_ExpertListToSUB(result);
         }
         
@@ -3190,7 +16260,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetTechnique_ExpertListToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Technique_Expert> retVal = this.EndGetTechnique_ExpertListToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Expert> retVal = this.EndGetTechnique_ExpertListToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -3219,7 +16289,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetTechnique_ExpertListToSUBDelegate, null, this.onEndGetTechnique_ExpertListToSUBDelegate, this.onGetTechnique_ExpertListToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Supervise_SuperviseCheckRectify> GetSupervise_SuperviseCheckRectifyListToSUB(string unitId) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SuperviseCheckRectify> GetSupervise_SuperviseCheckRectifyListToSUB(string unitId) {
             return base.Channel.GetSupervise_SuperviseCheckRectifyListToSUB(unitId);
         }
         
@@ -3229,7 +16299,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Supervise_SuperviseCheckRectify> EndGetSupervise_SuperviseCheckRectifyListToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SuperviseCheckRectify> EndGetSupervise_SuperviseCheckRectifyListToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetSupervise_SuperviseCheckRectifyListToSUB(result);
         }
         
@@ -3239,7 +16309,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetSupervise_SuperviseCheckRectifyListToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Supervise_SuperviseCheckRectify> retVal = this.EndGetSupervise_SuperviseCheckRectifyListToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SuperviseCheckRectify> retVal = this.EndGetSupervise_SuperviseCheckRectifyListToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -3269,7 +16339,7 @@ namespace FineUIPro.Web.HSSEService {
                         unitId}, this.onEndGetSupervise_SuperviseCheckRectifyListToSUBDelegate, this.onGetSupervise_SuperviseCheckRectifyListToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReport> GetSupervise_SubUnitReportListToSUB() {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReport> GetSupervise_SubUnitReportListToSUB() {
             return base.Channel.GetSupervise_SubUnitReportListToSUB();
         }
         
@@ -3279,7 +16349,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReport> EndGetSupervise_SubUnitReportListToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReport> EndGetSupervise_SubUnitReportListToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetSupervise_SubUnitReportListToSUB(result);
         }
         
@@ -3288,7 +16358,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetSupervise_SubUnitReportListToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReport> retVal = this.EndGetSupervise_SubUnitReportListToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReport> retVal = this.EndGetSupervise_SubUnitReportListToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -3317,7 +16387,7 @@ namespace FineUIPro.Web.HSSEService {
             base.InvokeAsync(this.onBeginGetSupervise_SubUnitReportListToSUBDelegate, null, this.onEndGetSupervise_SubUnitReportListToSUBDelegate, this.onGetSupervise_SubUnitReportListToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReportItem> GetSupervise_SubUnitReportItemListToSUB(string unitId) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReportItem> GetSupervise_SubUnitReportItemListToSUB(string unitId) {
             return base.Channel.GetSupervise_SubUnitReportItemListToSUB(unitId);
         }
         
@@ -3327,7 +16397,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReportItem> EndGetSupervise_SubUnitReportItemListToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReportItem> EndGetSupervise_SubUnitReportItemListToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetSupervise_SubUnitReportItemListToSUB(result);
         }
         
@@ -3337,7 +16407,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetSupervise_SubUnitReportItemListToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReportItem> retVal = this.EndGetSupervise_SubUnitReportItemListToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReportItem> retVal = this.EndGetSupervise_SubUnitReportItemListToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -3367,7 +16437,7 @@ namespace FineUIPro.Web.HSSEService {
                         unitId}, this.onEndGetSupervise_SubUnitReportItemListToSUBDelegate, this.onGetSupervise_SubUnitReportItemListToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Check_CheckRectify> GetCheck_CheckRectifyListToSUB(string unitId) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckRectify> GetCheck_CheckRectifyListToSUB(string unitId) {
             return base.Channel.GetCheck_CheckRectifyListToSUB(unitId);
         }
         
@@ -3377,7 +16447,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Check_CheckRectify> EndGetCheck_CheckRectifyListToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckRectify> EndGetCheck_CheckRectifyListToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetCheck_CheckRectifyListToSUB(result);
         }
         
@@ -3387,7 +16457,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetCheck_CheckRectifyListToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Check_CheckRectify> retVal = this.EndGetCheck_CheckRectifyListToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckRectify> retVal = this.EndGetCheck_CheckRectifyListToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -3417,7 +16487,7 @@ namespace FineUIPro.Web.HSSEService {
                         unitId}, this.onEndGetCheck_CheckRectifyListToSUBDelegate, this.onGetCheck_CheckRectifyListToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<BLL.HSSEService.Check_CheckInfo_Table8Item> GetCheck_CheckInfo_Table8ItemListToSUB(string unitId) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckInfo_Table8Item> GetCheck_CheckInfo_Table8ItemListToSUB(string unitId) {
             return base.Channel.GetCheck_CheckInfo_Table8ItemListToSUB(unitId);
         }
         
@@ -3427,7 +16497,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.Collections.Generic.List<BLL.HSSEService.Check_CheckInfo_Table8Item> EndGetCheck_CheckInfo_Table8ItemListToSUB(System.IAsyncResult result) {
+        public System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckInfo_Table8Item> EndGetCheck_CheckInfo_Table8ItemListToSUB(System.IAsyncResult result) {
             return base.Channel.EndGetCheck_CheckInfo_Table8ItemListToSUB(result);
         }
         
@@ -3437,7 +16507,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private object[] OnEndGetCheck_CheckInfo_Table8ItemListToSUB(System.IAsyncResult result) {
-            System.Collections.Generic.List<BLL.HSSEService.Check_CheckInfo_Table8Item> retVal = this.EndGetCheck_CheckInfo_Table8ItemListToSUB(result);
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckInfo_Table8Item> retVal = this.EndGetCheck_CheckInfo_Table8ItemListToSUB(result);
             return new object[] {
                     retVal};
         }
@@ -3467,12 +16537,12 @@ namespace FineUIPro.Web.HSSEService {
                         unitId}, this.onEndGetCheck_CheckInfo_Table8ItemListToSUBDelegate, this.onGetCheck_CheckInfo_Table8ItemListToSUBCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertLaw_LawRegulationListTable(System.Collections.Generic.List<BLL.HSSEService.Law_LawRegulationList> lawRegulationList) {
+        public System.Collections.Generic.List<string> DataInsertLaw_LawRegulationListTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_LawRegulationList> lawRegulationList) {
             return base.Channel.DataInsertLaw_LawRegulationListTable(lawRegulationList);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertLaw_LawRegulationListTable(System.Collections.Generic.List<BLL.HSSEService.Law_LawRegulationList> lawRegulationList, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertLaw_LawRegulationListTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_LawRegulationList> lawRegulationList, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertLaw_LawRegulationListTable(lawRegulationList, callback, asyncState);
         }
         
@@ -3482,7 +16552,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertLaw_LawRegulationListTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Law_LawRegulationList> lawRegulationList = ((System.Collections.Generic.List<BLL.HSSEService.Law_LawRegulationList>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_LawRegulationList> lawRegulationList = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_LawRegulationList>)(inValues[0]));
             return this.BeginDataInsertLaw_LawRegulationListTable(lawRegulationList, callback, asyncState);
         }
         
@@ -3499,11 +16569,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertLaw_LawRegulationListTableAsync(System.Collections.Generic.List<BLL.HSSEService.Law_LawRegulationList> lawRegulationList) {
+        public void DataInsertLaw_LawRegulationListTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_LawRegulationList> lawRegulationList) {
             this.DataInsertLaw_LawRegulationListTableAsync(lawRegulationList, null);
         }
         
-        public void DataInsertLaw_LawRegulationListTableAsync(System.Collections.Generic.List<BLL.HSSEService.Law_LawRegulationList> lawRegulationList, object userState) {
+        public void DataInsertLaw_LawRegulationListTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_LawRegulationList> lawRegulationList, object userState) {
             if ((this.onBeginDataInsertLaw_LawRegulationListTableDelegate == null)) {
                 this.onBeginDataInsertLaw_LawRegulationListTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertLaw_LawRegulationListTable);
             }
@@ -3517,12 +16587,12 @@ namespace FineUIPro.Web.HSSEService {
                         lawRegulationList}, this.onEndDataInsertLaw_LawRegulationListTableDelegate, this.onDataInsertLaw_LawRegulationListTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertLaw_HSSEStandardsListTable(System.Collections.Generic.List<BLL.HSSEService.Law_HSSEStandardsList> hsseStandardsList) {
+        public System.Collections.Generic.List<string> DataInsertLaw_HSSEStandardsListTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_HSSEStandardsList> hsseStandardsList) {
             return base.Channel.DataInsertLaw_HSSEStandardsListTable(hsseStandardsList);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertLaw_HSSEStandardsListTable(System.Collections.Generic.List<BLL.HSSEService.Law_HSSEStandardsList> hsseStandardsList, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertLaw_HSSEStandardsListTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_HSSEStandardsList> hsseStandardsList, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertLaw_HSSEStandardsListTable(hsseStandardsList, callback, asyncState);
         }
         
@@ -3532,7 +16602,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertLaw_HSSEStandardsListTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Law_HSSEStandardsList> hsseStandardsList = ((System.Collections.Generic.List<BLL.HSSEService.Law_HSSEStandardsList>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_HSSEStandardsList> hsseStandardsList = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_HSSEStandardsList>)(inValues[0]));
             return this.BeginDataInsertLaw_HSSEStandardsListTable(hsseStandardsList, callback, asyncState);
         }
         
@@ -3549,11 +16619,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertLaw_HSSEStandardsListTableAsync(System.Collections.Generic.List<BLL.HSSEService.Law_HSSEStandardsList> hsseStandardsList) {
+        public void DataInsertLaw_HSSEStandardsListTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_HSSEStandardsList> hsseStandardsList) {
             this.DataInsertLaw_HSSEStandardsListTableAsync(hsseStandardsList, null);
         }
         
-        public void DataInsertLaw_HSSEStandardsListTableAsync(System.Collections.Generic.List<BLL.HSSEService.Law_HSSEStandardsList> hsseStandardsList, object userState) {
+        public void DataInsertLaw_HSSEStandardsListTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_HSSEStandardsList> hsseStandardsList, object userState) {
             if ((this.onBeginDataInsertLaw_HSSEStandardsListTableDelegate == null)) {
                 this.onBeginDataInsertLaw_HSSEStandardsListTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertLaw_HSSEStandardsListTable);
             }
@@ -3567,12 +16637,12 @@ namespace FineUIPro.Web.HSSEService {
                         hsseStandardsList}, this.onEndDataInsertLaw_HSSEStandardsListTableDelegate, this.onDataInsertLaw_HSSEStandardsListTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertLaw_RulesRegulationsTable(System.Collections.Generic.List<BLL.HSSEService.Law_RulesRegulations> rulesRegulations) {
+        public System.Collections.Generic.List<string> DataInsertLaw_RulesRegulationsTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_RulesRegulations> rulesRegulations) {
             return base.Channel.DataInsertLaw_RulesRegulationsTable(rulesRegulations);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertLaw_RulesRegulationsTable(System.Collections.Generic.List<BLL.HSSEService.Law_RulesRegulations> rulesRegulations, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertLaw_RulesRegulationsTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_RulesRegulations> rulesRegulations, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertLaw_RulesRegulationsTable(rulesRegulations, callback, asyncState);
         }
         
@@ -3582,7 +16652,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertLaw_RulesRegulationsTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Law_RulesRegulations> rulesRegulations = ((System.Collections.Generic.List<BLL.HSSEService.Law_RulesRegulations>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_RulesRegulations> rulesRegulations = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_RulesRegulations>)(inValues[0]));
             return this.BeginDataInsertLaw_RulesRegulationsTable(rulesRegulations, callback, asyncState);
         }
         
@@ -3599,11 +16669,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertLaw_RulesRegulationsTableAsync(System.Collections.Generic.List<BLL.HSSEService.Law_RulesRegulations> rulesRegulations) {
+        public void DataInsertLaw_RulesRegulationsTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_RulesRegulations> rulesRegulations) {
             this.DataInsertLaw_RulesRegulationsTableAsync(rulesRegulations, null);
         }
         
-        public void DataInsertLaw_RulesRegulationsTableAsync(System.Collections.Generic.List<BLL.HSSEService.Law_RulesRegulations> rulesRegulations, object userState) {
+        public void DataInsertLaw_RulesRegulationsTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_RulesRegulations> rulesRegulations, object userState) {
             if ((this.onBeginDataInsertLaw_RulesRegulationsTableDelegate == null)) {
                 this.onBeginDataInsertLaw_RulesRegulationsTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertLaw_RulesRegulationsTable);
             }
@@ -3617,12 +16687,12 @@ namespace FineUIPro.Web.HSSEService {
                         rulesRegulations}, this.onEndDataInsertLaw_RulesRegulationsTableDelegate, this.onDataInsertLaw_RulesRegulationsTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertLaw_ManageRuleTable(System.Collections.Generic.List<BLL.HSSEService.Law_ManageRule> manageRule) {
+        public System.Collections.Generic.List<string> DataInsertLaw_ManageRuleTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_ManageRule> manageRule) {
             return base.Channel.DataInsertLaw_ManageRuleTable(manageRule);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertLaw_ManageRuleTable(System.Collections.Generic.List<BLL.HSSEService.Law_ManageRule> manageRule, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertLaw_ManageRuleTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_ManageRule> manageRule, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertLaw_ManageRuleTable(manageRule, callback, asyncState);
         }
         
@@ -3632,7 +16702,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertLaw_ManageRuleTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Law_ManageRule> manageRule = ((System.Collections.Generic.List<BLL.HSSEService.Law_ManageRule>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_ManageRule> manageRule = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_ManageRule>)(inValues[0]));
             return this.BeginDataInsertLaw_ManageRuleTable(manageRule, callback, asyncState);
         }
         
@@ -3649,11 +16719,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertLaw_ManageRuleTableAsync(System.Collections.Generic.List<BLL.HSSEService.Law_ManageRule> manageRule) {
+        public void DataInsertLaw_ManageRuleTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_ManageRule> manageRule) {
             this.DataInsertLaw_ManageRuleTableAsync(manageRule, null);
         }
         
-        public void DataInsertLaw_ManageRuleTableAsync(System.Collections.Generic.List<BLL.HSSEService.Law_ManageRule> manageRule, object userState) {
+        public void DataInsertLaw_ManageRuleTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Law_ManageRule> manageRule, object userState) {
             if ((this.onBeginDataInsertLaw_ManageRuleTableDelegate == null)) {
                 this.onBeginDataInsertLaw_ManageRuleTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertLaw_ManageRuleTable);
             }
@@ -3667,12 +16737,12 @@ namespace FineUIPro.Web.HSSEService {
                         manageRule}, this.onEndDataInsertLaw_ManageRuleTableDelegate, this.onDataInsertLaw_ManageRuleTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertTechnique_HAZOPTable(System.Collections.Generic.List<BLL.HSSEService.Technique_HAZOP> hazop) {
+        public System.Collections.Generic.List<string> DataInsertTechnique_HAZOPTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HAZOP> hazop) {
             return base.Channel.DataInsertTechnique_HAZOPTable(hazop);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertTechnique_HAZOPTable(System.Collections.Generic.List<BLL.HSSEService.Technique_HAZOP> hazop, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertTechnique_HAZOPTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HAZOP> hazop, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertTechnique_HAZOPTable(hazop, callback, asyncState);
         }
         
@@ -3682,7 +16752,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertTechnique_HAZOPTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Technique_HAZOP> hazop = ((System.Collections.Generic.List<BLL.HSSEService.Technique_HAZOP>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HAZOP> hazop = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HAZOP>)(inValues[0]));
             return this.BeginDataInsertTechnique_HAZOPTable(hazop, callback, asyncState);
         }
         
@@ -3699,11 +16769,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertTechnique_HAZOPTableAsync(System.Collections.Generic.List<BLL.HSSEService.Technique_HAZOP> hazop) {
+        public void DataInsertTechnique_HAZOPTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HAZOP> hazop) {
             this.DataInsertTechnique_HAZOPTableAsync(hazop, null);
         }
         
-        public void DataInsertTechnique_HAZOPTableAsync(System.Collections.Generic.List<BLL.HSSEService.Technique_HAZOP> hazop, object userState) {
+        public void DataInsertTechnique_HAZOPTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HAZOP> hazop, object userState) {
             if ((this.onBeginDataInsertTechnique_HAZOPTableDelegate == null)) {
                 this.onBeginDataInsertTechnique_HAZOPTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertTechnique_HAZOPTable);
             }
@@ -3717,12 +16787,12 @@ namespace FineUIPro.Web.HSSEService {
                         hazop}, this.onEndDataInsertTechnique_HAZOPTableDelegate, this.onDataInsertTechnique_HAZOPTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertTechnique_AppraiseTable(System.Collections.Generic.List<BLL.HSSEService.Technique_Appraise> appraise) {
+        public System.Collections.Generic.List<string> DataInsertTechnique_AppraiseTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Appraise> appraise) {
             return base.Channel.DataInsertTechnique_AppraiseTable(appraise);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertTechnique_AppraiseTable(System.Collections.Generic.List<BLL.HSSEService.Technique_Appraise> appraise, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertTechnique_AppraiseTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Appraise> appraise, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertTechnique_AppraiseTable(appraise, callback, asyncState);
         }
         
@@ -3732,7 +16802,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertTechnique_AppraiseTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Technique_Appraise> appraise = ((System.Collections.Generic.List<BLL.HSSEService.Technique_Appraise>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Appraise> appraise = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Appraise>)(inValues[0]));
             return this.BeginDataInsertTechnique_AppraiseTable(appraise, callback, asyncState);
         }
         
@@ -3749,11 +16819,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertTechnique_AppraiseTableAsync(System.Collections.Generic.List<BLL.HSSEService.Technique_Appraise> appraise) {
+        public void DataInsertTechnique_AppraiseTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Appraise> appraise) {
             this.DataInsertTechnique_AppraiseTableAsync(appraise, null);
         }
         
-        public void DataInsertTechnique_AppraiseTableAsync(System.Collections.Generic.List<BLL.HSSEService.Technique_Appraise> appraise, object userState) {
+        public void DataInsertTechnique_AppraiseTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Appraise> appraise, object userState) {
             if ((this.onBeginDataInsertTechnique_AppraiseTableDelegate == null)) {
                 this.onBeginDataInsertTechnique_AppraiseTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertTechnique_AppraiseTable);
             }
@@ -3767,12 +16837,12 @@ namespace FineUIPro.Web.HSSEService {
                         appraise}, this.onEndDataInsertTechnique_AppraiseTableDelegate, this.onDataInsertTechnique_AppraiseTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertTechnique_EmergencyTable(System.Collections.Generic.List<BLL.HSSEService.Technique_Emergency> emergency) {
+        public System.Collections.Generic.List<string> DataInsertTechnique_EmergencyTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Emergency> emergency) {
             return base.Channel.DataInsertTechnique_EmergencyTable(emergency);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertTechnique_EmergencyTable(System.Collections.Generic.List<BLL.HSSEService.Technique_Emergency> emergency, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertTechnique_EmergencyTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Emergency> emergency, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertTechnique_EmergencyTable(emergency, callback, asyncState);
         }
         
@@ -3782,7 +16852,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertTechnique_EmergencyTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Technique_Emergency> emergency = ((System.Collections.Generic.List<BLL.HSSEService.Technique_Emergency>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Emergency> emergency = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Emergency>)(inValues[0]));
             return this.BeginDataInsertTechnique_EmergencyTable(emergency, callback, asyncState);
         }
         
@@ -3799,11 +16869,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertTechnique_EmergencyTableAsync(System.Collections.Generic.List<BLL.HSSEService.Technique_Emergency> emergency) {
+        public void DataInsertTechnique_EmergencyTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Emergency> emergency) {
             this.DataInsertTechnique_EmergencyTableAsync(emergency, null);
         }
         
-        public void DataInsertTechnique_EmergencyTableAsync(System.Collections.Generic.List<BLL.HSSEService.Technique_Emergency> emergency, object userState) {
+        public void DataInsertTechnique_EmergencyTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Emergency> emergency, object userState) {
             if ((this.onBeginDataInsertTechnique_EmergencyTableDelegate == null)) {
                 this.onBeginDataInsertTechnique_EmergencyTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertTechnique_EmergencyTable);
             }
@@ -3817,12 +16887,12 @@ namespace FineUIPro.Web.HSSEService {
                         emergency}, this.onEndDataInsertTechnique_EmergencyTableDelegate, this.onDataInsertTechnique_EmergencyTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertTechnique_SpecialSchemeTable(System.Collections.Generic.List<BLL.HSSEService.Technique_SpecialScheme> specialScheme) {
+        public System.Collections.Generic.List<string> DataInsertTechnique_SpecialSchemeTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_SpecialScheme> specialScheme) {
             return base.Channel.DataInsertTechnique_SpecialSchemeTable(specialScheme);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertTechnique_SpecialSchemeTable(System.Collections.Generic.List<BLL.HSSEService.Technique_SpecialScheme> specialScheme, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertTechnique_SpecialSchemeTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_SpecialScheme> specialScheme, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertTechnique_SpecialSchemeTable(specialScheme, callback, asyncState);
         }
         
@@ -3832,7 +16902,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertTechnique_SpecialSchemeTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Technique_SpecialScheme> specialScheme = ((System.Collections.Generic.List<BLL.HSSEService.Technique_SpecialScheme>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_SpecialScheme> specialScheme = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_SpecialScheme>)(inValues[0]));
             return this.BeginDataInsertTechnique_SpecialSchemeTable(specialScheme, callback, asyncState);
         }
         
@@ -3849,11 +16919,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertTechnique_SpecialSchemeTableAsync(System.Collections.Generic.List<BLL.HSSEService.Technique_SpecialScheme> specialScheme) {
+        public void DataInsertTechnique_SpecialSchemeTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_SpecialScheme> specialScheme) {
             this.DataInsertTechnique_SpecialSchemeTableAsync(specialScheme, null);
         }
         
-        public void DataInsertTechnique_SpecialSchemeTableAsync(System.Collections.Generic.List<BLL.HSSEService.Technique_SpecialScheme> specialScheme, object userState) {
+        public void DataInsertTechnique_SpecialSchemeTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_SpecialScheme> specialScheme, object userState) {
             if ((this.onBeginDataInsertTechnique_SpecialSchemeTableDelegate == null)) {
                 this.onBeginDataInsertTechnique_SpecialSchemeTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertTechnique_SpecialSchemeTable);
             }
@@ -3867,12 +16937,12 @@ namespace FineUIPro.Web.HSSEService {
                         specialScheme}, this.onEndDataInsertTechnique_SpecialSchemeTableDelegate, this.onDataInsertTechnique_SpecialSchemeTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertInformation_AccidentCauseReportTable(System.Collections.Generic.List<BLL.HSSEService.Information_AccidentCauseReport> accidentCauseReportList, System.Collections.Generic.List<BLL.HSSEService.Information_AccidentCauseReportItem> accidentCauseReportItemList) {
+        public System.Collections.Generic.List<string> DataInsertInformation_AccidentCauseReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_AccidentCauseReport> accidentCauseReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_AccidentCauseReportItem> accidentCauseReportItemList) {
             return base.Channel.DataInsertInformation_AccidentCauseReportTable(accidentCauseReportList, accidentCauseReportItemList);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertInformation_AccidentCauseReportTable(System.Collections.Generic.List<BLL.HSSEService.Information_AccidentCauseReport> accidentCauseReportList, System.Collections.Generic.List<BLL.HSSEService.Information_AccidentCauseReportItem> accidentCauseReportItemList, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertInformation_AccidentCauseReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_AccidentCauseReport> accidentCauseReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_AccidentCauseReportItem> accidentCauseReportItemList, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertInformation_AccidentCauseReportTable(accidentCauseReportList, accidentCauseReportItemList, callback, asyncState);
         }
         
@@ -3882,8 +16952,8 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertInformation_AccidentCauseReportTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Information_AccidentCauseReport> accidentCauseReportList = ((System.Collections.Generic.List<BLL.HSSEService.Information_AccidentCauseReport>)(inValues[0]));
-            System.Collections.Generic.List<BLL.HSSEService.Information_AccidentCauseReportItem> accidentCauseReportItemList = ((System.Collections.Generic.List<BLL.HSSEService.Information_AccidentCauseReportItem>)(inValues[1]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_AccidentCauseReport> accidentCauseReportList = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_AccidentCauseReport>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_AccidentCauseReportItem> accidentCauseReportItemList = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_AccidentCauseReportItem>)(inValues[1]));
             return this.BeginDataInsertInformation_AccidentCauseReportTable(accidentCauseReportList, accidentCauseReportItemList, callback, asyncState);
         }
         
@@ -3900,11 +16970,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertInformation_AccidentCauseReportTableAsync(System.Collections.Generic.List<BLL.HSSEService.Information_AccidentCauseReport> accidentCauseReportList, System.Collections.Generic.List<BLL.HSSEService.Information_AccidentCauseReportItem> accidentCauseReportItemList) {
+        public void DataInsertInformation_AccidentCauseReportTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_AccidentCauseReport> accidentCauseReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_AccidentCauseReportItem> accidentCauseReportItemList) {
             this.DataInsertInformation_AccidentCauseReportTableAsync(accidentCauseReportList, accidentCauseReportItemList, null);
         }
         
-        public void DataInsertInformation_AccidentCauseReportTableAsync(System.Collections.Generic.List<BLL.HSSEService.Information_AccidentCauseReport> accidentCauseReportList, System.Collections.Generic.List<BLL.HSSEService.Information_AccidentCauseReportItem> accidentCauseReportItemList, object userState) {
+        public void DataInsertInformation_AccidentCauseReportTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_AccidentCauseReport> accidentCauseReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_AccidentCauseReportItem> accidentCauseReportItemList, object userState) {
             if ((this.onBeginDataInsertInformation_AccidentCauseReportTableDelegate == null)) {
                 this.onBeginDataInsertInformation_AccidentCauseReportTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertInformation_AccidentCauseReportTable);
             }
@@ -3919,12 +16989,12 @@ namespace FineUIPro.Web.HSSEService {
                         accidentCauseReportItemList}, this.onEndDataInsertInformation_AccidentCauseReportTableDelegate, this.onDataInsertInformation_AccidentCauseReportTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertInformation_DrillConductedQuarterlyReportTable(System.Collections.Generic.List<BLL.HSSEService.Information_DrillConductedQuarterlyReport> drillConductedQuarterlyReportList, System.Collections.Generic.List<BLL.HSSEService.Information_DrillConductedQuarterlyReportItem> drillConductedQuarterlyReportItemList) {
+        public System.Collections.Generic.List<string> DataInsertInformation_DrillConductedQuarterlyReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillConductedQuarterlyReport> drillConductedQuarterlyReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillConductedQuarterlyReportItem> drillConductedQuarterlyReportItemList) {
             return base.Channel.DataInsertInformation_DrillConductedQuarterlyReportTable(drillConductedQuarterlyReportList, drillConductedQuarterlyReportItemList);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertInformation_DrillConductedQuarterlyReportTable(System.Collections.Generic.List<BLL.HSSEService.Information_DrillConductedQuarterlyReport> drillConductedQuarterlyReportList, System.Collections.Generic.List<BLL.HSSEService.Information_DrillConductedQuarterlyReportItem> drillConductedQuarterlyReportItemList, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertInformation_DrillConductedQuarterlyReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillConductedQuarterlyReport> drillConductedQuarterlyReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillConductedQuarterlyReportItem> drillConductedQuarterlyReportItemList, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertInformation_DrillConductedQuarterlyReportTable(drillConductedQuarterlyReportList, drillConductedQuarterlyReportItemList, callback, asyncState);
         }
         
@@ -3934,8 +17004,8 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertInformation_DrillConductedQuarterlyReportTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Information_DrillConductedQuarterlyReport> drillConductedQuarterlyReportList = ((System.Collections.Generic.List<BLL.HSSEService.Information_DrillConductedQuarterlyReport>)(inValues[0]));
-            System.Collections.Generic.List<BLL.HSSEService.Information_DrillConductedQuarterlyReportItem> drillConductedQuarterlyReportItemList = ((System.Collections.Generic.List<BLL.HSSEService.Information_DrillConductedQuarterlyReportItem>)(inValues[1]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillConductedQuarterlyReport> drillConductedQuarterlyReportList = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillConductedQuarterlyReport>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillConductedQuarterlyReportItem> drillConductedQuarterlyReportItemList = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillConductedQuarterlyReportItem>)(inValues[1]));
             return this.BeginDataInsertInformation_DrillConductedQuarterlyReportTable(drillConductedQuarterlyReportList, drillConductedQuarterlyReportItemList, callback, asyncState);
         }
         
@@ -3952,11 +17022,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertInformation_DrillConductedQuarterlyReportTableAsync(System.Collections.Generic.List<BLL.HSSEService.Information_DrillConductedQuarterlyReport> drillConductedQuarterlyReportList, System.Collections.Generic.List<BLL.HSSEService.Information_DrillConductedQuarterlyReportItem> drillConductedQuarterlyReportItemList) {
+        public void DataInsertInformation_DrillConductedQuarterlyReportTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillConductedQuarterlyReport> drillConductedQuarterlyReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillConductedQuarterlyReportItem> drillConductedQuarterlyReportItemList) {
             this.DataInsertInformation_DrillConductedQuarterlyReportTableAsync(drillConductedQuarterlyReportList, drillConductedQuarterlyReportItemList, null);
         }
         
-        public void DataInsertInformation_DrillConductedQuarterlyReportTableAsync(System.Collections.Generic.List<BLL.HSSEService.Information_DrillConductedQuarterlyReport> drillConductedQuarterlyReportList, System.Collections.Generic.List<BLL.HSSEService.Information_DrillConductedQuarterlyReportItem> drillConductedQuarterlyReportItemList, object userState) {
+        public void DataInsertInformation_DrillConductedQuarterlyReportTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillConductedQuarterlyReport> drillConductedQuarterlyReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillConductedQuarterlyReportItem> drillConductedQuarterlyReportItemList, object userState) {
             if ((this.onBeginDataInsertInformation_DrillConductedQuarterlyReportTableDelegate == null)) {
                 this.onBeginDataInsertInformation_DrillConductedQuarterlyReportTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertInformation_DrillConductedQuarterlyReportTable);
             }
@@ -3971,12 +17041,12 @@ namespace FineUIPro.Web.HSSEService {
                         drillConductedQuarterlyReportItemList}, this.onEndDataInsertInformation_DrillConductedQuarterlyReportTableDelegate, this.onDataInsertInformation_DrillConductedQuarterlyReportTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertInformation_DrillPlanHalfYearReportTable(System.Collections.Generic.List<BLL.HSSEService.Information_DrillPlanHalfYearReport> drillPlanHalfYearReportList, System.Collections.Generic.List<BLL.HSSEService.Information_DrillPlanHalfYearReportItem> drillPlanHalfYearReportItemList) {
+        public System.Collections.Generic.List<string> DataInsertInformation_DrillPlanHalfYearReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillPlanHalfYearReport> drillPlanHalfYearReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillPlanHalfYearReportItem> drillPlanHalfYearReportItemList) {
             return base.Channel.DataInsertInformation_DrillPlanHalfYearReportTable(drillPlanHalfYearReportList, drillPlanHalfYearReportItemList);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertInformation_DrillPlanHalfYearReportTable(System.Collections.Generic.List<BLL.HSSEService.Information_DrillPlanHalfYearReport> drillPlanHalfYearReportList, System.Collections.Generic.List<BLL.HSSEService.Information_DrillPlanHalfYearReportItem> drillPlanHalfYearReportItemList, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertInformation_DrillPlanHalfYearReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillPlanHalfYearReport> drillPlanHalfYearReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillPlanHalfYearReportItem> drillPlanHalfYearReportItemList, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertInformation_DrillPlanHalfYearReportTable(drillPlanHalfYearReportList, drillPlanHalfYearReportItemList, callback, asyncState);
         }
         
@@ -3986,8 +17056,8 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertInformation_DrillPlanHalfYearReportTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Information_DrillPlanHalfYearReport> drillPlanHalfYearReportList = ((System.Collections.Generic.List<BLL.HSSEService.Information_DrillPlanHalfYearReport>)(inValues[0]));
-            System.Collections.Generic.List<BLL.HSSEService.Information_DrillPlanHalfYearReportItem> drillPlanHalfYearReportItemList = ((System.Collections.Generic.List<BLL.HSSEService.Information_DrillPlanHalfYearReportItem>)(inValues[1]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillPlanHalfYearReport> drillPlanHalfYearReportList = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillPlanHalfYearReport>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillPlanHalfYearReportItem> drillPlanHalfYearReportItemList = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillPlanHalfYearReportItem>)(inValues[1]));
             return this.BeginDataInsertInformation_DrillPlanHalfYearReportTable(drillPlanHalfYearReportList, drillPlanHalfYearReportItemList, callback, asyncState);
         }
         
@@ -4004,11 +17074,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertInformation_DrillPlanHalfYearReportTableAsync(System.Collections.Generic.List<BLL.HSSEService.Information_DrillPlanHalfYearReport> drillPlanHalfYearReportList, System.Collections.Generic.List<BLL.HSSEService.Information_DrillPlanHalfYearReportItem> drillPlanHalfYearReportItemList) {
+        public void DataInsertInformation_DrillPlanHalfYearReportTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillPlanHalfYearReport> drillPlanHalfYearReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillPlanHalfYearReportItem> drillPlanHalfYearReportItemList) {
             this.DataInsertInformation_DrillPlanHalfYearReportTableAsync(drillPlanHalfYearReportList, drillPlanHalfYearReportItemList, null);
         }
         
-        public void DataInsertInformation_DrillPlanHalfYearReportTableAsync(System.Collections.Generic.List<BLL.HSSEService.Information_DrillPlanHalfYearReport> drillPlanHalfYearReportList, System.Collections.Generic.List<BLL.HSSEService.Information_DrillPlanHalfYearReportItem> drillPlanHalfYearReportItemList, object userState) {
+        public void DataInsertInformation_DrillPlanHalfYearReportTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillPlanHalfYearReport> drillPlanHalfYearReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_DrillPlanHalfYearReportItem> drillPlanHalfYearReportItemList, object userState) {
             if ((this.onBeginDataInsertInformation_DrillPlanHalfYearReportTableDelegate == null)) {
                 this.onBeginDataInsertInformation_DrillPlanHalfYearReportTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertInformation_DrillPlanHalfYearReportTable);
             }
@@ -4023,12 +17093,12 @@ namespace FineUIPro.Web.HSSEService {
                         drillPlanHalfYearReportItemList}, this.onEndDataInsertInformation_DrillPlanHalfYearReportTableDelegate, this.onDataInsertInformation_DrillPlanHalfYearReportTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertInformation_MillionsMonthlyReportTable(System.Collections.Generic.List<BLL.HSSEService.Information_MillionsMonthlyReport> millionsMonthlyReportList, System.Collections.Generic.List<BLL.HSSEService.Information_MillionsMonthlyReportItem> millionsMonthlyReportItemList) {
+        public System.Collections.Generic.List<string> DataInsertInformation_MillionsMonthlyReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_MillionsMonthlyReport> millionsMonthlyReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_MillionsMonthlyReportItem> millionsMonthlyReportItemList) {
             return base.Channel.DataInsertInformation_MillionsMonthlyReportTable(millionsMonthlyReportList, millionsMonthlyReportItemList);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertInformation_MillionsMonthlyReportTable(System.Collections.Generic.List<BLL.HSSEService.Information_MillionsMonthlyReport> millionsMonthlyReportList, System.Collections.Generic.List<BLL.HSSEService.Information_MillionsMonthlyReportItem> millionsMonthlyReportItemList, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertInformation_MillionsMonthlyReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_MillionsMonthlyReport> millionsMonthlyReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_MillionsMonthlyReportItem> millionsMonthlyReportItemList, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertInformation_MillionsMonthlyReportTable(millionsMonthlyReportList, millionsMonthlyReportItemList, callback, asyncState);
         }
         
@@ -4038,8 +17108,8 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertInformation_MillionsMonthlyReportTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Information_MillionsMonthlyReport> millionsMonthlyReportList = ((System.Collections.Generic.List<BLL.HSSEService.Information_MillionsMonthlyReport>)(inValues[0]));
-            System.Collections.Generic.List<BLL.HSSEService.Information_MillionsMonthlyReportItem> millionsMonthlyReportItemList = ((System.Collections.Generic.List<BLL.HSSEService.Information_MillionsMonthlyReportItem>)(inValues[1]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_MillionsMonthlyReport> millionsMonthlyReportList = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_MillionsMonthlyReport>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_MillionsMonthlyReportItem> millionsMonthlyReportItemList = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_MillionsMonthlyReportItem>)(inValues[1]));
             return this.BeginDataInsertInformation_MillionsMonthlyReportTable(millionsMonthlyReportList, millionsMonthlyReportItemList, callback, asyncState);
         }
         
@@ -4056,11 +17126,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertInformation_MillionsMonthlyReportTableAsync(System.Collections.Generic.List<BLL.HSSEService.Information_MillionsMonthlyReport> millionsMonthlyReportList, System.Collections.Generic.List<BLL.HSSEService.Information_MillionsMonthlyReportItem> millionsMonthlyReportItemList) {
+        public void DataInsertInformation_MillionsMonthlyReportTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_MillionsMonthlyReport> millionsMonthlyReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_MillionsMonthlyReportItem> millionsMonthlyReportItemList) {
             this.DataInsertInformation_MillionsMonthlyReportTableAsync(millionsMonthlyReportList, millionsMonthlyReportItemList, null);
         }
         
-        public void DataInsertInformation_MillionsMonthlyReportTableAsync(System.Collections.Generic.List<BLL.HSSEService.Information_MillionsMonthlyReport> millionsMonthlyReportList, System.Collections.Generic.List<BLL.HSSEService.Information_MillionsMonthlyReportItem> millionsMonthlyReportItemList, object userState) {
+        public void DataInsertInformation_MillionsMonthlyReportTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_MillionsMonthlyReport> millionsMonthlyReportList, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_MillionsMonthlyReportItem> millionsMonthlyReportItemList, object userState) {
             if ((this.onBeginDataInsertInformation_MillionsMonthlyReportTableDelegate == null)) {
                 this.onBeginDataInsertInformation_MillionsMonthlyReportTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertInformation_MillionsMonthlyReportTable);
             }
@@ -4075,12 +17145,12 @@ namespace FineUIPro.Web.HSSEService {
                         millionsMonthlyReportItemList}, this.onEndDataInsertInformation_MillionsMonthlyReportTableDelegate, this.onDataInsertInformation_MillionsMonthlyReportTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertInformation_SafetyQuarterlyReportTable(System.Collections.Generic.List<BLL.HSSEService.Information_SafetyQuarterlyReport> safetyQuarterlyReportList) {
+        public System.Collections.Generic.List<string> DataInsertInformation_SafetyQuarterlyReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_SafetyQuarterlyReport> safetyQuarterlyReportList) {
             return base.Channel.DataInsertInformation_SafetyQuarterlyReportTable(safetyQuarterlyReportList);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertInformation_SafetyQuarterlyReportTable(System.Collections.Generic.List<BLL.HSSEService.Information_SafetyQuarterlyReport> safetyQuarterlyReportList, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertInformation_SafetyQuarterlyReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_SafetyQuarterlyReport> safetyQuarterlyReportList, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertInformation_SafetyQuarterlyReportTable(safetyQuarterlyReportList, callback, asyncState);
         }
         
@@ -4090,7 +17160,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertInformation_SafetyQuarterlyReportTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Information_SafetyQuarterlyReport> safetyQuarterlyReportList = ((System.Collections.Generic.List<BLL.HSSEService.Information_SafetyQuarterlyReport>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_SafetyQuarterlyReport> safetyQuarterlyReportList = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_SafetyQuarterlyReport>)(inValues[0]));
             return this.BeginDataInsertInformation_SafetyQuarterlyReportTable(safetyQuarterlyReportList, callback, asyncState);
         }
         
@@ -4107,11 +17177,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertInformation_SafetyQuarterlyReportTableAsync(System.Collections.Generic.List<BLL.HSSEService.Information_SafetyQuarterlyReport> safetyQuarterlyReportList) {
+        public void DataInsertInformation_SafetyQuarterlyReportTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_SafetyQuarterlyReport> safetyQuarterlyReportList) {
             this.DataInsertInformation_SafetyQuarterlyReportTableAsync(safetyQuarterlyReportList, null);
         }
         
-        public void DataInsertInformation_SafetyQuarterlyReportTableAsync(System.Collections.Generic.List<BLL.HSSEService.Information_SafetyQuarterlyReport> safetyQuarterlyReportList, object userState) {
+        public void DataInsertInformation_SafetyQuarterlyReportTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Information_SafetyQuarterlyReport> safetyQuarterlyReportList, object userState) {
             if ((this.onBeginDataInsertInformation_SafetyQuarterlyReportTableDelegate == null)) {
                 this.onBeginDataInsertInformation_SafetyQuarterlyReportTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertInformation_SafetyQuarterlyReportTable);
             }
@@ -4125,12 +17195,12 @@ namespace FineUIPro.Web.HSSEService {
                         safetyQuarterlyReportList}, this.onEndDataInsertInformation_SafetyQuarterlyReportTableDelegate, this.onDataInsertInformation_SafetyQuarterlyReportTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertTraining_TrainingItemTable(System.Collections.Generic.List<BLL.HSSEService.Training_TrainingItem> trainingItem) {
+        public System.Collections.Generic.List<string> DataInsertTraining_TrainingItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainingItem> trainingItem) {
             return base.Channel.DataInsertTraining_TrainingItemTable(trainingItem);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertTraining_TrainingItemTable(System.Collections.Generic.List<BLL.HSSEService.Training_TrainingItem> trainingItem, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertTraining_TrainingItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainingItem> trainingItem, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertTraining_TrainingItemTable(trainingItem, callback, asyncState);
         }
         
@@ -4140,7 +17210,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertTraining_TrainingItemTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Training_TrainingItem> trainingItem = ((System.Collections.Generic.List<BLL.HSSEService.Training_TrainingItem>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainingItem> trainingItem = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainingItem>)(inValues[0]));
             return this.BeginDataInsertTraining_TrainingItemTable(trainingItem, callback, asyncState);
         }
         
@@ -4157,11 +17227,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertTraining_TrainingItemTableAsync(System.Collections.Generic.List<BLL.HSSEService.Training_TrainingItem> trainingItem) {
+        public void DataInsertTraining_TrainingItemTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainingItem> trainingItem) {
             this.DataInsertTraining_TrainingItemTableAsync(trainingItem, null);
         }
         
-        public void DataInsertTraining_TrainingItemTableAsync(System.Collections.Generic.List<BLL.HSSEService.Training_TrainingItem> trainingItem, object userState) {
+        public void DataInsertTraining_TrainingItemTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainingItem> trainingItem, object userState) {
             if ((this.onBeginDataInsertTraining_TrainingItemTableDelegate == null)) {
                 this.onBeginDataInsertTraining_TrainingItemTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertTraining_TrainingItemTable);
             }
@@ -4175,12 +17245,12 @@ namespace FineUIPro.Web.HSSEService {
                         trainingItem}, this.onEndDataInsertTraining_TrainingItemTableDelegate, this.onDataInsertTraining_TrainingItemTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertTraining_TrainTestDBItemTable(System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDBItem> trainTestDBItem) {
+        public System.Collections.Generic.List<string> DataInsertTraining_TrainTestDBItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDBItem> trainTestDBItem) {
             return base.Channel.DataInsertTraining_TrainTestDBItemTable(trainTestDBItem);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertTraining_TrainTestDBItemTable(System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDBItem> trainTestDBItem, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertTraining_TrainTestDBItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDBItem> trainTestDBItem, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertTraining_TrainTestDBItemTable(trainTestDBItem, callback, asyncState);
         }
         
@@ -4190,7 +17260,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertTraining_TrainTestDBItemTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDBItem> trainTestDBItem = ((System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDBItem>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDBItem> trainTestDBItem = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDBItem>)(inValues[0]));
             return this.BeginDataInsertTraining_TrainTestDBItemTable(trainTestDBItem, callback, asyncState);
         }
         
@@ -4207,11 +17277,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertTraining_TrainTestDBItemTableAsync(System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDBItem> trainTestDBItem) {
+        public void DataInsertTraining_TrainTestDBItemTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDBItem> trainTestDBItem) {
             this.DataInsertTraining_TrainTestDBItemTableAsync(trainTestDBItem, null);
         }
         
-        public void DataInsertTraining_TrainTestDBItemTableAsync(System.Collections.Generic.List<BLL.HSSEService.Training_TrainTestDBItem> trainTestDBItem, object userState) {
+        public void DataInsertTraining_TrainTestDBItemTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_TrainTestDBItem> trainTestDBItem, object userState) {
             if ((this.onBeginDataInsertTraining_TrainTestDBItemTableDelegate == null)) {
                 this.onBeginDataInsertTraining_TrainTestDBItemTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertTraining_TrainTestDBItemTable);
             }
@@ -4225,12 +17295,12 @@ namespace FineUIPro.Web.HSSEService {
                         trainTestDBItem}, this.onEndDataInsertTraining_TrainTestDBItemTableDelegate, this.onDataInsertTraining_TrainTestDBItemTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertEduTrain_AccidentCaseItemTable(System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCaseItem> accidentCaseItem) {
+        public System.Collections.Generic.List<string> DataInsertEduTrain_AccidentCaseItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCaseItem> accidentCaseItem) {
             return base.Channel.DataInsertEduTrain_AccidentCaseItemTable(accidentCaseItem);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertEduTrain_AccidentCaseItemTable(System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCaseItem> accidentCaseItem, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertEduTrain_AccidentCaseItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCaseItem> accidentCaseItem, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertEduTrain_AccidentCaseItemTable(accidentCaseItem, callback, asyncState);
         }
         
@@ -4240,7 +17310,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertEduTrain_AccidentCaseItemTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCaseItem> accidentCaseItem = ((System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCaseItem>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCaseItem> accidentCaseItem = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCaseItem>)(inValues[0]));
             return this.BeginDataInsertEduTrain_AccidentCaseItemTable(accidentCaseItem, callback, asyncState);
         }
         
@@ -4257,11 +17327,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertEduTrain_AccidentCaseItemTableAsync(System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCaseItem> accidentCaseItem) {
+        public void DataInsertEduTrain_AccidentCaseItemTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCaseItem> accidentCaseItem) {
             this.DataInsertEduTrain_AccidentCaseItemTableAsync(accidentCaseItem, null);
         }
         
-        public void DataInsertEduTrain_AccidentCaseItemTableAsync(System.Collections.Generic.List<BLL.HSSEService.EduTrain_AccidentCaseItem> accidentCaseItem, object userState) {
+        public void DataInsertEduTrain_AccidentCaseItemTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.EduTrain_AccidentCaseItem> accidentCaseItem, object userState) {
             if ((this.onBeginDataInsertEduTrain_AccidentCaseItemTableDelegate == null)) {
                 this.onBeginDataInsertEduTrain_AccidentCaseItemTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertEduTrain_AccidentCaseItemTable);
             }
@@ -4275,12 +17345,12 @@ namespace FineUIPro.Web.HSSEService {
                         accidentCaseItem}, this.onEndDataInsertEduTrain_AccidentCaseItemTableDelegate, this.onDataInsertEduTrain_AccidentCaseItemTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertTraining_KnowledgeItemTable(System.Collections.Generic.List<BLL.HSSEService.Training_KnowledgeItem> knowledgeItem) {
+        public System.Collections.Generic.List<string> DataInsertTraining_KnowledgeItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_KnowledgeItem> knowledgeItem) {
             return base.Channel.DataInsertTraining_KnowledgeItemTable(knowledgeItem);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertTraining_KnowledgeItemTable(System.Collections.Generic.List<BLL.HSSEService.Training_KnowledgeItem> knowledgeItem, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertTraining_KnowledgeItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_KnowledgeItem> knowledgeItem, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertTraining_KnowledgeItemTable(knowledgeItem, callback, asyncState);
         }
         
@@ -4290,7 +17360,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertTraining_KnowledgeItemTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Training_KnowledgeItem> knowledgeItem = ((System.Collections.Generic.List<BLL.HSSEService.Training_KnowledgeItem>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_KnowledgeItem> knowledgeItem = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_KnowledgeItem>)(inValues[0]));
             return this.BeginDataInsertTraining_KnowledgeItemTable(knowledgeItem, callback, asyncState);
         }
         
@@ -4307,11 +17377,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertTraining_KnowledgeItemTableAsync(System.Collections.Generic.List<BLL.HSSEService.Training_KnowledgeItem> knowledgeItem) {
+        public void DataInsertTraining_KnowledgeItemTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_KnowledgeItem> knowledgeItem) {
             this.DataInsertTraining_KnowledgeItemTableAsync(knowledgeItem, null);
         }
         
-        public void DataInsertTraining_KnowledgeItemTableAsync(System.Collections.Generic.List<BLL.HSSEService.Training_KnowledgeItem> knowledgeItem, object userState) {
+        public void DataInsertTraining_KnowledgeItemTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Training_KnowledgeItem> knowledgeItem, object userState) {
             if ((this.onBeginDataInsertTraining_KnowledgeItemTableDelegate == null)) {
                 this.onBeginDataInsertTraining_KnowledgeItemTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertTraining_KnowledgeItemTable);
             }
@@ -4325,12 +17395,12 @@ namespace FineUIPro.Web.HSSEService {
                         knowledgeItem}, this.onEndDataInsertTraining_KnowledgeItemTableDelegate, this.onDataInsertTraining_KnowledgeItemTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertTechnique_HazardListTable(System.Collections.Generic.List<BLL.HSSEService.Technique_HazardList> hazardList) {
+        public System.Collections.Generic.List<string> DataInsertTechnique_HazardListTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardList> hazardList) {
             return base.Channel.DataInsertTechnique_HazardListTable(hazardList);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertTechnique_HazardListTable(System.Collections.Generic.List<BLL.HSSEService.Technique_HazardList> hazardList, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertTechnique_HazardListTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardList> hazardList, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertTechnique_HazardListTable(hazardList, callback, asyncState);
         }
         
@@ -4340,7 +17410,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertTechnique_HazardListTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Technique_HazardList> hazardList = ((System.Collections.Generic.List<BLL.HSSEService.Technique_HazardList>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardList> hazardList = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardList>)(inValues[0]));
             return this.BeginDataInsertTechnique_HazardListTable(hazardList, callback, asyncState);
         }
         
@@ -4357,11 +17427,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertTechnique_HazardListTableAsync(System.Collections.Generic.List<BLL.HSSEService.Technique_HazardList> hazardList) {
+        public void DataInsertTechnique_HazardListTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardList> hazardList) {
             this.DataInsertTechnique_HazardListTableAsync(hazardList, null);
         }
         
-        public void DataInsertTechnique_HazardListTableAsync(System.Collections.Generic.List<BLL.HSSEService.Technique_HazardList> hazardList, object userState) {
+        public void DataInsertTechnique_HazardListTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_HazardList> hazardList, object userState) {
             if ((this.onBeginDataInsertTechnique_HazardListTableDelegate == null)) {
                 this.onBeginDataInsertTechnique_HazardListTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertTechnique_HazardListTable);
             }
@@ -4375,12 +17445,12 @@ namespace FineUIPro.Web.HSSEService {
                         hazardList}, this.onEndDataInsertTechnique_HazardListTableDelegate, this.onDataInsertTechnique_HazardListTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertTechnique_RectifyItemTable(System.Collections.Generic.List<BLL.HSSEService.Technique_RectifyItem> rectifyItem) {
+        public System.Collections.Generic.List<string> DataInsertTechnique_RectifyItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_RectifyItem> rectifyItem) {
             return base.Channel.DataInsertTechnique_RectifyItemTable(rectifyItem);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertTechnique_RectifyItemTable(System.Collections.Generic.List<BLL.HSSEService.Technique_RectifyItem> rectifyItem, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertTechnique_RectifyItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_RectifyItem> rectifyItem, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertTechnique_RectifyItemTable(rectifyItem, callback, asyncState);
         }
         
@@ -4390,7 +17460,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertTechnique_RectifyItemTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Technique_RectifyItem> rectifyItem = ((System.Collections.Generic.List<BLL.HSSEService.Technique_RectifyItem>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_RectifyItem> rectifyItem = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_RectifyItem>)(inValues[0]));
             return this.BeginDataInsertTechnique_RectifyItemTable(rectifyItem, callback, asyncState);
         }
         
@@ -4407,11 +17477,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertTechnique_RectifyItemTableAsync(System.Collections.Generic.List<BLL.HSSEService.Technique_RectifyItem> rectifyItem) {
+        public void DataInsertTechnique_RectifyItemTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_RectifyItem> rectifyItem) {
             this.DataInsertTechnique_RectifyItemTableAsync(rectifyItem, null);
         }
         
-        public void DataInsertTechnique_RectifyItemTableAsync(System.Collections.Generic.List<BLL.HSSEService.Technique_RectifyItem> rectifyItem, object userState) {
+        public void DataInsertTechnique_RectifyItemTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_RectifyItem> rectifyItem, object userState) {
             if ((this.onBeginDataInsertTechnique_RectifyItemTableDelegate == null)) {
                 this.onBeginDataInsertTechnique_RectifyItemTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertTechnique_RectifyItemTable);
             }
@@ -4425,12 +17495,12 @@ namespace FineUIPro.Web.HSSEService {
                         rectifyItem}, this.onEndDataInsertTechnique_RectifyItemTableDelegate, this.onDataInsertTechnique_RectifyItemTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertTechnique_ExpertTable(System.Collections.Generic.List<BLL.HSSEService.Technique_Expert> expert) {
+        public System.Collections.Generic.List<string> DataInsertTechnique_ExpertTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Expert> expert) {
             return base.Channel.DataInsertTechnique_ExpertTable(expert);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertTechnique_ExpertTable(System.Collections.Generic.List<BLL.HSSEService.Technique_Expert> expert, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertTechnique_ExpertTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Expert> expert, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertTechnique_ExpertTable(expert, callback, asyncState);
         }
         
@@ -4440,7 +17510,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertTechnique_ExpertTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Technique_Expert> expert = ((System.Collections.Generic.List<BLL.HSSEService.Technique_Expert>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Expert> expert = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Expert>)(inValues[0]));
             return this.BeginDataInsertTechnique_ExpertTable(expert, callback, asyncState);
         }
         
@@ -4457,11 +17527,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertTechnique_ExpertTableAsync(System.Collections.Generic.List<BLL.HSSEService.Technique_Expert> expert) {
+        public void DataInsertTechnique_ExpertTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Expert> expert) {
             this.DataInsertTechnique_ExpertTableAsync(expert, null);
         }
         
-        public void DataInsertTechnique_ExpertTableAsync(System.Collections.Generic.List<BLL.HSSEService.Technique_Expert> expert, object userState) {
+        public void DataInsertTechnique_ExpertTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Technique_Expert> expert, object userState) {
             if ((this.onBeginDataInsertTechnique_ExpertTableDelegate == null)) {
                 this.onBeginDataInsertTechnique_ExpertTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertTechnique_ExpertTable);
             }
@@ -4475,12 +17545,12 @@ namespace FineUIPro.Web.HSSEService {
                         expert}, this.onEndDataInsertTechnique_ExpertTableDelegate, this.onDataInsertTechnique_ExpertTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertSupervise_SuperviseCheckRectifyTable(System.Collections.Generic.List<BLL.HSSEService.Supervise_SuperviseCheckRectify> superviseCheckRectify) {
+        public System.Collections.Generic.List<string> DataInsertSupervise_SuperviseCheckRectifyTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SuperviseCheckRectify> superviseCheckRectify) {
             return base.Channel.DataInsertSupervise_SuperviseCheckRectifyTable(superviseCheckRectify);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertSupervise_SuperviseCheckRectifyTable(System.Collections.Generic.List<BLL.HSSEService.Supervise_SuperviseCheckRectify> superviseCheckRectify, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertSupervise_SuperviseCheckRectifyTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SuperviseCheckRectify> superviseCheckRectify, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertSupervise_SuperviseCheckRectifyTable(superviseCheckRectify, callback, asyncState);
         }
         
@@ -4490,7 +17560,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertSupervise_SuperviseCheckRectifyTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Supervise_SuperviseCheckRectify> superviseCheckRectify = ((System.Collections.Generic.List<BLL.HSSEService.Supervise_SuperviseCheckRectify>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SuperviseCheckRectify> superviseCheckRectify = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SuperviseCheckRectify>)(inValues[0]));
             return this.BeginDataInsertSupervise_SuperviseCheckRectifyTable(superviseCheckRectify, callback, asyncState);
         }
         
@@ -4507,11 +17577,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertSupervise_SuperviseCheckRectifyTableAsync(System.Collections.Generic.List<BLL.HSSEService.Supervise_SuperviseCheckRectify> superviseCheckRectify) {
+        public void DataInsertSupervise_SuperviseCheckRectifyTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SuperviseCheckRectify> superviseCheckRectify) {
             this.DataInsertSupervise_SuperviseCheckRectifyTableAsync(superviseCheckRectify, null);
         }
         
-        public void DataInsertSupervise_SuperviseCheckRectifyTableAsync(System.Collections.Generic.List<BLL.HSSEService.Supervise_SuperviseCheckRectify> superviseCheckRectify, object userState) {
+        public void DataInsertSupervise_SuperviseCheckRectifyTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SuperviseCheckRectify> superviseCheckRectify, object userState) {
             if ((this.onBeginDataInsertSupervise_SuperviseCheckRectifyTableDelegate == null)) {
                 this.onBeginDataInsertSupervise_SuperviseCheckRectifyTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertSupervise_SuperviseCheckRectifyTable);
             }
@@ -4525,12 +17595,12 @@ namespace FineUIPro.Web.HSSEService {
                         superviseCheckRectify}, this.onEndDataInsertSupervise_SuperviseCheckRectifyTableDelegate, this.onDataInsertSupervise_SuperviseCheckRectifyTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertHSSESystem_HSSEManageItemTable(System.Collections.Generic.List<BLL.HSSEService.HSSESystem_HSSEManageItem> HSSEManageItem) {
+        public System.Collections.Generic.List<string> DataInsertHSSESystem_HSSEManageItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.HSSESystem_HSSEManageItem> HSSEManageItem) {
             return base.Channel.DataInsertHSSESystem_HSSEManageItemTable(HSSEManageItem);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertHSSESystem_HSSEManageItemTable(System.Collections.Generic.List<BLL.HSSEService.HSSESystem_HSSEManageItem> HSSEManageItem, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertHSSESystem_HSSEManageItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.HSSESystem_HSSEManageItem> HSSEManageItem, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertHSSESystem_HSSEManageItemTable(HSSEManageItem, callback, asyncState);
         }
         
@@ -4540,7 +17610,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertHSSESystem_HSSEManageItemTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.HSSESystem_HSSEManageItem> HSSEManageItem = ((System.Collections.Generic.List<BLL.HSSEService.HSSESystem_HSSEManageItem>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.HSSESystem_HSSEManageItem> HSSEManageItem = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.HSSESystem_HSSEManageItem>)(inValues[0]));
             return this.BeginDataInsertHSSESystem_HSSEManageItemTable(HSSEManageItem, callback, asyncState);
         }
         
@@ -4557,11 +17627,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertHSSESystem_HSSEManageItemTableAsync(System.Collections.Generic.List<BLL.HSSEService.HSSESystem_HSSEManageItem> HSSEManageItem) {
+        public void DataInsertHSSESystem_HSSEManageItemTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.HSSESystem_HSSEManageItem> HSSEManageItem) {
             this.DataInsertHSSESystem_HSSEManageItemTableAsync(HSSEManageItem, null);
         }
         
-        public void DataInsertHSSESystem_HSSEManageItemTableAsync(System.Collections.Generic.List<BLL.HSSEService.HSSESystem_HSSEManageItem> HSSEManageItem, object userState) {
+        public void DataInsertHSSESystem_HSSEManageItemTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.HSSESystem_HSSEManageItem> HSSEManageItem, object userState) {
             if ((this.onBeginDataInsertHSSESystem_HSSEManageItemTableDelegate == null)) {
                 this.onBeginDataInsertHSSESystem_HSSEManageItemTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertHSSESystem_HSSEManageItemTable);
             }
@@ -4575,12 +17645,12 @@ namespace FineUIPro.Web.HSSEService {
                         HSSEManageItem}, this.onEndDataInsertHSSESystem_HSSEManageItemTableDelegate, this.onDataInsertHSSESystem_HSSEManageItemTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertSupervise_UpCheckReportTable(System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReport> upCheckReport, System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReportItem> upCheckReportItem, System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReportItem2> upCheckReportItem2) {
+        public System.Collections.Generic.List<string> DataInsertSupervise_UpCheckReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReport> upCheckReport, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReportItem> upCheckReportItem, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReportItem2> upCheckReportItem2) {
             return base.Channel.DataInsertSupervise_UpCheckReportTable(upCheckReport, upCheckReportItem, upCheckReportItem2);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertSupervise_UpCheckReportTable(System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReport> upCheckReport, System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReportItem> upCheckReportItem, System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReportItem2> upCheckReportItem2, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertSupervise_UpCheckReportTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReport> upCheckReport, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReportItem> upCheckReportItem, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReportItem2> upCheckReportItem2, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertSupervise_UpCheckReportTable(upCheckReport, upCheckReportItem, upCheckReportItem2, callback, asyncState);
         }
         
@@ -4590,9 +17660,9 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertSupervise_UpCheckReportTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReport> upCheckReport = ((System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReport>)(inValues[0]));
-            System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReportItem> upCheckReportItem = ((System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReportItem>)(inValues[1]));
-            System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReportItem2> upCheckReportItem2 = ((System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReportItem2>)(inValues[2]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReport> upCheckReport = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReport>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReportItem> upCheckReportItem = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReportItem>)(inValues[1]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReportItem2> upCheckReportItem2 = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReportItem2>)(inValues[2]));
             return this.BeginDataInsertSupervise_UpCheckReportTable(upCheckReport, upCheckReportItem, upCheckReportItem2, callback, asyncState);
         }
         
@@ -4609,11 +17679,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertSupervise_UpCheckReportTableAsync(System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReport> upCheckReport, System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReportItem> upCheckReportItem, System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReportItem2> upCheckReportItem2) {
+        public void DataInsertSupervise_UpCheckReportTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReport> upCheckReport, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReportItem> upCheckReportItem, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReportItem2> upCheckReportItem2) {
             this.DataInsertSupervise_UpCheckReportTableAsync(upCheckReport, upCheckReportItem, upCheckReportItem2, null);
         }
         
-        public void DataInsertSupervise_UpCheckReportTableAsync(System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReport> upCheckReport, System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReportItem> upCheckReportItem, System.Collections.Generic.List<BLL.HSSEService.Supervise_UpCheckReportItem2> upCheckReportItem2, object userState) {
+        public void DataInsertSupervise_UpCheckReportTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReport> upCheckReport, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReportItem> upCheckReportItem, System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_UpCheckReportItem2> upCheckReportItem2, object userState) {
             if ((this.onBeginDataInsertSupervise_UpCheckReportTableDelegate == null)) {
                 this.onBeginDataInsertSupervise_UpCheckReportTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertSupervise_UpCheckReportTable);
             }
@@ -4629,12 +17699,12 @@ namespace FineUIPro.Web.HSSEService {
                         upCheckReportItem2}, this.onEndDataInsertSupervise_UpCheckReportTableDelegate, this.onDataInsertSupervise_UpCheckReportTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertSupervise_SubUnitReportItemItemTable(System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReportItem> subUnitReportItem) {
+        public System.Collections.Generic.List<string> DataInsertSupervise_SubUnitReportItemItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReportItem> subUnitReportItem) {
             return base.Channel.DataInsertSupervise_SubUnitReportItemItemTable(subUnitReportItem);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertSupervise_SubUnitReportItemItemTable(System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReportItem> subUnitReportItem, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertSupervise_SubUnitReportItemItemTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReportItem> subUnitReportItem, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertSupervise_SubUnitReportItemItemTable(subUnitReportItem, callback, asyncState);
         }
         
@@ -4644,7 +17714,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertSupervise_SubUnitReportItemItemTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReportItem> subUnitReportItem = ((System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReportItem>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReportItem> subUnitReportItem = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReportItem>)(inValues[0]));
             return this.BeginDataInsertSupervise_SubUnitReportItemItemTable(subUnitReportItem, callback, asyncState);
         }
         
@@ -4661,11 +17731,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertSupervise_SubUnitReportItemItemTableAsync(System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReportItem> subUnitReportItem) {
+        public void DataInsertSupervise_SubUnitReportItemItemTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReportItem> subUnitReportItem) {
             this.DataInsertSupervise_SubUnitReportItemItemTableAsync(subUnitReportItem, null);
         }
         
-        public void DataInsertSupervise_SubUnitReportItemItemTableAsync(System.Collections.Generic.List<BLL.HSSEService.Supervise_SubUnitReportItem> subUnitReportItem, object userState) {
+        public void DataInsertSupervise_SubUnitReportItemItemTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Supervise_SubUnitReportItem> subUnitReportItem, object userState) {
             if ((this.onBeginDataInsertSupervise_SubUnitReportItemItemTableDelegate == null)) {
                 this.onBeginDataInsertSupervise_SubUnitReportItemItemTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertSupervise_SubUnitReportItemItemTable);
             }
@@ -4679,12 +17749,12 @@ namespace FineUIPro.Web.HSSEService {
                         subUnitReportItem}, this.onEndDataInsertSupervise_SubUnitReportItemItemTableDelegate, this.onDataInsertSupervise_SubUnitReportItemItemTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertCheck_CheckRectifyTable(System.Collections.Generic.List<BLL.HSSEService.Check_CheckRectify> checkRectify) {
+        public System.Collections.Generic.List<string> DataInsertCheck_CheckRectifyTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckRectify> checkRectify) {
             return base.Channel.DataInsertCheck_CheckRectifyTable(checkRectify);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertCheck_CheckRectifyTable(System.Collections.Generic.List<BLL.HSSEService.Check_CheckRectify> checkRectify, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertCheck_CheckRectifyTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckRectify> checkRectify, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertCheck_CheckRectifyTable(checkRectify, callback, asyncState);
         }
         
@@ -4694,7 +17764,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertCheck_CheckRectifyTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Check_CheckRectify> checkRectify = ((System.Collections.Generic.List<BLL.HSSEService.Check_CheckRectify>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckRectify> checkRectify = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckRectify>)(inValues[0]));
             return this.BeginDataInsertCheck_CheckRectifyTable(checkRectify, callback, asyncState);
         }
         
@@ -4711,11 +17781,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertCheck_CheckRectifyTableAsync(System.Collections.Generic.List<BLL.HSSEService.Check_CheckRectify> checkRectify) {
+        public void DataInsertCheck_CheckRectifyTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckRectify> checkRectify) {
             this.DataInsertCheck_CheckRectifyTableAsync(checkRectify, null);
         }
         
-        public void DataInsertCheck_CheckRectifyTableAsync(System.Collections.Generic.List<BLL.HSSEService.Check_CheckRectify> checkRectify, object userState) {
+        public void DataInsertCheck_CheckRectifyTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Check_CheckRectify> checkRectify, object userState) {
             if ((this.onBeginDataInsertCheck_CheckRectifyTableDelegate == null)) {
                 this.onBeginDataInsertCheck_CheckRectifyTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertCheck_CheckRectifyTable);
             }
@@ -4729,12 +17799,12 @@ namespace FineUIPro.Web.HSSEService {
                         checkRectify}, this.onEndDataInsertCheck_CheckRectifyTableDelegate, this.onDataInsertCheck_CheckRectifyTableCompletedDelegate, userState);
         }
         
-        public string DataInsertHSSESystem_HSSEOrganizeTable(BLL.HSSEService.HSSESystem_HSSEOrganize hsseOrganize) {
+        public string DataInsertHSSESystem_HSSEOrganizeTable(FineUIPro.Web.HSSEService.HSSESystem_HSSEOrganize hsseOrganize) {
             return base.Channel.DataInsertHSSESystem_HSSEOrganizeTable(hsseOrganize);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertHSSESystem_HSSEOrganizeTable(BLL.HSSEService.HSSESystem_HSSEOrganize hsseOrganize, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertHSSESystem_HSSEOrganizeTable(FineUIPro.Web.HSSEService.HSSESystem_HSSEOrganize hsseOrganize, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertHSSESystem_HSSEOrganizeTable(hsseOrganize, callback, asyncState);
         }
         
@@ -4744,7 +17814,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertHSSESystem_HSSEOrganizeTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            BLL.HSSEService.HSSESystem_HSSEOrganize hsseOrganize = ((BLL.HSSEService.HSSESystem_HSSEOrganize)(inValues[0]));
+            FineUIPro.Web.HSSEService.HSSESystem_HSSEOrganize hsseOrganize = ((FineUIPro.Web.HSSEService.HSSESystem_HSSEOrganize)(inValues[0]));
             return this.BeginDataInsertHSSESystem_HSSEOrganizeTable(hsseOrganize, callback, asyncState);
         }
         
@@ -4761,11 +17831,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertHSSESystem_HSSEOrganizeTableAsync(BLL.HSSEService.HSSESystem_HSSEOrganize hsseOrganize) {
+        public void DataInsertHSSESystem_HSSEOrganizeTableAsync(FineUIPro.Web.HSSEService.HSSESystem_HSSEOrganize hsseOrganize) {
             this.DataInsertHSSESystem_HSSEOrganizeTableAsync(hsseOrganize, null);
         }
         
-        public void DataInsertHSSESystem_HSSEOrganizeTableAsync(BLL.HSSEService.HSSESystem_HSSEOrganize hsseOrganize, object userState) {
+        public void DataInsertHSSESystem_HSSEOrganizeTableAsync(FineUIPro.Web.HSSEService.HSSESystem_HSSEOrganize hsseOrganize, object userState) {
             if ((this.onBeginDataInsertHSSESystem_HSSEOrganizeTableDelegate == null)) {
                 this.onBeginDataInsertHSSESystem_HSSEOrganizeTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertHSSESystem_HSSEOrganizeTable);
             }
@@ -4779,12 +17849,12 @@ namespace FineUIPro.Web.HSSEService {
                         hsseOrganize}, this.onEndDataInsertHSSESystem_HSSEOrganizeTableDelegate, this.onDataInsertHSSESystem_HSSEOrganizeTableCompletedDelegate, userState);
         }
         
-        public System.Collections.Generic.List<string> DataInsertSys_SubUnitLogListTable(System.Collections.Generic.List<BLL.HSSEService.Sys_SubUnitLog> subUnitLogList) {
+        public System.Collections.Generic.List<string> DataInsertSys_SubUnitLogListTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Sys_SubUnitLog> subUnitLogList) {
             return base.Channel.DataInsertSys_SubUnitLogListTable(subUnitLogList);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDataInsertSys_SubUnitLogListTable(System.Collections.Generic.List<BLL.HSSEService.Sys_SubUnitLog> subUnitLogList, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginDataInsertSys_SubUnitLogListTable(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Sys_SubUnitLog> subUnitLogList, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginDataInsertSys_SubUnitLogListTable(subUnitLogList, callback, asyncState);
         }
         
@@ -4794,7 +17864,7 @@ namespace FineUIPro.Web.HSSEService {
         }
         
         private System.IAsyncResult OnBeginDataInsertSys_SubUnitLogListTable(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            System.Collections.Generic.List<BLL.HSSEService.Sys_SubUnitLog> subUnitLogList = ((System.Collections.Generic.List<BLL.HSSEService.Sys_SubUnitLog>)(inValues[0]));
+            System.Collections.Generic.List<FineUIPro.Web.HSSEService.Sys_SubUnitLog> subUnitLogList = ((System.Collections.Generic.List<FineUIPro.Web.HSSEService.Sys_SubUnitLog>)(inValues[0]));
             return this.BeginDataInsertSys_SubUnitLogListTable(subUnitLogList, callback, asyncState);
         }
         
@@ -4811,11 +17881,11 @@ namespace FineUIPro.Web.HSSEService {
             }
         }
         
-        public void DataInsertSys_SubUnitLogListTableAsync(System.Collections.Generic.List<BLL.HSSEService.Sys_SubUnitLog> subUnitLogList) {
+        public void DataInsertSys_SubUnitLogListTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Sys_SubUnitLog> subUnitLogList) {
             this.DataInsertSys_SubUnitLogListTableAsync(subUnitLogList, null);
         }
         
-        public void DataInsertSys_SubUnitLogListTableAsync(System.Collections.Generic.List<BLL.HSSEService.Sys_SubUnitLog> subUnitLogList, object userState) {
+        public void DataInsertSys_SubUnitLogListTableAsync(System.Collections.Generic.List<FineUIPro.Web.HSSEService.Sys_SubUnitLog> subUnitLogList, object userState) {
             if ((this.onBeginDataInsertSys_SubUnitLogListTableDelegate == null)) {
                 this.onBeginDataInsertSys_SubUnitLogListTableDelegate = new BeginOperationDelegate(this.OnBeginDataInsertSys_SubUnitLogListTable);
             }

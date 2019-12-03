@@ -159,7 +159,7 @@ namespace FineUIPro.Web.Technique
             var hazop = from x in Funs.DB.View_Technique_HAZOP
                         join y in Funs.DB.AttachFile on x.HAZOPId equals y.ToKeyId
                         where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == false || x.IsBuild == null)
-                        select new BLL.HSSEService.Technique_HAZOP
+                        select new HSSEService.Technique_HAZOP
                         {
                             HAZOPId = x.HAZOPId,
                             UnitId = unitId,

@@ -88,12 +88,9 @@
                     <f:RenderField Width="85px" ColumnID="QuestionCount" DataField="QuestionCount" FieldType="String"
                         HeaderText="题目数量" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="TestPalce" DataField="TestPalce" FieldType="String"
+                    <f:RenderField Width="150px" ColumnID="TestPalce" DataField="TestPalce" FieldType="String"
                         HeaderText="考试地点" HeaderTextAlign="Center" TextAlign="Left">
-                    </f:RenderField>
-                     <f:RenderField Width="250px" ColumnID="TemporaryUser" DataField="TemporaryUser" FieldType="String"
-                        HeaderText="考生信息" HeaderTextAlign="Center" TextAlign="Left">
-                    </f:RenderField>
+                    </f:RenderField>                    
                 </Columns>
                 <Listeners>
                     <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />

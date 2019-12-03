@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="DwpoCguemVuyYq/kJqYigUmSSAk=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="pGH4Vt4eIwZXK4JHerw/7fhc9E4=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="wsHttpBinding" name="HSSEServiceEndpoint">
       <properties>
@@ -127,10 +127,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="HSSEServiceEndpoint" contract="HSSEService.HSSEService" bindingType="wsHttpBinding" address="http://localhost/cncechsse/HSSEService.svc" bindingConfiguration="HSSEServiceEndpoint">
+    <endpoint name="HSSEServiceEndpoint" contract="HSSEService.HSSEService" bindingType="wsHttpBinding" address="http://localhost/CNCEHSSE/HSSEService.svc" bindingConfiguration="HSSEServiceEndpoint">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://localhost/cncechsse/HSSEService.svc</serializedValue>
+          <serializedValue>http://localhost/CNCEHSSE/HSSEService.svc</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

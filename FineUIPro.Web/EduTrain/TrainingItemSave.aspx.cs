@@ -165,7 +165,7 @@ namespace FineUIPro.Web.EduTrain
             var TrainingItemList = from x in Funs.DB.Training_TrainingItem
                                    join y in Funs.DB.AttachFile on x.TrainingItemId equals y.ToKeyId
                                    where x.TrainingItemId == trainingItemId && x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4)
-                                   select new BLL.HSSEService.Training_TrainingItem
+                                   select new HSSEService.Training_TrainingItem
                                    {
                                        TrainingItemId = x.TrainingItemId,
                                        TrainingId = x.TrainingId,

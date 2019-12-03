@@ -603,6 +603,93 @@
     <Content Include="ReportPrint\ReportTabFile\职业健康安全危险源辨识与评价.tab" />
     <Content Include="ReportPrint\ReportTabFile\职业健康安全危险源辨识与评价（重大危险源）.tab" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Base_Unit.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Check_CheckInfo_Table8Item.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Check_CheckRectify.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.EduTrain_AccidentCase.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.EduTrain_AccidentCaseItem.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Information_UrgeReport.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Law_HSSEStandardsList.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Law_LawRegulationList.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Law_ManageRule.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Law_RulesRegulations.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Supervise_SubUnitReport.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Supervise_SubUnitReportItem.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Supervise_SuperviseCheckRectify.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Sys_Version.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Technique_Appraise.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Technique_Emergency.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Technique_Expert.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Technique_HazardList.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Technique_HazardListType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Technique_HAZOP.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Technique_Rectify.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Technique_RectifyItem.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Technique_SpecialScheme.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Training_Knowledge.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Training_KnowledgeItem.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Training_Training.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Training_TrainingItem.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Training_TrainTestDB.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\HSSEService\FineUIPro.Web.HSSEService.Training_TrainTestDBItem.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Service References\HSSEService\HSSEService.disco" />
     <None Include="Service References\HSSEService\configuration91.svcinfo" />
     <None Include="Service References\HSSEService\configuration.svcinfo" />
@@ -3956,6 +4043,7 @@
     <Content Include="Technique\HazardList.aspx" />
     <Content Include="Technique\HazardListAudit.aspx" />
     <Content Include="Technique\HazardListEdit.aspx" />
+    <Content Include="Technique\HazardListOut.aspx" />
     <Content Include="Technique\HazardListIn.aspx" />
     <Content Include="Technique\HazardListTypeEdit.aspx" />
     <Content Include="Technique\HazardListUpload.aspx" />
@@ -10542,6 +10630,13 @@
     </Compile>
     <Compile Include="Technique\HazardListEdit.aspx.designer.cs">
       <DependentUpon>HazardListEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Technique\HazardListOut.aspx.cs">
+      <DependentUpon>HazardListOut.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Technique\HazardListOut.aspx.designer.cs">
+      <DependentUpon>HazardListOut.aspx</DependentUpon>
     </Compile>
     <Compile Include="Technique\HazardListIn.aspx.cs">
       <DependentUpon>HazardListIn.aspx</DependentUpon>

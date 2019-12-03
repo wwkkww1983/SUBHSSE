@@ -192,7 +192,7 @@ namespace FineUIPro.Web.Technique
             poxy.DataInsertTechnique_RectifyItemTableCompleted += new EventHandler<HSSEService.DataInsertTechnique_RectifyItemTableCompletedEventArgs>(poxy_DataInsertTechnique_RectifyItemTableCompleted);
             var rectifyItemList = from x in Funs.DB.Technique_RectifyItem
                                  where x.RectifyItemId == rectifyItemId && x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4)
-                                 select new BLL.HSSEService.Technique_RectifyItem
+                                 select new HSSEService.Technique_RectifyItem
                                  {
                                      RectifyItemId = x.RectifyItemId,
                                      RectifyId = x.RectifyId,

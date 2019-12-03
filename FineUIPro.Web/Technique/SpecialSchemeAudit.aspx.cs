@@ -212,7 +212,7 @@ namespace FineUIPro.Web.Technique
             var specialScheme = from x in Funs.DB.View_Technique_SpecialScheme
                                 join y in Funs.DB.AttachFile on x.SpecialSchemeId equals y.ToKeyId
                                 where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == false || x.IsBuild == null)
-                                select new BLL.HSSEService.Technique_SpecialScheme
+                                select new HSSEService.Technique_SpecialScheme
                                 {
                                     SpecialSchemeId = x.SpecialSchemeId,
                                     SpecialSchemeTypeId = x.SpecialSchemeTypeId,

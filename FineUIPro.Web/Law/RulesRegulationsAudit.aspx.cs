@@ -228,7 +228,7 @@ namespace FineUIPro.Web.Law
             var RulesRegulations = from x in Funs.DB.View_Law_RulesRegulations
                                    join y in Funs.DB.AttachFile on x.RulesRegulationsId equals y.ToKeyId
                                    where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == false || x.IsBuild == null)
-                                   select new BLL.HSSEService.Law_RulesRegulations
+                                   select new HSSEService.Law_RulesRegulations
                                    {
                                        RulesRegulationsId = x.RulesRegulationsId,
                                        RulesRegulationsCode = x.RulesRegulationsCode,

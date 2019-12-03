@@ -90,7 +90,7 @@ namespace FineUIPro.Web.HSSESystem
         {  /////创建客户端服务
             var poxy = Web.ServiceProxy.CreateServiceClient();
             poxy.DataInsertHSSESystem_HSSEOrganizeTableCompleted += new EventHandler<HSSEService.DataInsertHSSESystem_HSSEOrganizeTableCompletedEventArgs>(poxy_DataInsertHSSESystem_HSSEOrganizeTableCompleted);
-            var newOrganize = new BLL.HSSEService.HSSESystem_HSSEOrganize
+            var newOrganize = new HSSEService.HSSESystem_HSSEOrganize
             {
                 UnitId = organize.UnitId,
                 SeeFile = organize.SeeFile

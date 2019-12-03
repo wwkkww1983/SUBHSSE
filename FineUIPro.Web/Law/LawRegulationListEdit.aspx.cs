@@ -183,7 +183,7 @@ namespace FineUIPro.Web.Law
                                     where x.LawRegulationId == LawRegulationId && x.IsPass == true 
                                         && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4)
                                         //&& (!x.IsBuild.HasValue || x.IsBuild == false)
-                                    select new BLL.HSSEService.Law_LawRegulationList
+                                    select new HSSEService.Law_LawRegulationList
                                     {
                                         LawRegulationId = x.LawRegulationId,
                                         ApprovalDate = x.ApprovalDate,                                      

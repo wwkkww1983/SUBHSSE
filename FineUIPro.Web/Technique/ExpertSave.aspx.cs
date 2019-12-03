@@ -292,7 +292,7 @@ namespace FineUIPro.Web.Technique
             var expertList = from x in Funs.DB.View_Expert
                              join y in Funs.DB.AttachFile on x.ExpertId equals y.ToKeyId
                                  where x.ExpertId == expertId && x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4)
-                             select new BLL.HSSEService.Technique_Expert
+                             select new HSSEService.Technique_Expert
                                  {
                                      ExpertId = x.ExpertId,
                                      ExpertCode = x.ExpertCode,

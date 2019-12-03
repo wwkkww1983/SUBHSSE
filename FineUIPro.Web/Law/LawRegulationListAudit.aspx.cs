@@ -169,7 +169,7 @@
             var LawRegulationList = from x in Funs.DB.View_Law_LawRegulationList
                                     join y in Funs.DB.AttachFile on x.LawRegulationId equals y.ToKeyId
                                     where x.LawRegulationId == LawRegulationId && x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == null || x.IsBuild == false)
-                                    select new BLL.HSSEService.Law_LawRegulationList
+                                    select new HSSEService.Law_LawRegulationList
                                     {
                                         LawRegulationId = x.LawRegulationId,
                                         ApprovalDate = x.ApprovalDate,

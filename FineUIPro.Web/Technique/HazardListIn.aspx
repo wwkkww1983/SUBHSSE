@@ -53,7 +53,7 @@
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" EnableCollapse="true" runat="server"
                         EnableColumnLines="true" BoxFlex="1" DataKeyNames="HazardId" AllowCellEditing="true"
                         ClicksToEdit="2" DataIDField="HazardId" AllowSorting="true" SortField="HazardCode"
-                        PageSize="12" Height="400px">
+                        PageSize="1000" Height="400px">
                         <Columns>
                             <f:TemplateField Width="50px" HeaderText="序号" TextAlign="Center">
                                 <ItemTemplate>

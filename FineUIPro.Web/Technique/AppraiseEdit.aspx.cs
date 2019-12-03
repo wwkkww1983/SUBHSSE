@@ -165,7 +165,7 @@ namespace FineUIPro.Web.Technique
             var appraise = from x in Funs.DB.View_Technique_Appraise
                            join y in Funs.DB.AttachFile on x.AppraiseId equals y.ToKeyId
                            where x.IsPass == true && (x.UpState == BLL.Const.UpState_2 || x.UpState == BLL.Const.UpState_4) && (x.IsBuild == false || x.IsBuild == null)
-                           select new BLL.HSSEService.Technique_Appraise
+                           select new HSSEService.Technique_Appraise
                            {
                                AppraiseId = x.AppraiseId,
                                AppraiseCode = x.AppraiseCode,

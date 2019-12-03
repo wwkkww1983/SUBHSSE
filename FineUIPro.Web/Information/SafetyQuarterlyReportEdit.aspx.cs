@@ -977,7 +977,7 @@ namespace FineUIPro.Web.Information
             poxy.DataInsertInformation_SafetyQuarterlyReportTableCompleted += new EventHandler<HSSEService.DataInsertInformation_SafetyQuarterlyReportTableCompletedEventArgs>(poxy_DataInsertInformation_SafetyQuarterlyReportTableCompleted);
             var report = from x in Funs.DB.Information_SafetyQuarterlyReport
                          where x.SafetyQuarterlyReportId == safetyQuarterlyReportId && x.UpState == BLL.Const.UpState_2
-                         select new BLL.HSSEService.Information_SafetyQuarterlyReport
+                         select new HSSEService.Information_SafetyQuarterlyReport
                          {
                              SafetyQuarterlyReportId = x.SafetyQuarterlyReportId,
                              UnitId = x.UnitId,

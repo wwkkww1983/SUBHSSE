@@ -337,7 +337,7 @@ namespace FineUIPro.Web.Information
             poxy.DataInsertInformation_DrillPlanHalfYearReportTableCompleted += new EventHandler<HSSEService.DataInsertInformation_DrillPlanHalfYearReportTableCompletedEventArgs>(poxy_DataInsertInformation_DrillPlanHalfYearReportTableCompleted);
             var report = from x in Funs.DB.Information_DrillPlanHalfYearReport
                          where x.DrillPlanHalfYearReportId == drillPlanHalfYearReportId && x.UpState == BLL.Const.UpState_2
-                         select new BLL.HSSEService.Information_DrillPlanHalfYearReport
+                         select new HSSEService.Information_DrillPlanHalfYearReport
                          {
                              DrillPlanHalfYearReportId = x.DrillPlanHalfYearReportId,
                              UnitId = x.UnitId,
@@ -350,7 +350,7 @@ namespace FineUIPro.Web.Information
 
             var reportItem = from x in Funs.DB.Information_DrillPlanHalfYearReportItem
                              where x.DrillPlanHalfYearReportId == drillPlanHalfYearReportId
-                             select new BLL.HSSEService.Information_DrillPlanHalfYearReportItem
+                             select new HSSEService.Information_DrillPlanHalfYearReportItem
                              {
                                  DrillPlanHalfYearReportItemId = x.DrillPlanHalfYearReportItemId,
                                  DrillPlanHalfYearReportId = x.DrillPlanHalfYearReportId,

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://www.localhost.com" elementFormDefault="qualified" targetNamespace="http://www.localhost.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost/cncechsse/HSSEService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService" />
-  <xs:import schemaLocation="http://localhost/cncechsse/HSSEService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost/CNCEHSSE/HSSEService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/BLL.OpenService" />
+  <xs:import schemaLocation="http://localhost/CNCEHSSE/HSSEService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:element name="GetSys_VersionToSUB">
     <xs:complexType>
       <xs:sequence />
