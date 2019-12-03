@@ -149,14 +149,14 @@ namespace BLL
                                RadialType = x.RadialType,
                                WorkLeaderId = x.WorkLeaderId,
                                WorkLeaderName = Funs.DB.Sys_User.First(u => u.UserId == x.WorkLeaderId).UserName,
-                               WorkLeaderTel=x.WorkLeaderTel,
+                               WorkLeaderTel = x.WorkLeaderTel,
                                ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
                                ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
                                WorkPalce = x.WorkPalce,
                                WorkMeasures = x.WorkMeasures,
                                FireWatchManId = x.FireWatchManId,
                                FireWatchManName = Funs.DB.Sys_User.First(u => u.UserId == x.FireWatchManId).UserName,
-                               WatchManContact=x.WatchManContact,
+                               WatchManContact = x.WatchManContact,
                                CancelManId = x.CancelManId,
                                CancelManName = Funs.DB.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
                                CancelReasons = x.CancelReasons,
@@ -189,7 +189,7 @@ namespace BLL
                                ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
                                ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
                                WorkPalce = x.WorkPalce,
-                               WorkMeasures = x.WorkMeasures,                             
+                               WorkMeasures = x.WorkMeasures,
                                ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
                                ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
                                RoadName = x.RoadName,
@@ -270,7 +270,7 @@ namespace BLL
                                SafeLeaderName = Funs.DB.Sys_User.First(u => u.UserId == x.SafeLeaderId).UserName,
                                SafeLeaderTel = x.SafeLeaderTel,
                                ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
-                               ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),                              
+                               ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
                                CancelManId = x.CancelManId,
                                CancelManName = Funs.DB.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
                                CancelReasons = x.CancelReasons,
@@ -303,11 +303,11 @@ namespace BLL
                                ApplyManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApplyManId).UserName,
                                ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
                                WorkPalce = x.WorkPalce,
-                               WorkLevel=x.WorkLevel,
+                               WorkLevel = x.WorkLevel,
                                ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
                                ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
                                WorkMeasures = x.WorkMeasures,
-                               CraneCapacity=x.CraneCapacity,
+                               CraneCapacity = x.CraneCapacity,
                                CancelManId = x.CancelManId,
                                CancelManName = Funs.DB.Sys_User.First(u => u.UserId == x.CancelManId).UserName,
                                CancelReasons = x.CancelReasons,
@@ -887,7 +887,7 @@ namespace BLL
             }
             #endregion
 
-            return getInfoList.OrderByDescending(x=>x.ValidityStartTime).ToList();
+            return getInfoList.OrderByDescending(x => x.ValidityStartTime).ToList();
         }
         #endregion 
 
@@ -912,7 +912,7 @@ namespace BLL
                                    ConfirmManId = x.ConfirmManId,
                                    ConfirmManName = Funs.DB.Sys_User.First(u => u.UserId == x.ConfirmManId).UserName,
                                }).ToList();
-                
+
             return getInfoList;
         }
         #endregion        
@@ -942,7 +942,7 @@ namespace BLL
                                    Opinion = x.Opinion,
                                    IsFlowEnd = x.IsFlowEnd ?? false,
                                }).ToList();
-                
+
             return getInfoList;
         }
         #endregion        
@@ -953,7 +953,7 @@ namespace BLL
         /// </summary>
         /// <param name="newItem">作业票</param>
         /// <returns></returns>
-        public static void SaveLicenseData(Model.LicenseDataItem newItem)
+        public static string SaveLicenseData(Model.LicenseDataItem newItem)
         {
             string strLicenseId = newItem.LicenseId;
             string projectId = newItem.ProjectId;
@@ -991,9 +991,9 @@ namespace BLL
                 if (updateFireWork == null)
                 {
                     newFireWork.ApplyDate = DateTime.Now;
-                    strLicenseId = newFireWork.FireWorkId = SQLHelper.GetNewID();                                      
+                    strLicenseId = newFireWork.FireWorkId = SQLHelper.GetNewID();
                     newFireWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectFireWorkMenuId, newFireWork.ProjectId, newFireWork.ApplyUnitId);
-                    Funs.DB.License_FireWork.InsertOnSubmit(newFireWork);                   
+                    Funs.DB.License_FireWork.InsertOnSubmit(newFireWork);
                     ////增加一条编码记录
                     CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectFireWorkMenuId, newFireWork.ProjectId, newFireWork.ApplyUnitId, newFireWork.FireWorkId, newFireWork.ApplyDate);
                 }
@@ -1012,7 +1012,7 @@ namespace BLL
                         updateFireWork.CancelTime = DateTime.Now;
                     }
                     else
-                    {                        
+                    {
                         updateFireWork.WorkPalce = newFireWork.WorkPalce;
                         updateFireWork.FireWatchManId = newFireWork.FireWatchManId;
                         updateFireWork.ValidityStartTime = newFireWork.ValidityStartTime;
@@ -1021,7 +1021,7 @@ namespace BLL
                         updateFireWork.NextManId = newFireWork.NextManId;
                         updateFireWork.States = newFireWork.States;
                     }
-                    updateFireWork.States = newFireWork.States;                    
+                    updateFireWork.States = newFireWork.States;
                 }
             }
             #endregion
@@ -1063,7 +1063,7 @@ namespace BLL
                     strLicenseId = newHeightWork.HeightWorkId = SQLHelper.GetNewID();
                     newHeightWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectHeightWorkMenuId, newHeightWork.ProjectId, newHeightWork.ApplyUnitId);
                     Funs.DB.License_HeightWork.InsertOnSubmit(newHeightWork);
-                  
+
                     ////增加一条编码记录
                     CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectHeightWorkMenuId, newHeightWork.ProjectId, newHeightWork.ApplyUnitId, newHeightWork.HeightWorkId, newHeightWork.ApplyDate);
                 }
@@ -1082,7 +1082,7 @@ namespace BLL
                         updateHeightWork.CancelTime = DateTime.Now;
                     }
                     else
-                    {                       
+                    {
                         updateHeightWork.WorkPalce = newHeightWork.WorkPalce;
                         updateHeightWork.WorkType = newHeightWork.WorkType;
                         updateHeightWork.ValidityStartTime = newHeightWork.ValidityStartTime;
@@ -1092,7 +1092,7 @@ namespace BLL
                         updateHeightWork.NextManId = newHeightWork.NextManId;
                         updateHeightWork.States = newHeightWork.States;
                     }
-                    updateHeightWork.States = newHeightWork.States;                   
+                    updateHeightWork.States = newHeightWork.States;
                 }
             }
             #endregion
@@ -1175,7 +1175,7 @@ namespace BLL
                     ApplyUnitId = newItem.ApplyUnitId,
                     ApplyManId = newItem.ApplyManId,
                     ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
-                    RadialType=newItem.RadialType,
+                    RadialType = newItem.RadialType,
                     WorkLeaderId = newItem.WorkLeaderId,
                     WorkLeaderTel = newItem.WorkLeaderTel,
                     ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
@@ -1183,7 +1183,7 @@ namespace BLL
                     WorkPalce = newItem.WorkPalce,
                     WorkMeasures = newItem.WorkMeasures,
                     FireWatchManId = newItem.FireWatchManId,
-                    WatchManContact=newItem.WatchManContact,
+                    WatchManContact = newItem.WatchManContact,
                     CancelManId = newItem.CancelManId,
                     CancelReasons = newItem.CancelReasons,
                     CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
@@ -1232,7 +1232,7 @@ namespace BLL
                         updateRadialWork.WorkPalce = newRadialWork.WorkPalce;
                         updateRadialWork.WorkMeasures = newRadialWork.WorkMeasures;
                         updateRadialWork.FireWatchManId = newRadialWork.FireWatchManId;
-                        updateRadialWork.WatchManContact = newRadialWork.WatchManContact;                        
+                        updateRadialWork.WatchManContact = newRadialWork.WatchManContact;
                         updateRadialWork.NextManId = newRadialWork.NextManId;
                         updateRadialWork.States = newRadialWork.States;
                     }
@@ -1300,7 +1300,7 @@ namespace BLL
                         updateOpenCircuit.WorkPalce = newOpenCircuit.WorkPalce;
                         updateOpenCircuit.WorkMeasures = newOpenCircuit.WorkMeasures;
                         updateOpenCircuit.ValidityStartTime = newOpenCircuit.ValidityStartTime;
-                        updateOpenCircuit.ValidityEndTime = newOpenCircuit.ValidityEndTime;                        
+                        updateOpenCircuit.ValidityEndTime = newOpenCircuit.ValidityEndTime;
                         updateOpenCircuit.RoadName = newOpenCircuit.RoadName;
                         updateOpenCircuit.SafeMeasures = newOpenCircuit.SafeMeasures;
                         updateOpenCircuit.NextManId = newOpenCircuit.NextManId;
@@ -1549,7 +1549,7 @@ namespace BLL
                             ConfirmManId = item.ConfirmManId,
                         };
 
-                        Funs.DB.License_LicenseItem.InsertOnSubmit(newLicenseItem);                       
+                        Funs.DB.License_LicenseItem.InsertOnSubmit(newLicenseItem);
                     }
                 }
 
@@ -1557,71 +1557,10 @@ namespace BLL
             }
             #endregion
 
-            #region 新增审核初始流程
-            ////单据提交时 新增审核初始流程
-            if (newItem.States == Const.State_1)
-            {
-                var gteIsNullOperates = Funs.DB.License_FlowOperate.FirstOrDefault(x=> x.DataId == strLicenseId);
-                if (gteIsNullOperates != null)
-                {
-                    var noAgree = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.DataId == strLicenseId && x.IsAgree == false && (x.IsClosed == false || x.IsClosed == null));
-                    if (noAgree != null)
-                    {
-                        noAgree.IsAgree = null;
-                        noAgree.Opinion = null;
-                        noAgree.OperaterTime = null;
-                    }
-                    else
-                    {
-                        var firtFlow = (from x in Funs.DB.License_FlowOperate
-                                        where x.DataId == strLicenseId && (x.IsClosed == false || !x.IsClosed.HasValue)
-                                        orderby x.SortIndex,x.GroupNum,x.OrderNum
-                                        select x).FirstOrDefault();
-                        if (firtFlow != null)
-                        {
-                            firtFlow.OperaterId = newItem.NextManId;
-                        }
-                    }
-                    Funs.SubmitChanges();
-                }
-                else
-                {
-                    var sysMenuFlowOperate = from x in Funs.DB.Sys_MenuFlowOperate
-                                             where x.MenuId == newItem.MenuId
-                                             select x;
-                    if (sysMenuFlowOperate.Count() > 0)
-                    {                        
-                        foreach (var item in sysMenuFlowOperate)
-                        {
-                            Model.License_FlowOperate newFlowOperate = new Model.License_FlowOperate
-                            {
-                                FlowOperateId = SQLHelper.GetNewID(),
-                                ProjectId = projectId,
-                                DataId = strLicenseId,
-                                MenuId = item.MenuId,
-                                AuditFlowName = item.AuditFlowName,
-                                SortIndex = item.FlowStep,
-                                GroupNum = item.GroupNum,
-                                OrderNum = item.OrderNum,
-                                RoleIds = item.RoleId,
-                                IsFlowEnd = item.IsFlowEnd,
-                            };
-
-                            if (newFlowOperate.SortIndex == 1 && newFlowOperate.GroupNum ==1 && newFlowOperate.OrderNum == 1)
-                            {
-                                newFlowOperate.OperaterId = newItem.NextManId;
-                            }
-
-                            Funs.DB.License_FlowOperate.InsertOnSubmit(newFlowOperate);
-                            Funs.SubmitChanges();
-                        }
-                    }
-                }                
-            }
-            #endregion
-
             //// 保存附件
             APIUpLoadFileService.SaveAttachUrl(newItem.MenuId, strLicenseId, newItem.AttachUrl, "0");
+
+            return strLicenseId;
         }
         #endregion
 
@@ -1648,7 +1587,7 @@ namespace BLL
                 {
                     updateFlowOperate.IsClosed = true;
                 }
-                
+
                 /////增加一条审核明细记录
                 Model.License_FlowOperateItem newFlowOperateItem = new Model.License_FlowOperateItem
                 {
@@ -1659,20 +1598,17 @@ namespace BLL
                     IsAgree = updateFlowOperate.IsAgree,
                     Opinion = updateFlowOperate.Opinion,
                 };
-                Funs.DB.License_FlowOperateItem.InsertOnSubmit(newFlowOperateItem);              
+                Funs.DB.License_FlowOperateItem.InsertOnSubmit(newFlowOperateItem);
 
                 #region 新增下一步审核记录
                 if (newItem.IsAgree == true)
                 {
-                    var getNextFlowOperate = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.DataId == updateFlowOperate.DataId && x.SortIndex == (updateFlowOperate.SortIndex + 1));
-                    ////判断审核步骤是否结束
-                    if (getNextFlowOperate != null)
+                    var getCloseAllOperate = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.DataId == updateFlowOperate.DataId && x.SortIndex >= updateFlowOperate.SortIndex && (!x.IsClosed.HasValue || x.IsClosed == false) && (!x.IsFlowEnd.HasValue || x.IsFlowEnd == false));
+                    if (getCloseAllOperate == null)
                     {
-                        if (!getNextFlowOperate.IsFlowEnd.HasValue || getNextFlowOperate.IsFlowEnd == false)
-                        {
-                            getNextFlowOperate.OperaterId = newItem.NextOperaterId;
-                        }
-                        else
+                        var getNextFlowOperate = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.DataId == updateFlowOperate.DataId && x.IsFlowEnd == true);
+                        ////判断审核步骤是否结束
+                        if (getNextFlowOperate != null && getNextFlowOperate.IsFlowEnd == true)
                         {
                             /////最后一步是关闭所有 步骤
                             var isCloseFlows = from x in Funs.DB.License_FlowOperate
@@ -1719,10 +1655,10 @@ namespace BLL
                                 }
                             }
                         }
-                        else                        
+                        else
                         {
                             getFireWork.NextManId = applyManId;
-                            getFireWork.States = Const.State_0;                            
+                            getFireWork.States = Const.State_0;
                         }
                     }
                 }
@@ -1970,19 +1906,75 @@ namespace BLL
         }
         #endregion
 
+        #region 保存下一步审核流程
+        /// <summary>
+        /// 保存下一步审核流程
+        /// </summary>
+        /// <param name="newItemList">下一步流程集合</param>
+        public static void SaveNextLicenseFlowOperate(List<Model.FlowOperateItem> newItemList)
+        {
+            string dataId = newItemList.FirstOrDefault().DataId;
+            string menuId = newItemList.FirstOrDefault().MenuId;
+            string projectId = newItemList.FirstOrDefault().ProjectId;
+            var getFlowOperateLists = (from x in Funs.DB.License_FlowOperate where x.DataId == dataId select x).ToList();
+            if (getFlowOperateLists.Count() == 0)
+            {
+                var sysMenuFlowOperate = from x in Funs.DB.Sys_MenuFlowOperate
+                                         where x.MenuId == menuId
+                                         select x;
+                if (sysMenuFlowOperate.Count() > 0)
+                {
+                    foreach (var item in sysMenuFlowOperate)
+                    {
+                        Model.License_FlowOperate newFlowOperate = new Model.License_FlowOperate
+                        {
+                            FlowOperateId = SQLHelper.GetNewID(),
+                            ProjectId = projectId,
+                            DataId = dataId,
+                            MenuId = item.MenuId,
+                            AuditFlowName = item.AuditFlowName,
+                            SortIndex = item.FlowStep,
+                            GroupNum = item.GroupNum,
+                            OrderNum = item.OrderNum,
+                            RoleIds = item.RoleId,
+                            IsFlowEnd = item.IsFlowEnd,
+                        };
+                        Funs.DB.License_FlowOperate.InsertOnSubmit(newFlowOperate);
+                        Funs.SubmitChanges();
+
+                        getFlowOperateLists.Add(newFlowOperate);
+                    }
+                }
+            }
+
+            foreach (var item in newItemList)
+            {
+                var getUpdateNextFlow = getFlowOperateLists.FirstOrDefault(x => x.SortIndex == item.SortIndex && x.GroupNum == item.GroupNum && x.OrderNum == item.OrderNum);
+                if (getUpdateNextFlow != null)
+                {
+                    getUpdateNextFlow.IsAgree = null;
+                    getUpdateNextFlow.Opinion = null;
+                    getUpdateNextFlow.OperaterTime = null;
+                    getUpdateNextFlow.OperaterId = item.OperaterId;
+                    Funs.SubmitChanges();
+                }
+            }
+        }
+        #endregion
+
         #region 获取当前审核记录
         /// <summary>
         /// 获取当前审核记录
         /// </summary>
         /// <param name="dataId">主键ID</param>
         /// <returns></returns>
-        public static Model.FlowOperateItem getLicenseFlowOperate(string dataId)
+        public static Model.FlowOperateItem getLicenseFlowOperate(string dataId, string userId)
         {
             ////审核记录
             var getFlowOperate = from x in Funs.DB.License_FlowOperate
-                                 where x.DataId == dataId && x.OperaterId != null
-                                 && (!x.IsClosed.HasValue || x.IsClosed == false)
-                                 orderby x.SortIndex
+                                 where x.DataId == dataId && x.OperaterId == userId
+                                    && (!x.IsClosed.HasValue || x.IsClosed == false)
+                                 orderby x.SortIndex, x.GroupNum, x.OrderNum
                                  select new Model.FlowOperateItem
                                  {
                                      FlowOperateId = x.FlowOperateId,
@@ -1990,13 +1982,15 @@ namespace BLL
                                      DataId = x.DataId,
                                      AuditFlowName = x.AuditFlowName,
                                      SortIndex = x.SortIndex ?? 0,
+                                     GroupNum = x.GroupNum ?? 0,
+                                     OrderNum = x.OrderNum ?? 0,
                                      RoleIds = x.RoleIds,
                                      OperaterId = x.OperaterId,
                                      OperaterName = Funs.DB.Sys_User.First(y => y.UserId == x.OperaterId).UserName,
                                      IsAgree = x.IsAgree,
                                      Opinion = x.Opinion,
                                      IsFlowEnd = x.IsFlowEnd ?? false,
-                                     SignatureUrl= Funs.DB.Sys_User.First(y => y.UserId == x.OperaterId).SignatureUrl.Replace('\\', '/'),
+                                     SignatureUrl = Funs.DB.Sys_User.First(y => y.UserId == x.OperaterId).SignatureUrl.Replace('\\', '/'),
                                  };
             return getFlowOperate.FirstOrDefault();
         }
@@ -2008,23 +2002,24 @@ namespace BLL
         /// </summary>
         /// <param name="dataId">主键ID</param>
         /// <returns></returns>
-        public static Model.FlowOperateItem getNextLicenseFlowOperate(string strMenuId, Model.LicenseDataItem licenseInfo)
+        public static List<Model.FlowOperateItem> getNextLicenseFlowOperate(string strMenuId, Model.LicenseDataItem licenseInfo, Model.FlowOperateItem getNowFlowOperate)
         {
-            Model.FlowOperateItem getFlowOperate = new Model.FlowOperateItem();
-            if (licenseInfo == null)
+            List<Model.FlowOperateItem> getFlowOperate = new List<Model.FlowOperateItem>();
+            if (licenseInfo == null || string.IsNullOrEmpty(licenseInfo.LicenseId))
             {
                 getFlowOperate = (from x in Funs.DB.Sys_MenuFlowOperate
-                                  where x.MenuId == strMenuId
-                                  orderby x.FlowStep
+                                  where x.MenuId == strMenuId && x.FlowStep == 1 && x.OrderNum == 1
+                                  orderby x.FlowStep, x.GroupNum, x.OrderNum
                                   select new Model.FlowOperateItem
                                   {
-                                      FlowOperateId = x.FlowOperateId,
                                       MenuId = x.MenuId,
                                       AuditFlowName = x.AuditFlowName,
                                       SortIndex = x.FlowStep ?? 0,
-                                      RoleIds = x.RoleId,                                   
+                                      GroupNum = x.GroupNum ?? 1,
+                                      OrderNum = x.OrderNum ?? 1,
+                                      RoleIds = x.RoleId,
                                       IsFlowEnd = x.IsFlowEnd ?? false,
-                                  }).FirstOrDefault();
+                                  }).ToList();
             }
             else
             {
@@ -2032,45 +2027,133 @@ namespace BLL
                 {
                     getFlowOperate = (from x in Funs.DB.License_FlowOperate
                                       where x.DataId == licenseInfo.LicenseId && x.IsAgree == false && (!x.IsClosed.HasValue || x.IsClosed == false)
-                                      orderby x.SortIndex
+                                      orderby x.SortIndex, x.GroupNum, x.OrderNum
                                       select new Model.FlowOperateItem
                                       {
                                           FlowOperateId = x.FlowOperateId,
                                           MenuId = x.MenuId,
                                           DataId = x.DataId,
+                                          ProjectId = x.ProjectId,
                                           AuditFlowName = x.AuditFlowName,
                                           SortIndex = x.SortIndex ?? 0,
+                                          GroupNum = x.GroupNum ?? 1,
+                                          OrderNum = x.OrderNum ?? 1,
                                           RoleIds = x.RoleIds,
                                           OperaterId = x.OperaterId,
                                           OperaterName = Funs.DB.Sys_User.First(y => y.UserId == x.OperaterId).UserName,
                                           IsAgree = x.IsAgree,
                                           Opinion = x.Opinion,
                                           IsFlowEnd = x.IsFlowEnd ?? false,
-                                      }).FirstOrDefault(); ;
+                                      }).ToList();
                 }
                 else if (licenseInfo.States == Const.State_1)
                 {
                     getFlowOperate = (from x in Funs.DB.License_FlowOperate
-                                      where x.DataId == licenseInfo.LicenseId && x.OperaterId == null && (!x.IsClosed.HasValue || x.IsClosed == false)
-                                      orderby x.SortIndex
+                                      where x.DataId == licenseInfo.LicenseId && (!x.IsClosed.HasValue || x.IsClosed == false)
+                                      && x.SortIndex == getNowFlowOperate.SortIndex && x.GroupNum == getNowFlowOperate.GroupNum && x.OrderNum == (getNowFlowOperate.OrderNum + 1)
+                                      orderby x.SortIndex, x.GroupNum, x.OrderNum
                                       select new Model.FlowOperateItem
                                       {
                                           FlowOperateId = x.FlowOperateId,
                                           MenuId = x.MenuId,
                                           DataId = x.DataId,
+                                          ProjectId = x.ProjectId,
                                           AuditFlowName = x.AuditFlowName,
                                           SortIndex = x.SortIndex ?? 0,
+                                          GroupNum = x.GroupNum ?? 1,
+                                          OrderNum = x.OrderNum ?? 1,
                                           RoleIds = x.RoleIds,
                                           OperaterId = x.OperaterId,
                                           OperaterName = Funs.DB.Sys_User.First(y => y.UserId == x.OperaterId).UserName,
                                           IsAgree = x.IsAgree,
                                           Opinion = x.Opinion,
                                           IsFlowEnd = x.IsFlowEnd ?? false,
-                                      }).FirstOrDefault();
+                                      }).ToList();
+                    if (getFlowOperate.Count() == 0)
+                    {
+                        var getGroupFlowOperate = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.DataId == licenseInfo.LicenseId && (!x.IsClosed.HasValue || x.IsClosed == false)
+                                           && x.SortIndex == getNowFlowOperate.SortIndex);
+                        if (getGroupFlowOperate == null)
+                        {
+                            getFlowOperate = (from x in Funs.DB.License_FlowOperate
+                                              where x.DataId == licenseInfo.LicenseId && (!x.IsClosed.HasValue || x.IsClosed == false)
+                                              && x.SortIndex == (getNowFlowOperate.SortIndex + 1) && x.OrderNum == 1
+                                              orderby x.SortIndex, x.GroupNum, x.OrderNum
+                                              select new Model.FlowOperateItem
+                                              {
+                                                  FlowOperateId = x.FlowOperateId,
+                                                  MenuId = x.MenuId,
+                                                  DataId = x.DataId,
+                                                  ProjectId = x.ProjectId,
+                                                  AuditFlowName = x.AuditFlowName,
+                                                  SortIndex = x.SortIndex ?? 0,
+                                                  GroupNum = x.GroupNum ?? 1,
+                                                  OrderNum = x.OrderNum ?? 1,
+                                                  RoleIds = x.RoleIds,
+                                                  OperaterId = x.OperaterId,
+                                                  OperaterName = Funs.DB.Sys_User.First(y => y.UserId == x.OperaterId).UserName,
+                                                  IsAgree = x.IsAgree,
+                                                  Opinion = x.Opinion,
+                                                  IsFlowEnd = x.IsFlowEnd ?? false,
+                                              }).ToList();
+                        }
+                    }
                 }
             }
             return getFlowOperate;
         }
         #endregion
+
+        #region 删除审核步骤
+        /// <summary>
+        /// 删除审核步骤
+        /// </summary>
+        /// <param name="flowOperateId">主键ID</param>
+        /// <returns></returns>
+        public static void getDeleteLicenseFlowOperate(string flowOperateId)
+        {
+            var delteFlow = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.FlowOperateId == flowOperateId);
+            if (delteFlow != null)
+            {
+                Funs.DB.License_FlowOperate.DeleteOnSubmit(delteFlow);
+                Funs.SubmitChanges();
+            }
+        }
+        #endregion
+
+        #region 获取作业票审核步骤下步分支
+        /// <summary>
+        /// 获取作业票审核步骤下步分支
+        /// </summary>
+        /// <param name="dataId"></param>
+        /// <returns></returns>
+        public static List<Model.FlowOperateItem> getNextLicenseFlowOperateGroupList(string flowOperateId)
+        {
+            List<Model.FlowOperateItem> getNextFlowsList = new List<Model.FlowOperateItem>();
+            var getFlow = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.FlowOperateId == flowOperateId);
+            if (getFlow != null)
+            {
+                getNextFlowsList = (from x in Funs.DB.License_FlowOperate
+                                    where x.DataId == getFlow.DataId && x.SortIndex == (getFlow.SortIndex + 1)
+                                    orderby x.SortIndex, x.GroupNum, x.OrderNum
+                                    select new Model.FlowOperateItem
+                                    {
+                                        FlowOperateId = x.FlowOperateId,
+                                        AuditFlowName = x.AuditFlowName,
+                                        SortIndex = x.SortIndex ?? 0,
+                                        GroupNum = x.GroupNum ?? 1,
+                                        OrderNum = x.OrderNum ?? 1,
+                                        OperaterId = x.OperaterId,
+                                        OperaterName = Funs.DB.Sys_User.First(u => u.UserId == x.OperaterId).UserName,
+                                        OperaterTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.OperaterTime),
+                                        IsAgree = x.IsAgree,
+                                        Opinion = x.Opinion,
+                                        IsFlowEnd = x.IsFlowEnd ?? false,
+                                    }).ToList();
+            }           
+
+            return getNextFlowsList;
+        }
+        #endregion  
     }
 }

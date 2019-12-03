@@ -27,6 +27,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 项目ID
+        /// </summary>
+        public string ProjectId
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 单据ID
         /// </summary>
         public string DataId

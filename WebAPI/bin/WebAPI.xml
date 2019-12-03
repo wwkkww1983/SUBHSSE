@@ -792,12 +792,13 @@
             <param name="pageIndex">页码</param>
             <returns></returns>
         </member>
-        <member name="M:WebAPI.Controllers.LicenseController.getLicenseDataById(System.String,System.String)">
+        <member name="M:WebAPI.Controllers.LicenseController.getLicenseDataById(System.String,System.String,System.String)">
             <summary>
              根据ID获取作业票详细
             </summary>
             <param name="strMenuId">菜单ID</param>
             <param name="id">作业票ID</param>
+            <param name="userId">当前人ID</param>
             <returns></returns>
         </member>
         <member name="M:WebAPI.Controllers.LicenseController.getLicenseLicenseItemList(System.String)">
@@ -822,9 +823,29 @@
         </member>
         <member name="M:WebAPI.Controllers.LicenseController.SaveLicenseFlowOperate(Model.FlowOperateItem)">
             <summary>
-            保存作业票信息
+            保存当前审核记录
             </summary>
-            <param name="flowOperateItem">作业票记录</param>
+            <param name="flowOperateItem">当前审核记录</param>
+        </member>
+        <member name="M:WebAPI.Controllers.LicenseController.SaveNextLicenseFlowOperate(System.Collections.Generic.List{Model.FlowOperateItem})">
+            <summary>
+            保存下一步审核流程
+            </summary>
+            <param name="flowOperateItem">下一步审核</param>
+        </member>
+        <member name="M:WebAPI.Controllers.LicenseController.getDeleteLicenseFlowOperate(System.String)">
+            <summary>
+             删除作业票步骤
+            </summary>
+            <param name="flowOperateId">审核步骤ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.LicenseController.getNextLicenseFlowOperateGroupList(System.String)">
+            <summary>
+             获取作业票审核步骤下步分支
+            </summary>
+            <param name="flowOperateId">审核步骤ID</param>
+            <returns></returns>
         </member>
         <member name="T:WebAPI.Controllers.PunishNoticeController">
             <summary>

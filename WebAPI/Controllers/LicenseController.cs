@@ -84,24 +84,25 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="strMenuId">菜单ID</param>
         /// <param name="id">作业票ID</param>
+        /// <param name="userId">当前人ID</param>
         /// <returns></returns>
-        public Model.ResponeData getLicenseDataById(string strMenuId, string id)
+        public Model.ResponeData getLicenseDataById(string strMenuId, string id, string userId)
         {
             var responeData = new Model.ResponeData();
             try
-            {                
+            {
                 Model.LicenseDataItem getInfo = new Model.LicenseDataItem();
                 if (!string.IsNullOrEmpty(id))
                 {
                     getInfo = APILicenseDataService.getLicenseDataById(strMenuId, id);
                 }
 
-                var getLicenseFlowOperate = APILicenseDataService.getLicenseFlowOperate(id);
-                var getNextLicenseFlowOperate = APILicenseDataService.getNextLicenseFlowOperate(strMenuId, getInfo);
+                var getLicenseFlowOperate = APILicenseDataService.getLicenseFlowOperate(id, userId);
+                var getNextLicenseFlowOperate = APILicenseDataService.getNextLicenseFlowOperate(strMenuId, getInfo, getLicenseFlowOperate);
                 responeData.data = new { getInfo, getLicenseFlowOperate, getNextLicenseFlowOperate };
             }
             catch (Exception ex)
-            {                
+            {
                 responeData.code = 0;
                 responeData.message = ex.Message;
             }
@@ -167,7 +168,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                APILicenseDataService.SaveLicenseData(licenseDataItem);
+                responeData.data = APILicenseDataService.SaveLicenseData(licenseDataItem);
             }
             catch (Exception ex)
             {
@@ -180,9 +181,9 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
-        /// 保存作业票信息
+        /// 保存当前审核记录
         /// </summary>
-        /// <param name="flowOperateItem">作业票记录</param>
+        /// <param name="flowOperateItem">当前审核记录</param>
         [HttpPost]
         public Model.ResponeData SaveLicenseFlowOperate([FromBody] Model.FlowOperateItem flowOperateItem)
         {
@@ -197,6 +198,76 @@ namespace WebAPI.Controllers
                 responeData.message = ex.Message;
                 ErrLogInfo.WriteLog(string.Empty, ex);
             }
+            return responeData;
+        }
+
+        /// <summary>
+        /// 保存下一步审核流程
+        /// </summary>
+        /// <param name="flowOperateItem">下一步审核</param>
+        [HttpPost]
+        public Model.ResponeData SaveNextLicenseFlowOperate([FromBody] List<Model.FlowOperateItem> flowOperateItem)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                if (flowOperateItem.Count() > 0)
+                {
+                    APILicenseDataService.SaveNextLicenseFlowOperate(flowOperateItem);
+                }
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+                ErrLogInfo.WriteLog(string.Empty, ex);
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 删除作业票步骤
+        /// <summary>
+        ///  删除作业票步骤
+        /// </summary>
+        /// <param name="flowOperateId">审核步骤ID</param>
+        /// <returns></returns>
+        public Model.ResponeData getDeleteLicenseFlowOperate(string flowOperateId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APILicenseDataService.getDeleteLicenseFlowOperate(flowOperateId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region 获取作业票审核步骤下步分支
+        /// <summary>
+        ///  获取作业票审核步骤下步分支
+        /// </summary>
+        /// <param name="flowOperateId">审核步骤ID</param>
+        /// <returns></returns>
+        public Model.ResponeData getNextLicenseFlowOperateGroupList(string flowOperateId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APILicenseDataService.getNextLicenseFlowOperateGroupList(flowOperateId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
             return responeData;
         }
         #endregion
