@@ -3,7 +3,9 @@
 ################################################################################
 
 .vs/
+.vs/*
 FineUIPro.Web/bin/
+FineUIPro.Web/FileUpload/
 FineUIPro.Web/obj/
 TestResults/
 WebAPI/bin/

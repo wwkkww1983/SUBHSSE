@@ -2008,7 +2008,7 @@ namespace BLL
             if (licenseInfo == null || string.IsNullOrEmpty(licenseInfo.LicenseId))
             {
                 getFlowOperate = (from x in Funs.DB.Sys_MenuFlowOperate
-                                  where x.MenuId == strMenuId && x.FlowStep == 1 && x.OrderNum == 1
+                                  where x.MenuId == strMenuId && x.FlowStep == 1 && x.OrderNum ==1
                                   orderby x.FlowStep, x.GroupNum, x.OrderNum
                                   select new Model.FlowOperateItem
                                   {
@@ -2115,6 +2115,40 @@ namespace BLL
             var delteFlow = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.FlowOperateId == flowOperateId);
             if (delteFlow != null)
             {
+                var isSort = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.DataId == delteFlow.DataId && x.SortIndex == delteFlow.SortIndex);
+                if (isSort == null)
+                {
+                    var updateSort = from x in Funs.DB.License_FlowOperate
+                                     where x.DataId == delteFlow.DataId && x.SortIndex > delteFlow.SortIndex
+                                     select x;
+                    foreach (var item in updateSort)
+                    {
+                        item.SortIndex -= 1;
+                    }
+                }
+                else
+                {
+                    var isGroup = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.DataId == delteFlow.DataId && x.SortIndex == delteFlow.SortIndex && x.GroupNum == delteFlow.GroupNum);
+                    if (isGroup == null)
+                    {
+                        var updateGroup = from x in Funs.DB.License_FlowOperate
+                                          where x.DataId == delteFlow.DataId && x.SortIndex == delteFlow.SortIndex && x.GroupNum > delteFlow.GroupNum
+                                          select x;
+                        foreach (var item in updateGroup)
+                        {
+                            item.GroupNum -= 1;
+                        }
+                    }
+                    else
+                    {
+                        var isOrder = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.DataId == delteFlow.DataId && x.SortIndex == delteFlow.SortIndex && x.GroupNum == delteFlow.GroupNum && x.OrderNum > delteFlow.OrderNum);
+                        if (isOrder != null)
+                        {
+                            isOrder.OrderNum -= 1;
+                        }
+                    }
+                }
+
                 Funs.DB.License_FlowOperate.DeleteOnSubmit(delteFlow);
                 Funs.SubmitChanges();
             }
