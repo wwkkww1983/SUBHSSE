@@ -73,6 +73,39 @@ namespace BLL
                                 }).Take(5).ToList();
             return getDataLists;
         }
+
+        /// <summary>
+        /// 项目图片信息保存方法
+        /// </summary>
+        /// <param name="picture">图片信息</param>
+        public static void SaveProjectPicture(Model.PictureItem picture)
+        {
+            Model.InformationProject_Picture newPicture = new Model.InformationProject_Picture
+            {
+                PictureId = picture.PictureId,
+                ProjectId = picture.ProjectId,
+                Title = picture.Title,
+                ContentDef = picture.ContentDef,
+                PictureType = picture.PictureTypeId,
+                UploadDate = System.DateTime.Now,
+                States = Const.State_2,
+                CompileMan = picture.CompileManId,
+            };
+                        
+            if (string.IsNullOrEmpty(newPicture.PictureId))
+            {
+                newPicture.PictureId = SQLHelper.GetNewID();
+                PictureService.AddPicture(newPicture);
+            }
+            else
+            {
+                PictureService.UpdatePicture(newPicture);
+            }
+
+            CommonService.btnSaveData(newPicture.ProjectId, Const.ProjectPictureMenuId, newPicture.PictureId, newPicture.CompileMan, true, newPicture.Title, "../InformationProject/PictureView.aspx?PictureId={0}");
+            //// 保存附件
+            APIUpLoadFileService.SaveAttachUrl(Const.ProjectPictureMenuId, newPicture.PictureId, picture.AttachUrl, "0");
+        }
         #endregion
 
         #region 获取通知通告

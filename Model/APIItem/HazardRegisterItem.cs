@@ -296,5 +296,13 @@ namespace Model
             get;
             set;
         }
+        /// <summary>
+        /// 隐患整改单ID
+        /// </summary>
+        public string RectifyNoticesId
+        {
+            get;
+            set;
+        }
     }
 }

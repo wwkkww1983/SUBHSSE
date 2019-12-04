@@ -555,6 +555,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.SaveProjectPicture(Model.PictureItem)">
+            <summary>
+            保存项目图片信息
+            </summary>
+            <param name="picture">图片信息</param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.BaseInfoController.getTopNotices">
             <summary>
             获取头条通知
@@ -827,7 +834,7 @@
             </summary>
             <param name="flowOperateItem">当前审核记录</param>
         </member>
-        <member name="M:WebAPI.Controllers.LicenseController.SaveNextLicenseFlowOperate(System.Collections.Generic.List{Model.FlowOperateItem})">
+        <member name="M:WebAPI.Controllers.LicenseController.SaveNextLicenseFlowOperate(Model.NextFlowOperateItem)">
             <summary>
             保存下一步审核流程
             </summary>

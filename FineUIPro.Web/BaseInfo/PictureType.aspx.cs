@@ -138,11 +138,14 @@ namespace FineUIPro.Web.BaseInfo
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    var getV = BLL.PictureTypeService.GetPictureTypeById(hfFormID.Text);
-                    if (getV != null)
+                    if (this.judgementDelete(rowID, true))
                     {
-                        BLL.LogService.AddSys_Log(this.CurrUser, getV.Code, getV.PictureTypeId, BLL.Const.PictureTypeMenuId, BLL.Const.BtnDelete);
-                        BLL.PictureTypeService.DeletePictureTypeById(rowID);
+                        var getV = PictureTypeService.GetPictureTypeById(hfFormID.Text);
+                        if (getV != null)
+                        {
+                            LogService.AddSys_Log(this.CurrUser, getV.Code, getV.PictureTypeId, BLL.Const.PictureTypeMenuId, BLL.Const.BtnDelete);
+                            PictureTypeService.DeletePictureTypeById(rowID);
+                        }
                     }
                 }
 
@@ -272,6 +275,34 @@ namespace FineUIPro.Web.BaseInfo
                 }
             }
         }
-        #endregion        
+        #endregion
+
+        /// <summary>
+        /// 判断是否可删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="isShow"></param>
+        /// <returns></returns>
+        private bool judgementDelete(string id, bool isShow)
+        {
+            string content = string.Empty;
+            if (Funs.DB.InformationProject_Picture.FirstOrDefault(x => x.PictureType == id) != null)
+            {
+                content = "该类型已在【项目图片】中使用，不能删除！";
+            }
+            if (string.IsNullOrEmpty(content))
+            {
+                return true;
+            }
+            else
+            {
+                if (isShow)
+                {
+                    Alert.ShowInTop(content);
+                }
+                return false;
+            }
+        }
+
     }
 }

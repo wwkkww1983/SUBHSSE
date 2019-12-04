@@ -32,16 +32,27 @@
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
                              <f:TextBox runat="server" Label="单位" ID="txtUnitName" EmptyText="输入查询条件"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="50px"
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="50px"
                                 LabelAlign="right">
                             </f:TextBox>
                             <f:TextBox runat="server" Label="区域" ID="txtWorkAreaName" EmptyText="输入查询条件"
                                 AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="200px" LabelWidth="50px"
                                 LabelAlign="right">
                             </f:TextBox>  
-                            <f:TextBox runat="server" Label="编号" ID="txtRectifyNoticesCode" EmptyText="输入查询条件"
+                            <f:TextBox runat="server" Label="编号" ID="txtRectifyNoticesCode" EmptyText="输入查询条件" Width="200px"
                                 AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelWidth="50px" LabelAlign="right">
                             </f:TextBox>
+                        </Items>
+                    </f:Toolbar>
+                    <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Left">
+                        <Items>
+                             <f:RadioButtonList runat="server" ID="rbStates" Width="400px" AutoPostBack="true" OnSelectedIndexChanged="rbStates_SelectedIndexChanged">
+                                <f:RadioItem Text="全部" Value="-1" Selected="true" />
+                                <f:RadioItem Text="待签发" Value="0" />
+                                <f:RadioItem Text="待整改" Value="1" />
+                                <f:RadioItem Text="待复审" Value="2" />
+                                <f:RadioItem Text="已完成" Value="3" />
+                            </f:RadioButtonList>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" runat="server"
@@ -62,15 +73,15 @@
                     </f:Toolbar>
                 </Toolbars>
                 <Columns>                   
-                    <f:RenderField Width="170px" ColumnID="RectifyNoticesCode" DataField="RectifyNoticesCode"
+                    <f:RenderField Width="120px" ColumnID="RectifyNoticesCode" DataField="RectifyNoticesCode"
                         SortField="RectifyNoticesCode" FieldType="String" HeaderText="整改单号" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="WorkAreaName" DataField="WorkAreaName" 
+                    <f:RenderField Width="110px" ColumnID="WorkAreaName" DataField="WorkAreaName" 
                         SortField="WorkAreaName" FieldType="String" HeaderText="检查区域" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="220px" ColumnID="UnitName" DataField="UnitName" 
+                    <f:RenderField Width="200px" ColumnID="UnitName" DataField="UnitName" 
                         SortField="UnitName" FieldType="String" HeaderText="责任单位" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="280px" ColumnID="WrongContent" DataField="WrongContent" ExpandUnusedSpace="true"

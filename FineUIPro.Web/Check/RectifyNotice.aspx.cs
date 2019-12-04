@@ -92,6 +92,24 @@ namespace FineUIPro.Web.Check
                 strSql += " AND WorkArea.WorkAreaName LIKE @WorkAreaName";
                 listStr.Add(new SqlParameter("@WorkAreaName", "%" + this.txtWorkAreaName.Text.Trim() + "%"));
             }
+
+            if (this.rbStates.SelectedValue == "0")
+            {
+                strSql += " AND RectifyNotices.SignDate IS NULL";
+            }
+            else if (this.rbStates.SelectedValue == "1")
+            {
+                strSql += " AND RectifyNotices.SignDate IS NOT NULL AND RectifyNotices.CompleteDate IS NULL";
+            }
+            else if (this.rbStates.SelectedValue == "2")
+            {
+                strSql += " AND RectifyNotices.CompleteDate IS NOT NULL AND RectifyNotices.ReCheckDate IS NULL";
+            }
+            else if (this.rbStates.SelectedValue == "3")
+            {
+                strSql += " AND RectifyNotices.ReCheckDate IS NOT NULL";
+            }
+            
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 
@@ -421,6 +439,11 @@ namespace FineUIPro.Web.Check
                 return;
             }
             PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticePrint.aspx?RectifyNoticeId={0}", Grid1.SelectedRowID, "打印 - ")));
+        }
+
+        protected void rbStates_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindGrid();
         }
     }
 }

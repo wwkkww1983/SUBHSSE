@@ -206,14 +206,14 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="flowOperateItem">下一步审核</param>
         [HttpPost]
-        public Model.ResponeData SaveNextLicenseFlowOperate([FromBody] List<Model.FlowOperateItem> flowOperateItem)
+        public Model.ResponeData SaveNextLicenseFlowOperate([FromBody] Model.NextFlowOperateItem flowOperateItem)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                if (flowOperateItem.Count() > 0)
+                if (flowOperateItem != null && flowOperateItem.FlowOperateList.Count() > 0)
                 {
-                    APILicenseDataService.SaveNextLicenseFlowOperate(flowOperateItem);
+                    APILicenseDataService.SaveNextLicenseFlowOperate(flowOperateItem.FlowOperateList);
                 }
             }
             catch (Exception ex)

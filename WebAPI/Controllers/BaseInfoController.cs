@@ -132,6 +132,30 @@ namespace WebAPI.Controllers
 
             return responeData;
         }
+
+        #region 保存项目图片信息
+        /// <summary>
+        /// 保存项目图片信息
+        /// </summary>
+        /// <param name="picture">图片信息</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData SaveProjectPicture([FromBody] Model.PictureItem picture)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APIBaseInfoService.SaveProjectPicture(picture);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
         #endregion
 
         #region 获取通知通告

@@ -56,11 +56,9 @@
                     <f:Label runat="server" ID="Label11" Text="等施工 ，已构成重大安全隐患和质量隐患，详见附图。"></f:Label>
                 </Items>
             </f:FormRow>--%>
-            <f:FormRow ColumnWidths="1% 18% 2% 6% 2% 6% 2% 6% 32% 25%">
+            <f:FormRow ColumnWidths="23% 2% 6% 2% 8% 2% 6% 25% 25%">
                 <Items>
-                    <f:Label runat="server" ID="Label15" Text="">
-                    </f:Label>
-                    <f:NumberBox ID="txtYear" runat="server" Label="现通知你方必须于" NoDecimal="true" LabelWidth="130px">
+                    <f:NumberBox ID="txtYear" runat="server" Label="现通知你方必须于" NoDecimal="true" LabelWidth="150px">
                     </f:NumberBox>
                     <f:Label runat="server" ID="Label1" Text="年">
                     </f:Label>
@@ -74,7 +72,7 @@
                     </f:Label>
                     <f:NumberBox ID="txtHour" runat="server" NoDecimal="true" LabelWidth="0px">
                     </f:NumberBox>
-                    <f:TextBox ID="txtPauseContent" runat="server" Label="时起,对本工程的" MaxLength="150" LabelWidth="120px">
+                    <f:TextBox ID="txtPauseContent" runat="server" Label="时起,对本工程的" MaxLength="150" LabelWidth="130px">
                     </f:TextBox>
                     <f:Label runat="server" ID="Label18" Text="作业实施暂停施工，并按下述要求做好各项工作：">
                     </f:Label>
@@ -86,7 +84,7 @@
                     <f:Label runat="server" ID="Label4" Text="并按下述要求做好各项工作："></f:Label>
                 </Items>
             </f:FormRow>--%>
-            <f:FormRow ColumnWidths="2% 16% 53% 29%">
+            <f:FormRow ColumnWidths="2% 19% 50% 29%">
                 <Items>
                     <f:Label runat="server" ID="Label23" Text="">
                     </f:Label>
@@ -98,7 +96,7 @@
                     </f:Label>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="2% 14% 54% 30%">
+            <f:FormRow ColumnWidths="2% 15% 53% 30%">
                 <Items>
                     <f:Label runat="server" ID="Label24" Text="">
                     </f:Label>
@@ -145,7 +143,7 @@
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtProjectHeadConfirm" runat="server" Label="项目经理签字" MaxLength="50"
-                        LabelWidth="100px" Enabled="false">
+                        LabelWidth="110px" Enabled="false">
                     </f:TextBox>
                     <f:DatePicker runat="server" Label="签字确认日期" ID="txtConfirmDate" LabelWidth="110px"
                         EnableEdit="true" Enabled="false">

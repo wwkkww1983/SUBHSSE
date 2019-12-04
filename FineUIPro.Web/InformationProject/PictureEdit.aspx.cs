@@ -173,7 +173,7 @@ namespace FineUIPro.Web.InformationProject
             }
 
             ////保存流程审核数据         
-            this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectPictureMenuId, this.PictureId, (type == BLL.Const.BtnSubmit ? true : false), picture.Title, "../InformationProject/PictureView.aspx?PictureId={0}");
+            this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectPictureMenuId, this.PictureId, (type == Const.BtnSubmit ? true : false), picture.Title, "../InformationProject/PictureView.aspx?PictureId={0}");
         }
         #endregion
 

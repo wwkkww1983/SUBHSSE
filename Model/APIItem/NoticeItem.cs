@@ -58,7 +58,7 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 主要内容
+        /// 是否阅读
         /// </summary>
         public bool IsRead
         {

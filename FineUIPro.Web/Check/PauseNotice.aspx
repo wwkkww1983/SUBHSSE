@@ -45,22 +45,22 @@
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="180px" ColumnID="PauseNoticeCode" DataField="PauseNoticeCode"
-                        SortField="PauseNoticeCode" FieldType="String" HeaderText="工程暂停令编号" TextAlign="Left"
+                    <f:RenderField Width="140px" ColumnID="PauseNoticeCode" DataField="PauseNoticeCode"
+                        SortField="PauseNoticeCode" FieldType="String" HeaderText="编号" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="180px" ColumnID="UnitName" DataField="UnitName" ExpandUnusedSpace="true"
+                    <f:RenderField Width="220px" ColumnID="UnitName" DataField="UnitName" ExpandUnusedSpace="true"
                         SortField="UnitName" FieldType="String" HeaderText="单位名称" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="180px" ColumnID="ProjectPlace" DataField="ProjectPlace" ExpandUnusedSpace="true"
                         SortField="ProjectPlace" FieldType="String" HeaderText="工程部位" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="95px" ColumnID="PauseTime" DataField="PauseTime" SortField="PauseTime"
+                    <f:RenderField Width="100px" ColumnID="PauseTime" DataField="PauseTime" SortField="PauseTime"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="停工日期"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="155px" ColumnID="IsConfirmStr" DataField="IsConfirmStr" FieldType="String"
-                        HeaderText="项目经理是否签字确认" HeaderTextAlign="Center" TextAlign="Center">
+                    <f:RenderField Width="150px" ColumnID="IsConfirmStr" DataField="IsConfirmStr" FieldType="String"
+                        HeaderText="项目经理</br>是否签字确认" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="150px" ColumnID="FlowOperateName" DataField="FlowOperateName"
                         SortField="FlowOperateName" FieldType="String" HeaderText="状态" HeaderTextAlign="Center"
