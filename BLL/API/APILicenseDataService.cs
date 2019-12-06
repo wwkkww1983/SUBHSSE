@@ -1587,6 +1587,7 @@ namespace BLL
                 {
                     updateFlowOperate.IsClosed = true;
                 }
+                Funs.SubmitChanges();
 
                 /////增加一条审核明细记录
                 Model.License_FlowOperateItem newFlowOperateItem = new Model.License_FlowOperateItem
@@ -1603,27 +1604,21 @@ namespace BLL
                 #region 新增下一步审核记录
                 if (newItem.IsAgree == true)
                 {
-                    var getCloseAllOperate = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.DataId == updateFlowOperate.DataId && x.SortIndex >= updateFlowOperate.SortIndex && (!x.IsClosed.HasValue || x.IsClosed == false) && (!x.IsFlowEnd.HasValue || x.IsFlowEnd == false));
+                    var getCloseAllOperate = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.DataId == updateFlowOperate.DataId  && (!x.IsClosed.HasValue || x.IsClosed == false) && (!x.IsFlowEnd.HasValue || x.IsFlowEnd == false));
                     if (getCloseAllOperate == null)
                     {
                         var getNextFlowOperate = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.DataId == updateFlowOperate.DataId && x.IsFlowEnd == true);
                         ////判断审核步骤是否结束
-                        if (getNextFlowOperate != null && getNextFlowOperate.IsFlowEnd == true)
+                        if (getNextFlowOperate != null )
                         {
                             /////最后一步是关闭所有 步骤
-                            var isCloseFlows = from x in Funs.DB.License_FlowOperate
-                                               where x.DataId == updateFlowOperate.DataId && (!x.IsClosed.HasValue || x.IsClosed == false)
-                                               select x;
-                            if (isCloseFlows.Count() > 0)
-                            {
-                                foreach (var item in isCloseFlows)
-                                {
-                                    item.IsClosed = true;
-                                    item.OperaterTime = DateTime.Now;
-                                    item.IsAgree = true;
-                                }
-                            }
+                            getNextFlowOperate.IsClosed = true;
+                            getNextFlowOperate.OperaterTime = DateTime.Now;
+                            getNextFlowOperate.IsAgree = true;
+                            getNextFlowOperate.OperaterId = newItem.OperaterId;
+                            getNextFlowOperate.Opinion = "审核完成！";
                             boolIsFlowEnd = true;
+                            Funs.SubmitChanges();                            
                         }
                     }
                 }
@@ -1885,8 +1880,9 @@ namespace BLL
                     }
                 }
                 #endregion
-            }
-            Funs.SubmitChanges();
+
+                Funs.SubmitChanges();
+            }           
         }
         #endregion
 
@@ -1992,8 +1988,10 @@ namespace BLL
         public static List<Model.FlowOperateItem> getNextLicenseFlowOperate(string strMenuId, Model.LicenseDataItem licenseInfo, Model.FlowOperateItem getNowFlowOperate)
         {
             List<Model.FlowOperateItem> getFlowOperate = new List<Model.FlowOperateItem>();
-            var getFlowByDataId = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.MenuId == strMenuId && x.DataId == licenseInfo.LicenseId);
-            if (licenseInfo == null || string.IsNullOrEmpty(licenseInfo.LicenseId) || getFlowByDataId == null)
+            var getAllFlows = from x in Funs.DB.License_FlowOperate
+                              where x.DataId == licenseInfo.LicenseId && (!x.IsFlowEnd.HasValue || x.IsFlowEnd == false)
+                              select x;
+            if (licenseInfo == null || string.IsNullOrEmpty(licenseInfo.LicenseId) || getAllFlows.Count() == 0)
             {
                 getFlowOperate = (from x in Funs.DB.Sys_MenuFlowOperate
                                   where x.MenuId == strMenuId && x.FlowStep == 1 && x.OrderNum ==1
@@ -2013,7 +2011,7 @@ namespace BLL
             {
                 if (licenseInfo.States == Const.State_0)
                 {
-                    var getNoCloseFlow = Funs.DB.License_FlowOperate.Where(x => x.DataId == licenseInfo.LicenseId && x.OperaterId != null && (!x.IsClosed.HasValue || x.IsClosed == false));
+                    var getNoCloseFlow = getAllFlows.Where(x => x.OperaterId != null && (!x.IsClosed.HasValue || x.IsClosed == false));
                     if (getNoCloseFlow.Count() > 0)
                     {
                         var getMinSortIndex = getNoCloseFlow.Min(x => x.SortIndex);
@@ -2055,8 +2053,8 @@ namespace BLL
                 }
                 else if (licenseInfo.States == Const.State_1 && getNowFlowOperate != null)
                 {
-                    getFlowOperate = (from x in Funs.DB.License_FlowOperate
-                                      where x.DataId == licenseInfo.LicenseId && (!x.IsClosed.HasValue || x.IsClosed == false)
+                    getFlowOperate = (from x in getAllFlows
+                                      where (!x.IsClosed.HasValue || x.IsClosed == false)
                                       && x.SortIndex == getNowFlowOperate.SortIndex && x.GroupNum == getNowFlowOperate.GroupNum && x.OrderNum == (getNowFlowOperate.OrderNum + 1)
                                       orderby x.SortIndex, x.GroupNum, x.OrderNum
                                       select new Model.FlowOperateItem
@@ -2078,12 +2076,12 @@ namespace BLL
                                       }).ToList();
                     if (getFlowOperate.Count() == 0)
                     {
-                        var getGroupFlowOperate = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.DataId == licenseInfo.LicenseId && (!x.IsClosed.HasValue || x.IsClosed == false)
+                        var getGroupFlowOperate = getAllFlows.FirstOrDefault(x => (!x.IsClosed.HasValue || x.IsClosed == false)
                                                     && x.SortIndex == getNowFlowOperate.SortIndex && x.FlowOperateId != getNowFlowOperate.FlowOperateId);
                         if (getGroupFlowOperate == null)
                         {
-                            getFlowOperate = (from x in Funs.DB.License_FlowOperate
-                                              where x.DataId == licenseInfo.LicenseId && (!x.IsClosed.HasValue || x.IsClosed == false)
+                            getFlowOperate = (from x in getAllFlows
+                                              where (!x.IsClosed.HasValue || x.IsClosed == false)
                                               && x.SortIndex == (getNowFlowOperate.SortIndex + 1) && x.OrderNum == 1
                                               orderby x.SortIndex, x.GroupNum, x.OrderNum
                                               select new Model.FlowOperateItem

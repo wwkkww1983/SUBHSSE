@@ -1373,6 +1373,41 @@
             <param name="userId"></param>
             <returns></returns>
         </member>
+        <member name="T:WebAPI.Controllers.RectifyNoticesController">
+            <summary>
+            隐患整改单
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.RectifyNoticesController.getRectifyNoticesById(System.String)">
+            <summary>
+            根据Id获取隐患整改单
+            </summary>
+            <param name="rectifyNoticesId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.RectifyNoticesController.getRectifyNoticesByProjectIdStates(System.String,System.String,System.Int32)">
+            <summary>
+            根据projectId、states获取隐患整改单
+            </summary>
+            <param name="projectId"></param>
+            <param name="states">状态 0：待签发；1：待整改；2：已整改，待复查；3：已确认，即已闭环；</param>
+            <param name="pageIndex">页码</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.RectifyNoticesController.getRectifyNoticesCount(System.String)">
+            <summary>
+            根据projectId获取各状态风险数
+            </summary>
+            <param name="projectId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.RectifyNoticesController.SaveRectifyNotices(Model.RectifyNoticesItem)">
+            <summary>
+            保存RectifyNotices
+            </summary>
+            <param name="rectifyNotices"></param>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.ResourcesController">
             <summary>
             公共资源

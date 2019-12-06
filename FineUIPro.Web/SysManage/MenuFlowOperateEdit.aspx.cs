@@ -85,6 +85,8 @@ namespace FineUIPro.Web.SysManage
                 {
                     this.txtGroupNum.Hidden = false;
                     this.txtOrderNum.Hidden = false;
+                    this.lbTemp.Hidden = false;
+                    this.lbTemp.Text = "说明：步骤、组号、组内序号请按照顺序维护，不可断号。";
                 }
             }
         }
@@ -107,12 +109,18 @@ namespace FineUIPro.Web.SysManage
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            string mes = checkValues();
+            if (!string.IsNullOrEmpty(mes))
+            {
+                Alert.ShowInParent(mes);
+                return;
+            }
             Model.Sys_MenuFlowOperate newMenuFlowOperate = new Model.Sys_MenuFlowOperate
             {
                 MenuId = this.MenuId,
-                FlowStep = Funs.GetNewInt(this.txtFlowStep.Text).HasValue ? Funs.GetNewInt(this.txtFlowStep.Text) : 1,
-                GroupNum = Funs.GetNewInt(this.txtGroupNum.Text).HasValue ? Funs.GetNewInt(this.txtGroupNum.Text) : 1,
-                OrderNum = Funs.GetNewInt(this.txtOrderNum.Text).HasValue ? Funs.GetNewInt(this.txtOrderNum.Text) : 1,
+                FlowStep = Funs.GetNewInt(this.txtFlowStep.Text) ?? 1,
+                GroupNum = Funs.GetNewInt(this.txtGroupNum.Text) ?? 1,
+                OrderNum = Funs.GetNewInt(this.txtOrderNum.Text) ?? 1,
                 AuditFlowName = this.txtAuditFlowName.Text.Trim(),
             };
 
@@ -221,6 +229,59 @@ namespace FineUIPro.Web.SysManage
             string str = "SELECT (ISNULL(MAX(OrderNum),0)+1) FROM Sys_MenuFlowOperate WHERE MenuId='" + this.MenuId + "' AND FlowStep=" + this.txtFlowStep.Text + " AND GroupNum=" + this.txtGroupNum.Text;
             maxId = SQLHelper.GetIntValue(str);
             this.txtOrderNum.Text = maxId.ToString();
+        }
+
+        protected string checkValues()
+        {
+            string mes = string.Empty;
+            int FlowStep = Funs.GetNewInt(this.txtFlowStep.Text) ?? 1;
+            int GroupNum = Funs.GetNewInt(this.txtGroupNum.Text) ?? 1;
+            int OrderNum = Funs.GetNewInt(this.txtOrderNum.Text) ?? 1;            
+            var getFlows = from x in Funs.DB.Sys_MenuFlowOperate where x.MenuId ==this.MenuId select x;            
+            if (getFlows.Count() > 0)
+            {
+                if (FlowStep != 1)
+                {
+                    var sort = getFlows.FirstOrDefault(x => x.FlowStep == FlowStep || x.FlowStep == (FlowStep - 1));
+                    if (sort == null)
+                    {
+                        mes += "步骤断号情况，请修改后再保存。";
+                    }
+                }
+                if (GroupNum != 1)
+                {
+                    var group = getFlows.FirstOrDefault(x => x.FlowStep == FlowStep && (x.GroupNum == GroupNum || x.GroupNum == (GroupNum - 1)));
+                    if (group == null)
+                    {
+                        mes += "组号断号情况，请修改后再保存。";
+                    }
+                }
+                if (OrderNum != 1)
+                {
+                    var order = getFlows.FirstOrDefault(x => x.FlowStep == FlowStep && x.GroupNum == GroupNum  && x.OrderNum == (OrderNum-1));
+                    if (order == null)
+                    {
+                        mes += "组内序号断号情况，请修改后再保存。";
+                    }
+                }
+            }
+            else
+            {
+                if (FlowStep != 1)
+                {
+                    mes += "步骤需从1开始。";
+                }
+                if (GroupNum != 1)
+                {
+                    mes += "组号需从1开始。";
+                }
+                if (OrderNum != 1)
+                {
+                    mes += "组内序号需从1开始。";
+                }
+            }
+
+            return mes;
         }
     }
 }

@@ -669,10 +669,21 @@ namespace FineUIPro.Web.SysManage
         {
             if (Grid1.SelectedRowIndexArray.Length > 0)
             {
-                foreach (int rowIndex in Grid1.SelectedRowIndexArray)
+                if (CommonService.GetIsThisUnit(Const.UnitId_SEDIN) && LicensePublicService.lisenWorkList.Contains(this.drpMenu.Value))
                 {
-                    string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    BLL.SysConstSetService.DeleteMenuFlowOperateByFlowOperateId(rowID);
+                    foreach (int rowIndex in Grid1.SelectedRowIndexArray)
+                    {
+                        string rowID = Grid1.DataKeys[rowIndex][0].ToString();
+                        BLL.SysConstSetService.DeleteMenuFlowOperateLicense(rowID);
+                    }
+                }
+                else
+                {
+                    foreach (int rowIndex in Grid1.SelectedRowIndexArray)
+                    {
+                        string rowID = Grid1.DataKeys[rowIndex][0].ToString();
+                        BLL.SysConstSetService.DeleteMenuFlowOperateByFlowOperateId(rowID);
+                    }
                 }
 
                 BLL.MenuFlowOperateService.SetSortIndex(this.drpMenu.Value);

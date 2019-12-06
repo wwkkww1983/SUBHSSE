@@ -27,7 +27,7 @@
                <Items>
                      <f:TextBox ID="txtAuditFlowName" runat="server" Label="名称" 
                          Required="true" ShowRedStar="true" FocusOnPageLoad="true">
-                    </f:TextBox>
+                    </f:TextBox>                  
                 </Items>  
             </f:FormRow>
              <f:FormRow>
@@ -54,6 +54,11 @@
                          OnCheckedChanged="IsFlowEnd_CheckedChanged" AutoPostBack="true" >
                     </f:CheckBox>
                 </Items> 
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
+                     <f:Label runat="server" ID="lbTemp" Hidden="true"></f:Label>
+                </Items>
             </f:FormRow>
         </Rows>
         <Toolbars>

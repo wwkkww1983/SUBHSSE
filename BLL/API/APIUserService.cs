@@ -63,8 +63,7 @@ namespace BLL
                 getDataList = (from x in Funs.DB.Sys_User
                                join y in Funs.DB.Project_ProjectUser on x.UserId equals y.UserId
                                where y.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
-                                  && (roleIds == null || roleList.Contains(y.RoleId)) && (strParam == null || x.UserName.Contains(strParam))
-                               orderby x.UserName
+                                  && (roleIds == null || roleList.Contains(y.RoleId)) && (strParam == null || x.UserName.Contains(strParam))                            
                                select new Model.UserItem
                                {
                                    UserId = x.UserId,
@@ -90,8 +89,7 @@ namespace BLL
             {
                 getDataList = (from x in Funs.DB.Sys_User
                                where x.IsPost == true && (x.UnitId == unitId || unitId == null)
-                              && (roleIds == null || roleList.Contains(x.RoleId)) && (strParam == null || x.UserName.Contains(strParam))
-                               orderby x.UserName
+                              && (roleIds == null || roleList.Contains(x.RoleId)) && (strParam == null || x.UserName.Contains(strParam))                               
                                select new Model.UserItem
                                {
                                    UserId = x.UserId,
@@ -110,10 +108,10 @@ namespace BLL
                                    Telephone = x.Telephone,
                                    IsOffice = x.IsOffice,
                                    SignatureUrl = x.SignatureUrl.Replace('\\', '/'),
-
                                }).ToList();
             }
-            return getDataList;
+
+            return getDataList.OrderBy(x=>x.UnitName).ThenBy(x=>x.UserName).ToList();
         }
 
         /// <summary>

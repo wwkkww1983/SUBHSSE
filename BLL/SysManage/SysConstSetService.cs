@@ -174,6 +174,57 @@
                 Funs.DB.SubmitChanges();
             }
         }
+
+        #region 删除审核步骤
+        /// <summary>
+        /// 删除审核步骤
+        /// </summary>
+        /// <param name="flowOperateId">主键ID</param>
+        /// <returns></returns>
+        public static void DeleteMenuFlowOperateLicense(string flowOperateId)
+        {
+            var delteFlow = Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(x => x.FlowOperateId == flowOperateId);
+            if (delteFlow != null)
+            {
+                var isSort = Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(x => x.FlowStep == delteFlow.FlowStep);
+                if (isSort == null)
+                {
+                    var updateSort = from x in Funs.DB.Sys_MenuFlowOperate
+                                     where  x.FlowStep > delteFlow.FlowStep
+                                     select x;
+                    foreach (var item in updateSort)
+                    {
+                        item.FlowStep -= 1;
+                    }
+                }
+                else
+                {
+                    var isGroup = Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(x => x.FlowStep == delteFlow.FlowStep && x.GroupNum == delteFlow.GroupNum);
+                    if (isGroup == null)
+                    {
+                        var updateGroup = from x in Funs.DB.Sys_MenuFlowOperate
+                                          where x.FlowStep == delteFlow.FlowStep && x.GroupNum > delteFlow.GroupNum
+                                          select x;
+                        foreach (var item in updateGroup)
+                        {
+                            item.GroupNum -= 1;
+                        }
+                    }
+                    else
+                    {
+                        var isOrder = Funs.DB.Sys_MenuFlowOperate.FirstOrDefault(x =>  x.FlowStep == delteFlow.FlowStep && x.GroupNum == delteFlow.GroupNum && x.OrderNum > delteFlow.OrderNum);
+                        if (isOrder != null)
+                        {
+                            isOrder.OrderNum -= 1;
+                        }
+                    }
+                }
+
+                Funs.DB.Sys_MenuFlowOperate.DeleteOnSubmit(delteFlow);
+                Funs.SubmitChanges();
+            }
+        }
+        #endregion
         #endregion
     }
 }

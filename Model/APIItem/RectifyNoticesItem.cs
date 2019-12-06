@@ -180,5 +180,36 @@ namespace Model
             get;
             set;
         }
+        /// <summary>
+        ///  整改前图片/附件
+        /// </summary>
+        public string BeAttachUrl
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 整改后图片/附件
+        /// </summary>
+        public string AfAttachUrl
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 状态（0：待签发；1：待整改；2：已整改，待复查；3：已确认，即已闭环；）
+        /// </summary>
+        public string States
+        {
+            get;
+            set;
+        }
+        public string HazardRegisterId
+        {
+            get;
+            set;
+        }
     }
 }
