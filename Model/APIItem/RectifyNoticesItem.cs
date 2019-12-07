@@ -148,6 +148,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 整改人姓名
+        /// </summary>
+        public string RectificationName
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 整改日期
         /// </summary>
         public string CompleteDate

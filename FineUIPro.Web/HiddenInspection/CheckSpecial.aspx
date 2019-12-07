@@ -27,13 +27,15 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server">
                         <Items>
-                            <f:Button ID="btnNew" Text="编制" Icon="Add" runat="server" OnClick="btnNew_Click">
-                            </f:Button>
+                           
                             <f:TextBox ID="txtCheckSpecialCode" runat="server" Label="编号" EmptyText="按专项检查编号查询"
                                 AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelWidth="60px">
                             </f:TextBox>
                             <f:HiddenField runat="server" ID="hdRemark">
                             </f:HiddenField>
+                             <f:ToolbarFill runat="server"></f:ToolbarFill>
+                             <f:Button ID="btnNew" ToolTip="编制" Icon="Add" runat="server" OnClick="btnNew_Click">
+                            </f:Button>
                         </Items>
                     </f:Toolbar>
                 </Toolbars>
@@ -49,7 +51,7 @@
                     <%--<f:RenderField Width="300px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
                         FieldType="String" HeaderText="受检单位" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>--%>
-                    <f:RenderField Width="90px" ColumnID="Date" DataField="Date" SortField="Date" FieldType="Date"
+                    <f:RenderField Width="100px" ColumnID="Date" DataField="Date" SortField="Date" FieldType="Date"
                         Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="日期" HeaderTextAlign="Center"
                         TextAlign="Center">
                     </f:RenderField>

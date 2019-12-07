@@ -533,6 +533,20 @@
             <param name="projectId"></param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getSpeciaCheckTypes(System.String)">
+            <summary>
+              获取专项检查类型及检查项
+            </summary>
+            <param name="type">父级类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getSpeciaCheckItemDetails(System.String)">
+            <summary>
+              获取专项检查检查项内容明细
+            </summary>
+            <param name="type">检查项ID</param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.BaseInfoController.getProjectPictureByProjectId(System.String,System.Int32)">
             <summary>
              获项目图片
@@ -1311,6 +1325,19 @@
             <param name="pageIndex"></param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.PersonController.getPersonListByProjectIdStates(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            获取在岗、离岗、待审人员列表
+            </summary>
+            <param name="projectId"></param>
+            <param name="unitId">当前人单位ID</param>
+            <param name="states">0待审1在岗2离岗</param>
+            <param name="strUnitId">查询单位</param>
+            <param name="strWorkPostId">查询岗位</param>
+             <param name="strParam">查询条件</param>
+            <param name="pageIndex"></param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.PersonController.getPersonQualityByIdentityCard(System.String)">
             <summary>
             根据identityCard获取人员资质信息
@@ -1352,6 +1379,13 @@
             保存项目人员信息
             </summary>
             <param name="person">人员信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PersonController.getPersonOut(System.String)">
+            <summary>
+            人员离场
+            </summary>
+            <param name="personId"></param>
             <returns></returns>
         </member>
         <member name="T:WebAPI.Controllers.ProjectController">

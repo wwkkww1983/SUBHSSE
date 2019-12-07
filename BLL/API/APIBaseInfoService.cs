@@ -36,6 +36,36 @@ namespace BLL
         }
         #endregion
 
+        #region 获取专项检查类型及检查项
+        /// <summary>
+        /// 获取专项检查类型及检查项
+        /// </summary>
+        /// <param name="type">父级类型</param>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getSpeciaCheckTypes(string type)
+        {
+            var getDataLists = (from x in Funs.DB.HSSE_Check_CheckItemSet
+                                where x.SupCheckItem == type
+                                orderby x.SortIndex
+                                select new Model.BaseInfoItem { BaseInfoId = x.CheckItemSetId, BaseInfoCode = x.MapCode, BaseInfoName = x.CheckItemName }).ToList();
+            return getDataLists;
+        }
+
+        /// <summary>
+        /// 获取专项检查检查项内容明细
+        /// </summary>
+        /// <param name="type">检查项ID</param>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getSpeciaCheckItemDetails(string type)
+        {
+            var getDataLists = (from x in Funs.DB.HSSE_Check_CheckItemDetail
+                                where x.CheckItemSetId == type
+                                orderby x.SortIndex
+                                select new Model.BaseInfoItem { BaseInfoId = x.CheckItemDetailId, BaseInfoCode = x.SortIndex.ToString(), BaseInfoName = x.CheckContent }).ToList();
+            return getDataLists;
+        }
+        #endregion
+
         #region 根据项目id获取区域表
         /// <summary>
         /// 根据项目id获取区域表

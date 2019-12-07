@@ -58,15 +58,6 @@ namespace FineUIPro.Web.HiddenInspection {
         protected global::FineUIPro.Toolbar Toolbar2;
         
         /// <summary>
-        /// btnNew 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnNew;
-        
-        /// <summary>
         /// txtCheckSpecialCode 控件。
         /// </summary>
         /// <remarks>
@@ -83,6 +74,15 @@ namespace FineUIPro.Web.HiddenInspection {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.HiddenField hdRemark;
+        
+        /// <summary>
+        /// btnNew 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnNew;
         
         /// <summary>
         /// Label1 控件。

@@ -76,7 +76,41 @@ namespace WebAPI.Controllers
                 int pageCount = getDataList.Count;
                 if (pageCount > 0 && pageIndex > 0)
                 {
-                    getDataList = getDataList.OrderBy(u => u.UnitName).ThenBy(u=>u.PersonName).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                }
+                responeData.data = new { pageCount, getDataList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 获取在岗、离岗、待审人员列表
+        /// <summary>
+        /// 获取在岗、离岗、待审人员列表
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId">当前人单位ID</param>
+        /// <param name="states">0待审1在岗2离岗</param>
+        /// <param name="strUnitId">查询单位</param>
+        /// <param name="strWorkPostId">查询岗位</param>
+        ///  <param name="strParam">查询条件</param>
+        /// <param name="pageIndex"></param>
+        /// <returns></returns>
+        public Model.ResponeData getPersonListByProjectIdStates(string projectId, string unitId, string states, string strUnitId, string strWorkPostId, string strParam, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APIPersonService.getPersonListByProjectIdStates(projectId, unitId, states, strUnitId, strWorkPostId, strParam);
+                int pageCount = getDataList.Count;
+                if (pageCount > 0 && pageIndex > 0)
+                {
+                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
                 responeData.data = new { pageCount, getDataList };
             }
@@ -306,6 +340,28 @@ namespace WebAPI.Controllers
                 responeData.message = ex.Message;
             }
 
+            return responeData;
+        }
+        #endregion
+
+        #region 人员离场
+        /// <summary>
+        /// 人员离场
+        /// </summary>
+        /// <param name="personId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getPersonOut(string personId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APIPersonService.getPersonOut(personId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
             return responeData;
         }
         #endregion

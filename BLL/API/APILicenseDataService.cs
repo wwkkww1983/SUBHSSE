@@ -1653,6 +1653,7 @@ namespace BLL
                         {
                             getFireWork.States = Const.State_0;
                         }
+                        Funs.SubmitChanges();
                     }
                 }
                 #endregion
@@ -1685,6 +1686,7 @@ namespace BLL
                         {
                             getHeightWork.States = Const.State_0;
                         }
+                        Funs.SubmitChanges();
                     }
                 }
                 #endregion
@@ -1717,6 +1719,7 @@ namespace BLL
                         {
                             getLimitedSpace.States = Const.State_0;
                         }
+                        Funs.SubmitChanges();
                     }
                 }
                 #endregion
@@ -1749,6 +1752,7 @@ namespace BLL
                         {
                             getRadialWork.States = Const.State_0;
                         }
+                        Funs.SubmitChanges();
                     }
                 }
                 #endregion
@@ -1781,6 +1785,7 @@ namespace BLL
                         {
                             getOpenCircuit.States = Const.State_0;
                         }
+                        Funs.SubmitChanges();
                     }
                 }
                 #endregion
@@ -1813,6 +1818,7 @@ namespace BLL
                         {
                             getBreakGround.States = Const.State_0;
                         }
+                        Funs.SubmitChanges();
                     }
                 }
                 #endregion
@@ -1845,6 +1851,7 @@ namespace BLL
                         {
                             getNightWork.States = Const.State_0;
                         }
+                        Funs.SubmitChanges();
                     }
                 }
                 #endregion
@@ -1877,11 +1884,10 @@ namespace BLL
                         {
                             getLiftingWork.States = Const.State_0;
                         }
+                        Funs.SubmitChanges();
                     }
                 }
-                #endregion
-
-                Funs.SubmitChanges();
+                #endregion              
             }           
         }
         #endregion

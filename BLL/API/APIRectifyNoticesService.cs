@@ -37,6 +37,7 @@ namespace BLL
                                         CompleteStatus=x.CompleteStatus,
                                         DutyPersonId = x.DutyPersonId,
                                         DutyPersonName = Funs.DB.Sys_User.First(u => u.UserId == x.DutyPersonId).UserName,
+                                        RectificationName=x.DutyPerson,
                                         CompleteDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompleteDate),
                                         IsRectify=x.IsRectify ?? false,
                                         ReCheckDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ReCheckDate),
@@ -96,6 +97,7 @@ namespace BLL
                                     CompleteStatus = x.CompleteStatus,
                                     DutyPersonId = x.DutyPersonId,
                                     DutyPersonName = Funs.DB.Sys_User.First(u => u.UserId == x.DutyPersonId).UserName,
+                                    RectificationName = x.DutyPerson,
                                     CompleteDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompleteDate),
                                     IsRectify = x.IsRectify ?? false,
                                     ReCheckDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ReCheckDate),
@@ -124,7 +126,7 @@ namespace BLL
                 WrongContent = rectifyNotices.WrongContent,
                 SignPerson = rectifyNotices.SignPersonId,                
                 DutyPersonId = rectifyNotices.DutyPersonId,
-                DutyPerson = rectifyNotices.DutyPersonName,               
+                DutyPerson = rectifyNotices.RectificationName,               
                 CheckPerson = rectifyNotices.CheckPersonId,
             };
             
@@ -135,11 +137,8 @@ namespace BLL
                 if (rectifyNotices.States == "1")
                 {
                     newRectifyNotices.SignDate = Funs.GetNewDateTime(rectifyNotices.SignDate);
-                }
-                if (!string.IsNullOrEmpty(rectifyNotices.AttachUrl))
-                {
-                    APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.RectifyNoticesId, rectifyNotices.AttachUrl, "0");
-                }
+                    newRectifyNotices.DutyPersonId = rectifyNotices.DutyPersonId;
+                }               
                 if (!string.IsNullOrEmpty(rectifyNotices.BeAttachUrl))
                 {
                     APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.RectifyNoticesId + "#0", rectifyNotices.BeAttachUrl, "0");
@@ -148,11 +147,17 @@ namespace BLL
                 //// 回写巡检记录表
                 if (!string.IsNullOrEmpty(rectifyNotices.HazardRegisterId))
                 {
-                    var getHazardRegister = Funs.DB.HSSE_Hazard_HazardRegister.FirstOrDefault(x => x.HazardRegisterId == rectifyNotices.HazardRegisterId);
-                    if (getHazardRegister != null)
+                    List<string> listIds = Funs.GetStrListByStr(rectifyNotices.HazardRegisterId, ',');
+                    foreach (var item in listIds)
                     {
-                        getHazardRegister.RectifyNoticesId = newRectifyNotices.RectifyNoticesId;
-                        Funs.SubmitChanges();
+                        var getHazardRegister = Funs.DB.HSSE_Hazard_HazardRegister.FirstOrDefault(x => x.HazardRegisterId == item);
+                        if (getHazardRegister != null)
+                        {
+                            getHazardRegister.States = "3";
+                            getHazardRegister.HandleIdea += "已升级为隐患整改单：" + newRectifyNotices.RectifyNoticesCode;
+                            getHazardRegister.RectifyNoticesId = newRectifyNotices.RectifyNoticesId;
+                            Funs.SubmitChanges();
+                        }
                     }
                 }
             }
@@ -163,12 +168,17 @@ namespace BLL
                     isUpdate.DutyPersonId = rectifyNotices.DutyPersonId;
                     isUpdate.CompleteStatus = rectifyNotices.CompleteStatus;
                     isUpdate.SignDate = Funs.GetNewDateTime(rectifyNotices.SignDate);
+                    if (!string.IsNullOrEmpty(rectifyNotices.BeAttachUrl))
+                    {
+                        APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.RectifyNoticesId + "#0", rectifyNotices.BeAttachUrl, "0");
+                    }
                 }
                 if (rectifyNotices.States == "2")
                 {
                     isUpdate.CompleteStatus = rectifyNotices.CompleteStatus;
                     isUpdate.CompleteDate = Funs.GetNewDateTime(rectifyNotices.CompleteDate);
                     isUpdate.DutyPersonId = rectifyNotices.DutyPersonId;
+                    isUpdate.DutyPerson = rectifyNotices.RectificationName;
                     isUpdate.CheckPerson = rectifyNotices.CheckPersonId;
                     if (!string.IsNullOrEmpty(rectifyNotices.AfAttachUrl))
                     {
@@ -181,12 +191,16 @@ namespace BLL
                     if (isUpdate.IsRectify == true)
                     {
                         isUpdate.CheckPerson = rectifyNotices.CheckPersonId;
-                        isUpdate.ReCheckDate = Funs.GetNewDateTime(rectifyNotices.ReCheckDate);
+                        isUpdate.ReCheckDate = Funs.GetNewDateTime(rectifyNotices.ReCheckDate);                      
                     }
                     else
                     {
                         isUpdate.CompleteDate = null;
                         isUpdate.ReCheckDate = null;
+                    }
+                    if (!string.IsNullOrEmpty(rectifyNotices.AttachUrl))
+                    {
+                        APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.RectifyNoticesId, rectifyNotices.AttachUrl, "0");
                     }
                 }
             }

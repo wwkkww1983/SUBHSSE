@@ -56,6 +56,49 @@ namespace WebAPI.Controllers
         }
         #endregion
 
+        #region  获取专项检查类型及检查项
+        /// <summary>
+        ///   获取专项检查类型及检查项
+        /// </summary>
+        /// <param name="type">父级类型</param>
+        /// <returns></returns>
+        public Model.ResponeData getSpeciaCheckTypes(string type)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getSpeciaCheckTypes(type);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        /// <summary>
+        ///   获取专项检查检查项内容明细
+        /// </summary>
+        /// <param name="type">检查项ID</param>
+        /// <returns></returns>
+        public Model.ResponeData getSpeciaCheckItemDetails(string type)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getSpeciaCheckItemDetails(type);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
         #region  获项目图片
         /// <summary>
         ///  获项目图片
