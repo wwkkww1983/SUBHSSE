@@ -206,7 +206,7 @@ namespace BLL
                 {
                     isUpdate.CompleteStatus = rectifyNotices.CompleteStatus;
                     isUpdate.CompleteDate = Funs.GetNewDateTime(rectifyNotices.CompleteDate);
-                    isUpdate.DutyPersonId = rectifyNotices.DutyPersonId;
+                  //  isUpdate.DutyPersonId = rectifyNotices.DutyPersonId;
                     isUpdate.DutyPerson = rectifyNotices.RectificationName;
                     isUpdate.CheckPerson = rectifyNotices.CheckPersonId;
                     if (!string.IsNullOrEmpty(rectifyNotices.AfAttachUrl))
