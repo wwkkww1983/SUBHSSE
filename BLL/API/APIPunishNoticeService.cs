@@ -134,6 +134,24 @@ namespace BLL
                 newPunishNotice.PunishNoticeId = SQLHelper.GetNewID();
                 newPunishNotice.PunishNoticeCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectPunishNoticeMenuId, newPunishNotice.ProjectId, newPunishNotice.UnitId);
                 PunishNoticeService.AddPunishNotice(newPunishNotice);
+
+                //// 回写巡检记录表
+                if (!string.IsNullOrEmpty(newItem.HazardRegisterId))
+                {
+                    List<string> listIds = Funs.GetStrListByStr(newItem.HazardRegisterId, ',');
+                    foreach (var item in listIds)
+                    {
+                        var getHazardRegister = Funs.DB.HSSE_Hazard_HazardRegister.FirstOrDefault(x => x.HazardRegisterId == item);
+                        if (getHazardRegister != null)
+                        {
+                            getHazardRegister.States = "3";
+                            getHazardRegister.HandleIdea += "已下发处罚通知单：" + newPunishNotice.PunishNoticeCode;
+                            getHazardRegister.ResultId = newPunishNotice.PunishNoticeId;
+                            getHazardRegister.ResultType = "2";
+                            Funs.SubmitChanges();
+                        }
+                    }
+                }
             }
             else
             {

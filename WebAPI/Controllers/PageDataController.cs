@@ -55,7 +55,26 @@ namespace WebAPI.Controllers
                         RiskIV = getDataList.RiskIV ?? 0;
                         RiskV = getDataList.RiskV ?? 0;
                     }
+                    else
+                    {
+                        var getHazardItems = from x in Funs.DB.Hazard_HazardSelectedItem
+                                             join y in Funs.DB.Hazard_HazardList on x.HazardListId equals y.HazardListId
+                                             where y.ProjectId == projectId && y.CompileDate.Value.Year == DateTime.Now.Year 
+                                             && y.CompileDate.Value.Month == DateTime.Now.Month 
+                                             && y.CompileDate.Value.Day == DateTime.Now.Day
+                                             select x;
+                        if (getHazardItems.Count() > 0)
+                        {
+                            RiskI = getHazardItems.Where(x=>x.HazardLevel =="1").Count();
+                            RiskII = getHazardItems.Where(x => x.HazardLevel == "2").Count();
+                            RiskIII = getHazardItems.Where(x => x.HazardLevel == "3").Count();
+                            RiskIV = getHazardItems.Where(x => x.HazardLevel == "4").Count();
+                            RiskV = getHazardItems.Where(x => x.HazardLevel == "5").Count();
+                        }
+                    }
 
+                    SitePersonNum = Funs.DB.SitePerson_Person.Where(x => x.ProjectId == projectId && x.IsUsed == true && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)).Count();
+                    
                     string hiddenStr = RectificationNum.ToString() + "/" + HiddenDangerNum.ToString();
                     responeData.data = new { ProjectData, SafeDayCount, SafeHours, SitePersonNum, SpecialEquipmentNum, EntryTrainingNum, hiddenStr, RiskI, RiskII, RiskIII, RiskIV, RiskV };
                 }

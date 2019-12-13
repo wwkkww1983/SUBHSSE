@@ -95,9 +95,9 @@ namespace BLL
             return (from x in Funs.DB.ProjectData_WorkArea where x.ProjectId == projectId orderby x.WorkAreaCode select x).ToList();
         }
 
-        #region 单位表下拉框
+        #region 区域表下拉框
         /// <summary>
-        ///  单位表下拉框
+        ///  区域表下拉框
         /// </summary>
         /// <param name="dropName">下拉框名字</param>
         /// <param name="isShowPlease">是否显示请选择</param>
@@ -114,7 +114,7 @@ namespace BLL
         }
 
         /// <summary>
-        ///  单位表下拉框
+        ///  区域表下拉框
         /// </summary>
         /// <param name="dropName">下拉框名字</param>
         /// <param name="isShowPlease">是否显示请选择</param>
@@ -128,6 +128,36 @@ namespace BLL
             {
                 Funs.FineUIPleaseSelect(dropName);
             }
+        }
+        #endregion
+
+        #region 根据多单位ID得到单位名称字符串
+        /// <summary>
+        /// 根据多单位ID得到单位名称字符串
+        /// </summary>
+        /// <param name="bigType"></param>
+        /// <returns></returns>
+        public static string getWorkAreaNamesIds(object ids)
+        {
+            string names = string.Empty;
+            if (ids != null)
+            {
+                string[] idls = ids.ToString().Split(',');
+                foreach (string id in idls)
+                {
+                    var q = GetWorkAreaByWorkAreaId(id);
+                    if (q != null)
+                    {
+                        names += q.WorkAreaName + ",";
+                    }
+                }
+                if (names != string.Empty)
+                {
+                    names = names.Substring(0, names.Length - 1); ;
+                }
+            }
+
+            return names;
         }
         #endregion
     }

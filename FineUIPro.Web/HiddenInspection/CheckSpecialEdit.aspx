@@ -25,19 +25,19 @@
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtCheckSpecialCode" runat="server" Label="编号" LabelAlign="Right"
-                        LabelWidth="70px" ShowRedStar="true" Required="true">
+                        LabelWidth="90px" ShowRedStar="true" Required="true">
                     </f:TextBox>
                     <f:DatePicker ID="txtDate" runat="server" Label="日期" LabelAlign="Right" Required="True"
                         ShowRedStar="true" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="200px"
-                        LabelWidth="70px">
+                        LabelWidth="90px">
                     </f:DatePicker>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtCheckMan" runat="server" Label="检查人" LabelAlign="Right" LabelWidth="70px">
+                    <f:TextBox ID="txtCheckMan" runat="server" Label="检查人" LabelAlign="Right" LabelWidth="90px">
                     </f:TextBox>
-                    <f:TextBox ID="txtJointCheckMan" runat="server" Label="陪检人员" LabelAlign="Right" LabelWidth="80px">
+                    <f:TextBox ID="txtJointCheckMan" runat="server" Label="陪检人员" LabelAlign="Right" LabelWidth="90px">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
@@ -111,7 +111,7 @@
                                 </ItemTemplate>
                             </f:TemplateField>--%>
                             <f:LinkButtonField Width="50px" HeaderText="删除" ConfirmText="确定要删除此条信息吗？" ConfirmTarget="Parent"
-                                CommandName="del" TextAlign="Center" ToolTip="删除" Icon="Delete" />
+                                CommandName="del" TextAlign="Center" ToolTip="删除" Icon="Delete"  Hidden="true"/>
                         </Columns>
                         <Listeners>
                             <f:Listener Event="dataload" Handler="onGridDataLoad" />
@@ -120,12 +120,12 @@
                     </f:Grid>
                 </Items>
             </f:FormRow>
-            <f:FormRow>
+            <f:FormRow runat="server" Hidden="true">
                 <Items>
                     <f:Grid ID="Grid2" ShowBorder="true" ShowHeader="true" Title="专项检查审批列表" EnableCollapse="true"
                         runat="server" BoxFlex="1" DataKeyNames="CheckSpecialAuditId" DataIDField="CheckSpecialAuditId"
                         AllowSorting="true" SortDirection="ASC" SortField="CheckSpecialAuditId" EnableColumnLines="true"
-                        IsDatabasePaging="true" PageSize="100">
+                        IsDatabasePaging="true" PageSize="100" Hidden="true">
                         <Columns>
                             <f:TemplateField Width="50px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center">
                                 <ItemTemplate>
@@ -145,7 +145,7 @@
                     </f:Grid>
                 </Items>
             </f:FormRow>
-            <f:FormRow ID="FormRow1" runat="server" ColumnWidths="15% 85%">
+            <f:FormRow ID="FormRow1" runat="server" ColumnWidths="15% 85%" Hidden="true">
                 <Items>
                     <f:Label runat="server" Text="下一步流程设置" CssClass="labcenter" ID="Label25">
                     </f:Label>
@@ -153,7 +153,7 @@
                     </f:Label>
                 </Items>
             </f:FormRow>
-            <f:FormRow ID="FormRow2" runat="server">
+            <f:FormRow ID="FormRow2" runat="server" Hidden="true">
                 <Items>
                     <f:DropDownList runat="server" EnableSimulateTree="True" AutoPostBack="True" Label="办理步骤"
                         ID="drpAuditStep" OnSelectedIndexChanged="drpAuditStep_SelectedIndexChanged">
@@ -164,7 +164,7 @@
             </f:FormRow>
         </Rows>
         <Toolbars>
-            <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
+            <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server" Hidden="true">
                 <Items>
                     <f:Button ID="btnSave" Icon="SystemSave" runat="server" Text="保存数据" ValidateForms="SimpleForm1"
                         OnClick="btnSave_Click">

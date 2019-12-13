@@ -27,12 +27,17 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
-                            <f:TextBox runat="server" Label="来文编号" ID="txtReceiveFileCode" EmptyText="输入查询条件"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px"
+                            <f:RadioButtonList runat="server" ID="rbFileType" Width="250px"
+                                AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged">
+                                <f:RadioItem Value="0" Text="项目发文" Selected="true"/>
+                                <f:RadioItem Value="1" Text="单位来文"/>
+                            </f:RadioButtonList>
+                            <f:TextBox runat="server" Label="编号" ID="txtReceiveFileCode" EmptyText="输入查询条件"
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="70px"
                                 LabelAlign="right">
                             </f:TextBox>
-                            <f:TextBox runat="server" Label="文件名称" ID="txtReceiveFileName" EmptyText="输入查询条件"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px"
+                            <f:TextBox runat="server" Label="名称" ID="txtReceiveFileName" EmptyText="输入查询条件"
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="70px"
                                 LabelAlign="right">
                             </f:TextBox>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
@@ -67,8 +72,12 @@
                         SortField="FlowOperateName" FieldType="String" HeaderText="状态" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
+                     <f:WindowField TextAlign="Center" Width="70px" WindowID="WindowAtt" HeaderText="文件" Text="附件" ToolTip="附件上传查看" 
+                        DataIFrameUrlFields="ReceiveFileManagerId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ReceiveFileManagerAttachUrl&menuId=4F5C00F3-DA7D-4B2D-B1EF-310DFFCA77DD&type=-1"
+                        HeaderTextAlign="Center" >
+                     </f:WindowField>
                     <f:WindowField TextAlign="Center" Width="70px" WindowID="WindowAtt" HeaderText="回复" Text="附件" ToolTip="附件上传查看" 
-                        DataIFrameUrlFields="ReceiveFileManagerId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ReceiveFileManagerAttachUrl&menuId=4F5C00F3-DA7D-4B2D-B1EF-310DFFCA77DD"
+                        DataIFrameUrlFields="ReReceiveFileManagerId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ReceiveFileManagerAttachUrl&menuId=4F5C00F3-DA7D-4B2D-B1EF-310DFFCA77DD"
                         HeaderTextAlign="Center" >
                      </f:WindowField>
                      <f:RenderField Width="80px" ColumnID="RetrunSateName" DataField="RetrunSateName"

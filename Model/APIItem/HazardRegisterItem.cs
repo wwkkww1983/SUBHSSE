@@ -297,9 +297,17 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 隐患整改单ID
+        /// 相关单据类型（1-整改单；2-惩罚单；3-停工令）
         /// </summary>
-        public string RectifyNoticesId
+        public string ResultType
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 相关单据ID
+        /// </summary>
+        public string ResultId
         {
             get;
             set;

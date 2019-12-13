@@ -34,7 +34,7 @@
                             <f:HiddenField runat="server" ID="hdRemark">
                             </f:HiddenField>
                              <f:ToolbarFill runat="server"></f:ToolbarFill>
-                             <f:Button ID="btnNew" ToolTip="编制" Icon="Add" runat="server" OnClick="btnNew_Click">
+                             <f:Button ID="btnNew" ToolTip="编制" Icon="Add" runat="server" OnClick="btnNew_Click" Hidden="true">
                             </f:Button>
                         </Items>
                     </f:Toolbar>
@@ -77,8 +77,8 @@
                             <asp:Label ID="Label7" runat="server" Text='<%# Eval("StateStr") %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:LinkButtonField Width="90px" HeaderText="详细" ConfirmTarget="Parent" CommandName="particular"
-                        TextAlign="Center" ToolTip="查看详细信息" Text="查看" />
+                  <%--  <f:LinkButtonField Width="90px" HeaderText="详细" ConfirmTarget="Parent" CommandName="particular"
+                        TextAlign="Center" ToolTip="查看详细信息" Text="查看" />--%>
                     <%--<f:LinkButtonField Width="90px" HeaderText="打印" CommandName="print" TextAlign="Center"
                         ToolTip="打印APP专项检查" Icon="Printer" />--%>
                     <f:LinkButtonField Width="90px" HeaderText="删除" ConfirmText="确定要删除此条信息吗？" ConfirmTarget="Parent"

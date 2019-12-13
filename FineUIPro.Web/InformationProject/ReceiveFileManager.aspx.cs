@@ -1,9 +1,9 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using BLL;
 using System.Text;
 using AspNet = System.Web.UI.WebControls;
 
@@ -41,14 +41,14 @@ namespace FineUIPro.Web.InformationProject
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT ReceiveFileManager.ReceiveFileManagerId,ReceiveFileManager.ProjectId,CodeRecords.Code AS ReceiveFileCode,ReceiveFileManager.ReceiveFileName,ReceiveFileManager.Version,Unit.UnitName,ReceiveFileManager.FileCode,ReceiveFileManager.FilePageNum,ReceiveFileManager.GetFileDate,ReceiveFileManager.States "                          
-                          + @" ,(CASE WHEN ReceiveFileManager.States = " + BLL.Const.State_0 + " OR ReceiveFileManager.States IS NULL THEN '待['+OperateUser.UserName+']提交' WHEN ReceiveFileManager.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
-                          + @" ,(CASE WHEN ReceiveFileManager.States != 2 THEN '未审核完成' WHEN (SELECT COUNT(*) FROM AttachFile WHERE ToKeyId =ReceiveFileManager.ReceiveFileManagerId) > 0 THEN '已闭环' ELSE '未回执' END) AS  RetrunSateName"
+            string strSql = @"SELECT ReceiveFileManager.ReceiveFileManagerId,(ReceiveFileManager.ReceiveFileManagerId+'#1') AS ReReceiveFileManagerId,ReceiveFileManager.ProjectId,CodeRecords.Code AS ReceiveFileCode,ReceiveFileManager.ReceiveFileName,ReceiveFileManager.Version,Unit.UnitName,ReceiveFileManager.FileCode,ReceiveFileManager.FilePageNum,ReceiveFileManager.GetFileDate,ReceiveFileManager.States "
+                          + @" ,(CASE WHEN ReceiveFileManager.States = " + Const.State_0 + " OR ReceiveFileManager.States IS NULL THEN '待['+OperateUser.UserName+']提交' WHEN ReceiveFileManager.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
+                          + @" ,(CASE WHEN ReceiveFileManager.States != 2 THEN '未审核完成' WHEN (SELECT COUNT(*) FROM AttachFile WHERE ToKeyId =(ReceiveFileManager.ReceiveFileManagerId+'#1')) > 0 THEN '已闭环' ELSE '未回执' END) AS  RetrunSateName"
                           + @" FROM InformationProject_ReceiveFileManager AS ReceiveFileManager  "
                           + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON ReceiveFileManager.ReceiveFileManagerId=CodeRecords.DataId "
                           + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON ReceiveFileManager.ReceiveFileManagerId=FlowOperate.DataId AND FlowOperate.IsClosed <> 1"
                           + @" LEFT JOIN Sys_User AS OperateUser ON FlowOperate.OperaterId=OperateUser.UserId"
-                          + @" LEFT JOIN Base_Unit AS Unit ON ReceiveFileManager.FileUnitId=Unit.UnitId WHERE 1=1 ";
+                          + @" LEFT JOIN Base_Unit AS Unit ON ReceiveFileManager.FileUnitId=Unit.UnitId WHERE ReceiveFileManager.FileType=" + this.rbFileType.SelectedValue;
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND ReceiveFileManager.ProjectId = @ProjectId";
             if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
@@ -244,10 +244,10 @@ namespace FineUIPro.Web.InformationProject
             string filename = Funs.GetNewFileName();
             Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("一般来文管理" + filename, System.Text.Encoding.UTF8) + ".xls");
             Response.ContentType = "application/excel";
-            Response.ContentEncoding = System.Text.Encoding.UTF8;
-            this.Grid1.PageSize = 500;
+            Response.ContentEncoding = Encoding.UTF8;
+            this.Grid1.PageSize = Grid1.RecordCount;
             this.BindGrid();
-            Response.Write(GetGridTableHtml(Grid1));
+            Response.Write(GetGridTableHtml1(Grid1));
             Response.End();
         }
 
@@ -256,7 +256,7 @@ namespace FineUIPro.Web.InformationProject
         /// </summary>
         /// <param name="grid"></param>
         /// <returns></returns>
-        private string GetGridTableHtml(Grid grid)
+        private string GetGridTableHtml1(Grid grid)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
@@ -295,5 +295,6 @@ namespace FineUIPro.Web.InformationProject
             BindGrid();
         }
         #endregion
+
     }
 }

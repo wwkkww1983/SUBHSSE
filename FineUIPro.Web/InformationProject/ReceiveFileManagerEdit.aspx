@@ -19,6 +19,15 @@
                     <f:TextBox ID="txtReceiveFileCode" runat="server" Label="来文编号" LabelAlign="Right"
                         MaxLength="50" Readonly="true">
                     </f:TextBox>
+                    <f:RadioButtonList runat="server" ID="rbFileType" Width="150px">
+                        <f:RadioItem Value="0" Text="项目发文" Selected="true"/>
+                        <f:RadioItem Value="1" Text="单位来文"/>
+                    </f:RadioButtonList>
+                    
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
                     <f:TextBox ID="txtReceiveFileName" runat="server" Label="文件名称" Required="true" ShowRedStar="true"
                         LabelAlign="Right" MaxLength="200" FocusOnPageLoad="true">
                     </f:TextBox>
@@ -78,8 +87,11 @@
         <Toolbars>
             <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
                 <Items>                   
-                    <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
+                    <f:Button ID="btnAttachUrl" Text="文件" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
                         OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1" MarginLeft="5px">
+                    </f:Button>
+                    <f:Button ID="btnAttachUrl1" Text="回复" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
+                        OnClick="btnAttachUrl1_Click" ValidateForms="SimpleForm1" MarginLeft="5px">
                     </f:Button>
                     <f:ToolbarFill runat="server"> </f:ToolbarFill>
                      <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" ValidateForms="SimpleForm1"

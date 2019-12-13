@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BLL;
+using System;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BLL;
 
 namespace FineUIPro.Web.InformationProject
 {
@@ -57,38 +54,39 @@ namespace FineUIPro.Web.InformationProject
                 this.ReceiveFileManagerId = Request.Params["ReceiveFileManagerId"];
                 if (!string.IsNullOrEmpty(this.ReceiveFileManagerId))
                 {
-                    Model.InformationProject_ReceiveFileManager ReceiveFileManager = BLL.ReceiveFileManagerService.GetReceiveFileManagerById(this.ReceiveFileManagerId);
-                    if (ReceiveFileManager != null)
+                    Model.InformationProject_ReceiveFileManager getReceiveFileManager = BLL.ReceiveFileManagerService.GetReceiveFileManagerById(this.ReceiveFileManagerId);
+                    if (getReceiveFileManager != null)
                     {
-                        this.ProjectId = ReceiveFileManager.ProjectId;
+                        this.ProjectId = getReceiveFileManager.ProjectId;
                         if (this.ProjectId != this.CurrUser.LoginProjectId)
                         {
                             this.InitDropDownList();
                         }
                         ///读取编号
                         this.txtReceiveFileCode.Text = BLL.CodeRecordsService.ReturnCodeByDataId(this.ReceiveFileManagerId);
-                        this.txtReceiveFileName.Text = ReceiveFileManager.ReceiveFileName;                       
-                        if (!string.IsNullOrEmpty(ReceiveFileManager.FileUnitId))
+                        this.txtReceiveFileName.Text = getReceiveFileManager.ReceiveFileName;                       
+                        if (!string.IsNullOrEmpty(getReceiveFileManager.FileUnitId))
                         {
-                            this.drpUnit.SelectedValue = ReceiveFileManager.FileUnitId;
+                            this.drpUnit.SelectedValue = getReceiveFileManager.FileUnitId;
                         }
                        
-                        this.txtGetFileDate.Text = string.Format("{0:yyyy-MM-dd}", ReceiveFileManager.GetFileDate);                       
-                        this.txtFileCode.Text = ReceiveFileManager.FileCode;
-                        if (ReceiveFileManager.FilePageNum.HasValue)
+                        this.txtGetFileDate.Text = string.Format("{0:yyyy-MM-dd}", getReceiveFileManager.GetFileDate);                       
+                        this.txtFileCode.Text = getReceiveFileManager.FileCode;
+                        if (getReceiveFileManager.FilePageNum.HasValue)
                         {
-                            this.txtFilePageNum.Text = ReceiveFileManager.FilePageNum.ToString();
+                            this.txtFilePageNum.Text = getReceiveFileManager.FilePageNum.ToString();
                         }
-                        this.txtVersion.Text = ReceiveFileManager.Version;
-                        if (!string.IsNullOrEmpty(ReceiveFileManager.SendPersonId))
+                        this.txtVersion.Text = getReceiveFileManager.Version;
+                        if (!string.IsNullOrEmpty(getReceiveFileManager.SendPersonId))
                         {
-                            this.drpSendPerson.SelectedValue = ReceiveFileManager.SendPersonId;
+                            this.drpSendPerson.SelectedValue = getReceiveFileManager.SendPersonId;
                         }
-                        this.txtMainContent.Text = HttpUtility.HtmlDecode(ReceiveFileManager.MainContent);
-                        if (!string.IsNullOrEmpty(ReceiveFileManager.UnitIds))
+                        this.txtMainContent.Text = HttpUtility.HtmlDecode(getReceiveFileManager.MainContent);
+                        if (!string.IsNullOrEmpty(getReceiveFileManager.UnitIds))
                         {
-                            this.drpUnitIds.SelectedValueArray = ReceiveFileManager.UnitIds.Split(',');
+                            this.drpUnitIds.SelectedValueArray = getReceiveFileManager.UnitIds.Split(',');
                         }
+                        this.rbFileType.SelectedValue = getReceiveFileManager.FileType;
                     }
                 }
                 else
@@ -120,22 +118,9 @@ namespace FineUIPro.Web.InformationProject
         /// </summary>
         private void InitDropDownList()
         {
-            this.drpSendPerson.DataValueField = "UserId";
-            this.drpSendPerson.DataTextField = "UserName";
-            this.drpSendPerson.DataSource = BLL.UserService.GetProjectUserListByProjectId(this.ProjectId);
-            this.drpSendPerson.DataBind();
-            Funs.FineUIPleaseSelect(this.drpSendPerson);
-
-            this.drpUnit.DataValueField = "UnitId";
-            this.drpUnit.DataTextField = "UnitName";
-            this.drpUnit.DataSource = BLL.UnitService.GetUnitByProjectIdList(this.ProjectId);
-            this.drpUnit.DataBind();
-            Funs.FineUIPleaseSelect(this.drpUnit);
-
-            this.drpUnitIds.DataValueField = "UnitId";
-            this.drpUnitIds.DataTextField = "UnitName";
-            this.drpUnitIds.DataSource = BLL.UnitService.GetUnitByProjectIdList(this.ProjectId);
-            this.drpUnitIds.DataBind();
+            UserService.InitUserDropDownList(this.drpSendPerson, this.ProjectId, true);
+            UnitService.InitUnitDropDownList(this.drpUnit, this.ProjectId, true);
+            UnitService.InitUnitDropDownList(this.drpUnitIds, this.ProjectId, false);
         }
         #endregion
 
@@ -177,7 +162,8 @@ namespace FineUIPro.Web.InformationProject
             {
                 ProjectId = this.ProjectId,
                 ReceiveFileCode = this.txtReceiveFileCode.Text.Trim(),
-                ReceiveFileName = this.txtReceiveFileName.Text.Trim()
+                ReceiveFileName = this.txtReceiveFileName.Text.Trim(),
+                FileType=this.rbFileType.SelectedValue,
             };
             if (this.drpUnit.SelectedValue != BLL.Const._Null)
             {
@@ -246,6 +232,19 @@ namespace FineUIPro.Web.InformationProject
                 SaveData(BLL.Const.BtnSave);
             }
             PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ReceiveFileManagerAttachUrl&menuId={1}", ReceiveFileManagerId,BLL.Const.ReceiveFileManagerMenuId)));
+        }
+        /// <summary>
+        /// 上传附件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnAttachUrl1_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.ReceiveFileManagerId))
+            {
+                SaveData(BLL.Const.BtnSave);
+            }
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ReceiveFileManagerAttachUrl&menuId={1}", ReceiveFileManagerId + "#1", BLL.Const.ReceiveFileManagerMenuId)));
         }
         #endregion
 

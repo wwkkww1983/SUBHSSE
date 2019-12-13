@@ -107,5 +107,13 @@ namespace Model
         /// 是否启用
         /// </summary>
         public string IsUsedName { get; set; }
+        /// <summary>
+        /// 作业区域ID
+        /// </summary>
+        public string WorkAreaId { get; set; }
+        /// <summary>
+        /// 作业区域名称
+        /// </summary>
+        public string WorkAreaName { get; set; }
     }
 }

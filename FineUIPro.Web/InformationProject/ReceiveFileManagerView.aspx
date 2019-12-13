@@ -15,9 +15,16 @@
         BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
         <Rows>
             <f:FormRow>
-                <Items>
+                <Items>                   
                     <f:TextBox ID="txtReceiveFileCode" runat="server" Label="来文编号" LabelAlign="Right" Readonly="true">
                     </f:TextBox>
+                    <f:TextBox ID="txtFileType" runat="server" Label="类型" LabelAlign="Right" Readonly="true">
+                    </f:TextBox>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
+                    
                     <f:TextBox ID="txtReceiveFileName" runat="server" Label="文件名称" LabelAlign="Right" Readonly="true">
                     </f:TextBox>
                 </Items>
@@ -64,8 +71,11 @@
         <Toolbars>
             <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
                 <Items>                   
-                    <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
+                    <f:Button ID="btnAttachUrl" Text="文件" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
                         OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1" MarginLeft="5px">
+                    </f:Button>
+                     <f:Button ID="btnAttachUrl1" Text="回复" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
+                        OnClick="btnAttachUrl1_Click" ValidateForms="SimpleForm1" MarginLeft="5px">
                     </f:Button>
                     <f:ToolbarFill runat="server"> </f:ToolbarFill>                   
                     <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">

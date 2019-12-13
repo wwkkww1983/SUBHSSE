@@ -57,23 +57,14 @@ namespace FineUIPro.Web.InformationProject
                         this.txtVersion.Text = ReceiveFileManager.Version;
                         this.drpSendPerson.Text = BLL.UserService.GetUserNameByUserId(ReceiveFileManager.SendPersonId);
                         this.txtMainContent.Text = HttpUtility.HtmlDecode(ReceiveFileManager.MainContent);
-                        if (!string.IsNullOrEmpty(ReceiveFileManager.UnitIds))
+                        this.txtUnitNames.Text = UnitService.getUnitNamesUnitIds(ReceiveFileManager.UnitIds);
+                        if (ReceiveFileManager.FileType == "1")
                         {
-                            string unitNames = string.Empty;
-                            List<string> unitIds = ReceiveFileManager.UnitIds.Split(',').ToList();
-                            foreach (var item in unitIds)
-                            {
-                                var unit = BLL.UnitService.GetUnitByUnitId(item);
-                                if (unit != null)
-                                {
-                                    unitNames += unit.UnitName + ",";
-                                }
-                            }
-                            if (!string.IsNullOrEmpty(unitNames))
-                            {
-                                unitNames = unitNames.Substring(0, unitNames.LastIndexOf(','));
-                            }
-                            this.txtUnitNames.Text = unitNames;
+                            this.txtFileType.Text = "单位来文";
+                        }
+                        else
+                        {
+                            this.txtFileType.Text = "项目发文";
                         }
                     }
                 }
@@ -97,6 +88,18 @@ namespace FineUIPro.Web.InformationProject
             {
                 PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ReceiveFileManagerAttachUrl&menuId={1}&type=-1", ReceiveFileManagerId, BLL.Const.ReceiveFileManagerMenuId)));
             }            
+        }
+        /// <summary>
+        /// 上传附件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnAttachUrl1_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(this.ReceiveFileManagerId))
+            {
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ReceiveFileManagerAttachUrl&menuId={1}&type=-1", ReceiveFileManagerId + "#1", BLL.Const.ReceiveFileManagerMenuId)));
+            }
         }
         #endregion
     }

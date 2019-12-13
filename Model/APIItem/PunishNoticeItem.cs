@@ -186,5 +186,10 @@ namespace Model
             get;
             set;
         }
+        public string HazardRegisterId
+        {
+            get;
+            set;
+        }
     }
 }

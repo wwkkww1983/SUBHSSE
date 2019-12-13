@@ -171,7 +171,7 @@ namespace FineUIPro.Web.EduTrain
                         AItem = pds.Rows[i][6].ToString().Trim(),
                         BItem = pds.Rows[i][7].ToString().Trim(),
                     };
-
+                    
                     ////试题类型
                     string col1 = pds.Rows[i][1].ToString().Trim();
                     if (string.IsNullOrEmpty(col1))
@@ -303,7 +303,7 @@ namespace FineUIPro.Web.EduTrain
                     else
                     {
                         var addTrainingItem = Funs.DB.Training_TestTrainingItem.FirstOrDefault(x => x.Abstracts == newViewTrainingItem.Abstracts
-                                && x.TrainingId == newViewTrainingItem.TrainingId );
+                                                            && x.TrainingId == newViewTrainingItem.TrainingId);
                         if (addTrainingItem == null)
                         {
                             Model.Training_TestTrainingItem newTrainingItem = new Model.Training_TestTrainingItem

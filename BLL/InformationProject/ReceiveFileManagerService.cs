@@ -44,7 +44,8 @@ namespace BLL
                 MainContent = ReceiveFileManager.MainContent,
                 AttachUrl = ReceiveFileManager.AttachUrl,
                 States = ReceiveFileManager.States,
-                UnitIds = ReceiveFileManager.UnitIds
+                UnitIds = ReceiveFileManager.UnitIds,
+                FileType=ReceiveFileManager.FileType,
             };
             db.InformationProject_ReceiveFileManager.InsertOnSubmit(newReceiveFileManager);
             db.SubmitChanges();
@@ -74,6 +75,7 @@ namespace BLL
                 newReceiveFileManager.AttachUrl = ReceiveFileManager.AttachUrl;
                 newReceiveFileManager.States = ReceiveFileManager.States;
                 newReceiveFileManager.UnitIds = ReceiveFileManager.UnitIds;
+                newReceiveFileManager.FileType = ReceiveFileManager.FileType;
                 db.SubmitChanges();
             }
         }

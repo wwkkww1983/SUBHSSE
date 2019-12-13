@@ -24,18 +24,18 @@
         <Rows>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtCheckSpecialCode" runat="server" Label="编号" LabelAlign="Right" LabelWidth="70px" Readonly="true">
+                    <f:TextBox ID="txtCheckSpecialCode" runat="server" Label="编号" LabelAlign="Right" LabelWidth="90px" Readonly="true">
                                     </f:TextBox>
                     <f:DatePicker ID="txtDate" runat="server" Label="日期" LabelAlign="Right" Required="True" ShowRedStar="true"
-                        Width="200px" LabelWidth="70px" Readonly="true">
+                        Width="200px" LabelWidth="90px" Readonly="true">
                     </f:DatePicker>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                     <f:TextBox ID="txtCheckMan" runat="server" Label="检查人" LabelAlign="Right" LabelWidth="70px" Readonly="true">
+                     <f:TextBox ID="txtCheckMan" runat="server" Label="检查人" LabelAlign="Right" LabelWidth="90px" Readonly="true">
                                     </f:TextBox>
-                     <f:TextBox ID="txtJointCheckMan" runat="server" Label="陪检人员" LabelAlign="Right" LabelWidth="70px" Readonly="true">
+                     <f:TextBox ID="txtJointCheckMan" runat="server" Label="陪检人员" LabelAlign="Right" LabelWidth="90px" Readonly="true">
                                     </f:TextBox>
                 </Items>
             </f:FormRow>
@@ -116,7 +116,7 @@
                     </f:Grid>
                 </Items>
             </f:FormRow>
-            <f:FormRow>
+            <f:FormRow runat="server" ID="trAudit" Hidden="true">
                 <Items>
                     <f:Grid ID="Grid2" ShowBorder="true" ShowHeader="true" Title="专项检查审批列表" EnableCollapse="true"
                         runat="server" BoxFlex="1" DataKeyNames="CheckSpecialAuditId" DataIDField="CheckSpecialAuditId"

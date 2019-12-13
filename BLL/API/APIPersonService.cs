@@ -59,6 +59,7 @@ namespace BLL
                                 PersonId = x.PersonId,
                                 CardNo = x.CardNo,
                                 PersonName = x.PersonName,
+                                Sex = x.Sex,
                                 SexName = x.SexName,
                                 IdentityCard = x.IdentityCard,
                                 Address = x.Address,
@@ -78,6 +79,8 @@ namespace BLL
                                 Telephone = x.Telephone,
                                 PhotoUrl = x.PhotoUrl,
                                 DepartName = x.DepartName,
+                                IsUsed= x.IsUsed,
+                                IsUsedName=x.IsUsed==false?"不启用":"启用",                                                            
                             };
             return  getPerson.FirstOrDefault();
         }
@@ -132,6 +135,8 @@ namespace BLL
                               Telephone = x.Telephone,
                               PhotoUrl = x.PhotoUrl,
                               DepartName = x.DepartName,
+                              WorkAreaId=x.WorkAreaId,
+                              WorkAreaName=x.WorkAreaName,
                           };
             return persons.ToList();
         }
@@ -152,9 +157,9 @@ namespace BLL
         {           
            var  getViews = from x in Funs.DB.SitePerson_Person
                         where x.ProjectId == projectId && (strUnitId == null || x.UnitId == strUnitId)
-                        && (strWorkPostId == null || x.WorkPostId == strWorkPostId) && (strParam == null || strParam.Contains(x.PersonName) || strParam.Contains(x.IdentityCard))
+                        && (strWorkPostId == null || x.WorkPostId == strWorkPostId)
                         select x;
-            if (!CommonService.GetIsThisUnit(unitId))
+            if (!CommonService.GetIsThisUnit(unitId) || string.IsNullOrEmpty(unitId))
             {
                 getViews = getViews.Where(x => x.UnitId == unitId);
             }
@@ -169,6 +174,11 @@ namespace BLL
             else if (states == "2")
             {
                 getViews = getViews.Where(x => x.IsUsed == true && x.OutTime <= DateTime.Now);
+            }
+
+            if (!string.IsNullOrEmpty(strParam))
+            {
+                getViews = getViews.Where(x => x.PersonName.Contains(strParam) || x.IdentityCard.Contains(strParam));
             }
             var persons = from x in getViews
                           join y in Funs.DB.Base_Unit on x.UnitId equals y.UnitId
@@ -196,6 +206,8 @@ namespace BLL
                               PhotoUrl = x.PhotoUrl,
                               IsUsed = x.IsUsed,
                               IsUsedName = (x.IsUsed == true ? "启用" : "未启用"),
+                              WorkAreaId = x.WorkAreaId,
+                              WorkAreaName = Funs.DB.ProjectData_WorkArea.First(z => z.WorkAreaId == x.WorkAreaId).WorkAreaName,
                           };
             return persons.ToList();
         }
@@ -294,17 +306,34 @@ namespace BLL
                 IdentityCard = person.IdentityCard,
                 Address = person.Address,
                 UnitId = person.UnitId,
-                TeamGroupId = person.TeamGroupId,
-                WorkPostId = person.WorkPostId,
                 OutResult = person.OutResult,
                 Telephone = person.Telephone,
                 PhotoUrl = person.PhotoUrl,
                 InTime = Funs.GetNewDateTime(person.InTime),
-                OutTime = Funs.GetNewDateTime(person.OutTime),
-                IsUsed = person.IsUsed,
+                OutTime = Funs.GetNewDateTime(person.OutTime),               
                 Sex = person.Sex,
             };
-            
+            if (!string.IsNullOrEmpty(person.TeamGroupId))
+            {
+                newPerson.TeamGroupId = person.TeamGroupId;
+            }
+            if (!string.IsNullOrEmpty(person.WorkPostId))
+            {
+                newPerson.WorkPostId = person.WorkPostId;
+            }
+            if (!string.IsNullOrEmpty(person.WorkAreaId))
+            {
+                newPerson.WorkAreaId = person.WorkAreaId;
+            }
+            if (person.IsUsed == true)
+            {
+                newPerson.IsUsed = true;
+            }
+            else
+            {
+                newPerson.IsUsed = false;
+            }
+
             var getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.IdentityCard == newPerson.IdentityCard || x.PersonId== newPerson.PersonId);
             if (getPerson == null)
             {
@@ -319,15 +348,33 @@ namespace BLL
                 getPerson.IdentityCard = person.IdentityCard;
                 getPerson.Address = person.Address;
                 getPerson.UnitId = person.UnitId;
-                getPerson.TeamGroupId = person.TeamGroupId;
-                getPerson.WorkPostId = person.WorkPostId;
                 getPerson.OutResult = person.OutResult;
                 getPerson.Telephone = person.Telephone;
                 getPerson.PhotoUrl = person.PhotoUrl;
                 getPerson.InTime = Funs.GetNewDateTime(person.InTime);
-                getPerson.OutTime = Funs.GetNewDateTime(person.OutTime);
-                getPerson.IsUsed = person.IsUsed;
+                getPerson.OutTime = Funs.GetNewDateTime(person.OutTime);             
                 getPerson.Sex = person.Sex;
+
+                if (!string.IsNullOrEmpty(person.TeamGroupId))
+                {
+                    getPerson.TeamGroupId = person.TeamGroupId;
+                }
+                if (!string.IsNullOrEmpty(person.WorkPostId))
+                {
+                    getPerson.WorkPostId = person.WorkPostId;
+                }
+                if (!string.IsNullOrEmpty(person.WorkAreaId))
+                {
+                    getPerson.WorkAreaId = person.WorkAreaId;
+                }
+                if (person.IsUsed == true)
+                {
+                    getPerson.IsUsed = true;
+                }
+                else
+                {
+                    getPerson.IsUsed = false;
+                }
                 PersonService.UpdatePerson(newPerson);
             }
         }
@@ -339,12 +386,19 @@ namespace BLL
         /// </summary>
         /// <param name="personId"></param>
         public static void getPersonOut(string personId)
-        {           
-            var getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.PersonId == personId);
-            if (getPerson != null)
+        {
+            if (!string.IsNullOrEmpty(personId))
             {
-                getPerson.OutTime = System.DateTime.Now;
-                PersonService.UpdatePerson(getPerson);
+                List<string> getLists = Funs.GetStrListByStr(personId, ',');
+                foreach (var item in getLists)
+                {
+                    var getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.PersonId == item);
+                    if (getPerson != null)
+                    {
+                        getPerson.OutTime = DateTime.Now;
+                        PersonService.UpdatePerson(getPerson);
+                    }
+                }
             }
         }
         #endregion

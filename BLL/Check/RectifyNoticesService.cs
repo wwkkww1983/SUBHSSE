@@ -37,7 +37,7 @@ namespace BLL
                 WorkAreaId = rectifyNotices.WorkAreaId,
                 CheckedDate = rectifyNotices.CheckedDate,
                 WrongContent = rectifyNotices.WrongContent,
-                SignPerson = rectifyNotices.SignPerson,
+                SignPerson = rectifyNotices.SignPerson,                
                 SignDate = rectifyNotices.SignDate,
                 CompleteStatus = rectifyNotices.CompleteStatus,
                 DutyPerson = rectifyNotices.DutyPerson,

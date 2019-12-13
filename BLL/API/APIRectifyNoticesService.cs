@@ -26,7 +26,7 @@ namespace BLL
                                         UnitId=x.UnitId,
                                         UnitName=Funs.DB.Base_Unit.First(u=>u.UnitId == x.UnitId).UnitName,
                                         WorkAreaId=x.WorkAreaId,
-                                        WorkAreaName = Funs.DB.ProjectData_WorkArea.First(u => u.WorkAreaId == x.WorkAreaId).WorkAreaName,
+                                        WorkAreaName = WorkAreaService.getWorkAreaNamesIds(x.WorkAreaId),
                                         CheckPersonId=x.CheckPerson,
                                         CheckPersonName= Funs.DB.Sys_User.First(u => u.UserId == x.CheckPerson).UserName,
                                         CheckedDate=string.Format("{0:yyyy-MM-dd HH:mm}",x.CheckedDate),
@@ -86,7 +86,7 @@ namespace BLL
                                     UnitId = x.UnitId,
                                     UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
                                     WorkAreaId = x.WorkAreaId,
-                                    WorkAreaName = Funs.DB.ProjectData_WorkArea.First(u => u.WorkAreaId == x.WorkAreaId).WorkAreaName,
+                                    WorkAreaName = WorkAreaService.getWorkAreaNamesIds(x.WorkAreaId),
                                     CheckPersonId = x.CheckPerson,
                                     CheckPersonName = Funs.DB.Sys_User.First(u => u.UserId == x.CheckPerson).UserName,
                                     CheckedDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CheckedDate),
@@ -104,8 +104,35 @@ namespace BLL
                                     AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.RectifyNoticesId)).AttachUrl.Replace('\\', '/'),
                                     BeAttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.RectifyNoticesId + "#0")).AttachUrl.Replace('\\', '/'),
                                     AfAttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.RectifyNoticesId + "#1")).AttachUrl.Replace('\\', '/'),
+                                    States = getStates(x.RectifyNoticesId),
                                 }).ToList();
             return getDataLists;
+        }
+
+        public static string getStates(string RectifyNoticesId)
+        {
+            string states = string.Empty;
+            var getRectifyNotices = Funs.DB.Check_RectifyNotices.FirstOrDefault(x => x.RectifyNoticesId == RectifyNoticesId);
+            if (getRectifyNotices != null)
+            {
+                if (!getRectifyNotices.SignDate.HasValue)  // 待签发 0
+                {
+                    states = "0";
+                }
+                else if (getRectifyNotices.SignDate.HasValue && !getRectifyNotices.CompleteDate.HasValue)   // 待整改 1
+                {
+                    states = "1";
+                }
+                else if (getRectifyNotices.CompleteDate.HasValue && !getRectifyNotices.ReCheckDate.HasValue) // 待复查 2
+                {
+                    states = "2";
+                }
+                else if (getRectifyNotices.ReCheckDate.HasValue)  // 已闭环 3
+                {
+                    states = "3";
+                }
+            }
+            return states;
         }
 
         /// <summary>
@@ -127,13 +154,14 @@ namespace BLL
                 SignPerson = rectifyNotices.SignPersonId,                
                 DutyPersonId = rectifyNotices.DutyPersonId,
                 DutyPerson = rectifyNotices.RectificationName,               
-                CheckPerson = rectifyNotices.CheckPersonId,
+                CheckPerson = rectifyNotices.CheckPersonId,                
             };
             
             var isUpdate = Funs.DB.Check_RectifyNotices.FirstOrDefault(x => x.RectifyNoticesId == newRectifyNotices.RectifyNoticesId);
             if (isUpdate == null)
             {
                 newRectifyNotices.RectifyNoticesId = SQLHelper.GetNewID();
+                newRectifyNotices.RectifyNoticesCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.ProjectId, newRectifyNotices.UnitId);
                 if (rectifyNotices.States == "1")
                 {
                     newRectifyNotices.SignDate = Funs.GetNewDateTime(rectifyNotices.SignDate);
@@ -155,7 +183,8 @@ namespace BLL
                         {
                             getHazardRegister.States = "3";
                             getHazardRegister.HandleIdea += "已升级为隐患整改单：" + newRectifyNotices.RectifyNoticesCode;
-                            getHazardRegister.RectifyNoticesId = newRectifyNotices.RectifyNoticesId;
+                            getHazardRegister.ResultId = newRectifyNotices.RectifyNoticesId;
+                            getHazardRegister.ResultType = "1";
                             Funs.SubmitChanges();
                         }
                     }
