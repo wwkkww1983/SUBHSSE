@@ -104,33 +104,29 @@ namespace BLL
                                     AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.RectifyNoticesId)).AttachUrl.Replace('\\', '/'),
                                     BeAttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.RectifyNoticesId + "#0")).AttachUrl.Replace('\\', '/'),
                                     AfAttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.RectifyNoticesId + "#1")).AttachUrl.Replace('\\', '/'),
-                                    States = getStates(x.RectifyNoticesId),
+                                    States = getStates(x.SignDate, x.CompleteDate,x.ReCheckDate),
                                 }).ToList();
             return getDataLists;
         }
 
-        public static string getStates(string RectifyNoticesId)
+        public static string getStates(DateTime? SignDate, DateTime? CompleteDate, DateTime? ReCheckDate)
         {
             string states = string.Empty;
-            var getRectifyNotices = Funs.DB.Check_RectifyNotices.FirstOrDefault(x => x.RectifyNoticesId == RectifyNoticesId);
-            if (getRectifyNotices != null)
+            if (!SignDate.HasValue)  // 待签发 0
             {
-                if (!getRectifyNotices.SignDate.HasValue)  // 待签发 0
-                {
-                    states = "0";
-                }
-                else if (getRectifyNotices.SignDate.HasValue && !getRectifyNotices.CompleteDate.HasValue)   // 待整改 1
-                {
-                    states = "1";
-                }
-                else if (getRectifyNotices.CompleteDate.HasValue && !getRectifyNotices.ReCheckDate.HasValue) // 待复查 2
-                {
-                    states = "2";
-                }
-                else if (getRectifyNotices.ReCheckDate.HasValue)  // 已闭环 3
-                {
-                    states = "3";
-                }
+                states = "0";
+            }
+            else if (SignDate.HasValue && !CompleteDate.HasValue)   // 待整改 1
+            {
+                states = "1";
+            }
+            else if (CompleteDate.HasValue && !ReCheckDate.HasValue) // 待复查 2
+            {
+                states = "2";
+            }
+            else if (ReCheckDate.HasValue)  // 已闭环 3
+            {
+                states = "3";
             }
             return states;
         }
@@ -192,21 +188,24 @@ namespace BLL
             }
             else
             {
+                //// 签发
                 if (rectifyNotices.States == "1")
                 {
-                    isUpdate.DutyPersonId = rectifyNotices.DutyPersonId;
-                    isUpdate.CompleteStatus = rectifyNotices.CompleteStatus;
+                    isUpdate.UnitId = rectifyNotices.UnitId;
+                    isUpdate.WorkAreaId = rectifyNotices.WorkAreaId;
+                    isUpdate.CheckedDate = Funs.GetNewDateTime(rectifyNotices.CheckedDate);
+                    isUpdate.WrongContent = rectifyNotices.WrongContent;
+                    isUpdate.DutyPersonId = rectifyNotices.DutyPersonId;                
                     isUpdate.SignDate = Funs.GetNewDateTime(rectifyNotices.SignDate);
                     if (!string.IsNullOrEmpty(rectifyNotices.BeAttachUrl))
                     {
                         APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.RectifyNoticesId + "#0", rectifyNotices.BeAttachUrl, "0");
                     }
                 }
-                if (rectifyNotices.States == "2")
+                if (rectifyNotices.States == "2")  //// 整改
                 {
                     isUpdate.CompleteStatus = rectifyNotices.CompleteStatus;
-                    isUpdate.CompleteDate = Funs.GetNewDateTime(rectifyNotices.CompleteDate);
-                  //  isUpdate.DutyPersonId = rectifyNotices.DutyPersonId;
+                    isUpdate.CompleteDate = Funs.GetNewDateTime(rectifyNotices.CompleteDate);               
                     isUpdate.DutyPerson = rectifyNotices.RectificationName;
                     isUpdate.CheckPerson = rectifyNotices.CheckPersonId;
                     if (!string.IsNullOrEmpty(rectifyNotices.AfAttachUrl))
@@ -214,12 +213,11 @@ namespace BLL
                         APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.RectifyNoticesId + "#1", rectifyNotices.AfAttachUrl, "0");
                     }
                 }
-                else if (rectifyNotices.States == "3")
+                else if (rectifyNotices.States == "3") //// 复查
                 {
                     isUpdate.IsRectify = rectifyNotices.IsRectify;
                     if (isUpdate.IsRectify == true)
                     {
-                        isUpdate.CheckPerson = rectifyNotices.CheckPersonId;
                         isUpdate.ReCheckDate = Funs.GetNewDateTime(rectifyNotices.ReCheckDate);                      
                     }
                     else

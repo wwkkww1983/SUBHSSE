@@ -21,33 +21,30 @@ namespace WebAPI.Filter
         {
             bool isOk = false;
             IEnumerable<string> token;
-            actionContext.Request.Headers.TryGetValues("token", out token);           
-            if (token != null)
+            actionContext.Request.Headers.TryGetValues("token", out token);            
+            string strValues = actionContext.ActionDescriptor.ControllerDescriptor.ControllerName + "*" + ((ReflectedHttpActionDescriptor)actionContext.ActionDescriptor).ActionName;
+            if (lists.FirstOrDefault(x => x == strValues) != null)
             {
-                string strValues = actionContext.ActionDescriptor.ControllerDescriptor.ControllerName + "*" + ((System.Web.Http.Controllers.ReflectedHttpActionDescriptor)actionContext.ActionDescriptor).ActionName;
-                if (lists.FirstOrDefault(x => x == strValues) != null)
+                isOk = true;
+            }
+
+            if (!isOk && token != null)
+            {
+                var getUser = BLL.UserService.GetUserByUserId(token.FirstOrDefault());
+                if (getUser != null)
                 {
                     isOk = true;
                 }
                 else
                 {
-                    var getUser = BLL.UserService.GetUserByUserId(token.FirstOrDefault());
-                    if (getUser != null)
+                    var getPerson = BLL.PersonService.GetPersonById(token.FirstOrDefault());
+                    if (getPerson != null)
                     {
                         isOk = true;
                     }
-                    else
-                    {
-                        var getPerson = BLL.PersonService.GetPersonById(token.FirstOrDefault());
-                        if (getPerson != null)
-                        {
-                            isOk = true;
-                        }
-                    }
                 }
             }
-
-             // base.OnActionExecuting(actionContext);
+           // base.OnActionExecuting(actionContext);
             if (isOk)
             {
                 base.OnActionExecuting(actionContext);

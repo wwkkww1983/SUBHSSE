@@ -89,6 +89,52 @@ namespace WebAPI.Controllers
         }
         #endregion
 
+        #region 获取在岗、离岗、待审人员数量
+        /// <summary>
+        /// 获取在岗、离岗、待审人员列表
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
+        /// <param name="states"></param>
+        /// <param name="strUnitId"></param>
+        /// <param name="strWorkPostId"></param>
+        /// <param name="strParam"></param>
+        /// <returns></returns>
+        public Model.ResponeData getPersonStatesCount(string projectId, string unitId, string states, string strUnitId, string strWorkPostId, string strParam)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getViews = from x in Funs.DB.SitePerson_Person
+                               where x.ProjectId == projectId && (strUnitId == null || x.UnitId == strUnitId)
+                                    && (strWorkPostId == null || x.WorkPostId == strWorkPostId)
+                               select x;
+                if (!CommonService.GetIsThisUnit(unitId) || string.IsNullOrEmpty(unitId))
+                {
+                    getViews = getViews.Where(x => x.UnitId == unitId);
+                }
+                if (!string.IsNullOrEmpty(strParam))
+                {
+                    getViews = getViews.Where(x => x.PersonName.Contains(strParam) || x.IdentityCard.Contains(strParam));
+                }
+                int tatalCount = getViews.Count();
+                //在审
+                int count0 = getViews.Where(x => x.IsUsed == false).Count();
+                //在岗
+                int count1 = getViews.Where(x => x.IsUsed == true && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)).Count();
+                //离岗
+                int count2 = getViews.Where(x => x.IsUsed == true && x.OutTime <= DateTime.Now).Count();
+                responeData.data = new { tatalCount, count0, count1, count2 };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
         #region 获取在岗、离岗、待审人员列表
         /// <summary>
         /// 获取在岗、离岗、待审人员列表

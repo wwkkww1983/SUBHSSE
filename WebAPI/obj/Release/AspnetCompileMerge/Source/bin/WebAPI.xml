@@ -1325,6 +1325,18 @@
             <param name="pageIndex"></param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.PersonController.getPersonStatesCount(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            获取在岗、离岗、待审人员列表
+            </summary>
+            <param name="projectId"></param>
+            <param name="unitId"></param>
+            <param name="states"></param>
+            <param name="strUnitId"></param>
+            <param name="strWorkPostId"></param>
+            <param name="strParam"></param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.PersonController.getPersonListByProjectIdStates(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             获取在岗、离岗、待审人员列表
