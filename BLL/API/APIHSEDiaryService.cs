@@ -222,7 +222,7 @@ namespace BLL
                              join y in Funs.DB.Sys_Menu on x.MenuId equals y.MenuId
                              where x.ProjectId == getProjectId && x.OperaterId == getUserId
                                  && getDate > x.OperaterTime.Value.AddDays(-1) && getDate < x.OperaterTime.Value.AddDays(1)
-                             select new { x.DataId, y.MenuName }; ;
+                             select new { x.DataId, y.MenuName };
 
             if (getLicense.Count() > 0)
             {
@@ -359,7 +359,7 @@ namespace BLL
             if (getFlows.Count() > 0)
             {
                 List<string> listIds = getFlows.Select(x => x.DataId).ToList();
-                strValues += "次数:" + getFlows.ToString() + "；";
+                strValues += "次数:" + getFlows.Count().ToString() + "；";
                 var getPersonCount = (from x in Funs.DB.EduTrain_TrainRecord
                                       join y in Funs.DB.EduTrain_TrainRecordDetail on x.TrainingId equals y.TrainingId
                                       where listIds.Contains(x.TrainingId)

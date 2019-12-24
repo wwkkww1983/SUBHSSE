@@ -88,7 +88,8 @@
             <f:FormRow>
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1" AllowCellEditing="true"
-                        DataIDField="TrainDetailId" DataKeyNames="TrainDetailId" EnableMultiSelect="true" AllowSorting="true" SortField="UnitName,PersonName"
+                        DataIDField="TrainDetailId" DataKeyNames="TrainDetailId" EnableMultiSelect="true" 
+                        AllowSorting="true" SortField="UnitName,WorkPostCode,PersonName"
                         ShowGridHeader="true" Height="200px" EnableColumnLines="true" >
                         <Toolbars>
                             <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
@@ -113,6 +114,9 @@
                             <f:RenderField Width="180px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName" ExpandUnusedSpace="true"
                                 FieldType="String" HeaderText="单位" TextAlign="Left" HeaderTextAlign="Center">
                             </f:RenderField>
+                             <f:RenderField Width="150px" ColumnID="WorkPostName" DataField="WorkPostName" SortField="WorkPostName"
+                                FieldType="String" HeaderText="岗位" TextAlign="Left" HeaderTextAlign="Center">
+                            </f:RenderField>  
                             <f:RenderField Width="150px" ColumnID="PersonName" DataField="PersonName" SortField="PersonName"
                                 FieldType="String" HeaderText="培训人员" TextAlign="Left" HeaderTextAlign="Center">
                             </f:RenderField>                       
@@ -208,7 +212,8 @@
             return value == 1 ? '合格' : '不合格';
         }
         function onGridDataLoad(event) {
-            this.mergeColumns(['UnitName']);
+             this.mergeColumns(['UnitName'], { depends: true });
+             this.mergeColumns(['WorkPostName'], { depends: true });
         }
     </script>
 </body>

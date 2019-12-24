@@ -83,7 +83,7 @@ namespace FineUIPro.Web.EduTrain
                          + @",(' ( '+ ISNULL(Replace(Replace(Replace(Replace(Replace(SelectedItem,'1','A'),'2', 'B'),'3', 'C'),'4', 'D'),'5', 'E'),'_') +' )') AS SelectedItem"
                          + @",TestType,TrainingItemCode,(CASE WHEN TestType = '1' THEN '单选题' WHEN TestType = '2' THEN '多选题' ELSE '判断题' END) AS TestTypeName"
                          + @" FROM Training_TestRecordItem "
-                         + @" WHERE TestRecordId= '" + this.TestRecordId + "'";
+                         + @" WHERE TestRecordId= '" + this.TestRecordId + "' ORDER BY TestType,TrainingItemCode";
             List<SqlParameter> listStr = new List<SqlParameter>();           
 
             SqlParameter[] parameter = listStr.ToArray();

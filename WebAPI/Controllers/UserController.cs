@@ -183,6 +183,38 @@ namespace WebAPI.Controllers
         }
         #endregion
 
+        #region 根据UnitType单位类型获取用户信息
+        /// <summary>
+        /// 根据UnitType单位类型获取用户信息
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitType">（总包1;施工分包2;监理3;业主4;其他5）</param>
+        /// <param name="roleIds"></param>
+        /// <param name="strParam"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns></returns>
+        public Model.ResponeData getUserByProjectIdUnitTypeQuery(string projectId, string unitType, string roleIds, string strParam, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APIUserService.getUserByProjectIdUnitTypeQuery(projectId, unitType, roleIds, strParam);
+                int pageCount = getDataList.Count();
+                if (pageCount > 0 && pageIndex > 0)
+                {
+                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                }
+                responeData.data = new { pageCount, getDataList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
         #region 保存人员电话号码
         /// <summary>
         /// 保存人员电话号码

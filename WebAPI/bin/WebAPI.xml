@@ -1325,6 +1325,14 @@
             <param name="pageIndex"></param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.PersonController.getPersonStatesCount(System.String,System.String)">
+            <summary>
+            获取在岗、离岗、待审人员列表
+            </summary>
+            <param name="projectId"></param>
+            <param name="unitId"></param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.PersonController.getPersonStatesCount(System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             获取在岗、离岗、待审人员列表
@@ -1898,6 +1906,17 @@
             </summary>
             <param name="projectId"></param>
             <param name="unitId"></param>
+            <param name="roleIds"></param>
+            <param name="strParam"></param>
+            <param name="pageIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.UserController.getUserByProjectIdUnitTypeQuery(System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            根据UnitType单位类型获取用户信息
+            </summary>
+            <param name="projectId"></param>
+            <param name="unitType">（总包1;施工分包2;监理3;业主4;其他5）</param>
             <param name="roleIds"></param>
             <param name="strParam"></param>
             <param name="pageIndex"></param>

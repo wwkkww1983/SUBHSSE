@@ -148,7 +148,7 @@ namespace FineUIPro.Web.EduTrain
                     + @" FROM View_SitePerson_Person AS viewPerSon   "
                     //+ @" LEFT JOIN EduTrain_TrainRecordDetail AS TrainRecordDetail ON viewPerSon.PersonId=TrainRecordDetail.PersonId "
                     //+ @" LEFT JOIN EduTrain_TrainRecord AS TrainRecord ON TrainRecord.TrainingId=TrainRecordDetail.TrainingId "
-                    + @" WHERE viewPerSon.ProjectId='" + this.ProjectId + "' AND viewPerSon.IsUsed='是' ";
+                    + @" WHERE viewPerSon.ProjectId='" + this.ProjectId + "' AND viewPerSon.IsUsed='1' ";
                    
                 List<SqlParameter> listStr = new List<SqlParameter>();
                 if (BLL.EduTrain_TrainRecordDetailService.GetTrainRecordDetailByTrainingId(this.TrainingId).Count() > 0)
@@ -197,7 +197,7 @@ namespace FineUIPro.Web.EduTrain
                     strSql += " AND IsHsse = @IsHsse";
                     listStr.Add(new SqlParameter("@IsHsse", true));
                 }
-                strSql += " group by viewPerSon.PersonId,viewPerSon.UnitName,viewPerSon.PersonName,viewPerSon.CardNo,viewPerSon.Sex,WorkPostName,viewPerSon.IdentityCard,TeamGroupName,WorkAreaName,InTime";
+                strSql += " group by viewPerSon.PersonId,viewPerSon.UnitName,viewPerSon.PersonName,viewPerSon.CardNo,viewPerSon.Sex,WorkPostName,viewPerSon.IdentityCard,TeamGroupName,WorkAreaName,InTime,SexName";
                 SqlParameter[] parameter = listStr.ToArray();
                 DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 

@@ -90,7 +90,7 @@ namespace BLL
                     isUpdate.Rectification = newHazardRegister.Rectification;
                     isUpdate.RectificationImageUrl = newHazardRegister.RectificationImageUrl;
                 }
-                else if (newHazardRegister.States == "3")
+                else 
                 {
                     isUpdate.ConfirmDate = DateTime.Now;
                     isUpdate.ConfirmMan = newHazardRegister.ConfirmMan;

@@ -790,7 +790,7 @@ namespace FineUIPro.Web.SysManage
         protected void btnTab3Save_Click(object sender, EventArgs e)
         {
             var getTestRule = from x in Funs.DB.Sys_TestRule select x;
-            if (getTestRule.Count() >0 )
+            if (getTestRule.Count() > 0)
             {
                 Funs.DB.Sys_TestRule.DeleteAllOnSubmit(getTestRule);
             }
@@ -808,9 +808,13 @@ namespace FineUIPro.Web.SysManage
                 PassingScore = Funs.GetNewIntOrZero(this.txtPassingScore.Text),
             };
 
+            Funs.DB.Sys_TestRule.InsertOnSubmit(newTestRule);
+            Funs.DB.SubmitChanges();
+
             ShowNotify("保存成功！", MessageBoxIcon.Success);
             LogService.AddSys_Log(this.CurrUser, "修改考试规则设置！", string.Empty, Const.SysConstSetMenuId, Const.BtnModify);
         }
+
         /// <summary>
         /// 
         /// </summary>

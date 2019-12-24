@@ -115,6 +115,46 @@ namespace BLL
         }
 
         /// <summary>
+        ///  根据单位类型获取用户信息
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitType"></param>
+        /// <param name="strParam"></param>
+        /// <returns></returns>
+        public static List<Model.UserItem> getUserByProjectIdUnitTypeQuery(string projectId, string unitType, string roleIds, string strParam)
+        {
+            List<Model.UserItem> getDataList = new List<Model.UserItem>();
+            List<string> roleList = Funs.GetStrListByStr(roleIds, ',');
+            getDataList = (from x in Funs.DB.Sys_User                           
+                           join y in Funs.DB.Project_ProjectUser on x.UserId equals y.UserId
+                           join z in Funs.DB.Project_ProjectUnit on x.UnitId equals z.UnitId
+                           where y.ProjectId == projectId && z.ProjectId ==projectId && z.UnitType == unitType
+                              && (roleIds == null || roleList.Contains(y.RoleId)) && (strParam == null || x.UserName.Contains(strParam))
+                           select new Model.UserItem
+                           {
+                               UserId = x.UserId,
+                               Account = x.Account,
+                               UserCode = x.UserCode,
+                               Password = x.Password,
+                               UserName = x.UserName,
+                               RoleId = y.RoleId,
+                               RoleName = Funs.DB.Sys_Role.First(z => z.RoleId == y.RoleId).RoleName,
+                               UnitId = y.UnitId,
+                               UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                               LoginProjectId = y.ProjectId,
+                               LoginProjectName = Funs.DB.Base_Project.First(z => z.ProjectId == y.ProjectId).ProjectName,
+                               IdentityCard = x.IdentityCard,
+                               Email = x.Email,
+                               Telephone = x.Telephone,
+                               IsOffice = x.IsOffice,
+                               SignatureUrl = x.SignatureUrl.Replace('\\', '/'),
+                           }).ToList();
+
+            return getDataList.OrderBy(x => x.UnitName).ThenBy(x => x.UserName).ToList();
+        }
+
+
+        /// <summary>
         ///  获取所有在岗用户
         /// </summary>
         /// <returns></returns>

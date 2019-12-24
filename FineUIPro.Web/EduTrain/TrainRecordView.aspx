@@ -88,6 +88,7 @@
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1"
                         DataIDField="TrainDetailId" DataKeyNames="TrainDetailId" EnableMultiSelect="false"
+                        AllowSorting="true" SortField="UnitName,WorkPostCode,PersonName"
                         ShowGridHeader="true" Height="220px" EnableColumnLines="true" >
                          <Toolbars>
                             <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Right">
@@ -106,6 +107,9 @@
                                 ExpandUnusedSpace="true" FieldType="String" HeaderText="单位" TextAlign="Left"
                                 HeaderTextAlign="Center">
                             </f:RenderField>
+                            <f:RenderField Width="150px" ColumnID="WorkPostName" DataField="WorkPostName" SortField="WorkPostName"
+                                FieldType="String" HeaderText="岗位" TextAlign="Left" HeaderTextAlign="Center">
+                            </f:RenderField>  
                             <f:RenderField Width="120px" ColumnID="PersonName" DataField="PersonName" SortField="PersonName"
                                 FieldType="String" HeaderText="培训人员" TextAlign="Left" HeaderTextAlign="Center">
                             </f:RenderField>
@@ -182,7 +186,7 @@
         }
 
         function onGridDataLoad(event) {
-            this.mergeColumns(['UnitName']);
+            this.mergeColumns(['UnitName']['WorkPostName']);
         }
     </script>
 </body>

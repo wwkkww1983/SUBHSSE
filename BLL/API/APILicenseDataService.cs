@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace BLL
@@ -1563,7 +1565,7 @@ namespace BLL
             return strLicenseId;
         }
         #endregion
-
+        
         #region 保存作业票审核信息
         /// <summary>
         /// 保存作业票审核信息
@@ -1571,8 +1573,8 @@ namespace BLL
         /// <param name="newItem">保存作业票审核信息</param>
         /// <returns></returns>
         public static void SaveLicenseFlowOperate(Model.FlowOperateItem newItem)
-        {
-            string strMenuId = string.Empty;
+        {           
+           string strMenuId = string.Empty;
             bool boolIsFlowEnd = false;
             string applyManId = string.Empty;
             var updateFlowOperate = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.FlowOperateId == newItem.FlowOperateId);
