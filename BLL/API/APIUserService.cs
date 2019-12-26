@@ -153,7 +153,6 @@ namespace BLL
             return getDataList.OrderBy(x => x.UnitName).ThenBy(x => x.UserName).ToList();
         }
 
-
         /// <summary>
         ///  获取所有在岗用户
         /// </summary>

@@ -115,5 +115,17 @@ namespace Model
         /// 作业区域名称
         /// </summary>
         public string WorkAreaName { get; set; }
+        /// <summary>
+        /// 审核人ID
+        /// </summary>
+        public string AuditorId { get; set; }
+        /// <summary>
+        /// 审核人姓名
+        /// </summary>
+        public string AuditorName { get; set; }
+        /// <summary>
+        /// 审核时间
+        /// </summary>
+        public string AuditorDate { get; set; }
     }
 }

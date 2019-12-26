@@ -146,9 +146,26 @@ namespace BLL
         /// </summary>
         public const string UnitId_TCC_ = "b4f3d912-ca6d-440c-a8d7-bc6a5d5a1f84";
         /// <summary>
+        /// 天辰
+        /// </summary>
+        public const string AppID_TCC_ = "";
+        /// <summary>
+        /// 天辰
+        /// </summary>
+        public const string AppSecret_TCC_ = "";
+
+        /// <summary>
         /// 赛鼎单位id
         /// </summary>
         public const string UnitId_SEDIN = "d72a27c9-4ba9-41c5-ab0b-c010409f20f2";
+        /// <summary>
+        /// 赛鼎
+        /// </summary>
+        public const string AppID_SEDIN = "wxee9d14366730ae44";
+        /// <summary>
+        /// 赛鼎
+        /// </summary>
+        public const string AppSecret_SEDIN = "8a83ad8658a3bb717191b77827a925e5";
         /// <summary>
         /// 五环单位id
         /// </summary>

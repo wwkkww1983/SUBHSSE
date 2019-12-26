@@ -787,6 +787,18 @@
             </summary>
             <param name="hseDiaryItem">HSE日志</param>
         </member>
+        <member name="T:WebAPI.Controllers.IDCardController">
+            <summary>
+             读取身份证信息
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.IDCardController.getIDCardInfo(System.String)">
+            <summary>
+             读取身份证信息
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.LicenseController">
             <summary>
             作业票控制器

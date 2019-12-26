@@ -331,10 +331,25 @@ namespace BLL
         /// <returns></returns>
         public static Model.Base_Unit GetIsThisUnit()
         {
-            return (Funs.DB.Base_Unit.FirstOrDefault(e => e.IsThisUnit == true));  //本单位
+            return Funs.DB.Base_Unit.FirstOrDefault(e => e.IsThisUnit == true);  //本单位
+        }
+
+        /// <summary>
+        /// 得到本单位信息
+        /// </summary>
+        /// <returns></returns>
+        public static string GetIsThisUnitId()
+        {
+            string unitId = string.Empty;
+            var unit= Funs.DB.Base_Unit.FirstOrDefault(e => e.IsThisUnit == true);  //本单位
+            if (unit != null)
+            {
+                unitId = unit.UnitId;
+            }
+            return unitId;
         }
         #endregion
-        
+
         #region 判断UnitId是否本单位
         /// <summary>
         /// 判断UnitId是否本单位

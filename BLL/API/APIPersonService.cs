@@ -80,7 +80,10 @@ namespace BLL
                                 PhotoUrl = x.PhotoUrl,
                                 DepartName = x.DepartName,
                                 IsUsed= x.IsUsed,
-                                IsUsedName=x.IsUsed==false?"不启用":"启用",                                                            
+                                IsUsedName=x.IsUsed==false?"不启用":"启用",      
+                                AuditorId=x.AuditorId,
+                                AuditorName=x.AuditorName,
+                                AuditorDate= string.Format("{0:yyyy-MM-dd}", x.AuditorDate),
                             };
             return  getPerson.FirstOrDefault();
         }
@@ -310,7 +313,9 @@ namespace BLL
                 Telephone = person.Telephone,
                 PhotoUrl = person.PhotoUrl,
                 InTime = Funs.GetNewDateTime(person.InTime),
-                OutTime = Funs.GetNewDateTime(person.OutTime),               
+                OutTime = Funs.GetNewDateTime(person.OutTime),    
+                AuditorId=person.AuditorId,
+                AuditorDate = Funs.GetNewDateTime(person.AuditorDate),
                 Sex = person.Sex,
             };
             if (!string.IsNullOrEmpty(person.TeamGroupId))
@@ -354,6 +359,8 @@ namespace BLL
                 getPerson.InTime = Funs.GetNewDateTime(person.InTime);
                 getPerson.OutTime = Funs.GetNewDateTime(person.OutTime);             
                 getPerson.Sex = person.Sex;
+                getPerson.AuditorId = person.AuditorId;
+                getPerson.AuditorDate = Funs.GetNewDateTime(person.AuditorDate);
 
                 if (!string.IsNullOrEmpty(person.TeamGroupId))
                 {

@@ -165,6 +165,7 @@
     <Compile Include="Controllers\BaseInfoController.cs" />
     <Compile Include="Controllers\HSEMonthController.cs" />
     <Compile Include="Controllers\HSEDiaryController.cs" />
+    <Compile Include="Controllers\IDCardController.cs" />
     <Compile Include="Controllers\LicenseController.cs" />
     <Compile Include="Controllers\PunishNoticeController.cs" />
     <Compile Include="Controllers\IncentiveNoticeController.cs" />
