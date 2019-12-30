@@ -122,12 +122,14 @@ namespace BLL
                         PersonId = item.UserId,
                        
                     };
+                    ////及格分数
+                    int getPassScores = SysConstSetService.getPassScore();
                     ////获取 考生试卷
                     var getTestRecord = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == getTestPlan.TestPlanId && x.TestManId == item.UserId);
                     if (getTestRecord != null)
                     {
                         newDetail.CheckScore = getTestRecord.TestScores;
-                        if (newDetail.CheckScore >= 80)
+                        if (newDetail.CheckScore >= getPassScores)
                         {
                             newDetail.CheckResult = true;
                         }

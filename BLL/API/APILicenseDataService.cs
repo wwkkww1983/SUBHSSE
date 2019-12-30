@@ -957,615 +957,618 @@ namespace BLL
         /// <returns></returns>
         public static string SaveLicenseData(Model.LicenseDataItem newItem)
         {
-            string strLicenseId = newItem.LicenseId;
-            string projectId = newItem.ProjectId;
-            #region 动火作业票
-            if (newItem.MenuId == Const.ProjectFireWorkMenuId)
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                Model.License_FireWork newFireWork = new Model.License_FireWork
+                string strLicenseId = newItem.LicenseId;
+                string projectId = newItem.ProjectId;
+                #region 动火作业票
+                if (newItem.MenuId == Const.ProjectFireWorkMenuId)
                 {
-                    FireWorkId = strLicenseId,
-                    ProjectId = projectId,
-                    LicenseCode = newItem.LicenseCode,
-                    ApplyUnitId = newItem.ApplyUnitId,
-                    ApplyManId = newItem.ApplyManId,
-                    ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
-                    WorkPalce = newItem.WorkPalce,
-                    FireWatchManId = newItem.FireWatchManId,
-                    ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
-                    ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
-                    WorkMeasures = newItem.WorkMeasures,
-                    CancelManId = newItem.CancelManId,
-                    CancelReasons = newItem.CancelReasons,
-                    CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
-                    CloseManId = newItem.CloseManId,
-                    CloseReasons = newItem.CloseReasons,
-                    CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
-                    NextManId = newItem.NextManId,
-                    States = newItem.States,
-                };
-                if (newItem.States == Const.State_0)
-                {
-                    newFireWork.NextManId = newItem.ApplyManId;
-                }
-                ////保存
-                var updateFireWork = Funs.DB.License_FireWork.FirstOrDefault(x => x.FireWorkId == strLicenseId);
-                if (updateFireWork == null)
-                {
-                    newFireWork.ApplyDate = DateTime.Now;
-                    strLicenseId = newFireWork.FireWorkId = SQLHelper.GetNewID();
-                    newFireWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectFireWorkMenuId, newFireWork.ProjectId, newFireWork.ApplyUnitId);
-                    Funs.DB.License_FireWork.InsertOnSubmit(newFireWork);
-                    ////增加一条编码记录
-                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectFireWorkMenuId, newFireWork.ProjectId, newFireWork.ApplyUnitId, newFireWork.FireWorkId, newFireWork.ApplyDate);
-                }
-                else
-                {
-                    if (newItem.States == Const.State_3)
+                    Model.License_FireWork newFireWork = new Model.License_FireWork
                     {
-                        updateFireWork.CloseManId = newFireWork.CloseManId;
-                        updateFireWork.CloseReasons = newFireWork.CloseReasons;
-                        updateFireWork.CloseTime = DateTime.Now;
+                        FireWorkId = strLicenseId,
+                        ProjectId = projectId,
+                        LicenseCode = newItem.LicenseCode,
+                        ApplyUnitId = newItem.ApplyUnitId,
+                        ApplyManId = newItem.ApplyManId,
+                        ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
+                        WorkPalce = newItem.WorkPalce,
+                        FireWatchManId = newItem.FireWatchManId,
+                        ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
+                        ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
+                        WorkMeasures = newItem.WorkMeasures,
+                        CancelManId = newItem.CancelManId,
+                        CancelReasons = newItem.CancelReasons,
+                        CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
+                        CloseManId = newItem.CloseManId,
+                        CloseReasons = newItem.CloseReasons,
+                        CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
+                        NextManId = newItem.NextManId,
+                        States = newItem.States,
+                    };
+                    if (newItem.States == Const.State_0)
+                    {
+                        newFireWork.NextManId = newItem.ApplyManId;
                     }
-                    else if (newItem.States == Const.State_R)
+                    ////保存
+                    var updateFireWork = db.License_FireWork.FirstOrDefault(x => x.FireWorkId == strLicenseId);
+                    if (updateFireWork == null)
                     {
-                        updateFireWork.CancelManId = newFireWork.CancelManId;
-                        updateFireWork.CancelReasons = newFireWork.CancelReasons;
-                        updateFireWork.CancelTime = DateTime.Now;
+                        newFireWork.ApplyDate = DateTime.Now;
+                        strLicenseId = newFireWork.FireWorkId = SQLHelper.GetNewID();
+                        newFireWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectFireWorkMenuId, newFireWork.ProjectId, newFireWork.ApplyUnitId);
+                        db.License_FireWork.InsertOnSubmit(newFireWork);
+                        ////增加一条编码记录
+                        CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectFireWorkMenuId, newFireWork.ProjectId, newFireWork.ApplyUnitId, newFireWork.FireWorkId, newFireWork.ApplyDate);
                     }
                     else
                     {
-                        updateFireWork.WorkPalce = newFireWork.WorkPalce;
-                        updateFireWork.FireWatchManId = newFireWork.FireWatchManId;
-                        updateFireWork.ValidityStartTime = newFireWork.ValidityStartTime;
-                        updateFireWork.ValidityEndTime = newFireWork.ValidityEndTime;
-                        updateFireWork.WorkMeasures = newFireWork.WorkMeasures;
-                        updateFireWork.NextManId = newFireWork.NextManId;
+                        if (newItem.States == Const.State_3)
+                        {
+                            updateFireWork.CloseManId = newFireWork.CloseManId;
+                            updateFireWork.CloseReasons = newFireWork.CloseReasons;
+                            updateFireWork.CloseTime = DateTime.Now;
+                        }
+                        else if (newItem.States == Const.State_R)
+                        {
+                            updateFireWork.CancelManId = newFireWork.CancelManId;
+                            updateFireWork.CancelReasons = newFireWork.CancelReasons;
+                            updateFireWork.CancelTime = DateTime.Now;
+                        }
+                        else
+                        {
+                            updateFireWork.WorkPalce = newFireWork.WorkPalce;
+                            updateFireWork.FireWatchManId = newFireWork.FireWatchManId;
+                            updateFireWork.ValidityStartTime = newFireWork.ValidityStartTime;
+                            updateFireWork.ValidityEndTime = newFireWork.ValidityEndTime;
+                            updateFireWork.WorkMeasures = newFireWork.WorkMeasures;
+                            updateFireWork.NextManId = newFireWork.NextManId;
+                            updateFireWork.States = newFireWork.States;
+                        }
                         updateFireWork.States = newFireWork.States;
                     }
-                    updateFireWork.States = newFireWork.States;
                 }
-            }
-            #endregion
-            #region 高处作业票
-            else if (newItem.MenuId == Const.ProjectHeightWorkMenuId)
-            {
-                Model.License_HeightWork newHeightWork = new Model.License_HeightWork
+                #endregion
+                #region 高处作业票
+                else if (newItem.MenuId == Const.ProjectHeightWorkMenuId)
                 {
-                    HeightWorkId = strLicenseId,
-                    ProjectId = projectId,
-                    LicenseCode = newItem.LicenseCode,
-                    ApplyUnitId = newItem.ApplyUnitId,
-                    ApplyManId = newItem.ApplyManId,
-                    ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
-                    WorkPalce = newItem.WorkPalce,
-                    WorkType = newItem.WorkType,
-                    ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
-                    ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
-                    WorkMeasures = newItem.WorkMeasures,
-                    EquipmentTools = newItem.EquipmentTools,
-                    CancelManId = newItem.CancelManId,
-                    CancelReasons = newItem.CancelReasons,
-                    CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
-                    CloseManId = newItem.CloseManId,
-                    CloseReasons = newItem.CloseReasons,
-                    CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
-                    NextManId = newItem.NextManId,
-                    States = newItem.States,
-                };
-                if (newItem.States == Const.State_0)
-                {
-                    newHeightWork.NextManId = newItem.ApplyManId;
-                }
-                ////保存
-                var updateHeightWork = Funs.DB.License_HeightWork.FirstOrDefault(x => x.HeightWorkId == strLicenseId);
-                if (updateHeightWork == null)
-                {
-                    newHeightWork.ApplyDate = DateTime.Now;
-                    strLicenseId = newHeightWork.HeightWorkId = SQLHelper.GetNewID();
-                    newHeightWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectHeightWorkMenuId, newHeightWork.ProjectId, newHeightWork.ApplyUnitId);
-                    Funs.DB.License_HeightWork.InsertOnSubmit(newHeightWork);
-
-                    ////增加一条编码记录
-                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectHeightWorkMenuId, newHeightWork.ProjectId, newHeightWork.ApplyUnitId, newHeightWork.HeightWorkId, newHeightWork.ApplyDate);
-                }
-                else
-                {
-                    if (newItem.States == Const.State_3)
+                    Model.License_HeightWork newHeightWork = new Model.License_HeightWork
                     {
-                        updateHeightWork.CloseManId = newHeightWork.CloseManId;
-                        updateHeightWork.CloseReasons = newHeightWork.CloseReasons;
-                        updateHeightWork.CloseTime = DateTime.Now;
+                        HeightWorkId = strLicenseId,
+                        ProjectId = projectId,
+                        LicenseCode = newItem.LicenseCode,
+                        ApplyUnitId = newItem.ApplyUnitId,
+                        ApplyManId = newItem.ApplyManId,
+                        ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
+                        WorkPalce = newItem.WorkPalce,
+                        WorkType = newItem.WorkType,
+                        ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
+                        ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
+                        WorkMeasures = newItem.WorkMeasures,
+                        EquipmentTools = newItem.EquipmentTools,
+                        CancelManId = newItem.CancelManId,
+                        CancelReasons = newItem.CancelReasons,
+                        CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
+                        CloseManId = newItem.CloseManId,
+                        CloseReasons = newItem.CloseReasons,
+                        CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
+                        NextManId = newItem.NextManId,
+                        States = newItem.States,
+                    };
+                    if (newItem.States == Const.State_0)
+                    {
+                        newHeightWork.NextManId = newItem.ApplyManId;
                     }
-                    else if (newItem.States == Const.State_R)
+                    ////保存
+                    var updateHeightWork = db.License_HeightWork.FirstOrDefault(x => x.HeightWorkId == strLicenseId);
+                    if (updateHeightWork == null)
                     {
-                        updateHeightWork.CancelManId = newHeightWork.CancelManId;
-                        updateHeightWork.CancelReasons = newHeightWork.CancelReasons;
-                        updateHeightWork.CancelTime = DateTime.Now;
+                        newHeightWork.ApplyDate = DateTime.Now;
+                        strLicenseId = newHeightWork.HeightWorkId = SQLHelper.GetNewID();
+                        newHeightWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectHeightWorkMenuId, newHeightWork.ProjectId, newHeightWork.ApplyUnitId);
+                        db.License_HeightWork.InsertOnSubmit(newHeightWork);
+
+                        ////增加一条编码记录
+                        CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectHeightWorkMenuId, newHeightWork.ProjectId, newHeightWork.ApplyUnitId, newHeightWork.HeightWorkId, newHeightWork.ApplyDate);
                     }
                     else
                     {
-                        updateHeightWork.WorkPalce = newHeightWork.WorkPalce;
-                        updateHeightWork.WorkType = newHeightWork.WorkType;
-                        updateHeightWork.ValidityStartTime = newHeightWork.ValidityStartTime;
-                        updateHeightWork.ValidityEndTime = newHeightWork.ValidityEndTime;
-                        updateHeightWork.WorkMeasures = newHeightWork.WorkMeasures;
-                        updateHeightWork.EquipmentTools = newHeightWork.EquipmentTools;
-                        updateHeightWork.NextManId = newHeightWork.NextManId;
+                        if (newItem.States == Const.State_3)
+                        {
+                            updateHeightWork.CloseManId = newHeightWork.CloseManId;
+                            updateHeightWork.CloseReasons = newHeightWork.CloseReasons;
+                            updateHeightWork.CloseTime = DateTime.Now;
+                        }
+                        else if (newItem.States == Const.State_R)
+                        {
+                            updateHeightWork.CancelManId = newHeightWork.CancelManId;
+                            updateHeightWork.CancelReasons = newHeightWork.CancelReasons;
+                            updateHeightWork.CancelTime = DateTime.Now;
+                        }
+                        else
+                        {
+                            updateHeightWork.WorkPalce = newHeightWork.WorkPalce;
+                            updateHeightWork.WorkType = newHeightWork.WorkType;
+                            updateHeightWork.ValidityStartTime = newHeightWork.ValidityStartTime;
+                            updateHeightWork.ValidityEndTime = newHeightWork.ValidityEndTime;
+                            updateHeightWork.WorkMeasures = newHeightWork.WorkMeasures;
+                            updateHeightWork.EquipmentTools = newHeightWork.EquipmentTools;
+                            updateHeightWork.NextManId = newHeightWork.NextManId;
+                            updateHeightWork.States = newHeightWork.States;
+                        }
                         updateHeightWork.States = newHeightWork.States;
                     }
-                    updateHeightWork.States = newHeightWork.States;
                 }
-            }
-            #endregion
-            #region 受限空间作业票           
-            if (newItem.MenuId == Const.ProjectLimitedSpaceMenuId)
-            {
-                Model.License_LimitedSpace newLimitedSpace = new Model.License_LimitedSpace
+                #endregion
+                #region 受限空间作业票           
+                if (newItem.MenuId == Const.ProjectLimitedSpaceMenuId)
                 {
-                    LimitedSpaceId = strLicenseId,
-                    ProjectId = projectId,
-                    LicenseCode = newItem.LicenseCode,
-                    ApplyUnitId = newItem.ApplyUnitId,
-                    ApplyManId = newItem.ApplyManId,
-                    ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
-                    WorkPalce = newItem.WorkPalce,
-                    FireWatchManId = newItem.FireWatchManId,
-                    ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
-                    ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
-                    WorkMeasures = newItem.WorkMeasures,
-                    CancelManId = newItem.CancelManId,
-                    CancelReasons = newItem.CancelReasons,
-                    CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
-                    CloseManId = newItem.CloseManId,
-                    CloseReasons = newItem.CloseReasons,
-                    CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
-                    NextManId = newItem.NextManId,
-                    States = newItem.States,
-                };
-                if (newItem.States == Const.State_0)
-                {
-                    newLimitedSpace.NextManId = newItem.ApplyManId;
-                }
-                ////保存
-                var updateLimitedSpace = Funs.DB.License_LimitedSpace.FirstOrDefault(x => x.LimitedSpaceId == strLicenseId);
-                if (updateLimitedSpace == null)
-                {
-                    newLimitedSpace.ApplyDate = DateTime.Now;
-                    strLicenseId = newLimitedSpace.LimitedSpaceId = SQLHelper.GetNewID();
-                    newLimitedSpace.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectLimitedSpaceMenuId, newLimitedSpace.ProjectId, newLimitedSpace.ApplyUnitId);
-                    Funs.DB.License_LimitedSpace.InsertOnSubmit(newLimitedSpace);
-                    ////增加一条编码记录
-                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectLimitedSpaceMenuId, newLimitedSpace.ProjectId, newLimitedSpace.ApplyUnitId, newLimitedSpace.LimitedSpaceId, newLimitedSpace.ApplyDate);
-                }
-                else
-                {
-                    if (newItem.States == Const.State_3)
+                    Model.License_LimitedSpace newLimitedSpace = new Model.License_LimitedSpace
                     {
-                        updateLimitedSpace.CloseManId = newLimitedSpace.CloseManId;
-                        updateLimitedSpace.CloseReasons = newLimitedSpace.CloseReasons;
-                        updateLimitedSpace.CloseTime = DateTime.Now;
+                        LimitedSpaceId = strLicenseId,
+                        ProjectId = projectId,
+                        LicenseCode = newItem.LicenseCode,
+                        ApplyUnitId = newItem.ApplyUnitId,
+                        ApplyManId = newItem.ApplyManId,
+                        ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
+                        WorkPalce = newItem.WorkPalce,
+                        FireWatchManId = newItem.FireWatchManId,
+                        ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
+                        ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
+                        WorkMeasures = newItem.WorkMeasures,
+                        CancelManId = newItem.CancelManId,
+                        CancelReasons = newItem.CancelReasons,
+                        CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
+                        CloseManId = newItem.CloseManId,
+                        CloseReasons = newItem.CloseReasons,
+                        CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
+                        NextManId = newItem.NextManId,
+                        States = newItem.States,
+                    };
+                    if (newItem.States == Const.State_0)
+                    {
+                        newLimitedSpace.NextManId = newItem.ApplyManId;
                     }
-                    else if (newItem.States == Const.State_R)
+                    ////保存
+                    var updateLimitedSpace = db.License_LimitedSpace.FirstOrDefault(x => x.LimitedSpaceId == strLicenseId);
+                    if (updateLimitedSpace == null)
                     {
-                        updateLimitedSpace.CancelManId = newLimitedSpace.CancelManId;
-                        updateLimitedSpace.CancelReasons = newLimitedSpace.CancelReasons;
-                        updateLimitedSpace.CancelTime = DateTime.Now;
+                        newLimitedSpace.ApplyDate = DateTime.Now;
+                        strLicenseId = newLimitedSpace.LimitedSpaceId = SQLHelper.GetNewID();
+                        newLimitedSpace.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectLimitedSpaceMenuId, newLimitedSpace.ProjectId, newLimitedSpace.ApplyUnitId);
+                        db.License_LimitedSpace.InsertOnSubmit(newLimitedSpace);
+                        ////增加一条编码记录
+                        CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectLimitedSpaceMenuId, newLimitedSpace.ProjectId, newLimitedSpace.ApplyUnitId, newLimitedSpace.LimitedSpaceId, newLimitedSpace.ApplyDate);
                     }
                     else
                     {
-                        updateLimitedSpace.WorkPalce = newLimitedSpace.WorkPalce;
-                        updateLimitedSpace.FireWatchManId = newLimitedSpace.FireWatchManId;
-                        updateLimitedSpace.ValidityStartTime = newLimitedSpace.ValidityStartTime;
-                        updateLimitedSpace.ValidityEndTime = newLimitedSpace.ValidityEndTime;
-                        updateLimitedSpace.WorkMeasures = newLimitedSpace.WorkMeasures;
-                        updateLimitedSpace.NextManId = newLimitedSpace.NextManId;
+                        if (newItem.States == Const.State_3)
+                        {
+                            updateLimitedSpace.CloseManId = newLimitedSpace.CloseManId;
+                            updateLimitedSpace.CloseReasons = newLimitedSpace.CloseReasons;
+                            updateLimitedSpace.CloseTime = DateTime.Now;
+                        }
+                        else if (newItem.States == Const.State_R)
+                        {
+                            updateLimitedSpace.CancelManId = newLimitedSpace.CancelManId;
+                            updateLimitedSpace.CancelReasons = newLimitedSpace.CancelReasons;
+                            updateLimitedSpace.CancelTime = DateTime.Now;
+                        }
+                        else
+                        {
+                            updateLimitedSpace.WorkPalce = newLimitedSpace.WorkPalce;
+                            updateLimitedSpace.FireWatchManId = newLimitedSpace.FireWatchManId;
+                            updateLimitedSpace.ValidityStartTime = newLimitedSpace.ValidityStartTime;
+                            updateLimitedSpace.ValidityEndTime = newLimitedSpace.ValidityEndTime;
+                            updateLimitedSpace.WorkMeasures = newLimitedSpace.WorkMeasures;
+                            updateLimitedSpace.NextManId = newLimitedSpace.NextManId;
+                            updateLimitedSpace.States = newLimitedSpace.States;
+                        }
                         updateLimitedSpace.States = newLimitedSpace.States;
                     }
-                    updateLimitedSpace.States = newLimitedSpace.States;
                 }
-            }
-            #endregion
-            #region 射线作业票
-            if (newItem.MenuId == Const.ProjectRadialWorkMenuId)
-            {
-                Model.License_RadialWork newRadialWork = new Model.License_RadialWork
+                #endregion
+                #region 射线作业票
+                if (newItem.MenuId == Const.ProjectRadialWorkMenuId)
                 {
-                    RadialWorkId = strLicenseId,
-                    ProjectId = projectId,
-                    LicenseCode = newItem.LicenseCode,
-                    ApplyUnitId = newItem.ApplyUnitId,
-                    ApplyManId = newItem.ApplyManId,
-                    ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
-                    RadialType = newItem.RadialType,
-                    WorkLeaderId = newItem.WorkLeaderId,
-                    WorkLeaderTel = newItem.WorkLeaderTel,
-                    ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
-                    ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
-                    WorkPalce = newItem.WorkPalce,
-                    WorkMeasures = newItem.WorkMeasures,
-                    FireWatchManId = newItem.FireWatchManId,
-                    WatchManContact = newItem.WatchManContact,
-                    CancelManId = newItem.CancelManId,
-                    CancelReasons = newItem.CancelReasons,
-                    CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
-                    CloseManId = newItem.CloseManId,
-                    CloseReasons = newItem.CloseReasons,
-                    CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
-                    NextManId = newItem.NextManId,
-                    States = newItem.States,
-                };
-                if (newItem.States == Const.State_0)
-                {
-                    newRadialWork.NextManId = newItem.ApplyManId;
-                }
-                ////保存
-                var updateRadialWork = Funs.DB.License_RadialWork.FirstOrDefault(x => x.RadialWorkId == strLicenseId);
-                if (updateRadialWork == null)
-                {
-                    newRadialWork.ApplyDate = DateTime.Now;
-                    strLicenseId = newRadialWork.RadialWorkId = SQLHelper.GetNewID();
-                    newRadialWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectRadialWorkMenuId, newRadialWork.ProjectId, newRadialWork.ApplyUnitId);
-                    Funs.DB.License_RadialWork.InsertOnSubmit(newRadialWork);
-                    ////增加一条编码记录
-                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectRadialWorkMenuId, newRadialWork.ProjectId, newRadialWork.ApplyUnitId, newRadialWork.RadialWorkId, newRadialWork.ApplyDate);
-                }
-                else
-                {
-                    if (newItem.States == Const.State_3)
+                    Model.License_RadialWork newRadialWork = new Model.License_RadialWork
                     {
-                        updateRadialWork.CloseManId = newRadialWork.CloseManId;
-                        updateRadialWork.CloseReasons = newRadialWork.CloseReasons;
-                        updateRadialWork.CloseTime = DateTime.Now;
+                        RadialWorkId = strLicenseId,
+                        ProjectId = projectId,
+                        LicenseCode = newItem.LicenseCode,
+                        ApplyUnitId = newItem.ApplyUnitId,
+                        ApplyManId = newItem.ApplyManId,
+                        ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
+                        RadialType = newItem.RadialType,
+                        WorkLeaderId = newItem.WorkLeaderId,
+                        WorkLeaderTel = newItem.WorkLeaderTel,
+                        ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
+                        ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
+                        WorkPalce = newItem.WorkPalce,
+                        WorkMeasures = newItem.WorkMeasures,
+                        FireWatchManId = newItem.FireWatchManId,
+                        WatchManContact = newItem.WatchManContact,
+                        CancelManId = newItem.CancelManId,
+                        CancelReasons = newItem.CancelReasons,
+                        CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
+                        CloseManId = newItem.CloseManId,
+                        CloseReasons = newItem.CloseReasons,
+                        CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
+                        NextManId = newItem.NextManId,
+                        States = newItem.States,
+                    };
+                    if (newItem.States == Const.State_0)
+                    {
+                        newRadialWork.NextManId = newItem.ApplyManId;
                     }
-                    else if (newItem.States == Const.State_R)
+                    ////保存
+                    var updateRadialWork = db.License_RadialWork.FirstOrDefault(x => x.RadialWorkId == strLicenseId);
+                    if (updateRadialWork == null)
                     {
-                        updateRadialWork.CancelManId = newRadialWork.CancelManId;
-                        updateRadialWork.CancelReasons = newRadialWork.CancelReasons;
-                        updateRadialWork.CancelTime = DateTime.Now;
+                        newRadialWork.ApplyDate = DateTime.Now;
+                        strLicenseId = newRadialWork.RadialWorkId = SQLHelper.GetNewID();
+                        newRadialWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectRadialWorkMenuId, newRadialWork.ProjectId, newRadialWork.ApplyUnitId);
+                        db.License_RadialWork.InsertOnSubmit(newRadialWork);
+                        ////增加一条编码记录
+                        CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectRadialWorkMenuId, newRadialWork.ProjectId, newRadialWork.ApplyUnitId, newRadialWork.RadialWorkId, newRadialWork.ApplyDate);
                     }
                     else
                     {
-                        updateRadialWork.RadialType = newRadialWork.RadialType;
-                        updateRadialWork.WorkLeaderId = newRadialWork.WorkLeaderId;
-                        updateRadialWork.WorkLeaderTel = newRadialWork.WorkLeaderTel;
-                        updateRadialWork.ValidityStartTime = newRadialWork.ValidityStartTime;
-                        updateRadialWork.ValidityEndTime = newRadialWork.ValidityEndTime;
-                        updateRadialWork.WorkPalce = newRadialWork.WorkPalce;
-                        updateRadialWork.WorkMeasures = newRadialWork.WorkMeasures;
-                        updateRadialWork.FireWatchManId = newRadialWork.FireWatchManId;
-                        updateRadialWork.WatchManContact = newRadialWork.WatchManContact;
-                        updateRadialWork.NextManId = newRadialWork.NextManId;
+                        if (newItem.States == Const.State_3)
+                        {
+                            updateRadialWork.CloseManId = newRadialWork.CloseManId;
+                            updateRadialWork.CloseReasons = newRadialWork.CloseReasons;
+                            updateRadialWork.CloseTime = DateTime.Now;
+                        }
+                        else if (newItem.States == Const.State_R)
+                        {
+                            updateRadialWork.CancelManId = newRadialWork.CancelManId;
+                            updateRadialWork.CancelReasons = newRadialWork.CancelReasons;
+                            updateRadialWork.CancelTime = DateTime.Now;
+                        }
+                        else
+                        {
+                            updateRadialWork.RadialType = newRadialWork.RadialType;
+                            updateRadialWork.WorkLeaderId = newRadialWork.WorkLeaderId;
+                            updateRadialWork.WorkLeaderTel = newRadialWork.WorkLeaderTel;
+                            updateRadialWork.ValidityStartTime = newRadialWork.ValidityStartTime;
+                            updateRadialWork.ValidityEndTime = newRadialWork.ValidityEndTime;
+                            updateRadialWork.WorkPalce = newRadialWork.WorkPalce;
+                            updateRadialWork.WorkMeasures = newRadialWork.WorkMeasures;
+                            updateRadialWork.FireWatchManId = newRadialWork.FireWatchManId;
+                            updateRadialWork.WatchManContact = newRadialWork.WatchManContact;
+                            updateRadialWork.NextManId = newRadialWork.NextManId;
+                            updateRadialWork.States = newRadialWork.States;
+                        }
                         updateRadialWork.States = newRadialWork.States;
                     }
-                    updateRadialWork.States = newRadialWork.States;
                 }
-            }
-            #endregion
-            #region 断路(占道)作业票
-            if (newItem.MenuId == Const.ProjectOpenCircuitMenuId)
-            {
-                Model.License_OpenCircuit newOpenCircuit = new Model.License_OpenCircuit
+                #endregion
+                #region 断路(占道)作业票
+                if (newItem.MenuId == Const.ProjectOpenCircuitMenuId)
                 {
-                    OpenCircuitId = strLicenseId,
-                    ProjectId = projectId,
-                    LicenseCode = newItem.LicenseCode,
-                    ApplyUnitId = newItem.ApplyUnitId,
-                    ApplyManId = newItem.ApplyManId,
-                    ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
-                    WorkPalce = newItem.WorkPalce,
-                    WorkMeasures = newItem.WorkMeasures,
-                    ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
-                    ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
-                    RoadName = newItem.RoadName,
-                    SafeMeasures = newItem.SafeMeasures,
-                    CancelManId = newItem.CancelManId,
-                    CancelReasons = newItem.CancelReasons,
-                    CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
-                    CloseManId = newItem.CloseManId,
-                    CloseReasons = newItem.CloseReasons,
-                    CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
-                    NextManId = newItem.NextManId,
-                    States = newItem.States,
-                };
-                if (newItem.States == Const.State_0)
-                {
-                    newOpenCircuit.NextManId = newItem.ApplyManId;
-                }
-                ////保存
-                var updateOpenCircuit = Funs.DB.License_OpenCircuit.FirstOrDefault(x => x.OpenCircuitId == strLicenseId);
-                if (updateOpenCircuit == null)
-                {
-                    newOpenCircuit.ApplyDate = DateTime.Now;
-                    strLicenseId = newOpenCircuit.OpenCircuitId = SQLHelper.GetNewID();
-                    newOpenCircuit.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectOpenCircuitMenuId, newOpenCircuit.ProjectId, newOpenCircuit.ApplyUnitId);
-                    Funs.DB.License_OpenCircuit.InsertOnSubmit(newOpenCircuit);
-                    ////增加一条编码记录
-                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectOpenCircuitMenuId, newOpenCircuit.ProjectId, newOpenCircuit.ApplyUnitId, newOpenCircuit.OpenCircuitId, newOpenCircuit.ApplyDate);
-                }
-                else
-                {
-                    if (newItem.States == Const.State_3)
+                    Model.License_OpenCircuit newOpenCircuit = new Model.License_OpenCircuit
                     {
-                        updateOpenCircuit.CloseManId = newOpenCircuit.CloseManId;
-                        updateOpenCircuit.CloseReasons = newOpenCircuit.CloseReasons;
-                        updateOpenCircuit.CloseTime = DateTime.Now;
+                        OpenCircuitId = strLicenseId,
+                        ProjectId = projectId,
+                        LicenseCode = newItem.LicenseCode,
+                        ApplyUnitId = newItem.ApplyUnitId,
+                        ApplyManId = newItem.ApplyManId,
+                        ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
+                        WorkPalce = newItem.WorkPalce,
+                        WorkMeasures = newItem.WorkMeasures,
+                        ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
+                        ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
+                        RoadName = newItem.RoadName,
+                        SafeMeasures = newItem.SafeMeasures,
+                        CancelManId = newItem.CancelManId,
+                        CancelReasons = newItem.CancelReasons,
+                        CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
+                        CloseManId = newItem.CloseManId,
+                        CloseReasons = newItem.CloseReasons,
+                        CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
+                        NextManId = newItem.NextManId,
+                        States = newItem.States,
+                    };
+                    if (newItem.States == Const.State_0)
+                    {
+                        newOpenCircuit.NextManId = newItem.ApplyManId;
                     }
-                    else if (newItem.States == Const.State_R)
+                    ////保存
+                    var updateOpenCircuit = db.License_OpenCircuit.FirstOrDefault(x => x.OpenCircuitId == strLicenseId);
+                    if (updateOpenCircuit == null)
                     {
-                        updateOpenCircuit.CancelManId = newOpenCircuit.CancelManId;
-                        updateOpenCircuit.CancelReasons = newOpenCircuit.CancelReasons;
-                        updateOpenCircuit.CancelTime = DateTime.Now;
+                        newOpenCircuit.ApplyDate = DateTime.Now;
+                        strLicenseId = newOpenCircuit.OpenCircuitId = SQLHelper.GetNewID();
+                        newOpenCircuit.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectOpenCircuitMenuId, newOpenCircuit.ProjectId, newOpenCircuit.ApplyUnitId);
+                        db.License_OpenCircuit.InsertOnSubmit(newOpenCircuit);
+                        ////增加一条编码记录
+                        CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectOpenCircuitMenuId, newOpenCircuit.ProjectId, newOpenCircuit.ApplyUnitId, newOpenCircuit.OpenCircuitId, newOpenCircuit.ApplyDate);
                     }
                     else
                     {
-                        updateOpenCircuit.WorkPalce = newOpenCircuit.WorkPalce;
-                        updateOpenCircuit.WorkMeasures = newOpenCircuit.WorkMeasures;
-                        updateOpenCircuit.ValidityStartTime = newOpenCircuit.ValidityStartTime;
-                        updateOpenCircuit.ValidityEndTime = newOpenCircuit.ValidityEndTime;
-                        updateOpenCircuit.RoadName = newOpenCircuit.RoadName;
-                        updateOpenCircuit.SafeMeasures = newOpenCircuit.SafeMeasures;
-                        updateOpenCircuit.NextManId = newOpenCircuit.NextManId;
+                        if (newItem.States == Const.State_3)
+                        {
+                            updateOpenCircuit.CloseManId = newOpenCircuit.CloseManId;
+                            updateOpenCircuit.CloseReasons = newOpenCircuit.CloseReasons;
+                            updateOpenCircuit.CloseTime = DateTime.Now;
+                        }
+                        else if (newItem.States == Const.State_R)
+                        {
+                            updateOpenCircuit.CancelManId = newOpenCircuit.CancelManId;
+                            updateOpenCircuit.CancelReasons = newOpenCircuit.CancelReasons;
+                            updateOpenCircuit.CancelTime = DateTime.Now;
+                        }
+                        else
+                        {
+                            updateOpenCircuit.WorkPalce = newOpenCircuit.WorkPalce;
+                            updateOpenCircuit.WorkMeasures = newOpenCircuit.WorkMeasures;
+                            updateOpenCircuit.ValidityStartTime = newOpenCircuit.ValidityStartTime;
+                            updateOpenCircuit.ValidityEndTime = newOpenCircuit.ValidityEndTime;
+                            updateOpenCircuit.RoadName = newOpenCircuit.RoadName;
+                            updateOpenCircuit.SafeMeasures = newOpenCircuit.SafeMeasures;
+                            updateOpenCircuit.NextManId = newOpenCircuit.NextManId;
+                            updateOpenCircuit.States = newOpenCircuit.States;
+                        }
                         updateOpenCircuit.States = newOpenCircuit.States;
                     }
-                    updateOpenCircuit.States = newOpenCircuit.States;
                 }
-            }
-            #endregion
-            #region 动土作业票
-            if (newItem.MenuId == Const.ProjectBreakGroundMenuId)
-            {
-                Model.License_BreakGround newBreakGround = new Model.License_BreakGround
+                #endregion
+                #region 动土作业票
+                if (newItem.MenuId == Const.ProjectBreakGroundMenuId)
                 {
-                    BreakGroundId = strLicenseId,
-                    ProjectId = projectId,
-                    LicenseCode = newItem.LicenseCode,
-                    ApplyUnitId = newItem.ApplyUnitId,
-                    ApplyManId = newItem.ApplyManId,
-                    ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
-                    WorkPalce = newItem.WorkPalce,
-                    WorkDepth = newItem.WorkDepth,
-                    ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
-                    ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
-                    WorkMeasures = newItem.WorkMeasures,
-                    CancelManId = newItem.CancelManId,
-                    CancelReasons = newItem.CancelReasons,
-                    CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
-                    CloseManId = newItem.CloseManId,
-                    CloseReasons = newItem.CloseReasons,
-                    CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
-                    NextManId = newItem.NextManId,
-                    States = newItem.States,
-                };
-                if (newItem.States == Const.State_0)
-                {
-                    newBreakGround.NextManId = newItem.ApplyManId;
-                }
-                ////保存
-                var updateBreakGround = Funs.DB.License_BreakGround.FirstOrDefault(x => x.BreakGroundId == strLicenseId);
-                if (updateBreakGround == null)
-                {
-                    newBreakGround.ApplyDate = DateTime.Now;
-                    strLicenseId = newBreakGround.BreakGroundId = SQLHelper.GetNewID();
-                    newBreakGround.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectBreakGroundMenuId, newBreakGround.ProjectId, newBreakGround.ApplyUnitId);
-                    Funs.DB.License_BreakGround.InsertOnSubmit(newBreakGround);
-                    ////增加一条编码记录
-                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectBreakGroundMenuId, newBreakGround.ProjectId, newBreakGround.ApplyUnitId, newBreakGround.BreakGroundId, newBreakGround.ApplyDate);
-                }
-                else
-                {
-                    if (newItem.States == Const.State_3)
+                    Model.License_BreakGround newBreakGround = new Model.License_BreakGround
                     {
-                        updateBreakGround.CloseManId = newBreakGround.CloseManId;
-                        updateBreakGround.CloseReasons = newBreakGround.CloseReasons;
-                        updateBreakGround.CloseTime = DateTime.Now;
+                        BreakGroundId = strLicenseId,
+                        ProjectId = projectId,
+                        LicenseCode = newItem.LicenseCode,
+                        ApplyUnitId = newItem.ApplyUnitId,
+                        ApplyManId = newItem.ApplyManId,
+                        ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
+                        WorkPalce = newItem.WorkPalce,
+                        WorkDepth = newItem.WorkDepth,
+                        ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
+                        ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
+                        WorkMeasures = newItem.WorkMeasures,
+                        CancelManId = newItem.CancelManId,
+                        CancelReasons = newItem.CancelReasons,
+                        CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
+                        CloseManId = newItem.CloseManId,
+                        CloseReasons = newItem.CloseReasons,
+                        CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
+                        NextManId = newItem.NextManId,
+                        States = newItem.States,
+                    };
+                    if (newItem.States == Const.State_0)
+                    {
+                        newBreakGround.NextManId = newItem.ApplyManId;
                     }
-                    else if (newItem.States == Const.State_R)
+                    ////保存
+                    var updateBreakGround = db.License_BreakGround.FirstOrDefault(x => x.BreakGroundId == strLicenseId);
+                    if (updateBreakGround == null)
                     {
-                        updateBreakGround.CancelManId = newBreakGround.CancelManId;
-                        updateBreakGround.CancelReasons = newBreakGround.CancelReasons;
-                        updateBreakGround.CancelTime = DateTime.Now;
+                        newBreakGround.ApplyDate = DateTime.Now;
+                        strLicenseId = newBreakGround.BreakGroundId = SQLHelper.GetNewID();
+                        newBreakGround.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectBreakGroundMenuId, newBreakGround.ProjectId, newBreakGround.ApplyUnitId);
+                        db.License_BreakGround.InsertOnSubmit(newBreakGround);
+                        ////增加一条编码记录
+                        CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectBreakGroundMenuId, newBreakGround.ProjectId, newBreakGround.ApplyUnitId, newBreakGround.BreakGroundId, newBreakGround.ApplyDate);
                     }
                     else
                     {
-                        updateBreakGround.WorkPalce = newBreakGround.WorkPalce;
-                        updateBreakGround.WorkDepth = newBreakGround.WorkDepth;
-                        updateBreakGround.ValidityStartTime = newBreakGround.ValidityStartTime;
-                        updateBreakGround.ValidityEndTime = newBreakGround.ValidityEndTime;
-                        updateBreakGround.WorkMeasures = newBreakGround.WorkMeasures;
-                        updateBreakGround.NextManId = newBreakGround.NextManId;
+                        if (newItem.States == Const.State_3)
+                        {
+                            updateBreakGround.CloseManId = newBreakGround.CloseManId;
+                            updateBreakGround.CloseReasons = newBreakGround.CloseReasons;
+                            updateBreakGround.CloseTime = DateTime.Now;
+                        }
+                        else if (newItem.States == Const.State_R)
+                        {
+                            updateBreakGround.CancelManId = newBreakGround.CancelManId;
+                            updateBreakGround.CancelReasons = newBreakGround.CancelReasons;
+                            updateBreakGround.CancelTime = DateTime.Now;
+                        }
+                        else
+                        {
+                            updateBreakGround.WorkPalce = newBreakGround.WorkPalce;
+                            updateBreakGround.WorkDepth = newBreakGround.WorkDepth;
+                            updateBreakGround.ValidityStartTime = newBreakGround.ValidityStartTime;
+                            updateBreakGround.ValidityEndTime = newBreakGround.ValidityEndTime;
+                            updateBreakGround.WorkMeasures = newBreakGround.WorkMeasures;
+                            updateBreakGround.NextManId = newBreakGround.NextManId;
+                            updateBreakGround.States = newBreakGround.States;
+                        }
                         updateBreakGround.States = newBreakGround.States;
                     }
-                    updateBreakGround.States = newBreakGround.States;
                 }
-            }
-            #endregion
-            #region 夜间施工作业票
-            if (newItem.MenuId == Const.ProjectNightWorkMenuId)
-            {
-                Model.License_NightWork newNightWork = new Model.License_NightWork
+                #endregion
+                #region 夜间施工作业票
+                if (newItem.MenuId == Const.ProjectNightWorkMenuId)
                 {
-                    NightWorkId = strLicenseId,
-                    ProjectId = projectId,
-                    LicenseCode = newItem.LicenseCode,
-                    ApplyUnitId = newItem.ApplyUnitId,
-                    ApplyManId = newItem.ApplyManId,
-                    ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
-                    WorkPalce = newItem.WorkPalce,
-                    WorkMeasures = newItem.WorkMeasures,
-                    ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
-                    ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
-                    WorkLeaderId = newItem.WorkLeaderId,
-                    WorkLeaderTel = newItem.WorkLeaderTel,
-                    SafeLeaderId = newItem.SafeLeaderId,
-                    SafeLeaderTel = newItem.SafeLeaderTel,
-                    CancelManId = newItem.CancelManId,
-                    CancelReasons = newItem.CancelReasons,
-                    CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
-                    CloseManId = newItem.CloseManId,
-                    CloseReasons = newItem.CloseReasons,
-                    CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
-                    NextManId = newItem.NextManId,
-                    States = newItem.States,
-                };
-                if (newItem.States == Const.State_0)
-                {
-                    newNightWork.NextManId = newItem.ApplyManId;
-                }
-                ////保存
-                var updateNightWork = Funs.DB.License_NightWork.FirstOrDefault(x => x.NightWorkId == strLicenseId);
-                if (updateNightWork == null)
-                {
-                    newNightWork.ApplyDate = DateTime.Now;
-                    strLicenseId = newNightWork.NightWorkId = SQLHelper.GetNewID();
-                    newNightWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectNightWorkMenuId, newNightWork.ProjectId, newNightWork.ApplyUnitId);
-                    Funs.DB.License_NightWork.InsertOnSubmit(newNightWork);
-                    ////增加一条编码记录
-                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectNightWorkMenuId, newNightWork.ProjectId, newNightWork.ApplyUnitId, newNightWork.NightWorkId, newNightWork.ApplyDate);
-                }
-                else
-                {
-                    if (newItem.States == Const.State_3)
+                    Model.License_NightWork newNightWork = new Model.License_NightWork
                     {
-                        updateNightWork.CloseManId = newNightWork.CloseManId;
-                        updateNightWork.CloseReasons = newNightWork.CloseReasons;
-                        updateNightWork.CloseTime = DateTime.Now;
+                        NightWorkId = strLicenseId,
+                        ProjectId = projectId,
+                        LicenseCode = newItem.LicenseCode,
+                        ApplyUnitId = newItem.ApplyUnitId,
+                        ApplyManId = newItem.ApplyManId,
+                        ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
+                        WorkPalce = newItem.WorkPalce,
+                        WorkMeasures = newItem.WorkMeasures,
+                        ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
+                        ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
+                        WorkLeaderId = newItem.WorkLeaderId,
+                        WorkLeaderTel = newItem.WorkLeaderTel,
+                        SafeLeaderId = newItem.SafeLeaderId,
+                        SafeLeaderTel = newItem.SafeLeaderTel,
+                        CancelManId = newItem.CancelManId,
+                        CancelReasons = newItem.CancelReasons,
+                        CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
+                        CloseManId = newItem.CloseManId,
+                        CloseReasons = newItem.CloseReasons,
+                        CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
+                        NextManId = newItem.NextManId,
+                        States = newItem.States,
+                    };
+                    if (newItem.States == Const.State_0)
+                    {
+                        newNightWork.NextManId = newItem.ApplyManId;
                     }
-                    else if (newItem.States == Const.State_R)
+                    ////保存
+                    var updateNightWork = db.License_NightWork.FirstOrDefault(x => x.NightWorkId == strLicenseId);
+                    if (updateNightWork == null)
                     {
-                        updateNightWork.CancelManId = newNightWork.CancelManId;
-                        updateNightWork.CancelReasons = newNightWork.CancelReasons;
-                        updateNightWork.CancelTime = DateTime.Now;
+                        newNightWork.ApplyDate = DateTime.Now;
+                        strLicenseId = newNightWork.NightWorkId = SQLHelper.GetNewID();
+                        newNightWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectNightWorkMenuId, newNightWork.ProjectId, newNightWork.ApplyUnitId);
+                        db.License_NightWork.InsertOnSubmit(newNightWork);
+                        ////增加一条编码记录
+                        CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectNightWorkMenuId, newNightWork.ProjectId, newNightWork.ApplyUnitId, newNightWork.NightWorkId, newNightWork.ApplyDate);
                     }
                     else
                     {
-                        updateNightWork.WorkPalce = newNightWork.WorkPalce;
-                        updateNightWork.WorkMeasures = newNightWork.WorkMeasures;
-                        updateNightWork.ValidityStartTime = newNightWork.ValidityStartTime;
-                        updateNightWork.ValidityEndTime = newNightWork.ValidityEndTime;
-                        updateNightWork.WorkLeaderId = newItem.WorkLeaderId;
-                        updateNightWork.WorkLeaderTel = newItem.WorkLeaderTel;
-                        updateNightWork.SafeLeaderId = newItem.SafeLeaderId;
-                        updateNightWork.SafeLeaderTel = newItem.SafeLeaderTel;
-                        updateNightWork.NextManId = newNightWork.NextManId;
+                        if (newItem.States == Const.State_3)
+                        {
+                            updateNightWork.CloseManId = newNightWork.CloseManId;
+                            updateNightWork.CloseReasons = newNightWork.CloseReasons;
+                            updateNightWork.CloseTime = DateTime.Now;
+                        }
+                        else if (newItem.States == Const.State_R)
+                        {
+                            updateNightWork.CancelManId = newNightWork.CancelManId;
+                            updateNightWork.CancelReasons = newNightWork.CancelReasons;
+                            updateNightWork.CancelTime = DateTime.Now;
+                        }
+                        else
+                        {
+                            updateNightWork.WorkPalce = newNightWork.WorkPalce;
+                            updateNightWork.WorkMeasures = newNightWork.WorkMeasures;
+                            updateNightWork.ValidityStartTime = newNightWork.ValidityStartTime;
+                            updateNightWork.ValidityEndTime = newNightWork.ValidityEndTime;
+                            updateNightWork.WorkLeaderId = newItem.WorkLeaderId;
+                            updateNightWork.WorkLeaderTel = newItem.WorkLeaderTel;
+                            updateNightWork.SafeLeaderId = newItem.SafeLeaderId;
+                            updateNightWork.SafeLeaderTel = newItem.SafeLeaderTel;
+                            updateNightWork.NextManId = newNightWork.NextManId;
+                            updateNightWork.States = newNightWork.States;
+                        }
                         updateNightWork.States = newNightWork.States;
                     }
-                    updateNightWork.States = newNightWork.States;
                 }
-            }
-            #endregion
-            #region 吊装作业票
-            if (newItem.MenuId == Const.ProjectLiftingWorkMenuId)
-            {
-                Model.License_LiftingWork newLiftingWork = new Model.License_LiftingWork
+                #endregion
+                #region 吊装作业票
+                if (newItem.MenuId == Const.ProjectLiftingWorkMenuId)
                 {
-                    LiftingWorkId = strLicenseId,
-                    ProjectId = projectId,
-                    LicenseCode = newItem.LicenseCode,
-                    ApplyUnitId = newItem.ApplyUnitId,
-                    ApplyManId = newItem.ApplyManId,
-                    ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
-                    WorkPalce = newItem.WorkPalce,
-                    WorkLevel = newItem.WorkLevel,
-                    ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
-                    ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
-                    WorkMeasures = newItem.WorkMeasures,
-                    CraneCapacity = newItem.CraneCapacity,
-                    CancelManId = newItem.CancelManId,
-                    CancelReasons = newItem.CancelReasons,
-                    CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
-                    CloseManId = newItem.CloseManId,
-                    CloseReasons = newItem.CloseReasons,
-                    CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
-                    NextManId = newItem.NextManId,
-                    States = newItem.States,
-                };
-                if (newItem.States == Const.State_0)
-                {
-                    newLiftingWork.NextManId = newItem.ApplyManId;
-                }
-                ////保存
-                var updateLiftingWork = Funs.DB.License_LiftingWork.FirstOrDefault(x => x.LiftingWorkId == strLicenseId);
-                if (updateLiftingWork == null)
-                {
-                    newLiftingWork.ApplyDate = DateTime.Now;
-                    strLicenseId = newLiftingWork.LiftingWorkId = SQLHelper.GetNewID();
-                    newLiftingWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectLiftingWorkMenuId, newLiftingWork.ProjectId, newLiftingWork.ApplyUnitId);
-                    Funs.DB.License_LiftingWork.InsertOnSubmit(newLiftingWork);
-                    ////增加一条编码记录
-                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectLiftingWorkMenuId, newLiftingWork.ProjectId, newLiftingWork.ApplyUnitId, newLiftingWork.LiftingWorkId, newLiftingWork.ApplyDate);
-                }
-                else
-                {
-                    if (newItem.States == Const.State_3)
+                    Model.License_LiftingWork newLiftingWork = new Model.License_LiftingWork
                     {
-                        updateLiftingWork.CloseManId = newLiftingWork.CloseManId;
-                        updateLiftingWork.CloseReasons = newLiftingWork.CloseReasons;
-                        updateLiftingWork.CloseTime = DateTime.Now;
+                        LiftingWorkId = strLicenseId,
+                        ProjectId = projectId,
+                        LicenseCode = newItem.LicenseCode,
+                        ApplyUnitId = newItem.ApplyUnitId,
+                        ApplyManId = newItem.ApplyManId,
+                        ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
+                        WorkPalce = newItem.WorkPalce,
+                        WorkLevel = newItem.WorkLevel,
+                        ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
+                        ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
+                        WorkMeasures = newItem.WorkMeasures,
+                        CraneCapacity = newItem.CraneCapacity,
+                        CancelManId = newItem.CancelManId,
+                        CancelReasons = newItem.CancelReasons,
+                        CancelTime = Funs.GetNewDateTime(newItem.CancelTime),
+                        CloseManId = newItem.CloseManId,
+                        CloseReasons = newItem.CloseReasons,
+                        CloseTime = Funs.GetNewDateTime(newItem.CloseTime),
+                        NextManId = newItem.NextManId,
+                        States = newItem.States,
+                    };
+                    if (newItem.States == Const.State_0)
+                    {
+                        newLiftingWork.NextManId = newItem.ApplyManId;
                     }
-                    else if (newItem.States == Const.State_R)
+                    ////保存
+                    var updateLiftingWork = db.License_LiftingWork.FirstOrDefault(x => x.LiftingWorkId == strLicenseId);
+                    if (updateLiftingWork == null)
                     {
-                        updateLiftingWork.CancelManId = newLiftingWork.CancelManId;
-                        updateLiftingWork.CancelReasons = newLiftingWork.CancelReasons;
-                        updateLiftingWork.CancelTime = DateTime.Now;
+                        newLiftingWork.ApplyDate = DateTime.Now;
+                        strLicenseId = newLiftingWork.LiftingWorkId = SQLHelper.GetNewID();
+                        newLiftingWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectLiftingWorkMenuId, newLiftingWork.ProjectId, newLiftingWork.ApplyUnitId);
+                        db.License_LiftingWork.InsertOnSubmit(newLiftingWork);
+                        ////增加一条编码记录
+                        CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectLiftingWorkMenuId, newLiftingWork.ProjectId, newLiftingWork.ApplyUnitId, newLiftingWork.LiftingWorkId, newLiftingWork.ApplyDate);
                     }
                     else
                     {
-                        updateLiftingWork.WorkPalce = newLiftingWork.WorkPalce;
-                        updateLiftingWork.WorkLevel = newLiftingWork.WorkLevel;
-                        updateLiftingWork.ValidityStartTime = newLiftingWork.ValidityStartTime;
-                        updateLiftingWork.ValidityEndTime = newLiftingWork.ValidityEndTime;
-                        updateLiftingWork.WorkMeasures = newLiftingWork.WorkMeasures;
-                        updateLiftingWork.CraneCapacity = newLiftingWork.CraneCapacity;
-                        updateLiftingWork.NextManId = newLiftingWork.NextManId;
+                        if (newItem.States == Const.State_3)
+                        {
+                            updateLiftingWork.CloseManId = newLiftingWork.CloseManId;
+                            updateLiftingWork.CloseReasons = newLiftingWork.CloseReasons;
+                            updateLiftingWork.CloseTime = DateTime.Now;
+                        }
+                        else if (newItem.States == Const.State_R)
+                        {
+                            updateLiftingWork.CancelManId = newLiftingWork.CancelManId;
+                            updateLiftingWork.CancelReasons = newLiftingWork.CancelReasons;
+                            updateLiftingWork.CancelTime = DateTime.Now;
+                        }
+                        else
+                        {
+                            updateLiftingWork.WorkPalce = newLiftingWork.WorkPalce;
+                            updateLiftingWork.WorkLevel = newLiftingWork.WorkLevel;
+                            updateLiftingWork.ValidityStartTime = newLiftingWork.ValidityStartTime;
+                            updateLiftingWork.ValidityEndTime = newLiftingWork.ValidityEndTime;
+                            updateLiftingWork.WorkMeasures = newLiftingWork.WorkMeasures;
+                            updateLiftingWork.CraneCapacity = newLiftingWork.CraneCapacity;
+                            updateLiftingWork.NextManId = newLiftingWork.NextManId;
+                            updateLiftingWork.States = newLiftingWork.States;
+                        }
                         updateLiftingWork.States = newLiftingWork.States;
                     }
-                    updateLiftingWork.States = newLiftingWork.States;
                 }
-            }
-            #endregion
+                #endregion
 
-            Funs.SubmitChanges();
-            #region 保存安全措施明细
-            if (newItem.States == Const.State_0 || newItem.States == Const.State_1)
-            {
-                ////删除安全措施                       
-                var licenseItems = from x in Funs.DB.License_LicenseItem where x.DataId == strLicenseId select x;
-                if (licenseItems.Count() > 0)
+                db.SubmitChanges();
+                #region 保存安全措施明细
+                if (newItem.States == Const.State_0 || newItem.States == Const.State_1)
                 {
-                    Funs.DB.License_LicenseItem.DeleteAllOnSubmit(licenseItems);
-                }
-                ///// 新增安全措施
-                var getLicenseItemList = newItem.LicenseItems;
-                if (getLicenseItemList.Count() > 0)
-                {
-                    foreach (var item in getLicenseItemList)
+                    ////删除安全措施                       
+                    var licenseItems = from x in db.License_LicenseItem where x.DataId == strLicenseId select x;
+                    if (licenseItems.Count() > 0)
                     {
-                        Model.License_LicenseItem newLicenseItem = new Model.License_LicenseItem
-                        {
-                            LicenseItemId = SQLHelper.GetNewID(),
-                            DataId = strLicenseId,
-                            SortIndex = item.SortIndex,
-                            SafetyMeasures = item.SafetyMeasures,
-                            IsUsed = item.IsUsed,
-                            ConfirmManId = item.ConfirmManId,
-                        };
-
-                        Funs.DB.License_LicenseItem.InsertOnSubmit(newLicenseItem);
+                        db.License_LicenseItem.DeleteAllOnSubmit(licenseItems);
                     }
+                    ///// 新增安全措施
+                    var getLicenseItemList = newItem.LicenseItems;
+                    if (getLicenseItemList.Count() > 0)
+                    {
+                        foreach (var item in getLicenseItemList)
+                        {
+                            Model.License_LicenseItem newLicenseItem = new Model.License_LicenseItem
+                            {
+                                LicenseItemId = SQLHelper.GetNewID(),
+                                DataId = strLicenseId,
+                                SortIndex = item.SortIndex,
+                                SafetyMeasures = item.SafetyMeasures,
+                                IsUsed = item.IsUsed,
+                                ConfirmManId = item.ConfirmManId,
+                            };
+
+                            db.License_LicenseItem.InsertOnSubmit(newLicenseItem);
+                        }
+                    }
+
+                    db.SubmitChanges();
                 }
+                #endregion
 
-                Funs.SubmitChanges();
+                //// 保存附件
+                APIUpLoadFileService.SaveAttachUrl(newItem.MenuId, strLicenseId, newItem.AttachUrl, "0");
+
+                return strLicenseId;
             }
-            #endregion
-
-            //// 保存附件
-            APIUpLoadFileService.SaveAttachUrl(newItem.MenuId, strLicenseId, newItem.AttachUrl, "0");
-
-            return strLicenseId;
         }
         #endregion
-        
+
         #region 保存作业票审核信息
         /// <summary>
         /// 保存作业票审核信息
@@ -1573,324 +1576,327 @@ namespace BLL
         /// <param name="newItem">保存作业票审核信息</param>
         /// <returns></returns>
         public static void SaveLicenseFlowOperate(Model.FlowOperateItem newItem)
-        {           
-           string strMenuId = string.Empty;
-            bool boolIsFlowEnd = false;
-            string applyManId = string.Empty;
-            var updateFlowOperate = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.FlowOperateId == newItem.FlowOperateId);
-            if (updateFlowOperate != null)
+        {
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                strMenuId = updateFlowOperate.MenuId;
-                updateFlowOperate.OperaterId = newItem.OperaterId;
-                updateFlowOperate.OperaterTime = DateTime.Now;
-                updateFlowOperate.IsAgree = newItem.IsAgree;
-                updateFlowOperate.Opinion = newItem.Opinion;
-                if (newItem.IsAgree == true)
+                string strMenuId = string.Empty;
+                bool boolIsFlowEnd = false;
+                string applyManId = string.Empty;
+                var updateFlowOperate = db.License_FlowOperate.FirstOrDefault(x => x.FlowOperateId == newItem.FlowOperateId);
+                if (updateFlowOperate != null && !string.IsNullOrEmpty(newItem.OperaterId))
                 {
-                    updateFlowOperate.IsClosed = true;
-                }
-                Funs.SubmitChanges();
+                    strMenuId = updateFlowOperate.MenuId;
+                    updateFlowOperate.OperaterId = newItem.OperaterId;
+                    updateFlowOperate.OperaterTime = DateTime.Now;
+                    updateFlowOperate.IsAgree = newItem.IsAgree;
+                    updateFlowOperate.Opinion = newItem.Opinion;
+                    if (newItem.IsAgree == true)
+                    {
+                        updateFlowOperate.IsClosed = true;
+                    }
+                    db.SubmitChanges();
 
-                /////增加一条审核明细记录
-                Model.License_FlowOperateItem newFlowOperateItem = new Model.License_FlowOperateItem
-                {
-                    FlowOperateItemId = SQLHelper.GetNewID(),
-                    FlowOperateId = updateFlowOperate.FlowOperateId,
-                    OperaterId = updateFlowOperate.OperaterId,
-                    OperaterTime = updateFlowOperate.OperaterTime,
-                    IsAgree = updateFlowOperate.IsAgree,
-                    Opinion = updateFlowOperate.Opinion,
-                };
-                Funs.DB.License_FlowOperateItem.InsertOnSubmit(newFlowOperateItem);
+                    /////增加一条审核明细记录
+                    Model.License_FlowOperateItem newFlowOperateItem = new Model.License_FlowOperateItem
+                    {
+                        FlowOperateItemId = SQLHelper.GetNewID(),
+                        FlowOperateId = updateFlowOperate.FlowOperateId,
+                        OperaterId = updateFlowOperate.OperaterId,
+                        OperaterTime = updateFlowOperate.OperaterTime,
+                        IsAgree = updateFlowOperate.IsAgree,
+                        Opinion = updateFlowOperate.Opinion,
+                    };
+                    db.License_FlowOperateItem.InsertOnSubmit(newFlowOperateItem);
 
-                #region 新增下一步审核记录
-                if (newItem.IsAgree == true)
-                {
-                    var getCloseAllOperate = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.DataId == updateFlowOperate.DataId  && (!x.IsClosed.HasValue || x.IsClosed == false) && (!x.IsFlowEnd.HasValue || x.IsFlowEnd == false));
-                    if (getCloseAllOperate == null)
+                    #region 新增下一步审核记录
+                    if (newItem.IsAgree == true)
                     {
-                        var getNextFlowOperate = Funs.DB.License_FlowOperate.FirstOrDefault(x => x.DataId == updateFlowOperate.DataId && x.IsFlowEnd == true);
-                        ////判断审核步骤是否结束
-                        if (getNextFlowOperate != null )
+                        var getCloseAllOperate = db.License_FlowOperate.FirstOrDefault(x => x.DataId == updateFlowOperate.DataId && (!x.IsClosed.HasValue || x.IsClosed == false) && (!x.IsFlowEnd.HasValue || x.IsFlowEnd == false));
+                        if (getCloseAllOperate == null)
                         {
-                            /////最后一步是关闭所有 步骤
-                            getNextFlowOperate.IsClosed = true;
-                            getNextFlowOperate.OperaterTime = DateTime.Now;
-                            getNextFlowOperate.IsAgree = true;
-                            getNextFlowOperate.OperaterId = newItem.OperaterId;
-                            getNextFlowOperate.Opinion = "审核完成！";
-                            boolIsFlowEnd = true;
-                            Funs.SubmitChanges();                            
+                            var getNextFlowOperate = db.License_FlowOperate.FirstOrDefault(x => x.DataId == updateFlowOperate.DataId && x.IsFlowEnd == true);
+                            ////判断审核步骤是否结束
+                            if (getNextFlowOperate != null)
+                            {
+                                /////最后一步是关闭所有 步骤
+                                getNextFlowOperate.IsClosed = true;
+                                getNextFlowOperate.OperaterTime = DateTime.Now;
+                                getNextFlowOperate.IsAgree = true;
+                                getNextFlowOperate.OperaterId = newItem.OperaterId;
+                                getNextFlowOperate.Opinion = "审核完成！";
+                                boolIsFlowEnd = true;
+                                db.SubmitChanges();
+                            }
                         }
                     }
-                }
-                #endregion
+                    #endregion
 
-                #region 动火作业票
-                if (strMenuId == Const.ProjectFireWorkMenuId)
-                {
-                    var getFireWork = Funs.DB.License_FireWork.FirstOrDefault(x => x.FireWorkId == updateFlowOperate.DataId);
-                    if (getFireWork != null)
+                    #region 动火作业票
+                    if (strMenuId == Const.ProjectFireWorkMenuId)
                     {
-                        getFireWork.NextManId = newItem.NextOperaterId;
-                        if (newItem.IsAgree == true)
-                        {                           
-                            if (boolIsFlowEnd == true)
+                        var getFireWork = db.License_FireWork.FirstOrDefault(x => x.FireWorkId == updateFlowOperate.DataId);
+                        if (getFireWork != null)
+                        {
+                            getFireWork.NextManId = newItem.NextOperaterId;
+                            if (newItem.IsAgree == true)
                             {
-                                getFireWork.NextManId = null;
-                                getFireWork.States = Const.State_2;
-                                if (getFireWork.ValidityStartTime.HasValue && getFireWork.ValidityStartTime < DateTime.Now)
+                                if (boolIsFlowEnd == true)
                                 {
-                                    int days = 7;
-                                    if (getFireWork.ValidityEndTime.HasValue)
+                                    getFireWork.NextManId = null;
+                                    getFireWork.States = Const.State_2;
+                                    if (getFireWork.ValidityStartTime.HasValue && getFireWork.ValidityStartTime < DateTime.Now)
                                     {
-                                        days = Convert.ToInt32((getFireWork.ValidityEndTime - getFireWork.ValidityStartTime).Value.TotalDays);
+                                        int days = 7;
+                                        if (getFireWork.ValidityEndTime.HasValue)
+                                        {
+                                            days = Convert.ToInt32((getFireWork.ValidityEndTime - getFireWork.ValidityStartTime).Value.TotalDays);
+                                        }
+                                        getFireWork.ValidityStartTime = DateTime.Now;
+                                        getFireWork.ValidityEndTime = DateTime.Now.AddDays(days);
                                     }
-                                    getFireWork.ValidityStartTime = DateTime.Now;
-                                    getFireWork.ValidityEndTime = DateTime.Now.AddDays(days);
                                 }
                             }
-                        }
-                        else
-                        {
-                            getFireWork.States = Const.State_0;
-                        }
-                        Funs.SubmitChanges();
-                    }
-                }
-                #endregion
-                #region 高处作业票
-                else if (strMenuId == Const.ProjectHeightWorkMenuId)
-                {
-                    var getHeightWork = Funs.DB.License_HeightWork.FirstOrDefault(x => x.HeightWorkId == updateFlowOperate.DataId);
-                    if (getHeightWork != null)
-                    {
-                        getHeightWork.NextManId = newItem.NextOperaterId;
-                        if (newItem.IsAgree == true)
-                        {                          
-                            if (boolIsFlowEnd == true)
+                            else
                             {
-                                getHeightWork.NextManId = null;
-                                getHeightWork.States = Const.State_2;
-                                if (getHeightWork.ValidityStartTime.HasValue && getHeightWork.ValidityStartTime < DateTime.Now)
+                                getFireWork.States = Const.State_0;
+                            }
+                            db.SubmitChanges();
+                        }
+                    }
+                    #endregion
+                    #region 高处作业票
+                    else if (strMenuId == Const.ProjectHeightWorkMenuId)
+                    {
+                        var getHeightWork = db.License_HeightWork.FirstOrDefault(x => x.HeightWorkId == updateFlowOperate.DataId);
+                        if (getHeightWork != null)
+                        {
+                            getHeightWork.NextManId = newItem.NextOperaterId;
+                            if (newItem.IsAgree == true)
+                            {
+                                if (boolIsFlowEnd == true)
                                 {
-                                    int days = 7;
-                                    if (getHeightWork.ValidityEndTime.HasValue)
+                                    getHeightWork.NextManId = null;
+                                    getHeightWork.States = Const.State_2;
+                                    if (getHeightWork.ValidityStartTime.HasValue && getHeightWork.ValidityStartTime < DateTime.Now)
                                     {
-                                        days = Convert.ToInt32((getHeightWork.ValidityEndTime - getHeightWork.ValidityStartTime).Value.TotalDays);
+                                        int days = 7;
+                                        if (getHeightWork.ValidityEndTime.HasValue)
+                                        {
+                                            days = Convert.ToInt32((getHeightWork.ValidityEndTime - getHeightWork.ValidityStartTime).Value.TotalDays);
+                                        }
+                                        getHeightWork.ValidityStartTime = DateTime.Now;
+                                        getHeightWork.ValidityEndTime = DateTime.Now.AddDays(days);
                                     }
-                                    getHeightWork.ValidityStartTime = DateTime.Now;
-                                    getHeightWork.ValidityEndTime = DateTime.Now.AddDays(days);
                                 }
                             }
-                        }
-                        else
-                        {
-                            getHeightWork.States = Const.State_0;
-                        }
-                        Funs.SubmitChanges();
-                    }
-                }
-                #endregion
-                #region 受限空间作业票
-                if (strMenuId == Const.ProjectLimitedSpaceMenuId)
-                {
-                    var getLimitedSpace = Funs.DB.License_LimitedSpace.FirstOrDefault(x => x.LimitedSpaceId == updateFlowOperate.DataId);
-                    if (getLimitedSpace != null)
-                    {
-                        getLimitedSpace.NextManId = newItem.NextOperaterId;
-                        if (newItem.IsAgree == true)
-                        {                           
-                            if (boolIsFlowEnd == true)
+                            else
                             {
-                                getLimitedSpace.NextManId = null;
-                                getLimitedSpace.States = Const.State_2;
-                                if (getLimitedSpace.ValidityStartTime.HasValue && getLimitedSpace.ValidityStartTime < DateTime.Now)
+                                getHeightWork.States = Const.State_0;
+                            }
+                            db.SubmitChanges();
+                        }
+                    }
+                    #endregion
+                    #region 受限空间作业票
+                    if (strMenuId == Const.ProjectLimitedSpaceMenuId)
+                    {
+                        var getLimitedSpace = db.License_LimitedSpace.FirstOrDefault(x => x.LimitedSpaceId == updateFlowOperate.DataId);
+                        if (getLimitedSpace != null)
+                        {
+                            getLimitedSpace.NextManId = newItem.NextOperaterId;
+                            if (newItem.IsAgree == true)
+                            {
+                                if (boolIsFlowEnd == true)
                                 {
-                                    int days = 1;
-                                    if (getLimitedSpace.ValidityEndTime.HasValue)
+                                    getLimitedSpace.NextManId = null;
+                                    getLimitedSpace.States = Const.State_2;
+                                    if (getLimitedSpace.ValidityStartTime.HasValue && getLimitedSpace.ValidityStartTime < DateTime.Now)
                                     {
-                                        days = Convert.ToInt32((getLimitedSpace.ValidityEndTime - getLimitedSpace.ValidityStartTime).Value.TotalDays);
+                                        int days = 1;
+                                        if (getLimitedSpace.ValidityEndTime.HasValue)
+                                        {
+                                            days = Convert.ToInt32((getLimitedSpace.ValidityEndTime - getLimitedSpace.ValidityStartTime).Value.TotalDays);
+                                        }
+                                        getLimitedSpace.ValidityStartTime = DateTime.Now;
+                                        getLimitedSpace.ValidityEndTime = DateTime.Now.AddDays(days);
                                     }
-                                    getLimitedSpace.ValidityStartTime = DateTime.Now;
-                                    getLimitedSpace.ValidityEndTime = DateTime.Now.AddDays(days);
                                 }
                             }
-                        }
-                        else
-                        {
-                            getLimitedSpace.States = Const.State_0;
-                        }
-                        Funs.SubmitChanges();
-                    }
-                }
-                #endregion
-                #region 射线作业票
-                if (strMenuId == Const.ProjectRadialWorkMenuId)
-                {
-                    var getRadialWork = Funs.DB.License_RadialWork.FirstOrDefault(x => x.RadialWorkId == updateFlowOperate.DataId);
-                    if (getRadialWork != null)
-                    {
-                        getRadialWork.NextManId = newItem.NextOperaterId;
-                        if (newItem.IsAgree == true)
-                        {                          
-                            if (boolIsFlowEnd == true)
+                            else
                             {
-                                getRadialWork.NextManId = null;
-                                getRadialWork.States = Const.State_2;
-                                if (getRadialWork.ValidityStartTime.HasValue && getRadialWork.ValidityStartTime < DateTime.Now)
+                                getLimitedSpace.States = Const.State_0;
+                            }
+                            db.SubmitChanges();
+                        }
+                    }
+                    #endregion
+                    #region 射线作业票
+                    if (strMenuId == Const.ProjectRadialWorkMenuId)
+                    {
+                        var getRadialWork = db.License_RadialWork.FirstOrDefault(x => x.RadialWorkId == updateFlowOperate.DataId);
+                        if (getRadialWork != null)
+                        {
+                            getRadialWork.NextManId = newItem.NextOperaterId;
+                            if (newItem.IsAgree == true)
+                            {
+                                if (boolIsFlowEnd == true)
                                 {
-                                    int hours = 24;
-                                    if (getRadialWork.ValidityEndTime.HasValue)
+                                    getRadialWork.NextManId = null;
+                                    getRadialWork.States = Const.State_2;
+                                    if (getRadialWork.ValidityStartTime.HasValue && getRadialWork.ValidityStartTime < DateTime.Now)
                                     {
-                                        hours = Convert.ToInt32((getRadialWork.ValidityEndTime - getRadialWork.ValidityStartTime).Value.TotalHours);
+                                        int hours = 24;
+                                        if (getRadialWork.ValidityEndTime.HasValue)
+                                        {
+                                            hours = Convert.ToInt32((getRadialWork.ValidityEndTime - getRadialWork.ValidityStartTime).Value.TotalHours);
+                                        }
+                                        getRadialWork.ValidityStartTime = DateTime.Now;
+                                        getRadialWork.ValidityEndTime = DateTime.Now.AddHours(hours);
                                     }
-                                    getRadialWork.ValidityStartTime = DateTime.Now;
-                                    getRadialWork.ValidityEndTime = DateTime.Now.AddHours(hours);
                                 }
                             }
-                        }
-                        else
-                        {
-                            getRadialWork.States = Const.State_0;
-                        }
-                        Funs.SubmitChanges();
-                    }
-                }
-                #endregion
-                #region 断路(占道)作业票
-                if (strMenuId == Const.ProjectOpenCircuitMenuId)
-                {
-                    var getOpenCircuit = Funs.DB.License_OpenCircuit.FirstOrDefault(x => x.OpenCircuitId == updateFlowOperate.DataId);
-                    if (getOpenCircuit != null)
-                    {
-                        getOpenCircuit.NextManId = newItem.NextOperaterId;
-                        if (newItem.IsAgree == true)
-                        {                           
-                            if (boolIsFlowEnd == true)
+                            else
                             {
-                                getOpenCircuit.NextManId = null;
-                                getOpenCircuit.States = Const.State_2;
-                                if (getOpenCircuit.ValidityStartTime.HasValue && getOpenCircuit.ValidityStartTime < DateTime.Now)
+                                getRadialWork.States = Const.State_0;
+                            }
+                            db.SubmitChanges();
+                        }
+                    }
+                    #endregion
+                    #region 断路(占道)作业票
+                    if (strMenuId == Const.ProjectOpenCircuitMenuId)
+                    {
+                        var getOpenCircuit = db.License_OpenCircuit.FirstOrDefault(x => x.OpenCircuitId == updateFlowOperate.DataId);
+                        if (getOpenCircuit != null)
+                        {
+                            getOpenCircuit.NextManId = newItem.NextOperaterId;
+                            if (newItem.IsAgree == true)
+                            {
+                                if (boolIsFlowEnd == true)
                                 {
-                                    int days = 7;
-                                    if (getOpenCircuit.ValidityEndTime.HasValue)
+                                    getOpenCircuit.NextManId = null;
+                                    getOpenCircuit.States = Const.State_2;
+                                    if (getOpenCircuit.ValidityStartTime.HasValue && getOpenCircuit.ValidityStartTime < DateTime.Now)
                                     {
-                                        days = Convert.ToInt32((getOpenCircuit.ValidityEndTime - getOpenCircuit.ValidityStartTime).Value.TotalDays);
+                                        int days = 7;
+                                        if (getOpenCircuit.ValidityEndTime.HasValue)
+                                        {
+                                            days = Convert.ToInt32((getOpenCircuit.ValidityEndTime - getOpenCircuit.ValidityStartTime).Value.TotalDays);
+                                        }
+                                        getOpenCircuit.ValidityStartTime = DateTime.Now;
+                                        getOpenCircuit.ValidityEndTime = DateTime.Now.AddDays(days);
                                     }
-                                    getOpenCircuit.ValidityStartTime = DateTime.Now;
-                                    getOpenCircuit.ValidityEndTime = DateTime.Now.AddDays(days);
                                 }
                             }
-                        }
-                        else
-                        {
-                            getOpenCircuit.States = Const.State_0;
-                        }
-                        Funs.SubmitChanges();
-                    }
-                }
-                #endregion
-                #region 动土作业票
-                if (strMenuId == Const.ProjectBreakGroundMenuId)
-                {
-                    var getBreakGround = Funs.DB.License_BreakGround.FirstOrDefault(x => x.BreakGroundId == updateFlowOperate.DataId);
-                    if (getBreakGround != null)
-                    {
-                        getBreakGround.NextManId = newItem.NextOperaterId;
-                        if (newItem.IsAgree == true)
-                        {                            
-                            if (boolIsFlowEnd == true)
+                            else
                             {
-                                getBreakGround.NextManId = null;
-                                getBreakGround.States = Const.State_2;
-                                if (getBreakGround.ValidityStartTime.HasValue && getBreakGround.ValidityStartTime < DateTime.Now)
+                                getOpenCircuit.States = Const.State_0;
+                            }
+                            db.SubmitChanges();
+                        }
+                    }
+                    #endregion
+                    #region 动土作业票
+                    if (strMenuId == Const.ProjectBreakGroundMenuId)
+                    {
+                        var getBreakGround = db.License_BreakGround.FirstOrDefault(x => x.BreakGroundId == updateFlowOperate.DataId);
+                        if (getBreakGround != null)
+                        {
+                            getBreakGround.NextManId = newItem.NextOperaterId;
+                            if (newItem.IsAgree == true)
+                            {
+                                if (boolIsFlowEnd == true)
                                 {
-                                    int days = 7;
-                                    if (getBreakGround.ValidityEndTime.HasValue)
+                                    getBreakGround.NextManId = null;
+                                    getBreakGround.States = Const.State_2;
+                                    if (getBreakGround.ValidityStartTime.HasValue && getBreakGround.ValidityStartTime < DateTime.Now)
                                     {
-                                        days = Convert.ToInt32((getBreakGround.ValidityEndTime - getBreakGround.ValidityStartTime).Value.TotalDays);
+                                        int days = 7;
+                                        if (getBreakGround.ValidityEndTime.HasValue)
+                                        {
+                                            days = Convert.ToInt32((getBreakGround.ValidityEndTime - getBreakGround.ValidityStartTime).Value.TotalDays);
+                                        }
+                                        getBreakGround.ValidityStartTime = DateTime.Now;
+                                        getBreakGround.ValidityEndTime = DateTime.Now.AddDays(days);
                                     }
-                                    getBreakGround.ValidityStartTime = DateTime.Now;
-                                    getBreakGround.ValidityEndTime = DateTime.Now.AddDays(days);
                                 }
                             }
-                        }
-                        else
-                        {
-                            getBreakGround.States = Const.State_0;
-                        }
-                        Funs.SubmitChanges();
-                    }
-                }
-                #endregion
-                #region 夜间施工作业票
-                if (strMenuId == Const.ProjectNightWorkMenuId)
-                {
-                    var getNightWork = Funs.DB.License_NightWork.FirstOrDefault(x => x.NightWorkId == updateFlowOperate.DataId);
-                    if (getNightWork != null)
-                    {
-                        getNightWork.NextManId = newItem.NextOperaterId;
-                        if (newItem.IsAgree == true)
-                        {                           
-                            if (boolIsFlowEnd == true)
+                            else
                             {
-                                getNightWork.NextManId = null;
-                                getNightWork.States = Const.State_2;
-                                if (getNightWork.ValidityStartTime.HasValue && getNightWork.ValidityStartTime < DateTime.Now)
+                                getBreakGround.States = Const.State_0;
+                            }
+                            db.SubmitChanges();
+                        }
+                    }
+                    #endregion
+                    #region 夜间施工作业票
+                    if (strMenuId == Const.ProjectNightWorkMenuId)
+                    {
+                        var getNightWork = db.License_NightWork.FirstOrDefault(x => x.NightWorkId == updateFlowOperate.DataId);
+                        if (getNightWork != null)
+                        {
+                            getNightWork.NextManId = newItem.NextOperaterId;
+                            if (newItem.IsAgree == true)
+                            {
+                                if (boolIsFlowEnd == true)
                                 {
-                                    int days = 7;
-                                    if (getNightWork.ValidityEndTime.HasValue)
+                                    getNightWork.NextManId = null;
+                                    getNightWork.States = Const.State_2;
+                                    if (getNightWork.ValidityStartTime.HasValue && getNightWork.ValidityStartTime < DateTime.Now)
                                     {
-                                        days = Convert.ToInt32((getNightWork.ValidityEndTime - getNightWork.ValidityStartTime).Value.TotalDays);
+                                        int days = 7;
+                                        if (getNightWork.ValidityEndTime.HasValue)
+                                        {
+                                            days = Convert.ToInt32((getNightWork.ValidityEndTime - getNightWork.ValidityStartTime).Value.TotalDays);
+                                        }
+                                        getNightWork.ValidityStartTime = DateTime.Now;
+                                        getNightWork.ValidityEndTime = DateTime.Now.AddDays(days);
                                     }
-                                    getNightWork.ValidityStartTime = DateTime.Now;
-                                    getNightWork.ValidityEndTime = DateTime.Now.AddDays(days);
                                 }
                             }
-                        }
-                        else
-                        {
-                            getNightWork.States = Const.State_0;
-                        }
-                        Funs.SubmitChanges();
-                    }
-                }
-                #endregion
-                #region 吊装作业票
-                if (strMenuId == Const.ProjectLiftingWorkMenuId)
-                {
-                    var getLiftingWork = Funs.DB.License_LiftingWork.FirstOrDefault(x => x.LiftingWorkId == updateFlowOperate.DataId);
-                    if (getLiftingWork != null)
-                    {
-                        getLiftingWork.NextManId = newItem.NextOperaterId;
-                        if (newItem.IsAgree == true)
-                        {                           
-                            if (boolIsFlowEnd == true)
+                            else
                             {
-                                getLiftingWork.NextManId = null;
-                                getLiftingWork.States = Const.State_2;
-                                if (getLiftingWork.ValidityStartTime.HasValue && getLiftingWork.ValidityStartTime < DateTime.Now)
+                                getNightWork.States = Const.State_0;
+                            }
+                            db.SubmitChanges();
+                        }
+                    }
+                    #endregion
+                    #region 吊装作业票
+                    if (strMenuId == Const.ProjectLiftingWorkMenuId)
+                    {
+                        var getLiftingWork = db.License_LiftingWork.FirstOrDefault(x => x.LiftingWorkId == updateFlowOperate.DataId);
+                        if (getLiftingWork != null)
+                        {
+                            getLiftingWork.NextManId = newItem.NextOperaterId;
+                            if (newItem.IsAgree == true)
+                            {
+                                if (boolIsFlowEnd == true)
                                 {
-                                    int days = 7;
-                                    if (getLiftingWork.ValidityEndTime.HasValue)
+                                    getLiftingWork.NextManId = null;
+                                    getLiftingWork.States = Const.State_2;
+                                    if (getLiftingWork.ValidityStartTime.HasValue && getLiftingWork.ValidityStartTime < DateTime.Now)
                                     {
-                                        days = Convert.ToInt32((getLiftingWork.ValidityEndTime - getLiftingWork.ValidityStartTime).Value.TotalDays);
+                                        int days = 7;
+                                        if (getLiftingWork.ValidityEndTime.HasValue)
+                                        {
+                                            days = Convert.ToInt32((getLiftingWork.ValidityEndTime - getLiftingWork.ValidityStartTime).Value.TotalDays);
+                                        }
+                                        getLiftingWork.ValidityStartTime = DateTime.Now;
+                                        getLiftingWork.ValidityEndTime = DateTime.Now.AddDays(days);
                                     }
-                                    getLiftingWork.ValidityStartTime = DateTime.Now;
-                                    getLiftingWork.ValidityEndTime = DateTime.Now.AddDays(days);
                                 }
                             }
+                            else
+                            {
+                                getLiftingWork.States = Const.State_0;
+                            }
+                            db.SubmitChanges();
                         }
-                        else
-                        {
-                            getLiftingWork.States = Const.State_0;
-                        }
-                        Funs.SubmitChanges();
                     }
+                    #endregion
                 }
-                #endregion              
-            }           
+            }
         }
         #endregion
 
@@ -1901,52 +1907,55 @@ namespace BLL
         /// <param name="newItemList">下一步流程集合</param>
         public static void SaveNextLicenseFlowOperate(List<Model.FlowOperateItem> newItemList)
         {
-            string dataId = newItemList.FirstOrDefault().DataId;
-            string menuId = newItemList.FirstOrDefault().MenuId;
-            string projectId = newItemList.FirstOrDefault().ProjectId;
-            if (!string.IsNullOrEmpty(dataId))
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                var getFlowOperateLists = (from x in Funs.DB.License_FlowOperate where x.DataId == dataId select x).ToList();
-                if (getFlowOperateLists.Count() == 0)
+                string dataId = newItemList.FirstOrDefault().DataId;
+                string menuId = newItemList.FirstOrDefault().MenuId;
+                string projectId = newItemList.FirstOrDefault().ProjectId;
+                if (!string.IsNullOrEmpty(dataId))
                 {
-                    var sysMenuFlowOperate = from x in Funs.DB.Sys_MenuFlowOperate
-                                             where x.MenuId == menuId
-                                             select x;
-                    if (sysMenuFlowOperate.Count() > 0)
+                    var getFlowOperateLists = (from x in db.License_FlowOperate where x.DataId == dataId select x).ToList();
+                    if (getFlowOperateLists.Count() == 0)
                     {
-                        foreach (var item in sysMenuFlowOperate)
+                        var sysMenuFlowOperate = from x in db.Sys_MenuFlowOperate
+                                                 where x.MenuId == menuId
+                                                 select x;
+                        if (sysMenuFlowOperate.Count() > 0)
                         {
-                            Model.License_FlowOperate newFlowOperate = new Model.License_FlowOperate
+                            foreach (var item in sysMenuFlowOperate)
                             {
-                                FlowOperateId = SQLHelper.GetNewID(),
-                                ProjectId = projectId,
-                                DataId = dataId,
-                                MenuId = item.MenuId,
-                                AuditFlowName = item.AuditFlowName,
-                                SortIndex = item.FlowStep,
-                                GroupNum = item.GroupNum,
-                                OrderNum = item.OrderNum,
-                                RoleIds = item.RoleId,
-                                IsFlowEnd = item.IsFlowEnd,
-                            };
-                            Funs.DB.License_FlowOperate.InsertOnSubmit(newFlowOperate);
-                            Funs.SubmitChanges();
+                                Model.License_FlowOperate newFlowOperate = new Model.License_FlowOperate
+                                {
+                                    FlowOperateId = SQLHelper.GetNewID(),
+                                    ProjectId = projectId,
+                                    DataId = dataId,
+                                    MenuId = item.MenuId,
+                                    AuditFlowName = item.AuditFlowName,
+                                    SortIndex = item.FlowStep,
+                                    GroupNum = item.GroupNum,
+                                    OrderNum = item.OrderNum,
+                                    RoleIds = item.RoleId,
+                                    IsFlowEnd = item.IsFlowEnd,
+                                };
+                                db.License_FlowOperate.InsertOnSubmit(newFlowOperate);
+                                db.SubmitChanges();
 
-                            getFlowOperateLists.Add(newFlowOperate);
+                                getFlowOperateLists.Add(newFlowOperate);
+                            }
                         }
                     }
-                }
 
-                foreach (var item in newItemList)
-                {
-                    var getUpdateNextFlow = getFlowOperateLists.FirstOrDefault(x => x.SortIndex == item.SortIndex && x.GroupNum == item.GroupNum && x.OrderNum == item.OrderNum);
-                    if (getUpdateNextFlow != null)
+                    foreach (var item in newItemList)
                     {
-                        getUpdateNextFlow.IsAgree = null;
-                        getUpdateNextFlow.Opinion = null;
-                        getUpdateNextFlow.OperaterTime = null;
-                        getUpdateNextFlow.OperaterId = item.OperaterId;
-                        Funs.SubmitChanges();
+                        var getUpdateNextFlow = getFlowOperateLists.FirstOrDefault(x => x.SortIndex == item.SortIndex && x.GroupNum == item.GroupNum && x.OrderNum == item.OrderNum);
+                        if (getUpdateNextFlow != null)
+                        {
+                            getUpdateNextFlow.IsAgree = null;
+                            getUpdateNextFlow.Opinion = null;
+                            getUpdateNextFlow.OperaterTime = null;
+                            getUpdateNextFlow.OperaterId = string.IsNullOrEmpty(item.OperaterId) ? null : item.OperaterId;
+                            db.SubmitChanges();
+                        }
                     }
                 }
             }

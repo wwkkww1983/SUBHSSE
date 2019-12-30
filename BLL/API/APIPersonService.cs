@@ -409,5 +409,40 @@ namespace BLL
             }
         }
         #endregion
+
+        #region 人员出入场
+        /// <summary>
+        /// 人员出入场
+        /// </summary>
+        /// <param name="projectId"></param>w
+        /// <param name="idCard"></param>
+        /// <param name="isIn"></param>
+        /// <param name="changeTime"></param>
+        public static void getPersonInOut(string projectId, string idCard, int isIn, DateTime changeTime)
+        {
+            if (!string.IsNullOrEmpty(idCard))
+            {
+                var getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(x =>x.ProjectId ==projectId && x.IdentityCard == idCard);
+                if (getPerson != null)
+                {
+                    var getPersonInOut = Funs.DB.SitePerson_PersonInOut.FirstOrDefault(x => x.PersonId == getPerson.PersonId && x.ProjectId == projectId && x.ChangeTime == changeTime);
+                    if (getPersonInOut == null)
+                    {
+                        Model.SitePerson_PersonInOut newInOut = new Model.SitePerson_PersonInOut
+                        {
+                            PersonInOutId = SQLHelper.GetNewID(),
+                            ProjectId = projectId,
+                            UnitId = getPerson.UnitId,
+                            PersonId = getPerson.PersonId,
+                            IsIn = isIn == 1 ? true : false,
+                            ChangeTime= changeTime,
+                        };
+                        Funs.DB.SitePerson_PersonInOut.InsertOnSubmit(newInOut);
+                        Funs.SubmitChanges();
+                    }
+                }
+            }
+        }
+        #endregion
     }
 }

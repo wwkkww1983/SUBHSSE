@@ -52,7 +52,16 @@ namespace BLL
             if (rainRecord != null)
             {
                 rainRecord.TrainPersonNum += 1;
-                EduTrain_TrainRecordService.UpdateTraining(rainRecord);
+                EduTrain_TrainRecordService.UpdateTraining(rainRecord);                
+            }
+            ///// 培训考试 通过 更新卡号
+            if (newTrainDetail.CheckResult)
+            {
+                var getPerson = PersonService.GetPersonById(trainDetail.PersonId);
+                if (getPerson != null && string.IsNullOrEmpty(getPerson.CardNo))
+                {
+                    getPerson.CardNo = SQLHelper.RunProcNewId("SpGetNewNumber", "SitePerson_Person", "CardNo", rainRecord.ProjectId, UnitService.GetUnitCodeByUnitId(getPerson.UnitId));
+                }
             }
         }
 

@@ -391,5 +391,19 @@ namespace BLL
             return getDataLists;
         }
         #endregion
+
+        #region 获取图片分类
+        /// <summary>
+        /// 获取图片分类
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getBase_LicenseType()
+        {
+            var getDataLists = (from x in Funs.DB.Base_LicenseType
+                                orderby x.LicenseTypeCode
+                                select new Model.BaseInfoItem { BaseInfoId = x.LicenseTypeId, BaseInfoCode = x.LicenseTypeCode, BaseInfoName = x.LicenseTypeName }).ToList();
+            return getDataLists;
+        }
+        #endregion
     }
 }

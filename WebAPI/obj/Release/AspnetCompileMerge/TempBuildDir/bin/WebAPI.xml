@@ -723,6 +723,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getLicenseType2">
+            <summary>
+              获取作业票类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.BaseInfoController.getSafetyMeasures(System.String)">
             <summary>
             获取作业票-安全措施
@@ -733,6 +739,12 @@
         <member name="M:WebAPI.Controllers.BaseInfoController.getPictureType">
             <summary>
               获取项目图片分类
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getSignType">
+            <summary>
+              获取标牌类型
             </summary>
             <returns></returns>
         </member>
@@ -1420,6 +1432,23 @@
             <param name="personId"></param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.PersonController.getPersonInOut(System.String,System.String,System.Int32,System.DateTime)">
+            <summary>
+            人员出入场
+            </summary>
+            <param name="projectId"></param>
+            <param name="idCard"></param>
+            <param name="isIn"></param>
+            <param name="changeTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PersonController.getPersonDataExchange(System.String)">
+            <summary>
+            获取人员
+            </summary>
+            <param name="projectId"></param>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.ProjectController">
             <summary>
             项目
@@ -1546,6 +1575,22 @@
             根据培训教材主键获取考试试题详细信息
             </summary>
             <param name="trainingItemId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.ResourcesController.getSignManageInfo(System.String)">
+            <summary>
+            根据signManageId获取标识标牌信息
+            </summary>
+            <param name="signManageId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.ResourcesController.getSignManageListQuery(System.String,System.String,System.Int32)">
+            <summary>
+            根据SignTypeId获取标识标牌信息-查询
+            </summary>
+            <param name="type"></param>
+            <param name="strParam"></param>
+            <param name="pageIndex"></param>
             <returns></returns>
         </member>
         <member name="T:WebAPI.Controllers.LawRulesRegulationsController">

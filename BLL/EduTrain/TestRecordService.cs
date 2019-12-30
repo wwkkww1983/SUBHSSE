@@ -108,7 +108,7 @@ namespace BLL
                 }
 
                 Funs.DB.Training_TestRecord.DeleteOnSubmit(testRecord);
-                Funs.DB.SubmitChanges();
+                Funs.SubmitChanges();
             }
         }
 
@@ -129,7 +129,7 @@ namespace BLL
                 {
                     item.TestEndTime = item.TestStartTime.Value.AddMinutes(item.Duration);
                     item.TestScores = Funs.DB.Training_TestRecordItem.Where(x => x.TestRecordId == item.TestRecordId).Sum(x => x.SubjectScore) ?? 0;
-                    Funs.DB.SubmitChanges();
+                    Funs.SubmitChanges();
                     icount++;                   
                 }
             }

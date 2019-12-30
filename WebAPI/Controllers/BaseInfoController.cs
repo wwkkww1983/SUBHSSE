@@ -707,6 +707,26 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+        #region  获取作业票类型（定稿）
+        /// <summary>
+        ///   获取作业票类型
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getLicenseType2()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getBase_LicenseType();
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
 
         #region 获取作业票-安全措施
         /// <summary>
@@ -741,6 +761,27 @@ namespace WebAPI.Controllers
             try
             {
                 responeData.data = APIBaseInfoService.getPictureType();
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 获取标牌类型
+        /// <summary>
+        ///   获取标牌类型
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getSignType()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getSysConst(ConstValue.Group_SignType);
             }
             catch (Exception ex)
             {

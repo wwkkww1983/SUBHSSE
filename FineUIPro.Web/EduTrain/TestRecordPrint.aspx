@@ -58,7 +58,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <table id="Table1" runat="server" width="95%" cellpadding="0" cellspacing="0" align="center"
+    <table id="Table1" runat="server" width="100%" cellpadding="0" cellspacing="0" align="center"
         border="0">
         <tr>
             <td style="width: 100%; background: url('../Images/bg-1.gif')">
@@ -82,44 +82,63 @@
         </tr>
         <tr>
             <td>
-                <table id="Table5" runat="server" width="100%" border="0" cellpadding="0" cellspacing="0">                                       
+                <table id="Table5" runat="server" width="100%" border="0" cellpadding="0" cellspacing="0"> 
+                    <tr style="height:32px">
+                        <td  align="center" >
+                             <table id="Table2" runat="server" width="100%" border="0" cellpadding="0" cellspacing="0"> 
+                                 <tr style="height:32px">
+                                     <td align="center" >
+                                          <asp:Label runat="server" ID="lbTitleName" Font-Bold="true" Font-Size="11"></asp:Label>
+                                    </td>
+                                </tr>
+                                <tr style="height:32px">
+                                    <td align="center" >
+                                        <asp:Label runat="server" ID="lbTestType" Font-Bold="true" Font-Size="11"></asp:Label>
+                                    </td>
+                                </tr>
+                                 <tr style="height:32px">
+                                    <td align="center" >                           
+                                        <asp:Label runat="server" ID="lbTestPerson" Font-Size="10"></asp:Label>
+                                    </td>
+                                </tr>
+                             </table>
+                        </td>
+                    </tr>                  
                     <tr>
-                        <td colspan="3">
+                        <td >
                             <asp:GridView ID="gvTest" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                                 HorizontalAlign="Center" Width="100%" OnDataBound="gvTest_DataBound">
                                 <AlternatingRowStyle CssClass="GridRow" />
-                                <Columns>
+                                <Columns>                                    
                                     <asp:TemplateField ItemStyle-HorizontalAlign="Left" ShowHeader="false" ItemStyle-Width="100%" 
-                                            ItemStyle-Font-Size="12" HeaderStyle-Font-Size="13"
-                                            ItemStyle-Height="35px" HeaderStyle-Height="60px" HeaderStyle-HorizontalAlign="Left">
+                                         HeaderStyle-Font-Size="10"  HeaderStyle-Height="25px" HeaderStyle-HorizontalAlign="Left">
                                         <HeaderTemplate><%=Namea%></HeaderTemplate>
-                                        <ItemTemplate>
-                                           <asp:Label  runat="server" ID="lbTestTypeName" Text='<%# Bind("TestTypeName") %>' Width="50px" Font-Bold="true"></asp:Label>
+                                            <ItemTemplate>                                           
                                             <asp:Label ID="labNumber" runat="server" Text=' <%# gvTest.PageIndex * gvTest.PageSize + Container.DataItemIndex + 1%>'
                                                 Width="20px" Font-Bold="true"></asp:Label>
                                             <asp:Label runat="server" ID="Abstracts" Text='<%# Bind("Abstracts") %>'></asp:Label>
-                                            <asp:Label runat="server" ID="TableCell9" Text='<%# Bind("SelectedItem") %>' Width="120px" ForeColor="#33cc33" Font-Size="13" Font-Bold="true"></asp:Label>
+                                            <%--<asp:Label runat="server" ID="TableCell9" Text='<%# Bind("SelectedItem") %>' Width="100px" ></asp:Label>--%>
                                             <asp:Table runat="server">
                                                  <asp:TableRow >       
-                                                     <asp:TableCell runat="server" ID="TableCell1" Text='<%# Bind("AItem") %>' ColumnSpan="4" Font-Size="12"></asp:TableCell>
+                                                     <asp:TableCell runat="server" ID="TableCell1" Text='<%# Bind("AItem") %>' ColumnSpan="4" ></asp:TableCell>
                                                       </asp:TableRow>
                                                  <asp:TableRow > 
-                                                     <asp:TableCell runat="server" ID="TableCell2" Text='<%# Bind("BItem") %>' ColumnSpan="4" Font-Size="12"></asp:TableCell>
+                                                     <asp:TableCell runat="server" ID="TableCell2" Text='<%# Bind("BItem") %>' ColumnSpan="4" ></asp:TableCell>
                                                       </asp:TableRow>
                                                  <asp:TableRow > 
-                                                     <asp:TableCell runat="server" ID="TableCell3" Text='<%# Bind("CItem") %>' ColumnSpan="4" Font-Size="12"></asp:TableCell>
+                                                     <asp:TableCell runat="server" ID="TableCell3" Text='<%# Bind("CItem") %>' ColumnSpan="4" ></asp:TableCell>
                                                       </asp:TableRow>
                                                  <asp:TableRow > 
-                                                     <asp:TableCell runat="server" ID="TableCell4" Text='<%# Bind("DItem") %>' ColumnSpan="4" Font-Size="12"></asp:TableCell>
+                                                     <asp:TableCell runat="server" ID="TableCell4" Text='<%# Bind("DItem") %>' ColumnSpan="4" ></asp:TableCell>
                                                       </asp:TableRow>
                                                  <asp:TableRow > 
-                                                     <asp:TableCell runat="server" ID="TableCell5" Text='<%# Bind("EItem") %>' ColumnSpan="4" Font-Size="12"></asp:TableCell>
+                                                     <asp:TableCell runat="server" ID="TableCell5" Text='<%# Bind("EItem") %>' ColumnSpan="4" ></asp:TableCell>
                                                 </asp:TableRow>
-                                                <asp:TableRow > 
-                                                    <asp:TableCell runat="server" ID="TableCell6" Text='<%# Bind("AnswerItems") %>' Width="120px" Font-Size="12" Font-Bold="true"></asp:TableCell>
-                                                    <asp:TableCell runat="server" ID="TableCell7" Text='<%# Bind("Score") %>' Width="100px" Font-Size="12" Font-Bold="true"></asp:TableCell>                                    
-                                                    <asp:TableCell runat="server" ID="TableCell8" Text='<%# Bind("SubjectScore") %>' Width="100px" Font-Size="12" Font-Bold="true"></asp:TableCell>
-                                                </asp:TableRow>
+                                               <%-- <asp:TableRow > 
+                                                    <asp:TableCell runat="server" ID="TableCell6" Text='<%# Bind("AnswerItems") %>' Width="120px"  Font-Bold="true"></asp:TableCell>
+                                                    <asp:TableCell runat="server" ID="TableCell7" Text='<%# Bind("Score") %>' Width="100px"  Font-Bold="true"></asp:TableCell>                                    
+                                                    <asp:TableCell runat="server" ID="TableCell8" Text='<%# Bind("SubjectScore") %>' Width="100px"  Font-Bold="true"></asp:TableCell>
+                                                </asp:TableRow>--%>
                                             </asp:Table>
                                         </ItemTemplate>
                                     </asp:TemplateField>                                    
@@ -129,15 +148,98 @@
                             </asp:GridView>
                         </td>
                     </tr>
-                    <tr style="height:100%">
-                        <td  align="center" style="width: 30%; border: 1px solid #000000;">
-                           <img alt="" runat="server" id="timg1" src="~/Images/Test_Null.jpg" width="200" height="200"/>
+                    <tr>
+                        <td >
+                            <asp:GridView ID="gvTest2" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+                                HorizontalAlign="Center" Width="100%" OnDataBound="gvTest2_DataBound">
+                                <AlternatingRowStyle CssClass="GridRow" />
+                                <Columns>                                    
+                                    <asp:TemplateField ItemStyle-HorizontalAlign="Left" ShowHeader="false" ItemStyle-Width="100%" 
+                                         HeaderStyle-Font-Size="10"  HeaderStyle-Height="25px" HeaderStyle-HorizontalAlign="Left">
+                                        <HeaderTemplate><%=Nameb%></HeaderTemplate>
+                                            <ItemTemplate>                                           
+                                            <asp:Label ID="labNumber" runat="server" Text=' <%# gvTest2.PageIndex * gvTest2.PageSize + Container.DataItemIndex + 1%>'
+                                                Width="20px" Font-Bold="true"></asp:Label>
+                                            <asp:Label runat="server" ID="Abstracts" Text='<%# Bind("Abstracts") %>'></asp:Label>
+                                            <%--<asp:Label runat="server" ID="TableCell9" Text='<%# Bind("SelectedItem") %>' Width="100px" ></asp:Label>--%>
+                                            <asp:Table runat="server">
+                                                 <asp:TableRow >       
+                                                     <asp:TableCell runat="server" ID="TableCell1" Text='<%# Bind("AItem") %>' ColumnSpan="4" ></asp:TableCell>
+                                                      </asp:TableRow>
+                                                 <asp:TableRow > 
+                                                     <asp:TableCell runat="server" ID="TableCell2" Text='<%# Bind("BItem") %>' ColumnSpan="4" ></asp:TableCell>
+                                                      </asp:TableRow>
+                                                 <asp:TableRow > 
+                                                     <asp:TableCell runat="server" ID="TableCell3" Text='<%# Bind("CItem") %>' ColumnSpan="4" ></asp:TableCell>
+                                                      </asp:TableRow>
+                                                 <asp:TableRow > 
+                                                     <asp:TableCell runat="server" ID="TableCell4" Text='<%# Bind("DItem") %>' ColumnSpan="4" ></asp:TableCell>
+                                                      </asp:TableRow>
+                                                 <asp:TableRow > 
+                                                     <asp:TableCell runat="server" ID="TableCell5" Text='<%# Bind("EItem") %>' ColumnSpan="4" ></asp:TableCell>
+                                                </asp:TableRow>
+                                               <%-- <asp:TableRow > 
+                                                    <asp:TableCell runat="server" ID="TableCell6" Text='<%# Bind("AnswerItems") %>' Width="120px"  Font-Bold="true"></asp:TableCell>
+                                                    <asp:TableCell runat="server" ID="TableCell7" Text='<%# Bind("Score") %>' Width="100px"  Font-Bold="true"></asp:TableCell>                                    
+                                                    <asp:TableCell runat="server" ID="TableCell8" Text='<%# Bind("SubjectScore") %>' Width="100px"  Font-Bold="true"></asp:TableCell>
+                                                </asp:TableRow>--%>
+                                            </asp:Table>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>                                    
+                                </Columns>
+                                <HeaderStyle CssClass="GridBgColr" />
+                                <RowStyle CssClass="GridRow" />
+                            </asp:GridView>
                         </td>
-                        <td  align="center" style="width: 30%;  border: 1px solid #000000;" >
-                            <img alt="" runat="server" id="timg2"  src="~/Images/Test_Null.jpg" width="200" height="200"/>
+                    </tr>
+                    <tr>
+                        <td >
+                            <asp:GridView ID="gvTest3" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+                                HorizontalAlign="Center" Width="100%" OnDataBound="gvTest3_DataBound">
+                                <AlternatingRowStyle CssClass="GridRow" />
+                                <Columns>                                    
+                                    <asp:TemplateField ItemStyle-HorizontalAlign="Left" ShowHeader="false" ItemStyle-Width="100%" 
+                                         HeaderStyle-Font-Size="10"  HeaderStyle-Height="25px" HeaderStyle-HorizontalAlign="Left">
+                                        <HeaderTemplate><%=Namec%></HeaderTemplate>
+                                            <ItemTemplate>                                           
+                                            <asp:Label ID="labNumber" runat="server" Text=' <%# gvTest3.PageIndex * gvTest3.PageSize + Container.DataItemIndex + 1%>'
+                                                Width="20px" Font-Bold="true"></asp:Label>
+                                            <asp:Label runat="server" ID="Abstracts" Text='<%# Bind("Abstracts") %>'></asp:Label>
+                                            <%--<asp:Label runat="server" ID="TableCell9" Text='<%# Bind("SelectedItem") %>' Width="100px" ></asp:Label>--%>
+                                            <asp:Table runat="server">
+                                                 <asp:TableRow >       
+                                                     <asp:TableCell runat="server" ID="TableCell1" Text='<%# Bind("AItem") %>' ColumnSpan="4" ></asp:TableCell>                                                     
+                                                     <asp:TableCell runat="server" ID="TableCell2" Text='<%# Bind("BItem") %>' ColumnSpan="4" ></asp:TableCell>
+                                                      </asp:TableRow>                                             
+                                               <%-- <asp:TableRow > 
+                                                    <asp:TableCell runat="server" ID="TableCell6" Text='<%# Bind("AnswerItems") %>' Width="120px"  Font-Bold="true"></asp:TableCell>
+                                                    <asp:TableCell runat="server" ID="TableCell7" Text='<%# Bind("Score") %>' Width="100px"  Font-Bold="true"></asp:TableCell>                                    
+                                                    <asp:TableCell runat="server" ID="TableCell8" Text='<%# Bind("SubjectScore") %>' Width="100px"  Font-Bold="true"></asp:TableCell>
+                                                </asp:TableRow>--%>
+                                            </asp:Table>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>                                    
+                                </Columns>
+                                <HeaderStyle CssClass="GridBgColr" />
+                                <RowStyle CssClass="GridRow" />
+                            </asp:GridView>
                         </td>
-                        <td  align="center" style="width: 30%; border: 1px solid #000000;" >
-                            <img alt="" runat="server" id="timg3" src="~/Images/Test_Null.jpg" width="200" height="200"/>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table id="Table3" runat="server" width="100%" border="0" cellpadding="0" cellspacing="0"> 
+                                 <tr>
+                                     <td  align="center" style="width: 33%; border: 1px solid #000000;">
+                                        <img alt="" runat="server" id="timg1" src="~/Images/Test_Null.jpg" width="200" height="200"/>
+                                    </td>
+                                    <td  align="center" style="width: 33%;  border: 1px solid #000000;" >
+                                        <img alt="" runat="server" id="timg2"  src="~/Images/Test_Null.jpg" width="200" height="200"/>
+                                    </td>
+                                    <td  align="center" style="width: 33%; border: 1px solid #000000;" >
+                                        <img alt="" runat="server" id="timg3" src="~/Images/Test_Null.jpg" width="200" height="200"/>
+                                    </td>
+                                    </tr>
+                            </table>
                         </td>
                     </tr>
                 </table>

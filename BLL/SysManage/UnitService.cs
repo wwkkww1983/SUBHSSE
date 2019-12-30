@@ -237,6 +237,22 @@ namespace BLL
             return name;
         }
 
+        /// <summary>
+        /// 获取单位编号
+        /// </summary>
+        /// <param name="UnitId"></param>
+        /// <returns></returns>
+        public static string GetUnitCodeByUnitId(string unitId)
+        {
+            string code = string.Empty;
+            var unit = Funs.DB.Base_Unit.FirstOrDefault(x => x.UnitId == unitId);
+            if (unit != null)
+            {
+                code = unit.UnitCode;
+            }
+            return code;
+        }
+
         #region 单位表下拉框
         /// <summary>
         ///  单位表下拉框

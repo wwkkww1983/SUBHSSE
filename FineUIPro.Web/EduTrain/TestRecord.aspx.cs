@@ -297,7 +297,7 @@ namespace FineUIPro.Web.EduTrain
                 Alert.ShowInTop("请选择一条记录！", MessageBoxIcon.Warning);
                 return;
             }
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("TestRecordPrint.aspx?TestRecordId={0}", Grid1.SelectedRowID, "编辑 - "), "考试试卷", 1000, 650));
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("TestRecordPrint.aspx?TestRecordId={0}", Grid1.SelectedRowID, "编辑 - "), "考试试卷", 900, 650));
         }
     }
 }

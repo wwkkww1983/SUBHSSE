@@ -46,10 +46,10 @@
                                                 EnableColumnLines="true" ClicksToEdit="2" DataIDField="Id" EnableRowDoubleClickEvent="true"
                                                 OnRowDoubleClick="GridNotice_RowDoubleClick" SortField="Date" SortDirection="DESC">
                                                 <Columns>
-                                                    <f:RenderField MinWidth="90px" ColumnID="Type" DataField="Type" FieldType="String"
+                                                    <f:RenderField Width="90px" ColumnID="Type" DataField="Type" FieldType="String"
                                                         HeaderText="类别" HeaderTextAlign="Center" TextAlign="Left">
                                                     </f:RenderField>
-                                                    <f:RenderField MinWidth="350px"  ColumnID="Name" DataField="Name" FieldType="String"
+                                                    <f:RenderField  ColumnID="Name" DataField="Name" FieldType="String"
                                                         HeaderText="名称" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
                                                     </f:RenderField>
                                                     <f:RenderField MinWidth="90px"  ColumnID="Date" DataField="Date" FieldType="Date" Renderer="Date"

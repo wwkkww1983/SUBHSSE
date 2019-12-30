@@ -448,5 +448,70 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region 人员出入场
+        /// <summary>
+        /// 人员出入场
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="idCard"></param>
+        /// <param name="isIn"></param>
+        /// <param name="changeTime"></param>
+        /// <returns></returns>
+        public Model.ResponeData getPersonInOut(string projectId, string idCard, int isIn,DateTime changeTime)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APIPersonService.getPersonInOut(projectId, idCard, isIn, changeTime);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 获取人员
+        /// <summary>
+        /// 获取人员
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getPersonDataExchange(string projectId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = from x in Funs.DB.SitePerson_Person
+                                   join y in Funs.DB.Base_Unit on x.UnitId equals y.UnitId
+                                   where x.ProjectId == projectId && !x.ExchangeTime.HasValue
+                                   && (!x.OutTime.HasValue || x.OutTime > DateTime.Now) && x.InTime < DateTime.Now
+                                   && x.IsUsed == true && x.CardNo != null
+                                   select new
+                                   {
+                                       x.PersonId,
+                                       x.PersonName,
+                                       x.CardNo,
+                                       x.IdentityCard,
+                                       x.UnitId,
+                                       y.UnitCode,
+                                       y.UnitName,
+                                       x.Sex,
+                                       Funs.DB.Base_WorkPost.First(z => z.WorkPostId == x.WorkPostId).WorkPostName,
+                                       x.Telephone,
+                                       x.Address,
+                                   };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
     }
 }

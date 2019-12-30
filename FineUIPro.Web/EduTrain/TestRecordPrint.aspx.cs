@@ -28,24 +28,42 @@ namespace FineUIPro.Web.EduTrain
         {
             if (!IsPostBack)
             {
+                var getThisUnit = BLL.CommonService.GetIsThisUnit();
+                if (getThisUnit != null)
+                {
+                    this.lbTitleName.Text = getThisUnit.UnitName + ProjectService.GetProjectNameByProjectId(this.CurrUser.LoginProjectId);
+                }
+                this.lbTestType.Text = "培训试题";
                 this.TestRecordId = Request.Params["TestRecordId"];
                 var testRecord = BLL.TestRecordService.GetTestRecordById(this.TestRecordId);
                 if (testRecord != null)
                 {
-                    if (!string.IsNullOrEmpty(testRecord.TestType))
+                    var getTrainTypeName = (from x in Funs.DB.Training_TestRecord
+                                 join y in Funs.DB.Training_TestPlan on x.TestPlanId equals y.TestPlanId
+                                 join z in Funs.DB.Training_Plan on y.PlanId equals z.PlanId
+                                 join t in Funs.DB.Base_TrainType on z.TrainTypeId equals t.TrainTypeId
+                                  where x.TestRecordId == this.TestRecordId
+                                 select t.TrainTypeName).FirstOrDefault();
+                    if (getTrainTypeName != null)
                     {
-                        this.Namea = testRecord.TestType + "          ";
+                        this.lbTestType.Text = getTrainTypeName + this.lbTestType.Text;
                     }
-                    var testMan = BLL.PersonService.GetPersonByUserId(testRecord.TestManId);
+                    string personInfo = string.Empty;
+                    var testMan = PersonService.GetPersonByUserId(testRecord.TestManId);
                     if (testMan != null)
                     {
-                        this.Namea += "考生：" + UnitService.GetUnitNameByUnitId(testMan.UnitId) + "  " + testMan.PersonName + "。              ";
+                        personInfo = "单位名称：" + UnitService.GetUnitNameByUnitId(testMan.UnitId) + "    " +
+                            "姓名：" + testMan.PersonName + "    " +
+                            "身份证号：" + testMan.IdentityCard + "    " +
+                            "工种/职务：" + WorkPostService.getWorkPostNamesWorkPostIds(testMan.WorkAreaId) + "    ";
                     }
-                    this.Namea += "时间：" + string.Format("{0:yyyy-MM-dd HH:mm}", testRecord.TestStartTime) + " 至 "+ string.Format("{0:yyyy-MM-dd HH:mm}", testRecord.TestEndTime)+"   ";
+                    //this.Namea += "时间：" + string.Format("{0:yyyy-MM-dd HH:mm}", testRecord.TestStartTime) + " 至 "+ string.Format("{0:yyyy-MM-dd HH:mm}", testRecord.TestEndTime)+"   ";
                     if (testRecord.TestScores.HasValue)
                     {
-                        this.Namea += "成绩：" + testRecord.TestScores.ToString() + "          ";
+                        personInfo += "分数：" + testRecord.TestScores.ToString() ;
                     }
+
+                    this.lbTestPerson.Text = personInfo;
                     var attachFile = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == this.TestRecordId);
                     if (attachFile != null && !string.IsNullOrEmpty(attachFile.AttachUrl))
                     {
@@ -62,37 +80,69 @@ namespace FineUIPro.Web.EduTrain
                             }
                             this.timg3.Src = "../" + listUrl[count - 1];
                         }
-                    }                   
+                    }
+
+                    var getTestPlan = Funs.DB.Training_TestPlan.FirstOrDefault(x => x.TestPlanId == testRecord.TestPlanId);
+                    if (getTestPlan != null)
+                    {
+                        int getA=0, getB=0, getC=0;
+                        var getTraining = from x in Funs.DB.Training_TestPlanTraining
+                                          where x.TestPlanId == getTestPlan.TestPlanId
+                                          select x;
+                        if (getTraining.Count() > 0)
+                        {
+                            getA = getTraining.Sum(x=> x.TestType1Count) ?? 0;
+                            getB = getTraining.Sum(x => x.TestType2Count) ?? 0;
+                            getC = getTraining.Sum(x => x.TestType3Count) ?? 0;
+                        }
+                        
+                        Namea += "（每题" + getTestPlan.SValue.ToString() + "分，共" + getTestPlan.SValue * getA + "分）";
+                        Nameb += "（每题" + getTestPlan.MValue.ToString() + "分，共" + getTestPlan.MValue * getB + "分）";
+                        Namec += "（每题" + getTestPlan.JValue.ToString() + "分，共" + getTestPlan.JValue * getC + "分）";
+                    }
                 }
-                this.BindGrid();
+                string sql = @"SELECT TestRecordItemId,TestRecordId,TrainingItemName,replace(replace(replace(replace(Abstracts,' ',''),'(','（'),')','）'),'（）',('（'+ISNULL(Replace(Replace(Replace(Replace(Replace(SelectedItem,'1','A'),'2', 'B'),'3', 'C'),'4', 'D'),'5', 'E'),'')+'）')) AS Abstracts,AttachUrl
+                            ,('A. '+AItem) AS AItem,('B. '+BItem) AS BItem,(CASE WHEN CItem IS NOT NULL THEN ('C. '+CItem) ELSE NULL END) AS CItem
+                            ,(CASE WHEN DItem IS NULL OR DItem='' THEN NULL ELSE 'D. '+DItem END) AS DItem,(CASE WHEN EItem IS NULL  OR EItem='' THEN NULL ELSE 'E. '+EItem END) AS EItem  
+                            ,('('+ISNULL(Replace(Replace(Replace(Replace(Replace(SelectedItem,'1','A'),'2', 'B'),'3', 'C'),'4', 'D'),'5', 'E'),'')+')') AS SelectedItem
+                            ,TestType,TrainingItemCode
+                             FROM Training_TestRecordItem WHERE TestRecordId= '" + this.TestRecordId + "'";
+
+                this.BindGrid(sql);
+                this.BindGrid2(sql);
+                this.BindGrid3(sql);
             }
         }
 
-        protected string Namea = string.Empty;
+        protected string Namea = "一、单项选择题  ";
+        protected string Nameb = "二、多项选择题  ";
+        protected string Namec = "三、判断题  ";
 
         /// <summary>
         /// 绑定数据
         /// </summary>
-        private void BindGrid()
+        private void BindGrid(string sql)
         {
-            string strSql = @"SELECT TestRecordItemId,TestRecordId,TrainingItemName,Abstracts,AttachUrl"
-                         + @",('A. '+AItem) AS AItem,('B. '+BItem) AS BItem,(CASE WHEN CItem IS NOT NULL THEN ('C. '+CItem) ELSE NULL END) AS CItem"
-                         + @",(CASE WHEN DItem IS NULL OR DItem='' THEN NULL ELSE 'D. '+DItem END) AS DItem,(CASE WHEN EItem IS NULL  OR EItem='' THEN NULL ELSE 'E. '+EItem END) AS EItem"
-                         + @",'答案：'+Replace(Replace(Replace(Replace(Replace(AnswerItems,'1','A'),'2', 'B'),'3', 'C'),'4', 'D'),'5', 'E') AS AnswerItems"
-                         + @" ,('分值：'+CAST(Score AS varchar(10))) AS Score,('得分：'+CAST(ISNULL(SubjectScore,0) AS varchar(10))) AS SubjectScore"
-                         + @",(' ( '+ ISNULL(Replace(Replace(Replace(Replace(Replace(SelectedItem,'1','A'),'2', 'B'),'3', 'C'),'4', 'D'),'5', 'E'),'_') +' )') AS SelectedItem"
-                         + @",TestType,TrainingItemCode,(CASE WHEN TestType = '1' THEN '单选题' WHEN TestType = '2' THEN '多选题' ELSE '判断题' END) AS TestTypeName"
-                         + @" FROM Training_TestRecordItem "
-                         + @" WHERE TestRecordId= '" + this.TestRecordId + "' ORDER BY TestType,TrainingItemCode";
-            List<SqlParameter> listStr = new List<SqlParameter>();           
-
-            SqlParameter[] parameter = listStr.ToArray();
-            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
-
-            gvTest.DataSource = tb;
+            gvTest.DataSource = SQLHelper.GetDataTableRunText(sql + " AND TestType= '1' ORDER BY TrainingItemCode", null);
             gvTest.DataBind();           
         }
+        /// <summary>
+        /// 绑定数据
+        /// </summary>
+        private void BindGrid2(string sql)
+        {
+            gvTest2.DataSource = SQLHelper.GetDataTableRunText(sql + " AND TestType= '2' ORDER BY TrainingItemCode", null); ;
+            gvTest2.DataBind();
+        }
 
+        /// <summary>
+        /// 绑定数据
+        /// </summary>
+        private void BindGrid3(string sql)
+        {
+            gvTest3.DataSource = SQLHelper.GetDataTableRunText(sql + " AND TestType= '3' ORDER BY TrainingItemCode", null); ; ;
+            gvTest3.DataBind();
+        }
         /// <summary>
         /// 在控件被绑定后激发
         /// </summary>
@@ -100,6 +150,22 @@ namespace FineUIPro.Web.EduTrain
         /// <param name="e"></param>
         protected void gvTest_DataBound(object sender, EventArgs e)
         {          
-        }        
+        }
+        /// <summary>
+        /// 在控件被绑定后激发
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void gvTest2_DataBound(object sender, EventArgs e)
+        {
+        }
+        /// <summary>
+        /// 在控件被绑定后激发
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void gvTest3_DataBound(object sender, EventArgs e)
+        {
+        }
     }
 }

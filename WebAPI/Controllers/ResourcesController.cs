@@ -261,5 +261,91 @@ namespace WebAPI.Controllers
         }
         #endregion
         #endregion
+
+        #region 根据signManageId获取标识标牌信息
+        /// <summary>
+        /// 根据signManageId获取标识标牌信息
+        /// </summary>
+        /// <param name="signManageId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getSignManageInfo(string signManageId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = from x in Funs.DB.Resources_SignManage
+                                   where x.SignManageId == signManageId
+                                   select new
+                                   {
+                                       x.SignManageId,
+                                       x.SignName,
+                                       x.SignCode,
+                                       x.SignLen,
+                                       x.SignWide,
+                                       x.SignHigh,
+                                       x.SignThick,
+                                       x.Material,
+                                       x.SignArea,
+                                       x.SignType,
+                                       x.SignImage,
+                                       AttachUrl = Funs.DB.AttachFile.First(z=>z.ToKeyId ==x.SignManageId).AttachUrl.Replace('\\', '/')
+                                   };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region 根据SignTypeId获取标识标牌信息-查询
+        /// <summary>
+        /// 根据SignTypeId获取标识标牌信息-查询
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="strParam"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns></returns>
+        public Model.ResponeData getSignManageListQuery(string type, string strParam, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                IQueryable<Model.Resources_SignManage> q = from x in Funs.DB.Resources_SignManage
+                                                            where x.SignType == type
+                                                            select x;
+                if (!string.IsNullOrEmpty(strParam))
+                {
+                    q = q.Where(x => x.SignName.Contains(strParam) || x.SignArea.Contains(strParam));
+                }
+                int pageCount = q.Count();
+                if (pageCount == 0)
+                {
+                    responeData.data = new { pageCount, q };
+                }
+                else
+                {
+                    var getDataList = from x in q.OrderBy(u => u.SignCode).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize)
+                                      select new
+                                      {
+                                          x.SignManageId,
+                                          x.SignName,
+                                          x.SignCode,
+                                          x.SignArea,
+                                      };
+                    responeData.data = new { pageCount, getDataList };
+                }
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
     }
 }
