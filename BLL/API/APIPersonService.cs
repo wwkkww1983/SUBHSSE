@@ -83,7 +83,11 @@ namespace BLL
                                 IsUsedName=x.IsUsed==false?"不启用":"启用",      
                                 AuditorId=x.AuditorId,
                                 AuditorName=x.AuditorName,
-                                AuditorDate= string.Format("{0:yyyy-MM-dd}", x.AuditorDate),
+                                AuditorDate= string.Format("{0:yyyy-MM-dd}", x.AuditorDate),                                
+                                AttachUrl1 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.PersonId + "#1")).AttachUrl.Replace('\\', '/'),
+                                AttachUrl2 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.PersonId + "#2")).AttachUrl.Replace('\\', '/'),
+                                AttachUrl3 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.PersonId + "#3")).AttachUrl.Replace('\\', '/'),
+                                AttachUrl4 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.PersonId + "#4")).AttachUrl.Replace('\\', '/'),
                             };
             return  getPerson.FirstOrDefault();
         }
@@ -346,7 +350,7 @@ namespace BLL
                 PersonService.AddPerson(newPerson);
             }
             else
-            {
+            {                
                 getPerson.ProjectId = person.ProjectId;
                 getPerson.CardNo = person.CardNo;
                 getPerson.PersonName = person.PersonName;
@@ -383,8 +387,41 @@ namespace BLL
                     getPerson.IsUsed = false;
                 }
                 PersonService.UpdatePerson(newPerson);
+
+                if (!string.IsNullOrEmpty(newPerson.PersonId))
+                {
+                    SaveMeetUrl(newPerson.PersonId, Const.ProjectPersonChangeMenuId, person.AttachUrl1, person.AttachUrl2, person.AttachUrl3, person.AttachUrl4);
+                }
             }
         }
+
+        #region 人员附件保存方法
+        /// <summary>
+        /// 人员附件保存方法
+        /// </summary>
+        public static void SaveMeetUrl(string personId, string menuId, string url1, string url2, string url3, string url4)
+        {
+            Model.ToDoItem toDoItem = new Model.ToDoItem
+            {
+                MenuId = menuId,
+                DataId = personId + "#1",
+                UrlStr = url1,
+            };
+            APIUpLoadFileService.SaveAttachUrl(toDoItem);           
+
+            toDoItem.DataId = personId + "#2";
+            toDoItem.UrlStr = url2;
+            APIUpLoadFileService.SaveAttachUrl(toDoItem);
+
+            toDoItem.DataId = personId + "#3";
+            toDoItem.UrlStr = url3;
+            APIUpLoadFileService.SaveAttachUrl(toDoItem);
+
+            toDoItem.DataId = personId + "#4";
+            toDoItem.UrlStr = url4;
+            APIUpLoadFileService.SaveAttachUrl(toDoItem);
+        }
+        #endregion
         #endregion
 
         #region 人员离场
@@ -441,6 +478,29 @@ namespace BLL
                         Funs.SubmitChanges();
                     }
                 }
+            }
+        }
+        #endregion
+
+        #region 更新人员数据交换时间
+        /// <summary>
+        /// 更新人员数据交换时间
+        /// </summary>
+        /// <param name="personId">人员ID</param>
+        public static void getUpdatePersonExchangeTime(string personId, string type)
+        {
+            var getPerson = PersonService.GetPersonById(personId);
+            if (getPerson != null && !string.IsNullOrEmpty(type))
+            {
+                if (type == "1")
+                {
+                    getPerson.ExchangeTime2 = DateTime.Now;
+                }
+                else
+                {
+                    getPerson.ExchangeTime = DateTime.Now;
+                }
+                Funs.SubmitChanges();
             }
         }
         #endregion

@@ -298,7 +298,10 @@ namespace FineUIPro.Web.SitePerson
             {
                 person.OutTime = Convert.ToDateTime(this.txtOutTime.Text.Trim());
             }
-            person.PhotoUrl = imgPhoto.ImageUrl;
+            if (imgPhoto.ImageUrl != "~/res/images/blank_150.png")
+            {
+                person.PhotoUrl = imgPhoto.ImageUrl;
+            }
             if (string.IsNullOrEmpty(PersonId))
             {
                 if (!string.IsNullOrEmpty(this.txtCardNo.Text.Trim()))

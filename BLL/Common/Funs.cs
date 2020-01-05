@@ -445,8 +445,8 @@ namespace BLL
         /// <returns></returns>
         public static string GetNewFileName()
         {
-            Random rm = new Random(System.Environment.TickCount);
-            return System.DateTime.Now.ToString("yyyyMMddhhmmss") + rm.Next(1000, 9999).ToString();
+            Random rm = new Random(Environment.TickCount);
+            return DateTime.Now.ToString("yyyyMMddhhmmss") + rm.Next(1000, 9999).ToString();
         }
 
         /// <summary>

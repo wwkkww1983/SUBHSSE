@@ -1434,7 +1434,7 @@
         </member>
         <member name="M:WebAPI.Controllers.PersonController.getPersonInOut(System.String,System.String,System.Int32,System.DateTime)">
             <summary>
-            人员出入场
+            获取人员出入场记录
             </summary>
             <param name="projectId"></param>
             <param name="idCard"></param>
@@ -1442,11 +1442,20 @@
             <param name="changeTime"></param>
             <returns></returns>
         </member>
-        <member name="M:WebAPI.Controllers.PersonController.getPersonDataExchange(System.String)">
+        <member name="M:WebAPI.Controllers.PersonController.getPersonDataExchange(System.String,System.String)">
             <summary>
-            获取人员
+            获取发卡人员
             </summary>
             <param name="projectId"></param>
+            <param name="type">0-门禁；1-人脸</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PersonController.getUpdatePersonExchangeTime(System.String,System.String)">
+            <summary>
+            更新人员数据交换时间
+            </summary>
+            <param name="personId">人员ID</param>
+            <param name="type">交换类型</param>
             <returns></returns>
         </member>
         <member name="T:WebAPI.Controllers.ProjectController">

@@ -73,8 +73,18 @@ namespace WebAPI.Controllers
                         }
                     }
 
-                    SitePersonNum = Funs.DB.SitePerson_Person.Where(x => x.ProjectId == projectId && x.IsUsed == true && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)).Count();
-                    
+                    var getPersonInOut = Funs.DB.SitePerson_PersonInOut.Where(x => x.ProjectId == projectId && x.ChangeTime.Value.Year == DateTime.Now.Year && x.ChangeTime.Value.Month == DateTime.Now.Month && x.ChangeTime.Value.Day == DateTime.Now.Day);
+                    if (getPersonInOut.Count() > 0)
+                    {
+                        int incount = getPersonInOut.Where(x => x.IsIn == true).Count();
+                        int outcount = getPersonInOut.Where(x => x.IsIn == false).Count();
+                        SitePersonNum = incount - outcount;
+                        if (SitePersonNum < 0)
+                        {
+                            SitePersonNum = 0;
+                        }
+                    }
+
                     string hiddenStr = RectificationNum.ToString() + "/" + HiddenDangerNum.ToString();
                     responeData.data = new { ProjectData, SafeDayCount, SafeHours, SitePersonNum, SpecialEquipmentNum, EntryTrainingNum, hiddenStr, RiskI, RiskII, RiskIII, RiskIV, RiskV };
                 }

@@ -209,6 +209,8 @@ namespace BLL
                 DepartId = person.DepartId,
                 FromPersonId =person.FromPersonId,
                 Password= GetPersonPassWord(person.IdentityCard),
+                AuditorId=person.AuditorId,
+                AuditorDate = person.AuditorDate,
             };          
 
             if (person.InTime.HasValue)
@@ -281,6 +283,14 @@ namespace BLL
                 newPerson.DepartId = person.DepartId;
                 newPerson.QRCodeAttachUrl = person.QRCodeAttachUrl;
                 newPerson.Password = GetPersonPassWord(person.IdentityCard);
+                if (!string.IsNullOrEmpty(person.AuditorId))
+                {
+                    newPerson.AuditorId = person.AuditorId;
+                }
+                if (person.AuditorDate.HasValue)
+                {
+                    newPerson.AuditorDate = person.AuditorDate;
+                }
                 db.SubmitChanges();
 
                 ///写入人员出入场时间表 

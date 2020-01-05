@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL
 {
@@ -92,7 +90,7 @@ namespace BLL
             if (false == System.IO.Directory.Exists(subPath))
             {
                 //创建pic文件夹
-                System.IO.Directory.CreateDirectory(subPath);
+                Directory.CreateDirectory(subPath);
             }
             string filepath = @"d:\imgs\" + newfilename;
             try

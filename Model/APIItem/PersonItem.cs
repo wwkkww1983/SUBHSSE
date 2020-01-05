@@ -127,5 +127,38 @@ namespace Model
         /// 审核时间
         /// </summary>
         public string AuditorDate { get; set; }
+
+        /// <summary>
+        /// 身份证 附件
+        /// </summary>
+        public string AttachUrl1
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 保险附件
+        /// </summary>
+        public string AttachUrl2
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 体检证明
+        /// </summary>
+        public string AttachUrl3
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 安全生产考核合格证书/特种作业操作证
+        /// </summary>
+        public string AttachUrl4
+        {
+            get;
+            set;
+        }
     }
 }

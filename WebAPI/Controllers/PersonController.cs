@@ -449,9 +449,9 @@ namespace WebAPI.Controllers
         }
         #endregion
 
-        #region 人员出入场
+        #region 获取人员出入场记录
         /// <summary>
-        /// 人员出入场
+        /// 获取人员出入场记录
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="idCard"></param>
@@ -474,20 +474,22 @@ namespace WebAPI.Controllers
         }
         #endregion
 
-        #region 获取人员
+        #region 获取发卡人员
         /// <summary>
-        /// 获取人员
+        /// 获取发卡人员
         /// </summary>
         /// <param name="projectId"></param>
+        /// <param name="type">0-门禁；1-人脸</param>
         /// <returns></returns>
-        public Model.ResponeData getPersonDataExchange(string projectId)
+        public Model.ResponeData getPersonDataExchange(string projectId, string type)
         {
             var responeData = new Model.ResponeData();
             try
             {
                 responeData.data = from x in Funs.DB.SitePerson_Person
                                    join y in Funs.DB.Base_Unit on x.UnitId equals y.UnitId
-                                   where x.ProjectId == projectId && !x.ExchangeTime.HasValue
+                                   where x.ProjectId == projectId
+                                   && ((type =="0" && !x.ExchangeTime.HasValue) || (type =="1" && !x.ExchangeTime2.HasValue))
                                    && (!x.OutTime.HasValue || x.OutTime > DateTime.Now) && x.InTime < DateTime.Now
                                    && x.IsUsed == true && x.CardNo != null
                                    select new
@@ -503,7 +505,33 @@ namespace WebAPI.Controllers
                                        Funs.DB.Base_WorkPost.First(z => z.WorkPostId == x.WorkPostId).WorkPostName,
                                        x.Telephone,
                                        x.Address,
+                                       x.ExchangeTime,
+                                       x.ExchangeTime2,
+                                       PhotoUrl=  x.PhotoUrl==null? Funs.DB.AttachFile.First(z => z.ToKeyId == (x.PersonId+"#1")).AttachUrl:x.PhotoUrl,
                                    };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 更新人员数据交换时间
+        /// <summary>
+        /// 更新人员数据交换时间
+        /// </summary>
+        /// <param name="personId">人员ID</param>
+        /// <param name="type">交换类型</param>
+        /// <returns></returns>
+        public Model.ResponeData getUpdatePersonExchangeTime(string personId, string type)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APIPersonService.getUpdatePersonExchangeTime(personId, type);
             }
             catch (Exception ex)
             {
