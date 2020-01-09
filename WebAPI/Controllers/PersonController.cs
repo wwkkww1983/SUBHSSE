@@ -205,7 +205,7 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
-
+        
         #region 根据identityCard获取人员资质信息
         /// <summary>
         /// 根据identityCard获取人员资质信息
@@ -427,6 +427,38 @@ namespace WebAPI.Controllers
         }
         #endregion
 
+        #region 更新人员更新附件
+        /// <summary>
+        /// 更新人员更新附件
+        /// </summary>
+        /// <param name="person">人员信息</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData SaveSitePersonAttachment([FromBody] Model.PersonItem person)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                if (person != null)
+                {
+                    APIPersonService.SaveSitePersonAttachment(person);
+                }
+                else
+                {
+                    responeData.code = 2;
+                    responeData.message = "人员附件信息有误！";
+                }
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
         #region 人员离场
         /// <summary>
         /// 人员离场
@@ -479,9 +511,8 @@ namespace WebAPI.Controllers
         /// 获取发卡人员
         /// </summary>
         /// <param name="projectId"></param>
-        /// <param name="type">0-门禁；1-人脸</param>
         /// <returns></returns>
-        public Model.ResponeData getPersonDataExchange(string projectId, string type)
+        public Model.ResponeData getPersonDataExchange(string projectId)
         {
             var responeData = new Model.ResponeData();
             try
@@ -489,8 +520,8 @@ namespace WebAPI.Controllers
                 responeData.data = from x in Funs.DB.SitePerson_Person
                                    join y in Funs.DB.Base_Unit on x.UnitId equals y.UnitId
                                    where x.ProjectId == projectId
-                                   && ((type =="0" && !x.ExchangeTime.HasValue) || (type =="1" && !x.ExchangeTime2.HasValue))
-                                   && (!x.OutTime.HasValue || x.OutTime > DateTime.Now) && x.InTime < DateTime.Now
+                                   && !x.ExchangeTime.HasValue
+                                   && (!x.OutTime.HasValue || x.OutTime > DateTime.Now) && x.InTime.HasValue && x.InTime < DateTime.Now
                                    && x.IsUsed == true && x.CardNo != null
                                    select new
                                    {
@@ -507,7 +538,39 @@ namespace WebAPI.Controllers
                                        x.Address,
                                        x.ExchangeTime,
                                        x.ExchangeTime2,
-                                       PhotoUrl=  x.PhotoUrl==null? Funs.DB.AttachFile.First(z => z.ToKeyId == (x.PersonId+"#1")).AttachUrl:x.PhotoUrl,
+                                       PhotoUrl = (x.PhotoUrl == null || x.PhotoUrl =="") ? x.IDCardUrl : x.PhotoUrl,
+                                   };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 获取离场人员
+        /// <summary>
+        /// 获取离场人员
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getPersonOutDataExchange(string projectId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = from x in Funs.DB.SitePerson_Person
+                                   where x.ProjectId == projectId && x.InTime.HasValue && ((x.IsUsed == true && !x.OutTime.HasValue) || x.OutTime.HasValue)
+                                    && x.InTime < DateTime.Now && x.CardNo != null && !x.ExchangeTime2.HasValue
+                                   select new
+                                   {
+                                       x.PersonId,
+                                       x.PersonName,
+                                       x.CardNo,
+                                       x.IdentityCard,
+                                       OutTime = x.OutTime == null ? DateTime.Now.AddYears(10) : x.OutTime,
                                    };
             }
             catch (Exception ex)

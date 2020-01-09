@@ -148,7 +148,7 @@ namespace FineUIPro.Web.SitePerson
                         {
                             this.txtOutTime.Text = string.Format("{0:yyyy-MM-dd}", person.OutTime);
                         }
-                        imgPhoto.ImageUrl = person.PhotoUrl;
+                        imgPhoto.ImageUrl = "../" + person.PhotoUrl;
                     }
 
                     var personQuality = BLL.PersonQualityService.GetPersonQualityByPersonId(this.PersonId);
@@ -298,9 +298,13 @@ namespace FineUIPro.Web.SitePerson
             {
                 person.OutTime = Convert.ToDateTime(this.txtOutTime.Text.Trim());
             }
-            if (imgPhoto.ImageUrl != "~/res/images/blank_150.png")
+            if (!string.IsNullOrEmpty(imgPhoto.ImageUrl) && imgPhoto.ImageUrl != "~/res/images/blank_150.png")
             {
-                person.PhotoUrl = imgPhoto.ImageUrl;
+                person.PhotoUrl = imgPhoto.ImageUrl.Replace("../", "");
+            }
+            else
+            {
+                person.PhotoUrl = null;
             }
             if (string.IsNullOrEmpty(PersonId))
             {
@@ -404,7 +408,7 @@ namespace FineUIPro.Web.SitePerson
                 fileName = fileName.Replace(":", "_").Replace(" ", "_").Replace("\\", "_").Replace("/", "_");
                 fileName = DateTime.Now.Ticks.ToString() + "_" + fileName;
                 filePhoto.SaveAs(Server.MapPath("~/upload/" + fileName));
-                imgPhoto.ImageUrl = "~/upload/" + fileName;
+                imgPhoto.ImageUrl = "../upload/" + fileName;
                 // 清空文件上传组件
                 filePhoto.Reset();
             }

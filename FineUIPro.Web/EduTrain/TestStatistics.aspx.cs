@@ -46,7 +46,7 @@ namespace FineUIPro.Web.EduTrain
                         + @" ON person.PersonId=TestCount.TestManId"
                         + @" LEFT JOIN (SELECT COUNT(TestRecordId) AS TestQualifyCount,TestManId  FROM Training_TestRecord WHERE TestScores< 60 GROUP BY TestManId) AS TestQualifyCount"
                         + @" ON person.PersonId=TestQualifyCount.TestManId"
-                        + @" WHERE PersonId <> '" + BLL.Const.sysglyId + "'";
+                        + @" WHERE PersonId <> '" + BLL.Const.sysglyId + "' and person.projectid='" + this.CurrUser.LoginProjectId + "'";
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtName.Text.Trim()))
             {

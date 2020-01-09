@@ -41,7 +41,8 @@ namespace FineUIPro.Web.EduTrain
             string strSql = @"SELECT Task.TaskId,Task.PlanId,Task.UserId,Task.TaskDate,(CASE Task.States WHEN '0' THEN '未响应' WHEN '1' THEN '已响应' WHEN '2' THEN '已完成' ELSE '' END) AS States,Plans.PlanName,Person.PersonName"
                           + @" FROM dbo.Training_Task AS Task "
                           + @" LEFT JOIN dbo.Training_Plan AS Plans ON Plans.PlanId=Task.PlanId"
-                          + @" LEFT JOIN dbo.SitePerson_Person AS Person ON Person.PersonId = Task.UserId WHERE 1=1 ";
+                          + @" LEFT JOIN dbo.SitePerson_Person AS Person ON Person.PersonId = Task.UserId "
+                          + @" WHERE Task.ProjectId='" + this.CurrUser.LoginProjectId + "'";
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtName.Text.Trim()))
             {

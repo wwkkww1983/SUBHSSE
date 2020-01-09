@@ -54,7 +54,7 @@ namespace BLL
         {
             var getPerson = from x in Funs.DB.View_SitePerson_Person
                             where x.PersonId == personId || x.IdentityCard == personId
-                            select new Model.PersonItem 
+                            select new Model.PersonItem
                             {
                                 PersonId = x.PersonId,
                                 CardNo = x.CardNo,
@@ -79,12 +79,12 @@ namespace BLL
                                 Telephone = x.Telephone,
                                 PhotoUrl = x.PhotoUrl,
                                 DepartName = x.DepartName,
-                                IsUsed= x.IsUsed,
-                                IsUsedName=x.IsUsed==false?"不启用":"启用",      
-                                AuditorId=x.AuditorId,
-                                AuditorName=x.AuditorName,
-                                AuditorDate= string.Format("{0:yyyy-MM-dd}", x.AuditorDate),                                
-                                AttachUrl1 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.PersonId + "#1")).AttachUrl.Replace('\\', '/'),
+                                IsUsed = x.IsUsed,
+                                IsUsedName = x.IsUsed == false ? "不启用" : "启用",
+                                AuditorId = x.AuditorId,
+                                AuditorName = x.AuditorName,
+                                AuditorDate = string.Format("{0:yyyy-MM-dd}", x.AuditorDate),
+                                AttachUrl1 = x.IDCardUrl == null ? Funs.DB.AttachFile.First(z => z.ToKeyId == (x.PersonId + "#1")).AttachUrl.Replace('\\', '/') : x.IDCardUrl.Replace('\\', '/'),
                                 AttachUrl2 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.PersonId + "#2")).AttachUrl.Replace('\\', '/'),
                                 AttachUrl3 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.PersonId + "#3")).AttachUrl.Replace('\\', '/'),
                                 AttachUrl4 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.PersonId + "#4")).AttachUrl.Replace('\\', '/'),
@@ -304,90 +304,111 @@ namespace BLL
         /// <param name="person">人员信息</param>
         public static void SaveSitePerson(Model.PersonItem person)
         {
-            Model.SitePerson_Person newPerson = new Model.SitePerson_Person
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                PersonId = person.PersonId,
-                ProjectId = person.ProjectId,
-                CardNo = person.CardNo,
-                PersonName = person.PersonName,
-                IdentityCard = person.IdentityCard,
-                Address = person.Address,
-                UnitId = person.UnitId,
-                OutResult = person.OutResult,
-                Telephone = person.Telephone,
-                PhotoUrl = person.PhotoUrl,
-                InTime = Funs.GetNewDateTime(person.InTime),
-                OutTime = Funs.GetNewDateTime(person.OutTime),    
-                AuditorId=person.AuditorId,
-                AuditorDate = Funs.GetNewDateTime(person.AuditorDate),
-                Sex = person.Sex,
-            };
-            if (!string.IsNullOrEmpty(person.TeamGroupId))
-            {
-                newPerson.TeamGroupId = person.TeamGroupId;
-            }
-            if (!string.IsNullOrEmpty(person.WorkPostId))
-            {
-                newPerson.WorkPostId = person.WorkPostId;
-            }
-            if (!string.IsNullOrEmpty(person.WorkAreaId))
-            {
-                newPerson.WorkAreaId = person.WorkAreaId;
-            }
-            if (person.IsUsed == true)
-            {
-                newPerson.IsUsed = true;
-            }
-            else
-            {
-                newPerson.IsUsed = false;
-            }
-
-            var getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.IdentityCard == newPerson.IdentityCard || x.PersonId== newPerson.PersonId);
-            if (getPerson == null)
-            {
-                newPerson.PersonId = SQLHelper.GetNewID(typeof(Model.SitePerson_Person));
-                PersonService.AddPerson(newPerson);
-            }
-            else
-            {                
-                getPerson.ProjectId = person.ProjectId;
-                getPerson.CardNo = person.CardNo;
-                getPerson.PersonName = person.PersonName;
-                getPerson.IdentityCard = person.IdentityCard;
-                getPerson.Address = person.Address;
-                getPerson.UnitId = person.UnitId;
-                getPerson.OutResult = person.OutResult;
-                getPerson.Telephone = person.Telephone;
-                getPerson.PhotoUrl = person.PhotoUrl;
-                getPerson.InTime = Funs.GetNewDateTime(person.InTime);
-                getPerson.OutTime = Funs.GetNewDateTime(person.OutTime);             
-                getPerson.Sex = person.Sex;
-                getPerson.AuditorId = person.AuditorId;
-                getPerson.AuditorDate = Funs.GetNewDateTime(person.AuditorDate);
-
+                Model.SitePerson_Person newPerson = new Model.SitePerson_Person
+                {
+                    PersonId = person.PersonId,
+                    ProjectId = person.ProjectId,
+                    CardNo = person.CardNo,
+                    PersonName = person.PersonName,
+                    IdentityCard = person.IdentityCard,
+                    Address = person.Address,
+                    UnitId = person.UnitId,
+                    OutResult = person.OutResult,
+                    Telephone = person.Telephone,
+                    PhotoUrl = person.PhotoUrl,
+                    IDCardUrl = person.AttachUrl1,
+                    InTime = Funs.GetNewDateTime(person.InTime),
+                    OutTime = Funs.GetNewDateTime(person.OutTime),
+                    AuditorId = person.AuditorId,
+                    // AuditorDate = Funs.GetNewDateTime(person.AuditorDate),
+                    Sex = person.Sex,
+                };
                 if (!string.IsNullOrEmpty(person.TeamGroupId))
                 {
-                    getPerson.TeamGroupId = person.TeamGroupId;
+                    newPerson.TeamGroupId = person.TeamGroupId;
                 }
                 if (!string.IsNullOrEmpty(person.WorkPostId))
                 {
-                    getPerson.WorkPostId = person.WorkPostId;
+                    newPerson.WorkPostId = person.WorkPostId;
                 }
                 if (!string.IsNullOrEmpty(person.WorkAreaId))
                 {
-                    getPerson.WorkAreaId = person.WorkAreaId;
+                    newPerson.WorkAreaId = person.WorkAreaId;
                 }
                 if (person.IsUsed == true)
                 {
-                    getPerson.IsUsed = true;
+                    newPerson.IsUsed = true;
                 }
                 else
                 {
-                    getPerson.IsUsed = false;
+                    newPerson.IsUsed = false;
                 }
-                PersonService.UpdatePerson(newPerson);
 
+                var getPerson = db.SitePerson_Person.FirstOrDefault(x => x.IdentityCard == newPerson.IdentityCard || x.PersonId == newPerson.PersonId);
+                if (getPerson == null)
+                {
+                    newPerson.PersonId = SQLHelper.GetNewID(typeof(Model.SitePerson_Person));
+                    db.SitePerson_Person.InsertOnSubmit(newPerson);
+                    db.SubmitChanges();
+                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.PersonListMenuId, person.ProjectId, person.UnitId, person.PersonId, newPerson.InTime);
+                }
+                else
+                {
+                    newPerson.PersonId = getPerson.PersonId;
+                    getPerson.ProjectId = person.ProjectId;
+                    getPerson.CardNo = person.CardNo;
+                    getPerson.PersonName = person.PersonName;
+                    getPerson.IdentityCard = person.IdentityCard;
+                    getPerson.Address = person.Address;
+                    getPerson.UnitId = person.UnitId;
+                    getPerson.OutResult = person.OutResult;
+                    getPerson.Telephone = person.Telephone;
+                    if (!string.IsNullOrEmpty(person.PhotoUrl))
+                    {
+                        getPerson.PhotoUrl = person.PhotoUrl;
+                    }
+                    if (!string.IsNullOrEmpty(person.AttachUrl1))
+                    {
+                        getPerson.IDCardUrl = person.AttachUrl1;
+                    }
+                    getPerson.InTime = Funs.GetNewDateTime(person.InTime);
+                    getPerson.OutTime = Funs.GetNewDateTime(person.OutTime);
+                    getPerson.Sex = person.Sex;
+                    getPerson.AuditorId = person.AuditorId;
+                    //getPerson.AuditorDate = Funs.GetNewDateTime(person.AuditorDate);
+                    if (!string.IsNullOrEmpty(person.TeamGroupId))
+                    {
+                        getPerson.TeamGroupId = person.TeamGroupId;
+                    }
+                    if (!string.IsNullOrEmpty(person.WorkPostId))
+                    {
+                        getPerson.WorkPostId = person.WorkPostId;
+                    }
+                    if (!string.IsNullOrEmpty(person.WorkAreaId))
+                    {
+                        getPerson.WorkAreaId = person.WorkAreaId;
+                    }
+                    if (person.IsUsed == true)
+                    {
+                        getPerson.IsUsed = true;
+                        getPerson.AuditorDate = DateTime.Now;
+                        if (!newPerson.OutTime.HasValue)
+                        {
+                            getPerson.OutTime = null;
+                            getPerson.ExchangeTime = null;
+                        }
+                    }
+                    else
+                    {
+                        getPerson.IsUsed = false;
+                        getPerson.AuditorDate = null;
+                    }
+
+                    getPerson.ExchangeTime2 = null;
+                    db.SubmitChanges();
+                }
                 if (!string.IsNullOrEmpty(newPerson.PersonId))
                 {
                     SaveMeetUrl(newPerson.PersonId, Const.ProjectPersonChangeMenuId, person.AttachUrl1, person.AttachUrl2, person.AttachUrl3, person.AttachUrl4);
@@ -407,22 +428,54 @@ namespace BLL
                 DataId = personId + "#1",
                 UrlStr = url1,
             };
-            APIUpLoadFileService.SaveAttachUrl(toDoItem);           
+            if (!string.IsNullOrEmpty(url1))
+            {
+                APIUpLoadFileService.SaveAttachUrl(toDoItem);
+            }
 
             toDoItem.DataId = personId + "#2";
             toDoItem.UrlStr = url2;
-            APIUpLoadFileService.SaveAttachUrl(toDoItem);
+            if (!string.IsNullOrEmpty(url2))
+            {
+                APIUpLoadFileService.SaveAttachUrl(toDoItem);
+            }
 
             toDoItem.DataId = personId + "#3";
             toDoItem.UrlStr = url3;
-            APIUpLoadFileService.SaveAttachUrl(toDoItem);
+            if (!string.IsNullOrEmpty(url3))
+            {
+                APIUpLoadFileService.SaveAttachUrl(toDoItem);
+            }
 
             toDoItem.DataId = personId + "#4";
             toDoItem.UrlStr = url4;
-            APIUpLoadFileService.SaveAttachUrl(toDoItem);
+            if (!string.IsNullOrEmpty(url4))
+            { APIUpLoadFileService.SaveAttachUrl(toDoItem); }
         }
         #endregion
         #endregion
+
+        /// <summary>
+        /// 更新人员附件
+        /// </summary>
+        /// <param name="person"></param>
+        public static void SaveSitePersonAttachment(Model.PersonItem person)
+        {
+            var getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.IdentityCard == person.IdentityCard || x.PersonId == person.PersonId);
+            if (getPerson != null)
+            {
+                if (!string.IsNullOrEmpty(person.PhotoUrl))
+                {
+                    getPerson.PhotoUrl = person.PhotoUrl;
+                }
+                if (!string.IsNullOrEmpty(person.AttachUrl1))
+                {
+                    getPerson.IDCardUrl = person.AttachUrl1;
+                }
+                Funs.SubmitChanges();
+                SaveMeetUrl(getPerson.PersonId, Const.ProjectPersonChangeMenuId, person.AttachUrl1, person.AttachUrl2, person.AttachUrl3, person.AttachUrl4);
+            }
+        }
 
         #region 人员离场
         /// <summary>

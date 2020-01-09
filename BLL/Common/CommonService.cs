@@ -391,17 +391,19 @@ namespace BLL
         /// <param name="lawRegulationId"></param>
         public static void DeleteAttachFileById(string id)
         {
-            Model.SUBHSSEDB db = Funs.DB;
-            Model.AttachFile attachFile = db.AttachFile.FirstOrDefault(e => e.ToKeyId == id);
-            if (attachFile != null)
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                if (!string.IsNullOrEmpty(attachFile.AttachUrl))
+                Model.AttachFile attachFile = db.AttachFile.FirstOrDefault(e => e.ToKeyId == id);
+                if (attachFile != null)
                 {
-                    BLL.UploadFileService.DeleteFile(Funs.RootPath, attachFile.AttachUrl);
-                }
+                    if (!string.IsNullOrEmpty(attachFile.AttachUrl))
+                    {
+                        UploadFileService.DeleteFile(Funs.RootPath, attachFile.AttachUrl);
+                    }
 
-                db.AttachFile.DeleteOnSubmit(attachFile);
-                db.SubmitChanges();
+                    db.AttachFile.DeleteOnSubmit(attachFile);
+                    db.SubmitChanges();
+                }
             }
         }
 

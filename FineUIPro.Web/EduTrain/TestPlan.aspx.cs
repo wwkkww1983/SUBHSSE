@@ -41,7 +41,8 @@ namespace FineUIPro.Web.EduTrain
             string strSql = @"SELECT TestPlan.TestPlanId,TestPlan.PlanName,TestPlan.PlanCode,TestPlan.PlanManId,PlanMan.UserName AS PlanManName,TestPlan.PlanDate,TestPlan.TestStartTime,TestPlan.TestEndTime,TestPlan.Duration,TestPlan.TotalScore,TestPlan.QuestionCount,TestPlan.TestPalce,TestPlan.UnitIds,TestPlan.UnitNames,TestPlan.DepartIds,TestPlan.DepartNames,TestPlan.WorkPostIds,TestPlan.WorkPostNames,TestPlan.QRCodeUrl,TestPlan.States"
                           + @" ,(CASE WHEN TestPlan.States='1' THEN '已发布未考试'  WHEN TestPlan.States='2' THEN '考试中' WHEN TestPlan.States='3' THEN '考试结束' WHEN TestPlan.States='-1' THEN '已作废' ELSE '待提交' END) AS StatesName"
                           + @" FROM dbo.Training_TestPlan AS TestPlan"
-                          + @" LEFT JOIN Sys_User AS PlanMan ON TestPlan.PlanManId= PlanMan.UserId WHERE 1=1 ";
+                          + @" LEFT JOIN Sys_User AS PlanMan ON TestPlan.PlanManId= PlanMan.UserId "
+                          + @" WHERE TestPlan.ProjectId='" + this.CurrUser.LoginProjectId+"'";
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtName.Text.Trim()))
             {

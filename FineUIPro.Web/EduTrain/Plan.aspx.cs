@@ -43,7 +43,7 @@ namespace FineUIPro.Web.EduTrain
                                      Users.UserName AS DesignerName,WorkPostNames"
                              + @" FROM dbo.Training_Plan AS Plans "
                              + @" LEFT JOIN Sys_User AS Users ON Users.UserId = Plans.DesignerId "
-                             + @" WHERE 1=1";
+                             + @" WHERE Plans.ProjectId='" + this.CurrUser.LoginProjectId + "'";
             List<SqlParameter> listStr = new List<SqlParameter>();
 
             if (!string.IsNullOrEmpty(this.txtName.Text.Trim()))

@@ -1425,6 +1425,13 @@
             <param name="person">人员信息</param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.PersonController.SaveSitePersonAttachment(Model.PersonItem)">
+            <summary>
+            更新人员更新附件
+            </summary>
+            <param name="person">人员信息</param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.PersonController.getPersonOut(System.String)">
             <summary>
             人员离场
@@ -1442,12 +1449,18 @@
             <param name="changeTime"></param>
             <returns></returns>
         </member>
-        <member name="M:WebAPI.Controllers.PersonController.getPersonDataExchange(System.String,System.String)">
+        <member name="M:WebAPI.Controllers.PersonController.getPersonDataExchange(System.String)">
             <summary>
             获取发卡人员
             </summary>
             <param name="projectId"></param>
-            <param name="type">0-门禁；1-人脸</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PersonController.getPersonOutDataExchange(System.String)">
+            <summary>
+            获取离场人员
+            </summary>
+            <param name="projectId"></param>
             <returns></returns>
         </member>
         <member name="M:WebAPI.Controllers.PersonController.getUpdatePersonExchangeTime(System.String,System.String)">

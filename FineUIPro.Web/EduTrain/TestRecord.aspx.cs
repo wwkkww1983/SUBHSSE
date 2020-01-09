@@ -53,7 +53,8 @@ namespace FineUIPro.Web.EduTrain
                          + @" FROM dbo.Training_TestRecord AS TestRecord"
                          + @" LEFT JOIN dbo.Training_TestPlan AS TestPlan ON TestPlan.TestPlanId=TestRecord.TestPlanId"
                          + @" LEFT JOIN dbo.Training_TestTraining AS Training ON Training.TrainingId = TestRecord.TestType"
-                         + @" LEFT JOIN dbo.SitePerson_Person AS Person ON Person.PersonId = TestRecord.TestManId WHERE (isFiled IS NULL OR isFiled = 0)";
+                         + @" LEFT JOIN dbo.SitePerson_Person AS Person ON Person.PersonId = TestRecord.TestManId "
+                        + @" WHERE (isFiled IS NULL OR isFiled = 0) and TestRecord.ProjectId = '" + this.CurrUser.LoginProjectId+"'";
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtName.Text.Trim()))
             {

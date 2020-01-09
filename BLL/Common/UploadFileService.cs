@@ -302,31 +302,33 @@ namespace BLL
         /// <param name="toKeyId"></param>
         public static void SaveAttachUrl(string source, string attachUrl,string menuId,string toKeyId)
         {
-            Model.SUBHSSEDB db = Funs.DB;
-            List<Model.AttachFile> sour = (from x in db.AttachFile where x.ToKeyId == toKeyId select x).ToList();
-            if (sour.Count() == 0)
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                Model.AttachFile att = new Model.AttachFile
+                List<Model.AttachFile> sour = (from x in db.AttachFile where x.ToKeyId == toKeyId select x).ToList();
+                if (sour.Count() == 0)
                 {
-                    AttachFileId = SQLHelper.GetNewID(typeof(Model.AttachFile)),
-                    ToKeyId = toKeyId,
-                    AttachSource = source.ToString(),
-                    AttachUrl = attachUrl,
-                    MenuId = menuId
-                };
-                db.AttachFile.InsertOnSubmit(att);
-                db.SubmitChanges();
-            }
-            else
-            {
-                Model.AttachFile att = db.AttachFile.FirstOrDefault(x => x.AttachFileId == sour.First().AttachFileId);
-                if (att != null)
-                {
-                    att.ToKeyId = toKeyId;
-                    att.AttachSource = source.ToString();
-                    att.AttachUrl = attachUrl;
-                    att.MenuId = menuId;
+                    Model.AttachFile att = new Model.AttachFile
+                    {
+                        AttachFileId = SQLHelper.GetNewID(typeof(Model.AttachFile)),
+                        ToKeyId = toKeyId,
+                        AttachSource = source.ToString(),
+                        AttachUrl = attachUrl,
+                        MenuId = menuId
+                    };
+                    db.AttachFile.InsertOnSubmit(att);
                     db.SubmitChanges();
+                }
+                else
+                {
+                    Model.AttachFile att = db.AttachFile.FirstOrDefault(x => x.AttachFileId == sour.First().AttachFileId);
+                    if (att != null)
+                    {
+                        att.ToKeyId = toKeyId;
+                        att.AttachSource = source.ToString();
+                        att.AttachUrl = attachUrl;
+                        att.MenuId = menuId;
+                        db.SubmitChanges();
+                    }
                 }
             }
         }

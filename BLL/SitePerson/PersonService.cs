@@ -283,6 +283,7 @@ namespace BLL
                 newPerson.DepartId = person.DepartId;
                 newPerson.QRCodeAttachUrl = person.QRCodeAttachUrl;
                 newPerson.Password = GetPersonPassWord(person.IdentityCard);
+                newPerson.ExchangeTime2 = null;
                 if (!string.IsNullOrEmpty(person.AuditorId))
                 {
                     newPerson.AuditorId = person.AuditorId;

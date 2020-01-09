@@ -73,15 +73,24 @@ namespace WebAPI.Controllers
                         }
                     }
 
-                    var getPersonInOut = Funs.DB.SitePerson_PersonInOut.Where(x => x.ProjectId == projectId && x.ChangeTime.Value.Year == DateTime.Now.Year && x.ChangeTime.Value.Month == DateTime.Now.Month && x.ChangeTime.Value.Day == DateTime.Now.Day);
-                    if (getPersonInOut.Count() > 0)
+                    SitePersonNum = 0;
+
+                    var getPersons = from x in Funs.DB.SitePerson_Person
+                                     where x.ProjectId == projectId && x.IsUsed == true && (!x.OutTime.HasValue || x.OutTime > DateTime.Now)
+                                     select x;
+                    foreach (var item in getPersons)
                     {
-                        int incount = getPersonInOut.Where(x => x.IsIn == true).Count();
-                        int outcount = getPersonInOut.Where(x => x.IsIn == false).Count();
-                        SitePersonNum = incount - outcount;
-                        if (SitePersonNum < 0)
+                        var getMax = from x in Funs.DB.SitePerson_PersonInOut
+                                     where x.ProjectId == projectId && x.PersonId == item.PersonId
+                                     orderby x.ChangeTime descending
+                                     select x;
+                        if (getMax.Count() > 0)
                         {
-                            SitePersonNum = 0;
+                            var maxF = getMax.FirstOrDefault();
+                            if (maxF != null && maxF.IsIn == true)
+                            {
+                                SitePersonNum = SitePersonNum + 1;
+                            }
                         }
                     }
 
