@@ -707,6 +707,7 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
         #region  获取作业票类型（定稿）
         /// <summary>
         ///   获取作业票类型
