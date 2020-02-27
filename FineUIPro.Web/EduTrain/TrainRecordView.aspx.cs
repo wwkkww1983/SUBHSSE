@@ -127,11 +127,12 @@ namespace FineUIPro.Web.EduTrain
                         this.btnTrainTest.Hidden = false;
                         this.btnMenuView.Hidden = false;
                     }
-                    if (thisUnit.UnitId == Const.UnitId_SEDIN)
+                    if (thisUnit.UnitId == Const.UnitId_SEDIN || thisUnit.UnitId == Const.UnitId_XJYJ)
                     {
                         this.drpTrainStates.Hidden = false;
                         this.btnTrainingType.Hidden = false;
                         this.trWorkPost.Hidden = false;
+                        this.Grid1.Columns[5].Hidden = false;
                     }
                 }
 
@@ -183,5 +184,38 @@ namespace FineUIPro.Web.EduTrain
         {
 
         }
+
+        #region 格式化字符串
+        /// <summary>
+        /// 格式化受伤情况
+        /// </summary>
+        /// <param name="injury"></param>
+        /// <returns></returns>
+        protected string GetCheckScore(object TrainDetailId)
+        {
+            string values = string.Empty;
+            if (!this.Grid1.Columns[5].Hidden)
+            {
+                var getTrainRecordDetail = Funs.DB.EduTrain_TrainRecordDetail.FirstOrDefault(x => x.TrainDetailId == TrainDetailId.ToString());
+                if (getTrainRecordDetail != null)
+                {
+                    var getTrainRecord = Funs.DB.EduTrain_TrainRecord.FirstOrDefault(x => x.TrainingId == getTrainRecordDetail.TrainingId);
+                    if (getTrainRecord != null)
+                    {
+                        var getTestPlan = Funs.DB.Training_TestPlan.FirstOrDefault(x => x.PlanId == getTrainRecord.PlanId);
+                        if (getTestPlan != null)
+                        {
+                            var getTestRecord = Funs.DB.Training_TestRecord.Where(x => x.TestPlanId == getTestPlan.TestPlanId && x.TestManId == getTrainRecordDetail.PersonId).OrderByDescending(x => x.TestStartTime).FirstOrDefault();
+                            if (getTestRecord != null)
+                            {
+                                values = getTestRecord.TestScores.ToString();
+                            }
+                        }
+                    }
+                }
+            }
+            return values;
+        }
+        #endregion
     }
 }

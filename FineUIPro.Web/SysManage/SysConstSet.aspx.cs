@@ -30,7 +30,7 @@ namespace FineUIPro.Web.SysManage
                     {
                         this.frChangeData.Hidden = false;
                     }
-                    if (thisUnit.UnitId == BLL.Const.UnitId_SEDIN)
+                    if (thisUnit.UnitId == Const.UnitId_SEDIN || thisUnit.UnitId == Const.UnitId_XJYJ)
                     {
                         this.Tab3.Hidden = false;
                     }
@@ -586,7 +586,7 @@ namespace FineUIPro.Web.SysManage
             Grid1.DataSource = table;
             Grid1.DataBind();
 
-            if (CommonService.GetIsThisUnit(Const.UnitId_SEDIN) && LicensePublicService.lisenWorkList.Contains(this.drpMenu.Value))
+            if ((CommonService.GetIsThisUnit(Const.UnitId_SEDIN) || CommonService.GetIsThisUnit(Const.UnitId_XJYJ)) && LicensePublicService.lisenWorkList.Contains(this.drpMenu.Value))
             {
                 this.Grid1.Columns[1].Hidden = false;
                 this.Grid1.Columns[2].Hidden = false;
@@ -669,7 +669,7 @@ namespace FineUIPro.Web.SysManage
         {
             if (Grid1.SelectedRowIndexArray.Length > 0)
             {
-                if (CommonService.GetIsThisUnit(Const.UnitId_SEDIN) && LicensePublicService.lisenWorkList.Contains(this.drpMenu.Value))
+                if ((CommonService.GetIsThisUnit(Const.UnitId_SEDIN) || CommonService.GetIsThisUnit(Const.UnitId_XJYJ)) && LicensePublicService.lisenWorkList.Contains(this.drpMenu.Value))
                 {
                     foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                     {

@@ -23,7 +23,6 @@
 </TreeNode>
 </TreeNode>
 <TreeNode id="70E51ABF-81C8-49CB-89AC-CF0542A201D6" Text="安全管理工作报告" NavigateUrl="" Icon="CalendarEdit"><TreeNode id="26CE4208-7DEE-46A2-A1D2-9C182D9C1DFC" Text="管理月报" NavigateUrl="ManagementReport/MonthReport.aspx" Icon="BorderDraw"></TreeNode>
-<TreeNode id="B995396A-B01C-4F03-858A-FFDC853BA4B8" Text="管理月报B" NavigateUrl="ManagementReport/MonthReportB.aspx" Icon="BorderDraw"></TreeNode>
 <TreeNode id="D67D1C85-3798-47A9-A0DB-B4DB47FF2E7D" Text="报表上报情况" NavigateUrl="ManagementReport/ReportRemind.aspx" Icon="LayoutSidebar"></TreeNode>
 </TreeNode>
 <TreeNode id="CD9FC4C8-4B02-4619-8B02-50DA6AE6146E" Text="企业安全大检查" NavigateUrl="" Icon="DateMagnify"><TreeNode id="1C6F9CA9-FDAC-4CE5-A19C-5536538851E1" Text="安全监督检查报告" NavigateUrl="Supervise/SuperviseCheckReport.aspx" Icon="BorderDraw"></TreeNode>

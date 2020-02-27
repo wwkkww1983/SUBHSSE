@@ -71,7 +71,7 @@
             <f:FormRow>
                  <Items>
                    <f:CheckBox runat="server" ID="ckbIsForeign" Label="海外项目" Enabled="false"></f:CheckBox>
-                   <f:Label runat="server" ID="lb1" Hidden="true"></f:Label>
+                    <f:TextBox ID="txtMapCoordinates" runat="server" Label="坐标" Readonly="true"></f:TextBox>
                 </Items>
             </f:FormRow>     
         </rows>

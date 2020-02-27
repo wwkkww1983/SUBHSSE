@@ -179,9 +179,21 @@ namespace BLL
         /// </summary>
         public const string UnitId_6 = "ac666437-09d0-4d6c-9aaa-fbde5399acaf";
         /// <summary>
+        /// 七公司id
+        /// </summary>
+        public const string UnitId_7 = "80e8f02c-6b52-4705-bffc-af3a192d5a12";
+        /// <summary>
         /// 十四公司id
         /// </summary>
         public const string UnitId_14 = "1c1cc3ba-8654-4bac-b7e7-b45f4eec0dc9";
+        /// <summary>
+        /// 新疆油建id
+        /// </summary>
+        public const string UnitId_XJYJ = "542C36E1-668C-4F0C-A442-C0EFCD28C28A";
+        /// <summary>
+        /// 北京建投
+        /// </summary>
+        public const string UnitId_BJJT = "2B0DB792-49CF-43B4-BB0E-8DD27DF1CEE2";
         /// <summary>
         /// 综合应急预案模板类型
         /// </summary>

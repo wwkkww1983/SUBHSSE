@@ -169,16 +169,25 @@ namespace FineUIPro.Web.SitePerson
                 return;
             }
             this.PersonId = this.Grid1.SelectedRowID;
-            int i = this.Grid1.SelectedRowIndex;
-            System.Web.UI.WebControls.Label lblTrainResult = (System.Web.UI.WebControls.Label)(this.Grid1.Rows[i].FindControl("lblTrainResult"));
-            if (lblTrainResult.Text.Trim() == "通过")
+            var person = PersonService.GetPersonById(PersonId);
+            if (person != null)
             {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ReadWriteCard.aspx?PersonId={0}", this.PersonId, "发卡 - ")));
-            }
-            else
-            {
-                Alert.ShowInTop("培训未通过，不能发卡！", MessageBoxIcon.Warning);
-                return;
+                if (!string.IsNullOrEmpty(person.CardNo))
+                {
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("SendCardView.aspx?PersonId={0}", this.PersonId, "发卡 - ")));
+                }                
+                else
+                {                   
+                    if (ConvertTrainResult(PersonId) == "通过")
+                    {
+                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ReadWriteCard.aspx?PersonId={0}", this.PersonId, "发卡 - ")));
+                    }
+                    else
+                    {
+                        Alert.ShowInTop("培训未通过，不能发卡！", MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
             }
         }
         #endregion

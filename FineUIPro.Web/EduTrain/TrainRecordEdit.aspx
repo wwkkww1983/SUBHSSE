@@ -128,18 +128,23 @@
                                             <f:ListItem Text="未合格" Value="0" />
                                         </f:DropDownList>
                                     </Editor>
+                                </f:RenderField> 
+                                <f:TemplateField Width="100px" HeaderText="成绩1" HeaderTextAlign="Center" TextAlign="Left" Hidden="true">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lbTrainDetailId" runat="server" Text='<%#GetCheckScore(Eval("TrainDetailId")) %>'></asp:Label>
+                                    </ItemTemplate>
+                                </f:TemplateField>
+                                <f:RenderField Width="120px" ColumnID="CheckScore" DataField="CheckScore" FieldType="Double"
+                                    HeaderText="成绩" HeaderTextAlign="Center" TextAlign="Left">
+                                    <Editor>
+                                        <f:NumberBox ID="txtCheckScore" NoDecimal="false" NoNegative="true" MinValue="0"
+                                            DecimalPrecision="1" runat="server" Required="true">
+                                        </f:NumberBox>
+                                    </Editor>
                                 </f:RenderField>
-                            <f:RenderField Width="120px" ColumnID="CheckScore" DataField="CheckScore" FieldType="Double"
-                                HeaderText="考试成绩" HeaderTextAlign="Center" TextAlign="Left">
-                                <Editor>
-                                    <f:NumberBox ID="txtCheckScore" NoDecimal="false" NoNegative="true" MinValue="0"
-                                        DecimalPrecision="1" runat="server" Required="true">
-                                    </f:NumberBox>
-                                </Editor>
-                            </f:RenderField>
-                            <f:RenderField Width="1px" ColumnID="TrainDetailId" DataField="TrainDetailId" 
-                                FieldType="String" HeaderText="主键"  Hidden="true" HeaderTextAlign="Center">                                        
-                            </f:RenderField>
+                                <f:RenderField Width="1px" ColumnID="TrainDetailId" DataField="TrainDetailId" 
+                                    FieldType="String" HeaderText="主键"  Hidden="true" HeaderTextAlign="Center">                                        
+                                </f:RenderField>
                         </Columns>
                         <Listeners>
                             <f:Listener Event="dataload" Handler="onGridDataLoad" />

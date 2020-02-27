@@ -29,9 +29,6 @@
 <TreeNode id="7353F3C1-0EAF-4DB7-86B4-93E3B96805F8" Text="行政管理检查类别" NavigateUrl="Administrative/CheckTypeSet.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="38143A01-D17C-4234-A1A1-D90A3F887438" Text="工作阶段" NavigateUrl="BaseInfo/WorkStage.aspx" Icon="Clock"></TreeNode>
 <TreeNode id="179F286B-6DF8-414E-947F-82267076D4C8" Text="施工方案类型*" NavigateUrl="BaseInfo/SolutionTempleteType.aspx" Icon="BookNext"></TreeNode>
-<TreeNode id="3EC2676A-70EB-400E-BE17-EEBBA0B7E9D7" Text="安全巡检类型*" NavigateUrl="BaseInfo/HazardRegisterTypes.aspx" Icon="BookNext"></TreeNode>
-<TreeNode id="7AC97581-08C2-4848-A117-BDC034EF6666" Text="专项检查类型*" NavigateUrl="BaseInfo/SpecialCheckTypes.aspx" Icon="TableRelationship"></TreeNode>
-<TreeNode id="60BFBA33-B5C7-4EBF-A4AE-1B820559676D" Text="领导督查类型*" NavigateUrl="BaseInfo/HazardRegisterTypesSupervision.aspx" Icon="StatusBeRightBack"></TreeNode>
-<TreeNode id="D95CA72C-182C-4718-92A4-3F665E0FB660" Text="项目图片分类" NavigateUrl="BaseInfo/PictureType.aspx" Icon="VcardEdit"></TreeNode>
 <TreeNode id="4BB6AC40-D4D5-439B-85CC-100E431CF3F1" Text="安全措施" NavigateUrl="BaseInfo/SafetyMeasures.aspx" Icon="VcardEdit"></TreeNode>
+<TreeNode id="D95CA72C-182C-4718-92A4-3F665E0FB660" Text="项目图片分类" NavigateUrl="BaseInfo/PictureType.aspx" Icon="PageHeaderFooter"></TreeNode>
 </Tree>

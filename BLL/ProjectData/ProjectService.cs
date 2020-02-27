@@ -62,6 +62,7 @@
                 ProjectLiaisonPerson = project.ProjectLiaisonPerson,
                 IsForeign=project.IsForeign,
                 FromProjectId = project.FromProjectId,
+                MapCoordinates=project.MapCoordinates,
             };
             db.Base_Project.InsertOnSubmit(newProject);
             db.SubmitChanges();
@@ -80,8 +81,8 @@
         /// <param name="project"></param>
         public static void UpdateProject(Model.Base_Project project)
         {
-            Model.SUBHSSEDB db = Funs.DB;
-            Model.Base_Project newProject = db.Base_Project.FirstOrDefault(e => e.ProjectId == project.ProjectId);
+            SUBHSSEDB db = Funs.DB;
+            Base_Project newProject = db.Base_Project.FirstOrDefault(e => e.ProjectId == project.ProjectId);
             if (newProject != null)
             {
                 newProject.ProjectCode = project.ProjectCode;
@@ -103,6 +104,8 @@
                 newProject.ProjectLiaisonPerson = project.ProjectLiaisonPerson;
                 newProject.IsForeign = project.IsForeign;
                 newProject.FromProjectId = project.FromProjectId;
+                newProject.MapCoordinates = project.MapCoordinates;
+
                 db.SubmitChanges();
                 if (newProject.ProjectType != "5")
                 {

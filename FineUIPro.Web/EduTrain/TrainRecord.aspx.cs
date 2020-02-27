@@ -226,7 +226,7 @@ namespace FineUIPro.Web.EduTrain
                 return;
             }
             this.TrainingId = Grid1.SelectedRowID;
-            var trainRecord = BLL.EduTrain_TrainRecordService.GetTrainingByTrainingId(TrainingId);
+            var trainRecord = EduTrain_TrainRecordService.GetTrainingByTrainingId(TrainingId);
             if (trainRecord != null)
             {
                 if (this.btnMenuEdit.Hidden || trainRecord.States == BLL.Const.State_2)   ////双击事件 编辑权限有：编辑页面，无：查看页面 或者状态是完成时查看页面
@@ -476,5 +476,16 @@ namespace FineUIPro.Web.EduTrain
             }
         }
         #endregion
+
+        protected void btnMenuView_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            this.TrainingId = Grid1.SelectedRowID;
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("TrainRecordView.aspx?TrainingId={0}", TrainingId, "查看 - ")));
+        }
     }
 }

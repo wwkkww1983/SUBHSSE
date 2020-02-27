@@ -5,7 +5,6 @@ using System.Text;
 using System.Web.UI;
 using ThoughtWorks.QRCode.Codec;
 
-
 namespace FineUIPro.Web.Controls
 {
     /// <summary>
@@ -53,7 +52,7 @@ namespace FineUIPro.Web.Controls
                 var person = BLL.PersonService.GetPersonById(Request.Params["PersonId"]);
                 if (person != null)
                 {
-                    if (!string.IsNullOrEmpty(person.QRCodeAttachUrl))
+                    if (!string.IsNullOrEmpty(person.QRCodeAttachUrl) && CreateQRCodeService.isHaveImage(person.QRCodeAttachUrl))
                     {
                         this.QRCodeAttachUrl = person.QRCodeAttachUrl;
                     }
@@ -70,7 +69,7 @@ namespace FineUIPro.Web.Controls
                 var equipmentQuality = BLL.EquipmentQualityService.GetEquipmentQualityById(Request.Params["EquipmentQualityId"]);
                 if (equipmentQuality != null)
                 {
-                    if (!string.IsNullOrEmpty(equipmentQuality.QRCodeAttachUrl))
+                    if (!string.IsNullOrEmpty(equipmentQuality.QRCodeAttachUrl) && CreateQRCodeService.isHaveImage(equipmentQuality.QRCodeAttachUrl))
                     {
                         this.QRCodeAttachUrl = equipmentQuality.QRCodeAttachUrl;
                     }
@@ -87,7 +86,7 @@ namespace FineUIPro.Web.Controls
                 var generalEquipmentQuality = BLL.GeneralEquipmentQualityService.GetGeneralEquipmentQualityById(Request.Params["GeneralEquipmentQualityId"]);
                 if (generalEquipmentQuality != null)
                 {
-                    if (!string.IsNullOrEmpty(generalEquipmentQuality.QRCodeAttachUrl))
+                    if (!string.IsNullOrEmpty(generalEquipmentQuality.QRCodeAttachUrl) && CreateQRCodeService.isHaveImage(generalEquipmentQuality.QRCodeAttachUrl))
                     {
                         this.QRCodeAttachUrl = generalEquipmentQuality.QRCodeAttachUrl;
                     }
@@ -104,7 +103,7 @@ namespace FineUIPro.Web.Controls
                 var constructSolution = BLL.ConstructSolutionService.GetConstructSolutionById(Request.Params["ConstructSolutionId"]);
                 if (constructSolution != null)
                 {
-                    if (!string.IsNullOrEmpty(constructSolution.QRCodeAttachUrl))
+                    if (!string.IsNullOrEmpty(constructSolution.QRCodeAttachUrl) && CreateQRCodeService.isHaveImage(constructSolution.QRCodeAttachUrl))
                     {
                         this.QRCodeAttachUrl = constructSolution.QRCodeAttachUrl;
                     }
@@ -121,7 +120,7 @@ namespace FineUIPro.Web.Controls
                 var trainingPlan = BLL.TrainingPlanService.GetPlanById(Request.Params["TrainingPlanId"]);
                 if (trainingPlan != null)
                 {
-                    if (!string.IsNullOrEmpty(trainingPlan.QRCodeUrl))
+                    if (!string.IsNullOrEmpty(trainingPlan.QRCodeUrl) && CreateQRCodeService.isHaveImage(trainingPlan.QRCodeUrl))
                     {
                         this.QRCodeAttachUrl = trainingPlan.QRCodeUrl;
                     }
@@ -138,7 +137,7 @@ namespace FineUIPro.Web.Controls
                 var testPlan = BLL.TestPlanService.GetTestPlanById(Request.Params["TestPlanId"]);
                 if (testPlan != null)
                 {
-                    if (!string.IsNullOrEmpty(testPlan.QRCodeUrl))
+                    if (!string.IsNullOrEmpty(testPlan.QRCodeUrl) && CreateQRCodeService.isHaveImage(testPlan.QRCodeUrl))
                     {
                         this.QRCodeAttachUrl = testPlan.QRCodeUrl;
                     }
@@ -153,8 +152,6 @@ namespace FineUIPro.Web.Controls
 
             this.Image1.ImageUrl = "~/" + this.QRCodeAttachUrl;            
         }
-
-
 
         /// <summary>
         /// 生成二维码方法一
@@ -203,7 +200,7 @@ namespace FineUIPro.Web.Controls
             this.QRCodeAttachUrl = string.Empty;
             this.ShowQRCode();
         }
-        
+   
         /// <summary>
         /// 打印
         /// </summary>

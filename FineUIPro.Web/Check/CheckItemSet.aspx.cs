@@ -52,7 +52,7 @@ namespace FineUIPro.Web.Check
                 var thisUnit = BLL.CommonService.GetIsThisUnit();
                 if (thisUnit != null)
                 {
-                    if (thisUnit.UnitId == Const.UnitId_SEDIN)
+                    if (thisUnit.UnitId == Const.UnitId_SEDIN || thisUnit.UnitId == Const.UnitId_XJYJ)
                     {
                         this.ckType.Items.Remove(this.ckType.Items[4]);
                         this.ckType.Items.Remove(this.ckType.Items[3]);

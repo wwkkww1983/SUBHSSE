@@ -117,17 +117,22 @@
                                 RendererFunction="renderCheckResult" HeaderText="考核结果" HeaderTextAlign="Center"
                                 TextAlign="Center">
                             </f:RenderField>
+                             <f:TemplateField Width="100px" HeaderText="成绩1" HeaderTextAlign="Center" TextAlign="Left" Hidden="true">
+                                <ItemTemplate>
+                                    <asp:Label ID="lbTrainDetailId" runat="server" Text='<%#GetCheckScore(Eval("TrainDetailId")) %>'></asp:Label>
+                                </ItemTemplate>
+                            </f:TemplateField>
                             <f:RenderField Width="100px" ColumnID="CheckScore" DataField="CheckScore" FieldType="Double"
-                                HeaderText="考试成绩" HeaderTextAlign="Center" TextAlign="Left">
+                                HeaderText="成绩" HeaderTextAlign="Center" TextAlign="Left">
                                 <Editor>
                                     <f:NumberBox ID="txtCheckScore" NoDecimal="false" NoNegative="true" MinValue="0"
                                         DecimalPrecision="1" runat="server" Required="true">
                                     </f:NumberBox>
                                 </Editor>
-                            </f:RenderField>
+                            </f:RenderField>                           
                         </Columns>
                         <Listeners>
-                            <f:Listener Event="dataload" Handler="onGridDataLoad" />
+                           <%-- <f:Listener Event="dataload" Handler="onGridDataLoad" />--%>
                             <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
                         </Listeners>
                     </f:Grid>
@@ -185,9 +190,9 @@
             return value == true ? '合格' : '不合格';
         }
 
-        function onGridDataLoad(event) {
-            this.mergeColumns(['UnitName']['WorkPostName']);
-        }
+        //function onGridDataLoad(event) {
+        //    this.mergeColumns(['UnitName']['WorkPostName']);
+        //}
     </script>
 </body>
 </html>

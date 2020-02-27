@@ -6,7 +6,7 @@
 <head runat="server">
     <title></title>
     <base target="_self" />
-    <link href="../../Styles/Style.css" rel="stylesheet" type="text/css" />
+    <link href="../Styles/Style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         function pagesetup_null() {
             try {

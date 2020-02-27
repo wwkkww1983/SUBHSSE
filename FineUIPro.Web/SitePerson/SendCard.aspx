@@ -37,8 +37,8 @@
                             <f:ToolbarSeparator ID="ToolbarSeparator2" runat="server"></f:ToolbarSeparator> 
                             <f:CheckBoxList runat="server" ID="cbIsSend" ShowLabel="false" Width="200px"  LabelAlign="Right"
                                 OnSelectedIndexChanged="TextBox_TextChanged"  AutoPostBack="true">
-                                <f:CheckItem Text="未发卡" Value="0" Selected="true" />
-                                <f:CheckItem Text="已发卡" Value="1" />
+                                <f:CheckItem Text="未发卡" Value="0" Selected="true"/>
+                                <f:CheckItem Text="已发卡" Value="1"  />
                              </f:CheckBoxList>                             
                             <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>                                                     
                             <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
@@ -104,7 +104,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="发卡" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Self" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="500px" Height="200px">
+        Width="600px" Height="500px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnSendCard" OnClick="btnSendCard_Click" EnablePostBack="true"

@@ -81,7 +81,7 @@ namespace FineUIPro.Web.SysManage
                 {
                     this.SetFlowStep();
                 }
-                if (CommonService.GetIsThisUnit(Const.UnitId_SEDIN) && LicensePublicService.lisenWorkList.Contains(this.MenuId))
+                if ((CommonService.GetIsThisUnit(Const.UnitId_SEDIN) || CommonService.GetIsThisUnit(Const.UnitId_XJYJ)) && LicensePublicService.lisenWorkList.Contains(this.MenuId))
                 {
                     this.txtGroupNum.Hidden = false;
                     this.txtOrderNum.Hidden = false;

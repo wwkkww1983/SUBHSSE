@@ -78,7 +78,7 @@
         Width="1300px" Height="600px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
-    <f:MenuButton ID="btnMenuSee" EnablePostBack="true" runat="server" Text="查看" Icon="Pencil"
+            <f:MenuButton ID="btnMenuSee" EnablePostBack="true" runat="server" Text="查看" Icon="Find"
                 OnClick="btnMenuSee_Click">
             </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" EnablePostBack="true" runat="server" Text="删除" Icon="Delete"

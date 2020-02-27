@@ -35,7 +35,7 @@ namespace FineUIPro.Web.ProjectData
             {
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 BLL.ConstValue.InitConstValueDropDownList(this.drpProjectType, ConstValue.Group_ProjectType, false);
-                List<Model.Sys_User> myList = new List<Model.Sys_User>();
+                List<Sys_User> myList = new List<Model.Sys_User>();
                 myList = (from x in Funs.DB.Sys_User
                           join y in Funs.DB.Base_Unit
                           on x.UnitId equals y.UnitId
@@ -51,14 +51,18 @@ namespace FineUIPro.Web.ProjectData
                 RadioButtonList2.DataSource = myList;
                 RadioButtonList2.DataBind();
                 this.ProjectId = Request.QueryString["ProjectId"];
-                this.txtProjectState.Text = "施工中";
+                // this.txtProjectState.Text = "施工中";
+                if (CommonService.GetIsThisUnit(Const.UnitId_7))
+                {
+                    this.drpProjectState.Readonly = false;
+                }
                 ///项目经理
-                BLL.UserService.InitUserDropDownList(this.drpProjectManager, string.Empty, false);
+                UserService.InitUserDropDownList(this.drpProjectManager, string.Empty, false);
                 ///施工经理
-                BLL.UserService.InitUserDropDownList(this.drpConstructionManager, string.Empty, true);
+                UserService.InitUserDropDownList(this.drpConstructionManager, string.Empty, true);
                 ///安全经理
-                BLL.UserService.InitUserDropDownList(this.drpHSSEManager, string.Empty, true);
-                BLL.UnitService.InitUnitDropDownList(this.drpUnit, string.Empty, true);
+                UserService.InitUserDropDownList(this.drpHSSEManager, string.Empty, true);
+                UnitService.InitUnitDropDownList(this.drpUnit, string.Empty, true);
                 var thisUnit = BLL.CommonService.GetIsThisUnit();
                 if (thisUnit != null)
                 {
@@ -126,18 +130,19 @@ namespace FineUIPro.Web.ProjectData
                             this.drpHSSEManager.SelectedValue = h.UserId;
                         }
 
-                        if (project.ProjectState == BLL.Const.ProjectState_2)
-                        {
-                            this.txtProjectState.Text = "暂停中";
-                        }
-                        else if (project.ProjectState == BLL.Const.ProjectState_3)
-                        {
-                            this.txtProjectState.Text = "已完工";
-                        }
-                        else
-                        {
-                            this.txtProjectState.Text = "施工中";
-                        }
+                        this.drpProjectState.SelectedValue = project.ProjectState;
+                        //if (project.ProjectState == BLL.Const.ProjectState_2)
+                        //{
+                        //    this.txtProjectState.Text = "暂停中";
+                        //}
+                        //else if (project.ProjectState == BLL.Const.ProjectState_3)
+                        //{
+                        //    this.txtProjectState.Text = "已完工";
+                        //}
+                        //else
+                        //{
+                        //    this.txtProjectState.Text = "施工中";
+                        //}
                         if (!string.IsNullOrEmpty(project.UnitId))
                         {
                             this.drpUnit.SelectedValue = project.UnitId;
@@ -157,6 +162,7 @@ namespace FineUIPro.Web.ProjectData
                         {
                             this.ckbIsForeign.Checked = true;
                         }
+                        this.txtMapCoordinates.Text = project.MapCoordinates;
                     }
                 }
             }
@@ -169,15 +175,18 @@ namespace FineUIPro.Web.ProjectData
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Model.Base_Project project = new Base_Project
+            Base_Project project = new Base_Project
             {
                 ProjectCode = this.txtProjectCode.Text.Trim(),
                 ProjectName = Regex.Replace(this.txtProjectName.Text, @"\s", ""),
                 ProjectAddress = this.txtProjectAddress.Text.Trim(),
                 WorkRange = this.txtWorkRange.Text.Trim(),
                 ContractNo = this.txtContractNo.Text.Trim(),
-                Duration = Funs.GetNewIntOrZero(this.txtDuration.Text.Trim())
+                Duration = Funs.GetNewIntOrZero(this.txtDuration.Text.Trim()),
+                MapCoordinates = this.txtMapCoordinates.Text.Trim(),
+                ProjectState = this.drpProjectState.SelectedValue,
             };
+
             if (!string.IsNullOrEmpty(txtStartDate.Text.Trim()))
             {
                 project.StartDate = Funs.GetNewDateTime(this.txtStartDate.Text.Trim());
@@ -206,8 +215,8 @@ namespace FineUIPro.Web.ProjectData
                 project.ProjectId = SQLHelper.GetNewID(typeof(Model.Base_Project));
                 project.ProjectState = BLL.Const.ProjectState_1;
                 this.ProjectId = project.ProjectId;
-                BLL.ProjectService.AddProject(project);
-                BLL.LogService.AddSys_Log(this.CurrUser, project.ProjectCode, project.ProjectId, BLL.Const.ProjectSetMenuId, BLL.Const.BtnAdd);
+                ProjectService.AddProject(project);
+                LogService.AddSys_Log(this.CurrUser, project.ProjectCode, project.ProjectId, BLL.Const.ProjectSetMenuId, BLL.Const.BtnAdd);
             }
             else
             {
@@ -217,8 +226,8 @@ namespace FineUIPro.Web.ProjectData
                     project.FromProjectId = getProject.FromProjectId;
                 }
                 project.ProjectId = this.ProjectId;
-                BLL.ProjectService.UpdateProject(project);
-                BLL.LogService.AddSys_Log(this.CurrUser, project.ProjectCode, project.ProjectId, BLL.Const.ProjectSetMenuId, BLL.Const.BtnModify);
+                ProjectService.UpdateProject(project);
+                LogService.AddSys_Log(this.CurrUser, project.ProjectCode, project.ProjectId, BLL.Const.ProjectSetMenuId, BLL.Const.BtnModify);
             }
 
             this.SetProjectManager(project.ProjectId);/// 设置项目、施工、安全经理

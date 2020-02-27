@@ -58,10 +58,10 @@ namespace FineUIPro.Web.ProjectData
                             this.txtProjectType.Text = projectType.ConstText;
                         }
                         this.txtPostCode.Text = project.PostCode;
-                        this.txtProjectManager.Text = BLL.ProjectService.GetProjectManagerName(this.ProjectId);
-                        this.txtConstructionManager.Text = BLL.ProjectService.GetConstructionManagerName(this.ProjectId);
-                        this.txtHSSEManager.Text = BLL.ProjectService.GetHSSEManagerName(this.ProjectId);
-                        if (project.ProjectState == BLL.Const.ProjectState_2)
+                        this.txtProjectManager.Text = ProjectService.GetProjectManagerName(this.ProjectId);
+                        this.txtConstructionManager.Text = ProjectService.GetConstructionManagerName(this.ProjectId);
+                        this.txtHSSEManager.Text = ProjectService.GetHSSEManagerName(this.ProjectId);
+                        if (project.ProjectState == Const.ProjectState_2)
                         {
                             this.txtProjectState.Text = "暂停中";
                         }
@@ -86,6 +86,8 @@ namespace FineUIPro.Web.ProjectData
                         {
                             this.txtUnitName.Label = "所属分公司";
                         }
+
+                        this.txtMapCoordinates.Text = project.MapCoordinates;
                     }
                 }
             }

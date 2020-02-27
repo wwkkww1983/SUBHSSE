@@ -191,7 +191,7 @@ namespace BLL
             var readCount = Funs.DB.Sys_UserRead.Where(x => x.MenuId == menuId && x.ProjectId ==projectId && x.UserId == userId).Select(x => x.DataId).Distinct().Count();
             if (menuId == Const.ProjectNoticeMenuId)
             {
-                var noticeCount = Funs.DB.InformationProject_Notice.Where(x => x.AccessProjectId.Contains(projectId)).Count();
+                var noticeCount = Funs.DB.InformationProject_Notice.Where(x => x.AccessProjectId.Contains(projectId) && x.IsRelease == true).Count();
                 count = noticeCount - readCount;
             }
             count = count < 0 ? 0 : count;

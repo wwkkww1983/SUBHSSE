@@ -326,3 +326,4 @@ D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cach
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\obj\Debug\BLL.csproj.CopyComplete
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\obj\Debug\BLL.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\obj\Debug\BLL.pdb
+D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\bin\Debug\ThoughtWorks.QRCode.dll

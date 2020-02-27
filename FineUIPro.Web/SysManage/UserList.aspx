@@ -53,7 +53,7 @@
                         <f:RenderField Width="80px" ColumnID="UserName" DataField="UserName" SortField="UserName"
                             FieldType="String" HeaderText="姓名" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
-                        <f:RenderField Width="200px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
+                        <f:RenderField Width="220px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
                             FieldType="String" HeaderText="单位" HeaderTextAlign="Center" TextAlign="Left" >
                         </f:RenderField>
                         <f:RenderField Width="100px" ColumnID="Account" DataField="Account" SortField="Account"

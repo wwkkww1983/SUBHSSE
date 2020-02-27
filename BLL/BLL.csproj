@@ -78,6 +78,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="ThoughtWorks.QRCode">
+      <HintPath>..\FineUIPro.Web\bin\ThoughtWorks.QRCode.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accident\AccidentHandleService.cs" />
@@ -177,6 +180,7 @@
     <Compile Include="Check\ViolationPersonService.cs" />
     <Compile Include="Check\SupervisionNoticeService.cs" />
     <Compile Include="API\APIUpLoadFileService.cs" />
+    <Compile Include="Common\CreateQRCodeService.cs" />
     <Compile Include="CostGoods\SubPayRegistrationService.cs" />
     <Compile Include="EduTrain\EduTrain_TrainTestService.cs" />
     <Compile Include="EduTrain\TestPlanTrainingService.cs" />

@@ -101,7 +101,7 @@ namespace BLL
                     TrainTypeId = getTrainingPlan.TrainTypeId,
                     TrainLevelId = getTrainingPlan.TrainLevelId,
                     UnitIds = getTrainingPlan.UnitIds,
-                    States = Const.State_0,
+                    States = Const.State_2,
                     WorkPostIds = getTrainingPlan.WorkPostId,
                     PlanId = getTrainingPlan.PlanId,
                 };

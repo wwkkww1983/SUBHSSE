@@ -33,7 +33,12 @@
                    </f:DropDownList>
                 </Items> 
                 <Items>
-                   <f:TextBox ID="txtProjectState" runat="server" Label="项目状态" Readonly="true"></f:TextBox>
+                  <%-- <f:TextBox ID="txtProjectState" runat="server" Label="项目状态" Readonly="true"></f:TextBox>--%>
+                     <f:DropDownList ID="drpProjectState" runat="server" Label="项目状态" LabelAlign="Right"  Readonly="true">
+                        <f:ListItem Text="施工" Value="1"  Selected="true"/>
+                        <f:ListItem Text="暂停" Value="2" />
+                        <f:ListItem Text="完工" Value="3" />
+                    </f:DropDownList>
                </Items>                                         
             </f:FormRow>   
             <f:FormRow>
@@ -56,7 +61,7 @@
             </f:FormRow>   
             <f:FormRow>
                 <Items>
-                   <f:TextBox ID="txtPostCode" runat="server" Label="邮编"></f:TextBox>
+                   <f:TextBox ID="txtPostCode" runat="server" Label="邮编" MaxLength="20"></f:TextBox>
                </Items>    
                <Items>
                     <f:DropDownList ID="drpProjectManager" runat="server" Label="项目经理" EnableEdit="true" Required="true" ShowRedStar="true">
@@ -118,7 +123,7 @@
             <f:FormRow runat="server" ID="trIsForeign" Hidden="true">
                  <Items>
                    <f:CheckBox runat="server" ID="ckbIsForeign" Label="海外项目"></f:CheckBox>
-                   <f:Label runat="server" ID="lb1" Hidden="true"></f:Label>
+                  <f:TextBox ID="txtMapCoordinates" runat="server" Label="坐标" MaxLength="50"></f:TextBox>
                 </Items>
             </f:FormRow>   
             <f:FormRow>   

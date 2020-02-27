@@ -715,6 +715,7 @@
     <Content Include="SitePerson\PersonOut.aspx" />
     <Content Include="SitePerson\PersonUnitRefresh.aspx" />
     <Content Include="SitePerson\SendReceive.aspx" />
+    <Content Include="SitePerson\SendCardView.aspx" />
     <Content Include="Solution\ExpertArgumentList.aspx" />
     <Content Include="Solution\ExpertArgumentListEdit.aspx" />
     <Content Include="Solution\ExpertArgumentListView.aspx" />
@@ -7492,6 +7493,13 @@
     </Compile>
     <Compile Include="SitePerson\SendReceive.aspx.designer.cs">
       <DependentUpon>SendReceive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SitePerson\SendCardView.aspx.cs">
+      <DependentUpon>SendCardView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SitePerson\SendCardView.aspx.designer.cs">
+      <DependentUpon>SendCardView.aspx</DependentUpon>
     </Compile>
     <Compile Include="Solution\ExpertArgumentList.aspx.cs">
       <DependentUpon>ExpertArgumentList.aspx</DependentUpon>

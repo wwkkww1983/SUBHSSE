@@ -44,6 +44,7 @@ namespace FineUIPro.Web.SitePerson
                     {
                         this.txtPersonName.Text = person.PersonName;
                         this.txtUnitName.Text = BLL.UnitService.GetUnitNameByUnitId(person.UnitId);
+                        this.txtCardNo.Text = person.CardNo;
                     }
                 }
             }

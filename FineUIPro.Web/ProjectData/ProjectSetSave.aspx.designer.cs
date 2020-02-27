@@ -76,13 +76,13 @@ namespace FineUIPro.Web.ProjectData {
         protected global::FineUIPro.DropDownList drpProjectType;
         
         /// <summary>
-        /// txtProjectState 控件。
+        /// drpProjectState 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtProjectState;
+        protected global::FineUIPro.DropDownList drpProjectState;
         
         /// <summary>
         /// txtContractNo 控件。
@@ -283,13 +283,13 @@ namespace FineUIPro.Web.ProjectData {
         protected global::FineUIPro.CheckBox ckbIsForeign;
         
         /// <summary>
-        /// lb1 控件。
+        /// txtMapCoordinates 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label lb1;
+        protected global::FineUIPro.TextBox txtMapCoordinates;
         
         /// <summary>
         /// ckIsUpTotalMonth 控件。

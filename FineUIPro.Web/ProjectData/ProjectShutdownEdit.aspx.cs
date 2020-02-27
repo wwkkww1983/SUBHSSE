@@ -52,6 +52,11 @@ namespace FineUIPro.Web.ProjectData
             if (!IsPostBack)
             {
                 this.ProjectId = this.CurrUser.LoginProjectId;
+                if (!string.IsNullOrEmpty(Request.Params["projectId"]))
+                {
+                    this.ProjectId = Request.Params["projectId"];
+                }
+
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 this.ProjectStateId = Request.Params["ProjectStateId"];
                 if (!string.IsNullOrEmpty(this.ProjectStateId))
@@ -68,7 +73,7 @@ namespace FineUIPro.Web.ProjectData
                 }
                 else
                 {
-                    var project = BLL.ProjectService.GetProjectByProjectId(this.ProjectId);
+                    var project = ProjectService.GetProjectByProjectId(this.ProjectId);
                     if (project != null)
                     {                       
                         this.hdOldProjectState.Text = project.ProjectState;
@@ -153,7 +158,7 @@ namespace FineUIPro.Web.ProjectData
             if (type == BLL.Const.BtnSubmit)
             {
                 projectShutdown.States = this.ctlAuditFlow.NextStep;
-                if (projectShutdown.States == BLL.Const.State_2) ///完成状态时
+                if (projectShutdown.States == Const.State_2) ///完成状态时
                 {
                     projectShutdown.ShutdownDate = DateTime.Now;
                 }

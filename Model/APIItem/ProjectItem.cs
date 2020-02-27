@@ -87,5 +87,13 @@ namespace Model
             get;
             set;
         }
+        /// <summary>
+        /// 项目坐标
+        /// </summary>
+        public string MapCoordinates
+        {
+            get;
+            set;
+        }
     }
 }

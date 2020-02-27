@@ -132,6 +132,9 @@
             Height="768px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
+             <f:MenuButton ID="btnMenuView" OnClick="btnMenuView_Click" Icon="Find" EnablePostBack="true"
+                runat="server" Text="查看">
+            </f:MenuButton>
             <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true"
                 runat="server" Icon="TableEdit" Hidden="true" Text="编辑">
             </f:MenuButton>

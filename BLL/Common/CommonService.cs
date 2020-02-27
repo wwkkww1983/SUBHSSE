@@ -270,18 +270,12 @@ namespace BLL
                 bool isRoleType = false;
                 bool isThisUnit = false;
                 var user = BLL.UserService.GetUserByUserId(userId);
-                if (user != null)
+                if (user != null && user.IsOffice == true)
                 {
                     var role = BLL.RoleService.GetRoleByRoleId(user.RoleId);
-                    if (role != null && (role.RoleType == "3" || role.RoleType == "2")) ////是管理、领导角色
+                    if (role != null && (role.RoleType == "3" || role.RoleType == "2") ) ////是管理、领导角色
                     {
                         isRoleType = true;
-                    }
-
-                    if (user.IsOffice == true)
-                    {
-                        isRoleType = true;
-                        isThisUnit = true;
                     }
 
                     var unit = UnitService.GetUnitByUnitId(user.UnitId);
@@ -290,6 +284,10 @@ namespace BLL
                         if (unit.IsThisUnit == true)
                         {
                             isThisUnit = true;
+                        }
+                        else
+                        {
+                            isThisUnit = false;
                         }
                     }
                 }
