@@ -121,11 +121,35 @@ namespace Model
         {
             get;
             set;
-        }
+        }        
         /// <summary>
         /// 参会人员
         /// </summary>
         public string AttentPerson
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 会议主持人id
+        /// </summary>
+        public string MeetingHostManId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 参会人员IDs
+        /// </summary>
+        public string AttentPersonIds
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 参会人员NAMEs
+        /// </summary>
+        public string AttentPersonNames
         {
             get;
             set;

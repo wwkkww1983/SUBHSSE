@@ -87,6 +87,8 @@ namespace BLL
                 MeetingHostMan = weekMeeting.MeetingHostMan,
                 AttentPerson = weekMeeting.AttentPerson,
                 MeetingPlace=weekMeeting.MeetingPlace,
+                MeetingHostManId = weekMeeting.MeetingHostManId,
+                AttentPersonIds = weekMeeting.AttentPersonIds,
             };
             db.Meeting_WeekMeeting.InsertOnSubmit(newWeekMeeting);
             db.SubmitChanges();
@@ -118,6 +120,8 @@ namespace BLL
                 newWeekMeeting.MeetingHostMan = weekMeeting.MeetingHostMan;
                 newWeekMeeting.AttentPerson = weekMeeting.AttentPerson;
                 newWeekMeeting.MeetingPlace = weekMeeting.MeetingPlace;
+                newWeekMeeting.MeetingHostManId = weekMeeting.MeetingHostManId;
+                newWeekMeeting.AttentPersonIds = weekMeeting.AttentPersonIds;
                 db.SubmitChanges();
             }
         }

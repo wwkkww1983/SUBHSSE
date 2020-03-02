@@ -49,5 +49,17 @@ namespace BLL
 
             return ObjectMapperManager.DefaultInstance.GetMapper<List<Model.Base_Project>, List<Model.ProjectItem>>().Map(projects);
         }
+
+        /// <summary>
+        /// 根据userId获取用户信息
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static Model.ProjectItem getProjectByProjectId(string projectId)
+        {
+            var getproject = Funs.DB.Base_Project.FirstOrDefault(x => x.ProjectId == projectId);
+
+            return ObjectMapperManager.DefaultInstance.GetMapper<Model.Base_Project, Model.ProjectItem>().Map(getproject);
+        }
     }
 }

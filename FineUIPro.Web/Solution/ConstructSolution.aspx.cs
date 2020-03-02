@@ -291,7 +291,7 @@ namespace FineUIPro.Web.Solution
             Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("施工方案审查" + filename, System.Text.Encoding.UTF8) + ".xls");
             Response.ContentType = "application/excel";
             Response.ContentEncoding = System.Text.Encoding.UTF8;
-            this.Grid1.PageSize = 500;
+            this.Grid1.PageSize = this.Grid1.Rows.Count;
             this.BindGrid();
             Response.Write(GetGridTableHtml(Grid1));
             Response.End();

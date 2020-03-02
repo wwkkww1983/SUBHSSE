@@ -104,7 +104,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="发卡" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Self" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="600px" Height="500px">
+        Width="500px" Height="380px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnSendCard" OnClick="btnSendCard_Click" EnablePostBack="true"

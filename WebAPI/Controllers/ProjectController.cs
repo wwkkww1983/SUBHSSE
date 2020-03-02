@@ -57,5 +57,28 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region 根据projectId获取项目信息
+        /// <summary>
+        /// 根据projectId获取项目信息
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getProjectByProjectId(string projectId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = BLL.APIProjectService.getProjectByProjectId(projectId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
     }
 }

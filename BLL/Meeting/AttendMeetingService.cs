@@ -69,6 +69,9 @@ namespace BLL
                 MeetingHostMan = attendMeeting.MeetingHostMan,
                 AttentPerson = attendMeeting.AttentPerson,
                 MeetingPlace = attendMeeting.MeetingPlace,
+                MeetingHostManId = attendMeeting.MeetingHostManId,
+                AttentPersonIds=attendMeeting.AttentPersonIds,
+                AttentPersonNum = attendMeeting.AttentPersonNum,
             };
             db.Meeting_AttendMeeting.InsertOnSubmit(attendMeeting);
             db.SubmitChanges();
@@ -99,6 +102,9 @@ namespace BLL
                 newAttendMeeting.MeetingHostMan = attendMeeting.MeetingHostMan;
                 newAttendMeeting.AttentPerson = attendMeeting.AttentPerson;
                 newAttendMeeting.MeetingPlace = attendMeeting.MeetingPlace;
+                newAttendMeeting.MeetingHostManId = attendMeeting.MeetingHostManId;
+                newAttendMeeting.AttentPersonIds = attendMeeting.AttentPersonIds;
+                newAttendMeeting.AttentPersonNum = attendMeeting.AttentPersonNum;
                 db.SubmitChanges();
             }
         }

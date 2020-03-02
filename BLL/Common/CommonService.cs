@@ -42,14 +42,14 @@ namespace BLL
                 else
                 {
                     ///3、管理角色、领导角色能访问项目菜单
-                    bool isLeaderManage = IsThisUnitLeaderOrManage(userId);
-                    if (isLeaderManage && menu.MenuType == BLL.Const.Menu_Project)
+                    bool isLeaderManage = IsLeaderOrManage(userId);
+                    if (isLeaderManage  && menu.MenuType == BLL.Const.Menu_Project)
                     {
                         returnValue = true;
                     }
                     else
                     {
-                        var puser = BLL.ProjectUserService.GetProjectUserByUserIdProjectId(projectId, userId); ////用户
+                        var puser = ProjectUserService.GetProjectUserByUserIdProjectId(projectId, userId); ////用户
                         if (puser != null && !string.IsNullOrEmpty(puser.RoleId))
                         {
                             var power = Funs.DB.Sys_RolePower.FirstOrDefault(x => x.MenuId == menuId && x.RoleId == puser.RoleId);
@@ -302,6 +302,35 @@ namespace BLL
         }
         #endregion
 
+        #region 根据用户ID判断是否 管理角色、领导角色 且是非本单位用户
+        /// <summary>
+        /// 根据用户UnitId判断是否为本单位用户或管理员
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsLeaderOrManage(string userId)
+        {
+            bool result = false;
+            if (userId == Const.sysglyId || userId == Const.hfnbdId)
+            {
+                result = true;
+            }
+            else
+            {
+                var user = UserService.GetUserByUserId(userId);
+                if (user != null && user.IsOffice == true)
+                {
+                    var role = BLL.RoleService.GetRoleByRoleId(user.RoleId);
+                    if (role != null && (role.RoleType == "3" || role.RoleType == "2")) ////是管理、领导角色
+                    {
+                        result = true;
+                    }
+                }
+            }
+
+            return result;
+        }
+        #endregion
+        
         #region 根据用户UnitId返回对应的UnitId
         /// <summary>
         /// 根据用户UnitId返回对应的UnitId

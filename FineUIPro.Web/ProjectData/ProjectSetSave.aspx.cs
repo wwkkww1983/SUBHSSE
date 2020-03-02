@@ -37,11 +37,10 @@ namespace FineUIPro.Web.ProjectData
                 BLL.ConstValue.InitConstValueDropDownList(this.drpProjectType, ConstValue.Group_ProjectType, false);
                 List<Sys_User> myList = new List<Model.Sys_User>();
                 myList = (from x in Funs.DB.Sys_User
-                          join y in Funs.DB.Base_Unit
-                          on x.UnitId equals y.UnitId
-                          where y.IsThisUnit == true
-                          orderby x.UserName
-                          select x).ToList();
+                              join y in Funs.DB.Base_Unit  on x.UnitId equals y.UnitId
+                              where y.IsThisUnit == true
+                              orderby x.UserName
+                              select x).ToList();
                 RadioButtonList1.DataTextField = "UserName";
                 RadioButtonList1.DataValueField = "UserId";
                 RadioButtonList1.DataSource = myList;
@@ -67,7 +66,7 @@ namespace FineUIPro.Web.ProjectData
                 if (thisUnit != null)
                 {
                     this.drpUnit.SelectedValue = thisUnit.UnitId;
-                    if (thisUnit.UnitId == BLL.Const.UnitId_6)
+                    if (thisUnit.UnitId == Const.UnitId_6)
                     {
                         this.drpUnit.Label = "所属分公司";
                     }

@@ -60,7 +60,7 @@
             <f:FormRow>
                  <Items>
                    <f:TextBox ID="txtProjectAddress" runat="server" Label="项目地址" Readonly="true"></f:TextBox>
-                   <f:TextBox ID="txtUnitName" runat="server" Label="项目所属单位" Readonly="true"></f:TextBox>
+                   <f:TextBox ID="txtUnitName" runat="server" Label="所属单位" Readonly="true"></f:TextBox>
                 </Items>
             </f:FormRow> 
             <f:FormRow>

@@ -299,8 +299,7 @@ namespace BLL
 
             return users;
         }
-
-
+        
         /// <summary>
         /// 根据项目号和角色Id获取用户下拉选项
         /// </summary>
@@ -435,5 +434,35 @@ namespace BLL
                 Funs.DB.SubmitChanges();
             }
         }
+
+        #region 根据多用户ID得到用户名称字符串
+        /// <summary>
+        /// 根据多用户ID得到用户名称字符串
+        /// </summary>
+        /// <param name="bigType"></param>
+        /// <returns></returns>
+        public static string getUserNamesUserIds(object userIds)
+        {
+            string userName = string.Empty;
+            if (userIds != null)
+            {
+                string[] ids = userIds.ToString().Split(',');
+                foreach (string id in ids)
+                {
+                    var q = GetUserNameByUserId(id);
+                    if (q != null)
+                    {
+                        userName += q + ",";
+                    }
+                }
+                if (userName != string.Empty)
+                {
+                    userName = userName.Substring(0, userName.Length - 1); ;
+                }
+            }
+
+            return userName;
+        }
+        #endregion
     }
 }

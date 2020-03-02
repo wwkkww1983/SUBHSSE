@@ -799,6 +799,23 @@
             </summary>
             <param name="hseDiaryItem">HSE日志</param>
         </member>
+        <member name="T:WebAPI.Controllers.CommonController">
+            <summary>
+             公用接口
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.CommonController.getSubscribeMessage">
+            <summary>
+             订阅消息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.CommonController.getUserOpenId(System.String,System.String)">
+            <summary>
+             获取OpenId消息
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.IDCardController">
             <summary>
              读取身份证信息
@@ -1488,6 +1505,13 @@
             根据userid获取用户参与项目
             </summary>
             <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.ProjectController.getProjectByProjectId(System.String)">
+            <summary>
+            根据projectId获取项目信息
+            </summary>
+            <param name="projectId"></param>
             <returns></returns>
         </member>
         <member name="T:WebAPI.Controllers.RectifyNoticesController">

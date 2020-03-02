@@ -7,4 +7,7 @@
 <TreeNode id="64690369-3049-4009-82EE-437DF2E606BA" Text="项目单位" NavigateUrl="ProjectData/ProjectUnit.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="CDB80E91-61A8-4E4D-BA97-3ADDC3208B66" Text="项目用户" NavigateUrl="ProjectData/ProjectUser.aspx" Icon="PageHeaderFooter"></TreeNode>
 </TreeNode>
+<TreeNode id="5BB670AD-CCAA-4004-B931-70C5879A968B" Text="安全管理资料" NavigateUrl="" Icon="ApplicationViewColumns"><TreeNode id="BC3B7C4A-D69C-45CA-A951-98F4F64191BB" Text="安全管理资料" NavigateUrl="SafetyDataE/ProjectSafetyDataE.aspx" Icon="PageHeaderFooter"></TreeNode>
+<TreeNode id="8F2E3B63-8B98-44FC-8353-7F09DA86A463" Text="安全管理资料考核" NavigateUrl="SafetyDataE/ProjectSafetyDataECheck.aspx" Icon="PageHeaderFooter"></TreeNode>
+</TreeNode>
 </Tree>

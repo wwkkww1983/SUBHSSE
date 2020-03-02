@@ -1,1 +1,11 @@
 ﻿
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 System.DateTime.Parse(String s)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\BLL\Common\Funs.cs:行号 478
+出错时间:02/29/2020 11:34:08
+出错时间:02/29/2020 11:34:09
+

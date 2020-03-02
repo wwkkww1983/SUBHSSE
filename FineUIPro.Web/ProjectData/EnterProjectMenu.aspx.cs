@@ -53,13 +53,21 @@ namespace FineUIPro.Web.ProjectData
         {
             string strSql = string.Empty;
             List<SqlParameter> listStr = new List<SqlParameter>();
-            if (BLL.CommonService.IsThisUnitLeaderOrManage(this.CurrUser.UserId)) //根据用户ID判断是否 管理角色、领导角色 且是本单位用户
+            if (CommonService.IsThisUnitLeaderOrManage(this.CurrUser.UserId)) //根据用户ID判断是否 管理角色、领导角色 且是本单位用户
             {
                 strSql = @"SELECT ProjectId,ProjectCode,ProjectName,StartDate,EndDate,ProjectAddress,sysConst.ConstText AS ProjectTypeName,"
                         + @" (CASE WHEN ProjectState='" + BLL.Const.ProjectState_2 + "' THEN '暂停中' WHEN ProjectState='" + BLL.Const.ProjectState_3 + "' THEN '已完工' WHEN SysConst.ConstText='E' THEN '设计中' ELSE '施工中' END) AS ProjectStateName,ProjectState"
                         + @" FROM Base_Project AS Project "
                         + @" LEFT JOIN Sys_Const AS sysConst ON sysConst.ConstValue = Project.ProjectType and sysConst.GroupId='" + BLL.ConstValue.Group_ProjectType + "'"
                         + @" WHERE 1=1 ";
+            }
+            else if (CommonService.IsLeaderOrManage(this.CurrUser.UserId)) //根据用户ID判断是否 管理角色、领导角色 且是非本单位用户
+            {
+                strSql = @"SELECT ProjectId,ProjectCode,ProjectName,StartDate,EndDate,ProjectAddress,sysConst.ConstText AS ProjectTypeName,"
+                     + @" (CASE WHEN ProjectState='" + BLL.Const.ProjectState_2 + "' THEN '暂停中' WHEN ProjectState='" + BLL.Const.ProjectState_3 + "' THEN '已完工' WHEN SysConst.ConstText='E' THEN '设计中' ELSE '施工中' END) AS ProjectStateName,ProjectState"
+                     + @" FROM Base_Project AS Project "
+                     + @" LEFT JOIN Sys_Const AS sysConst ON sysConst.ConstValue = Project.ProjectType and sysConst.GroupId='" + BLL.ConstValue.Group_ProjectType + "'"
+                     + @" WHERE Project.UnitId='" + this.CurrUser.UnitId + "'";
             }
             else
             {

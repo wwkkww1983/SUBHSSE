@@ -123,16 +123,17 @@
             <f:FormRow runat="server" ID="trIsForeign" Hidden="true">
                  <Items>
                    <f:CheckBox runat="server" ID="ckbIsForeign" Label="海外项目"></f:CheckBox>
-                  <f:TextBox ID="txtMapCoordinates" runat="server" Label="坐标" MaxLength="50"></f:TextBox>
+                  <f:Label runat="server"></f:Label>
                 </Items>
             </f:FormRow>   
             <f:FormRow>   
                 <Items>
                      <f:CheckBox ID="ckIsUpTotalMonth" runat="server" Label="上报月总结" Checked="true" Hidden="true">
                     </f:CheckBox>
-                </Items>
-                <Items>
-                    <f:Label runat="server"></f:Label>
+                      <f:TextBox ID="txtMapCoordinates" runat="server" Label="坐标" MaxLength="50"></f:TextBox>                     
+                    <f:ContentPanel ID="bottomPanel"  RegionPosition="Bottom" ShowBorder="false" ShowHeader="false" EnableCollapse="false" runat="server">
+                        <a href="http://api.map.baidu.com/lbsapi/getpoint/index.html" target="_blank" >拾取坐标</a>
+                   </f:ContentPanel>
                 </Items>
             </f:FormRow>   
         </rows>

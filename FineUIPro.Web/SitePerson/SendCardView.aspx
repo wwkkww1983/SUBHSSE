@@ -58,7 +58,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <table id="Table1" runat="server" width="100%" cellpadding="0" cellspacing="0" align="center"
+    <table id="Table1" runat="server" width="400px" cellpadding="0" cellspacing="0" align="center"
         border="0">
         <tr>
             <td style="width: 100%; background: url('../Images/bg-1.gif')">
@@ -82,7 +82,7 @@
         </tr>
         <tr>
             <td>
-                <table id="Table5" runat="server" width="100%" border="0" cellpadding="0" cellspacing="0"> 
+                <table id="Table5" runat="server" width="100%" border="1" cellpadding="0" cellspacing="0"> 
                     <tr style="height:32px">
                         <td  align="center" >
                              <table id="Table2" runat="server" width="100%" border="0" cellpadding="0" cellspacing="0"> 
@@ -104,16 +104,13 @@
                                 </tr>       
                              </table>
                         </td>
-                    </tr> 
-                    <tr style="height:5px">
-                        <td>&nbsp;</td>
-                    </tr>
+                    </tr>                   
                     <tr>
                        <td>
                           <table id="Table3" runat="server" width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color:cornflowerblue"> 
                                <tr>
                                     <td align="right" style="width: 30%; ">
-                                        <asp:Label runat="server" ID="Label2" Text="单 位：" Font-Size="11" Font-Bold="true"></asp:Label>
+                                        <asp:Label runat="server" ID="Label2" Text="单      位：" Font-Size="11" Font-Bold="true"></asp:Label>
                                     </td>
                                     <td align="left" style="width: 50%; ">
                                         <asp:Label ID="txtUnit" runat="server" Width="95%" CssClass="textboxStyle" Font-Size="11" Font-Bold="true">
@@ -134,7 +131,7 @@
                                </tr>
                               <tr>
                                     <td align="right" style="width: 30%; ">
-                                        <asp:Label runat="server" ID="Label6" Text="姓 名：" Font-Size="11" Font-Bold="true"></asp:Label>
+                                        <asp:Label runat="server" ID="Label6" Text="姓      名：" Font-Size="11" Font-Bold="true"></asp:Label>
                                     </td>
                                     <td align="left" style="width: 50%; ">
                                         <asp:Label ID="txtName" runat="server" Width="95%" CssClass="textboxStyle" Font-Size="11" Font-Bold="true">
@@ -143,7 +140,7 @@
                                </tr>
                                 <tr>
                                     <td align="right" style="width: 30%; ">
-                                        <asp:Label runat="server" ID="Label8" Text="编 号：" Font-Size="11" Font-Bold="true"></asp:Label>
+                                        <asp:Label runat="server" ID="Label8" Text="编      号：" Font-Size="11" Font-Bold="true"></asp:Label>
                                     </td>
                                     <td align="left" style="width: 50%; ">
                                         <asp:Label ID="txtCardNo" runat="server" Width="95%" CssClass="textboxStyle" Font-Size="11" Font-Bold="true">

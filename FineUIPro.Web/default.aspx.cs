@@ -616,15 +616,15 @@ namespace FineUIPro.Web
         protected void btnPoject_Click(object sender, EventArgs e)
         {
             this.CurrUser.LoginProjectId = string.Empty;
-            var projectCount = BLL.ProjectService.GetAllProjectDropDownList();
+            var projectCount = ProjectService.GetAllProjectDropDownList();
             if (projectCount.Count == 0)
             {
                 ShowNotify("未添加任何项目！", MessageBoxIcon.Warning);
                 return;
             }
-            if (BLL.CommonService.IsThisUnitLeaderOrManage(this.CurrUser.UserId))
+            if (CommonService.IsLeaderOrManage(this.CurrUser.UserId))
             {
-                if (projectCount.Count == 1)
+                if (projectCount.Count == 1 && (CommonService.IsThisUnitLeaderOrManage(this.CurrUser.UserId) || projectCount.First().UnitId == this.CurrUser.UnitId))
                 {
                     var projectFirst = projectCount.FirstOrDefault();
                     if (projectFirst != null)
@@ -661,7 +661,7 @@ namespace FineUIPro.Web
                 }
                 else
                 {
-                    var projectUser = BLL.ProjectUserService.GetProjectUserByUserId(this.CurrUser.UserId);
+                    var projectUser = ProjectUserService.GetProjectUserByUserId(this.CurrUser.UserId);
                     int count = projectUser.Count();
                     if (count == 1)
                     {
@@ -669,7 +669,7 @@ namespace FineUIPro.Web
                         if (projectUserFirst != null)
                         {
                             this.CurrUser.LoginProjectId = projectUserFirst.ProjectId;
-                            this.MenuSwitchMethod(BLL.Const.Menu_Project);
+                            this.MenuSwitchMethod(Const.Menu_Project);
                         }
                         else
                         {
@@ -677,7 +677,7 @@ namespace FineUIPro.Web
                             return;
                         }
                     }
-                    else if (count > 1 || this.CurrUser.UserId == BLL.Const.sysglyId)
+                    else if (count > 1 || this.CurrUser.UserId == Const.sysglyId)
                     {
                         PageContext.RegisterStartupScript(windowProject.GetShowReference(String.Format("~/ProjectData/EnterProjectMenu.aspx")));
                     }
@@ -697,7 +697,7 @@ namespace FineUIPro.Web
         /// <param name="e"></param>
         protected void windowProject_Close(object sender, WindowCloseEventArgs e)
         {           
-            this.MenuSwitchMethod(BLL.Const.Menu_Project);
+            this.MenuSwitchMethod(Const.Menu_Project);
         }
 
         /// <summary>
@@ -752,9 +752,9 @@ namespace FineUIPro.Web
         {                               
             this.lbTitle.Text = hdTitle.Text;
             string projectType = string.Empty;
-            if (type == BLL.Const.Menu_Project)
+            if (type == Const.Menu_Project)
             {                             
-                var project = BLL.ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId);
+                var project = ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId);
                 if (project != null)
                 {
                     projectType = project.ProjectType;
@@ -778,8 +778,8 @@ namespace FineUIPro.Web
                 this.XmlDataSource1.DataFile = "common/" + type + ".xml";
                 if (projectType == "5")
                 {
-                    var unit = BLL.CommonService.GetIsThisUnit();
-                    if (unit != null && unit.UnitId == BLL.Const.UnitId_ECEC)
+                    var unit = CommonService.GetIsThisUnit();
+                    if (unit != null && unit.UnitId == Const.UnitId_ECEC)
                     {
                         this.XmlDataSource1.DataFile = "common/Menu_EProject.xml";
                     }

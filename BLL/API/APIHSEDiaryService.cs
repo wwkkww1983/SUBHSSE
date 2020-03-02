@@ -48,7 +48,7 @@ namespace BLL
                 getItem.Value5 = getValues5();
                 getItem.Value6 = getValues6();
                 getItem.Value7 = getValues7();
-                getItem.Value8 = getValues8();
+                getItem.Value8 = getValues8(userId);
                 getItem.Value9 = getValues9();
                 getItem.Value10 = getValues10();
                 var getInfo = Funs.DB.Project_HSEDiary.FirstOrDefault(x => x.UserId == userId && x.DiaryDate == getDiaryDate);
@@ -382,7 +382,7 @@ namespace BLL
         /// <summary>
         ///  8 HSE会议情况及次数
         /// </summary>
-        private static string getValues8()
+        private static string getValues8(string userId)
         {
             string strValues = string.Empty;
             var getClassMeeting = getFlowOperteList.Where(x => x.MenuId == Const.ProjectClassMeetingMenuId).Count();
@@ -390,20 +390,25 @@ namespace BLL
             {
                 strValues += "班前会：" + getClassMeeting.ToString() + "；";
             }
-            var getWeekMeeting = getFlowOperteList.Where(x => x.MenuId == Const.ProjectWeekMeetingMenuId).Count();
+            var getWeekMeeting = Funs.DB.Meeting_WeekMeeting.Where(x => x.CompileMan == userId || x.MeetingHostManId == userId || x.AttentPersonIds.Contains(userId)).Count();
             if (getWeekMeeting > 0)
             {
                 strValues += "周例会：" + getWeekMeeting.ToString() + "；";
             }
-            var getMonthMeeting = getFlowOperteList.Where(x => x.MenuId == Const.ProjectMonthMeetingMenuId).Count();
+            var getMonthMeeting = Funs.DB.Meeting_MonthMeeting.Where(x => x.CompileMan == userId || x.MeetingHostManId == userId || x.AttentPersonIds.Contains(userId)).Count();
             if (getMonthMeeting > 0)
             {
                 strValues += "月例会：" + getMonthMeeting.ToString() + "；";
             }
-            var getSpecialMeeting = getFlowOperteList.Where(x => x.MenuId == Const.ProjectSpecialMeetingMenuId).Count();
+            var getSpecialMeeting = Funs.DB.Meeting_SpecialMeeting.Where(x => x.CompileMan == userId || x.CompileMan == userId || x.MeetingHostManId == userId || x.AttentPersonIds.Contains(userId)).Count();
             if (getSpecialMeeting > 0)
             {
                 strValues += "专题会：" + getSpecialMeeting.ToString() + "；";
+            }
+            var getAttendMeeting = Funs.DB.Meeting_AttendMeeting.Where(x => x.CompileMan == userId || x.MeetingHostManId == userId || x.AttentPersonIds.Contains(userId)).Count();
+            if (getAttendMeeting > 0)
+            {
+                strValues += "其他会议：" + getAttendMeeting.ToString() + "；";
             }
 
             if (string.IsNullOrEmpty(strValues))

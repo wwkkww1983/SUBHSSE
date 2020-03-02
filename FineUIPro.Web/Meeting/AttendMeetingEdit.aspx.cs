@@ -65,7 +65,7 @@ namespace FineUIPro.Web.Meeting
                         {
                             this.InitDropDownList();
                         }
-                        this.txtAttendMeetingCode.Text = BLL.CodeRecordsService.ReturnCodeByDataId(this.AttendMeetingId);
+                        this.txtAttendMeetingCode.Text = CodeRecordsService.ReturnCodeByDataId(this.AttendMeetingId);
                         this.txtAttendMeetingName.Text = attendMeeting.AttendMeetingName;
                         if (attendMeeting.AttendMeetingDate != null)
                         {

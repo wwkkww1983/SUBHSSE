@@ -283,6 +283,15 @@ namespace FineUIPro.Web.ProjectData {
         protected global::FineUIPro.CheckBox ckbIsForeign;
         
         /// <summary>
+        /// ckIsUpTotalMonth 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.CheckBox ckIsUpTotalMonth;
+        
+        /// <summary>
         /// txtMapCoordinates 控件。
         /// </summary>
         /// <remarks>
@@ -292,13 +301,13 @@ namespace FineUIPro.Web.ProjectData {
         protected global::FineUIPro.TextBox txtMapCoordinates;
         
         /// <summary>
-        /// ckIsUpTotalMonth 控件。
+        /// bottomPanel 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.CheckBox ckIsUpTotalMonth;
+        protected global::FineUIPro.ContentPanel bottomPanel;
         
         /// <summary>
         /// Toolbar1 控件。

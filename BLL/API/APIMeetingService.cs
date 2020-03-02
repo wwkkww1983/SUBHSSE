@@ -48,7 +48,7 @@ namespace BLL
                                    CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
                                    AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.ClassMeetingId).AttachUrl.Replace('\\', '/'),
                                    AttachUrl1 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.ClassMeetingId +"#1")).AttachUrl.Replace('\\', '/'),
-                                   AttachUrl2 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.ClassMeetingId + "#2")).AttachUrl.Replace('\\', '/'),
+                                   AttachUrl2 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.ClassMeetingId + "#2")).AttachUrl.Replace('\\', '/'),                                  
                                }).FirstOrDefault();
             }
             else if (meetingType == "W")
@@ -77,6 +77,9 @@ namespace BLL
                                    AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.WeekMeetingId).AttachUrl.Replace('\\', '/'),
                                    AttachUrl1 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.WeekMeetingId + "#1")).AttachUrl.Replace('\\', '/'),
                                    AttachUrl2 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.WeekMeetingId + "#2")).AttachUrl.Replace('\\', '/'),
+                                   MeetingHostManId = x.MeetingHostManId,
+                                   AttentPersonIds=x.AttentPersonIds,
+                                   AttentPersonNames=UserService.getUserNamesUserIds(x.AttentPersonIds),
                                }).FirstOrDefault();
             }
             else if (meetingType == "M")
@@ -105,6 +108,9 @@ namespace BLL
                                    AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.MonthMeetingId).AttachUrl.Replace('\\', '/'),
                                    AttachUrl1 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.MonthMeetingId + "#1")).AttachUrl.Replace('\\', '/'),
                                    AttachUrl2 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.MonthMeetingId + "#2")).AttachUrl.Replace('\\', '/'),
+                                   MeetingHostManId = x.MeetingHostManId,
+                                   AttentPersonIds = x.AttentPersonIds,
+                                   AttentPersonNames = UserService.getUserNamesUserIds(x.AttentPersonIds),
                                }).FirstOrDefault();
             }
             else if (meetingType == "S")
@@ -133,6 +139,9 @@ namespace BLL
                                    AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.SpecialMeetingId).AttachUrl.Replace('\\', '/'),
                                    AttachUrl1 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.SpecialMeetingId + "#1")).AttachUrl.Replace('\\', '/'),
                                    AttachUrl2 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.SpecialMeetingId + "#2")).AttachUrl.Replace('\\', '/'),
+                                   MeetingHostManId = x.MeetingHostManId,
+                                   AttentPersonIds = x.AttentPersonIds,
+                                   AttentPersonNames = UserService.getUserNamesUserIds(x.AttentPersonIds),
                                }).FirstOrDefault();
             }
             else
@@ -154,12 +163,16 @@ namespace BLL
                                    MeetingHours = x.MeetingHours ?? 0,
                                    MeetingHostMan = x.MeetingHostMan,
                                    AttentPerson = x.AttentPerson,
+                                   AttentPersonNum = x.AttentPersonNum ?? 0,
                                    CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
                                    CompileManId = x.CompileMan,
                                    CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
                                    AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.AttendMeetingId).AttachUrl.Replace('\\', '/'),
                                    AttachUrl1 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.AttendMeetingId + "#1")).AttachUrl.Replace('\\', '/'),
                                    AttachUrl2 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.AttendMeetingId + "#2")).AttachUrl.Replace('\\', '/'),
+                                   MeetingHostManId = x.MeetingHostManId,
+                                   AttentPersonIds = x.AttentPersonIds,
+                                   AttentPersonNames = UserService.getUserNamesUserIds(x.AttentPersonIds),
                                }).FirstOrDefault();
             }
             return getMeetItem;
@@ -311,7 +324,8 @@ namespace BLL
                                    MeetingHours = x.MeetingHours ?? 0,
                                    MeetingHostMan = x.MeetingHostMan,
                                    AttentPerson = x.AttentPerson,
-                                   CompileManId=x.CompileMan,
+                                   AttentPersonNum = x.AttentPersonNum ?? 0,
+                                   CompileManId =x.CompileMan,
                                    CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
                                    CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),                                  
                                    AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.AttendMeetingId).AttachUrl.Replace('\\', '/'),
@@ -394,6 +408,8 @@ namespace BLL
                     AttentPerson = meeting.AttentPerson,
                     AttentPersonNum = meeting.AttentPersonNum,
                     States = Const.State_2,
+                    MeetingHostManId=meeting.MeetingHostManId,
+                    AttentPersonIds=meeting.AttentPersonIds,
                 };
 
                 if (meeting.States != "1")
@@ -438,6 +454,8 @@ namespace BLL
                     AttentPerson = meeting.AttentPerson,
                     AttentPersonNum = meeting.AttentPersonNum,
                     States = Const.State_2,
+                    MeetingHostManId = meeting.MeetingHostManId,
+                    AttentPersonIds = meeting.AttentPersonIds,
                 };
 
                 if (meeting.States != "1")
@@ -482,6 +500,8 @@ namespace BLL
                     AttentPerson = meeting.AttentPerson,
                     AttentPersonNum = meeting.AttentPersonNum,
                     States = Const.State_2,
+                    MeetingHostManId = meeting.MeetingHostManId,
+                    AttentPersonIds = meeting.AttentPersonIds,
                 };
 
                 if (meeting.States != "1")
@@ -524,7 +544,10 @@ namespace BLL
                     MeetingHours = meeting.MeetingHours,
                     MeetingHostMan = meeting.MeetingHostMan,
                     AttentPerson = meeting.AttentPerson,
+                    AttentPersonNum = meeting.AttentPersonNum,
                     States = Const.State_2,
+                    MeetingHostManId = meeting.MeetingHostManId,
+                    AttentPersonIds = meeting.AttentPersonIds,
                 };
 
                 if (meeting.States != "1")
