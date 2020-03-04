@@ -804,10 +804,17 @@
              公用接口
             </summary>
         </member>
-        <member name="M:WebAPI.Controllers.CommonController.getSubscribeMessage">
+        <member name="M:WebAPI.Controllers.CommonController.getSubscribeMessage(System.String,System.String,System.String,System.Object,System.String,System.String)">
             <summary>
              订阅消息
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.CommonController.postSubscribeMessage(Model.SubscribeMessageItem)">
+            <summary>
+             订阅消息
+            </summary>
+            <param name="messgeInfo"></param>
             <returns></returns>
         </member>
         <member name="M:WebAPI.Controllers.CommonController.getUserOpenId(System.String,System.String)">

@@ -108,11 +108,11 @@ namespace BLL
         ///  订阅消息
         /// </summary>
         /// <returns></returns>
-        public static string getSubscribeMessage()
+        public static string getSubscribeMessage(string touser, string template_id, string page, object data, string miniprogram_state, string lang)
         {
             string access_token = APICommonService.getaccess_token();
-            string url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=";
-            return APIGetHttpService.Http(url + access_token, "POST");
+            string url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token="+ access_token + "&template_id="+ template_id + "&page=" + page + "&data=" + data + "&miniprogram_state=" + miniprogram_state + "&lang=" + lang;
+            return APIGetHttpService.Http(url, "POST");
         }
 
         /// <summary>
@@ -124,8 +124,8 @@ namespace BLL
         public static string getUserOpenId(string userId, string jsCode)
         {
             string openId = string.Empty;
-            string appid = getUnitAppId();
-            string secret = getUnitSecret();          
+            string appid = "wxb5f0e8051b7b9eee";//getUnitAppId();
+            string secret = "626175f8860bf84beb4cf507b9445115";//getUnitSecret();          
             var getUser = Funs.DB.Sys_User.FirstOrDefault(x=>x.UserId == userId);
             if (getUser != null)
             {
@@ -140,13 +140,15 @@ namespace BLL
                     if (!string.IsNullOrEmpty(strJosn))
                     {
                         JObject obj = JObject.Parse(strJosn);
-                        openId = obj["openid"].ToString();
-                        getUser.OpenId = openId;
-                        Funs.SubmitChanges();
+                        if (obj["openid"] != null)
+                        {
+                            openId = obj["openid"].ToString();
+                            getUser.OpenId = openId;
+                            Funs.SubmitChanges();
+                        }
                     }
                 }
-            }
-            
+            }        
 
             return openId;
         }
