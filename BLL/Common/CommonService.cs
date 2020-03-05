@@ -330,7 +330,73 @@ namespace BLL
             return result;
         }
         #endregion
-        
+
+        #region 根据项目Id返回对应的所属单位及上级UnitIdLists
+        /// <summary>
+        /// 根据项目Id返回对应的所属单位及上级UnitIdLists
+        /// </summary>
+        /// <returns></returns>
+        public static List<string> GetUnitIdListsByProject(Model.Base_Project project)
+        {
+            List<string> unitIdList = new List<string>();
+            if (project != null)
+            {
+                if (!string.IsNullOrEmpty(project.UnitId))
+                {
+                    unitIdList.Add(project.UnitId);
+                    List<string> supUnitId = GetSupUnitId(project.UnitId);
+                    if (supUnitId.Count > 0)
+                    {
+                        unitIdList.AddRange(supUnitId);
+                    }
+                }
+            }
+            return unitIdList;
+        }
+        #endregion
+
+        #region 根据UnitId返回对应的SupUnitId
+        /// <summary>
+        /// 根据用户UnitId返回对应的UnitId
+        /// </summary>
+        /// <returns></returns>
+        public static List<string> GetSupUnitId(string unitId)
+        {
+            List<string> unitIdList = new List<string>();
+            if (!string.IsNullOrEmpty(unitId))
+            {
+               var unit = Funs.DB.Base_Unit.FirstOrDefault(e => e.UnitId == unitId);  //本单位
+                if (unit != null && !string.IsNullOrEmpty(unit.SupUnitId))
+                {
+                    unitIdList.Add(unit.SupUnitId);
+                    GetSupUnitId(unit.SupUnitId);
+                }
+            }
+            return unitIdList;
+        }
+        #endregion
+
+        #region 根据UnitId返回对应的SupUnitId
+        /// <summary>
+        /// 根据用户UnitId返回对应的UnitId
+        /// </summary>
+        /// <returns></returns>
+        public static List<string> GetChildrenUnitId(string unitId)
+        {
+            List<string> unitIdList = new List<string>();
+            if (!string.IsNullOrEmpty(unitId))
+            {
+                var unit = Funs.DB.Base_Unit.FirstOrDefault(e => e.SupUnitId == unitId);  //本单位
+                if (unit != null)
+                {
+                    unitIdList.Add(unit.UnitId);
+                    GetSupUnitId(unit.UnitId);
+                }
+            }
+            return unitIdList;
+        }
+        #endregion
+
         #region 根据用户UnitId返回对应的UnitId
         /// <summary>
         /// 根据用户UnitId返回对应的UnitId

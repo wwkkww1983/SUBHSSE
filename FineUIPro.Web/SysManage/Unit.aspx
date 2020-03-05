@@ -39,13 +39,13 @@
                 </Toolbars>
                 <Columns>
                     <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center"/>
-                    <f:RenderField Width="150px" ColumnID="UnitCode" DataField="UnitCode" SortField="UnitCode"
+                    <f:RenderField Width="110px" ColumnID="UnitCode" DataField="UnitCode" SortField="UnitCode"
                         FieldType="String" HeaderText="单位代码" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="220px" ColumnID="UnitName" DataField="UnitName" TextAlign="Left"
+                    <f:RenderField Width="240px" ColumnID="UnitName" DataField="UnitName" TextAlign="Left"
                         SortField="UnitName" FieldType="String" HeaderText="单位名称" HeaderTextAlign="Center">                       
                     </f:RenderField>
-                    <f:RenderField Width="115px" ColumnID="UnitTypeName" DataField="UnitTypeName" SortField="UnitTypeName"
+                    <f:RenderField Width="120px" ColumnID="UnitTypeName" DataField="UnitTypeName" SortField="UnitTypeName"
                         FieldType="String" HeaderText="单位类型" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>                    
                     <f:RenderField Width="250px" ColumnID="Address" DataField="Address" ExpandUnusedSpace="true"
@@ -57,9 +57,12 @@
                     <f:RenderField Width="160px" ColumnID="EMail" DataField="EMail"   Hidden="true"
                         FieldType="String" HeaderText="邮箱" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:CheckBoxField Width="75px" RenderAsStaticField="true" TextAlign="Center"  DataField="IsThisUnit" HeaderText="本单位" /> 
+<%--                    <f:CheckBoxField Width="75px" RenderAsStaticField="true" TextAlign="Center"  DataField="IsThisUnit" HeaderText="本单位" /> --%>
                     <f:CheckBoxField Width="75px" RenderAsStaticField="true" TextAlign="Center"  DataField="IsBranch" HeaderText="分公司" />
-                    <f:WindowField ColumnID="SubUnit" Width="80px" WindowID="WindowSubUnit" HeaderText="资质"
+                    <f:RenderField Width="230px" ColumnID="supUnitName" DataField="supUnitName" TextAlign="Left"
+                        SortField="supUnitName" FieldType="String" HeaderText="上级单位" HeaderTextAlign="Center">                       
+                    </f:RenderField>
+                    <f:WindowField ColumnID="SubUnit" Width="70px" WindowID="WindowSubUnit" HeaderText="资质"
                                 Text="详细" ToolTip="资质详细信息" DataTextFormatString="{0}" DataIFrameUrlFields="UnitId"
                                 DataIFrameUrlFormatString="../QualityAudit/SubUnitQualityEdit.aspx?UnitId={0}"/>             
                 </Columns>

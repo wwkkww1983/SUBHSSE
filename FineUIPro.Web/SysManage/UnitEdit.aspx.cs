@@ -28,7 +28,9 @@ namespace FineUIPro.Web.SysManage
                 LoadData();
                 ////权限按钮方法
                 this.GetButtonPower();
-                BLL.UnitTypeService.InitUnitTypeDropDownList(this.ddlUnitTypeId, true);
+
+                UnitTypeService.InitUnitTypeDropDownList(this.ddlUnitTypeId, true);
+                UnitService.InitUnitDropDownList(this.drpSupUnit, null, true);
                 this.UnitId = Request.Params["UnitId"];
                 if (!string.IsNullOrEmpty(this.UnitId))
                 {
@@ -50,6 +52,11 @@ namespace FineUIPro.Web.SysManage
                         if (unit.IsBranch == true)
                         {
                             this.rblIsBranch.SelectedValue = "true";
+                            this.drpSupUnit.Hidden = false;
+                            if (!string.IsNullOrEmpty(unit.SupUnitId))
+                            {
+                                this.drpSupUnit.SelectedValue = unit.SupUnitId;
+                            }
                         }
                         if (unit.IsThisUnit== true)
                         {
@@ -157,6 +164,14 @@ namespace FineUIPro.Web.SysManage
                 this.UnitId = updateName.UnitId;
             }
             unit.IsBranch = Convert.ToBoolean(this.rblIsBranch.SelectedValue);
+            if (unit.IsBranch == true)
+            {
+                unit.SupUnitId = this.drpSupUnit.SelectedValue;
+            }
+            else
+            {
+                unit.SupUnitId = null;
+            }
             if (string.IsNullOrEmpty(this.UnitId))
             {
                 unit.UnitId = SQLHelper.GetNewID(typeof(Model.Base_Unit));
@@ -245,34 +260,47 @@ namespace FineUIPro.Web.SysManage
         /// <param name="e"></param>
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.UnitId))
+            //if (string.IsNullOrEmpty(this.UnitId))
+            //{
+            //    var updateName = Funs.DB.Base_Unit.FirstOrDefault(x => x.UnitCode == this.txtUnitCode.Text.Trim() || x.UnitName == this.txtUnitName.Text.Trim());
+            //    if (updateName != null)
+            //    {
+            //        this.txtUnitCode.Text = updateName.UnitCode;
+            //        this.txtUnitName.Text = updateName.UnitName;
+            //        if (!string.IsNullOrEmpty(updateName.UnitTypeId))
+            //        {
+            //            this.ddlUnitTypeId.SelectedValue = updateName.UnitTypeId;
+            //        }
+            //        this.txtCorporate.Text = updateName.Corporate;
+            //        this.txtAddress.Text = updateName.Address;
+            //        this.txtTelephone.Text = updateName.Telephone;
+            //        this.txtFax.Text = updateName.Fax;
+            //        this.txtEMail.Text = updateName.EMail;
+            //        this.txtProjectRange.Text = updateName.ProjectRange;
+            //        if (updateName.IsThisUnit == true)
+            //        {
+            //            this.rblIsThisUnit.SelectedValue = "true";
+            //            this.rblIsThisUnit.Enabled = true;
+            //        }
+            //        else
+            //        {
+            //            this.rblIsThisUnit.SelectedValue = "false";
+            //        }
+            //        this.UnitId = updateName.UnitId;
+            //    }
+            //    else
+            //    {
+            //        this.UnitId = string.Empty;
+            //    }
+            //}
+        }
+
+        protected void rblIsBranch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.drpSupUnit.Hidden = true;
+            if (this.rblIsBranch.SelectedValue == "true")
             {
-                var updateName = Funs.DB.Base_Unit.FirstOrDefault(x => x.UnitCode == this.txtUnitCode.Text.Trim() || x.UnitName == this.txtUnitName.Text.Trim());
-                if (updateName != null)
-                {
-                    this.txtUnitCode.Text = updateName.UnitCode;
-                    this.txtUnitName.Text = updateName.UnitName;
-                    if (!string.IsNullOrEmpty(updateName.UnitTypeId))
-                    {
-                        this.ddlUnitTypeId.SelectedValue = updateName.UnitTypeId;
-                    }
-                    this.txtCorporate.Text = updateName.Corporate;
-                    this.txtAddress.Text = updateName.Address;
-                    this.txtTelephone.Text = updateName.Telephone;
-                    this.txtFax.Text = updateName.Fax;
-                    this.txtEMail.Text = updateName.EMail;
-                    this.txtProjectRange.Text = updateName.ProjectRange;
-                    if (updateName.IsThisUnit == true)
-                    {
-                        this.rblIsThisUnit.SelectedValue = "true";
-                        this.rblIsThisUnit.Enabled = true;
-                    }
-                    else
-                    {
-                        this.rblIsThisUnit.SelectedValue = "false";
-                    }
-                    this.UnitId = updateName.UnitId;
-                }
+                this.drpSupUnit.Hidden = false;
             }
         }
     }

@@ -624,7 +624,19 @@ namespace FineUIPro.Web
             }
             if (CommonService.IsLeaderOrManage(this.CurrUser.UserId))
             {
-                if (projectCount.Count == 1 && (CommonService.IsThisUnitLeaderOrManage(this.CurrUser.UserId) || projectCount.First().UnitId == this.CurrUser.UnitId))
+                if (!CommonService.GetIsThisUnit(this.CurrUser.UnitId))
+                {
+                    var unitIdLists = CommonService.GetChildrenUnitId(this.CurrUser.UnitId);
+                    if (unitIdLists.Count > 0)
+                    {
+                        projectCount = projectCount.Where(x => x.UnitId == this.CurrUser.UnitId || unitIdLists.Contains(x.UnitId)).OrderByDescending(x => x.ProjectCode).ToList();
+                    }
+                    else
+                    {
+                        projectCount = projectCount.Where(x => x.UnitId == this.CurrUser.UnitId).OrderByDescending(x => x.ProjectCode).ToList();
+                    }                  
+                }
+                if (projectCount.Count == 1)
                 {
                     var projectFirst = projectCount.FirstOrDefault();
                     if (projectFirst != null)

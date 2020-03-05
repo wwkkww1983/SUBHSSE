@@ -66,6 +66,7 @@ D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\bin\System.Web.WebPages.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\bin\System.Web.WebPages.Razor.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\bin\WebGrease.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\bin\FineUIPro.dll
+D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\bin\ThoughtWorks.QRCode.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\bin\EmitMapper.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\bin\BLL.pdb
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\bin\BLL.dll.config
@@ -100,4 +101,3 @@ D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\obj\Debug\WebAPI.csproj.CoreCompileInput
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\obj\Debug\WebAPI.csproj.CopyComplete
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\obj\Debug\WebAPI.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\obj\Debug\WebAPI.pdb
-D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\bin\ThoughtWorks.QRCode.dll

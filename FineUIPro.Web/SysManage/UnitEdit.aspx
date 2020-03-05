@@ -58,10 +58,11 @@
                         <f:RadioItem Value="true" Text="是" />
                         <f:RadioItem Value="false" Text="否" Selected="true" />
                     </f:RadioButtonList>
-                    <f:RadioButtonList runat="server" ID="rblIsBranch" Label="分公司">
+                    <f:RadioButtonList runat="server" ID="rblIsBranch" Label="分公司" AutoPostBack="true" OnSelectedIndexChanged="rblIsBranch_SelectedIndexChanged">
                         <f:RadioItem Value="true" Text="是" />
                         <f:RadioItem Value="false" Text="否" Selected="true" />
                     </f:RadioButtonList>
+                    <f:DropDownList runat="server" ID="drpSupUnit" Label="上级单位" Hidden="true" EnableEdit="true"></f:DropDownList>
                 </Items>
             </f:FormRow>
         </Rows>

@@ -69,6 +69,7 @@ namespace BLL
                 IsHide = false,
                 DataSources = unit.DataSources,
                 FromUnitId = unit.FromUnitId,
+                SupUnitId = unit.SupUnitId,
             };
             db.Base_Unit.InsertOnSubmit(newUnit);
             db.SubmitChanges();
@@ -97,6 +98,7 @@ namespace BLL
                 newUnit.IsBranch = unit.IsBranch;
                 newUnit.IsHide = unit.IsHide;
                 newUnit.FromUnitId = unit.FromUnitId;
+                newUnit.SupUnitId = unit.SupUnitId;
                 db.SubmitChanges();
             }
         }

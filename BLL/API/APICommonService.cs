@@ -68,8 +68,10 @@ namespace BLL
         public static string getaccess_token()
         {
             string access_token = string.Empty;
-            string appid = getUnitAppId();
-            string secret = getUnitSecret();
+            //string appid = getUnitAppId();
+            //string secret = getUnitSecret();
+            string appid = "wxb5f0e8051b7b9eee";//getUnitAppId();
+            string secret = "626175f8860bf84beb4cf507b9445115";//getUnitSecret();     
 
             var getToken = Funs.DB.Sys_AccessToken.FirstOrDefault();
             if (getToken != null && getToken.Endtime > DateTime.Now)

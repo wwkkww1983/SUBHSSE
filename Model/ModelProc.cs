@@ -1,15 +1,11 @@
 namespace Model
 {
-    using System;
+    using System.Collections.Generic;
     using System.Data.Linq;
-    using System.Linq;
-    using System.Linq.Expressions;
     using System.Data.Linq.Mapping;
     using System.Reflection;
-    using System.Collections;
-    using System.Collections.Generic;
 
-    public partial class SUBHSSEDB : System.Data.Linq.DataContext
+    public partial class SUBHSSEDB : DataContext
     {
         /// <summary>
         /// 获取当前用户在移动端待办事项

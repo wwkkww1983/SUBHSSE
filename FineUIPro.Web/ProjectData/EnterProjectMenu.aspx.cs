@@ -63,11 +63,27 @@ namespace FineUIPro.Web.ProjectData
             }
             else if (CommonService.IsLeaderOrManage(this.CurrUser.UserId)) //根据用户ID判断是否 管理角色、领导角色 且是非本单位用户
             {
+                var unitIdList = CommonService.GetChildrenUnitId(this.CurrUser.UnitId);
+                string unitIds = "('" + this.CurrUser.UnitId + "'";
+                if (unitIdList.Count > 0)
+                {
+                    foreach (var item in unitIdList)
+                    {
+                        unitIds += ",'" + item + "'";
+                    }
+                }
+                unitIds += ")";
                 strSql = @"SELECT ProjectId,ProjectCode,ProjectName,StartDate,EndDate,ProjectAddress,sysConst.ConstText AS ProjectTypeName,"
                      + @" (CASE WHEN ProjectState='" + BLL.Const.ProjectState_2 + "' THEN '暂停中' WHEN ProjectState='" + BLL.Const.ProjectState_3 + "' THEN '已完工' WHEN SysConst.ConstText='E' THEN '设计中' ELSE '施工中' END) AS ProjectStateName,ProjectState"
                      + @" FROM Base_Project AS Project "
-                     + @" LEFT JOIN Sys_Const AS sysConst ON sysConst.ConstValue = Project.ProjectType and sysConst.GroupId='" + BLL.ConstValue.Group_ProjectType + "'"
-                     + @" WHERE Project.UnitId='" + this.CurrUser.UnitId + "'";
+                     + @" LEFT JOIN Sys_Const AS sysConst ON sysConst.ConstValue = Project.ProjectType and sysConst.GroupId='" + BLL.ConstValue.Group_ProjectType + "'";
+                if (unitIdList.Count > 0)
+                {
+                    strSql += " WHERE Project.UnitId in " + unitIds;
+                } else
+                {
+                    strSql += " WHERE Project.UnitId = " + this.CurrUser.UnitId;
+                }
             }
             else
             {

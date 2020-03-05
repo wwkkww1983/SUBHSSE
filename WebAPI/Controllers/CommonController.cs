@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
 using System.Web.Http;
+using Newtonsoft.Json;
 
 namespace WebAPI.Controllers
 {
@@ -47,7 +48,21 @@ namespace WebAPI.Controllers
             {
                 if (messgeInfo != null)
                 {
-                    responeData.data = APICommonService.getSubscribeMessage(messgeInfo.touser, messgeInfo.template_id, messgeInfo.page, messgeInfo.data, messgeInfo.miniprogram_state, messgeInfo.lang);
+                    string access_token = APICommonService.getaccess_token();
+                    string contenttype = "application/json;charset=utf-8";
+                    string url = $"https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token={access_token}";                 
+                    var tempData = new
+                    {
+                        access_token = access_token,
+                        touser = messgeInfo.touser,
+                        template_id = messgeInfo.template_id,
+                        page = messgeInfo.page,
+                        data = messgeInfo.data,
+                        miniprogram_state = messgeInfo.miniprogram_state,
+                        lang = messgeInfo.lang,
+                    };
+
+                    responeData.data = APIGetHttpService.Http(url, "POST", contenttype, null, JsonConvert.SerializeObject(tempData));
                 }
             }
             catch (Exception ex)

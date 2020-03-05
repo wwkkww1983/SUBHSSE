@@ -31,14 +31,15 @@ namespace FineUIPro.Web.SysManage
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT UnitId,UnitCode,UnitName,ProjectRange,Corporate,Address,Telephone,Fax,EMail,UnitType.UnitTypeId,UnitType.UnitTypeCode,UnitType.UnitTypeName,Unit.IsThisUnit,Unit.IsHide,Unit.IsBranch"
-                          + @" From dbo.Base_Unit AS Unit "
-                          +@" LEFT JOIN Base_UnitType AS UnitType ON UnitType.UnitTypeId=Unit.UnitTypeId"
-                          +@" WHERE (IsHide IS NULL OR IsHide = 0) AND 1= 1";
+            string strSql = @"SELECT Unit.UnitId,Unit.UnitCode,Unit.UnitName,Unit.ProjectRange,Unit.Corporate,Unit.Address,Unit.Telephone,Unit.Fax,Unit.EMail,UnitType.UnitTypeId,UnitType.UnitTypeCode,UnitType.UnitTypeName,Unit.IsThisUnit,Unit.IsHide,Unit.IsBranch,supUnit.UnitName AS supUnitName"
+                                + @" From dbo.Base_Unit AS Unit "
+                                + @" LEFT JOIN Base_UnitType AS UnitType ON UnitType.UnitTypeId=Unit.UnitTypeId"
+                                + @" LEFT JOIN Base_Unit AS supUnit ON Unit.SupUnitId=supUnit.UnitId"
+                                + @" WHERE (Unit.IsHide IS NULL OR Unit.IsHide = 0) ";
             List<SqlParameter> listStr = new List<SqlParameter>();           
             if (!string.IsNullOrEmpty(this.txtUnitName.Text.Trim()))
             {
-                strSql += " AND UnitName LIKE @UnitName";
+                strSql += " AND Unit.UnitName LIKE @UnitName";
                 listStr.Add(new SqlParameter("@UnitName", "%" + this.txtUnitName.Text.Trim() + "%"));
             }
             SqlParameter[] parameter = listStr.ToArray();
