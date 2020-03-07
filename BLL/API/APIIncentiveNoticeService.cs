@@ -121,8 +121,7 @@ namespace BLL
                 ProjectId = newItem.ProjectId,
                 IncentiveDate = Funs.GetNewDateTime(newItem.IncentiveDate),
                 UnitId = newItem.UnitId,
-                PersonId = newItem.PersonId,
-                TeamGroupId = newItem.TeamGroupId,
+                PersonId = newItem.PersonId,                
                 RewardType = newItem.RewardTypeId,
                 BasicItem = newItem.BasicItem,
                 IncentiveMoney = newItem.IncentiveMoney,
@@ -136,6 +135,12 @@ namespace BLL
                 AttachUrl = newItem.AttachUrl,
                 States = Const.State_2,
             };
+
+            if (!string.IsNullOrEmpty(newItem.TeamGroupId))
+            {
+                newIncentiveNotice.TeamGroupId = newItem.TeamGroupId;
+            }
+
             if (newItem.States != "1")
             {
                 newIncentiveNotice.States = Const.State_0;

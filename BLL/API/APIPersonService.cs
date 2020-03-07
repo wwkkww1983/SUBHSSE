@@ -172,7 +172,7 @@ namespace BLL
             }
             if (states == "0")
             {
-                getViews = getViews.Where(x => x.IsUsed == false);
+                getViews = getViews.Where(x => x.IsUsed == false &&  !x.AuditorDate.HasValue);
             }
             else if (states == "1")
             {
@@ -181,6 +181,10 @@ namespace BLL
             else if (states == "2")
             {
                 getViews = getViews.Where(x => x.IsUsed == true && x.OutTime <= DateTime.Now);
+            }
+            else if (states == "-1")
+            {
+                getViews = getViews.Where(x => x.IsUsed == false && x.AuditorDate.HasValue);
             }
 
             if (!string.IsNullOrEmpty(strParam))
@@ -376,7 +380,7 @@ namespace BLL
                     getPerson.InTime = Funs.GetNewDateTime(person.InTime);
                     getPerson.OutTime = Funs.GetNewDateTime(person.OutTime);
                     getPerson.Sex = person.Sex;
-                    getPerson.AuditorId = person.AuditorId;
+                   
                     //getPerson.AuditorDate = Funs.GetNewDateTime(person.AuditorDate);
                     if (!string.IsNullOrEmpty(person.TeamGroupId))
                     {
@@ -390,20 +394,20 @@ namespace BLL
                     {
                         getPerson.WorkAreaId = person.WorkAreaId;
                     }
-                    if (person.IsUsed == true)
+                    if (getPerson.AuditorDate.HasValue && getPerson.IsUsed == false)
                     {
-                        getPerson.IsUsed = true;
-                        getPerson.AuditorDate = DateTime.Now;
-                        if (!newPerson.OutTime.HasValue)
-                        {
-                            getPerson.OutTime = null;
-                            getPerson.ExchangeTime = null;
-                        }
+                        getPerson.AuditorDate = null;
                     }
                     else
                     {
-                        getPerson.IsUsed = false;
-                        getPerson.AuditorDate = null;
+                        getPerson.IsUsed = person.IsUsed;
+                        getPerson.AuditorDate = DateTime.Now;
+                    }
+                    getPerson.AuditorId = person.AuditorId;
+                    if (!newPerson.OutTime.HasValue)
+                    {
+                        getPerson.OutTime = null;
+                        getPerson.ExchangeTime = null;
                     }
 
                     getPerson.ExchangeTime2 = null;

@@ -110,12 +110,14 @@ namespace WebAPI.Controllers
                 }
                 int tatalCount = getViews.Count();
                 //在审
-                int count0 = getViews.Where(x => x.IsUsed == false).Count();
+                int count0 = getViews.Where(x => x.IsUsed == false && !x.AuditorDate.HasValue).Count();
                 //在岗
                 int count1 = getViews.Where(x => x.IsUsed == true && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)).Count();
                 //离岗
                 int count2 = getViews.Where(x => x.IsUsed == true && x.OutTime <= DateTime.Now).Count();
-                responeData.data = new { tatalCount, count0, count1, count2 };
+                //打回
+                int count3 = getViews.Where(x => x.IsUsed == false && x.AuditorDate.HasValue).Count();
+                responeData.data = new { tatalCount, count0, count1, count2, count3 };
             }
             catch (Exception ex)
             {
@@ -156,12 +158,14 @@ namespace WebAPI.Controllers
                 }
                 int tatalCount = getViews.Count();
                 //在审
-                int count0 = getViews.Where(x => x.IsUsed == false).Count();
+                int count0 = getViews.Where(x => x.IsUsed == false && !x.AuditorDate.HasValue).Count();
                 //在岗
                 int count1 = getViews.Where(x => x.IsUsed == true && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)).Count();
                 //离岗
                 int count2 = getViews.Where(x => x.IsUsed == true && x.OutTime <= DateTime.Now).Count();
-                responeData.data = new { tatalCount, count0, count1, count2 };
+                //打回
+                int count3 = getViews.Where(x => x.IsUsed == false && x.AuditorDate.HasValue).Count();
+                responeData.data = new { tatalCount, count0, count1, count2, count3 };
             }
             catch (Exception ex)
             {

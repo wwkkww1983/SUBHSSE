@@ -191,6 +191,14 @@ namespace BLL
         /// </summary>
         public const string UnitId_XJYJ = "542C36E1-668C-4F0C-A442-C0EFCD28C28A";
         /// <summary>
+        /// 新疆油建 小程序ID
+        /// </summary>
+        public const string AppID_XJYJ = "wx0d61e437bd0308f1";
+        /// <summary>
+        /// 新疆油建 小程序密钥
+        /// </summary>
+        public const string AppSecret_XJYJ = "768cd3bdf372bdfc0048991b6a9cc18a";
+        /// <summary>
         /// 北京建投
         /// </summary>
         public const string UnitId_BJJT = "2B0DB792-49CF-43B4-BB0E-8DD27DF1CEE2";

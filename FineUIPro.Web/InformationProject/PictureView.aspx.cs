@@ -71,7 +71,7 @@ namespace FineUIPro.Web.InformationProject
         {
             if (!string.IsNullOrEmpty(this.PictureId))
             {                
-                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PictureAttachUrl&menuId={1}&type=-1", this.PictureId, BLL.Const.ProjectPictureMenuId)));
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&menuId={1}&type=-1", this.PictureId, BLL.Const.ProjectPictureMenuId)));
             }            
         }
         #endregion

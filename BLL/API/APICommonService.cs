@@ -53,6 +53,11 @@ namespace BLL
                     appid = Const.AppID_SEDIN;
                     secret = Const.AppSecret_SEDIN;
                     break;
+
+                case Const.UnitId_XJYJ:
+                    appid = Const.AppID_XJYJ;
+                    secret = Const.AppSecret_XJYJ;
+                    break;
             }
 
             return secret;
@@ -68,10 +73,10 @@ namespace BLL
         public static string getaccess_token()
         {
             string access_token = string.Empty;
-            //string appid = getUnitAppId();
-            //string secret = getUnitSecret();
-            string appid = "wxb5f0e8051b7b9eee";//getUnitAppId();
-            string secret = "626175f8860bf84beb4cf507b9445115";//getUnitSecret();     
+            string appid = getUnitAppId();
+            string secret = getUnitSecret();
+            //string appid = "wxb5f0e8051b7b9eee";
+            //string secret = "626175f8860bf84beb4cf507b9445115";
 
             var getToken = Funs.DB.Sys_AccessToken.FirstOrDefault();
             if (getToken != null && getToken.Endtime > DateTime.Now)
@@ -126,8 +131,10 @@ namespace BLL
         public static string getUserOpenId(string userId, string jsCode)
         {
             string openId = string.Empty;
-            string appid = "wxb5f0e8051b7b9eee";//getUnitAppId();
-            string secret = "626175f8860bf84beb4cf507b9445115";//getUnitSecret();          
+            string appid = getUnitAppId();
+            string secret = getUnitSecret();
+            //string appid = "wxb5f0e8051b7b9eee";
+            //string secret = "626175f8860bf84beb4cf507b9445115";      
             var getUser = Funs.DB.Sys_User.FirstOrDefault(x=>x.UserId == userId);
             if (getUser != null)
             {
