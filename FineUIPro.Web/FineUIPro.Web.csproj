@@ -523,6 +523,9 @@
     <Content Include="ProjectAccident\AccidentData.aspx" />
     <Content Include="ProjectAccident\AccidentReportView.aspx" />
     <Content Include="ProjectAccident\AccidentStatisticsView.aspx" />
+    <Content Include="ProjectData\ProjectMap.aspx" />
+    <Content Include="ProjectData\ProjectMapEdit.aspx" />
+    <Content Include="ProjectData\ProjectMapView.aspx" />
     <Content Include="ProjectData\ProjectPageData.aspx" />
     <Content Include="ProjectData\ProjectPageDataSave.aspx" />
     <Content Include="ProjectData\ProjectShutdown.aspx" />
@@ -6942,6 +6945,27 @@
     </Compile>
     <Compile Include="ProjectAccident\AccidentStatisticsView.aspx.designer.cs">
       <DependentUpon>AccidentStatisticsView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectData\ProjectMap.aspx.cs">
+      <DependentUpon>ProjectMap.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectData\ProjectMap.aspx.designer.cs">
+      <DependentUpon>ProjectMap.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectData\ProjectMapEdit.aspx.cs">
+      <DependentUpon>ProjectMapEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectData\ProjectMapEdit.aspx.designer.cs">
+      <DependentUpon>ProjectMapEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectData\ProjectMapView.aspx.cs">
+      <DependentUpon>ProjectMapView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectData\ProjectMapView.aspx.designer.cs">
+      <DependentUpon>ProjectMapView.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProjectData\ProjectPageData.aspx.cs">
       <DependentUpon>ProjectPageData.aspx</DependentUpon>

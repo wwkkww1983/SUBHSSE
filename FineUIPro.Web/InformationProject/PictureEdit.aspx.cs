@@ -101,7 +101,7 @@ namespace FineUIPro.Web.InformationProject
         private void InitDropDownList()
         {
             UserService.InitUserDropDownList(this.drpCompileMan, this.ProjectId, true);
-            PictureTypeService.InitPictureTypeDropDownList(this.drpPictureType,true);
+            PictureTypeService.InitPictureTypeDropDownList(this.drpPictureType, false);
         }
 
         #region 保存
@@ -144,7 +144,7 @@ namespace FineUIPro.Web.InformationProject
                 Title = this.txtTitle.Text.Trim(),
                 ContentDef = this.txtContentDef.Text.Trim()
             };
-            if (this.drpPictureType.SelectedValue != "0")
+            if (this.drpPictureType.SelectedValue != Const._Null)
             {
                 picture.PictureType = this.drpPictureType.SelectedValue;
             }

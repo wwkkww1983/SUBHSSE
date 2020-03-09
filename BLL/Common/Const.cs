@@ -961,6 +961,10 @@ namespace BLL
         /// 项目用户
         /// </summary>
         public const string SeverProjectUserMenuId = "0CF5F6A1-4AEB-4034-9C3B-591838E1290A";
+        /// <summary>
+        /// 项目地图
+        /// </summary>
+        public const string ServerProjectMapMenuId = "C73EC3F3-6743-4A09-8433-E7DCC22E88C0";
         #endregion
 
         #region 安全报表（集团）
@@ -1260,6 +1264,10 @@ namespace BLL
         /// 项目移动端首页
         /// </summary>
         public const string ProjectPageDataMenuId = "44140854-701D-4D67-AD8E-AA8DD48B6D6A";
+        /// <summary>
+        /// 项目地图
+        /// </summary>
+        public const string ProjectProjectMapMenuId = "F266456A-991F-45A3-BCD6-CF2515D71E39";
         #endregion
 
         #region 安全体系

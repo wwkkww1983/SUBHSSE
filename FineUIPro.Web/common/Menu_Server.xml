@@ -5,6 +5,7 @@
     </TreeNode>
 <TreeNode id="EB9C4E5E-15DB-426A-9800-6B03E64EC5DE" Text="项目单位" NavigateUrl="ProjectData/ProjectUnit.aspx" Icon="Page"></TreeNode>
 <TreeNode id="0CF5F6A1-4AEB-4034-9C3B-591838E1290A" Text="项目用户" NavigateUrl="ProjectData/ProjectUser.aspx" Icon="Page"></TreeNode>
+<TreeNode id="C73EC3F3-6743-4A09-8433-E7DCC22E88C0" Text="项目地图" NavigateUrl="ProjectData/ProjectMap.aspx" Icon="Page"></TreeNode>
 </TreeNode>
 <TreeNode id="2572CDC8-BA26-4C74-B6F7-CB3D63E91E72" Text="安全体系" NavigateUrl="" Icon="LayoutContent"><TreeNode id="8IDKGJE2-09B1-6UIO-3EFM-5TGED48F0001" Text="安全组织体系" NavigateUrl="HSSESystem/HSSEOrganize.aspx" Icon="Page"></TreeNode>
 <TreeNode id="32F5CC8C-E0F4-456C-AB88-77E36269FA50" Text="安全管理机构" NavigateUrl="HSSESystem/HSSEManage.aspx" Icon="Page"></TreeNode>

@@ -230,7 +230,7 @@
                     <table class="bottomtable ui-widget-header f-mainheader">
                          <tr runat="server" id="trBottom">
                             <td style="text-align: left;">&nbsp;&nbsp;</td>                                                     
-                            <td style="text-align: center;">
+                            <td style="text-align: center;" id="trGJ" runat="server">
                               <a target="_blank" href="http://www.chinasafety.gov.cn">国家安全生产监督管理总局</a>
                             </td>                                                    
                             <td style="text-align: center;" runat="server" id="trEHtml" visible="false">
@@ -245,8 +245,11 @@
                              <td style="text-align: center;" runat="server" id="trEHtml3" visible="false">
                               <a target="_blank" href="http://www.aqt365.com/jssajxt/application/ui/login.htm">傲途建筑安全智能监督软件</a>
                             </td>
-                            <td style="text-align: center;">
+                            <td style="text-align: center;"  id="trcncec" runat="server">
                               <a target="_blank" href="http://cncec.cn/" >Copyright © 2015 China National Chemical Engineering Group Corporation All rights reserved.p 中国化学工程集团公司 版权所有</a>
+                            </td>
+                             <td style="text-align: center;"  id="trXJYJ" runat="server" visible="false">
+                              <a target="_blank" href="http://www.xjyjgs.cn" >新ICP备16001300号</a>
                             </td>
                             <td style="text-align: right;">&nbsp;&nbsp;</td>
                         </tr>

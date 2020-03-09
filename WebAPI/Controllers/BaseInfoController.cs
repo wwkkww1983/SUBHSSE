@@ -201,6 +201,54 @@ namespace WebAPI.Controllers
         #endregion
         #endregion
 
+        #region 获取项目地图信息
+        /// <summary>
+        ///  获取项目地图信息
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public Model.ResponeData getProjectMapByProjectId(string projectId, string type)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getProjectMapByProjectId(projectId, type); ;
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        #region 保存项目地图信息
+        /// <summary>
+        /// 保存项目地图信息
+        /// </summary>
+        /// <param name="projectMap">地图信息</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData SaveProjectMap([FromBody] Model.PictureItem projectMap)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APIBaseInfoService.SaveProjectMap(projectMap);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+        #endregion
+
         #region 获取通知通告
         /// <summary>
         /// 获取头条通知

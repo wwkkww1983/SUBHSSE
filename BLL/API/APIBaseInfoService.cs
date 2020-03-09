@@ -138,6 +138,59 @@ namespace BLL
         }
         #endregion
 
+        #region 根据项目id获取项目地图
+        /// <summary>
+        /// 根据项目id获取项目地图
+        /// </summary>
+        /// <param name="projectId"></param>        
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getProjectMapByProjectId(string projectId, string mapType)
+        {
+            var getDataLists = (from x in Funs.DB.InformationProject_ProjectMap
+                                join y in Funs.DB.AttachFile on x.ProjectMapId equals y.ToKeyId
+                                where  y.AttachUrl != null && x.ProjectId == projectId && x.MapType == mapType
+                                orderby x.UploadDate descending
+                                select new Model.BaseInfoItem
+                                {
+                                    BaseInfoId = x.ProjectMapId,
+                                    BaseInfoName = x.Title,
+                                    BaseInfoCode = string.Format("{0:yyyy-MM-dd}", x.UploadDate),
+                                    ImageUrl = y.AttachUrl.Replace('\\', '/'),
+                                }).Take(5).ToList();
+            return getDataLists;
+        }
+
+        /// <summary>
+        /// 项目地图信息保存方法
+        /// </summary>
+        /// <param name="projectMap">地图信息</param>
+        public static void SaveProjectMap(Model.PictureItem projectMap)
+        {
+            Model.InformationProject_ProjectMap newProjectMap = new Model.InformationProject_ProjectMap
+            {
+                ProjectMapId = projectMap.PictureId,
+                ProjectId = projectMap.ProjectId,
+                Title = projectMap.Title,
+                ContentDef = projectMap.ContentDef,
+                MapType = projectMap.PictureTypeId,
+                UploadDate = System.DateTime.Now,
+                CompileMan = projectMap.CompileManId,
+            };
+
+            if (string.IsNullOrEmpty(newProjectMap.ProjectMapId))
+            {
+                newProjectMap.ProjectMapId = SQLHelper.GetNewID();
+                ProjectMapService.AddProjectMap(newProjectMap);
+            }
+            else
+            {
+                ProjectMapService.UpdateProjectMap(newProjectMap);
+            }
+            //// 保存附件
+            APIUpLoadFileService.SaveAttachUrl(Const.ProjectProjectMapMenuId, newProjectMap.ProjectMapId, projectMap.AttachUrl, "0");
+        }
+        #endregion
+
         #region 获取通知通告
         /// <summary>
         /// 根据项目id获取通知通告

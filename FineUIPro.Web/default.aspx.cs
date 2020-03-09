@@ -452,7 +452,18 @@ namespace FineUIPro.Web
                     this.trEHtml1.Visible = true;
                     this.trEHtml2.Visible = true;
                     this.trEHtml3.Visible = true;
-                }                
+                }
+
+                if (CommonService.GetIsThisUnit(Const.UnitId_XJYJ))
+                {
+                    this.trEHtml.Visible = false;
+                    this.trEHtml1.Visible = false;
+                    this.trEHtml2.Visible = false;
+                    this.trEHtml3.Visible = false;
+                    this.trGJ.Visible = false;
+                    this.trcncec.Visible = false;
+                    this.trXJYJ.Visible = true; 
+                }
             }
         }
 

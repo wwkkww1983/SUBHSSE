@@ -313,7 +313,8 @@ namespace BLL
                         ToKeyId = toKeyId,
                         AttachSource = source.ToString(),
                         AttachUrl = attachUrl,
-                        MenuId = menuId
+                        MenuId = menuId,
+                        //AttachPath= attachPath,
                     };
                     db.AttachFile.InsertOnSubmit(att);
                     db.SubmitChanges();
