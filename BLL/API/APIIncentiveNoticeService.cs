@@ -160,7 +160,7 @@ namespace BLL
             }
             if (newIncentiveNotice.States == "1")
             {
-                CommonService.btnSaveData(newIncentiveNotice.ProjectId, Const.ProjectIncentiveNoticeMenuId, newIncentiveNotice.IncentiveNoticeId, newIncentiveNotice.CompileMan, true, newIncentiveNotice.IncentiveNoticeCode, "../Solution/IncentiveNoticeView.aspx?IncentiveNoticeId={0}");
+                CommonService.btnSaveData(newIncentiveNotice.ProjectId, Const.ProjectIncentiveNoticeMenuId, newIncentiveNotice.IncentiveNoticeId, newIncentiveNotice.CompileMan, true, newIncentiveNotice.IncentiveNoticeCode, "../Check/IncentiveNoticeView.aspx?IncentiveNoticeId={0}");
             }            
         }
         #endregion

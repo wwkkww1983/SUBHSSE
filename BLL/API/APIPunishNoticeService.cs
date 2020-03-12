@@ -159,7 +159,7 @@ namespace BLL
             }
             if (newPunishNotice.States == "1")
             {
-                CommonService.btnSaveData(newPunishNotice.ProjectId, Const.ProjectPunishNoticeMenuId, newPunishNotice.PunishNoticeId, newPunishNotice.CompileMan, true, newPunishNotice.PunishNoticeCode, "../Solution/PunishNoticeView.aspx?PunishNoticeId={0}");
+                CommonService.btnSaveData(newPunishNotice.ProjectId, Const.ProjectPunishNoticeMenuId, newPunishNotice.PunishNoticeId, newPunishNotice.CompileMan, true, newPunishNotice.PunishNoticeCode, "../Check/PunishNoticeView.aspx?PunishNoticeId={0}");
             }
             ////保存附件
             if (!string.IsNullOrEmpty(newItem.PunishUrl))

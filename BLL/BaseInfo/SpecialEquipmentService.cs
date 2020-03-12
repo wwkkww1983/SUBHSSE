@@ -1,7 +1,6 @@
-﻿using System;
+﻿using FineUIPro;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BLL
 {
@@ -35,7 +34,8 @@ namespace BLL
                 SpecialEquipmentCode = specialEquipment.SpecialEquipmentCode,
                 SpecialEquipmentName = specialEquipment.SpecialEquipmentName,
                 Remark = specialEquipment.Remark,
-                IsSpecial = specialEquipment.IsSpecial
+                IsSpecial = specialEquipment.IsSpecial,
+                SpecialEquipmentType = specialEquipment.SpecialEquipmentType,
             };
             db.Base_SpecialEquipment.InsertOnSubmit(newSpecialEquipment);
             db.SubmitChanges();
@@ -55,6 +55,7 @@ namespace BLL
                 newSpecialEquipment.SpecialEquipmentName = specialEquipment.SpecialEquipmentName;
                 newSpecialEquipment.Remark = specialEquipment.Remark;
                 newSpecialEquipment.IsSpecial = specialEquipment.IsSpecial;
+                newSpecialEquipment.SpecialEquipmentType = specialEquipment.SpecialEquipmentType;
                 db.SubmitChanges();
             }
         }
@@ -85,12 +86,12 @@ namespace BLL
         }
 
         /// <summary>
-        /// 用户下拉框
+        /// 设备下拉框
         /// </summary>
         /// <param name="dropName">下拉框名字</param>
-        /// <param name="projectId">项目id</param>
+        /// <param name="isSpecial">项目id</param>
         /// <param name="isShowPlease">是否显示请选择</param>
-        public static void InitSpecialEquipmentDropDownList(FineUIPro.DropDownList dropName, bool isSpecial, bool isShowPlease)
+        public static void InitSpecialEquipmentDropDownList(DropDownList dropName, bool isSpecial, bool isShowPlease)
         {
             dropName.DataValueField = "SpecialEquipmentId";
             dropName.DataTextField = "SpecialEquipmentName";
@@ -100,6 +101,61 @@ namespace BLL
             {
                 Funs.FineUIPleaseSelect(dropName);
             }
+        }
+
+        /// <summary>
+        /// 获取机具设备列表
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Base_SpecialEquipment> GetSpecialEquipmentListByType(string type)
+        {
+            return (from x in Funs.DB.Base_SpecialEquipment
+                    where x.SpecialEquipmentType == type
+                    orderby x.SpecialEquipmentCode
+                    select x).ToList();
+        }
+
+        /// <summary>
+        ///  设备类型下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitSpecialEquipmentTypeDropDownList(DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "Value";
+            dropName.DataTextField = "Text";
+            dropName.DataSource = getEquipmentTypeItem();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
+        /// <summary>
+        /// 查询下拉列表值
+        /// </summary>
+        /// <returns></returns>
+        public static ListItem[] getEquipmentTypeItem()
+        {
+            ListItem[] list = new ListItem[4];
+            list[0] = new ListItem("特种设备", "1");
+            list[1] = new ListItem("大型机具设备", "2");
+            list[2] = new ListItem("特殊机具设备","3");
+            list[3] = new ListItem("其他", "4");
+            return list;
+        }
+
+        public static string getTypeName(string type)
+        {
+            string name = "其他";
+            var getEquipmentT = getEquipmentTypeItem().FirstOrDefault(x => x.Value == type);
+            if (getEquipmentT != null)
+            {
+                name = getEquipmentT.Text;
+            }
+            return name;
+
         }
     }
 }

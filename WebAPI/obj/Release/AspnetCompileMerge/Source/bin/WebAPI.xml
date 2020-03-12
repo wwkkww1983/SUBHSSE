@@ -576,6 +576,21 @@
             <param name="picture">图片信息</param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getProjectMapByProjectId(System.String,System.String)">
+            <summary>
+             获取项目地图信息
+            </summary>
+            <param name="projectId"></param>
+            <param name="type">1总平面布置图，2区域平面图，3三维模型图</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.SaveProjectMap(Model.PictureItem)">
+            <summary>
+            保存项目地图信息
+            </summary>
+            <param name="projectMap">地图信息</param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.BaseInfoController.getTopNotices">
             <summary>
             获取头条通知

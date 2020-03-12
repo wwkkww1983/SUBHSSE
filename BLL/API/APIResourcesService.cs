@@ -64,7 +64,7 @@ namespace BLL
                                   BaseInfoId = x.TrainingItemId,
                                   BaseInfoCode = x.TrainingItemCode,
                                   BaseInfoName = x.TrainingItemName,
-                                  ImageUrl = x.AttachUrl.Replace('\\', '/'),
+                                  ImageUrl = APIUpLoadFileService.getFileUrl(x.TrainingItemId, x.AttachUrl),
                               };
             return getDataInfo.FirstOrDefault();
         }
@@ -126,7 +126,7 @@ namespace BLL
                                   BaseInfoId = x.CompanyTrainingItemId,
                                   BaseInfoCode = x.CompanyTrainingItemCode,
                                   BaseInfoName = x.CompanyTrainingItemName,
-                                  ImageUrl = x.AttachUrl.Replace('\\', '/'),
+                                  ImageUrl = APIUpLoadFileService.getFileUrl(x.CompanyTrainingItemId, x.AttachUrl),
                               };
             return getDataInfo.FirstOrDefault();
         }

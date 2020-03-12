@@ -59,7 +59,7 @@ namespace FineUIPro.Web.ProjectData
             {
                 string strSql = @"SELECT UnitId,UnitCode,UnitName,ProjectRange,Address,IsThisUnit,UnitType.UnitTypeName"
                                 + @" FROM Base_Unit AS Unit LEFT JOIN Base_UnitType AS UnitType ON Unit.UnitTypeId =UnitType.UnitTypeId"
-                                + @" WHERE UnitId NOT IN (SELECT UnitId FROM Project_ProjectUnit WHERE ProjectId =@ProjectId) ";
+                                + @" WHERE (IsHide =0 OR IsHide IS NULL ) AND  UnitId NOT IN (SELECT UnitId FROM Project_ProjectUnit WHERE ProjectId =@ProjectId) ";
                 List<SqlParameter> listStr = new List<SqlParameter>();
                 listStr.Add(new SqlParameter("@ProjectId", this.ProjectId));
                 if (!string.IsNullOrEmpty(this.txtUnitName.Text.Trim()))

@@ -119,6 +119,7 @@ namespace BLL
                 IsDeletePosts = true,
                 PageSize = 10,
                 IsOffice = user.IsOffice,
+                Telephone=user.Telephone,
                 DataSources = user.DataSources,
                 SignatureUrl = user.SignatureUrl,
             };
@@ -148,6 +149,7 @@ namespace BLL
                 newUser.RoleId = user.RoleId;
                 newUser.IsPost = user.IsPost;
                 newUser.IsOffice = user.IsOffice;
+                newUser.Telephone = user.Telephone;
                 newUser.SignatureUrl = user.SignatureUrl;
                 db.SubmitChanges();
             }

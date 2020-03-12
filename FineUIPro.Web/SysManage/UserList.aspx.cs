@@ -108,6 +108,7 @@
                 if (buttonList.Contains(BLL.Const.BtnAdd))
                 {
                     this.btnNew.Hidden = false;
+                    this.btnImport.Hidden = false;
                 }
                 if (buttonList.Contains(BLL.Const.BtnModify))
                 {
@@ -299,6 +300,28 @@
                 }
             }
             return projectName;
+        }
+
+        #region 导入
+        /// <summary>
+        /// 导入按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnImport_Click(object sender, EventArgs e)
+        {
+            PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("UserIn.aspx", "导入 - ")));
+        }
+        #endregion
+
+        /// <summary>
+        /// 关闭导入弹出窗口
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Window2_Close(object sender, WindowCloseEventArgs e)
+        {
+            BindGrid();
         }
     }
 }

@@ -206,7 +206,7 @@ namespace WebAPI.Controllers
         ///  获取项目地图信息
         /// </summary>
         /// <param name="projectId"></param>
-        /// <param name="type"></param>
+        /// <param name="type">1总平面布置图，2区域平面图，3三维模型图</param>
         /// <returns></returns>
         public Model.ResponeData getProjectMapByProjectId(string projectId, string type)
         {

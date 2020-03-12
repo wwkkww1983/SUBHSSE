@@ -1,10 +1,9 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using BLL;
 
 namespace FineUIPro.Web.BaseInfo
 {
@@ -17,6 +16,7 @@ namespace FineUIPro.Web.BaseInfo
                 ////权限按钮方法
                 this.GetButtonPower();
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
+                SpecialEquipmentService.InitSpecialEquipmentTypeDropDownList(this.drpType, true);
                 // 绑定表格
                 BindGrid();
             }
@@ -27,36 +27,28 @@ namespace FineUIPro.Web.BaseInfo
         /// </summary>
         private void BindGrid()
         {
-            var q = from x in Funs.DB.Base_SpecialEquipment orderby x.SpecialEquipmentCode select x;
-            Grid1.RecordCount = q.Count();
-            // 2.获取当前分页数据
-            var table = GetPagedDataTable(Grid1.PageIndex, Grid1.PageSize);
+            var q = from x in Funs.DB.Base_SpecialEquipment                        
+                        orderby x.SpecialEquipmentCode select  new
+                        {
+                            x.SpecialEquipmentId,
+                            x.SpecialEquipmentCode,
+                            x.SpecialEquipmentName,
+                            TypeName=SpecialEquipmentService.getTypeName(x.SpecialEquipmentType),
+                            x.SpecialEquipmentType,
+                            x.Remark,
+                            x.IsSpecial,
+                        };
+            //Grid1.RecordCount = q.Count();
+            //// 2.获取当前分页数据
+            //var table = GetPagedDataTable(Grid1.PageIndex, Grid1.PageSize);
+            //Grid1.DataSource = table;
+            //Grid1.DataBind();
+
+            DataTable tb = this.GetPagedDataTable(Grid1, q);
+            Grid1.RecordCount = tb.Rows.Count;
+            var table = this.GetPagedDataTable(Grid1, tb);
             Grid1.DataSource = table;
             Grid1.DataBind();
-        }
-
-        /// <summary>
-        /// 分页
-        /// </summary>
-        /// <returns></returns>
-        private List<Model.Base_SpecialEquipment> GetPagedDataTable(int pageIndex, int pageSize)
-        {
-            List<Model.Base_SpecialEquipment> source = (from x in BLL.Funs.DB.Base_SpecialEquipment orderby x.SpecialEquipmentCode select x).ToList();
-            List<Model.Base_SpecialEquipment> paged = new List<Model.Base_SpecialEquipment>();
-
-            int rowbegin = pageIndex * pageSize;
-            int rowend = (pageIndex + 1) * pageSize;
-            if (rowend > source.Count())
-            {
-                rowend = source.Count();
-            }
-
-            for (int i = rowbegin; i < rowend; i++)
-            {
-                paged.Add(source[i]);
-            }
-
-            return paged;
         }
 
         protected void Grid1_PageIndexChange(object sender, GridPageEventArgs e)
@@ -162,6 +154,14 @@ namespace FineUIPro.Web.BaseInfo
                     this.ckbIsSpecial.Checked = false;
                 }
                 this.txtRemark.Text = specialEquipment.Remark;
+                if (!string.IsNullOrEmpty(specialEquipment.SpecialEquipmentType))
+                {
+                    this.drpType.SelectedValue = specialEquipment.SpecialEquipmentType;
+                }
+                else
+                {
+                    this.drpType.SelectedIndex = 0;
+                }
                 hfFormID.Text = Id;
                 this.btnDelete.Enabled = true;
             }
@@ -187,6 +187,14 @@ namespace FineUIPro.Web.BaseInfo
             else
             {
                 specialEquipment.IsSpecial = false;
+            }
+            if (this.drpType.SelectedValue != Const._Null)
+            {
+                specialEquipment.SpecialEquipmentType = this.drpType.SelectedValue;
+            }
+            else
+            {
+                specialEquipment.SpecialEquipmentType = null;
             }
             specialEquipment.Remark = txtRemark.Text.Trim();
             if (string.IsNullOrEmpty(strRowID))

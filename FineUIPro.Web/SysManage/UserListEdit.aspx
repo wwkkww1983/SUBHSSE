@@ -29,14 +29,12 @@
                    </f:TextBox>
                 </Items>
             </f:FormRow>  
-            <f:FormRow ColumnWidths="70% 30%">
+            <f:FormRow>
                 <Items>
                     <f:DropDownList ID="drpUnit" runat="server" Label="单位" EnableEdit="true" ForceSelection="false"
                         Required="true" ShowRedStar="true">
                     </f:DropDownList>
-                    <f:DropDownList ID="drpIsPost" runat="server" Label="在岗" EnableEdit="true" ForceSelection="false"
-                        Required="true" ShowRedStar="true">
-                    </f:DropDownList>
+                 
                 </Items>
             </f:FormRow>            
             <f:FormRow>
@@ -46,7 +44,16 @@
                     <f:DropDownList ID="drpRole" runat="server" Label="角色" EnableEdit="true" ForceSelection="false">
                     </f:DropDownList>
                 </Items>
-            </f:FormRow>  
+            </f:FormRow> 
+            <f:FormRow>
+                <Items>
+                     <f:TextBox ID="txtTelephone" runat="server" Label="手机号码" MaxLength="50" >
+                   </f:TextBox>
+                       <f:DropDownList ID="drpIsPost" runat="server" Label="在岗" EnableEdit="true" ForceSelection="false"
+                        Required="true" ShowRedStar="true">
+                    </f:DropDownList>
+                </Items>
+            </f:FormRow>
             <f:FormRow>
                 <Items>
                      <f:Image ID="Image2" ImageUrl="~/res/images/Signature0.png" runat="server" Height="35px" Width="100px"

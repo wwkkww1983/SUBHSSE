@@ -113,6 +113,7 @@ namespace FineUIPro.Web.SysManage
                         {
                             this.drpIsPost.SelectedValue = Convert.ToString(user.IsPost);
                         }
+                        this.txtTelephone.Text = user.Telephone;
                         if (user.IsOffice == true)
                         {
                             this.drpIsOffice.SelectedValue = "True";
@@ -164,7 +165,8 @@ namespace FineUIPro.Web.SysManage
                 UserCode = this.txtUserCode.Text.Trim(),
                 UserName = this.txtUserName.Text.Trim(),
                 Account = this.txtAccount.Text.Trim(),
-                IdentityCard = this.txtIdentityCard.Text.Trim()
+                IdentityCard = this.txtIdentityCard.Text.Trim(),
+                Telephone = this.txtTelephone.Text.Trim(),
             };
             if (this.drpUnit.SelectedValue != Const._Null)
             {

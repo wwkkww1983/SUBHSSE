@@ -14,7 +14,8 @@
         <Rows>
             <f:FormRow>
                 <Items>     
-                      <f:DropDownList ID="drpMapType" runat="server" Label="分类" LabelAlign="Right" EnableEdit="true"> 
+                      <f:DropDownList ID="drpMapType" runat="server" Label="分类" LabelAlign="Right" EnableEdit="true"
+                          AutoPostBack="true" OnSelectedIndexChanged="drpMapType_SelectedIndexChanged"> 
                         <f:ListItem Value="1" Text="总平面布置图" Selected="true"/>
                         <f:ListItem Value="2" Text="区域平面图"/>
                         <f:ListItem Value="3" Text="三维模型图"/>

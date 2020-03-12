@@ -436,6 +436,7 @@
     <Content Include="InformationProject\Exposure.aspx" />
     <Content Include="InformationProject\ExposureEdit.aspx" />
     <Content Include="InformationProject\ExposureView.aspx" />
+    <Content Include="Information\SubMillionsMonthlyReport.aspx" />
     <Content Include="License\BreakGround.aspx" />
     <Content Include="License\BreakGroundView.aspx" />
     <Content Include="License\LiftingWork.aspx" />
@@ -4017,6 +4018,7 @@
     <Content Include="SysManage\RoleList.aspx" />
     <Content Include="SysManage\RoleListEdit.aspx" />
     <Content Include="SysManage\UnitIn.aspx" />
+    <Content Include="SysManage\UserIn.aspx" />
     <Content Include="SysManage\UserList.aspx" />
     <Content Include="SysManage\UserListEdit.aspx" />
     <Content Include="SysManage\UpdatePassword.aspx" />
@@ -6336,6 +6338,13 @@
     </Compile>
     <Compile Include="InformationProject\ExposureView.aspx.designer.cs">
       <DependentUpon>ExposureView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Information\SubMillionsMonthlyReport.aspx.cs">
+      <DependentUpon>SubMillionsMonthlyReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Information\SubMillionsMonthlyReport.aspx.designer.cs">
+      <DependentUpon>SubMillionsMonthlyReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="License\BreakGround.aspx.cs">
       <DependentUpon>BreakGround.aspx</DependentUpon>
@@ -10452,6 +10461,13 @@
     </Compile>
     <Compile Include="SysManage\UnitIn.aspx.designer.cs">
       <DependentUpon>UnitIn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysManage\UserIn.aspx.cs">
+      <DependentUpon>UserIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysManage\UserIn.aspx.designer.cs">
+      <DependentUpon>UserIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="SysManage\UserList.aspx.cs">
       <DependentUpon>UserList.aspx</DependentUpon>

@@ -34,7 +34,7 @@ namespace WebAPI.Controllers
                                        ApprovalDate=string.Format("{0:yyyy-MM-dd}", x.ApprovalDate) ,
                                        EffectiveDate = string.Format("{0:yyyy-MM-dd}", x.EffectiveDate),
                                        x.Description,
-                                       AttachUrl = x.AttachUrl.Replace('\\', '/')
+                                       AttachUrl = APIUpLoadFileService.getFileUrl(x.LawRegulationId,x.AttachUrl),
                                    };
             }
             catch (Exception ex)

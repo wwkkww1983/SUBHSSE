@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIItem\NextFlowOperateItem.cs" />
+    <Compile Include="APIItem\PauseNoticeItem.cs" />
     <Compile Include="APIItem\RectifyNoticesItem.cs" />
     <Compile Include="APIItem\PictureItem.cs" />
     <Compile Include="APIItem\HSEMonthItem.cs" />

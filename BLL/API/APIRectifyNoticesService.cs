@@ -147,7 +147,7 @@ namespace BLL
                 WorkAreaId = rectifyNotices.WorkAreaId,
                 CheckedDate = Funs.GetNewDateTime(rectifyNotices.CheckedDate),
                 WrongContent = rectifyNotices.WrongContent,
-                SignPerson = rectifyNotices.SignPersonId,                
+                SignPerson = rectifyNotices.SignPersonId,
                 DutyPersonId = rectifyNotices.DutyPersonId,
                 DutyPerson = rectifyNotices.RectificationName,               
                 CheckPerson = rectifyNotices.CheckPersonId,                

@@ -148,5 +148,20 @@ namespace BLL
                 CommonService.DeleteAttachFileById(dataId);
             }
         }
+
+        /// <summary>
+        ///  获取附件路径
+        /// </summary>
+        /// <returns></returns>
+        public static string getFileUrl(string tokeyId, string url)
+        {
+            string fileUrl = url;
+            var getAtt = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == tokeyId);
+            if (getAtt != null && !string.IsNullOrEmpty(getAtt.AttachUrl))
+            {
+                fileUrl = getAtt.AttachUrl;
+            }
+            return fileUrl;
+        }
     }
 }

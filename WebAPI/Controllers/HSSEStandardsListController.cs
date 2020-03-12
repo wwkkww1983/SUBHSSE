@@ -32,7 +32,7 @@ namespace WebAPI.Controllers
                                        x.StandardGrade,
                                        x.StandardNo,
                                        x.StandardName,
-                                       AttachUrl = x.AttachUrl.Replace('\\', '/')
+                                       AttachUrl = APIUpLoadFileService.getFileUrl(x.StandardId, x.AttachUrl),
                                    };
             }
             catch (Exception ex)

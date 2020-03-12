@@ -180,28 +180,27 @@ namespace BLL
         private static string getValues2()
         {
             string strValues = string.Empty;
-            var getRegister = from x in Funs.DB.HSSE_Hazard_HazardRegister
-                              where x.ProjectId == getProjectId && x.ResponsibleMan == getUserId
-                              && getDate > x.CheckTime.Value.AddDays(-1) && getDate < x.CheckTime.Value.AddDays(1)
-                              select x;
-            if (getRegister.Count() > 0)
+            var getCHeck = from x  in Funs.DB.Check_RectifyNotices
+                           where x.ProjectId == getProjectId && x.CheckPerson == getUserId && getDate > x.CheckedDate.Value.AddDays(-1) && getDate < x.CheckedDate.Value.AddDays(1)
+                           select x;
+            if (getCHeck.Count() > 0)
             {
-                strValues += "隐患：" + getRegister.Count().ToString() + "；";
-                var getC = getRegister.Where(x => x.States == Const.State_3);
-                if (getC.Count() > 0)
-                {
-                    strValues += "整改：" + getC.Count().ToString() + "；";
-                }
+                strValues += "复查：" + getCHeck.Count().ToString() + "；";
             }
-            //var getColligationCount = (from x in Funs.DB.Sys_FlowOperate
-            //                           where x.MenuId == Const.ProjectCheckColligationMenuId && x.ProjectId == getProjectId
-            //                           && x.OperaterId == getUserId && x.IsClosed == true
-            //                           && getDate > x.OperaterTime.Value.AddDays(-1) && getDate < x.OperaterTime.Value.AddDays(1)
-            //                           select x).Count();
-            //if (getColligationCount > 0)
-            //{
-            //    strValues += "综合大检查：" + getColligationCount.ToString();
-            //}
+            var getSign = from x  in Funs.DB.Check_RectifyNotices
+                           where x.ProjectId == getProjectId && x.SignPerson == getUserId && getDate > x.SignDate.Value.AddDays(-1) && getDate < x.SignDate.Value.AddDays(1)
+                           select x;
+            if (getSign.Count() > 0)
+            {
+                strValues += "签发：" + getSign.Count().ToString() + "；";
+            }
+            var getDuty = from x in Funs.DB.Check_RectifyNotices
+                          where x.ProjectId == getProjectId && x.DutyPersonId == getUserId && getDate > x.CompleteDate.Value.AddDays(-1) && getDate < x.CompleteDate.Value.AddDays(1)
+                          select x;
+            if (getDuty.Count() > 0)
+            {
+                strValues += "整改：" + getDuty.Count().ToString() + "；";
+            }
 
             if (string.IsNullOrEmpty(strValues))
             {

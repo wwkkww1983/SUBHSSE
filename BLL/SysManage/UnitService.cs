@@ -140,6 +140,43 @@ namespace BLL
         }
 
         /// <summary>
+        /// 获取当前单位下分公司拉选项
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Base_Unit> GetSubUnitList(string unitId)
+        {
+            List<Model.Base_Unit> unitList = new List<Model.Base_Unit>();
+            if (string.IsNullOrEmpty(unitId))
+            {
+                unitId = CommonService.GetIsThisUnitId();
+            }
+            var unitIdList = GetChildrenUnitId(unitId);
+            if (unitIdList.Count() > 0)
+            {
+                unitList = (from x in Funs.DB.Base_Unit where unitIdList.Contains(x.UnitId) || x.UnitId == unitId select x).ToList();
+            }
+            return unitList;
+        }
+
+        #region 根据UnitId返回对应的ChildrenUnitId
+        /// <summary>
+        /// 根据用户UnitId返回对应的ChildrenUnitId
+        /// </summary>
+        /// <returns></returns>
+        public static List<string> GetChildrenUnitId(string unitId)
+        {
+            List<string> unitIdList = new List<string>();            
+            var unit = Funs.DB.Base_Unit.FirstOrDefault(e => e.SupUnitId == unitId);  //本单位
+            if (unit != null)
+            {
+                unitIdList.Add(unit.UnitId);
+                GetChildrenUnitId(unit.UnitId);
+            }
+            return unitIdList;
+        }
+        #endregion
+
+        /// <summary>
         /// 获取分公司列表
         /// </summary>
         /// <returns></returns>
@@ -278,11 +315,11 @@ namespace BLL
         /// </summary>
         /// <param name="dropName"></param>
         /// <param name="isShowPlease"></param>
-        public static void InitBranchUnitDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        public static void InitBranchUnitDropDownList(FineUIPro.DropDownList dropName, string unitId, bool isShowPlease)
         {
             dropName.DataValueField = "UnitId";
             dropName.DataTextField = "UnitName";
-            dropName.DataSource = BLL.UnitService.GetBranchUnitList();
+            dropName.DataSource = BLL.UnitService.GetSubUnitList(unitId);
             dropName.DataBind();
             if (isShowPlease)
             {

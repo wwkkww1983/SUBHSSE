@@ -159,5 +159,10 @@ namespace FineUIPro.Web.ProjectData
             PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ProjectMapAttachUrl&menuId={1}", this.ProjectMapId, BLL.Const.ProjectProjectMapMenuId)));
         }
         #endregion
+
+        protected void drpMapType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.txtTitle.Text = this.drpMapType.SelectedText;
+        }
     }
 }

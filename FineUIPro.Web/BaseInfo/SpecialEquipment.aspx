@@ -21,20 +21,27 @@
             <f:Grid ID="Grid1" Title="机具设备" ShowHeader="false" EnableCollapse="true" PageSize="10"  EnableColumnLines="true"
                 ShowBorder="true" AllowPaging="true" IsDatabasePaging="true" runat="server" Width="760px"
                 DataKeyNames="SpecialEquipmentId" DataIDField="SpecialEquipmentId" OnPageIndexChange="Grid1_PageIndexChange"
-                AllowFilters="true" OnFilterChange="Grid1_FilterChange" EnableTextSelection="True">
+                AllowFilters="true" OnFilterChange="Grid1_FilterChange" EnableTextSelection="True" SortField="TypeName,SpecialEquipmentCode"
+               SortDirection="ASC" >
                 <Columns>
                    <%--<f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center"/>--%>
-                    <f:RenderField Width="90px" ColumnID="SpecialEquipmentCode" DataField="SpecialEquipmentCode" FieldType="String"
-                        HeaderText="设备编号" HeaderTextAlign="Center" TextAlign="Center">
+                    <f:RenderField Width="80px" ColumnID="SpecialEquipmentCode" DataField="SpecialEquipmentCode" FieldType="String"
+                        HeaderText="编号" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="160px" ColumnID="SpecialEquipmentName" DataField="SpecialEquipmentName" FieldType="String"
+                      <f:RenderField Width="90px" ColumnID="TypeName" DataField="TypeName" FieldType="String"
+                        HeaderText="类型" HeaderTextAlign="Center" TextAlign="Left">
+                    </f:RenderField>
+                    <f:RenderField Width="150px" ColumnID="SpecialEquipmentName" DataField="SpecialEquipmentName" FieldType="String"
                         HeaderText="设备名称" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="80px" ColumnID="IsSpecial" DataField="IsSpecial" FieldType="Boolean"
+                    <f:RenderField Width="100px" ColumnID="IsSpecial" DataField="IsSpecial" FieldType="Boolean"
                         RendererFunction="renderIsSpecial" HeaderText="特种设备"  HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="200px" ColumnID="Remark" DataField="Remark" FieldType="String"
                         HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
+                    </f:RenderField>
+                    <f:RenderField Width="1px" ColumnID="SpecialEquipmentType" DataField="SpecialEquipmentType" FieldType="String"
+                        HeaderText="类型ID" HeaderTextAlign="Center" TextAlign="Left" >
                     </f:RenderField>
                 </Columns>
                 <Listeners>
@@ -61,15 +68,17 @@
                 <Items>
                     <f:HiddenField ID="hfFormID" runat="server">
                     </f:HiddenField>
-                    <f:TextBox ID="txtSpecialEquipmentCode" Label="设备编号" ShowRedStar="true" Required="true" runat="server"
-                        LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelWidth="100px">
+                    <f:TextBox ID="txtSpecialEquipmentCode" Label="编号" ShowRedStar="true" Required="true" runat="server"
+                        LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelWidth="80px">
                     </f:TextBox>
-                    <f:TextBox ID="txtSpecialEquipmentName" Label="设备名称" ShowRedStar="true" Required="true" runat="server"
-                        LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelWidth="100px">
+                     <f:DropDownList ID="drpType" Label="类型"  runat="server" LabelAlign="right"  LabelWidth="80px">                         
+                    </f:DropDownList>
+                    <f:TextBox ID="txtSpecialEquipmentName" Label="名称" ShowRedStar="true" Required="true" runat="server"
+                        LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelWidth="80px">
                     </f:TextBox>
-                    <f:CheckBox ID="ckbIsSpecial" runat="server" Label="是否特种设备" LabelAlign="right" LabelWidth="100px">
+                    <f:CheckBox ID="ckbIsSpecial" runat="server" Label="特种设备" LabelAlign="right" LabelWidth="80px">
                     </f:CheckBox>
-                    <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="right" LabelWidth="100px" Height="200px">
+                    <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="right" LabelWidth="80px" Height="200px">
                     </f:TextArea>
                 </Items>
                 <Toolbars>
@@ -129,6 +138,7 @@
         var txtNameClientID = '<%= txtSpecialEquipmentName.ClientID %>';
         var ckbIsSpecialClientID = '<%= ckbIsSpecial.ClientID %>';
         var txtRemarkClientID = '<%=txtRemark.ClientID %>';
+       var drpTypeClientID = '<%=drpType.ClientID %>';
 
         function onGridRowSelect(event, rowId) {
             var grid = F(gridClientID);
@@ -142,6 +152,7 @@
             F(txtNameClientID).setValue(rowValue['SpecialEquipmentName']);
             F(ckbIsSpecialClientID).setValue(rowValue['IsSpecial']);
             F(txtRemarkClientID).setValue(rowValue['Remark']);
+            F(drpTypeClientID).setValue(rowValue['SpecialEquipmentType']);
             // 更新保存按钮文本
 //            F(btnSaveClientID).setText('保存数据（编辑）');
         }

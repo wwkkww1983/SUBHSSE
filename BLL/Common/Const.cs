@@ -2296,6 +2296,10 @@ namespace BLL
         /// 单位信息导入模板
         /// </summary>
         public const string UnitTemplateUrl = "File\\Excel\\DataIn\\单位信息模版.xls";
+        /// <summary>
+        /// 用户信息导入模板
+        /// </summary>
+        public const string UserTemplateUrl = "File\\Excel\\DataIn\\用户信息模版.xls";
         #endregion
 
         #region 初始化上传路径

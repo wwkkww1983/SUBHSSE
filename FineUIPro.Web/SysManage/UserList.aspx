@@ -28,22 +28,25 @@
                         <f:Toolbar ID="Toolbar2" Position="Top" runat="server">
                             <Items>
                                 <f:TextBox runat="server" Label="用户名称" ID="txtUserName" EmptyText="输入查询条件" AutoPostBack="true"
-                                    OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px">
+                                    OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="80px">
                                 </f:TextBox>
                                 <f:TextBox runat="server" Label="单位名称" ID="txtUnitName" EmptyText="输入查询条件" AutoPostBack="true"
-                                    OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px">
+                                    OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="80px">
                                 </f:TextBox>
                                 <f:TextBox runat="server" Label="角色名称" ID="txtRoleName" EmptyText="输入查询条件" AutoPostBack="true"
-                                    OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px">
+                                    OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="80px">
                                 </f:TextBox>
                                 <f:TextBox runat="server" Label="类型名称" ID="txtRoleTypeName" EmptyText="输入查询条件" AutoPostBack="true"
-                                    OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="80px">
+                                    OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="80px">
                                 </f:TextBox>
                                 <f:ToolbarFill runat="server">
                                 </f:ToolbarFill>
                                 <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" runat="server"
                                     Hidden="true">
                                 </f:Button>
+                                   <f:Button ID="btnImport" ToolTip="导入" Icon="ApplicationAdd" Hidden="true" runat="server"
+                                    OnClick="btnImport_Click">
+                            </f:Button>
                             </Items>
                         </f:Toolbar>
                     </Toolbars>
@@ -56,7 +59,7 @@
                         <f:RenderField Width="220px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
                             FieldType="String" HeaderText="单位" HeaderTextAlign="Center" TextAlign="Left" >
                         </f:RenderField>
-                        <f:RenderField Width="100px" ColumnID="Account" DataField="Account" SortField="Account"
+                        <f:RenderField Width="120px" ColumnID="Account" DataField="Account" SortField="Account"
                             FieldType="String" HeaderText="账号" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
                         <f:RenderField Width="10px" ColumnID="IdentityCard" DataField="IdentityCard" SortField="IdentityCard"
@@ -66,7 +69,7 @@
                             FieldType="String" HeaderText="角色" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
                         <f:RenderField Width="120px" ColumnID="Telephone" DataField="Telephone" SortField="Telephone"
-                            FieldType="String" HeaderText="手机号码" HeaderTextAlign="Center" TextAlign="Right">
+                            FieldType="String" HeaderText="手机号码" HeaderTextAlign="Center" TextAlign="Right" Hidden="true">
                         </f:RenderField>
                         <f:CheckBoxField Width="50px" SortField="IsPost" RenderAsStaticField="true" DataField="IsPost"
                             HeaderText="在岗" HeaderTextAlign="Center" TextAlign="Center">
@@ -104,6 +107,10 @@
             Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="800px"
             Height="360px">
         </f:Window>
+        <f:Window ID="Window2" Title="导入人员信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+            Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="false"
+            CloseAction="HidePostBack" Width="1000px" Height="560px">
+    </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true"
                 Hidden="true" runat="server" Text="编辑" Icon="TableEdit">

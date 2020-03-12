@@ -57,15 +57,11 @@
 
             List<Model.SpResourceCollection> resourceCollections = BLL.AnalyseResourceService.GetListResourceCollection(unitValues, this.txtUserName.Text.Trim(), Funs.GetNewDateTime(this.txtStarTime.Text.Trim()), Funs.GetNewDateTime(this.txtEndTime.Text.Trim()));          
             DataTable tb = this.GetPagedDataTable(Grid1, resourceCollections);
-
             // 2.获取当前分页数据
             //var table = this.GetPagedDataTable(Grid1, tb1);
-            Grid1.RecordCount = tb.Rows.Count;
-           
+            Grid1.RecordCount = tb.Rows.Count;           
             var table = this.GetPagedDataTable(Grid1, tb);
-
             this.OutputSummaryData(resourceCollections);
-
             Grid1.DataSource = table;
             Grid1.DataBind();
         }
