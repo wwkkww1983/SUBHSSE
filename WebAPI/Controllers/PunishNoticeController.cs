@@ -24,7 +24,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                 responeData.data = APIPunishNoticeService.getPunishNoticeById(punishNoticeId);
+                responeData.data = APIPunishNoticeService.getPunishNoticeById(punishNoticeId);
             }
             catch (Exception ex)
             {
@@ -92,19 +92,20 @@ namespace WebAPI.Controllers
         }
         #endregion
 
-        #region 上报处罚单-回执单
+        #region 处罚单-附件通知单 回执单
         /// <summary>
         ///  上报处罚单-回执单
         /// </summary>
         /// <param name="punishNoticeId">主键</param>
         /// <param name="attachUrl">回执单路径</param>
+        /// /// <param name="type">类型：0-通知单；1-回执单</param>
         /// <returns></returns>
-        public Model.ResponeData getSavePunishNoticeReceiptUrl(string punishNoticeId, string attachUrl)
+        public Model.ResponeData getSavePunishNoticeReceiptUrl(string punishNoticeId, string attachUrl, string type = null)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                APIPunishNoticeService.SavePunishNoticeReceiptUrl(punishNoticeId, attachUrl);
+                APIPunishNoticeService.SavePunishNoticeReceiptUrl(punishNoticeId, attachUrl, type);
             }
             catch (Exception ex)
             {

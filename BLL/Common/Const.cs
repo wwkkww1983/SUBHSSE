@@ -43,6 +43,10 @@ namespace BLL
         /// </summary>
         public const string Password = "123";
 
+        /// <summary>
+        /// 默认用户密码
+        /// </summary>
+        public const string EntryTrainTypeId = "8920c9cc-fa92-49b2-9493-775a55da27bb";
         #endregion
 
         #region 按钮描述
@@ -202,6 +206,10 @@ namespace BLL
         /// 北京建投
         /// </summary>
         public const string UnitId_BJJT = "2B0DB792-49CF-43B4-BB0E-8DD27DF1CEE2";
+        /// <summary>
+        /// 环保
+        /// </summary>
+        public const string UnitId_CEPC = "8bfe3f81-c191-4b63-8b63-7ab5161a6c68";
         /// <summary>
         /// 综合应急预案模板类型
         /// </summary>

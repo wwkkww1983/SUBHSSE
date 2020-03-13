@@ -219,7 +219,7 @@ namespace BLL
             }
             else
             {
-                newPerson.InTime = Funs.GetNewDateTime(System.DateTime.Now.ToShortDateString());
+                newPerson.InTime = Funs.GetNewDateTime(DateTime.Now.ToShortDateString());
             }
             
             db.SitePerson_Person.InsertOnSubmit(newPerson);
@@ -232,20 +232,20 @@ namespace BLL
                 UnitId = person.UnitId,
                 PersonId = person.PersonId
             };
-            if (newPerson.InTime.HasValue)
-            {
-                newPersonInOut.ChangeTime = person.InTime;
-                newPersonInOut.IsIn = true;
-                BLL.PersonInOutService.AddPersonInOut(newPersonInOut);
-            }
 
-            if (newPerson.OutTime.HasValue)
-            {
-                newPersonInOut.ChangeTime = person.OutTime;
-                newPersonInOut.IsIn = false;
-                BLL.PersonInOutService.AddPersonInOut(newPersonInOut);
-            }
+            //if (newPerson.InTime.HasValue)
+            //{
+            //    newPersonInOut.ChangeTime = person.InTime;
+            //    newPersonInOut.IsIn = true;
+            //    BLL.PersonInOutService.AddPersonInOut(newPersonInOut);
+            //}
 
+            //if (newPerson.OutTime.HasValue)
+            //{
+            //    newPersonInOut.ChangeTime = person.OutTime;
+            //    newPersonInOut.IsIn = false;
+            //    BLL.PersonInOutService.AddPersonInOut(newPersonInOut);
+            //}
             ////增加一条编码记录
             BLL.CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(BLL.Const.PersonListMenuId, person.ProjectId, person.UnitId, person.PersonId, person.InTime);
         }
@@ -295,33 +295,33 @@ namespace BLL
                 db.SubmitChanges();
 
                 ///写入人员出入场时间表 
-                Model.SitePerson_PersonInOut newPersonInOut = new Model.SitePerson_PersonInOut
-                {
-                    ProjectId = person.ProjectId,
-                    UnitId = person.UnitId,
-                    PersonId = person.PersonId
-                };
-                if (newPerson.InTime.HasValue)
-                {
-                    var inOutIn = BLL.PersonInOutService.GetPersonInOutByTimePersonId(person.PersonId, person.InTime.Value, true);
-                    if (inOutIn == null)
-                    {
-                        newPersonInOut.ChangeTime = person.InTime;
-                        newPersonInOut.IsIn = true;
-                        BLL.PersonInOutService.AddPersonInOut(newPersonInOut);
-                    }
-                }
+                //Model.SitePerson_PersonInOut newPersonInOut = new Model.SitePerson_PersonInOut
+                //{
+                //    ProjectId = person.ProjectId,
+                //    UnitId = person.UnitId,
+                //    PersonId = person.PersonId
+                //};
+                //if (newPerson.InTime.HasValue)
+                //{
+                //    var inOutIn = BLL.PersonInOutService.GetPersonInOutByTimePersonId(person.PersonId, person.InTime.Value, true);
+                //    if (inOutIn == null)
+                //    {
+                //        newPersonInOut.ChangeTime = person.InTime;
+                //        newPersonInOut.IsIn = true;
+                //        BLL.PersonInOutService.AddPersonInOut(newPersonInOut);
+                //    }
+                //}
 
-                if (newPerson.OutTime.HasValue)
-                {
-                    var inOutIn = BLL.PersonInOutService.GetPersonInOutByTimePersonId(person.PersonId, person.OutTime.Value, false);
-                    if (inOutIn == null)
-                    {
-                        newPersonInOut.ChangeTime = person.OutTime;
-                        newPersonInOut.IsIn = false;
-                        BLL.PersonInOutService.AddPersonInOut(newPersonInOut);
-                    }
-                }
+                //if (newPerson.OutTime.HasValue)
+                //{
+                //    var inOutIn = BLL.PersonInOutService.GetPersonInOutByTimePersonId(person.PersonId, person.OutTime.Value, false);
+                //    if (inOutIn == null)
+                //    {
+                //        newPersonInOut.ChangeTime = person.OutTime;
+                //        newPersonInOut.IsIn = false;
+                //        BLL.PersonInOutService.AddPersonInOut(newPersonInOut);
+                //    }
+                //}
             }
         }
 

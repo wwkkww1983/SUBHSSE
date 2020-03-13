@@ -44,6 +44,7 @@ namespace BLL
                 SecondContent = pauseNotice.SecondContent,
                 ThirdContent = pauseNotice.ThirdContent,
                 ProjectHeadConfirm = pauseNotice.ProjectHeadConfirm,
+                ProjectHeadConfirmId = pauseNotice.ProjectHeadConfirmId,
                 IsConfirm = pauseNotice.IsConfirm,
                 ConfirmDate = pauseNotice.ConfirmDate,
                 AttachUrl = pauseNotice.AttachUrl,
@@ -80,6 +81,7 @@ namespace BLL
                 newPauseNotice.SecondContent = pauseNotice.SecondContent;
                 newPauseNotice.ThirdContent = pauseNotice.ThirdContent;
                 newPauseNotice.ProjectHeadConfirm = pauseNotice.ProjectHeadConfirm;
+                newPauseNotice.ProjectHeadConfirmId = pauseNotice.ProjectHeadConfirm;
                 newPauseNotice.IsConfirm = pauseNotice.IsConfirm;
                 newPauseNotice.ConfirmDate = pauseNotice.ConfirmDate;
                 newPauseNotice.AttachUrl = pauseNotice.AttachUrl;

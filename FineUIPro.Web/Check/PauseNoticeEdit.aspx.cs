@@ -1,5 +1,6 @@
 ﻿using BLL;
 using System;
+using System.Linq;
 using System.Web.UI;
 
 namespace FineUIPro.Web.Check
@@ -329,6 +330,29 @@ namespace FineUIPro.Web.Check
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ProjectCheckWorkMenuId, this.PauseNoticeId, (type == BLL.Const.BtnSubmit ? true : false), this.txtPauseContent.Text.Trim(), "../Check/PauseNoticeView.aspx?PauseNoticeId={0}");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnNoticeUrl_Click(object sender, EventArgs e)
+        {
+
+            if (string.IsNullOrEmpty(this.PauseNoticeId))
+            {
+                this.SaveData(BLL.Const.BtnSave);
+            }
+            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.ProjectPauseNoticeMenuId);
+            if (buttonList.Count() > 0)
+            {
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&type=0&path=FileUpload/PauseNotice&menuId=" + BLL.Const.ProjectPauseNoticeMenuId, this.PauseNoticeId)));
+            }
+            else
+            {
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PauseNotice&menuId=" + BLL.Const.ProjectPauseNoticeMenuId, this.PauseNoticeId)));
+            }
         }
     }
 }

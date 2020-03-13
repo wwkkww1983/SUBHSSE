@@ -13,47 +13,35 @@
     <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="true"
         BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
         <Rows>
-            <f:FormRow>
-                <Items>
-                    <f:TextBox ID="txtPost" runat="server" Label="职务" Required="true" ShowRedStar="true"
-                        MaxLength="50" FocusOnPageLoad="true">
-                    </f:TextBox>
-                </Items>
-            </f:FormRow>
               <f:FormRow>
                 <Items>
                     <f:TextBox ID="txtSortIndex" runat="server" Label="序号" MaxLength="50">
                     </f:TextBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:TextBox ID="txtNames" runat="server" Label="姓名" Required="true" ShowRedStar="true"
+                      <f:TextBox ID="txtNames" runat="server" Label="姓名" Required="true" ShowRedStar="true"
                         MaxLength="10">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
+                     <f:TextBox ID="txtPost" runat="server" Label="职务" Required="true" ShowRedStar="true"
+                        MaxLength="50" FocusOnPageLoad="true">
+                    </f:TextBox>
                     <f:TextBox ID="txtTelephone" runat="server" Label="电话" MaxLength="20">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
-                <Items>
-                    <f:TextBox ID="txtMobilePhone" runat="server" Label="手机" MaxLength="20">
+                <Items>                    
+                   <f:TextBox ID="txtMobilePhone" runat="server" Label="手机" MaxLength="20">
+                    </f:TextBox>
+                      <f:TextBox ID="txtEMail" runat="server" Label="邮箱" MaxLength="50">
                     </f:TextBox>
                 </Items>
-            </f:FormRow>
+            </f:FormRow>            
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtEMail" runat="server" Label="邮箱" MaxLength="50">
-                    </f:TextBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:TextArea ID="txtDuty" runat="server" Label="职责" MaxLength="50">
+                    <f:TextArea ID="txtDuty" runat="server" Label="职责" MaxLength="500">
                     </f:TextArea>
                 </Items>
             </f:FormRow>

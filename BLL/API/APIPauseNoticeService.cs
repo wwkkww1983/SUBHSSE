@@ -38,17 +38,19 @@ namespace BLL
                               ApproveManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApproveMan).UserName,
                               ProjectPlace=x.ProjectPlace,
                               WrongContent=x.WrongContent,
-                              PauseTime=string.Format("{0:yyyy-MM-dd}", x.PauseTime),
+                              PauseTime=string.Format("{0:yyyy-MM-dd HH:mm}", x.PauseTime),
                               PauseContent = x.PauseContent,
                               OneContent=x.OneContent,
                               SecondContent=x.SecondContent,
                               ThirdContent=x.ThirdContent,
                               ProjectHeadConfirm=x.ProjectHeadConfirm,
-                              IsConfirm=x.IsConfirm,
+                              ProjectHeadConfirmId = x.ProjectHeadConfirmId,
+                              IsConfirm =x.IsConfirm,
                               IsConfirmName=(x.IsConfirm ==true?"已确认":"待确认"),
                               ConfirmDate = string.Format("{0:yyyy-MM-dd}", x.ConfirmDate),
                               States = x.States,
                               AttachUrl =APIUpLoadFileService.getFileUrl(x.PauseNoticeId,x.AttachUrl),
+                              PauseNoticeAttachUrl= APIUpLoadFileService.getFileUrl(x.PauseNoticeId, null),
                           };
             return getInfo.FirstOrDefault();
         }
@@ -76,7 +78,7 @@ namespace BLL
                                       UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
                                       ProjectPlace = x.ProjectPlace,
                                       WrongContent = x.WrongContent,
-                                      PauseTime = string.Format("{0:yyyy-MM-dd}", x.PauseTime),
+                                      PauseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.PauseTime),
                                       PauseContent = x.PauseContent,
                                       CompileManId = x.CompileMan,
                                       CompileManName = x.SignPerson,
@@ -86,10 +88,12 @@ namespace BLL
                                       ApproveManId = x.ApproveMan,
                                       ApproveManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApproveMan).UserName,
                                       ProjectHeadConfirm = x.ProjectHeadConfirm,
+                                      ProjectHeadConfirmId = x.ProjectHeadConfirmId,
                                       IsConfirm = x.IsConfirm,
                                       IsConfirmName = (x.IsConfirm == true ? "已确认" : "待确认"),
                                       ConfirmDate = string.Format("{0:yyyy-MM-dd}", x.ConfirmDate),
                                       States = x.States,
+                                      PauseNoticeAttachUrl = APIUpLoadFileService.getFileUrl(x.PauseNoticeId, null),
                                   };
             if (states == "1")
             {
@@ -130,7 +134,8 @@ namespace BLL
                 SecondContent = newItem.SecondContent,
                 ThirdContent = newItem.ThirdContent,
                 ProjectHeadConfirm =newItem.ProjectHeadConfirm,
-                ConfirmDate= Funs.GetNewDateTime(newItem.PauseTime),
+                ProjectHeadConfirmId = newItem.ProjectHeadConfirmId,
+                ConfirmDate = Funs.GetNewDateTime(newItem.ConfirmDate),
                 AttachUrl=newItem.AttachUrl,
                 SignMan=newItem.SignManId,
                 ApproveMan =newItem.ApproveManId,               
@@ -179,14 +184,32 @@ namespace BLL
                 CommonService.btnSaveData(newPauseNotice.ProjectId, Const.ProjectPauseNoticeMenuId, newPauseNotice.PauseNoticeId, newPauseNotice.CompileMan, true, newPauseNotice.PauseContent, "../Check/PauseNoticeView.aspx?PauseNoticeId={0}");
             }
             ////保存附件
-            //if (!string.IsNullOrEmpty(newItem.AttachUrl))
-            //{
-            //    UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(newItem.AttachUrl, 10, null), newItem.PauseUrl, Const.ProjectPauseNoticeStatisticsMenuId, newPauseNotice.PauseNoticeId);
-            //}
-            //else
-            //{
-            //    CommonService.DeleteAttachFileById(Const.ProjectPauseNoticeStatisticsMenuId,newPauseNotice.PauseNoticeId);
-            //}
+            //SavePauseNoticeUrl(newPauseNotice.PauseNoticeId, newItem.PauseNoticeAttachUrl);
+        }
+        #endregion
+
+        #region 保存暂停令通知单
+        /// <summary>
+        /// 保存处罚单-回执单
+        /// </summary>
+        /// <param name="pauseNoticeId">主键</param>
+        /// <param name="attachUrl">路径</param>
+        public static void SavePauseNoticeUrl(string pauseNoticeId, string attachUrl)
+        {
+            var getPauseNotice = Funs.DB.Check_PauseNotice.FirstOrDefault(x => x.PauseNoticeId == pauseNoticeId);
+            if (getPauseNotice != null)
+            {
+                string menuId = Const.ProjectPauseNoticeMenuId;               
+                ////保存附件
+                if (!string.IsNullOrEmpty(attachUrl))
+                {
+                    UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(attachUrl, 10, null), attachUrl, menuId, getPauseNotice.PauseNoticeId);
+                }
+                else
+                {
+                    CommonService.DeleteAttachFileById(menuId, getPauseNotice.PauseNoticeId);
+                }
+            }
         }
         #endregion
     }

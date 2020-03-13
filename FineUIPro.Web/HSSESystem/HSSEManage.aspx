@@ -79,7 +79,7 @@
                                     <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-                            <f:RenderField Width="80px" ColumnID="Names" DataField="Names" SortField="Names"
+                            <f:RenderField Width="100px" ColumnID="Names" DataField="Names" SortField="Names"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Center" HeaderText="姓名">
                             </f:RenderField>
                              <f:RenderField Width="170px" ColumnID="Post" DataField="Post" SortField="Post" FieldType="String"
@@ -122,11 +122,11 @@
     </f:Panel>
     <f:Window ID="Window1" Title="编辑" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Self" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="400px" Height="200px">
+        Width="600px" Height="520px">
     </f:Window>
     <f:Window ID="Window2" Title="编辑安全管理机构" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Self" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="true"
-        Width="600px" Height="400px">
+        Width="800px" Height="400px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true"

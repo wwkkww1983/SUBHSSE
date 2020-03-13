@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIItem\ChartAnalysisItem.cs" />
     <Compile Include="APIItem\NextFlowOperateItem.cs" />
     <Compile Include="APIItem\PauseNoticeItem.cs" />
     <Compile Include="APIItem\RectifyNoticesItem.cs" />

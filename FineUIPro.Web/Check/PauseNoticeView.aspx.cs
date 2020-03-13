@@ -137,5 +137,27 @@ namespace FineUIPro.Web.Check
             btnClose.OnClientClick = ActiveWindow.GetHideReference();
         }
         #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnNoticeUrl_Click(object sender, EventArgs e)
+        {
+
+            if (!string.IsNullOrEmpty(this.PauseNoticeId))
+            {
+                var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.ProjectPauseNoticeMenuId);
+                if (buttonList.Count() > 0)
+                {
+                    PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&type=0&path=FileUpload/PauseNotice&menuId=" + BLL.Const.ProjectPauseNoticeMenuId, this.PauseNoticeId)));
+                }
+                else
+                {
+                    PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PauseNotice&menuId=" + BLL.Const.ProjectPauseNoticeMenuId, this.PauseNoticeId)));
+                }
+            }
+        }
     }
 }

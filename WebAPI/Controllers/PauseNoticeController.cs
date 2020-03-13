@@ -91,5 +91,29 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion        
+
+        #region 暂停令通知单附件
+        /// <summary>
+        ///  上报处罚单-回执单
+        /// </summary>
+        /// <param name="pauseNoticeId">主键</param>
+        /// <param name="attachUrl">通知单路径</param>
+        /// <returns></returns>
+        public Model.ResponeData getSavePauseNoticeReceiptUrl(string pauseNoticeId, string attachUrl)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APIPauseNoticeService.SavePauseNoticeUrl(pauseNoticeId, attachUrl);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
     }
 }

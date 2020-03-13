@@ -63,7 +63,7 @@ namespace BLL
         {
             var getPunishNotice = from x in Funs.DB.Check_PunishNotice
                                   where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
-                               //&& (strParam == null || x.PunishNoticeName.Contains(strParam)) 
+                                //&& (strParam == null || x.PunishNoticeName.Contains(strParam)) 
                                 && (states == null || (states == "0" && (x.States == "0" || x.States == null)) || (states == "1" && (x.States == "1" || x.States == "2")))
                                   orderby x.PunishNoticeCode descending
                                   select new Model.PunishNoticeItem
@@ -168,30 +168,35 @@ namespace BLL
             }
             else
             {
-                CommonService.DeleteAttachFileById(Const.ProjectPunishNoticeStatisticsMenuId,newPunishNotice.PunishNoticeId);
+                CommonService.DeleteAttachFileById(Const.ProjectPunishNoticeStatisticsMenuId, newPunishNotice.PunishNoticeId);
             }
         }
         #endregion
 
-        #region 保存处罚单-回执单
+        #region 保存处罚单-通知单回执单
         /// <summary>
         /// 保存处罚单-回执单
         /// </summary>
         /// <param name="punishNoticeId">主键</param>
         /// <param name="attachUrl">回执单路径</param>
-        public static void SavePunishNoticeReceiptUrl(string punishNoticeId,string attachUrl)
+        public static void SavePunishNoticeReceiptUrl(string punishNoticeId, string attachUrl, string type)
         {
             var getPunishNotice = Funs.DB.Check_PunishNotice.FirstOrDefault(x => x.PunishNoticeId == punishNoticeId);
             if (getPunishNotice != null)
             {
+                string menuId = Const.ProjectPunishNoticeMenuId;
+                if (type == "0")
+                {
+                    menuId = Const.ProjectPunishNoticeStatisticsMenuId;
+                }
                 ////保存附件
                 if (!string.IsNullOrEmpty(attachUrl))
                 {
-                    UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(attachUrl, 10, null), attachUrl, Const.ProjectPunishNoticeMenuId, getPunishNotice.PunishNoticeId);
+                    UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(attachUrl, 10, null), attachUrl, menuId, getPunishNotice.PunishNoticeId);
                 }
                 else
                 {
-                    CommonService.DeleteAttachFileById(Const.ProjectPunishNoticeMenuId,getPunishNotice.PunishNoticeId);
+                    CommonService.DeleteAttachFileById(menuId, getPunishNotice.PunishNoticeId);
                 }
             }
         }

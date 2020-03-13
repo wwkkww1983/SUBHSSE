@@ -514,6 +514,21 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="T:WebAPI.Controllers.ChartAnalysisController">
+            <summary>
+            图型分信息
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.ChartAnalysisController.getChartAnalysisByType(System.String,System.String,System.String,System.String)">
+            <summary>
+            根据类型获取图型数据
+            </summary>
+            <param name="projectId">项目ID</param>
+            <param name="type">1：按单位；2：按类型</param>
+            <param name="startDate">开始时间</param>
+            <param name="endDate">结束时间</param>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.BaseInfoController">
             <summary>
             基础数据信息
@@ -931,6 +946,44 @@
             <param name="flowOperateId">审核步骤ID</param>
             <returns></returns>
         </member>
+        <member name="T:WebAPI.Controllers.PauseNoticeController">
+            <summary>
+            工程暂停令
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.PauseNoticeController.getPauseNoticeById(System.String)">
+            <summary>
+             根据主键ID获取工程暂停令
+            </summary>
+            <param name="PauseNoticeId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PauseNoticeController.getPauseNoticeList(System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            根据projectId、unitid获取工程暂停令信息
+            </summary>
+            <param name="projectId"></param>
+            <param name="unitId">单位ID</param>
+             <param name="strParam">查询条件</param>
+             <param name="states">状态（0：全部；1：待确认；2：已确认）</param>
+            <param name="pageIndex"></param>  
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PauseNoticeController.SavePauseNotice(Model.PauseNoticeItem)">
+            <summary>
+            保存工程暂停令 Check_PauseNotice
+            </summary>
+            <param name="newItem">工程暂停令</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PauseNoticeController.getSavePauseNoticeReceiptUrl(System.String,System.String)">
+            <summary>
+             上报处罚单-回执单
+            </summary>
+            <param name="pauseNoticeId">主键</param>
+            <param name="attachUrl">通知单路径</param>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.PunishNoticeController">
             <summary>
             处罚通知单
@@ -961,12 +1014,13 @@
             <param name="newItem">处罚通知单</param>
             <returns></returns>
         </member>
-        <member name="M:WebAPI.Controllers.PunishNoticeController.getSavePunishNoticeReceiptUrl(System.String,System.String)">
+        <member name="M:WebAPI.Controllers.PunishNoticeController.getSavePunishNoticeReceiptUrl(System.String,System.String,System.String)">
             <summary>
              上报处罚单-回执单
             </summary>
             <param name="punishNoticeId">主键</param>
             <param name="attachUrl">回执单路径</param>
+            /// <param name="type">类型：0-通知单；1-回执单</param>
             <returns></returns>
         </member>
         <member name="T:WebAPI.Controllers.IncentiveNoticeController">
