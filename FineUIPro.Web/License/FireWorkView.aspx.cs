@@ -53,7 +53,12 @@
                         this.txtApplyUnit.Text = UnitService.GetUnitNameByUnitId(getFireWork.ApplyUnitId);
                         this.txtApplyManName.Text = UserService.GetUserNameByUserId(getFireWork.ApplyManId);
                         this.txtWorkPalce.Text = getFireWork.WorkPalce;
-                        this.txtFireWatchManName.Text = UserService.GetUserNameByUserId(getFireWork.FireWatchManId);
+                        string name = name = getFireWork.FireWatchManName;
+                        if(string.IsNullOrEmpty(getFireWork.FireWatchManName))
+                        {
+                            name = UserService.GetUserNameByUserId(getFireWork.FireWatchManId);
+                        }
+                        this.txtFireWatchManName.Text = name;
                         if (getFireWork.ValidityStartTime.HasValue)
                         {
                             this.txtWorkDate.Text = getFireWork.ValidityStartTime.Value.ToString("f") + " 至 ";

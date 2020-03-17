@@ -381,5 +381,13 @@ namespace Model
             get;
             set;
         }
+        /// <summary>
+        /// 原作业票ID
+        /// </summary>
+        public string OldLicenseId
+        {
+            get;
+            set;
+        }
     }
 }

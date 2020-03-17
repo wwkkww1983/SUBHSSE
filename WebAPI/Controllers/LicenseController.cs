@@ -52,7 +52,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="projectId">项目ID</param>
         /// <param name="unitId">单位ID</param>
-        /// <param name="states">状态(0-待提交；1-审核中；2-作业中；3-已关闭；-1已取消)</param>
+        /// <param name="states">状态(0-待提交；1-审核中；2-作业中；3-已关闭；-1已取消；-2作废)</param>
         /// <param name="pageIndex">页码</param>
         /// <returns></returns>
         public Model.ResponeData getLicenseDataListByStates(string projectId, string unitId, string states, int pageIndex)
@@ -271,5 +271,28 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        /// <summary>
+        /// 重申请保存作业票信息
+        /// </summary>
+        /// <param name="licenseDataItem">作业票记录</param>
+        [HttpPost]
+        public Model.ResponeData SaveLicenseDataReApply([FromBody] Model.LicenseDataItem licenseDataItem)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APILicenseDataService.SaveLicenseDataReApply(licenseDataItem);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+                ErrLogInfo.WriteLog(string.Empty, ex);
+            }
+
+            return responeData;
+        }
+
     }
 }

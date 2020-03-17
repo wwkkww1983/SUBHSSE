@@ -39,7 +39,7 @@ namespace BLL
                                ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
                                WorkPalce = x.WorkPalce,
                                FireWatchManId = x.FireWatchManId,
-                               FireWatchManName = Funs.DB.Sys_User.First(u => u.UserId == x.FireWatchManId).UserName,
+                               FireWatchManName = x.FireWatchManName,
                                ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
                                ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
                                WorkMeasures = x.WorkMeasures,
@@ -55,6 +55,7 @@ namespace BLL
                                NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
                                AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.FireWorkId).AttachUrl.Replace('\\', '/'),
                                States = x.States,
+                               OldLicenseId=x.OldLicenseId,
                            }).FirstOrDefault();
             }
             #endregion
@@ -92,6 +93,7 @@ namespace BLL
                                NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
                                AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.HeightWorkId).AttachUrl.Replace('\\', '/'),
                                States = x.States,
+                               OldLicenseId = x.OldLicenseId,
                            }).FirstOrDefault();
             }
             #endregion
@@ -113,7 +115,7 @@ namespace BLL
                                ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
                                WorkPalce = x.WorkPalce,
                                FireWatchManId = x.FireWatchManId,
-                               FireWatchManName = Funs.DB.Sys_User.First(u => u.UserId == x.FireWatchManId).UserName,
+                               FireWatchManName = x.FireWatchManName,
                                ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
                                ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
                                WorkMeasures = x.WorkMeasures,
@@ -129,6 +131,7 @@ namespace BLL
                                NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
                                AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.LimitedSpaceId).AttachUrl.Replace('\\', '/'),
                                States = x.States,
+                               OldLicenseId = x.OldLicenseId,
                            }).FirstOrDefault();
             }
             #endregion
@@ -171,6 +174,7 @@ namespace BLL
                                NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
                                AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.RadialWorkId).AttachUrl.Replace('\\', '/'),
                                States = x.States,
+                               OldLicenseId = x.OldLicenseId,
                            }).FirstOrDefault();
             }
             #endregion
@@ -208,6 +212,7 @@ namespace BLL
                                NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
                                AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.OpenCircuitId).AttachUrl.Replace('\\', '/'),
                                States = x.States,
+                               OldLicenseId = x.OldLicenseId,
                            }).FirstOrDefault();
             }
             #endregion
@@ -244,6 +249,7 @@ namespace BLL
                                NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
                                AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.BreakGroundId).AttachUrl.Replace('\\', '/'),
                                States = x.States,
+                               OldLicenseId = x.OldLicenseId,
                            }).FirstOrDefault();
             }
             #endregion
@@ -285,6 +291,7 @@ namespace BLL
                                NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
                                AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.NightWorkId).AttachUrl.Replace('\\', '/'),
                                States = x.States,
+                               OldLicenseId = x.OldLicenseId,
                            }).FirstOrDefault();
             }
             #endregion
@@ -322,6 +329,7 @@ namespace BLL
                                NextManName = Funs.DB.Sys_User.First(u => u.UserId == x.NextManId).UserName,
                                AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.LiftingWorkId).AttachUrl.Replace('\\', '/'),
                                States = x.States,
+                               OldLicenseId = x.OldLicenseId,
                            }).FirstOrDefault();
             }
             #endregion
@@ -392,7 +400,7 @@ namespace BLL
                                    ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
                                    WorkPalce = x.WorkPalce,
                                    FireWatchManId = x.FireWatchManId,
-                                   FireWatchManName = Funs.DB.Sys_User.First(u => u.UserId == x.FireWatchManId).UserName,
+                                   FireWatchManName = x.FireWatchManName,
                                    ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
                                    ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
                                    WorkMeasures = x.WorkMeasures,
@@ -464,7 +472,7 @@ namespace BLL
                                    ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ApplyDate),
                                    WorkPalce = x.WorkPalce,
                                    FireWatchManId = x.FireWatchManId,
-                                   FireWatchManName = Funs.DB.Sys_User.First(u => u.UserId == x.FireWatchManId).UserName,
+                                   FireWatchManName = x.FireWatchManName,
                                    ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
                                    ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
                                    WorkMeasures = x.WorkMeasures,
@@ -1055,6 +1063,7 @@ namespace BLL
                         ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
                         WorkPalce = newItem.WorkPalce,
                         FireWatchManId = newItem.FireWatchManId,
+                        FireWatchManName = newItem.FireWatchManName,
                         ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
                         ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
                         WorkMeasures = newItem.WorkMeasures,
@@ -1100,6 +1109,7 @@ namespace BLL
                         {
                             updateFireWork.WorkPalce = newFireWork.WorkPalce;
                             updateFireWork.FireWatchManId = newFireWork.FireWatchManId;
+                            updateFireWork.FireWatchManName = newFireWork.FireWatchManName;
                             updateFireWork.ValidityStartTime = newFireWork.ValidityStartTime;
                             updateFireWork.ValidityEndTime = newFireWork.ValidityEndTime;
                             updateFireWork.WorkMeasures = newFireWork.WorkMeasures;
@@ -1194,6 +1204,7 @@ namespace BLL
                         ApplyDate = Funs.GetNewDateTime(newItem.ApplyDate),
                         WorkPalce = newItem.WorkPalce,
                         FireWatchManId = newItem.FireWatchManId,
+                        FireWatchManName = newItem.FireWatchManName,
                         ValidityStartTime = Funs.GetNewDateTime(newItem.ValidityStartTime),
                         ValidityEndTime = Funs.GetNewDateTime(newItem.ValidityEndTime),
                         WorkMeasures = newItem.WorkMeasures,
@@ -1239,6 +1250,7 @@ namespace BLL
                         {
                             updateLimitedSpace.WorkPalce = newLimitedSpace.WorkPalce;
                             updateLimitedSpace.FireWatchManId = newLimitedSpace.FireWatchManId;
+                            updateLimitedSpace.FireWatchManName = newLimitedSpace.FireWatchManName;
                             updateLimitedSpace.ValidityStartTime = newLimitedSpace.ValidityStartTime;
                             updateLimitedSpace.ValidityEndTime = newLimitedSpace.ValidityEndTime;
                             updateLimitedSpace.WorkMeasures = newLimitedSpace.WorkMeasures;
@@ -2347,5 +2359,125 @@ namespace BLL
             return getNextFlowsList;
         }
         #endregion  
+
+        #region 重申请作业票信息
+        /// <summary>
+        /// 重申请作业票信息
+        /// </summary>
+        /// <param name="newItem">作业票</param>
+        /// <returns></returns>
+        public static string SaveLicenseDataReApply(Model.LicenseDataItem newItem)
+        {
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                string strLicenseId = newItem.LicenseId;
+                string projectId = newItem.ProjectId;
+                //// 删除未审核的流程记录
+                var getDelFlows = from x in Funs.DB.License_FlowOperate
+                                  where x.DataId == strLicenseId && (!x.IsClosed.HasValue || x.IsClosed == false)
+                                  select x;
+                if (getDelFlows.Count() > 0)
+                {
+                    Funs.DB.License_FlowOperate.DeleteAllOnSubmit(getDelFlows);
+                }
+                //// 删除编码表记录
+                CodeRecordsService.DeleteCodeRecordsByDataId(strLicenseId);
+                #region 动火作业票
+                if (newItem.MenuId == Const.ProjectFireWorkMenuId)
+                {
+                    var updateFireWork = db.License_FireWork.FirstOrDefault(x => x.FireWorkId == strLicenseId);
+                    if (updateFireWork != null)
+                    {
+                        updateFireWork.NextManId = null;
+                        updateFireWork.States = Const.State_C;
+                    }
+                }
+                #endregion
+                #region 高处作业票
+                else if (newItem.MenuId == Const.ProjectHeightWorkMenuId)
+                {
+                    var updateHeightWork = db.License_HeightWork.FirstOrDefault(x => x.HeightWorkId == strLicenseId);
+                    if (updateHeightWork != null)
+                    {
+                        updateHeightWork.NextManId = null;
+                        updateHeightWork.States = Const.State_C;
+                    }
+                }
+                #endregion
+                #region 受限空间作业票           
+                else if (newItem.MenuId == Const.ProjectLimitedSpaceMenuId)
+                {
+                    var updateLimitedSpace = db.License_LimitedSpace.FirstOrDefault(x => x.LimitedSpaceId == strLicenseId);
+                    if (updateLimitedSpace != null)
+                    {
+                        updateLimitedSpace.NextManId = null;
+                        updateLimitedSpace.States = Const.State_C;
+                    }
+                }
+                #endregion
+                #region 射线作业票
+                else if (newItem.MenuId == Const.ProjectRadialWorkMenuId)
+                {
+                    var updateRadialWork = db.License_RadialWork.FirstOrDefault(x => x.RadialWorkId == strLicenseId);
+                    if (updateRadialWork == null)
+                    {
+                        updateRadialWork.NextManId = null;
+                        updateRadialWork.States = Const.State_C;
+                    }
+                }
+                #endregion
+                #region 断路(占道)作业票
+                else if (newItem.MenuId == Const.ProjectOpenCircuitMenuId)
+                {
+                    var updateOpenCircuit = db.License_OpenCircuit.FirstOrDefault(x => x.OpenCircuitId == strLicenseId);
+                    if (updateOpenCircuit == null)
+                    {
+                        updateOpenCircuit.NextManId = null;
+                        updateOpenCircuit.States = Const.State_C;
+                    }
+                }
+                #endregion
+                #region 动土作业票
+                else if (newItem.MenuId == Const.ProjectBreakGroundMenuId)
+                {
+                    var updateBreakGround = db.License_BreakGround.FirstOrDefault(x => x.BreakGroundId == strLicenseId);
+                    if (updateBreakGround == null)
+                    {
+                        updateBreakGround.NextManId = null;
+                        updateBreakGround.States = Const.State_C;
+                    }
+                }
+                #endregion
+                #region 夜间施工作业票
+                else if (newItem.MenuId == Const.ProjectNightWorkMenuId)
+                {
+                    var updateNightWork = db.License_NightWork.FirstOrDefault(x => x.NightWorkId == strLicenseId);
+                    if (updateNightWork != null)
+                    {
+                        updateNightWork.NextManId = null;
+                        updateNightWork.States = Const.State_C;
+                    }
+                }
+                #endregion
+                #region 吊装作业票
+                else if (newItem.MenuId == Const.ProjectLiftingWorkMenuId)
+                {
+                    var updateLiftingWork = db.License_LiftingWork.FirstOrDefault(x => x.LiftingWorkId == strLicenseId);
+                    if (updateLiftingWork != null)
+                    {
+                        updateLiftingWork.NextManId = null;
+                        updateLiftingWork.States = Const.State_C;
+                    }
+                }
+                #endregion
+
+                db.SubmitChanges();
+
+                newItem.LicenseId = string.Empty;
+                newItem.States = Const.State_0;
+                return SaveLicenseData(newItem);
+            }
+        }
+        #endregion
     }
 }
