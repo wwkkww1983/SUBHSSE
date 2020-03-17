@@ -263,12 +263,25 @@ namespace BLL
             List<Model.Sys_User> list = new List<Model.Sys_User>();
             if (!string.IsNullOrEmpty(projectId))
             {
-                list = (from x in Funs.DB.Sys_User
-                        join y in Funs.DB.Project_ProjectUser
-                        on x.UserId equals y.UserId
-                        where y.ProjectId == projectId && x.UnitId == unitId
-                        orderby x.UserName
-                        select x).ToList();
+                if (!string.IsNullOrEmpty(unitId))
+                {
+                    list = (from x in Funs.DB.Sys_User
+                            join y in Funs.DB.Project_ProjectUser
+                            on x.UserId equals y.UserId
+                            where y.ProjectId == projectId && x.UnitId == unitId
+                            orderby x.UserName
+                            select x).ToList();
+                }
+                else
+                {
+                    list = (from x in Funs.DB.Sys_User
+                            join y in Funs.DB.Project_ProjectUser
+                            on x.UserId equals y.UserId
+                            where y.ProjectId == projectId 
+                            orderby x.UserName
+                            select x).ToList();
+                }
+               
             }
             else
             {

@@ -28,29 +28,29 @@ namespace BLL
                               ProjectId = x.ProjectId,
                               PauseNoticeCode = x.PauseNoticeCode,
                               UnitId = x.UnitId,
-                              UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,                              
+                              UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
                               CompileManId = x.CompileMan,
-                              CompileManName =x.SignPerson,
+                              CompileManName = x.SignPerson,
                               CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
                               SignManId = x.SignMan,
                               SignManName = Funs.DB.Sys_User.First(u => u.UserId == x.SignMan).UserName,
                               ApproveManId = x.ApproveMan,
                               ApproveManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApproveMan).UserName,
-                              ProjectPlace=x.ProjectPlace,
-                              WrongContent=x.WrongContent,
-                              PauseTime=string.Format("{0:yyyy-MM-dd HH:mm}", x.PauseTime),
+                              ProjectPlace = x.ProjectPlace,
+                              WrongContent = x.WrongContent,
+                              PauseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.PauseTime),
                               PauseContent = x.PauseContent,
-                              OneContent=x.OneContent,
-                              SecondContent=x.SecondContent,
-                              ThirdContent=x.ThirdContent,
-                              ProjectHeadConfirm=x.ProjectHeadConfirm,
+                              OneContent = x.OneContent,
+                              SecondContent = x.SecondContent,
+                              ThirdContent = x.ThirdContent,
+                              ProjectHeadConfirm = x.ProjectHeadConfirm,
                               ProjectHeadConfirmId = x.ProjectHeadConfirmId,
-                              IsConfirm =x.IsConfirm,
-                              IsConfirmName=(x.IsConfirm ==true?"已确认":"待确认"),
+                              IsConfirm = x.IsConfirm,
+                              IsConfirmName = (x.IsConfirm == true ? "已确认" : "待确认"),
                               ConfirmDate = string.Format("{0:yyyy-MM-dd}", x.ConfirmDate),
                               States = x.States,
-                              AttachUrl =APIUpLoadFileService.getFileUrl(x.PauseNoticeId,x.AttachUrl),
-                              PauseNoticeAttachUrl= APIUpLoadFileService.getFileUrl(x.PauseNoticeId, null),
+                              AttachUrl = APIUpLoadFileService.getFileUrl(null, x.AttachUrl),
+                              PauseNoticeAttachUrl = APIUpLoadFileService.getFileUrl(x.PauseNoticeId, null),
                           };
             return getInfo.FirstOrDefault();
         }
@@ -144,10 +144,12 @@ namespace BLL
             if (newPauseNotice.ConfirmDate.HasValue)
             {
                 newPauseNotice.ConfirmDate = DateTime.Now;
+                newPauseNotice.IsConfirm = true;
                 newPauseNotice.States = Const.State_2;
             } else
             {
                 newPauseNotice.States = Const.State_0;
+                newPauseNotice.IsConfirm = false;
             }
 
             var updatePauseNotice = Funs.DB.Check_PauseNotice.FirstOrDefault(x => x.PauseNoticeId == newItem.PauseNoticeId);

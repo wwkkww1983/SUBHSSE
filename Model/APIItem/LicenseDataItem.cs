@@ -221,7 +221,7 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 状态
+        /// 状态(0-待提交；1-审核中；2-作业中；3-已关闭；-1已取消)
         /// </summary>
         public string States
         {
@@ -360,6 +360,23 @@ namespace Model
         /// 起重机能力及索具规格（吊装）
         /// </summary>
         public string CraneCapacity
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 区域（定稿）
+        /// </summary>
+        public string WorkAreaIds
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 类型ID（定稿）
+        /// </summary>
+        public string LicenseTypeId
         {
             get;
             set;

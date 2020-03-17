@@ -84,6 +84,7 @@ namespace FineUIPro.Web.License
                         }
                         this.txtStartDate.Text = string.Format("{0:yyyy-MM-dd}", licenseManager.StartDate);
                         this.txtEndDate.Text = string.Format("{0:yyyy-MM-dd}", licenseManager.EndDate);
+                        this.drpStates.SelectedValue = licenseManager.WorkStates;
                     }
                 }
                 else
@@ -116,15 +117,9 @@ namespace FineUIPro.Web.License
         /// </summary>
         private void InitDropDownList()
         {
-            BLL.UnitService.InitUnitDropDownList(this.drpUnitId, this.ProjectId, true);
-
-            this.drpLicenseTypeId.DataValueField = "LicenseTypeId";
-            this.drpLicenseTypeId.DataTextField = "LicenseTypeName";
-            this.drpLicenseTypeId.DataSource = BLL.LicenseTypeService.GetLicenseTypeList();
-            this.drpLicenseTypeId.DataBind();
-            Funs.FineUIPleaseSelect(this.drpLicenseTypeId);
-
-            BLL.WorkAreaService.InitWorkAreaDropDownList(this.drpWorkAreaId, this.ProjectId, false);
+            UnitService.InitUnitDropDownList(this.drpUnitId, this.ProjectId, true);
+            LicenseTypeService.InitLicenseTypeDropDownList(this.drpLicenseTypeId, true);
+            WorkAreaService.InitWorkAreaDropDownList(this.drpWorkAreaId, this.ProjectId, false);
         }
 
         #region 保存
@@ -203,9 +198,21 @@ namespace FineUIPro.Web.License
             licenseManager.CompileDate = Funs.GetNewDateTime(this.txtCompileDate.Text.Trim());
             licenseManager.LicenseManageContents = HttpUtility.HtmlEncode(this.txtLicenseManageContents.Text);
             licenseManager.States = BLL.Const.State_0;
+            if (!string.IsNullOrEmpty(this.drpStates.SelectedValue))
+            {
+                licenseManager.WorkStates = this.drpStates.SelectedValue;
+            }
+            else
+            {
+                licenseManager.WorkStates =null;
+            }
             if (type == BLL.Const.BtnSubmit)
             {
                 licenseManager.States = this.ctlAuditFlow.NextStep;
+                if (licenseManager.States == Const.State_2 && licenseManager.WorkStates != Const.State_R)
+                {
+                    licenseManager.WorkStates = Const.State_3;
+                }
             }
             if (!string.IsNullOrEmpty(this.LicenseManagerId))
             {

@@ -67,8 +67,7 @@ namespace FineUIPro.Web.Check
                     this.drpIsRectify.Hidden = false;
                     this.drpCheckPerson.Hidden = false;
                     this.txtReCheckDate.Hidden = false;
-                }
-                               
+                }                               
                
                 var rectifyNotice = BLL.RectifyNoticesService.GetRectifyNoticesById(this.RectifyNoticeId);
                 if (rectifyNotice != null)
@@ -129,6 +128,10 @@ namespace FineUIPro.Web.Check
                     {
                         this.drpCheckPerson.SelectedValue = rectifyNotice.CheckPerson;
                     }
+                    else
+                    {
+                        this.drpCheckPerson.SelectedValue = Const._Null;
+                    }
                     this.txtReCheckDate.Text = string.Format("{0:yyyy-MM-dd}", rectifyNotice.ReCheckDate);
                 }
                 else
@@ -159,15 +162,16 @@ namespace FineUIPro.Web.Check
             
             //检查区域
             BLL.WorkAreaService.InitWorkAreaDropDownList(this.drpWorkAreaId, this.ProjectId, true);
-            //本单位检查人
-            var thisUnit = BLL.CommonService.GetIsThisUnit();
-            if(thisUnit != null)
-            {
-                BLL.UserService.InitUserProjectIdUnitIdDropDownList(this.drpCheckPerson, this.ProjectId, thisUnit.UnitId, true);
-            }
+            ////本单位检查人
+            //var thisUnit = BLL.CommonService.GetIsThisUnit();
+            //if(thisUnit != null)
+            //{
+            //    BLL.UserService.InitUserProjectIdUnitIdDropDownList(this.drpCheckPerson, this.ProjectId, thisUnit.UnitId, true);
+            //}
 
             ///签发人
             BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpSignPerson, this.ProjectId, string.Empty, false);
+            BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpCheckPerson, this.ProjectId, string.Empty, true);    
         }
         #endregion
 
@@ -251,7 +255,7 @@ namespace FineUIPro.Web.Check
                 rectifyNotices.SignPerson = this.drpSignPerson.SelectedValue;
             }
 
-            if (this.drpCheckPerson.SelectedValue != BLL.Const._Null)
+            if (!string.IsNullOrEmpty(this.drpCheckPerson.SelectedValue)&& this.drpCheckPerson.SelectedValue != BLL.Const._Null)
             {
                 rectifyNotices.CheckPerson = this.drpCheckPerson.SelectedValue;
             }

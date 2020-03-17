@@ -325,6 +325,33 @@ namespace BLL
                            }).FirstOrDefault();
             }
             #endregion
+
+            #region 作业票【定稿】
+            if (strMenuId == Const.ProjectLicenseManagerMenuId)
+            {
+                getInfo = (from x in Funs.DB.License_LicenseManager
+                           where x.LicenseManagerId == id
+                           select new Model.LicenseDataItem
+                           {
+                               LicenseId = x.LicenseManagerId,
+                               MenuId = Const.ProjectLicenseManagerMenuId,
+                               MenuName = Funs.DB.Base_LicenseType.FirstOrDefault(y => y.LicenseTypeId == x.LicenseTypeId).LicenseTypeName,
+                               ProjectId = x.ProjectId,
+                               LicenseCode = x.LicenseManagerCode,
+                               ApplyUnitId = x.UnitId,
+                               ApplyManId=x.CompileMan,
+                               ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                               ApplyManName = x.ApplicantMan,
+                               ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
+                               WorkAreaIds=x.WorkAreaId,
+                               WorkPalce = WorkAreaService.getWorkAreaNamesIds(x.WorkAreaId),
+                               ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.StartDate),
+                               ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.EndDate),
+                               States = x.WorkStates,
+                               AttachUrl = APIUpLoadFileService.getFileUrl(x.LicenseManagerId, null),                             
+                           }).FirstOrDefault();
+            }
+            #endregion
             return getInfo;
         }
         #endregion        
@@ -648,6 +675,33 @@ namespace BLL
             }
             #endregion
 
+            #region 作业票 【定稿】
+            if (strMenuId == Const.ProjectLicenseManagerMenuId)
+            {
+                getInfoList = (from x in Funs.DB.License_LicenseManager
+                               where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
+                                    && (states == null || x.States == states)
+                               select new Model.LicenseDataItem
+                               {
+                                   LicenseId = x.LicenseManagerId,
+                                   MenuId = Const.ProjectLicenseManagerMenuId,
+                                   MenuName = Funs.DB.Base_LicenseType.FirstOrDefault(y => y.LicenseTypeId == x.LicenseTypeId).LicenseTypeName,
+                                   ProjectId = x.ProjectId,
+                                   LicenseCode = x.LicenseManagerCode,
+                                   ApplyUnitId = x.UnitId,
+                                   ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                   ApplyManId = x.CompileMan,
+                                   ApplyManName = x.ApplicantMan,
+                                   ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
+                                   WorkPalce = WorkAreaService.getWorkAreaNamesIds(x.WorkAreaId),
+                                   ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.StartDate),
+                                   ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.EndDate),                                   
+                                   States = x.WorkStates,
+                                   AttachUrl = APIUpLoadFileService.getFileUrl(x.LicenseManagerId, null),
+                               }).ToList(); ;
+            }
+            #endregion
+
             return getInfoList;
         }
         #endregion 
@@ -886,6 +940,33 @@ namespace BLL
             if (getLiftingWork.Count() > 0)
             {
                 getInfoList.AddRange(getLiftingWork);
+            }
+            #endregion
+
+            #region 作业票定稿
+            var getLicenseManager = (from x in Funs.DB.License_LicenseManager
+                                     where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
+                                          && (states == null || x.States == states)
+                                     select new Model.LicenseDataItem
+                                     {
+                                         LicenseId = x.LicenseManagerId,
+                                         MenuId = Const.ProjectLicenseManagerMenuId,
+                                         MenuName ="[定稿]"+ Funs.DB.Base_LicenseType.FirstOrDefault(y => y.LicenseTypeId == x.LicenseTypeId).LicenseTypeName,
+                                         ProjectId = x.ProjectId,
+                                         LicenseCode = x.LicenseManagerCode,
+                                         ApplyUnitId = x.UnitId,
+                                         ApplyUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                         ApplyManName = x.ApplicantMan,
+                                         ApplyDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
+                                         WorkPalce = WorkAreaService.getWorkAreaNamesIds(x.WorkAreaId),
+                                         ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.StartDate),
+                                         ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.EndDate),
+                                         States = x.WorkStates,
+                                         AttachUrl = APIUpLoadFileService.getFileUrl(x.LicenseManagerId, null),
+                                     }).ToList();
+            if (getFireWork.Count() > 0)
+            {
+                getInfoList.AddRange(getFireWork);
             }
             #endregion
 
@@ -1523,6 +1604,57 @@ namespace BLL
                             updateLiftingWork.States = newLiftingWork.States;
                         }
                         updateLiftingWork.States = newLiftingWork.States;
+                    }
+                }
+                #endregion
+
+                #region 作业票【定稿】
+                if (newItem.MenuId == Const.ProjectLicenseManagerMenuId)
+                {
+                    Model.License_LicenseManager newLicenseManager = new Model.License_LicenseManager
+                    {
+                        LicenseManagerId = strLicenseId,
+                        ProjectId = projectId,
+                        LicenseManagerCode = newItem.LicenseCode,
+                        UnitId = newItem.ApplyUnitId,
+                        ApplicantMan =newItem.ApplyManName,                  
+                        WorkAreaId=newItem.WorkAreaIds,
+                        LicenseTypeId=newItem.LicenseTypeId,
+                        CompileMan=newItem.ApplyManId,
+                        CompileDate = Funs.GetNewDateTime(newItem.ApplyDate),
+                        StartDate = Funs.GetNewDateTime(newItem.ValidityStartTime),
+                        EndDate = Funs.GetNewDateTime(newItem.ValidityEndTime),
+                        WorkStates = newItem.States,
+                        States = Const.State_0,
+                };
+                    if (newLicenseManager.WorkStates == Const.State_3 || newLicenseManager.WorkStates == Const.State_R)
+                    {
+                        newLicenseManager.States = Const.State_2;
+                    }
+                    ////保存
+                    var updateLicenseManager = db.License_LicenseManager.FirstOrDefault(x => x.LicenseManagerId == strLicenseId);
+                    if (updateLicenseManager == null)
+                    {
+                        strLicenseId = newLicenseManager.LicenseManagerId = SQLHelper.GetNewID();
+                        newLicenseManager.LicenseManagerCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectLicenseManagerMenuId, newLicenseManager.ProjectId, newLicenseManager.UnitId);
+                        db.License_LicenseManager.InsertOnSubmit(newLicenseManager);
+                        ////增加一条编码记录
+                        CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectLicenseManagerMenuId, newLicenseManager.ProjectId, newLicenseManager.UnitId, newLicenseManager.LicenseManagerId, newLicenseManager.CompileDate);
+                    }
+                    else
+                    {
+                        updateLicenseManager.WorkAreaId = newLicenseManager.WorkAreaId;
+                        updateLicenseManager.LicenseTypeId = newLicenseManager.LicenseTypeId;
+                        updateLicenseManager.CompileMan = newLicenseManager.CompileMan;
+                        updateLicenseManager.CompileDate = newLicenseManager.CompileDate;
+                        updateLicenseManager.StartDate = newLicenseManager.StartDate;
+                        updateLicenseManager.EndDate = newLicenseManager.EndDate;                        
+                        updateLicenseManager.WorkStates = newLicenseManager.WorkStates;
+                        updateLicenseManager.States = newLicenseManager.States;
+                    }
+                    if (newLicenseManager.States== Const.State_2)
+                    {
+                        CommonService.btnSaveData(newLicenseManager.ProjectId, Const.ProjectLicenseManagerMenuId, newLicenseManager.LicenseManagerId, newLicenseManager.CompileMan, true, newLicenseManager.LicenseManagerCode, "../License/LicenseManagerView.aspx?LicenseManagerId={0}");
                     }
                 }
                 #endregion

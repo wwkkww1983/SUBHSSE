@@ -56,7 +56,8 @@ namespace BLL
                 States = licenseManager.States,
                 WorkAreaId = licenseManager.WorkAreaId,
                 StartDate = licenseManager.StartDate,
-                EndDate = licenseManager.EndDate
+                EndDate = licenseManager.EndDate,
+                WorkStates=licenseManager.WorkStates,
             };
             db.License_LicenseManager.InsertOnSubmit(newLicenseManager);
             db.SubmitChanges();
@@ -86,6 +87,7 @@ namespace BLL
                 newLicenseManager.WorkAreaId = licenseManager.WorkAreaId;
                 newLicenseManager.StartDate = licenseManager.StartDate;
                 newLicenseManager.EndDate = licenseManager.EndDate;
+                newLicenseManager.WorkStates = licenseManager.WorkStates;
                 db.SubmitChanges();
             }
         }

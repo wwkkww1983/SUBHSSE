@@ -304,7 +304,8 @@ namespace BLL
         {
             using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                List<Model.AttachFile> sour = (from x in db.AttachFile where x.ToKeyId == toKeyId select x).ToList();
+                List<Model.AttachFile> sour = (from x in db.AttachFile where x.MenuId ==menuId &&
+                                               x.ToKeyId == toKeyId select x).ToList();                
                 if (sour.Count() == 0)
                 {
                     Model.AttachFile att = new Model.AttachFile
@@ -321,7 +322,7 @@ namespace BLL
                 }
                 else
                 {
-                    Model.AttachFile att = db.AttachFile.FirstOrDefault(x => x.AttachFileId == sour.First().AttachFileId);
+                    Model.AttachFile att = db.AttachFile.FirstOrDefault(x => x.MenuId == menuId && x.AttachFileId == sour.First().AttachFileId);
                     if (att != null)
                     {
                         att.ToKeyId = toKeyId;

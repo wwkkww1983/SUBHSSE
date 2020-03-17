@@ -2391,6 +2391,10 @@ namespace BLL
         /// 重新申请
         /// </summary>
         public const string State_R = "-1";
+        /// <summary>
+        /// 作废
+        /// </summary>
+        public const string State_C = "-2";
         #endregion
 
         #region APP专项检查流程定义

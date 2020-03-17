@@ -25,20 +25,21 @@
                     </f:TextBox>
                 </Items>
             </f:FormRow>
-            <f:FormRow>
+            <f:FormRow ColumnWidths="34% 33% 33%">
                 <Items>
                     <f:TextBox ID="txtLicenseTypeName" runat="server" Label="许可证类型" LabelAlign="Right"
                         Readonly="true">
                     </f:TextBox>
-                    <f:TextBox ID="txtStartDate" runat="server" Label="开始时间" LabelAlign="Right" Readonly="true">
-                    </f:TextBox>
-                    <f:TextBox ID="txtEndDate" runat="server" Label="结束时间" LabelAlign="Right" Readonly="true">
-                    </f:TextBox>
+                    <f:TextBox ID="txtWorkAreaName" runat="server" Label="作业区域" LabelAlign="Right" Readonly="true"></f:TextBox>
+                   <f:TextBox ID="txtWorkStates" runat="server" Label="状态" LabelAlign="Right" Readonly="true"></f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtWorkAreaName" runat="server" Label="作业区域" LabelAlign="Right" Readonly="true"></f:TextBox>
+                     <f:TextBox ID="txtStartDate" runat="server" Label="开始时间" LabelAlign="Right" Readonly="true">
+                    </f:TextBox>
+                    <f:TextBox ID="txtEndDate" runat="server" Label="结束时间" LabelAlign="Right" Readonly="true">
+                    </f:TextBox>
                         <f:TextBox ID="txtApplicantMan" runat="server" Label="申请人" LabelAlign="Right" Readonly="true">
                         </f:TextBox>
                         <f:TextBox ID="txtCompileDate" runat="server" Label="申请日期" LabelAlign="Right" Readonly="true">

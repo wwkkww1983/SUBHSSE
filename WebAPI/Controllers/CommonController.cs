@@ -50,16 +50,16 @@ namespace WebAPI.Controllers
                 {
                     string access_token = APICommonService.getaccess_token();
                     string contenttype = "application/json;charset=utf-8";
-                    string url = $"https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token={access_token}";                 
+                    string url = $"https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token={access_token}";
                     var tempData = new
                     {
-                        access_token = access_token,
-                        touser = messgeInfo.touser,
-                        template_id = messgeInfo.template_id,
-                        page = messgeInfo.page,
-                        data = messgeInfo.data,
-                        miniprogram_state = messgeInfo.miniprogram_state,
-                        lang = messgeInfo.lang,
+                        access_token,
+                        messgeInfo.touser,
+                        messgeInfo.template_id,
+                        messgeInfo.page,
+                        messgeInfo.data,
+                        messgeInfo.miniprogram_state,
+                        messgeInfo.lang,
                     };
 
                     responeData.data = APIGetHttpService.Http(url, "POST", contenttype, null, JsonConvert.SerializeObject(tempData));

@@ -26,23 +26,29 @@
                         </f:DropDownList>
                     </Items>
                 </f:FormRow>
-                <f:FormRow>
+                <f:FormRow ColumnWidths="34% 33% 33%">
                     <Items>
                         <f:DropDownList ID="drpLicenseTypeId" runat="server" Label="许可证类型" LabelAlign="Right" EnableEdit="true"
                             Required="true" ShowRedStar="true" AutoPostBack="true" OnSelectedIndexChanged="drpLicenseTypeId_SelectedIndexChanged">
                         </f:DropDownList>
-                        <f:DatePicker ID="txtStartDate" runat="server" Label="开始时间" LabelAlign="Right"
+                           <f:DropDownList ID="drpWorkAreaId" runat="server" Label="作业区域" LabelAlign="Right" EnableEdit="true" EnableMultiSelect="true" EnableCheckBoxSelect="true" AutoSelectFirstItem="false">
+                        </f:DropDownList>
+                          <f:DropDownList ID="drpStates" runat="server" Label="状态" LabelAlign="Right" >
+                              <f:ListItem Text="待开工"   Value="1"/>
+                              <f:ListItem Text="作业中" Value="2"/>
+                               <f:ListItem Text="已关闭" Value="3"/>
+                              <f:ListItem Text="已取消" Value="-1"/>
+                        </f:DropDownList>
+                    </Items>
+                </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                     <f:DatePicker ID="txtStartDate" runat="server" Label="开始时间" LabelAlign="Right"
                             EnableEdit="true">
                         </f:DatePicker>
                         <f:DatePicker ID="txtEndDate" runat="server" Label="结束时间" LabelAlign="Right"
                             EnableEdit="true">
                         </f:DatePicker>
-                    </Items>
-                </f:FormRow>
-                <f:FormRow>
-                    <Items>
-                        <f:DropDownList ID="drpWorkAreaId" runat="server" Label="作业区域" LabelAlign="Right" EnableEdit="true" EnableMultiSelect="true" EnableCheckBoxSelect="true" AutoSelectFirstItem="false">
-                        </f:DropDownList>
                         <f:TextBox ID="txtApplicantMan" runat="server" Label="申请人" LabelAlign="Right" MaxLength="50"></f:TextBox>
                         <f:DatePicker ID="txtCompileDate" runat="server" Label="申请日期" LabelAlign="Right"
                             EnableEdit="true">

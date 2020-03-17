@@ -69,6 +69,19 @@ namespace FineUIPro.Web.License
                         this.txtEndDate.Text = string.Format("{0:yyyy-MM-dd}", licenseManager.EndDate);                        
                         this.txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", licenseManager.CompileDate);
                         this.txtLicenseManageContents.Text = HttpUtility.HtmlDecode(licenseManager.LicenseManageContents);
+                        this.txtWorkStates.Text = "已关闭";
+                        if (licenseManager.WorkStates == "1")
+                        {
+                            this.txtWorkStates.Text = "待开工";
+                        }
+                       else if (licenseManager.WorkStates == "2")
+                        {
+                            this.txtWorkStates.Text = "作业中";
+                        }
+                        else if (licenseManager.WorkStates == "-1")
+                        {
+                            this.txtWorkStates.Text = "已取消";
+                        }
                     }
                 }
                 ///初始化审核菜单

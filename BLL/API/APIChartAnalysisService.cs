@@ -17,6 +17,16 @@ namespace BLL
             var getHazardRegister = from x in Funs.DB.HSSE_Hazard_HazardRegister
                                     where x.ProjectId == projectId
                                     select x;
+            if (!string.IsNullOrEmpty(startDate))
+            {
+                var sDate = Funs.GetNewDateTime(startDate);
+                getHazardRegister = getHazardRegister.Where(x => x.RegisterDate >= sDate);
+            }
+            if (!string.IsNullOrEmpty(endDate))
+            {
+                var eDate = Funs.GetNewDateTime(endDate);
+                getHazardRegister = getHazardRegister.Where(x => x.RegisterDate <= eDate);
+            }
             if (type == "1")
             {
                 var getUnitlistIds = getHazardRegister.Select(x => x.ResponsibleUnit).Distinct().ToList();

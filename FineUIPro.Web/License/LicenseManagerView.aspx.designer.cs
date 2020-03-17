@@ -67,6 +67,24 @@ namespace FineUIPro.Web.License {
         protected global::FineUIPro.TextBox txtLicenseTypeName;
         
         /// <summary>
+        /// txtWorkAreaName 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtWorkAreaName;
+        
+        /// <summary>
+        /// txtWorkStates 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtWorkStates;
+        
+        /// <summary>
         /// txtStartDate 控件。
         /// </summary>
         /// <remarks>
@@ -83,15 +101,6 @@ namespace FineUIPro.Web.License {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox txtEndDate;
-        
-        /// <summary>
-        /// txtWorkAreaName 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtWorkAreaName;
         
         /// <summary>
         /// txtApplicantMan 控件。

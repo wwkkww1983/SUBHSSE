@@ -23,7 +23,7 @@
         <Items>
             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="隐患整改通知单" EnableCollapse="true"
                 runat="server" BoxFlex="1" DataKeyNames="RectifyNoticesId" AllowCellEditing="true"
-                ClicksToEdit="2" DataIDField="RectifyNoticesId" AllowSorting="true" SortField="CheckedDate"
+                ClicksToEdit="2" DataIDField="RectifyNoticesId" AllowSorting="true" SortField="RectifyNoticesCode"
                 SortDirection="DESC" OnSort="Grid1_Sort" EnableColumnLines="true" AllowPaging="true"
                 IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"
                 EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" AllowFilters="true"

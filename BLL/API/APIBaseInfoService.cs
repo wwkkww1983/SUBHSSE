@@ -445,9 +445,9 @@ namespace BLL
         }
         #endregion
 
-        #region 获取图片分类
+        #region 获取作业许可证(定稿)类型分类
         /// <summary>
-        /// 获取图片分类
+        /// 获取作业许可证类型分类
         /// </summary>
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getBase_LicenseType()

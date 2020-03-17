@@ -82,7 +82,7 @@ namespace FineUIPro.Web.ProjectData
                     strSql += " WHERE Project.UnitId in " + unitIds;
                 } else
                 {
-                    strSql += " WHERE Project.UnitId = " + this.CurrUser.UnitId;
+                    strSql += " WHERE Project.UnitId = '" + this.CurrUser.UnitId+"'";
                 }
             }
             else

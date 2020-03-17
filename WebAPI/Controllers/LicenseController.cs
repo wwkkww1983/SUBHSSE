@@ -52,7 +52,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="projectId">项目ID</param>
         /// <param name="unitId">单位ID</param>
-        /// <param name="states">状态</param>
+        /// <param name="states">状态(0-待提交；1-审核中；2-作业中；3-已关闭；-1已取消)</param>
         /// <param name="pageIndex">页码</param>
         /// <returns></returns>
         public Model.ResponeData getLicenseDataListByStates(string projectId, string unitId, string states, int pageIndex)
