@@ -103,7 +103,7 @@
                         <f:ListItem Value="1" Text="入场时间" />
                         <f:ListItem Value="2" Text="出场时间" />
                     </f:DropDownList>
-                    <f:DatePicker ID="txtTime" runat="server">
+                    <f:DatePicker ID="txtTime" runat="server" >
                     </f:DatePicker>
                     <f:TextBox ID="txtTime2" runat="server">
                     </f:TextBox>

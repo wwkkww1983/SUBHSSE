@@ -62,7 +62,14 @@ namespace FineUIPro.Web.EduTrain
         /// </summary>
         private void BindGrid()
         {
-            string strSql = "select TrainRecord.TrainingId"
+            string projectId = this.CurrUser.LoginProjectId;
+            if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
+            {
+                projectId = Request.Params["projectId"];
+            }
+            if (!string.IsNullOrEmpty(projectId))
+            {
+                string strSql = "select TrainRecord.TrainingId"
                           + @",TrainRecord.TrainTitle"
                           + @",TrainType.TrainTypeName,TrainLevel.TrainLevelName"
                           + @",TrainRecord.TrainStartDate"
@@ -70,7 +77,7 @@ namespace FineUIPro.Web.EduTrain
                           + @",TrainRecord.TeachHour"
                           + @",TrainRecord.TeachMan"
                           + @",TrainRecord.TrainPersonNum"
-                           + @",TrainingCode" 
+                           + @",TrainingCode"
                           // + @",CodeRecords.Code AS TrainingCode"                         
                           + @",(CASE WHEN TrainRecord.States = " + BLL.Const.State_0 + " OR TrainRecord.States IS NULL THEN '待['+OperateUser.UserName+']提交' WHEN TrainRecord.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
                           + @",TrainRecord.UnitIds"
@@ -80,69 +87,66 @@ namespace FineUIPro.Web.EduTrain
                           + @" LEFT JOIN Base_TrainType AS TrainType ON TrainRecord.TrainTypeId=TrainType.TrainTypeId "
                           + @" LEFT JOIN Base_TrainLevel AS TrainLevel ON TrainRecord.TrainLevelId=TrainLevel.TrainLevelId "
                           + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON TrainRecord.TrainingId=CodeRecords.DataId WHERE 1=1 ";
-            List<SqlParameter> listStr = new List<SqlParameter>();
-            strSql += " AND TrainRecord.ProjectId = @ProjectId";
-            if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
-            {
-                listStr.Add(new SqlParameter("@ProjectId", Request.Params["projectId"]));
-                strSql += " AND TrainRecord.States = @States";  ///状态为已完成
-                listStr.Add(new SqlParameter("@States", BLL.Const.State_2));
-            }
-            else
-            {
-                listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
-            }
-            if (this.drpTrainType.SelectedValue != BLL.Const._Null)
-            {
-                strSql += " AND TrainRecord.TrainTypeId = @TrainType";
-                listStr.Add(new SqlParameter("@TrainType", this.drpTrainType.SelectedValue));
-            }
-            if (this.drpTrainLevel.SelectedValue != BLL.Const._Null)
-            {
-                strSql += " AND TrainRecord.TrainLevelId = @TrainLevel";
-                listStr.Add(new SqlParameter("@TrainLevel", this.drpTrainLevel.SelectedValue));
-            }
-            if (!string.IsNullOrEmpty(this.txtStartDate.Text.Trim()))
-            {
-                strSql += " AND TrainRecord.TrainStartDate >= @StartDate ";
-                listStr.Add(new SqlParameter("@StartDate", this.txtStartDate.Text.Trim()));    
-            }
-            if (!string.IsNullOrEmpty(this.txtEndDate.Text.Trim()))
-            {
-                strSql += " AND TrainRecord.TrainStartDate <= @EndDate ";
-                listStr.Add(new SqlParameter("@EndDate", this.txtEndDate.Text.Trim()));
-            }
-            if (BLL.ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.CurrUser.LoginProjectId, this.CurrUser.UnitId))
-            {
-                strSql += " AND TrainRecord.UnitIds LIKE @UnitId";
-                listStr.Add(new SqlParameter("@UnitId", "%" + this.CurrUser.UnitId + "%"));
-            }
-            if (this.drpUnitId.SelectedValue != BLL.Const._Null)
-            {
-                strSql += " AND TrainRecord.UnitIds LIKE @UnitId";
-                listStr.Add(new SqlParameter("@UnitId", "%" + this.drpUnitId.SelectedValue.Trim() + "%"));
-            }
-            SqlParameter[] parameter = listStr.ToArray();
-            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
-            Grid1.RecordCount = tb.Rows.Count;
-            //tb = GetFilteredTable(Grid1.FilteredData, tb);
-            var table = this.GetPagedDataTable(Grid1, tb);
+                List<SqlParameter> listStr = new List<SqlParameter>();
+                strSql += " AND TrainRecord.ProjectId = @ProjectId";
+                listStr.Add(new SqlParameter("@ProjectId", projectId));
+                if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
+                {
+                    strSql += " AND TrainRecord.States = @States";  ///状态为已完成
+                    listStr.Add(new SqlParameter("@States", BLL.Const.State_2));
+                }
+                if (this.drpTrainType.SelectedValue != BLL.Const._Null)
+                {
+                    strSql += " AND TrainRecord.TrainTypeId = @TrainType";
+                    listStr.Add(new SqlParameter("@TrainType", this.drpTrainType.SelectedValue));
+                }
+                if (this.drpTrainLevel.SelectedValue != BLL.Const._Null)
+                {
+                    strSql += " AND TrainRecord.TrainLevelId = @TrainLevel";
+                    listStr.Add(new SqlParameter("@TrainLevel", this.drpTrainLevel.SelectedValue));
+                }
+                if (!string.IsNullOrEmpty(this.txtStartDate.Text.Trim()))
+                {
+                    strSql += " AND TrainRecord.TrainStartDate >= @StartDate ";
+                    listStr.Add(new SqlParameter("@StartDate", this.txtStartDate.Text.Trim()));
+                }
+                if (!string.IsNullOrEmpty(this.txtEndDate.Text.Trim()))
+                {
+                    strSql += " AND TrainRecord.TrainStartDate <= @EndDate ";
+                    listStr.Add(new SqlParameter("@EndDate", this.txtEndDate.Text.Trim()));
+                }
+                if (BLL.ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.CurrUser.LoginProjectId, this.CurrUser.UnitId))
+                {
+                    strSql += " AND TrainRecord.UnitIds LIKE @UnitId1";
+                    listStr.Add(new SqlParameter("@UnitId1", "%" + this.CurrUser.UnitId + "%"));
+                }
+                if (this.drpUnitId.SelectedValue != BLL.Const._Null)
+                {
+                    strSql += " AND TrainRecord.UnitIds LIKE @UnitId";
+                    listStr.Add(new SqlParameter("@UnitId", "%" + this.drpUnitId.SelectedValue.Trim() + "%"));
+                }
+                SqlParameter[] parameter = listStr.ToArray();
+                DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+                Grid1.RecordCount = tb.Rows.Count;
+                //tb = GetFilteredTable(Grid1.FilteredData, tb);
+                var table = this.GetPagedDataTable(Grid1, tb);
 
-            Grid1.DataSource = table;
-            Grid1.DataBind();
-            int totalPersonNum = 0;
-            for (int i = 0; i < tb.Rows.Count; i++)
-            {
-                totalPersonNum += Funs.GetNewIntOrZero(tb.Rows[i][8].ToString());
-            }
+                Grid1.DataSource = table;
+                Grid1.DataBind();
+                int totalPersonNum = 0;
+                for (int i = 0; i < tb.Rows.Count; i++)
+                {
+                    totalPersonNum += Funs.GetNewIntOrZero(tb.Rows[i][8].ToString());
+                }
 
-            JObject summary = new JObject
+                JObject summary = new JObject
             {
                 { "TeachMan", "合计：" },
                 { "TrainPersonNum", totalPersonNum }
             };
 
-            Grid1.SummaryData = summary;
+                Grid1.SummaryData = summary;
+            }
         }
         #endregion
 

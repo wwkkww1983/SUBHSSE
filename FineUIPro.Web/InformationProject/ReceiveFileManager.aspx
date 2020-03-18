@@ -30,7 +30,7 @@
                             <f:RadioButtonList runat="server" ID="rbFileType" Width="250px"
                                 AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged">
                                 <f:RadioItem Value="0" Text="项目发文" Selected="true"/>
-                                <f:RadioItem Value="1" Text="单位来文"/>
+                                <f:RadioItem Value="1" Text="公司来文"/>
                             </f:RadioButtonList>
                             <f:TextBox runat="server" Label="编号" ID="txtReceiveFileCode" EmptyText="输入查询条件"
                                 AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="250px" LabelWidth="70px"

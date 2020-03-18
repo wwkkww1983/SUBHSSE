@@ -207,10 +207,9 @@ namespace FineUIPro.Web.SitePerson
                 WorkAreaName = this.txtWorkArea.Text.Trim(),
                 Address = this.txtAddress.Text.Trim()
             };
-            if (!string.IsNullOrEmpty(this.txtTime2.Text.Trim()))
-            {
-                personInfo.IntoOutTime = Convert.ToDateTime(this.txtTime2.Text.Trim());
-            }
+            string date = string.IsNullOrEmpty(this.txtTime.Text) ? string.Format("{0:yyyy-MM-dd}", DateTime.Now) : this.txtTime.Text.Trim();
+            string time = string.IsNullOrEmpty(this.txtTime2.Text) ? string.Format("{0:HH:mm:ss}", DateTime.Now) : this.txtTime2.Text.Trim();
+            personInfo.IntoOutTime = Funs.GetNewDateTimeOrNow(date + " " + time);
             personInfo.IntoOut = this.drpType.SelectedValue.Trim();
 
             if (!string.IsNullOrEmpty(CheckingId))

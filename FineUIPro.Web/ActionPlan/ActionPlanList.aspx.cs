@@ -64,46 +64,45 @@ namespace FineUIPro.Web.ActionPlan
         /// </summary>
         private void BindGrid()
         {
-            string strSql = "SELECT ActionPlanList.ActionPlanListId,ActionPlanList.ProjectId,CodeRecords.Code AS ActionPlanListCode,ActionPlanList.ActionPlanListName,ActionPlanList.VersionNo,(CASE ProjectType WHEN '1' THEN '系统内项目' WHEN '2' THEN '系统外项目' WHEN '3' THEN '海外项目' END ) AS ProjectType,ActionPlanList.ActionPlanListContents,ActionPlanList.CompileMan,Users.UserName AS CompileManName, ActionPlanList.CompileDate,ActionPlanList.States"
-                        + @" ,(CASE WHEN ActionPlanList.States = " + BLL.Const.State_0 + " OR ActionPlanList.States IS NULL THEN '待['+OperateUser.UserName+']提交' WHEN ActionPlanList.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
-                        + @" FROM ActionPlan_ActionPlanList AS ActionPlanList "
-                        + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON ActionPlanList.ActionPlanListId=CodeRecords.DataId "
-                        + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON ActionPlanList.ActionPlanListId=FlowOperate.DataId AND FlowOperate.IsClosed <> 1"
-                        + @" LEFT JOIN Sys_User AS OperateUser ON FlowOperate.OperaterId=OperateUser.UserId "
-                        + @" LEFT JOIN Sys_User AS Users ON Users.UserId = ActionPlanList.CompileMan "
-                        + @" WHERE 1=1 ";
-            List<SqlParameter> listStr = new List<SqlParameter>();
+            if (!string.IsNullOrEmpty(this.ProjectId))
+            {
+                string strSql = "SELECT ActionPlanList.ActionPlanListId,ActionPlanList.ProjectId,CodeRecords.Code AS ActionPlanListCode,ActionPlanList.ActionPlanListName,ActionPlanList.VersionNo,(CASE ProjectType WHEN '1' THEN '系统内项目' WHEN '2' THEN '系统外项目' WHEN '3' THEN '海外项目' END ) AS ProjectType,ActionPlanList.ActionPlanListContents,ActionPlanList.CompileMan,Users.UserName AS CompileManName, ActionPlanList.CompileDate,ActionPlanList.States"
+                            + @" ,(CASE WHEN ActionPlanList.States = " + BLL.Const.State_0 + " OR ActionPlanList.States IS NULL THEN '待['+OperateUser.UserName+']提交' WHEN ActionPlanList.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
+                            + @" FROM ActionPlan_ActionPlanList AS ActionPlanList "
+                            + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON ActionPlanList.ActionPlanListId=CodeRecords.DataId "
+                            + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON ActionPlanList.ActionPlanListId=FlowOperate.DataId AND FlowOperate.IsClosed <> 1"
+                            + @" LEFT JOIN Sys_User AS OperateUser ON FlowOperate.OperaterId=OperateUser.UserId "
+                            + @" LEFT JOIN Sys_User AS Users ON Users.UserId = ActionPlanList.CompileMan "
+                            + @" WHERE 1=1 ";
+                List<SqlParameter> listStr = new List<SqlParameter>();
 
-            strSql += " AND ActionPlanList.ProjectId = @ProjectId";
-            if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
-            {
-                listStr.Add(new SqlParameter("@ProjectId", Request.Params["projectId"]));
-                strSql += " AND ActionPlanList.States = @States";  ///状态为已完成
-                listStr.Add(new SqlParameter("@States", BLL.Const.State_2));
-            }
-            else
-            {
-                listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
-            }
-            
-            if (!string.IsNullOrEmpty(this.txtActionPlanListCode.Text.Trim()))
-            {
-                strSql += " AND ActionPlanListCode LIKE @ActionPlanListCode";
-                listStr.Add(new SqlParameter("@ActionPlanListCode", "%" + this.txtActionPlanListCode.Text.Trim() + "%"));
-            }
-            if (!string.IsNullOrEmpty(this.txtActionPlanListName.Text.Trim()))
-            {
-                strSql += " AND ActionPlanListName LIKE @ActionPlanListName";
-                listStr.Add(new SqlParameter("@ActionPlanListName", "%" + this.txtActionPlanListName.Text.Trim() + "%"));
-            }
-            SqlParameter[] parameter = listStr.ToArray();
-            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+                strSql += " AND ActionPlanList.ProjectId = @ProjectId";
+                listStr.Add(new SqlParameter("@ProjectId", this.ProjectId));
+                if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
+                {
+                    strSql += " AND ActionPlanList.States = @States";  ///状态为已完成
+                    listStr.Add(new SqlParameter("@States", BLL.Const.State_2));
+                }
 
-            Grid1.RecordCount = tb.Rows.Count;
-            tb = GetFilteredTable(Grid1.FilteredData, tb);
-            var table = this.GetPagedDataTable(Grid1, tb);
-            Grid1.DataSource = table;
-            Grid1.DataBind();
+                if (!string.IsNullOrEmpty(this.txtActionPlanListCode.Text.Trim()))
+                {
+                    strSql += " AND ActionPlanListCode LIKE @ActionPlanListCode";
+                    listStr.Add(new SqlParameter("@ActionPlanListCode", "%" + this.txtActionPlanListCode.Text.Trim() + "%"));
+                }
+                if (!string.IsNullOrEmpty(this.txtActionPlanListName.Text.Trim()))
+                {
+                    strSql += " AND ActionPlanListName LIKE @ActionPlanListName";
+                    listStr.Add(new SqlParameter("@ActionPlanListName", "%" + this.txtActionPlanListName.Text.Trim() + "%"));
+                }
+                SqlParameter[] parameter = listStr.ToArray();
+                DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+
+                Grid1.RecordCount = tb.Rows.Count;
+                tb = GetFilteredTable(Grid1.FilteredData, tb);
+                var table = this.GetPagedDataTable(Grid1, tb);
+                Grid1.DataSource = table;
+                Grid1.DataBind();
+            }
         }
         #endregion
 

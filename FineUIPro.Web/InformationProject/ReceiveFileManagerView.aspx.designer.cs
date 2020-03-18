@@ -40,15 +40,6 @@ namespace FineUIPro.Web.InformationProject {
         protected global::FineUIPro.Form SimpleForm1;
         
         /// <summary>
-        /// txtReceiveFileCode 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtReceiveFileCode;
-        
-        /// <summary>
         /// txtFileType 控件。
         /// </summary>
         /// <remarks>
@@ -58,6 +49,15 @@ namespace FineUIPro.Web.InformationProject {
         protected global::FineUIPro.TextBox txtFileType;
         
         /// <summary>
+        /// txtReceiveFileCode 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtReceiveFileCode;
+        
+        /// <summary>
         /// txtReceiveFileName 控件。
         /// </summary>
         /// <remarks>
@@ -65,15 +65,6 @@ namespace FineUIPro.Web.InformationProject {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox txtReceiveFileName;
-        
-        /// <summary>
-        /// drpUnit 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox drpUnit;
         
         /// <summary>
         /// txtGetFileDate 控件。
@@ -119,6 +110,15 @@ namespace FineUIPro.Web.InformationProject {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox drpSendPerson;
+        
+        /// <summary>
+        /// drpUnit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox drpUnit;
         
         /// <summary>
         /// txtUnitNames 控件。

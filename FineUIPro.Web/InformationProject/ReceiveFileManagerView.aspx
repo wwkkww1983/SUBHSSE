@@ -15,26 +15,21 @@
         BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
         <Rows>
             <f:FormRow>
-                <Items>                   
-                    <f:TextBox ID="txtReceiveFileCode" runat="server" Label="来文编号" LabelAlign="Right" Readonly="true">
-                    </f:TextBox>
+                <Items>   
                     <f:TextBox ID="txtFileType" runat="server" Label="类型" LabelAlign="Right" Readonly="true">
                     </f:TextBox>
+                    <f:TextBox ID="txtReceiveFileCode" runat="server" Label="来文编号" LabelAlign="Right" Readonly="true">
+                    </f:TextBox>
+                    
                 </Items>
             </f:FormRow>
             <f:FormRow>
-                <Items>
-                    
+                <Items>                    
                     <f:TextBox ID="txtReceiveFileName" runat="server" Label="文件名称" LabelAlign="Right" Readonly="true">
                     </f:TextBox>
+                    <f:TextBox ID="txtGetFileDate" runat="server" Label="收文日期" LabelAlign="Right" Readonly="true"></f:TextBox>
                 </Items>
             </f:FormRow>
-            <f:FormRow>
-                <Items>                   
-                    <f:TextBox ID="drpUnit" runat="server" Label="来文单位" LabelAlign="Right" Readonly="true"></f:TextBox>                    
-                     <f:TextBox ID="txtGetFileDate" runat="server" Label="收文日期" LabelAlign="Right" Readonly="true"></f:TextBox>
-                </Items>
-            </f:FormRow> 
             <f:FormRow>
                 <Items>
                      <f:TextBox ID="txtFileCode" runat="server" Label="原文编号" LabelAlign="Right" Readonly="true"></f:TextBox>
@@ -46,7 +41,12 @@
                     <f:TextBox ID="txtVersion" runat="server" Label="版本号" LabelAlign="Right" Readonly="true"></f:TextBox>
                     <f:TextBox ID="drpSendPerson" runat="server" Label="传送人"  LabelAlign="Right" Readonly="true"></f:TextBox>
                 </Items>
-            </f:FormRow>       
+            </f:FormRow>   
+              <f:FormRow>
+                <Items>       
+                     <f:TextBox ID="drpUnit" runat="server" Label="来文单位" LabelAlign="Right" Readonly="true"></f:TextBox>   
+                </Items>
+            </f:FormRow> 
             <f:FormRow>
                 <Items>
                   <f:TextBox ID="txtUnitNames" runat="server" Label="接收单位" LabelAlign="Right" Readonly="true"></f:TextBox>        

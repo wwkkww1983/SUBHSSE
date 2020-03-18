@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Data.SqlClient;
+﻿using BLL;
+using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Text;
 using AspNet = System.Web.UI.WebControls;
-using BLL;
 
 namespace FineUIPro.Web.SitePerson
 {
@@ -53,53 +48,56 @@ namespace FineUIPro.Web.SitePerson
         /// </summary>
         private void GetPersonStatistic()
         {
-            string startTime = string.Empty;
-            string endTime = string.Empty;
-            if (!string.IsNullOrEmpty(this.txtStartDate.Text.Trim()))
+            if (!string.IsNullOrEmpty(this.ProjectId))
             {
-                startTime = this.txtStartDate.Text.Trim();
-            }
-            else
-            {
-                startTime = null;
-            }
-            if (!string.IsNullOrEmpty(this.txtEndDate.Text.Trim()))
-            {
-                endTime = this.txtEndDate.Text.Trim();
-            }
-            else
-            {
-                endTime = null;
-            }
-            SqlParameter[] values = new SqlParameter[]
+                string startTime = string.Empty;
+                string endTime = string.Empty;
+                if (!string.IsNullOrEmpty(this.txtStartDate.Text.Trim()))
                 {
+                    startTime = this.txtStartDate.Text.Trim();
+                }
+                else
+                {
+                    startTime = null;
+                }
+                if (!string.IsNullOrEmpty(this.txtEndDate.Text.Trim()))
+                {
+                    endTime = this.txtEndDate.Text.Trim();
+                }
+                else
+                {
+                    endTime = null;
+                }
+                SqlParameter[] values = new SqlParameter[]
+                    {
                     new SqlParameter("@ProjectId", this.ProjectId),
                     new SqlParameter("@StartTime", startTime),
                     new SqlParameter("@EndTime", endTime),
-                };
+                    };
 
-            DataTable tb = SQLHelper.GetDataTableRunProc("SpPersonStatistic", values);
-            // 2.获取当前分页数据
-            //var table = this.GetPagedDataTable(Grid1, tb1);
+                DataTable tb = SQLHelper.GetDataTableRunProc("SpPersonStatistic", values);
+                // 2.获取当前分页数据
+                //var table = this.GetPagedDataTable(Grid1, tb1);
 
-            Grid1.RecordCount = tb.Rows.Count;
-            tb = GetFilteredTable(Grid1.FilteredData, tb);
-            var table = this.GetPagedDataTable(Grid1, tb);
+                Grid1.RecordCount = tb.Rows.Count;
+                tb = GetFilteredTable(Grid1.FilteredData, tb);
+                var table = this.GetPagedDataTable(Grid1, tb);
 
-            Grid1.DataSource = table;
-            Grid1.DataBind();
+                Grid1.DataSource = table;
+                Grid1.DataBind();
 
-            //DataTable dtPersonStatistic = BLL.SQLHelper.GetDataTableRunProc("SpPersonStatistic", values);
-            //if (dtPersonStatistic.Rows.Count == 0)
-            //{
-            //    this.Grid1.DataSource = (from x in BLL.Funs.DB.SitePerson_Checking where x.CardNo == null select x).ToList();
-            //    this.Grid1.DataBind();
-            //}
-            //else
-            //{
-            //    this.Grid1.DataSource = dtPersonStatistic;
-            //    this.Grid1.DataBind();
-            //}
+                //DataTable dtPersonStatistic = BLL.SQLHelper.GetDataTableRunProc("SpPersonStatistic", values);
+                //if (dtPersonStatistic.Rows.Count == 0)
+                //{
+                //    this.Grid1.DataSource = (from x in BLL.Funs.DB.SitePerson_Checking where x.CardNo == null select x).ToList();
+                //    this.Grid1.DataBind();
+                //}
+                //else
+                //{
+                //    this.Grid1.DataSource = dtPersonStatistic;
+                //    this.Grid1.DataBind();
+                //}
+            }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)

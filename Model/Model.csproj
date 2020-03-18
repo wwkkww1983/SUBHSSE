@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIItem\ReceiveFileManagerItem.cs" />
     <Compile Include="APIItem\ChartAnalysisItem.cs" />
     <Compile Include="APIItem\NextFlowOperateItem.cs" />
     <Compile Include="APIItem\PauseNoticeItem.cs" />

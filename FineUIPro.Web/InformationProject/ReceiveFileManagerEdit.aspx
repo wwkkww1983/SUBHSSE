@@ -16,14 +16,13 @@
         <Rows>
             <f:FormRow>
                 <Items>
+                      <f:RadioButtonList runat="server" ID="rbFileType" Width="150px" AutoPostBack="true" OnSelectedIndexChanged="rbFileType_SelectedIndexChanged">
+                        <f:RadioItem Value="0" Text="项目发文" Selected="true"/>
+                        <f:RadioItem Value="1" Text="公司来文"/>
+                    </f:RadioButtonList>
                     <f:TextBox ID="txtReceiveFileCode" runat="server" Label="来文编号" LabelAlign="Right"
                         MaxLength="50" Readonly="true">
-                    </f:TextBox>
-                    <f:RadioButtonList runat="server" ID="rbFileType" Width="150px">
-                        <f:RadioItem Value="0" Text="项目发文" Selected="true"/>
-                        <f:RadioItem Value="1" Text="单位来文"/>
-                    </f:RadioButtonList>
-                    
+                    </f:TextBox>                 
                 </Items>
             </f:FormRow>
             <f:FormRow>
@@ -31,17 +30,11 @@
                     <f:TextBox ID="txtReceiveFileName" runat="server" Label="文件名称" Required="true" ShowRedStar="true"
                         LabelAlign="Right" MaxLength="200" FocusOnPageLoad="true">
                     </f:TextBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>                   
-                    <f:DropDownList ID="drpUnit" runat="server" Label="来文单位" EnableEdit="true" LabelAlign="Right">
-                    </f:DropDownList>
-                     <f:DatePicker ID="txtGetFileDate" runat="server" Label="收文日期" LabelAlign="Right"
+                      <f:DatePicker ID="txtGetFileDate" runat="server" Label="收文日期" LabelAlign="Right"
                         EnableEdit="true">
                     </f:DatePicker>  
                 </Items>
-            </f:FormRow> 
+            </f:FormRow>            
             <f:FormRow>
                 <Items>
                      <f:TextBox ID="txtFileCode" runat="server" Label="原文编号" LabelAlign="Right" MaxLength="50">
@@ -57,7 +50,13 @@
                     <f:DropDownList ID="drpSendPerson" runat="server" Label="传送人" EnableEdit="true"  LabelAlign="Right">
                     </f:DropDownList>                
                 </Items>
-            </f:FormRow>        
+            </f:FormRow>       
+            <f:FormRow>
+                <Items>                   
+                    <f:DropDownList ID="drpUnit" runat="server" Label="来文单位" EnableEdit="true" LabelAlign="Right">
+                    </f:DropDownList>                   
+                </Items>
+            </f:FormRow> 
             <f:FormRow ColumnWidths="87% 6% 7%">
                 <Items>
                    <f:DropDownList ID="drpUnitIds" runat="server" Label="接收单位" EnableEdit="false" 

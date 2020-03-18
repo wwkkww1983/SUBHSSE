@@ -219,8 +219,8 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_Unit> GetUnitByProjectIdList(string projectId)
         {
-            var q = (from x in db.Base_Unit
-                     join y in db.Project_ProjectUnit
+            var q = (from x in Funs.DB.Base_Unit
+                     join y in Funs.DB.Project_ProjectUnit
                      on x.UnitId equals y.UnitId
                      where y.ProjectId == projectId && (x.IsHide == null || x.IsHide == false)
                      orderby x.UnitCode
@@ -235,8 +235,8 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_Unit> GetUnitByProjectIdUnitTypeList(string projectId, string unitType)
         {
-            var q = (from x in db.Base_Unit
-                     join y in db.Project_ProjectUnit
+            var q = (from x in Funs.DB.Base_Unit
+                     join y in Funs.DB.Project_ProjectUnit
                      on x.UnitId equals y.UnitId
                      where y.ProjectId == projectId && (x.IsHide == null || x.IsHide == false) && y.UnitType == unitType
                      orderby x.UnitCode
@@ -251,8 +251,8 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.Base_Unit> GetUnitByProjectIdListNotContainOneUnit(string projectId, string unitId)
         {
-            var q = (from x in db.Base_Unit
-                     join y in db.Project_ProjectUnit
+            var q = (from x in Funs.DB.Base_Unit
+                     join y in Funs.DB.Project_ProjectUnit
                      on x.UnitId equals y.UnitId
                      where y.ProjectId == projectId && (x.UnitId != unitId || unitId == null) && (x.IsHide == null || x.IsHide == false)
                      orderby x.UnitCode

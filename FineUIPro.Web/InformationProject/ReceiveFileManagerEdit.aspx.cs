@@ -284,5 +284,20 @@ namespace FineUIPro.Web.InformationProject
             this.drpUnitIds.SelectedValueArray = null;
         }
         #endregion
+
+        protected void rbFileType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            /// 项目发文
+            if (this.rbFileType.SelectedValue == "0")
+            {
+                this.drpUnit.Readonly = true;
+                string unitId = string.IsNullOrEmpty(this.CurrUser.UnitId) ? CommonService.GetIsThisUnitId() : this.CurrUser.UnitId;
+                this.drpUnit.SelectedValue = unitId;
+            }
+            else
+            {
+                this.drpUnit.Readonly = false;
+            }
+        }
     }
 }

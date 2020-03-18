@@ -53,7 +53,7 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextArea ID="txtDuty" runat="server" Label="职责" MaxLength="50">
+                    <f:TextArea ID="txtDuty" runat="server" Label="职责" MaxLength="2000">
                     </f:TextArea>
                 </Items>
             </f:FormRow>
