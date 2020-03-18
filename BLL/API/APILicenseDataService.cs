@@ -694,6 +694,7 @@ namespace BLL
                                    LicenseId = x.LicenseManagerId,
                                    MenuId = Const.ProjectLicenseManagerMenuId,
                                    MenuName = Funs.DB.Base_LicenseType.FirstOrDefault(y => y.LicenseTypeId == x.LicenseTypeId).LicenseTypeName,
+                                   LicenseTypeId=x.LicenseTypeId,                                   
                                    ProjectId = x.ProjectId,
                                    LicenseCode = x.LicenseManagerCode,
                                    ApplyUnitId = x.UnitId,
@@ -960,6 +961,7 @@ namespace BLL
                                          LicenseId = x.LicenseManagerId,
                                          MenuId = Const.ProjectLicenseManagerMenuId,
                                          MenuName ="[定稿]"+ Funs.DB.Base_LicenseType.FirstOrDefault(y => y.LicenseTypeId == x.LicenseTypeId).LicenseTypeName,
+                                         LicenseTypeId=x.LicenseTypeId,
                                          ProjectId = x.ProjectId,
                                          LicenseCode = x.LicenseManagerCode,
                                          ApplyUnitId = x.UnitId,
@@ -1050,6 +1052,19 @@ namespace BLL
             {
                 string strLicenseId = newItem.LicenseId;
                 string projectId = newItem.ProjectId;
+                if (string.IsNullOrEmpty(newItem.CancelManId))
+                {
+                    newItem.CancelManId = null;
+                }
+                if (string.IsNullOrEmpty(newItem.CloseManId))
+                {
+                    newItem.CloseManId = null;
+                }
+                if (string.IsNullOrEmpty(newItem.NextManId))
+                {
+                    newItem.NextManId = null;
+                }
+
                 #region 动火作业票
                 if (newItem.MenuId == Const.ProjectFireWorkMenuId)
                 {
@@ -1076,6 +1091,7 @@ namespace BLL
                         NextManId = newItem.NextManId,
                         States = newItem.States,
                     };
+                   
                     if (newItem.States == Const.State_0)
                     {
                         newFireWork.NextManId = newItem.ApplyManId;
@@ -1086,6 +1102,7 @@ namespace BLL
                     {
                         newFireWork.ApplyDate = DateTime.Now;
                         strLicenseId = newFireWork.FireWorkId = SQLHelper.GetNewID();
+                        newFireWork.OldLicenseId = newItem.OldLicenseId;
                         newFireWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectFireWorkMenuId, newFireWork.ProjectId, newFireWork.ApplyUnitId);
                         db.License_FireWork.InsertOnSubmit(newFireWork);
                         ////增加一条编码记录
@@ -1156,6 +1173,7 @@ namespace BLL
                     {
                         newHeightWork.ApplyDate = DateTime.Now;
                         strLicenseId = newHeightWork.HeightWorkId = SQLHelper.GetNewID();
+                        newHeightWork.OldLicenseId = newItem.OldLicenseId;
                         newHeightWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectHeightWorkMenuId, newHeightWork.ProjectId, newHeightWork.ApplyUnitId);
                         db.License_HeightWork.InsertOnSubmit(newHeightWork);
 
@@ -1227,6 +1245,7 @@ namespace BLL
                     {
                         newLimitedSpace.ApplyDate = DateTime.Now;
                         strLicenseId = newLimitedSpace.LimitedSpaceId = SQLHelper.GetNewID();
+                        newLimitedSpace.OldLicenseId = newItem.OldLicenseId;
                         newLimitedSpace.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectLimitedSpaceMenuId, newLimitedSpace.ProjectId, newLimitedSpace.ApplyUnitId);
                         db.License_LimitedSpace.InsertOnSubmit(newLimitedSpace);
                         ////增加一条编码记录
@@ -1300,6 +1319,7 @@ namespace BLL
                     {
                         newRadialWork.ApplyDate = DateTime.Now;
                         strLicenseId = newRadialWork.RadialWorkId = SQLHelper.GetNewID();
+                        newRadialWork.OldLicenseId = newItem.OldLicenseId;
                         newRadialWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectRadialWorkMenuId, newRadialWork.ProjectId, newRadialWork.ApplyUnitId);
                         db.License_RadialWork.InsertOnSubmit(newRadialWork);
                         ////增加一条编码记录
@@ -1373,6 +1393,7 @@ namespace BLL
                     {
                         newOpenCircuit.ApplyDate = DateTime.Now;
                         strLicenseId = newOpenCircuit.OpenCircuitId = SQLHelper.GetNewID();
+                        newOpenCircuit.OldLicenseId = newItem.OldLicenseId;
                         newOpenCircuit.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectOpenCircuitMenuId, newOpenCircuit.ProjectId, newOpenCircuit.ApplyUnitId);
                         db.License_OpenCircuit.InsertOnSubmit(newOpenCircuit);
                         ////增加一条编码记录
@@ -1442,6 +1463,7 @@ namespace BLL
                     {
                         newBreakGround.ApplyDate = DateTime.Now;
                         strLicenseId = newBreakGround.BreakGroundId = SQLHelper.GetNewID();
+                        newBreakGround.OldLicenseId = newItem.OldLicenseId;
                         newBreakGround.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectBreakGroundMenuId, newBreakGround.ProjectId, newBreakGround.ApplyUnitId);
                         db.License_BreakGround.InsertOnSubmit(newBreakGround);
                         ////增加一条编码记录
@@ -1513,6 +1535,7 @@ namespace BLL
                     {
                         newNightWork.ApplyDate = DateTime.Now;
                         strLicenseId = newNightWork.NightWorkId = SQLHelper.GetNewID();
+                        newNightWork.OldLicenseId = newItem.OldLicenseId;
                         newNightWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectNightWorkMenuId, newNightWork.ProjectId, newNightWork.ApplyUnitId);
                         db.License_NightWork.InsertOnSubmit(newNightWork);
                         ////增加一条编码记录
@@ -1585,6 +1608,7 @@ namespace BLL
                     {
                         newLiftingWork.ApplyDate = DateTime.Now;
                         strLicenseId = newLiftingWork.LiftingWorkId = SQLHelper.GetNewID();
+                        newLiftingWork.OldLicenseId = newItem.OldLicenseId;
                         newLiftingWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectLiftingWorkMenuId, newLiftingWork.ProjectId, newLiftingWork.ApplyUnitId);
                         db.License_LiftingWork.InsertOnSubmit(newLiftingWork);
                         ////增加一条编码记录
@@ -1629,16 +1653,21 @@ namespace BLL
                         ProjectId = projectId,
                         LicenseManagerCode = newItem.LicenseCode,
                         UnitId = newItem.ApplyUnitId,
-                        ApplicantMan =newItem.ApplyManName,                  
-                        WorkAreaId=newItem.WorkAreaIds,
-                        LicenseTypeId=newItem.LicenseTypeId,
-                        CompileMan=newItem.ApplyManId,
+                        ApplicantMan = newItem.ApplyManName,
+                        WorkAreaId = newItem.WorkAreaIds,
+                        
+                        CompileMan = newItem.ApplyManId,
                         CompileDate = Funs.GetNewDateTime(newItem.ApplyDate),
                         StartDate = Funs.GetNewDateTime(newItem.ValidityStartTime),
                         EndDate = Funs.GetNewDateTime(newItem.ValidityEndTime),
                         WorkStates = newItem.States,
                         States = Const.State_0,
-                };
+                    };
+                    var getLicenseType = Funs.DB.Base_LicenseType.FirstOrDefault(x => x.LicenseTypeId == newItem.LicenseTypeId);
+                    if (getLicenseType != null)
+                    {
+                        newLicenseManager.LicenseTypeId = newItem.LicenseTypeId;
+                    }
                     if (newLicenseManager.WorkStates == Const.State_3 || newLicenseManager.WorkStates == Const.State_R)
                     {
                         newLicenseManager.States = Const.State_2;
@@ -1680,10 +1709,11 @@ namespace BLL
                     if (licenseItems.Count() > 0)
                     {
                         db.License_LicenseItem.DeleteAllOnSubmit(licenseItems);
+                        db.SubmitChanges();
                     }
                     ///// 新增安全措施
-                    var getLicenseItemList = newItem.LicenseItems;
-                    if (getLicenseItemList.Count() > 0)
+                    var getLicenseItemList = newItem.LicenseItems;                    
+                    if (newItem.LicenseItems !=null && getLicenseItemList.Count() > 0)
                     {
                         foreach (var item in getLicenseItemList)
                         {
@@ -1698,10 +1728,9 @@ namespace BLL
                             };
 
                             db.License_LicenseItem.InsertOnSubmit(newLicenseItem);
+                            db.SubmitChanges();
                         }
                     }
-
-                    db.SubmitChanges();
                 }
                 #endregion
 
@@ -1734,10 +1763,8 @@ namespace BLL
                     updateFlowOperate.OperaterTime = DateTime.Now;
                     updateFlowOperate.IsAgree = newItem.IsAgree;
                     updateFlowOperate.Opinion = newItem.Opinion;
-                    if (newItem.IsAgree == true)
-                    {
-                        updateFlowOperate.IsClosed = true;
-                    }
+                    updateFlowOperate.IsClosed = true;
+
                     db.SubmitChanges();
 
                     /////增加一条审核明细记录
@@ -1772,271 +1799,271 @@ namespace BLL
                                 db.SubmitChanges();
                             }
                         }
-                    }
-                    #endregion
-
-                    #region 动火作业票
-                    if (strMenuId == Const.ProjectFireWorkMenuId)
-                    {
-                        var getFireWork = db.License_FireWork.FirstOrDefault(x => x.FireWorkId == updateFlowOperate.DataId);
-                        if (getFireWork != null)
+                        
+                        #region 动火作业票
+                        if (strMenuId == Const.ProjectFireWorkMenuId)
                         {
-                            getFireWork.NextManId = newItem.NextOperaterId;
-                            if (newItem.IsAgree == true)
+                            var getFireWork = db.License_FireWork.FirstOrDefault(x => x.FireWorkId == updateFlowOperate.DataId);
+                            if (getFireWork != null)
                             {
-                                if (boolIsFlowEnd == true)
+                                getFireWork.NextManId = newItem.NextOperaterId;
+                                if (newItem.IsAgree == true)
                                 {
-                                    getFireWork.NextManId = null;
-                                    getFireWork.States = Const.State_2;
-                                    if (getFireWork.ValidityStartTime.HasValue && getFireWork.ValidityStartTime < DateTime.Now)
+                                    if (boolIsFlowEnd == true)
                                     {
-                                        int days = 7;
-                                        if (getFireWork.ValidityEndTime.HasValue)
+                                        getFireWork.NextManId = null;
+                                        getFireWork.States = Const.State_2;
+                                        if (getFireWork.ValidityStartTime.HasValue && getFireWork.ValidityStartTime < DateTime.Now)
                                         {
-                                            days = Convert.ToInt32((getFireWork.ValidityEndTime - getFireWork.ValidityStartTime).Value.TotalDays);
+                                            int days = 7;
+                                            if (getFireWork.ValidityEndTime.HasValue)
+                                            {
+                                                days = Convert.ToInt32((getFireWork.ValidityEndTime - getFireWork.ValidityStartTime).Value.TotalDays);
+                                            }
+                                            getFireWork.ValidityStartTime = DateTime.Now;
+                                            getFireWork.ValidityEndTime = DateTime.Now.AddDays(days);
                                         }
-                                        getFireWork.ValidityStartTime = DateTime.Now;
-                                        getFireWork.ValidityEndTime = DateTime.Now.AddDays(days);
                                     }
                                 }
-                            }
-                            else
-                            {
-                                getFireWork.States = Const.State_0;
-                            }
-                            db.SubmitChanges();
-                        }
-                    }
-                    #endregion
-                    #region 高处作业票
-                    else if (strMenuId == Const.ProjectHeightWorkMenuId)
-                    {
-                        var getHeightWork = db.License_HeightWork.FirstOrDefault(x => x.HeightWorkId == updateFlowOperate.DataId);
-                        if (getHeightWork != null)
-                        {
-                            getHeightWork.NextManId = newItem.NextOperaterId;
-                            if (newItem.IsAgree == true)
-                            {
-                                if (boolIsFlowEnd == true)
+                                else
                                 {
-                                    getHeightWork.NextManId = null;
-                                    getHeightWork.States = Const.State_2;
-                                    if (getHeightWork.ValidityStartTime.HasValue && getHeightWork.ValidityStartTime < DateTime.Now)
+                                    getFireWork.States = Const.State_0;
+                                }
+                                db.SubmitChanges();
+                            }
+                        }
+                        #endregion
+                        #region 高处作业票
+                        else if (strMenuId == Const.ProjectHeightWorkMenuId)
+                        {
+                            var getHeightWork = db.License_HeightWork.FirstOrDefault(x => x.HeightWorkId == updateFlowOperate.DataId);
+                            if (getHeightWork != null)
+                            {
+                                getHeightWork.NextManId = newItem.NextOperaterId;
+                                if (newItem.IsAgree == true)
+                                {
+                                    if (boolIsFlowEnd == true)
                                     {
-                                        int days = 7;
-                                        if (getHeightWork.ValidityEndTime.HasValue)
+                                        getHeightWork.NextManId = null;
+                                        getHeightWork.States = Const.State_2;
+                                        if (getHeightWork.ValidityStartTime.HasValue && getHeightWork.ValidityStartTime < DateTime.Now)
                                         {
-                                            days = Convert.ToInt32((getHeightWork.ValidityEndTime - getHeightWork.ValidityStartTime).Value.TotalDays);
+                                            int days = 7;
+                                            if (getHeightWork.ValidityEndTime.HasValue)
+                                            {
+                                                days = Convert.ToInt32((getHeightWork.ValidityEndTime - getHeightWork.ValidityStartTime).Value.TotalDays);
+                                            }
+                                            getHeightWork.ValidityStartTime = DateTime.Now;
+                                            getHeightWork.ValidityEndTime = DateTime.Now.AddDays(days);
                                         }
-                                        getHeightWork.ValidityStartTime = DateTime.Now;
-                                        getHeightWork.ValidityEndTime = DateTime.Now.AddDays(days);
                                     }
                                 }
-                            }
-                            else
-                            {
-                                getHeightWork.States = Const.State_0;
-                            }
-                            db.SubmitChanges();
-                        }
-                    }
-                    #endregion
-                    #region 受限空间作业票
-                    if (strMenuId == Const.ProjectLimitedSpaceMenuId)
-                    {
-                        var getLimitedSpace = db.License_LimitedSpace.FirstOrDefault(x => x.LimitedSpaceId == updateFlowOperate.DataId);
-                        if (getLimitedSpace != null)
-                        {
-                            getLimitedSpace.NextManId = newItem.NextOperaterId;
-                            if (newItem.IsAgree == true)
-                            {
-                                if (boolIsFlowEnd == true)
+                                else
                                 {
-                                    getLimitedSpace.NextManId = null;
-                                    getLimitedSpace.States = Const.State_2;
-                                    if (getLimitedSpace.ValidityStartTime.HasValue && getLimitedSpace.ValidityStartTime < DateTime.Now)
+                                    getHeightWork.States = Const.State_0;
+                                }
+                                db.SubmitChanges();
+                            }
+                        }
+                        #endregion
+                        #region 受限空间作业票
+                        if (strMenuId == Const.ProjectLimitedSpaceMenuId)
+                        {
+                            var getLimitedSpace = db.License_LimitedSpace.FirstOrDefault(x => x.LimitedSpaceId == updateFlowOperate.DataId);
+                            if (getLimitedSpace != null)
+                            {
+                                getLimitedSpace.NextManId = newItem.NextOperaterId;
+                                if (newItem.IsAgree == true)
+                                {
+                                    if (boolIsFlowEnd == true)
                                     {
-                                        int days = 1;
-                                        if (getLimitedSpace.ValidityEndTime.HasValue)
+                                        getLimitedSpace.NextManId = null;
+                                        getLimitedSpace.States = Const.State_2;
+                                        if (getLimitedSpace.ValidityStartTime.HasValue && getLimitedSpace.ValidityStartTime < DateTime.Now)
                                         {
-                                            days = Convert.ToInt32((getLimitedSpace.ValidityEndTime - getLimitedSpace.ValidityStartTime).Value.TotalDays);
+                                            int days = 1;
+                                            if (getLimitedSpace.ValidityEndTime.HasValue)
+                                            {
+                                                days = Convert.ToInt32((getLimitedSpace.ValidityEndTime - getLimitedSpace.ValidityStartTime).Value.TotalDays);
+                                            }
+                                            getLimitedSpace.ValidityStartTime = DateTime.Now;
+                                            getLimitedSpace.ValidityEndTime = DateTime.Now.AddDays(days);
                                         }
-                                        getLimitedSpace.ValidityStartTime = DateTime.Now;
-                                        getLimitedSpace.ValidityEndTime = DateTime.Now.AddDays(days);
                                     }
                                 }
-                            }
-                            else
-                            {
-                                getLimitedSpace.States = Const.State_0;
-                            }
-                            db.SubmitChanges();
-                        }
-                    }
-                    #endregion
-                    #region 射线作业票
-                    if (strMenuId == Const.ProjectRadialWorkMenuId)
-                    {
-                        var getRadialWork = db.License_RadialWork.FirstOrDefault(x => x.RadialWorkId == updateFlowOperate.DataId);
-                        if (getRadialWork != null)
-                        {
-                            getRadialWork.NextManId = newItem.NextOperaterId;
-                            if (newItem.IsAgree == true)
-                            {
-                                if (boolIsFlowEnd == true)
+                                else
                                 {
-                                    getRadialWork.NextManId = null;
-                                    getRadialWork.States = Const.State_2;
-                                    if (getRadialWork.ValidityStartTime.HasValue && getRadialWork.ValidityStartTime < DateTime.Now)
+                                    getLimitedSpace.States = Const.State_0;
+                                }
+                                db.SubmitChanges();
+                            }
+                        }
+                        #endregion
+                        #region 射线作业票
+                        if (strMenuId == Const.ProjectRadialWorkMenuId)
+                        {
+                            var getRadialWork = db.License_RadialWork.FirstOrDefault(x => x.RadialWorkId == updateFlowOperate.DataId);
+                            if (getRadialWork != null)
+                            {
+                                getRadialWork.NextManId = newItem.NextOperaterId;
+                                if (newItem.IsAgree == true)
+                                {
+                                    if (boolIsFlowEnd == true)
                                     {
-                                        int hours = 24;
-                                        if (getRadialWork.ValidityEndTime.HasValue)
+                                        getRadialWork.NextManId = null;
+                                        getRadialWork.States = Const.State_2;
+                                        if (getRadialWork.ValidityStartTime.HasValue && getRadialWork.ValidityStartTime < DateTime.Now)
                                         {
-                                            hours = Convert.ToInt32((getRadialWork.ValidityEndTime - getRadialWork.ValidityStartTime).Value.TotalHours);
+                                            int hours = 24;
+                                            if (getRadialWork.ValidityEndTime.HasValue)
+                                            {
+                                                hours = Convert.ToInt32((getRadialWork.ValidityEndTime - getRadialWork.ValidityStartTime).Value.TotalHours);
+                                            }
+                                            getRadialWork.ValidityStartTime = DateTime.Now;
+                                            getRadialWork.ValidityEndTime = DateTime.Now.AddHours(hours);
                                         }
-                                        getRadialWork.ValidityStartTime = DateTime.Now;
-                                        getRadialWork.ValidityEndTime = DateTime.Now.AddHours(hours);
                                     }
                                 }
-                            }
-                            else
-                            {
-                                getRadialWork.States = Const.State_0;
-                            }
-                            db.SubmitChanges();
-                        }
-                    }
-                    #endregion
-                    #region 断路(占道)作业票
-                    if (strMenuId == Const.ProjectOpenCircuitMenuId)
-                    {
-                        var getOpenCircuit = db.License_OpenCircuit.FirstOrDefault(x => x.OpenCircuitId == updateFlowOperate.DataId);
-                        if (getOpenCircuit != null)
-                        {
-                            getOpenCircuit.NextManId = newItem.NextOperaterId;
-                            if (newItem.IsAgree == true)
-                            {
-                                if (boolIsFlowEnd == true)
+                                else
                                 {
-                                    getOpenCircuit.NextManId = null;
-                                    getOpenCircuit.States = Const.State_2;
-                                    if (getOpenCircuit.ValidityStartTime.HasValue && getOpenCircuit.ValidityStartTime < DateTime.Now)
+                                    getRadialWork.States = Const.State_0;
+                                }
+                                db.SubmitChanges();
+                            }
+                        }
+                        #endregion
+                        #region 断路(占道)作业票
+                        if (strMenuId == Const.ProjectOpenCircuitMenuId)
+                        {
+                            var getOpenCircuit = db.License_OpenCircuit.FirstOrDefault(x => x.OpenCircuitId == updateFlowOperate.DataId);
+                            if (getOpenCircuit != null)
+                            {
+                                getOpenCircuit.NextManId = newItem.NextOperaterId;
+                                if (newItem.IsAgree == true)
+                                {
+                                    if (boolIsFlowEnd == true)
                                     {
-                                        int days = 7;
-                                        if (getOpenCircuit.ValidityEndTime.HasValue)
+                                        getOpenCircuit.NextManId = null;
+                                        getOpenCircuit.States = Const.State_2;
+                                        if (getOpenCircuit.ValidityStartTime.HasValue && getOpenCircuit.ValidityStartTime < DateTime.Now)
                                         {
-                                            days = Convert.ToInt32((getOpenCircuit.ValidityEndTime - getOpenCircuit.ValidityStartTime).Value.TotalDays);
+                                            int days = 7;
+                                            if (getOpenCircuit.ValidityEndTime.HasValue)
+                                            {
+                                                days = Convert.ToInt32((getOpenCircuit.ValidityEndTime - getOpenCircuit.ValidityStartTime).Value.TotalDays);
+                                            }
+                                            getOpenCircuit.ValidityStartTime = DateTime.Now;
+                                            getOpenCircuit.ValidityEndTime = DateTime.Now.AddDays(days);
                                         }
-                                        getOpenCircuit.ValidityStartTime = DateTime.Now;
-                                        getOpenCircuit.ValidityEndTime = DateTime.Now.AddDays(days);
                                     }
                                 }
-                            }
-                            else
-                            {
-                                getOpenCircuit.States = Const.State_0;
-                            }
-                            db.SubmitChanges();
-                        }
-                    }
-                    #endregion
-                    #region 动土作业票
-                    if (strMenuId == Const.ProjectBreakGroundMenuId)
-                    {
-                        var getBreakGround = db.License_BreakGround.FirstOrDefault(x => x.BreakGroundId == updateFlowOperate.DataId);
-                        if (getBreakGround != null)
-                        {
-                            getBreakGround.NextManId = newItem.NextOperaterId;
-                            if (newItem.IsAgree == true)
-                            {
-                                if (boolIsFlowEnd == true)
+                                else
                                 {
-                                    getBreakGround.NextManId = null;
-                                    getBreakGround.States = Const.State_2;
-                                    if (getBreakGround.ValidityStartTime.HasValue && getBreakGround.ValidityStartTime < DateTime.Now)
+                                    getOpenCircuit.States = Const.State_0;
+                                }
+                                db.SubmitChanges();
+                            }
+                        }
+                        #endregion
+                        #region 动土作业票
+                        if (strMenuId == Const.ProjectBreakGroundMenuId)
+                        {
+                            var getBreakGround = db.License_BreakGround.FirstOrDefault(x => x.BreakGroundId == updateFlowOperate.DataId);
+                            if (getBreakGround != null)
+                            {
+                                getBreakGround.NextManId = newItem.NextOperaterId;
+                                if (newItem.IsAgree == true)
+                                {
+                                    if (boolIsFlowEnd == true)
                                     {
-                                        int days = 7;
-                                        if (getBreakGround.ValidityEndTime.HasValue)
+                                        getBreakGround.NextManId = null;
+                                        getBreakGround.States = Const.State_2;
+                                        if (getBreakGround.ValidityStartTime.HasValue && getBreakGround.ValidityStartTime < DateTime.Now)
                                         {
-                                            days = Convert.ToInt32((getBreakGround.ValidityEndTime - getBreakGround.ValidityStartTime).Value.TotalDays);
+                                            int days = 7;
+                                            if (getBreakGround.ValidityEndTime.HasValue)
+                                            {
+                                                days = Convert.ToInt32((getBreakGround.ValidityEndTime - getBreakGround.ValidityStartTime).Value.TotalDays);
+                                            }
+                                            getBreakGround.ValidityStartTime = DateTime.Now;
+                                            getBreakGround.ValidityEndTime = DateTime.Now.AddDays(days);
                                         }
-                                        getBreakGround.ValidityStartTime = DateTime.Now;
-                                        getBreakGround.ValidityEndTime = DateTime.Now.AddDays(days);
                                     }
                                 }
-                            }
-                            else
-                            {
-                                getBreakGround.States = Const.State_0;
-                            }
-                            db.SubmitChanges();
-                        }
-                    }
-                    #endregion
-                    #region 夜间施工作业票
-                    if (strMenuId == Const.ProjectNightWorkMenuId)
-                    {
-                        var getNightWork = db.License_NightWork.FirstOrDefault(x => x.NightWorkId == updateFlowOperate.DataId);
-                        if (getNightWork != null)
-                        {
-                            getNightWork.NextManId = newItem.NextOperaterId;
-                            if (newItem.IsAgree == true)
-                            {
-                                if (boolIsFlowEnd == true)
+                                else
                                 {
-                                    getNightWork.NextManId = null;
-                                    getNightWork.States = Const.State_2;
-                                    if (getNightWork.ValidityStartTime.HasValue && getNightWork.ValidityStartTime < DateTime.Now)
+                                    getBreakGround.States = Const.State_0;
+                                }
+                                db.SubmitChanges();
+                            }
+                        }
+                        #endregion
+                        #region 夜间施工作业票
+                        if (strMenuId == Const.ProjectNightWorkMenuId)
+                        {
+                            var getNightWork = db.License_NightWork.FirstOrDefault(x => x.NightWorkId == updateFlowOperate.DataId);
+                            if (getNightWork != null)
+                            {
+                                getNightWork.NextManId = newItem.NextOperaterId;
+                                if (newItem.IsAgree == true)
+                                {
+                                    if (boolIsFlowEnd == true)
                                     {
-                                        int days = 7;
-                                        if (getNightWork.ValidityEndTime.HasValue)
+                                        getNightWork.NextManId = null;
+                                        getNightWork.States = Const.State_2;
+                                        if (getNightWork.ValidityStartTime.HasValue && getNightWork.ValidityStartTime < DateTime.Now)
                                         {
-                                            days = Convert.ToInt32((getNightWork.ValidityEndTime - getNightWork.ValidityStartTime).Value.TotalDays);
+                                            int days = 7;
+                                            if (getNightWork.ValidityEndTime.HasValue)
+                                            {
+                                                days = Convert.ToInt32((getNightWork.ValidityEndTime - getNightWork.ValidityStartTime).Value.TotalDays);
+                                            }
+                                            getNightWork.ValidityStartTime = DateTime.Now;
+                                            getNightWork.ValidityEndTime = DateTime.Now.AddDays(days);
                                         }
-                                        getNightWork.ValidityStartTime = DateTime.Now;
-                                        getNightWork.ValidityEndTime = DateTime.Now.AddDays(days);
                                     }
                                 }
-                            }
-                            else
-                            {
-                                getNightWork.States = Const.State_0;
-                            }
-                            db.SubmitChanges();
-                        }
-                    }
-                    #endregion
-                    #region 吊装作业票
-                    if (strMenuId == Const.ProjectLiftingWorkMenuId)
-                    {
-                        var getLiftingWork = db.License_LiftingWork.FirstOrDefault(x => x.LiftingWorkId == updateFlowOperate.DataId);
-                        if (getLiftingWork != null)
-                        {
-                            getLiftingWork.NextManId = newItem.NextOperaterId;
-                            if (newItem.IsAgree == true)
-                            {
-                                if (boolIsFlowEnd == true)
+                                else
                                 {
-                                    getLiftingWork.NextManId = null;
-                                    getLiftingWork.States = Const.State_2;
-                                    if (getLiftingWork.ValidityStartTime.HasValue && getLiftingWork.ValidityStartTime < DateTime.Now)
+                                    getNightWork.States = Const.State_0;
+                                }
+                                db.SubmitChanges();
+                            }
+                        }
+                        #endregion
+                        #region 吊装作业票
+                        if (strMenuId == Const.ProjectLiftingWorkMenuId)
+                        {
+                            var getLiftingWork = db.License_LiftingWork.FirstOrDefault(x => x.LiftingWorkId == updateFlowOperate.DataId);
+                            if (getLiftingWork != null)
+                            {
+                                getLiftingWork.NextManId = newItem.NextOperaterId;
+                                if (newItem.IsAgree == true)
+                                {
+                                    if (boolIsFlowEnd == true)
                                     {
-                                        int days = 7;
-                                        if (getLiftingWork.ValidityEndTime.HasValue)
+                                        getLiftingWork.NextManId = null;
+                                        getLiftingWork.States = Const.State_2;
+                                        if (getLiftingWork.ValidityStartTime.HasValue && getLiftingWork.ValidityStartTime < DateTime.Now)
                                         {
-                                            days = Convert.ToInt32((getLiftingWork.ValidityEndTime - getLiftingWork.ValidityStartTime).Value.TotalDays);
+                                            int days = 7;
+                                            if (getLiftingWork.ValidityEndTime.HasValue)
+                                            {
+                                                days = Convert.ToInt32((getLiftingWork.ValidityEndTime - getLiftingWork.ValidityStartTime).Value.TotalDays);
+                                            }
+                                            getLiftingWork.ValidityStartTime = DateTime.Now;
+                                            getLiftingWork.ValidityEndTime = DateTime.Now.AddDays(days);
                                         }
-                                        getLiftingWork.ValidityStartTime = DateTime.Now;
-                                        getLiftingWork.ValidityEndTime = DateTime.Now.AddDays(days);
                                     }
                                 }
+                                else
+                                {
+                                    getLiftingWork.States = Const.State_0;
+                                }
+                                db.SubmitChanges();
                             }
-                            else
-                            {
-                                getLiftingWork.States = Const.State_0;
-                            }
-                            db.SubmitChanges();
                         }
+                        #endregion
                     }
                     #endregion
                 }
@@ -2368,10 +2395,10 @@ namespace BLL
         /// <returns></returns>
         public static string SaveLicenseDataReApply(Model.LicenseDataItem newItem)
         {
+            string strLicenseId = newItem.LicenseId;
+            string projectId = newItem.ProjectId;
             using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
-            {
-                string strLicenseId = newItem.LicenseId;
-                string projectId = newItem.ProjectId;
+            {              
                 //// 删除未审核的流程记录
                 var getDelFlows = from x in Funs.DB.License_FlowOperate
                                   where x.DataId == strLicenseId && (!x.IsClosed.HasValue || x.IsClosed == false)
@@ -2472,11 +2499,12 @@ namespace BLL
                 #endregion
 
                 db.SubmitChanges();
-
-                newItem.LicenseId = string.Empty;
-                newItem.States = Const.State_0;
-                return SaveLicenseData(newItem);
             }
+
+            newItem.OldLicenseId = strLicenseId;
+            newItem.LicenseId = string.Empty;
+            newItem.States = Const.State_0;
+            return SaveLicenseData(newItem);
         }
         #endregion
     }
