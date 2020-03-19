@@ -344,6 +344,7 @@ namespace BLL
                                LicenseId = x.LicenseManagerId,
                                MenuId = Const.ProjectLicenseManagerMenuId,
                                MenuName = Funs.DB.Base_LicenseType.FirstOrDefault(y => y.LicenseTypeId == x.LicenseTypeId).LicenseTypeName,
+                               LicenseTypeId = x.LicenseTypeId,
                                ProjectId = x.ProjectId,
                                LicenseCode = x.LicenseManagerCode,
                                ApplyUnitId = x.UnitId,
@@ -683,12 +684,12 @@ namespace BLL
             }
             #endregion
 
-            #region 作业票 【定稿】
+            #region 作业票 【定稿】"待开工"="1";"作业中"="2";"已关闭"="3";"已取消"="-1"
             if (strMenuId == Const.ProjectLicenseManagerMenuId)
             {
                 getInfoList = (from x in Funs.DB.License_LicenseManager
                                where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
-                                    && (states == null || x.States == states)
+                                    && (states == null || x.WorkStates == states || (states=="1" && (x.WorkStates=="1" || x.WorkStates == "0")))
                                select new Model.LicenseDataItem
                                {
                                    LicenseId = x.LicenseManagerId,
@@ -952,10 +953,10 @@ namespace BLL
             }
             #endregion
 
-            #region 作业票定稿
+            #region 作业票【定稿 】"待开工"="1";"作业中"="2";"已关闭"="3";"已取消"="-1"
             var getLicenseManager = (from x in Funs.DB.License_LicenseManager
                                      where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
-                                          && (states == null || x.States == states)
+                                         && (states == null || x.WorkStates == states || (states == "1" && (x.WorkStates == "1" || x.WorkStates == "0")))
                                      select new Model.LicenseDataItem
                                      {
                                          LicenseId = x.LicenseManagerId,
@@ -974,9 +975,9 @@ namespace BLL
                                          States = x.WorkStates,
                                          AttachUrl = APIUpLoadFileService.getFileUrl(x.LicenseManagerId, null),
                                      }).ToList();
-            if (getFireWork.Count() > 0)
+            if (getLicenseManager.Count() > 0)
             {
-                getInfoList.AddRange(getFireWork);
+                getInfoList.AddRange(getLicenseManager);
             }
             #endregion
 
@@ -1091,7 +1092,7 @@ namespace BLL
                         NextManId = newItem.NextManId,
                         States = newItem.States,
                     };
-                   
+
                     if (newItem.States == Const.State_0)
                     {
                         newFireWork.NextManId = newItem.ApplyManId;
@@ -1655,7 +1656,6 @@ namespace BLL
                         UnitId = newItem.ApplyUnitId,
                         ApplicantMan = newItem.ApplyManName,
                         WorkAreaId = newItem.WorkAreaIds,
-                        
                         CompileMan = newItem.ApplyManId,
                         CompileDate = Funs.GetNewDateTime(newItem.ApplyDate),
                         StartDate = Funs.GetNewDateTime(newItem.ValidityStartTime),
@@ -1663,11 +1663,13 @@ namespace BLL
                         WorkStates = newItem.States,
                         States = Const.State_0,
                     };
-                    var getLicenseType = Funs.DB.Base_LicenseType.FirstOrDefault(x => x.LicenseTypeId == newItem.LicenseTypeId);
-                    if (getLicenseType != null)
-                    {
-                        newLicenseManager.LicenseTypeId = newItem.LicenseTypeId;
-                    }
+                    newLicenseManager.LicenseTypeId = string.IsNullOrEmpty(newItem.LicenseTypeId) ? null : newItem.LicenseTypeId;
+                    //var getLicenseType = Funs.DB.Base_LicenseType.FirstOrDefault(x => x.LicenseTypeId == newItem.LicenseTypeId);
+                    //if (getLicenseType != null)
+                    //{
+
+                    //}
+
                     if (newLicenseManager.WorkStates == Const.State_3 || newLicenseManager.WorkStates == Const.State_R)
                     {
                         newLicenseManager.States = Const.State_2;
@@ -1689,11 +1691,11 @@ namespace BLL
                         updateLicenseManager.CompileMan = newLicenseManager.CompileMan;
                         updateLicenseManager.CompileDate = newLicenseManager.CompileDate;
                         updateLicenseManager.StartDate = newLicenseManager.StartDate;
-                        updateLicenseManager.EndDate = newLicenseManager.EndDate;                        
+                        updateLicenseManager.EndDate = newLicenseManager.EndDate;
                         updateLicenseManager.WorkStates = newLicenseManager.WorkStates;
                         updateLicenseManager.States = newLicenseManager.States;
                     }
-                    if (newLicenseManager.States== Const.State_2)
+                    if (newLicenseManager.States == Const.State_2)
                     {
                         CommonService.btnSaveData(newLicenseManager.ProjectId, Const.ProjectLicenseManagerMenuId, newLicenseManager.LicenseManagerId, newLicenseManager.CompileMan, true, newLicenseManager.LicenseManagerCode, "../License/LicenseManagerView.aspx?LicenseManagerId={0}");
                     }
@@ -1712,8 +1714,8 @@ namespace BLL
                         db.SubmitChanges();
                     }
                     ///// 新增安全措施
-                    var getLicenseItemList = newItem.LicenseItems;                    
-                    if (newItem.LicenseItems !=null && getLicenseItemList.Count() > 0)
+                    var getLicenseItemList = newItem.LicenseItems;
+                    if (newItem.LicenseItems != null && getLicenseItemList.Count() > 0)
                     {
                         foreach (var item in getLicenseItemList)
                         {

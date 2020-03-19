@@ -56,7 +56,7 @@ namespace WebAPI.Controllers
         }
         #endregion
 
-        #region  获取专项检查类型及检查项
+        #region  获取专项检查类型及检查项【原】
         /// <summary>
         ///   获取专项检查类型及检查项
         /// </summary>
@@ -95,6 +95,72 @@ namespace WebAPI.Controllers
                 responeData.message = ex.Message;
             }
 
+            return responeData;
+        }
+        #endregion
+
+        #region  获取项目专项检查类型及检查项
+        /// <summary>
+        /// 获取专项检查类型及检查项
+        /// </summary>
+        /// <param name="projectId">项目ID</param>
+        /// <param name="checkType">1-日常检查;2-专项检查;3-综合检查;4-开工前检查;5-季节性/节假日检查</param>
+        /// <param name="supCheckItem">上级菜单</param>
+        /// <returns></returns>
+        public Model.ResponeData getProjectCheckItemSet(string projectId, string checkType, string supCheckItem)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getProjectCheckItemSet(projectId, checkType, supCheckItem);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        /// <summary>
+        ///   获取项目专项检查检查项内容明细
+        /// </summary>
+        /// <param name="type">检查项ID</param>
+        /// <returns></returns>
+        public Model.ResponeData getProjectCheckItemDetails(string type)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getProjectCheckItemDetails(type);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region  获取专项检查处理措施
+        /// <summary>
+        ///   获取专项检查处理措施
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getHandleStep()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getSysConst(ConstValue.Group_HandleStep);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
             return responeData;
         }
         #endregion

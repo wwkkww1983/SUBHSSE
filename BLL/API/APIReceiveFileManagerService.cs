@@ -123,7 +123,7 @@ namespace BLL
                 FilePageNum=newItem.FilePageNum,
                 GetFileDate=Funs.GetNewDateTime(newItem.GetFileDate),
                 SendPersonId = newItem.SendPersonId == "" ? null : newItem.SendPersonId,
-                MainContent = newItem.MainContent,
+                MainContent = System.Web.HttpUtility.HtmlEncode(newItem.MainContent),
                 UnitIds = newItem.UnitIds,
                 States = Const.State_2,
             };

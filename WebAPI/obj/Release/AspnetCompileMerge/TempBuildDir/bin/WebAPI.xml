@@ -562,6 +562,28 @@
             <param name="type">检查项ID</param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getProjectCheckItemSet(System.String,System.String,System.String)">
+            <summary>
+            获取专项检查类型及检查项
+            </summary>
+            <param name="projectId">项目ID</param>
+            <param name="checkType">1-日常检查;2-专项检查;3-综合检查;4-开工前检查;5-季节性/节假日检查</param>
+            <param name="supCheckItem">上级菜单</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getProjectCheckItemDetails(System.String)">
+            <summary>
+              获取项目专项检查检查项内容明细
+            </summary>
+            <param name="type">检查项ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getHandleStep">
+            <summary>
+              获取专项检查处理措施
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.BaseInfoController.getProjectPictureByProjectId(System.String,System.Int32)">
             <summary>
              获项目图片
@@ -951,6 +973,47 @@
             重申请保存作业票信息
             </summary>
             <param name="licenseDataItem">作业票记录</param>
+        </member>
+        <member name="T:WebAPI.Controllers.CheckSpecialController">
+            <summary>
+            专项检查
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.CheckSpecialController.getCheckSpecialById(System.String)">
+            <summary>
+             根据主键ID获取专项检查
+            </summary>
+            <param name="CheckSpecialId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.CheckSpecialController.getCheckSpecialList(System.String,System.String,System.Int32)">
+            <summary>
+            获取专项检查列表信息
+            </summary>
+            <param name="projectId"></param>
+            <param name="states"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.CheckSpecialController.SaveCheckSpecial(Model.CheckSpecialItem)">
+            <summary>
+            保存专项检查 Check_CheckSpecial
+            </summary>
+            <param name="newItem">专项检查</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.CheckSpecialController.getCheckSpecialDetailById(System.String)">
+            <summary>
+             获取专项检查明细项详细
+            </summary>
+            <param name="checkSpecialDetailId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.CheckSpecialController.SaveCheckSpecialDetail(Model.CheckSpecialDetailItem)">
+            <summary>
+            保存专项检查明细项 Check_CheckSpecialDetail
+            </summary>
+            <param name="newItem">专项检查</param>
+            <returns></returns>
         </member>
         <member name="T:WebAPI.Controllers.ReceiveFileManagerController">
             <summary>

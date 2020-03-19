@@ -102,6 +102,7 @@
     <Compile Include="API\APICommonService.cs" />
     <Compile Include="API\APIIDCardInfoService.cs" />
     <Compile Include="API\APIGetHttpService.cs" />
+    <Compile Include="API\APICheckSpecialService.cs" />
     <Compile Include="API\APIReceiveFileManagerService.cs" />
     <Compile Include="API\APIPauseNoticeService.cs" />
     <Compile Include="API\APIRectifyNoticesService.cs" />
