@@ -47,5 +47,30 @@ namespace Model
             get;
             set;
         }
+
+        /// <summary>
+        /// 培训教材明细ID
+        /// </summary>
+        public string CompanyTrainingItemId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 培训教材明细名称
+        /// </summary>
+        public string CompanyTrainingItemName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 培训教材明细编号
+        /// </summary>
+        public string CompanyTrainingItemCode
+        {
+            get;
+            set;
+        }
     }
 }

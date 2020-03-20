@@ -140,7 +140,7 @@ namespace BLL
                     CommonService.DeleteAttachFileById(Const.ProjectCheckSpecialMenuId, newCheckSpecial.CheckSpecialId);
                 }
 
-                ///// 新增安全措施
+                ///// 新增检查项
                 if (newItem.CheckSpecialDetailItems != null && newItem.CheckSpecialDetailItems.Count() > 0)
                 {
                     foreach (var item in newItem.CheckSpecialDetailItems)

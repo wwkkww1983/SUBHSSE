@@ -94,6 +94,7 @@ namespace BLL
         {
             var getDataLists = (from x in Funs.DB.Training_PlanItem
                                 join y in Funs.DB.Training_CompanyTraining on x.CompanyTrainingId equals y.CompanyTrainingId
+                                join z in Funs.DB.Training_CompanyTrainingItem on x.CompanyTrainingItemId equals z.CompanyTrainingItemId
                                 where x.PlanId == trainingPlanId
                                 orderby y.CompanyTrainingCode
                                 select new Model.TrainingPlanItemItem
@@ -103,6 +104,9 @@ namespace BLL
                                     CompanyTrainingId = x.CompanyTrainingId,
                                     CompanyTrainingName = y.CompanyTrainingName,
                                     CompanyTrainingCode = y.CompanyTrainingCode,
+                                    CompanyTrainingItemId=x.CompanyTrainingItemId,
+                                    CompanyTrainingItemCode=z.CompanyTrainingItemCode,
+                                    CompanyTrainingItemName=z.CompanyTrainingItemName,
                                 }).ToList();
             return getDataLists;
         }
@@ -237,13 +241,14 @@ namespace BLL
         {
             foreach (var item in trainingPlanItems)
             {
-                if (!string.IsNullOrEmpty(item.CompanyTrainingId))
+                if (!string.IsNullOrEmpty(item.CompanyTrainingId) || !string.IsNullOrEmpty(item.CompanyTrainingItemId) )
                 {
                     Model.Training_PlanItem newPlanItem = new Model.Training_PlanItem
                     {
                         PlanItemId = SQLHelper.GetNewID(),
                         PlanId = planId,
                         CompanyTrainingId = item.CompanyTrainingId,
+                        CompanyTrainingItemId=item.CompanyTrainingItemId,
                     };
 
                     Funs.DB.Training_PlanItem.InsertOnSubmit(newPlanItem);

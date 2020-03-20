@@ -57,46 +57,52 @@ namespace BLL
         /// <param name="states">状态（0待提交；1-已提交；2：已回复）</param>
         /// <returns></returns>
         public static List<Model.ReceiveFileManagerItem> getReceiveFileManagerList(string projectId, string fileType, string unitId, string states)
-        {            
+        {
             var getReceiveFileManagerItem = (from x in Funs.DB.InformationProject_ReceiveFileManager
-                                         where x.ProjectId == projectId && x.FileType== fileType     &&( x.FileUnitId==unitId || x.UnitIds.Contains(unitId))                                       
-                                         select new Model.ReceiveFileManagerItem
-                                         {
-                                             ReceiveFileManagerId = x.ReceiveFileManagerId,
-                                             ProjectId = x.ProjectId,
-                                             ReceiveFileCode = x.ReceiveFileCode,
-                                             ReceiveFileName = x.ReceiveFileName,
-                                             Version = x.Version,
-                                             FileUnitId = x.FileUnitId,
-                                             FileUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.FileUnitId).UnitName,
-                                             FileCode = x.FileCode,
-                                             FilePageNum = x.FilePageNum,
-                                             GetFileDate = string.Format("{0:yyyy-MM-dd}", x.GetFileDate),
-                                             SendPersonId = x.SendPersonId,
-                                             SendPersonName = Funs.DB.Sys_User.First(u => u.UserId == x.SendPersonId).UserName,
-                                             MainContent = x.MainContent,
-                                             UnitIds = x.UnitIds,
-                                             UnitNames = UnitService.getUnitNamesUnitIds(x.UnitIds),
-                                             FileAttachUrl = APIUpLoadFileService.getFileUrl(x.ReceiveFileManagerId, null),
-                                             ReplyFileAttachUrl = APIUpLoadFileService.getFileUrl(x.ReceiveFileManagerId + "#1", null),
-                                         });
+                                             where x.ProjectId == projectId && x.FileType == fileType
+                                             select new Model.ReceiveFileManagerItem
+                                             {
+                                                 ReceiveFileManagerId = x.ReceiveFileManagerId,
+                                                 ProjectId = x.ProjectId,
+                                                 FileType=x.FileType,
+                                                 ReceiveFileCode = x.ReceiveFileCode,
+                                                 ReceiveFileName = x.ReceiveFileName,
+                                                 Version = x.Version,
+                                                 FileUnitId = x.FileUnitId,
+                                                 FileUnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.FileUnitId).UnitName,
+                                                 FileCode = x.FileCode,
+                                                 FilePageNum = x.FilePageNum,
+                                                 GetFileDate = string.Format("{0:yyyy-MM-dd}", x.GetFileDate),
+                                                 SendPersonId = x.SendPersonId,
+                                                 SendPersonName = Funs.DB.Sys_User.First(u => u.UserId == x.SendPersonId).UserName,
+                                                 MainContent = x.MainContent,
+                                                 UnitIds = x.UnitIds,
+                                                 UnitNames = UnitService.getUnitNamesUnitIds(x.UnitIds),
+                                                 FileAttachUrl = APIUpLoadFileService.getFileUrl(x.ReceiveFileManagerId, null),
+                                                 ReplyFileAttachUrl = APIUpLoadFileService.getFileUrl(x.ReceiveFileManagerId + "#1", null),
+                                                 States = x.States,
+                                             }).AsEnumerable();
             if (getReceiveFileManagerItem.Count() > 0)
             {
+                if (!string.IsNullOrEmpty(unitId) && !CommonService.GetIsThisUnit(unitId))
+                {
+                    getReceiveFileManagerItem = getReceiveFileManagerItem.Where(x => x.FileUnitId == unitId || (x.UnitIds != null && x.UnitIds.Contains(unitId)));
+                }
                 if (states == Const.State_0)
                 {
                     getReceiveFileManagerItem = getReceiveFileManagerItem.Where(x => x.States == Const.State_0 || x.States == null);
                 }
                 else if (states == Const.State_1)
                 {
-                    getReceiveFileManagerItem = getReceiveFileManagerItem.Where(x => x.States == Const.State_1 && (x.ReplyFileAttachUrl == null || x.ReplyFileAttachUrl==""));
+                    getReceiveFileManagerItem = getReceiveFileManagerItem.Where(x => x.States == Const.State_2 && (x.ReplyFileAttachUrl == null || x.ReplyFileAttachUrl == ""));
                 }
                 else if (states == Const.State_2)
                 {
-                    getReceiveFileManagerItem = getReceiveFileManagerItem.Where(x => x.States == Const.State_1 && x.ReplyFileAttachUrl != null && x.ReplyFileAttachUrl == "");
+                    getReceiveFileManagerItem = getReceiveFileManagerItem.Where(x => x.States == Const.State_2 && x.ReplyFileAttachUrl != null && x.ReplyFileAttachUrl != "");
                 }
             }
-            
-            return getReceiveFileManagerItem.OrderByDescending(x=>x.ReceiveFileCode).ToList();
+
+            return getReceiveFileManagerItem.OrderByDescending(x => x.ReceiveFileCode).ToList();
         }
         #endregion
 
@@ -118,15 +124,21 @@ namespace BLL
                 ReceiveFileCode=newItem.ReceiveFileCode,
                 ReceiveFileName=newItem.ReceiveFileName,
                 Version=newItem.Version,
-                FileUnitId = newItem.FileUnitId == "" ? null : newItem.FileUnitId,
                 FileCode = newItem.FileCode,
                 FilePageNum=newItem.FilePageNum,
                 GetFileDate=Funs.GetNewDateTime(newItem.GetFileDate),
-                SendPersonId = newItem.SendPersonId == "" ? null : newItem.SendPersonId,
                 MainContent = System.Web.HttpUtility.HtmlEncode(newItem.MainContent),
                 UnitIds = newItem.UnitIds,
                 States = Const.State_2,
             };
+            if (!string.IsNullOrEmpty(newItem.FileUnitId))
+            {
+                newReceiveFile.FileUnitId = newItem.FileUnitId;
+            }
+            if (!string.IsNullOrEmpty(newItem.SendPersonId))
+            {
+                newReceiveFile.SendPersonId = newItem.SendPersonId;
+            }
             if (newItem.States != "1")
             {
                 newReceiveFile.States = Const.State_0;
@@ -174,11 +186,11 @@ namespace BLL
                 ////保存附件
                 if (!string.IsNullOrEmpty(replyFileAttachUrl))
                 {
-                    UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(replyFileAttachUrl, 10, null), replyFileAttachUrl, Const.ReceiveFileManagerMenuId, getFile.ReceiveFileManagerId);
+                    UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(replyFileAttachUrl, 10, null), replyFileAttachUrl, Const.ReceiveFileManagerMenuId, getFile.ReceiveFileManagerId + "#1");
                 }
                 else
                 {
-                    CommonService.DeleteAttachFileById(Const.ReceiveFileManagerMenuId, getFile.ReceiveFileManagerId);
+                    CommonService.DeleteAttachFileById(Const.ReceiveFileManagerMenuId, getFile.ReceiveFileManagerId + "#1");
                 }
             }
         }

@@ -39,6 +39,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="states"></param>
+        /// <param name="pageIndex"></param>
         /// <returns></returns>
         public Model.ResponeData getCheckSpecialList(string projectId, string states, int pageIndex)
         {

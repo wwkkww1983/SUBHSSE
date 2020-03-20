@@ -63,7 +63,7 @@ namespace BLL
             Model.InformationProject_ReceiveFileManager newReceiveFileManager = db.InformationProject_ReceiveFileManager.FirstOrDefault(e => e.ReceiveFileManagerId == ReceiveFileManager.ReceiveFileManagerId);
             if (newReceiveFileManager != null)
             {
-                newReceiveFileManager.ReceiveFileCode = ReceiveFileManager.ReceiveFileCode;
+               // newReceiveFileManager.ReceiveFileCode = ReceiveFileManager.ReceiveFileCode;
                 newReceiveFileManager.ReceiveFileName = ReceiveFileManager.ReceiveFileName;
                 newReceiveFileManager.Version = ReceiveFileManager.Version;
                 newReceiveFileManager.FileUnitId = ReceiveFileManager.FileUnitId;
