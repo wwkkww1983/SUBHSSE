@@ -229,8 +229,7 @@ namespace BLL
             if (!string.IsNullOrEmpty(newItem.CheckSpecialId))
             {
                 Model.Check_CheckSpecialDetail newCheckSpecialDetail = new Model.Check_CheckSpecialDetail
-                {
-                    CheckSpecialDetailId = SQLHelper.GetNewID(),
+                {                   
                     CheckSpecialId = newItem.CheckSpecialId,
                     CheckItem = newItem.CheckItemSetId,
                     CheckItemType = newItem.CheckItemSetName,
@@ -245,18 +244,40 @@ namespace BLL
                     WorkArea = newItem.WorkArea,
                     CheckContent = newItem.CheckContent
                 };
-
-                Funs.DB.Check_CheckSpecialDetail.InsertOnSubmit(newCheckSpecialDetail);
-                Funs.DB.SubmitChanges();
-
-                ////保存附件
-                if (!string.IsNullOrEmpty(newItem.AttachUrl1))
+                if (!string.IsNullOrEmpty(newItem.UnitId))
                 {
-                    UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(newItem.AttachUrl1, 10, null), newItem.AttachUrl1, Const.ProjectCheckSpecialMenuId, newItem.CheckSpecialDetailId);
+                    newCheckSpecialDetail.UnitId = newItem.UnitId;
+                }
+                var updateDetail = Funs.DB.Check_CheckSpecialDetail.FirstOrDefault(x => x.CheckSpecialDetailId == newItem.CheckSpecialDetailId);
+                if (updateDetail == null)
+                {
+                    newCheckSpecialDetail.CheckSpecialDetailId = SQLHelper.GetNewID();
+                    Funs.DB.Check_CheckSpecialDetail.InsertOnSubmit(newCheckSpecialDetail);
+                    Funs.DB.SubmitChanges();
                 }
                 else
                 {
-                    CommonService.DeleteAttachFileById(Const.ProjectCheckSpecialMenuId, newItem.CheckSpecialDetailId);
+                    updateDetail.CheckItem = newCheckSpecialDetail.CheckItem;
+                    updateDetail.CheckItemType = newCheckSpecialDetail.CheckItemType;
+                    updateDetail.Unqualified = newCheckSpecialDetail.Unqualified;
+                    updateDetail.UnitId = newCheckSpecialDetail.UnitId;
+                    updateDetail.HandleStep = newCheckSpecialDetail.HandleStep;
+                    updateDetail.CompleteStatus = newCheckSpecialDetail.CompleteStatus;
+                    updateDetail.RectifyNoticeId = newCheckSpecialDetail.RectifyNoticeId;
+                    updateDetail.LimitedDate = newCheckSpecialDetail.LimitedDate;
+                    updateDetail.CompletedDate = newCheckSpecialDetail.CompletedDate;
+                    updateDetail.Suggestions = newCheckSpecialDetail.Suggestions;
+                    updateDetail.WorkArea = newCheckSpecialDetail.WorkArea;
+                    updateDetail.CheckContent = newCheckSpecialDetail.CheckContent;
+                }
+                ////保存附件
+                if (!string.IsNullOrEmpty(newItem.AttachUrl1))
+                {
+                    UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(newItem.AttachUrl1, 10, null), newItem.AttachUrl1, Const.ProjectCheckSpecialMenuId, newCheckSpecialDetail.CheckSpecialDetailId);
+                }
+                else
+                {
+                    CommonService.DeleteAttachFileById(Const.ProjectCheckSpecialMenuId, newCheckSpecialDetail.CheckSpecialDetailId);
                 }
             }
         }
