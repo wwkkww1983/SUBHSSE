@@ -241,16 +241,22 @@ namespace BLL
         {
             foreach (var item in trainingPlanItems)
             {
-                if (!string.IsNullOrEmpty(item.CompanyTrainingId) || !string.IsNullOrEmpty(item.CompanyTrainingItemId) )
+                if (!string.IsNullOrEmpty(item.CompanyTrainingId) || !string.IsNullOrEmpty(item.CompanyTrainingItemId))
                 {
                     Model.Training_PlanItem newPlanItem = new Model.Training_PlanItem
                     {
                         PlanItemId = SQLHelper.GetNewID(),
                         PlanId = planId,
-                        CompanyTrainingId = item.CompanyTrainingId,
-                        CompanyTrainingItemId=item.CompanyTrainingItemId,
-                    };
 
+                    };
+                    if (!string.IsNullOrEmpty(item.CompanyTrainingId))
+                    {
+                        newPlanItem.CompanyTrainingId = item.CompanyTrainingId;
+                    }
+                    if (!string.IsNullOrEmpty(item.CompanyTrainingItemId))
+                    {
+                        newPlanItem.CompanyTrainingItemId = item.CompanyTrainingItemId;
+                    }
                     Funs.DB.Training_PlanItem.InsertOnSubmit(newPlanItem);
                     Funs.SubmitChanges();
                 }

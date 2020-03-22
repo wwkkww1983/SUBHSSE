@@ -99,6 +99,7 @@
     <Compile Include="Administrative\ManageCheckService.cs" />
     <Compile Include="Administrative\DriverManagerService.cs" />
     <Compile Include="API\APIChartAnalysisService.cs" />
+    <Compile Include="API\APISeDinMonthReportService.cs" />
     <Compile Include="API\APICommonService.cs" />
     <Compile Include="API\APIIDCardInfoService.cs" />
     <Compile Include="API\APIGetHttpService.cs" />

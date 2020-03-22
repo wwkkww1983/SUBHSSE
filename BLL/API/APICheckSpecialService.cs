@@ -179,7 +179,8 @@ namespace BLL
                               HandleStepName=Funs.DB.Sys_Const.First(y=>y.GroupId== ConstValue.Group_HandleStep && y.ConstValue==x.HandleStep).ConstText,
                               LimitedDate = string.Format("{0:yyyy-MM-dd}", x.LimitedDate),
                               CompleteStatus = x.CompleteStatus,
-                              CompleteStatusName = x.CompleteStatus==true?"已完成":"待完成",                              
+                              CompleteStatusName = x.CompleteStatus==true?"已完成":"待完成",    
+                              CompletedDate= string.Format("{0:yyyy-MM-dd}", x.CompletedDate),
                               AttachUrl1 = APIUpLoadFileService.getFileUrl(x.CheckSpecialDetailId, null),
                           };
             return getInfo.ToList();
@@ -229,7 +230,7 @@ namespace BLL
             {
                 Model.Check_CheckSpecialDetail newCheckSpecialDetail = new Model.Check_CheckSpecialDetail
                 {
-                    CheckSpecialDetailId = newItem.CheckSpecialDetailId,
+                    CheckSpecialDetailId = SQLHelper.GetNewID(),
                     CheckSpecialId = newItem.CheckSpecialId,
                     CheckItem = newItem.CheckItemSetId,
                     CheckItemType = newItem.CheckItemSetName,
@@ -244,10 +245,7 @@ namespace BLL
                     WorkArea = newItem.WorkArea,
                     CheckContent = newItem.CheckContent
                 };
-                if (string.IsNullOrEmpty(newCheckSpecialDetail.CheckSpecialDetailId))
-                {
-                    newCheckSpecialDetail.CheckSpecialDetailId = SQLHelper.GetNewID();
-                }
+
                 Funs.DB.Check_CheckSpecialDetail.InsertOnSubmit(newCheckSpecialDetail);
                 Funs.DB.SubmitChanges();
 

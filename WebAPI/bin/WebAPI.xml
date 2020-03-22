@@ -800,6 +800,33 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:WebAPI.Controllers.SeDinMonthReportController">
+            <summary>
+            赛鼎月报
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.SeDinMonthReportController.getSeDinMonthReportById(System.String)">
+            <summary>
+             根据主键ID获取赛鼎月报
+            </summary>
+            <param name="monthReportId">月报主键ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.SeDinMonthReportController.getSeDinMonthReportList(System.String,System.Int32)">
+            <summary>
+            获取赛鼎月报列表信息
+            </summary>
+            <param name="projectId">项目ID</param>
+            <param name="pageIndex">页数</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.SeDinMonthReportController.SaveSeDinMonthReport(Model.SeDinMonthReportItem)">
+            <summary>
+            保存赛鼎月报
+            </summary>
+            <param name="newItem">赛鼎月报</param>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.HSEMonthController">
             <summary>
             HSE管理月报

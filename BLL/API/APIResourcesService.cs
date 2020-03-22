@@ -127,6 +127,7 @@ namespace BLL
                                   BaseInfoCode = x.CompanyTrainingItemCode,
                                   BaseInfoName = x.CompanyTrainingItemName,
                                   ImageUrl = APIUpLoadFileService.getFileUrl(x.CompanyTrainingItemId, x.AttachUrl),
+                                  
                               };
             return getDataInfo.FirstOrDefault();
         }

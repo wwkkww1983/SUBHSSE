@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIItem\SeDinMonthReportItem.cs" />
     <Compile Include="APIItem\CheckSpecialDetailItem.cs" />
     <Compile Include="APIItem\CheckSpecialItem.cs" />
     <Compile Include="APIItem\ReceiveFileManagerItem.cs" />
