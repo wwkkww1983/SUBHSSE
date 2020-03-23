@@ -16,14 +16,15 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="projectId">项目ID</param>
         /// <param name="month">月份</param>
+        ///  <param name="states">状态0-待提交；1-已提交</param>
         /// <param name="pageIndex">页码</param>
         /// <returns></returns>
-        public Model.ResponeData getSeDinMonthReportList(string projectId,string month, int pageIndex)
+        public Model.ResponeData getSeDinMonthReportList(string projectId,string month, string states, int pageIndex)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = APISeDinMonthReportService.getSeDinMonthReportList(projectId, month);
+                var getDataList = APISeDinMonthReportService.getSeDinMonthReportList(projectId, month, states);
                 int pageCount = getDataList.Count();
                 if (pageCount > 0 && pageIndex > 0)
                 {

@@ -14,11 +14,11 @@ namespace BLL
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        public static List<Model.SeDinMonthReportItem> getSeDinMonthReportList(string projectId, string month)
+        public static List<Model.SeDinMonthReportItem> getSeDinMonthReportList(string projectId, string states, string month)
         {
             var monthD=Funs.GetNewDateTime(month);
             var getSeDinMonthReport = from x in Funs.DB.SeDin_MonthReport
-                                      where x.ProjectId == projectId 
+                                      where x.ProjectId == projectId && (x.States ==states ||(states == null && x.States =="0")) 
                                       && (!monthD.HasValue || (monthD.HasValue && x.ReporMonth.Value.Year== monthD.Value.Year && x.ReporMonth.Value.Month == monthD.Value.Month))
                                       orderby x.ReporMonth descending
                                       select new Model.SeDinMonthReportItem
@@ -237,6 +237,7 @@ namespace BLL
                     CompileManId = newItem.CompileManId,
                     AuditManId = newItem.AuditManId,
                     ApprovalManId = newItem.ApprovalManId,
+                    States =newItem.States,
                     ThisSummary = System.Web.HttpUtility.HtmlEncode(newItem.ThisSummary),
                     NextPlan = System.Web.HttpUtility.HtmlEncode(newItem.NextPlan),
                 };              

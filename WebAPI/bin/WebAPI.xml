@@ -805,12 +805,13 @@
             赛鼎月报
             </summary>
         </member>
-        <member name="M:WebAPI.Controllers.SeDinMonthReportController.getSeDinMonthReportList(System.String,System.String,System.Int32)">
+        <member name="M:WebAPI.Controllers.SeDinMonthReportController.getSeDinMonthReportList(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取赛鼎月报列表信息
             </summary>
             <param name="projectId">项目ID</param>
             <param name="month">月份</param>
+             <param name="states">状态0-待提交；1-已提交</param>
             <param name="pageIndex">页码</param>
             <returns></returns>
         </member>

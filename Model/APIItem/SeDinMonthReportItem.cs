@@ -122,5 +122,13 @@ namespace Model
             get;
             set;
         }
+        /// <summary>
+        ///  状态（0-待提交；1-已提交）
+        /// </summary>
+        public string States
+        {
+            get;
+            set;
+        }
     }
 }
