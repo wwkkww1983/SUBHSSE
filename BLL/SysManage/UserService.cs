@@ -80,6 +80,26 @@ namespace BLL
         }
 
         /// <summary>
+        /// 根据用户获取用户名称
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static string GetUserNameAndTelByUserId(string userId)
+        {
+            string userName = string.Empty;
+            Model.Sys_User user = Funs.DB.Sys_User.FirstOrDefault(e => e.UserId == userId);
+            if (user != null)
+            {
+                userName = user.UserName ;
+                if (!string.IsNullOrEmpty(user.Telephone))
+                {
+                    userName += "；" + user.Telephone;
+                }
+            }
+
+            return userName;
+        }
+        /// <summary>
         /// 修改密码
         /// </summary>
         /// <param name="userId"></param>

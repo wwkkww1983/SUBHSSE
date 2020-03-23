@@ -59,6 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIItem\SeDinMonthReport2Item.cs" />
+    <Compile Include="APIItem\SeDinMonthReport1Item.cs" />
     <Compile Include="APIItem\SeDinMonthReportItem.cs" />
     <Compile Include="APIItem\CheckSpecialDetailItem.cs" />
     <Compile Include="APIItem\CheckSpecialItem.cs" />

@@ -248,6 +248,7 @@ namespace BLL
                 {
                     newCheckSpecialDetail.UnitId = newItem.UnitId;
                 }
+                
                 var updateDetail = Funs.DB.Check_CheckSpecialDetail.FirstOrDefault(x => x.CheckSpecialDetailId == newItem.CheckSpecialDetailId);
                 if (updateDetail == null)
                 {
@@ -257,6 +258,7 @@ namespace BLL
                 }
                 else
                 {
+                    newCheckSpecialDetail.CheckSpecialDetailId = updateDetail.CheckSpecialDetailId;
                     updateDetail.CheckItem = newCheckSpecialDetail.CheckItem;
                     updateDetail.CheckItemType = newCheckSpecialDetail.CheckItemType;
                     updateDetail.Unqualified = newCheckSpecialDetail.Unqualified;
@@ -269,6 +271,7 @@ namespace BLL
                     updateDetail.Suggestions = newCheckSpecialDetail.Suggestions;
                     updateDetail.WorkArea = newCheckSpecialDetail.WorkArea;
                     updateDetail.CheckContent = newCheckSpecialDetail.CheckContent;
+                    Funs.DB.SubmitChanges();
                 }
                 ////保存附件
                 if (!string.IsNullOrEmpty(newItem.AttachUrl1))
