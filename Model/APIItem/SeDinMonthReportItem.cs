@@ -130,5 +130,22 @@ namespace Model
             get;
             set;
         }
+
+        /// <summary>
+        ///  事故综述
+        /// </summary>
+        public string AccidentsSummary
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        ///  3、项目HSE事故、事件统计
+        /// </summary>
+        public List<Model.SeDinMonthReport3Item> SeDinMonthReport3Item
+        {
+            get;
+            set;
+        }
     }
 }

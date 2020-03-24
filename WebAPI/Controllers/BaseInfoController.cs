@@ -906,5 +906,26 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region 获取事故类型 -事故登记
+        /// <summary>
+        ///   获取事故类型-事故登记
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getAccidentReportRegistration()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getSysConst(ConstValue.Group_AccidentReportRegistration);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
     }
 }

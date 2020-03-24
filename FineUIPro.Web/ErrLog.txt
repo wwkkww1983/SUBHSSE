@@ -1,1 +1,18 @@
 ﻿
+错误信息开始=====>
+错误类型:NullReferenceException
+错误信息:未将对象引用设置到对象的实例。
+错误堆栈:
+   在 FineUIPro.Web.Accident.AccidentReport.GetButtonPower() 位置 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\Accident\AccidentReport.aspx.cs:行号 267
+   在 FineUIPro.Web.Accident.AccidentReport.Page_Load(Object sender, EventArgs e) 位置 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\Accident\AccidentReport.aspx.cs:行号 40
+   在 System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   在 System.EventHandler.Invoke(Object sender, EventArgs e)
+   在 System.Web.UI.Control.OnLoad(EventArgs e)
+   在 System.Web.UI.Control.LoadRecursive()
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:03/24/2020 17:04:37
+出错文件:http://localhost/SUBHSSE/Accident/AccidentReport.aspx
+IP地址:::1
+
+出错时间:03/24/2020 17:04:37
+

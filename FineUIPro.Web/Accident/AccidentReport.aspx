@@ -22,8 +22,8 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
-                            <f:TextBox runat="server" Label="事故报告编号" ID="txtAccidentReportCode" EmptyText="输入查询条件"
-                                Width="300px" LabelWidth="100px"
+                            <f:TextBox runat="server" Label="编号" ID="txtAccidentReportCode" EmptyText="输入查询条件"
+                                Width="300px" LabelWidth="80px"
                                 LabelAlign="right">
                             </f:TextBox>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
@@ -50,11 +50,11 @@
                     <f:RenderField Width="150px" ColumnID="Abstract" DataField="Abstract" SortField="Abstract"
                         FieldType="String" HeaderText="提要" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="AccidentDate" DataField="AccidentDate" SortField="AccidentDate"
+                    <f:RenderField Width="100px" ColumnID="AccidentDate" DataField="AccidentDate" SortField="AccidentDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="发生时间"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="AuditDate" DataField="AuditDate" SortField="AuditDate"
+                    <f:RenderField Width="120px" ColumnID="AuditDate" DataField="AuditDate" SortField="AuditDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="审核完成日期"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
@@ -88,7 +88,7 @@
                         SortField="CompileManName" FieldType="String" HeaderText="报告编制" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
+                    <f:RenderField Width="100px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="日期"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
