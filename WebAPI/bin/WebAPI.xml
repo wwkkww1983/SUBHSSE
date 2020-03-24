@@ -853,7 +853,7 @@
             <param name="newItem">赛鼎月报</param>
             <returns></returns>
         </member>
-        <member name="M:WebAPI.Controllers.SeDinMonthReportController.SaveSeDinMonthReport2(Model.SeDinMonthReportItem)">
+        <member name="M:WebAPI.Controllers.SeDinMonthReportController.SaveSeDinMonthReport3(Model.SeDinMonthReportItem)">
             <summary>
             保存赛鼎月报
             </summary>

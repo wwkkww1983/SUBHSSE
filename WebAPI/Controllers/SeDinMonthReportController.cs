@@ -90,6 +90,15 @@ namespace WebAPI.Controllers
 
                     responeData.data = getInfo;
                 }
+                else if (pageNum == "4") ////2、项目安全工时统计
+                {
+                    var getLists= APISeDinMonthReportService.getSeDinMonthReport4ById(projectId, month);
+                    if (getLists.Count() == 0)
+                    {
+                        getLists = APISeDinMonthReportService.getSeDinMonthReportNullPage4(projectId, month, startDate, endDate);
+                    }
+                    responeData.data = getLists;
+                }
                 else ////13、14、本月HSE活动综述、下月HSE工作计划
                 {
                     responeData.data = APISeDinMonthReportService.getSeDinMonthReport13ById(projectId, month); ;
@@ -201,7 +210,7 @@ namespace WebAPI.Controllers
         /// <param name="newItem">赛鼎月报</param>
         /// <returns></returns>
         [HttpPost]
-        public Model.ResponeData SaveSeDinMonthReport2([FromBody] Model.SeDinMonthReportItem newItem)
+        public Model.ResponeData SaveSeDinMonthReport3([FromBody] Model.SeDinMonthReportItem newItem)
         {
             var responeData = new Model.ResponeData();
             try
