@@ -82,5 +82,29 @@ namespace Model
             get;
             set;
         }
+        /// <summary>
+        /// 合同额
+        /// </summary>
+        public string ContractAmount
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 所处的施工阶段
+        /// </summary>
+        public string ConstructionStage
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 项目所在地
+        /// </summary>
+        public string ProjectAddress
+        {
+            get;
+            set;
+        }
     }
 }

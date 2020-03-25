@@ -109,6 +109,7 @@ namespace BLL
                               EndDate = string.Format("{0:yyyy-MM-dd}", x.EndDate),
                               ProjectManager=UserService.GetUserNameAndTelByUserId(projectManagerId),
                               HsseManager = UserService.GetUserNameAndTelByUserId(hsseManagerId),
+                              ProjectAddress = x.ProjectAddress,
                           };
             
             return newItem.FirstOrDefault();
@@ -272,22 +273,23 @@ namespace BLL
                 getInfo = (from x in Funs.DB.SeDin_MonthReport
                            where x.ProjectId == projectId && x.ReporMonth.Value.Year == monthD.Value.Year && x.ReporMonth.Value.Month == monthD.Value.Month
                            select new Model.SeDinMonthReportItem
-                              {
-                                  MonthReportId = x.MonthReportId,
-                                  ProjectId = x.ProjectId,
-                                  DueDate = string.Format("{0:yyyy-MM-dd}", x.DueDate),
-                                  StartDate = string.Format("{0:yyyy-MM-dd}", x.StartDate),
-                                  EndDate = string.Format("{0:yyyy-MM-dd}", x.EndDate),
-                                  ReporMonth = string.Format("{0:yyyy-MM}", x.ReporMonth),
-                                  CompileManId = x.CompileManId,
-                                  CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileManId).UserName,
-                                  AuditManId = x.AuditManId,
-                                  AuditManName = Funs.DB.Sys_User.First(u => u.UserId == x.AuditManId).UserName,
-                                  ApprovalManId = x.ApprovalManId,
-                                  ApprovalManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApprovalManId).UserName,
-                                  ThisSummary = x.ThisSummary,
-                                  NextPlan = x.NextPlan,
-                              }).FirstOrDefault();
+                           {
+                               MonthReportId = x.MonthReportId,
+                               ProjectId = x.ProjectId,
+                               DueDate = string.Format("{0:yyyy-MM-dd}", x.DueDate),
+                               StartDate = string.Format("{0:yyyy-MM-dd}", x.StartDate),
+                               EndDate = string.Format("{0:yyyy-MM-dd}", x.EndDate),
+                               ReporMonth = string.Format("{0:yyyy-MM}", x.ReporMonth),
+                               CompileManId = x.CompileManId,
+                               CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileManId).UserName,
+                               AuditManId = x.AuditManId,
+                               AuditManName = Funs.DB.Sys_User.First(u => u.UserId == x.AuditManId).UserName,
+                               ApprovalManId = x.ApprovalManId,
+                               ApprovalManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApprovalManId).UserName,                             
+                               ThisSummary = x.ThisSummary,
+                               NextPlan = x.NextPlan,
+
+                           }).FirstOrDefault();
             }
 
             return getInfo;
@@ -320,6 +322,9 @@ namespace BLL
                                EndDate = string.Format("{0:yyyy-MM-dd}", x.EndDate),
                                ProjectManager = x.ProjectManager,
                                HsseManager = x.HsseManager,
+                               ContractAmount = x.ContractAmount,
+                               ConstructionStage = x.ConstructionStage,
+                               ProjectAddress = x.ProjectAddress,
                            }).FirstOrDefault();
             }
             return getInfo;
@@ -490,7 +495,7 @@ namespace BLL
                     DueDate = Funs.GetNewDateTime(newItem.DueDate),
                     StartDate = Funs.GetNewDateTime(newItem.StartDate),
                     EndDate = Funs.GetNewDateTime(newItem.EndDate),
-                    ReporMonth = Funs.GetNewDateTime(newItem.ReporMonth),                   
+                    ReporMonth = Funs.GetNewDateTime(newItem.ReporMonth),
                     States =newItem.States,
                     ThisSummary = System.Web.HttpUtility.HtmlEncode(newItem.ThisSummary),
                     NextPlan = System.Web.HttpUtility.HtmlEncode(newItem.NextPlan),
@@ -551,6 +556,9 @@ namespace BLL
                     EndDate = Funs.GetNewDateTime(newItem.EndDate),
                     ProjectManager = newItem.ProjectManager,
                     HsseManager = newItem.HsseManager,
+                    ContractAmount = newItem.ContractAmount,
+                    ConstructionStage = newItem.ConstructionStage,
+                    ProjectAddress = newItem.ProjectAddress,
                 };
                 var updateReport = db.SeDin_MonthReport1.FirstOrDefault(x => x.MonthReportId == newItem.MonthReportId );
                 if (updateReport == null)
@@ -568,6 +576,9 @@ namespace BLL
                     updateReport.EndDate = newReport.EndDate;
                     updateReport.ProjectManager = newReport.ProjectManager;
                     updateReport.HsseManager = newReport.HsseManager;
+                    updateReport.ContractAmount = newReport.ContractAmount;
+                    updateReport.ConstructionStage = newReport.ConstructionStage;
+                    updateReport.ProjectAddress = newReport.ProjectAddress;
                 }
                 db.SubmitChanges();
                 return newReport.MonthReportId;

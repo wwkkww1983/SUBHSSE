@@ -147,11 +147,20 @@ namespace FineUIPro.Web.AttachFile
                         try
                         {
                             string savedName = item.Value<string>("savedName");
-                            string url = BLL.Funs.RootPath + AttachPath + "\\" + savedName;                            
+                            string folder = item.Value<string>("folder");
+                            string url = Funs.RootPath + AttachPath + "\\" + savedName;
+                            if (!string.IsNullOrEmpty(folder))
+                            {
+                                url = Funs.RootPath + folder + savedName;
+                            }
+                            if (savedName.Contains("FileUpLoad"))
+                            {
+                                url = Funs.RootPath + savedName.Replace('/','\\');
+                            }
                             FileInfo info = new FileInfo(url);                           
                             if (!info.Exists || string.IsNullOrEmpty(savedName))
                             {
-                                url = BLL.Funs.RootPath + "Images//Null.jpg";
+                                url = Funs.RootPath + "Images//Null.jpg";
                                 info = new FileInfo(url);
                             }
                             

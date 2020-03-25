@@ -345,7 +345,7 @@ namespace BLL
             string attachSource = string.Empty;
             if (!string.IsNullOrEmpty(attachUrl))
             {
-                attachUrl= attachUrl.Replace('\\', '/');
+                attachUrl= attachUrl.Replace('/', '\\');
                 var allUrl = Funs.GetStrListByStr(attachUrl, ',');
                 foreach (var item in allUrl)
                 {
@@ -354,12 +354,13 @@ namespace BLL
                     {
                         strInt = item.LastIndexOf("\\");
                     }
+                    string folder = item.Substring(0,strInt + 1).Replace('\\', '/');
                     string name = item.Substring(strInt + 1);
                     string type = item.Substring(item.LastIndexOf(".") + 1);
                     string savedName = item.Substring(item.LastIndexOf("\\") + 1);
 
                     string id = SQLHelper.GetNewID(typeof(Model.AttachFile));
-                    attachSource += "{    \"name\": \"" + name + "\",    \"type\": \"" + type + "\",    \"savedName\": \"" + savedName
+                    attachSource += "{    \"name\": \"" + name + "\",  \"folder\": \"" + folder + "\",    \"type\": \"" + type + "\",    \"savedName\": \"" + savedName
                         + "\",    \"size\": " + size + ",    \"id\": \"" + SQLHelper.GetNewID(typeof(Model.AttachFile)) + "\"  }@";
                 }
                 attachSource = attachSource.Substring(0, attachSource.LastIndexOf("@")).Replace("@", ",");

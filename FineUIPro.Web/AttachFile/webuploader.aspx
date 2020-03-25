@@ -47,8 +47,7 @@
                     ExpandUnusedSpace="True" CommandName="Attach" EnableAjax="false" />
                 <f:BoundField ColumnID="FileType" DataField="type" HeaderText="类型" Width="100px" />
                 <f:RenderField ColumnID="FileSize" DataField="size" HeaderText="大小" Renderer="FileSize" Width="90px" />
-                <f:BoundField ColumnID='FileStatus' DataField="status" NullDisplayText="已完成" HeaderText="状态" Width="90px" />
-               
+                <f:BoundField ColumnID='FileStatus' DataField="status" NullDisplayText="已完成" HeaderText="状态" Width="90px" />               
                 <f:LinkButtonField Width="60px" ConfirmText="你确定要删除这个文件吗？" ConfirmTarget="Parent" Text="删除"
                    HeaderText="删除"  CommandName="Delete" IconUrl="~/res/icon/delete.png" Hidden="true"/>
             </Columns>

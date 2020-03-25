@@ -106,6 +106,7 @@ namespace Model
             get;
             set;
         }
+        
         /// <summary>
         /// 本月HSE活动综述
         /// </summary>
