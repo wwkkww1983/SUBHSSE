@@ -228,12 +228,19 @@ namespace FineUIPro.Web.SysManage
         /// <returns></returns>
         private void GetButtonPower()
         {
-            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.UserMenuId);
-            if (buttonList.Count() > 0)
+            if (!string.IsNullOrEmpty(this.CurrUser.LoginProjectId))
             {
-                if (buttonList.Contains(BLL.Const.BtnSave))
+                this.btnSave.Hidden = false;
+            }
+            else
+            {
+                var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.UserMenuId);
+                if (buttonList.Count() > 0)
                 {
-                    this.btnSave.Hidden = false;
+                    if (buttonList.Contains(BLL.Const.BtnSave))
+                    {
+                        this.btnSave.Hidden = false;
+                    }
                 }
             }
         }

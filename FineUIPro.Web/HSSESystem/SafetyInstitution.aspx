@@ -52,23 +52,23 @@
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="140px" ColumnID="SafetyInstitutionName" DataField="SafetyInstitutionName"
+                    <f:RenderField Width="140px" ColumnID="SafetyInstitutionName" DataField="SafetyInstitutionName" ExpandUnusedSpace="True"
                         SortField="SafetyInstitutionName" FieldType="String" HeaderText="制度名称" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="150px" ColumnID="EffectiveDate" DataField="EffectiveDate" SortField="EffectiveDate"
+                    <f:RenderField Width="100px" ColumnID="EffectiveDate" DataField="EffectiveDate" SortField="EffectiveDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="发布日期"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="250px" ColumnID="Scope" DataField="Scope" SortField="Scope"
+                    <f:RenderField Width="200px" ColumnID="Scope" DataField="Scope" SortField="Scope"
                         FieldType="String" HeaderText="使用范围" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="350px" ColumnID="Remark" DataField="Remark" SortField="Remark"
+                    <f:RenderField Width="150px" ColumnID="Remark" DataField="Remark" SortField="Remark"
                         FieldType="String" HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:WindowField TextAlign="Left" Width="160px" WindowID="WindowAtt" HeaderText="附件"
+                    <f:WindowField TextAlign="Left" Width="80px" WindowID="WindowAtt" HeaderText="附件"
                         Text="上传查看" ToolTip="附件上传查看" DataIFrameUrlFields="SafetyInstitutionId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SafetyInstitutionAttachUrl&menuId=499E23C1-057C-4B04-B92A-973B1DACD546"
-                        ExpandUnusedSpace="True" HeaderTextAlign="Center" />
+                         HeaderTextAlign="Center" />
                 </Columns>
                 <Listeners>
                     <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />

@@ -179,6 +179,59 @@ namespace WebAPI.Controllers
         #endregion
         #endregion
 
+        #region 公司制度
+        #region  获取公司制度列表
+        /// <summary>
+        /// 获取公司制度列表
+        /// </summary>
+        /// <param name="pageIndex">分页</param>
+        /// <returns></returns>
+        public Model.ResponeData getCompanySafetyInstitutionList( int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APIResourcesService.getCompanySafetyInstitutionList();
+                int pageCount = getDataList.Count;
+                if (pageCount > 0 && pageIndex > 0)
+                {
+                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                }
+                responeData.data = new { pageCount, getDataList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 获取公司制度详细信息
+        /// <summary>
+        /// 获取公司制度详细信息
+        /// </summary>
+        /// <param name="safetyInstitutionId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getCompanySafetyInstitutionInfo(string safetyInstitutionId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIResourcesService.getCompanySafetyInstitutionInfo(safetyInstitutionId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+        #endregion
+
         #region 考试试题
         #region 根据父级类型ID获取考试试题类型
         /// <summary>

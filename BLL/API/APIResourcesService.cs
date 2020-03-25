@@ -133,6 +133,46 @@ namespace BLL
         }
         #endregion
 
+        #region 公司制度
+        /// <summary>
+        /// 获取公司制度列表
+        /// </summary>
+        /// <param name="trainingId"></param>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getCompanySafetyInstitutionList()
+        {
+            var getDataLists = (from x in Funs.DB.HSSESystem_SafetyInstitution
+                                orderby x.EffectiveDate descending
+                                select new Model.BaseInfoItem
+                                {
+                                    BaseInfoId = x.SafetyInstitutionId,
+                                    BaseInfoCode = string.Format("{0:yyyy-MM-dd}", x.EffectiveDate),
+                                    BaseInfoName = x.SafetyInstitutionName,
+                                    ImageUrl =APIUpLoadFileService.getFileUrl(x.SafetyInstitutionId,x.AttachUrl),
+                                }).ToList();
+            return getDataLists;
+        }
+
+        /// <summary>
+        /// 获取公司制度详细信息
+        /// </summary>
+        /// <param name="safetyInstitutionId"></param>
+        /// <returns></returns>
+        public static Model.BaseInfoItem getCompanySafetyInstitutionInfo(string safetyInstitutionId)
+        {
+            var getDataInfo = from x in Funs.DB.HSSESystem_SafetyInstitution
+                              where x.SafetyInstitutionId == safetyInstitutionId
+                              select new Model.BaseInfoItem
+                              {
+                                  BaseInfoId = x.SafetyInstitutionId,
+                                  BaseInfoCode = string.Format("{0:yyyy-MM-dd}", x.EffectiveDate),
+                                  BaseInfoName = x.SafetyInstitutionName,
+                                  ImageUrl = APIUpLoadFileService.getFileUrl(x.SafetyInstitutionId, x.AttachUrl),
+                              };
+            return getDataInfo.FirstOrDefault();
+        }
+        #endregion
+
         #region 考试试题
         /// <summary>
         /// 根据父级类型ID获取考试试题类型

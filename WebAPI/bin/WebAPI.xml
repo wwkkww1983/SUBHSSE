@@ -1852,6 +1852,20 @@
             <param name="trainingItemId"></param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.ResourcesController.getCompanySafetyInstitutionList(System.Int32)">
+            <summary>
+            获取公司制度列表
+            </summary>
+            <param name="pageIndex">分页</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.ResourcesController.getCompanySafetyInstitutionInfo(System.String)">
+            <summary>
+            获取公司制度详细信息
+            </summary>
+            <param name="safetyInstitutionId"></param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.ResourcesController.getTestTrainingListBySupTrainingId(System.String,System.Int32)">
             <summary>
             根据父级类型ID获取考试试题类型
