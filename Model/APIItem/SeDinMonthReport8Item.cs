@@ -98,5 +98,13 @@ namespace Model
             get;
             set;
         }
+        /// <summary>
+        /// 班组会议-明细表
+        /// </summary>
+        public List<Model.SeDinMonthReport8ItemItem> SeDinMonthReport8ItemItem
+        {
+            get;
+            set;
+        }
     }
 }

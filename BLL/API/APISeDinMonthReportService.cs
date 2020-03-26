@@ -335,6 +335,87 @@ namespace BLL
             return getLists;
         }
         #endregion
+        #region  获取赛鼎月报初始化页面 --7、项目HSE培训统计
+        /// <summary>
+        /// 获取赛鼎月报初始化页面 --7、项目HSE培训统计
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Model.SeDinMonthReport7Item getSeDinMonthReportNullPage7(string projectId, string month, string startDate, string endDate)
+        {
+            var startDateD = Funs.GetNewDateTime(startDate);
+            var endDateD = Funs.GetNewDateTime(endDate);
+            var getLists = new Model.SeDinMonthReport7Item
+            {
+                SpecialMontNum = 0,
+                SpecialYearNum = 0,
+                SpecialTotalNum = 0,
+                SpecialMontPerson = 0,
+                SpecialYearPerson = 0,
+                SpecialTotalPerson = 0,
+                EmployeeMontNum = 0,
+                EmployeeYearNum = 0,
+                EmployeeTotalNum = 0,
+                EmployeeMontPerson = 0,
+                EmployeeYearPerson = 0,
+                EmployeeTotalPerson = 0,
+            };
+            return getLists;
+        }
+        #endregion
+        #region  获取赛鼎月报初始化页面 --8、项目HSE会议统计
+        /// <summary>
+        /// 获取赛鼎月报初始化页面 --8、项目HSE会议统计
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Model.SeDinMonthReport8Item getSeDinMonthReportNullPage8(string projectId, string month, string startDate, string endDate)
+        {
+            var nowDate = System.DateTime.Now;
+            Model.SeDinMonthReport8Item newItem = new Model.SeDinMonthReport8Item
+            {
+                WeekMontNum=0,
+                WeekTotalNum = 0,
+                WeekMontPerson = 0,
+                MonthMontNum = 0,
+                MonthTotalNum = 0,
+                MonthMontPerson = 0,
+                SpecialMontNum = 0,
+                SpecialTotalNum = 0,
+                SpecialMontPerson = 0,
+                SeDinMonthReport8ItemItem = getSeDinMonthReport8ItemNull(projectId, month, startDate, endDate)
+            };
+            return newItem;
+        }
+
+        /// <summary>
+        ///  获取项目HSE会议统计明细
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.SeDinMonthReport8ItemItem> getSeDinMonthReport8ItemNull(string projectId, string month, string startDate, string endDate)
+        {
+            var startDateD = Funs.GetNewDateTime(startDate);
+            var endDateD = Funs.GetNewDateTime(endDate);
+            List<Model.SeDinMonthReport8ItemItem> getLists = new List<Model.SeDinMonthReport8ItemItem>();
+            var getUnits = from x in Funs.DB.Base_Unit
+                                         join y in Funs.DB.Project_ProjectUnit on x.UnitId equals y.UnitId
+                                         where y.ProjectId == projectId
+                                         select x;
+            foreach (var item in getUnits)
+            {
+                Model.SeDinMonthReport8ItemItem newItem = new Model.SeDinMonthReport8ItemItem
+                {
+                    UnitName = item.UnitName,
+                    TeamName=null,
+                    ClassNum=0,
+                    ClassPersonNum=0,
+                };
+                getLists.Add(newItem);
+            }
+
+            return getLists.OrderBy(x=>x.UnitName).ToList();
+        }
+        #endregion
         #endregion
 
         #region 获取赛鼎月报详细
@@ -607,6 +688,98 @@ namespace BLL
                            }).FirstOrDefault();
             }
             return getInfo;
+        }
+        #endregion
+        #region  获取赛鼎月报详细 --7、项目HSE培训统计
+        /// <summary>
+        /// 获取赛鼎月报详细 --7、项目HSE培训统计
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="month"></param>
+        /// <returns></returns>
+        public static Model.SeDinMonthReport7Item getSeDinMonthReport7ById(string projectId, string month)
+        {
+            var monthD = Funs.GetNewDateTime(month);
+            Model.SeDinMonthReport7Item getInfo = new Model.SeDinMonthReport7Item();
+            if (monthD.HasValue)
+            {
+                getInfo = (from x in Funs.DB.SeDin_MonthReport7
+                           join y in Funs.DB.SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
+                           where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
+                           select new Model.SeDinMonthReport7Item
+                           {
+                               MonthReport7Id = x.MonthReport7Id,
+                               MonthReportId = x.MonthReportId,
+                               SpecialMontNum = x.SpecialMontNum,
+                               SpecialYearNum = x.SpecialYearNum,
+                               SpecialTotalNum = x.SpecialTotalNum,
+                               SpecialMontPerson = x.SpecialMontPerson,
+                               SpecialYearPerson = x.SpecialYearPerson,
+                               SpecialTotalPerson = x.SpecialTotalPerson,
+                               EmployeeMontNum = x.EmployeeMontNum,
+                               EmployeeYearNum = x.EmployeeYearNum,
+                               EmployeeTotalNum = x.EmployeeTotalNum,
+                               EmployeeMontPerson = x.EmployeeMontPerson,
+                               EmployeeYearPerson = x.EmployeeYearPerson,
+                               EmployeeTotalPerson = x.EmployeeTotalPerson,
+                           }).FirstOrDefault();
+            }
+            return getInfo;
+        }
+        #endregion
+        #region  获取赛鼎月报初始化页面 --8、项目HSE会议统计
+        /// <summary>
+        /// 获取赛鼎月报初始化页面 --8、项目HSE会议统计
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Model.SeDinMonthReport8Item getSeDinMonthReport8ById(string projectId, string month)
+        {
+            var monthD = Funs.GetNewDateTime(month);
+            Model.SeDinMonthReport8Item getInfo = new Model.SeDinMonthReport8Item();
+            if (monthD.HasValue)
+            {
+                getInfo = (from x in Funs.DB.SeDin_MonthReport8
+                           join y in Funs.DB.SeDin_MonthReport on x.MonthReportId equals y.MonthReportId
+                           where y.ProjectId == projectId && y.ReporMonth.Value.Year == monthD.Value.Year && y.ReporMonth.Value.Month == monthD.Value.Month
+                           select new Model.SeDinMonthReport8Item
+                           {
+                               MonthReport8Id=x.MonthReport8Id,
+                               MonthReportId = x.MonthReportId,
+                               WeekMontNum = x.WeekMontNum,
+                               WeekTotalNum = x.WeekTotalNum,
+                               WeekMontPerson = x.WeekMontPerson,
+                               MonthMontNum = x.MonthMontNum,
+                               MonthTotalNum = x.MonthTotalNum,
+                               MonthMontPerson = x.MonthMontPerson,
+                               SpecialMontNum = x.SpecialMontNum,
+                               SpecialTotalNum = x.SpecialTotalNum,
+                               SpecialMontPerson = x.SpecialMontPerson,
+                               SeDinMonthReport8ItemItem = getSeDinMonthReport8Item(x.MonthReportId),
+                           }).FirstOrDefault();
+            }
+            return getInfo;
+        }
+
+        /// <summary>
+        ///  获取项目HSE会议统计明细
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.SeDinMonthReport8ItemItem> getSeDinMonthReport8Item(string monthReportId)
+        {
+            var getInfo = from x in Funs.DB.SeDin_MonthReport8Item
+                          where x.MonthReportId == monthReportId
+                          orderby x.UnitName
+                          select new Model.SeDinMonthReport8ItemItem
+                          {
+                              MonthReport8ItemId = x.MonthReport8ItemId,
+                              MonthReportId = x.MonthReportId,
+                              UnitName = x.UnitName,
+                              TeamName = x.TeamName,
+                              ClassNum = x.ClassNum,
+                              ClassPersonNum = x.ClassPersonNum,
+                          };
+            return getInfo.ToList();
         }
         #endregion
 
@@ -905,51 +1078,56 @@ namespace BLL
         /// </summary>
         /// <param name="newItem">赛鼎月报</param>
         /// <returns></returns>
-        public static string SaveSeDinMonthReport5(Model.SeDinMonthReport5Item newItem)
+        public static string SaveSeDinMonthReport5(List<Model.SeDinMonthReport5Item> newItemList)
         {
             using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                Model.SeDin_MonthReport5 newReport = new Model.SeDin_MonthReport5
+                string monthReportId = string.Empty;
+                foreach (var newItem in newItemList)
                 {
-                    MonthReportId = newItem.MonthReportId,
-                    MonthReport5Id = newItem.MonthReport5Id,
-                    UnitName = newItem.UnitName,
-                    T01 = newItem.T01,
-                    T02 = newItem.T02,
-                    T03 = newItem.T03,
-                    T04 = newItem.T04,
-                    T05 = newItem.T05,
-                    T06 = newItem.T06,
-                    D01 = newItem.D01,
-                    D02 = newItem.D02,
-                    D03 = newItem.D03,
-                    D04 = newItem.D04,
-                    S01 = newItem.S01,
-                };
-                var updateReport = db.SeDin_MonthReport5.FirstOrDefault(x => x.MonthReport5Id == newItem.MonthReport5Id);
-                if (updateReport == null)
-                {
-                    newReport.MonthReport5Id = SQLHelper.GetNewID();
-                    db.SeDin_MonthReport5.InsertOnSubmit(newReport);
+                    monthReportId = newItem.MonthReportId;
+                    Model.SeDin_MonthReport5 newReport = new Model.SeDin_MonthReport5
+                    {
+                        MonthReportId = newItem.MonthReportId,
+                        MonthReport5Id = newItem.MonthReport5Id,
+                        UnitName = newItem.UnitName,
+                        T01 = newItem.T01,
+                        T02 = newItem.T02,
+                        T03 = newItem.T03,
+                        T04 = newItem.T04,
+                        T05 = newItem.T05,
+                        T06 = newItem.T06,
+                        D01 = newItem.D01,
+                        D02 = newItem.D02,
+                        D03 = newItem.D03,
+                        D04 = newItem.D04,
+                        S01 = newItem.S01,
+                    };
+                    var updateReport = db.SeDin_MonthReport5.FirstOrDefault(x => x.MonthReport5Id == newItem.MonthReport5Id);
+                    if (updateReport == null)
+                    {
+                        newReport.MonthReport5Id = SQLHelper.GetNewID();
+                        db.SeDin_MonthReport5.InsertOnSubmit(newReport);
+                    }
+                    else
+                    {
+                        newReport.MonthReportId = updateReport.MonthReportId;
+                        updateReport.UnitName = newReport.UnitName;
+                        updateReport.T01 = newReport.T01;
+                        updateReport.T02 = newReport.T02;
+                        updateReport.T03 = newReport.T03;
+                        updateReport.T04 = newReport.T04;
+                        updateReport.T05 = newReport.T05;
+                        updateReport.T06 = newReport.T06;
+                        updateReport.D01 = newReport.D01;
+                        updateReport.D02 = newReport.D02;
+                        updateReport.D03 = newReport.D03;
+                        updateReport.D04 = newReport.D04;
+                        updateReport.S01 = newReport.S01;
+                    }
+                    db.SubmitChanges();
                 }
-                else
-                {
-                    newReport.MonthReportId = updateReport.MonthReportId;
-                    updateReport.UnitName = newReport.UnitName;
-                    updateReport.T01 = newReport.T01;
-                    updateReport.T02 = newReport.T02;
-                    updateReport.T03 = newReport.T03;
-                    updateReport.T04 = newReport.T04;
-                    updateReport.T05 = newReport.T05;
-                    updateReport.T06 = newReport.T06;
-                    updateReport.D01 = newReport.D01;
-                    updateReport.D02 = newReport.D02;
-                    updateReport.D03 = newReport.D03;
-                    updateReport.D04 = newReport.D04;
-                    updateReport.S01 = newReport.S01;
-                }
-                db.SubmitChanges();
-                return newReport.MonthReportId;
+                return monthReportId;
             }
         }
         #endregion
@@ -1018,6 +1196,134 @@ namespace BLL
                     updateReport.ConstructionCost = newReport.ConstructionCost;
                 }
                 db.SubmitChanges();
+                return newReport.MonthReportId;
+            }
+        }
+        #endregion
+        #region 保存 MonthReport7、项目HSE培训统计
+        /// <summary>
+        /// 保存SeDin_MonthReport
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+        public static string SaveSeDinMonthReport7(Model.SeDinMonthReport7Item newItem)
+        {
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                Model.SeDin_MonthReport7 newReport = new Model.SeDin_MonthReport7
+                {
+                    MonthReportId = newItem.MonthReportId,
+                    MonthReport7Id = newItem.MonthReport7Id,
+                    SpecialMontNum = newItem.SpecialMontNum,
+                    SpecialYearNum = newItem.SpecialYearNum,
+                    SpecialTotalNum = newItem.SpecialTotalNum,
+                    SpecialMontPerson = newItem.SpecialMontPerson,
+                    SpecialYearPerson = newItem.SpecialYearPerson,
+                    SpecialTotalPerson = newItem.SpecialTotalPerson,
+                    EmployeeMontNum = newItem.EmployeeMontNum,
+                    EmployeeYearNum = newItem.EmployeeYearNum,
+                    EmployeeTotalNum = newItem.EmployeeTotalNum,
+                    EmployeeMontPerson = newItem.EmployeeMontPerson,
+                    EmployeeYearPerson = newItem.EmployeeYearPerson,
+                    EmployeeTotalPerson = newItem.EmployeeTotalPerson,
+                };
+                var updateReport = db.SeDin_MonthReport7.FirstOrDefault(x => x.MonthReport7Id == newItem.MonthReport7Id);
+                if (updateReport == null)
+                {
+                    newReport.MonthReport7Id = SQLHelper.GetNewID();
+                    db.SeDin_MonthReport7.InsertOnSubmit(newReport);
+                }
+                else
+                {
+                    newReport.MonthReportId = updateReport.MonthReportId;
+                    updateReport.SpecialMontNum = newReport.SpecialMontNum;
+                    updateReport.SpecialYearNum = newReport.SpecialYearNum;
+                    updateReport.SpecialTotalNum = newReport.SpecialTotalNum;
+                    updateReport.SpecialMontPerson = newReport.SpecialMontPerson;
+                    updateReport.SpecialYearPerson = newReport.SpecialYearPerson;
+                    updateReport.SpecialTotalPerson = newReport.SpecialTotalPerson;
+                    updateReport.EmployeeMontNum = newReport.EmployeeMontNum;
+                    updateReport.EmployeeYearNum = newReport.EmployeeYearNum;
+                    updateReport.EmployeeTotalNum = newReport.EmployeeTotalNum;
+                    updateReport.EmployeeMontPerson = newReport.EmployeeMontPerson;
+                    updateReport.EmployeeYearPerson = newReport.EmployeeYearPerson;
+                    updateReport.EmployeeTotalPerson = newReport.EmployeeTotalPerson;
+                }
+                db.SubmitChanges();
+                return newReport.MonthReportId;
+            }
+        }
+        #endregion
+        #region 保存 MonthReport8、项目HSE会议统计
+        /// <summary>
+        /// 保存SeDin_MonthReport
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+        public static string SaveSeDinMonthReport8(Model.SeDinMonthReport8Item newItem)
+        {
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                Model.SeDin_MonthReport8 newReport = new Model.SeDin_MonthReport8
+                {
+                    MonthReportId = newItem.MonthReportId,
+                    MonthReport8Id = newItem.MonthReport8Id,
+                    WeekMontNum = newItem.WeekMontNum,
+                    WeekTotalNum = newItem.WeekTotalNum,
+                    WeekMontPerson = newItem.WeekMontPerson,
+                    MonthMontNum = newItem.MonthMontNum,
+                    MonthTotalNum = newItem.MonthTotalNum,
+                    MonthMontPerson = newItem.MonthMontPerson,
+                    SpecialMontNum = newItem.SpecialMontNum,
+                    SpecialTotalNum = newItem.SpecialTotalNum,
+                    SpecialMontPerson = newItem.SpecialMontPerson,
+                };
+                var updateReport = db.SeDin_MonthReport8.FirstOrDefault(x => x.MonthReport8Id == newItem.MonthReport8Id);
+                if (updateReport == null)
+                {
+                    newReport.MonthReport8Id = SQLHelper.GetNewID();
+                    db.SeDin_MonthReport8.InsertOnSubmit(newReport);
+                }
+                else
+                {
+                    newReport.MonthReportId = updateReport.MonthReportId;
+                    updateReport.WeekMontNum = newReport.WeekMontNum;
+                    updateReport.WeekTotalNum = newReport.WeekTotalNum;
+                    updateReport.WeekMontPerson = newReport.WeekMontPerson;
+                    updateReport.MonthMontNum = newReport.MonthMontNum;
+                    updateReport.MonthTotalNum = newReport.MonthTotalNum;
+                    updateReport.MonthMontPerson = newReport.MonthMontPerson;
+                    updateReport.SpecialMontNum = newReport.SpecialMontNum;
+                    updateReport.SpecialTotalNum = newReport.SpecialTotalNum;
+                    updateReport.SpecialMontPerson = newReport.SpecialMontPerson;           
+                }
+                db.SubmitChanges();
+                var get8Items = from x in db.SeDin_MonthReport8Item
+                                where x.MonthReportId == newItem.MonthReportId
+                                select x;
+                if (get8Items.Count() > 0)
+                {
+                    db.SeDin_MonthReport8Item.DeleteAllOnSubmit(get8Items);
+                    db.SubmitChanges();
+                }
+                if (newItem.SeDinMonthReport8ItemItem != null && newItem.SeDinMonthReport8ItemItem.Count() > 0)
+                {
+                    foreach (var item in newItem.SeDinMonthReport8ItemItem)
+                    {
+                        Model.SeDin_MonthReport8Item new8Item = new Model.SeDin_MonthReport8Item
+                        {
+                            MonthReport8ItemId = SQLHelper.GetNewID(),
+                            MonthReportId= newItem.MonthReport8Id,
+                            UnitName=item.UnitName,
+                            TeamName = item.TeamName,
+                            ClassNum = item.ClassNum,
+                            ClassPersonNum = item.ClassPersonNum,
+                        };
+                        db.SeDin_MonthReport8Item.InsertOnSubmit(new8Item);
+                        db.SubmitChanges();
+                    }
+                }
+
                 return newReport.MonthReportId;
             }
         }

@@ -1,9 +1,8 @@
 ﻿using BLL;
 using System;
-using System.Linq;
-using System.Web.Http;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Http;
 
 namespace WebAPI.Controllers
 {
@@ -116,6 +115,26 @@ namespace WebAPI.Controllers
                     if (getInfo == null)
                     {
                         getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage6(projectId, month, startDate, endDate);
+                    }
+
+                    responeData.data = getInfo;
+                }
+                else if (pageNum == "7") ////7、项目HSE培训统计
+                {
+                    var getInfo = APISeDinMonthReportService.getSeDinMonthReport7ById(projectId, month);
+                    if (getInfo == null)
+                    {
+                        getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage7(projectId, month, startDate, endDate);
+                    }
+
+                    responeData.data = getInfo;
+                }
+                else if (pageNum == "8") ////8、项目HSE会议统计
+                {
+                    var getInfo = APISeDinMonthReportService.getSeDinMonthReport8ById(projectId, month);
+                    if (getInfo == null)
+                    {
+                        getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage8(projectId, month, startDate, endDate);
                     }
 
                     responeData.data = getInfo;
@@ -283,20 +302,12 @@ namespace WebAPI.Controllers
         /// <param name="newItem">赛鼎月报</param>
         /// <returns></returns>
         [HttpPost]
-        public Model.ResponeData SaveSeDinMonthReport5([FromBody] Model.SeDinMonthReport5Item newItem)
+        public Model.ResponeData SaveSeDinMonthReport5([FromBody] List<Model.SeDinMonthReport5Item> newItem)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                if (!string.IsNullOrEmpty(newItem.MonthReportId))
-                {
-                    responeData.data = APISeDinMonthReportService.SaveSeDinMonthReport5(newItem);
-                }
-                else
-                {
-                    responeData.code = 1;
-                    responeData.message = "请先保存月报主表信息！";
-                }
+                responeData.data = APISeDinMonthReportService.SaveSeDinMonthReport5(newItem);
             }
             catch (Exception ex)
             {
@@ -322,6 +333,68 @@ namespace WebAPI.Controllers
                 if (!string.IsNullOrEmpty(newItem.MonthReportId))
                 {
                     responeData.data = APISeDinMonthReportService.SaveSeDinMonthReport6(newItem);
+                }
+                else
+                {
+                    responeData.code = 1;
+                    responeData.message = "请先保存月报主表信息！";
+                }
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+        #region 保存 MonthReport7、项目HSE培训统计
+        /// <summary>
+        /// 保存赛鼎月报
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData SaveSeDinMonthReport7([FromBody] Model.SeDinMonthReport7Item newItem)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                if (!string.IsNullOrEmpty(newItem.MonthReportId))
+                {
+                    responeData.data = APISeDinMonthReportService.SaveSeDinMonthReport7(newItem);
+                }
+                else
+                {
+                    responeData.code = 1;
+                    responeData.message = "请先保存月报主表信息！";
+                }
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+        #region 保存 MonthReport8、项目HSE会议统计
+        /// <summary>
+        /// 保存赛鼎月报
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData SaveSeDinMonthReport8([FromBody] Model.SeDinMonthReport8Item newItem)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                if (!string.IsNullOrEmpty(newItem.MonthReportId))
+                {
+                    responeData.data = APISeDinMonthReportService.SaveSeDinMonthReport8(newItem);
                 }
                 else
                 {
