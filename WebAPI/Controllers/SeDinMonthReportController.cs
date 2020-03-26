@@ -59,31 +59,34 @@ namespace WebAPI.Controllers
             {
                 if (pageNum == "0") ////封面
                 {
-                    responeData.data = APISeDinMonthReportService.getSeDinMonthReport0ById(projectId, month);
-                    if (responeData.data == null)
+                    var getInfo = APISeDinMonthReportService.getSeDinMonthReport0ById(projectId, month);
+                    if (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId))
                     {
-                        responeData.data= APISeDinMonthReportService.getSeDinMonthReportNullPage0(projectId);
+                        getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage0(projectId);
                     }
+                    responeData.data = getInfo;
                 }
                 else if (pageNum == "1") ////1、项目信息
                 {
-                    responeData.data = APISeDinMonthReportService.getSeDinMonthReport1ById(projectId, month);
-                    if (responeData.data == null)
+                    var getInfo = APISeDinMonthReportService.getSeDinMonthReport1ById(projectId, month);
+                    if (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId))
                     {
-                        responeData.data = APISeDinMonthReportService.getSeDinMonthReportNullPage1(projectId);
+                        getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage1(projectId);
                     }
+                    responeData.data = getInfo;
                 }
                 else if (pageNum == "2") ////2、项目安全工时统计
                 {
-                    responeData.data = APISeDinMonthReportService.getSeDinMonthReport2ById(projectId, month);
-                    if (responeData.data == null)
+                    var getInfo = APISeDinMonthReportService.getSeDinMonthReport2ById(projectId, month);
+                    if (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId))
                     {
                         responeData.data = APISeDinMonthReportService.getSeDinMonthReportNullPage2(projectId, month, startDate, endDate);
                     }
+                    responeData.data = getInfo;
                 }
                 else if (pageNum == "3") ////3、项目HSE事故、事件统计
-                {                    
-                    var getInfo = APISeDinMonthReportService.getSeDinMonthReport3ById(projectId, month);            
+                {
+                    var getInfo = APISeDinMonthReportService.getSeDinMonthReport3ById(projectId, month);
                     if (getInfo == null || getInfo.SeDinMonthReport3Item == null || getInfo.SeDinMonthReport3Item.Count() == 0)
                     {
                         getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage3(projectId, month, startDate, endDate);
@@ -93,7 +96,7 @@ namespace WebAPI.Controllers
                 }
                 else if (pageNum == "4") ////2、项目安全工时统计
                 {
-                    var getLists= APISeDinMonthReportService.getSeDinMonthReport4ById(projectId, month);
+                    var getLists = APISeDinMonthReportService.getSeDinMonthReport4ById(projectId, month);
                     if (getLists.Count() == 0)
                     {
                         getLists = APISeDinMonthReportService.getSeDinMonthReportNullPage4(projectId, month, startDate, endDate);
@@ -103,7 +106,7 @@ namespace WebAPI.Controllers
                 else if (pageNum == "5") ////5、本月大型、特种设备投入情况
                 {
                     var getLists = APISeDinMonthReportService.getSeDinMonthReport5ById(projectId, month);
-                    if (getLists .Count== 0)
+                    if (getLists.Count == 0)
                     {
                         getLists = APISeDinMonthReportService.getSeDinMonthReportNullPage5(projectId, month, startDate, endDate);
                     }
@@ -112,7 +115,7 @@ namespace WebAPI.Controllers
                 else if (pageNum == "6") ////6、安全生产费用投入情况
                 {
                     var getInfo = APISeDinMonthReportService.getSeDinMonthReport6ById(projectId, month);
-                    if (getInfo == null)
+                    if (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId))
                     {
                         getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage6(projectId, month, startDate, endDate);
                     }
@@ -122,7 +125,7 @@ namespace WebAPI.Controllers
                 else if (pageNum == "7") ////7、项目HSE培训统计
                 {
                     var getInfo = APISeDinMonthReportService.getSeDinMonthReport7ById(projectId, month);
-                    if (getInfo == null)
+                    if (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId))
                     {
                         getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage7(projectId, month, startDate, endDate);
                     }
@@ -132,7 +135,7 @@ namespace WebAPI.Controllers
                 else if (pageNum == "8") ////8、项目HSE会议统计
                 {
                     var getInfo = APISeDinMonthReportService.getSeDinMonthReport8ById(projectId, month);
-                    if (getInfo == null)
+                    if (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId))
                     {
                         getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage8(projectId, month, startDate, endDate);
                     }

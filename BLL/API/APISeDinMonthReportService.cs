@@ -22,7 +22,7 @@ namespace BLL
                                       select x;
             if (!string.IsNullOrEmpty(states))
             {
-                getSeDinMonthReport = getSeDinMonthReport.Where(x => x.States == states);
+                getSeDinMonthReport = getSeDinMonthReport.Where(x => x.States == states || (states=="0" && (x.States == null || x.States == "0")));
             }
 
             if (monthD.HasValue)
