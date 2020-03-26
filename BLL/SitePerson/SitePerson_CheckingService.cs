@@ -17,7 +17,7 @@ namespace BLL
         /// <returns>人员考勤管理信息</returns>
         public static Model.SitePerson_Checking GetPersonInfoByCheckingId(string checkingId)
         {
-            return (from x in Funs.DB.SitePerson_Checking where x.CheckingId == checkingId select x).First();
+            return Funs.DB.SitePerson_Checking.FirstOrDefault(x=> x.CheckingId == checkingId);
         }
 
         /// <summary>
@@ -100,6 +100,22 @@ namespace BLL
         public static int GetCheckingCountByWorkAreaId(string workAreaId)
         {
             return (from x in Funs.DB.SitePerson_Checking where x.WorkAreaId == workAreaId select x).ToList().Count();
+        }
+
+
+        /// <summary>
+        /// 根据人员考勤主键删除一个人员考勤管理信息
+        /// </summary>
+        /// <param name="checkingId">人员考勤主键</param>
+        public static void DeletePersonInOutByCheckingId(string PersonInOutId)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.SitePerson_PersonInOut personInOut = db.SitePerson_PersonInOut.FirstOrDefault(e => e.PersonInOutId == PersonInOutId);
+            if (personInOut != null)
+            {
+                db.SitePerson_PersonInOut.DeleteOnSubmit(personInOut);
+                db.SubmitChanges();
+            }
         }
     }
 }

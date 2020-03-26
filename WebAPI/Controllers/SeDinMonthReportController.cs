@@ -2,6 +2,8 @@
 using System;
 using System.Linq;
 using System.Web.Http;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WebAPI.Controllers
 {
@@ -99,6 +101,26 @@ namespace WebAPI.Controllers
                     }
                     responeData.data = getLists;
                 }
+                else if (pageNum == "5") ////5、本月大型、特种设备投入情况
+                {
+                    var getLists = APISeDinMonthReportService.getSeDinMonthReport5ById(projectId, month);
+                    if (getLists .Count== 0)
+                    {
+                        getLists = APISeDinMonthReportService.getSeDinMonthReportNullPage5(projectId, month, startDate, endDate);
+                    }
+                    responeData.data = getLists;
+                }
+                else if (pageNum == "6") ////6、安全生产费用投入情况
+                {
+                    var getInfo = APISeDinMonthReportService.getSeDinMonthReport6ById(projectId, month);
+                    if (getInfo == null)
+                    {
+                        getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage6(projectId, month, startDate, endDate);
+                    }
+
+                    responeData.data = getInfo;
+                }
+
                 else ////13、14、本月HSE活动综述、下月HSE工作计划
                 {
                     responeData.data = APISeDinMonthReportService.getSeDinMonthReport13ById(projectId, month); ;
@@ -138,7 +160,6 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
-
         #region 保存 MonthReport1、项目信息
         /// <summary>
         /// 保存赛鼎月报
@@ -170,7 +191,6 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
-
         #region 保存 MonthReport2、项目安全工时统计
         /// <summary>
         /// 保存赛鼎月报
@@ -202,7 +222,6 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
-
         #region 保存 MonthReport3、项目HSE事故、事件统计
         /// <summary>
         /// 保存赛鼎月报
@@ -218,6 +237,91 @@ namespace WebAPI.Controllers
                 if (!string.IsNullOrEmpty(newItem.MonthReportId))
                 {
                     responeData.data = APISeDinMonthReportService.SaveSeDinMonthReport3(newItem);
+                }
+                else
+                {
+                    responeData.code = 1;
+                    responeData.message = "请先保存月报主表信息！";
+                }
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+        #region 保存 MonthReport4、本月人员投入情况
+        /// <summary>
+        /// 保存赛鼎月报
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData SaveSeDinMonthReport4([FromBody]  List<Model.SeDinMonthReport4Item> newItem)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APISeDinMonthReportService.SaveSeDinMonthReport4(newItem);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+        #region 保存 MonthReport5、本月大型、特种设备投入情况
+        /// <summary>
+        /// 保存赛鼎月报
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData SaveSeDinMonthReport5([FromBody] Model.SeDinMonthReport5Item newItem)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                if (!string.IsNullOrEmpty(newItem.MonthReportId))
+                {
+                    responeData.data = APISeDinMonthReportService.SaveSeDinMonthReport5(newItem);
+                }
+                else
+                {
+                    responeData.code = 1;
+                    responeData.message = "请先保存月报主表信息！";
+                }
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+        #region 保存 MonthReport6、安全生产费用投入情况
+        /// <summary>
+        /// 保存赛鼎月报
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData SaveSeDinMonthReport6([FromBody] Model.SeDinMonthReport6Item newItem)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                if (!string.IsNullOrEmpty(newItem.MonthReportId))
+                {
+                    responeData.data = APISeDinMonthReportService.SaveSeDinMonthReport6(newItem);
                 }
                 else
                 {

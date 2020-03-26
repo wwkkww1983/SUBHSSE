@@ -860,6 +860,27 @@
             <param name="newItem">赛鼎月报</param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.SeDinMonthReportController.SaveSeDinMonthReport4(System.Collections.Generic.List{Model.SeDinMonthReport4Item})">
+            <summary>
+            保存赛鼎月报
+            </summary>
+            <param name="newItem">赛鼎月报</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.SeDinMonthReportController.SaveSeDinMonthReport5(Model.SeDinMonthReport5Item)">
+            <summary>
+            保存赛鼎月报
+            </summary>
+            <param name="newItem">赛鼎月报</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.SeDinMonthReportController.SaveSeDinMonthReport6(Model.SeDinMonthReport6Item)">
+            <summary>
+            保存赛鼎月报
+            </summary>
+            <param name="newItem">赛鼎月报</param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.SeDinMonthReportController.SaveSeDinMonthReport13(Model.SeDinMonthReportItem)">
             <summary>
             保存赛鼎月报

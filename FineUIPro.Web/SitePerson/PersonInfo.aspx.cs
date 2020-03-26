@@ -178,6 +178,11 @@ namespace FineUIPro.Web.SitePerson
                     PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PersonInfoEdit.aspx?CheckingId={0}", CheckingId, "编辑 - ")));
                 }
             }
+            else
+            {
+                Alert.ShowInTop("门禁系统自动考勤，不允许再次编辑！", MessageBoxIcon.Warning);
+                return;
+            }
         }
         #endregion
 
@@ -214,9 +219,16 @@ namespace FineUIPro.Web.SitePerson
                         {
                             BLL.LogService.AddSys_Log(this.CurrUser, getV.CardNo, getV.CheckingId, BLL.Const.PersonalInfoMenuId, BLL.Const.BtnDelete);
                             BLL.SitePerson_CheckingService.DeletePersonInfoByCheckingId(rowID);
-                            BindGrid();
-                            ShowNotify("删除数据成功!（表格数据已重新绑定）", MessageBoxIcon.Success);
+                           
                         }
+                        else
+                        {
+                            BLL.LogService.AddSys_Log(this.CurrUser, getV.CardNo, getV.CheckingId, BLL.Const.PersonalInfoMenuId, BLL.Const.BtnDelete);
+                            BLL.SitePerson_CheckingService.DeletePersonInfoByCheckingId(rowID);
+
+                        }
+                        BindGrid();
+                        ShowNotify("删除数据成功!（表格数据已重新绑定）", MessageBoxIcon.Success);
                     }
                 }
             }

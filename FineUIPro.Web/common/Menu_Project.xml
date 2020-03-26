@@ -88,11 +88,15 @@
 <TreeNode id="9F6FB863-4001-49BD-A748-66009891D13C" Text="日常巡检" NavigateUrl="Check/CheckDay.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="0E30F917-0C51-4C45-BD19-981039CA44F5" Text="日常巡检（五环）" NavigateUrl="Check/CheckDayWH.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="38FBBA77-8B35-470C-90EE-6861E6DDE03F" Text="日常巡检(记录)" NavigateUrl="Check/CheckDayXA.aspx" Icon="PageHeaderFooter"></TreeNode>
+<TreeNode id="2FC8AA2A-F421-4174-A05E-2711167AF141" Text="安全巡检" NavigateUrl="HiddenInspection/HiddenRectificationList.aspx" Icon="PageHeaderFooter"></TreeNode>
+<TreeNode id="23855EB9-0BB1-4B3E-BA69-3C0222F5E2A4" Text="安全巡检记录" NavigateUrl="HiddenInspection/HiddenRectificationRecord.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="1B08048F-93ED-4E84-AE65-DB7917EA2DFB" Text="专项检查" NavigateUrl="Check/CheckSpecial.aspx" Icon="PageHeaderFooter"></TreeNode>
+<TreeNode id="B7A5F84B-843A-4C13-9844-023D8B4A41AC" Text="专项检查(APP)" NavigateUrl="HiddenInspection/CheckSpecial.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="C198EBA8-9E23-4654-92E1-09C61105C522" Text="综合检查" NavigateUrl="Check/CheckColligation.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="E8363923-06CD-47C2-BFE1-F18212094710" Text="综合检查（五环）" NavigateUrl="Check/CheckColligationWH.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="9212291A-FBC5-4F6D-A5F6-60BFF4E30F6F" Text="开工前检查" NavigateUrl="Check/CheckWork.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="0D23A707-ADA0-4C2B-9665-611134243529" Text="季节性/节假日检查" NavigateUrl="Check/CheckHoliday.aspx" Icon="PageHeaderFooter"></TreeNode>
+<TreeNode id="247B76AA-01BF-4A40-BB4C-B3EAF441F538" Text="领导督察(APP)" NavigateUrl="HiddenInspection/SafeSupervision.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="0038D764-D628-46F0-94FF-D0A22C3C45A3" Text="隐患整改通知单" NavigateUrl="Check/RectifyNotice.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="29F27641-06ED-435A-9F9B-FCE6366801BE" Text="企业监督检查整改" NavigateUrl="Hazard/ProjectSuperviseCheckRectify.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="B6BE5FE0-CB84-47FF-A6C3-5AD9E1CCE079" Text="隐患巡检（手机端）" NavigateUrl="Check/Registration.aspx" Icon="PageHeaderFooter"></TreeNode>
@@ -101,11 +105,6 @@
 <TreeNode id="F910062E-98B0-486F-A8BD-D5B0035F808F" Text="监理整改通知单" NavigateUrl="Check/SupervisionNotice.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="F057C207-4549-48AE-B838-A1920E5709D8" Text="联系单" NavigateUrl="Check/ContactList.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="17C25222-FDFD-469E-9AEE-33058FF1A3EE" Text="汇总清单" NavigateUrl="Check/SummaryList.aspx" Icon="PageHeaderFooter"></TreeNode>
-</TreeNode>
-<TreeNode id="7E7245CF-9820-43A6-AD45-D156601467DD" Text="APP检查管理" NavigateUrl="" Icon="Phone"><TreeNode id="2FC8AA2A-F421-4174-A05E-2711167AF141" Text="日常巡检" NavigateUrl="HiddenInspection/HiddenRectificationList.aspx" Icon="PageHeaderFooter"></TreeNode>
-<TreeNode id="23855EB9-0BB1-4B3E-BA69-3C0222F5E2A4" Text="日常巡检记录" NavigateUrl="HiddenInspection/HiddenRectificationRecord.aspx" Icon="PageHeaderFooter"></TreeNode>
-<TreeNode id="B7A5F84B-843A-4C13-9844-023D8B4A41AC" Text="专项检查" NavigateUrl="HiddenInspection/CheckSpecial.aspx" Icon="PageHeaderFooter"></TreeNode>
-<TreeNode id="247B76AA-01BF-4A40-BB4C-B3EAF441F538" Text="领导督查" NavigateUrl="HiddenInspection/SafeSupervision.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="D322F726-B4D3-4807-BA5F-3ADF91E1F084" Text="巡检分析(图表)" NavigateUrl="HiddenInspection/RiskAnalysisChart.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="D0A9B1CC-493F-4CAC-9EC9-C3A89D1D5DB3" Text="管理人员履职情况统计" NavigateUrl="HiddenInspection/ManagerPerformance.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="9959896B-67DB-43C8-B1D2-EDAFDD7F5A27" Text="单位违章统计明细表" NavigateUrl="HiddenInspection/UnitViolationStatistics.aspx" Icon="PageHeaderFooter"></TreeNode>
@@ -191,9 +190,9 @@
 <TreeNode id="03235B30-960D-4FCF-99F7-97773A2EE108" Text="管理工作报告" NavigateUrl="" Icon="ApplicationViewColumns"><TreeNode id="AE118E9C-C309-43B7-A198-8CA90A8D98EB" Text="管理周报" NavigateUrl="Manager/ManagerWeek.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="5D006DDC-3AED-4E5A-8597-3C972D96F983" Text="管理月报" NavigateUrl="Manager/ManagerMonth.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="68A52EEA-2661-4CB0-9382-A36AA5DCC480" Text="HSE管理月报" NavigateUrl="Manager/ManagerMonthC.aspx" Icon="PageHeaderFooter"></TreeNode>
+<TreeNode id="EDRF6YUJ-SDEW-2389-DW31-23D42D966YUJ" Text="安全数据汇总" NavigateUrl="Manager/ManagerStatistic.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="E18AF205-9C5B-40F8-B77B-B30C31B10BB5" Text="安全生产月报" NavigateUrl="Manager/ManagerMonthD.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="A97295B1-86C5-45F6-B8EC-A520E8CF3A4B" Text="项目HSE绩效管理报告" NavigateUrl="Manager/PerformanceManagementReport.aspx" Icon="PageHeaderFooter"></TreeNode>
-<TreeNode id="EDRF6YUJ-SDEW-2389-DW31-23D42D966YUJ" Text="安全数据汇总" NavigateUrl="Manager/ManagerStatistic.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="288C6A04-456F-4364-B4FE-82C14B8B3CC9" Text="海外工程项目月度安全统计表" NavigateUrl="Manager/ManagerMonthE.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="4RYM5TYF-3DBA-4727-B3E8-FB21F3EDDF4R" Text="人工时和投入安全费用比率分析" NavigateUrl="Manager/ManagerAnalyse.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="28668BD9-3E14-438F-8BEE-24BAF6031B63" Text="管理季报" NavigateUrl="Manager/ManagerQuarterly.aspx" Icon="PageHeaderFooter"></TreeNode>
