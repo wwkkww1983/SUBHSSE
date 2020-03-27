@@ -282,12 +282,20 @@ namespace WebAPI.Controllers
         /// <param name="newItem">赛鼎月报</param>
         /// <returns></returns>
         [HttpPost]
-        public Model.ResponeData SaveSeDinMonthReport4([FromBody]  List<Model.SeDinMonthReport4Item> newItem)
+        public Model.ResponeData SaveSeDinMonthReport4([FromBody]  Model.SeDinMonthReportItem newItem)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = APISeDinMonthReportService.SaveSeDinMonthReport4(newItem);
+                if (!string.IsNullOrEmpty(newItem.MonthReportId))
+                {
+                    responeData.data = APISeDinMonthReportService.SaveSeDinMonthReport4(newItem);
+                }
+                else
+                {
+                    responeData.code = 1;
+                    responeData.message = "请先保存月报主表信息！";
+                }
             }
             catch (Exception ex)
             {
@@ -305,12 +313,20 @@ namespace WebAPI.Controllers
         /// <param name="newItem">赛鼎月报</param>
         /// <returns></returns>
         [HttpPost]
-        public Model.ResponeData SaveSeDinMonthReport5([FromBody] List<Model.SeDinMonthReport5Item> newItem)
+        public Model.ResponeData SaveSeDinMonthReport5([FromBody] Model.SeDinMonthReportItem newItem)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = APISeDinMonthReportService.SaveSeDinMonthReport5(newItem);
+                if (!string.IsNullOrEmpty(newItem.MonthReportId))
+                {
+                    responeData.data = APISeDinMonthReportService.SaveSeDinMonthReport5(newItem);
+                }
+                else
+                {
+                    responeData.code = 1;
+                    responeData.message = "请先保存月报主表信息！";
+                }
             }
             catch (Exception ex)
             {

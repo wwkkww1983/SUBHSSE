@@ -148,5 +148,21 @@ namespace Model
             get;
             set;
         }
+        /// <summary>
+        ///  4、本月人员投入情况
+        /// </summary>
+        public List<Model.SeDinMonthReport4Item> SeDinMonthReport4Item
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        ///  5、本月大型、特种设备投入情况
+        /// </summary>
+        public List<Model.SeDinMonthReport5Item> SeDinMonthReport5Item
+        {
+            get;
+            set;
+        }
     }
 }
