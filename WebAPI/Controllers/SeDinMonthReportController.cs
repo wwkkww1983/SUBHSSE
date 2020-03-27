@@ -142,7 +142,46 @@ namespace WebAPI.Controllers
 
                     responeData.data = getInfo;
                 }
+                else if (pageNum == "9") ////9、项目HSE检查统计
+                {
+                    var getInfo = APISeDinMonthReportService.getSeDinMonthReport9ById(projectId, month);
+                    if (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId))
+                    {
+                        getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage9(projectId, month, startDate, endDate);
+                    }
 
+                    responeData.data = getInfo;
+                }
+                else if (pageNum == "10") ////10、项目奖惩情况统计
+                {
+                    var getInfo = APISeDinMonthReportService.getSeDinMonthReport10ById(projectId, month);
+                    if (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId))
+                    {
+                        getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage10(projectId, month, startDate, endDate);
+                    }
+
+                    responeData.data = getInfo;
+                }
+                else if (pageNum == "11") ////11、项目危大工程施工情况
+                {
+                    var getInfo = APISeDinMonthReportService.getSeDinMonthReport11ById(projectId, month);
+                    if (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId))
+                    {
+                        getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage11(projectId, month, startDate, endDate);
+                    }
+
+                    responeData.data = getInfo;
+                }
+                else if (pageNum == "12") ////12、项目应急演练情况
+                {
+                    var getInfo = APISeDinMonthReportService.getSeDinMonthReport12ById(projectId, month);
+                    if (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId))
+                    {
+                        getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage12(projectId, month, startDate, endDate);
+                    }
+
+                    responeData.data = getInfo;
+                }
                 else ////13、14、本月HSE活动综述、下月HSE工作计划
                 {
                     responeData.data = APISeDinMonthReportService.getSeDinMonthReport13ById(projectId, month); ;
@@ -430,7 +469,130 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+        #region 保存 MonthReport9、项目HSE检查统计
+        /// <summary>
+        /// 保存赛鼎月报
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData SaveSeDinMonthReport9([FromBody] Model.SeDinMonthReport9Item newItem)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                if (!string.IsNullOrEmpty(newItem.MonthReportId))
+                {
+                    responeData.data = APISeDinMonthReportService.SaveSeDinMonthReport9(newItem);
+                }
+                else
+                {
+                    responeData.code = 1;
+                    responeData.message = "请先保存月报主表信息！";
+                }
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
 
+            return responeData;
+        }
+        #endregion
+        #region 保存 MonthReport10、项目奖惩情况统计
+        /// <summary>
+        /// 保存赛鼎月报
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData SaveSeDinMonthReport10([FromBody] Model.SeDinMonthReport10Item newItem)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                if (!string.IsNullOrEmpty(newItem.MonthReportId))
+                {
+                    responeData.data = APISeDinMonthReportService.SaveSeDinMonthReport10(newItem);
+                }
+                else
+                {
+                    responeData.code = 1;
+                    responeData.message = "请先保存月报主表信息！";
+                }
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+        #region 保存 MonthReport11、项目危大工程施工情况
+        /// <summary>
+        /// 保存赛鼎月报
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData SaveSeDinMonthReport11([FromBody] Model.SeDinMonthReport11Item newItem)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                if (!string.IsNullOrEmpty(newItem.MonthReportId))
+                {
+                    responeData.data = APISeDinMonthReportService.SaveSeDinMonthReport11(newItem);
+                }
+                else
+                {
+                    responeData.code = 1;
+                    responeData.message = "请先保存月报主表信息！";
+                }
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+        #region 保存 MonthReport12、项目应急演练情况
+        /// <summary>
+        /// 保存赛鼎月报
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData SaveSeDinMonthReport12([FromBody] Model.SeDinMonthReport12Item newItem)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                if (!string.IsNullOrEmpty(newItem.MonthReportId))
+                {
+                    responeData.data = APISeDinMonthReportService.SaveSeDinMonthReport12(newItem);
+                }
+                else
+                {
+                    responeData.code = 1;
+                    responeData.message = "请先保存月报主表信息！";
+                }
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
         #region 保存 MonthReport13、14、本月HSE活动综述、下月HSE工作计划
         /// <summary>
         /// 保存赛鼎月报
