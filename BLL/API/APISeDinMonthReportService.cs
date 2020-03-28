@@ -1421,7 +1421,7 @@ namespace BLL
                     updateReport.AccidentsSummary = newItem.AccidentsSummary;
                     db.SubmitChanges();
                     ////删除明细
-                    var delMonthReport3s = from x in Funs.DB.SeDin_MonthReport3
+                    var delMonthReport3s = from x in db.SeDin_MonthReport3
                                           where x.MonthReportId == newItem.MonthReportId
                                           select x;
                     if (delMonthReport3s.Count() > 0)
@@ -1475,7 +1475,7 @@ namespace BLL
                 if (updateReport != null)
                 {
                     ////删除明细
-                    var delMonthReport4s = from x in Funs.DB.SeDin_MonthReport4
+                    var delMonthReport4s = from x in db.SeDin_MonthReport4
                                            where x.MonthReportId == newItem.MonthReportId
                                            select x;
                     if (delMonthReport4s.Count() > 0)
@@ -1524,7 +1524,7 @@ namespace BLL
                 if (updateReport != null)
                 {
                     ////删除明细
-                    var delMonthReport5s = from x in Funs.DB.SeDin_MonthReport5
+                    var delMonthReport5s = from x in db.SeDin_MonthReport5
                                            where x.MonthReportId == newItem.MonthReportId
                                            select x;
                     if (delMonthReport5s.Count() > 0)
