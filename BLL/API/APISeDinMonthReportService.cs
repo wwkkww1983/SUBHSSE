@@ -658,8 +658,8 @@ namespace BLL
                                AuditManName = Funs.DB.Sys_User.First(u => u.UserId == x.AuditManId).UserName,
                                ApprovalManId = x.ApprovalManId,
                                ApprovalManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApprovalManId).UserName,                             
-                               ThisSummary = x.ThisSummary,
-                               NextPlan = x.NextPlan,
+                               //ThisSummary = x.ThisSummary,
+                               //NextPlan = x.NextPlan,
 
                            }).FirstOrDefault();
             }
@@ -1268,8 +1268,8 @@ namespace BLL
                     EndDate = Funs.GetNewDateTime(newItem.EndDate),
                     ReporMonth = Funs.GetNewDateTime(newItem.ReporMonth),
                     States =newItem.States,
-                    ThisSummary = System.Web.HttpUtility.HtmlEncode(newItem.ThisSummary),
-                    NextPlan = System.Web.HttpUtility.HtmlEncode(newItem.NextPlan),
+                    //ThisSummary = System.Web.HttpUtility.HtmlEncode(newItem.ThisSummary),
+                    //NextPlan = System.Web.HttpUtility.HtmlEncode(newItem.NextPlan),
                 };
                 if (!string.IsNullOrEmpty(newItem.CompileManId))
                 {
@@ -1298,8 +1298,8 @@ namespace BLL
                     updateReport.CompileManId = newReport.CompileManId;
                     updateReport.AuditManId = newReport.AuditManId;
                     updateReport.ApprovalManId = newReport.ApprovalManId;
-                    updateReport.ThisSummary = newReport.ThisSummary;
-                    updateReport.NextPlan = newReport.NextPlan;                  
+                    //updateReport.ThisSummary = newReport.ThisSummary;
+                    //updateReport.NextPlan = newReport.NextPlan;                  
                 }
                 db.SubmitChanges();
                 return newReport.MonthReportId;
