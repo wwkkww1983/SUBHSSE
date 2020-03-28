@@ -1745,7 +1745,7 @@ namespace BLL
                         Model.SeDin_MonthReport8Item new8Item = new Model.SeDin_MonthReport8Item
                         {
                             MonthReport8ItemId = SQLHelper.GetNewID(),
-                            MonthReportId= newItem.MonthReport8Id,
+                            MonthReportId= newItem.MonthReportId,
                             UnitName=item.UnitName,
                             TeamName = item.TeamName,
                             ClassNum = item.ClassNum,
@@ -1827,7 +1827,7 @@ namespace BLL
                         Model.SeDin_MonthReport9Item_Rectification new9Item = new Model.SeDin_MonthReport9Item_Rectification
                         {
                             MonthReport9ItemId = SQLHelper.GetNewID(),
-                            MonthReportId = newItem.MonthReport9Id,
+                            MonthReportId = newItem.MonthReportId,
                             UnitName = item.UnitName,
                             IssuedMonth = item.IssuedMonth,
                             RectificationMoth = item.RectificationMoth,
@@ -1854,7 +1854,7 @@ namespace BLL
                         Model.SeDin_MonthReport9Item_Special new9Item = new Model.SeDin_MonthReport9Item_Special
                         {
                             MonthReport9ItemId = SQLHelper.GetNewID(),
-                            MonthReportId = newItem.MonthReport9Id,
+                            MonthReportId = newItem.MonthReportId,
                             TypeName = item.TypeName,
                             CheckMonth = item.CheckMonth,
                             CheckYear = item.CheckYear,
@@ -1880,7 +1880,7 @@ namespace BLL
                         Model.SeDin_MonthReport9Item_Stoppage new9Item = new Model.SeDin_MonthReport9Item_Stoppage
                         {
                             MonthReport9ItemId = SQLHelper.GetNewID(),
-                            MonthReportId = newItem.MonthReport9Id,
+                            MonthReportId = newItem.MonthReportId,
                             UnitName = item.UnitName,
                             IssuedMonth = item.IssuedMonth,
                             StoppageMonth = item.StoppageMonth,
