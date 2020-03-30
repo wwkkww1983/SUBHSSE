@@ -36,8 +36,8 @@ namespace BLL
                               UnitName = y.UnitName,
                               LoginProjectName = z.ProjectName,
                               Telephone = x.Telephone,
-                              WorkPostId=x.WorkPostId,
-                              WorkPostName=w.WorkPostName,
+                              WorkPostId = x.WorkPostId,
+                              WorkPostName = w.WorkPostName,
                           };
 
             return getUser.FirstOrDefault();
@@ -89,7 +89,7 @@ namespace BLL
                                 AttachUrl3 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.PersonId + "#3")).AttachUrl.Replace('\\', '/'),
                                 AttachUrl4 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.PersonId + "#4")).AttachUrl.Replace('\\', '/'),
                             };
-            return  getPerson.FirstOrDefault();
+            return getPerson.FirstOrDefault();
         }
         #endregion
 
@@ -142,8 +142,8 @@ namespace BLL
                               Telephone = x.Telephone,
                               PhotoUrl = x.PhotoUrl,
                               DepartName = x.DepartName,
-                              WorkAreaId=x.WorkAreaId,
-                              WorkAreaName=x.WorkAreaName,
+                              WorkAreaId = x.WorkAreaId,
+                              WorkAreaName = x.WorkAreaName,
                           };
             return persons.ToList();
         }
@@ -161,18 +161,18 @@ namespace BLL
         ///  <param name="strParam">查询条件</param>
         /// <returns></returns>
         public static List<Model.PersonItem> getPersonListByProjectIdStates(string projectId, string unitId, string states, string strUnitId, string strWorkPostId, string strParam)
-        {           
-           var  getViews = from x in Funs.DB.SitePerson_Person
-                        where x.ProjectId == projectId && (strUnitId == null || x.UnitId == strUnitId)
-                        && (strWorkPostId == null || x.WorkPostId == strWorkPostId)
-                        select x;
+        {
+            var getViews = from x in Funs.DB.SitePerson_Person
+                           where x.ProjectId == projectId && (strUnitId == null || x.UnitId == strUnitId)
+                           && (strWorkPostId == null || x.WorkPostId == strWorkPostId)
+                           select x;
             if (!CommonService.GetIsThisUnit(unitId) || string.IsNullOrEmpty(unitId))
             {
                 getViews = getViews.Where(x => x.UnitId == unitId);
             }
             if (states == "0")
             {
-                getViews = getViews.Where(x => x.IsUsed == false &&  !x.AuditorDate.HasValue);
+                getViews = getViews.Where(x => x.IsUsed == false && !x.AuditorDate.HasValue);
             }
             else if (states == "1")
             {
@@ -238,7 +238,7 @@ namespace BLL
             List<string> unitIdList = Funs.GetStrListByStr(unitIds, ',');
             var getPersons = from x in Funs.DB.View_SitePerson_Person
                              where x.ProjectId == projectId && unitIdList.Contains(x.UnitId) && x.IsUsed == true
-                             && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)                         
+                             && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)
                              select new Model.PersonItem
                              {
                                  PersonId = x.PersonId,
@@ -269,7 +269,7 @@ namespace BLL
                 List<string> workPostIdList = Funs.GetStrListByStr(workPostIds, ',');
                 getPersons = getPersons.Where(x => workPostIdList.Contains(x.WorkPostId));
             }
-            
+
             List<Model.PersonItem> getTrainPersonList = new List<Model.PersonItem>();
             var getTrainType = TrainTypeService.GetTrainTypeById(trainTypeId);
             if (getTrainType != null && (!getTrainType.IsRepeat.HasValue || getTrainType.IsRepeat == false))
@@ -380,7 +380,7 @@ namespace BLL
                     getPerson.InTime = Funs.GetNewDateTime(person.InTime);
                     getPerson.OutTime = Funs.GetNewDateTime(person.OutTime);
                     getPerson.Sex = person.Sex;
-                   
+
                     //getPerson.AuditorDate = Funs.GetNewDateTime(person.AuditorDate);
                     if (!string.IsNullOrEmpty(person.TeamGroupId))
                     {
@@ -459,6 +459,7 @@ namespace BLL
         #endregion
         #endregion
 
+        #region 更新人员附件
         /// <summary>
         /// 更新人员附件
         /// </summary>
@@ -480,6 +481,7 @@ namespace BLL
                 SaveMeetUrl(getPerson.PersonId, Const.ProjectPersonChangeMenuId, person.AttachUrl1, person.AttachUrl2, person.AttachUrl3, person.AttachUrl4);
             }
         }
+        #endregion
 
         #region 人员离场
         /// <summary>
@@ -516,7 +518,7 @@ namespace BLL
         {
             if (!string.IsNullOrEmpty(idCard))
             {
-                var getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(x =>x.ProjectId ==projectId && x.IdentityCard == idCard);
+                var getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.ProjectId == projectId && x.IdentityCard == idCard);
                 if (getPerson != null)
                 {
                     var getPersonInOut = Funs.DB.SitePerson_PersonInOut.FirstOrDefault(x => x.PersonId == getPerson.PersonId && x.ProjectId == projectId && x.ChangeTime == changeTime);
@@ -529,7 +531,7 @@ namespace BLL
                             UnitId = getPerson.UnitId,
                             PersonId = getPerson.PersonId,
                             IsIn = isIn == 1 ? true : false,
-                            ChangeTime= changeTime,
+                            ChangeTime = changeTime,
                         };
                         Funs.DB.SitePerson_PersonInOut.InsertOnSubmit(newInOut);
                         Funs.SubmitChanges();
@@ -559,6 +561,52 @@ namespace BLL
                 }
                 Funs.SubmitChanges();
             }
+        }
+        #endregion
+
+        #region 获取人员信息出入场记录
+        /// <summary>
+        /// 获取人员信息出入场记录
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <returns></returns>
+        public static List<Model.PersonInOutItem> getPersonInOutList(string projectId, string unitId, string startTime, string endTime)
+        {
+            DateTime? startTimeD = Funs.GetNewDateTime(startTime);
+            DateTime? endTimeD = Funs.GetNewDateTime(endTime);
+            var personInOuts = from x in Funs.DB.SitePerson_PersonInOut
+                               join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
+                               where x.ProjectId == projectId
+                               select new Model.PersonInOutItem
+                               {
+                                   PersonId = x.PersonId,
+                                   PersonName = y.PersonName,
+                                   ProjectId = x.ProjectId,
+                                   UnitId = y.UnitId,
+                                   UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                                   WorkPostId = y.WorkPostId,
+                                   WorkPostName = Funs.DB.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
+                                   IsIn = x.IsIn,
+                                   IsInName = x.IsIn == true ? "进场" : "出场",
+                                   ChangeTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ChangeTime),
+                                   ChangeTimeD = x.ChangeTime,
+                               };
+            if (!string.IsNullOrEmpty(unitId) && !CommonService.GetIsThisUnit(unitId))
+            {
+                personInOuts = personInOuts.Where(x => x.UnitId == unitId);
+            }
+            if (startTimeD.HasValue)
+            {
+                personInOuts = personInOuts.Where(x => x.ChangeTimeD >= startTimeD);
+            }
+            if (endTimeD.HasValue)
+            {
+                personInOuts = personInOuts.Where(x => x.ChangeTimeD <= endTimeD);
+            }
+            return personInOuts.OrderBy(x => x.UnitName).OrderBy(x => x.PersonName).ToList();
         }
         #endregion
     }

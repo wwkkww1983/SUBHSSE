@@ -12,14 +12,14 @@
 }
 
 table {
-	FONT-FAMILY: "宋体";
-	FONT-SIZE: 13px;
+	FONT-FAMILY: "Microsoft YaHei";
+	FONT-SIZE: 12px;
 }
 
 
 .table {
-	FONT-FAMILY: "宋体";
-	FONT-SIZE: 13px;
+	FONT-FAMILY: "Microsoft YaHei";
+	FONT-SIZE: 12px;
 	BORDER-RIGHT: #bcd2e7 2px solid;
 	BORDER-TOP: #bcd2e7 2px solid;
 	BORDER-LEFT: #bcd2e7 2px solid;
@@ -28,8 +28,8 @@ table {
 }
 
 td {
-	FONT-FAMILY: "宋体";
-	FONT-SIZE: 13px;
+	FONT-FAMILY: "Microsoft YaHei";
+	FONT-SIZE: 12px;
 	TEXT-DECORATION: none;
 	PADDING-RIGHT: 1px;
 	PADDING-LEFT: 1px;
@@ -38,8 +38,8 @@ td {
 }
 
 .th {
-	FONT-FAMILY: "宋体";
-	FONT-SIZE: 13px;
+	FONT-FAMILY: "Microsoft YaHei";
+	FONT-SIZE: 12px;
 	text-align: left;
 	FONT-WEIGHT: bold;
 	BACKGROUND-IMAGE: url('th_bg.jpg');
@@ -50,21 +50,21 @@ td {
 	height: 20px;
 	BORDER-TOP-WIDTH: 1px;
 	BORDER-LEFT-WIDTH: 1px;
-	FONT-SIZE: 13px;
+	FONT-SIZE: 12px;
 	BORDER-BOTTOM-WIDTH: 1px;
 	BORDER-RIGHT-WIDTH: 1px;
 	border: 1px #A4C1F0 solid
 }
 
 select {
-	FONT-SIZE: 13px;
+	FONT-SIZE: 12px;
 	HEIGHT: 18px;
 	BACKGROUND: #f8fafc
 }
 
 body {
-	FONT-SIZE: 13px;
-	FONT-FAMILY: "宋体";
+	FONT-SIZE: 12px;
+	FONT-FAMILY: "Microsoft YaHei";
 	TEXT-DECORATION: none;
 	text-align: center;
 	margin-left: 0px;
@@ -74,12 +74,12 @@ body {
 
 a {
 	color:#000000;
-	FONT-SIZE: 13px;
+	FONT-SIZE: 12px;
 	TEXT-DECORATION: none
 }
 
 a:hover {
-	FONT-SIZE: 13px;
+	FONT-SIZE: 12px;
 	color:#0066CC
 }
 

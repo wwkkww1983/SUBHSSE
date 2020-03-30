@@ -1803,6 +1803,17 @@
             <param name="type">交换类型</param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.PersonController.getPersonInOutList(System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            获取人员信息出入场记录
+            </summary>
+            <param name="projectId"></param>
+            <param name="unitId"></param>
+            <param name="startTime"></param>
+            <param name="endTime"></param>
+            <param name="pageIndex">页码</param>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.ProjectController">
             <summary>
             项目

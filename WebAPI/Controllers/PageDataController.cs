@@ -57,11 +57,13 @@ namespace WebAPI.Controllers
                     }
                     else
                     {
+                        int weekDay = WeekDayService.CaculateWeekDay(DateTime.Now);
+                        //当前周的范围
+                        DateTime retStartDay = DateTime.Now.AddDays(-(weekDay - 1)).AddDays(-1);
+                        DateTime retEndDay = DateTime.Now.AddDays(6 - weekDay).AddDays(1);
                         var getHazardItems = from x in Funs.DB.Hazard_HazardSelectedItem
                                              join y in Funs.DB.Hazard_HazardList on x.HazardListId equals y.HazardListId
-                                             where y.ProjectId == projectId && y.CompileDate.Value.Year == DateTime.Now.Year
-                                             && y.CompileDate.Value.Month == DateTime.Now.Month
-                                             && y.CompileDate.Value.Day == DateTime.Now.Day
+                                             where y.ProjectId == projectId && y.CompileDate> retStartDay && y.CompileDate < retEndDay
                                              select x;
                         if (getHazardItems.Count() > 0)
                         {

@@ -187,6 +187,7 @@
     <Compile Include="Check\SupervisionNoticeService.cs" />
     <Compile Include="API\APIUpLoadFileService.cs" />
     <Compile Include="Common\CreateQRCodeService.cs" />
+    <Compile Include="Common\WeekDayService.cs" />
     <Compile Include="CostGoods\SubPayRegistrationService.cs" />
     <Compile Include="EduTrain\EduTrain_TrainTestService.cs" />
     <Compile Include="EduTrain\TestPlanTrainingService.cs" />
