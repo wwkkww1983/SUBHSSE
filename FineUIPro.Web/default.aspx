@@ -35,23 +35,23 @@
                                 </td>
                                 <td style="text-align: right;">                                        
                                     <f:Button runat="server" CssClass="icontopaction nexttheme" ID="btnSever" Text="本部管理" ToolTip="本部管理系统"
-                                        IconAlign="Top" Icon="House"  EnableDefaultState="false" OnClick="btnSever_Click"
+                                            IconAlign="Top"  EnableDefaultState="false" OnClick="btnSever_Click"
                                           EnableDefaultCorner="false">
                                     </f:Button>
                                      <f:Button runat="server" CssClass="icontopaction nexttheme" ID="btnPoject" 
-                                        Text="项目现场"  ToolTip="项目现场管理系统" IconAlign="Top"  Icon="UserHome" 
+                                        Text="项目现场"  ToolTip="项目现场管理系统" IconAlign="Top"  
                                         EnableDefaultState="false" EnableDefaultCorner="false" OnClick="btnPoject_Click">                                       
                                     </f:Button>                                   
                                      <f:Button runat="server" CssClass="icontopaction nexttheme" ID="btnResource" Text="公共资源" ToolTip="公共资源管理系统"
-                                        IconAlign="Top" Icon="ApplicationViewList" EnableDefaultState="false" OnClick="btnResource_Click"
+                                        IconAlign="Top" EnableDefaultState="false" OnClick="btnResource_Click"
                                           EnableDefaultCorner="false">
                                     </f:Button>                                  
                                     <f:Button runat="server" CssClass="icontopaction nexttheme" ID="btnBaseInfo" Text="基础信息" ToolTip="基础信息管理"
-                                        IconAlign="Top" Icon="FolderTable" EnableDefaultState="false" OnClick="btnBaseInfo_Click"
+                                        IconAlign="Top"  EnableDefaultState="false" OnClick="btnBaseInfo_Click"
                                           EnableDefaultCorner="false">
                                     </f:Button> 
                                     <f:Button runat="server" CssClass="icontopaction nexttheme" ID="btnSystemSet" Text="系统设置" ToolTip="系统设置管理"
-                                        IconAlign="Top" Icon="PageWhiteWrench" EnableDefaultState="false" OnClick="btnSystemSet_Click"
+                                        IconAlign="Top"  EnableDefaultState="false" OnClick="btnSystemSet_Click"
                                           EnableDefaultCorner="false">
                                     </f:Button>                                                                                  
                                     <f:Button runat="server" CssClass="userpicaction" IconUrl="~/res/images/my_face_80.jpg" IconAlign="Left"

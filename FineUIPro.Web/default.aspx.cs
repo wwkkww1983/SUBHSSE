@@ -439,13 +439,13 @@ namespace FineUIPro.Web
                 this.btnPoject.OnClientClick = "parent.removeActiveTab();";
                 this.btnResource.OnClientClick = "parent.removeActiveTab();";
                 this.btnBaseInfo.OnClientClick = "parent.removeActiveTab();";
-                this.btnSystemSet.OnClientClick = "parent.removeActiveTab();";               
+                this.btnSystemSet.OnClientClick = "parent.removeActiveTab();";
                 this.InitSearchBox();
                 this.InitMenuStyleButton();
                 this.InitMenuModeButton();
                 this.InitLangMenuButton();
                 this.ShowVeionInfo();
-                
+
                 if (CommonService.GetIsThisUnit(Const.UnitId_14))
                 {
                     this.trEHtml.Visible = true;
@@ -462,7 +462,15 @@ namespace FineUIPro.Web
                     this.trEHtml3.Visible = false;
                     this.trGJ.Visible = false;
                     this.trcncec.Visible = false;
-                    this.trXJYJ.Visible = true; 
+                    this.trXJYJ.Visible = true;
+                }
+                if (!CommonService.GetIsThisUnit(Const.UnitId_SEDIN))
+                {
+                    this.btnSever.Icon = Icon.House;
+                    this.btnPoject.Icon = Icon.UserHome;
+                    this.btnResource.Icon = Icon.ApplicationViewList;
+                    this.btnBaseInfo.Icon = Icon.FolderTable;
+                    this.btnSystemSet.Icon = Icon.PageWhiteWrench;
                 }
             }
         }

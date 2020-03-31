@@ -606,7 +606,7 @@ namespace BLL
             {
                 personInOuts = personInOuts.Where(x => x.ChangeTimeD <= endTimeD);
             }
-            return personInOuts.OrderBy(x => x.UnitName).OrderBy(x => x.PersonName).ToList();
+            return personInOuts.OrderByDescending(x => x.ChangeTimeD).ToList();
         }
         #endregion
     }

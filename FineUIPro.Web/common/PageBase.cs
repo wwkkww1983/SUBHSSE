@@ -91,11 +91,11 @@ namespace FineUIPro.Web
             //anyway,its ok.
 
             this.Title = BLL.Funs.SystemName;
-            if (CurrUser == null)
-            {
-                if (this.Page.Request.AppRelativeCurrentExecutionFilePath != "~/Login.aspx")
-                    Response.Redirect("~/Login.aspx");
-            }
+            //if (CurrUser == null)
+            //{
+            //    if (this.Page.Request.AppRelativeCurrentExecutionFilePath != "~/Login.aspx")
+            //        Response.Redirect("~/Login.aspx");
+            //}
         }
 
         /// <summary>

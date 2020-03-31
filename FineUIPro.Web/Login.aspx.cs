@@ -50,11 +50,11 @@
                 }
 
                 //this.tbxUserName.Focus();
-                var unit = BLL.CommonService.GetIsThisUnit();
-                if (unit != null && !string.IsNullOrEmpty(unit.UnitName))
-                {
-                    this.lbSubName.Text = unit.UnitName;
-                }
+                //var unit = BLL.CommonService.GetIsThisUnit();
+                //if (unit != null && !string.IsNullOrEmpty(unit.UnitName))
+                //{
+                //    this.lbSubName.Text = unit.UnitName;
+                //}
                 this.LoadData();
                 if (Request.Cookies["UserInfo"] != null)
                 {
@@ -69,8 +69,8 @@
 
                     this.ckRememberMe.Checked = true;
                 }
-                string sysVersion = ConfigurationManager.AppSettings["SystemVersion"];
-                this.lbVevion.Text = "请使用IE10以上版本浏览器 版本号：" + sysVersion;   
+                //string sysVersion = ConfigurationManager.AppSettings["SystemVersion"];
+                //this.lbVevion.Text = "请使用IE10以上版本浏览器 版本号：" + sysVersion;
             }
         }
         #endregion
@@ -133,9 +133,9 @@
                 ShowNotify("验证码错误！", MessageBoxIcon.Error);
                 return;
             }
-            
+
             if (BLL.LoginService.UserLogOn(tbxUserName.Text, this.tbxPassword.Text, this.ckRememberMe.Checked, this.Page))
-            {                
+            {
                 this.CurrUser.LoginProjectId = null;
                 PageContext.Redirect("~/default.aspx");
                 BLL.LogService.AddSys_Log(this.CurrUser, this.CurrUser.UserName, string.Empty, BLL.Const.UserMenuId, BLL.Const.BtnLogin);
@@ -143,7 +143,7 @@
             else
             {
                 ShowNotify("用户名或密码错误！", MessageBoxIcon.Error);
-            }           
+            }
         }
         #endregion
 
@@ -177,33 +177,19 @@
                                 IsSub = item.IsSub
                             };
                             Funs.DB.Sys_Version.InsertOnSubmit(newVersion);
-                            Funs.DB.SubmitChanges();                            
+                            Funs.DB.SubmitChanges();
                         }
                     }
                 }
             }
             if (e.Error == null)
             {
-                BLL.LogService.AddSys_Log(this.CurrUser, "【版本信息】从集团提取" + count.ToString() + "条数据；",string.Empty,BLL.Const.SynchronizationMenuId,BLL.Const.BtnDownload);
+                BLL.LogService.AddSys_Log(this.CurrUser, "【版本信息】从集团提取" + count.ToString() + "条数据；", string.Empty, BLL.Const.SynchronizationMenuId, BLL.Const.BtnDownload);
             }
             else
             {
                 BLL.LogService.AddSys_Log(this.CurrUser, "【版本信息】从集团提取失败；", string.Empty, BLL.Const.SynchronizationMenuId, BLL.Const.BtnDownload);
-            }            
-        }
-        #endregion
-
-        #region 重置
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnReset_Click(object sender, EventArgs e)
-        {
-            this.tbxUserName.Text = string.Empty;
-            this.tbxPassword.Text = string.Empty;
-            this.ckRememberMe.Checked = false;
+            }
         }
         #endregion
     }
