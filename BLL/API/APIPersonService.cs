@@ -1,9 +1,7 @@
-﻿using System;
+﻿using EmitMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EmitMapper;
 
 namespace BLL
 {
@@ -144,6 +142,8 @@ namespace BLL
                               DepartName = x.DepartName,
                               WorkAreaId = x.WorkAreaId,
                               WorkAreaName = x.WorkAreaName,
+                              PostType=x.PostType,
+                              PostTypeName=Funs.DB.Sys_Const.First(z=>z.GroupId== ConstValue.Group_PostType && z.ConstValue==x.PostType).ConstText,
                           };
             return persons.ToList();
         }
@@ -193,6 +193,7 @@ namespace BLL
             }
             var persons = from x in getViews
                           join y in Funs.DB.Base_Unit on x.UnitId equals y.UnitId
+                          join z in Funs.DB.Base_WorkPost on x.WorkPostId equals z.WorkPostId
                           orderby y.UnitName, x.PersonName
                           select new Model.PersonItem
                           {
@@ -219,6 +220,8 @@ namespace BLL
                               IsUsedName = (x.IsUsed == true ? "启用" : "未启用"),
                               WorkAreaId = x.WorkAreaId,
                               WorkAreaName = Funs.DB.ProjectData_WorkArea.First(z => z.WorkAreaId == x.WorkAreaId).WorkAreaName,
+                              PostType = z.PostType,
+                              PostTypeName = Funs.DB.Sys_Const.First(p => p.GroupId == ConstValue.Group_PostType && p.ConstValue == z.PostType).ConstText,
                           };
             return persons.ToList();
         }
@@ -570,10 +573,11 @@ namespace BLL
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="unitId"></param>
+        /// <param name="strParam"></param>
         /// <param name="startTime"></param>
         /// <param name="endTime"></param>
         /// <returns></returns>
-        public static List<Model.PersonInOutItem> getPersonInOutList(string projectId, string unitId, string startTime, string endTime)
+        public static List<Model.PersonInOutItem> getPersonInOutList(string projectId, string unitId, string strParam, string startTime, string endTime)
         {
             DateTime? startTimeD = Funs.GetNewDateTime(startTime);
             DateTime? endTimeD = Funs.GetNewDateTime(endTime);
@@ -594,7 +598,7 @@ namespace BLL
                                    ChangeTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ChangeTime),
                                    ChangeTimeD = x.ChangeTime,
                                };
-            if (!string.IsNullOrEmpty(unitId) && !CommonService.GetIsThisUnit(unitId))
+            if (!string.IsNullOrEmpty(unitId))
             {
                 personInOuts = personInOuts.Where(x => x.UnitId == unitId);
             }
@@ -606,7 +610,176 @@ namespace BLL
             {
                 personInOuts = personInOuts.Where(x => x.ChangeTimeD <= endTimeD);
             }
+            if (!string.IsNullOrEmpty(strParam))
+            {
+                personInOuts = personInOuts.Where(x => x.PersonName.Contains(strParam));
+            }
             return personInOuts.OrderByDescending(x => x.ChangeTimeD).ToList();
+        }
+        #endregion
+
+        #region 根据identityCard获取人员资质信息
+        /// <summary>
+        /// 根据identityCard获取人员资质信息
+        /// </summary>
+        /// <param name="identityCard"></param>
+        /// <returns></returns>
+        public static Model.PersonQualityItem getPersonQualityByIdentityCard(string identityCard)
+        {
+            var getLists = from x in Funs.DB.QualityAudit_PersonQuality
+                           join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
+                           where y.IdentityCard == identityCard || x.PersonId == identityCard
+                           orderby y.CardNo
+                           select new Model.PersonQualityItem
+                           {
+                               PersonQualityId = x.PersonQualityId,
+                               PersonId = x.PersonId,
+                               CardNo = y.CardNo,
+                               IdentityCard = y.IdentityCard,
+                               ProjectId = y.ProjectId,
+                               UnitId = y.UnitId,
+                               UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                               CertificateId = x.CertificateId,
+                               CertificateName = Funs.DB.Base_Certificate.First(z => z.CertificateId == x.CertificateId).CertificateName,
+                               CertificateNo = x.CertificateNo,
+                               Grade = x.Grade,
+                               SendUnit = x.SendUnit,
+                               SendDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
+                               LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
+                               LateCheckDate = string.Format("{0:yyyy-MM-dd}", x.LateCheckDate),
+                               ApprovalPerson = x.ApprovalPerson,
+                               Remark = x.Remark,
+                               CompileMan = x.CompileMan,
+                               CompileManName = Funs.DB.Sys_User.First(z => z.UserId == x.CompileMan).UserName,
+                               CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                               AuditDate = string.Format("{0:yyyy-MM-dd}", x.AuditDate),
+                           };
+
+            return getLists.FirstOrDefault();
+        }
+        #endregion
+
+        #region 根据projectId、unitid获取特岗人员资质信息
+        /// <summary>
+        /// 根据projectId、unitid获取特岗人员资质信息
+        /// </summary>
+        /// <param name="projectId">项目ID</param>
+        /// <param name="unitId">单位ID</param>
+        /// <param name="type">数据类型0-已过期；1-即将过期</param>
+        /// <param name="pageIndex">页码</param>
+        /// <returns></returns>
+        public static List<Model.PersonQualityItem> getPersonQualityByProjectIdUnitId(string projectId, string unitId, string type)
+        {
+            var getLists = (from x in Funs.DB.QualityAudit_PersonQuality
+                            join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
+                            where y.ProjectId == projectId && x.CertificateId != null
+                            orderby x.LimitDate
+                            select new Model.PersonQualityItem
+                            {
+                                PersonQualityId = x.PersonQualityId,
+                                PersonId = x.PersonId,
+                                CardNo = y.CardNo,
+                                IdentityCard = y.IdentityCard,
+                                ProjectId = y.ProjectId,
+                                UnitId = y.UnitId,
+                                UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                                CertificateId = x.CertificateId,
+                                CertificateName = Funs.DB.Base_Certificate.First(z => z.CertificateId == x.CertificateId).CertificateName,
+                                CertificateNo = x.CertificateNo,
+                                Grade = x.Grade,
+                                SendUnit = x.SendUnit,
+                                SendDate = string.Format("{0:yyyy-MM-dd}", x.SendDate),
+                                LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
+                                LimitDateD = x.LimitDate,
+                                LateCheckDate = string.Format("{0:yyyy-MM-dd}", x.LateCheckDate),
+                                ApprovalPerson = x.ApprovalPerson,
+                                Remark = x.Remark,
+                                CompileMan = x.CompileMan,
+                                CompileManName = Funs.DB.Sys_User.First(z => z.UserId == x.CompileMan).UserName,
+                                CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                AuditDate = string.Format("{0:yyyy-MM-dd}", x.AuditDate),
+                                AttachUrl = APIUpLoadFileService.getFileUrl(x.PersonQualityId, null),
+                            }).ToList();
+            if (ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(projectId, unitId))
+            {
+                getLists = getLists.Where(x => x.UnitId == unitId).ToList();
+            }
+            if (type == "0")
+            {
+                getLists = getLists.Where(x => x.LimitDateD < DateTime.Now).ToList();
+            }
+            else if (type == "1")
+            {
+                getLists = getLists.Where(x => x.LimitDateD >= DateTime.Now && x.LimitDateD < DateTime.Now.AddMonths(1)).ToList();
+            }
+            return getLists;
+        }
+        #endregion
+
+        #region 人员资质信息保存方法
+        /// <summary>
+        /// 人员资质信息保存方法
+        /// </summary>
+        /// <param name="personQuality">人员信息</param>
+        public static void SavePersonQuality(Model.PersonQualityItem personQuality)
+        {
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                Model.QualityAudit_PersonQuality newPersonQuality = new Model.QualityAudit_PersonQuality
+                {
+                    PersonQualityId=personQuality.PersonQualityId,
+                    PersonId = personQuality.PersonId,                    
+                    CertificateNo = personQuality.CertificateNo,                
+                    CertificateName = personQuality.CertificateName,
+                    Grade = personQuality.Grade,
+                    SendUnit = personQuality.SendUnit,
+                    SendDate = Funs.GetNewDateTime(personQuality.SendDate),
+                    LimitDate = Funs.GetNewDateTime(personQuality.LimitDate),
+                    LateCheckDate = Funs.GetNewDateTime(personQuality.LateCheckDate),
+                    ApprovalPerson = personQuality.ApprovalPerson,
+                    Remark = personQuality.Remark,                 
+                    CompileDate = Funs.GetNewDateTime(personQuality.CompileDate),
+                    AuditDate = Funs.GetNewDateTime(personQuality.AuditDate),
+                };
+                if (!string.IsNullOrEmpty(personQuality.CertificateId))
+                {
+                    newPersonQuality.CertificateId = personQuality.CertificateId;
+                }
+                if (!string.IsNullOrEmpty(personQuality.CompileMan))
+                {
+                    newPersonQuality.CompileMan = personQuality.CompileMan;
+                }
+
+                var getPersonQuality = db.QualityAudit_PersonQuality.FirstOrDefault(x => x.PersonQualityId == newPersonQuality.PersonQualityId || x.PersonId == newPersonQuality.PersonId);
+                if (getPersonQuality == null)
+                {
+                    newPersonQuality.PersonQualityId = SQLHelper.GetNewID();
+                    db.QualityAudit_PersonQuality.InsertOnSubmit(newPersonQuality);
+                    db.SubmitChanges();
+                }
+                else
+                {
+                    newPersonQuality.PersonQualityId = getPersonQuality.PersonQualityId;
+                    getPersonQuality.CertificateId = newPersonQuality.CertificateId;
+                    getPersonQuality.CertificateNo = newPersonQuality.CertificateNo;
+                    getPersonQuality.CertificateName = newPersonQuality.CertificateName;
+                    getPersonQuality.Grade = newPersonQuality.Grade;
+                    getPersonQuality.SendUnit = newPersonQuality.SendUnit;
+                    getPersonQuality.SendDate = newPersonQuality.SendDate;
+                    getPersonQuality.LimitDate = newPersonQuality.LimitDate;
+                    getPersonQuality.LateCheckDate = newPersonQuality.LateCheckDate;
+                    getPersonQuality.ApprovalPerson = newPersonQuality.ApprovalPerson;
+                    getPersonQuality.Remark = newPersonQuality.Remark;
+                    getPersonQuality.CompileMan = newPersonQuality.CompileMan;
+                    getPersonQuality.CompileDate = newPersonQuality.CompileDate;
+                    getPersonQuality.AuditDate = newPersonQuality.AuditDate;
+                    db.SubmitChanges();
+                }
+                if (!string.IsNullOrEmpty(newPersonQuality.PersonQualityId))
+                {
+                    APIUpLoadFileService.SaveAttachUrl(Const.PersonQualityMenuId, newPersonQuality.PersonQualityId, personQuality.AttachUrl, "0");                    
+                }
+            }
         }
         #endregion
     }

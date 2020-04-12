@@ -510,5 +510,60 @@ namespace FineUIPro.Web.SitePerson
 
             PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../Controls/SeeQRImage.aspx?PersonId={0}&strCode={1}", this.PersonId, strCode), "二维码查看", 400, 400));
         }
+
+        #region 附件上传
+        /// <summary>
+        /// 上传附件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnAttachUrl1_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.PersonId))
+            {
+                SaveData();
+            }
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/IdCardAttachUrl&menuId={1}", PersonId + "#1", BLL.Const.ProjectPersonChangeMenuId)));
+        }
+        /// <summary>
+        /// 上传附件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnAttachUrl2_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.PersonId))
+            {
+                SaveData();
+            }
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonBaseInfo&menuId={1}", PersonId + "#2", BLL.Const.ProjectPersonChangeMenuId)));
+        }
+        /// <summary>
+        /// 上传附件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnAttachUrl3_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.PersonId))
+            {
+                SaveData();
+            }
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonBaseInfo&menuId={1}", PersonId + "#3", BLL.Const.ProjectPersonChangeMenuId)));
+        }
+        /// <summary>
+        /// 上传附件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnAttachUrl4_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.PersonId))
+            {
+                SaveData();
+            }
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonBaseInfo&menuId={1}", PersonId + "#4", BLL.Const.ProjectPersonChangeMenuId)));
+        }
+        #endregion
     }
 }

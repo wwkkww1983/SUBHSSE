@@ -221,33 +221,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data =from x in Funs.DB.View_QualityAudit_PersonQuality
-                                  where x.IdentityCard == identityCard || x.PersonId ==identityCard
-                                  select new
-                                  {
-                                      x.PersonQualityId,
-                                      x.PersonId,
-                                      x.CardNo,
-                                      x.IdentityCard,
-                                      x.ProjectId,
-                                      x.UnitId,
-                                      x.ProjectName,
-                                      x.ProjectCode,
-                                      x.CertificateNo,
-                                      x.Grade,
-                                      x.SendUnit,
-                                      x.SendDate,
-                                      LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
-                                      LateCheckDate = string.Format("{0:yyyy-MM-dd}", x.LateCheckDate),
-                                      x.ApprovalPerson,
-                                      x.Remark,
-                                      x.CompileMan,
-                                      x.CompileManName,
-                                      CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                                      AuditDate = string.Format("{0:yyyy-MM-dd}", x.AuditDate),
-                                      x.CertificateId,
-                                      x.CertificateName
-                                  };
+                responeData.data =APIPersonService.getPersonQualityByIdentityCard(identityCard);
             }
             catch (Exception ex)
             {
@@ -309,60 +283,43 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getQualityLists = (from x in Funs.DB.View_QualityAudit_PersonQuality
-                                       where x.ProjectId == projectId && x.CertificateId != null
-                                       orderby x.LimitDate
-                                       select x).ToList();
-                if (ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(projectId, unitId))
-                {
-                    getQualityLists = getQualityLists.Where(x => x.UnitId == unitId).ToList();
-                }
-                if (type == "0")
-                {
-                    getQualityLists = getQualityLists.Where(x => x.LimitDate < DateTime.Now).ToList();
-                }
-                else if (type == "1")
-                {
-                    getQualityLists = getQualityLists.Where(x => x.LimitDate >= DateTime.Now && x.LimitDate < DateTime.Now.AddMonths(1)).ToList();
-                }
-                int pageCount = getQualityLists.Count;
+                var getDataList = APIPersonService.getPersonQualityByProjectIdUnitId(projectId, unitId, type);
+                int pageCount = getDataList.Count();
                 if (pageCount > 0 && pageIndex > 0)
                 {
-                    var getdata = from x in getQualityLists.OrderBy(u => u.LimitDate).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize)
-                                      select new
-                                      {
-                                          x.PersonQualityId,
-                                          x.PersonId,
-                                          x.CardNo,
-                                          x.IdentityCard,
-                                          x.ProjectId,
-                                          x.UnitId,
-                                          x.ProjectName,
-                                          x.ProjectCode,
-                                          x.CertificateNo,
-                                          x.Grade,
-                                          x.SendUnit,
-                                          x.SendDate,
-                                          LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
-                                          LateCheckDate= string.Format("{0:yyyy-MM-dd}", x.LateCheckDate),
-                                          x.ApprovalPerson,
-                                          x.Remark,
-                                          x.CompileMan,
-                                          x.CompileManName,
-                                          CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                                          AuditDate = string.Format("{0:yyyy-MM-dd}", x.AuditDate),
-                                          x.CertificateId,
-                                          x.CertificateName
-                                      };
-
-                    responeData.data = new { pageCount, getdata };
+                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
                 }
+                responeData.data = new { pageCount, getDataList };
             }
             catch (Exception ex)
             {
                 responeData.code = 0;
                 responeData.message = ex.Message;
             }
+            return responeData;
+        }
+        #endregion
+
+        #region 保存 人员资质信息 QualityAudit_PersonQuality
+        /// <summary>
+        /// 保存Meeting
+        /// </summary>
+        /// <param name="personQuality">人员资质信息</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData SavePersonQuality([FromBody] Model.PersonQualityItem personQuality)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APIPersonService.SavePersonQuality(personQuality);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
             return responeData;
         }
         #endregion
@@ -624,7 +581,40 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = APIPersonService.getPersonInOutList(projectId, unitId, startTime, endTime);
+                var getDataList = APIPersonService.getPersonInOutList(projectId, unitId, null, startTime, endTime);
+                int pageCount = getDataList.Count();
+                if (pageCount > 0 && pageIndex > 0)
+                {
+                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                }
+                responeData.data = new { pageCount, getDataList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 获取人员信息出入场记录-查询
+        /// <summary>
+        /// 获取人员信息出入场记录
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
+        /// <param name="strParam">查询条件</param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="pageIndex">页码</param>
+        /// <returns></returns>
+        public Model.ResponeData getPersonInOutList(string projectId, string unitId, string strParam, string startTime, string endTime, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APIPersonService.getPersonInOutList(projectId, unitId, strParam,startTime, endTime);
                 int pageCount = getDataList.Count();
                 if (pageCount > 0 && pageIndex > 0)
                 {

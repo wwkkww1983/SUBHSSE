@@ -160,5 +160,21 @@ namespace Model
             get;
             set;
         }
+        /// <summary>
+        /// 岗位类型
+        /// </summary>
+        public string PostType
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 岗位类型名称
+        /// </summary>
+        public string PostTypeName
+        {
+            get;
+            set;
+        }
     }
 }

@@ -66,7 +66,7 @@
                         SortField="PersonName" FieldType="String" HeaderText="人员姓名" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>  
-                    <f:RenderField Width="90px" ColumnID="WorkPostName" DataField="WorkPostName" 
+                    <f:RenderField Width="100px" ColumnID="WorkPostName" DataField="WorkPostName" 
                         SortField="WorkPostName" FieldType="String" HeaderText="岗位" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>

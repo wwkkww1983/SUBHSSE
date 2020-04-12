@@ -130,7 +130,20 @@
                 </Rows>
                 <Toolbars>
                     <f:Toolbar ID="Toolbar1" runat="server" ToolbarAlign="Right" Position="Bottom">
-                        <Items>
+                        <Items>                           
+                             <f:Button ID="btnAttachUrl1" Text="身份证" ToolTip="身份证查看" Icon="TableCell" runat="server"
+                                OnClick="btnAttachUrl1_Click" ValidateForms="SimpleForm1" MarginLeft="5px">
+                            </f:Button>
+                               <f:Button ID="btnAttachUrl2" Text="保险" ToolTip="保险查看" Icon="TableCell" runat="server"
+                                OnClick="btnAttachUrl2_Click" ValidateForms="SimpleForm1" MarginLeft="5px">
+                            </f:Button>
+                               <f:Button ID="btnAttachUrl3" Text="体检证明" ToolTip="体检证明查看" Icon="TableCell" runat="server"
+                                OnClick="btnAttachUrl3_Click" ValidateForms="SimpleForm1" MarginLeft="5px">
+                            </f:Button>
+                               <f:Button ID="btnAttachUrl4" Text="安全生产考核合格证书/特种作业操作证" ToolTip="查看" Icon="TableCell" runat="server"
+                                OnClick="btnAttachUrl4_Click" ValidateForms="SimpleForm1" MarginLeft="5px">
+                            </f:Button>
+                            <f:ToolbarFill runat="server"></f:ToolbarFill>
                             <f:Button ID="btnSave" Icon="SystemSave" runat="server"  ValidateForms="Form2"
                                 OnClick="btnSave_Click" Hidden="true">
                             </f:Button>
@@ -145,6 +158,10 @@
     <f:Window ID="Window1" runat="server" Hidden="true" IsModal="false" Target="Parent"
         EnableMaximize="true" EnableResize="true" Title="弹出框" CloseAction="HidePostBack"
         EnableIFrame="true">
+    </f:Window>
+         <f:Window ID="WindowAtt" Title="附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
+        Height="500px">
     </f:Window>
     </form>
 </body>

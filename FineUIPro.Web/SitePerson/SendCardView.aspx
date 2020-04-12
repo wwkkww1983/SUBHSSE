@@ -58,7 +58,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <table id="Table1" runat="server" width="400px" cellpadding="0" cellspacing="0" align="center"
+    <table id="Table1" runat="server" width="420px" cellpadding="0" cellspacing="0" align="center"
         border="0">
         <tr>
             <td style="width: 100%; background: url('../Images/bg-1.gif')">

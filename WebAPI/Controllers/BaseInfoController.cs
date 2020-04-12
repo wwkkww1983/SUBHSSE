@@ -927,5 +927,26 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region 获取岗位类型
+        /// <summary>
+        ///   获取岗位类型
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getPostType()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getSysConst(ConstValue.Group_PostType);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
     }
 }

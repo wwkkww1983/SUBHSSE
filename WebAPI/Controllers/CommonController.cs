@@ -88,7 +88,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                responeData.code = 0;
+                responeData.code = 1;
                 responeData.message = ex.Message;
             }
 

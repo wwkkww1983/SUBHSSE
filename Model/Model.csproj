@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIItem\PersonInOutItem.cs" />
+    <Compile Include="APIItem\PersonQualityItem.cs" />
     <Compile Include="APIItem\SeDinMonthReport10Item.cs" />
     <Compile Include="APIItem\SeDinMonthReport12Item.cs" />
     <Compile Include="APIItem\SeDinMonthReport11Item.cs" />

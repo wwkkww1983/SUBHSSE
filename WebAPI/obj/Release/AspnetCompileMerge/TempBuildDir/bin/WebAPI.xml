@@ -806,6 +806,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getPostType">
+            <summary>
+              获取岗位类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.SeDinMonthReportController">
             <summary>
             赛鼎月报
@@ -1739,6 +1745,13 @@
             <param name="pageIndex">页码</param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.PersonController.SavePersonQuality(Model.PersonQualityItem)">
+            <summary>
+            保存Meeting
+            </summary>
+            <param name="personQuality">人员资质信息</param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.PersonController.getTrainingPersonListByTrainTypeId(System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             根据项目\单位\岗位\培训类型获取项目培训\考试人员信息
@@ -1809,6 +1822,18 @@
             </summary>
             <param name="projectId"></param>
             <param name="unitId"></param>
+            <param name="startTime"></param>
+            <param name="endTime"></param>
+            <param name="pageIndex">页码</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PersonController.getPersonInOutList(System.String,System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            获取人员信息出入场记录
+            </summary>
+            <param name="projectId"></param>
+            <param name="unitId"></param>
+            <param name="strParam">查询条件</param>
             <param name="startTime"></param>
             <param name="endTime"></param>
             <param name="pageIndex">页码</param>

@@ -453,7 +453,7 @@
     <Content Include="License\LimitedSpace.aspx" />
     <Content Include="License\HeightWork.aspx" />
     <Content Include="License\FireWork.aspx" />
-    <Content Include="Login.aspx" />
+    <Content Include="LoginS.aspx" />
     <Content Include="ManagementReport\HeadMonthReportBEdit.aspx" />
     <Content Include="ManagementReport\HeadMonthReportBView.aspx" />
     <Content Include="ManagementReport\HeadMonthReportDView.aspx" />
@@ -1744,7 +1744,7 @@
     <Content Include="Law\LawRegulationListAudit.aspx" />
     <Content Include="Law\RulesRegulationsSelectCloumn.aspx" />
     <Content Include="Law\RulesRegulationsUpload.aspx" />
-    <Content Include="Login1.aspx" />
+    <Content Include="Login.aspx" />
     <Content Include="Captcha\captcha.ashx" />
     <Content Include="AttachFile\fileupload.ashx" />
     <None Include="ceuser\ceuser.dat" />
@@ -6500,12 +6500,12 @@
     <Compile Include="License\FireWork.aspx.designer.cs">
       <DependentUpon>FireWork.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
+    <Compile Include="LoginS.aspx.cs">
+      <DependentUpon>LoginS.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Login.aspx.designer.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
+    <Compile Include="LoginS.aspx.designer.cs">
+      <DependentUpon>LoginS.aspx</DependentUpon>
     </Compile>
     <Compile Include="ManagementReport\HeadMonthReportBEdit.aspx.cs">
       <DependentUpon>HeadMonthReportBEdit.aspx</DependentUpon>
@@ -9851,12 +9851,12 @@
     <Compile Include="Law\RulesRegulationsUpload.aspx.designer.cs">
       <DependentUpon>RulesRegulationsUpload.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Login1.aspx.cs">
-      <DependentUpon>Login1.aspx</DependentUpon>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Login1.aspx.designer.cs">
-      <DependentUpon>Login1.aspx</DependentUpon>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="LogOff.aspx.cs">
       <DependentUpon>LogOff.aspx</DependentUpon>

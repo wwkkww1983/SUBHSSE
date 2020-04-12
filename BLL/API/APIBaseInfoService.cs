@@ -490,5 +490,19 @@ namespace BLL
             return getDataLists;
         }
         #endregion
+
+        #region 获取特岗证书
+        /// <summary>
+        /// 获取图片分类
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getCertificate()
+        {
+            var getDataLists = (from x in Funs.DB.Base_Certificate
+                                orderby x.CertificateCode
+                                select new Model.BaseInfoItem { BaseInfoId = x.CertificateId, BaseInfoCode = x.CertificateCode, BaseInfoName = x.CertificateName }).ToList();
+            return getDataLists;
+        }
+        #endregion
     }
 }
