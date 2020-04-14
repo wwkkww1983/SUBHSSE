@@ -263,123 +263,135 @@ namespace BLL
         public static string SaveTestPlanByTrainingPlanId(string trainingPlanId,string userId)
         {
             string testPlanId = string.Empty;
-            ////培训计划
-            var getTrainingPlan = Funs.DB.Training_Plan.FirstOrDefault(x => x.PlanId == trainingPlanId); ;
-            if (getTrainingPlan != null && getTrainingPlan.States=="1")
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                testPlanId = SQLHelper.GetNewID();
-                Model.Training_TestPlan newTestPlan = new Model.Training_TestPlan
+                ////培训计划
+                var getTrainingPlan = db.Training_Plan.FirstOrDefault(x => x.PlanId == trainingPlanId); ;
+                if (getTrainingPlan != null && getTrainingPlan.States == "1")
                 {
-                    TestPlanId = testPlanId,
-                    ProjectId = getTrainingPlan.ProjectId,
-                    //PlanCode = getTrainingPlan.PlanCode,
-                    PlanName = getTrainingPlan.PlanName,
-                    PlanManId = userId,
-                    PlanDate = DateTime.Now,
-                    TestStartTime = DateTime.Now,                
-                    TestPalce = getTrainingPlan.TeachAddress,
-                    UnitIds = getTrainingPlan.UnitIds,
-                    UnitNames = UnitService.getUnitNamesUnitIds(getTrainingPlan.UnitIds),
-                    WorkPostIds = getTrainingPlan.WorkPostId,
-                    WorkPostNames = WorkPostService.getWorkPostNamesWorkPostIds(getTrainingPlan.WorkPostId),
-                    PlanId = getTrainingPlan.PlanId,
-                    States = "0",
-                };
-
-                string unitId = string.Empty;
-                var user = UserService.GetUserByUserId(userId);
-                if (user != null)
-                {
-                    unitId = user.UnitId;
-                }
-                newTestPlan.PlanCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectTestPlanMenuId, newTestPlan.ProjectId, unitId);
-
-                int Duration = 90;
-                int SValue = 1;
-                int MValue = 2;
-                int JValue = 1;
-                int testType1Count = 40;
-                int testType2Count = 10;
-                int testType3Count = 40;
-                ////获取考试规则设置数据
-                var getTestRule = Funs.DB.Sys_TestRule.FirstOrDefault(); ////考试数据设置
-                if (getTestRule != null)
-                {
-                    Duration = getTestRule.Duration;
-                    SValue = getTestRule.SValue;
-                    MValue = getTestRule.MValue;
-                    JValue = getTestRule.JValue;
-                    testType1Count = getTestRule.SCount;
-                    testType2Count = getTestRule.MCount;
-                    testType3Count = getTestRule.JCount;
-                }
-                ////按照培训类型获取试题类型及题型数量
-                var getTrainTypeItems = from x in Funs.DB.Base_TrainTypeItem
-                                       where x.TrainTypeId == getTrainingPlan.TrainTypeId
-                                       select x;
-                if (getTrainTypeItems.Count() > 0)
-                {
-                    testType1Count = getTrainTypeItems.Sum(x => x.SCount);
-                    testType2Count = getTrainTypeItems.Sum(x => x.MCount);
-                    testType3Count = getTrainTypeItems.Sum(x => x.JCount);
-                }
-
-                newTestPlan.Duration = getTestRule.Duration;
-                newTestPlan.SValue = getTestRule.SValue;
-                newTestPlan.MValue = getTestRule.MValue;
-                newTestPlan.JValue = getTestRule.JValue;
-                newTestPlan.TotalScore = testType1Count * SValue + testType2Count * MValue + testType3Count * JValue;
-                newTestPlan.QuestionCount = testType1Count + testType2Count + testType3Count;
-                newTestPlan.TestEndTime = newTestPlan.TestStartTime.AddMinutes(newTestPlan.Duration);
-                ////新增考试计划记录
-                TestPlanService.AddTestPlan(newTestPlan);
-                ///培训人员
-                var getTrainingTask = TrainingTaskService.GetTaskListByPlanId(trainingPlanId);
-                foreach (var itemTask in getTrainingTask)
-                {
-                    Model.Training_TestRecord newTestRecord = new Model.Training_TestRecord
+                    testPlanId = SQLHelper.GetNewID();
+                    Model.Training_TestPlan newTestPlan = new Model.Training_TestPlan
                     {
-                        TestRecordId = SQLHelper.GetNewID(),
+                        TestPlanId = testPlanId,
                         ProjectId = getTrainingPlan.ProjectId,
-                        TestPlanId = testPlanId,
-                        TestManId = itemTask.UserId,
+                        //PlanCode = getTrainingPlan.PlanCode,
+                        PlanName = getTrainingPlan.PlanName,
+                        PlanManId = userId,
+                        PlanDate = DateTime.Now,
+                        TestStartTime = DateTime.Now,
+                        TestPalce = getTrainingPlan.TeachAddress,
+                        UnitIds = getTrainingPlan.UnitIds,
+                        UnitNames = UnitService.getUnitNamesUnitIds(getTrainingPlan.UnitIds),
+                        WorkPostIds = getTrainingPlan.WorkPostId,
+                        WorkPostNames = WorkPostService.getWorkPostNamesWorkPostIds(getTrainingPlan.WorkPostId),
+                        PlanId = getTrainingPlan.PlanId,
+                        States = "0",
                     };
-                   
-                    TestRecordService.AddTestRecord(newTestRecord);
-                }
-                if (getTrainTypeItems.Count() == 0)
-                {
-                    /////考试题型类别及数量
-                    Model.Training_TestPlanTraining newTestPlanTraining = new Model.Training_TestPlanTraining
+
+                    string unitId = string.Empty;
+                    var user = db.Sys_User.FirstOrDefault(e => e.UserId == userId); 
+                    if (user != null)
                     {
-                        TestPlanTrainingId = SQLHelper.GetNewID(),
-                        TestPlanId = testPlanId,
-                        TestType1Count = testType1Count,
-                        TestType2Count = testType2Count,
-                        TestType3Count = testType3Count,
-                    };
-                    TestPlanTrainingService.AddTestPlanTraining(newTestPlanTraining);
-                }
-                else
-                {
-                    foreach (var item in getTrainTypeItems)
-                    {
-                        /////考试题型类别及数量
-                        Model.Training_TestPlanTraining newTestPlanTraining = new Model.Training_TestPlanTraining
-                        {
-                            TestPlanTrainingId = SQLHelper.GetNewID(),
-                            TestPlanId = testPlanId,
-                            TrainingId = item.TrainingId,
-                            TestType1Count = item.SCount,
-                            TestType2Count = item.MCount,
-                            TestType3Count = item.JCount,
-                        };
-                        TestPlanTrainingService.AddTestPlanTraining(newTestPlanTraining);
+                        unitId = user.UnitId;
                     }
+                    newTestPlan.PlanCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectTestPlanMenuId, newTestPlan.ProjectId, unitId);
+
+                    int Duration = 90;
+                    int SValue = 1;
+                    int MValue = 2;
+                    int JValue = 1;
+                    int testType1Count = 40;
+                    int testType2Count = 10;
+                    int testType3Count = 40;
+                    ////获取考试规则设置数据
+                    var getTestRule = db.Sys_TestRule.FirstOrDefault(); ////考试数据设置
+                    if (getTestRule != null)
+                    {
+                        Duration = getTestRule.Duration;
+                        SValue = getTestRule.SValue;
+                        MValue = getTestRule.MValue;
+                        JValue = getTestRule.JValue;
+                        testType1Count = getTestRule.SCount;
+                        testType2Count = getTestRule.MCount;
+                        testType3Count = getTestRule.JCount;
+                    }
+                    ////按照培训类型获取试题类型及题型数量
+                    var getTrainTypeItems = from x in db.Base_TrainTypeItem
+                                            where x.TrainTypeId == getTrainingPlan.TrainTypeId
+                                            select x;
+                    if (getTrainTypeItems.Count() > 0)
+                    {
+                        testType1Count = getTrainTypeItems.Sum(x => x.SCount);
+                        testType2Count = getTrainTypeItems.Sum(x => x.MCount);
+                        testType3Count = getTrainTypeItems.Sum(x => x.JCount);
+                    }
+
+                    newTestPlan.Duration = getTestRule.Duration;
+                    newTestPlan.SValue = getTestRule.SValue;
+                    newTestPlan.MValue = getTestRule.MValue;
+                    newTestPlan.JValue = getTestRule.JValue;
+                    newTestPlan.TotalScore = testType1Count * SValue + testType2Count * MValue + testType3Count * JValue;
+                    newTestPlan.QuestionCount = testType1Count + testType2Count + testType3Count;
+                    newTestPlan.TestEndTime = newTestPlan.TestStartTime.AddMinutes(newTestPlan.Duration);
+                    ////新增考试计划记录
+                    var getIsTestPlan = db.Training_TestPlan.FirstOrDefault(x => x.PlanId == newTestPlan.PlanId);
+                    if (getIsTestPlan == null)
+                    {
+                        db.Training_TestPlan.InsertOnSubmit(newTestPlan);
+                        db.SubmitChanges();
+
+                        ///培训人员
+                        var getTrainingTask = (from x in db.Training_Task where x.PlanId == trainingPlanId select x).ToList();
+                        foreach (var itemTask in getTrainingTask)
+                        {
+                            Model.Training_TestRecord newTestRecord = new Model.Training_TestRecord
+                            {
+                                TestRecordId = SQLHelper.GetNewID(),
+                                ProjectId = getTrainingPlan.ProjectId,
+                                TestPlanId = testPlanId,
+                                TestManId = itemTask.UserId,
+                            };
+
+                            TestRecordService.AddTestRecord(newTestRecord);
+                        }
+                        if (getTrainTypeItems.Count() == 0)
+                        {
+                            /////考试题型类别及数量
+                            Model.Training_TestPlanTraining newTestPlanTraining = new Model.Training_TestPlanTraining
+                            {
+                                TestPlanTrainingId = SQLHelper.GetNewID(),
+                                TestPlanId = testPlanId,
+                                TestType1Count = testType1Count,
+                                TestType2Count = testType2Count,
+                                TestType3Count = testType3Count,
+                            };
+
+                            db.Training_TestPlanTraining.InsertOnSubmit(newTestPlanTraining);
+                            db.SubmitChanges();
+                        }
+                        else
+                        {
+                            foreach (var item in getTrainTypeItems)
+                            {
+                                /////考试题型类别及数量
+                                Model.Training_TestPlanTraining newTestPlanTraining = new Model.Training_TestPlanTraining
+                                {
+                                    TestPlanTrainingId = SQLHelper.GetNewID(),
+                                    TestPlanId = testPlanId,
+                                    TrainingId = item.TrainingId,
+                                    TestType1Count = item.SCount,
+                                    TestType2Count = item.MCount,
+                                    TestType3Count = item.JCount,
+                                };
+                                db.Training_TestPlanTraining.InsertOnSubmit(newTestPlanTraining);
+                                db.SubmitChanges();
+                            }
+                        }
+                    }
+                    ////回写培训计划状态
+                    getTrainingPlan.States = "2";
+                    TrainingPlanService.UpdatePlan(getTrainingPlan);
                 }
-                ////回写培训计划状态
-                getTrainingPlan.States = "2";
-                TrainingPlanService.UpdatePlan(getTrainingPlan);
             }
             return testPlanId;
         }
@@ -415,34 +427,37 @@ namespace BLL
         /// 结束考试
         /// </summary>
         public static void SubmitTest(Model.Training_TestPlan getTestPlan)
-        {           
-            ////所有交卷的人员 交卷 并计算分数
-            var getTrainingTestRecords = from x in Funs.DB.Training_TestRecord
-                                         where x.TestPlanId == getTestPlan.TestPlanId && (!x.TestEndTime.HasValue || !x.TestScores.HasValue)
-                                         select x;
-            foreach (var itemRecord in getTrainingTestRecords)
+        {
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                itemRecord.TestEndTime = DateTime.Now;
-                itemRecord.TestScores = Funs.DB.Training_TestRecordItem.Where(x => x.TestRecordId == itemRecord.TestRecordId).Sum(x => x.SubjectScore) ?? 0;
-                TestRecordService.UpdateTestRecord(itemRecord);
-            }
-
-            var updateTrainingPlan = TrainingPlanService.GetPlanById(getTestPlan.PlanId);
-            if (updateTrainingPlan != null)
-            {
-                updateTrainingPlan.States = "3";
-                TrainingPlanService.UpdatePlan(updateTrainingPlan);
-                var getTrainingTasks = from x in Funs.DB.Training_Task
-                                       where x.PlanId == updateTrainingPlan.PlanId && (x.States != "2" || x.States == null)
-                                       select x;
-                foreach (var item in getTrainingTasks)
+                ////所有交卷的人员 交卷 并计算分数
+                var getTrainingTestRecords = from x in db.Training_TestRecord
+                                             where x.TestPlanId == getTestPlan.TestPlanId && (!x.TestEndTime.HasValue || !x.TestScores.HasValue)
+                                             select x;
+                foreach (var itemRecord in getTrainingTestRecords)
                 {
-                    item.States = "2";
-                    TrainingTaskService.UpdateTask(item);
+                    itemRecord.TestEndTime = DateTime.Now;
+                    itemRecord.TestScores = db.Training_TestRecordItem.Where(x => x.TestRecordId == itemRecord.TestRecordId).Sum(x => x.SubjectScore) ?? 0;
+                    TestRecordService.UpdateTestRecord(itemRecord);
                 }
 
-                ////TODO 讲培训计划 考试记录 写入到培训记录
-                APITrainRecordService.InsertTrainRecord(getTestPlan);
+                var updateTrainingPlan = db.Training_Plan.FirstOrDefault(e => e.PlanId == getTestPlan.PlanId);
+                if (updateTrainingPlan != null)
+                {
+                    updateTrainingPlan.States = "3";
+                    TrainingPlanService.UpdatePlan(updateTrainingPlan);
+                    var getTrainingTasks = from x in db.Training_Task
+                                           where x.PlanId == updateTrainingPlan.PlanId && (x.States != "2" || x.States == null)
+                                           select x;
+                    foreach (var item in getTrainingTasks)
+                    {
+                        item.States = "2";
+                        TrainingTaskService.UpdateTask(item);
+                    }
+
+                    ////TODO 讲培训计划 考试记录 写入到培训记录
+                    APITrainRecordService.InsertTrainRecord(getTestPlan);
+                }
             }
         }
     }

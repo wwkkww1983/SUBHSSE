@@ -948,5 +948,26 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region 获取特岗证书
+        /// <summary>
+        ///   获取特岗证书
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getCertificate()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getCertificate();
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
     }
 }

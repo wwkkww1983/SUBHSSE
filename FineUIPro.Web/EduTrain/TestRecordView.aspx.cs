@@ -72,11 +72,11 @@ namespace FineUIPro.Web.EduTrain
                         {
                             this.txtAnswerItems.Text = testRecordItem.AnswerItems.Replace("1", "A").Replace("2", "B").Replace("3", "C").Replace("4", "D").Replace("5", "E");
                         }
-                        if (testRecordItem.Score != null)
+                        if (testRecordItem.Score.HasValue)
                         {
                             this.txtScore.Text = testRecordItem.Score.ToString();
                         }
-                        if (testRecordItem.SubjectScore != null)
+                        if (testRecordItem.SubjectScore.HasValue)
                         {
                             this.txtSubjectScore.Text = testRecordItem.SubjectScore.ToString();
                         }

@@ -97,7 +97,6 @@ namespace BLL
             {
                 hsseManagerId = h.UserId;
             }
-
             var newItem = from x in Funs.DB.Base_Project
                           where x.ProjectId == projectId
                           select new Model.SeDinMonthReport1Item
@@ -239,24 +238,72 @@ namespace BLL
                                          join y in Funs.DB.Project_ProjectUnit on x.UnitId equals y.UnitId
                                          where y.ProjectId == projectId
                                          select x;
-            var getPerSons = from x in Funs.DB.SitePerson_Person
+            var getPersons = (from x in Funs.DB.SitePerson_Person
                               where x.ProjectId == projectId && x.InTime <=startDateD && (!x.OutTime.HasValue)
-                              select x;
+                              select x).ToList();
             foreach (var item in getUnits)
             {
                 Model.SeDinMonthReport4Item newItem = new Model.SeDinMonthReport4Item
                 {
                     UnitName = item.UnitName,
-                    SafeManangerNum = 0,
-                    OtherManangerNum = 0,
-                    SpecialWorkerNum = 0,
-                    GeneralWorkerNum = 0,
-                    TotalNum = 0,
+                    SafeManangerNum = getPersonsNum( getPersons, item.UnitId, "1"),
+                    OtherManangerNum = getPersonsNum(getPersons, item.UnitId, "2"),
+                    SpecialWorkerNum = getPersonsNum(getPersons, item.UnitId, "3"),
+                    GeneralWorkerNum = getPersonsNum(getPersons, item.UnitId, "4"),
+                    TotalNum = getPersonsNum(getPersons, item.UnitId, "5"),
                 };
                 getLists.Add(newItem);
             }
 
             return getLists.ToList();
+        }
+
+        /// <summary>
+        ///  获取人员数量
+        /// </summary>
+        /// <param name="unitId"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static int getPersonsNum(List<Model.SitePerson_Person> getPersons, string unitId, string type)
+        {
+            int num = 0;
+            var getUnitPersons = getPersons.Where(x => x.UnitId == unitId);
+            if (getUnitPersons.Count() > 0)
+            {
+                if (type == "1")
+                {
+                    num = (from x in getPersons
+                               join y in Funs.DB.Base_WorkPost on x.WorkPostId equals y.WorkPostId
+                               where y.IsHsse == true
+                               select x).Count();
+                }
+                else if (type == "2")
+                {
+                    num = (from x in getPersons
+                           join y in Funs.DB.Base_WorkPost on x.WorkPostId equals y.WorkPostId
+                           where (y.IsHsse == false || !y.IsHsse.HasValue)  && (y.PostType=="1" || y.PostType == "4")
+                           select x).Count();
+                }
+              else  if (type == "3")
+                {
+                    num = (from x in getPersons
+                           join y in Funs.DB.Base_WorkPost on x.WorkPostId equals y.WorkPostId
+                           where y.PostType == "2"
+                           select x).Count();
+                }
+                else if (type == "4")
+                {
+                    num = (from x in getPersons
+                           join y in Funs.DB.Base_WorkPost on x.WorkPostId equals y.WorkPostId
+                           where y.PostType == "3"
+                           select x).Count();
+                }
+                else if (type == "5")
+                {
+                    num = getUnitPersons.Count();
+                }
+            }
+            return num;
         }
         #endregion
         #region  获取赛鼎月报初始化页面 --5、本月大型、特种设备投入情况
@@ -345,22 +392,23 @@ namespace BLL
         {
             var startDateD = Funs.GetNewDateTime(startDate);
             var endDateD = Funs.GetNewDateTime(endDate);
-            var getLists = new Model.SeDinMonthReport7Item
-            {
-                SpecialMontNum = 0,
-                SpecialYearNum = 0,
-                SpecialTotalNum = 0,
-                SpecialMontPerson = 0,
-                SpecialYearPerson = 0,
-                SpecialTotalPerson = 0,
-                EmployeeMontNum = 0,
-                EmployeeYearNum = 0,
-                EmployeeTotalNum = 0,
-                EmployeeMontPerson = 0,
-                EmployeeYearPerson = 0,
-                EmployeeTotalPerson = 0,
-            };
-            return getLists;
+            var getTrainRecord = from x in Funs.DB.EduTrain_TrainRecord
+                                 where x.ProjectId == projectId && startDateD <= x.TrainStartDate && endDateD <= x.TrainStartDate
+                                 select x;
+            Model.SeDinMonthReport7Item newItem = new Model.SeDinMonthReport7Item();
+            newItem.SpecialMontNum = 0;
+            newItem.SpecialYearNum = 0;
+                newItem.SpecialTotalNum = 0;
+                newItem.SpecialMontPerson = 0;
+                newItem.SpecialYearPerson = 0;
+                newItem.SpecialTotalPerson = 0;
+                newItem.EmployeeMontNum = 0;
+                newItem.EmployeeYearNum = 0;
+                newItem.EmployeeTotalNum = 0;
+                newItem.EmployeeMontPerson = 0;
+                newItem.EmployeeYearPerson = 0;
+                newItem.EmployeeTotalPerson = 0;
+            return newItem;
         }
         #endregion
         #region  获取赛鼎月报初始化页面 --8、项目HSE会议统计

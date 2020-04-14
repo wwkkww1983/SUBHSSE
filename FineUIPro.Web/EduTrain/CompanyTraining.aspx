@@ -108,7 +108,7 @@
                                 </ItemTemplate>
                             </f:TemplateField>
                             <f:WindowField TextAlign="Left" Width="80px" WindowID="WindowAtt" HeaderText="附件"
-                                Text="查看" ToolTip="附件上传查看" DataIFrameUrlFields="CompanyTrainingItemId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/Training&menuId=9D4F76A1-CD2E-4E66-B833-49425CD879EB" />
+                                Text="查看" ToolTip="附件上传查看" DataIFrameUrlFields="CompanyTrainingItemId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/CompanyTraining&menuId=9D4F76A1-CD2E-4E66-B833-49425CD879EB" />
                         </Columns>
                         <Listeners>
                             <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />

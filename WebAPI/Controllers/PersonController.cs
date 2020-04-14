@@ -275,7 +275,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="projectId">项目ID</param>
         /// <param name="unitId">单位ID</param>
-        /// <param name="type">数据类型0-已过期；1-即将过期</param>
+        /// <param name="type">数据类型0-已过期；1-即将过期;2-无证</param>
         /// <param name="pageIndex">页码</param>
         /// <returns></returns>
         public Model.ResponeData getPersonQualityByProjectIdUnitId(string projectId, string unitId, string type, int pageIndex)
@@ -370,7 +370,16 @@ namespace WebAPI.Controllers
             {
                 if (person != null && !string.IsNullOrEmpty(person.IdentityCard))
                 {
-                    APIPersonService.SaveSitePerson(person);
+                    var getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.IdentityCard == person.IdentityCard && x.ProjectId == person.ProjectId);
+                    if (getPerson != null && getPerson.PersonId != person.PersonId)
+                    {
+                        responeData.code = 2;
+                        responeData.message = "人员身份证号码已存在！";
+                    }
+                    else
+                    {
+                        APIPersonService.SaveSitePerson(person);
+                    }
                 }
                 else
                 {
@@ -571,7 +580,7 @@ namespace WebAPI.Controllers
         /// 获取人员信息出入场记录
         /// </summary>
         /// <param name="projectId"></param>
-        /// <param name="unitId"></param>
+        /// <param name="unitId">当前人单位ID</param>
         /// <param name="startTime"></param>
         /// <param name="endTime"></param>
         /// <param name="pageIndex">页码</param>
@@ -581,7 +590,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = APIPersonService.getPersonInOutList(projectId, unitId, null, startTime, endTime);
+                var getDataList = APIPersonService.getPersonInOutList(projectId, unitId, null,  null, startTime, endTime);
                 int pageCount = getDataList.Count();
                 if (pageCount > 0 && pageIndex > 0)
                 {
@@ -604,17 +613,18 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="unitId"></param>
+        ///  <param name="userUnitId">当前人单位ID</param>
         /// <param name="strParam">查询条件</param>
         /// <param name="startTime"></param>
         /// <param name="endTime"></param>
         /// <param name="pageIndex">页码</param>
         /// <returns></returns>
-        public Model.ResponeData getPersonInOutList(string projectId, string unitId, string strParam, string startTime, string endTime, int pageIndex)
+        public Model.ResponeData getPersonInOutList(string projectId, string userUnitId, string strParam, string startTime, string endTime, int pageIndex, string unitId = null)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = APIPersonService.getPersonInOutList(projectId, unitId, strParam,startTime, endTime);
+                var getDataList = APIPersonService.getPersonInOutList(projectId, userUnitId, unitId, strParam, startTime, endTime);
                 int pageCount = getDataList.Count();
                 if (pageCount > 0 && pageIndex > 0)
                 {

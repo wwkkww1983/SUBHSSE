@@ -144,8 +144,8 @@ namespace FineUIPro.Web.EduTrain
         protected void btnUploadResources_Click(object sender, EventArgs e)
         {
             if (this.btnSave.Hidden)
-            {
-                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/Training&type=-1", CompanyTrainingItemId)));
+            {                
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/CompanyTraining&menuId={1}&type=-1", CompanyTrainingItemId, BLL.Const.CompanyTrainingMenuId)));
             }
             else
             {

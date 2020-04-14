@@ -239,6 +239,30 @@ namespace WebAPI.Controllers
         }
         #endregion
 
+        #region 保存人员签名
+        /// <summary>
+        /// 保存人员电话号码
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="signatureUrl">签名</param>
+        /// <returns></returns>
+        public Model.ResponeData getSaveUserSignatureUrl(string userId, string signatureUrl)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APIUserService.getSaveUserSignatureUrl(userId, signatureUrl);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
         #region 根据用户UnitId判断是否为本单位用户或管理员
         /// <summary>
         /// 根据用户UnitId判断是否为本单位用户或管理员

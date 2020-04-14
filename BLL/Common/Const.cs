@@ -1973,6 +1973,10 @@ namespace BLL
         /// </summary>
         public const string ProjectManagerMonthDMenuId = "E18AF205-9C5B-40F8-B77B-B30C31B10BB5";
         /// <summary>
+        /// 月报(赛鼎)
+        /// </summary>
+        public const string ProjectManagerMonth_SeDinMenuId = "D0EC3002-E1FA-457D-AC3B-4C7B2D71DD82";
+        /// <summary>
         /// HSSE管理季报
         /// </summary>
         public const string ProjectManagerQuarterlyMenuId = "28668BD9-3E14-438F-8BEE-24BAF6031B63";

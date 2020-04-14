@@ -473,6 +473,7 @@
     <Content Include="Manager\HSELogStatistics.aspx" />
     <Content Include="Manager\HSSELogMonthEdit.aspx" />
     <Content Include="Manager\ManagerAnalyse.aspx" />
+    <Content Include="Manager\ManagerMonth_SeDin.aspx" />
     <Content Include="Manager\ManagerMonthB.aspx" />
     <Content Include="Manager\ManagerMonthC.aspx" />
     <Content Include="Manager\ManagerMonthD.aspx" />
@@ -6639,6 +6640,13 @@
     </Compile>
     <Compile Include="Manager\ManagerAnalyse.aspx.designer.cs">
       <DependentUpon>ManagerAnalyse.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\ManagerMonth_SeDin.aspx.cs">
+      <DependentUpon>ManagerMonth_SeDin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\ManagerMonth_SeDin.aspx.designer.cs">
+      <DependentUpon>ManagerMonth_SeDin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Manager\ManagerMonthB.aspx.cs">
       <DependentUpon>ManagerMonthB.aspx</DependentUpon>

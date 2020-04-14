@@ -181,6 +181,21 @@ namespace BLL
         }
 
         /// <summary>
+        /// 根据userId获取用户信息
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static void getSaveUserSignatureUrl(string userId, string SignatureUrl)
+        {
+            var getUser = Funs.DB.Sys_User.FirstOrDefault(x => x.UserId == userId);
+            if (getUser != null)
+            {
+                getUser.SignatureUrl = SignatureUrl;
+                Funs.SubmitChanges();
+            }
+        }
+
+        /// <summary>
         /// 获取人员未浏览记录数
         /// </summary>
         /// <param name="unitid"></param>

@@ -812,6 +812,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getCertificate">
+            <summary>
+              获取特岗证书
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.SeDinMonthReportController">
             <summary>
             赛鼎月报
@@ -1741,7 +1747,7 @@
             </summary>
             <param name="projectId">项目ID</param>
             <param name="unitId">单位ID</param>
-            <param name="type">数据类型0-已过期；1-即将过期</param>
+            <param name="type">数据类型0-已过期；1-即将过期;2-无证</param>
             <param name="pageIndex">页码</param>
             <returns></returns>
         </member>
@@ -1821,18 +1827,19 @@
             获取人员信息出入场记录
             </summary>
             <param name="projectId"></param>
-            <param name="unitId"></param>
+            <param name="unitId">当前人单位ID</param>
             <param name="startTime"></param>
             <param name="endTime"></param>
             <param name="pageIndex">页码</param>
             <returns></returns>
         </member>
-        <member name="M:WebAPI.Controllers.PersonController.getPersonInOutList(System.String,System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:WebAPI.Controllers.PersonController.getPersonInOutList(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String)">
             <summary>
             获取人员信息出入场记录
             </summary>
             <param name="projectId"></param>
             <param name="unitId"></param>
+             <param name="userUnitId">当前人单位ID</param>
             <param name="strParam">查询条件</param>
             <param name="startTime"></param>
             <param name="endTime"></param>
@@ -2396,6 +2403,14 @@
             </summary>
             <param name="userId"></param>
             <param name="tel">电话</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.UserController.getSaveUserSignatureUrl(System.String,System.String)">
+            <summary>
+            保存人员电话号码
+            </summary>
+            <param name="userId"></param>
+            <param name="signatureUrl">签名</param>
             <returns></returns>
         </member>
         <member name="M:WebAPI.Controllers.UserController.getIsMainUnitOrAdmin(System.String)">

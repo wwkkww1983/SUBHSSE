@@ -191,6 +191,7 @@
     <Compile Include="CostGoods\SubPayRegistrationService.cs" />
     <Compile Include="EduTrain\EduTrain_TrainTestService.cs" />
     <Compile Include="EduTrain\TestPlanTrainingService.cs" />
+    <Compile Include="Manager\ManagerMonth_SeDinService.cs" />
     <Compile Include="ProjectData\ProjectMapService.cs" />
     <Compile Include="License\LicensePublicService.cs" />
     <Compile Include="Manager\PerformanceManagementReportService.cs" />

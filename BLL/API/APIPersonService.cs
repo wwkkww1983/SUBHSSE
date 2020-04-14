@@ -353,7 +353,7 @@ namespace BLL
                     newPerson.IsUsed = false;
                 }
 
-                var getPerson = db.SitePerson_Person.FirstOrDefault(x => x.IdentityCard == newPerson.IdentityCard || x.PersonId == newPerson.PersonId);
+                var getPerson = db.SitePerson_Person.FirstOrDefault(x => (x.IdentityCard == newPerson.IdentityCard && x.ProjectId==newPerson.ProjectId) || x.PersonId == newPerson.PersonId);
                 if (getPerson == null)
                 {
                     newPerson.PersonId = SQLHelper.GetNewID(typeof(Model.SitePerson_Person));
@@ -420,6 +420,16 @@ namespace BLL
                 {
                     SaveMeetUrl(newPerson.PersonId, Const.ProjectPersonChangeMenuId, person.AttachUrl1, person.AttachUrl2, person.AttachUrl3, person.AttachUrl4);
                 }
+                //// 更新同身份证号码用户的电话
+                if(!string.IsNullOrEmpty(newPerson.Telephone))
+                {
+                    var getUser = db.Sys_User.FirstOrDefault(x => x.IdentityCard == newPerson.IdentityCard);
+                    if (getUser != null)
+                    {
+                        getUser.Telephone = newPerson.Telephone;
+                        db.SubmitChanges();
+                    }
+                }                
             }
         }
 
@@ -577,7 +587,7 @@ namespace BLL
         /// <param name="startTime"></param>
         /// <param name="endTime"></param>
         /// <returns></returns>
-        public static List<Model.PersonInOutItem> getPersonInOutList(string projectId, string unitId, string strParam, string startTime, string endTime)
+        public static List<Model.PersonInOutItem> getPersonInOutList(string projectId, string userUnitId, string unitId, string strParam, string startTime, string endTime)
         {
             DateTime? startTimeD = Funs.GetNewDateTime(startTime);
             DateTime? endTimeD = Funs.GetNewDateTime(endTime);
@@ -598,6 +608,10 @@ namespace BLL
                                    ChangeTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ChangeTime),
                                    ChangeTimeD = x.ChangeTime,
                                };
+            if (!string.IsNullOrEmpty(userUnitId) && !CommonService.GetIsThisUnit(userUnitId))
+            {
+                personInOuts = personInOuts.Where(x => x.UnitId == userUnitId);
+            }
             if (!string.IsNullOrEmpty(unitId))
             {
                 personInOuts = personInOuts.Where(x => x.UnitId == unitId);
@@ -634,11 +648,14 @@ namespace BLL
                            {
                                PersonQualityId = x.PersonQualityId,
                                PersonId = x.PersonId,
+                               PersonName=y.PersonName,
                                CardNo = y.CardNo,
                                IdentityCard = y.IdentityCard,
                                ProjectId = y.ProjectId,
                                UnitId = y.UnitId,
                                UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                               WorkPostId = y.WorkPostId,
+                               WorkPostName = Funs.DB.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
                                CertificateId = x.CertificateId,
                                CertificateName = Funs.DB.Base_Certificate.First(z => z.CertificateId == x.CertificateId).CertificateName,
                                CertificateNo = x.CertificateNo,
@@ -653,6 +670,7 @@ namespace BLL
                                CompileManName = Funs.DB.Sys_User.First(z => z.UserId == x.CompileMan).UserName,
                                CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
                                AuditDate = string.Format("{0:yyyy-MM-dd}", x.AuditDate),
+                               AttachUrl = APIUpLoadFileService.getFileUrl(x.PersonQualityId, null),
                            };
 
             return getLists.FirstOrDefault();
@@ -665,40 +683,44 @@ namespace BLL
         /// </summary>
         /// <param name="projectId">项目ID</param>
         /// <param name="unitId">单位ID</param>
-        /// <param name="type">数据类型0-已过期；1-即将过期</param>
+        /// <param name="type">数据类型0-已过期；1-即将过期；2-无证书</param>
         /// <param name="pageIndex">页码</param>
         /// <returns></returns>
         public static List<Model.PersonQualityItem> getPersonQualityByProjectIdUnitId(string projectId, string unitId, string type)
         {
-            var getLists = (from x in Funs.DB.QualityAudit_PersonQuality
-                            join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
-                            where y.ProjectId == projectId && x.CertificateId != null
-                            orderby x.LimitDate
+            var getLists = (from x in Funs.DB.SitePerson_Person 
+                            join y in Funs.DB.QualityAudit_PersonQuality on x.PersonId equals y.PersonId
+                            join z in Funs.DB.Base_WorkPost on x.WorkPostId equals z.WorkPostId
+                            where x.ProjectId == projectId && z.PostType == "2"
+                            orderby y.LimitDate
                             select new Model.PersonQualityItem
                             {
-                                PersonQualityId = x.PersonQualityId,
-                                PersonId = x.PersonId,
-                                CardNo = y.CardNo,
-                                IdentityCard = y.IdentityCard,
-                                ProjectId = y.ProjectId,
-                                UnitId = y.UnitId,
-                                UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
-                                CertificateId = x.CertificateId,
-                                CertificateName = Funs.DB.Base_Certificate.First(z => z.CertificateId == x.CertificateId).CertificateName,
-                                CertificateNo = x.CertificateNo,
-                                Grade = x.Grade,
-                                SendUnit = x.SendUnit,
-                                SendDate = string.Format("{0:yyyy-MM-dd}", x.SendDate),
-                                LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
-                                LimitDateD = x.LimitDate,
-                                LateCheckDate = string.Format("{0:yyyy-MM-dd}", x.LateCheckDate),
-                                ApprovalPerson = x.ApprovalPerson,
-                                Remark = x.Remark,
-                                CompileMan = x.CompileMan,
-                                CompileManName = Funs.DB.Sys_User.First(z => z.UserId == x.CompileMan).UserName,
-                                CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                                AuditDate = string.Format("{0:yyyy-MM-dd}", x.AuditDate),
-                                AttachUrl = APIUpLoadFileService.getFileUrl(x.PersonQualityId, null),
+                                PersonQualityId = y.PersonQualityId,
+                                PersonId = y.PersonId,
+                                PersonName=x.PersonName,
+                                CardNo = x.CardNo,                                
+                                IdentityCard = x.IdentityCard,
+                                ProjectId = x.ProjectId,
+                                UnitId = x.UnitId,
+                                UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == x.UnitId).UnitName,
+                                CertificateId = y.CertificateId,
+                                CertificateName = Funs.DB.Base_Certificate.First(z => z.CertificateId == y.CertificateId).CertificateName,
+                                WorkPostId = x.WorkPostId,
+                                WorkPostName = Funs.DB.Base_WorkPost.First(z => z.WorkPostId == x.WorkPostId).WorkPostName,
+                                CertificateNo = y.CertificateNo,
+                                Grade = y.Grade,
+                                SendUnit = y.SendUnit,
+                                SendDate = string.Format("{0:yyyy-MM-dd}", y.SendDate),
+                                LimitDate = string.Format("{0:yyyy-MM-dd}", y.LimitDate),
+                                LimitDateD = y.LimitDate,
+                                LateCheckDate = string.Format("{0:yyyy-MM-dd}", y.LateCheckDate),
+                                ApprovalPerson = y.ApprovalPerson,
+                                Remark = y.Remark,
+                                CompileMan = y.CompileMan,
+                                CompileManName = Funs.DB.Sys_User.First(z => z.UserId == y.CompileMan).UserName,
+                                CompileDate = string.Format("{0:yyyy-MM-dd}", y.CompileDate),
+                                AuditDate = string.Format("{0:yyyy-MM-dd}", y.AuditDate),
+                                AttachUrl = APIUpLoadFileService.getFileUrl(y.PersonQualityId, null),
                             }).ToList();
             if (ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(projectId, unitId))
             {
@@ -706,11 +728,15 @@ namespace BLL
             }
             if (type == "0")
             {
-                getLists = getLists.Where(x => x.LimitDateD < DateTime.Now).ToList();
+                getLists = getLists.Where(x => x.CertificateId != null &&  x.LimitDateD < DateTime.Now).ToList();
             }
             else if (type == "1")
             {
-                getLists = getLists.Where(x => x.LimitDateD >= DateTime.Now && x.LimitDateD < DateTime.Now.AddMonths(1)).ToList();
+                getLists = getLists.Where(x => x.CertificateId != null && x.LimitDateD >= DateTime.Now && x.LimitDateD < DateTime.Now.AddMonths(1)).ToList();
+            }
+            else if (type == "2")
+            {
+                getLists = getLists.Where(x => x.CertificateId == null).ToList();
             }
             return getLists;
         }
