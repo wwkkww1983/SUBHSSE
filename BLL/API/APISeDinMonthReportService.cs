@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace BLL
 {
@@ -101,7 +102,7 @@ namespace BLL
                           where x.ProjectId == projectId
                           select new Model.SeDinMonthReport1Item
                           {
-                              ProjectCode = x.PostCode,
+                              ProjectCode = x.ProjectCode,
                               ProjectName = x.ProjectName,
                               ProjectType=Funs.DB.Sys_Const.First(y=>y.GroupId == ConstValue.Group_ProjectType && y.ConstValue==x.ProjectType).ConstText,
                               StartDate=string.Format("{0:yyyy-MM-dd}",x.StartDate),
@@ -197,7 +198,7 @@ namespace BLL
                               where x.ProjectId == projectId 
                               select x;
             var getMonthAccident = from x in getAccident
-                                   where x.AccidentDate >= startDateD && x.AccidentDate <= endDateD
+                                   where x.AccidentDate >= startDateD && x.AccidentDate < endDateD
                                    select x;
             foreach (var item in getAccidentReportTypes)
             {
@@ -393,7 +394,7 @@ namespace BLL
             var startDateD = Funs.GetNewDateTime(startDate);
             var endDateD = Funs.GetNewDateTime(endDate);
             var getTrainRecord = from x in Funs.DB.EduTrain_TrainRecord
-                                 where x.ProjectId == projectId && startDateD <= x.TrainStartDate && endDateD <= x.TrainStartDate
+                                 where x.ProjectId == projectId && startDateD <= x.TrainStartDate && endDateD > x.TrainStartDate
                                  select x;
             Model.SeDinMonthReport7Item newItem = new Model.SeDinMonthReport7Item();
             newItem.SpecialMontNum = 0;
@@ -419,20 +420,29 @@ namespace BLL
         /// <returns></returns>
         public static Model.SeDinMonthReport8Item getSeDinMonthReportNullPage8(string projectId, string month, string startDate, string endDate)
         {
-            var nowDate = System.DateTime.Now;
-            Model.SeDinMonthReport8Item newItem = new Model.SeDinMonthReport8Item
-            {
-                WeekMontNum=0,
-                WeekTotalNum = 0,
-                WeekMontPerson = 0,
-                MonthMontNum = 0,
-                MonthTotalNum = 0,
-                MonthMontPerson = 0,
-                SpecialMontNum = 0,
-                SpecialTotalNum = 0,
-                SpecialMontPerson = 0,
-                SeDinMonthReport8ItemItem = getSeDinMonthReport8ItemNull(projectId, month, startDate, endDate)
-            };
+            var startDateD = Funs.GetNewDateTime(startDate);
+            var endDateD = Funs.GetNewDateTime(endDate);
+            Model.SeDinMonthReport8Item newItem = new Model.SeDinMonthReport8Item();
+            //// 周例会
+            var getAllWeeks = from x in Funs.DB.Meeting_WeekMeeting where x.ProjectId == projectId select x;
+            var getMontWeeks = getAllWeeks.Where(x => x.WeekMeetingDate >= startDateD && x.WeekMeetingDate < endDateD);            
+            newItem.WeekMontNum = getMontWeeks.Count();
+            newItem.WeekTotalNum = getAllWeeks.Count();
+            newItem.WeekMontPerson = getMontWeeks.Sum(x => x.AttentPersonNum) ?? 0;
+            /// 月例会
+            var getAllMonths = from x in Funs.DB.Meeting_MonthMeeting where x.ProjectId == projectId select x;
+            var getMontMonths = getAllMonths.Where(x => x.MonthMeetingDate >= startDateD && x.MonthMeetingDate < endDateD);
+            newItem.MonthMontNum = getMontMonths.Count();
+            newItem.MonthTotalNum = getAllMonths.Count();
+            newItem.MonthMontPerson = getMontMonths.Sum(x => x.AttentPersonNum) ?? 0;
+            /// 专题会议
+            var getAllSpecials = from x in Funs.DB.Meeting_SpecialMeeting where x.ProjectId == projectId select x;
+            var getMontSpecials = getAllSpecials.Where(x => x.SpecialMeetingDate >= startDateD && x.SpecialMeetingDate < endDateD);
+            newItem.SpecialMontNum = getMontSpecials.Count();
+            newItem.SpecialTotalNum = getAllSpecials.Count();
+            newItem.SpecialMontPerson = getMontSpecials.Sum(x => x.AttentPersonNum) ?? 0;
+            ////班前会
+            newItem.SeDinMonthReport8ItemItem = getSeDinMonthReport8ItemNull(projectId, month, startDateD, endDateD);
             return newItem;
         }
 
@@ -440,25 +450,47 @@ namespace BLL
         ///  获取项目HSE会议统计明细
         /// </summary>
         /// <returns></returns>
-        public static List<Model.SeDinMonthReport8ItemItem> getSeDinMonthReport8ItemNull(string projectId, string month, string startDate, string endDate)
+        public static List<Model.SeDinMonthReport8ItemItem> getSeDinMonthReport8ItemNull(string projectId, string month, DateTime? startDateD, DateTime? endDateD)
         {
-            var startDateD = Funs.GetNewDateTime(startDate);
-            var endDateD = Funs.GetNewDateTime(endDate);
             List<Model.SeDinMonthReport8ItemItem> getLists = new List<Model.SeDinMonthReport8ItemItem>();
             var getUnits = from x in Funs.DB.Base_Unit
                                          join y in Funs.DB.Project_ProjectUnit on x.UnitId equals y.UnitId
                                          where y.ProjectId == projectId
                                          select x;
+            var getClassMeets = from x in Funs.DB.Meeting_ClassMeeting
+                                where x.ProjectId == projectId && x.ClassMeetingDate >=startDateD && x.ClassMeetingDate <endDateD
+                                select x;
             foreach (var item in getUnits)
             {
-                Model.SeDinMonthReport8ItemItem newItem = new Model.SeDinMonthReport8ItemItem
+                var getTeamGroups = from x in Funs.DB.ProjectData_TeamGroup
+                                   where x.ProjectId == projectId && x.UnitId == item.UnitId
+                                    select x;
+                var getUnitClassMeets = getClassMeets.Where(x=>x.UnitId == item.UnitId);
+                foreach (var itemT in getTeamGroups)
                 {
-                    UnitName = item.UnitName,
-                    TeamName=null,
-                    ClassNum=0,
-                    ClassPersonNum=0,
-                };
-                getLists.Add(newItem);
+                    var getTClassMeets = getUnitClassMeets.Where(x => x.TeamGroupId == itemT.TeamGroupId);
+                    Model.SeDinMonthReport8ItemItem newItemT = new Model.SeDinMonthReport8ItemItem
+                    {
+                        UnitName = item.UnitName,
+                        TeamName = itemT.TeamGroupName,
+                        ClassNum = getTClassMeets.Count(),
+                        ClassPersonNum = getTClassMeets.Sum(x => x.AttentPersonNum) ?? 0
+                    };
+                    getLists.Add(newItemT);
+                }
+
+                var getTClassMeetNulls = getUnitClassMeets.Where(x => x.TeamGroupId ==null);
+                if (getTClassMeetNulls.Count() > 0)
+                {
+                    Model.SeDinMonthReport8ItemItem newItemNT = new Model.SeDinMonthReport8ItemItem
+                    {
+                        UnitName = item.UnitName,
+                        TeamName = "/",
+                        ClassNum = getTClassMeetNulls.Count(),
+                        ClassPersonNum = getTClassMeetNulls.Sum(x => x.AttentPersonNum) ?? 0
+                    };
+                    getLists.Add(newItemNT);
+                }
             }
 
             return getLists.OrderBy(x=>x.UnitName).ToList();

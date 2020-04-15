@@ -106,24 +106,22 @@ namespace WebAPI.Controllers
                     }
                     //// 现场人员数
                     SitePersonNum = 0;
-                    var getAllPersonInOuts = from x in Funs.DB.SitePerson_PersonInOut
-                                             where x.ProjectId == projectId
+                    var getAllPersonList = from x in Funs.DB.SitePerson_PersonInOut
+                                           where x.ProjectId == projectId
+                                           select x;
+                    var getAllPersonInOuts = from x in getAllPersonList
+                                             join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
+                                             where y.IsUsed == true && (!y.OutTime.HasValue || y.OutTime >= DateTime.Now)
                                              select x;
-                    if (getAllPersonInOuts.Count() > 0)
+                    if (getAllPersonList.Count() > 0)
                     {
-                        var getPersons = from x in Funs.DB.SitePerson_Person
-                                         where x.ProjectId == projectId && x.IsUsed == true && (!x.OutTime.HasValue || x.OutTime > DateTime.Now)
-                                         select x;
-                        foreach (var item in getPersons)
+                        if (getAllPersonInOuts.Count() > 0)
                         {
-                            var getMax = from x in getAllPersonInOuts
-                                         where  x.PersonId == item.PersonId
-                                         orderby x.ChangeTime descending
-                                         select x;
-                            if (getMax.Count() > 0)
+                            var getIn = getAllPersonInOuts.Where(x => x.IsIn == true);
+                            foreach (var item in getIn)
                             {
-                                var maxF = getMax.FirstOrDefault();
-                                if (maxF != null && maxF.IsIn == true)
+                                var getMax = getAllPersonInOuts.FirstOrDefault(x => x.PersonId == item.PersonId && x.IsIn == false && x.ChangeTime >= item.ChangeTime);
+                                if (getMax == null)
                                 {
                                     SitePersonNum = SitePersonNum + 1;
                                 }

@@ -10,7 +10,8 @@ namespace BLL
     /// .net时间操作（星期-周）
     /// </summary>
     public class WeekDayService
-    { /// <summary> 
+    { 
+             /// <summary> 
              /// 取指定日期是一年中的第几周 
              /// </summary> 
              /// <param name="dtime">给定的日期</param> 
@@ -65,25 +66,65 @@ namespace BLL
            }
 
         //根据年月日获得星期几
-        public static int CaculateWeekDay(DateTime date)
-        {           
-            int year = date.Year;
-            int month = date.Month;
-            int day = date.Day;
-            //把一月和二月看成是上一年的十三月和十四月
-            if (month == 1) { month = 13; year--; }
-            if (month == 2) { month = 14; year--; }
-            int week = (day + 2 * month + 3 * (month + 1) / 5 + year + year / 4 - year / 100 + year / 400) % 7;
+        public static int CaculateWeekDay(DateTime? date)
+        {
+            int week = 0;
+            if (date.HasValue)
+            {
+                int year = date.Value.Year;
+                int month = date.Value.Month;
+                int day = date.Value.Day;
+                //把一月和二月看成是上一年的十三月和十四月
+                if (month == 1) { month = 13; year--; }
+                if (month == 2) { month = 14; year--; }
+                week = (day + 2 * month + 3 * (month + 1) / 5 + year + year / 4 - year / 100 + year / 400) % 7;
+            }
             return week + 1;
         }
-        
-           /// <summary>
-           /// 根据2个时间段获得相应的周数
-           /// </summary>
-           /// <param name="beginDate"></param>
-           /// <param name="endDate"></param>
-           /// <returns></returns>
-           public static int WeekOfDate(DateTime beginDate, DateTime endDate)
+
+        //根据年月日获得星期几
+        public static string CaculateWeekDayT(DateTime? date)
+        {
+            string weekStr = "星期";
+            int week = CaculateWeekDay(date);
+            if (week == 1)
+            {
+                weekStr += "一";
+            }
+            else if (week == 2)
+            {
+                weekStr += "二";
+            }
+            else if (week == 3)
+            {
+                weekStr += "三";
+            }
+            else if (week == 4)
+            {
+                weekStr += "四";
+            }
+            else if (week == 5)
+            {
+                weekStr += "五";
+            }
+            else if (week == 6)
+            {
+                weekStr += "六";
+            }
+            else if (week == 7)
+            {
+                weekStr += "日";
+            }
+            return weekStr;
+        }
+
+        /// <summary>
+        /// 根据2个时间段获得相应的周数
+        /// </summary>
+        /// <param name="beginDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        public static int WeekOfDate(DateTime beginDate, DateTime endDate)
           {
               TimeSpan ts1 = new TimeSpan(beginDate.Ticks);
               TimeSpan ts2 = new TimeSpan(endDate.Ticks);

@@ -46,6 +46,7 @@ namespace BLL
                 MeetingHours = classMeeting.MeetingHours,
                 MeetingHostMan = classMeeting.MeetingHostMan,
                 AttentPerson = classMeeting.AttentPerson,
+                AttentPersonNum=classMeeting.AttentPersonNum,
             };
             db.Meeting_ClassMeeting.InsertOnSubmit(newClassMeeting);
             db.SubmitChanges();
@@ -77,6 +78,8 @@ namespace BLL
                 newClassMeeting.MeetingHours = classMeeting.MeetingHours;
                 newClassMeeting.MeetingHostMan = classMeeting.MeetingHostMan;
                 newClassMeeting.AttentPerson = classMeeting.AttentPerson;
+                newClassMeeting.AttentPersonNum = classMeeting.AttentPersonNum;
+
                 db.SubmitChanges();
             }
         }

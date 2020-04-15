@@ -225,19 +225,19 @@ namespace BLL
             db.SitePerson_Person.InsertOnSubmit(newPerson);
             db.SubmitChanges();
 
-            ///写入人员出入场时间表 
-            Model.SitePerson_PersonInOut newPersonInOut = new Model.SitePerson_PersonInOut
-            {
-                ProjectId = person.ProjectId,
-                UnitId = person.UnitId,
-                PersonId = person.PersonId
-            };
+            /////写入人员出入场时间表 
+            //Model.SitePerson_PersonInOut newPersonInOut = new Model.SitePerson_PersonInOut
+            //{
+            //    ProjectId = person.ProjectId,
+            //    UnitId = person.UnitId,
+            //    PersonId = person.PersonId
+            //};
 
             //if (newPerson.InTime.HasValue)
             //{
             //    newPersonInOut.ChangeTime = person.InTime;
             //    newPersonInOut.IsIn = true;
-            //    BLL.PersonInOutService.AddPersonInOut(newPersonInOut);
+                // BLL.PersonInOutService.AddPersonInOut(newPersonInOut);
             //}
 
             //if (newPerson.OutTime.HasValue)

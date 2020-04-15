@@ -216,6 +216,7 @@ namespace BLL
                                    CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
                                    CompileManId = x.CompileMan,
                                    CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
+                                   AttentPersonNum=x.AttentPersonNum ?? 0,
                                    AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == x.ClassMeetingId).AttachUrl.Replace('\\', '/'),
                                }).ToList();
             }
@@ -362,6 +363,7 @@ namespace BLL
                     MeetingHours = meeting.MeetingHours,
                     MeetingHostMan = meeting.MeetingHostMan,
                     AttentPerson = meeting.AttentPerson,
+                    AttentPersonNum=meeting.AttentPersonNum,
                     States = Const.State_2,
                 };
 
