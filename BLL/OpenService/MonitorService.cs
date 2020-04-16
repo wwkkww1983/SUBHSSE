@@ -175,6 +175,8 @@ namespace BLL
                 {
                     GetDataService.CreateTrainingTaskItemByTaskId(null);
                     GetDataService.UpdateTestPlanStates();
+                    GetDataService.CorrectingPersonInOutNumber(null);
+                    GetDataService.CreateQRCode();
                 }
             }
         }

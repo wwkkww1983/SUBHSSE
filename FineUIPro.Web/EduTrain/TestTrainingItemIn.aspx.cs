@@ -171,7 +171,7 @@ namespace FineUIPro.Web.EduTrain
                         AItem = pds.Rows[i][6].ToString().Trim(),
                         BItem = pds.Rows[i][7].ToString().Trim(),
                     };
-                    
+
                     ////试题类型
                     string col1 = pds.Rows[i][1].ToString().Trim();
                     if (string.IsNullOrEmpty(col1))
@@ -204,7 +204,7 @@ namespace FineUIPro.Web.EduTrain
                     }
                     else
                     {
-                    
+
                         if (col3 == "单选题")
                         {
                             newViewTrainingItem.TestType = "1";
@@ -312,7 +312,7 @@ namespace FineUIPro.Web.EduTrain
                                 TrainingId = newViewTrainingItem.TrainingId,
                                 TrainingItemCode = newViewTrainingItem.TrainingItemCode,
                                 TrainingItemName = newViewTrainingItem.TrainingItemName,
-                                Abstracts = newViewTrainingItem.Abstracts,
+
                                 AttachUrl = newViewTrainingItem.AttachUrl,
                                 VersionNum = newViewTrainingItem.VersionNum,
                                 TestType = newViewTrainingItem.TestType,
@@ -323,9 +323,19 @@ namespace FineUIPro.Web.EduTrain
                                 CItem = newViewTrainingItem.CItem,
                                 DItem = newViewTrainingItem.DItem,
                                 EItem = newViewTrainingItem.EItem,
-                               // Score = newViewTrainingItem.Score,
+                                // Score = newViewTrainingItem.Score,
                                 AnswerItems = newViewTrainingItem.AnswerItems,
                             };
+                            if (newViewTrainingItem.Abstracts.Contains("(") || newViewTrainingItem.Abstracts.Contains(")")
+                                || newViewTrainingItem.Abstracts.Contains("（") || newViewTrainingItem.Abstracts.Contains("）"))
+                            {
+                                newTrainingItem.Abstracts = newViewTrainingItem.Abstracts;
+                            }
+                            else
+                            {
+                                newTrainingItem.Abstracts = newViewTrainingItem.Abstracts + "( )";
+                            }
+
                             BLL.TestTrainingItemService.AddTestTrainingItem(newTrainingItem);
                             ///加入培训试题库
                             viewTrainingItems.Add(newViewTrainingItem);

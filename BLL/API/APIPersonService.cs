@@ -19,7 +19,9 @@ namespace BLL
                           join y in Funs.DB.Base_Unit on x.UnitId equals y.UnitId
                           join z in Funs.DB.Base_Project on x.ProjectId equals z.ProjectId
                           join w in Funs.DB.Base_WorkPost on x.WorkPostId equals w.WorkPostId
-                          where (x.Telephone == userInfo.Account || x.PersonName == userInfo.Account) && x.Password == Funs.EncryptionPassword(userInfo.Password)
+                          where (x.Telephone == userInfo.Account || x.PersonName == userInfo.Account) 
+                          && (x.Password == Funs.EncryptionPassword(userInfo.Password) 
+                             || (x.IdentityCard != null && x.IdentityCard.Substring(x.IdentityCard.Length - 4) == userInfo.Password))
                           && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now) && x.IsUsed == true
                           select new Model.UserItem
                           {
@@ -82,12 +84,38 @@ namespace BLL
                                 AuditorId = x.AuditorId,
                                 AuditorName = x.AuditorName,
                                 AuditorDate = string.Format("{0:yyyy-MM-dd}", x.AuditorDate),
-                                AttachUrl1 = x.IDCardUrl == null ? Funs.DB.AttachFile.First(z => z.ToKeyId == (x.PersonId + "#1")).AttachUrl.Replace('\\', '/') : x.IDCardUrl.Replace('\\', '/'),
-                                AttachUrl2 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.PersonId + "#2")).AttachUrl.Replace('\\', '/'),
-                                AttachUrl3 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.PersonId + "#3")).AttachUrl.Replace('\\', '/'),
-                                AttachUrl4 = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.PersonId + "#4")).AttachUrl.Replace('\\', '/'),
+                                AttachUrl1 = x.IDCardUrl == null ? APIUpLoadFileService.getFileUrl(personId + "#1", null) : x.IDCardUrl.Replace('\\', '/'),
+                                AttachUrl2 = APIUpLoadFileService.getFileUrl(personId + "#2", null),
+                                AttachUrl3 = APIUpLoadFileService.getFileUrl(personId + "#3", null),
+                                AttachUrl4 = getAttachUrl4(x.PersonId),
                             };
             return getPerson.FirstOrDefault();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static string getAttachUrl4(string personId)
+        {
+            string returnUrl = APIUpLoadFileService.getFileUrl(personId + "#4", null);             
+            var getPersonQuality = Funs.DB.QualityAudit_PersonQuality.FirstOrDefault(x => x.PersonId == personId);
+            if (getPersonQuality != null)
+            {
+                string url1 = APIUpLoadFileService.getFileUrl(getPersonQuality.PersonQualityId, null);
+                if (!string.IsNullOrEmpty(url1))
+                {
+                    if (!string.IsNullOrEmpty(returnUrl))
+                    {
+                        returnUrl += "," + url1;
+                    }
+                    else
+                    {
+                        returnUrl = url1;
+                    }
+                }
+            }
+            return returnUrl;
         }
         #endregion
 
@@ -352,7 +380,7 @@ namespace BLL
                 {
                     newPerson.IsUsed = false;
                 }
-
+                newPerson.Password = PersonService.GetPersonPassWord(person.IdentityCard);
                 var getPerson = db.SitePerson_Person.FirstOrDefault(x => (x.IdentityCard == newPerson.IdentityCard && x.ProjectId==newPerson.ProjectId) || x.PersonId == newPerson.PersonId);
                 if (getPerson == null)
                 {
@@ -372,6 +400,7 @@ namespace BLL
                     getPerson.UnitId = person.UnitId;
                     getPerson.OutResult = person.OutResult;
                     getPerson.Telephone = person.Telephone;
+                    getPerson.Password = newPerson.Password;
                     if (!string.IsNullOrEmpty(person.PhotoUrl))
                     {
                         getPerson.PhotoUrl = person.PhotoUrl;
@@ -531,23 +560,27 @@ namespace BLL
         {
             if (!string.IsNullOrEmpty(idCard))
             {
-                var getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.ProjectId == projectId && x.IdentityCard == idCard);
-                if (getPerson != null)
+                using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
                 {
-                    var getPersonInOut = Funs.DB.SitePerson_PersonInOut.FirstOrDefault(x => x.PersonId == getPerson.PersonId && x.ProjectId == projectId && x.ChangeTime == changeTime);
-                    if (getPersonInOut == null)
+                    var getPerson = db.SitePerson_Person.FirstOrDefault(x => x.ProjectId == projectId && x.IdentityCard == idCard);
+                    if (getPerson != null)
                     {
-                        Model.SitePerson_PersonInOut newInOut = new Model.SitePerson_PersonInOut
+                        var getPersonInOut = db.SitePerson_PersonInOut.FirstOrDefault(x => x.PersonId == getPerson.PersonId && x.ProjectId == projectId && x.ChangeTime == changeTime);
+                        if (getPersonInOut == null)
                         {
-                            PersonInOutId = SQLHelper.GetNewID(),
-                            ProjectId = projectId,
-                            UnitId = getPerson.UnitId,
-                            PersonId = getPerson.PersonId,
-                            IsIn = isIn == 1 ? true : false,
-                            ChangeTime = changeTime,
-                        };
-                        Funs.DB.SitePerson_PersonInOut.InsertOnSubmit(newInOut);
-                        Funs.SubmitChanges();
+                            Model.SitePerson_PersonInOut newInOut = new Model.SitePerson_PersonInOut
+                            {
+                                PersonInOutId = SQLHelper.GetNewID(),
+                                ProjectId = projectId,
+                                UnitId = getPerson.UnitId,
+                                PersonId = getPerson.PersonId,
+                                IsIn = isIn == 1 ? true : false,
+                                ChangeTime = changeTime,
+                            };
+
+                            db.SitePerson_PersonInOut.InsertOnSubmit(newInOut);
+                            db.SubmitChanges();
+                        }
                     }
                 }
             }
@@ -587,7 +620,56 @@ namespace BLL
         /// <param name="startTime"></param>
         /// <param name="endTime"></param>
         /// <returns></returns>
-        public static List<Model.PersonInOutItem> getPersonInOutList(string projectId, string userUnitId, string unitId, string strParam, string startTime, string endTime)
+        public static List<Model.PersonInOutItem> getPersonInOutList(string projectId,  string unitId,  string startTime, string endTime)
+        {
+            DateTime? startTimeD = Funs.GetNewDateTime(startTime);
+            DateTime? endTimeD = Funs.GetNewDateTime(endTime);
+            var personInOuts = from x in Funs.DB.SitePerson_PersonInOut
+                               join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
+                               where x.ProjectId == projectId
+                               select new Model.PersonInOutItem
+                               {
+                                   PersonId = x.PersonId,
+                                   PersonName = y.PersonName,
+                                   ProjectId = x.ProjectId,
+                                   UnitId = y.UnitId,
+                                   UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                                   WorkPostId = y.WorkPostId,
+                                   WorkPostName = Funs.DB.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
+                                   IsIn = x.IsIn,
+                                   IsInName = x.IsIn == true ? "进场" : "出场",
+                                   ChangeTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ChangeTime),
+                                   ChangeTimeD = x.ChangeTime,
+                               };
+            if (!string.IsNullOrEmpty(unitId) && !CommonService.GetIsThisUnit(unitId))
+            {
+                personInOuts = personInOuts.Where(x => x.UnitId == unitId);
+            }
+            
+            if (startTimeD.HasValue)
+            {
+                personInOuts = personInOuts.Where(x => x.ChangeTimeD >= startTimeD);
+            }
+            if (endTimeD.HasValue)
+            {
+                personInOuts = personInOuts.Where(x => x.ChangeTimeD <= endTimeD);
+            }
+            
+            return personInOuts.OrderByDescending(x => x.ChangeTimeD).ToList();
+        }
+        #endregion
+
+        #region 获取人员信息出入场记录
+        /// <summary>
+        /// 获取人员信息出入场记录
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
+        /// <param name="strParam"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <returns></returns>
+        public static List<Model.PersonInOutItem> getPersonInOutList(string projectId, string userUnitId, string unitId, string workPostId, string strParam, string startTime, string endTime)
         {
             DateTime? startTimeD = Funs.GetNewDateTime(startTime);
             DateTime? endTimeD = Funs.GetNewDateTime(endTime);
@@ -615,6 +697,10 @@ namespace BLL
             if (!string.IsNullOrEmpty(unitId))
             {
                 personInOuts = personInOuts.Where(x => x.UnitId == unitId);
+            }
+            if (!string.IsNullOrEmpty(workPostId))
+            {
+                personInOuts = personInOuts.Where(x => x.WorkPostId == workPostId);
             }
             if (startTimeD.HasValue)
             {
@@ -654,6 +740,7 @@ namespace BLL
                                ProjectId = y.ProjectId,
                                UnitId = y.UnitId,
                                UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                               UnitCode = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitCode,
                                WorkPostId = y.WorkPostId,
                                WorkPostName = Funs.DB.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
                                CertificateId = x.CertificateId,

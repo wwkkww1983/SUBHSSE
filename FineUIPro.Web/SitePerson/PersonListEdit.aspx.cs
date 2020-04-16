@@ -523,7 +523,8 @@ namespace FineUIPro.Web.SitePerson
             {
                 SaveData();
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/IdCardAttachUrl&menuId={1}", PersonId + "#1", BLL.Const.ProjectPersonChangeMenuId)));
+            
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/IdCardAttachUrl&menuId={1}&strParam=1", this.PersonId, BLL.Const.ProjectPersonChangeMenuId)));
         }
         /// <summary>
         /// 上传附件
@@ -536,7 +537,7 @@ namespace FineUIPro.Web.SitePerson
             {
                 SaveData();
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonBaseInfo&menuId={1}", PersonId + "#2", BLL.Const.ProjectPersonChangeMenuId)));
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonBaseInfo&menuId={1}&strParam=2", this.PersonId, BLL.Const.ProjectPersonChangeMenuId)));
         }
         /// <summary>
         /// 上传附件
@@ -549,7 +550,7 @@ namespace FineUIPro.Web.SitePerson
             {
                 SaveData();
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonBaseInfo&menuId={1}", PersonId + "#3", BLL.Const.ProjectPersonChangeMenuId)));
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonBaseInfo&menuId={1}&strParam=3", this.PersonId, BLL.Const.ProjectPersonChangeMenuId)));
         }
         /// <summary>
         /// 上传附件
@@ -562,7 +563,7 @@ namespace FineUIPro.Web.SitePerson
             {
                 SaveData();
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonBaseInfo&menuId={1}", PersonId + "#4", BLL.Const.ProjectPersonChangeMenuId)));
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonBaseInfo&menuId={1}&strParam=4", this.PersonId, BLL.Const.ProjectPersonChangeMenuId)));
         }
         #endregion
     }

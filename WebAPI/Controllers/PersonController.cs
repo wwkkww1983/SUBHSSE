@@ -590,7 +590,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = APIPersonService.getPersonInOutList(projectId, unitId, null,  null, startTime, endTime);
+                var getDataList = APIPersonService.getPersonInOutList(projectId, unitId, startTime, endTime);
                 int pageCount = getDataList.Count();
                 if (pageCount > 0 && pageIndex > 0)
                 {
@@ -614,17 +614,18 @@ namespace WebAPI.Controllers
         /// <param name="projectId"></param>
         /// <param name="unitId"></param>
         ///  <param name="userUnitId">当前人单位ID</param>
+        /// <param name="workPostId">岗位</param>
         /// <param name="strParam">查询条件</param>
         /// <param name="startTime"></param>
         /// <param name="endTime"></param>
         /// <param name="pageIndex">页码</param>
         /// <returns></returns>
-        public Model.ResponeData getPersonInOutList(string projectId, string userUnitId, string strParam, string startTime, string endTime, int pageIndex, string unitId = null)
+        public Model.ResponeData getPersonInOutList(string projectId, string userUnitId, string workPostId, string strParam, string startTime, string endTime, int pageIndex, string unitId = null)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = APIPersonService.getPersonInOutList(projectId, userUnitId, unitId, strParam, startTime, endTime);
+                var getDataList = APIPersonService.getPersonInOutList(projectId, userUnitId, unitId, workPostId, strParam, startTime, endTime);
                 int pageCount = getDataList.Count();
                 if (pageCount > 0 && pageIndex > 0)
                 {

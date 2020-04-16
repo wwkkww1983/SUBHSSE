@@ -52,7 +52,7 @@ namespace FineUIPro.Web.EduTrain
                 TreeNode tn = null;
                 foreach (var dr in dt)
                 {
-                    string name = dr.TrainingName;
+                    string name = dr.TrainingName;                   
                     if (!string.IsNullOrEmpty(dr.TrainingCode))
                     {
                         name = "[" + dr.TrainingCode + "]" + dr.TrainingName;

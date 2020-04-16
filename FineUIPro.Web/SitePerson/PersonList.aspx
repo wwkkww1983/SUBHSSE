@@ -79,8 +79,7 @@
                                     <f:TextBox runat="server" Label="身份证" ID="txtIdentityCard" EmptyText="输入查询条件"
                                         Width="250px" LabelWidth="100px"
                                         LabelAlign="right">
-                                    </f:TextBox>
-                                                                   
+                                    </f:TextBox>                                                                   
                                     <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>
                                     <f:Button ID="btSearch" ToolTip="查询" Icon="SystemSearch" runat="server" OnClick="TextBox_TextChanged"></f:Button>
                                     <f:Button ID="btnNew" ToolTip="增加" Icon="Add" runat="server" Hidden="true" OnClick="btnNew_Click">
@@ -95,6 +94,8 @@
                                     </f:Button>
                                     <f:Button ID="BtnAnalyse" ToolTip="扣分查询" Icon="ChartPie" runat="server" OnClick="BtnAnalyse_Click" Hidden="true"></f:Button>
                                     <f:Button ID="BtnBlackList" ToolTip="黑名单" Icon="ApplicationOsxTerminal" runat="server" OnClick="BtnBlackList_Click" Hidden="true"></f:Button>
+                                    <f:Button ID="btnQR" ToolTip="批量生成二维码" Icon="TableRefresh" runat="server"  OnClick="btnQR_Click">
+                             </f:Button>  
                                  </Items>
                             </f:Toolbar>
                         </Toolbars>

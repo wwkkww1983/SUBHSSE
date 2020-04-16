@@ -1833,13 +1833,14 @@
             <param name="pageIndex">页码</param>
             <returns></returns>
         </member>
-        <member name="M:WebAPI.Controllers.PersonController.getPersonInOutList(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String)">
+        <member name="M:WebAPI.Controllers.PersonController.getPersonInOutList(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.String)">
             <summary>
             获取人员信息出入场记录
             </summary>
             <param name="projectId"></param>
             <param name="unitId"></param>
              <param name="userUnitId">当前人单位ID</param>
+            <param name="workPostId">岗位</param>
             <param name="strParam">查询条件</param>
             <param name="startTime"></param>
             <param name="endTime"></param>

@@ -26,7 +26,14 @@ namespace Model
             get;
             set;
         }
-
+        /// <summary>
+        /// 项目名称
+        /// </summary>
+        public string ProjectName
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// 编号
         /// </summary>
@@ -36,7 +43,7 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 单位ID
+        /// 受检单位ID
         /// </summary>
         public string UnitId
         {
@@ -44,7 +51,7 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 单位名称
+        /// 受检单位名称
         /// </summary>
         public string UnitName
         {
@@ -68,25 +75,33 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 检查人ID
+        /// 检查人员姓名
         /// </summary>
-        public string CheckPersonId
+        public string CheckManNames
         {
             get;
             set;
         }
         /// <summary>
-        /// 检查人姓名
-        /// </summary>
-        public string CheckPersonName
-        {
-            get;
-            set;
-        }
-        /// <summary>
-        /// 受检时间
+        /// 检查日期
         /// </summary>
         public string CheckedDate
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 隐患类别(1-一般;2-较大;3-重大)
+        /// </summary>
+        public string HiddenHazardType
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 隐患类别
+        /// </summary>
+        public string HiddenHazardTypeName
         {
             get;
             set;
@@ -100,7 +115,7 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 签发人ID
+        /// 签发人(总包单位项目安全经理)ID
         /// </summary>
         public string SignPersonId
         {
@@ -108,7 +123,7 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 签发人姓名
+        /// 签发人(总包单位项目安全经理)姓名
         /// </summary>
         public string SignPersonName
         {
@@ -124,6 +139,102 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 专业工程师ID
+        /// </summary>
+        public string ProfessionalEngineerId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 专业工程师姓名
+        /// </summary>
+        public string ProfessionalEngineerName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 专业工程师（整改前）抄送日期1
+        /// </summary>
+        public string ProfessionalEngineerTime1
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 专业工程师（整改后）抄送日期2
+        /// </summary>
+        public string ProfessionalEngineerTime2
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 施工经理ID
+        /// </summary>
+        public string ConstructionManagerId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 施工经理姓名
+        /// </summary>
+        public string ConstructionManagerName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 施工经理（整改前）抄送日期1
+        /// </summary>
+        public string ConstructionManagerTime1
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 施工经理（整改后）抄送日期2
+        /// </summary>
+        public string ConstructionManagerTime2
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 项目经理ID
+        /// </summary>
+        public string ProjectManagerId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 项目经理姓名
+        /// </summary>
+        public string ProjectManagerName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 项目经理（整改前）抄送日期1
+        /// </summary>
+        public string ProjectManagerTime1
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 项目经理（整改后）抄送日期2
+        /// </summary>
+        public string ProjectManagerTime2
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 整改措施和完成情况
         /// </summary>
         public string CompleteStatus
@@ -132,7 +243,7 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 责任人ID
+        /// 接收人（施工单位项目安全经理）ID
         /// </summary>
         public string DutyPersonId
         {
@@ -140,7 +251,7 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 责任人姓名
+        /// 接收人（施工单位项目安全经理）姓名
         /// </summary>
         public string DutyPersonName
         {
@@ -148,9 +259,9 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 整改人姓名
+        /// 接收人（施工单位项目安全经理） 接收日期
         /// </summary>
-        public string RectificationName
+        public string DutyPersonTime
         {
             get;
             set;
@@ -164,6 +275,47 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 施工单位项目负责人ID
+        /// </summary>
+        public string UnitHeadManId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 施工单位项目负责人姓名
+        /// </summary>
+        public string UnitHeadManName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 施工单位项目负责人 接收日期
+        /// </summary>
+        public string UnitHeadManTime
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 施工单位项目负责人审核日期
+        /// </summary>
+        public string UnitHeadManDate
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 整改人姓名
+        /// </summary>
+        public string RectificationName
+        {
+            get;
+            set;
+        }
+      
+        /// <summary>
         /// 是否完成
         /// </summary>
         public bool IsRectify
@@ -171,7 +323,30 @@ namespace Model
             get;
             set;
         }
-       
+        /// <summary>
+        /// 总包单位复查意见
+        /// </summary>
+        public string ReCheckOpinion
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 检查人ID
+        /// </summary>
+        public string CheckPersonId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 检查人姓名
+        /// </summary>
+        public string CheckPersonName
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// 复查日期
         /// </summary>

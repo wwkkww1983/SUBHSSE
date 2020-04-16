@@ -783,5 +783,32 @@ namespace FineUIPro.Web.SitePerson
             PageContext.RegisterStartupScript(WindowPunishRecord.GetShowReference(String.Format("BlackList.aspx", "查询 - ")));
         }
         #endregion
+
+        /// <summary>
+        /// 批量生成二维码
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnQR_Click(object sender, EventArgs e)
+        {
+            var getPersons = from x in Funs.DB.SitePerson_Person
+                             where x.ProjectId == this.CurrUser.LoginProjectId && x.IdentityCard != null && x.QRCodeAttachUrl == null
+                             select x;
+            int num = 0;
+            if (getPersons.Count() > 0)
+            {
+                foreach (var item in getPersons)
+                {
+                    string url =  CreateQRCodeService.CreateCode_Simple("person$" + item.IdentityCard);
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        item.QRCodeAttachUrl = url;
+                        Funs.DB.SubmitChanges();
+                        num++;
+                    }
+                }
+            }
+            ShowNotify("操作完成，新生成二维码"+ num.ToString()+"条", MessageBoxIcon.Success);
+        }
     }
 }

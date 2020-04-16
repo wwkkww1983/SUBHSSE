@@ -94,7 +94,7 @@ namespace BLL
 
                     ////获取类型下适合岗位试题集合
                     var getTestTrainingItemALLs = from x in db.Training_TestTrainingItem
-                                                  where (x.WorkPostIds == null || (x.WorkPostIds.Contains(person.WorkPostId) && person.WorkPostId != null))
+                                                  where x.TrainingId != null &&  (x.WorkPostIds == null || (x.WorkPostIds.Contains(person.WorkPostId) && person.WorkPostId != null))
                                                   select x;
                     foreach (var itemT in testPlanTrainings)
                     {

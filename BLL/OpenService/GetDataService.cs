@@ -743,6 +743,7 @@ namespace BLL
         }
         #endregion
 
+        #region 自动结束考试
         /// <summary>
         ///  自动结束考试
         /// </summary>
@@ -761,6 +762,134 @@ namespace BLL
                     db.SubmitChanges();
                 }
             }
+
+            var getTrainingTestRecords = from x in db.Training_TestRecord
+                                         where x.TestStartTime.Value.AddMinutes(x.Duration) < DateTime.Now 
+                                         && (!x.TestEndTime.HasValue || !x.TestScores.HasValue)
+                                         select x;
+            foreach (var itemRecord in getTrainingTestRecords)
+            {
+                itemRecord.TestEndTime = itemRecord.TestStartTime.Value.AddMinutes(itemRecord.Duration);
+                itemRecord.TestScores = db.Training_TestRecordItem.Where(x => x.TestRecordId == itemRecord.TestRecordId).Sum(x => x.SubjectScore) ?? 0;
+                TestRecordService.UpdateTestRecord(itemRecord);
+            }
         }
+        #endregion
+
+        #region 自动校正出入场人数及工时
+        /// <summary>
+        ///  自动校正出入场人数及工时
+        /// </summary>
+        public static void CorrectingPersonInOutNumber(string projectId)
+        {
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                var getProjects = (from x in db.Base_Project
+                                          where x.ProjectState == null || x.ProjectState == BLL.Const.ProjectState_1
+                                          orderby x.ProjectCode descending
+                                          select x).ToList();
+                if (!string.IsNullOrEmpty(projectId))
+                {
+                    getProjects = getProjects.Where(x => x.ProjectId == projectId).ToList();
+                }
+                foreach (var projectItem in getProjects)
+                {
+                    var getPersonInOutNumber = db.SitePerson_PersonInOutNumber.FirstOrDefault(x => x.ProjectId == projectItem.ProjectId
+                                         && x.InOutDate.Year == DateTime.Now.Year && x.InOutDate.Month == DateTime.Now.Month && x.InOutDate.Day == DateTime.Now.Day);
+                    if (getPersonInOutNumber == null)
+                    {
+                        //// 现场人员数
+                        int SitePersonNum = 0;
+                        var getAllPersonList = from x in db.SitePerson_PersonInOut
+                                               where x.ProjectId == projectItem.ProjectId
+                                               select x;
+                        var getAllPersonInOuts = from x in getAllPersonList
+                                                 join y in db.SitePerson_Person on x.PersonId equals y.PersonId
+                                                 where y.IsUsed == true && (!y.OutTime.HasValue || y.OutTime >= DateTime.Now)
+                                                 select x;
+                        if (getAllPersonList.Count() > 0)
+                        {
+                            if (getAllPersonInOuts.Count() > 0)
+                            {
+                                var getIn = getAllPersonInOuts.Where(x => x.IsIn == true);
+                                List<string> getPersonIds = new List<string>();
+                                foreach (var item in getIn)
+                                {
+                                    var getMax = getAllPersonInOuts.FirstOrDefault(x => x.PersonId == item.PersonId && x.IsIn == false && x.ChangeTime >= item.ChangeTime);
+                                    if (getMax == null)
+                                    {
+                                        if (getPersonIds.Count() == 0 || !getPersonIds.Contains(item.PersonId))
+                                        {
+                                            getPersonIds.Add(item.PersonId);
+                                            SitePersonNum = SitePersonNum + 1;
+                                        }
+                                    }
+                                }
+                            }
+                            //// 获取工时                  
+                            int SafeHours = 0;
+                            var getPersonOutTimes = from x in getAllPersonInOuts
+                                                    where x.IsIn == false && x.ChangeTime <= DateTime.Now
+                                                    select x;
+                            foreach (var item in getPersonOutTimes)
+                            {
+                                var getInTimes = from x in getAllPersonInOuts
+                                                 where x.IsIn == true && x.ChangeTime < item.ChangeTime
+                                                 orderby x.ChangeTime descending
+                                                 select x;
+                                if (getInTimes.Count() > 0)
+                                {
+                                    var maxInT = getInTimes.FirstOrDefault();
+                                    if (maxInT != null && maxInT.ChangeTime.HasValue)
+                                    {
+                                        SafeHours += Convert.ToInt32((item.ChangeTime - maxInT.ChangeTime).Value.TotalHours);
+                                    }
+                                }
+                            }
+
+                            Model.SitePerson_PersonInOutNumber newNum = new Model.SitePerson_PersonInOutNumber
+                            {
+                                PersonInOutNumberId = SQLHelper.GetNewID(),
+                                ProjectId = projectItem.ProjectId,
+                                InOutDate = DateTime.Now,
+                                PersonNum = SitePersonNum,
+                                WorkHours = SafeHours,
+                            };
+
+                            db.SitePerson_PersonInOutNumber.InsertOnSubmit(newNum);
+                            db.SubmitChanges();
+                        }
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region 自动批量生成人员二维码
+        /// <summary>
+        ///  自动校正出入场人数及工时
+        /// </summary>
+        public static void CreateQRCode()
+        {
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                var getPersons = from x in db.SitePerson_Person
+                                 where x.IdentityCard != null && x.QRCodeAttachUrl == null
+                                 select x;
+                if (getPersons.Count() > 0)
+                {
+                    foreach (var item in getPersons)
+                    {
+                        string url = CreateQRCodeService.CreateCode_Simple("person$" + item.IdentityCard);
+                        if (!string.IsNullOrEmpty(url))
+                        {
+                            item.QRCodeAttachUrl = url;
+                            db.SubmitChanges();
+                        }
+                    }
+                }
+            }
+        }
+        #endregion
     }
 }

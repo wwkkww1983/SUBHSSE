@@ -41,7 +41,7 @@
                         HeaderText="备注" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
                     </f:RenderField>
                     <f:RenderField Width="1px" ColumnID="SpecialEquipmentType" DataField="SpecialEquipmentType" FieldType="String"
-                        HeaderText="类型ID" HeaderTextAlign="Center" TextAlign="Left" >
+                        HeaderText="类型ID" HeaderTextAlign="Center" TextAlign="Left" Hidden="true">
                     </f:RenderField>
                 </Columns>
                 <Listeners>

@@ -104,50 +104,19 @@ namespace WebAPI.Controllers
                             EntryTrainingNum = getTrainRecords.Count();
                         }
                     }
-                    //// 现场人员数
-                    SitePersonNum = 0;
-                    var getAllPersonList = from x in Funs.DB.SitePerson_PersonInOut
-                                           where x.ProjectId == projectId
-                                           select x;
-                    var getAllPersonInOuts = from x in getAllPersonList
-                                             join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
-                                             where y.IsUsed == true && (!y.OutTime.HasValue || y.OutTime >= DateTime.Now)
-                                             select x;
-                    if (getAllPersonList.Count() > 0)
+                    var getPersonInOutNumber = Funs.DB.SitePerson_PersonInOutNumber.FirstOrDefault(x => x.ProjectId == projectId && x.InOutDate.Year == DateTime.Now.Year
+                      && x.InOutDate.Month == DateTime.Now.Month && x.InOutDate.Day == DateTime.Now.Day);
+                    if (getPersonInOutNumber != null)
                     {
-                        if (getAllPersonInOuts.Count() > 0)
-                        {
-                            var getIn = getAllPersonInOuts.Where(x => x.IsIn == true);
-                            foreach (var item in getIn)
-                            {
-                                var getMax = getAllPersonInOuts.FirstOrDefault(x => x.PersonId == item.PersonId && x.IsIn == false && x.ChangeTime >= item.ChangeTime);
-                                if (getMax == null)
-                                {
-                                    SitePersonNum = SitePersonNum + 1;
-                                }
-                            }
-                        }
+                        //// 现场人员数
+                        SitePersonNum = getPersonInOutNumber.PersonNum ?? 0;
                         //// 获取工时                        
-                        var getPersonOutTimes = from x in getAllPersonInOuts
-                                             where  x.IsIn == false && x.ChangeTime <= DateTime.Now
-                                             select x;
-                        foreach (var item in getPersonOutTimes)
-                        {
-                            var getInTimes= from x in getAllPersonInOuts
-                                            where x.IsIn == true && x.ChangeTime < item.ChangeTime
-                                            orderby x.ChangeTime descending
-                                            select x;
-                            if (getInTimes.Count() > 0)
-                            {
-                                var maxInT = getInTimes.FirstOrDefault();
-                                if (maxInT != null && maxInT.ChangeTime.HasValue)
-                                {
-                                    SafeHours += Convert.ToInt32((item.ChangeTime - maxInT.ChangeTime).Value.TotalHours);
-                                }
-                            }
-                        }
-                    }               
-
+                        SafeHours = getPersonInOutNumber.WorkHours ?? 0;
+                    }
+                    else
+                    {
+                        BLL.GetDataService.CorrectingPersonInOutNumber(projectId);
+                    }
                     string hiddenStr = RectificationNum.ToString() + "/" + HiddenDangerNum.ToString();
                     responeData.data = new { ProjectData, SafeDayCount, SafeHours, SitePersonNum, SpecialEquipmentNum, EntryTrainingNum, hiddenStr, RiskI, RiskII, RiskIII, RiskIV, RiskV };
                 }
@@ -160,6 +129,6 @@ namespace WebAPI.Controllers
 
             return responeData;
         }
-        #endregion
+        #endregion            
     }
 }

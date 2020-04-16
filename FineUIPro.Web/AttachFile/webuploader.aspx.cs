@@ -77,6 +77,11 @@ namespace FineUIPro.Web.AttachFile
                 this.btnDelete.ConfirmText = String.Format("你确定要删除选中的&nbsp;<b><script>{0}</script></b>&nbsp;个文件吗？", Grid1.GetSelectedCountReference());
                 Session[sessionName] = null;
                 this.ToKeyId = Request.QueryString["toKeyId"];
+                if (!string.IsNullOrEmpty(Request.QueryString["strParam"]))
+                {
+                    this.ToKeyId = this.ToKeyId +"#"+ Request.QueryString["strParam"];
+                }
+
                 this.AttachPath = Request.QueryString["path"];
                 this.ParamStr = sessionName + "|" + AttachPath;
                 this.MenuId = Request.QueryString["menuId"];

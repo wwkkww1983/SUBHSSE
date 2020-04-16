@@ -111,16 +111,16 @@ namespace BLL
                                        where x.PlanId == getTrainingPlan.PlanId
                                        select x;
 
-                newTrainRecord.TrainPersonNum = getTrainingTasks.Count();
+                newTrainRecord.TrainPersonNum = 0;
                 ///新增培训记录
                 EduTrain_TrainRecordService.AddTraining(newTrainRecord);
+                int persNum = 0;
                 foreach (var item in getTrainingTasks)
                 {
                     Model.EduTrain_TrainRecordDetail newDetail = new Model.EduTrain_TrainRecordDetail
                     {
                         TrainingId = newTrainRecord.TrainingId,
-                        PersonId = item.UserId,
-                       
+                        PersonId = item.UserId,                       
                     };
                     ////及格分数
                     int getPassScores = SysConstSetService.getPassScore();
@@ -138,11 +138,21 @@ namespace BLL
                             newDetail.CheckResult = false;
                         }
                     }
+                  
                     ////新增培训记录明细
                     EduTrain_TrainRecordDetailService.AddTrainDetail(newDetail);
+                    persNum += 1;
                 }
-
+               
+                EduTrain_TrainRecordService.UpdateTraining(newTrainRecord);
                 CommonService.btnSaveData(newTrainRecord.ProjectId, Const.ProjectTrainRecordMenuId, newTrainRecord.TrainingId, getTrainingPlan.DesignerId, true, newTrainRecord.TrainTitle, "../EduTrain/TrainRecordView.aspx?TrainingId={0}");
+
+                var updateR = Funs.DB.EduTrain_TrainRecord.FirstOrDefault(x => x.TrainingId == newTrainRecord.TrainingId);
+                if (updateR != null)
+                {
+                    updateR.TrainPersonNum = persNum;
+                    Funs.DB.SubmitChanges();
+                }
             }
         }
         #endregion

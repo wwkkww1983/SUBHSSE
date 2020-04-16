@@ -29,7 +29,7 @@ namespace WebAPI.Controllers
             };
             try
             {
-                var user = BLL.APIUserService.UserLogOn(userInfo);
+                var user = APIUserService.UserLogOn(userInfo);
                 if (user != null)
                 {
                     responeData.message = "登录成功！";
@@ -37,7 +37,7 @@ namespace WebAPI.Controllers
                 }
                 else
                 {
-                    var user1= BLL.APIPersonService.PersonLogOn(userInfo);
+                    var user1= APIPersonService.PersonLogOn(userInfo);
                     if (user1 != null)
                     {
                         responeData.message = "登录成功！";
