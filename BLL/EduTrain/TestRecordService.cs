@@ -95,20 +95,21 @@ namespace BLL
         /// <param name="planId"></param>
         public static void DeleteTestRecordByTestRecordId(string testRecordId)
         {
-            var testRecord = Funs.DB.Training_TestRecord.FirstOrDefault(e => e.TestRecordId == testRecordId);
-            if (testRecord != null)
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                var testRecordItem = from x in Funs.DB.Training_TestRecordItem where x.TestRecordId == testRecordId select x;
-                if (testRecordItem.Count() > 0)
+                var testRecord = db.Training_TestRecord.FirstOrDefault(e => e.TestRecordId == testRecordId);
+                if (testRecord != null)
                 {
-                    foreach (var item in testRecordItem)
+                    var testRecordItem = from x in db.Training_TestRecordItem where x.TestRecordId == testRecordId select x;
+                    if (testRecordItem.Count() > 0)
                     {
-                        TestRecordItemService.DeleteTestRecordItemmByTestRecordItemId(item.TestRecordItemId);
+                        db.Training_TestRecordItem.DeleteAllOnSubmit(testRecordItem);
+                        db.SubmitChanges();
                     }
-                }
 
-                Funs.DB.Training_TestRecord.DeleteOnSubmit(testRecord);
-                Funs.SubmitChanges();
+                    db.Training_TestRecord.DeleteOnSubmit(testRecord);
+                    db.SubmitChanges();
+                }
             }
         }
 
@@ -118,19 +119,22 @@ namespace BLL
         public static int UpdateTestEndTimeNull(string testRecordId)
         {
             int icount = 0;
-            var testRecord = from x in Funs.DB.Training_TestRecord
-                             where !x.TestEndTime.HasValue && x.TestStartTime.HasValue
-                             && x.TestStartTime.Value.AddMinutes(x.Duration) < DateTime.Now
-                             && x.TestRecordId == testRecordId
-                             select x;
-            if (testRecord.Count() > 0)
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                foreach (var item in testRecord)
+                var testRecord = from x in db.Training_TestRecord
+                                 where !x.TestEndTime.HasValue && x.TestStartTime.HasValue
+                                 && x.TestStartTime.Value.AddMinutes(x.Duration) < DateTime.Now
+                                 && x.TestRecordId == testRecordId
+                                 select x;
+                if (testRecord.Count() > 0)
                 {
-                    item.TestEndTime = item.TestStartTime.Value.AddMinutes(item.Duration);
-                    item.TestScores = Funs.DB.Training_TestRecordItem.Where(x => x.TestRecordId == item.TestRecordId).Sum(x => x.SubjectScore) ?? 0;
-                    Funs.SubmitChanges();
-                    icount++;                   
+                    foreach (var item in testRecord)
+                    {
+                        item.TestEndTime = item.TestStartTime.Value.AddMinutes(item.Duration);
+                        item.TestScores = db.Training_TestRecordItem.Where(x => x.TestRecordId == item.TestRecordId).Sum(x => x.SubjectScore) ?? 0;
+                        db.SubmitChanges();
+                        icount++;
+                    }
                 }
             }
             return icount;

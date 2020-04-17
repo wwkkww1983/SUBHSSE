@@ -297,23 +297,26 @@ namespace BLL
         /// </summary>
         public static void AddTrainingTestPlanTraining(List<Model.TestPlanTrainingItem> TestPlanItems, string testPlanId)
         {
-            foreach (var item in TestPlanItems)
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                var trainingType = TestTrainingService.GetTestTrainingById(item.TrainingTypeId);
-                if (trainingType != null)
+                foreach (var item in TestPlanItems)
                 {
-                    Model.Training_TestPlanTraining newPlanItem = new Model.Training_TestPlanTraining
+                    var trainingType = db.Training_TestTraining.FirstOrDefault(e => e.TrainingId == item.TrainingTypeId); 
+                    if (trainingType != null)
                     {
-                        TestPlanTrainingId = SQLHelper.GetNewID(),
-                        TestPlanId = testPlanId,
-                        TrainingId = item.TrainingTypeId,
-                        TestType1Count = item.TestType1Count,
-                        TestType2Count = item.TestType2Count,
-                        TestType3Count = item.TestType3Count,
-                    };
+                        Model.Training_TestPlanTraining newPlanItem = new Model.Training_TestPlanTraining
+                        {
+                            TestPlanTrainingId = SQLHelper.GetNewID(),
+                            TestPlanId = testPlanId,
+                            TrainingId = item.TrainingTypeId,
+                            TestType1Count = item.TestType1Count,
+                            TestType2Count = item.TestType2Count,
+                            TestType3Count = item.TestType3Count,
+                        };
 
-                    Funs.DB.Training_TestPlanTraining.InsertOnSubmit(newPlanItem);
-                    Funs.SubmitChanges();
+                        db.Training_TestPlanTraining.InsertOnSubmit(newPlanItem);
+                        db.SubmitChanges();
+                    }
                 }
             }
         }
@@ -506,8 +509,6 @@ namespace BLL
                     itemRecord.TestScores = db.Training_TestRecordItem.Where(x => x.TestRecordId == itemRecord.TestRecordId).Sum(x => x.SubjectScore) ?? 0;
                     db.SubmitChanges();
                 }
-                ////TODO 讲培训计划 考试记录 写入到培训记录
-                APITrainRecordService.InsertTrainRecord(getTestPlan);
 
                 var getTrainingTasks = from x in db.Training_Task
                                        where x.PlanId == getTestPlan.PlanId && (x.States != "2" || x.States == null)
@@ -517,6 +518,9 @@ namespace BLL
                     item.States = "2";
                     db.SubmitChanges();
                 }
+
+                ////TODO 讲培训计划 考试记录 写入到培训记录
+                APITrainRecordService.InsertTrainRecord(getTestPlan);
             }
         }
     }

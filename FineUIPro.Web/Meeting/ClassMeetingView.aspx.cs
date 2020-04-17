@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using BLL;
+using System;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.Meeting
 {
@@ -37,7 +34,7 @@ namespace FineUIPro.Web.Meeting
             if (!IsPostBack)
             {
                 btnClose.OnClientClick = ActiveWindow.GetHideReference();
-                
+
                 this.ClassMeetingId = Request.Params["ClassMeetingId"];
                 if (!string.IsNullOrEmpty(this.ClassMeetingId))
                 {
@@ -53,7 +50,7 @@ namespace FineUIPro.Web.Meeting
                         if (!string.IsNullOrEmpty(classMeeting.CompileMan))
                         {
                             var user = BLL.UserService.GetUserByUserId(classMeeting.CompileMan);
-                            if (user!=null)
+                            if (user != null)
                             {
                                 this.txtCompileManName.Text = user.UserName;
                             }
@@ -79,9 +76,19 @@ namespace FineUIPro.Web.Meeting
         {
             if (!string.IsNullOrEmpty(this.ClassMeetingId))
             {
-                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ClassMeetingAttachUrl&menuId={1}", this.ClassMeetingId, BLL.Const.ProjectClassMeetingMenuId)));
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ClassMeetingAttachUrl&menuId={1}&type=-1", this.ClassMeetingId, Const.ProjectClassMeetingMenuId)));
             }
         }
         #endregion
+
+        protected void btnAttachUrl1_Click(object sender, EventArgs e)
+        {
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ClassMeetingAttachUrl&menuId={1}&strParam=1&type=-1", this.ClassMeetingId, Const.ProjectClassMeetingMenuId)));
+        }
+
+        protected void btnAttachUrl2_Click(object sender, EventArgs e)
+        {
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ClassMeetingAttachUrl&menuId={1}&strParam=2&type=-1", this.ClassMeetingId, Const.ProjectClassMeetingMenuId)));
+        }
     }
 }

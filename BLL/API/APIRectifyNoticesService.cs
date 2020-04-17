@@ -18,30 +18,30 @@ namespace BLL
         public static Model.RectifyNoticesItem getRectifyNoticesById(string rectifyNoticesId)
         {
             var getRectifyNotices = from x in Funs.DB.Check_RectifyNotices
-                                    where x.RectifyNoticesId == rectifyNoticesId                              
+                                    where x.RectifyNoticesId == rectifyNoticesId
                                     select new Model.RectifyNoticesItem
                                     {
-                                        RectifyNoticesId=x.RectifyNoticesId,
-                                        ProjectId=x.ProjectId,
-                                        ProjectName=Funs.DB.Base_Project.First(z=>z.ProjectId ==x.ProjectId).ProjectName,
-                                        RectifyNoticesCode =x.RectifyNoticesCode,
-                                        UnitId=x.UnitId,
-                                        UnitName=Funs.DB.Base_Unit.First(u=>u.UnitId == x.UnitId).UnitName,
-                                        WorkAreaId=x.WorkAreaId,
+                                        RectifyNoticesId = x.RectifyNoticesId,
+                                        ProjectId = x.ProjectId,
+                                        ProjectName = Funs.DB.Base_Project.First(z => z.ProjectId == x.ProjectId).ProjectName,
+                                        RectifyNoticesCode = x.RectifyNoticesCode,
+                                        UnitId = x.UnitId,
+                                        UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                        WorkAreaId = x.WorkAreaId,
                                         WorkAreaName = WorkAreaService.getWorkAreaNamesIds(x.WorkAreaId),
-                                        CheckManNames=x.CheckManNames,
+                                        CheckManNames = x.CheckManNames,
                                         CheckedDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CheckedDate),
-                                        CheckedDateD=x.CheckedDate,
-                                        HiddenHazardType=x.HiddenHazardType,
-                                        HiddenHazardTypeName= x.HiddenHazardType=="2"?"较大":(x.HiddenHazardType == "3" ? "重大" :"一般"),
-                                        CompleteManId=x.CompleteManId,
+                                        CheckedDateD = x.CheckedDate,
+                                        HiddenHazardType = x.HiddenHazardType,
+                                        HiddenHazardTypeName = x.HiddenHazardType == "2" ? "较大" : (x.HiddenHazardType == "3" ? "重大" : "一般"),
+                                        CompleteManId = x.CompleteManId,
                                         CompleteManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompleteManId).UserName,
                                         SignPersonId = x.SignPerson,
                                         SignPersonName = Funs.DB.Sys_User.First(u => u.UserId == x.SignPerson).UserName,
                                         SignDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.SignDate),
-                                        ProfessionalEngineerId =x.ProfessionalEngineerId,
+                                        ProfessionalEngineerId = x.ProfessionalEngineerId,
                                         ProfessionalEngineerName = Funs.DB.Sys_User.First(u => u.UserId == x.ProfessionalEngineerId).UserName,
-                                        ProfessionalEngineerTime1= string.Format("{0:yyyy-MM-dd HH:mm}", x.ProfessionalEngineerTime1),
+                                        ProfessionalEngineerTime1 = string.Format("{0:yyyy-MM-dd HH:mm}", x.ProfessionalEngineerTime1),
                                         ProfessionalEngineerTime2 = string.Format("{0:yyyy-MM-dd HH:mm}", x.ProfessionalEngineerTime2),
                                         ConstructionManagerId = x.ConstructionManagerId,
                                         ConstructionManagerName = Funs.DB.Sys_User.First(u => u.UserId == x.ConstructionManagerId).UserName,
@@ -53,7 +53,7 @@ namespace BLL
                                         ProjectManagerTime2 = string.Format("{0:yyyy-MM-dd HH:mm}", x.ProjectManagerTime2),
                                         DutyPersonId = x.DutyPersonId,
                                         DutyPersonName = Funs.DB.Sys_User.First(u => u.UserId == x.DutyPersonId).UserName,
-                                        DutyPersonTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.DutyPersonTime),                                        
+                                        DutyPersonTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.DutyPersonTime),
                                         CompleteDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompleteDate),
                                         UnitHeadManId = x.UnitHeadManId,
                                         UnitHeadManName = Funs.DB.Sys_User.First(u => u.UserId == x.UnitHeadManId).UserName,
@@ -64,13 +64,12 @@ namespace BLL
                                         //WrongContent =x.WrongContent,                                       
                                         //CompleteStatus=x.CompleteStatus,                                       
                                         //RectificationName=x.DutyPerson,                                       
-                                        IsRectify=x.IsRectify ?? false,  
-                                        States=x.States,
-                                        AttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.RectifyNoticesId)).AttachUrl.Replace('\\', '/'),
-                                        //BeAttachUrl = Funs.DB.AttachFile.First(z=>z.ToKeyId== (x.RectifyNoticesId+"#0")).AttachUrl.Replace('\\', '/'),
-                                        //AfAttachUrl = Funs.DB.AttachFile.First(z => z.ToKeyId == (x.RectifyNoticesId + "#1")).AttachUrl.Replace('\\', '/'),
-                                        RectifyNoticesItemItem= getRectifyNoticesItemItem(x.RectifyNoticesId),
-
+                                        IsRectify = x.IsRectify ?? false,
+                                        States = x.States,
+                                        AttachUrl = APIUpLoadFileService.getFileUrl(x.RectifyNoticesId, null),
+                                        BeAttachUrl = APIUpLoadFileService.getFileUrl(x.RectifyNoticesId + "#0", null),
+                                        AfAttachUrl = APIUpLoadFileService.getFileUrl(x.RectifyNoticesId + "#1", null),
+                                        RectifyNoticesItemItem = getRectifyNoticesItemItem(x.RectifyNoticesId),
                                     };
 
             return getRectifyNotices.FirstOrDefault();
@@ -94,9 +93,9 @@ namespace BLL
                               WrongContent = x.WrongContent,
                               Requirement = x.Requirement,
                               LimitTime = string.Format("{0:yyyy-MM-dd}", x.LimitTime),
-                              RectifyResults=x.RectifyResults,
+                              RectifyResults = x.RectifyResults,
                               IsRectify = x.IsRectify ?? false,
-                              PhotoBeforeUrl = APIUpLoadFileService.getFileUrl(x.RectifyNoticesItemId+"#1", null),
+                              PhotoBeforeUrl = APIUpLoadFileService.getFileUrl(x.RectifyNoticesItemId + "#1", null),
                               PhotoAfterUrl = APIUpLoadFileService.getFileUrl(x.RectifyNoticesItemId + "#2", null),
                           };
             return getInfo.ToList();
@@ -119,10 +118,10 @@ namespace BLL
                               RectifyNoticesId = x.RectifyNoticesId,
                               OperateName = x.OperateName,
                               OperateManId = x.OperateManId,
-                              OperateManName=Funs.DB.Sys_User.First(z=>z.UserId == x.OperateManId).UserName,
+                              OperateManName = Funs.DB.Sys_User.First(z => z.UserId == x.OperateManId).UserName,
                               OperateTime = string.Format("{0:yyyy-MM-dd}", x.OperateTime),
                               IsAgree = x.IsAgree,
-                              Opinion=x.Opinion,
+                              Opinion = x.Opinion,
                               SignatureUrl = APIUpLoadFileService.getFileUrl(string.Empty, x.SignatureUrl),
                           };
             return getInfo.ToList();
@@ -222,102 +221,251 @@ namespace BLL
         /// <returns></returns>
         public static void SaveRectifyNotices(Model.RectifyNoticesItem rectifyNotices)
         {
-            Model.Check_RectifyNotices newRectifyNotices = new Model.Check_RectifyNotices
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                RectifyNoticesId = rectifyNotices.RectifyNoticesId,
-                ProjectId = rectifyNotices.ProjectId,
-                RectifyNoticesCode = rectifyNotices.RectifyNoticesCode,
-                UnitId = rectifyNotices.UnitId,
-                WorkAreaId = rectifyNotices.WorkAreaId,
-                CheckManNames= rectifyNotices.CheckManNames,
-                CheckedDate = Funs.GetNewDateTime(rectifyNotices.CheckedDate),
-                HiddenHazardType = rectifyNotices.HiddenHazardType,
+                Model.Check_RectifyNotices newRectifyNotices = new Model.Check_RectifyNotices
+                {
+                    RectifyNoticesId = rectifyNotices.RectifyNoticesId,
+                    ProjectId = rectifyNotices.ProjectId,
+                    RectifyNoticesCode = rectifyNotices.RectifyNoticesCode,
+                    UnitId = rectifyNotices.UnitId,
+                    WorkAreaId = rectifyNotices.WorkAreaId,
+                    CheckManNames = rectifyNotices.CheckManNames,
+                    CheckedDate = Funs.GetNewDateTime(rectifyNotices.CheckedDate),
+                    HiddenHazardType = rectifyNotices.HiddenHazardType,
+                    CompleteManId = rectifyNotices.CompleteManId,
+                    States = rectifyNotices.States,
+                };
 
-                SignPerson = rectifyNotices.SignPersonId,
-                DutyPersonId = rectifyNotices.DutyPersonId,
-                DutyPerson = rectifyNotices.RectificationName,               
-                CheckPerson = rectifyNotices.CheckPersonId,                
-            };
-            
-            var isUpdate = Funs.DB.Check_RectifyNotices.FirstOrDefault(x => x.RectifyNoticesId == newRectifyNotices.RectifyNoticesId);
-            if (isUpdate == null)
-            {
-                newRectifyNotices.RectifyNoticesId = SQLHelper.GetNewID();
-                newRectifyNotices.RectifyNoticesCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.ProjectId, newRectifyNotices.UnitId);
-                if (rectifyNotices.States == "1")
+                //// 新增整改单
+                var isUpdate = db.Check_RectifyNotices.FirstOrDefault(x => x.RectifyNoticesId == newRectifyNotices.RectifyNoticesId);
+                if (isUpdate == null)
                 {
-                    newRectifyNotices.SignDate = Funs.GetNewDateTime(rectifyNotices.SignDate);
-                    newRectifyNotices.DutyPersonId = rectifyNotices.DutyPersonId;
-                }               
-                if (!string.IsNullOrEmpty(rectifyNotices.BeAttachUrl))
-                {
-                    APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.RectifyNoticesId + "#0", rectifyNotices.BeAttachUrl, "0");
-                }
-                RectifyNoticesService.AddRectifyNotices(newRectifyNotices);
-                //// 回写巡检记录表
-                if (!string.IsNullOrEmpty(rectifyNotices.HazardRegisterId))
-                {
-                    List<string> listIds = Funs.GetStrListByStr(rectifyNotices.HazardRegisterId, ',');
-                    foreach (var item in listIds)
-                    {
-                        var getHazardRegister = Funs.DB.HSSE_Hazard_HazardRegister.FirstOrDefault(x => x.HazardRegisterId == item);
-                        if (getHazardRegister != null)
-                        {
-                            getHazardRegister.States = "3";
-                            getHazardRegister.HandleIdea += "已升级为隐患整改单：" + newRectifyNotices.RectifyNoticesCode;
-                            getHazardRegister.ResultId = newRectifyNotices.RectifyNoticesId;
-                            getHazardRegister.ResultType = "1";
-                            Funs.SubmitChanges();
-                        }
-                    }
-                }
-            }
-            else
-            {
-                //// 签发
-                if (rectifyNotices.States == "1")
-                {
-                    isUpdate.UnitId = rectifyNotices.UnitId;
-                    isUpdate.WorkAreaId = rectifyNotices.WorkAreaId;
-                    isUpdate.CheckedDate = Funs.GetNewDateTime(rectifyNotices.CheckedDate);
-                    isUpdate.WrongContent = rectifyNotices.WrongContent;
-                    isUpdate.DutyPersonId = rectifyNotices.DutyPersonId;                
-                    isUpdate.SignDate = Funs.GetNewDateTime(rectifyNotices.SignDate);
+                    newRectifyNotices.RectifyNoticesId = SQLHelper.GetNewID();
+                    newRectifyNotices.RectifyNoticesCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.ProjectId, newRectifyNotices.UnitId);
+                    db.Check_RectifyNotices.InsertOnSubmit(newRectifyNotices);
+                    db.SubmitChanges();
+                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectRectifyNoticeMenuId, rectifyNotices.ProjectId, rectifyNotices.UnitId, rectifyNotices.RectifyNoticesId, newRectifyNotices.CheckedDate);
+                    //// 整改单附件
                     if (!string.IsNullOrEmpty(rectifyNotices.BeAttachUrl))
                     {
                         APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.RectifyNoticesId + "#0", rectifyNotices.BeAttachUrl, "0");
                     }
-                }
-                if (rectifyNotices.States == "2")  //// 整改
-                {
-                    isUpdate.CompleteStatus = rectifyNotices.CompleteStatus;
-                    isUpdate.CompleteDate = Funs.GetNewDateTime(rectifyNotices.CompleteDate);               
-                    isUpdate.DutyPerson = rectifyNotices.RectificationName;
-                    isUpdate.CheckPerson = rectifyNotices.CheckPersonId;
+                    //// 反馈单附件
                     if (!string.IsNullOrEmpty(rectifyNotices.AfAttachUrl))
                     {
                         APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.RectifyNoticesId + "#1", rectifyNotices.AfAttachUrl, "0");
                     }
-                }
-                else if (rectifyNotices.States == "3") //// 复查
-                {
-                    isUpdate.IsRectify = rectifyNotices.IsRectify;
-                    if (isUpdate.IsRectify == true)
-                    {
-                        isUpdate.ReCheckDate = Funs.GetNewDateTime(rectifyNotices.ReCheckDate);                      
-                    }
-                    else
-                    {
-                        isUpdate.CompleteDate = null;
-                        isUpdate.ReCheckDate = null;
-                    }
+                    //// 整个单据附件
                     if (!string.IsNullOrEmpty(rectifyNotices.AttachUrl))
                     {
                         APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.RectifyNoticesId, rectifyNotices.AttachUrl, "0");
                     }
+                    //// 新增明细
+                    if (rectifyNotices.RectifyNoticesItemItem != null && rectifyNotices.RectifyNoticesItemItem.Count() > 0)
+                    {
+                        foreach (var rItem in rectifyNotices.RectifyNoticesItemItem)
+                        {
+                            Model.Check_RectifyNoticesItem newItem = new Model.Check_RectifyNoticesItem
+                            {
+                                RectifyNoticesItemId = SQLHelper.GetNewID(),
+                                RectifyNoticesId = newRectifyNotices.RectifyNoticesId,
+                                WrongContent = rItem.WrongContent,
+                                Requirement = rItem.Requirement,
+                                LimitTime = Funs.GetNewDateTime(rItem.LimitTime),
+                                RectifyResults = null,
+                                IsRectify = null,
+                            };
+                            db.Check_RectifyNoticesItem.InsertOnSubmit(newItem);
+                            db.SubmitChanges();
+
+                            if (!string.IsNullOrEmpty(rItem.PhotoBeforeUrl))
+                            {
+                                APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newItem.RectifyNoticesItemId + "#0", rItem.PhotoBeforeUrl, "0");
+                            }
+                        }
+                    }
+                    //// 回写巡检记录表
+                    if (!string.IsNullOrEmpty(rectifyNotices.HazardRegisterId))
+                    {
+                        List<string> listIds = Funs.GetStrListByStr(rectifyNotices.HazardRegisterId, ',');
+                        foreach (var item in listIds)
+                        {
+                            var getHazardRegister = db.HSSE_Hazard_HazardRegister.FirstOrDefault(x => x.HazardRegisterId == item);
+                            if (getHazardRegister != null)
+                            {
+                                getHazardRegister.States = "3";
+                                getHazardRegister.HandleIdea += "已升级为隐患整改单：" + newRectifyNotices.RectifyNoticesCode;
+                                getHazardRegister.ResultId = newRectifyNotices.RectifyNoticesId;
+                                getHazardRegister.ResultType = "1";
+                                db.SubmitChanges();
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    newRectifyNotices.RectifyNoticesId = isUpdate.RectifyNoticesId;
+                    isUpdate.States = rectifyNotices.States;
+                    if (newRectifyNotices.States == "0")  ////编制人 修改或提交
+                    {
+                        isUpdate.UnitId = rectifyNotices.UnitId;
+                        isUpdate.WorkAreaId = rectifyNotices.WorkAreaId;
+                        isUpdate.CheckManNames = rectifyNotices.CheckManNames;
+                        isUpdate.CheckedDate = Funs.GetNewDateTime(rectifyNotices.CheckedDate);
+                        isUpdate.HiddenHazardType = rectifyNotices.HiddenHazardType;                    
+                        if (newRectifyNotices.States == "1")
+                        {
+                            isUpdate.SignPerson = rectifyNotices.SignPersonId;
+                        }
+                        db.SubmitChanges();
+                        //// 删除明细表
+                        var deleteItem = from x in db.Check_RectifyNoticesItem where x.RectifyNoticesId == isUpdate.RectifyNoticesId select x;
+                        if (deleteItem.Count() > 0)
+                        {
+                            foreach (var cdeleteItem in deleteItem)
+                            {
+                                CommonService.DeleteAttachFileById(cdeleteItem.RectifyNoticesItemId);
+                            }
+                            db.Check_RectifyNoticesItem.DeleteAllOnSubmit(deleteItem);
+                        }
+                        //// 新增明细
+                        if (rectifyNotices.RectifyNoticesItemItem != null && rectifyNotices.RectifyNoticesItemItem.Count() > 0)
+                        {
+                            foreach (var rItem in rectifyNotices.RectifyNoticesItemItem)
+                            {
+                                Model.Check_RectifyNoticesItem newItem = new Model.Check_RectifyNoticesItem
+                                {
+                                    RectifyNoticesItemId = SQLHelper.GetNewID(),
+                                    RectifyNoticesId = newRectifyNotices.RectifyNoticesId,
+                                    WrongContent = rItem.WrongContent,
+                                    Requirement = rItem.Requirement,
+                                    LimitTime = Funs.GetNewDateTime(rItem.LimitTime),
+                                    RectifyResults = null,
+                                    IsRectify = null,
+                                };
+                                db.Check_RectifyNoticesItem.InsertOnSubmit(newItem);
+                                db.SubmitChanges();
+
+                                if (!string.IsNullOrEmpty(rItem.PhotoBeforeUrl))
+                                {
+                                    APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newItem.RectifyNoticesItemId + "#0", rItem.PhotoBeforeUrl, "0");
+                                }
+                            }
+                        }
+                    }
+                    else if (newRectifyNotices.States == "1") ////总包单位项目安全经理 审核
+                    {
+                        /// 不同意 打回 同意抄送专业工程师、施工经理、项目经理 并下发分包接收人（也就是施工单位项目安全经理）
+                        if (rectifyNotices.IsAgree == false) 
+                        {
+                            isUpdate.States = "0";
+                        }
+                        else
+                        {
+                            isUpdate.SignDate = DateTime.Now;
+                            isUpdate.ProfessionalEngineerId = rectifyNotices.ProfessionalEngineerId;
+                            isUpdate.ConstructionManagerId = rectifyNotices.ConstructionManagerId;
+                            isUpdate.ProjectManagerId = rectifyNotices.ProjectManagerId;
+                            isUpdate.DutyPersonId = rectifyNotices.DutyPersonId;
+                        }
+                        db.SubmitChanges();                       
+                    }
+                    else if (newRectifyNotices.States == "2") /// 施工单位项目安全经理 整改 提交施工单位项目负责人
+                    {
+                        //// 整改明细反馈
+                        if (rectifyNotices.RectifyNoticesItemItem != null && rectifyNotices.RectifyNoticesItemItem.Count() > 0)
+                        {
+                            foreach (var rItem in rectifyNotices.RectifyNoticesItemItem)
+                            {
+                                var getUpdateItem = db.Check_RectifyNoticesItem.FirstOrDefault(x => x.RectifyNoticesItemId == rItem.RectifyNoticesItemId);
+                                if (getUpdateItem != null)
+                                {
+                                    getUpdateItem.RectifyResults = rItem.RectifyResults;
+                                    if (getUpdateItem.IsRectify != true)
+                                    {
+                                        getUpdateItem.IsRectify = null;
+                                    }
+                                    db.SubmitChanges();
+                                }
+                                if (!string.IsNullOrEmpty(rItem.PhotoAfterUrl))
+                                {
+                                    APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, rItem.RectifyNoticesItemId + "#0", rItem.PhotoAfterUrl, "0");
+                                }
+                            }
+                        }
+                      
+                        isUpdate.CompleteDate = DateTime.Now;
+                        isUpdate.UnitHeadManId = rectifyNotices.UnitHeadManId;
+                        db.SubmitChanges();
+                    }
+                    else if (newRectifyNotices.States == "3")
+                    { /// 施工单位项目负责人不同意 打回施工单位项目安全经理,同意提交安全经理/安全工程师复查
+                        if (rectifyNotices.IsAgree == false)
+                        {
+                            isUpdate.States = "2";
+                            isUpdate.CompleteDate = null;
+                        }
+                        else
+                        {
+                            isUpdate.UnitHeadManDate = DateTime.Now;
+                            isUpdate.CheckPerson = rectifyNotices.CheckPersonId;
+                        }
+                        db.SubmitChanges();
+                    }
+                    else if (newRectifyNotices.States == "4")
+                    {  ////安全经理/安全工程师 同意关闭，不同意打回施工单位项目安全经理
+                        isUpdate.ReCheckOpinion = rectifyNotices.ReCheckOpinion;
+                        if (rectifyNotices.IsAgree == false)
+                        {
+                            isUpdate.States = "2";
+                            isUpdate.UnitHeadManDate = null;
+                            isUpdate.CompleteDate = null;
+                            isUpdate.ProfessionalEngineerTime2 = null;
+                            isUpdate.ConstructionManagerTime2 = null;
+                            isUpdate.ProjectManagerTime2 = null;
+                        }
+                        else
+                        {                         
+                            isUpdate.ReCheckDate = DateTime.Now;
+                        }
+                        db.SubmitChanges();
+                        //// 整改明细反馈 复查 是否合格
+                        if (rectifyNotices.RectifyNoticesItemItem != null && rectifyNotices.RectifyNoticesItemItem.Count() > 0)
+                        {
+                            foreach (var rItem in rectifyNotices.RectifyNoticesItemItem)
+                            {
+                                var getUpdateItem = db.Check_RectifyNoticesItem.FirstOrDefault(x => x.RectifyNoticesItemId == rItem.RectifyNoticesItemId);
+                                if (getUpdateItem != null)
+                                {
+                                    getUpdateItem.IsRectify = rItem.IsRectify;
+                                    db.SubmitChanges();
+                                }
+                            }
+                        }
+                    }
+                }
+                //// 增加审核记录
+                if (rectifyNotices.RectifyNoticesFlowOperateItem != null && rectifyNotices.RectifyNoticesFlowOperateItem.Count() > 0)
+                {
+                    var getOperate = rectifyNotices.RectifyNoticesFlowOperateItem.FirstOrDefault();
+                    if (getOperate != null)
+                    {
+                        Model.Check_RectifyNoticesFlowOperate newOItem = new Model.Check_RectifyNoticesFlowOperate
+                        {
+                            FlowOperateId = SQLHelper.GetNewID(),
+                            RectifyNoticesId = newRectifyNotices.RectifyNoticesId,
+                            OperateName = getOperate.OperateName,
+                            OperateManId = getOperate.OperateManId,
+                            OperateTime = DateTime.Now,
+                            IsAgree = getOperate.IsAgree,
+                            Opinion = getOperate.Opinion,
+                        };
+                        db.Check_RectifyNoticesFlowOperate.InsertOnSubmit(newOItem);
+                        db.SubmitChanges();
+                    }
                 }
             }
-            Funs.SubmitChanges();
         }
         #endregion
     }

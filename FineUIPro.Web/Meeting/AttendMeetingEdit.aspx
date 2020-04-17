@@ -55,8 +55,14 @@
                 <Items>
                     <f:Label runat="server" ID="lbTemp">
                     </f:Label>
-                    <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
+                      <f:Button ID="btnAttachUrl" Text="内容" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
                         OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1">
+                    </f:Button>
+                        <f:Button ID="btnAttachUrl1" Text="签到表" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
+                        OnClick="btnAttachUrl1_Click" ValidateForms="SimpleForm1">
+                    </f:Button>
+                     <f:Button ID="btnAttachUrl2" Text="会议过程" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
+                        OnClick="btnAttachUrl2_Click" ValidateForms="SimpleForm1">
                     </f:Button>
                     <f:ToolbarFill ID="ToolbarFill1" runat="server">
                     </f:ToolbarFill>

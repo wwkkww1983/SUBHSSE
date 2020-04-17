@@ -205,6 +205,24 @@ namespace FineUIPro.Web.Meeting
         }
         #endregion
 
+        protected void btnAttachUrl1_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.MonthMeetingId))
+            {
+                SaveData(Const.BtnSave);
+            }
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ClassMeetingAttachUrl&menuId={1}&strParam=1", this.MonthMeetingId, Const.ProjectMonthMeetingMenuId)));
+        }
+
+        protected void btnAttachUrl2_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.MonthMeetingId))
+            {
+                SaveData(Const.BtnSave);
+            }
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ClassMeetingAttachUrl&menuId={1}&strParam=2", this.MonthMeetingId, Const.ProjectMonthMeetingMenuId)));
+        }
+
         /// <summary>
         ///  计算参会人数
         /// </summary>

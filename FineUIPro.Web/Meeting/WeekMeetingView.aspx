@@ -67,8 +67,14 @@
         <Toolbars>
             <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
                 <Items>
-                    <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件查看" Icon="TableCell" runat="server"
-                        OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1" MarginLeft="5px">
+                  <f:Button ID="btnAttachUrl" Text="内容" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
+                        OnClick="btnAttachUrl_Click" >
+                    </f:Button>
+                        <f:Button ID="btnAttachUrl1" Text="签到表" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
+                        OnClick="btnAttachUrl1_Click" >
+                    </f:Button>
+                     <f:Button ID="btnAttachUrl2" Text="会议过程" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
+                        OnClick="btnAttachUrl2_Click">
                     </f:Button>
                     <f:ToolbarFill runat="server">
                     </f:ToolbarFill>

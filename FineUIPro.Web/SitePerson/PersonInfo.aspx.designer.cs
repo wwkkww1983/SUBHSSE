@@ -58,6 +58,42 @@ namespace FineUIPro.Web.SitePerson {
         protected global::FineUIPro.Toolbar Toolbar2;
         
         /// <summary>
+        /// drpUnit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpUnit;
+        
+        /// <summary>
+        /// txtPersonName 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtPersonName;
+        
+        /// <summary>
+        /// txtStartDate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DatePicker txtStartDate;
+        
+        /// <summary>
+        /// txtEndDate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DatePicker txtEndDate;
+        
+        /// <summary>
         /// ToolbarFill1 控件。
         /// </summary>
         /// <remarks>
@@ -65,6 +101,15 @@ namespace FineUIPro.Web.SitePerson {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.ToolbarFill ToolbarFill1;
+        
+        /// <summary>
+        /// btSearch 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btSearch;
         
         /// <summary>
         /// btnNew 控件。
@@ -101,15 +146,6 @@ namespace FineUIPro.Web.SitePerson {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblIntoOut;
-        
-        /// <summary>
-        /// lblAddress 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAddress;
         
         /// <summary>
         /// lblWorkAreaName 控件。

@@ -336,46 +336,53 @@ namespace BLL
         /// </summary>
         /// <param name="testRecordItemId"></param>
         /// <param name="answerItems"></param>
-        public static void getTestRecordItemAnswerBySelectedItem(Model.Training_TestRecordItem getTItem, string selectedItem)
-        {
-            getTItem.SubjectScore = 0;
-            getTItem.SelectedItem = selectedItem;
-            if (!string.IsNullOrEmpty(selectedItem))
+        public static void getTestRecordItemAnswerBySelectedItem(Model.Training_TestRecordItem getTItemT, string selectedItem)
+        {            
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                if (getTItem.AnswerItems == selectedItem)
+                var getTItem = db.Training_TestRecordItem.FirstOrDefault(x => x.TestRecordItemId == getTItemT.TestRecordItemId);
+                if (getTItem != null)
                 {
-                    getTItem.SubjectScore = getTItem.Score ?? 0;
-                }
-                else
-                {
-                    var listA = Funs.GetStrListByStr(getTItem.AnswerItems.ToUpper(), ',');
-                    var listS = Funs.GetStrListByStr(selectedItem.ToUpper(), ',');
-                    if (getTItem.TestType == "2" && listA.Count >= listS.Count)
+                    getTItem.SubjectScore = 0;
+                    getTItem.SelectedItem = selectedItem;
+                    if (!string.IsNullOrEmpty(selectedItem))
                     {
-                        int i = 0;
-                        foreach (var item in listS)
+                        if (getTItem.AnswerItems == selectedItem)
                         {
-                            if (!listA.Contains(item))
-                            {
-                                i++;
-                                break;
-                            }
+                            getTItem.SubjectScore = getTItem.Score ?? 0;
                         }
-                        if (i == 0)
+                        else
                         {
-                            if (listA.Count == listS.Count)
+                            var listA = Funs.GetStrListByStr(getTItem.AnswerItems.ToUpper(), ',');
+                            var listS = Funs.GetStrListByStr(selectedItem.ToUpper(), ',');
+                            if (getTItem.TestType == "2" && listA.Count >= listS.Count)
                             {
-                                getTItem.SubjectScore = getTItem.Score ?? 0;
-                            }
-                            else
-                            {
-                                getTItem.SubjectScore = Convert.ToDecimal((getTItem.Score ?? 0) * 1.0 / 2);
+                                int i = 0;
+                                foreach (var item in listS)
+                                {
+                                    if (!listA.Contains(item))
+                                    {
+                                        i++;
+                                        break;
+                                    }
+                                }
+                                if (i == 0)
+                                {
+                                    if (listA.Count == listS.Count)
+                                    {
+                                        getTItem.SubjectScore = getTItem.Score ?? 0;
+                                    }
+                                    else
+                                    {
+                                        getTItem.SubjectScore = Convert.ToDecimal((getTItem.Score ?? 0) * 1.0 / 2);
+                                    }
+                                }
                             }
                         }
                     }
+                    Funs.SubmitChanges();
                 }
             }
-            Funs.SubmitChanges();
         }
         #endregion
 
@@ -409,21 +416,31 @@ namespace BLL
         /// 
         /// </summary>
         /// <param name="testPlanId"></param>
-        public static void  updateAll(string testPlanId,string testRecordId)
+        public static void updateAll(string testPlanId, string testRecordId)
         {
             using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                //考试计划
-                var getTestPlan = db.Training_TestPlan.FirstOrDefault(e => e.TestPlanId == testPlanId);
-                if (getTestPlan != null)
-                {
-                    ////所有人员 都交卷时 考试计划结束 状态置为3
-                    var getAllTestRecord = db.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == getTestPlan.TestPlanId && !x.TestEndTime.HasValue && x.TestRecordId != testRecordId);
-                    if (getAllTestRecord == null)
+                ////所有人员 都交卷时 考试计划结束 状态置为3
+                var getAllTestRecord = db.Training_TestRecord.FirstOrDefault(x => x.TestPlanId != testPlanId && !x.TestEndTime.HasValue);
+                if (getAllTestRecord == null )
+                {            //考试计划
+                    var getTestPlan = db.Training_TestPlan.FirstOrDefault(e => e.TestPlanId == testPlanId);
+                    if (getTestPlan != null)
                     {
-                        APITestPlanService.SubmitTest(getTestPlan);
                         getTestPlan.States = "3";
                         db.SubmitChanges();
+
+                        var getTrainingTasks = from x in db.Training_Task
+                                               where x.PlanId == testPlanId && (x.States != "2" || x.States == null)
+                                               select x;
+                        foreach (var item in getTrainingTasks)
+                        {
+                            item.States = "2";
+                            db.SubmitChanges();
+                        }
+
+                        ////TODO 讲培训计划 考试记录 写入到培训记录
+                        APITrainRecordService.InsertTrainRecord(getTestPlan);
                     }
                 }
             }

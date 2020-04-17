@@ -144,23 +144,26 @@ namespace BLL
         /// <returns></returns>
         public static void getTrainingTaskByPlanIdPersonId(string planId, string personId)
         {
-            var plan = TrainingPlanService.GetPlanById(planId);
-            Model.Training_Task newTask = new Model.Training_Task
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                TaskId = SQLHelper.GetNewID(),
-                PlanId = planId,
-                UserId = personId,
-                TaskDate = DateTime.Now,
-                States = "0",
-            };
-            if (plan != null)
-            {
-                newTask.ProjectId = plan.ProjectId;
-                Funs.DB.Training_Task.InsertOnSubmit(newTask);
-                Funs.SubmitChanges();
+                var plan = db.Training_Plan.FirstOrDefault(e => e.PlanId == planId);
+                Model.Training_Task newTask = new Model.Training_Task
+                {
+                    TaskId = SQLHelper.GetNewID(),
+                    PlanId = planId,
+                    UserId = personId,
+                    TaskDate = DateTime.Now,
+                    States = "0",
+                };
+                if (plan != null)
+                {
+                    newTask.ProjectId = plan.ProjectId;
+                    db.Training_Task.InsertOnSubmit(newTask);
+                    db.SubmitChanges();
 
-                ////生成培训任务下培训明细
-                GetDataService.CreateTrainingTaskItemByTaskId(newTask.TaskId);
+                    ////生成培训任务下培训明细
+                    GetDataService.CreateTrainingTaskItemByTaskId(newTask.TaskId);
+                }
             }
         }
         #endregion

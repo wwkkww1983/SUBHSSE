@@ -404,6 +404,14 @@ namespace Model
             get;
             set;
         }
+        /// <summary>
+        /// 是否同意
+        /// </summary>
+        public bool? IsAgree
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// 状态（0：待提交；1：待签发；2：待整改；3：待复查，4:已完成；）

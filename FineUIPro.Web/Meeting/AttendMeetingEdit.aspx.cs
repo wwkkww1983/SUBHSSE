@@ -190,5 +190,23 @@ namespace FineUIPro.Web.Meeting
             PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/AttendMeetingAttachUrl&menuId={1}", this.AttendMeetingId, BLL.Const.ProjectAttendMeetingMenuId)));
         }
         #endregion
+
+        protected void btnAttachUrl1_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.AttendMeetingId))
+            {
+                SaveData(Const.BtnSave);
+            }
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ClassMeetingAttachUrl&menuId={1}&strParam=1", this.AttendMeetingId, Const.ProjectAttendMeetingMenuId)));
+        }
+
+        protected void btnAttachUrl2_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.AttendMeetingId))
+            {
+                SaveData(Const.BtnSave);
+            }
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ClassMeetingAttachUrl&menuId={1}&strParam=2", this.AttendMeetingId, Const.ProjectAttendMeetingMenuId)));
+        }
     }
 }

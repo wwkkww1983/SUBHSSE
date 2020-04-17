@@ -81,5 +81,21 @@ namespace FineUIPro.Web.Meeting
             }
         }
         #endregion
+
+        protected void btnAttachUrl1_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(this.AttendMeetingId))
+            {
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ClassMeetingAttachUrl&menuId={1}&strParam=1&type=-1", this.AttendMeetingId, BLL.Const.ProjectAttendMeetingMenuId)));
+            }
+        }
+
+        protected void btnAttachUrl2_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(this.AttendMeetingId))
+            {
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ClassMeetingAttachUrl&menuId={1}&strParam=2&type=-1", this.AttendMeetingId, BLL.Const.ProjectAttendMeetingMenuId)));
+            }
+        }
     }
 }

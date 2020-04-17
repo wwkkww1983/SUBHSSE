@@ -29,6 +29,18 @@ namespace FineUIPro.Web.SitePerson
                 ViewState["CheckingId"] = value;
             }
         }
+
+        public int RowCount
+        {
+            get
+            {
+                return (int)ViewState["RowCount"];
+            }
+            set
+            {
+                ViewState["RowCount"] = value;
+            }
+        }
         #endregion
 
         #region 加载页面
@@ -47,6 +59,7 @@ namespace FineUIPro.Web.SitePerson
                 this.btnMenuDelete.OnClientClick = Grid1.GetNoSelectionAlertReference("请至少选择一项！");
                 this.btnMenuDelete.ConfirmText = String.Format("你确定要删除选中的&nbsp;<b><script>{0}</script></b>&nbsp;行数据吗？", Grid1.GetSelectedCountReference());
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
+                UnitService.InitUnitDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, true);
                 // 绑定表格
                 BindGrid();
             }
@@ -70,11 +83,32 @@ namespace FineUIPro.Web.SitePerson
             {
                 listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
             }
+            if (this.drpUnit.SelectedValue != Const._Null)
+            {
+                strSql += " AND UnitId = @UnitId";
+                listStr.Add(new SqlParameter("@UnitId", this.drpUnit.SelectedValue));
+            }
+            if (!string.IsNullOrEmpty(this.txtPersonName.Text)) 
+            {
+                strSql += " AND PersonName LIKE @PersonName";
+                listStr.Add(new SqlParameter("@PersonName", "%" + this.txtPersonName.Text.Trim() + "%"));
+            }
+            if (!string.IsNullOrEmpty(this.txtStartDate.Text))  
+            {
+                strSql += " AND IntoOutTime >= @StartDate";  
+                listStr.Add(new SqlParameter("@StartDate", this.txtStartDate.Text.Trim()));
+            }
+            if (!string.IsNullOrEmpty(this.txtEndDate.Text))  
+            {
+                strSql += " AND IntoOutTime < @EndDate";  
+                listStr.Add(new SqlParameter("@EndDate", this.txtEndDate.Text.Trim()));
+            }
             strSql += " order by PersonName";
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
             Grid1.RecordCount = tb.Rows.Count;
-            tb = GetFilteredTable(Grid1.FilteredData, tb);
+            this.RowCount = tb.Rows.Count;
+           // tb = GetFilteredTable(Grid1.FilteredData, tb);
             var table = this.GetPagedDataTable(Grid1, tb);
 
             Grid1.DataSource = table;
@@ -268,13 +302,13 @@ namespace FineUIPro.Web.SitePerson
         {
             if (intoOut != null)
             {
-                if (intoOut.ToString() == "1")
+                if (intoOut.ToString() == "True")
                 {
-                    return "进门";
+                    return "进场";
                 }
-                else if (intoOut.ToString() == "2")
+                else if (intoOut.ToString() == "False")
                 {
-                    return "出门";
+                    return "出场";
                 }
                 else
                 {
@@ -326,9 +360,9 @@ namespace FineUIPro.Web.SitePerson
             Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("现场人员考勤管理" + filename, System.Text.Encoding.UTF8) + ".xls");
             Response.ContentType = "application/excel";
             Response.ContentEncoding = System.Text.Encoding.UTF8;
-            this.Grid1.PageSize = 500;
+            this.Grid1.PageSize = this.RowCount;
             BindGrid();
-            Response.Write(GetGridTableHtml(Grid1));
+            Response.Write(GetGridTableHtml1(Grid1));
             Response.End();
         }
 
@@ -337,7 +371,7 @@ namespace FineUIPro.Web.SitePerson
         /// </summary>
         /// <param name="grid"></param>
         /// <returns></returns>
-        private string GetGridTableHtml(Grid grid)
+        private string GetGridTableHtml1(Grid grid)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
@@ -374,7 +408,8 @@ namespace FineUIPro.Web.SitePerson
                     {
                         html = (row.FindControl("lblAddress") as AspNet.Label).Text;
                     }
-                    sb.AppendFormat("<td>{0}</td>", html);
+                    //sb.AppendFormat("<td>{0}</td>", html);
+                    sb.AppendFormat("<td style='vnd.ms-excel.numberformat:@;width:140px;'>{0}</td>", html);
                 }
 
                 sb.Append("</tr>");
@@ -385,5 +420,10 @@ namespace FineUIPro.Web.SitePerson
             return sb.ToString();
         }
         #endregion
+
+        protected void btSearch_Click(object sender, EventArgs e)
+        {
+            BindGrid();
+        }
     }
 }

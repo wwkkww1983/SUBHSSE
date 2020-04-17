@@ -581,7 +581,7 @@ namespace BLL
                             db.SitePerson_PersonInOut.InsertOnSubmit(newInOut);
                             db.SubmitChanges();
 
-                            GetDataService.CorrectingPersonInOutNumber(projectId);
+                            //GetDataService.CorrectingPersonInOutNumber(projectId);
                         }
                     }
                 }

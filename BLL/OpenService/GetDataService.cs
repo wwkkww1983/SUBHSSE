@@ -699,45 +699,48 @@ namespace BLL
         /// </summary>
         /// <param name="taskId"></param>
         public static void CreateTrainingTaskItemByTaskId(string taskId)
-        {           
-            /////查找未生成教材明细的 培训任务
-            var getTasks = from x in Funs.DB.Training_Task
+        {
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                /////查找未生成教材明细的 培训任务
+                var getTasks = from x in db.Training_Task
                            where x.States == Const.State_0 && (x.TaskId == taskId || taskId == null)
                            select x;
-            if (getTasks.Count() > 0)
-            {
-                foreach (var item in getTasks)
+                if (getTasks.Count() > 0)
                 {
-                    var getPerson = PersonService.GetPersonById(item.UserId);
-                    if (getPerson != null)
+                    foreach (var item in getTasks)
                     {
-                        ////获取计划下 人员培训教材明细
-                        var getDataList = Funs.DB.Sp_GetTraining_TaskItemTraining(item.PlanId, getPerson.WorkPostId);
-                        foreach (var dataItem in getDataList)
+                        var getPerson = db.SitePerson_Person.FirstOrDefault(e => e.PersonId == item.UserId); 
+                        if (getPerson != null)
                         {
-                            Model.Training_TaskItem newTaskItem = new Model.Training_TaskItem
+                            ////获取计划下 人员培训教材明细
+                            var getDataList = db.Sp_GetTraining_TaskItemTraining(item.PlanId, getPerson.WorkPostId);
+                            foreach (var dataItem in getDataList)
                             {
-                                TaskId = item.TaskId,
-                                PlanId = item.PlanId,
-                                PersonId = item.UserId,
-                                TrainingItemCode = dataItem.TrainingItemCode,
-                                TrainingItemName = dataItem.TrainingItemName,
-                                AttachUrl = dataItem.AttachUrl,
-                            };
+                                Model.Training_TaskItem newTaskItem = new Model.Training_TaskItem
+                                {
+                                    TaskId = item.TaskId,
+                                    PlanId = item.PlanId,
+                                    PersonId = item.UserId,
+                                    TrainingItemCode = dataItem.TrainingItemCode,
+                                    TrainingItemName = dataItem.TrainingItemName,
+                                    AttachUrl = dataItem.AttachUrl,
+                                };
 
-                            var getTaskItem = Funs.DB.Training_TaskItem.FirstOrDefault(x => x.TaskId == item.TaskId && x.TrainingItemName == newTaskItem.TrainingItemName && x.AttachUrl == newTaskItem.AttachUrl);
-                            if (getTaskItem == null)
-                            {
-                                newTaskItem.TaskItemId = SQLHelper.GetNewID();
-                                Funs.DB.Training_TaskItem.InsertOnSubmit(newTaskItem);
-                                Funs.DB.SubmitChanges();
+                                var getTaskItem = db.Training_TaskItem.FirstOrDefault(x => x.TaskId == item.TaskId && x.TrainingItemName == newTaskItem.TrainingItemName && x.AttachUrl == newTaskItem.AttachUrl);
+                                if (getTaskItem == null)
+                                {
+                                    newTaskItem.TaskItemId = SQLHelper.GetNewID();
+                                    db.Training_TaskItem.InsertOnSubmit(newTaskItem);
+                                    db.SubmitChanges();
+                                }
                             }
                         }
-                    }
 
-                    ////更新培训任务
-                    item.States = Const.State_1;
-                    Funs.DB.SubmitChanges();
+                        ////更新培训任务
+                        item.States = Const.State_1;
+                        db.SubmitChanges();
+                    }
                 }
             }
         }
@@ -796,6 +799,8 @@ namespace BLL
                 {
                     //// 现场人员数
                     int SitePersonNum = 0;
+                    //// 获取工时                  
+                    int SafeHours = 0;
                     var getAllPersonList = from x in db.SitePerson_PersonInOut
                                            where x.ProjectId == projectItem.ProjectId
                                            select x;
@@ -822,8 +827,7 @@ namespace BLL
                                 }
                             }
                         }
-                        //// 获取工时                  
-                        int SafeHours = 0;
+                    
                         var getPersonOutTimes = from x in getAllPersonInOuts
                                                 where x.IsIn == false && x.ChangeTime <= DateTime.Now
                                                 select x;
@@ -842,30 +846,32 @@ namespace BLL
                                 }
                             }
                         }
-                        //// 
-                        var getPersonInOutNumber = db.SitePerson_PersonInOutNumber.FirstOrDefault(x => x.ProjectId == projectItem.ProjectId
-                                         && x.InOutDate.Year == DateTime.Now.Year && x.InOutDate.Month == DateTime.Now.Month && x.InOutDate.Day == DateTime.Now.Day);
-                        if (getPersonInOutNumber == null)
-                        {
-                            Model.SitePerson_PersonInOutNumber newNum = new Model.SitePerson_PersonInOutNumber
-                            {
-                                PersonInOutNumberId = SQLHelper.GetNewID(),
-                                ProjectId = projectItem.ProjectId,
-                                InOutDate = DateTime.Now,
-                                PersonNum = SitePersonNum,
-                                WorkHours = SafeHours,
-                            };
+                    }
 
-                            db.SitePerson_PersonInOutNumber.InsertOnSubmit(newNum);
-                            db.SubmitChanges();
-                        }
-                        else
+                    //// 
+                    var getPersonInOutNumber = db.SitePerson_PersonInOutNumber.FirstOrDefault(x => x.ProjectId == projectItem.ProjectId
+                                     && x.InOutDate > DateTime.Now.AddDays(-1) && x.InOutDate < DateTime.Now.AddDays(1));
+                    if (getPersonInOutNumber == null)
+                    {
+                        Model.SitePerson_PersonInOutNumber newNum = new Model.SitePerson_PersonInOutNumber
                         {
-                            getPersonInOutNumber.InOutDate = DateTime.Now;
-                            getPersonInOutNumber.PersonNum = SitePersonNum;
-                            getPersonInOutNumber.WorkHours = SafeHours;
-                        }
-                    }                             
+                            PersonInOutNumberId = SQLHelper.GetNewID(),
+                            ProjectId = projectItem.ProjectId,
+                            InOutDate = DateTime.Now,
+                            PersonNum = SitePersonNum,
+                            WorkHours = SafeHours,
+                        };
+
+                        db.SitePerson_PersonInOutNumber.InsertOnSubmit(newNum);
+                        db.SubmitChanges();
+                    }
+                    else
+                    {
+                        getPersonInOutNumber.InOutDate = DateTime.Now;
+                        getPersonInOutNumber.PersonNum = SitePersonNum;
+                        getPersonInOutNumber.WorkHours = SafeHours;
+                        db.SubmitChanges();
+                    }
                 }
             }
         }
