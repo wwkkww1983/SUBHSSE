@@ -79,7 +79,15 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = APITestPlanService.SaveTestPlanByTrainingPlanId(trainingPlanId, userId);
+                if (CommonService.IsMainUnitOrAdmin(userId))
+                {
+                    responeData.data = APITestPlanService.SaveTestPlanByTrainingPlanId(trainingPlanId, userId);
+                }
+                else
+                {
+                    responeData.code = 0;
+                    responeData.message = "非本单位用户，不能生成考试计划！";
+                }
             }
             catch (Exception ex)
             {
@@ -113,7 +121,6 @@ namespace WebAPI.Controllers
                 responeData.code = 0;
                 responeData.message = ex.Message;
             }
-
             return responeData;
         }
         #endregion

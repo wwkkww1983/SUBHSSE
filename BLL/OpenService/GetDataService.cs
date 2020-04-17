@@ -794,59 +794,59 @@ namespace BLL
                 }
                 foreach (var projectItem in getProjects)
                 {
-                    var getPersonInOutNumber = db.SitePerson_PersonInOutNumber.FirstOrDefault(x => x.ProjectId == projectItem.ProjectId
-                                         && x.InOutDate.Year == DateTime.Now.Year && x.InOutDate.Month == DateTime.Now.Month && x.InOutDate.Day == DateTime.Now.Day);
-                    if (getPersonInOutNumber == null)
+                    //// 现场人员数
+                    int SitePersonNum = 0;
+                    var getAllPersonList = from x in db.SitePerson_PersonInOut
+                                           where x.ProjectId == projectItem.ProjectId
+                                           select x;
+                    var getAllPersonInOuts = from x in getAllPersonList
+                                             join y in db.SitePerson_Person on x.PersonId equals y.PersonId
+                                             where y.IsUsed == true && (!y.OutTime.HasValue || y.OutTime >= DateTime.Now)
+                                             select x;
+                    if (getAllPersonList.Count() > 0)
                     {
-                        //// 现场人员数
-                        int SitePersonNum = 0;
-                        var getAllPersonList = from x in db.SitePerson_PersonInOut
-                                               where x.ProjectId == projectItem.ProjectId
-                                               select x;
-                        var getAllPersonInOuts = from x in getAllPersonList
-                                                 join y in db.SitePerson_Person on x.PersonId equals y.PersonId
-                                                 where y.IsUsed == true && (!y.OutTime.HasValue || y.OutTime >= DateTime.Now)
-                                                 select x;
-                        if (getAllPersonList.Count() > 0)
+                        if (getAllPersonInOuts.Count() > 0)
                         {
-                            if (getAllPersonInOuts.Count() > 0)
+                            var getIn = getAllPersonInOuts.Where(x => x.IsIn == true);
+                            List<string> getPersonIds = new List<string>();
+                            foreach (var item in getIn)
                             {
-                                var getIn = getAllPersonInOuts.Where(x => x.IsIn == true);
-                                List<string> getPersonIds = new List<string>();
-                                foreach (var item in getIn)
+                                var getMax = getAllPersonInOuts.FirstOrDefault(x => x.PersonId == item.PersonId && x.IsIn == false && x.ChangeTime >= item.ChangeTime);
+                                if (getMax == null)
                                 {
-                                    var getMax = getAllPersonInOuts.FirstOrDefault(x => x.PersonId == item.PersonId && x.IsIn == false && x.ChangeTime >= item.ChangeTime);
-                                    if (getMax == null)
+                                    if (getPersonIds.Count() == 0 || !getPersonIds.Contains(item.PersonId))
                                     {
-                                        if (getPersonIds.Count() == 0 || !getPersonIds.Contains(item.PersonId))
-                                        {
-                                            getPersonIds.Add(item.PersonId);
-                                            SitePersonNum = SitePersonNum + 1;
-                                        }
+                                        getPersonIds.Add(item.PersonId);
+                                        SitePersonNum = SitePersonNum + 1;
                                     }
                                 }
                             }
-                            //// 获取工时                  
-                            int SafeHours = 0;
-                            var getPersonOutTimes = from x in getAllPersonInOuts
-                                                    where x.IsIn == false && x.ChangeTime <= DateTime.Now
-                                                    select x;
-                            foreach (var item in getPersonOutTimes)
+                        }
+                        //// 获取工时                  
+                        int SafeHours = 0;
+                        var getPersonOutTimes = from x in getAllPersonInOuts
+                                                where x.IsIn == false && x.ChangeTime <= DateTime.Now
+                                                select x;
+                        foreach (var item in getPersonOutTimes)
+                        {
+                            var getInTimes = from x in getAllPersonInOuts
+                                             where x.IsIn == true && x.ChangeTime < item.ChangeTime
+                                             orderby x.ChangeTime descending
+                                             select x;
+                            if (getInTimes.Count() > 0)
                             {
-                                var getInTimes = from x in getAllPersonInOuts
-                                                 where x.IsIn == true && x.ChangeTime < item.ChangeTime
-                                                 orderby x.ChangeTime descending
-                                                 select x;
-                                if (getInTimes.Count() > 0)
+                                var maxInT = getInTimes.FirstOrDefault();
+                                if (maxInT != null && maxInT.ChangeTime.HasValue)
                                 {
-                                    var maxInT = getInTimes.FirstOrDefault();
-                                    if (maxInT != null && maxInT.ChangeTime.HasValue)
-                                    {
-                                        SafeHours += Convert.ToInt32((item.ChangeTime - maxInT.ChangeTime).Value.TotalHours);
-                                    }
+                                    SafeHours += Convert.ToInt32((item.ChangeTime - maxInT.ChangeTime).Value.TotalHours);
                                 }
                             }
-
+                        }
+                        //// 
+                        var getPersonInOutNumber = db.SitePerson_PersonInOutNumber.FirstOrDefault(x => x.ProjectId == projectItem.ProjectId
+                                         && x.InOutDate.Year == DateTime.Now.Year && x.InOutDate.Month == DateTime.Now.Month && x.InOutDate.Day == DateTime.Now.Day);
+                        if (getPersonInOutNumber == null)
+                        {
                             Model.SitePerson_PersonInOutNumber newNum = new Model.SitePerson_PersonInOutNumber
                             {
                                 PersonInOutNumberId = SQLHelper.GetNewID(),
@@ -859,7 +859,13 @@ namespace BLL
                             db.SitePerson_PersonInOutNumber.InsertOnSubmit(newNum);
                             db.SubmitChanges();
                         }
-                    }
+                        else
+                        {
+                            getPersonInOutNumber.InOutDate = DateTime.Now;
+                            getPersonInOutNumber.PersonNum = SitePersonNum;
+                            getPersonInOutNumber.WorkHours = SafeHours;
+                        }
+                    }                             
                 }
             }
         }

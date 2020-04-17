@@ -95,13 +95,15 @@ namespace BLL
         /// <param name="TestPlanId"></param>
         public static void DeleteTestPlanById(string TestPlanId)
         {
+
             var getTestPlan = GetTestPlanById(TestPlanId);
             if (getTestPlan != null)
             {
-                var testPlanTrainings = from x in db.Training_TestPlanTraining where x.TestPlanId == TestPlanId select x;
+                var testPlanTrainings = from x in Funs.DB.Training_TestPlanTraining where x.TestPlanId == TestPlanId select x;
                 if (testPlanTrainings.Count() > 0)
                 {
-                    db.Training_TestPlanTraining.DeleteAllOnSubmit(testPlanTrainings);
+                    Funs.DB.Training_TestPlanTraining.DeleteAllOnSubmit(testPlanTrainings);
+                    Funs.DB.SubmitChanges();
                 }
                 if (getTestPlan.States == "3") //状态考试结束
                 {
@@ -127,10 +129,8 @@ namespace BLL
                     }
                 }
 
-                db.Training_TestPlan.DeleteOnSubmit(getTestPlan);
-                db.SubmitChanges();
-
-               
+                Funs.DB.Training_TestPlan.DeleteOnSubmit(getTestPlan);
+                Funs.DB.SubmitChanges();              
             }
         }
 

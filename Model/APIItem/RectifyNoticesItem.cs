@@ -91,9 +91,33 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 检查日期
+        /// </summary>
+        public DateTime? CheckedDateD
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 隐患类别(1-一般;2-较大;3-重大)
         /// </summary>
         public string HiddenHazardType
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 编制人ID
+        /// </summary>
+        public string CompleteManId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 编制人姓名
+        /// </summary>
+        public string CompleteManName
         {
             get;
             set;
@@ -382,14 +406,34 @@ namespace Model
         }
 
         /// <summary>
-        /// 状态（0：待签发；1：待整改；2：已整改，待复查；3：已确认，即已闭环；）
+        /// 状态（0：待提交；1：待签发；2：待整改；3：待复查，4:已完成；）
         /// </summary>
         public string States
         {
             get;
             set;
         }
+        /// <summary>
+        /// 巡检ID
+        /// </summary>
         public string HazardRegisterId
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        ///  隐患整改明细表
+        /// </summary>
+        public List<RectifyNoticesItemItem> RectifyNoticesItemItem
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        ///  隐患整改审核记录
+        /// </summary>
+        public List<RectifyNoticesFlowOperateItem> RectifyNoticesFlowOperateItem
         {
             get;
             set;

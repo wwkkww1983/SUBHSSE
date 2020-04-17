@@ -111,6 +111,7 @@ namespace BLL
         }
         #endregion
 
+        #region 订阅消息
         /// <summary>
         ///  订阅消息
         /// </summary>
@@ -121,7 +122,9 @@ namespace BLL
             string url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token="+ access_token + "&template_id="+ template_id + "&page=" + page + "&data=" + data + "&miniprogram_state=" + miniprogram_state + "&lang=" + lang;
             return APIGetHttpService.Http(url, "POST");
         }
+        #endregion
 
+        #region 获取OpenId消息
         /// <summary>
         /// 获取OpenId消息
         /// </summary>
@@ -161,5 +164,73 @@ namespace BLL
 
             return openId;
         }
+        #endregion
+
+        #region 待办信息接收(不审核)保存方法
+        /// <summary>
+        /// 待办信息接收(不审核)保存方法
+        /// </summary>
+        /// <param name="flowReceiveItem"></param>
+        /// <returns></returns>
+        public static void SaveFlowReceiveItem(Model.FlowReceiveItem flowReceiveItem)
+        {
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                //// 隐患整改单
+                if (flowReceiveItem.MenuId == Const.ProjectRectifyNoticeMenuId)
+                {
+                    var getRectifyNotices = db.Check_RectifyNotices.FirstOrDefault(x => x.RectifyNoticesId == flowReceiveItem.DataId);
+                    if (getRectifyNotices != null)
+                    {
+                        if (getRectifyNotices.ProfessionalEngineerId == flowReceiveItem.OperaterId) ////专业工程师
+                        {
+                            if (!getRectifyNotices.ProfessionalEngineerTime1.HasValue)
+                            {
+                                getRectifyNotices.ProfessionalEngineerTime1 = DateTime.Now;
+                                getRectifyNotices.ProfessionalEngineerTime2 = null;
+                            }
+                            else
+                            {
+                                getRectifyNotices.ProfessionalEngineerTime2 = DateTime.Now;
+                            }
+                        }
+                        else if (getRectifyNotices.ConstructionManagerId == flowReceiveItem.OperaterId) ////施工经理
+                        {
+                            if (!getRectifyNotices.ConstructionManagerTime1.HasValue)
+                            {
+                                getRectifyNotices.ConstructionManagerTime1 = DateTime.Now;
+                                getRectifyNotices.ConstructionManagerTime2 = null;
+                            }
+                            else
+                            {
+                                getRectifyNotices.ConstructionManagerTime2 = DateTime.Now;
+                            }
+                        }
+                        else if (getRectifyNotices.ProjectManagerId == flowReceiveItem.OperaterId) ////项目经理
+                        {
+                            if (!getRectifyNotices.ProjectManagerTime1.HasValue)
+                            {
+                                getRectifyNotices.ProjectManagerTime1 = DateTime.Now;
+                                getRectifyNotices.ProjectManagerTime2 = null;
+                            }
+                            else
+                            {
+                                getRectifyNotices.ProjectManagerTime2 = DateTime.Now;
+                            }
+                        }
+                        else if (getRectifyNotices.DutyPersonId == flowReceiveItem.OperaterId) //// 接收人
+                        {
+                            if (!getRectifyNotices.DutyPersonTime.HasValue)
+                            {
+                                getRectifyNotices.DutyPersonTime = DateTime.Now;                               
+                            }
+                        }
+
+                        db.SubmitChanges();
+                    }
+                }
+            }
+        }
+        #endregion
     }
 }

@@ -94,7 +94,7 @@ namespace BLL
 
                     ////获取类型下适合岗位试题集合
                     var getTestTrainingItemALLs = from x in db.Training_TestTrainingItem
-                                                  where x.TrainingId != null &&  (x.WorkPostIds == null || (x.WorkPostIds.Contains(person.WorkPostId) && person.WorkPostId != null))
+                                                  where x.TrainingId != null && (x.WorkPostIds == null || (x.WorkPostIds.Contains(person.WorkPostId) && person.WorkPostId != null))
                                                   select x;
                     foreach (var itemT in testPlanTrainings)
                     {
@@ -384,38 +384,50 @@ namespace BLL
         /// 根据TestRecordId 提交试卷
         /// </summary>
         /// <param name="testRecordId"></param>
-        public static decimal getSubmitTestRecord(Model.Training_TestRecord getTestRecord)
+        public static decimal getSubmitTestRecord(Model.Training_TestRecord testRecord)
         {
             decimal getCode = 0;
             using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
+                var getTestRecord = db.Training_TestRecord.FirstOrDefault(e => e.TestRecordId == testRecord.TestRecordId);
                 /////试卷
                 if (getTestRecord.TestStartTime.HasValue)
                 {
                     getTestRecord.TestEndTime = DateTime.Now;
                     getTestRecord.TestScores = db.Training_TestRecordItem.Where(x => x.TestRecordId == getTestRecord.TestRecordId).Sum(x => x.SubjectScore ?? 0);
-                    //getTestRecord.TestEndTime = getTestRecord.TestStartTime.Value.AddMinutes(getTestRecord.Duration);
                     db.SubmitChanges();
 
                     getCode = getTestRecord.TestScores ?? 0;
-                    //考试计划
-                    var getTestPlan = db.Training_TestPlan.FirstOrDefault(e => e.TestPlanId == getTestRecord.TestPlanId);
-                    if (getTestPlan != null)
-                    {
-                        ////所有人员 都交卷时 考试计划结束 状态置为3
-                        var getAllTestRecord = db.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == getTestPlan.TestPlanId && !x.TestEndTime.HasValue && x.TestRecordId != getTestRecord.TestRecordId);
-                        if (getAllTestRecord == null)
-                        {
-                            getTestPlan.States = "3";
-                            db.SubmitChanges();
-                            APITestPlanService.SubmitTest(getTestPlan);
-                        }
-                    }
+
                 }
             }
             return getCode;
         }
         #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="testPlanId"></param>
+        public static void  updateAll(string testPlanId,string testRecordId)
+        {
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                //考试计划
+                var getTestPlan = db.Training_TestPlan.FirstOrDefault(e => e.TestPlanId == testPlanId);
+                if (getTestPlan != null)
+                {
+                    ////所有人员 都交卷时 考试计划结束 状态置为3
+                    var getAllTestRecord = db.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == getTestPlan.TestPlanId && !x.TestEndTime.HasValue && x.TestRecordId != testRecordId);
+                    if (getAllTestRecord == null)
+                    {
+                        APITestPlanService.SubmitTest(getTestPlan);
+                        getTestPlan.States = "3";
+                        db.SubmitChanges();
+                    }
+                }
+            }
+        }
 
         #region 根据TestRecord生成一条补考记录
         /// <summary>

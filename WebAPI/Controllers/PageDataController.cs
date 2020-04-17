@@ -29,7 +29,7 @@ namespace WebAPI.Controllers
                 {
                     ////项目开始时间
                     string ProjectData = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
-                    int SafeDayCount = 0, SafeHours = 0, SitePersonNum = 0, SpecialEquipmentNum = 0, EntryTrainingNum = 0, HiddenDangerNum = 0,
+                    int SafeDayCount = 0, SafeHours = 0, SitePersonNum = 0, SpecialEquipmentNum = 0, EntryTrainingNum = 0,  HiddenDangerNum = 0,
                      RectificationNum = 0, RiskI = 0, RiskII = 0, RiskIII = 0, RiskIV = 0, RiskV = 0;
                     if(getProject.StartDate.HasValue)
                     {
@@ -101,7 +101,7 @@ namespace WebAPI.Controllers
                                             select x;
                         if (getTrainRecords.Count() > 0)
                         {
-                            EntryTrainingNum = getTrainRecords.Count();
+                            EntryTrainingNum = getTrainRecords.Sum(x => x.TrainPersonNum ?? 0);
                         }
                     }
                     var getPersonInOutNumber = Funs.DB.SitePerson_PersonInOutNumber.FirstOrDefault(x => x.ProjectId == projectId && x.InOutDate.Year == DateTime.Now.Year
@@ -115,7 +115,7 @@ namespace WebAPI.Controllers
                     }
                     else
                     {
-                        BLL.GetDataService.CorrectingPersonInOutNumber(projectId);
+                       GetDataService.CorrectingPersonInOutNumber(projectId);
                     }
                     string hiddenStr = RectificationNum.ToString() + "/" + HiddenDangerNum.ToString();
                     responeData.data = new { ProjectData, SafeDayCount, SafeHours, SitePersonNum, SpecialEquipmentNum, EntryTrainingNum, hiddenStr, RiskI, RiskII, RiskIII, RiskIV, RiskV };

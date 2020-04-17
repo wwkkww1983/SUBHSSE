@@ -37,7 +37,7 @@ namespace WebAPI.Controllers
         /// 根据projectId、states获取隐患整改单
         /// </summary>
         /// <param name="projectId"></param>
-        /// <param name="states">状态 0：待签发；1：待整改；2：已整改，待复查；3：已确认，即已闭环；</param>
+        /// <param name="states">状态 0：待提交；1：待签发；2：待整改；3：待复查；4：已完成</param>
         /// <param name="pageIndex">页码</param>
         /// <returns></returns>
         public Model.ResponeData getRectifyNoticesByProjectIdStates(string projectId, string states, int pageIndex)
@@ -78,15 +78,17 @@ namespace WebAPI.Controllers
                 //总数
                 var getDataList = BLL.Funs.DB.Check_RectifyNotices.Where(x => x.ProjectId == projectId);
                 int tatalCount = getDataList.Count();
-                //待签发 0
-                int count0 = getDataList.Where(x => !x.SignDate.HasValue).Count();
-                //待整改 1
-                int count1 = getDataList.Where(x => x.SignDate.HasValue && !x.CompleteDate.HasValue).Count();
-                //待复查 2
-                int count2 = getDataList.Where(x => x.CompleteDate.HasValue && !x.ReCheckDate.HasValue).Count();
-                //已闭环 3
-                int count3 = getDataList.Where(x => x.ReCheckDate.HasValue).Count();
-                responeData.data = new { tatalCount, count0, count1, count2, count3 };
+                //待提交 0
+                int count0 = getDataList.Where(x => x.States == "0").Count();
+                //待签发 1
+                int count1 = getDataList.Where(x => x.States == "1").Count();
+                //待整改 2
+                int count2 = getDataList.Where(x => x.States == "2").Count();
+                //待复查 3
+                int count3 = getDataList.Where(x => x.States == "3").Count();
+                //已完成 4
+                int count4 = getDataList.Where(x => x.States == "4").Count();
+                responeData.data = new { tatalCount, count0, count1, count2, count3, count4 };
             }
             catch (Exception ex)
             {

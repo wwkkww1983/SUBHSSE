@@ -21,8 +21,8 @@
         <Items>
             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="考试计划" EnableCollapse="true"
                 runat="server" BoxFlex="1" DataKeyNames="TestPlanId" AllowCellEditing="true" EnableColumnLines="true"
-                ClicksToEdit="2" DataIDField="TestPlanId" AllowSorting="true" SortField="PlanCode"
-                SortDirection="ASC" OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true"
+                ClicksToEdit="2" DataIDField="TestPlanId" AllowSorting="true" SortField="TestStartTime"
+                SortDirection="DESC" OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true"
                 PageSize="15" OnPageIndexChange="Grid1_PageIndexChange" EnableRowDoubleClickEvent="true"
                 OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True">
                 <Toolbars>

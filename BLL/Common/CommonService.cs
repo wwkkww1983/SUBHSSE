@@ -225,7 +225,7 @@ namespace BLL
         }
         #endregion
         
-        #region 根据用户UnitId判断是否为本单位用户或管理员
+        #region 根据用户Id判断是否为本单位用户或管理员
         /// <summary>
         /// 根据用户UnitId判断是否为本单位用户或管理员
         /// </summary>

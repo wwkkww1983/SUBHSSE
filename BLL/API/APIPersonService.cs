@@ -580,6 +580,8 @@ namespace BLL
 
                             db.SitePerson_PersonInOut.InsertOnSubmit(newInOut);
                             db.SubmitChanges();
+
+                            GetDataService.CorrectingPersonInOutNumber(projectId);
                         }
                     }
                 }
@@ -748,7 +750,7 @@ namespace BLL
                                CertificateNo = x.CertificateNo,
                                Grade = x.Grade,
                                SendUnit = x.SendUnit,
-                               SendDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
+                               SendDate = string.Format("{0:yyyy-MM-dd}", x.SendDate),
                                LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
                                LateCheckDate = string.Format("{0:yyyy-MM-dd}", x.LateCheckDate),
                                ApprovalPerson = x.ApprovalPerson,

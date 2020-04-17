@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIItem\FlowReceiveItem.cs" />
     <Compile Include="APIItem\PersonInOutItem.cs" />
     <Compile Include="APIItem\PersonQualityItem.cs" />
     <Compile Include="APIItem\RectifyNoticesFlowOperateItem.cs" />

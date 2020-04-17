@@ -184,15 +184,6 @@ namespace FineUIPro.Web.EduTrain {
         protected global::System.Web.UI.WebControls.Label lbTrainTypeName;
         
         /// <summary>
-        /// lbTrainLevelName 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbTrainLevelName;
-        
-        /// <summary>
         /// lbCheckResult 控件。
         /// </summary>
         /// <remarks>

@@ -58,7 +58,7 @@ namespace BLL
                 newPlan.WorkPostId = plan.WorkPostId;
                 newPlan.QRCodeUrl = plan.QRCodeUrl;
                 newPlan.States = plan.States;
-                db.SubmitChanges();
+                Funs.DB.SubmitChanges();
             }
         }
 
@@ -68,11 +68,11 @@ namespace BLL
         /// <param name="planId"></param>
         public static void DeletePlanById(string planId)
         {
-            Model.Training_Plan plan = db.Training_Plan.FirstOrDefault(e => e.PlanId == planId);
+            Model.Training_Plan plan = Funs.DB.Training_Plan.FirstOrDefault(e => e.PlanId == planId);
             if (plan != null)
             {
-                db.Training_Plan.DeleteOnSubmit(plan);
-                db.SubmitChanges();
+                Funs.DB.Training_Plan.DeleteOnSubmit(plan);
+                Funs.DB.SubmitChanges();
             }
         }
 

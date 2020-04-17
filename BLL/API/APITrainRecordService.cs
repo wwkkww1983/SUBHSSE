@@ -81,77 +81,87 @@ namespace BLL
 
         public static void InsertTrainRecord(Model.Training_TestPlan getTestPlan)
         {
-            ////获取培训计划
-            var getTrainingPlan = TrainingPlanService.GetPlanById(getTestPlan.PlanId);
-            var getTrainRecord = Funs.DB.EduTrain_TrainRecord.FirstOrDefault(x => x.PlanId == getTestPlan.PlanId);
-            if (getTrainingPlan != null && getTrainRecord == null)
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                Model.EduTrain_TrainRecord newTrainRecord = new Model.EduTrain_TrainRecord
+                ////获取培训计划
+                var getTrainingPlan = db.Training_Plan.FirstOrDefault(e => e.PlanId == getTestPlan.PlanId);
+                var getTrainRecord = db.EduTrain_TrainRecord.FirstOrDefault(x => x.PlanId == getTestPlan.PlanId);
+                if (getTrainingPlan != null && getTrainRecord == null)
                 {
-                    TrainingId = SQLHelper.GetNewID(),
-                    TrainingCode = getTrainingPlan.PlanCode,
-                    ProjectId = getTrainingPlan.ProjectId,
-                    TrainTitle = getTrainingPlan.PlanName,
-                    TrainContent = getTrainingPlan.TrainContent,
-                    TrainStartDate = getTrainingPlan.TrainStartDate,
-                    TeachHour = getTrainingPlan.TeachHour,
-                    TeachMan = getTrainingPlan.TeachMan,
-                    TeachAddress = getTrainingPlan.TeachAddress,
-                    Remark = "来源：培训计划",
-                    TrainTypeId = getTrainingPlan.TrainTypeId,
-                    TrainLevelId = getTrainingPlan.TrainLevelId,
-                    UnitIds = getTrainingPlan.UnitIds,
-                    States = Const.State_2,
-                    WorkPostIds = getTrainingPlan.WorkPostId,
-                    PlanId = getTrainingPlan.PlanId,
-                };
-                newTrainRecord.CompileMan = UserService.GetUserNameByUserId(getTrainingPlan.DesignerId);
-                ///获取培训人员
-                var getTrainingTasks = from x in Funs.DB.Training_Task
-                                       where x.PlanId == getTrainingPlan.PlanId
-                                       select x;
-
-                newTrainRecord.TrainPersonNum = 0;
-                ///新增培训记录
-                EduTrain_TrainRecordService.AddTraining(newTrainRecord);
-                int persNum = 0;
-                foreach (var item in getTrainingTasks)
-                {
-                    Model.EduTrain_TrainRecordDetail newDetail = new Model.EduTrain_TrainRecordDetail
+                    Model.EduTrain_TrainRecord newTrainRecord = new Model.EduTrain_TrainRecord
                     {
-                        TrainingId = newTrainRecord.TrainingId,
-                        PersonId = item.UserId,                       
+                        TrainingId = SQLHelper.GetNewID(),
+                        TrainingCode = getTrainingPlan.PlanCode,
+                        ProjectId = getTrainingPlan.ProjectId,
+                        TrainTitle = getTrainingPlan.PlanName,
+                        TrainContent = getTrainingPlan.TrainContent,
+                        TrainStartDate = getTrainingPlan.TrainStartDate,
+                        TeachHour = getTrainingPlan.TeachHour,
+                        TrainEndDate = getTrainingPlan.TrainEndDate,
+                        TeachMan = getTrainingPlan.TeachMan,
+                        TeachAddress = getTrainingPlan.TeachAddress,
+                        Remark = "来源：培训计划",
+                        TrainTypeId = getTrainingPlan.TrainTypeId,
+                        TrainLevelId = getTrainingPlan.TrainLevelId,
+                        UnitIds = getTrainingPlan.UnitIds,
+                        States = Const.State_2,
+                        WorkPostIds = getTrainingPlan.WorkPostId,
+                        PlanId = getTrainingPlan.PlanId,
                     };
-                    ////及格分数
-                    int getPassScores = SysConstSetService.getPassScore();
-                    ////获取 考生试卷
-                    var getTestRecord = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == getTestPlan.TestPlanId && x.TestManId == item.UserId);
-                    if (getTestRecord != null)
+                    newTrainRecord.CompileMan = UserService.GetUserNameByUserId(getTrainingPlan.DesignerId);
+                    ///获取培训人员
+                    var getTrainingTasks = from x in db.Training_Task
+                                           where x.PlanId == getTrainingPlan.PlanId
+                                           select x;
+
+                    newTrainRecord.TrainPersonNum = getTrainingTasks.Count();
+                    ///新增培训记录
+                    db.EduTrain_TrainRecord.InsertOnSubmit(newTrainRecord);
+                    db.SubmitChanges();
+
+                    foreach (var item in getTrainingTasks)
                     {
-                        newDetail.CheckScore = getTestRecord.TestScores;
-                        if (newDetail.CheckScore >= getPassScores)
+                        Model.EduTrain_TrainRecordDetail newDetail = new Model.EduTrain_TrainRecordDetail
                         {
-                            newDetail.CheckResult = true;
+                            TrainDetailId = SQLHelper.GetNewID(),
+                            TrainingId = newTrainRecord.TrainingId,                           
+                            PersonId = item.UserId,
+                        };
+
+                        ////及格分数
+                        int getPassScores = SysConstSetService.getPassScore();
+                        ////获取 考生试卷
+                        var getTestRecord = db.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == getTestPlan.TestPlanId && x.TestManId == item.UserId);
+                        if (getTestRecord != null)
+                        {
+                            newDetail.CheckScore = getTestRecord.TestScores;
+                            if (newDetail.CheckScore >= getPassScores)
+                            {
+                                newDetail.CheckResult = true;
+                            }
+                            else
+                            {
+                                newDetail.CheckResult = false;
+                            }
                         }
-                        else
+                        db.EduTrain_TrainRecordDetail.InsertOnSubmit(newDetail);
+                        db.SubmitChanges();
+                     
+                        ///// 培训考试 通过 更新卡号
+                        if (newDetail.CheckResult)
                         {
-                            newDetail.CheckResult = false;
+                            var getPerson = db.SitePerson_Person.FirstOrDefault(e => e.PersonId == newDetail.PersonId);
+                            if (getPerson != null && string.IsNullOrEmpty(getPerson.CardNo))
+                            {
+                                getPerson.CardNo = SQLHelper.RunProcNewId("SpGetNewNumber", "SitePerson_Person", "CardNo", getPerson.ProjectId, UnitService.GetUnitCodeByUnitId(getPerson.UnitId));
+                                db.SubmitChanges();
+                            }
                         }
                     }
-                  
-                    ////新增培训记录明细
-                    EduTrain_TrainRecordDetailService.AddTrainDetail(newDetail);
-                    persNum += 1;
-                }
-               
-                EduTrain_TrainRecordService.UpdateTraining(newTrainRecord);
-                CommonService.btnSaveData(newTrainRecord.ProjectId, Const.ProjectTrainRecordMenuId, newTrainRecord.TrainingId, getTrainingPlan.DesignerId, true, newTrainRecord.TrainTitle, "../EduTrain/TrainRecordView.aspx?TrainingId={0}");
 
-                var updateR = Funs.DB.EduTrain_TrainRecord.FirstOrDefault(x => x.TrainingId == newTrainRecord.TrainingId);
-                if (updateR != null)
-                {
-                    updateR.TrainPersonNum = persNum;
-                    Funs.DB.SubmitChanges();
+                    ////增加一条编码记录
+                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectTrainRecordMenuId, newTrainRecord.ProjectId, null, newTrainRecord.TrainingId, newTrainRecord.TrainStartDate);
+                    CommonService.btnSaveData(newTrainRecord.ProjectId, Const.ProjectTrainRecordMenuId, newTrainRecord.TrainingId, getTrainingPlan.DesignerId, true, newTrainRecord.TrainTitle, "../EduTrain/TrainRecordView.aspx?TrainingId={0}");
                 }
             }
         }

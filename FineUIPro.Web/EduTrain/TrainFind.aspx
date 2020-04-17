@@ -61,7 +61,7 @@
                             <asp:Label ID="labNumber" runat="server" Text=' <%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1%>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>                   
-                    <f:RenderField Width="80px" ColumnID="CardNo" DataField="CardNo" SortField="CardNo"
+                    <f:RenderField Width="100px" ColumnID="CardNo" DataField="CardNo" SortField="CardNo"
                         FieldType="String" HeaderText="卡号" EnableFilter="true" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
@@ -89,11 +89,11 @@
                             <asp:Label ID="lbTrainTypeName" runat="server" Text='<%# Bind("TrainTypeName") %>' ToolTip='<%#Bind("TrainTypeName") %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:TemplateField Width="80px" ColumnID="tfTrainLevelName" HeaderText="培训级别" HeaderTextAlign="Center" TextAlign="Left">
+                 <%--   <f:TemplateField Width="80px" ColumnID="tfTrainLevelName" HeaderText="培训级别" HeaderTextAlign="Center" TextAlign="Left">
                         <ItemTemplate>
                             <asp:Label ID="lbTrainLevelName" runat="server" Text='<%# Bind("TrainLevelName") %>' ToolTip='<%#Bind("TrainLevelName") %>'></asp:Label>
                         </ItemTemplate>
-                    </f:TemplateField>                   
+                    </f:TemplateField>        --%>           
                     <f:RenderField Width="100px" ColumnID="TrainStartDate" DataField="TrainStartDate"
                         SortField="TrainStartDate" FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd"
                         HeaderText="培训日期" HeaderTextAlign="Center" TextAlign="Left">

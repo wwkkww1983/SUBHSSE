@@ -95,5 +95,31 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region 待办信息接收(不审核)保存方法
+        /// <summary>
+        ///  待办信息接收(不审核)保存方法
+        /// </summary>
+        /// <param name="flowReceiveItem"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData postSaveFlowReceiveItem([FromBody] Model.FlowReceiveItem flowReceiveItem)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                if (flowReceiveItem != null)
+                {
+                    APICommonService.SaveFlowReceiveItem(flowReceiveItem);
+                }
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
     }
 }

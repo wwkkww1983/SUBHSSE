@@ -120,92 +120,149 @@ namespace BLL
         /// <param name="trainingTasks">培训人员list</param>
         /// <param name="trainingPlanItems">培训教材类型list</param>
         public static void SaveTrainingPlan(Model.TrainingPlanItem trainingPlan)
-        {            
-            Model.Training_Plan newTrainingPlan = new Model.Training_Plan
+        {
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                PlanId = trainingPlan.PlanId,
-                PlanCode = trainingPlan.PlanCode,
-                ProjectId = trainingPlan.ProjectId,
-                DesignerId=trainingPlan.DesignerId,
-                PlanName = trainingPlan.PlanName,
-                TrainContent = trainingPlan.TrainContent,
-                TrainStartDate = Funs.GetNewDateTime(trainingPlan.TrainStartDate),
-                TeachHour = trainingPlan.TeachHour,
-                TeachMan = trainingPlan.TeachMan,
-                TeachAddress = trainingPlan.TeachAddress,
-                TrainTypeId = trainingPlan.TrainTypeId,                
-                UnitIds = trainingPlan.UnitIds,
-                WorkPostId = trainingPlan.WorkPostId,
-                States = trainingPlan.States,
-            };
-
-            if (!string.IsNullOrEmpty(trainingPlan.TrainLevelId))
-            {
-                newTrainingPlan.TrainLevelId = trainingPlan.TrainLevelId;
-            }
-            
-            if (newTrainingPlan.TrainStartDate.HasValue && newTrainingPlan.TeachHour.HasValue)
-            {
-                double dd = (double)((decimal)newTrainingPlan.TeachHour.Value);
-                newTrainingPlan.TrainEndDate = newTrainingPlan.TrainStartDate.Value.AddHours(dd);
-            }
-
-            List<Model.TrainingTaskItem> trainingTasks = trainingPlan.TrainingTasks;
-            List<Model.TrainingPlanItemItem> trainingPlanItems = trainingPlan.TrainingPlanItems;
-
-            var isUpdate = Funs.DB.Training_Plan.FirstOrDefault(x => x.PlanId == newTrainingPlan.PlanId);
-            if (isUpdate == null)
-            {
-                newTrainingPlan.DesignerDate = DateTime.Now;
-                string unitId = string.Empty;
-                var user = UserService.GetUserByUserId(newTrainingPlan.DesignerId);
-                if (user != null)
+                Model.Training_Plan newTrainingPlan = new Model.Training_Plan
                 {
-                    unitId = user.UnitId;
-                }
-                newTrainingPlan.PlanCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectTrainingPlanMenuId, newTrainingPlan.ProjectId, unitId);
-                if (string.IsNullOrEmpty(newTrainingPlan.PlanId))
-                {
-                    newTrainingPlan.PlanId = SQLHelper.GetNewID();
-                }
-                Funs.DB.Training_Plan.InsertOnSubmit(newTrainingPlan);
-                Funs.SubmitChanges();
+                    PlanId = trainingPlan.PlanId,
+                    PlanCode = trainingPlan.PlanCode,
+                    ProjectId = trainingPlan.ProjectId,
+                    DesignerId = trainingPlan.DesignerId,
+                    PlanName = trainingPlan.PlanName,
+                    TrainContent = trainingPlan.TrainContent,
+                    TrainStartDate = Funs.GetNewDateTime(trainingPlan.TrainStartDate),
+                    TeachHour = trainingPlan.TeachHour,
+                    TeachMan = trainingPlan.TeachMan,
+                    TeachAddress = trainingPlan.TeachAddress,
+                    TrainTypeId = trainingPlan.TrainTypeId,
+                    UnitIds = trainingPlan.UnitIds,
+                    WorkPostId = trainingPlan.WorkPostId,
+                    States = trainingPlan.States,
+                };
 
-                CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectTrainingPlanMenuId, newTrainingPlan.ProjectId, null, newTrainingPlan.PlanId, newTrainingPlan.DesignerDate);
-            }
-            else
-            {
-                if (newTrainingPlan.States == "0" || newTrainingPlan.States == "1")
+                if (!string.IsNullOrEmpty(trainingPlan.TrainLevelId))
                 {
-                    isUpdate.PlanName = newTrainingPlan.PlanName;
-                    isUpdate.TrainContent = newTrainingPlan.TrainContent;
-                    isUpdate.TrainStartDate = newTrainingPlan.TrainStartDate;
-                    isUpdate.TeachHour = newTrainingPlan.TeachHour;
-                    isUpdate.TrainEndDate = newTrainingPlan.TrainEndDate;
-                    isUpdate.TeachMan = newTrainingPlan.TeachMan;
-                    isUpdate.TeachAddress = newTrainingPlan.TeachAddress;
-                    isUpdate.TrainTypeId = newTrainingPlan.TrainTypeId;
-                    isUpdate.TrainLevelId = newTrainingPlan.TrainLevelId;
-                    isUpdate.UnitIds = newTrainingPlan.UnitIds;
-                    isUpdate.WorkPostId = newTrainingPlan.WorkPostId;
-                    isUpdate.States = newTrainingPlan.States;
-                    Funs.SubmitChanges();
+                    newTrainingPlan.TrainLevelId = trainingPlan.TrainLevelId;
                 }
-                ////删除培训任务
-                TrainingTaskService.DeleteTaskByPlanId(newTrainingPlan.PlanId);
-                ////删除培训教材类型
-                TrainingPlanItemService.DeletePlanItemByPlanId(newTrainingPlan.PlanId);              
-            }
 
-            if (trainingTasks.Count() > 0)
-            {
-                ////新增培训人员明细
-                AddTraining_Task(trainingTasks, newTrainingPlan.PlanId, newTrainingPlan.ProjectId);
-            }
-            if (trainingPlanItems.Count() > 0)
-            {
-                ////新增培训教材类型明细
-                AddTraining_PlanItem(trainingPlanItems, newTrainingPlan.PlanId);
+                if (newTrainingPlan.TrainStartDate.HasValue && newTrainingPlan.TeachHour.HasValue)
+                {
+                    double dd = (double)((decimal)newTrainingPlan.TeachHour.Value);
+                    newTrainingPlan.TrainEndDate = newTrainingPlan.TrainStartDate.Value.AddHours(dd);
+                }
+
+                List<Model.TrainingTaskItem> trainingTasks = trainingPlan.TrainingTasks;
+                List<Model.TrainingPlanItemItem> trainingPlanItems = trainingPlan.TrainingPlanItems;
+
+                var isUpdate = db.Training_Plan.FirstOrDefault(x => x.PlanId == newTrainingPlan.PlanId);
+                if (isUpdate == null)
+                {
+                    newTrainingPlan.DesignerDate = DateTime.Now;
+                    string unitId = string.Empty;
+                    var user = UserService.GetUserByUserId(newTrainingPlan.DesignerId);
+                    if (user != null)
+                    {
+                        unitId = user.UnitId;
+                    }
+                    newTrainingPlan.PlanCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectTrainingPlanMenuId, newTrainingPlan.ProjectId, unitId);
+                    if (string.IsNullOrEmpty(newTrainingPlan.PlanId))
+                    {
+                        newTrainingPlan.PlanId = SQLHelper.GetNewID();
+                    }
+                    db.Training_Plan.InsertOnSubmit(newTrainingPlan);
+                    db.SubmitChanges();
+
+                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectTrainingPlanMenuId, newTrainingPlan.ProjectId, null, newTrainingPlan.PlanId, newTrainingPlan.DesignerDate);
+                }
+                else
+                {
+                    if (newTrainingPlan.States == "0" || newTrainingPlan.States == "1")
+                    {
+                        isUpdate.PlanName = newTrainingPlan.PlanName;
+                        isUpdate.TrainContent = newTrainingPlan.TrainContent;
+                        isUpdate.TrainStartDate = newTrainingPlan.TrainStartDate;
+                        isUpdate.TeachHour = newTrainingPlan.TeachHour;
+                        isUpdate.TrainEndDate = newTrainingPlan.TrainEndDate;
+                        isUpdate.TeachMan = newTrainingPlan.TeachMan;
+                        isUpdate.TeachAddress = newTrainingPlan.TeachAddress;
+                        isUpdate.TrainTypeId = newTrainingPlan.TrainTypeId;
+                        isUpdate.TrainLevelId = newTrainingPlan.TrainLevelId;
+                        isUpdate.UnitIds = newTrainingPlan.UnitIds;
+                        isUpdate.WorkPostId = newTrainingPlan.WorkPostId;
+                        isUpdate.States = newTrainingPlan.States;
+                        db.SubmitChanges();
+                    }
+                    ////删除培训任务
+                    var tasks = from x in db.Training_Task where x.PlanId == newTrainingPlan.PlanId select x;
+                    if (tasks.Count() > 0)
+                    {
+                        var taskItems = from x in db.Training_TaskItem where x.PlanId == newTrainingPlan.PlanId select x;
+                        if (tasks.Count() > 0)
+                        {
+                            db.Training_TaskItem.DeleteAllOnSubmit(taskItems);
+                            db.SubmitChanges();
+                        }
+                        db.Training_Task.DeleteAllOnSubmit(tasks);
+                        db.SubmitChanges();
+                    }
+
+                    ////删除培训教材类型
+                    var planItem = (from x in db.Training_PlanItem where x.PlanId == newTrainingPlan.PlanId select x).ToList();
+                    if (planItem.Count() > 0)
+                    {
+                        db.Training_PlanItem.DeleteAllOnSubmit(planItem);
+                        db.SubmitChanges();
+                    }
+                }
+
+                if (trainingTasks.Count() > 0)
+                {
+                    ////新增培训人员明细
+                    foreach (var item in trainingTasks)
+                    {
+                        if (!string.IsNullOrEmpty(item.PersonId))
+                        {
+                            Model.Training_Task newTrainDetail = new Model.Training_Task
+                            {
+                                TaskId = SQLHelper.GetNewID(),
+                                ProjectId = newTrainingPlan.ProjectId,
+                                PlanId = newTrainingPlan.PlanId,
+                                UserId = item.PersonId,
+                                TaskDate = DateTime.Now,
+                                States = Const.State_0, ////未生成培训教材明细
+                            };
+                            db.Training_Task.InsertOnSubmit(newTrainDetail);
+                            db.SubmitChanges();
+                        }
+                    }
+                }
+                if (trainingPlanItems.Count() > 0)
+                {
+                    ////新增培训教材类型明细
+                    foreach (var item in trainingPlanItems)
+                    {
+                        if (!string.IsNullOrEmpty(item.CompanyTrainingId) || !string.IsNullOrEmpty(item.CompanyTrainingItemId))
+                        {
+                            Model.Training_PlanItem newPlanItem = new Model.Training_PlanItem
+                            {
+                                PlanItemId = SQLHelper.GetNewID(),
+                                PlanId = newTrainingPlan.PlanId,
+
+                            };
+                            if (!string.IsNullOrEmpty(item.CompanyTrainingId))
+                            {
+                                newPlanItem.CompanyTrainingId = item.CompanyTrainingId;
+                            }
+                            if (!string.IsNullOrEmpty(item.CompanyTrainingItemId))
+                            {
+                                newPlanItem.CompanyTrainingItemId = item.CompanyTrainingItemId;
+                            }
+                            db.Training_PlanItem.InsertOnSubmit(newPlanItem);
+                            db.SubmitChanges();
+                        }
+                    }
+                }
             }
         }
 
