@@ -26,18 +26,32 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
-                            <f:DatePicker ID="txtStartDate" runat="server" Label="开始日期">
+                            <f:DropDownList runat="server" ID="drpUnit" Label="单位" 
+                                    Width="300px" LabelAlign="Right" LabelWidth="50px"></f:DropDownList>
+                              <f:DropDownList runat="server" ID="drpWorkPost" Label="岗位"
+                                    Width="220px" LabelAlign="Right" LabelWidth="50px"></f:DropDownList>
+                            <f:DatePicker ID="txtStartDate" runat="server" Label="开始日期" LabelWidth="80px" Width="220px">
                             </f:DatePicker>
-                            <f:DatePicker ID="txtEndDate" runat="server" Label="结束日期">
+                            <f:DatePicker ID="txtEndDate" runat="server" Label="结束日期"  LabelWidth="80px" Width="220px">
                             </f:DatePicker>
+                           
+                        </Items>
+                    </f:Toolbar>
+                     <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Left">
+                        <Items>
+                             <f:RadioButtonList ID="rblIsUsed" runat="server" Label="进出场" LabelAlign="Right" Width="250px">
+                                <f:RadioItem Value="0" Text="全部"  Selected="true"/>
+                                <f:RadioItem Value="True" Text="进场" />
+                                <f:RadioItem Value="False" Text="出场" />
+                            </f:RadioButtonList>
                             <f:ToolbarFill runat="server"></f:ToolbarFill>
                             <f:Button ID="btnSearch" runat="server" Icon="BrickMagnify" ToolTip="查询" OnClick="btnSearch_Click">
                             </f:Button>
                             <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
                                 EnableAjax="false" DisableControlBeforePostBack="false">
                             </f:Button>
-                        </Items>
-                    </f:Toolbar>
+                            </Items>
+                         </f:Toolbar>
                 </Toolbars>
                 <Columns>
                     <f:TemplateField ColumnID="tfNumber" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
@@ -59,7 +73,7 @@
                         TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="200px" ColumnID="PersonCount" DataField="PersonCount"
-                        SortField="PersonCount" FieldType="Int" HeaderText="人数" HeaderTextAlign="Center"
+                        SortField="PersonCount" FieldType="Int" HeaderText="出入人次" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
                     <%-- <f:TemplateField Width="120px" HeaderText="总人数" HeaderTextAlign="Center" TextAlign="Center">

@@ -90,39 +90,54 @@ namespace BLL
             else
             {
                 var plan = TrainingPlanService.GetPlanById(planId);
-                if (plan != null && (plan.States == "0" || plan.States == "1"))
+                if (plan != null)
                 {
-                    var person = PersonService.GetPersonById(personId);
-                    if (person != null && plan.ProjectId == person.ProjectId && plan.UnitIds.Contains(person.UnitId)
-                            && (string.IsNullOrEmpty(plan.WorkPostId) || plan.WorkPostId.Contains(person.WorkPostId)))
+                    if (plan.States != "0" && plan.States != "1")
                     {
-                        var trainType = BLL.TrainTypeService.GetTrainTypeById(plan.TrainTypeId);
-                        if (trainType != null && trainType.IsRepeat == true)
-                        {
-                            var trainRecord = (from x in Funs.DB.EduTrain_TrainRecord
-                                               join y in Funs.DB.EduTrain_TrainRecordDetail on x.TrainingId equals y.TrainingId
-                                               where x.TrainTypeId == plan.TrainTypeId && y.PersonId == personId && y.CheckResult == true
-                                               select x).FirstOrDefault();
-                            if (trainRecord != null)
-                            {
-                                alterString = "人员已参加过当前类型的培训!";
-                            }
-                            else
-                            {
-                                var getTask = (from x in Funs.DB.Training_Plan
-                                               join y in Funs.DB.Training_Task on x.PlanId equals y.PlanId
-                                               where x.TrainTypeId == plan.TrainTypeId && y.UserId == personId && x.PlanId !="3"
-                                               select x).FirstOrDefault();
-                                if (getTask != null)
-                                {
-                                    alterString = "人员已再同培训类型的培训中!";
-                                }
-                            }
-                        }
+                        alterString = "当前培训不能再加入人员!";
                     }
                     else
                     {
-                        alterString = "人员与培训计划不匹配!";
+                        var person = PersonService.GetPersonById(personId);
+                        if (person != null && plan.ProjectId == person.ProjectId && plan.UnitIds.Contains(person.UnitId)
+                                && (string.IsNullOrEmpty(plan.WorkPostId) || plan.WorkPostId.Contains(person.WorkPostId)))
+                        {
+                            var trainType = TrainTypeService.GetTrainTypeById(plan.TrainTypeId);
+                            if (trainType != null)
+                            {
+                                if (!trainType.IsRepeat.HasValue || trainType.IsRepeat == false)
+                                {
+                                    var trainRecord = (from x in Funs.DB.EduTrain_TrainRecord
+                                                       join y in Funs.DB.EduTrain_TrainRecordDetail on x.TrainingId equals y.TrainingId
+                                                       where x.TrainTypeId == plan.TrainTypeId  && x.ProjectId == person.ProjectId
+                                                       && y.PersonId == personId && y.CheckResult == true
+                                                       select x).FirstOrDefault();
+                                    if (trainRecord != null)
+                                    {
+                                        alterString = "人员已参加过当前类型的培训!";
+                                    }
+                                    else
+                                    {
+                                        var getTask = (from x in Funs.DB.Training_Plan
+                                                       join y in Funs.DB.Training_Task on x.PlanId equals y.PlanId
+                                                       where x.TrainTypeId == plan.TrainTypeId && y.UserId == personId && x.States != "3"
+                                                       select x).FirstOrDefault();
+                                        if (getTask != null)
+                                        {
+                                            alterString = "人员已再同培训类型的培训中!";
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                alterString = "当前培训类型有问题!";
+                            }
+                        }
+                        else
+                        {
+                            alterString = "人员与培训计划不匹配!";
+                        }
                     }
                 }
                 else

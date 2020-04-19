@@ -788,9 +788,9 @@ namespace BLL
             using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
                 var getProjects = (from x in db.Base_Project
-                                          where x.ProjectState == null || x.ProjectState == BLL.Const.ProjectState_1
-                                          orderby x.ProjectCode descending
-                                          select x).ToList();
+                                   where x.ProjectState == null || x.ProjectState == BLL.Const.ProjectState_1
+                                   orderby x.ProjectCode descending
+                                   select x).ToList();
                 if (!string.IsNullOrEmpty(projectId))
                 {
                     getProjects = getProjects.Where(x => x.ProjectId == projectId).ToList();
@@ -827,7 +827,7 @@ namespace BLL
                                 }
                             }
                         }
-                    
+
                         var getPersonOutTimes = from x in getAllPersonInOuts
                                                 where x.IsIn == false && x.ChangeTime <= DateTime.Now
                                                 select x;
@@ -847,23 +847,25 @@ namespace BLL
                             }
                         }
                     }
-
-                    //// 
+                    
                     var getPersonInOutNumber = db.SitePerson_PersonInOutNumber.FirstOrDefault(x => x.ProjectId == projectItem.ProjectId
                                      && x.InOutDate > DateTime.Now.AddDays(-1) && x.InOutDate < DateTime.Now.AddDays(1));
                     if (getPersonInOutNumber == null)
                     {
-                        Model.SitePerson_PersonInOutNumber newNum = new Model.SitePerson_PersonInOutNumber
+                        if (SafeHours > 0 || SafeHours > 0)
                         {
-                            PersonInOutNumberId = SQLHelper.GetNewID(),
-                            ProjectId = projectItem.ProjectId,
-                            InOutDate = DateTime.Now,
-                            PersonNum = SitePersonNum,
-                            WorkHours = SafeHours,
-                        };
+                            Model.SitePerson_PersonInOutNumber newNum = new Model.SitePerson_PersonInOutNumber
+                            {
+                                PersonInOutNumberId = SQLHelper.GetNewID(),
+                                ProjectId = projectItem.ProjectId,
+                                InOutDate = DateTime.Now,
+                                PersonNum = SitePersonNum,
+                                WorkHours = SafeHours,
+                            };
 
-                        db.SitePerson_PersonInOutNumber.InsertOnSubmit(newNum);
-                        db.SubmitChanges();
+                            db.SitePerson_PersonInOutNumber.InsertOnSubmit(newNum);
+                            db.SubmitChanges();
+                        }
                     }
                     else
                     {
@@ -898,6 +900,30 @@ namespace BLL
                             item.QRCodeAttachUrl = url;
                             db.SubmitChanges();
                         }
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region 自动 出场人员 自动离场
+        /// <summary>
+        ///  自动校正出入场人数及工时
+        /// </summary>
+        public static void SitePersonjAutomaticOut()
+        {
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                var getPersons = from x in db.SitePerson_Person
+                                 where x.OutTime < DateTime.Now && x.IsUsed ==true 
+                                 select x;
+                if (getPersons.Count() > 0)
+                {
+                    foreach (var item in getPersons)
+                    {
+                        item.IsUsed = false;
+                        item.ExchangeTime2 = null;
+                        db.SubmitChanges();
                     }
                 }
             }

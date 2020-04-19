@@ -380,7 +380,7 @@ namespace BLL
                             }
                         }
                     }
-                    Funs.SubmitChanges();
+                    db.SubmitChanges();
                 }
             }
         }
@@ -401,7 +401,11 @@ namespace BLL
                 if (getTestRecord.TestStartTime.HasValue)
                 {
                     getTestRecord.TestEndTime = DateTime.Now;
-                    getTestRecord.TestScores = db.Training_TestRecordItem.Where(x => x.TestRecordId == getTestRecord.TestRecordId).Sum(x => x.SubjectScore ?? 0);
+                    var getRItem = db.Training_TestRecordItem.Where(x => x.TestRecordId == getTestRecord.TestRecordId);
+                    if (getRItem.Count() > 0)
+                    {
+                        getTestRecord.TestScores = getRItem.Sum(x => x.SubjectScore);
+                    }
                     db.SubmitChanges();
 
                     getCode = getTestRecord.TestScores ?? 0;
@@ -416,31 +420,41 @@ namespace BLL
         /// 
         /// </summary>
         /// <param name="testPlanId"></param>
-        public static void updateAll(string testPlanId, string testRecordId)
+        public static void updateAll(string testPlanId)
         {
             using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                ////所有人员 都交卷时 考试计划结束 状态置为3
-                var getAllTestRecord = db.Training_TestRecord.FirstOrDefault(x => x.TestPlanId != testPlanId && !x.TestEndTime.HasValue);
-                if (getAllTestRecord == null )
-                {            //考试计划
-                    var getTestPlan = db.Training_TestPlan.FirstOrDefault(e => e.TestPlanId == testPlanId);
-                    if (getTestPlan != null)
+                //// 获取考试计划
+                var getTestPlan = db.Training_TestPlan.FirstOrDefault(x => x.TestPlanId == testPlanId);
+                if (getTestPlan != null)
+                {
+                    //// 获取参加考试 记录
+                    var getAllTestRecords = db.Training_TestRecord.Where(x => x.TestPlanId == getTestPlan.TestPlanId);                  
+                    if (getAllTestRecords.Count() > 0)
                     {
-                        getTestPlan.States = "3";
-                        db.SubmitChanges();
-
-                        var getTrainingTasks = from x in db.Training_Task
-                                               where x.PlanId == testPlanId && (x.States != "2" || x.States == null)
-                                               select x;
-                        foreach (var item in getTrainingTasks)
+                        /// 参加考试人数
+                        int testManCout = getAllTestRecords.Select(x=>x.TestManId).Distinct().Count();
+                        //// 获取培训计划人员
+                        var getAllTrainingTasks = db.Training_Task.Where(x => x.PlanId == getTestPlan.PlanId);
+                        //// 考试人数大于等于 培训人数
+                        if (testManCout >= getAllTrainingTasks.Count())
                         {
-                            item.States = "2";
-                            db.SubmitChanges();
+                            ////所有人员 都交卷时 考试计划结束 状态置为3
+                            var getAllTestRecord = getAllTestRecords.FirstOrDefault(x => !x.TestEndTime.HasValue);
+                            if (getAllTestRecord == null)
+                            {
+                                var getTrainingTasks = getAllTrainingTasks.Where(x=>x.States != "2" || x.States == null);
+                                foreach (var item in getTrainingTasks)
+                                {
+                                    item.States = "2";
+                                    db.SubmitChanges();
+                                }
+                                getTestPlan.States = "3";
+                                db.SubmitChanges();
+                                ////TODO 讲培训计划 考试记录 写入到培训记录
+                                APITrainRecordService.InsertTrainRecord(getTestPlan);
+                            }
                         }
-
-                        ////TODO 讲培训计划 考试记录 写入到培训记录
-                        APITrainRecordService.InsertTrainRecord(getTestPlan);
                     }
                 }
             }

@@ -88,6 +88,9 @@ namespace BLL
                 var getTrainRecord = db.EduTrain_TrainRecord.FirstOrDefault(x => x.PlanId == getTestPlan.PlanId);
                 if (getTrainingPlan != null && getTrainRecord == null)
                 {
+                    getTrainingPlan.States = "3";
+                    db.SubmitChanges();
+
                     Model.EduTrain_TrainRecord newTrainRecord = new Model.EduTrain_TrainRecord
                     {
                         TrainingId = SQLHelper.GetNewID(),
@@ -110,45 +113,53 @@ namespace BLL
                     };
                     newTrainRecord.CompileMan = UserService.GetUserNameByUserId(getTrainingPlan.DesignerId);
                     ///获取培训人员
-                    var getTrainingTasks = from x in db.Training_Task
-                                           where x.PlanId == getTrainingPlan.PlanId
+                    var getTrainingTasks = from x in db.Training_Task where x.PlanId == getTrainingPlan.PlanId
                                            select x;
-
                     newTrainRecord.TrainPersonNum = getTrainingTasks.Count();
                     ///新增培训记录
                     db.EduTrain_TrainRecord.InsertOnSubmit(newTrainRecord);
                     db.SubmitChanges();
 
+                    ////及格分数                       
+                    int passScore = 80;
+                    var testRule = db.Sys_TestRule.FirstOrDefault();
+                    if (testRule != null)
+                    {
+                        passScore = testRule.PassingScore;
+                    }
+
                     foreach (var item in getTrainingTasks)
                     {
+                        decimal gScores = 0;
+                        bool result = false;
+                        ////获取 考生试卷
+                        var getTestRecord = db.Training_TestRecord.Where(x => x.TestPlanId == getTestPlan.TestPlanId && x.TestManId == item.UserId);
+                       foreach(var itemR in getTestRecord)
+                        {
+                            if (itemR.TestScores > gScores)
+                            {
+                                gScores = itemR.TestScores ?? 0;
+                            } 
+                        }
+
+                        if (gScores >= passScore)
+                        {
+                            result = true;
+                        }
+
                         Model.EduTrain_TrainRecordDetail newDetail = new Model.EduTrain_TrainRecordDetail
                         {
                             TrainDetailId = SQLHelper.GetNewID(),
-                            TrainingId = newTrainRecord.TrainingId,                           
+                            TrainingId = newTrainRecord.TrainingId,
                             PersonId = item.UserId,
+                            CheckScore= gScores,
+                            CheckResult=result,
                         };
-
-                        ////及格分数
-                        int getPassScores = SysConstSetService.getPassScore();
-                        ////获取 考生试卷
-                        var getTestRecord = db.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == getTestPlan.TestPlanId && x.TestManId == item.UserId);
-                        if (getTestRecord != null)
-                        {
-                            newDetail.CheckScore = getTestRecord.TestScores;
-                            if (newDetail.CheckScore >= getPassScores)
-                            {
-                                newDetail.CheckResult = true;
-                            }
-                            else
-                            {
-                                newDetail.CheckResult = false;
-                            }
-                        }
                         db.EduTrain_TrainRecordDetail.InsertOnSubmit(newDetail);
                         db.SubmitChanges();
                      
                         ///// 培训考试 通过 更新卡号
-                        if (newDetail.CheckResult)
+                        if (result)
                         {
                             var getPerson = db.SitePerson_Person.FirstOrDefault(e => e.PersonId == newDetail.PersonId);
                             if (getPerson != null && string.IsNullOrEmpty(getPerson.CardNo))

@@ -112,6 +112,12 @@ namespace FineUIPro.Web.HiddenInspection
                 strSql += " AND States LIKE @States";
                 listStr.Add(new SqlParameter("@States", "%" + this.drpStates.SelectedValue + "%"));
             }
+            if (!CommonService.GetIsThisUnit(this.CurrUser.UnitId))
+            {
+                strSql += " AND (ResponsibleUnit =@ResponsibleUnit OR SendUnitId=@SendUnitId)";
+                listStr.Add(new SqlParameter("@ResponsibleUnit", this.CurrUser.UnitId));
+                listStr.Add(new SqlParameter("@SendUnitId", this.CurrUser.UnitId));
+            }
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 

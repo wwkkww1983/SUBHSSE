@@ -18,15 +18,15 @@ namespace BLL
         public static bool ReturnMenuByUserIdMenuId(string userId, string menuId, string projectId)
         {
             bool returnValue = false;
-            var menu = BLL.SysMenuService.GetSysMenuByMenuId(menuId);
+            var menu = SysMenuService.GetSysMenuByMenuId(menuId);
             if (menu != null)
-            {   
+            {
                 ///1、当前用户是管理员 
-                ///2、当前菜单是个人设置 资源库
-                if (userId == Const.sysglyId || userId == BLL.Const.hfnbdId || menu.MenuType == BLL.Const.Menu_Personal || menu.MenuType == BLL.Const.Menu_Resource)
+                ///2、当前菜单是个人设置 资源库|| menu.MenuType == BLL.Const.Menu_Resource
+                if (userId == Const.sysglyId || userId == Const.hfnbdId || menu.MenuType == BLL.Const.Menu_Personal)
                 {
                     returnValue = true;
-                }
+                }              
                 else if (string.IsNullOrEmpty(projectId)) ///本部、系统设置
                 {
                     var user = BLL.UserService.GetUserByUserId(userId); ////用户
@@ -37,6 +37,8 @@ namespace BLL
                         {
                             returnValue = true;
                         }
+
+                       // var getRoles=Funs.DB.Sys_Role.FirstOrDefault(x=> user.RoleId)
                     }
                 }
                 else

@@ -57,12 +57,12 @@
                     </f:NumberBox>
                     <f:TextBox ID="txtTeachMan" runat="server" Label="授课人" MaxLength="50">
                     </f:TextBox>
-                    <f:DropDownList ID="drpTrainStates" runat="server" Label="培训状态" Hidden="true" Readonly="true">
+                    <%--<f:DropDownList ID="drpTrainStates" runat="server" Label="培训状态" Hidden="true" Readonly="true">
                          <f:ListItem Text="计划中" Value="0"/>
                          <f:ListItem Text="待考试" Value="1"/>
                          <f:ListItem Text="考试中" Value="2"/>
                          <f:ListItem Text="已结束" Value="3" Selected="true"/>
-                    </f:DropDownList>
+                    </f:DropDownList>--%>
                 </Items>
             </f:FormRow>
             <f:FormRow>

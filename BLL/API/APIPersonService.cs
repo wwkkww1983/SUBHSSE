@@ -143,7 +143,7 @@ namespace BLL
             var persons = from x in Funs.DB.View_SitePerson_Person
                           where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null) && x.IsUsed == true
                           && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)
-                          orderby x.UnitName, x.PersonName
+                          orderby x.CardNo descending
                           select new Model.PersonItem
                           {
                               PersonId = x.PersonId,
@@ -222,7 +222,7 @@ namespace BLL
             var persons = from x in getViews
                           join y in Funs.DB.Base_Unit on x.UnitId equals y.UnitId
                           join z in Funs.DB.Base_WorkPost on x.WorkPostId equals z.WorkPostId
-                          orderby y.UnitName, x.PersonName
+                          orderby x.CardNo descending
                           select new Model.PersonItem
                           {
                               PersonId = x.PersonId,

@@ -44,7 +44,11 @@ namespace FineUIPro.Web.EduTrain
                 }
                 //单位
                 BLL.UnitService.InitUnitDropDownList(this.drpUnitId, this.ProjectId, true);
-                
+                if (BLL.ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.ProjectId, this.CurrUser.UnitId))
+                {
+                    this.drpUnitId.SelectedValue = this.CurrUser.UnitId;
+                    this.drpUnitId.Enabled = false;
+                }
                 //培训类型
                 BLL.TrainTypeService.InitTrainTypeDropDownList(this.drpTrainType, true);
                 //培训级别;

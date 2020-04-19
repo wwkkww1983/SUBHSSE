@@ -129,6 +129,31 @@ namespace WebAPI.Controllers
 
             return responeData;
         }
-        #endregion            
+        #endregion
+
+        #region 根据projectId获取首页数据-当日入场人数
+        /// <summary>
+        /// 根据projectId获取首页数据-当日入场人数
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getPageDataInPersonCoutt(string projectId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                int personCout = Funs.DB.SitePerson_PersonInOut.Where(x => x.ProjectId == projectId && x.IsIn == true
+                                             && x.ChangeTime > DateTime.Now.AddDays(-1)).Select(x => x.PersonId).Distinct().Count();
+                responeData.data = new { personCout };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion   
     }
 }

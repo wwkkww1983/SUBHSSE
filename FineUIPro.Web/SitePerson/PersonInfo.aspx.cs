@@ -1,12 +1,9 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Data.SqlClient;
 using System.Data;
-using BLL;
+using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 using AspNet = System.Web.UI.WebControls;
 
@@ -60,6 +57,12 @@ namespace FineUIPro.Web.SitePerson
                 this.btnMenuDelete.ConfirmText = String.Format("你确定要删除选中的&nbsp;<b><script>{0}</script></b>&nbsp;行数据吗？", Grid1.GetSelectedCountReference());
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 UnitService.InitUnitDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, true);
+                if (ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.CurrUser.LoginProjectId, this.CurrUser.UnitId))
+                {
+                    this.drpUnit.SelectedValue = this.CurrUser.UnitId;
+                    this.drpUnit.Enabled = false;
+                }
+          
                 // 绑定表格
                 BindGrid();
             }

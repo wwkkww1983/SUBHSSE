@@ -135,8 +135,7 @@ namespace FineUIPro.Web.EduTrain
                         this.btnMenuView.Hidden = false;
                     }
                     if (thisUnit.UnitId == Const.UnitId_SEDIN || thisUnit.UnitId == Const.UnitId_XJYJ)
-                    {
-                        this.drpTrainStates.Hidden = false;
+                    {                      
                         this.btnTrainingType.Hidden = false;
                         this.trWorkPost.Hidden = false;
                         this.Grid1.Columns[5].Hidden = false;
@@ -466,7 +465,7 @@ namespace FineUIPro.Web.EduTrain
         protected string GetCheckScore(object TrainDetailId)
         {
             string values = string.Empty;
-            if (!this.Grid1.Columns[5].Hidden)
+            if (CommonService.GetIsThisUnit(Const.UnitId_SEDIN))
             {
                 var getTrainRecordDetail = Funs.DB.EduTrain_TrainRecordDetail.FirstOrDefault(x => x.TrainDetailId == TrainDetailId.ToString());
                 if (getTrainRecordDetail != null)
@@ -477,11 +476,24 @@ namespace FineUIPro.Web.EduTrain
                         var getTestPlan = Funs.DB.Training_TestPlan.FirstOrDefault(x => x.PlanId == getTrainRecord.PlanId);
                         if (getTestPlan != null)
                         {
-                            var getTestRecord = Funs.DB.Training_TestRecord.Where(x => x.TestPlanId == getTestPlan.TestPlanId && x.TestManId == getTrainRecordDetail.PersonId).OrderByDescending(x => x.TestStartTime).FirstOrDefault();
-                            if (getTestRecord != null)
+                            decimal? scors = 0;
+                            var getTestRecord = Funs.DB.Training_TestRecord.Where(x => x.TestPlanId == getTestPlan.TestPlanId && x.TestManId == getTrainRecordDetail.PersonId);
+                            foreach (var item in getTestRecord)
                             {
-                                values = getTestRecord.TestScores.ToString();
+                                if (scors == 0)
+                                {
+                                    scors = item.TestScores;
+                                }
+                                else
+                                {
+                                    if (item.TestScores < scors)
+                                    {
+                                        scors = item.TestScores ?? 0;
+                                    }
+                                }
                             }
+
+                            values = scors.ToString();
                         }
                     }
                 }

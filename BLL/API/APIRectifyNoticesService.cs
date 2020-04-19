@@ -70,6 +70,7 @@ namespace BLL
                                         BeAttachUrl = APIUpLoadFileService.getFileUrl(x.RectifyNoticesId + "#0", null),
                                         AfAttachUrl = APIUpLoadFileService.getFileUrl(x.RectifyNoticesId + "#1", null),
                                         RectifyNoticesItemItem = getRectifyNoticesItemItem(x.RectifyNoticesId),
+                                        RectifyNoticesFlowOperateItem= getRectifyNoticesFlowOperateItem(x.RectifyNoticesId),
                                     };
 
             return getRectifyNotices.FirstOrDefault();
@@ -128,9 +129,9 @@ namespace BLL
         }
         #endregion
 
-        #region 根据projectId、states获取风险信息（状态 0：待提交；1：待签发；2：待整改；3：待复查；4：已完成）
+        #region 根据projectId、states获取风险信息（状态 0待提交；1待签发；2待整改；3待审核；4待复查；5已完成）
         /// <summary>
-        /// 根据projectId、states获取风险信息（状态 0：待提交；1：待签发；2：待整改；3：待复查；4：已完成）
+        /// 根据projectId、states获取风险信息（状态 0待提交；1待签发；2待整改；3待审核；4待复查；5已完成）
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="states"></param>
@@ -354,7 +355,7 @@ namespace BLL
                             }
                         }
                     }
-                    else if (newRectifyNotices.States == "1") ////总包单位项目安全经理 审核
+                    else if (newRectifyNotices.States == "2") ////总包单位项目安全经理 审核
                     {
                         /// 不同意 打回 同意抄送专业工程师、施工经理、项目经理 并下发分包接收人（也就是施工单位项目安全经理）
                         if (rectifyNotices.IsAgree == false) 
@@ -371,7 +372,7 @@ namespace BLL
                         }
                         db.SubmitChanges();                       
                     }
-                    else if (newRectifyNotices.States == "2") /// 施工单位项目安全经理 整改 提交施工单位项目负责人
+                    else if (newRectifyNotices.States == "3") /// 施工单位项目安全经理 整改 提交施工单位项目负责人
                     {
                         //// 整改明细反馈
                         if (rectifyNotices.RectifyNoticesItemItem != null && rectifyNotices.RectifyNoticesItemItem.Count() > 0)
@@ -399,7 +400,7 @@ namespace BLL
                         isUpdate.UnitHeadManId = rectifyNotices.UnitHeadManId;
                         db.SubmitChanges();
                     }
-                    else if (newRectifyNotices.States == "3")
+                    else if (newRectifyNotices.States == "4")
                     { /// 施工单位项目负责人不同意 打回施工单位项目安全经理,同意提交安全经理/安全工程师复查
                         if (rectifyNotices.IsAgree == false)
                         {
@@ -413,7 +414,7 @@ namespace BLL
                         }
                         db.SubmitChanges();
                     }
-                    else if (newRectifyNotices.States == "4")
+                    else if (newRectifyNotices.States == "5")
                     {  ////安全经理/安全工程师 同意关闭，不同意打回施工单位项目安全经理
                         isUpdate.ReCheckOpinion = rectifyNotices.ReCheckOpinion;
                         if (rectifyNotices.IsAgree == false)

@@ -278,13 +278,13 @@ namespace WebAPI.Controllers
                         }
                         else
                         {
-                            APITestRecordService.updateAll(getTestRecord.TestPlanId,getTestRecord.TestRecordId);
+                            APITestRecordService.updateAll(getTestRecord.TestPlanId);
                             responeData.message = "考试不合格！您的成绩为：【" + getTestScores.ToString() + "】，请再次参加培训后补考。";
                         }
                     }
                     else
                     {
-                        APITestRecordService.updateAll(getTestRecord.TestPlanId, getTestRecord.TestRecordId);
+                        APITestRecordService.updateAll(getTestRecord.TestPlanId);
                         responeData.message = "恭喜考试通过！您的成绩为：【" + getTestScores.ToString()+"】。";
                     }
                     

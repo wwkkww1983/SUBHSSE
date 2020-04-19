@@ -33,6 +33,14 @@ namespace FineUIPro.Web.SitePerson
                 {
                     this.ProjectId = Request.Params["projectId"];
                 }
+                UnitService.InitUnitDropDownList(this.drpUnit, this.ProjectId, true);
+                if (ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.ProjectId, this.CurrUser.UnitId))
+                {
+                    this.drpUnit.SelectedValue = this.CurrUser.UnitId;
+                    this.drpUnit.Enabled = false;
+                }
+
+                WorkPostService.InitWorkPostDropDownList(this.drpWorkPost, true);
                 var project = BLL.ProjectService.GetProjectByProjectId(this.ProjectId);
                 if (project != null)
                 {
@@ -50,29 +58,43 @@ namespace FineUIPro.Web.SitePerson
         {
             if (!string.IsNullOrEmpty(this.ProjectId))
             {
-                string startTime = string.Empty;
-                string endTime = string.Empty;
+                string startTime = null;
+                string endTime = null;
+                string isIn = this.rblIsUsed.SelectedValue;
+                string unitId = null;
+                string workPostId = null;
                 if (!string.IsNullOrEmpty(this.txtStartDate.Text.Trim()))
                 {
                     startTime = this.txtStartDate.Text.Trim();
-                }
-                else
-                {
-                    startTime = null;
-                }
+                }                
                 if (!string.IsNullOrEmpty(this.txtEndDate.Text.Trim()))
                 {
                     endTime = this.txtEndDate.Text.Trim();
                 }
+                if (this.drpUnit.SelectedValue != Const._Null)
+                {
+                    unitId = this.drpUnit.SelectedValue;
+                }
                 else
                 {
-                    endTime = null;
+                    unitId = null;
+                }
+                if (this.drpWorkPost.SelectedValue != Const._Null)
+                {
+                    workPostId = this.drpWorkPost.SelectedValue;
+                }
+                else
+                {
+                    workPostId = null;
                 }
                 SqlParameter[] values = new SqlParameter[]
                     {
                     new SqlParameter("@ProjectId", this.ProjectId),
                     new SqlParameter("@StartTime", startTime),
                     new SqlParameter("@EndTime", endTime),
+                    new SqlParameter("@isIn", isIn),
+                    new SqlParameter("@unitId", unitId),
+                    new SqlParameter("@workPostId", workPostId),
                     };
 
                 DataTable tb = SQLHelper.GetDataTableRunProc("SpPersonStatistic", values);

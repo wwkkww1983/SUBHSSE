@@ -27,7 +27,8 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server">
                         <Items>
-                                <f:DropDownList runat="server" ID="drpUnit" Label="单位" Width="300px" LabelAlign="Right" LabelWidth="50px"></f:DropDownList>
+                                <f:DropDownList runat="server" ID="drpUnit" Label="单位"
+                                    Width="300px" LabelAlign="Right" LabelWidth="50px"></f:DropDownList>
                                <f:TextBox runat="server" Label="姓名" ID="txtPersonName" EmptyText="输入查询条件"
                                          Width="200px" LabelWidth="50px" LabelAlign="right">
                                     </f:TextBox>

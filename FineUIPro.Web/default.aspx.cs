@@ -661,7 +661,7 @@ namespace FineUIPro.Web
                     if (projectFirst != null)
                     {
                         this.CurrUser.LoginProjectId = projectFirst.ProjectId;
-                        this.MenuSwitchMethod(BLL.Const.Menu_Project);
+                        this.MenuSwitchMethod(Const.Menu_Project);
                     }
                     else
                     {
@@ -676,13 +676,13 @@ namespace FineUIPro.Web
             }
             else
             {
-                if (projectCount.Count == 1 && BLL.CommonService.IsThisUnitLeaderOrManage(this.CurrUser.UserId))
+                if (projectCount.Count == 1 && CommonService.IsThisUnitLeaderOrManage(this.CurrUser.UserId))
                 {
                     var projectFirst = projectCount.FirstOrDefault();
                     if (projectFirst != null)
                     {
                         this.CurrUser.LoginProjectId = projectFirst.ProjectId;
-                        this.MenuSwitchMethod(BLL.Const.Menu_Project);
+                        this.MenuSwitchMethod(Const.Menu_Project);
                     }
                     else
                     {

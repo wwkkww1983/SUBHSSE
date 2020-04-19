@@ -37,7 +37,7 @@ namespace WebAPI.Controllers
         /// 根据projectId、states获取隐患整改单
         /// </summary>
         /// <param name="projectId"></param>
-        /// <param name="states">状态 0：待提交；1：待签发；2：待整改；3：待复查；4：已完成</param>
+        /// <param name="states">状态 0待提交；1待签发；2待整改；3待审核；4待复查；5已完成</param>
         /// <param name="pageIndex">页码</param>
         /// <returns></returns>
         public Model.ResponeData getRectifyNoticesByProjectIdStates(string projectId, string states, int pageIndex)
@@ -75,7 +75,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                //总数
+                //总数  0待提交；1待签发；2待整改；3待审核；4待复查；5已完成
                 var getDataList = BLL.Funs.DB.Check_RectifyNotices.Where(x => x.ProjectId == projectId);
                 int tatalCount = getDataList.Count();
                 //待提交 0
@@ -84,11 +84,13 @@ namespace WebAPI.Controllers
                 int count1 = getDataList.Where(x => x.States == "1").Count();
                 //待整改 2
                 int count2 = getDataList.Where(x => x.States == "2").Count();
-                //待复查 3
+                //待审核 3
                 int count3 = getDataList.Where(x => x.States == "3").Count();
-                //已完成 4
+                //待复查 4
                 int count4 = getDataList.Where(x => x.States == "4").Count();
-                responeData.data = new { tatalCount, count0, count1, count2, count3, count4 };
+                //已完成 5
+                int count5 = getDataList.Where(x => x.States == "5").Count();
+                responeData.data = new { tatalCount, count0, count1, count2, count3, count4, count5 };
             }
             catch (Exception ex)
             {
