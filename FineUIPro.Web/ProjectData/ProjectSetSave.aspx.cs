@@ -111,19 +111,19 @@ namespace FineUIPro.Web.ProjectData
                         }
                         this.txtPostCode.Text = project.PostCode;
                         ///项目经理
-                        var m = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.RoleId == BLL.Const.ProjectManager);
+                        var m = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.RoleId.Contains(BLL.Const.ProjectManager));
                         if (m != null)
                         {
                             this.drpProjectManager.SelectedValue = m.UserId;
                         }
                         ///施工经理 
-                        var c = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.RoleId == BLL.Const.ConstructionManager);
+                        var c = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.RoleId.Contains(BLL.Const.ConstructionManager));
                         if (c != null)
                         {
                             this.drpConstructionManager.SelectedValue = c.UserId;
                         }
                         ////安全经理
-                        var h = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.RoleId == BLL.Const.HSSEManager);
+                        var h = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.RoleId.Contains(BLL.Const.HSSEManager));
                         if (h != null)
                         {
                             this.drpHSSEManager.SelectedValue = h.UserId;
@@ -275,7 +275,7 @@ namespace FineUIPro.Web.ProjectData
             if (project != null)
             {
                 string OldProjectManager = string.Empty; ////项目经理
-                var m = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId == BLL.Const.ProjectManager);
+                var m = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId.Contains(BLL.Const.ProjectManager));
                 if (m != null)
                 {
                     OldProjectManager = m.UserId;
@@ -313,7 +313,7 @@ namespace FineUIPro.Web.ProjectData
                 }
                 ////施工经理
                 string OldConstructionManager = string.Empty;
-                var c = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId == BLL.Const.ConstructionManager);
+                var c = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId.Contains(BLL.Const.ConstructionManager));
                 if (c != null)
                 {
                     OldConstructionManager = c.UserId;
@@ -351,7 +351,7 @@ namespace FineUIPro.Web.ProjectData
                 }
                 ///安全经理
                 string OldHSSEManager = string.Empty;
-                var h = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId == BLL.Const.HSSEManager);
+                var h = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId.Contains(BLL.Const.HSSEManager));
                 if (h != null)
                 {
                     OldHSSEManager = h.UserId;

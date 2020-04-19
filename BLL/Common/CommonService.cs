@@ -54,7 +54,8 @@ namespace BLL
                         var puser = ProjectUserService.GetProjectUserByUserIdProjectId(projectId, userId); ////用户
                         if (puser != null && !string.IsNullOrEmpty(puser.RoleId))
                         {
-                            var power = Funs.DB.Sys_RolePower.FirstOrDefault(x => x.MenuId == menuId && x.RoleId == puser.RoleId);
+                            List<string> roleIdList = Funs.GetStrListByStr(puser.RoleId, ',');
+                            var power = Funs.DB.Sys_RolePower.FirstOrDefault(x => x.MenuId == menuId && roleIdList.Contains(x.RoleId));
                             if (power != null)
                             {
                                 returnValue = true;
@@ -103,9 +104,10 @@ namespace BLL
                     var pUser = BLL.ProjectUserService.GetProjectUserByUserIdProjectId(projectId, userId); ///项目用户
                     if (pUser != null)
                     {
+                        List<string> roleIdList = Funs.GetStrListByStr(pUser.RoleId, ',');
                         buttons = (from x in db.Sys_ButtonToMenu
                                    join y in db.Sys_ButtonPower on x.ButtonToMenuId equals y.ButtonToMenuId
-                                   where y.RoleId == pUser.RoleId && y.MenuId == menuId && x.MenuId == menuId
+                                   where roleIdList.Contains(y.RoleId)  && y.MenuId == menuId && x.MenuId == menuId
                                    select x).ToList();
                     }
                 }
@@ -189,10 +191,11 @@ namespace BLL
                     {
                         if (!string.IsNullOrEmpty(pUser.RoleId))
                         {
+                            List<string> roleIdList = Funs.GetStrListByStr(pUser.RoleId, ',');
                             var buttonToMenu = from x in db.Sys_ButtonToMenu
                                                join y in db.Sys_ButtonPower on x.ButtonToMenuId equals y.ButtonToMenuId
                                                join z in db.Sys_Menu on x.MenuId equals z.MenuId
-                                               where y.RoleId == pUser.RoleId && y.MenuId == menuId
+                                               where roleIdList.Contains(y.RoleId) && y.MenuId == menuId
                                                && x.ButtonName == buttonName && x.MenuId == menuId
                                                select x;
                             if (buttonToMenu.Count() > 0)

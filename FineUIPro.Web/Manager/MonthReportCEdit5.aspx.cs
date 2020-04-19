@@ -162,7 +162,7 @@ namespace FineUIPro.Web.Manager
                                                        on x.UserId equals y.OperaterId
                                                        join z in Funs.DB.Project_ProjectUser
                                                        on y.OperaterId equals z.UserId
-                                                       where (z.RoleId == BLL.Const.HSSEEngineer || z.RoleId == BLL.Const.HSSEManager) && y.MenuId == BLL.Const.ProjectActionPlanListMenuId && y.DataId == item.ActionPlanListId
+                                                       where (z.RoleId.Contains(BLL.Const.HSSEEngineer) || z.RoleId.Contains(BLL.Const.HSSEManager)) && y.MenuId == BLL.Const.ProjectActionPlanListMenuId && y.DataId == item.ActionPlanListId
                                                        select x).Distinct().ToList();
                     if (userSelect.Count() > 0)
                     {
@@ -201,7 +201,7 @@ namespace FineUIPro.Web.Manager
                                                   on x.UserId equals y.OperaterId
                                                   join z in Funs.DB.Project_ProjectUser
                                                   on y.OperaterId equals z.UserId
-                                                  where (z.RoleId == BLL.Const.HSSEEngineer || z.RoleId == BLL.Const.HSSEManager) && y.MenuId == BLL.Const.ActionPlan_ManagerRuleMenuId && y.DataId == rule.ManagerRuleId
+                                                  where (z.RoleId.Contains(BLL.Const.HSSEEngineer) || z.RoleId.Contains(BLL.Const.HSSEManager)) && y.MenuId == BLL.Const.ActionPlan_ManagerRuleMenuId && y.DataId == rule.ManagerRuleId
                                                   select x).Distinct().ToList();
                     if (users.Count() > 0)
                     {
@@ -309,7 +309,7 @@ namespace FineUIPro.Web.Manager
                                                   on x.UserId equals y.OperaterId
                                                   join z in Funs.DB.Project_ProjectUser
                                                   on y.OperaterId equals z.UserId
-                                                  where (z.RoleId == BLL.Const.HSSEEngineer || z.RoleId == BLL.Const.HSSEManager) && y.MenuId == BLL.Const.ProjectConstructSolutionMenuId && y.DataId == item.ConstructSolutionId
+                                                  where (z.RoleId.Contains(BLL.Const.HSSEEngineer) || z.RoleId.Contains(BLL.Const.HSSEManager)) && y.MenuId == BLL.Const.ProjectConstructSolutionMenuId && y.DataId == item.ConstructSolutionId
                                                   select x).Distinct().ToList();
                     if (users.Count() > 0)
                     {

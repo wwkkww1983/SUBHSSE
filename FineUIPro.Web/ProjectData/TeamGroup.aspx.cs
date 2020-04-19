@@ -56,6 +56,12 @@ namespace FineUIPro.Web.ProjectData
                 strSql += " AND TeamGroupName LIKE @TeamGroupName";
                 listStr.Add(new SqlParameter("@TeamGroupName", "%" + this.txtTeamGroupName.Text.Trim() + "%"));
             }
+            if (BLL.ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.CurrUser.LoginProjectId, this.CurrUser.UnitId))
+            {
+                strSql += " AND UnitId =@unitId";
+                listStr.Add(new SqlParameter("@unitId", this.CurrUser.UnitId));
+            }
+
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 

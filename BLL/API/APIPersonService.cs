@@ -766,6 +766,38 @@ namespace BLL
         }
         #endregion
 
+        #region 根据identityCard获取人员资质信息
+        /// <summary>
+        /// 根据identityCard获取人员资质信息
+        /// </summary>
+        /// <param name="identityCard"></param>
+        /// <returns></returns>
+        public static List<Model.TestRecordItem> getPersonTestRecoedByIdentityCard(string identityCard)
+        {
+            var getLists = from x in Funs.DB.EduTrain_TrainRecordDetail
+                           join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
+                           join z in Funs.DB.EduTrain_TrainRecord on x.TrainingId equals z.TrainingId
+                           where y.IdentityCard == identityCard
+                           orderby z.TrainStartDate descending
+                           select new Model.TestRecordItem
+                           {
+                               TestRecordId = x.TrainDetailId,
+                               ProjectId = z.ProjectId,
+                               ProjectName = Funs.DB.Base_Project.First(u => u.ProjectId == z.ProjectId).ProjectName,
+                               TestPlanName = z.TrainTitle,
+                               TestManId = x.PersonId,
+                               TestManName = y.PersonName,
+                               TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", z.TrainStartDate),
+                               TestEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", z.TrainEndDate),
+                               TestScores = x.CheckScore ?? 0,
+                               CheckResult = x.CheckResult,
+                               TestType = Funs.DB.Base_TrainType.First(u => u.TrainTypeId == z.TrainTypeId).TrainTypeName,
+                           };
+
+            return getLists.ToList();
+        }
+        #endregion
+
         #region 根据projectId、unitid获取特岗人员资质信息
         /// <summary>
         /// 根据projectId、unitid获取特岗人员资质信息

@@ -40,11 +40,12 @@ namespace FineUIPro.Web.ProjectData
                 this.txtTeamGroupCode.Focus();
                 btnClose.OnClientClick = ActiveWindow.GetHideReference();
 
-                this.drpUnitId.DataTextField = "UnitName";
-                this.drpUnitId.DataValueField = "UnitId";
-                this.drpUnitId.DataSource = BLL.UnitService.GetUnitByProjectIdList(this.CurrUser.LoginProjectId);
-                this.drpUnitId.DataBind();
-                Funs.FineUIPleaseSelect(this.drpUnitId);
+                BLL.UnitService.InitUnitDropDownList(this.drpUnitId, this.CurrUser.LoginProjectId, true);
+                if (BLL.ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.CurrUser.LoginProjectId, this.CurrUser.UnitId))
+                {
+                    this.drpUnitId.SelectedValue = this.CurrUser.UnitId;
+                    this.drpUnitId.Enabled = false;
+                }
 
                 this.TeamGroupId = Request.Params["TeamGroupId"];
                 if (!string.IsNullOrEmpty(this.TeamGroupId))

@@ -55,7 +55,8 @@ namespace FineUIPro.Web.ProjectData
         {
             if (this.drpProject.Items.Count() > 0)
             {
-                string strSql = @"SELECT DISTINCT ProjectUser.ProjectUserId,ProjectUser.ProjectId,ProjectUser.UserId,Users.UserCode,Users.UserName,ProjectUser.UnitId,Unit.UnitCode,Unit.UnitName,ProjectUnit.UnitType,sysConst.ConstText AS UnitTypeName,ProjectUser.RoleId,ProjectUser.IsPost,(CASE WHEN ProjectUser.IsPost = 1 THEN '在岗' ELSE '离岗' END) AS IsPostName,Role.RoleName,WorkPost.WorkPostName"
+                string strSql = @"SELECT DISTINCT ProjectUser.ProjectUserId,ProjectUser.ProjectId,ProjectUser.UserId,Users.UserCode,Users.UserName,ProjectUser.UnitId,Unit.UnitCode,Unit.UnitName,ProjectUnit.UnitType,sysConst.ConstText AS UnitTypeName,ProjectUser.RoleId,ProjectUser.IsPost,(CASE WHEN ProjectUser.IsPost = 1 THEN '在岗' ELSE '离岗' END) AS IsPostName,WorkPost.WorkPostName"
+                                + @" ,RoleName= STUFF(( SELECT ',' + RoleName FROM dbo.Sys_Role where PATINDEX('%,' + RTRIM(RoleId) + ',%',',' +ProjectUser.RoleId + ',')>0 FOR XML PATH('')), 1, 1,'')"
                                 + @" FROM Project_ProjectUser AS ProjectUser "
                                 + @" LEFT JOIN Base_Project AS Project ON ProjectUser.ProjectId = Project.ProjectId "
                                 + @" LEFT JOIN Sys_User AS Users ON ProjectUser.UserId = Users.UserId "
@@ -219,11 +220,11 @@ namespace FineUIPro.Web.ProjectData
             }
             if (this.btnMenuEdit.Hidden)   ////双击事件 编辑权限有：编辑页面，无：查看页面 或者状态是完成时查看页面
             {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ProjectUserView.aspx?ProjectUserId={0}", Grid1.SelectedRowID), "查看项目用户", 800, 300));
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ProjectUserView.aspx?ProjectUserId={0}", Grid1.SelectedRowID), "查看项目用户", 800, 500));
             }
             else
             {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ProjectUserSave.aspx?ProjectUserId={0}", Grid1.SelectedRowID), "编辑项目用户", 800, 300));
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ProjectUserSave.aspx?ProjectUserId={0}", Grid1.SelectedRowID), "编辑项目用户", 800, 500));
             }
         }
 

@@ -282,7 +282,7 @@ namespace BLL
 
                             if (!string.IsNullOrEmpty(rItem.PhotoBeforeUrl))
                             {
-                                APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newItem.RectifyNoticesItemId + "#0", rItem.PhotoBeforeUrl, "0");
+                                APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newItem.RectifyNoticesItemId + "#1", rItem.PhotoBeforeUrl, "0");
                             }
                         }
                     }
@@ -350,7 +350,7 @@ namespace BLL
 
                                 if (!string.IsNullOrEmpty(rItem.PhotoBeforeUrl))
                                 {
-                                    APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newItem.RectifyNoticesItemId + "#0", rItem.PhotoBeforeUrl, "0");
+                                    APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newItem.RectifyNoticesItemId + "#1", rItem.PhotoBeforeUrl, "0");
                                 }
                             }
                         }
@@ -391,7 +391,7 @@ namespace BLL
                                 }
                                 if (!string.IsNullOrEmpty(rItem.PhotoAfterUrl))
                                 {
-                                    APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, rItem.RectifyNoticesItemId + "#0", rItem.PhotoAfterUrl, "0");
+                                    APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, rItem.RectifyNoticesItemId + "#2", rItem.PhotoAfterUrl, "0");
                                 }
                             }
                         }

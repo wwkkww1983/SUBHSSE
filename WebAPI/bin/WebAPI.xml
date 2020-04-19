@@ -1753,6 +1753,13 @@
             <param name="identityCard"></param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.PersonController.getPersonTestRecoedByIdentityCard(System.String)">
+            <summary>
+            根据identityCard获取人员培训考试信息
+            </summary>
+            <param name="identityCard"></param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.PersonController.getPersonQualityCount(System.String,System.String)">
             <summary>
             根据projectId、unitid获取特岗人员资质各状态数

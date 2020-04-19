@@ -71,6 +71,10 @@ namespace FineUIPro.Web.ProjectData
                         {
                             this.drpRole.SelectedValue = projectUser.RoleId;
                         }
+                        if (!string.IsNullOrEmpty(projectUser.RoleId))
+                        {
+                            this.drpRole.SelectedValueArray = projectUser.RoleId.Split(',');
+                        }
 
                         var user = BLL.UserService.GetUserByUserId(projectUser.UserId);
                         if (user != null && !string.IsNullOrEmpty(user.IdentityCard))
@@ -101,6 +105,24 @@ namespace FineUIPro.Web.ProjectData
                     newProjectUser.RoleId = this.drpRole.SelectedValue;
                     //newProjectUser.RoleName = this.drpRole.SelectedText;
                 }
+                ///角色
+                string roleIds = string.Empty;
+                foreach (var item in this.drpRole.SelectedValueArray)
+                {
+                    var role = BLL.RoleService.GetRoleByRoleId(item);
+                    if (role != null)
+                    {
+                        if (string.IsNullOrEmpty(newProjectUser.RoleId))
+                        {
+                            newProjectUser.RoleId = role.RoleId;
+                        }
+                        else
+                        {
+                            newProjectUser.RoleId += "," + role.RoleId;
+                        }
+                    }
+                }
+
                 newProjectUser.IsPost = Convert.ToBoolean(this.drpIsPost.SelectedValue);
                 BLL.ProjectUserService.UpdateProjectUser(newProjectUser);
                 this.SetWorkPost(newProjectUser);

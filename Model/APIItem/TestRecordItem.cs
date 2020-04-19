@@ -27,6 +27,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 项目ID
+        /// </summary>
+        public string ProjectName
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 考试计划ID
         /// </summary>
         public string TestPlanId
@@ -104,6 +112,14 @@ namespace Model
         /// 考试成绩
         /// </summary>
         public decimal TestScores
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 是否合格
+        /// </summary>
+        public bool CheckResult
         {
             get;
             set;

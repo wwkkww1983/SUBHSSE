@@ -92,7 +92,7 @@ namespace FineUIPro.Web.Manager
                     }
                     this.txtStartEndDate.Text = startDate + "/" + endDate;
                     ///项目经理
-                    var m = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.RoleId == BLL.Const.ProjectManager);
+                    var m = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.RoleId.Contains(BLL.Const.ProjectManager));
                     if (m != null)
                     {
                         Model.Sys_User user = BLL.UserService.GetUserByUserId(m.UserId);

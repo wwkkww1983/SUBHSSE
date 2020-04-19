@@ -75,14 +75,14 @@
                     <f:RenderField Width="150px" ColumnID="UserName" DataField="UserName" SortField="UserName"
                         FieldType="String" HeaderText="用户名称"  HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="200px" ColumnID="RoleName" DataField="RoleName" SortField="RoleName"
+                    <f:RenderField Width="280px" ColumnID="RoleName" DataField="RoleName" SortField="RoleName"
                         FieldType="String" HeaderText="项目角色"  HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="200px" ColumnID="WorkPostName" DataField="WorkPostName" SortField="WorkPostName"
                         FieldType="String" HeaderText="项目岗位"  HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="IsPostName" DataField="IsPostName" SortField="IsPostName"
-                        FieldType="String" HeaderText="是否在岗"  HeaderTextAlign="Center" TextAlign="Left">
+                    <f:RenderField Width="70px" ColumnID="IsPostName" DataField="IsPostName" SortField="IsPostName"
+                        FieldType="String" HeaderText="在岗"  HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>                         
                 </Columns>
                 <Listeners>

@@ -214,34 +214,41 @@ namespace BLL
             IQueryable<Model.SpSysUserItem> users = null;
             if (!string.IsNullOrEmpty(projectId))
             {
+                List<Model.SpSysUserItem> returUsers = new List<Model.SpSysUserItem>();
+                List<Model.Project_ProjectUser> getPUser = new List<Model.Project_ProjectUser>();
                 if (!string.IsNullOrEmpty(unitId))
                 {
-                    users = (from x in Funs.DB.Sys_User
-                             join y in Funs.DB.Project_ProjectUser on x.UserId equals y.UserId
-                             join z in Funs.DB.Sys_Role on y.RoleId equals z.RoleId
-                             join u in Funs.DB.Project_ProjectUnit on new { y.ProjectId, y.UnitId } equals new { u.ProjectId, u.UnitId }
-                             where y.ProjectId == projectId && z.IsAuditFlow == true && (u.UnitId == unitId || u.UnitType == BLL.Const.ProjectUnitType_1 || u.UnitType == BLL.Const.ProjectUnitType_3 || u.UnitType == BLL.Const.ProjectUnitType_4)
-                             orderby z.RoleCode, x.UserCode
-                             select new Model.SpSysUserItem
-                             {
-                                 UserName = z.RoleName + "- " + x.UserName,
-                                 UserId = x.UserId,
-                             });
+                    getPUser = (from x in Funs.DB.Project_ProjectUser
+                                join u in Funs.DB.Project_ProjectUnit on new { x.ProjectId, x.UnitId } equals new { u.ProjectId, u.UnitId }
+                                where x.ProjectId == projectId && (u.UnitId == unitId || u.UnitType == BLL.Const.ProjectUnitType_1 || u.UnitType == BLL.Const.ProjectUnitType_3 || u.UnitType == BLL.Const.ProjectUnitType_4)
+                                select x).ToList();
                 }
                 else
                 {
-                    users = (from x in Funs.DB.Sys_User
-                             join y in Funs.DB.Project_ProjectUser on x.UserId equals y.UserId
-                             join z in Funs.DB.Sys_Role on y.RoleId equals z.RoleId
-                             join u in Funs.DB.Base_Unit on x.UnitId equals u.UnitId
-                             where y.ProjectId == projectId && z.IsAuditFlow == true
-                             orderby u.UnitCode, z.RoleCode, x.UserCode
-                             select new Model.SpSysUserItem
-                             {
-                                 UserName = x.UserName + "- " + z.RoleName + "- " + u.UnitName,
-                                 UserId = x.UserId,
-                             });
+                    getPUser = (from x in Funs.DB.Project_ProjectUser
+                                where x.ProjectId == projectId
+                                select x).ToList();
                 }
+
+                if (getPUser.Count() > 0)
+                {
+                    foreach (var item in getPUser)
+                    {
+                        List<string> roleIdList = Funs.GetStrListByStr(item.RoleId,',');
+                        var getRoles = Funs.DB.Sys_Role.FirstOrDefault(x => x.IsAuditFlow == true && roleIdList.Contains(x.RoleId));
+                        if (getRoles != null)
+                        {
+                            string userName = RoleService.getRoleNamesRoleIds(item.RoleId) + "-" + UserService.GetUserNameByUserId(item.UserId);
+                            Model.SpSysUserItem newsysUser = new Model.SpSysUserItem
+                            {
+                                UserId = item.UserId,
+                                UserName = userName,
+                            };
+                            returUsers.Add(newsysUser);
+                        }
+                    }
+                }
+                return returUsers;
             }
             else
             {

@@ -233,6 +233,29 @@ namespace WebAPI.Controllers
         }
         #endregion
 
+        #region 根据identityCard获取人员培训考试信息
+        /// <summary>
+        /// 根据identityCard获取人员培训考试信息
+        /// </summary>
+        /// <param name="identityCard"></param>
+        /// <returns></returns>
+        public Model.ResponeData getPersonTestRecoedByIdentityCard(string identityCard)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIPersonService.getPersonTestRecoedByIdentityCard(identityCard);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
         #region 根据projectId、unitid获取特岗人员资质各状态数
         /// <summary>
         /// 根据projectId、unitid获取特岗人员资质各状态数

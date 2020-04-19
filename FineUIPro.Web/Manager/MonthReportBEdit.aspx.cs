@@ -80,7 +80,7 @@ namespace FineUIPro.Web.Manager
                     this.txtProjectCode.Text = project.ProjectCode;
                     this.txtProjectName.Text = project.ProjectName;
                     ///项目经理
-                    var m = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.RoleId == BLL.Const.ProjectManager);
+                    var m = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == this.ProjectId && x.RoleId.Contains(BLL.Const.ProjectManager));
                     if (m != null)
                     {
                         Model.Sys_User user = BLL.UserService.GetUserByUserId(m.UserId);
@@ -2621,7 +2621,7 @@ namespace FineUIPro.Web.Manager
             if (monthReportId != null)
             {
                 ///项目经理
-                var m = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == monthReportId.ToString() && x.RoleId == BLL.Const.ProjectManager);
+                var m = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == monthReportId.ToString() && x.RoleId.Contains(BLL.Const.ProjectManager));
                 if (m != null)
                 {
                     Model.Sys_User user = BLL.UserService.GetUserByUserId(m.UserId);

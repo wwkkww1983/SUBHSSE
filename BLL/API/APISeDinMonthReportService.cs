@@ -86,14 +86,14 @@ namespace BLL
         {
             ///项目经理
             string projectManagerId = string.Empty;
-            var m = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId == Const.ProjectManager);
+            var m = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId.Contains(Const.ProjectManager));
             if (m != null)
             {
                 projectManagerId = m.UserId;
             }
             ////安全经理
             string hsseManagerId = string.Empty;
-            var h = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId == Const.HSSEManager);
+            var h = Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.ProjectId == projectId && x.RoleId.Contains(Const.HSSEManager));
             if (h != null)
             {
                 hsseManagerId = h.UserId;

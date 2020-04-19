@@ -352,7 +352,7 @@
                 name = (from x in Funs.DB.Base_Project
                         join y in Funs.DB.Project_ProjectUser on x.ProjectId equals y.ProjectId
                         join z in Funs.DB.Sys_User on y.UserId equals z.UserId
-                        where x.ProjectId == projectId && y.RoleId == BLL.Const.ProjectManager
+                        where x.ProjectId == projectId && y.RoleId.Contains(BLL.Const.ProjectManager)
                         select z.UserName).FirstOrDefault();
             }
             return name;
@@ -371,7 +371,7 @@
                 name = (from x in Funs.DB.Base_Project
                         join y in Funs.DB.Project_ProjectUser on x.ProjectId equals y.ProjectId
                         join z in Funs.DB.Sys_User on y.UserId equals z.UserId
-                        where x.ProjectId == projectId && y.RoleId == BLL.Const.ConstructionManager
+                        where x.ProjectId == projectId && y.RoleId.Contains(BLL.Const.ConstructionManager)
                         select z.UserName).FirstOrDefault();
             }
             return name;
@@ -390,7 +390,7 @@
                 name = (from x in Funs.DB.Base_Project
                         join y in Funs.DB.Project_ProjectUser on x.ProjectId equals y.ProjectId
                         join z in Funs.DB.Sys_User on y.UserId equals z.UserId
-                        where x.ProjectId == projectId && y.RoleId == BLL.Const.HSSEManager
+                        where x.ProjectId == projectId && y.RoleId.Contains(BLL.Const.HSSEManager)
                         select z.UserName).FirstOrDefault();
             }
             return name;

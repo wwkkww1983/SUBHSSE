@@ -38,7 +38,7 @@
             <f:FormRow>
                 <Items>
                     <f:DropDownList ID="drpRole" runat="server" Label="角色" EnableEdit="true" ForceSelection="false"
-                        Required="true" ShowRedStar="true">
+                        Required="true" ShowRedStar="true" EnableMultiSelect="true" MaxLength="500" EnableCheckBoxSelect="true">
                     </f:DropDownList>
                     <f:DropDownList ID="drpIsPost" runat="server" Label="在岗" EnableEdit="true" ForceSelection="false"
                         Required="true" ShowRedStar="true">
