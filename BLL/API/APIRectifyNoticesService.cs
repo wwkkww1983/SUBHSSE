@@ -246,7 +246,7 @@ namespace BLL
                     newRectifyNotices.RectifyNoticesCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.ProjectId, newRectifyNotices.UnitId);
                     db.Check_RectifyNotices.InsertOnSubmit(newRectifyNotices);
                     db.SubmitChanges();
-                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectRectifyNoticeMenuId, rectifyNotices.ProjectId, rectifyNotices.UnitId, rectifyNotices.RectifyNoticesId, newRectifyNotices.CheckedDate);
+                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.ProjectId, newRectifyNotices.UnitId, newRectifyNotices.RectifyNoticesId, newRectifyNotices.CheckedDate);
                     //// 整改单附件
                     if (!string.IsNullOrEmpty(rectifyNotices.BeAttachUrl))
                     {
@@ -308,7 +308,7 @@ namespace BLL
                 {
                     newRectifyNotices.RectifyNoticesId = isUpdate.RectifyNoticesId;
                     isUpdate.States = rectifyNotices.States;
-                    if (newRectifyNotices.States == "0")  ////编制人 修改或提交
+                    if (newRectifyNotices.States == "0" || newRectifyNotices.States == "1")  ////编制人 修改或提交
                     {
                         isUpdate.UnitId = rectifyNotices.UnitId;
                         isUpdate.WorkAreaId = rectifyNotices.WorkAreaId;

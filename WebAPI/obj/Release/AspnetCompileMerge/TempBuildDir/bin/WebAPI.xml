@@ -1477,6 +1477,12 @@
             </summary>
             <param name="toDoItem">附件</param>
         </member>
+        <member name="M:WebAPI.Controllers.FileUploadController.PostSmallImage">
+            <summary>
+            附件上传
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.HazardListController">
             <summary>
             危险源辨识与评价

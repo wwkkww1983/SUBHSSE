@@ -82,5 +82,39 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region 附件上传
+        /// <summary>
+        /// 附件上传
+        /// </summary>
+        /// <returns></returns>
+        public IHttpActionResult PostSmallImage()
+        {
+            HttpFileCollection files = HttpContext.Current.Request.Files;
+            string typeName = HttpContext.Current.Request["typeName"];
+            if (string.IsNullOrEmpty(typeName))
+            {
+                typeName = "WebApi";
+            }
+            string reUrl = string.Empty;
+            if (files != null && files.Count > 0)
+            {
+                string folderUrl = "FileUpLoad/" + typeName + "/" + DateTime.Now.ToString("yyyy-MM") + "/";
+                string localRoot = ConfigurationManager.AppSettings["localRoot"] + folderUrl; //物理路径
+                if (!Directory.Exists(localRoot))
+                {
+                    Directory.CreateDirectory(localRoot);
+                }
+                foreach (string key in files.AllKeys)
+                {
+                    HttpPostedFile file = files[key];//file.ContentLength文件长度
+                    reUrl = UpLoadImageService.UpLoadImage(file, folderUrl, folderUrl + "Small/", 150, 180);
+                }
+            }
+
+            return Ok(reUrl);
+        }
+        #endregion
+
     }
 }
