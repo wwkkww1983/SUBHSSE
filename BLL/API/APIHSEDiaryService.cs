@@ -34,7 +34,7 @@ namespace BLL
                 getFlowOperteList = (from x in Funs.DB.Sys_FlowOperate
                                      where x.ProjectId == projectId
                                      && x.OperaterId == userId && x.IsClosed == true
-                                     && getDiaryDate > x.OperaterTime.Value.AddDays(-1) && getDiaryDate < x.OperaterTime.Value.AddDays(1)
+                                     && x.OperaterTime >= getDiaryDate && x.OperaterTime < getDiaryDate.Value.AddDays(1)
                                      select x).ToList();
                 getItem.ProjectId = projectId;
                 getItem.UserId = userId;

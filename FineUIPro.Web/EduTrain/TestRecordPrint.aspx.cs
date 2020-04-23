@@ -52,15 +52,15 @@ namespace FineUIPro.Web.EduTrain
                     var testMan = PersonService.GetPersonByUserId(testRecord.TestManId);
                     if (testMan != null)
                     {
-                        personInfo = "单位名称：" + UnitService.GetUnitNameByUnitId(testMan.UnitId) + "    " +
-                            "姓名：" + testMan.PersonName + "    " +
-                            "身份证号：" + testMan.IdentityCard + "    " +
-                            "工种/职务：" + WorkPostService.getWorkPostNamesWorkPostIds(testMan.WorkAreaId) + "    ";
+                        personInfo = "单位：" + UnitService.GetUnitNameByUnitId(testMan.UnitId) + "        " +
+                            "姓名：" + testMan.PersonName + "        " +
+                            "身份证号码：" + testMan.IdentityCard + "        " +
+                            "岗位：" + WorkPostService.getWorkPostNamesWorkPostIds(testMan.WorkPostId) + "        ";
                     }
                     //this.Namea += "时间：" + string.Format("{0:yyyy-MM-dd HH:mm}", testRecord.TestStartTime) + " 至 "+ string.Format("{0:yyyy-MM-dd HH:mm}", testRecord.TestEndTime)+"   ";
                     if (testRecord.TestScores.HasValue)
                     {
-                        personInfo += "分数：" + testRecord.TestScores.ToString() ;
+                        personInfo += "成绩：" + testRecord.TestScores.ToString() ;
                     }
 
                     this.lbTestPerson.Text = personInfo;

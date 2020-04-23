@@ -79,14 +79,23 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                if (CommonService.IsMainUnitOrAdmin(userId))
+                var getTasks = Funs.DB.Training_Task.FirstOrDefault(x => x.PlanId == trainingPlanId);
+                if (getTasks != null)
                 {
-                    responeData.data = APITestPlanService.SaveTestPlanByTrainingPlanId(trainingPlanId, userId);
+                    if (CommonService.IsMainUnitOrAdmin(userId))
+                    {
+                        responeData.data = APITestPlanService.SaveTestPlanByTrainingPlanId(trainingPlanId, userId);
+                    }
+                    else
+                    {
+                        responeData.code = 0;
+                        responeData.message = "非本单位用户，不能生成考试计划！";
+                    }
                 }
                 else
                 {
                     responeData.code = 0;
-                    responeData.message = "非本单位用户，不能生成考试计划！";
+                    responeData.message = "培训计划下没有培训人员，不能生成考试计划！";
                 }
             }
             catch (Exception ex)

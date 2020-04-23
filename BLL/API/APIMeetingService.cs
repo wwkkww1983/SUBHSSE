@@ -43,6 +43,7 @@ namespace BLL
                                    MeetingHours = x.MeetingHours ?? 0,
                                    MeetingHostMan = x.MeetingHostMan,
                                    AttentPerson = x.AttentPerson,
+                                   AttentPersonNum = x.AttentPersonNum ?? 0,
                                    CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
                                    CompileManId = x.CompileMan,
                                    CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,

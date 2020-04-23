@@ -406,7 +406,7 @@ namespace BLL
                     {
                         db.Training_TestPlan.InsertOnSubmit(newTestPlan);
                         db.SubmitChanges();
-
+                        CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectTestPlanMenuId, newTestPlan.ProjectId, null, testPlanId, newTestPlan.PlanDate);
                         ///培训人员
                         var getTrainingTask = (from x in db.Training_Task where x.PlanId == trainingPlanId select x).ToList();
                         foreach (var itemTask in getTrainingTask)

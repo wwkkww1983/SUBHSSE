@@ -62,7 +62,8 @@
                         <Items>
                             <f:TextBox ID="txtCardNo" runat="server" Label="卡号" MaxLength="50" LabelAlign="Right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                             </f:TextBox>
-                            <f:Button runat="server" ID="btnReadIdentityCard" Icon="Vcard" Text="读取身份证" MarginLeft="90px" Hidden="true"></f:Button>
+                            <f:Button runat="server" ID="btnReadIdentityCard" Icon="Vcard"  OnClick="btnReadIdentityCard_Click"
+                                    Text="读取身份证" MarginLeft="90px" Hidden="true"></f:Button>
                             <f:RadioButtonList ID="rblSex" runat="server" Label="性别" LabelAlign="Right" Required="True" ShowRedStar="True">
                                 <f:RadioItem Value="1" Text="男" Selected="true" />
                                 <f:RadioItem Value="2" Text="女" />

@@ -87,12 +87,31 @@ namespace BLL
         /// <param name="rectifyNoticesId"></param>
         public static void DeleteRectifyNoticesById(string rectifyNoticesId)
         {
+            Model.SUBHSSEDB db = Funs.DB;
             Model.Check_RectifyNotices rectifyNotices = db.Check_RectifyNotices.FirstOrDefault(e => e.RectifyNoticesId == rectifyNoticesId);
             if (rectifyNotices != null)
             {
                 CodeRecordsService.DeleteCodeRecordsByDataId(rectifyNoticesId);
                 UploadFileService.DeleteFile(Funs.RootPath, rectifyNotices.AttachUrl);
                 CommonService.DeleteAttachFileById(rectifyNoticesId);
+
+                var getCheck_RectifyNoticesItem = from x in db.Check_RectifyNoticesItem
+                                                  where x.RectifyNoticesId == rectifyNoticesId select x;
+                if (getCheck_RectifyNoticesItem.Count() > 0)
+                {
+                    db.Check_RectifyNoticesItem.DeleteAllOnSubmit(getCheck_RectifyNoticesItem);
+                    db.SubmitChanges();
+                }
+
+                var getRectifyNoticesFlowOperate = from x in db.Check_RectifyNoticesFlowOperate
+                                                  where x.RectifyNoticesId == rectifyNoticesId
+                                                  select x;
+                if (getRectifyNoticesFlowOperate.Count() > 0)
+                {
+                    db.Check_RectifyNoticesFlowOperate.DeleteAllOnSubmit(getRectifyNoticesFlowOperate);
+                    db.SubmitChanges();
+                }
+
                 db.Check_RectifyNotices.DeleteOnSubmit(rectifyNotices);
                 db.SubmitChanges();
             }

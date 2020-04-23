@@ -30,6 +30,9 @@ namespace BLL
                                         WorkAreaId = x.WorkAreaId,
                                         WorkAreaName = WorkAreaService.getWorkAreaNamesIds(x.WorkAreaId),
                                         CheckManNames = x.CheckManNames,
+                                        CheckManIds = x.CheckManIds,
+                                        CheckManIdNames= UserService.getUserNamesUserIds(x.CheckManIds),
+                                        CheckManAllNames = getCheckAllManName(x.CheckManIds, x.CheckManNames),
                                         CheckedDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CheckedDate),
                                         CheckedDateD = x.CheckedDate,
                                         HiddenHazardType = x.HiddenHazardType,
@@ -61,6 +64,7 @@ namespace BLL
                                         CheckPersonId = x.CheckPerson,
                                         CheckPersonName = Funs.DB.Sys_User.First(u => u.UserId == x.CheckPerson).UserName,
                                         ReCheckDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.ReCheckDate),
+                                        ReCheckOpinion=x.ReCheckOpinion,
                                         //WrongContent =x.WrongContent,                                       
                                         //CompleteStatus=x.CompleteStatus,                                       
                                         //RectificationName=x.DutyPerson,                                       
@@ -129,6 +133,23 @@ namespace BLL
         }
         #endregion
 
+        #region 根据隐患整改单ID 获取整改单审核信息
+        /// <summary>
+        ///  根据隐患整改单ID 获取整改单明细信息
+        /// </summary>
+        /// <returns></returns>
+        public static string getCheckAllManName(string checkManIds,string checkManNames)
+        {
+            string name = UserService.getUserNamesUserIds(checkManIds);
+            if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(checkManNames))
+            {
+                name += "," + checkManNames;
+            }
+         
+            return name;
+        }
+        #endregion
+
         #region 根据projectId、states获取风险信息（状态 0待提交；1待签发；2待整改；3待审核；4待复查；5已完成）
         /// <summary>
         /// 根据projectId、states获取风险信息（状态 0待提交；1待签发；2待整改；3待审核；4待复查；5已完成）
@@ -152,6 +173,7 @@ namespace BLL
                                     WorkAreaId = x.WorkAreaId,
                                     WorkAreaName = WorkAreaService.getWorkAreaNamesIds(x.WorkAreaId),
                                     CheckManNames = x.CheckManNames,
+                                    CheckManIds = x.CheckManIds,                                    
                                     CheckedDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CheckedDate),
                                     CheckedDateD = x.CheckedDate,
                                     HiddenHazardType = x.HiddenHazardType,
@@ -232,12 +254,16 @@ namespace BLL
                     UnitId = rectifyNotices.UnitId,
                     WorkAreaId = rectifyNotices.WorkAreaId,
                     CheckManNames = rectifyNotices.CheckManNames,
+                    CheckManIds = rectifyNotices.CheckManIds,
                     CheckedDate = Funs.GetNewDateTime(rectifyNotices.CheckedDate),
                     HiddenHazardType = rectifyNotices.HiddenHazardType,
                     CompleteManId = rectifyNotices.CompleteManId,
                     States = rectifyNotices.States,
                 };
-
+                if (newRectifyNotices.States == "1")
+                {
+                    newRectifyNotices.SignPerson = rectifyNotices.SignPersonId;
+                }
                 //// 新增整改单
                 var isUpdate = db.Check_RectifyNotices.FirstOrDefault(x => x.RectifyNoticesId == newRectifyNotices.RectifyNoticesId);
                 if (isUpdate == null)
@@ -313,6 +339,7 @@ namespace BLL
                         isUpdate.UnitId = rectifyNotices.UnitId;
                         isUpdate.WorkAreaId = rectifyNotices.WorkAreaId;
                         isUpdate.CheckManNames = rectifyNotices.CheckManNames;
+                        isUpdate.CheckManIds = rectifyNotices.CheckManIds;
                         isUpdate.CheckedDate = Funs.GetNewDateTime(rectifyNotices.CheckedDate);
                         isUpdate.HiddenHazardType = rectifyNotices.HiddenHazardType;                    
                         if (newRectifyNotices.States == "1")

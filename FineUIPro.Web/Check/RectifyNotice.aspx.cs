@@ -67,7 +67,7 @@ namespace FineUIPro.Web.Check
                           + @" LEFT JOIN ProjectData_WorkArea AS WorkArea ON WorkArea.WorkAreaId = RectifyNotices.WorkAreaId "
                           + @" LEFT JOIN Sys_User AS Users ON RectifyNotices.SignPerson = Users.UserId "
                           + @" LEFT JOIN Sys_User AS Person ON Person.UserId = RectifyNotices.CheckPerson "
-                          + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON RectifyNotices.RectifyNoticesId = CodeRecords.DataId WHERE 1=1 ";
+                          + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON RectifyNotices.RectifyNoticesId = CodeRecords.DataId WHERE States IS NULL ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND RectifyNotices.ProjectId = @ProjectId";
             listStr.Add(new SqlParameter("@ProjectId", this.ProjectId));

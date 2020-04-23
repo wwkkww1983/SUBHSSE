@@ -247,9 +247,11 @@
     <Content Include="Check\PunishNotice.aspx" />
     <Content Include="Check\PunishNoticeEdit.aspx" />
     <Content Include="Check\PunishNoticeView.aspx" />
+    <Content Include="Check\RectifyNotices.aspx" />
     <Content Include="Check\RectifyNotice.aspx" />
     <Content Include="Check\RectifyNoticeEdit.aspx" />
     <Content Include="Check\RectifyNoticePrint.aspx" />
+    <Content Include="Check\RectifyNoticesView.aspx" />
     <Content Include="Check\RectifyNoticeView.aspx" />
     <Content Include="Check\Registration.aspx" />
     <Content Include="Check\RegistrationRecord.aspx" />
@@ -5087,6 +5089,13 @@
     <Compile Include="Check\PunishNoticeView.aspx.designer.cs">
       <DependentUpon>PunishNoticeView.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Check\RectifyNotices.aspx.cs">
+      <DependentUpon>RectifyNotices.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Check\RectifyNotices.aspx.designer.cs">
+      <DependentUpon>RectifyNotices.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Check\RectifyNotice.aspx.cs">
       <DependentUpon>RectifyNotice.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5107,6 +5116,13 @@
     </Compile>
     <Compile Include="Check\RectifyNoticePrint.aspx.designer.cs">
       <DependentUpon>RectifyNoticePrint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Check\RectifyNoticesView.aspx.cs">
+      <DependentUpon>RectifyNoticesView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Check\RectifyNoticesView.aspx.designer.cs">
+      <DependentUpon>RectifyNoticesView.aspx</DependentUpon>
     </Compile>
     <Compile Include="Check\RectifyNoticeView.aspx.cs">
       <DependentUpon>RectifyNoticeView.aspx</DependentUpon>

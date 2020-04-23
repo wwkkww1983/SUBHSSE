@@ -68,6 +68,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 单位名称
+        /// </summary>
+        public string UnitName
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 考试开始时间
         /// </summary>
         public string TestStartTime

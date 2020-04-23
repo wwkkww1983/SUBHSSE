@@ -81,7 +81,7 @@
                         SortField="WorkAreaName" FieldType="String" HeaderText="检查区域" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="200px" ColumnID="UnitName" DataField="UnitName" 
+                    <f:RenderField Width="240px" ColumnID="UnitName" DataField="UnitName" 
                         SortField="UnitName" FieldType="String" HeaderText="责任单位" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="280px" ColumnID="WrongContent" DataField="WrongContent" ExpandUnusedSpace="true"

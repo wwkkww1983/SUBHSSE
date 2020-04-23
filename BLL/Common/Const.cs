@@ -1634,6 +1634,10 @@ namespace BLL
         /// </summary>
         public const string ProjectRectifyNoticeMenuId = "0038D764-D628-46F0-94FF-D0A22C3C45A3";
         /// <summary>
+        /// 隐患整改单(赛鼎)
+        /// </summary>
+        public const string ProjectRectifyNoticesMenuId = "C3B6B222-44DC-46F3-B783-B1FC0F743C48";
+        /// <summary>
         /// 企业监督检查整改
         /// </summary>
         public const string ProjectSuperviseCheckRectifyMenuId = "29F27641-06ED-435A-9F9B-FCE6366801BE";

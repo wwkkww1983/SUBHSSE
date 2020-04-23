@@ -236,7 +236,7 @@ namespace BLL
         public static List<Model.TestRecordItem> getTrainingTestRecordListByProjectId(string projectId)
         {
             var getDataLists = (from x in Funs.DB.Training_TestRecord
-                                join y in Funs.DB.Training_TestPlan on x.TestPlanId equals y.TestPlanId
+                                join y in Funs.DB.Training_TestPlan on x.TestPlanId equals y.TestPlanId                                
                                 where x.ProjectId == projectId && x.TestStartTime.HasValue && x.TestEndTime.HasValue
                                 orderby x.TestStartTime descending
                                 select new Model.TestRecordItem
@@ -245,6 +245,7 @@ namespace BLL
                                     ProjectId = x.ProjectId,
                                     TestPlanId = x.TestPlanId,
                                     TestPlanName = y.PlanName,
+                                    UnitName= getUnitName(x.TestManId),
                                     TestManId = x.TestManId,
                                     TestManName = Funs.DB.SitePerson_Person.FirstOrDefault(p => p.PersonId == x.TestManId).PersonName,
                                     TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime),
@@ -257,6 +258,22 @@ namespace BLL
                                     TemporaryUser = x.TemporaryUser,
                                 }).ToList();
             return getDataLists;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="testManId"></param>
+        /// <returns></returns>
+        public static string getUnitName(string testManId)
+        {
+            string name = string.Empty;
+            var getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.PersonId == testManId);
+            if (getPerson != null)
+            {
+                name = UnitService.GetUnitNameByUnitId(getPerson.UnitId);
+            }
+            return name;
         }
         #endregion
 

@@ -1,10 +1,7 @@
 ﻿using BLL;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
-using ThoughtWorks.QRCode.Codec;
-using ThoughtWorks.QRCode.Codec.Data;
-using System.Text;
-using System.IO;
 
 namespace FineUIPro.Web.SitePerson
 {
@@ -566,5 +563,44 @@ namespace FineUIPro.Web.SitePerson
             PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PersonBaseInfo&menuId={1}&strParam=4", this.PersonId, BLL.Const.ProjectPersonChangeMenuId)));
         }
         #endregion
+
+        protected void btnReadIdentityCard_Click(object sender, EventArgs e)
+        {
+            var getatt = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == this.PersonId + "#1");
+            if (getatt != null && !string.IsNullOrEmpty(getatt.AttachUrl))
+            {             
+                string url = Request.Url.Scheme + "://" + Request.Url.Host + ":" + Request.Url.Port+"/"+getatt.AttachUrl;
+                string idInfo = APIIDCardInfoService.ReadIDCardInfo(url);
+                if (!string.IsNullOrEmpty(idInfo))
+                {
+                    JObject obj = JObject.Parse(idInfo);
+                    string errcode = obj["errcode"].ToString();
+                    if (errcode == "0")
+                    {
+                        string name = obj["name"].ToString();
+                        if (!string.IsNullOrEmpty(name))
+                        {
+                            this.txtPersonName.Text = name;
+                        }
+                        string id = obj["id"].ToString();
+                        if (!string.IsNullOrEmpty(id))
+                        {
+                            this.txtIdentityCard.Text = id;
+                        }
+                        string addr = obj["addr"].ToString();
+                        if (!string.IsNullOrEmpty(addr))
+                        {
+                            this.txtAddress.Text = addr;
+                        }
+                        string gender = obj["gender"].ToString();
+                        if (!string.IsNullOrEmpty(gender))
+                        {
+                            this.rblSex.SelectedValue = gender == "女" ? "2" : "1";
+                        }
+                       // string nationality = obj["nationality"].ToString();
+                    }
+                }
+            }
+        }
     }
 }

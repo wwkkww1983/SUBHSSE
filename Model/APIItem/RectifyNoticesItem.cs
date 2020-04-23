@@ -75,9 +75,33 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 检查人员姓名
+        /// 检查人员姓名(输入)
         /// </summary>
         public string CheckManNames
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 检查人员Id(选择)
+        /// </summary>
+        public string CheckManIds
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 检查人员Id(选择)
+        /// </summary>
+        public string CheckManIdNames
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 检查人员姓名(所有)
+        /// </summary>
+        public string CheckManAllNames
         {
             get;
             set;

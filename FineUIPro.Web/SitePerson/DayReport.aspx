@@ -56,7 +56,7 @@
                     </f:Toolbar>
                 </Toolbars>
                 <Columns>
-                    <f:TemplateField ColumnID="tfPageIndex" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
+                    <f:TemplateField ColumnID="tfPageIndex" Width="100px" HeaderText="序号" HeaderTextAlign="Center"
                         TextAlign="Center" EnableLock="true" Locked="False">
                         <ItemTemplate>
                             <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
@@ -65,14 +65,14 @@
                     <f:RenderField Width="200px" ColumnID="DayReportCode" DataField="DayReportCode" SortField="DayReportCode"
                         FieldType="String" HeaderText="编号" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
+                    <f:RenderField Width="150px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="编制日期"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="UserName" DataField="UserName" SortField="UserName"
+                    <f:RenderField Width="150px" ColumnID="UserName" DataField="UserName" SortField="UserName"
                         FieldType="String" HeaderText="编制人" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:TemplateField ColumnID="tfWorkTime" Width="150px" HeaderText="当日人工时" HeaderTextAlign="Center"
+                    <f:TemplateField ColumnID="tfWorkTime" Width="200px" HeaderText="当日人工时" HeaderTextAlign="Center"
                         TextAlign="Center">
                         <ItemTemplate>
                             <asp:Label ID="lblWorkTime" runat="server" Text='<%# ConvertPersonWorkTimeSum(Eval("DayReportId")) %>'
