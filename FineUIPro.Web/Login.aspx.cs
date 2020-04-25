@@ -70,7 +70,9 @@
                     this.ckRememberMe.Checked = true;
                 }
                 string sysVersion = ConfigurationManager.AppSettings["SystemVersion"];
-                this.lbVevion.Text = "请使用IE10以上版本浏览器 版本号：" + sysVersion;   
+                this.lbVevion.Text = "请使用IE10以上版本浏览器 版本号：" + sysVersion;
+
+               //GetDataService.CorrectingPersonInOutNumber("37e343bc-7ea3-4ee8-8944-3b61a845c5aa");
             }
         }
         #endregion

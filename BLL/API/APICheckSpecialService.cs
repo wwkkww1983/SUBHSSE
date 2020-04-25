@@ -148,6 +148,11 @@ namespace BLL
                         item.CheckSpecialId = newCheckSpecial.CheckSpecialId;
                         SaveCheckSpecialDetail(item);
                     }
+                    //// 单据完成后 系统自动按照单位 整改要求生成隐患整改单
+                    if (newCheckSpecial.States == Const.State_2)
+                    {
+                        SaveNewRectifyNotices(newItem);
+                    }
                 }
             }
         }
@@ -206,7 +211,8 @@ namespace BLL
                               CheckContent = x.CheckContent,
                               Unqualified = x.Unqualified,
                               Suggestions = x.Suggestions,
-                              WorkArea = x.WorkArea,
+                              WorkArea = Funs.DB.ProjectData_WorkArea.First(y => y.WorkAreaId == x.CheckArea).WorkAreaName,
+                              WorkAreaId =x.CheckArea,
                               UnitId = x.UnitId,
                               UnitName = Funs.DB.Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
                               HandleStep = x.HandleStep,
@@ -218,38 +224,40 @@ namespace BLL
                           };
             return getInfo.First();
         }
-        #endregion      
+        #endregion
 
+        #region 保存专项检查明细项
         /// <summary>
         ///  保存专项检查明细项
         /// </summary>
-        /// <param name="newItem"></param>
-        public static void SaveCheckSpecialDetail(Model.CheckSpecialDetailItem newItem)
+        /// <param name="newDetail"></param>
+        public static void SaveCheckSpecialDetail(Model.CheckSpecialDetailItem newDetail)
         {
-            if (!string.IsNullOrEmpty(newItem.CheckSpecialId))
+            if (!string.IsNullOrEmpty(newDetail.CheckSpecialId))
             {
                 Model.Check_CheckSpecialDetail newCheckSpecialDetail = new Model.Check_CheckSpecialDetail
                 {                   
-                    CheckSpecialId = newItem.CheckSpecialId,
-                    CheckItem = newItem.CheckItemSetId,
-                    CheckItemType = newItem.CheckItemSetName,
-                    Unqualified = newItem.Unqualified,
-                    UnitId = newItem.UnitId,
-                    HandleStep = newItem.HandleStep,
-                    CompleteStatus = newItem.CompleteStatus,
-                    RectifyNoticeId = newItem.RectifyNoticeId,
-                    LimitedDate = Funs.GetNewDateTime(newItem.LimitedDate),
-                    CompletedDate = Funs.GetNewDateTime(newItem.CompletedDate),
-                    Suggestions = newItem.Suggestions,
-                    WorkArea = newItem.WorkArea,
-                    CheckContent = newItem.CheckContent
+                    CheckSpecialId = newDetail.CheckSpecialId,
+                    CheckItem = newDetail.CheckItemSetId,
+                    CheckItemType = newDetail.CheckItemSetName,
+                    Unqualified = newDetail.Unqualified,
+                    UnitId = newDetail.UnitId,
+                    HandleStep = newDetail.HandleStep,
+                    CompleteStatus = newDetail.CompleteStatus,
+                    RectifyNoticeId = newDetail.RectifyNoticeId,
+                    LimitedDate = Funs.GetNewDateTime(newDetail.LimitedDate),
+                    CompletedDate = Funs.GetNewDateTime(newDetail.CompletedDate),
+                    Suggestions = newDetail.Suggestions,
+                    WorkArea = newDetail.WorkArea,
+                    CheckArea=newDetail.WorkAreaId,
+                    CheckContent = newDetail.CheckContent
                 };
-                if (!string.IsNullOrEmpty(newItem.UnitId))
+                if (!string.IsNullOrEmpty(newDetail.UnitId))
                 {
-                    newCheckSpecialDetail.UnitId = newItem.UnitId;
+                    newCheckSpecialDetail.UnitId = newDetail.UnitId;
                 }
                 
-                var updateDetail = Funs.DB.Check_CheckSpecialDetail.FirstOrDefault(x => x.CheckSpecialDetailId == newItem.CheckSpecialDetailId);
+                var updateDetail = Funs.DB.Check_CheckSpecialDetail.FirstOrDefault(x => x.CheckSpecialDetailId == newDetail.CheckSpecialDetailId);
                 if (updateDetail == null)
                 {
                     newCheckSpecialDetail.CheckSpecialDetailId = SQLHelper.GetNewID();
@@ -274,9 +282,9 @@ namespace BLL
                     Funs.DB.SubmitChanges();
                 }
                 ////保存附件
-                if (!string.IsNullOrEmpty(newItem.AttachUrl1))
+                if (!string.IsNullOrEmpty(newDetail.AttachUrl1))
                 {
-                    UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(newItem.AttachUrl1, 10, null), newItem.AttachUrl1, Const.ProjectCheckSpecialMenuId, newCheckSpecialDetail.CheckSpecialDetailId);
+                    UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(newDetail.AttachUrl1, 10, null), newDetail.AttachUrl1, Const.ProjectCheckSpecialMenuId, newCheckSpecialDetail.CheckSpecialDetailId);
                 }
                 else
                 {
@@ -284,5 +292,73 @@ namespace BLL
                 }
             }
         }
+        #endregion
+
+        #region  生成隐患整改单
+        /// <summary>
+        ///  生成隐患整改单
+        /// </summary>
+        /// <param name="newItem"></param>
+        public static void SaveNewRectifyNotices(Model.CheckSpecialItem newItem)
+        {
+            var newDetail = newItem.CheckSpecialDetailItems.Where(x => x.HandleStep == "3" && (!x.CompleteStatus.HasValue || x.CompleteStatus == false));
+            if (newDetail.Count() > 0)
+            {
+                var getUnitIdList = newDetail.Select(x => x.UnitId).Distinct();
+                foreach (var uItem in getUnitIdList)
+                {
+                    Model.RectifyNoticesItem newRectifyNotices = new Model.RectifyNoticesItem
+                    {
+                        ProjectId = newItem.ProjectId,
+                        UnitId = uItem,
+                        CheckManNames = newItem.PartInPersonNames,
+                        CheckManIds = newItem.PartInPersonIds,
+                        CheckedDate = newItem.CheckTime,
+                        HiddenHazardType = "1",
+                        CompleteManId = newItem.CheckPersonId,
+                        States = Const.State_0,
+                        AttachUrl = newItem.AttachUrl1,
+                    };
+
+                    var getDetails = newDetail.Where(x => x.UnitId == uItem);
+                    if (getDetails.Count() > 0)
+                    {
+                        string workAreaIds = null;
+                        newRectifyNotices.RectifyNoticesItemItem = new List<Model.RectifyNoticesItemItem>();
+                        foreach (var dItem in getDetails)
+                        {
+                            Model.RectifyNoticesItemItem newRectifyNoticesItem = new Model.RectifyNoticesItemItem
+                            {
+                                WrongContent = dItem.CheckItemSetName + dItem.CheckContent + dItem.Unqualified,
+                                Requirement = dItem.Suggestions,
+                                LimitTime = dItem.LimitedDate,
+                                PhotoBeforeUrl=dItem.AttachUrl1,                                
+                            };
+                            if (string.IsNullOrEmpty(workAreaIds))
+                            {
+                                workAreaIds = dItem.WorkAreaId;
+                            }
+                            else
+                            {
+                                workAreaIds += "," + dItem.WorkAreaId;
+                            }
+                            if (string.IsNullOrEmpty(dItem.CheckSpecialDetailId))
+                            {
+                                newRectifyNotices.CheckSpecialDetailId = dItem.CheckSpecialDetailId;
+                            }
+                            else
+                            {
+                                newRectifyNotices.CheckSpecialDetailId += "," + dItem.CheckSpecialDetailId;
+                            }
+                            newRectifyNotices.RectifyNoticesItemItem.Add(newRectifyNoticesItem);                           
+                        }
+                      
+                        newRectifyNotices.WorkAreaId = workAreaIds;
+                        APIRectifyNoticesService.SaveRectifyNotices(newRectifyNotices);
+                    }
+                }
+            }
+        }
+        #endregion
     }
 }

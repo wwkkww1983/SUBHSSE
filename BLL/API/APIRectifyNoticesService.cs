@@ -246,6 +246,7 @@ namespace BLL
         {
             using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
+                bool insertRectifyNoticesItemItem = false;
                 Model.Check_RectifyNotices newRectifyNotices = new Model.Check_RectifyNotices
                 {
                     RectifyNoticesId = rectifyNotices.RectifyNoticesId,
@@ -288,30 +289,8 @@ namespace BLL
                     {
                         APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.RectifyNoticesId, rectifyNotices.AttachUrl, "0");
                     }
-                    //// 新增明细
-                    if (rectifyNotices.RectifyNoticesItemItem != null && rectifyNotices.RectifyNoticesItemItem.Count() > 0)
-                    {
-                        foreach (var rItem in rectifyNotices.RectifyNoticesItemItem)
-                        {
-                            Model.Check_RectifyNoticesItem newItem = new Model.Check_RectifyNoticesItem
-                            {
-                                RectifyNoticesItemId = SQLHelper.GetNewID(),
-                                RectifyNoticesId = newRectifyNotices.RectifyNoticesId,
-                                WrongContent = rItem.WrongContent,
-                                Requirement = rItem.Requirement,
-                                LimitTime = Funs.GetNewDateTime(rItem.LimitTime),
-                                RectifyResults = null,
-                                IsRectify = null,
-                            };
-                            db.Check_RectifyNoticesItem.InsertOnSubmit(newItem);
-                            db.SubmitChanges();
-
-                            if (!string.IsNullOrEmpty(rItem.PhotoBeforeUrl))
-                            {
-                                APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newItem.RectifyNoticesItemId + "#1", rItem.PhotoBeforeUrl, "0");
-                            }
-                        }
-                    }
+                    insertRectifyNoticesItemItem = true;
+                   
                     //// 回写巡检记录表
                     if (!string.IsNullOrEmpty(rectifyNotices.HazardRegisterId))
                     {
@@ -325,6 +304,20 @@ namespace BLL
                                 getHazardRegister.HandleIdea += "已升级为隐患整改单：" + newRectifyNotices.RectifyNoticesCode;
                                 getHazardRegister.ResultId = newRectifyNotices.RectifyNoticesId;
                                 getHazardRegister.ResultType = "1";
+                                db.SubmitChanges();
+                            }
+                        }
+                    }
+                    //// 回写专项检查明细表
+                    if (!string.IsNullOrEmpty(rectifyNotices.CheckSpecialDetailId))
+                    {
+                        List<string> listIds = Funs.GetStrListByStr(rectifyNotices.CheckSpecialDetailId, ',');
+                        foreach (var item in listIds)
+                        {
+                            var getCheckSpecialDetail = db.Check_CheckSpecialDetail.FirstOrDefault(x => x.CheckSpecialDetailId == item);
+                            if (getCheckSpecialDetail != null)
+                            {
+                                getCheckSpecialDetail.CompleteStatus = true;                           
                                 db.SubmitChanges();
                             }
                         }
@@ -357,30 +350,8 @@ namespace BLL
                             }
                             db.Check_RectifyNoticesItem.DeleteAllOnSubmit(deleteItem);
                         }
-                        //// 新增明细
-                        if (rectifyNotices.RectifyNoticesItemItem != null && rectifyNotices.RectifyNoticesItemItem.Count() > 0)
-                        {
-                            foreach (var rItem in rectifyNotices.RectifyNoticesItemItem)
-                            {
-                                Model.Check_RectifyNoticesItem newItem = new Model.Check_RectifyNoticesItem
-                                {
-                                    RectifyNoticesItemId = SQLHelper.GetNewID(),
-                                    RectifyNoticesId = newRectifyNotices.RectifyNoticesId,
-                                    WrongContent = rItem.WrongContent,
-                                    Requirement = rItem.Requirement,
-                                    LimitTime = Funs.GetNewDateTime(rItem.LimitTime),
-                                    RectifyResults = null,
-                                    IsRectify = null,
-                                };
-                                db.Check_RectifyNoticesItem.InsertOnSubmit(newItem);
-                                db.SubmitChanges();
 
-                                if (!string.IsNullOrEmpty(rItem.PhotoBeforeUrl))
-                                {
-                                    APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newItem.RectifyNoticesItemId + "#1", rItem.PhotoBeforeUrl, "0");
-                                }
-                            }
-                        }
+                        insertRectifyNoticesItemItem = true;
                     }
                     else if (newRectifyNotices.States == "2") ////总包单位项目安全经理 审核
                     {
@@ -456,6 +427,20 @@ namespace BLL
                         else
                         {                         
                             isUpdate.ReCheckDate = DateTime.Now;
+                                                        
+                            //// 回写专项检查明细表
+                            var getCheckSpecialDetails = from x in db.Check_CheckSpecialDetail
+                                                         where x.RectifyNoticeId == isUpdate.RectifyNoticesId
+                                                         select x;
+                            if (getCheckSpecialDetails.Count() > 0)
+                            {                                
+                                foreach (var item in getCheckSpecialDetails)
+                                {
+                                    item.CompletedDate = DateTime.Now;
+                                    item.CompleteStatus = true;
+                                    db.SubmitChanges();
+                                }
+                            }
                         }
                         db.SubmitChanges();
                         //// 整改明细反馈 复查 是否合格
@@ -469,6 +454,33 @@ namespace BLL
                                     getUpdateItem.IsRectify = rItem.IsRectify;
                                     db.SubmitChanges();
                                 }
+                            }
+                        }
+                    }
+                }
+                if (insertRectifyNoticesItemItem)
+                {
+                    //// 新增明细
+                    if (rectifyNotices.RectifyNoticesItemItem != null && rectifyNotices.RectifyNoticesItemItem.Count() > 0)
+                    {
+                        foreach (var rItem in rectifyNotices.RectifyNoticesItemItem)
+                        {
+                            Model.Check_RectifyNoticesItem newItem = new Model.Check_RectifyNoticesItem
+                            {
+                                RectifyNoticesItemId = SQLHelper.GetNewID(),
+                                RectifyNoticesId = newRectifyNotices.RectifyNoticesId,
+                                WrongContent = rItem.WrongContent,
+                                Requirement = rItem.Requirement,
+                                LimitTime = Funs.GetNewDateTime(rItem.LimitTime),
+                                RectifyResults = null,
+                                IsRectify = null,
+                            };
+                            db.Check_RectifyNoticesItem.InsertOnSubmit(newItem);
+                            db.SubmitChanges();
+
+                            if (!string.IsNullOrEmpty(rItem.PhotoBeforeUrl))
+                            {
+                                APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newItem.RectifyNoticesItemId + "#1", rItem.PhotoBeforeUrl, "0");
                             }
                         }
                     }

@@ -83,6 +83,8 @@ namespace BLL
                                 IsUsedName = x.IsUsed == false ? "不启用" : "启用",
                                 AuditorId = x.AuditorId,
                                 AuditorName = x.AuditorName,
+                                IsForeign = x.IsForeign.HasValue ? x.IsForeign : false,
+                                IsOutside = x.IsOutside.HasValue ? x.IsOutside : false,
                                 AuditorDate = string.Format("{0:yyyy-MM-dd}", x.AuditorDate),
                                 AttachUrl1 = x.IDCardUrl == null ? APIUpLoadFileService.getFileUrl(personId + "#1", null) : x.IDCardUrl.Replace('\\', '/'),
                                 AttachUrl2 = APIUpLoadFileService.getFileUrl(personId + "#2", null),
@@ -116,19 +118,6 @@ namespace BLL
                 }
             }
             return returnUrl;
-        }
-        #endregion
-
-        #region 根据identityCard获取人员信息
-        /// <summary>
-        /// 根据identityCard获取人员信息
-        /// </summary>
-        /// <param name="identityCard"></param>
-        /// <returns></returns>
-        public static Model.PersonItem getPersonByIdentityCard(string identityCard)
-        {
-            var getPerson = Funs.DB.View_SitePerson_Person.FirstOrDefault(x => x.IdentityCard == identityCard);
-            return ObjectMapperManager.DefaultInstance.GetMapper<Model.View_SitePerson_Person, Model.PersonItem>().Map(getPerson);
         }
         #endregion
 
@@ -171,7 +160,9 @@ namespace BLL
                               WorkAreaId = x.WorkAreaId,
                               WorkAreaName = x.WorkAreaName,
                               PostType=x.PostType,
-                              PostTypeName=Funs.DB.Sys_Const.First(z=>z.GroupId== ConstValue.Group_PostType && z.ConstValue==x.PostType).ConstText,
+                              IsForeign = x.IsForeign.HasValue ? x.IsForeign : false,
+                              IsOutside = x.IsOutside.HasValue ? x.IsOutside : false,
+                              PostTypeName =Funs.DB.Sys_Const.First(z=>z.GroupId== ConstValue.Group_PostType && z.ConstValue==x.PostType).ConstText,
                           };
             return persons.ToList();
         }
@@ -250,6 +241,8 @@ namespace BLL
                               WorkAreaName = Funs.DB.ProjectData_WorkArea.First(z => z.WorkAreaId == x.WorkAreaId).WorkAreaName,
                               PostType = z.PostType,
                               PostTypeName = Funs.DB.Sys_Const.First(p => p.GroupId == ConstValue.Group_PostType && p.ConstValue == z.PostType).ConstText,
+                              IsForeign = x.IsForeign.HasValue ? x.IsForeign : false,
+                              IsOutside = x.IsOutside.HasValue ? x.IsOutside : false,
                           };
             return persons.ToList();
         }
@@ -357,6 +350,8 @@ namespace BLL
                     InTime = Funs.GetNewDateTime(person.InTime),
                     OutTime = Funs.GetNewDateTime(person.OutTime),
                     AuditorId = person.AuditorId,
+                    IsForeign = person.IsForeign,
+                    IsOutside = person.IsOutside,
                     // AuditorDate = Funs.GetNewDateTime(person.AuditorDate),
                     Sex = person.Sex,
                 };
@@ -384,6 +379,7 @@ namespace BLL
                 var getPerson = db.SitePerson_Person.FirstOrDefault(x => (x.IdentityCard == newPerson.IdentityCard && x.ProjectId==newPerson.ProjectId) || x.PersonId == newPerson.PersonId);
                 if (getPerson == null)
                 {
+                    newPerson.Isprint = "0";
                     newPerson.PersonId = SQLHelper.GetNewID(typeof(Model.SitePerson_Person));
                     db.SitePerson_Person.InsertOnSubmit(newPerson);
                     db.SubmitChanges();
@@ -443,6 +439,8 @@ namespace BLL
                     }
 
                     getPerson.ExchangeTime2 = null;
+                    getPerson.IsForeign = person.IsForeign;
+                    getPerson.IsOutside = person.IsOutside;
                     db.SubmitChanges();
                 }
                 if (!string.IsNullOrEmpty(newPerson.PersonId))
@@ -730,7 +728,7 @@ namespace BLL
         {
             var getLists = from x in Funs.DB.QualityAudit_PersonQuality
                            join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
-                           where y.IdentityCard == identityCard || x.PersonId == identityCard
+                           where (y.IdentityCard == identityCard || x.PersonId == identityCard)  
                            orderby y.CardNo
                            select new Model.PersonQualityItem
                            {

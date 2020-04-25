@@ -74,9 +74,10 @@ namespace FineUIPro.Web.SysManage
                 this.GetButtonPower();
                 this.UserId = Request.Params["userId"];
                 this.UnitId = Request.Params["UnitId"];
-                BLL.ConstValue.InitConstValueDropDownList(this.drpIsPost, ConstValue.Group_0001, false);
-                BLL.ConstValue.InitConstValueDropDownList(this.drpIsOffice, ConstValue.Group_0001, false);
-                BLL.UnitService.InitUnitDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, true);
+                ConstValue.InitConstValueDropDownList(this.drpIsPost, ConstValue.Group_0001, false);
+                ConstValue.InitConstValueDropDownList(this.drpIsOffice, ConstValue.Group_0001, false);
+                UnitService.InitUnitDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, true);
+                DepartService.InitDepartDropDownList(this.drpDepart, true);
                 if (!string.IsNullOrEmpty(this.CurrUser.UnitId))
                 {
                     this.drpUnit.SelectedValue = this.CurrUser.UnitId;
@@ -128,6 +129,7 @@ namespace FineUIPro.Web.SysManage
                             this.SignatureUrl = user.SignatureUrl;
                             this.Image2.ImageUrl = "~/" + this.SignatureUrl;
                         }
+                        this.drpDepart.SelectedValue = user.DepartId;
                     }
                 }
             }
@@ -176,10 +178,13 @@ namespace FineUIPro.Web.SysManage
             {
                 newUser.UnitId = this.CurrUser.UnitId;
             }
-
             if (this.drpRole.SelectedValue != Const._Null)
             {
                 newUser.RoleId = this.drpRole.SelectedValue;
+            }
+            if (this.drpDepart.SelectedValue != Const._Null)
+            {
+                newUser.DepartId = this.drpDepart.SelectedValue;
             }
             newUser.SignatureUrl = this.SignatureUrl;
             newUser.IsPost = Convert.ToBoolean(this.drpIsPost.SelectedValue);

@@ -94,7 +94,7 @@
                     <f:RenderField Width="240px" ColumnID="UnitName" DataField="UnitName"  ExpandUnusedSpace="true"
                         SortField="UnitName" FieldType="String" HeaderText="受检单位名称" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="CheckPersonName" DataField="CheckPersonName"
+                    <f:RenderField Width="150px" ColumnID="CheckPersonName" DataField="CheckPersonName"
                          SortField="CheckPersonName" FieldType="String" HeaderText="检查人"
                         TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>

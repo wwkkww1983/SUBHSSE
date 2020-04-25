@@ -137,6 +137,14 @@ namespace FineUIPro.Web.SitePerson
                         this.txtAddress.Text = person.Address;
                         this.txtTelephone.Text = person.Telephone;
                         this.txtOutResult.Text = person.OutResult;
+                        if (person.IsForeign.HasValue)
+                        {
+                            this.ckIsForeign.Checked = person.IsForeign.Value;
+                        }
+                        if (person.IsOutside.HasValue)
+                        {
+                            this.ckIsOutside.Checked = person.IsOutside.Value;
+                        }
                         if (person.InTime != null)
                         {
                             this.txtInTime.Text = string.Format("{0:yyyy-MM-dd}", person.InTime);
@@ -303,6 +311,9 @@ namespace FineUIPro.Web.SitePerson
             {
                 person.PhotoUrl = null;
             }
+
+            person.IsForeign = this.ckIsForeign.Checked;
+            person.IsOutside = this.ckIsOutside.Checked;
             if (string.IsNullOrEmpty(PersonId))
             {
                 if (!string.IsNullOrEmpty(this.txtCardNo.Text.Trim()))

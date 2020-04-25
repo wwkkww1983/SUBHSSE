@@ -115,7 +115,7 @@ namespace WebAPI.Controllers
                     }
                     else
                     {
-                     //  GetDataService.CorrectingPersonInOutNumber(projectId);
+                         GetDataService.CorrectingPersonInOutNumber(projectId);
                     }
                     string hiddenStr = RectificationNum.ToString() + "/" + HiddenDangerNum.ToString();
                     responeData.data = new { ProjectData, SafeDayCount, SafeHours, SitePersonNum, SpecialEquipmentNum, EntryTrainingNum, hiddenStr, RiskI, RiskII, RiskIII, RiskIV, RiskV };

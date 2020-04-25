@@ -34,7 +34,8 @@
                     <f:DropDownList ID="drpUnit" runat="server" Label="单位" EnableEdit="true" ForceSelection="false"
                         Required="true" ShowRedStar="true">
                     </f:DropDownList>
-                 
+                  <f:DropDownList ID="drpDepart" runat="server" Label="部门" EnableEdit="true" ForceSelection="false">
+                    </f:DropDownList>
                 </Items>
             </f:FormRow>            
             <f:FormRow>

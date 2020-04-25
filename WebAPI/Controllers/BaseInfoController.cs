@@ -177,7 +177,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = APIBaseInfoService.getProjectPictureByProjectId(projectId, null);
+                var getDataList = APIBaseInfoService.getProjectPictureByProjectId(projectId, null, null);
                 int pageCount = getDataList.Count();
                 if (pageCount > 0 && pageIndex > 0)
                 {
@@ -205,8 +205,37 @@ namespace WebAPI.Controllers
         {
             var responeData = new Model.ResponeData();
             try
-            {                
-                responeData.data = APIBaseInfoService.getProjectPictureByProjectId(projectId, type); ;
+            {
+                responeData.data = APIBaseInfoService.getProjectPictureByProjectId(projectId, type, null); ;
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        /// <summary>
+        ///  根据类型获项目图片
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="type"></param>
+        /// <param name="strParam"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns></returns>
+        public Model.ResponeData getProjectPictureByProjectIdType(string projectId, string type, string strParam, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APIBaseInfoService.getProjectPictureByProjectId(projectId, type, strParam);
+                int pageCount = getDataList.Count();
+                if (pageCount > 0 && pageIndex > 0)
+                {
+                    getDataList = getDataList.OrderByDescending(u => u.BaseInfoCode).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+
+                }
+                responeData.data = new { pageCount, getDataList };
             }
             catch (Exception ex)
             {
@@ -216,7 +245,6 @@ namespace WebAPI.Controllers
 
             return responeData;
         }
-
         /// <summary>
         ///   获项目图片
         /// </summary>

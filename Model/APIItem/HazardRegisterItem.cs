@@ -297,6 +297,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 整改要求
+        /// </summary>
+        public string Requirements
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 相关单据类型（1-整改单；2-惩罚单；3-停工令）
         /// </summary>
         public string ResultType

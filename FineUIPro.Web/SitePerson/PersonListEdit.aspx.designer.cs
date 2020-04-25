@@ -121,15 +121,6 @@ namespace FineUIPro.Web.SitePerson {
         protected global::FineUIPro.DropDownList drpTitle;
         
         /// <summary>
-        /// btnQR 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnQR;
-        
-        /// <summary>
         /// Panel4 控件。
         /// </summary>
         /// <remarks>
@@ -292,6 +283,24 @@ namespace FineUIPro.Web.SitePerson {
         protected global::FineUIPro.DatePicker txtOutTime;
         
         /// <summary>
+        /// ckIsForeign 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.CheckBox ckIsForeign;
+        
+        /// <summary>
+        /// ckIsOutside 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.CheckBox ckIsOutside;
+        
+        /// <summary>
         /// txtOutResult 控件。
         /// </summary>
         /// <remarks>
@@ -353,6 +362,15 @@ namespace FineUIPro.Web.SitePerson {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Button btnSave;
+        
+        /// <summary>
+        /// btnQR 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnQR;
         
         /// <summary>
         /// btnClose 控件。

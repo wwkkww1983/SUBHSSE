@@ -600,6 +600,16 @@
             <param name="type"></param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getProjectPictureByProjectIdType(System.String,System.String,System.String,System.Int32)">
+            <summary>
+             根据类型获项目图片
+            </summary>
+            <param name="projectId"></param>
+            <param name="type"></param>
+            <param name="strParam"></param>
+            <param name="pageIndex"></param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.BaseInfoController.getProjectPicture">
             <summary>
               获项目图片

@@ -24,7 +24,7 @@
                         HeaderText="部门名称" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="350px" ColumnID="Remark" DataField="Remark" FieldType="String"
-                        HeaderText="备注" HeaderTextAlign="Center" TextAlign="Center">
+                        HeaderText="备注" HeaderTextAlign="Center" TextAlign="Center" ExpandUnusedSpace="true">
                     </f:RenderField>
                 </Columns>
                 <Listeners>
@@ -51,10 +51,10 @@
                 <Items>
                     <f:HiddenField ID="hfFormID" runat="server">
                     </f:HiddenField>
-                    <f:TextBox ID="txtDepartCode" Label="部门编号" ShowRedStar="true" Required="true" runat="server"
+                    <f:TextBox ID="txtDepartCode" Label="编号" ShowRedStar="true" Required="true" runat="server"
                         LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
-                    <f:TextBox ID="txtDepartName" Label="部门名称" ShowRedStar="true" Required="true" runat="server"
+                    <f:TextBox ID="txtDepartName" Label="名称" ShowRedStar="true" Required="true" runat="server"
                         LabelAlign="right" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
                     <f:TextArea ID="txtRemark" runat="server" Label="备注" LabelAlign="right">

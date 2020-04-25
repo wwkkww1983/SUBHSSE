@@ -52,9 +52,7 @@
                             <f:DropDownList ID="drpPosition" runat="server" Label="所属职务" LabelAlign="Right" EnableEdit="true">
                             </f:DropDownList>
                             <f:DropDownList ID="drpTitle" runat="server" Label="所属职称" LabelAlign="Right" EnableEdit="true">
-                            </f:DropDownList>
-                            <f:Button runat="server" ID="btnQR" OnClick="btnQR_Click" Text="二维码生成" MarginLeft="10px">
-                            </f:Button>
+                            </f:DropDownList>                        
                         </Items>
                     </f:Panel>
                     <f:Panel ID="Panel4" runat="server" BoxFlex="3" ShowBorder="false" ShowHeader="false"
@@ -77,7 +75,7 @@
                             <f:RadioButtonList ID="rblIsUsed" runat="server" Label="人员在场" LabelAlign="Right" Required="True" ShowRedStar="True">
                                 <f:RadioItem Value="True" Text="是" />
                                 <f:RadioItem Value="False" Text="否" />
-                            </f:RadioButtonList>
+                            </f:RadioButtonList>                          
                         </Items>
                     </f:Panel>
                     <f:Panel ID="Panel5" Title="面板1" BoxFlex="2" runat="server" ShowBorder="false" ShowHeader="false"
@@ -122,6 +120,12 @@
                             </f:DatePicker>
                         </Items>
                     </f:FormRow>
+                    <f:FormRow>
+                        <Items>
+                              <f:CheckBox runat="server" ID="ckIsForeign" Label="外籍"></f:CheckBox>
+                            <f:CheckBox runat="server" ID="ckIsOutside" Label="外聘"></f:CheckBox>
+                        </Items>
+                    </f:FormRow>
                     <f:FormRow ColumnWidths="100%">
                         <Items>
                             <f:TextBox ID="txtOutResult" runat="server" Label="出场原因" LabelAlign="Right">
@@ -147,6 +151,9 @@
                             <f:ToolbarFill runat="server"></f:ToolbarFill>
                             <f:Button ID="btnSave" Icon="SystemSave" runat="server"  ValidateForms="Form2"
                                 OnClick="btnSave_Click" Hidden="true">
+                            </f:Button>
+                                <f:Button runat="server" ID="btnQR" OnClick="btnQR_Click" Icon="Shading"  
+                                    ToolTip="二维码查看">
                             </f:Button>
                             <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
                             </f:Button>

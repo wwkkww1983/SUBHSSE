@@ -120,7 +120,7 @@ namespace BLL
         /// </summary>
         /// <param name="projectId"></param>        
         /// <returns></returns>
-        public static List<Model.BaseInfoItem> getProjectPictureByProjectId(string projectId, string pictureType)
+        public static List<Model.BaseInfoItem> getProjectPictureByProjectId(string projectId, string pictureType, string strParam)
         {
             var getDataLists = (from x in Funs.DB.InformationProject_Picture
                                 join y in Funs.DB.AttachFile on x.PictureId equals y.ToKeyId
@@ -132,8 +132,12 @@ namespace BLL
                                     BaseInfoName = x.Title,
                                     BaseInfoCode = string.Format("{0:yyyy-MM-dd}", x.UploadDate),
                                     ImageUrl = y.AttachUrl.Replace('\\', '/'),
-                                }).Take(5).ToList();
-            return getDataLists;
+                                });
+            if (!string.IsNullOrEmpty(strParam))
+            {
+                getDataLists = getDataLists.Where(x => x.BaseInfoName.Contains(strParam));
+            }
+            return getDataLists.ToList();
         }
 
         /// <summary>

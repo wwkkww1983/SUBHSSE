@@ -453,7 +453,14 @@ namespace Model
             get;
             set;
         }
-
+        /// <summary>
+        /// 专项检查明细项ID
+        /// </summary>
+        public string CheckSpecialDetailId
+        {
+            get;
+            set;
+        }
         /// <summary>
         ///  隐患整改明细表
         /// </summary>

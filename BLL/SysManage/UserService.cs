@@ -142,6 +142,7 @@ namespace BLL
                 Telephone=user.Telephone,
                 DataSources = user.DataSources,
                 SignatureUrl = user.SignatureUrl,
+                DepartId = user.DepartId,
             };
             db.Sys_User.InsertOnSubmit(newUser);
             db.SubmitChanges();
@@ -171,6 +172,7 @@ namespace BLL
                 newUser.IsOffice = user.IsOffice;
                 newUser.Telephone = user.Telephone;
                 newUser.SignatureUrl = user.SignatureUrl;
+                newUser.DepartId = user.DepartId;
                 db.SubmitChanges();
             }
         }

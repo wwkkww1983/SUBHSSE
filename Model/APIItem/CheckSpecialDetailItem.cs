@@ -70,6 +70,14 @@ namespace Model
         /// <summary>
         /// 检查区域
         /// </summary>
+        public string WorkAreaId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 检查区域
+        /// </summary>
         public string WorkArea
         {
             get;

@@ -176,5 +176,21 @@ namespace Model
             get;
             set;
         }
+        /// <summary>
+        /// 是否外籍人员
+        /// </summary>
+        public bool? IsForeign
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 是否外聘人员
+        /// </summary>
+        public bool? IsOutside
+        {
+            get;
+            set;
+        }
     }
 }

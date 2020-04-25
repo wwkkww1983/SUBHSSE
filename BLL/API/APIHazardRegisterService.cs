@@ -70,6 +70,7 @@ namespace BLL
                 SafeSupervisionIsOK = hazardRegister.SafeSupervisionIsOK,
                 IsWx = "Y",
                 CCManIds= hazardRegister.CCManIds,
+                Requirements = hazardRegister.Requirements,
             };
             var isUpdate = Funs.DB.HSSE_Hazard_HazardRegister.FirstOrDefault(x => x.HazardRegisterId == newHazardRegister.HazardRegisterId);
             if (isUpdate == null)

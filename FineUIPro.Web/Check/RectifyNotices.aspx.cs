@@ -73,23 +73,24 @@ namespace FineUIPro.Web.Check
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT RectifyNotices.RectifyNoticesId,RectifyNotices.ProjectId,CodeRecords.Code AS RectifyNoticesCode,RectifyNotices.UnitId,RectifyNotices.WorkAreaId,RectifyNotices.CheckedDate,RectifyNotices.WrongContent,RectifyNotices.SignPerson,"
-                          + @" RectifyNotices.SignDate,RectifyNotices.CompleteStatus,RectifyNotices.DutyPerson,RectifyNotices.CompleteDate,RectifyNotices.IsRectify,RectifyNotices.CheckPerson,RectifyNotices.AttachUrl,Unit.UnitName,WorkArea.WorkAreaName,Person.UserName AS CheckPersonName"
-                          +@" ,(CASE WHEN States = 1 THEN '待签发' WHEN States = 2 THEN '待整改' WHEN States = 3 THEN '待审核' WHEN States = 4 THEN '待复查' WHEN States = 5 THEN '已完成' ELSE '待提交' END) AS StatesName"
-                          + @" FROM Check_RectifyNotices AS RectifyNotices "
-                          + @" LEFT JOIN Base_Project AS Project ON Project.ProjectId = RectifyNotices.ProjectId "
-                          + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId = RectifyNotices.UnitId "
-                          + @" LEFT JOIN ProjectData_WorkArea AS WorkArea ON WorkArea.WorkAreaId = RectifyNotices.WorkAreaId "
-                          + @" LEFT JOIN Sys_User AS Users ON RectifyNotices.SignPerson = Users.UserId "
-                          + @" LEFT JOIN Sys_User AS Person ON Person.UserId = RectifyNotices.CheckPerson "
-                          + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON RectifyNotices.RectifyNoticesId = CodeRecords.DataId WHERE States IS NOT NULL ";
+            string strSql = @"SELECT R.RectifyNoticesId,R.ProjectId,CodeRecords.Code AS RectifyNoticesCode,R.UnitId ,Unit.UnitName,R.WorkAreaId
+                                        ,WorkAreaName= STUFF(( SELECT ',' + WorkAreaName FROM dbo.ProjectData_WorkArea where PATINDEX('%,' + RTRIM(WorkAreaId) + ',%',',' +R.WorkAreaId + ',')>0 FOR XML PATH('')), 1, 1,'')
+                                        ,CheckPersonName= (STUFF(( SELECT ',' + UserName FROM dbo.Sys_User where PATINDEX('%,' + RTRIM(UserId) + ',%',',' +R.CheckManIds+ ',')>0 FOR XML PATH('')), 1, 1,'')+ (CASE WHEN CheckManNames IS NOT NULL AND CheckManNames !='' THEN ','+ CheckManNames ELSE '' END))
+                                        ,R.DutyPerson,R.CheckedDate,DutyPerson.UserName AS DutyPersonName,R.DutyPersonTime,R.CompleteDate
+                                        ,(CASE WHEN States = 1 THEN '待签发' WHEN States = 2 THEN '待整改' WHEN States = 3 THEN '待审核' WHEN States = 4 THEN '待复查' WHEN States = 5 THEN '已完成' ELSE '待提交' END) AS StatesName
+                        FROM Check_RectifyNotices AS R
+                        LEFT JOIN Base_Project AS Project ON Project.ProjectId = R.ProjectId 
+                        LEFT JOIN Base_Unit AS Unit ON Unit.UnitId = R.UnitId 
+                        LEFT JOIN Sys_User AS DutyPerson ON DutyPerson.UserId = R.DutyPerson
+                        LEFT JOIN Sys_CodeRecords AS CodeRecords ON R.RectifyNoticesId = CodeRecords.DataId 
+                        WHERE States IS NOT NULL  ";
             List<SqlParameter> listStr = new List<SqlParameter>();
-            strSql += " AND RectifyNotices.ProjectId = @ProjectId";
+            strSql += " AND R.ProjectId = @ProjectId";
             listStr.Add(new SqlParameter("@ProjectId", this.ProjectId));
 
             if (BLL.ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.ProjectId, this.CurrUser.UnitId))
             {
-                strSql += " AND RectifyNotices.UnitId = @UnitId";  ///状态为已完成
+                strSql += " AND R.UnitId = @UnitId";  ///状态为已完成
                 listStr.Add(new SqlParameter("@UnitId", this.CurrUser.UnitId));
             }
             if (!string.IsNullOrEmpty(this.txtRectifyNoticesCode.Text.Trim()))
@@ -109,12 +110,12 @@ namespace FineUIPro.Web.Check
             }
             if (this.rbStates.SelectedValue != "-1")
             {
-                strSql += " AND RectifyNotices.States =@States";
+                strSql += " AND R.States =@States";
                 listStr.Add(new SqlParameter("@States", this.rbStates.SelectedValue));
             }
             if (this.rbrbHiddenHazardType.SelectedValue != "-1")
             {
-                strSql += " AND RectifyNotices.HiddenHazardType =@HiddenHazardType";
+                strSql += " AND R.HiddenHazardType =@HiddenHazardType";
                 listStr.Add(new SqlParameter("@HiddenHazardType", this.rbrbHiddenHazardType.SelectedValue));
             }
 
