@@ -115,9 +115,7 @@ namespace BLL
                 IncentiveReason = newItem.IncentiveReason,
                 BasicItem = newItem.BasicItem,
                 PunishMoney = newItem.PunishMoney,
-                Currency = newItem.Currency,
-                SignMan = newItem.SignManId,
-                ApproveMan = newItem.ApproveManId,
+                Currency = newItem.Currency,               
                 FileContents = System.Web.HttpUtility.HtmlEncode(newItem.FileContents),
                 CompileMan = newItem.CompileManId,
                 States = Const.State_2,
@@ -125,6 +123,14 @@ namespace BLL
             if (newItem.States != "1")
             {
                 newPunishNotice.States = Const.State_0;
+            }
+            if (!string.IsNullOrEmpty(newItem.SignManId))
+            {
+                newPunishNotice.SignMan = newItem.SignManId;
+            }
+            if (!string.IsNullOrEmpty(newItem.ApproveManId))
+            {
+                newPunishNotice.ApproveMan = newItem.ApproveManId;
             }
 
             var updatePunishNotice = Funs.DB.Check_PunishNotice.FirstOrDefault(x => x.PunishNoticeId == newItem.PunishNoticeId);

@@ -141,3 +141,15 @@ D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Debug\Model.csproj.CoreCompileInputs.
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Debug\Model.csproj.CopyComplete
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Debug\Model.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Debug\Model.pdb
+D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Debug\Model.csprojAssemblyReference.cache
+D:\DepCode\SEDIN\HSSE\HSSE\Model\bin\Debug\Model.dll
+D:\DepCode\SEDIN\HSSE\HSSE\Model\bin\Debug\Model.pdb
+D:\DepCode\SEDIN\HSSE\HSSE\Model\bin\Debug\EmitMapper.dll
+D:\DepCode\SEDIN\HSSE\HSSE\Model\bin\Debug\Newtonsoft.Json.dll
+D:\DepCode\SEDIN\HSSE\HSSE\Model\bin\Debug\Newtonsoft.Json.pdb
+D:\DepCode\SEDIN\HSSE\HSSE\Model\bin\Debug\Newtonsoft.Json.xml
+D:\DepCode\SEDIN\HSSE\HSSE\Model\obj\Debug\Model.csprojAssemblyReference.cache
+D:\DepCode\SEDIN\HSSE\HSSE\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
+D:\DepCode\SEDIN\HSSE\HSSE\Model\obj\Debug\Model.csproj.CopyComplete
+D:\DepCode\SEDIN\HSSE\HSSE\Model\obj\Debug\Model.dll
+D:\DepCode\SEDIN\HSSE\HSSE\Model\obj\Debug\Model.pdb

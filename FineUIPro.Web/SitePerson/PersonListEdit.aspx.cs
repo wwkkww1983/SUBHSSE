@@ -129,6 +129,10 @@ namespace FineUIPro.Web.SitePerson
                         {
                             this.drpTeamGroup.SelectedValue = person.TeamGroupId;
                         }
+                        if (!string.IsNullOrEmpty(person.AuditorId))
+                        {
+                            this.drpAuditor.SelectedValue = person.AuditorId;
+                        }
                         this.rblIsUsed.SelectedValue = person.IsUsed ? "True" : "False";
                         this.rblIsCardUsed.SelectedValue = person.IsCardUsed ? "True" : "False";
                         this.txtCardNo.Text = person.CardNo;
@@ -145,15 +149,21 @@ namespace FineUIPro.Web.SitePerson
                         {
                             this.ckIsOutside.Checked = person.IsOutside.Value;
                         }
-                        if (person.InTime != null)
+                        if (person.InTime.HasValue)
                         {
                             this.txtInTime.Text = string.Format("{0:yyyy-MM-dd}", person.InTime);
                         }
-                        if (person.OutTime != null)
+                        if (person.OutTime.HasValue)
                         {
                             this.txtOutTime.Text = string.Format("{0:yyyy-MM-dd}", person.OutTime);
                         }
-                        imgPhoto.ImageUrl = "../" + person.PhotoUrl;
+                        if (person.AuditorDate.HasValue)
+                        {
+                            this.txtAuditorDate.Text = string.Format("{0:yyyy-MM-dd}", person.AuditorDate);
+                            this.drpAuditor.Readonly = true;
+                            this.txtAuditorDate.Readonly = true;
+                        }
+                        imgPhoto.ImageUrl =  person.PhotoUrl;
                     }
 
                     var personQuality = BLL.PersonQualityService.GetPersonQualityByPersonId(this.PersonId);
@@ -185,12 +195,15 @@ namespace FineUIPro.Web.SitePerson
         /// </summary>
         private void InitDropDownList()
         {
-            BLL.WorkAreaService.InitWorkAreaDropDownList(this.drpWorkArea, this.ProjectId, true);
-            BLL.WorkPostService.InitWorkPostDropDownList(this.drpPost, true);
-            BLL.PositionService.InitPositionDropDownList(this.drpPosition, true);
-            BLL.PostTitleService.InitPostTitleDropDownList(this.drpTitle, true);
-            BLL.TeamGroupService.InitTeamGroupProjectUnitDropDownList(this.drpTeamGroup, this.ProjectId, this.UnitId, true);
-            BLL.CertificateService.InitCertificateDropDownList(this.drpCertificate, true);
+            WorkAreaService.InitWorkAreaDropDownList(this.drpWorkArea, this.ProjectId, true);
+            WorkPostService.InitWorkPostDropDownList(this.drpPost, true);
+            PositionService.InitPositionDropDownList(this.drpPosition, true);
+            PostTitleService.InitPostTitleDropDownList(this.drpTitle, true);
+            TeamGroupService.InitTeamGroupProjectUnitDropDownList(this.drpTeamGroup, this.ProjectId, this.UnitId, true);
+            CertificateService.InitCertificateDropDownList(this.drpCertificate, true);
+
+            string tunitId = CommonService.GetIsThisUnitId();
+            UserService.InitFlowOperateControlUserDropDownList(this.drpAuditor, this.ProjectId, tunitId, true);
         }
 
         #region 保存
@@ -312,6 +325,14 @@ namespace FineUIPro.Web.SitePerson
                 person.PhotoUrl = null;
             }
 
+            if (!string.IsNullOrEmpty(this.txtAuditorDate.Text))
+            {
+                person.AuditorDate = Convert.ToDateTime(this.txtAuditorDate.Text);
+            }
+            if (this.drpAuditor.SelectedValue != BLL.Const._Null)
+            {
+                person.AuditorId = this.drpAuditor.SelectedValue;
+            }
             person.IsForeign = this.ckIsForeign.Checked;
             person.IsOutside = this.ckIsOutside.Checked;
             if (string.IsNullOrEmpty(PersonId))
@@ -415,8 +436,9 @@ namespace FineUIPro.Web.SitePerson
                 }
                 fileName = fileName.Replace(":", "_").Replace(" ", "_").Replace("\\", "_").Replace("/", "_");
                 fileName = DateTime.Now.Ticks.ToString() + "_" + fileName;
-                filePhoto.SaveAs(Server.MapPath("~/upload/" + fileName));
-                imgPhoto.ImageUrl = "../upload/" + fileName;
+                string url = "FileUpload/PersonBaseInfo/" + DateTime.Now.Year + "-" + DateTime.Now.Month + "/"
+;                filePhoto.SaveAs(Server.MapPath(url + fileName));
+                imgPhoto.ImageUrl = url + fileName;
                 // 清空文件上传组件
                 filePhoto.Reset();
             }

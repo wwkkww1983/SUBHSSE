@@ -190,7 +190,7 @@
         Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="false"
         CloseAction="HidePostBack" Width="1200px" Height="600px">
     </f:Window>
-    <f:Window ID="Window3" Title="编辑人员批量出场" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+    <f:Window ID="Window3" Title="编辑人员信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" OnClose="Window3_Close" IsModal="true"
         Width="800px" Height="550px">
     </f:Window>

@@ -556,7 +556,7 @@ namespace WebAPI.Controllers
             {
                 responeData.data = from x in Funs.DB.SitePerson_Person
                                    where x.ProjectId == projectId && x.InTime.HasValue && ((x.IsUsed == true && !x.OutTime.HasValue) || x.OutTime.HasValue)
-                                    && x.InTime < DateTime.Now && x.CardNo != null && !x.ExchangeTime2.HasValue
+                                    && x.InTime < DateTime.Now && x.CardNo != null && !x.ExchangeTime2.HasValue && x.ExchangeTime.HasValue
                                    select new
                                    {
                                        x.PersonId,

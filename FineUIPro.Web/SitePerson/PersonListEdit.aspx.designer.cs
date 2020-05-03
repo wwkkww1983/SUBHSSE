@@ -283,6 +283,24 @@ namespace FineUIPro.Web.SitePerson {
         protected global::FineUIPro.DatePicker txtOutTime;
         
         /// <summary>
+        /// drpAuditor 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpAuditor;
+        
+        /// <summary>
+        /// txtAuditorDate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DatePicker txtAuditorDate;
+        
+        /// <summary>
         /// ckIsForeign 控件。
         /// </summary>
         /// <remarks>

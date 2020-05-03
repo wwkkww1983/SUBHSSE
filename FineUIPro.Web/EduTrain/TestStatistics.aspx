@@ -38,7 +38,7 @@
                 <Columns>
                     <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
                         TextAlign="Center" />
-                     <f:RenderField Width="120px" ColumnID="CardNo" DataField="CardNo" SortField="CardNo"
+                     <f:RenderField Width="150px" ColumnID="CardNo" DataField="CardNo" SortField="CardNo"
                         HeaderText="编号" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                      <f:RenderField Width="90px" ColumnID="PersonName" DataField="PersonName" SortField="PersonName"
@@ -50,13 +50,13 @@
                    <%-- <f:RenderField Width="100px" ColumnID="DepartName" DataField="DepartName" SortField="DepartName"
                         HeaderText="部门" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>--%>
-                     <f:RenderField Width="180px" ColumnID="WorkPostName" DataField="WorkPostName" SortField="WorkPostName"
+                     <f:RenderField Width="220px" ColumnID="WorkPostName" DataField="WorkPostName" SortField="WorkPostName"
                         HeaderText="岗位" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="TestCount" DataField="TestCount" SortField="TestCount"
+                    <f:RenderField Width="120px" ColumnID="TestCount" DataField="TestCount" SortField="TestCount"
                         HeaderText="参加次数" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="TestQualifyCount" DataField="TestQualifyCount" SortField="TestQualifyCount"
+                    <f:RenderField Width="120px" ColumnID="TestQualifyCount" DataField="TestQualifyCount" SortField="TestQualifyCount"
                         HeaderText="60分以上" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                 </Columns>

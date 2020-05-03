@@ -122,3 +122,14 @@ D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Release\Model.csproj.CopyComplete
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Release\Model.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Release\Model.pdb
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Release\Model.csprojAssemblyReference.cache
+D:\DepCode\SEDIN\SUBHSSE\SUBHSSE\Model\bin\Release\Model.dll
+D:\DepCode\SEDIN\SUBHSSE\SUBHSSE\Model\bin\Release\Model.pdb
+D:\DepCode\SEDIN\SUBHSSE\SUBHSSE\Model\bin\Release\EmitMapper.dll
+D:\DepCode\SEDIN\SUBHSSE\SUBHSSE\Model\bin\Release\Newtonsoft.Json.dll
+D:\DepCode\SEDIN\SUBHSSE\SUBHSSE\Model\bin\Release\Newtonsoft.Json.pdb
+D:\DepCode\SEDIN\SUBHSSE\SUBHSSE\Model\bin\Release\Newtonsoft.Json.xml
+D:\DepCode\SEDIN\SUBHSSE\SUBHSSE\Model\obj\Release\Model.csprojAssemblyReference.cache
+D:\DepCode\SEDIN\SUBHSSE\SUBHSSE\Model\obj\Release\Model.csproj.CoreCompileInputs.cache
+D:\DepCode\SEDIN\SUBHSSE\SUBHSSE\Model\obj\Release\Model.csproj.CopyComplete
+D:\DepCode\SEDIN\SUBHSSE\SUBHSSE\Model\obj\Release\Model.dll
+D:\DepCode\SEDIN\SUBHSSE\SUBHSSE\Model\obj\Release\Model.pdb

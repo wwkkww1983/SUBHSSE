@@ -106,7 +106,7 @@
                             <f:DatePicker ID="txtCertificateLimitTime" runat="server" Label="证书有效期" LabelAlign="Right">
                             </f:DatePicker>
                             <f:RadioButtonList ID="rblIsCardUsed" runat="server" Label="考勤卡启用" LabelWidth="110px"
-                                LabelAlign="Right" Required="True" ShowRedStar="True">
+                                LabelAlign="Right" Required="True" >
                                 <f:RadioItem Value="True" Text="是" />
                                 <f:RadioItem Value="False" Text="否" />
                             </f:RadioButtonList>
@@ -117,6 +117,14 @@
                             <f:DatePicker ID="txtInTime" runat="server" Label="入场时间" LabelAlign="Right" ShowRedStar="true">
                             </f:DatePicker>
                             <f:DatePicker ID="txtOutTime" runat="server" Label="出场时间" LabelAlign="Right">
+                            </f:DatePicker>
+                        </Items>
+                    </f:FormRow>
+                    <f:FormRow>
+                        <Items>
+                               <f:DropDownList ID="drpAuditor" runat="server" Label="审核人" LabelAlign="Right" EnableEdit="true">
+                            </f:DropDownList>
+                            <f:DatePicker ID="txtAuditorDate" runat="server" Label="审核时间" LabelAlign="Right" ShowRedStar="true">
                             </f:DatePicker>
                         </Items>
                     </f:FormRow>

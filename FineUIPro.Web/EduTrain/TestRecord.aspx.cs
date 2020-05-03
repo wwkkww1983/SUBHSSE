@@ -49,12 +49,14 @@ namespace FineUIPro.Web.EduTrain
         {
             string strSql = @"SELECT TestRecord.TestRecordId,TestRecord.TestPlanId, TestRecord.TestManId,TestRecord.TestStartTime,TestRecord.TestEndTime, TestRecord.TestScores,
                             (CASE WHEN TestPlan.PlanName IS NULL THEN Training.TrainingName ELSE TestPlan.PlanName END) AS PlanName, 
-                            ISNULL(TestPlan.Duration,90) AS Duration,ISNULL(TestPlan.TotalScore,100) AS TotalScore,TestPlan.TestPalce,ISNULL(TestPlan.QuestionCount,95) AS QuestionCount,TestRecord.TemporaryUser,Person.PersonName AS TestManName"
+                            ISNULL(TestPlan.Duration,90) AS Duration,ISNULL(TestPlan.TotalScore,100) AS TotalScore,TestPlan.TestPalce,ISNULL(TestPlan.QuestionCount,95) AS QuestionCount,TestRecord.TemporaryUser,Person.PersonName AS TestManName
+                            ,Unit.UnitName"
                          + @" FROM dbo.Training_TestRecord AS TestRecord"
                          + @" LEFT JOIN dbo.Training_TestPlan AS TestPlan ON TestPlan.TestPlanId=TestRecord.TestPlanId"
                          + @" LEFT JOIN dbo.Training_TestTraining AS Training ON Training.TrainingId = TestRecord.TestType"
                          + @" LEFT JOIN dbo.SitePerson_Person AS Person ON Person.PersonId = TestRecord.TestManId "
-                        + @" WHERE (isFiled IS NULL OR isFiled = 0) and TestRecord.ProjectId = '" + this.CurrUser.LoginProjectId+"'";
+                         + @" LEFT JOIN dbo.Base_Unit AS Unit ON Person.UnitId=Unit.UnitId"
+                         + @" WHERE (isFiled IS NULL OR isFiled = 0) and TestRecord.ProjectId = '" + this.CurrUser.LoginProjectId+"'";
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtName.Text.Trim()))
             {

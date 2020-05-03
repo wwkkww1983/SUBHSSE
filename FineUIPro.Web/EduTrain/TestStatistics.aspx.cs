@@ -44,7 +44,7 @@ namespace FineUIPro.Web.EduTrain
                         + @" LEFT JOIN Base_Depart AS Depart ON person.DepartId=Depart.DepartId"
                         + @" LEFT JOIN (SELECT COUNT(TestRecordId) AS TestCount,TestManId  FROM Training_TestRecord GROUP BY TestManId) AS TestCount"
                         + @" ON person.PersonId=TestCount.TestManId"
-                        + @" LEFT JOIN (SELECT COUNT(TestRecordId) AS TestQualifyCount,TestManId  FROM Training_TestRecord WHERE TestScores< 60 GROUP BY TestManId) AS TestQualifyCount"
+                        + @" LEFT JOIN (SELECT COUNT(TestRecordId) AS TestQualifyCount,TestManId  FROM Training_TestRecord WHERE TestScores>= 60 GROUP BY TestManId) AS TestQualifyCount"
                         + @" ON person.PersonId=TestQualifyCount.TestManId"
                         + @" WHERE PersonId <> '" + BLL.Const.sysglyId + "' and person.projectid='" + this.CurrUser.LoginProjectId + "'";
             List<SqlParameter> listStr = new List<SqlParameter>();
