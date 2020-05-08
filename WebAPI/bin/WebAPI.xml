@@ -2458,6 +2458,25 @@
             <param name="userId"></param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.UserController.getIsHaveMenuPower(System.String,System.String,System.String)">
+            <summary>
+            获取当前用户是否有菜单权限
+            </summary>
+            <param name="userId">当前人ID</param>
+            <param name="menuId">菜单ID</param>
+            <param name="projectId">项目ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.UserController.getIsHaveButtonPower(System.String,System.String,System.String,System.String)">
+            <summary>
+            获取当前用户是否有菜单权限
+            </summary>
+            <param name="userId">当前人ID</param>
+            <param name="menuId">菜单ID</param>
+            <param name="projectId">项目ID</param>
+            <param name="buttonName">按钮名称</param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.UserController.getMenuUnreadCount(System.String,System.String,System.String)">
             <summary>
             获取当前人未读数量

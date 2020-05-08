@@ -22,24 +22,11 @@
                 // string password = Request.QueryString["Password"];
                 if (!string.IsNullOrEmpty(userName)) ///单点登陆
                 {
-                    if (BLL.LoginService.UserLogOn(userName, this.ckRememberMe.Checked, this.Page))
+                    if (LoginService.UserLogOn(userName, this.ckRememberMe.Checked, this.Page))
                     {
                         this.CurrUser.LoginProjectId = null;
-                        if (tbxUserName.Text == BLL.Const.adminAccount)
-                        {
-                            try
-                            {
-                                /////创建客户端服务
-                                var poxy = Web.ServiceProxy.CreateServiceClient();
-                                poxy.GetSys_VersionToSUBCompleted += new EventHandler<HSSEService.GetSys_VersionToSUBCompletedEventArgs>(poxy_GetSys_VersionToSUBCompleted);
-                                poxy.GetSys_VersionToSUBAsync();
-                            }
-                            catch
-                            {
-                            }
-                        }
-
-                        BLL.LogService.AddSys_Log(this.CurrUser, userName, null, BLL.Const.UserMenuId, BLL.Const.BtnLogin);
+                      
+                        LogService.AddSys_Log(this.CurrUser, userName, null, BLL.Const.UserMenuId, BLL.Const.BtnLogin);
                         PageContext.Redirect("~/default.aspx");
                         // Response.Redirect("~/index.aspx");
                     }
@@ -49,12 +36,7 @@
                     }
                 }
 
-                //this.tbxUserName.Focus();
-                //var unit = BLL.CommonService.GetIsThisUnit();
-                //if (unit != null && !string.IsNullOrEmpty(unit.UnitName))
-                //{
-                //    this.lbSubName.Text = unit.UnitName;
-                //}
+          
                 this.LoadData();
                 if (Request.Cookies["UserInfo"] != null)
                 {
@@ -145,52 +127,6 @@
                 ShowNotify("用户名或密码错误！", MessageBoxIcon.Error);
             }
         }
-        #endregion
-
-        #region 版本信息从集团公司提取
-        /// <summary>
-        /// 版本信息从集团公司提取
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void poxy_GetSys_VersionToSUBCompleted(object sender, HSSEService.GetSys_VersionToSUBCompletedEventArgs e)
-        {
-            int count = 0;
-            if (e.Error == null && e.Result != null)
-            {
-                var versionItems = e.Result;
-                if (versionItems.Count() > 0)
-                {
-                    count = versionItems.Count();
-                    foreach (var item in versionItems)
-                    {
-                        var version = Funs.DB.Sys_Version.FirstOrDefault(x => x.VersionId == item.VersionId);
-                        if (version == null)
-                        {
-                            Model.Sys_Version newVersion = new Model.Sys_Version
-                            {
-                                VersionId = item.VersionId,
-                                VersionName = item.VersionName,
-                                VersionDate = item.VersionDate,
-                                CompileMan = item.CompileMan,
-                                AttachUrl = item.AttachUrl,
-                                IsSub = item.IsSub
-                            };
-                            Funs.DB.Sys_Version.InsertOnSubmit(newVersion);
-                            Funs.DB.SubmitChanges();
-                        }
-                    }
-                }
-            }
-            if (e.Error == null)
-            {
-                BLL.LogService.AddSys_Log(this.CurrUser, "【版本信息】从集团提取" + count.ToString() + "条数据；", string.Empty, BLL.Const.SynchronizationMenuId, BLL.Const.BtnDownload);
-            }
-            else
-            {
-                BLL.LogService.AddSys_Log(this.CurrUser, "【版本信息】从集团提取失败；", string.Empty, BLL.Const.SynchronizationMenuId, BLL.Const.BtnDownload);
-            }
-        }
-        #endregion
+        #endregion        
     }
 }

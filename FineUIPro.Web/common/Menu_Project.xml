@@ -28,7 +28,6 @@
 <TreeNode id="7ACB0CB1-15D8-4E8E-A54D-0CDC5F69B39A" Text="发卡管理" NavigateUrl="SitePerson/SendCard.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="12F7123B-C2ED-4011-9859-83260AC91F09" Text="现场人员考勤管理" NavigateUrl="SitePerson/PersonInfo.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="7D36E853-CC79-48B9-9E7F-E34797B4E87E" Text="现场人员考勤统计" NavigateUrl="SitePerson/PersonStatistic.aspx" Icon="PageHeaderFooter"></TreeNode>
-<TreeNode id="846565DD-89FC-4191-A71B-5CBEA2BE00E0" Text="人员变化" NavigateUrl="SitePerson/PersonChange.aspx" Icon="PageHeaderFooter"></TreeNode>
 </TreeNode>
 <TreeNode id="6A0506EB-05CE-4BB3-9BA9-866389F01E1C" Text="教育培训与考试" NavigateUrl="" Icon="ReportUser"><TreeNode id="1182E353-FAB9-4DB1-A1EC-F41A00892128" Text="培训记录" NavigateUrl="EduTrain/TrainRecord.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="F81E3F54-B3A9-4DDB-9C8C-1574317E040F" Text="人员培训查询" NavigateUrl="EduTrain/TrainFind.aspx" Icon="PageHeaderFooter"></TreeNode>
@@ -78,7 +77,6 @@
 <TreeNode id="1B08048F-93ED-4E84-AE65-DB7917EA2DFB" Text="专项检查" NavigateUrl="Check/CheckSpecial.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="C198EBA8-9E23-4654-92E1-09C61105C522" Text="综合检查" NavigateUrl="Check/CheckColligation.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="C3B6B222-44DC-46F3-B783-B1FC0F743C48" Text="隐患整改单(赛鼎)" NavigateUrl="Check/RectifyNotices.aspx" Icon="PageHeaderFooter"></TreeNode>
-<TreeNode id="0038D764-D628-46F0-94FF-D0A22C3C45A3" Text="隐患整改通知单" NavigateUrl="Check/RectifyNotice.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="29F27641-06ED-435A-9F9B-FCE6366801BE" Text="企业监督检查整改" NavigateUrl="Hazard/ProjectSuperviseCheckRectify.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="B6BE5FE0-CB84-47FF-A6C3-5AD9E1CCE079" Text="隐患巡检（手机端）" NavigateUrl="Check/Registration.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="C81DB7ED-165E-4C69-86B0-A3AAE37059FE" Text="工程暂停令" NavigateUrl="Check/PauseNotice.aspx" Icon="PageHeaderFooter"></TreeNode>

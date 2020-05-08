@@ -806,29 +806,21 @@ namespace BLL
                         int SitePersonNum = 0;
                         var getAllPersonInOuts = from x in getAllPersonInOutList
                                                  join y in db.SitePerson_Person on x.PersonId equals y.PersonId
-                                                 where y.IsUsed == true && (!y.OutTime.HasValue || y.OutTime >= DateTime.Now)
+                                                 where y.IsUsed == true && (!y.OutTime.HasValue || y.OutTime >= DateTime.Now)                                                   
                                                  select x;
-                        if (getAllPersonInOuts.Count() > 0)
-                        {
-                            var getIn = getAllPersonInOuts.Where(x => x.IsIn == true);
-                            List<string> getPersonIds = new List<string>();
-                            var getOutList = getAllPersonInOuts.Where(x => x.IsIn == false);
-                            foreach (var item in getIn)
-                            {
-                                var getMax = getOutList.FirstOrDefault(x => x.PersonId == item.PersonId && x.ChangeTime >= item.ChangeTime);
-                                if (getMax == null)
-                                {
-                                    if (getPersonIds.Count() == 0 || !getPersonIds.Contains(item.PersonId))
-                                    {
-                                        getPersonIds.Add(item.PersonId);
-                                        SitePersonNum = SitePersonNum + 1;
-                                    }
-                                }
-                            }
-                        }
+                        var getInMaxs = from x in getAllPersonInOuts
+                                        where x.ChangeTime >=DateTime.Now.AddDays(-3)
+                                     group x by x.PersonId into g
+                                     select new {g.First().PersonId ,ChangeTime = g.Max(x => x.ChangeTime) };
+
+                        var getIn = from x in getInMaxs
+                                    join y in getAllPersonInOuts on new { x.PersonId, x.ChangeTime } equals new { y.PersonId, y.ChangeTime }
+                                    where y.ChangeTime >= DateTime.Now.AddDays(-3) && y.IsIn == true
+                                    select y;
+                        SitePersonNum = getIn.Count();                   
                         #endregion
 
-                        //// 获取工时                  
+                        #region 获取工时                  
                         int SafeHours = 0;
                         var getYesterday = db.SitePerson_PersonInOutNumber.FirstOrDefault(x => x.ProjectId == projectItem.ProjectId && x.InOutDate.Year == DateTime.Now.AddDays(-1).Year
                                                 && x.InOutDate.Month == DateTime.Now.AddDays(-1).Month && x.InOutDate.Day == DateTime.Now.AddDays(-1).Day);
@@ -883,6 +875,7 @@ namespace BLL
                                 SafeHours += (personIdList.Distinct().Count() * 8 * 60);
                             }
                         }
+                        #endregion
 
                         SafeHours = Convert.ToInt32(SafeHours * 1.0 / 60);
                         var getPersonInOutNumber = db.SitePerson_PersonInOutNumber.FirstOrDefault(x => x.ProjectId == projectItem.ProjectId

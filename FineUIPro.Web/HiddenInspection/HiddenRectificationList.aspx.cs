@@ -77,11 +77,11 @@ namespace FineUIPro.Web.HiddenInspection
                 strSql += " AND WorkAreaName LIKE @WorkAreaName";
                 listStr.Add(new SqlParameter("@WorkAreaName", "%" + this.txtWorkAreaName.Text.Trim() + "%"));
             }
-            if (this.ckType.SelectedValue != "0")
-            {
-                strSql += " AND CheckCycle=@CheckCycle";
-                listStr.Add(new SqlParameter("@CheckCycle", this.ckType.SelectedValue));
-            }
+            //if (this.ckType.SelectedValue != "0")
+            //{
+            //    strSql += " AND CheckCycle=@CheckCycle";
+            //    listStr.Add(new SqlParameter("@CheckCycle", this.ckType.SelectedValue));
+            //}
             if (!string.IsNullOrEmpty(this.txtResponsibilityUnitName.Text.Trim()))
             {
                 strSql += " AND ResponsibilityUnitName LIKE @ResponsibilityUnitName";
@@ -112,7 +112,7 @@ namespace FineUIPro.Web.HiddenInspection
                 strSql += " AND States LIKE @States";
                 listStr.Add(new SqlParameter("@States", "%" + this.drpStates.SelectedValue + "%"));
             }
-            if (!CommonService.GetIsThisUnit(this.CurrUser.UnitId))
+            if (!CommonService.IsMainUnitOrAdmin(this.CurrUser.UserId))
             {
                 strSql += " AND (ResponsibleUnit =@ResponsibleUnit OR SendUnitId=@SendUnitId)";
                 listStr.Add(new SqlParameter("@ResponsibleUnit", this.CurrUser.UnitId));
@@ -644,11 +644,11 @@ namespace FineUIPro.Web.HiddenInspection
                 Alert.ShowInParent("请至少选择一条记录！");
                 return;
             }
-            if (this.ckType.SelectedValue == "0")
-            {
-                Alert.ShowInParent("请选择检查类型（日检、周检或月检）！");
-                return;
-            }
+            //if (this.ckType.SelectedValue == "0")
+            //{
+            //    Alert.ShowInParent("请选择检查类型（日检、周检或月检）！");
+            //    return;
+            //}
             List<Model.HSSE_Hazard_HazardRegister> list = (from x in Funs.DB.HSSE_Hazard_HazardRegister
                                                            where ItemSelectedList.Contains(x.HazardRegisterId)
                                                            select x).ToList();
@@ -677,10 +677,44 @@ namespace FineUIPro.Web.HiddenInspection
             {
                 hazardRegisterIds = hazardRegisterIds.Substring(0, hazardRegisterIds.LastIndexOf(","));
             }
-            PageContext.RegisterStartupScript(Window4.GetShowReference(String.Format("HiddenRectificationPrint.aspx?HazardRegisterIds={0}&CheckType={1}", hazardRegisterIds, this.ckType.SelectedValue, "查看 - ")));
-            PageContext.RegisterStartupScript(Window5.GetShowReference(String.Format("HiddenRectificationRecordPrint.aspx?HazardRegisterIds={0}&Remark={1}&CheckType={2}", hazardRegisterIds, this.hdRemark.Text, this.ckType.SelectedValue, "查看 - ")));
+            PageContext.RegisterStartupScript(Window4.GetShowReference(String.Format("HiddenRectificationPrint.aspx?HazardRegisterIds={0}&CheckType={1}", hazardRegisterIds,"0", "查看 - ")));
+            PageContext.RegisterStartupScript(Window5.GetShowReference(String.Format("HiddenRectificationRecordPrint.aspx?HazardRegisterIds={0}&Remark={1}&CheckType={2}", hazardRegisterIds, this.hdRemark.Text, "0", "查看 - ")));
             this.hdRemark.Text = string.Empty;
             //}
         }
+
+        #region 获取按钮权限
+        /// <summary>
+        /// 获取按钮权限
+        /// </summary>
+        /// <param name="button"></param>
+        /// <returns></returns>
+        private void GetButtonPower()
+        {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
+            var buttonList = CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HSSE_HiddenRectificationListMenuId);
+            if (buttonList.Count() > 0)
+            {
+                if (buttonList.Contains(Const.BtnAdd))
+                {
+                    this.btnNew.Hidden = false;
+                    this.btnRectify.Hidden = false;
+                    this.btnConfirm.Hidden = false;
+                    this.btnPrint.Hidden = false;
+                }
+                if (buttonList.Contains(Const.BtnModify))
+                {
+                    this.btnModify.Hidden = false;
+                }
+                if (buttonList.Contains(Const.BtnDelete))
+                {
+                    this.btnMenuDelete.Hidden = false;
+                }
+            }
+        }
+        #endregion
     }
 }

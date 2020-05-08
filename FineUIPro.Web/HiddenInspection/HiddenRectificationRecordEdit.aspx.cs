@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using BLL;
+using System;
 using System.Data;
-using BLL;
-using System.IO;
-using System.Data.SqlClient;
-using Newtonsoft.Json.Linq;
-using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace FineUIPro.Web.HiddenInspection
 {
@@ -29,8 +21,9 @@ namespace FineUIPro.Web.HiddenInspection
                 //{
                 //    this.btnSave.Hidden = true;
                 //}
-                LoadData();
+                this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 string hazardRegisterRecordId = Request.Params["HazardRegisterRecordId"];
+                this.GetButtonPower();
                 Model.HSSE_Hazard_HazardRegisterRecord record = BLL.HSSE_Hazard_HazardRegisterRecordService.GetHazardRegisterRecordByHazardRegisterRecordId(hazardRegisterRecordId);
                 if (record != null)
                 {
@@ -53,11 +46,6 @@ namespace FineUIPro.Web.HiddenInspection
                     this.txtCheckDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                 }
             }
-        }
-
-        private void LoadData()
-        {
-            btnClose.OnClientClick = ActiveWindow.GetHideReference();
         }
         #endregion
 
@@ -236,6 +224,29 @@ namespace FineUIPro.Web.HiddenInspection
                 }
             }
             return url;
+        }
+        #endregion
+
+        #region 获取按钮权限
+        /// <summary>
+        /// 获取按钮权限
+        /// </summary>
+        /// <param name="button"></param>
+        /// <returns></returns>
+        private void GetButtonPower()
+        {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
+            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HSSE_HiddenRectificationRecordMenuId);
+            if (buttonList.Count() > 0)
+            {                
+                if (buttonList.Contains(Const.BtnSave))
+                {
+                    this.btnSave.Hidden = false;
+                }
+            }
         }
         #endregion
     }

@@ -76,6 +76,42 @@ namespace FineUIPro.Web.Meeting {
         protected global::FineUIPro.DropDownList drpCompileMan;
         
         /// <summary>
+        /// drpUnit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpUnit;
+        
+        /// <summary>
+        /// drpTeamGroup 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpTeamGroup;
+        
+        /// <summary>
+        /// txtAttentPersonNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtAttentPersonNum;
+        
+        /// <summary>
+        /// lb1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label lb1;
+        
+        /// <summary>
         /// txtClassMeetingContents 控件。
         /// </summary>
         /// <remarks>

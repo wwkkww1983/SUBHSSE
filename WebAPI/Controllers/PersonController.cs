@@ -515,7 +515,7 @@ namespace WebAPI.Controllers
                                    where x.ProjectId == projectId
                                    && !x.ExchangeTime.HasValue
                                    && (!x.OutTime.HasValue || x.OutTime > DateTime.Now) && x.InTime.HasValue && x.InTime < DateTime.Now
-                                   && x.IsUsed == true && x.CardNo != null
+                                   && x.IsUsed == true && x.CardNo != null && (x.PhotoUrl != null || x.IDCardUrl != null)
                                    select new
                                    {
                                        x.PersonId,
@@ -533,6 +533,7 @@ namespace WebAPI.Controllers
                                        x.ExchangeTime2,
                                        PhotoUrl = (x.PhotoUrl == null || x.PhotoUrl =="") ? x.IDCardUrl : x.PhotoUrl,
                                    };
+
             }
             catch (Exception ex)
             {

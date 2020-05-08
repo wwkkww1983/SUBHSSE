@@ -35,6 +35,20 @@
                     </f:TextBox>
                 </Items>
             </f:FormRow>
+             <f:FormRow>
+                <Items>
+                      <f:TextBox ID="drpUnit" runat="server" Label="单位" LabelAlign="Right" Readonly="true">
+                    </f:TextBox>
+                    <f:TextBox ID="drpTeamGroup" runat="server" Label="班组" LabelAlign="Right" Readonly="true">
+                    </f:TextBox>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
+                       <f:TextBox runat="server" ID="txtAttentPersonNum" Label="人数"  LabelAlign="Right" Readonly="true"></f:TextBox>
+                    <f:Label runat="server" ID="lb1"></f:Label>
+                </Items>
+            </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:HtmlEditor runat="server" Label="会议内容" ID="txtClassMeetingContents" ShowLabel="false"

@@ -151,5 +151,13 @@ namespace Model
             get;
             set;
         }
+        /// <summary>
+        /// 用户类型（1用户；2现场人员；3临时用户）
+        /// </summary>
+        public string UserType
+        {
+            get;
+            set;
+        }
     }
 }

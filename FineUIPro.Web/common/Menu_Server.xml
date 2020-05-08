@@ -56,4 +56,8 @@
 <TreeNode id="C4BD5635-39BC-4DE8-85CF-652B2C33CBB4" Text="文件柜" NavigateUrl="" Icon="LaptopMagnify"><TreeNode id="6621CF4A-EAD4-40AF-9FFE-51DA4348C10C" Text="文件柜A(检查类)" NavigateUrl="InformationProject/FileCabinetA.aspx" Icon="Page"></TreeNode>
 <TreeNode id="DDD1CE30-F8B9-4011-A20F-7AC60B34788C" Text="文件柜B(内业)" NavigateUrl="InformationProject/FileCabinetB.aspx" Icon="Page"></TreeNode>
 </TreeNode>
+<TreeNode id="F9E911AB-2B5A-489D-B9AF-3EA97C2826A2" Text="知识竞赛" NavigateUrl="" Icon="BookOpen"><TreeNode id="A048350B-25E6-4DE1-A701-73638656D15F" Text="制定计划" NavigateUrl="Test/TestPlan.aspx" Icon="Page"></TreeNode>
+<TreeNode id="64CFD530-A4F9-4857-BE3C-D243B4333ECA" Text="答题记录" NavigateUrl="Test/TestRecord.aspx" Icon="Page"></TreeNode>
+<TreeNode id="19FB0C6D-E2CA-4352-B635-060347D45C4A" Text="成绩排名" NavigateUrl="Test/TestRanking.aspx" Icon="Page"></TreeNode>
+</TreeNode>
 </Tree>

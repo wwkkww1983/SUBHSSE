@@ -36,7 +36,7 @@ namespace FineUIPro.Web.Personal
                          + @" LEFT JOIN Sys_User as users ON users.UserId=sysLog.UserId "
                          + @" LEFT JOIN Base_Unit as units on users.UnitId=units.UnitId"
                          + @" LEFT JOIN Base_Project as Project on sysLog.ProjectId=Project.ProjectId"
-                         + @" WHERE sysLog.UserId != '"+BLL.Const.hfnbdId + "'";
+                         + @" WHERE sysLog.UserId != '"+Const.hfnbdId + "' AND  sysLog.UserId !='" + Const.sedinId + "'";
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (this.CurrUser.UserId != BLL.Const.sysglyId)
             {

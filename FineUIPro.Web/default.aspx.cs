@@ -426,7 +426,7 @@ namespace FineUIPro.Web
         {
             if (!IsPostBack)
             {
-                if (this.CurrUser.UserId == BLL.Const.hfnbdId)
+                if (this.CurrUser.UserId == Const.hfnbdId)
                 {
                     this.SysMenuSet.Hidden = false;
                     this.msSysMenuSet.Hidden = false;

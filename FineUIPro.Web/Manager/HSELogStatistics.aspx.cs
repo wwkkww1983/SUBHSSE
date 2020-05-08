@@ -28,7 +28,7 @@ namespace FineUIPro.Web.Manager
                 this.txtStartDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now.AddMonths(-1));
                 this.txtEndDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
 
-                if (this.CurrUser.Account == Const.adminAccount)
+                if (this.CurrUser.UserId == Const.sysglyId)
                 {
                     this.drpCompileMan.Enabled = true;
                 }

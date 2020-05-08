@@ -252,15 +252,21 @@ namespace BLL
                     RectifyNoticesId = rectifyNotices.RectifyNoticesId,
                     ProjectId = rectifyNotices.ProjectId,
                     RectifyNoticesCode = rectifyNotices.RectifyNoticesCode,
-                    UnitId = rectifyNotices.UnitId,
-                    WorkAreaId = rectifyNotices.WorkAreaId,
+                    UnitId = rectifyNotices.UnitId,                 
                     CheckManNames = rectifyNotices.CheckManNames,
                     CheckManIds = rectifyNotices.CheckManIds,
                     CheckedDate = Funs.GetNewDateTime(rectifyNotices.CheckedDate),
-                    HiddenHazardType = rectifyNotices.HiddenHazardType,
-                    CompleteManId = rectifyNotices.CompleteManId,
+                    HiddenHazardType = rectifyNotices.HiddenHazardType,                
                     States = rectifyNotices.States,
                 };
+                if (!string.IsNullOrEmpty(rectifyNotices.WorkAreaId))
+                {
+                    newRectifyNotices.WorkAreaId = rectifyNotices.WorkAreaId;
+                }
+                if (!string.IsNullOrEmpty(rectifyNotices.CompleteManId))
+                {
+                    newRectifyNotices.CompleteManId = rectifyNotices.CompleteManId;
+                }
                 if (newRectifyNotices.States == "1")
                 {
                     newRectifyNotices.SignPerson = rectifyNotices.SignPersonId;
@@ -334,10 +340,14 @@ namespace BLL
                         isUpdate.CheckManNames = rectifyNotices.CheckManNames;
                         isUpdate.CheckManIds = rectifyNotices.CheckManIds;
                         isUpdate.CheckedDate = Funs.GetNewDateTime(rectifyNotices.CheckedDate);
-                        isUpdate.HiddenHazardType = rectifyNotices.HiddenHazardType;                    
-                        if (newRectifyNotices.States == "1")
+                        isUpdate.HiddenHazardType = rectifyNotices.HiddenHazardType;
+                        if (newRectifyNotices.States == "1" && !string.IsNullOrEmpty(rectifyNotices.SignPersonId))
                         {
                             isUpdate.SignPerson = rectifyNotices.SignPersonId;
+                        }
+                        else
+                        {
+                            newRectifyNotices.States = "0";
                         }
                         db.SubmitChanges();
                         //// 删除明细表
@@ -356,17 +366,34 @@ namespace BLL
                     else if (newRectifyNotices.States == "2") ////总包单位项目安全经理 审核
                     {
                         /// 不同意 打回 同意抄送专业工程师、施工经理、项目经理 并下发分包接收人（也就是施工单位项目安全经理）
-                        if (rectifyNotices.IsAgree == false) 
+                        if (rectifyNotices.IsAgree == false)
                         {
                             isUpdate.States = "0";
                         }
                         else
                         {
-                            isUpdate.SignDate = DateTime.Now;
-                            isUpdate.ProfessionalEngineerId = rectifyNotices.ProfessionalEngineerId;
-                            isUpdate.ConstructionManagerId = rectifyNotices.ConstructionManagerId;
-                            isUpdate.ProjectManagerId = rectifyNotices.ProjectManagerId;
-                            isUpdate.DutyPersonId = rectifyNotices.DutyPersonId;
+                       
+                            if (!string.IsNullOrEmpty(rectifyNotices.ProfessionalEngineerId))
+                            {
+                                isUpdate.ProfessionalEngineerId = rectifyNotices.ProfessionalEngineerId;
+                            }
+                            if (!string.IsNullOrEmpty(rectifyNotices.ConstructionManagerId))
+                            {
+                                isUpdate.ConstructionManagerId = rectifyNotices.ConstructionManagerId;
+                            }
+                            if (!string.IsNullOrEmpty(rectifyNotices.ProjectManagerId))
+                            {
+                                isUpdate.ProjectManagerId = rectifyNotices.ProjectManagerId;
+                            }
+                            if (!string.IsNullOrEmpty(rectifyNotices.DutyPersonId))
+                            {
+                                isUpdate.DutyPersonId = rectifyNotices.DutyPersonId;
+                                isUpdate.SignDate = DateTime.Now;
+                            }
+                            else
+                            {
+                                newRectifyNotices.States = "1";
+                            }
                         }
                         db.SubmitChanges();                       
                     }
@@ -393,9 +420,16 @@ namespace BLL
                                 }
                             }
                         }
-                      
-                        isUpdate.CompleteDate = DateTime.Now;
-                        isUpdate.UnitHeadManId = rectifyNotices.UnitHeadManId;
+
+                        if (!string.IsNullOrEmpty(rectifyNotices.UnitHeadManId))
+                        {
+                            isUpdate.UnitHeadManId = rectifyNotices.UnitHeadManId;
+                            isUpdate.CompleteDate = DateTime.Now;
+                        }
+                        else
+                        {
+                            newRectifyNotices.States = "2";
+                        }
                         db.SubmitChanges();
                     }
                     else if (newRectifyNotices.States == "4")
@@ -407,8 +441,15 @@ namespace BLL
                         }
                         else
                         {
-                            isUpdate.UnitHeadManDate = DateTime.Now;
-                            isUpdate.CheckPerson = rectifyNotices.CheckPersonId;
+                            if (!string.IsNullOrEmpty(rectifyNotices.CheckPersonId))
+                            {
+                                isUpdate.UnitHeadManDate = DateTime.Now;
+                                isUpdate.CheckPerson = rectifyNotices.CheckPersonId;
+                            }
+                            else
+                            {
+                                newRectifyNotices.States = "3";
+                            }
                         }
                         db.SubmitChanges();
                     }
@@ -489,7 +530,7 @@ namespace BLL
                 if (rectifyNotices.RectifyNoticesFlowOperateItem != null && rectifyNotices.RectifyNoticesFlowOperateItem.Count() > 0)
                 {
                     var getOperate = rectifyNotices.RectifyNoticesFlowOperateItem.FirstOrDefault();
-                    if (getOperate != null)
+                    if (getOperate != null && !string.IsNullOrEmpty(getOperate.OperateManId))
                     {
                         Model.Check_RectifyNoticesFlowOperate newOItem = new Model.Check_RectifyNoticesFlowOperate
                         {

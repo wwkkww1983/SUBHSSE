@@ -38,6 +38,7 @@ namespace BLL
                               Telephone = x.Telephone,
                               WorkPostId = x.WorkPostId,
                               WorkPostName = w.WorkPostName,
+                              UserType="2",
                           };
 
             return getUser.FirstOrDefault();

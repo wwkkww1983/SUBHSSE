@@ -116,7 +116,7 @@
             <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
                 <Items>
                     <f:Button ID="btnSave" Icon="SystemSave" runat="server" Text="保存数据" ValidateForms="SimpleForm1"
-                        OnClick="btnSave_Click">
+                        OnClick="btnSave_Click" Hidden="true">
                     </f:Button>
                     <f:Button ID="btnClose" EnablePostBack="false" Text="关闭" runat="server" Icon="SystemClose">
                     </f:Button>

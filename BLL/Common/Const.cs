@@ -19,15 +19,10 @@ namespace BLL
         public const string hfnbdId = "C4A62EC0-E5D3-4EBF-A5FA-E56AA89633C0";
 
         /// <summary>
-        /// 系统管理员登录名
+        /// 公共临时账户ID
         /// </summary>
-        public const string adminAccount = "sysgly";
-
-        /// <summary>
-        /// 系统管理员登录名
-        /// </summary>
-        public const string hfnbdAccount = "hfnbd";
-
+        public const string sedinId = "A8547452-751F-41B7-8E4B-5862EA4E9411";
+        
         /// <summary>
         /// null 字符串
         /// </summary>

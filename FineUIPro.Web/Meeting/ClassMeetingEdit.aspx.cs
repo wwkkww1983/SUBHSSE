@@ -77,13 +77,21 @@ namespace FineUIPro.Web.Meeting
                             this.drpCompileMan.SelectedValue = classMeeting.CompileMan;
                         }
                         this.txtClassMeetingContents.Text = HttpUtility.HtmlDecode(classMeeting.ClassMeetingContents);
+                        this.txtAttentPersonNum.Text = classMeeting.AttentPersonNum.ToString();
+                        if (!string.IsNullOrEmpty(classMeeting.UnitId))
+                        {
+                            this.drpUnit.SelectedValue = classMeeting.UnitId;
+                            this.drpTeamGroup.Items.Clear();
+                            TeamGroupService.InitTeamGroupProjectUnitDropDownList(this.drpTeamGroup, this.ProjectId, this.drpUnit.SelectedValue, true);
+                            this.drpTeamGroup.SelectedValue = classMeeting.TeamGroupId;
+                        }
                     }
                 }
                 else
                 {
                     this.drpCompileMan.SelectedValue = this.CurrUser.UserId;
                     this.txtClassMeetingDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
-
+                    this.txtAttentPersonNum.Text = "1";
                     var codeTemplateRule = BLL.SysConstSetService.GetCodeTemplateRuleByMenuId(BLL.Const.ProjectClassMeetingMenuId);
                     if (codeTemplateRule != null)
                     {
@@ -110,6 +118,9 @@ namespace FineUIPro.Web.Meeting
         private void InitDropDownList()
         {
             BLL.UserService.InitUserDropDownList(this.drpCompileMan, this.ProjectId, true);
+            UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpUnit, this.ProjectId, "2", true);
+            this.drpUnit.SelectedValue = this.CurrUser.UnitId;
+            TeamGroupService.InitTeamGroupProjectUnitDropDownList(this.drpTeamGroup, this.ProjectId, this.drpUnit.SelectedValue, true);            
         }
 
         #region 保存
@@ -151,11 +162,20 @@ namespace FineUIPro.Web.Meeting
                 ProjectId = this.ProjectId,
                 ClassMeetingCode = this.txtClassMeetingCode.Text.Trim(),
                 ClassMeetingName = this.txtClassMeetingName.Text.Trim(),
-                ClassMeetingDate = Funs.GetNewDateTime(this.txtClassMeetingDate.Text.Trim())
+                ClassMeetingDate = Funs.GetNewDateTime(this.txtClassMeetingDate.Text.Trim()),
+                AttentPersonNum = Funs.GetNewIntOrZero(this.txtAttentPersonNum.Text)
             };
             if (this.drpCompileMan.SelectedValue != BLL.Const._Null)
             {
                 classMeeting.CompileMan = this.drpCompileMan.SelectedValue;
+            }
+            if (this.drpUnit.SelectedValue != BLL.Const._Null)
+            {
+                classMeeting.UnitId = this.drpUnit.SelectedValue;
+            }
+            if (this.drpTeamGroup.SelectedValue != BLL.Const._Null)
+            {
+                classMeeting.TeamGroupId = this.drpTeamGroup.SelectedValue;
             }
             classMeeting.ClassMeetingContents = HttpUtility.HtmlEncode(this.txtClassMeetingContents.Text);
             classMeeting.CompileDate = DateTime.Now;
@@ -214,6 +234,12 @@ namespace FineUIPro.Web.Meeting
                 SaveData(Const.BtnSave);
             }
             PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ClassMeetingAttachUrl&menuId={1}&strParam=2", this.ClassMeetingId, Const.ProjectClassMeetingMenuId)));
+        }
+
+        protected void drpUnit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.drpTeamGroup.Items.Clear();
+            TeamGroupService.InitTeamGroupProjectUnitDropDownList(this.drpTeamGroup, this.ProjectId, this.drpUnit.SelectedValue, true);
         }
     }
 }

@@ -56,6 +56,9 @@ namespace FineUIPro.Web.Meeting
                             }
                         }
                         this.txtClassMeetingContents.Text = HttpUtility.HtmlDecode(classMeeting.ClassMeetingContents);
+                        this.drpUnit.Text = UnitService.GetUnitNameByUnitId(classMeeting.UnitId);
+                        this.drpTeamGroup.Text = TeamGroupService.GetTeamGroupNameByTeamGroupId(classMeeting.TeamGroupId);
+                        this.txtAttentPersonNum.Text = classMeeting.AttentPersonNum.ToString();
                     }
                 }
 

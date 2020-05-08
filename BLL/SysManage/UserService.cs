@@ -329,7 +329,7 @@ namespace BLL
         public static List<Model.Sys_User> GetProjectUserListByProjectId(string projectId)
         {
             var users = (from x in Funs.DB.Sys_User
-                         where x.IsPost == true && x.UserId != Const.hfnbdId
+                         where x.IsPost == true && x.UserId != Const.hfnbdId && x.UserId != Const.sedinId
                          orderby x.UserName
                          select x).ToList();
             if (!string.IsNullOrEmpty(projectId))
@@ -376,7 +376,7 @@ namespace BLL
             else
             {
                 list = (from x in Funs.DB.Sys_User
-                        where x.UserId != BLL.Const.hfnbdId
+                        where x.UserId != BLL.Const.hfnbdId && x.UserId != Const.sedinId
                         orderby x.UserName
                         select x).ToList();
 

@@ -32,7 +32,23 @@
                         EnableEdit="true">
                     </f:DatePicker>
                     <f:DropDownList ID="drpCompileMan" runat="server" Label="整理人" LabelAlign="Right">
+                    </f:DropDownList>                 
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
+                    <f:DropDownList runat="server" ID="drpUnit" LabelAlign="Right" ShowRedStar="true" Label="单位"
+                        AutoPostBack="true" OnSelectedIndexChanged="drpUnit_SelectedIndexChanged">
                     </f:DropDownList>
+                     <f:DropDownList runat="server" ID="drpTeamGroup" LabelAlign="Right" ShowRedStar="true" Label="班组">
+                    </f:DropDownList>
+                </Items>
+            </f:FormRow>
+            <f:FormRow>
+                <Items>
+                       <f:NumberBox runat="server" ID="txtAttentPersonNum" Label="人数"  NoDecimal="true" NoNegative="true"
+                        LabelAlign="Right" ShowRedStar="true" Required="true"></f:NumberBox>
+                    <f:Label runat="server" ID="lb1"></f:Label>
                 </Items>
             </f:FormRow>
             <f:FormRow>

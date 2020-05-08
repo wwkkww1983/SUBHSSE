@@ -286,6 +286,57 @@ namespace WebAPI.Controllers
         }
         #endregion
 
+        #region 获取当前用户是否有菜单权限
+        /// <summary>
+        /// 获取当前用户是否有菜单权限
+        /// </summary>
+        /// <param name="userId">当前人ID</param>
+        /// <param name="menuId">菜单ID</param>
+        /// <param name="projectId">项目ID</param>
+        /// <returns></returns>
+        public Model.ResponeData getIsHaveMenuPower(string userId, string menuId, string projectId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = CommonService.ReturnMenuByUserIdMenuId( userId,  menuId,  projectId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region 获取当前用户是否有按钮权限
+        /// <summary>
+        /// 获取当前用户是否有菜单权限
+        /// </summary>
+        /// <param name="userId">当前人ID</param>
+        /// <param name="menuId">菜单ID</param>
+        /// <param name="projectId">项目ID</param>
+        /// <param name="buttonName">按钮名称</param>
+        /// <returns></returns>
+        public Model.ResponeData getIsHaveButtonPower(string userId, string menuId, string projectId,string buttonName)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = CommonService.GetAllButtonPowerList(projectId, userId, menuId, buttonName);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
         #region 获取当前人未读数量
         /// <summary>
         /// 获取当前人未读数量

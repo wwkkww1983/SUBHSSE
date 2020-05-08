@@ -99,8 +99,8 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:FileUpload runat="server" ID="btnFile" EmptyText="请选择图片" OnFileSelected="btnFile_Click"
-                        AutoPostBack="true" Label="图片" >
+                    <f:FileUpload runat="server" ID="btnFile" EmptyText="请选择图片/视频" OnFileSelected="btnFile_Click"
+                        AutoPostBack="true" Label="图片/视频" >
                     </f:FileUpload>
                     <f:ContentPanel ID="ContentPanel2" runat="server" ShowHeader="false" ShowBorder="false"
                         Title="附件">

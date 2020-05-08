@@ -49,6 +49,8 @@ namespace FineUIPro.Web.HiddenInspection
                 this.drpCheckMan.DataBind();
                 Funs.FineUIPleaseSelect(this.drpCheckMan);
                 GetRecords();
+                ////权限按钮方法
+                this.GetButtonPower();
                 // 绑定表格
                 BindGrid();
             }
@@ -444,6 +446,40 @@ namespace FineUIPro.Web.HiddenInspection
                 {
                     Alert.ShowInTop("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
                     return;
+                }
+            }
+        }
+        #endregion
+
+        #region 获取按钮权限
+        /// <summary>
+        /// 获取按钮权限
+        /// </summary>
+        /// <param name="button"></param>
+        /// <returns></returns>
+        private void GetButtonPower()
+        {
+            if (Request.Params["value"] == "0")
+            {
+                return;
+            }
+            var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HSSE_HiddenRectificationRecordMenuId);
+            if (buttonList.Count() > 0)
+            {
+                //if (buttonList.Contains(BLL.Const.BtnAdd))
+                //{
+                //    this.btnNew.Hidden = false;
+                //    this.btnCompletedDate.Hidden = false;
+                //    this.btnMenuRectify.Hidden = false;
+                //    this.btnPrint.Hidden = false;
+                //}
+                //if (buttonList.Contains(BLL.Const.BtnModify))
+                //{
+                //    this.btnMenuModify.Hidden = false;
+                //}
+                if (buttonList.Contains(BLL.Const.BtnDelete))
+                {
+                    this.btnMenuDelete.Hidden = false;
                 }
             }
         }

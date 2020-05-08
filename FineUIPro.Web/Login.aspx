@@ -69,7 +69,7 @@
                                                 runat="server" Margin="10px 10px 0 110px"  EnablePress="true" Pressed="true" Size="Medium" OnClick="btnLogin_Click" >
                                             </f:Button>   
                                             <f:CheckBox runat="server"  ShowLabel="false" ID="ckRememberMe" MarginLeft="5px" MarginTop="10px"
-                                                LabelAlign="Left" Text="记住登录名"></f:CheckBox>            
+                                                LabelAlign="Left" Text="记住用户名"></f:CheckBox>            
                                         </Items>
                                     </f:Panel>                                    
                                 </Items>

@@ -139,6 +139,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 会议主持人姓名
+        /// </summary>
+        public string MeetingHostManName
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 参会人员IDs
         /// </summary>
         public string AttentPersonIds

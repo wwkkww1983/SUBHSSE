@@ -75,7 +75,7 @@
                     <f:LinkButtonField Width="200px" HeaderText="查看" ConfirmTarget="Parent" CommandName="particular"
                         TextAlign="Center" ToolTip="查看" Text="查看" />
                     <f:LinkButtonField Width="50px" HeaderText="删除" ConfirmText="确定要删除此条信息吗？" ConfirmTarget="Parent"
-                        CommandName="del" TextAlign="Center" ToolTip="删除" Icon="Delete" />
+                        CommandName="del" TextAlign="Center" ToolTip="删除" Icon="Delete" Hidden="true"/>
                 </Columns>
                 <Listeners>
                     <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
@@ -102,7 +102,7 @@
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
-            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
+            ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除" Hidden="true">
         </f:MenuButton>
     </f:Menu>
     </form>

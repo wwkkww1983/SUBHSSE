@@ -115,5 +115,21 @@ namespace BLL
             }
         }
         #endregion
+
+        /// <summary>
+        /// 获取班组名称
+        /// </summary>
+        /// <param name="UnitId"></param>
+        /// <returns></returns>
+        public static string GetTeamGroupNameByTeamGroupId(string TeamGroupId)
+        {
+            string name = string.Empty;
+            var TeamGroup = Funs.DB.ProjectData_TeamGroup.FirstOrDefault(x => x.TeamGroupId == TeamGroupId);
+            if (TeamGroup != null)
+            {
+                name = TeamGroup.TeamGroupName;
+            }
+            return name;
+        }
     }
 }

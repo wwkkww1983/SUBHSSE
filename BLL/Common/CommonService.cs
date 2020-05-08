@@ -23,7 +23,7 @@ namespace BLL
             {
                 ///1、当前用户是管理员 
                 ///2、当前菜单是个人设置 资源库|| menu.MenuType == BLL.Const.Menu_Resource
-                if (userId == Const.sysglyId || userId == Const.hfnbdId || menu.MenuType == BLL.Const.Menu_Personal)
+                if (userId == Const.sysglyId || userId == Const.hfnbdId || userId == Const.sedinId || menu.MenuType == Const.Menu_Personal)
                 {
                     returnValue = true;
                 }              
@@ -78,9 +78,13 @@ namespace BLL
         public static List<string> GetAllButtonList(string projectId, string userId, string menuId)
         {
             Model.SUBHSSEDB db = Funs.DB;
-            List<string> buttonList = new List<string>(); 
+            List<string> buttonList = new List<string>();
             List<Model.Sys_ButtonToMenu> buttons = new List<Model.Sys_ButtonToMenu>();
-            if (userId == Const.sysglyId || userId == BLL.Const.hfnbdId)
+            if (userId == Const.sedinId)
+            {
+                return buttonList;
+            }
+            if (userId == Const.sysglyId || userId == Const.hfnbdId)
             {
                 buttons = (from x in db.Sys_ButtonToMenu
                            where x.MenuId == menuId
@@ -107,15 +111,15 @@ namespace BLL
                         List<string> roleIdList = Funs.GetStrListByStr(pUser.RoleId, ',');
                         buttons = (from x in db.Sys_ButtonToMenu
                                    join y in db.Sys_ButtonPower on x.ButtonToMenuId equals y.ButtonToMenuId
-                                   where roleIdList.Contains(y.RoleId)  && y.MenuId == menuId && x.MenuId == menuId
+                                   where roleIdList.Contains(y.RoleId) && y.MenuId == menuId && x.MenuId == menuId
                                    select x).ToList();
                     }
                 }
             }
 
             if (buttons.Count() > 0)
-            {        
-                if (!BLL.CommonService.GetIsBuildUnit())
+            {
+                if (!CommonService.GetIsBuildUnit())
                 {
                     var menu = BLL.SysMenuService.GetSysMenuByMenuId(menuId);
                     if (menu != null && menu.MenuType == BLL.Const.Menu_Resource)
@@ -156,8 +160,12 @@ namespace BLL
         public static bool GetAllButtonPowerList(string projectId, string userId, string menuId, string buttonName)
         {
             Model.SUBHSSEDB db = Funs.DB;
-            bool isPower = false;    ////定义是否具备按钮权限            
-            if (!isPower && (userId == Const.sysglyId || userId == BLL.Const.hfnbdId))
+            bool isPower = false;    ////定义是否具备按钮权限    
+            if (userId == Const.sedinId)
+            {
+                return isPower;
+            }
+            if (!isPower && (userId == Const.sysglyId || userId == Const.hfnbdId))
             {
                 isPower = true;
             }
@@ -166,7 +174,7 @@ namespace BLL
             {
                 if (string.IsNullOrEmpty(projectId))
                 {
-                    var user = BLL.UserService.GetUserByUserId(userId); ////用户            
+                    var user = UserService.GetUserByUserId(userId); ////用户            
                     if (user != null)
                     {
                         if (!string.IsNullOrEmpty(user.RoleId))
@@ -215,7 +223,7 @@ namespace BLL
                     isPower = false;
                 }
             }
-            if (!BLL.CommonService.GetIsBuildUnit())
+            if (!CommonService.GetIsBuildUnit())
             {
                 var menu = BLL.SysMenuService.GetSysMenuByMenuId(menuId);
                 if (menu != null && menu.MenuType == BLL.Const.Menu_Resource)
@@ -238,16 +246,16 @@ namespace BLL
         public static bool IsMainUnitOrAdmin(string userId)
         {
             bool result = false;
-            if (userId == BLL.Const.sysglyId || userId == BLL.Const.hfnbdId)
+            if (userId == Const.sysglyId || userId == Const.hfnbdId || userId == Const.sedinId)
             {
                 result = true;
             }
             else
             {
-                var user = BLL.UserService.GetUserByUserId(userId);
+                var user = UserService.GetUserByUserId(userId);
                 if (user != null)
                 {
-                    Model.Base_Unit unit = BLL.UnitService.GetUnitByUnitId(user.UnitId);
+                    Model.Base_Unit unit = UnitService.GetUnitByUnitId(user.UnitId);
                     if (unit != null && unit.IsThisUnit == true)
                     {
                         result = true;
@@ -266,7 +274,7 @@ namespace BLL
         public static bool IsThisUnitLeaderOrManage(string userId)
         {
             bool result = false;
-            if (userId == Const.sysglyId || userId == Const.hfnbdId)
+            if (userId == Const.sysglyId || userId == Const.hfnbdId || userId == Const.sedinId)
             {
                 result = true;
             }
@@ -307,7 +315,7 @@ namespace BLL
         }
         #endregion
 
-        #region 根据用户ID判断是否 管理角色、领导角色 且是非本单位用户
+        #region 根据用户ID判断是否 管理角色、领导角色 
         /// <summary>
         /// 根据用户UnitId判断是否为本单位用户或管理员
         /// </summary>
@@ -315,7 +323,7 @@ namespace BLL
         public static bool IsLeaderOrManage(string userId)
         {
             bool result = false;
-            if (userId == Const.sysglyId || userId == Const.hfnbdId)
+            if (userId == Const.sysglyId || userId == Const.hfnbdId || userId == Const.sedinId)
             {
                 result = true;
             }
@@ -324,7 +332,7 @@ namespace BLL
                 var user = UserService.GetUserByUserId(userId);
                 if (user != null && user.IsOffice == true)
                 {
-                    var role = BLL.RoleService.GetRoleByRoleId(user.RoleId);
+                    var role = RoleService.GetRoleByRoleId(user.RoleId);
                     if (role != null && (role.RoleType == "3" || role.RoleType == "2")) ////是管理、领导角色
                     {
                         result = true;

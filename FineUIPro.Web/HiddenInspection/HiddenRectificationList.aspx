@@ -26,23 +26,17 @@
                 SortDirection="DESC" OnSort="Grid1_Sort" EnableColumnLines="true" AllowPaging="true"
                 IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"
                 OnRowCommand="Grid1_RowCommand" EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick"
-                AllowFilters="true" OnFilterChange="Grid1_FilterChange" EnableTextSelection="True">
+                AllowFilters="true" OnFilterChange="Grid1_FilterChange" EnableTextSelection="True">              
                 <Toolbars>
-                    <f:Toolbar ID="Toolbar3" Position="Top" runat="server" ToolbarAlign="Left">
+                    <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
-                            <f:RadioButtonList ID="ckType" runat="server" AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged"
+                           <%--  <f:RadioButtonList ID="ckType" runat="server" AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged"
                                 Width="330px">
                                 <f:RadioItem Value="0" Text="全部" />
                                 <f:RadioItem Value="D" Selected="True" Text="日检" />
                                 <f:RadioItem Value="W" Text="周检" />
                                 <f:RadioItem Value="M" Text="月检" />
-                            </f:RadioButtonList>
-                        </Items>
-                    </f:Toolbar>
-                </Toolbars>
-                <Toolbars>
-                    <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Left">
-                        <Items>
+                            </f:RadioButtonList>--%>
                             <f:TextBox runat="server" Label="检查人" ID="txtCheckMan" EmptyText="输入查询条件" AutoPostBack="true"
                                 OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="210px" LabelWidth="80px">
                             </f:TextBox>
@@ -85,7 +79,7 @@
                             </f:ToolbarFill>
                             <f:HiddenField runat="server" ID="hdRemark">
                             </f:HiddenField>
-                            <f:Button ID="btnNew" Icon="Add" runat="server" OnClick="btnNew_Click" ToolTip="编制">
+                            <f:Button ID="btnNew" Icon="Add" runat="server" OnClick="btnNew_Click" ToolTip="编制" Hidden="true">
                             </f:Button>
                             <f:Button ID="btnPrint" OnClick="btnPrint_Click" runat="server" ToolTip="打印" Icon="Printer" Hidden="true"
                                 >
@@ -99,48 +93,57 @@
                 <Columns>
                     <f:CheckBoxField ColumnID="ckbIsSelected" Width="50px" RenderAsStaticField="false"
                                 AutoPostBack="true" CommandName="IsSelected" HeaderText="选择" HeaderTextAlign="Center" />
-                    <f:TemplateField ColumnID="tfPageIndex" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
+                 <%--   <f:TemplateField ColumnID="tfPageIndex" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
                         TextAlign="Center" EnableLock="true" Locked="False">
                         <ItemTemplate>
                             <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
-                    </f:TemplateField>
-                    <f:RenderField Width="90px" ColumnID="CheckManName" DataField="CheckManName" SortField="CheckManName"
-                        FieldType="String" HeaderText="检查人" TextAlign="Left" HeaderTextAlign="Center">
-                    </f:RenderField>
-                    <f:RenderField Width="140px" ColumnID="CheckTime" DataField="CheckTime" SortField="CheckTime"
+                    </f:TemplateField>       --%>          
+                    <f:RenderField Width="145px" ColumnID="CheckTime" DataField="CheckTime" SortField="CheckTime"
                         HeaderText="检查时间" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="150px" ColumnID="WorkAreaName" DataField="WorkAreaName" SortField="WorkAreaName"
+                    <f:RenderField Width="120px" ColumnID="WorkAreaName" DataField="WorkAreaName" SortField="WorkAreaName"
                         FieldType="String" HeaderText="区域" TextAlign="Left" HeaderTextAlign="Center">
-                    </f:RenderField>
-                    <f:RenderField Width="230px" ColumnID="ResponsibilityUnitName" DataField="ResponsibilityUnitName"
-                        SortField="ResponsibilityUnitName" FieldType="String" HeaderText="责任单位" TextAlign="Left"
-                        HeaderTextAlign="Center">
-                    </f:RenderField>
+                    </f:RenderField>                  
                     <f:RenderField Width="120px" ColumnID="RegisterTypesName" DataField="RegisterTypesName"
-                        SortField="RegisterTypesName" FieldType="String" HeaderText="检查项" TextAlign="Left"
+                        SortField="RegisterTypesName" FieldType="String" HeaderText="问题类型" TextAlign="Left"
                         HeaderTextAlign="Center">
-                    </f:RenderField>
-                    <f:RenderField Width="350px" ColumnID="RegisterDef" DataField="RegisterDef" SortField="RegisterDef"
+                    </f:RenderField>                 
+                    <f:TemplateField ColumnID="tfImageUrl1" Width="120px" HeaderText="整改前" HeaderTextAlign="Center"
+                        TextAlign="Left">
+                        <ItemTemplate>
+                            <asp:Label ID="lbImageUrl" runat="server" Text='<%# ConvertImageUrlByImage(Eval("HazardRegisterId")) %>'></asp:Label>
+                        </ItemTemplate>
+                    </f:TemplateField>
+                    <f:TemplateField ColumnID="tfImageUrl2" Width="120px" HeaderText="整改后" HeaderTextAlign="Center"
+                        TextAlign="Left">
+                        <ItemTemplate>
+                            <asp:Label ID="Label2" runat="server" Text='<%# ConvertImgUrlByImage(Eval("HazardRegisterId")) %>'></asp:Label>
+                        </ItemTemplate>
+                    </f:TemplateField>
+                       <f:RenderField Width="250px" ColumnID="RegisterDef" DataField="RegisterDef" SortField="RegisterDef"
                         FieldType="String" HeaderText="问题描述" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="200px" ColumnID="Rectification" DataField="Rectification" SortField="Rectification"
                         FieldType="String" HeaderText="采取措施" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
+                      <f:RenderField Width="200px" ColumnID="ResponsibilityUnitName" DataField="ResponsibilityUnitName"
+                        SortField="ResponsibilityUnitName" FieldType="String" HeaderText="责任单位" TextAlign="Left"
+                        HeaderTextAlign="Center">
+                    </f:RenderField>
                     <f:RenderField Width="90px" ColumnID="ResponsibilityManName" DataField="ResponsibilityManName"
                         SortField="ResponsibilityManName" FieldType="String" HeaderText="责任人" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="RectificationPeriod" DataField="RectificationPeriod"
+                    <f:RenderField Width="100px" ColumnID="RectificationPeriod" DataField="RectificationPeriod"
                         SortField="RectificationPeriod" FieldType="Date" Renderer="Date" HeaderText="整改期限"
                         TextAlign="Center" HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="140px" ColumnID="RectificationTime" DataField="RectificationTime"
+                    <f:RenderField Width="145px" ColumnID="RectificationTime" DataField="RectificationTime"
                         SortField="RectificationTime" HeaderText="整改时间" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="CutPayment" DataField="CutPayment" FieldType="String"
-                        SortField="CutPayment" HeaderText="处罚金额" TextAlign="Left" HeaderTextAlign="Center">
+                     <f:RenderField Width="90px" ColumnID="CheckManName" DataField="CheckManName" SortField="CheckManName"
+                        FieldType="String" HeaderText="检查人" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="90px" ColumnID="StatesStr" DataField="StatesStr" SortField="StatesStr"
                         FieldType="String" HeaderText="状态" HeaderTextAlign="Center" TextAlign="Center">
@@ -151,18 +154,7 @@
                             <asp:LinkButton ID="lbtnImageUrl" runat="server" Text='<%# ConvertImageUrl(Eval("HazardRegisterId")) %>'></asp:LinkButton>
                         </ItemTemplate>
                     </f:TemplateField>--%>
-                    <f:TemplateField ColumnID="tfImageUrl1" Width="150px" HeaderText="整改前图片" HeaderTextAlign="Center"
-                        TextAlign="Left">
-                        <ItemTemplate>
-                            <asp:Label ID="lbImageUrl" runat="server" Text='<%# ConvertImageUrlByImage(Eval("HazardRegisterId")) %>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>
-                    <f:TemplateField ColumnID="tfImageUrl2" Width="150px" HeaderText="整改后图片" HeaderTextAlign="Center"
-                        TextAlign="Left">
-                        <ItemTemplate>
-                            <asp:Label ID="Label2" runat="server" Text='<%# ConvertImgUrlByImage(Eval("HazardRegisterId")) %>'></asp:Label>
-                        </ItemTemplate>
-                    </f:TemplateField>
+                    
                     <%--<f:TemplateField ColumnID="tfRectificationImageUrl" Width="280px" HeaderText="整改后图片"
                         HeaderTextAlign="Center" TextAlign="Left">
                         <ItemTemplate>
@@ -170,7 +162,7 @@
                         </ItemTemplate>
                     </f:TemplateField>--%>
                     <f:LinkButtonField Width="50px" HeaderText="删除" ConfirmText="确定要删除此条信息吗？" ConfirmTarget="Parent" ColumnID="Del"
-                        CommandName="del" TextAlign="Center" ToolTip="删除" Icon="Delete" />
+                        CommandName="del" TextAlign="Center" ToolTip="删除" Icon="Delete"  Hidden="true"/>
                 </Columns>
                 <Listeners>
                     <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
@@ -214,19 +206,19 @@
     <f:Menu ID="Menu1" runat="server">
         <Items>
             <f:MenuButton ID="btnModify" EnablePostBack="true" runat="server" Text="编辑" 
-                OnClick="btnMenuModify_Click">
+                OnClick="btnMenuModify_Click" Hidden="true">
             </f:MenuButton>
             <f:MenuButton ID="btnRectify" EnablePostBack="true" runat="server" Text="整改" 
-                OnClick="btnMenuRectify_Click">
+                OnClick="btnMenuRectify_Click"  Hidden="true">
             </f:MenuButton>
             <f:MenuButton ID="btnConfirm" EnablePostBack="true" runat="server" Text="确认" 
-                OnClick="btnMenuConfirm_Click">
+                OnClick="btnMenuConfirm_Click"  Hidden="true">
             </f:MenuButton>
             <f:MenuButton ID="btnMenuSee" EnablePostBack="true" runat="server" Text="查看" 
                 OnClick="btnMenuSee_Click">
             </f:MenuButton>
             <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true" 
-                ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">
+                ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除"  Hidden="true">
             </f:MenuButton>
         </Items>
     </f:Menu>
