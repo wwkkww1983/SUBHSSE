@@ -203,7 +203,14 @@ namespace Model
             get;
             set;
         }
-      
+        /// <summary>
+        /// 实际结束时间
+        /// </summary>
+        public string ActualTime
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// 考卷设置项
         /// </summary>

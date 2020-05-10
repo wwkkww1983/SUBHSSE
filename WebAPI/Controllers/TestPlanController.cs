@@ -199,8 +199,8 @@ namespace WebAPI.Controllers
                 var getTestPlan = Funs.DB.Training_TestPlan.FirstOrDefault(e => e.TestPlanId == testPlanId && e.States != "3" && e.TestStartTime <= DateTime.Now && e.TestEndTime >= DateTime.Now); 
                 if (getTestPlan != null)
                 {
-                    var person = PersonService.GetPersonByUserId(personId);
-                    if (person != null && person.ProjectId == getTestPlan.ProjectId)
+                    var person = PersonService.GetPersonByUserId(personId, getTestPlan.ProjectId);
+                    if (person != null )
                     {
                         //2-考试中；生成考试试卷     
                         if (getTestPlan.States == "2" )

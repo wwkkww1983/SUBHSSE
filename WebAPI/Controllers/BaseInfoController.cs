@@ -997,5 +997,26 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region 获取部门信息
+        /// <summary>
+        ///   获取部门信息
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getDepart()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getDepart();
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
     }
 }

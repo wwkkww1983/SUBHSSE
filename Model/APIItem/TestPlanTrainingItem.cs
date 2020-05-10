@@ -44,6 +44,23 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 考生类型ID
+        /// </summary>
+        public string UserTypeId
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 考生类型名称
+        /// </summary>
+        public string UserTypeName
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 单选题数量
         /// </summary>
         public int TestType1Count

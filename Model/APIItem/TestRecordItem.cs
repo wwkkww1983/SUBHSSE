@@ -68,6 +68,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 单位Id
+        /// </summary>
+        public string UnitId
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 单位名称
         /// </summary>
         public string UnitName
@@ -103,6 +111,14 @@ namespace Model
         /// <summary>
         /// 考试计划结束时间
         /// </summary>
+        public string TestPlanStartTime
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 考试计划结束时间
+        /// </summary>
         public string TestPlanEndTime
         {
             get;
@@ -117,6 +133,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 题目数量
+        /// </summary>
+        public int QuestionCount
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 考试成绩
         /// </summary>
         public decimal TestScores
@@ -124,6 +148,7 @@ namespace Model
             get;
             set;
         }
+        
         /// <summary>
         /// 是否合格
         /// </summary>
@@ -144,6 +169,72 @@ namespace Model
         /// 考试信息（临时）
         /// </summary>
         public string TemporaryUser
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 考生类型（知识竞赛）
+        /// </summary>
+        public string UserType
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 部门ID（知识竞赛）
+        /// </summary>
+        public string DepartId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 部门名称（知识竞赛）
+        /// </summary>
+        public string DepartName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 岗位ID（知识竞赛）
+        /// </summary>
+        public string WorkPostId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 岗位名称（知识竞赛）
+        /// </summary>
+        public string WorkPostName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 身份证号码（知识竞赛）
+        /// </summary>
+        public string IdentityCard
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 电话号码（知识竞赛）
+        /// </summary>
+        public string Telephone
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 考试状态
+        /// </summary>
+        public string TestStates
         {
             get;
             set;

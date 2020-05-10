@@ -102,7 +102,7 @@ namespace FineUIPro.Web.EduTrain
                             }
                             if (!string.IsNullOrEmpty(testRecord.TestManId))
                             {
-                                var user = BLL.PersonService.GetPersonByUserId(testRecord.TestManId);
+                                var user = BLL.PersonService.GetPersonByUserId(testRecord.TestManId, testRecord.ProjectId);
                                 if (user != null)
                                 {
                                     this.txtTestManName.Text = user.PersonName;

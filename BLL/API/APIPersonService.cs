@@ -725,17 +725,17 @@ namespace BLL
         /// </summary>
         /// <param name="identityCard"></param>
         /// <returns></returns>
-        public static Model.PersonQualityItem getPersonQualityByIdentityCard(string identityCard)
+        public static Model.PersonQualityItem getPersonQualityByIdentityCard(string identityCard,string projectId)
         {
-            var getLists = from x in Funs.DB.QualityAudit_PersonQuality
-                           join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
-                           where (y.IdentityCard == identityCard || x.PersonId == identityCard)  
+            var getLists = from y in Funs.DB.SitePerson_Person
+                           join x in Funs.DB.QualityAudit_PersonQuality on y.PersonId equals x.PersonId
+                           where (y.IdentityCard == identityCard || x.PersonId == identityCard) && (projectId == null || y.ProjectId == projectId)
                            orderby y.CardNo
                            select new Model.PersonQualityItem
                            {
                                PersonQualityId = x.PersonQualityId,
                                PersonId = x.PersonId,
-                               PersonName=y.PersonName,
+                               PersonName = y.PersonName,
                                CardNo = y.CardNo,
                                IdentityCard = y.IdentityCard,
                                ProjectId = y.ProjectId,
@@ -771,12 +771,12 @@ namespace BLL
         /// </summary>
         /// <param name="identityCard"></param>
         /// <returns></returns>
-        public static List<Model.TestRecordItem> getPersonTestRecoedByIdentityCard(string identityCard)
+        public static List<Model.TestRecordItem> getPersonTestRecoedByIdentityCard(string identityCard, string projectId)
         {
             var getLists = from x in Funs.DB.EduTrain_TrainRecordDetail
                            join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
                            join z in Funs.DB.EduTrain_TrainRecord on x.TrainingId equals z.TrainingId
-                           where y.IdentityCard == identityCard
+                           where y.IdentityCard == identityCard && (projectId == null || z.ProjectId == projectId)
                            orderby z.TrainStartDate descending
                            select new Model.TestRecordItem
                            {

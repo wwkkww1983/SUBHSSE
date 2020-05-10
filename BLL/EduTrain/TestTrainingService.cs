@@ -86,5 +86,37 @@ namespace BLL
         {
             return (from x in db.Training_TestTraining orderby x.TrainingCode select x).ToList();
         }
+
+        /// <summary>
+        /// 获取试题类型列表
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Training_TestTraining> GetEndTestTrainingList()
+        {
+            return (from x in db.Training_TestTraining
+                    where x.IsEndLever == true
+                    orderby x.TrainingCode
+                    select x).ToList();
+        }
+
+        #region 获取末级题目下拉框
+        /// <summary>
+        /// 用户下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="projectId">项目id</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitTestTrainingDropDownList(FineUIPro.DropDownList dropName,  bool isShowPlease)
+        {
+            dropName.DataValueField = "TrainingId";
+            dropName.DataTextField = "TrainingName";
+            dropName.DataSource = GetEndTestTrainingList();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+        #endregion
     }
 }

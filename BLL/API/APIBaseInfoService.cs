@@ -508,5 +508,19 @@ namespace BLL
             return getDataLists;
         }
         #endregion
+        
+        #region 获取部门
+        /// <summary>
+        /// 获取图片分类
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getDepart()
+        {
+            var getDataLists = (from x in Funs.DB.Base_Depart
+                                orderby x.DepartCode
+                                select new Model.BaseInfoItem { BaseInfoId = x.DepartId, BaseInfoCode = x.DepartCode, BaseInfoName = x.DepartName }).ToList();
+            return getDataLists;
+        }
+        #endregion
     }
 }

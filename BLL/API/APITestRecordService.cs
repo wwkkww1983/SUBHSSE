@@ -500,7 +500,7 @@ namespace BLL
             Funs.SubmitChanges();
 
             var getTestPlan = Funs.DB.Training_TestPlan.FirstOrDefault(x => x.TestPlanId == newTestRecord.TestPlanId);
-            var person = PersonService.GetPersonByUserId(newTestRecord.TestManId);
+            var person = PersonService.GetPersonByUserId(newTestRecord.TestManId, getTestPlan.ProjectId);
             if (getTestPlan != null && person != null)
             {
                 CreateTestRecordItem(getTestPlan, newTestRecord, person);

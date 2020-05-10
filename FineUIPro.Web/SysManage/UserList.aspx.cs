@@ -43,7 +43,7 @@
                           + @" LEFT JOIN Sys_Role AS Roles ON Roles.RoleId=Users.RoleId"
                           + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=Users.UnitId"
                           + @" LEFT JOIN Sys_Const AS Const13 ON Roles.RoleType=Const13.ConstValue AND Const13.GroupId='" + BLL.ConstValue.Group_0013 + "'"
-                          + @" WHERE Users.UserId !='" + Const.sysglyId + "' AND Users.UserId !='" + BLL.Const.hfnbdId + "' AND  sysLog.UserId !='" + Const.sedinId + "'";
+                          + @" WHERE Users.UserId !='" + Const.sysglyId + "' AND Users.UserId !='" + Const.hfnbdId + "' AND  Users.UserId !='" + Const.sedinId + "'";
 
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtUserName.Text.Trim()))

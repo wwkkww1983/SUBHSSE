@@ -9,6 +9,60 @@ namespace BLL
 {
     public class CommonService
     {
+        #region 获取当前人菜单集合
+        /// <summary>
+        ///  获取当前人菜单集合
+        /// </summary> 
+        /// <param name="projectId">项目ID</param>    
+        /// <param name="userId">用户id</param>
+        /// <returns>是否具有权限</returns>
+        public static List<string> GetAllMenuList(string projectId, string userId)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            List<Model.Sys_Menu> menus = new List<Model.Sys_Menu>();
+            /// 启用且末级菜单
+            var getMenus = from x in db.Sys_Menu
+                           where x.IsUsed == true  && x.IsEnd==true select x;
+            if (!string.IsNullOrEmpty(projectId))
+            {
+                getMenus = getMenus.Where(x => x.MenuType == Const.Menu_Project);
+            }
+
+            if (userId == Const.sysglyId || userId == Const.hfnbdId || userId == Const.sedinId)
+            {
+                menus = getMenus.ToList();
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(projectId))
+                {
+                    var user = UserService.GetUserByUserId(userId); ////用户            
+                    if (user != null)
+                    {
+                        menus = (from x in getMenus
+                                 join y in db.Sys_RolePower on x.MenuId equals y.MenuId
+                                   where y.RoleId == user.RoleId
+                                   select x).ToList();
+                    }
+                }
+                else
+                {
+                    var pUser = ProjectUserService.GetProjectUserByUserIdProjectId(projectId, userId); ///项目用户
+                    if (pUser != null)
+                    {
+                        List<string> roleIdList = Funs.GetStrListByStr(pUser.RoleId, ',');
+                        menus = (from x in db.Sys_RolePower
+                                 join y in getMenus on x.MenuId equals y.MenuId
+                                 where roleIdList.Contains(x.RoleId)
+                                 select y).ToList();
+                    }
+                }
+            }
+
+            return menus.Select(x=>x.MenuId).ToList();
+        }
+        #endregion
+
         #region 根据登陆id菜单id判断是否有权限
         /// <summary>
         /// 根据登陆id菜单id判断是否有权限

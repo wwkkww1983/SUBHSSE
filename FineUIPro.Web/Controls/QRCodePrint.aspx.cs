@@ -153,6 +153,18 @@ namespace FineUIPro.Web.Controls
                     this.lbUnitName.Text = "考试扫码时间：" + string.Format("{0:yyyy-MM-dd}", testPlan.TestStartTime) + "；考试地点：" + testPlan.TestPalce;
                 }
             }
+            else if (!string.IsNullOrEmpty(Request.Params["ServerTestPlanId"]))
+            {
+                ///知识竞赛
+                var testPlan = BLL.ServerTestPlanService.GetTestPlanById(Request.Params["ServerTestPlanId"]);
+                if (testPlan != null && !string.IsNullOrEmpty(testPlan.QRCodeUrl))
+                {
+                    this.imgPhoto.Src = "../" + testPlan.QRCodeUrl;                  
+                    this.lbWedCode.Text = "编号：" + testPlan.PlanCode;
+                    this.lbWedName.Text = "名称：" + testPlan.PlanName;
+                    this.lbUnitName.Text = "扫码考试时间：" + string.Format("{0:yyyy-MM-dd HH:mm:ss}", testPlan.TestStartTime) + "；至：" + string.Format("{0:yyyy-MM-dd HH:mm:ss}", testPlan.TestEndTime);
+                }
+            }
         }
     }
 }

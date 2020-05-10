@@ -49,7 +49,7 @@ namespace FineUIPro.Web.EduTrain
                         this.lbTestType.Text = getTrainTypeName + this.lbTestType.Text;
                     }
                     string personInfo = string.Empty;
-                    var testMan = PersonService.GetPersonByUserId(testRecord.TestManId);
+                    var testMan = PersonService.GetPersonByUserId(testRecord.TestManId, testRecord.ProjectId);
                     if (testMan != null)
                     {
                         personInfo = "单位：" + UnitService.GetUnitNameByUnitId(testMan.UnitId) + "        " +

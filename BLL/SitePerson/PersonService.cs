@@ -52,7 +52,7 @@ namespace BLL
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public static Model.SitePerson_Person GetPersonByUserId(string userId)
+        public static Model.SitePerson_Person GetPersonByUserId(string userId,string projectId)
         {
             var getPerson = GetPersonById(userId);
             if (getPerson == null)
@@ -60,7 +60,7 @@ namespace BLL
                 var getUser = UserService.GetUserByUserId(userId);
                 if (getUser != null)
                 {
-                    getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(e => e.IdentityCard == getUser.IdentityCard);                   
+                    getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(e => e.IdentityCard == getUser.IdentityCard && e.ProjectId == projectId);                   
                 }
             }
 

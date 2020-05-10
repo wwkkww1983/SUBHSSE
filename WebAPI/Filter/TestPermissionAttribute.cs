@@ -20,8 +20,7 @@ namespace WebAPI.Filter
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
             bool isOk = false;
-            IEnumerable<string> token;
-            actionContext.Request.Headers.TryGetValues("token", out token);            
+            actionContext.Request.Headers.TryGetValues("token", out IEnumerable<string> token);
             string strValues = actionContext.ActionDescriptor.ControllerDescriptor.ControllerName + "*" + ((ReflectedHttpActionDescriptor)actionContext.ActionDescriptor).ActionName;
             if (lists.FirstOrDefault(x => x == strValues) != null)
             {

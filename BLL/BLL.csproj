@@ -118,8 +118,10 @@
     <Compile Include="API\APIHazardListService.cs" />
     <Compile Include="API\APIConstructSolutionService.cs" />
     <Compile Include="API\APIMeetingService.cs" />
+    <Compile Include="API\APIServerTestPlanService.cs" />
     <Compile Include="API\APITestPlanService.cs" />
     <Compile Include="API\APIResourcesService.cs" />
+    <Compile Include="API\APIServerTestRecordService.cs" />
     <Compile Include="API\APITestRecordService.cs" />
     <Compile Include="API\APITrainingTaskService.cs" />
     <Compile Include="API\APITrainingPlanService.cs" />
@@ -549,6 +551,9 @@
     <Compile Include="Technique\Technique_CheckItemDetailService.cs" />
     <Compile Include="Technique\Technique_CheckItemSetService.cs" />
     <Compile Include="Technique\Technique_EnvironmentalService.cs" />
+    <Compile Include="Test\ServerTestPlanTrainingService.cs" />
+    <Compile Include="Test\ServerTestPlanService.cs" />
+    <Compile Include="Test\ServerTestRecordService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">

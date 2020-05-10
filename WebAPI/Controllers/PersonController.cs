@@ -209,19 +209,20 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
-        
+
         #region 根据identityCard获取人员资质信息
         /// <summary>
         /// 根据identityCard获取人员资质信息
         /// </summary>
         /// <param name="identityCard"></param>
+        /// <param name="projectId"></param>
         /// <returns></returns>
-        public Model.ResponeData getPersonQualityByIdentityCard(string identityCard)
+        public Model.ResponeData getPersonQualityByIdentityCard(string identityCard,string projectId=null)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data =APIPersonService.getPersonQualityByIdentityCard(identityCard);
+                responeData.data =APIPersonService.getPersonQualityByIdentityCard(identityCard, projectId);
             }
             catch (Exception ex)
             {
@@ -238,13 +239,14 @@ namespace WebAPI.Controllers
         /// 根据identityCard获取人员培训考试信息
         /// </summary>
         /// <param name="identityCard"></param>
+        /// <param name="projectId"></param>
         /// <returns></returns>
-        public Model.ResponeData getPersonTestRecoedByIdentityCard(string identityCard)
+        public Model.ResponeData getPersonTestRecoedByIdentityCard(string identityCard, string projectId = null)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = APIPersonService.getPersonTestRecoedByIdentityCard(identityCard);
+                responeData.data = APIPersonService.getPersonTestRecoedByIdentityCard(identityCard, projectId);
             }
             catch (Exception ex)
             {
@@ -515,7 +517,7 @@ namespace WebAPI.Controllers
                                    where x.ProjectId == projectId
                                    && !x.ExchangeTime.HasValue
                                    && (!x.OutTime.HasValue || x.OutTime > DateTime.Now) && x.InTime.HasValue && x.InTime < DateTime.Now
-                                   && x.IsUsed == true && x.CardNo != null && (x.PhotoUrl != null || x.IDCardUrl != null)
+                                   && x.IsUsed == true && x.CardNo != null
                                    select new
                                    {
                                        x.PersonId,

@@ -177,6 +177,7 @@ namespace BLL
                     GetDataService.UpdateTestPlanStates();
                     GetDataService.CorrectingPersonInOutNumber(null);
                     GetDataService.CreateQRCode();
+                    ServerTestPlanService.EndTestPlan(null);
                 }
             }
         }

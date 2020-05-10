@@ -1222,6 +1222,21 @@ namespace BLL
         /// </summary>
         public const string ServerFileCabinetBMenuId = "DDD1CE30-F8B9-4011-A20F-7AC60B34788C";
         #endregion
+
+        #region 知识竞赛
+        /// <summary>
+        /// 制定计划
+        /// </summary>
+        public const string ServerTestPlanMenuId = "A048350B-25E6-4DE1-A701-73638656D15F";
+        /// <summary>
+        /// 答题记录
+        /// </summary>
+        public const string ServerTestRecordMenuId = "64CFD530-A4F9-4857-BE3C-D243B4333ECA";
+        /// <summary>
+        /// 成绩排名
+        /// </summary>
+        public const string ServerTestRankingMenuId = "19FB0C6D-E2CA-4352-B635-060347D45C4A";
+        #endregion
         #endregion
 
         #region 项目菜单

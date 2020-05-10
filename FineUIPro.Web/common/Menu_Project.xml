@@ -121,6 +121,7 @@
 <TreeNode id="20ECB69E-28C4-4FAC-941A-15F446AEB634" Text="安全投入费用" NavigateUrl="" Icon="ApplicationViewTile"><TreeNode id="EEE7CBBE-2EFB-4D64-96A6-A932E20FF9DB" Text="安全费用计划" NavigateUrl="CostGoods/Expense.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="0C311396-C859-40B0-9D72-6A8B20733002" Text="安全费用支出" NavigateUrl="CostGoods/CostSmallDetail.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="FF68C697-B058-4687-A98F-71C591650E02" Text="分包商HSE费用申请" NavigateUrl="CostGoods/CostManage.aspx" Icon="PageHeaderFooter"></TreeNode>
+<TreeNode id="6488F005-95F2-4D49-BC95-6DF4C9B23F3D" Text="安全分包费用" NavigateUrl="CostGoods/HSSECostUnitManage.aspx" Icon="PageHeaderFooter"></TreeNode>
 </TreeNode>
 <TreeNode id="D58B9DEC-A09B-45B0-BD54-18592119BB49" Text="行政管理" NavigateUrl="" Icon="Box"><TreeNode id="A25EB19A-F06E-4AAF-A589-E2B8F7FA7857" Text="行政管理检查记录" NavigateUrl="Administrative/ManageCheck.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="CF82805A-84BE-400A-B939-83F7612D76F5" Text="现场车辆管理" NavigateUrl="Administrative/CarManager.aspx" Icon="PageHeaderFooter"></TreeNode>

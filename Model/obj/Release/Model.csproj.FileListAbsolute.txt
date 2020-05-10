@@ -143,4 +143,3 @@ D:\DepCode\SEDIN\HSSE\HSSE\Model\obj\Release\Model.csproj.CoreCompileInputs.cach
 D:\DepCode\SEDIN\HSSE\HSSE\Model\obj\Release\Model.csproj.CopyComplete
 D:\DepCode\SEDIN\HSSE\HSSE\Model\obj\Release\Model.dll
 D:\DepCode\SEDIN\HSSE\HSSE\Model\obj\Release\Model.pdb
-D:\DepCode\SEDIN\HSSE\HSSE\Model\obj\Release\Model.csprojAssemblyReference.cache

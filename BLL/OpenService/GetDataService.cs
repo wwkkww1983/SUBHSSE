@@ -754,7 +754,7 @@ namespace BLL
         {
             Model.SUBHSSEDB db = Funs.DB;
             var getTestPlans = from x in db.Training_TestPlan
-                               where x.States == "2" && x.TestEndTime.AddMinutes(x.Duration) < DateTime.Now
+                               where x.States == Const.State_2 && x.TestEndTime.AddMinutes(x.Duration) < DateTime.Now
                                select x;
             if (getTestPlans.Count() > 0)
             {

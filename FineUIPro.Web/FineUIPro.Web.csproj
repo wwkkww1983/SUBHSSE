@@ -4074,6 +4074,10 @@
     <Content Include="Technique\SpecialSchemeEdit.aspx" />
     <Content Include="Technique\SpecialSchemeSelectCloumn.aspx" />
     <Content Include="Technique\SpecialSchemeUpload.aspx" />
+    <Content Include="Test\TestPlanView.aspx" />
+    <Content Include="Test\TestPlanEdit.aspx" />
+    <Content Include="Test\TestPlan.aspx" />
+    <Content Include="Test\TestRecord.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -10897,6 +10901,34 @@
     </Compile>
     <Compile Include="Technique\SpecialSchemeUpload.aspx.designer.cs">
       <DependentUpon>SpecialSchemeUpload.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Test\TestPlanView.aspx.cs">
+      <DependentUpon>TestPlanView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Test\TestPlanView.aspx.designer.cs">
+      <DependentUpon>TestPlanView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Test\TestPlanEdit.aspx.cs">
+      <DependentUpon>TestPlanEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Test\TestPlanEdit.aspx.designer.cs">
+      <DependentUpon>TestPlanEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Test\TestPlan.aspx.cs">
+      <DependentUpon>TestPlan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Test\TestPlan.aspx.designer.cs">
+      <DependentUpon>TestPlan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Test\TestRecord.aspx.cs">
+      <DependentUpon>TestRecord.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Test\TestRecord.aspx.designer.cs">
+      <DependentUpon>TestRecord.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
