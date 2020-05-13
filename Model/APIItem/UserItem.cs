@@ -152,7 +152,7 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 用户类型（1用户；2现场人员；3临时用户）
+        /// 用户类型（1用户；2临时用户；3现场人员）
         /// </summary>
         public string UserType
         {

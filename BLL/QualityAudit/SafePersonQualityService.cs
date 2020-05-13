@@ -43,12 +43,12 @@ namespace BLL
                 ApprovalPerson = SafePersonQuality.ApprovalPerson,
                 Remark = SafePersonQuality.Remark,
                 CompileMan = SafePersonQuality.CompileMan,
-                CompileDate = SafePersonQuality.CompileDate
+                CompileDate = SafePersonQuality.CompileDate,
+                AuditDate = SafePersonQuality.AuditDate,
+                AuditorId = SafePersonQuality.AuditorId,
             };
-            SafePersonQuality.AuditDate = SafePersonQuality.AuditDate;
             db.QualityAudit_SafePersonQuality.InsertOnSubmit(newSafePersonQuality);
             db.SubmitChanges();
-
         }
 
         /// <summary>
@@ -72,7 +72,8 @@ namespace BLL
                 newSafePersonQuality.Remark = SafePersonQuality.Remark;
                 newSafePersonQuality.CompileMan = SafePersonQuality.CompileMan;
                 newSafePersonQuality.CompileDate = SafePersonQuality.CompileDate;
-                SafePersonQuality.AuditDate = SafePersonQuality.AuditDate;
+                newSafePersonQuality.AuditDate = SafePersonQuality.AuditDate;
+                newSafePersonQuality.AuditorId = SafePersonQuality.AuditorId;
                 db.SubmitChanges();
             }
         }

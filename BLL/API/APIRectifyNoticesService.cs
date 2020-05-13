@@ -347,7 +347,7 @@ namespace BLL
                         }
                         else
                         {
-                            newRectifyNotices.States = "0";
+                            isUpdate.States = "0";
                         }
                         db.SubmitChanges();
                         //// 删除明细表
@@ -392,7 +392,7 @@ namespace BLL
                             }
                             else
                             {
-                                newRectifyNotices.States = "1";
+                                isUpdate.States = "1";
                             }
                         }
                         db.SubmitChanges();                       
@@ -428,7 +428,7 @@ namespace BLL
                         }
                         else
                         {
-                            newRectifyNotices.States = "2";
+                            isUpdate.States = "2";
                         }
                         db.SubmitChanges();
                     }
@@ -448,7 +448,7 @@ namespace BLL
                             }
                             else
                             {
-                                newRectifyNotices.States = "3";
+                                isUpdate.States = "3";
                             }
                         }
                         db.SubmitChanges();

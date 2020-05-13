@@ -4077,6 +4077,7 @@
     <Content Include="Test\TestPlanView.aspx" />
     <Content Include="Test\TestPlanEdit.aspx" />
     <Content Include="Test\TestPlan.aspx" />
+    <Content Include="Test\TestRanking.aspx" />
     <Content Include="Test\TestRecord.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -10922,6 +10923,13 @@
     </Compile>
     <Compile Include="Test\TestPlan.aspx.designer.cs">
       <DependentUpon>TestPlan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Test\TestRanking.aspx.cs">
+      <DependentUpon>TestRanking.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Test\TestRanking.aspx.designer.cs">
+      <DependentUpon>TestRanking.aspx</DependentUpon>
     </Compile>
     <Compile Include="Test\TestRecord.aspx.cs">
       <DependentUpon>TestRecord.aspx</DependentUpon>

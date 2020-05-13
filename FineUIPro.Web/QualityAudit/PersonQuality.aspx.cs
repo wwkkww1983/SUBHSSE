@@ -68,18 +68,19 @@ namespace FineUIPro.Web.QualityAudit
         {
             string strSql = @"SELECT DISTINCT PersonQuality.PersonQualityId,Person.PersonId,Person.ProjectId,Person.CardNo,Person.PersonName,Unit.UnitId,Unit.UnitCode,Unit.UnitName,WorkPost.WorkPostId,WorkPost.WorkPostName,WorkPost.WorkPostCode,"
                           + @" PersonQuality.CertificateNo,PersonQuality.CertificateName,PersonQuality.Grade,PersonQuality.SendUnit,PersonQuality.SendDate,PersonQuality.LimitDate,PersonQuality.LateCheckDate,"
-                          + @" PersonQuality.ApprovalPerson,PersonQuality.Remark,PersonQuality.CompileMan,Users.UserName AS CompileManName,PersonQuality.CompileDate"
+                          + @" PersonQuality.ApprovalPerson,PersonQuality.Remark,PersonQuality.CompileMan,Users.UserName AS CompileManName,PersonQuality.CompileDate,Auditor.UserName AS AuditorName,AuditDate"
                           + @" FROM  SitePerson_Person AS Person  "
                           + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId = Person.UnitId"
                           + @" LEFT JOIN QualityAudit_PersonQuality AS PersonQuality ON Person.PersonId = PersonQuality.PersonId "
                           + @" LEFT JOIN Base_WorkPost AS WorkPost ON WorkPost.WorkPostId = Person.WorkPostId "
                           + @" LEFT JOIN Sys_User AS Users ON PersonQuality.CompileMan = Users.UserId "
-                          + @" WHERE WorkPost.PostType ='" + BLL.Const.PostType_2 + "'";
+                          + @" LEFT JOIN Sys_User AS Auditor ON PersonQuality.AuditorId = Auditor.UserId"
+                          + @" WHERE WorkPost.PostType ='" + Const.PostType_2 + "'";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND Person.ProjectId = @ProjectId";
             listStr.Add(new SqlParameter("@ProjectId", this.ProjectId));
 
-            if (this.drpUnitId.SelectedValue != BLL.Const._Null)
+            if (this.drpUnitId.SelectedValue != Const._Null)
             {
                 strSql += " AND Person.UnitId = @UnitId";
                 listStr.Add(new SqlParameter("@UnitId", this.drpUnitId.SelectedValue.Trim()));

@@ -834,6 +834,46 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:WebAPI.Controllers.PersonQualityController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.PersonQualityController.getPersonQualityInfo(System.String,System.String)">
+            <summary>
+             根据ID获取人员资质信息
+            </summary>
+            <param name="type">人员资质类型（1-特种作业；2-安管人员；3-特种设备作业人员）</param>
+            <param name="dataId">主键ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PersonQualityController.getPersonQualityCount(System.String,System.String,System.String)">
+            <summary>
+            获取人员资质各状态数
+            </summary>
+            <param name="projectId">项目ID</param>
+            <param name="unitId">单位ID</param>
+            <param name="qualityType">人员资质类型（1-特种作业；2-安管人员；3-特种设备作业人员）</param>
+            <returns>人员资质数量</returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PersonQualityController.getPersonQualityList(System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            根据projectId、unitid获取特岗人员资质信息
+            </summary>
+            <param name="projectId">项目ID</param>
+            <param name="unitId">单位ID</param>
+            <param name="qualityType">资质类型</param> 
+            <param name="states">0-待提交；1-待审核；2-已审核；-1打回</param>
+            <param name="pageIndex">页码</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PersonQualityController.SavePersonQuality(Model.PersonQualityItem)">
+            <summary>
+            保存Meeting
+            </summary>
+            <param name="personQuality">人员资质信息</param>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.SeDinMonthReportController">
             <summary>
             赛鼎月报
@@ -1014,10 +1054,14 @@
              公用接口
             </summary>
         </member>
-        <member name="M:WebAPI.Controllers.CommonController.getSubscribeMessage(System.String,System.String,System.String,System.Object,System.String,System.String)">
+        <member name="M:WebAPI.Controllers.CommonController.getSubscribeMessage(System.String,System.String,System.String,System.String)">
             <summary>
-             订阅消息
+            订阅消息
             </summary>
+            <param name="userId"></param>
+            <param name="thing2"></param>
+            <param name="name1"></param>
+            <param name="date3"></param>
             <returns></returns>
         </member>
         <member name="M:WebAPI.Controllers.CommonController.postSubscribeMessage(Model.SubscribeMessageItem)">
@@ -1028,6 +1072,12 @@
             <returns></returns>
         </member>
         <member name="M:WebAPI.Controllers.CommonController.getUserOpenId(System.String,System.String)">
+            <summary>
+             获取OpenId消息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.CommonController.getRefreshUserOpenId(System.String,System.String)">
             <summary>
              获取OpenId消息
             </summary>
@@ -1493,7 +1543,7 @@
             </summary>
             <param name="toDoItem">附件</param>
         </member>
-        <member name="M:WebAPI.Controllers.FileUploadController.PostSmallImage">
+        <member name="M:WebAPI.Controllers.FileUploadController.PostSmall">
             <summary>
             附件上传
             </summary>
@@ -1729,14 +1779,6 @@
             <param name="pageIndex"></param>
             <returns></returns>
         </member>
-        <member name="M:WebAPI.Controllers.PersonController.getPersonStatesCount(System.String,System.String)">
-            <summary>
-            获取在岗、离岗、待审人员列表
-            </summary>
-            <param name="projectId"></param>
-            <param name="unitId"></param>
-            <returns></returns>
-        </member>
         <member name="M:WebAPI.Controllers.PersonController.getPersonStatesCount(System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             获取在岗、离岗、待审人员列表
@@ -1762,17 +1804,17 @@
             <param name="pageIndex"></param>
             <returns></returns>
         </member>
-        <member name="M:WebAPI.Controllers.PersonController.getPersonQualityByIdentityCard(System.String,System.String)">
+        <member name="M:WebAPI.Controllers.PersonController.getPersonTestRecoedByIdentityCard(System.String,System.String)">
             <summary>
-            根据identityCard获取人员资质信息
+            根据identityCard获取人员培训考试信息
             </summary>
             <param name="identityCard"></param>
             <param name="projectId"></param>
             <returns></returns>
         </member>
-        <member name="M:WebAPI.Controllers.PersonController.getPersonTestRecoedByIdentityCard(System.String,System.String)">
+        <member name="M:WebAPI.Controllers.PersonController.getPersonQualityByIdentityCard(System.String,System.String)">
             <summary>
-            根据identityCard获取人员培训考试信息
+            根据identityCard获取人员资质信息
             </summary>
             <param name="identityCard"></param>
             <param name="projectId"></param>
@@ -1792,7 +1834,7 @@
             </summary>
             <param name="projectId">项目ID</param>
             <param name="unitId">单位ID</param>
-            <param name="type">数据类型0-已过期；1-即将过期;2-无证</param>
+            <param name="type">数据类型0-已过期；1-即将过期;2-无证;3-待审核；4-已审核；-1打回</param>
             <param name="pageIndex">页码</param>
             <returns></returns>
         </member>
@@ -2057,6 +2099,46 @@
             <param name="pageIndex"></param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.ResourcesController.getAccidentCaseListBySupAccidentCaseId(System.String,System.Int32)">
+            <summary>
+            根据父级类型ID获取事故案例类型
+            </summary>
+            <param name="supTypeId"></param>
+            <param name="pageIndex">分页</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.ResourcesController.getAccidentCaseItemListById(System.String,System.Int32)">
+            <summary>
+            根据培训教材类型id获取公司培训教材列表
+            </summary>
+            <param name="accidentCaseId"></param>
+            <param name="pageIndex">分页</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.ResourcesController.getAccidentCaseItemById(System.String)">
+            <summary>
+            根据事故案例主键获取事故案例详细信息
+            </summary>
+            <param name="accidentCaseItemId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.ResourcesController.getCheckItemSetListBySupCheckItemId(System.String,System.String,System.Int32)">
+            <summary>
+            根据父级类型ID获取检查要点类型
+            </summary>
+            <param name="supTypeId"></param>
+            <param name="checkType">1-checkType;2-专项检查;3-综合检查</param>
+            <param name="pageIndex">分页</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.ResourcesController.getCheckItemSetItemListBycheckItemSetId(System.String,System.Int32)">
+            <summary>
+            根据检查要点类型id获取检查要点列表
+            </summary>
+            <param name="checkItemSetId"></param>
+            <param name="pageIndex">分页</param>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.LawRulesRegulationsController">
             <summary>
             规章制度信息
@@ -2174,6 +2256,16 @@
             <summary>
             知识竞赛-考生记录信息
             </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.ServerTestRecordController.getTestRecordInfo(System.String,System.String,System.String,System.String)">
+            <summary>
+            获取考生信息
+            </summary>
+            <param name="testPlanId"></param>
+            <param name="testManId"></param>
+            <param name="userType"></param>
+            <param name="identityCard"></param>
+            <returns></returns>
         </member>
         <member name="M:WebAPI.Controllers.ServerTestRecordController.SaveTestRecord(Model.TestRecordItem)">
             <summary>

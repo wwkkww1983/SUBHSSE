@@ -400,5 +400,150 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region 事故案例
+        #region 根据父级类型ID获取事故案例类型
+        /// <summary>
+        /// 根据父级类型ID获取事故案例类型
+        /// </summary>
+        /// <param name="supTypeId"></param>
+        /// <param name="pageIndex">分页</param>
+        /// <returns></returns>
+        public Model.ResponeData getAccidentCaseListBySupAccidentCaseId(string supTypeId, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APIResourcesService.getAccidentCaseListBySupAccidentCaseId(supTypeId);
+                int pageCount = getDataList.Count;
+                if (pageCount > 0 && pageIndex > 0)
+                {
+                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                }
+                responeData.data = new { pageCount, getDataList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 根据事故案例类型id获取事故案例列表
+        /// <summary>
+        /// 根据培训教材类型id获取公司培训教材列表
+        /// </summary>
+        /// <param name="accidentCaseId"></param>
+        /// <param name="pageIndex">分页</param>
+        /// <returns></returns>
+        public Model.ResponeData getAccidentCaseItemListById(string accidentCaseId, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APIResourcesService.getAccidentCaseItemListById(accidentCaseId);
+                int pageCount = getDataList.Count;
+                if (pageCount > 0 && pageIndex > 0)
+                {
+                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                }
+                responeData.data = new { pageCount, getDataList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 根据事故案例主键获取事故案例详细信息
+        /// <summary>
+        /// 根据事故案例主键获取事故案例详细信息
+        /// </summary>
+        /// <param name="accidentCaseItemId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getAccidentCaseItemById(string accidentCaseItemId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIResourcesService.getAccidentCaseItemById(accidentCaseItemId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+        #endregion
+
+        #region 检查要点
+        #region 根据父级类型ID获取检查要点类型
+        /// <summary>
+        /// 根据父级类型ID获取检查要点类型
+        /// </summary>
+        /// <param name="supTypeId"></param>
+        /// <param name="checkType">1-checkType;2-专项检查;3-综合检查</param>
+        /// <param name="pageIndex">分页</param>
+        /// <returns></returns>
+        public Model.ResponeData getCheckItemSetListBySupCheckItemId(string supTypeId, string checkType, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APIResourcesService.getCheckItemSetListBySupCheckItemId(supTypeId, checkType);
+                int pageCount = getDataList.Count;
+                if (pageCount > 0 && pageIndex > 0)
+                {
+                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                }
+                responeData.data = new { pageCount, getDataList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 根据培训教材类型id获取检查要点列表
+        /// <summary>
+        /// 根据检查要点类型id获取检查要点列表
+        /// </summary>
+        /// <param name="checkItemSetId"></param>
+        /// <param name="pageIndex">分页</param>
+        /// <returns></returns>
+        public Model.ResponeData getCheckItemSetItemListBycheckItemSetId(string checkItemSetId, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APIResourcesService.getCheckItemSetItemListBycheckItemSetId(checkItemSetId);
+                int pageCount = getDataList.Count;
+                if (pageCount > 0 && pageIndex > 0)
+                {
+                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                }
+                responeData.data = new { pageCount, getDataList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #endregion
     }
 }

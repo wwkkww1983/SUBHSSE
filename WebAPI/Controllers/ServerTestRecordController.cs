@@ -12,6 +12,31 @@ namespace WebAPI.Controllers
     /// </summary>
     public class ServerTestRecordController : ApiController
     {
+        #region 获取考生信息
+        /// <summary>
+        /// 获取考生信息
+        /// </summary>
+        /// <param name="testPlanId"></param>
+        /// <param name="testManId"></param>
+        /// <param name="userType"></param>
+        /// <param name="identityCard"></param>
+        /// <returns></returns>
+        public Model.ResponeData getTestRecordInfo(string testPlanId, string testManId, string userType,  string identityCard)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIServerTestRecordService.getTestRecordInfo(testPlanId, testManId, userType, identityCard);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
         #region 保存知识竞赛考生信息
         /// <summary>
         /// 保存知识竞赛考生信息
@@ -50,7 +75,16 @@ namespace WebAPI.Controllers
                         && x.TestStartTime <= DateTime.Now && x.TestEndTime > DateTime.Now);
                 if (getTestPlan != null)
                 {
-                    responeData.data= APIServerTestRecordService.CreateTestRecordItem(testPlanId, testRecordId);
+                    var getTestRecord = Funs.DB.Test_TestRecord.FirstOrDefault(x => x.TestRecordId == testRecordId && !x.TestEndTime.HasValue);
+                    if (getTestRecord != null)
+                    {
+                        responeData.data = APIServerTestRecordService.CreateTestRecordItem(testPlanId, testRecordId);
+                    }
+                    else
+                    {
+                        responeData.code = 2;
+                        responeData.message = "您已参加过考试！";
+                    }
                 }
                 else
                 {
@@ -231,9 +265,11 @@ namespace WebAPI.Controllers
         {
             var responeData = new Model.ResponeData();
             try
-            {
+            {                                
                 ////考试分数
-                responeData.data = APIServerTestRecordService.getSubmitTestRecord(testRecordId); ;
+                var score= APIServerTestRecordService.getSubmitTestRecord(testRecordId);
+                responeData.data = score;
+                responeData.message = "您的成绩为：【" + score.ToString() + "】";
             }
             catch (Exception ex)
             {

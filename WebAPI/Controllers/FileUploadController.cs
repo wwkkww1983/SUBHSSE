@@ -88,7 +88,7 @@ namespace WebAPI.Controllers
         /// 附件上传
         /// </summary>
         /// <returns></returns>
-        public IHttpActionResult PostSmallImage()
+        public IHttpActionResult PostSmall()
         {
             HttpFileCollection files = HttpContext.Current.Request.Files;
             string typeName = HttpContext.Current.Request["typeName"];
@@ -108,7 +108,7 @@ namespace WebAPI.Controllers
                 foreach (string key in files.AllKeys)
                 {
                     HttpPostedFile file = files[key];//file.ContentLength文件长度
-                    reUrl = UpLoadImageService.UpLoadImage(file, folderUrl, folderUrl + "Small/", 150, 180);
+                    reUrl = UpLoadImageService.UpLoadImage(file, folderUrl, folderUrl + "Small/", 80, 30);
                 }
             }
 

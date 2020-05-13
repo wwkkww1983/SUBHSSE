@@ -679,7 +679,8 @@ namespace FineUIPro.Web
                             html = "√";
                         }
                     }
-                    sb.AppendFormat("<td>{0}</td>", html);
+                    sb.AppendFormat("<td style='vnd.ms-excel.numberformat:@;width:140px;'>{0}</td>", html);
+                 //   sb.AppendFormat("<td>{0}</td>", html);
                 }
 
                 sb.Append("</tr>");

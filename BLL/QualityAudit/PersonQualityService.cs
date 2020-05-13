@@ -78,7 +78,8 @@ namespace BLL
                 Remark = personQuality.Remark,
                 CompileMan = personQuality.CompileMan,
                 CompileDate = personQuality.CompileDate,
-                AuditDate = personQuality.AuditDate
+                AuditDate = personQuality.AuditDate,
+                AuditorId = personQuality.AuditorId,
             };
             db.QualityAudit_PersonQuality.InsertOnSubmit(newPersonQuality);
             db.SubmitChanges();
@@ -108,6 +109,7 @@ namespace BLL
                 newPersonQuality.CompileMan = personQuality.CompileMan;
                 newPersonQuality.CompileDate = personQuality.CompileDate;
                 newPersonQuality.AuditDate = personQuality.AuditDate;
+                newPersonQuality.AuditorId = personQuality.AuditorId;
                 db.SubmitChanges();
             }
         }

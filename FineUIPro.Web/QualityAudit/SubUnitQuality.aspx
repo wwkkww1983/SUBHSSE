@@ -47,27 +47,27 @@
                     <f:RenderField Width="100px" ColumnID="UnitCode" DataField="UnitCode" SortField="UnitCode"
                         FieldType="String" HeaderText="单位编号" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="220px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
+                    <f:RenderField Width="240px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
                         FieldType="String" HeaderText="分包单位" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="200px" ColumnID="SubUnitQualityName" DataField="SubUnitQualityName"
+                    <f:RenderField Width="200px" ColumnID="SubUnitQualityName" DataField="SubUnitQualityName"  ExpandUnusedSpace="true"
                         SortField="SubUnitQualityName" FieldType="String" HeaderText="资质" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="Telephone" DataField="Telephone" SortField="Telephone"
+                 <%--   <f:RenderField Width="120px" ColumnID="Telephone" DataField="Telephone" SortField="Telephone"
                         FieldType="String" HeaderText="联系电话" HeaderTextAlign="Center" TextAlign="Left">
-                    </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="EMail" DataField="EMail" SortField="EMail"
+                    </f:RenderField>--%>
+                 <%--   <f:RenderField Width="120px" ColumnID="EMail" DataField="EMail" SortField="EMail"
                         FieldType="String" HeaderText="电子邮箱" HeaderTextAlign="Center" TextAlign="Left">
-                    </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="BusinessLicense" DataField="BusinessLicense"
+                    </f:RenderField>--%>
+                 <%--   <f:RenderField Width="170px" ColumnID="BusinessLicense" DataField="BusinessLicense"
                         SortField="BusinessLicense" FieldType="String" HeaderText="营业执照" HeaderTextAlign="Center"
                         TextAlign="Left">
-                    </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="BL_EnableDate" DataField="BL_EnableDate" SortField="BL_EnableDate"
+                    </f:RenderField>--%>
+           <%--         <f:RenderField Width="120px" ColumnID="BL_EnableDate" DataField="BL_EnableDate" SortField="BL_EnableDate"
                         FieldType="Date" Renderer="Date" HeaderText="营业执照有效期" HeaderTextAlign="Center"
                         TextAlign="Left">
-                    </f:RenderField>
+                    </f:RenderField>--%>
                    <%-- <f:RenderField Width="120px" ColumnID="OrganCode" DataField="OrganCode" SortField="OrganCode"
                         FieldType="String" HeaderText="机构代码" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
@@ -75,7 +75,7 @@
                         FieldType="Date" Renderer="Date" HeaderText="机构代码有效期" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>--%>
-                    <f:RenderField Width="120px" ColumnID="Certificate" DataField="Certificate" SortField="Certificate"
+                    <%--<f:RenderField Width="120px" ColumnID="Certificate" DataField="Certificate" SortField="Certificate"
                         FieldType="String" HeaderText="资质证书" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="120px" ColumnID="C_EnableDate" DataField="C_EnableDate" SortField="C_EnableDate"
@@ -104,9 +104,9 @@
                     <f:RenderField Width="150px" ColumnID="SL_EnableDate" DataField="SL_EnableDate" SortField="SL_EnableDate"
                         FieldType="Date" Renderer="Date" HeaderText="安全生产许可证有效期" HeaderTextAlign="Center"
                         TextAlign="Left">
-                    </f:RenderField>
-                    <f:LinkButtonField Width="100px" HeaderText="审查记录" ConfirmTarget="Parent" CommandName="auditDetail"
-                        TextAlign="Center" ToolTip="审查记录" Text="审查记录"/>
+                    </f:RenderField>--%>
+                    <f:LinkButtonField Width="80px" HeaderText="审查记录" ConfirmTarget="Parent" CommandName="auditDetail"
+                        TextAlign="Center" ToolTip="审查记录" Text="查看"/>
                 </Columns>
                 <Listeners>
                     <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />

@@ -38,10 +38,7 @@
                             <f:NumberBox runat="server" ID="txtMinScores" Label="分值范围" AutoPostBack="true" NoNegative="true"
                                 OnTextChanged="TextBox_TextChanged" Width="180px" LabelWidth="80px" LabelAlign="Right"></f:NumberBox>
                             <f:NumberBox runat="server" ID="txtMaxScores" Label="至" AutoPostBack="true" NoNegative="true"
-                                OnTextChanged="TextBox_TextChanged" Width="130px" LabelWidth="30px" LabelAlign="Right"></f:NumberBox>
-                            <f:CheckBox runat="server" Label="临时考生" ID="IsTemp" AutoPostBack="true" 
-                                    OnCheckedChanged="IsTemp_CheckedChanged" LabelWidth="80px" Width="90px">
-                            </f:CheckBox>
+                                OnTextChanged="TextBox_TextChanged" Width="130px" LabelWidth="30px" LabelAlign="Right"></f:NumberBox>                        
                               <f:DatePicker ID="txtStartDate" runat="server" Width="160px" LabelWidth="60px" LabelAlign="Right" Label="时间"
                                 EnableEdit="false" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                             </f:DatePicker>
@@ -49,7 +46,7 @@
                                 EnableEdit="false"  Label="至" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                             </f:DatePicker>
                             <f:CheckBox runat="server" Label="时间空" ID="ckIsNULL" AutoPostBack="true" 
-                                    OnCheckedChanged="IsTemp_CheckedChanged" LabelWidth="70px" Width="80px">
+                                    OnCheckedChanged="TextBox_TextChanged" LabelWidth="70px" Width="80px">
                             </f:CheckBox>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>
                              <f:Button ID="btnOut" OnClick="btnMenuOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
@@ -64,7 +61,7 @@
                             <asp:Label ID="labNumber" runat="server" Text=' <%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1%>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>   
-                    <f:RenderField Width="130px" ColumnID="PlanName" DataField="PlanName" FieldType="String"
+                    <f:RenderField Width="180px" ColumnID="PlanName" DataField="PlanName" FieldType="String"
                         HeaderText="考试名称" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="230px" ColumnID="UnitName" DataField="UnitName" FieldType="String"
@@ -79,17 +76,17 @@
                     <f:RenderField Width="150px" ColumnID="TestEndTime" DataField="TestEndTime" FieldType="String"
                         HeaderText="考试结束时间" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>                   
-                     <f:RenderField Width="80px" ColumnID="TestScores" DataField="TestScores" FieldType="String"
-                        HeaderText="成绩" HeaderTextAlign="Center" TextAlign="Left">
+                     <f:RenderField Width="75px" ColumnID="TestScores" DataField="TestScores" FieldType="String"
+                        HeaderText="成绩" HeaderTextAlign="Center" TextAlign="Right">
                     </f:RenderField>
-                     <f:RenderField Width="80px" ColumnID="TotalScore" DataField="TotalScore" FieldType="String"
-                        HeaderText="总分" HeaderTextAlign="Center" TextAlign="Left">
+                     <f:RenderField Width="75px" ColumnID="TotalScore" DataField="TotalScore" FieldType="String"
+                        HeaderText="总分" HeaderTextAlign="Center" TextAlign="Right">
                     </f:RenderField>
-                     <f:RenderField Width="80px" ColumnID="Duration" DataField="Duration" FieldType="String"
+                     <f:RenderField Width="75px" ColumnID="Duration" DataField="Duration" FieldType="String"
                         HeaderText="时长" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="85px" ColumnID="QuestionCount" DataField="QuestionCount" FieldType="String"
-                        HeaderText="题目数量" HeaderTextAlign="Center" TextAlign="Left">
+                        HeaderText="题目数量" HeaderTextAlign="Center" TextAlign="Right">
                     </f:RenderField>
                    <%-- <f:RenderField Width="150px" ColumnID="TestPalce" DataField="TestPalce" FieldType="String"
                         HeaderText="考试地点" HeaderTextAlign="Center" TextAlign="Left">

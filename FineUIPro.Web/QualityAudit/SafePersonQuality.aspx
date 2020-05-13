@@ -60,7 +60,7 @@
                         SortField="UnitCode" FieldType="String" HeaderText="单位代码" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="230px" ColumnID="UnitName" DataField="UnitName"
+                    <f:RenderField Width="240px" ColumnID="UnitName" DataField="UnitName"
                         SortField="UnitName" FieldType="String" HeaderText="单位名称" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>  
@@ -72,31 +72,39 @@
                         SortField="WorkPostName" FieldType="String" HeaderText="岗位" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="150px" ColumnID="CertificateName" DataField="CertificateName"
+                    <f:RenderField Width="170px" ColumnID="CertificateName" DataField="CertificateName"
                          SortField="CertificateName" FieldType="String" HeaderText="特岗证书"
                         HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="180px" ColumnID="CertificateNo" DataField="CertificateNo" 
+                    <f:RenderField Width="200px" ColumnID="CertificateNo" DataField="CertificateNo" 
                         SortField="CertificateNo" FieldType="String" HeaderText="证书编号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="SendDate" DataField="SendDate" SortField="SendDate"
+                    <f:RenderField Width="100px" ColumnID="SendDate" DataField="SendDate" SortField="SendDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="发证时间"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="90px" ColumnID="LimitDate" DataField="LimitDate" SortField="LimitDate"
+                    <f:RenderField Width="100px" ColumnID="LimitDate" DataField="LimitDate" SortField="LimitDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="有效期至"
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="Grade" DataField="Grade" 
+                   <%-- <f:RenderField Width="100px" ColumnID="Grade" DataField="Grade" 
                         SortField="Grade" FieldType="String" HeaderText="操作类别" HeaderTextAlign="Center"
                         TextAlign="Left">
-                    </f:RenderField>
+                    </f:RenderField>--%>
                     <f:RenderField Width="220px" ColumnID="SendUnit" DataField="SendUnit" 
                         SortField="SendUnit" FieldType="String" HeaderText="发证单位" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:WindowField TextAlign="Center" Width="90px" WindowID="WindowAtt" HeaderText="证书扫描件"
+                       <f:RenderField Width="100px" ColumnID="AuditorName" DataField="AuditorName" 
+                        SortField="AuditorName" FieldType="String" HeaderText="审核人" HeaderTextAlign="Center"
+                        TextAlign="Left">
+                    </f:RenderField>
+                    <f:RenderField Width="100px" ColumnID="AuditDate" DataField="AuditDate" SortField="AuditDate"
+                        FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="审核时间"
+                        HeaderTextAlign="Center" TextAlign="Center">
+                    </f:RenderField>
+                    <f:WindowField TextAlign="Center" Width="70px" WindowID="WindowAtt" HeaderText="证书"
                         Text="查看" ToolTip="附件上传查看" DataIFrameUrlFields="SafePersonQualityId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SafePersonQualityAttachUrl&menuId=750F5074-45B9-470E-AE1E-6204957421E6&type=-1"
                         HeaderTextAlign="Center" ColumnID="attWindow" />
                 </Columns>

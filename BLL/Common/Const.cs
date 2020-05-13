@@ -42,6 +42,11 @@ namespace BLL
         /// 入场培训类型ID
         /// </summary>
         public const string EntryTrainTypeId = "8920c9cc-fa92-49b2-9493-775a55da27bb";
+        
+        /// <summary>
+        /// 微信订阅模板ID
+        /// </summary>
+        public const string WX_TemplateID = "hKFrcahyXEjGSrLM4qBPpjXAkFldnrqxU_mARd1IF4o";
         #endregion
 
         #region 按钮描述

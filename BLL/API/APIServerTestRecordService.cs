@@ -10,6 +10,87 @@ namespace BLL
 {
     public static class APIServerTestRecordService
     {
+        #region 获取考生信息
+        /// <summary>
+        /// 获取考生信息
+        /// </summary>
+        /// <param name="testPlanId"></param>
+        /// <param name="testManId"></param>
+        /// <param name="userType"></param>
+        /// <param name="identityCard"></param>
+        /// <returns></returns>
+        public static Model.TestRecordItem getTestRecordInfo(string testPlanId, string testManId, string userType, string identityCard)
+        {
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                Model.TestRecordItem newTestRecord = new Model.TestRecordItem();
+                var getTestPlan = db.Test_TestPlan.FirstOrDefault(x => x.TestPlanId == testPlanId);
+                if (getTestPlan != null)
+                {
+                    newTestRecord.TestPlanName = getTestPlan.PlanName;
+                    newTestRecord.TestPlanId = testPlanId;
+                    newTestRecord.TestPlanStartTime = string.Format("{0:yyyy-MM-dd HH:mm:ss}", getTestPlan.TestStartTime);
+                    newTestRecord.TestPlanEndTime = string.Format("{0:yyyy-MM-dd HH:mm:ss}", getTestPlan.TestEndTime);                   
+                    newTestRecord.TestManId = testManId;                   
+                    newTestRecord.UserType = userType;
+
+                    var getUpdateTestRecord = db.Test_TestRecord.FirstOrDefault(x => x.TestPlanId == testPlanId && x.TestManId == testManId);
+                    if (userType == "2")
+                    {
+                         getUpdateTestRecord = db.Test_TestRecord.FirstOrDefault(x => x.TestPlanId == testPlanId && x.TestManId == testManId && x.IdentityCard == identityCard);
+                    }
+                    if (getUpdateTestRecord != null)
+                    {
+                        newTestRecord.TestRecordId = getUpdateTestRecord.TestRecordId;
+                        newTestRecord.DepartId = getUpdateTestRecord.DepartId;                     
+                        newTestRecord.UnitId = getUpdateTestRecord.UnitId;                        
+                        newTestRecord.ProjectId = getUpdateTestRecord.ProjectId;                        
+                        newTestRecord.TestManName = getUpdateTestRecord.TestManName;
+                        newTestRecord.Telephone = getUpdateTestRecord.Telephone;
+                        newTestRecord.IdentityCard = getUpdateTestRecord.IdentityCard;
+                        newTestRecord.TestScores = getUpdateTestRecord.TestScores ?? 0;
+                    }
+                    else
+                    {
+                        if (userType == "1")
+                        {
+                            var getUser = db.Sys_User.FirstOrDefault(x => x.UserId == testManId);
+                            if (getUser != null)
+                            {
+                                newTestRecord.TestManName = getUser.UserName;
+                                newTestRecord.UnitId = getUser.UnitId;
+                                newTestRecord.DepartId = getUser.DepartId;
+                                newTestRecord.IdentityCard = getUser.IdentityCard;
+                                newTestRecord.Telephone = getUser.Telephone;
+                            }
+                        }
+                        else if (userType == "3")
+                        {
+                            var getPerson = db.SitePerson_Person.FirstOrDefault(x => x.PersonId == testManId);
+                            if (getPerson != null)
+                            {
+                                newTestRecord.TestManName = getPerson.PersonName;
+                                newTestRecord.ProjectId = getPerson.ProjectId;
+                                newTestRecord.UnitId = getPerson.UnitId;
+                                newTestRecord.WorkPostId = getPerson.WorkPostId;
+                                newTestRecord.IdentityCard = getPerson.IdentityCard;
+                                newTestRecord.Telephone = getPerson.Telephone;
+                            }
+                        }
+                        else
+                        {
+                            newTestRecord.UnitId = newTestRecord.UnitId = CommonService.GetIsThisUnitId();
+                        }
+                    }
+                    newTestRecord.DepartName = DepartService.getDepartNameById(newTestRecord.DepartId);
+                    newTestRecord.UnitName = UnitService.GetUnitNameByUnitId(newTestRecord.UnitId);
+                    newTestRecord.ProjectName = ProjectService.GetProjectNameByProjectId(newTestRecord.ProjectId);
+                }
+                return newTestRecord;
+            }
+        }
+        #endregion
+
         #region 保存考生信息
         /// <summary>
         /// 保存考生信息
@@ -23,99 +104,88 @@ namespace BLL
                 if (getTestPlan != null)
                 {
                     testRecord.TestPlanName = getTestPlan.PlanName;
-                    testRecord.TestPlanStartTime =string.Format("{0:yyyy-MM-dd HH:mm:ss}", getTestPlan.TestStartTime);
+                    testRecord.TestPlanStartTime = string.Format("{0:yyyy-MM-dd HH:mm:ss}", getTestPlan.TestStartTime);
                     testRecord.TestPlanEndTime = string.Format("{0:yyyy-MM-dd HH:mm:ss}", getTestPlan.TestEndTime);
                     Model.Test_TestRecord newTestRecord = new Model.Test_TestRecord
-                    {                        
+                    {
                         TestPlanId = testRecord.TestPlanId,
                         TestManId = testRecord.TestManId,
                         TestManName = testRecord.TestManName,
                         IdentityCard = testRecord.IdentityCard,
                         Telephone = testRecord.Telephone,
                         ManType = testRecord.UserType,
-                        UnitId = testRecord.UnitId,
-                        DepartId = testRecord.DepartId,
-                        ProjectId = testRecord.ProjectId,
-                        WorkPostId = testRecord.WorkPostId,
+                        Duration = getTestPlan.Duration,
                     };
-
-                    var getUpdateTestRecord = db.Test_TestRecord.FirstOrDefault(x =>x.TestPlanId==testRecord.TestPlanId &&  x.TestManId == testRecord.TestManId && x.IdentityCard == testRecord.IdentityCard);
+                    if (!string.IsNullOrEmpty(testRecord.UnitId))
+                    {
+                        newTestRecord.UnitId = testRecord.UnitId;
+                    }
+                    if (!string.IsNullOrEmpty(testRecord.DepartId))
+                    {
+                        newTestRecord.DepartId = testRecord.DepartId;
+                    }
+                    if (!string.IsNullOrEmpty(testRecord.WorkPostId))
+                    {
+                        newTestRecord.WorkPostId = testRecord.WorkPostId;
+                    }
+                    if (!string.IsNullOrEmpty(testRecord.ProjectId))
+                    {
+                        newTestRecord.ProjectId = testRecord.ProjectId;
+                    }
+                    var getUpdateTestRecord = db.Test_TestRecord.FirstOrDefault(x => x.TestRecordId == testRecord.TestRecordId);
                     if (getUpdateTestRecord != null)
                     {
                         testRecord.TestRecordId = getUpdateTestRecord.TestRecordId;
-                        testRecord.TestEndTime =string.Format("{0:yyyy-MM:dd HH:mm:ss}", getUpdateTestRecord.TestEndTime) ;
+                        testRecord.TestEndTime = string.Format("{0:yyyy-MM:dd HH:mm:ss}", getUpdateTestRecord.TestEndTime);
+                        testRecord.TestStartTime = string.Format("{0:yyyy-MM:dd HH:mm:ss}", getUpdateTestRecord.TestStartTime);
                         testRecord.TestScores = getUpdateTestRecord.TestScores ?? 0;
-
-                        getUpdateTestRecord.DepartId = newTestRecord.DepartId;
-                        getUpdateTestRecord.TestManName = newTestRecord.TestManName;
-                        getUpdateTestRecord.IdentityCard = newTestRecord.IdentityCard;
-                        getUpdateTestRecord.Telephone = newTestRecord.Telephone;
-                        db.SubmitChanges();
+                        if (!getUpdateTestRecord.TestEndTime.HasValue && getTestPlan.TestEndTime < DateTime.Now)
+                        {
+                            getUpdateTestRecord.DepartId = newTestRecord.DepartId;
+                            getUpdateTestRecord.TestManName = newTestRecord.TestManName;
+                            getUpdateTestRecord.IdentityCard = newTestRecord.IdentityCard;
+                            getUpdateTestRecord.Telephone = newTestRecord.Telephone;
+                            db.SubmitChanges();
+                        }
                     }
                     else
                     {
-                        var getTestPlanTraining = db.Test_TestPlanTraining.Where(x => x.UserType == testRecord.UserType);
-                        if (getTestPlanTraining.Count() > 0)
+                        if (getTestPlan.TestEndTime < DateTime.Now)
                         {
-                            int cout1 = getTestPlanTraining.Sum(x => x.TestType1Count ?? 0);
-                            int cout2 = getTestPlanTraining.Sum(x => x.TestType2Count ?? 0);
-                            int cout3 = getTestPlanTraining.Sum(x => x.TestType3Count ?? 0);
-                            newTestRecord.QuestionCount = cout1 + cout2 + cout3;
-                            newTestRecord.TotalScore = (getTestPlan.SValue ?? 0) * cout1 + (getTestPlan.MValue ?? 0) * cout2 + (getTestPlan.JValue ?? 0) * cout3;
-                        }
-
-                        testRecord.TestRecordId = newTestRecord.TestRecordId = SQLHelper.GetNewID();
-                        if (testRecord.UserType == "1")
-                        {                          
-                            var getUser = db.Sys_User.FirstOrDefault(x => x.UserId == testRecord.TestManId);
-                            if (getUser != null)
+                            var getTestPlanTraining = db.Test_TestPlanTraining.Where(x => x.UserType == testRecord.UserType);
+                            if (getTestPlanTraining.Count() > 0)
                             {
-                                testRecord.UnitId = newTestRecord.UnitId = getUser.UnitId;
-                                testRecord.DepartId = newTestRecord.DepartId = getUser.DepartId;
-                                testRecord.IdentityCard = newTestRecord.IdentityCard = getUser.IdentityCard;
-                                testRecord.Telephone = newTestRecord.Telephone = getUser.Telephone;                               
+                                int cout1 = getTestPlanTraining.Sum(x => x.TestType1Count ?? 0);
+                                int cout2 = getTestPlanTraining.Sum(x => x.TestType2Count ?? 0);
+                                int cout3 = getTestPlanTraining.Sum(x => x.TestType3Count ?? 0);
+                                newTestRecord.QuestionCount = cout1 + cout2 + cout3;
+                                newTestRecord.TotalScore = (getTestPlan.SValue ?? 0) * cout1 + (getTestPlan.MValue ?? 0) * cout2 + (getTestPlan.JValue ?? 0) * cout3;
                             }
-                        }
-                        else if (testRecord.UserType == "3")
-                        {
-                            var getPerson = db.SitePerson_Person.FirstOrDefault(x => x.PersonId == testRecord.TestManId);
-                            if (getPerson != null)
-                            {
-                                testRecord.ProjectId = newTestRecord.ProjectId = getPerson.ProjectId;
-                                testRecord.UnitId = newTestRecord.UnitId = getPerson.UnitId;
-                                testRecord.WorkPostId = newTestRecord.WorkPostId = getPerson.WorkPostId;
-                                testRecord.IdentityCard = newTestRecord.IdentityCard = getPerson.IdentityCard;
-                                testRecord.Telephone = newTestRecord.Telephone = getPerson.Telephone;
-                            }
-                        }
-                        else
-                        {
-                            testRecord.UnitId = newTestRecord.UnitId = CommonService.GetIsThisUnitId();
+
+                            testRecord.TestRecordId = newTestRecord.TestRecordId = SQLHelper.GetNewID();
+                            db.Test_TestRecord.InsertOnSubmit(newTestRecord);
+                            db.SubmitChanges();
                         }
 
-                        db.Test_TestRecord.InsertOnSubmit(newTestRecord);
-                        db.SubmitChanges();
-                    }
-
-                    if (!string.IsNullOrEmpty(testRecord.TestEndTime))
-                    {
-                        testRecord.TestStates = "3";
-                    }
-                    else if (getTestPlan.States == Const.State_2 && getTestPlan.TestEndTime >= DateTime.Now)
-                    {
-                        testRecord.TestStates = "2";
-                    }
-                    else if (getTestPlan.States != Const.State_2 || getTestPlan.TestStartTime < DateTime.Now)
-                    {
-                        testRecord.TestStates = "1";
-                    }
-                    else
-                    {
-                        testRecord.TestStates = "0";
+                        if (!string.IsNullOrEmpty(testRecord.TestEndTime))
+                        {
+                            testRecord.TestStates = "3";
+                        }
+                        else if (getTestPlan.States == Const.State_2 && getTestPlan.TestEndTime >= DateTime.Now)
+                        {
+                            testRecord.TestStates = "2";
+                        }
+                        else if (getTestPlan.States != Const.State_2 || getTestPlan.TestStartTime < DateTime.Now)
+                        {
+                            testRecord.TestStates = "1";
+                        }
+                        else if (getTestPlan.TestEndTime < DateTime.Now)
+                        {
+                            testRecord.TestStates = "0";
+                        }
                     }
                 }
             }
-
             return testRecord;
         }
         #endregion
@@ -202,7 +272,7 @@ namespace BLL
                 var getTestPlan = db.Test_TestPlan.FirstOrDefault(x => x.TestPlanId == testPlanId);
                 var getTestRecord = db.Test_TestRecord.FirstOrDefault(x => x.TestRecordId == testRecordId);
                 if(getTestPlan != null && getTestRecord != null)
-                {               
+                {                  
                     ////是否已经存在试卷 
                     var item = db.Test_TestRecordItem.FirstOrDefault(x => x.TestRecordId == testRecordId);
                     if (item == null)
@@ -309,7 +379,8 @@ namespace BLL
                                                    Score = x.TestType == "1" ? getTestPlan.SValue : (x.TestType == "2" ? getTestPlan.MValue : getTestPlan.JValue),
                                                };
 
-                                db.Test_TestRecordItem.InsertAllOnSubmit(getItems);
+                                db.Test_TestRecordItem.InsertAllOnSubmit(getItems);                               
+                                getTestRecord.TestStartTime = DateTime.Now;
                                 db.SubmitChanges();
                             }
                         }

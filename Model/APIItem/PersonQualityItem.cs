@@ -16,6 +16,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 人员资质类型（1-特岗；2-安管；3-特种设备作业人员）
+        /// </summary>
+        public string QualityType
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 人员主键ID
         /// </summary>
         public string PersonId
@@ -219,6 +227,46 @@ namespace Model
         /// 审核日期
         /// </summary>
         public string AuditDate
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 审核人ID
+        /// </summary>
+        public string AuditorId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 审核人姓名
+        /// </summary>
+        public string AuditorName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 审核状态（0-待提交；1-待审核；2-已审核；-1打回）
+        /// </summary>
+        public string States
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public string StatesName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 审核意见
+        /// </summary>
+        public string AuditOpinion
         {
             get;
             set;

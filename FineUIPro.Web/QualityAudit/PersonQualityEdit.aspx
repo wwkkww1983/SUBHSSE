@@ -63,9 +63,9 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextBox ID="txtApprovalPerson" runat="server" Label="审核人" LabelAlign="Right" MaxLength="10"
+                    <f:DropDownList ID="drpAuditor" runat="server" Label="审核人" LabelAlign="Right" EnableEdit="true"
                         LabelWidth="120px">
-                    </f:TextBox>
+                    </f:DropDownList>
                     <f:DatePicker ID="txtAuditDate" Label="审核日期" runat="server" LabelAlign="Right" EnableEdit="true"
                         LabelWidth="120px">
                     </f:DatePicker>

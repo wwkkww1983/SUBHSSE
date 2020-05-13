@@ -88,6 +88,7 @@ namespace FineUIPro.Web.QualityAudit
                     var SafePersonQuality = BLL.SafePersonQualityService.GetSafePersonQualityByPersonId(this.PersonId);
                     if (SafePersonQuality != null)
                     {
+                        UserService.InitUserProjectIdUnitIdDropDownList(this.drpAuditor, this.ProjectId, CommonService.GetIsThisUnitId(), true);
                         this.SafePersonQualityId = SafePersonQuality.SafePersonQualityId;
                         this.txtCertificateNo.Text = SafePersonQuality.CertificateNo;
                         this.txtCertificateName.Text = SafePersonQuality.CertificateName;
@@ -96,13 +97,17 @@ namespace FineUIPro.Web.QualityAudit
                         this.txtSendDate.Text = string.Format("{0:yyyy-MM-dd}", SafePersonQuality.SendDate);
                         this.txtLimitDate.Text = string.Format("{0:yyyy-MM-dd}", SafePersonQuality.LimitDate);
                         this.txtLateCheckDate.Text = string.Format("{0:yyyy-MM-dd}", SafePersonQuality.LateCheckDate);
-                        this.txtApprovalPerson.Text = SafePersonQuality.ApprovalPerson;
+                        if (!string.IsNullOrEmpty(SafePersonQuality.AuditorId))
+                        {
+                            this.drpAuditor.SelectedValue = SafePersonQuality.AuditorId;
+                        }
                         this.txtRemark.Text = SafePersonQuality.Remark;
                         this.txtAuditDate.Text = string.Format("{0:yyyy-MM-dd}", SafePersonQuality.AuditDate);
                     }
                 }
                 else
                 {
+                    UserService.InitUserProjectIdUnitIdDropDownList(this.drpAuditor, this.ProjectId, CommonService.GetIsThisUnitId(), true);
                     this.txtSendDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                     this.txtLimitDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);                   
                 }
@@ -166,13 +171,16 @@ namespace FineUIPro.Web.QualityAudit
                     SendUnit = this.txtSendUnit.Text.Trim(),
                     SendDate = Funs.GetNewDateTime(this.txtSendDate.Text.Trim()),
                     LimitDate = Funs.GetNewDateTime(this.txtLimitDate.Text.Trim()),
-                    LateCheckDate = Funs.GetNewDateTime(this.txtLateCheckDate.Text.Trim()),
-                    ApprovalPerson = this.txtApprovalPerson.Text.Trim(),
+                    LateCheckDate = Funs.GetNewDateTime(this.txtLateCheckDate.Text.Trim()),                   
                     Remark = this.txtRemark.Text.Trim(),
                     CompileMan = this.CurrUser.UserId,
                     CompileDate = DateTime.Now,
                     AuditDate = Funs.GetNewDateTime(this.txtAuditDate.Text.Trim())
                 };
+                if (this.drpAuditor.SelectedValue != Const._Null)
+                {
+                    SafePersonQuality.AuditorId = this.drpAuditor.SelectedValue;
+                }
                 if (!string.IsNullOrEmpty(this.SafePersonQualityId))
                 {
                     SafePersonQuality.SafePersonQualityId = this.SafePersonQualityId;

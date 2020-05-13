@@ -67,12 +67,13 @@ namespace FineUIPro.Web.QualityAudit
         {
             string strSql = @"SELECT DISTINCT PersonQuality.SafePersonQualityId,Person.PersonId,Person.ProjectId,Person.CardNo,Person.PersonName,Unit.UnitId,Unit.UnitCode,Unit.UnitName,WorkPost.WorkPostId,WorkPost.WorkPostName,WorkPost.WorkPostCode,"
                           + @" PersonQuality.CertificateNo,PersonQuality.CertificateName,PersonQuality.Grade,PersonQuality.SendUnit,PersonQuality.SendDate,PersonQuality.LimitDate,PersonQuality.LateCheckDate,"
-                          + @" PersonQuality.ApprovalPerson,PersonQuality.Remark,PersonQuality.CompileMan,Users.UserName AS CompileManName,PersonQuality.CompileDate"
+                          + @" PersonQuality.ApprovalPerson,PersonQuality.Remark,PersonQuality.CompileMan,Users.UserName AS CompileManName,PersonQuality.CompileDate,Auditor.UserName AS AuditorName,AuditDate"
                           + @" FROM  SitePerson_Person AS Person  "
                           + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId = Person.UnitId"
                           + @" LEFT JOIN QualityAudit_SafePersonQuality AS PersonQuality ON Person.PersonId = PersonQuality.PersonId "
                           + @" LEFT JOIN Base_WorkPost AS WorkPost ON WorkPost.WorkPostId = Person.WorkPostId "
                           + @" LEFT JOIN Sys_User AS Users ON PersonQuality.CompileMan = Users.UserId "
+                          + @" LEFT JOIN Sys_User AS Auditor ON PersonQuality.AuditorId = Auditor.UserId"
                           + @" WHERE WorkPost.IsHsse =1";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND Person.ProjectId = @ProjectId";

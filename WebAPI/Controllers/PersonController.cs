@@ -88,46 +88,7 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
-
-        #region 获取在岗、离岗、待审人员数量
-        /// <summary>
-        /// 获取在岗、离岗、待审人员列表
-        /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="unitId"></param>
-        /// <returns></returns>
-        public Model.ResponeData getPersonStatesCount(string projectId, string unitId)
-        {
-            var responeData = new Model.ResponeData();
-            try
-            {
-                var getViews = from x in Funs.DB.SitePerson_Person
-                               where x.ProjectId == projectId 
-                               select x;
-                if (!CommonService.GetIsThisUnit(unitId) || string.IsNullOrEmpty(unitId))
-                {
-                    getViews = getViews.Where(x => x.UnitId == unitId);
-                }
-                int tatalCount = getViews.Count();
-                //在审
-                int count0 = getViews.Where(x => x.IsUsed == false && !x.AuditorDate.HasValue).Count();
-                //在岗
-                int count1 = getViews.Where(x => x.IsUsed == true && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)).Count();
-                //离岗
-                int count2 = getViews.Where(x => x.IsUsed == true && x.OutTime <= DateTime.Now).Count();
-                //打回
-                int count3 = getViews.Where(x => x.IsUsed == false && x.AuditorDate.HasValue).Count();
-                responeData.data = new { tatalCount, count0, count1, count2, count3 };
-            }
-            catch (Exception ex)
-            {
-                responeData.code = 0;
-                responeData.message = ex.Message;
-            }
-            return responeData;
-        }
-        #endregion
-
+        
         #region 获取在岗、离岗、待审人员数量
         /// <summary>
         /// 获取在岗、离岗、待审人员列表
@@ -146,16 +107,16 @@ namespace WebAPI.Controllers
             {
                 var getViews = from x in Funs.DB.SitePerson_Person
                                where x.ProjectId == projectId && (strUnitId == null || x.UnitId == strUnitId)
-                                    && (strWorkPostId == null || x.WorkPostId == strWorkPostId)
+                               && (strWorkPostId == null || x.WorkPostId == strWorkPostId)
                                select x;
                 if (!CommonService.GetIsThisUnit(unitId) || string.IsNullOrEmpty(unitId))
                 {
                     getViews = getViews.Where(x => x.UnitId == unitId);
                 }
-                if (!string.IsNullOrEmpty(strParam))
-                {
-                    getViews = getViews.Where(x => x.PersonName.Contains(strParam) || x.IdentityCard.Contains(strParam));
-                }
+                //if (!string.IsNullOrEmpty(strParam))
+                //{
+                //    getViews = getViews.Where(x => x.PersonName.Contains(strParam) || x.IdentityCard.Contains(strParam));
+                //}
                 int tatalCount = getViews.Count();
                 //在审
                 int count0 = getViews.Where(x => x.IsUsed == false && !x.AuditorDate.HasValue).Count();
@@ -210,30 +171,6 @@ namespace WebAPI.Controllers
         }
         #endregion
 
-        #region 根据identityCard获取人员资质信息
-        /// <summary>
-        /// 根据identityCard获取人员资质信息
-        /// </summary>
-        /// <param name="identityCard"></param>
-        /// <param name="projectId"></param>
-        /// <returns></returns>
-        public Model.ResponeData getPersonQualityByIdentityCard(string identityCard,string projectId=null)
-        {
-            var responeData = new Model.ResponeData();
-            try
-            {
-                responeData.data =APIPersonService.getPersonQualityByIdentityCard(identityCard, projectId);
-            }
-            catch (Exception ex)
-            {
-                responeData.code = 0;
-                responeData.message = ex.Message;
-            }
-
-            return responeData;
-        }
-        #endregion
-
         #region 根据identityCard获取人员培训考试信息
         /// <summary>
         /// 根据identityCard获取人员培训考试信息
@@ -247,6 +184,30 @@ namespace WebAPI.Controllers
             try
             {
                 responeData.data = APIPersonService.getPersonTestRecoedByIdentityCard(identityCard, projectId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region 根据identityCard获取人员资质信息
+        /// <summary>
+        /// 根据identityCard获取人员资质信息
+        /// </summary>
+        /// <param name="identityCard"></param>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getPersonQualityByIdentityCard(string identityCard, string projectId = null)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIPersonService.getPersonQualityByIdentityCard(identityCard, projectId);
             }
             catch (Exception ex)
             {
@@ -300,7 +261,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="projectId">项目ID</param>
         /// <param name="unitId">单位ID</param>
-        /// <param name="type">数据类型0-已过期；1-即将过期;2-无证</param>
+        /// <param name="type">数据类型0-已过期；1-即将过期;2-无证;3-待审核；4-已审核；-1打回</param>
         /// <param name="pageIndex">页码</param>
         /// <returns></returns>
         public Model.ResponeData getPersonQualityByProjectIdUnitId(string projectId, string unitId, string type, int pageIndex)

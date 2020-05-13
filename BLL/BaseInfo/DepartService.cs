@@ -79,6 +79,22 @@ namespace BLL
             return list;
         }
 
+        /// <summary>
+        /// 根据主键获取信息
+        /// </summary>
+        /// <param name="groupId"></param>
+        /// <returns></returns>
+        public static string getDepartNameById(string departId)
+        {
+            string name = string.Empty;
+            var dep= Funs.DB.Base_Depart.FirstOrDefault(e => e.DepartId == departId);
+            if (dep != null)
+            {
+                name = dep.DepartName;
+            }
+            return name;
+        }
+
         #region 表下拉框
         /// <summary>
         ///  表下拉框

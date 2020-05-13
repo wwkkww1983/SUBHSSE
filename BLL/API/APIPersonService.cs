@@ -38,7 +38,7 @@ namespace BLL
                               Telephone = x.Telephone,
                               WorkPostId = x.WorkPostId,
                               WorkPostName = w.WorkPostName,
-                              UserType="2",
+                              UserType="3",
                           };
 
             return getUser.FirstOrDefault();
@@ -213,7 +213,6 @@ namespace BLL
             }
             var persons = from x in getViews
                           join y in Funs.DB.Base_Unit on x.UnitId equals y.UnitId
-                          join z in Funs.DB.Base_WorkPost on x.WorkPostId equals z.WorkPostId
                           orderby x.CardNo descending
                           select new Model.PersonItem
                           {
@@ -240,8 +239,8 @@ namespace BLL
                               IsUsedName = (x.IsUsed == true ? "启用" : "未启用"),
                               WorkAreaId = x.WorkAreaId,
                               WorkAreaName = Funs.DB.ProjectData_WorkArea.First(z => z.WorkAreaId == x.WorkAreaId).WorkAreaName,
-                              PostType = z.PostType,
-                              PostTypeName = Funs.DB.Sys_Const.First(p => p.GroupId == ConstValue.Group_PostType && p.ConstValue == z.PostType).ConstText,
+                              PostType = Funs.DB.Base_WorkPost.First(z => z.WorkPostId == x.WorkPostId).PostType,
+                             // PostTypeName = Funs.DB.Sys_Const.First(p => p.GroupId == ConstValue.Group_PostType && p.ConstValue == z.PostType).ConstText,
                               IsForeign = x.IsForeign.HasValue ? x.IsForeign : false,
                               IsOutside = x.IsOutside.HasValue ? x.IsOutside : false,
                           };
@@ -895,11 +894,15 @@ namespace BLL
                 {
                     newPersonQuality.CompileMan = personQuality.CompileMan;
                 }
-
+                if (!string.IsNullOrEmpty(personQuality.AuditorId))
+                {
+                    newPersonQuality.AuditorId = personQuality.AuditorId;
+                }
                 var getPersonQuality = db.QualityAudit_PersonQuality.FirstOrDefault(x => x.PersonQualityId == newPersonQuality.PersonQualityId || x.PersonId == newPersonQuality.PersonId);
                 if (getPersonQuality == null)
                 {
                     newPersonQuality.PersonQualityId = SQLHelper.GetNewID();
+                    newPersonQuality.AuditDate = null;
                     db.QualityAudit_PersonQuality.InsertOnSubmit(newPersonQuality);
                     db.SubmitChanges();
                 }
@@ -919,6 +922,7 @@ namespace BLL
                     getPersonQuality.CompileMan = newPersonQuality.CompileMan;
                     getPersonQuality.CompileDate = newPersonQuality.CompileDate;
                     getPersonQuality.AuditDate = newPersonQuality.AuditDate;
+                    getPersonQuality.AuditorId = newPersonQuality.AuditorId;
                     db.SubmitChanges();
                 }
                 if (!string.IsNullOrEmpty(newPersonQuality.PersonQualityId))

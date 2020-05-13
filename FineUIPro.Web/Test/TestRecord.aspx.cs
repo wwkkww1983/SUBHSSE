@@ -25,8 +25,6 @@ namespace FineUIPro.Web.Test
                     this.btnMenuDelete.Hidden = false;
                 }
 
-                ///更新没有结束时间且超时的考试记录
-                GetDataService.UpdateTestPlanStates();
                 // 绑定表格
                 BindGrid();
             }
@@ -228,10 +226,6 @@ namespace FineUIPro.Web.Test
             this.BindGrid();
         }
 
-        protected void IsTemp_CheckedChanged(object sender, CheckedEventArgs e)
-        {
-            this.BindGrid();
-        }
         #endregion
 
         #region 删除

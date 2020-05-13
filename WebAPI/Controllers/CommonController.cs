@@ -14,15 +14,19 @@ namespace WebAPI.Controllers
     {
         #region  订阅消息
         /// <summary>
-        ///  订阅消息
+        /// 订阅消息
         /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="thing2"></param>
+        /// <param name="name1"></param>
+        /// <param name="date3"></param>
         /// <returns></returns>
-        public Model.ResponeData getSubscribeMessage(string touser, string template_id,string page,object data,string miniprogram_state,string lang)
+        public Model.ResponeData getSubscribeMessage(string userId, string thing2, string name1, string date3)
         {
             var responeData = new Model.ResponeData();
             try
-            {               
-                responeData.data = APICommonService.getSubscribeMessage(touser, template_id, page, data, miniprogram_state, lang);
+            {
+                responeData.data = APICommonService.SendSubscribeMessage(userId, thing2, name1, date3);
             }
             catch (Exception ex)
             {
@@ -85,6 +89,28 @@ namespace WebAPI.Controllers
             try
             {
                 responeData.data = APICommonService.getUserOpenId(userId, jsCode);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 1;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region  获取OpenId消息
+        /// <summary>
+        ///  获取OpenId消息
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getRefreshUserOpenId(string userId, string jsCode)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APICommonService.getUserOpenId(userId, jsCode, true);
             }
             catch (Exception ex)
             {

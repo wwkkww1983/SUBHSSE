@@ -245,5 +245,111 @@ namespace BLL
             return getDataInfo.FirstOrDefault();
         }
         #endregion
+
+        #region 事故案例
+        /// <summary>
+        /// 根据父级类型ID获取事故案例类型
+        /// </summary>
+        /// <param name="supTypeId"></param>
+        /// <returns></returns>
+        public static List<Model.ResourcesItem> getAccidentCaseListBySupAccidentCaseId(string supTypeId)
+        {
+            var getDataLists = from x in Funs.DB.EduTrain_AccidentCase
+                               where x.SupAccidentCaseId == supTypeId || (supTypeId == null && x.SupAccidentCaseId == "0")
+                               orderby x.AccidentCaseCode
+                               select new Model.ResourcesItem
+                               {
+                                   ResourcesId = x.AccidentCaseId,
+                                   ResourcesCode = x.AccidentCaseCode,
+                                   ResourcesName = x.AccidentCaseName,
+                                   SupResourcesId = x.SupAccidentCaseId,
+                                   IsEndLever = x.IsEndLever,
+                               };
+            return getDataLists.ToList();
+        }
+
+        /// <summary>
+        /// 根据事故案例类型id获取公司事故案例列表
+        /// </summary>
+        /// <param name="accidentCaseId"></param>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getAccidentCaseItemListById(string accidentCaseId)
+        {
+            var getDataLists = (from x in Funs.DB.EduTrain_AccidentCaseItem
+                                where x.AccidentCaseId == accidentCaseId
+                                orderby x.CompileDate descending
+                                select new Model.BaseInfoItem
+                                {
+                                    BaseInfoId = x.AccidentCaseItemId,
+                                    BaseInfoCode = x.Activities,
+                                    BaseInfoName = x.AccidentName,                                   
+                                }).ToList();
+            return getDataLists;
+        }
+
+        /// <summary>
+        /// 根据事故案例主键获取公司事故案例详细信息
+        /// </summary>
+        /// <param name="trainingId"></param>
+        /// <returns></returns>
+        public static Model.BaseInfoItem getAccidentCaseItemById(string accidentCaseItemId)
+        {
+            var getDataInfo = from x in Funs.DB.EduTrain_AccidentCaseItem
+                              where x.AccidentCaseItemId == accidentCaseItemId
+                              select new Model.BaseInfoItem
+                              {
+                                  BaseInfoId = x.AccidentCaseItemId,
+                                  BaseInfoCode = x.Activities,
+                                  BaseInfoName = x.AccidentName,
+                                  Remark = x.AccidentProfiles,
+                                  RemarkOther = x.AccidentReview,
+                              };
+            return getDataInfo.FirstOrDefault();
+        }
+        #endregion
+
+        #region 检查要点
+        /// <summary>
+        /// 根据父级类型ID获取检查要点类型
+        /// </summary>
+        /// <param name="supTypeId"></param>
+        /// <param name="checkType">1-checkType;2-专项检查;3-综合检查</param>
+        /// <returns></returns>
+        public static List<Model.ResourcesItem> getCheckItemSetListBySupCheckItemId(string supTypeId, string checkType)
+        {
+            var getDataLists = from x in Funs.DB.Technique_CheckItemSet
+                               where x.CheckType== checkType &&( x.SupCheckItem == supTypeId || (supTypeId == null && x.SupCheckItem == "0"))
+                               orderby x.SortIndex
+                               select new Model.ResourcesItem
+                               {
+                                   ResourcesId = x.CheckItemSetId,
+                                   ResourcesCode = x.MapCode,
+                                   ResourcesName = x.CheckItemName,
+                                   SupResourcesId = x.SupCheckItem,
+                                   IsEndLever = x.IsEndLever,
+                               };
+            return getDataLists.ToList();
+        }
+
+        /// <summary>
+        /// 根据检查要点类型id获取检查要点列表
+        /// </summary>
+        /// <param name="checkItemSetId"></param>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getCheckItemSetItemListBycheckItemSetId(string checkItemSetId)
+        {
+            var getDataLists = (from x in Funs.DB.Technique_CheckItemDetail
+                                where x.CheckItemSetId == checkItemSetId
+                                orderby x.SortIndex
+                                select new Model.BaseInfoItem
+                                {
+                                    BaseInfoId = x.CheckItemDetailId,
+                                    BaseInfoCode = x.SortIndex.ToString(),
+                                    BaseInfoName = x.CheckContent,
+                                }).ToList();
+            return getDataLists;
+        }
+
+        #endregion
     }
 }

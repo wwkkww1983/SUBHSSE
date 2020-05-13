@@ -65,21 +65,21 @@ namespace FineUIPro.Web.QualityAudit
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();               
                 this.PersonId = Request.Params["PersonId"];
                 this.ProjectId = this.CurrUser.LoginProjectId;
-                BLL.CertificateService.InitCertificateDropDownList(this.drpCertificate, true);
+                CertificateService.InitCertificateDropDownList(this.drpCertificate, true);
                 if (!string.IsNullOrEmpty(this.PersonId))
                 {
                     var person = BLL.PersonService.GetPersonById(this.PersonId);
                     if (person != null)
                     {
-                        this.ProjectId = person.ProjectId;
-                        var unit = BLL.UnitService.GetUnitByUnitId(person.UnitId);
+                        this.ProjectId = person.ProjectId;                      
+                        var unit = UnitService.GetUnitByUnitId(person.UnitId);
                         if (unit != null)
                         {
                             this.txtUnitCode.Text = unit.UnitCode;
                             this.txtUnitName.Text = unit.UnitName;
                         }
                         this.txtPersonName.Text = person.PersonName;
-                        var workPost = BLL.WorkPostService.GetWorkPostById(person.WorkPostId);
+                        var workPost = WorkPostService.GetWorkPostById(person.WorkPostId);
                         if (workPost != null)
                         {
                             this.txtWorkPostName.Text = workPost.WorkPostName;
@@ -89,6 +89,7 @@ namespace FineUIPro.Web.QualityAudit
                     var personQuality = BLL.PersonQualityService.GetPersonQualityByPersonId(this.PersonId);
                     if (personQuality != null)
                     {
+                        UserService.InitUserProjectIdUnitIdDropDownList(this.drpAuditor, this.ProjectId, CommonService.GetIsThisUnitId(), true);
                         this.PersonQualityId = personQuality.PersonQualityId;
                         this.txtCertificateNo.Text = personQuality.CertificateNo;
                         this.drpCertificate.SelectedValue = personQuality.CertificateId;
@@ -97,7 +98,10 @@ namespace FineUIPro.Web.QualityAudit
                         this.txtSendDate.Text = string.Format("{0:yyyy-MM-dd}", personQuality.SendDate);
                         this.txtLimitDate.Text = string.Format("{0:yyyy-MM-dd}", personQuality.LimitDate);
                         this.txtLateCheckDate.Text = string.Format("{0:yyyy-MM-dd}", personQuality.LateCheckDate);
-                        this.txtApprovalPerson.Text = personQuality.ApprovalPerson;
+                        if (!string.IsNullOrEmpty(personQuality.AuditorId))
+                        {
+                            this.drpAuditor.SelectedValue = personQuality.AuditorId;
+                        }
                         this.txtRemark.Text = personQuality.Remark;
                         this.txtAuditDate.Text = string.Format("{0:yyyy-MM-dd}", personQuality.AuditDate);
                     }
@@ -105,7 +109,8 @@ namespace FineUIPro.Web.QualityAudit
                 else
                 {
                     this.txtSendDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
-                    this.txtLimitDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);                   
+                    this.txtLimitDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
+                    UserService.InitUserProjectIdUnitIdDropDownList(this.drpAuditor, this.ProjectId, CommonService.GetIsThisUnitId(), true);
                 }
 
                 if (Request.Params["value"] == "0")
@@ -175,13 +180,16 @@ namespace FineUIPro.Web.QualityAudit
                     SendUnit = this.txtSendUnit.Text.Trim(),
                     SendDate = Funs.GetNewDateTime(this.txtSendDate.Text.Trim()),
                     LimitDate = Funs.GetNewDateTime(this.txtLimitDate.Text.Trim()),
-                    LateCheckDate = Funs.GetNewDateTime(this.txtLateCheckDate.Text.Trim()),
-                    ApprovalPerson = this.txtApprovalPerson.Text.Trim(),
+                    LateCheckDate = Funs.GetNewDateTime(this.txtLateCheckDate.Text.Trim()),             
                     Remark = this.txtRemark.Text.Trim(),
                     CompileMan = this.CurrUser.UserId,
                     CompileDate = DateTime.Now,
                     AuditDate = Funs.GetNewDateTime(this.txtAuditDate.Text.Trim())
                 };
+                if (this.drpAuditor.SelectedValue != Const._Null)
+                {
+                    personQuality.AuditorId = this.drpAuditor.SelectedValue;
+                }
                 if (!string.IsNullOrEmpty(this.PersonQualityId))
                 {
                     personQuality.PersonQualityId = this.PersonQualityId;

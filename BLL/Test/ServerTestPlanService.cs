@@ -153,5 +153,34 @@ namespace BLL
             }
             return info;
         }
+
+        /// <summary>
+        /// 获取类别下拉项
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Test_TestPlan> GetTestPlanList()
+        {
+            var list = (from x in Funs.DB.Test_TestPlan orderby x.PlanCode descending  select x).ToList();
+            return list;
+        }
+
+        #region 表下拉框
+        /// <summary>
+        ///  表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitTestPlanDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "TestPlanId";
+            dropName.DataTextField = "PlanName";
+            dropName.DataSource = GetTestPlanList();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+        #endregion
     }
 }

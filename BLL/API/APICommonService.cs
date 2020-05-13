@@ -1,5 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Configuration;
 using System.Linq;
 
 namespace BLL
@@ -111,16 +113,48 @@ namespace BLL
         }
         #endregion
 
-        #region 订阅消息
+        #region 发送订阅消息
         /// <summary>
-        ///  订阅消息
+        /// 发送订阅消息
         /// </summary>
-        /// <returns></returns>
-        public static string getSubscribeMessage(string touser, string template_id, string page, object data, string miniprogram_state, string lang)
+        /// <param name="userId"></param>
+        /// <param name="thing2"></param>
+        /// <param name="name1"></param>
+        /// <param name="date3"></param>
+        public static string SendSubscribeMessage(string userId, string thing2, string name1, string date3)
         {
             string access_token = APICommonService.getaccess_token();
-            string url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token="+ access_token + "&template_id="+ template_id + "&page=" + page + "&data=" + data + "&miniprogram_state=" + miniprogram_state + "&lang=" + lang;
-            return APIGetHttpService.Http(url, "POST");
+            var getUser = Funs.DB.Sys_User.FirstOrDefault(x => x.UserId == userId);
+            if (getUser != null && !string.IsNullOrEmpty(getUser.OpenId))
+            {
+                string miniprogram_state = ConfigurationManager.AppSettings["miniprogram_state"];
+                if (!string.IsNullOrEmpty(miniprogram_state))
+                {
+                    miniprogram_state = "formal";
+                }
+                string contenttype = "application/json;charset=utf-8";
+                string url = $"https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token={access_token}";
+                var tempData = new
+                {
+                    access_token,
+                    touser = getUser.OpenId,
+                    template_id = Const.WX_TemplateID,
+                    page = "pages/home/main",
+                    data = new
+                    {
+                        thing2 = new { value = thing2 },
+                        name1 = new { value = name1 },
+                        date3 = new { value = date3 }
+                    },
+                    miniprogram_state,
+                    lang = "zh_CN",
+                };
+                return APIGetHttpService.Http(url, "POST", contenttype, null, JsonConvert.SerializeObject(tempData));
+            }
+            else
+            {
+                return "openId is null";
+            }
         }
         #endregion
 
@@ -131,7 +165,7 @@ namespace BLL
         /// <param name="userId"></param>
         /// <param name="jsCode"></param>
         /// <returns></returns>
-        public static string getUserOpenId(string userId, string jsCode)
+        public static string getUserOpenId(string userId, string jsCode,bool isRefresh = false)
         {
             string openId = string.Empty;
             string appid = getUnitAppId();
@@ -141,7 +175,7 @@ namespace BLL
             var getUser = Funs.DB.Sys_User.FirstOrDefault(x=>x.UserId == userId);
             if (getUser != null)
             {
-                if (!string.IsNullOrEmpty(getUser.OpenId))
+                if (!string.IsNullOrEmpty(getUser.OpenId) && !isRefresh)
                 {
                     openId = getUser.OpenId;
                 }
@@ -160,7 +194,7 @@ namespace BLL
                         }
                     }
                 }
-            }        
+            }
 
             return openId;
         }
