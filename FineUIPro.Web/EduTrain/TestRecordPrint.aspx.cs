@@ -66,7 +66,7 @@ namespace FineUIPro.Web.EduTrain
                             personInfo += "项目：" + ProjectService.GetProjectNameByProjectId(testRecord.ProjectId) + "        ";
                         } else
                         {
-                            personInfo += "部门：" + DepartService.GetDepartById(testRecord.DepartId) + "        ";
+                            personInfo += "部门：" + DepartService.getDepartNameById(testRecord.DepartId) + "        ";
                         }
                         personInfo += "姓名：" + testRecord.TestManName + "        " 
                                             + "身份证号码：" + testRecord.IdentityCard + "        ";
@@ -112,7 +112,7 @@ namespace FineUIPro.Web.EduTrain
                             Namec += "（每题" + getTestPlan.JValue.ToString() + "分，共" + getTestPlan.JValue * getC + "分）";
                         }
                     }
-                    sql = @"SELECT TestRecordItemId,TestRecordId,TrainingItemName,replace(replace(replace(replace(Abstracts,' ',''),'(','（'),')','）'),'（）',('（'+ISNULL(Replace(Replace(Replace(Replace(Replace(SelectedItem,'1','A'),'2', 'B'),'3', 'C'),'4', 'D'),'5', 'E'),'')+'）')) AS Abstracts,AttachUrl
+                    sql = @"SELECT TestRecordItemId,TestRecordId,replace(replace(replace(replace(Abstracts,' ',''),'(','（'),')','）'),'（）',('（'+ISNULL(Replace(Replace(Replace(Replace(Replace(SelectedItem,'1','A'),'2', 'B'),'3', 'C'),'4', 'D'),'5', 'E'),'')+'）')) AS Abstracts,AttachUrl
                             ,('A. '+AItem) AS AItem,('B. '+BItem) AS BItem,(CASE WHEN CItem IS NOT NULL THEN ('C. '+CItem) ELSE NULL END) AS CItem
                             ,(CASE WHEN DItem IS NULL OR DItem='' THEN NULL ELSE 'D. '+DItem END) AS DItem,(CASE WHEN EItem IS NULL  OR EItem='' THEN NULL ELSE 'E. '+EItem END) AS EItem  
                             ,('('+ISNULL(Replace(Replace(Replace(Replace(Replace(SelectedItem,'1','A'),'2', 'B'),'3', 'C'),'4', 'D'),'5', 'E'),'')+')') AS SelectedItem

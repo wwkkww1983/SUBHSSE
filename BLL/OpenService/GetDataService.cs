@@ -959,5 +959,13 @@ namespace BLL
             }
         }
         #endregion
+
+        #region 推送待办 订阅服务内容
+        public static void xx()
+        {
+         //   var get= BLL.Funs.DB.Sp_APP_GetToDoItems(projectId, userId).ToList();
+        }
+
+        #endregion
     }
 }

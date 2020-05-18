@@ -9,11 +9,6 @@ namespace BLL
     /// </summary>
     public static class APIHSEDiaryService
     {
-        public static List<Model.Sys_FlowOperate> getFlowOperteList;
-        public static string getProjectId;
-        public static string getUserId;
-        public static DateTime getDate;
-
         #region 获取HSE日志信息
         /// <summary>
         /// 获取HSE日志信息
@@ -28,29 +23,22 @@ namespace BLL
             Model.HSEDiaryItem getItem = new Model.HSEDiaryItem();
             if (getDiaryDate.HasValue && !string.IsNullOrEmpty(projectId) && !string.IsNullOrEmpty(userId))
             {
-                getProjectId = projectId;
-                getUserId = userId;
-                getDate = getDiaryDate.Value;
-                getFlowOperteList = (from x in Funs.DB.Sys_FlowOperate
-                                     where x.ProjectId == projectId
-                                     && x.OperaterId == userId && x.IsClosed == true
-                                     && x.OperaterTime >= getDiaryDate && x.OperaterTime < getDiaryDate.Value.AddDays(1)
-                                     select x).ToList();
+                var getFlowOperteList = ReturnFlowOperteList(projectId, userId, getDiaryDate.Value);
                 getItem.ProjectId = projectId;
                 getItem.UserId = userId;
                 getItem.UserName = UserService.GetUserNameByUserId(userId);
                 getItem.DiaryDate = diaryDate;
                 getItem.HSEDiaryId = SQLHelper.GetNewID();
-                getItem.Value1 = getValues1();
-                getItem.Value2 = getValues2();
-                getItem.Value3 = getValues3();
-                getItem.Value4 = getValues4();
-                getItem.Value5 = getValues5();
-                getItem.Value6 = getValues6();
-                getItem.Value7 = getValues7();
-                getItem.Value8 = getValues8(userId);
-                getItem.Value9 = getValues9();
-                getItem.Value10 = getValues10();
+                getItem.Value1 = getValues1(getFlowOperteList,projectId, userId, getDiaryDate.Value);
+                getItem.Value2 = getValues2(getFlowOperteList, projectId, userId, getDiaryDate.Value);
+                getItem.Value3 = getValues3(getFlowOperteList, projectId, userId, getDiaryDate.Value);
+                getItem.Value4 = getValues4(getFlowOperteList, projectId, userId, getDiaryDate.Value);
+                getItem.Value5 = getValues5(getFlowOperteList, projectId, userId, getDiaryDate.Value);
+                getItem.Value6 = getValues6(getFlowOperteList, projectId, userId, getDiaryDate.Value);
+                getItem.Value7 = getValues7(getFlowOperteList, projectId, userId, getDiaryDate.Value);
+                getItem.Value8 = getValues8(getFlowOperteList, projectId, userId, getDiaryDate.Value);
+                getItem.Value9 = getValues9(getFlowOperteList, projectId, userId, getDiaryDate.Value);
+                getItem.Value10 = getValues10(getFlowOperteList, projectId, userId, getDiaryDate.Value);
                 var getInfo = Funs.DB.Project_HSEDiary.FirstOrDefault(x => x.UserId == userId && x.DiaryDate == getDiaryDate);
                 if (getInfo != null)
                 {
@@ -62,6 +50,21 @@ namespace BLL
             return getItem;
         }
         #endregion        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="getProjectId"></param>
+        /// <param name="getUserId"></param>
+        /// <param name="getDate"></param>
+        /// <returns></returns>
+        public static List<Model.Sys_FlowOperate> ReturnFlowOperteList(string getProjectId, string getUserId, DateTime getDate)
+        {
+          return  (from x in Funs.DB.Sys_FlowOperate
+                                 where x.ProjectId == getProjectId && x.OperaterId == getUserId && x.IsClosed == true
+                                 && x.OperaterTime >= getDate && x.OperaterTime < getDate.AddDays(1)
+                                 select x).ToList();
+        }
 
         #region 获取HSE日志列表信息
         /// <summary>
@@ -136,7 +139,7 @@ namespace BLL
         /// <summary>
         /// 1HSE检查情况及检查次数
         /// </summary>
-        private static string getValues1()
+        public static string getValues1(List<Model.Sys_FlowOperate> getFlowOperteList, string getProjectId, string getUserId, DateTime getDate)
         {
             string strValues = string.Empty;
             var getRegister = (from x in Funs.DB.HSSE_Hazard_HazardRegister
@@ -177,19 +180,19 @@ namespace BLL
         /// <summary>
         /// 2隐患整改情况及隐患整改数量
         /// </summary>
-        private static string getValues2()
+        public static string getValues2(List<Model.Sys_FlowOperate> getFlowOperteList, string getProjectId, string getUserId, DateTime getDate)
         {
             string strValues = string.Empty;
-            var getCHeck = from x  in Funs.DB.Check_RectifyNotices
+            var getCHeck = from x in Funs.DB.Check_RectifyNotices
                            where x.ProjectId == getProjectId && x.CheckPerson == getUserId && getDate > x.CheckedDate.Value.AddDays(-1) && getDate < x.CheckedDate.Value.AddDays(1)
                            select x;
             if (getCHeck.Count() > 0)
             {
                 strValues += "复查：" + getCHeck.Count().ToString() + "；";
             }
-            var getSign = from x  in Funs.DB.Check_RectifyNotices
-                           where x.ProjectId == getProjectId && x.SignPerson == getUserId && getDate > x.SignDate.Value.AddDays(-1) && getDate < x.SignDate.Value.AddDays(1)
-                           select x;
+            var getSign = from x in Funs.DB.Check_RectifyNotices
+                          where x.ProjectId == getProjectId && x.SignPerson == getUserId && getDate > x.SignDate.Value.AddDays(-1) && getDate < x.SignDate.Value.AddDays(1)
+                          select x;
             if (getSign.Count() > 0)
             {
                 strValues += "签发：" + getSign.Count().ToString() + "；";
@@ -214,7 +217,7 @@ namespace BLL
         /// <summary>
         /// 3作业许可情况及作业票数量
         /// </summary>
-        private static string getValues3()
+        public static string getValues3(List<Model.Sys_FlowOperate> getFlowOperteList, string getProjectId, string getUserId, DateTime getDate)
         {
             string strValues = string.Empty;
             var getLicense = from x in Funs.DB.License_FlowOperate
@@ -229,7 +232,7 @@ namespace BLL
                 foreach (var item in getNames)
                 {
 
-                    strValues += item.Replace("作业票","") + "：" + getLicense.Where(x => x.MenuName == item).Select(x => x.DataId).Distinct().Count().ToString() + "；";
+                    strValues += item.Replace("作业票", "") + "：" + getLicense.Where(x => x.MenuName == item).Select(x => x.DataId).Distinct().Count().ToString() + "；";
                 }
             }
 
@@ -246,7 +249,7 @@ namespace BLL
         /// <summary>
         /// 4施工机具、安全设施检查、验收情况及检查验收数量
         /// </summary>
-        private static string getValues4()
+        public static string getValues4(List<Model.Sys_FlowOperate> getFlowOperteList, string getProjectId, string getUserId, DateTime getDate)
         {
             string strValues = string.Empty;
             //var getCompileCount = (from x in Funs.DB.License_EquipmentSafetyList
@@ -274,7 +277,7 @@ namespace BLL
         /// <summary>
         /// 5危险源辨识工作情况及次数
         /// </summary>
-        private static string getValues5()
+        public static string getValues5(List<Model.Sys_FlowOperate> getFlowOperteList, string getProjectId, string getUserId, DateTime getDate)
         {
             string strValues = string.Empty;
             //var getHCompileCount = (from x in Funs.DB.Hazard_HazardList
@@ -316,7 +319,7 @@ namespace BLL
         /// <summary>
         /// 6应急计划修编、演练及物资准备情况及次数
         /// </summary>
-        private static string getValues6()
+        public static string getValues6(List<Model.Sys_FlowOperate> getFlowOperteList, string getProjectId, string getUserId, DateTime getDate)
         {
             string strValues = string.Empty;
             var getCompileCount = (from x in Funs.DB.Emergency_EmergencyList
@@ -351,7 +354,7 @@ namespace BLL
         /// <summary>
         /// 7教育培训情况及人次
         /// </summary>
-        private static string getValues7()
+        public static string getValues7(List<Model.Sys_FlowOperate> getFlowOperteList, string getProjectId, string getUserId, DateTime getDate)
         {
             string strValues = string.Empty;
             var getFlows = getFlowOperteList.Where(x => x.MenuId == Const.ProjectTrainRecordMenuId).ToList();
@@ -381,7 +384,7 @@ namespace BLL
         /// <summary>
         ///  8 HSE会议情况及次数
         /// </summary>
-        private static string getValues8(string userId)
+        public static string getValues8(List<Model.Sys_FlowOperate> getFlowOperteList, string getProjectId, string getUserId, DateTime getDate)
         {
             string strValues = string.Empty;
             var getClassMeeting = getFlowOperteList.Where(x => x.MenuId == Const.ProjectClassMeetingMenuId).Count();
@@ -389,25 +392,25 @@ namespace BLL
             {
                 strValues += "班前会：" + getClassMeeting.ToString() + "；";
             }
-            var getWeekMeeting = Funs.DB.Meeting_WeekMeeting.Where(x => (x.CompileMan == userId || x.MeetingHostManId == userId || x.AttentPersonIds.Contains(userId))
+            var getWeekMeeting = Funs.DB.Meeting_WeekMeeting.Where(x => (x.CompileMan == getUserId || x.MeetingHostManId == getUserId || x.AttentPersonIds.Contains(getUserId))
             && getDate > x.WeekMeetingDate.Value.AddDays(-1) && getDate < x.WeekMeetingDate.Value.AddDays(1)).Count();
             if (getWeekMeeting > 0)
             {
                 strValues += "周例会：" + getWeekMeeting.ToString() + "；";
             }
-            var getMonthMeeting = Funs.DB.Meeting_MonthMeeting.Where(x => (x.CompileMan == userId || x.MeetingHostManId == userId || x.AttentPersonIds.Contains(userId))
+            var getMonthMeeting = Funs.DB.Meeting_MonthMeeting.Where(x => (x.CompileMan == getUserId || x.MeetingHostManId == getUserId || x.AttentPersonIds.Contains(getUserId))
             && getDate > x.MonthMeetingDate.Value.AddDays(-1) && getDate < x.MonthMeetingDate.Value.AddDays(1)).Count();
             if (getMonthMeeting > 0)
             {
                 strValues += "月例会：" + getMonthMeeting.ToString() + "；";
             }
-            var getSpecialMeeting = Funs.DB.Meeting_SpecialMeeting.Where(x => (x.CompileMan == userId || x.CompileMan == userId || x.MeetingHostManId == userId || x.AttentPersonIds.Contains(userId))
+            var getSpecialMeeting = Funs.DB.Meeting_SpecialMeeting.Where(x => (x.CompileMan == getUserId || x.CompileMan == getUserId || x.MeetingHostManId == getUserId || x.AttentPersonIds.Contains(getUserId))
             && getDate > x.SpecialMeetingDate.Value.AddDays(-1) && getDate < x.SpecialMeetingDate.Value.AddDays(1)).Count();
             if (getSpecialMeeting > 0)
             {
                 strValues += "专题会：" + getSpecialMeeting.ToString() + "；";
             }
-            var getAttendMeeting = Funs.DB.Meeting_AttendMeeting.Where(x => (x.CompileMan == userId || x.MeetingHostManId == userId || x.AttentPersonIds.Contains(userId))
+            var getAttendMeeting = Funs.DB.Meeting_AttendMeeting.Where(x => (x.CompileMan == getUserId || x.MeetingHostManId == getUserId || x.AttentPersonIds.Contains(getUserId))
             && getDate > x.AttendMeetingDate.Value.AddDays(-1) && getDate < x.AttendMeetingDate.Value.AddDays(1)).Count();
             if (getAttendMeeting > 0)
             {
@@ -426,7 +429,7 @@ namespace BLL
         /// <summary>
         ///  9 HSE宣传工作情况
         /// </summary>
-        private static string getValues9()
+        public static string getValues9(List<Model.Sys_FlowOperate> getFlowOperteList, string getProjectId, string getUserId, DateTime getDate)
         {
             string strValues = string.Empty;
             var getFlowCount = getFlowOperteList.Where(x => x.MenuId == Const.ProjectPromotionalActivitiesMenuId).Count();
@@ -446,7 +449,7 @@ namespace BLL
         /// <summary>
         ///  10 HSE奖惩工作情况、HSE奖励次数、HSE处罚次数
         /// </summary>
-        private static string getValues10()
+        public static string getValues10(List<Model.Sys_FlowOperate> getFlowOperteList, string getProjectId, string getUserId, DateTime getDate)
         {
             string strValues = string.Empty;
             var getFlowCount = getFlowOperteList.Where(x => x.MenuId == Const.ProjectIncentiveNoticeMenuId).Count();

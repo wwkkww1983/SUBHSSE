@@ -159,27 +159,33 @@ namespace BLL
         /// </summary>
         public static void DoSynchData()
         {
-            SynchronizationService.SynchDataTime();
-            var thisUnit = CommonService.GetIsThisUnit();
-            if (thisUnit != null)
-            {
-                if (thisUnit.UnitId == Const.UnitId_CWCEC) ////五环单位执行 人员 培训考试 与博晟同步数据
-                {
-                    var sysSet5 = BLL.ConstValue.drpConstItemList(BLL.ConstValue.Group_ChangeData).FirstOrDefault();
-                    if (sysSet5 != null && sysSet5.ConstValue == "1")
-                    {
-                        GetDataService.AddData();
-                    }
-                }
-                else if (thisUnit.UnitId == Const.UnitId_SEDIN) ////赛鼎
-                {
-                    GetDataService.CreateTrainingTaskItemByTaskId(null);
-                    GetDataService.UpdateTestPlanStates();
-                    GetDataService.CorrectingPersonInOutNumber(null);
-                    GetDataService.CreateQRCode();
-                    ServerTestPlanService.EndTestPlan(null);
-                }
-            }
+            //SynchronizationService.SynchDataTime();
+            //var thisUnit = CommonService.GetIsThisUnit();
+            //if (thisUnit != null)
+            //{
+            //    if (thisUnit.UnitId == Const.UnitId_CWCEC) ////五环单位执行 人员 培训考试 与博晟同步数据
+            //    {
+            //        var sysSet5 = BLL.ConstValue.drpConstItemList(BLL.ConstValue.Group_ChangeData).FirstOrDefault();
+            //        if (sysSet5 != null && sysSet5.ConstValue == "1")
+            //        {
+            //            GetDataService.AddData();
+            //        }
+            //    }
+            //    else if (thisUnit.UnitId == Const.UnitId_SEDIN) ////赛鼎
+            //    {
+            //        GetDataService.CreateTrainingTaskItemByTaskId(null);
+            //        GetDataService.UpdateTestPlanStates();
+            //        GetDataService.CorrectingPersonInOutNumber(null);
+            //        GetDataService.CreateQRCode();
+            //        ServerTestPlanService.EndTestPlan(null);
+            //    }
+            //}
+
+            GetDataService.CreateTrainingTaskItemByTaskId(null);
+            GetDataService.UpdateTestPlanStates();
+            GetDataService.CorrectingPersonInOutNumber(null);
+            GetDataService.CreateQRCode();
+            ServerTestPlanService.EndTestPlan(null);
         }
     }
 }

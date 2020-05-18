@@ -180,7 +180,8 @@ namespace FineUIPro.Web.Test
                 Alert.ShowInTop("请选择一条记录！", MessageBoxIcon.Warning);
                 return;
             }
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("TestRecordItem.aspx?TestRecordId={0}", Grid1.SelectedRowID, "编辑 - ")));
+            
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../EduTrain/TestRecordPrint.aspx?TestRecordId={0}&type=1", Grid1.SelectedRowID, "编辑 - "), "考试试卷", 900, 650));
         }
         #endregion
 

@@ -49,20 +49,12 @@
                         this.txtUserName.Text = UserService.GetUserNameByUserId(getHSEDiary.UserId);
                         if (getHSEDiary.DiaryDate.HasValue && !string.IsNullOrEmpty(getHSEDiary.UserId))
                         {
-                            SetItem(getHSEDiary.UserId, getHSEDiary.DiaryDate.Value);
+                           var getFlowOperteList= APIHSEDiaryService.ReturnFlowOperteList(getHSEDiary.ProjectId, getHSEDiary.UserId, getHSEDiary.DiaryDate.Value);
+                            this.txtValue1.Text = APIHSEDiaryService.getValues1(getFlowOperteList, getHSEDiary.ProjectId, getHSEDiary.UserId, getHSEDiary.DiaryDate.Value);
                         }
                     }
                 }
             }
-        }
-        #endregion
-
-        #region 获取审核记录信息
-        /// <summary>
-        /// 
-        /// </summary>
-        private void SetItem(string userId,DateTime diaryDate)
-        {           
         }
         #endregion
     }

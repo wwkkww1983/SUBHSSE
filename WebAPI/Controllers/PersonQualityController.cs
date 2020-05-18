@@ -44,8 +44,9 @@ namespace WebAPI.Controllers
         /// <param name="projectId">项目ID</param>
         /// <param name="unitId">单位ID</param>
         /// <param name="qualityType">人员资质类型（1-特种作业；2-安管人员；3-特种设备作业人员）</param>
+        /// <param name="unitIdQ">查询单位ID</param>
         /// <returns>人员资质数量</returns>
-        public Model.ResponeData getPersonQualityCount(string projectId, string unitId, string qualityType)
+        public Model.ResponeData getPersonQualityCount(string projectId, string unitId, string unitIdQ, string qualityType)
         {
             var responeData = new Model.ResponeData();
             try
@@ -56,8 +57,16 @@ namespace WebAPI.Controllers
                 {
                     var getPersons = from x in Funs.DB.SitePerson_Person
                                      join y in Funs.DB.Base_WorkPost on x.WorkPostId equals y.WorkPostId
-                                     where x.ProjectId == projectId && (isSub && x.UnitId == unitId) && y.PostType == Const.PostType_2
+                                     where x.ProjectId == projectId  && y.PostType == Const.PostType_2
                                      select x;
+                    if (isSub)
+                    {
+                        getPersons = getPersons.Where(x => x.UnitId == unitId);
+                    }
+                    if (!string.IsNullOrEmpty(unitIdQ))
+                    {
+                        getPersons = getPersons.Where(x => x.UnitId == unitIdQ);
+                    }
                     /////总数
                     tatalCount = getPersons.Count();
                     var getPersonQuality = from x in Funs.DB.QualityAudit_PersonQuality
@@ -78,8 +87,16 @@ namespace WebAPI.Controllers
                 {
                     var getPersons = from x in Funs.DB.SitePerson_Person
                                      join y in Funs.DB.Base_WorkPost on x.WorkPostId equals y.WorkPostId
-                                     where x.ProjectId == projectId && (isSub && x.UnitId == unitId) && y.IsHsse ==true
+                                     where x.ProjectId == projectId && y.IsHsse ==true
                                      select x;
+                    if (isSub)
+                    {
+                        getPersons = getPersons.Where(x => x.UnitId == unitId);
+                    }
+                    if (!string.IsNullOrEmpty(unitIdQ))
+                    {
+                        getPersons = getPersons.Where(x => x.UnitId == unitIdQ);
+                    }
                     /////总数
                     tatalCount = getPersons.Count();
                     var getPersonQuality = from x in Funs.DB.QualityAudit_SafePersonQuality
@@ -98,6 +115,33 @@ namespace WebAPI.Controllers
                 }
                 else if (qualityType == "3")
                 {
+                    var getPersons = from x in Funs.DB.SitePerson_Person
+                                     join y in Funs.DB.Base_WorkPost on x.WorkPostId equals y.WorkPostId
+                                     where x.ProjectId == projectId  && y.PostType == Const.PostType_5
+                                     select x;
+                    if (isSub)
+                    {
+                        getPersons = getPersons.Where(x => x.UnitId == unitId);
+                    }
+                    if (!string.IsNullOrEmpty(unitIdQ))
+                    {
+                        getPersons = getPersons.Where(x => x.UnitId == unitIdQ);
+                    }
+                    /////总数
+                    tatalCount = getPersons.Count();
+                    var getPersonQuality = from x in Funs.DB.QualityAudit_EquipmentPersonQuality
+                                           join y in getPersons on x.PersonId equals y.PersonId
+                                           select x;
+                    ////无证
+                    int noC = getPersons.Count() - getPersonQuality.Count();
+                    ////待维护
+                    count1 = noC + getPersonQuality.Where(x => x.LimitDate < DateTime.Now.AddMonths(1)).Count();
+                    ////待审核
+                    count2 = getPersonQuality.Where(x => x.States == Const.State_1).Count();
+                    //// 已审核
+                    count3 = getPersonQuality.Where(x => x.States == Const.State_2 && x.LimitDate >= DateTime.Now.AddMonths(1)).Count();
+                    //// 打回
+                    count4 = getPersonQuality.Where(x => x.States == Const.State_R).Count();
                 }
                 responeData.data = new { tatalCount, count1, count2, count3, count4 };
             }
@@ -119,14 +163,15 @@ namespace WebAPI.Controllers
         /// <param name="unitId">单位ID</param>
         /// <param name="qualityType">资质类型</param> 
         /// <param name="states">0-待提交；1-待审核；2-已审核；-1打回</param>
+        /// <param name="unitIdQ">查询单位ID</param>
         /// <param name="pageIndex">页码</param>
         /// <returns></returns>
-        public Model.ResponeData getPersonQualityList(string projectId, string unitId, string qualityType, string states, int pageIndex)
+        public Model.ResponeData getPersonQualityList(string projectId, string unitId, string qualityType, string states,string unitIdQ, int pageIndex)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = APIPersonQualityService.getPersonQualityList(projectId, unitId, qualityType, states);
+                var getDataList = APIPersonQualityService.getPersonQualityList(projectId, unitId, qualityType, states, unitIdQ);
                 int pageCount = getDataList.Count();
                 if (pageCount > 0 && pageIndex > 0)
                 {

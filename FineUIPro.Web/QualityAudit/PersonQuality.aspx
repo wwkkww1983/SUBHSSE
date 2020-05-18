@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>特殊岗位人员资质</title>
+    <title>特种作业人员资质</title>
     <link href="../res/css/common.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
         .f-grid-row .f-grid-cell-inner
@@ -18,7 +18,7 @@
     <f:Panel ID="Panel1" runat="server" Margin="10px" BodyPadding="10px" ShowBorder="false"
         ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch" AutoScroll="true">
         <Items>
-            <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="特殊岗位人员资质" EnableCollapse="true"
+            <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="特种作业人员资质" EnableCollapse="true"
                 runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="PersonId"
                 AllowCellEditing="true" ClicksToEdit="2" DataIDField="PersonId" AllowSorting="true"
                 SortField="UnitCode,WorkPostCode,PersonName" SortDirection="ASC" OnSort="Grid1_Sort" AllowPaging="true"
@@ -127,7 +127,7 @@
             </f:Grid>
         </Items>
     </f:Panel>
-    <f:Window ID="Window1" Title="特殊岗位人员资质" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+    <f:Window ID="Window1" Title="特种作业人员资质" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1000px"
         Height="650px">
     </f:Window>

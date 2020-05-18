@@ -48,6 +48,7 @@ namespace FineUIPro.Web.Test
                                     ,(CASE WHEN T.ManType='1' THEN '管理人员' WHEN T.ManType='2' THEN '临时用户' ELSE '作业人员' END) AS ManTypeName
                                     ,T.TestStartTime,T.TotalScore,T.QuestionCount,T.Duration,T.TestEndTime,T.TestScores,T.UnitId,Unit.UnitCode
                                     ,Unit.UnitName,T.DepartId,Depart.DepartCode,Depart.DepartName,T.ProjectId,Project.ProjectName,T.WorkPostId,T.IdentityCard,T.Telephone
+                                    ,(CASE WHEN T.ManType='3' THEN Project.ProjectName ELSE Depart.DepartName END) AS DProjectName
                                     FROM Test_TestRecord AS T 
                                     LEFT JOIN Test_TestPlan AS P ON T.TestPlanId=P.TestPlanId
                                     LEFT JOIN Base_Unit AS Unit ON T.UnitId=Unit.UnitId

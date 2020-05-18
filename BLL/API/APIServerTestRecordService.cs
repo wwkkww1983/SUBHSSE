@@ -150,7 +150,7 @@ namespace BLL
                     }
                     else
                     {
-                        if (getTestPlan.TestEndTime < DateTime.Now)
+                        if (getTestPlan.TestEndTime > DateTime.Now)
                         {
                             var getTestPlanTraining = db.Test_TestPlanTraining.Where(x => x.UserType == testRecord.UserType);
                             if (getTestPlanTraining.Count() > 0)

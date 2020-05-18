@@ -542,6 +542,8 @@
     <Content Include="QualityAudit\EquipmentQualityAuditEdit.aspx" />
     <Content Include="QualityAudit\EquipmentQualityAuditView.aspx" />
     <Content Include="QualityAudit\ManagePersonQualityEdit.aspx" />
+    <Content Include="QualityAudit\EquipmentPersonQuality.aspx" />
+    <Content Include="QualityAudit\EquipmentPersonQualityEdit.aspx" />
     <Content Include="QualityAudit\SubUnitQualityAudit.aspx" />
     <Content Include="QualityAudit\SubUnitQualityAuditEdit.aspx" />
     <Content Include="QualityAudit\SubUnitQualityAuditView.aspx" />
@@ -598,6 +600,7 @@
     <None Include="Doc\危险源选择及评价方法.doc" />
     <None Include="Doc\安全生产月报.doc" />
     <None Include="Doc\检查项目设置.doc" />
+    <Content Include="libman.json" />
     <None Include="packages.config" />
     <Content Include="ReportPrint\ReportTabFile\分包商上传周报.tab" />
     <Content Include="ReportPrint\ReportTabFile\HSSE日志暨管理数据收集.tab" />
@@ -7129,6 +7132,20 @@
     </Compile>
     <Compile Include="QualityAudit\ManagePersonQualityEdit.aspx.designer.cs">
       <DependentUpon>ManagePersonQualityEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="QualityAudit\EquipmentPersonQuality.aspx.cs">
+      <DependentUpon>EquipmentPersonQuality.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="QualityAudit\EquipmentPersonQuality.aspx.designer.cs">
+      <DependentUpon>EquipmentPersonQuality.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="QualityAudit\EquipmentPersonQualityEdit.aspx.cs">
+      <DependentUpon>EquipmentPersonQualityEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="QualityAudit\EquipmentPersonQualityEdit.aspx.designer.cs">
+      <DependentUpon>EquipmentPersonQualityEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="QualityAudit\SubUnitQualityAudit.aspx.cs">
       <DependentUpon>SubUnitQualityAudit.aspx</DependentUpon>

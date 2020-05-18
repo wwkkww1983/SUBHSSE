@@ -83,7 +83,7 @@ namespace WebAPI.Controllers
                     else
                     {
                         responeData.code = 2;
-                        responeData.message = "您已参加过考试！";
+                        responeData.message = "您未加入到此次考试中！";
                     }
                 }
                 else

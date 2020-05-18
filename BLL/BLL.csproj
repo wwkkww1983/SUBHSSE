@@ -324,6 +324,7 @@
     <Compile Include="ProjectData\ProjectPageDataService.cs" />
     <Compile Include="QualityAudit\EquipmentQualityAuditDetailService.cs" />
     <Compile Include="QualityAudit\ManagePersonQualityItemService.cs" />
+    <Compile Include="QualityAudit\EquipmentPersonQualityService.cs" />
     <Compile Include="QualityAudit\SubUnitQualityAuditDetailService.cs" />
     <Compile Include="SafetyActivities\ThemeActivitiesService.cs" />
     <Compile Include="SafetyActivities\MonthlyRatingService.cs" />

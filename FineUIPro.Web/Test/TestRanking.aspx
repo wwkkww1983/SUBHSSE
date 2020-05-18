@@ -85,16 +85,16 @@
                         HeaderText="考试结束时间" HeaderTextAlign="Center" TextAlign="Left" SortField="TestEndTime">
                     </f:RenderField>  
                      <f:RenderField Width="80px" ColumnID="TestScores" DataField="TestScores" FieldType="String"
-                        HeaderText="成绩" HeaderTextAlign="Center" TextAlign="Left" SortField="TestScores">
+                        HeaderText="成绩" HeaderTextAlign="Center" TextAlign="Right" SortField="TestScores">
                     </f:RenderField>
                       <f:RenderField Width="80px" ColumnID="UseTimes" DataField="UseTimes" FieldType="String"
-                        HeaderText="用时" HeaderTextAlign="Center" TextAlign="Left" SortField="UseTimes">
+                        HeaderText="用时" HeaderTextAlign="Center" TextAlign="Right" SortField="UseTimes">
                     </f:RenderField>
-                      <f:RenderField Width="110px" ColumnID="DepartName" DataField="DepartName" FieldType="String"
+                   <%-- <f:RenderField Width="110px" ColumnID="DepartName" DataField="DepartName" FieldType="String"
                         HeaderText="部门" HeaderTextAlign="Center" TextAlign="Left" >
-                    </f:RenderField>
-                      <f:RenderField Width="300px" ColumnID="ProjectName" DataField="ProjectName" FieldType="String"
-                        HeaderText="项目" HeaderTextAlign="Center" TextAlign="Left" >
+                    </f:RenderField>--%>
+                      <f:RenderField Width="350px" ColumnID="DProjectName" DataField="DProjectName" FieldType="String"
+                        HeaderText="所在部门/项目" HeaderTextAlign="Center" TextAlign="Left" >
                     </f:RenderField>
                      <f:RenderField Width="180px" ColumnID="IdentityCard" DataField="IdentityCard" FieldType="String"
                         HeaderText="身份证号码" HeaderTextAlign="Center" TextAlign="Left">

@@ -847,16 +847,17 @@
             <param name="dataId">主键ID</param>
             <returns></returns>
         </member>
-        <member name="M:WebAPI.Controllers.PersonQualityController.getPersonQualityCount(System.String,System.String,System.String)">
+        <member name="M:WebAPI.Controllers.PersonQualityController.getPersonQualityCount(System.String,System.String,System.String,System.String)">
             <summary>
             获取人员资质各状态数
             </summary>
             <param name="projectId">项目ID</param>
             <param name="unitId">单位ID</param>
             <param name="qualityType">人员资质类型（1-特种作业；2-安管人员；3-特种设备作业人员）</param>
+            <param name="unitIdQ">查询单位ID</param>
             <returns>人员资质数量</returns>
         </member>
-        <member name="M:WebAPI.Controllers.PersonQualityController.getPersonQualityList(System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:WebAPI.Controllers.PersonQualityController.getPersonQualityList(System.String,System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             根据projectId、unitid获取特岗人员资质信息
             </summary>
@@ -864,6 +865,7 @@
             <param name="unitId">单位ID</param>
             <param name="qualityType">资质类型</param> 
             <param name="states">0-待提交；1-待审核；2-已审核；-1打回</param>
+            <param name="unitIdQ">查询单位ID</param>
             <param name="pageIndex">页码</param>
             <returns></returns>
         </member>

@@ -15,10 +15,7 @@ namespace BLL
         /// <returns></returns>
         public static Model.UserItem PersonLogOn(Model.UserItem userInfo)
         {
-            var getUser = from x in Funs.DB.SitePerson_Person
-                          join y in Funs.DB.Base_Unit on x.UnitId equals y.UnitId
-                          join z in Funs.DB.Base_Project on x.ProjectId equals z.ProjectId
-                          join w in Funs.DB.Base_WorkPost on x.WorkPostId equals w.WorkPostId
+            var getUser = from x in Funs.DB.SitePerson_Person              
                           where (x.Telephone == userInfo.Account || x.PersonName == userInfo.Account) 
                           && (x.Password == Funs.EncryptionPassword(userInfo.Password) 
                              || (x.IdentityCard != null && x.IdentityCard.Substring(x.IdentityCard.Length - 4) == userInfo.Password))
@@ -33,11 +30,11 @@ namespace BLL
                               LoginProjectId = x.ProjectId,
                               IdentityCard = x.IdentityCard,
                               Account = x.Telephone,
-                              UnitName = y.UnitName,
-                              LoginProjectName = z.ProjectName,
+                              UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                              LoginProjectName = Funs.DB.Base_Project.First(u => u.ProjectId == x.ProjectId).ProjectName,
                               Telephone = x.Telephone,
                               WorkPostId = x.WorkPostId,
-                              WorkPostName = w.WorkPostName,
+                              WorkPostName = Funs.DB.Base_WorkPost.First(w=>w.WorkPostId==x.WorkPostId).WorkPostName,
                               UserType="3",
                           };
 

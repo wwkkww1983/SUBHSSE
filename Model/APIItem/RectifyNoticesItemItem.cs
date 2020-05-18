@@ -77,7 +77,7 @@ namespace Model
         /// <summary>
         /// 整改是否合格
         /// </summary>
-        public bool IsRectify
+        public bool? IsRectify
         {
             get;
             set;

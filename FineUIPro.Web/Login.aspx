@@ -45,11 +45,11 @@
                           <f:SimpleForm ID="SimpleForm1" BoxFlex="1" runat="server" ShowBorder="false" BodyPadding="10px"  LabelAlign="Right"
                                 LabelWidth="70px" ShowHeader="false" Layout="VBox" Height="200px" Width="300px" Margin="225px 0px 0  0px">
                                 <Items>     
-                                    <f:TextBox ID="tbxUserName"  Required="true" ShowRedStar="true" runat="server"  
+                                    <f:TextBox ID="tbxUserName"  Required="true"  runat="server"  
                                             Label="用户名" FocusOnPageLoad="true"  Margin="0px 60px 0 960px" NextFocusControl="tbxPassword"   ShowLabel="true"  >
                                     </f:TextBox>
-                                    <f:TextBox ID="tbxPassword"  TextMode="Password"  Required="true"  Label="密码"  ShowLabel="true"
-                                        ShowRedStar="true" runat="server" Margin="10px 60px 0 960px" NextFocusControl="tbxCaptcha">
+                                    <f:TextBox ID="tbxPassword"  TextMode="Password"  Required="true"  Label="密&nbsp;&nbsp;&nbsp;&nbsp;码"  ShowLabel="true"
+                                        runat="server" Margin="10px 60px 0 960px" NextFocusControl="tbxCaptcha">
                                     </f:TextBox>                                  
                                     <f:Panel ID="Panel2" ShowBorder="false" ShowHeader="false" Layout="HBox" BoxConfigAlign="Stretch" runat="server" 
                                         Margin="10px 60px 0 960px">
@@ -58,18 +58,18 @@
                                                 Required="true" runat="server" >
                                             </f:TextBox>
                                               <f:LinkButton ID="imgCaptcha" CssClass="imgcaptcha" EncodeText="false" runat="server" Width="100px"
-                                                    MarginLeft="2px" OnClick="imgCaptcha_Click" Height="30px">
+                                                    MarginLeft="1px" OnClick="imgCaptcha_Click" >
                                                 </f:LinkButton>
                                         </Items>
                                     </f:Panel>
                                     <f:Panel ID="Panel3" ShowBorder="false" ShowHeader="false" Layout="HBox" BoxConfigAlign="Stretch" runat="server" 
-                                        Margin="0px 200px 0 900px">
+                                        Margin="10px 50px 0 970px">
                                         <Items>
-                                            <f:Button ID="btnLogin" Text="登&nbsp;&nbsp;&nbsp;&nbsp;录" Type="Submit" ValidateForms="SimpleForm1" ValidateTarget="Parent"
-                                                runat="server" Margin="10px 10px 0 110px"  EnablePress="true" Pressed="true" Size="Medium" OnClick="btnLogin_Click" >
+                                            <f:Button ID="btnLogin" Text="登&nbsp;&nbsp;&nbsp;&nbsp;录" Type="Submit" ValidateForms="SimpleForm1" ValidateTarget="Parent" 
+                                                runat="server" Width="250px"  EnablePress="true" Pressed="true" Size="Medium" OnClick="btnLogin_Click" >
                                             </f:Button>   
-                                            <f:CheckBox runat="server"  ShowLabel="false" ID="ckRememberMe" MarginLeft="5px" MarginTop="10px"
-                                                LabelAlign="Left" Text="记住用户名"></f:CheckBox>            
+                                          <%--  <f:CheckBox runat="server"  ShowLabel="false" ID="ckRememberMe" MarginLeft="5px" MarginTop="10px"
+                                                LabelAlign="Left" Text="记住用户名" Width="100px"></f:CheckBox>   --%>         
                                         </Items>
                                     </f:Panel>                                    
                                 </Items>

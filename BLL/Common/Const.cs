@@ -285,6 +285,10 @@ namespace BLL
         /// 特种管理人员
         /// </summary>
         public const string PostType_4 = "4";
+        /// <summary>
+        /// 特种设备作业人员
+        /// </summary>
+        public const string PostType_5 = "5";
         #endregion
 
         #region 内置岗位
@@ -1349,6 +1353,11 @@ namespace BLL
         /// 特殊岗位人员资质
         /// </summary>
         public const string PersonQualityMenuId = "EBEA762D-1F46-47C5-9EAD-759E13D9B41C";
+
+        /// <summary>
+        /// 特种设备作业人员资质
+        /// </summary>
+        public const string EquipmentPersonQualityMenuId = "96FB96FF-20D8-4CE9-AF57-C19717BB5D3E";
 
         /// <summary>
         /// 特殊机具设备资质

@@ -40,7 +40,8 @@
 </TreeNode>
 <TreeNode id="26FDE187-F2EE-41D0-95EA-4E8E026F19E5" Text="资质审核" NavigateUrl="" Icon="CalendarEdit"><TreeNode id="DFDFEDA3-FECB-40DA-9216-C67B48002A8A" Text="施工分包资质" NavigateUrl="QualityAudit/SubUnitQuality.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="03BAA34B-87D2-4479-9E69-10DD4A62A2A8" Text="采购供货厂家管理" NavigateUrl="QualityAudit/InUnit.aspx" Icon="PageHeaderFooter"></TreeNode>
-<TreeNode id="EBEA762D-1F46-47C5-9EAD-759E13D9B41C" Text="特殊岗位人员资质" NavigateUrl="QualityAudit/PersonQuality.aspx" Icon="PageHeaderFooter"></TreeNode>
+<TreeNode id="EBEA762D-1F46-47C5-9EAD-759E13D9B41C" Text="特种作业人员资质" NavigateUrl="QualityAudit/PersonQuality.aspx" Icon="PageHeaderFooter"></TreeNode>
+<TreeNode id="96FB96FF-20D8-4CE9-AF57-C19717BB5D3E" Text="特种设备作业人员资质" NavigateUrl="QualityAudit/EquipmentPersonQuality.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="2DEDD752-8BAF-43CD-933D-932AF9AF2F58" Text="特殊机具设备资质" NavigateUrl="QualityAudit/EquipmentQuality.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="BFD62699-47F0-49FA-AD39-FAEE8A6C3313" Text="一般机具设备资质" NavigateUrl="QualityAudit/GeneralEquipmentQuality.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="874B4232-E0AD-41CD-8C66-8A7FF2D79358" Text="项目安全协议清单" NavigateUrl="QualityAudit/ProjectRecord.aspx" Icon="PageHeaderFooter"></TreeNode>
@@ -121,7 +122,6 @@
 <TreeNode id="20ECB69E-28C4-4FAC-941A-15F446AEB634" Text="安全投入费用" NavigateUrl="" Icon="ApplicationViewTile"><TreeNode id="EEE7CBBE-2EFB-4D64-96A6-A932E20FF9DB" Text="安全费用计划" NavigateUrl="CostGoods/Expense.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="0C311396-C859-40B0-9D72-6A8B20733002" Text="安全费用支出" NavigateUrl="CostGoods/CostSmallDetail.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="FF68C697-B058-4687-A98F-71C591650E02" Text="分包商HSE费用申请" NavigateUrl="CostGoods/CostManage.aspx" Icon="PageHeaderFooter"></TreeNode>
-<TreeNode id="6488F005-95F2-4D49-BC95-6DF4C9B23F3D" Text="安全分包费用" NavigateUrl="CostGoods/HSSECostUnitManage.aspx" Icon="PageHeaderFooter"></TreeNode>
 </TreeNode>
 <TreeNode id="D58B9DEC-A09B-45B0-BD54-18592119BB49" Text="行政管理" NavigateUrl="" Icon="Box"><TreeNode id="A25EB19A-F06E-4AAF-A589-E2B8F7FA7857" Text="行政管理检查记录" NavigateUrl="Administrative/ManageCheck.aspx" Icon="PageHeaderFooter"></TreeNode>
 <TreeNode id="CF82805A-84BE-400A-B939-83F7612D76F5" Text="现场车辆管理" NavigateUrl="Administrative/CarManager.aspx" Icon="PageHeaderFooter"></TreeNode>

@@ -366,7 +366,7 @@ namespace Model
         /// <summary>
         /// 是否完成
         /// </summary>
-        public bool IsRectify
+        public bool? IsRectify
         {
             get;
             set;

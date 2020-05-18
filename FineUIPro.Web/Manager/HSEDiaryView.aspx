@@ -27,11 +27,11 @@
                     </f:TextBox>                       
                  </Items>
              </f:FormRow>
-            <f:FormRow ColumnWidths="40% 20% 40%"> 
+            <f:FormRow ColumnWidths="40% 30% 30%"> 
                  <Items>
                     <f:TextBox ID="TextBox1" runat="server" Text="1HSE检查情况及检查次数" Readonly="true" LabelWidth="90px">
                     </f:TextBox>
-                      <f:TextBox ID="TextBox2" runat="server" Text="0" Readonly="true" LabelWidth="90px">
+                      <f:TextBox ID="txtValue1" runat="server" Text="0" Readonly="true" LabelWidth="90px">
                     </f:TextBox>   
                      <f:TextBox ID="TextBox3" runat="server" Text="来源于“安全检查管理”中各类型检查。" Readonly="true" LabelWidth="90px">
                     </f:TextBox>   

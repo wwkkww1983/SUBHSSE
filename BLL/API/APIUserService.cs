@@ -9,17 +9,17 @@ namespace BLL
 {
     public static class APIUserService
     {
-       /// <summary>
-       /// 获取用户登录信息
-       /// </summary>
-       /// <param name="userInfo"></param>
-       /// <returns></returns>
+        /// <summary>
+        /// 获取用户登录信息
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
         public static Model.UserItem UserLogOn(Model.UserItem userInfo)
         {
             var getUser = Funs.DB.View_Sys_User.FirstOrDefault(x => (x.Account == userInfo.Account || x.Telephone == userInfo.Telephone) && x.IsPost == true && x.Password == Funs.EncryptionPassword(userInfo.Password));
             return ObjectMapperManager.DefaultInstance.GetMapper<Model.View_Sys_User, Model.UserItem>().Map(getUser);
         }
-        
+
         /// <summary>
         /// 根据userId获取用户信息
         /// </summary>
@@ -40,13 +40,13 @@ namespace BLL
         {
             var getUser = (from x in Funs.DB.Sys_User
                            join y in Funs.DB.Sys_Role on x.RoleId equals y.RoleId
-                           where x.UnitId == unitId && x.IsPost == true && (strParam== null || x.UserName.Contains(strParam))
-                           orderby x.UserName 
+                           where x.UnitId == unitId && x.IsPost == true && (strParam == null || x.UserName.Contains(strParam))
+                           orderby x.UserName
                            select new Model.BaseInfoItem { BaseInfoId = x.UserId, BaseInfoName = x.UserName, BaseInfoCode = x.Telephone }).ToList();
 
             return getUser;
         }
-        
+
         /// <summary>
         ///  根据projectId、unitid获取用户信息
         /// </summary>
@@ -63,7 +63,7 @@ namespace BLL
                 getDataList = (from x in Funs.DB.Sys_User
                                join y in Funs.DB.Project_ProjectUser on x.UserId equals y.UserId
                                where y.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
-                                  && (roleIds == null || roleList.Contains(y.RoleId)) && (strParam == null || x.UserName.Contains(strParam))                            
+                                  && (roleIds == null || roleList.Contains(y.RoleId)) && (strParam == null || x.UserName.Contains(strParam))
                                select new Model.UserItem
                                {
                                    UserId = x.UserId,
@@ -89,7 +89,7 @@ namespace BLL
             {
                 getDataList = (from x in Funs.DB.Sys_User
                                where x.IsPost == true && (x.UnitId == unitId || unitId == null)
-                              && (roleIds == null || roleList.Contains(x.RoleId)) && (strParam == null || x.UserName.Contains(strParam))                               
+                              && (roleIds == null || roleList.Contains(x.RoleId)) && (strParam == null || x.UserName.Contains(strParam))
                                select new Model.UserItem
                                {
                                    UserId = x.UserId,
@@ -111,7 +111,7 @@ namespace BLL
                                }).ToList();
             }
 
-            return getDataList.OrderBy(x=>x.UnitName).ThenBy(x=>x.UserName).ToList();
+            return getDataList.OrderBy(x => x.UnitName).ThenBy(x => x.UserName).ToList();
         }
 
         /// <summary>
@@ -125,10 +125,10 @@ namespace BLL
         {
             List<Model.UserItem> getDataList = new List<Model.UserItem>();
             List<string> roleList = Funs.GetStrListByStr(roleIds, ',');
-            getDataList = (from x in Funs.DB.Sys_User                           
+            getDataList = (from x in Funs.DB.Sys_User
                            join y in Funs.DB.Project_ProjectUser on x.UserId equals y.UserId
                            join z in Funs.DB.Project_ProjectUnit on x.UnitId equals z.UnitId
-                           where y.ProjectId == projectId && z.ProjectId ==projectId && z.UnitType == unitType
+                           where y.ProjectId == projectId && z.ProjectId == projectId && z.UnitType == unitType
                               && (roleIds == null || roleList.Contains(y.RoleId)) && (strParam == null || x.UserName.Contains(strParam))
                            select new Model.UserItem
                            {
@@ -202,8 +202,8 @@ namespace BLL
         /// <returns></returns>
         public static int getMenuUnreadCount(string menuId, string projectId, string userId)
         {
-            int count = 0;
-            var readCount = Funs.DB.Sys_UserRead.Where(x => x.MenuId == menuId && x.ProjectId ==projectId && x.UserId == userId).Select(x => x.DataId).Distinct().Count();
+            int count = 0;            
+            var readCount = Funs.DB.Sys_UserRead.Where(x => x.MenuId == menuId && x.ProjectId == projectId && x.UserId == userId).Select(x => x.DataId).Distinct().Count();
             if (menuId == Const.ProjectNoticeMenuId)
             {
                 var noticeCount = Funs.DB.InformationProject_Notice.Where(x => x.AccessProjectId.Contains(projectId) && x.IsRelease == true).Count();

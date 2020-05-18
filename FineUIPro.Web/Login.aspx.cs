@@ -22,7 +22,7 @@
                 // string password = Request.QueryString["Password"];
                 if (!string.IsNullOrEmpty(userName)) ///单点登陆
                 {
-                    if (LoginService.UserLogOn(userName, this.ckRememberMe.Checked, this.Page))
+                    if (LoginService.UserLogOn(userName, true, this.Page))
                     {
                         this.CurrUser.LoginProjectId = null;
                       
@@ -49,7 +49,7 @@
                         this.tbxPassword.Text = Request.Cookies["UserInfo"]["password"].ToString();
                     }
 
-                    this.ckRememberMe.Checked = true;
+                   // this.ckRememberMe.Checked = true;
                 }
                 //string sysVersion = ConfigurationManager.AppSettings["SystemVersion"];
                 //this.lbVevion.Text = "请使用IE10以上版本浏览器 版本号：" + sysVersion;
@@ -116,7 +116,7 @@
                 return;
             }
 
-            if (BLL.LoginService.UserLogOn(tbxUserName.Text, this.tbxPassword.Text, this.ckRememberMe.Checked, this.Page))
+            if (BLL.LoginService.UserLogOn(tbxUserName.Text, this.tbxPassword.Text, true, this.Page))
             {
                 this.CurrUser.LoginProjectId = null;
                 PageContext.Redirect("~/default.aspx");
