@@ -4373,47 +4373,6 @@
     <Compile Include="Administrative\DriverManagerView.aspx.designer.cs">
       <DependentUpon>DriverManagerView.aspx</DependentUpon>
     </Compile>
-    <Compile Include="APIItem\BaseInfoItem.cs" />
-    <Compile Include="APIItem\ConstructSolutionItem.cs" />
-    <Compile Include="APIItem\EquipmentQualityItem.cs" />
-    <Compile Include="APIItem\FileInfoItem.cs" />
-    <Compile Include="APIItem\FlowOperateItem.cs" />
-    <Compile Include="APIItem\HazardListItem.cs" />
-    <Compile Include="APIItem\HazardListSelectedItem.cs" />
-    <Compile Include="APIItem\HazardRegisterItem.cs" />
-    <Compile Include="APIItem\HSEDiaryItem.cs" />
-    <Compile Include="APIItem\HSEMonthItem.cs" />
-    <Compile Include="APIItem\IncentiveNoticeItem.cs" />
-    <Compile Include="APIItem\LicenseDataItem.cs" />
-    <Compile Include="APIItem\LicenseItem.cs" />
-    <Compile Include="APIItem\MeetingItem.cs" />
-    <Compile Include="APIItem\NextFlowOperateItem.cs" />
-    <Compile Include="APIItem\NoticeItem.cs" />
-    <Compile Include="APIItem\PauseNoticeItem.cs" />
-    <Compile Include="APIItem\PersonItem.cs" />
-    <Compile Include="APIItem\PictureItem.cs" />
-    <Compile Include="APIItem\ProjectItem.cs" />
-    <Compile Include="APIItem\PunishNoticeItem.cs" />
-    <Compile Include="APIItem\RectifyNoticesItem.cs" />
-    <Compile Include="APIItem\ResourcesItem.cs" />
-    <Compile Include="APIItem\ResponeData.cs" />
-    <Compile Include="APIItem\SubscribeMessageItem.cs" />
-    <Compile Include="APIItem\SubUnitQualityItem.cs" />
-    <Compile Include="APIItem\SysTestRuleItem.cs" />
-    <Compile Include="APIItem\TestPlanItem.cs" />
-    <Compile Include="APIItem\TestPlanTrainingItem.cs" />
-    <Compile Include="APIItem\TestRecordItem.cs" />
-    <Compile Include="APIItem\TestRecordItemItem.cs" />
-    <Compile Include="APIItem\TestTrainingResourcesItem.cs" />
-    <Compile Include="APIItem\ToDoItem.cs" />
-    <Compile Include="APIItem\TrainingPlanItem.cs" />
-    <Compile Include="APIItem\TrainingPlanItemItem.cs" />
-    <Compile Include="APIItem\TrainingTaskItem.cs" />
-    <Compile Include="APIItem\TrainingTaskItemItem.cs" />
-    <Compile Include="APIItem\TrainRecordItem.cs" />
-    <Compile Include="APIItem\UnitItem.cs" />
-    <Compile Include="APIItem\UserItem.cs" />
-    <Compile Include="APIItem\UserReadItem.cs" />
     <Compile Include="AttachFile\fileupload.ashx.cs">
       <DependentUpon>fileupload.ashx</DependentUpon>
     </Compile>
@@ -10971,7 +10930,7 @@
       <Name>BLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
-      <Project>{FD1E1931-1688-4B4A-BCD6-335A81465343}</Project>
+      <Project>{fd1e1931-1688-4b4a-bcd6-335a81465343}</Project>
       <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>

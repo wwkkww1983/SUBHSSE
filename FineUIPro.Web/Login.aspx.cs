@@ -36,8 +36,7 @@
                     }
                 }
 
-          
-                this.LoadData();
+                this.InitCaptchaCode();
                 if (Request.Cookies["UserInfo"] != null)
                 {
                     if (Request.Cookies["UserInfo"]["username"] != null)
@@ -52,20 +51,12 @@
                    // this.ckRememberMe.Checked = true;
                 }
                 //string sysVersion = ConfigurationManager.AppSettings["SystemVersion"];
-                //this.lbVevion.Text = "请使用IE10以上版本浏览器 版本号：" + sysVersion;
+                //this.lbVevion.Text = "请使用IE10以上版本浏览器 版本号：" + sysVersion;            
             }
         }
         #endregion
 
         #region 图片验证
-        /// <summary>
-        /// 生成图片
-        /// </summary>
-        private void LoadData()
-        {
-            this.InitCaptchaCode();
-        }
-
         /// <summary>
         /// 初始化验证码
         /// </summary>

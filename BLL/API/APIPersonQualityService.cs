@@ -49,6 +49,7 @@ namespace BLL
                                       CompileManName = Funs.DB.Sys_User.First(z => z.UserId == x.CompileMan).UserName,
                                       CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
                                       AuditDate = string.Format("{0:yyyy-MM-dd}", x.AuditDate),
+                                      AuditorId=x.AuditorId,
                                       AuditorName = Funs.DB.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
                                       AuditOpinion = x.AuditOpinion,
                                       States = x.States,
@@ -89,6 +90,7 @@ namespace BLL
                                       CompileManName = Funs.DB.Sys_User.First(z => z.UserId == x.CompileMan).UserName,
                                       CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
                                       AuditDate = string.Format("{0:yyyy-MM-dd}", x.AuditDate),
+                                      AuditorId = x.AuditorId,
                                       AuditorName = Funs.DB.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
                                       AuditOpinion = x.AuditOpinion,
                                       States = x.States,
@@ -129,6 +131,7 @@ namespace BLL
                                       CompileManName = Funs.DB.Sys_User.First(z => z.UserId == x.CompileMan).UserName,
                                       CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
                                       AuditDate = string.Format("{0:yyyy-MM-dd}", x.AuditDate),
+                                      AuditorId = x.AuditorId,
                                       AuditorName = Funs.DB.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
                                       AuditOpinion = x.AuditOpinion,
                                       States = x.States,
@@ -290,7 +293,7 @@ namespace BLL
             }
             if (states == Const.State_0)
             {
-                getLists = getLists.Where(x => x.PersonQualityId == null || x.LimitDateD < DateTime.Now.AddMonths(1)).ToList();
+                getLists = getLists.Where(x => x.States == null || x.States == states || x.PersonQualityId == null || x.LimitDateD < DateTime.Now.AddMonths(1)).ToList();
             }
             else if (states == Const.State_1)
             {
@@ -332,12 +335,18 @@ namespace BLL
                         LateCheckDate = Funs.GetNewDateTime(personQuality.LateCheckDate),
                         ApprovalPerson = personQuality.ApprovalPerson,
                         Remark = personQuality.Remark,
-                        CompileDate = Funs.GetNewDateTime(personQuality.CompileDate),
-                        AuditDate = Funs.GetNewDateTime(personQuality.AuditDate),
+                        CompileDate = Funs.GetNewDateTime(personQuality.CompileDate),                       
                         AuditOpinion = personQuality.AuditOpinion,
                         States = personQuality.States,
                     };
-
+                    if (newPersonQuality.States == Const.State_2 || newPersonQuality.States == Const.State_R)
+                    {
+                        newPersonQuality.AuditDate = DateTime.Now;
+                    }
+                    else
+                    {
+                        newPersonQuality.AuditDate = null;
+                    }
                     if (!string.IsNullOrEmpty(personQuality.CertificateId))
                     {
                         newPersonQuality.CertificateId = personQuality.CertificateId;
@@ -372,6 +381,7 @@ namespace BLL
                         getPersonQuality.Remark = newPersonQuality.Remark;
                         getPersonQuality.AuditDate = newPersonQuality.AuditDate;
                         getPersonQuality.AuditorId = newPersonQuality.AuditorId;
+                        getPersonQuality.States = newPersonQuality.States;                       
                         db.SubmitChanges();
                     }
                     if (!string.IsNullOrEmpty(newPersonQuality.PersonQualityId))
@@ -399,7 +409,14 @@ namespace BLL
                         AuditOpinion = personQuality.AuditOpinion,
                         States = personQuality.States,
                     };
-
+                    if (newSafeQuality.States == Const.State_2 || newSafeQuality.States == Const.State_R)
+                    {
+                        newSafeQuality.AuditDate = DateTime.Now;
+                    }
+                    else
+                    {
+                        newSafeQuality.AuditDate = null;
+                    }
                     //if (!string.IsNullOrEmpty(personQuality.CertificateId))
                     //{
                     //    newSafeQuality.CertificateId = personQuality.CertificateId;
@@ -412,8 +429,8 @@ namespace BLL
                     {
                         newSafeQuality.AuditorId = personQuality.AuditorId;
                     }
-                    var getPersonQuality = db.QualityAudit_SafePersonQuality.FirstOrDefault(x => x.SafePersonQualityId == newSafeQuality.SafePersonQualityId);
-                    if (getPersonQuality == null)
+                    var getSafePersonQuality = db.QualityAudit_SafePersonQuality.FirstOrDefault(x => x.SafePersonQualityId == newSafeQuality.SafePersonQualityId);
+                    if (getSafePersonQuality == null)
                     {
                         newSafeQuality.SafePersonQualityId = SQLHelper.GetNewID();
                         newSafeQuality.CompileDate = DateTime.Now;
@@ -422,18 +439,19 @@ namespace BLL
                     }
                     else
                     {
-                        newSafeQuality.SafePersonQualityId = getPersonQuality.SafePersonQualityId;
+                        newSafeQuality.SafePersonQualityId = getSafePersonQuality.SafePersonQualityId;
                         //getPersonQuality.CertificateId = newSafeQuality.CertificateId;
-                        getPersonQuality.CertificateNo = newSafeQuality.CertificateNo;
-                        getPersonQuality.CertificateName = newSafeQuality.CertificateName;
-                        getPersonQuality.Grade = newSafeQuality.Grade;
-                        getPersonQuality.SendUnit = newSafeQuality.SendUnit;
-                        getPersonQuality.SendDate = newSafeQuality.SendDate;
-                        getPersonQuality.LimitDate = newSafeQuality.LimitDate;
-                        getPersonQuality.LateCheckDate = newSafeQuality.LateCheckDate;
-                        getPersonQuality.Remark = newSafeQuality.Remark;
-                        getPersonQuality.AuditDate = newSafeQuality.AuditDate;
-                        getPersonQuality.AuditorId = newSafeQuality.AuditorId;
+                        getSafePersonQuality.CertificateNo = newSafeQuality.CertificateNo;
+                        getSafePersonQuality.CertificateName = newSafeQuality.CertificateName;
+                        getSafePersonQuality.Grade = newSafeQuality.Grade;
+                        getSafePersonQuality.SendUnit = newSafeQuality.SendUnit;
+                        getSafePersonQuality.SendDate = newSafeQuality.SendDate;
+                        getSafePersonQuality.LimitDate = newSafeQuality.LimitDate;
+                        getSafePersonQuality.LateCheckDate = newSafeQuality.LateCheckDate;
+                        getSafePersonQuality.Remark = newSafeQuality.Remark;
+                        getSafePersonQuality.AuditDate = newSafeQuality.AuditDate;
+                        getSafePersonQuality.AuditorId = newSafeQuality.AuditorId;
+                        getSafePersonQuality.States = newSafeQuality.States;
                         db.SubmitChanges();
                     }
                     if (!string.IsNullOrEmpty(newSafeQuality.SafePersonQualityId))
@@ -462,7 +480,14 @@ namespace BLL
                         AuditOpinion = personQuality.AuditOpinion,
                         States = personQuality.States,
                     };
-
+                    if (newEquipmentPersonQuality.States == Const.State_2 || newEquipmentPersonQuality.States == Const.State_R)
+                    {
+                        newEquipmentPersonQuality.AuditDate = DateTime.Now;
+                    }
+                    else
+                    {
+                        newEquipmentPersonQuality.AuditDate = null;
+                    }
                     if (!string.IsNullOrEmpty(personQuality.CertificateId))
                     {
                         newEquipmentPersonQuality.CertificateId = personQuality.CertificateId;
@@ -497,6 +522,7 @@ namespace BLL
                         getEquipmentPersonQuality.Remark = newEquipmentPersonQuality.Remark;
                         getEquipmentPersonQuality.AuditDate = newEquipmentPersonQuality.AuditDate;
                         getEquipmentPersonQuality.AuditorId = newEquipmentPersonQuality.AuditorId;
+                        getEquipmentPersonQuality.States = newEquipmentPersonQuality.States;
                         db.SubmitChanges();
                     }
                     if (!string.IsNullOrEmpty(newEquipmentPersonQuality.EquipmentPersonQualityId))

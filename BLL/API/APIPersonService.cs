@@ -119,6 +119,29 @@ namespace BLL
         }
         #endregion
 
+        #region 根据personid人员打回
+        /// <summary>
+        /// 根据personid人员打回
+        /// </summary>
+        /// <param name="personId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static void getReUserPersonByPersonId(string personId, string userId)
+        {
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                var getPerson = db.SitePerson_Person.FirstOrDefault(x => x.PersonId == personId);
+                if (getPerson != null)
+                {
+                    getPerson.IsUsed = false;
+                    getPerson.AuditorId = userId;
+                    getPerson.AuditorDate = DateTime.Now;
+                    db.SubmitChanges();
+                }
+            }
+        }
+        #endregion
+
         #region 根据projectId、unitid获取人员信息
         /// <summary>
         /// 根据projectId、unitid获取人员信息
@@ -187,6 +210,10 @@ namespace BLL
             {
                 getViews = getViews.Where(x => x.UnitId == unitId);
             }
+            if (!string.IsNullOrEmpty(strParam))
+            {
+                getViews = getViews.Where(x => x.PersonName.Contains(strParam) || x.IdentityCard.Contains(strParam));
+            }
             if (states == "0")
             {
                 getViews = getViews.Where(x => x.IsUsed == false && !x.AuditorDate.HasValue);
@@ -204,10 +231,7 @@ namespace BLL
                 getViews = getViews.Where(x => x.IsUsed == false && x.AuditorDate.HasValue);
             }
 
-            if (!string.IsNullOrEmpty(strParam))
-            {
-                getViews = getViews.Where(x => x.PersonName.Contains(strParam) || x.IdentityCard.Contains(strParam));
-            }
+           
             var persons = from x in getViews
                           join y in Funs.DB.Base_Unit on x.UnitId equals y.UnitId
                           orderby x.CardNo descending

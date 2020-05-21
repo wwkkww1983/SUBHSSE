@@ -1865,6 +1865,14 @@
             <param name="person">人员信息</param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.PersonController.getReUserPersonByPersonId(System.String,System.String)">
+            <summary>
+            根据personid人员打回
+            </summary>
+            <param name="personId">人员ID</param>
+            <param name="userId">审核人id</param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.PersonController.SaveSitePersonAttachment(Model.PersonItem)">
             <summary>
             更新人员更新附件

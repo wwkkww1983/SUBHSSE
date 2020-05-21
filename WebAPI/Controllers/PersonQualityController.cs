@@ -75,7 +75,7 @@ namespace WebAPI.Controllers
                     ////无证
                     int noC = getPersons.Count() - getPersonQuality.Count();
                     ////待维护
-                    count1 = noC +getPersonQuality.Where(x => x.LimitDate < DateTime.Now.AddMonths(1)).Count(); 
+                    count1 = noC +getPersonQuality.Where(x => x.States == null || x.States == Const.State_0 || x.LimitDate < DateTime.Now.AddMonths(1)).Count(); 
                     ////待审核
                     count2 = getPersonQuality.Where(x => x.States == Const.State_1).Count();
                     //// 已审核
@@ -105,7 +105,7 @@ namespace WebAPI.Controllers
                     ////无证
                     int noC = getPersons.Count() - getPersonQuality.Count();
                     ////待维护
-                    count1 = noC + getPersonQuality.Where(x => x.LimitDate < DateTime.Now.AddMonths(1)).Count();
+                    count1 = noC + getPersonQuality.Where(x => x.States == null || x.States == Const.State_0 || x.LimitDate < DateTime.Now.AddMonths(1)).Count();
                     ////待审核
                     count2 = getPersonQuality.Where(x => x.States == Const.State_1).Count();
                     //// 已审核
@@ -135,7 +135,7 @@ namespace WebAPI.Controllers
                     ////无证
                     int noC = getPersons.Count() - getPersonQuality.Count();
                     ////待维护
-                    count1 = noC + getPersonQuality.Where(x => x.LimitDate < DateTime.Now.AddMonths(1)).Count();
+                    count1 = noC + getPersonQuality.Where(x => x.States == null || x.States == Const.State_0 || x.LimitDate < DateTime.Now.AddMonths(1)).Count();
                     ////待审核
                     count2 = getPersonQuality.Where(x => x.States == Const.State_1).Count();
                     //// 已审核

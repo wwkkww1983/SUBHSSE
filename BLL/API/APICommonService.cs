@@ -128,7 +128,7 @@ namespace BLL
             if (getUser != null && !string.IsNullOrEmpty(getUser.OpenId))
             {
                 string miniprogram_state = ConfigurationManager.AppSettings["miniprogram_state"];
-                if (!string.IsNullOrEmpty(miniprogram_state))
+                if (string.IsNullOrEmpty(miniprogram_state))
                 {
                     miniprogram_state = "formal";
                 }
@@ -137,7 +137,7 @@ namespace BLL
                 var tempData = new
                 {
                     access_token,
-                    touser = getUser.OpenId,
+                    touser = "okJA44ziDT7lEQA6PXWtfPtTNUBQ",//getUser.OpenId,
                     template_id = Const.WX_TemplateID,
                     page = "pages/home/main",
                     data = new

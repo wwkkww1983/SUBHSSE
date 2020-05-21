@@ -113,10 +113,10 @@ namespace WebAPI.Controllers
                 {
                     getViews = getViews.Where(x => x.UnitId == unitId);
                 }
-                //if (!string.IsNullOrEmpty(strParam))
-                //{
-                //    getViews = getViews.Where(x => x.PersonName.Contains(strParam) || x.IdentityCard.Contains(strParam));
-                //}
+                if (!string.IsNullOrEmpty(strParam))
+                {
+                    getViews = getViews.Where(x => x.PersonName.Contains(strParam) || x.IdentityCard.Contains(strParam));
+                }
                 int tatalCount = getViews.Count();
                 //在审
                 int count0 = getViews.Where(x => x.IsUsed == false && !x.AuditorDate.HasValue).Count();
@@ -372,6 +372,30 @@ namespace WebAPI.Controllers
                     responeData.code = 2;
                     responeData.message = "人员信息有误！";
                 }
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region 根据personid人员打回
+        /// <summary>
+        /// 根据personid人员打回
+        /// </summary>
+        /// <param name="personId">人员ID</param>
+        /// <param name="userId">审核人id</param>
+        /// <returns></returns>
+        public Model.ResponeData getReUserPersonByPersonId(string personId, string userId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APIPersonService.getReUserPersonByPersonId(personId, userId);
             }
             catch (Exception ex)
             {

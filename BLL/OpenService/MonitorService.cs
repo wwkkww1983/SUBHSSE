@@ -186,6 +186,8 @@ namespace BLL
             GetDataService.CorrectingPersonInOutNumber(null);
             GetDataService.CreateQRCode();
             ServerTestPlanService.EndTestPlan(null);
+            ////推送订阅消息 
+            GetDataService.SendSubscribeMessage();
         }
     }
 }

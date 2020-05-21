@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
+using System.Configuration;
 
 namespace BLL
 {
@@ -856,11 +857,28 @@ namespace BLL
                                                     where x.IsIn == false && x.ChangeTime <= DateTime.Now
                                                     select x;
                             var getInLists = getAllPersonInOutList.Where(x => x.IsIn == true);
+                            //// 查找当前项目 最新的人工时数量记录
+                            var getMaxInOutDate = db.SitePerson_PersonInOutNumber.Where(x => x.ProjectId == projectItem.ProjectId).Max(x => x.InOutDate);
+                            if (getMaxInOutDate != null)
+                            {
+                                var getMaxNum = db.SitePerson_PersonInOutNumber.FirstOrDefault(x => x.ProjectId == projectItem.ProjectId && x.InOutDate == getMaxInOutDate);
+                                if (getMaxNum != null)
+                                {
+                                    SafeHours = (getMaxNum.WorkHours ?? 0) * 60; 
+                                    getPersonOutTimes = from x in getPersonOutTimes
+                                                        where x.ChangeTime > getMaxInOutDate
+                                                        select x;
+                                    getInLists = from x in getInLists
+                                                 where x.ChangeTime > getMaxInOutDate
+                                                 select x;
+                                }
+                            }
+                       
                             List<string> personIdList = new List<string>();
                             foreach (var item in getPersonOutTimes)
                             {
                                 var getMaxInTime = getInLists.Where(x => x.ChangeTime < item.ChangeTime
-                                            && x.PersonId == item.PersonId && x.ChangeTime.Value.AddDays(1) >= DateTime.Now).Max(x => x.ChangeTime);
+                                            && x.PersonId == item.PersonId && x.ChangeTime.Value.AddDays(1) >= item.ChangeTime).Max(x => x.ChangeTime);
                                 if (getMaxInTime.HasValue)
                                 {
                                     SafeHours += Convert.ToInt32((item.ChangeTime - getMaxInTime).Value.TotalMinutes);
@@ -960,10 +978,40 @@ namespace BLL
         }
         #endregion
 
-        #region 推送待办 订阅服务内容
-        public static void xx()
+        #region 定时推送待办 订阅服务内容
+        /// <summary>
+        /// 定时推送待办 订阅服务内容
+        /// </summary>
+        public static void SendSubscribeMessage()
         {
-         //   var get= BLL.Funs.DB.Sp_APP_GetToDoItems(projectId, userId).ToList();
+            try
+            {
+                string miniprogram_state = ConfigurationManager.AppSettings["miniprogram_state"];
+                if (!string.IsNullOrEmpty(miniprogram_state) && miniprogram_state == "formal")
+                {
+                    //// 获取所有待办事项
+                    var getToItems = from x in Funs.DB.View_APP_GetToDoItems select x;
+                    if (getToItems.Count() > 0)
+                    {
+                        //// 获取施工中的项目
+                        var getProjects = ProjectService.GetProjectWorkList();
+                        foreach (var item in getProjects)
+                        {
+                            ////获取当前项目下的待办
+                            var getPItems = getToItems.Where(x => x.ProjectId == item.ProjectId);
+                            if (getPItems.Count() > 0)
+                            {
+                                foreach (var itemP in getPItems)
+                                {
+                                    APICommonService.SendSubscribeMessage(itemP.UserId, "项目【" + item.ProjectCode + "】上有" + itemP.Counts.ToString() + "条待办事件，需要您处理！", "赛鼎施工管理系统", string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            { }
         }
 
         #endregion

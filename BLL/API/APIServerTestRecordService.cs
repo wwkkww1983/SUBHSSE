@@ -33,11 +33,10 @@ namespace BLL
                     newTestRecord.TestPlanEndTime = string.Format("{0:yyyy-MM-dd HH:mm:ss}", getTestPlan.TestEndTime);                   
                     newTestRecord.TestManId = testManId;                   
                     newTestRecord.UserType = userType;
-
-                    var getUpdateTestRecord = db.Test_TestRecord.FirstOrDefault(x => x.TestPlanId == testPlanId && x.TestManId == testManId);
-                    if (userType == "2")
+                    var getUpdateTestRecord = db.Test_TestRecord.FirstOrDefault(x => x.TestPlanId == testPlanId && x.IdentityCard == identityCard);                    
+                    if (getUpdateTestRecord == null && userType != "2")
                     {
-                         getUpdateTestRecord = db.Test_TestRecord.FirstOrDefault(x => x.TestPlanId == testPlanId && x.TestManId == testManId && x.IdentityCard == identityCard);
+                        getUpdateTestRecord = db.Test_TestRecord.FirstOrDefault(x => x.TestPlanId == testPlanId && x.TestManId == testManId);
                     }
                     if (getUpdateTestRecord != null)
                     {
@@ -166,23 +165,23 @@ namespace BLL
                             db.Test_TestRecord.InsertOnSubmit(newTestRecord);
                             db.SubmitChanges();
                         }
+                    }
 
-                        if (!string.IsNullOrEmpty(testRecord.TestEndTime))
-                        {
-                            testRecord.TestStates = "3";
-                        }
-                        else if (getTestPlan.States == Const.State_2 && getTestPlan.TestEndTime >= DateTime.Now)
-                        {
-                            testRecord.TestStates = "2";
-                        }
-                        else if (getTestPlan.States != Const.State_2 || getTestPlan.TestStartTime < DateTime.Now)
-                        {
-                            testRecord.TestStates = "1";
-                        }
-                        else if (getTestPlan.TestEndTime < DateTime.Now)
-                        {
-                            testRecord.TestStates = "0";
-                        }
+                    if (!string.IsNullOrEmpty(testRecord.TestEndTime))
+                    {
+                        testRecord.TestStates = "3";
+                    }
+                    else if (getTestPlan.States == Const.State_2 && getTestPlan.TestEndTime >= DateTime.Now)
+                    {
+                        testRecord.TestStates = "2";
+                    }
+                    else if (getTestPlan.States != Const.State_2 || getTestPlan.TestStartTime < DateTime.Now)
+                    {
+                        testRecord.TestStates = "1";
+                    }
+                    else if (getTestPlan.TestEndTime < DateTime.Now)
+                    {
+                        testRecord.TestStates = "0";
                     }
                 }
             }

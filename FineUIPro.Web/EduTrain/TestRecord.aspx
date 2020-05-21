@@ -64,7 +64,7 @@
                             <asp:Label ID="labNumber" runat="server" Text=' <%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1%>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>   
-                    <f:RenderField Width="130px" ColumnID="PlanName" DataField="PlanName" FieldType="String"
+                    <f:RenderField Width="120px" ColumnID="PlanName" DataField="PlanName" FieldType="String"
                         HeaderText="考试名称" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="230px" ColumnID="UnitName" DataField="UnitName" FieldType="String"
@@ -73,23 +73,23 @@
                     <f:RenderField Width="85px" ColumnID="TestManName" DataField="TestManName" FieldType="String"
                         HeaderText="考生" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="150px" ColumnID="TestStartTime" DataField="TestStartTime" FieldType="String"
+                    <f:RenderField Width="145px" ColumnID="TestStartTime" DataField="TestStartTime" FieldType="String"
                         HeaderText="考试开始时间" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="150px" ColumnID="TestEndTime" DataField="TestEndTime" FieldType="String"
+                    <f:RenderField Width="145px" ColumnID="TestEndTime" DataField="TestEndTime" FieldType="String"
                         HeaderText="考试结束时间" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>                   
-                     <f:RenderField Width="80px" ColumnID="TestScores" DataField="TestScores" FieldType="String"
-                        HeaderText="成绩" HeaderTextAlign="Center" TextAlign="Left">
+                     <f:RenderField Width="75px" ColumnID="TestScores" DataField="TestScores" FieldType="String"
+                        HeaderText="成绩" HeaderTextAlign="Center" TextAlign="Right">
                     </f:RenderField>
-                     <f:RenderField Width="80px" ColumnID="TotalScore" DataField="TotalScore" FieldType="String"
-                        HeaderText="总分" HeaderTextAlign="Center" TextAlign="Left">
+                     <f:RenderField Width="75px" ColumnID="TotalScore" DataField="TotalScore" FieldType="String"
+                        HeaderText="总分" HeaderTextAlign="Center" TextAlign="Right">
                     </f:RenderField>
-                     <f:RenderField Width="80px" ColumnID="Duration" DataField="Duration" FieldType="String"
-                        HeaderText="时长" HeaderTextAlign="Center" TextAlign="Left">
+                     <f:RenderField Width="75px" ColumnID="Duration" DataField="Duration" FieldType="String"
+                        HeaderText="时长" HeaderTextAlign="Center" TextAlign="Right">
                     </f:RenderField>
                     <f:RenderField Width="85px" ColumnID="QuestionCount" DataField="QuestionCount" FieldType="String"
-                        HeaderText="题目数量" HeaderTextAlign="Center" TextAlign="Left">
+                        HeaderText="题目数量" HeaderTextAlign="Center" TextAlign="Right">
                     </f:RenderField>
                    <%-- <f:RenderField Width="150px" ColumnID="TestPalce" DataField="TestPalce" FieldType="String"
                         HeaderText="考试地点" HeaderTextAlign="Center" TextAlign="Left">
