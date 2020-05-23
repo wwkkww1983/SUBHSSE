@@ -18,24 +18,6 @@
         {
             if (!IsPostBack)
             {
-                string userName = Request.QueryString["Account"];
-                // string password = Request.QueryString["Password"];
-                if (!string.IsNullOrEmpty(userName)) ///单点登陆
-                {
-                    if (LoginService.UserLogOn(userName, true, this.Page))
-                    {
-                        this.CurrUser.LoginProjectId = null;
-                      
-                        LogService.AddSys_Log(this.CurrUser, userName, null, BLL.Const.UserMenuId, BLL.Const.BtnLogin);
-                        PageContext.Redirect("~/default.aspx");
-                        // Response.Redirect("~/index.aspx");
-                    }
-                    else
-                    {
-                        Alert.ShowInParent("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
-                    }
-                }
-
                 this.InitCaptchaCode();
                 if (Request.Cookies["UserInfo"] != null)
                 {
@@ -51,7 +33,9 @@
                    // this.ckRememberMe.Checked = true;
                 }
                 //string sysVersion = ConfigurationManager.AppSettings["SystemVersion"];
-                //this.lbVevion.Text = "请使用IE10以上版本浏览器 版本号：" + sysVersion;            
+                //this.lbVevion.Text = "请使用IE10以上版本浏览器 版本号：" + sysVersion;           
+
+               GetDataService.CorrectingPersonInOutNumber(null);
             }
         }
         #endregion
@@ -101,9 +85,17 @@
         /// <param name="e"></param>
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            if (tbxCaptcha.Text != Session["CaptchaImageText"].ToString())
+            if (Session["CaptchaImageText"] != null)
             {
-                ShowNotify("验证码错误！", MessageBoxIcon.Error);
+                if (tbxCaptcha.Text != Session["CaptchaImageText"].ToString())
+                {
+                    ShowNotify("验证码错误！", MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            else
+            {
+                ShowNotify("验证码过期请刷新！", MessageBoxIcon.Error);
                 return;
             }
 

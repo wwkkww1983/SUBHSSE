@@ -7,6 +7,8 @@ using System.Text;
 using System.Web;
 using Newtonsoft.Json.Linq;
 using AspNet = System.Web.UI.WebControls;
+using System.Linq;
+using BLL;
 
 namespace FineUIPro.Web
 {
@@ -15,14 +17,32 @@ namespace FineUIPro.Web
         /// <summary>
         /// 当前登录人信息。
         /// </summary>
+        /// <summary>
+        /// 当前登录人信息。
+        /// </summary>
         public Model.Sys_User CurrUser
         {
             get
             {
-                if (Session["CurrUser"] == null) return null;
+                if (Session["CurrUser"] == null)
+                {
+                    string account = string.Empty;
+                    string password = string.Empty;
+                    if (Request.Cookies["UserInfo"]["username"] != null)
+                    {
+                        account = HttpUtility.UrlDecode(Request.Cookies["UserInfo"]["username"].ToString());
+                    }
+                    if (Request.Cookies["UserInfo"]["password"] != null)
+                    {
+                        password = Request.Cookies["UserInfo"]["password"].ToString();
+                    }
+                    Session["CurrUser"] = BLL.Funs.DB.Sys_User.FirstOrDefault(x => x.Account == account && x.Password == Funs.EncryptionPassword(password));
+                }
+
                 return (Model.Sys_User)Session["CurrUser"];
             }
         }
+
 
         #region OnInit
 

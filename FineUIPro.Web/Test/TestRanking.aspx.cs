@@ -44,11 +44,11 @@ namespace FineUIPro.Web.Test
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT T.TestRecordId,T.TestPlanId,P.PlanCode,P.PlanName,T.TestManId,T.ManType,T.TestManName,DATEDIFF( Minute,T.TestStartTime,T.TestEndTime) AS UseTimes 
+            string strSql = @"SELECT T.TestRecordId,T.TestPlanId,P.PlanCode,P.PlanName,T.TestManId,T.ManType,T.TestManName,(CONVERT(VARCHAR(10),DATEDIFF(SS,T.TestStartTime,T.TestEndTime)/3600)+'时'+CONVERT(VARCHAR(10),DATEDIFF(SS,T.TestStartTime,T.TestEndTime)%3600/60)+'分'+CONVERT(VARCHAR(10),DATEDIFF(SS,T.TestStartTime,T.TestEndTime)%3600%60)+'秒')  AS UseTimes 
                                     ,(CASE WHEN T.ManType='1' THEN '管理人员' WHEN T.ManType='2' THEN '临时用户' ELSE '作业人员' END) AS ManTypeName
                                     ,T.TestStartTime,T.TotalScore,T.QuestionCount,T.Duration,T.TestEndTime,T.TestScores,T.UnitId,Unit.UnitCode
                                     ,Unit.UnitName,T.DepartId,Depart.DepartCode,Depart.DepartName,T.ProjectId,Project.ProjectName,T.WorkPostId,T.IdentityCard,T.Telephone
-                                    ,(CASE WHEN T.ManType='3' THEN Project.ProjectName ELSE Depart.DepartName END) AS DProjectName
+                                   ,(CASE WHEN Depart.DepartName IS NULL THEN Project.ProjectName ELSE Depart.DepartName END) AS DProjectName
                                     FROM Test_TestRecord AS T 
                                     LEFT JOIN Test_TestPlan AS P ON T.TestPlanId=P.TestPlanId
                                     LEFT JOIN Base_Unit AS Unit ON T.UnitId=Unit.UnitId
@@ -200,7 +200,7 @@ namespace FineUIPro.Web.Test
                 Alert.ShowInTop("请选择一条记录！", MessageBoxIcon.Warning);
                 return;
             }
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../EduTrain/TestRecordPrint.aspx?TestRecordId={0}&type=1", Grid1.SelectedRowID, "编辑 - "), "考试试卷", 900, 650));
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../EduTrain/TestRecordItem.aspx?TestRecordId={0}&type=1", Grid1.SelectedRowID, "编辑 - "), "考试试卷", 1200, 650));
         }
         #endregion
               
@@ -239,5 +239,15 @@ namespace FineUIPro.Web.Test
             Response.End();
         }
         #endregion
+
+        protected void btnPrint_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../EduTrain/TestRecordPrint.aspx?TestRecordId={0}&type=1", Grid1.SelectedRowID, "编辑 - "), "考试试卷", 900, 650));
+        }
     }
 }

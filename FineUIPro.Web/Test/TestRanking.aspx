@@ -87,16 +87,16 @@
                      <f:RenderField Width="80px" ColumnID="TestScores" DataField="TestScores" FieldType="String"
                         HeaderText="成绩" HeaderTextAlign="Center" TextAlign="Right" SortField="TestScores">
                     </f:RenderField>
-                      <f:RenderField Width="80px" ColumnID="UseTimes" DataField="UseTimes" FieldType="String"
+                      <f:RenderField Width="110px" ColumnID="UseTimes" DataField="UseTimes" FieldType="String"
                         HeaderText="用时" HeaderTextAlign="Center" TextAlign="Right" SortField="UseTimes">
                     </f:RenderField>
-                   <%-- <f:RenderField Width="110px" ColumnID="DepartName" DataField="DepartName" FieldType="String"
+                    <f:RenderField Width="110px" ColumnID="DepartName" DataField="DepartName" FieldType="String"
                         HeaderText="部门" HeaderTextAlign="Center" TextAlign="Left" >
-                    </f:RenderField>--%>
-                      <f:RenderField Width="350px" ColumnID="DProjectName" DataField="DProjectName" FieldType="String"
-                        HeaderText="所在部门/项目" HeaderTextAlign="Center" TextAlign="Left" >
                     </f:RenderField>
-                     <f:RenderField Width="180px" ColumnID="IdentityCard" DataField="IdentityCard" FieldType="String"
+                      <f:RenderField Width="350px" ColumnID="ProjectName" DataField="ProjectName" FieldType="String"
+                        HeaderText="项目" HeaderTextAlign="Center" TextAlign="Left" >
+                    </f:RenderField>
+                     <f:RenderField Width="185px" ColumnID="IdentityCard" DataField="IdentityCard" FieldType="String"
                         HeaderText="身份证号码" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                      <f:RenderField Width="110px" ColumnID="Telephone" DataField="Telephone" FieldType="String"
@@ -130,7 +130,10 @@
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuView" OnClick="btnMenuView_Click" EnablePostBack="true"
             runat="server" Text="查看" Icon="TableGo">
-        </f:MenuButton>        
+        </f:MenuButton>
+        <f:MenuButton ID="btnPrint" OnClick="btnPrint_Click" EnablePostBack="true"
+            runat="server" Text="打印" Icon="Printer">
+        </f:MenuButton>
     </f:Menu>
     </form>
     <script type="text/javascript">

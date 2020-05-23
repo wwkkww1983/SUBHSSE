@@ -27,7 +27,7 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 项目ID
+        /// 项目名称
         /// </summary>
         public string ProjectName
         {
@@ -71,6 +71,14 @@ namespace Model
         /// 单位Id
         /// </summary>
         public string UnitId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 是否本单位
+        /// </summary>
+        public bool IsThiUnit
         {
             get;
             set;

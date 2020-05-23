@@ -84,6 +84,7 @@ namespace BLL
                     newTestRecord.DepartName = DepartService.getDepartNameById(newTestRecord.DepartId);
                     newTestRecord.UnitName = UnitService.GetUnitNameByUnitId(newTestRecord.UnitId);
                     newTestRecord.ProjectName = ProjectService.GetProjectNameByProjectId(newTestRecord.ProjectId);
+                    newTestRecord.IsThiUnit = CommonService.GetIsThisUnit(newTestRecord.UnitId);
                 }
                 return newTestRecord;
             }
@@ -151,7 +152,7 @@ namespace BLL
                     {
                         if (getTestPlan.TestEndTime > DateTime.Now)
                         {
-                            var getTestPlanTraining = db.Test_TestPlanTraining.Where(x => x.UserType == testRecord.UserType);
+                            var getTestPlanTraining = db.Test_TestPlanTraining.Where(x => x.TestPlanId == getTestPlan.TestPlanId  && x.UserType == testRecord.UserType );
                             if (getTestPlanTraining.Count() > 0)
                             {
                                 int cout1 = getTestPlanTraining.Sum(x => x.TestType1Count ?? 0);

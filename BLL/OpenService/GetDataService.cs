@@ -789,7 +789,7 @@ namespace BLL
             using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
                 var getProjects = (from x in db.Base_Project
-                                   where x.ProjectState == null || x.ProjectState == BLL.Const.ProjectState_1
+                                   where x.ProjectState == null || x.ProjectState == Const.ProjectState_1
                                    orderby x.ProjectCode descending
                                    select x).ToList();
                 if (!string.IsNullOrEmpty(projectId))
@@ -799,7 +799,7 @@ namespace BLL
                 foreach (var projectItem in getProjects)
                 {
                     var getAllPersonInOutList = from x in db.SitePerson_PersonInOut
-                                                where x.ProjectId == projectItem.ProjectId
+                                                where x.ProjectId == projectItem.ProjectId && x.ChangeTime <= DateTime.Now
                                                 select x;
                     if (getAllPersonInOutList.Count() > 0)
                     {
@@ -822,58 +822,29 @@ namespace BLL
                         #endregion
 
                         #region 获取工时                  
-                        int SafeHours = 0;
-                        var getYesterday = db.SitePerson_PersonInOutNumber.FirstOrDefault(x => x.ProjectId == projectItem.ProjectId && x.InOutDate.Year == DateTime.Now.AddDays(-1).Year
-                                                && x.InOutDate.Month == DateTime.Now.AddDays(-1).Month && x.InOutDate.Day == DateTime.Now.AddDays(-1).Day);
-                        if (getYesterday != null)
+                        int SafeHours = 0;                        
+                        var getPersonOutTimes = from x in getAllPersonInOutList
+                                                where x.IsIn == false 
+                                                select x;
+                        var getInLists = getAllPersonInOutList.Where(x => x.IsIn == true);
+                        //// 查找当前项目 最新的人工时数量记录
+                        var getMaxInOutDate = db.SitePerson_PersonInOutNumber.Where(x => x.ProjectId == projectItem.ProjectId).OrderByDescending(x => x.InOutDate).FirstOrDefault();
+                        if (getMaxInOutDate != null)
                         {
-                            SafeHours = (getYesterday.WorkHours ?? 0) * 60;
-                            var getPersonOutTimes = from x in getAllPersonInOutList
-                                                    where x.IsIn == false && x.ChangeTime.Value.Year == DateTime.Now.Year
-                                                        && x.ChangeTime.Value.Month == DateTime.Now.Month && x.ChangeTime.Value.Day == DateTime.Now.Day
-                                                    select x;
-                            var getInLists = getAllPersonInOutList.Where(x => x.IsIn == true && x.ChangeTime.Value.AddDays(1) >= DateTime.Now);
-                            List<string> personIdList = new List<string>();
-                            foreach (var item in getPersonOutTimes)
-                            {                               
-                                var getMaxInTime = getInLists.Where(x => x.ChangeTime < item.ChangeTime && x.PersonId == item.PersonId).Max(x => x.ChangeTime);
-                                if (getMaxInTime.HasValue)
-                                {
-                                    SafeHours += Convert.ToInt32((item.ChangeTime - getMaxInTime).Value.TotalMinutes);
-                                }
-                                else
-                                {
-                                    personIdList.Add(item.PersonId);
-                                }
-                            }
-                            if (personIdList.Count() > 0)
+                            SafeHours = (getMaxInOutDate.WorkHours ?? 0) * 60;
+                            getPersonOutTimes = from x in getPersonOutTimes
+                                                where x.ChangeTime > getMaxInOutDate.InOutDate
+                                                select x;
+                            if (getPersonOutTimes.Count() > 0)
                             {
-                                SafeHours += (personIdList.Distinct().Count() * 8 * 60);
+                                getInLists = from x in getInLists
+                                             where x.ChangeTime > getMaxInOutDate.InOutDate
+                                             select x;
                             }
                         }
-                        else
+
+                        if (getPersonOutTimes.Count() > 0)
                         {
-                            var getPersonOutTimes = from x in getAllPersonInOutList
-                                                    where x.IsIn == false && x.ChangeTime <= DateTime.Now
-                                                    select x;
-                            var getInLists = getAllPersonInOutList.Where(x => x.IsIn == true);
-                            //// 查找当前项目 最新的人工时数量记录
-                            var getMaxInOutDate = db.SitePerson_PersonInOutNumber.Where(x => x.ProjectId == projectItem.ProjectId).Max(x => x.InOutDate);
-                            if (getMaxInOutDate != null)
-                            {
-                                var getMaxNum = db.SitePerson_PersonInOutNumber.FirstOrDefault(x => x.ProjectId == projectItem.ProjectId && x.InOutDate == getMaxInOutDate);
-                                if (getMaxNum != null)
-                                {
-                                    SafeHours = (getMaxNum.WorkHours ?? 0) * 60; 
-                                    getPersonOutTimes = from x in getPersonOutTimes
-                                                        where x.ChangeTime > getMaxInOutDate
-                                                        select x;
-                                    getInLists = from x in getInLists
-                                                 where x.ChangeTime > getMaxInOutDate
-                                                 select x;
-                                }
-                            }
-                       
                             List<string> personIdList = new List<string>();
                             foreach (var item in getPersonOutTimes)
                             {

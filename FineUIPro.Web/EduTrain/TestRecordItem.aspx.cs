@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
 using BLL;
+using System.Linq;
 
 namespace FineUIPro.Web.EduTrain
 {
@@ -23,6 +24,20 @@ namespace FineUIPro.Web.EduTrain
                 ViewState["TestRecordId"] = value;
             }
         }
+        /// <summary>
+        /// 考试类型
+        /// </summary>
+        public string Type
+        {
+            get
+            {
+                return (string)ViewState["Type"];
+            }
+            set
+            {
+                ViewState["Type"] = value;
+            }
+        }
         #endregion
 
         #region 加载页面
@@ -37,6 +52,7 @@ namespace FineUIPro.Web.EduTrain
             {
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 this.TestRecordId = Request.Params["TestRecordId"];
+                this.Type = Request.Params["type"];
                 // 绑定表格
                 BindGrid();
                 if (this.CurrUser.UserId == BLL.Const.sysglyId)
@@ -58,11 +74,24 @@ namespace FineUIPro.Web.EduTrain
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT TestRecordItemId,TestRecordId,TrainingItemName,Abstracts,AttachUrl,AItem,BItem,CItem,DItem,EItem,Replace(Replace(Replace(Replace(Replace(AnswerItems,'1','A'),'2', 'B'),'3', 'C'),'4', 'D'),'5', 'E') AS AnswerItems
+            string strSql = string.Empty;
+            if(this.Type== "1")
+            {
+                strSql = @"SELECT TestRecordItemId,TestRecordId,Abstracts,AttachUrl,AItem,BItem,CItem,DItem,EItem,Replace(Replace(Replace(Replace(Replace(AnswerItems,'1','A'),'2', 'B'),'3', 'C'),'4', 'D'),'5', 'E') AS AnswerItems
+                            ,Score,SubjectScore,Replace(Replace(Replace(Replace(Replace(SelectedItem,'1','A'),'2', 'B'),'3', 'C'),'4', 'D'),'5', 'E') AS SelectedItem"
+                         + @",TestType,TrainingItemCode,(CASE WHEN TestType = '1' THEN '单选题' WHEN TestType = '2' THEN '多选题' ELSE '判断题' END) AS TestTypeName"
+                         + @" FROM Test_TestRecordItem "
+                         + @" WHERE TestRecordId= '" + this.TestRecordId + "'";
+            }
+            else
+            {
+                strSql = @"SELECT TestRecordItemId,TestRecordId,TrainingItemName,Abstracts,AttachUrl,AItem,BItem,CItem,DItem,EItem,Replace(Replace(Replace(Replace(Replace(AnswerItems,'1','A'),'2', 'B'),'3', 'C'),'4', 'D'),'5', 'E') AS AnswerItems
                             ,Score,SubjectScore,Replace(Replace(Replace(Replace(Replace(SelectedItem,'1','A'),'2', 'B'),'3', 'C'),'4', 'D'),'5', 'E') AS SelectedItem"
                          + @",TestType,TrainingItemCode,(CASE WHEN TestType = '1' THEN '单选题' WHEN TestType = '2' THEN '多选题' ELSE '判断题' END) AS TestTypeName"
                          + @" FROM Training_TestRecordItem "
                          + @" WHERE TestRecordId= '" + this.TestRecordId + "'";
+            }
+            
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtName.Text.Trim()))
             {
@@ -81,10 +110,21 @@ namespace FineUIPro.Web.EduTrain
             Grid1.DataBind();
             for (int i = 0; i < Grid1.Rows.Count; i++)
             {
-                var item = BLL.TestRecordItemService.GetTestRecordItemTestRecordItemId(Grid1.Rows[i].DataKeys[0].ToString());
-                if (item != null && item.Score != item.SubjectScore)
+                if (this.Type == "1")
                 {
-                    Grid1.Rows[i].RowCssClass = "Red";
+                    var item = Funs.DB.Test_TestRecordItem.FirstOrDefault(e => e.TestRecordItemId == Grid1.Rows[i].DataKeys[0].ToString());
+                    if (item != null && item.Score != item.SubjectScore)
+                    {
+                        Grid1.Rows[i].RowCssClass = "Red";
+                    }
+                }
+                else
+                {
+                    var item = TestRecordItemService.GetTestRecordItemTestRecordItemId(Grid1.Rows[i].DataKeys[0].ToString());
+                    if (item != null && item.Score != item.SubjectScore)
+                    {
+                        Grid1.Rows[i].RowCssClass = "Red";
+                    }
                 }
             }
         }
@@ -157,7 +197,7 @@ namespace FineUIPro.Web.EduTrain
                 Alert.ShowInTop("请选择一条记录！", MessageBoxIcon.Warning);
                 return;
             }
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("TestRecordView.aspx?TestRecordItemId={0}", Grid1.SelectedRowID, "编辑 - ")));
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("TestRecordView.aspx?TestRecordItemId={0}&type={1}", Grid1.SelectedRowID, this.Type, "编辑 - ")));
         }
         #endregion
 
@@ -237,7 +277,13 @@ namespace FineUIPro.Web.EduTrain
         {
             if (!string.IsNullOrEmpty(this.TestRecordId))
             {
-                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&menuId={1}&type=-1", this.TestRecordId, Const.ProjectTestRecordMenuId)));
+                string menuId = Const.ProjectTestRecordMenuId;
+                if (this.Type == "1")
+                {
+                    menuId = Const.ServerTestRecordMenuId;
+                }
+
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&menuId={1}&type=-1", this.TestRecordId, menuId)));
             }
         }
         #endregion

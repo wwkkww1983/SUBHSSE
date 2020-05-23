@@ -60,13 +60,19 @@ namespace FineUIPro.Web.EduTrain
                     if (testRecord != null)
                     {
                         this.lbTestType.Text = "知识竞赛" + this.lbTestType.Text;
-                        string personInfo = "单位：" + UnitService.GetUnitNameByUnitId(testRecord.UnitId) + "        ";                
+                        string personInfo = "单位：" + UnitService.GetUnitNameByUnitId(testRecord.UnitId) + "        ";
                         if (testRecord.ManType == "3")
                         {
                             personInfo += "项目：" + ProjectService.GetProjectNameByProjectId(testRecord.ProjectId) + "        ";
-                        } else
+                        }
+                        else if (CommonService.GetIsThisUnit(testRecord.UnitId))
                         {
                             personInfo += "部门：" + DepartService.getDepartNameById(testRecord.DepartId) + "        ";
+                        }
+                        else
+                        {
+                            personInfo += "部门：" + DepartService.getDepartNameById(testRecord.DepartId) + "        ";
+                            personInfo += "项目：" + ProjectService.GetProjectNameByProjectId(testRecord.ProjectId) + "        ";
                         }
                         personInfo += "姓名：" + testRecord.TestManName + "        " 
                                             + "身份证号码：" + testRecord.IdentityCard + "        ";

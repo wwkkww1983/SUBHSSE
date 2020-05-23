@@ -39,73 +39,143 @@ namespace FineUIPro.Web.EduTrain
                 this.TestRecordItemId = Request.Params["TestRecordItemId"];
                 if (!string.IsNullOrEmpty(this.TestRecordItemId))
                 {
-                    var testRecordItem = BLL.TestRecordItemService.GetTestRecordItemTestRecordItemId(this.TestRecordItemId);
-                    if (testRecordItem != null)
+                    if (Request.Params["type"] == "1")
                     {
-                        this.txtAbstracts.Text = testRecordItem.Abstracts;
-                        if (!string.IsNullOrEmpty(testRecordItem.TestType))
+                        var testRecordItem =BLL.Funs.DB.Test_TestRecordItem.FirstOrDefault (x=>x.TestRecordItemId == this.TestRecordItemId);
+                        if (testRecordItem != null)
                         {
-                            if (testRecordItem.TestType == "1")
+                            this.txtAbstracts.Text = testRecordItem.Abstracts;
+                            if (!string.IsNullOrEmpty(testRecordItem.TestType))
                             {
-                                this.txtTestType.Text = "单选题";
-                                this.txtEItem.Hidden = true;
-                            }
-                            else if (testRecordItem.TestType == "2")
-                            {
-                                this.txtTestType.Text = "多选题";
-                            }
-                            else if (testRecordItem.TestType == "3")
-                            {
-                                this.txtTestType.Text = "判断题";
-                                this.txtCItem.Hidden = true;
-                                this.txtDItem.Hidden = true;
-                                this.txtEItem.Hidden = true;
-                            }
-                        }
-                        this.txtAItem.Text = testRecordItem.AItem;
-                        this.txtBItem.Text = testRecordItem.BItem;
-                        this.txtCItem.Text = testRecordItem.CItem;
-                        this.txtDItem.Text = testRecordItem.DItem;
-                        this.txtEItem.Text = testRecordItem.EItem;
-
-                        if (!string.IsNullOrEmpty(testRecordItem.AnswerItems))
-                        {
-                            this.txtAnswerItems.Text = testRecordItem.AnswerItems.Replace("1", "A").Replace("2", "B").Replace("3", "C").Replace("4", "D").Replace("5", "E");
-                        }
-                        if (testRecordItem.Score.HasValue)
-                        {
-                            this.txtScore.Text = testRecordItem.Score.ToString();
-                        }
-                        if (testRecordItem.SubjectScore.HasValue)
-                        {
-                            this.txtSubjectScore.Text = testRecordItem.SubjectScore.ToString();
-                        }
-                        if (!string.IsNullOrEmpty(testRecordItem.SelectedItem))
-                        {
-                            this.txtSelectedItem.Text = testRecordItem.SelectedItem.Replace("1", "A").Replace("2", "B").Replace("3", "C").Replace("4", "D").Replace("5", "E");
-                        }
-                        if (!string.IsNullOrEmpty(testRecordItem.AttachUrl))
-                        {
-                            this.divFile.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../", testRecordItem.AttachUrl);
-                        }
-
-                        var testRecord = BLL.TestRecordService.GetTestRecordById(testRecordItem.TestRecordId);
-                        if (testRecord != null)
-                        {
-                            if (!string.IsNullOrEmpty(testRecord.TestPlanId))
-                            {
-                                Model.Training_TestPlan testPlan = BLL.TestPlanService.GetTestPlanById(testRecord.TestPlanId);
-                                if (testPlan != null)
+                                if (testRecordItem.TestType == "1")
                                 {
-                                    this.txtPlanName.Text = testPlan.PlanName;
+                                    this.txtTestType.Text = "单选题";
+                                    this.txtEItem.Hidden = true;
+                                }
+                                else if (testRecordItem.TestType == "2")
+                                {
+                                    this.txtTestType.Text = "多选题";
+                                }
+                                else if (testRecordItem.TestType == "3")
+                                {
+                                    this.txtTestType.Text = "判断题";
+                                    this.txtCItem.Hidden = true;
+                                    this.txtDItem.Hidden = true;
+                                    this.txtEItem.Hidden = true;
                                 }
                             }
-                            if (!string.IsNullOrEmpty(testRecord.TestManId))
+                            this.txtAItem.Text = testRecordItem.AItem;
+                            this.txtBItem.Text = testRecordItem.BItem;
+                            this.txtCItem.Text = testRecordItem.CItem;
+                            this.txtDItem.Text = testRecordItem.DItem;
+                            this.txtEItem.Text = testRecordItem.EItem;
+
+                            if (!string.IsNullOrEmpty(testRecordItem.AnswerItems))
                             {
-                                var user = BLL.PersonService.GetPersonByUserId(testRecord.TestManId, testRecord.ProjectId);
-                                if (user != null)
+                                this.txtAnswerItems.Text = testRecordItem.AnswerItems.Replace("1", "A").Replace("2", "B").Replace("3", "C").Replace("4", "D").Replace("5", "E");
+                            }
+                            if (testRecordItem.Score.HasValue)
+                            {
+                                this.txtScore.Text = testRecordItem.Score.ToString();
+                            }
+                            if (testRecordItem.SubjectScore.HasValue)
+                            {
+                                this.txtSubjectScore.Text = testRecordItem.SubjectScore.ToString();
+                            }
+                            if (!string.IsNullOrEmpty(testRecordItem.SelectedItem))
+                            {
+                                this.txtSelectedItem.Text = testRecordItem.SelectedItem.Replace("1", "A").Replace("2", "B").Replace("3", "C").Replace("4", "D").Replace("5", "E");
+                            }
+                            if (!string.IsNullOrEmpty(testRecordItem.AttachUrl))
+                            {
+                                this.divFile.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../", testRecordItem.AttachUrl);
+                            }
+
+                            var testRecord = BLL.ServerTestRecordService.GetTestRecordById(testRecordItem.TestRecordId);
+                            if (testRecord != null)
+                            {
+                                if (!string.IsNullOrEmpty(testRecord.TestPlanId))
                                 {
-                                    this.txtTestManName.Text = user.PersonName;
+                                    var testPlan = BLL.ServerTestPlanService.GetTestPlanById(testRecord.TestPlanId);
+                                    if (testPlan != null)
+                                    {
+                                        this.txtPlanName.Text = testPlan.PlanName;
+                                    }
+                                }
+                                this.txtTestManName.Text = testRecord.TestManName;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var testRecordItem = BLL.TestRecordItemService.GetTestRecordItemTestRecordItemId(this.TestRecordItemId);
+                        if (testRecordItem != null)
+                        {
+                            this.txtAbstracts.Text = testRecordItem.Abstracts;
+                            if (!string.IsNullOrEmpty(testRecordItem.TestType))
+                            {
+                                if (testRecordItem.TestType == "1")
+                                {
+                                    this.txtTestType.Text = "单选题";
+                                    this.txtEItem.Hidden = true;
+                                }
+                                else if (testRecordItem.TestType == "2")
+                                {
+                                    this.txtTestType.Text = "多选题";
+                                }
+                                else if (testRecordItem.TestType == "3")
+                                {
+                                    this.txtTestType.Text = "判断题";
+                                    this.txtCItem.Hidden = true;
+                                    this.txtDItem.Hidden = true;
+                                    this.txtEItem.Hidden = true;
+                                }
+                            }
+                            this.txtAItem.Text = testRecordItem.AItem;
+                            this.txtBItem.Text = testRecordItem.BItem;
+                            this.txtCItem.Text = testRecordItem.CItem;
+                            this.txtDItem.Text = testRecordItem.DItem;
+                            this.txtEItem.Text = testRecordItem.EItem;
+
+                            if (!string.IsNullOrEmpty(testRecordItem.AnswerItems))
+                            {
+                                this.txtAnswerItems.Text = testRecordItem.AnswerItems.Replace("1", "A").Replace("2", "B").Replace("3", "C").Replace("4", "D").Replace("5", "E");
+                            }
+                            if (testRecordItem.Score.HasValue)
+                            {
+                                this.txtScore.Text = testRecordItem.Score.ToString();
+                            }
+                            if (testRecordItem.SubjectScore.HasValue)
+                            {
+                                this.txtSubjectScore.Text = testRecordItem.SubjectScore.ToString();
+                            }
+                            if (!string.IsNullOrEmpty(testRecordItem.SelectedItem))
+                            {
+                                this.txtSelectedItem.Text = testRecordItem.SelectedItem.Replace("1", "A").Replace("2", "B").Replace("3", "C").Replace("4", "D").Replace("5", "E");
+                            }
+                            if (!string.IsNullOrEmpty(testRecordItem.AttachUrl))
+                            {
+                                this.divFile.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../", testRecordItem.AttachUrl);
+                            }
+
+                            var testRecord = BLL.TestRecordService.GetTestRecordById(testRecordItem.TestRecordId);
+                            if (testRecord != null)
+                            {
+                                if (!string.IsNullOrEmpty(testRecord.TestPlanId))
+                                {
+                                    Model.Training_TestPlan testPlan = BLL.TestPlanService.GetTestPlanById(testRecord.TestPlanId);
+                                    if (testPlan != null)
+                                    {
+                                        this.txtPlanName.Text = testPlan.PlanName;
+                                    }
+                                }
+                                if (!string.IsNullOrEmpty(testRecord.TestManId))
+                                {
+                                    var user = BLL.PersonService.GetPersonByUserId(testRecord.TestManId, testRecord.ProjectId);
+                                    if (user != null)
+                                    {
+                                        this.txtTestManName.Text = user.PersonName;
+                                    }
                                 }
                             }
                         }
