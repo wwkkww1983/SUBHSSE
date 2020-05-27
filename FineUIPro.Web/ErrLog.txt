@@ -1,1 +1,76 @@
 ﻿
+错误信息开始=====>
+错误类型:SqlException
+错误信息:对象名 'sd_tpk.dbo.preson' 无效。
+错误堆栈:
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   在 System.Data.Linq.SqlClient.SqlProvider.Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, Object[] parentArgs, Object[] userArgs, ICompiledSubQuery[] subQueries, Object lastResult)
+   在 System.Data.Linq.SqlClient.SqlProvider.ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, Object[] userArguments, ICompiledSubQuery[] subQueries)
+   在 System.Data.Linq.SqlClient.SqlProvider.System.Data.Linq.Provider.IProvider.Execute(Expression query)
+   在 System.Data.Linq.ChangeDirector.StandardChangeDirector.DynamicInsert(TrackedObject item)
+   在 System.Data.Linq.ChangeDirector.StandardChangeDirector.Insert(TrackedObject item)
+   在 System.Data.Linq.ChangeProcessor.SubmitChanges(ConflictMode failureMode)
+   在 System.Data.Linq.DataContext.SubmitChanges(ConflictMode failureMode)
+   在 System.Data.Linq.DataContext.SubmitChanges()
+   在 BLL.PersonService.AddPerson(SitePerson_Person person) 位置 D:\DepCode\SEDIN\HSSE\HSSE\BLL\SitePerson\PersonService.cs:行号 229
+   在 FineUIPro.Web.ProjectData.ProjectUserSelect.SaveData(String userId) 位置 D:\DepCode\SEDIN\HSSE\HSSE\FineUIPro.Web\ProjectData\ProjectUserSelect.aspx.cs:行号 210
+   在 FineUIPro.Web.ProjectData.ProjectUserSelect.Grid1_RowDoubleClick(Object sender, GridRowClickEventArgs e) 位置 D:\DepCode\SEDIN\HSSE\HSSE\FineUIPro.Web\ProjectData\ProjectUserSelect.aspx.cs:行号 156
+   在 FineUIPro.Grid.OnRowDoubleClick(GridRowClickEventArgs e)
+   在 (Grid , GridRowClickEventArgs )
+   在 FineUIPro.Grid.RaisePostBackEvent(String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:05/26/2020 19:38:01
+出错文件:http://localhost:8443/hsse/ProjectData/ProjectUserSelect.aspx?ProjectId=d93b0835-ffbd-4039-bed3-2df806adae56
+IP地址:::1
+操作人员:系统管理员
+
+出错时间:05/26/2020 19:38:01
+
+
+错误信息开始=====>
+错误类型:SqlException
+错误信息:对象名 'sd_tpk.dbo.preson' 无效。
+错误堆栈:
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   在 System.Data.Linq.SqlClient.SqlProvider.Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, Object[] parentArgs, Object[] userArgs, ICompiledSubQuery[] subQueries, Object lastResult)
+   在 System.Data.Linq.SqlClient.SqlProvider.ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, Object[] userArguments, ICompiledSubQuery[] subQueries)
+   在 System.Data.Linq.SqlClient.SqlProvider.System.Data.Linq.Provider.IProvider.Execute(Expression query)
+   在 System.Data.Linq.ChangeDirector.StandardChangeDirector.DynamicInsert(TrackedObject item)
+   在 System.Data.Linq.ChangeDirector.StandardChangeDirector.Insert(TrackedObject item)
+   在 System.Data.Linq.ChangeProcessor.SubmitChanges(ConflictMode failureMode)
+   在 System.Data.Linq.DataContext.SubmitChanges(ConflictMode failureMode)
+   在 System.Data.Linq.DataContext.SubmitChanges()
+   在 BLL.PersonService.AddPerson(SitePerson_Person person)
+   在 FineUIPro.Web.ProjectData.ProjectUserSelect.SaveData(String userId) 位置 D:\DepCode\SEDIN\HSSE\HSSE\FineUIPro.Web\ProjectData\ProjectUserSelect.aspx.cs:行号 210
+   在 FineUIPro.Web.ProjectData.ProjectUserSelect.Grid1_RowDoubleClick(Object sender, GridRowClickEventArgs e) 位置 D:\DepCode\SEDIN\HSSE\HSSE\FineUIPro.Web\ProjectData\ProjectUserSelect.aspx.cs:行号 156
+   在 FineUIPro.Grid.OnRowDoubleClick(GridRowClickEventArgs e)
+   在 (Grid , GridRowClickEventArgs )
+   在 FineUIPro.Grid.RaisePostBackEvent(String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   在 System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:05/26/2020 21:47:26
+出错文件:http://localhost:8443/hsse/ProjectData/ProjectUserSelect.aspx?ProjectId=37e343bc-7ea3-4ee8-8944-3b61a845c5aa
+IP地址:::1
+操作人员:系统管理员
+
+出错时间:05/26/2020 21:47:26
+

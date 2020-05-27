@@ -132,6 +132,23 @@ namespace BLL
                     {
                         newTestRecord.ProjectId = testRecord.ProjectId;
                     }
+
+                    if (string.IsNullOrEmpty(newTestRecord.ManType))
+                    {
+                        if (testRecord.TestManId == Const.sedinId)
+                        {
+                            newTestRecord.ManType = "2";
+                        }
+                        else if (UserService.GetUserByUserId(testRecord.TestManId) != null)
+                        {
+                            newTestRecord.ManType = "1";
+                        }
+                        else
+                        {
+                            newTestRecord.ManType = "3";
+                        }
+                    }
+
                     var getUpdateTestRecord = db.Test_TestRecord.FirstOrDefault(x => x.TestRecordId == testRecord.TestRecordId);
                     if (getUpdateTestRecord != null)
                     {
@@ -139,6 +156,11 @@ namespace BLL
                         testRecord.TestEndTime = string.Format("{0:yyyy-MM:dd HH:mm:ss}", getUpdateTestRecord.TestEndTime);
                         testRecord.TestStartTime = string.Format("{0:yyyy-MM:dd HH:mm:ss}", getUpdateTestRecord.TestStartTime);
                         testRecord.TestScores = getUpdateTestRecord.TestScores ?? 0;
+
+                        if (string.IsNullOrEmpty(getUpdateTestRecord.ManType))
+                        {
+                            getUpdateTestRecord.ManType = newTestRecord.ManType;
+                        }
                         if (!getUpdateTestRecord.TestEndTime.HasValue && getTestPlan.TestEndTime < DateTime.Now)
                         {
                             getUpdateTestRecord.DepartId = newTestRecord.DepartId;

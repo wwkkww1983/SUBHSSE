@@ -19,7 +19,7 @@ namespace FineUIPro.Web.SysManage
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {
+            {                
                 /// Tab1加载页面方法
                 this.Tab1LoadData();
                 /// 加载菜单树
@@ -143,7 +143,7 @@ namespace FineUIPro.Web.SysManage
         private void InitMenuTree(string menuType)
         {
             this.tvMenu.Nodes.Clear();
-            var menus = BLL.SysMenuService.GetMenuListByMenuType(menuType);
+            var menus = SysMenuService.GetMenuListByMenuType(menuType);
             if (menus.Count() > 0)
             {
                 TreeNode rootNode = new TreeNode
@@ -288,6 +288,7 @@ namespace FineUIPro.Web.SysManage
         {
         }
         #endregion
+
         #endregion
     }
 }

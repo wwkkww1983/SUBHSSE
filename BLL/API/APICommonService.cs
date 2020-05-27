@@ -137,7 +137,7 @@ namespace BLL
                 var tempData = new
                 {
                     access_token,
-                    touser = "okJA44ziDT7lEQA6PXWtfPtTNUBQ",//getUser.OpenId,
+                    touser = getUser.OpenId,
                     template_id = Const.WX_TemplateID,
                     page = "pages/home/main",
                     data = new
@@ -149,7 +149,10 @@ namespace BLL
                     miniprogram_state,
                     lang = "zh_CN",
                 };
-                return APIGetHttpService.Http(url, "POST", contenttype, null, JsonConvert.SerializeObject(tempData));
+                string messages= APIGetHttpService.Http(url, "POST", contenttype, null, JsonConvert.SerializeObject(tempData));
+                //// 记录
+                SaveSysHttpLog(getUser.UserName, url, messages);
+                return messages;
             }
             else
             {
@@ -172,26 +175,43 @@ namespace BLL
             string secret = getUnitSecret();
             //string appid = "wxb5f0e8051b7b9eee";
             //string secret = "626175f8860bf84beb4cf507b9445115";      
-            var getUser = Funs.DB.Sys_User.FirstOrDefault(x=>x.UserId == userId);
-            if (getUser != null)
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                if (!string.IsNullOrEmpty(getUser.OpenId) && !isRefresh)
+                var getUser = db.Sys_User.FirstOrDefault(x => x.UserId == userId);
+                if (getUser != null)
                 {
-                    openId = getUser.OpenId;
-                }
-                else
-                {
-                    string getUrl = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid + "&secret=" + secret + "&js_code=" + jsCode + "&grant_type=authorization_code";
-                    var strJosn = APIGetHttpService.Http(getUrl);
-                    if (!string.IsNullOrEmpty(strJosn))
+                    if (!string.IsNullOrEmpty(getUser.OpenId) && !isRefresh)
                     {
-                        JObject obj = JObject.Parse(strJosn);
-                        if (obj["openid"] != null)
+                        openId = getUser.OpenId;
+                    }
+                    else
+                    {
+                        string getUrl = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid + "&secret=" + secret + "&js_code=" + jsCode + "&grant_type=authorization_code";
+                        var strJosn = APIGetHttpService.Http(getUrl);
+                        if (!string.IsNullOrEmpty(strJosn))
                         {
-                            openId = obj["openid"].ToString();
-                            getUser.OpenId = openId;
-                            Funs.SubmitChanges();
+                            JObject obj = JObject.Parse(strJosn);
+                            if (obj["openid"] != null)
+                            {
+                                openId = obj["openid"].ToString();
+                                getUser.OpenId = openId;
+                                db.SubmitChanges();
+
+                                var getUsers = from x in db.Sys_User
+                                               where x.UserId != getUser.UserId && x.OpenId == openId
+                                               select x;
+                                if (getUsers.Count() > 0)
+                                {
+                                    foreach (var item in getUsers)
+                                    {
+                                        item.OpenId = null;
+                                        db.SubmitChanges();
+                                    }
+                                }
+                            }
                         }
+                        //// 记录
+                        SaveSysHttpLog(getUser.UserName, getUrl, strJosn);
                     }
                 }
             }
@@ -266,5 +286,28 @@ namespace BLL
             }
         }
         #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="HttpUrl"></param>
+        /// <param name="LogTxt"></param>
+        public static void SaveSysHttpLog(string userName, string httpUrl, string logTxt)
+        {
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                Model.Sys_HttpLog newLog = new Model.Sys_HttpLog()
+                {
+                    HttpLogId = SQLHelper.GetNewID(),
+                    LogTime = DateTime.Now,
+                    UserName = userName,
+                    HttpUrl = httpUrl,
+                    LogTxt = logTxt,
+                };
+                db.Sys_HttpLog.InsertOnSubmit(newLog);
+                db.SubmitChanges();
+            }
+        }
     }
 }

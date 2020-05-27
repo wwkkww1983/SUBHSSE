@@ -100,7 +100,7 @@ namespace WebAPI.Controllers
         }
         #endregion
 
-        #region  获取OpenId消息
+        #region  刷新获取OpenId消息
         /// <summary>
         ///  获取OpenId消息
         /// </summary>

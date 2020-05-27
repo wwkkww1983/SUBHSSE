@@ -102,6 +102,16 @@ namespace BLL
                 isUpdate.States = newHazardRegister.States;
             }
             Funs.SubmitChanges();
+
+            if (hazardRegister.States == Const.State_1)
+            {
+                APICommonService.SendSubscribeMessage(hazardRegister.ResponsibleMan, "安全巡检问题待整改", hazardRegister.CheckManName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", hazardRegister.CheckTime));
+
+            }
+            else if (hazardRegister.States == Const.State_2)
+            {
+                APICommonService.SendSubscribeMessage(hazardRegister.CheckManId, "安全巡检待复查验收", hazardRegister.ResponsibilityManName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", hazardRegister.RectificationTime));
+            }
         }
     }
 }

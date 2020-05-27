@@ -85,7 +85,7 @@ namespace BLL
         public static String saveImg(String url)
         {
             WebClient mywebclient = new WebClient();
-            string newfilename =Guid.NewGuid()+ DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + ".jpg";
+            string newfilename = Guid.NewGuid() + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + ".jpg";
             string subPath = @"d:\imgs\";
             if (false == System.IO.Directory.Exists(subPath))
             {
@@ -156,18 +156,21 @@ namespace BLL
         public static string getFileUrl(string tokeyId, string url)
         {
             string fileUrl = url;
-            if (!string.IsNullOrEmpty(tokeyId))
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                var getAtt = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == tokeyId);
-                if (getAtt != null && !string.IsNullOrEmpty(getAtt.AttachUrl))
+                if (!string.IsNullOrEmpty(tokeyId))
                 {
-                    fileUrl = getAtt.AttachUrl;
+                    var getAtt = db.AttachFile.FirstOrDefault(x => x.ToKeyId == tokeyId);
+                    if (getAtt != null && !string.IsNullOrEmpty(getAtt.AttachUrl))
+                    {
+                        fileUrl = getAtt.AttachUrl;
+                    }
                 }
-            }
 
-            if (!string.IsNullOrEmpty(fileUrl))
-            {
-                fileUrl = fileUrl.Replace('\\', '/');
+                if (!string.IsNullOrEmpty(fileUrl))
+                {
+                    fileUrl = fileUrl.Replace('\\', '/');
+                }
             }
             return fileUrl;
         }

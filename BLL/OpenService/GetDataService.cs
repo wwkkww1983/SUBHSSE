@@ -780,6 +780,27 @@ namespace BLL
         }
         #endregion
 
+        #region 自动结束考试-知识竞赛
+        /// <summary>
+        ///  自动结束考试
+        /// </summary>
+        public static void UpdateServerTestPlanStates()
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+           
+            var getTrainingTestRecords = from x in db.Test_TestRecord
+                                         where x.TestStartTime.Value.AddMinutes(x.Duration.Value) < DateTime.Now
+                                         && (!x.TestEndTime.HasValue || !x.TestScores.HasValue)
+                                         select x;
+            foreach (var itemRecord in getTrainingTestRecords)
+            {
+                itemRecord.TestEndTime = itemRecord.TestStartTime.Value.AddMinutes(itemRecord.Duration.Value);
+                itemRecord.TestScores = db.Test_TestRecordItem.Where(x => x.TestRecordId == itemRecord.TestRecordId).Sum(x => x.SubjectScore) ?? 0;
+                db.SubmitChanges();
+            }
+        }
+        #endregion
+
         #region 自动校正出入场人数及工时
         /// <summary>
         ///  自动校正出入场人数及工时

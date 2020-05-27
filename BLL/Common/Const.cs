@@ -2420,6 +2420,14 @@ namespace BLL
         /// </summary>
         public const string State_3 = "3";
         /// <summary>
+        /// 已完成/已上报
+        /// </summary>
+        public const string State_4 = "4";
+        /// <summary>
+        /// 已完成/已上报
+        /// </summary>
+        public const string State_5 = "5";
+        /// <summary>
         /// 重新申请
         /// </summary>
         public const string State_R = "-1";

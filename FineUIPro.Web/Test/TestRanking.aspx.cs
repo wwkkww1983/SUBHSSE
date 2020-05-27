@@ -44,17 +44,17 @@ namespace FineUIPro.Web.Test
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT T.TestRecordId,T.TestPlanId,P.PlanCode,P.PlanName,T.TestManId,T.ManType,T.TestManName,(CONVERT(VARCHAR(10),DATEDIFF(SS,T.TestStartTime,T.TestEndTime)/3600)+'时'+CONVERT(VARCHAR(10),DATEDIFF(SS,T.TestStartTime,T.TestEndTime)%3600/60)+'分'+CONVERT(VARCHAR(10),DATEDIFF(SS,T.TestStartTime,T.TestEndTime)%3600%60)+'秒')  AS UseTimes 
-                                    ,(CASE WHEN T.ManType='1' THEN '管理人员' WHEN T.ManType='2' THEN '临时用户' ELSE '作业人员' END) AS ManTypeName
-                                    ,T.TestStartTime,T.TotalScore,T.QuestionCount,T.Duration,T.TestEndTime,T.TestScores,T.UnitId,Unit.UnitCode
-                                    ,Unit.UnitName,T.DepartId,Depart.DepartCode,Depart.DepartName,T.ProjectId,Project.ProjectName,T.WorkPostId,T.IdentityCard,T.Telephone
-                                   ,(CASE WHEN Depart.DepartName IS NULL THEN Project.ProjectName ELSE Depart.DepartName END) AS DProjectName
-                                    FROM Test_TestRecord AS T 
-                                    LEFT JOIN Test_TestPlan AS P ON T.TestPlanId=P.TestPlanId
-                                    LEFT JOIN Base_Unit AS Unit ON T.UnitId=Unit.UnitId
-                                    LEFT JOIN Base_Depart AS Depart ON T.DepartId=Depart.DepartId
-                                    LEFT JOIN Base_Project AS Project ON T.ProjectId=Project.ProjectId
-                                    WHERE 1=1";
+            string strSql = @"SELECT T.TestRecordId,T.TestPlanId,P.PlanCode,P.PlanName,T.TestManId,T.ManType,T.TestManName,DATEDIFF(SS,T.TestStartTime,T.TestEndTime) AS UserTimesD,(CONVERT(VARCHAR(10),DATEDIFF(SS,T.TestStartTime,T.TestEndTime)/3600)+'时'+CONVERT(VARCHAR(10),DATEDIFF(SS,T.TestStartTime,T.TestEndTime)%3600/60)+'分'+CONVERT(VARCHAR(10),DATEDIFF(SS,T.TestStartTime,T.TestEndTime)%3600%60)+'秒')  AS UseTimes "
+                                    + @"  ,(CASE WHEN T.ManType='1' THEN '管理人员' WHEN T.ManType='2' THEN '临时用户' ELSE '作业人员' END) AS ManTypeName"
+                                    + @"  ,T.TestStartTime,T.TotalScore,T.QuestionCount,T.Duration,T.TestEndTime,T.TestScores,T.UnitId,Unit.UnitCode"
+                                    + @", Unit.UnitName,T.DepartId,Depart.DepartCode,Depart.DepartName,T.ProjectId,Project.ProjectName,T.WorkPostId,T.IdentityCard,T.Telephone"
+                                    + @",(CASE WHEN T.UnitId='" + CommonService.GetIsThisUnitId() + "' THEN Depart.DepartName ELSE Project.ProjectName END) AS DProjectName"
+                                    + @" FROM Test_TestRecord AS T "
+                                    + @" LEFT JOIN Test_TestPlan AS P ON T.TestPlanId=P.TestPlanId"
+                                    + @" LEFT JOIN Base_Unit AS Unit ON T.UnitId=Unit.UnitId"
+                                    + @" LEFT JOIN Base_Depart AS Depart ON T.DepartId=Depart.DepartId"
+                                    + @" LEFT JOIN Base_Project AS Project ON T.ProjectId=Project.ProjectId"
+                                    + @" WHERE 1=1";
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtName.Text.Trim()))
             {
@@ -111,12 +111,12 @@ namespace FineUIPro.Web.Test
                 strSql += " AND (T.UnitId !=@UnitIdT)";
                 listStr.Add(new SqlParameter("@UnitIdT", CommonService.GetIsThisUnitId()));
             }
-
+            strSql += " ORDER BY T.TestScores DESC,DATEDIFF(SS,T.TestStartTime,T.TestEndTime) ASC";
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 
             Grid1.RecordCount = tb.Rows.Count;
-            // tb = GetFilteredTable(Grid1.FilteredData, tb);
+             //tb = GetFilteredTable(Grid1.FilteredData, tb);
             var table = this.GetPagedDataTable(Grid1, tb);
 
             Grid1.DataSource = table;
@@ -154,6 +154,7 @@ namespace FineUIPro.Web.Test
         /// <param name="e"></param>
         protected void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Grid1.PageSize =Convert.ToInt32( this.ddlPageSize.SelectedValue);
             BindGrid();
         }
 

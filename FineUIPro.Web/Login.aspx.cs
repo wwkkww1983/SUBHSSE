@@ -34,8 +34,6 @@
                 }
                 //string sysVersion = ConfigurationManager.AppSettings["SystemVersion"];
                 //this.lbVevion.Text = "请使用IE10以上版本浏览器 版本号：" + sysVersion;           
-
-               GetDataService.CorrectingPersonInOutNumber(null);
             }
         }
         #endregion

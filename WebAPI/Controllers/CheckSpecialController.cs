@@ -75,7 +75,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                APICheckSpecialService.SaveCheckSpecial(newItem);
+                responeData.message = APICheckSpecialService.SaveCheckSpecial(newItem);               
             }
             catch (Exception ex)
             {

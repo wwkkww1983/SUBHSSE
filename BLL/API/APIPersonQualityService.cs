@@ -20,7 +20,7 @@ namespace BLL
                 ////特种作业人员
                 getQualityItem = (from x in Funs.DB.QualityAudit_PersonQuality
                                   join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
-                                  where x.PersonQualityId == dataId
+                                  where x.PersonQualityId == dataId || x.PersonId ==dataId
                                   orderby y.CardNo
                                   select new Model.PersonQualityItem
                                   {
@@ -61,7 +61,7 @@ namespace BLL
             {
                 getQualityItem = (from x in Funs.DB.QualityAudit_SafePersonQuality
                                   join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
-                                  where x.SafePersonQualityId == dataId
+                                  where x.SafePersonQualityId == dataId || x.PersonId == dataId
                                   orderby y.CardNo
                                   select new Model.PersonQualityItem
                                   {
@@ -102,7 +102,7 @@ namespace BLL
                 ////特种设备作业人员
                 getQualityItem = (from x in Funs.DB.QualityAudit_EquipmentPersonQuality
                                   join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
-                                  where x.EquipmentPersonQualityId == dataId
+                                  where x.EquipmentPersonQualityId == dataId || x.PersonId == dataId
                                   orderby y.CardNo
                                   select new Model.PersonQualityItem
                                   {
@@ -359,7 +359,7 @@ namespace BLL
                     {
                         newPersonQuality.AuditorId = personQuality.AuditorId;
                     }
-                    var getPersonQuality = db.QualityAudit_PersonQuality.FirstOrDefault(x => x.PersonQualityId == newPersonQuality.PersonQualityId);
+                    var getPersonQuality = db.QualityAudit_PersonQuality.FirstOrDefault(x => x.PersonQualityId == newPersonQuality.PersonQualityId || x.PersonId == newPersonQuality.PersonId);
                     if (getPersonQuality == null)
                     {
                         newPersonQuality.PersonQualityId = SQLHelper.GetNewID();
@@ -429,7 +429,7 @@ namespace BLL
                     {
                         newSafeQuality.AuditorId = personQuality.AuditorId;
                     }
-                    var getSafePersonQuality = db.QualityAudit_SafePersonQuality.FirstOrDefault(x => x.SafePersonQualityId == newSafeQuality.SafePersonQualityId);
+                    var getSafePersonQuality = db.QualityAudit_SafePersonQuality.FirstOrDefault(x => x.SafePersonQualityId == newSafeQuality.SafePersonQualityId || x.PersonId == newSafeQuality.PersonId);
                     if (getSafePersonQuality == null)
                     {
                         newSafeQuality.SafePersonQualityId = SQLHelper.GetNewID();
@@ -500,7 +500,7 @@ namespace BLL
                     {
                         newEquipmentPersonQuality.AuditorId = personQuality.AuditorId;
                     }
-                    var getEquipmentPersonQuality = db.QualityAudit_EquipmentPersonQuality.FirstOrDefault(x => x.EquipmentPersonQualityId == newEquipmentPersonQuality.EquipmentPersonQualityId);
+                    var getEquipmentPersonQuality = db.QualityAudit_EquipmentPersonQuality.FirstOrDefault(x => x.EquipmentPersonQualityId == newEquipmentPersonQuality.EquipmentPersonQualityId || x.PersonId == newEquipmentPersonQuality.PersonId);
                     if (getEquipmentPersonQuality == null)
                     {
                         newEquipmentPersonQuality.EquipmentPersonQualityId = SQLHelper.GetNewID();
@@ -529,6 +529,11 @@ namespace BLL
                     {
                         APIUpLoadFileService.SaveAttachUrl(Const.EquipmentPersonQualityMenuId, newEquipmentPersonQuality.EquipmentPersonQualityId, personQuality.AttachUrl, "0");
                     }
+                }
+
+                if (!string.IsNullOrEmpty(personQuality.AuditDate) && string.IsNullOrEmpty(personQuality.AuditorId))
+                {
+                    APICommonService.SendSubscribeMessage(personQuality.AuditorId, "人员资质" + personQuality.PersonName + "待您审核", personQuality.CompileManName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                 }
             }
         }

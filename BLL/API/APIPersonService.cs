@@ -260,12 +260,52 @@ namespace BLL
                               IsUsedName = (x.IsUsed == true ? "启用" : "未启用"),
                               WorkAreaId = x.WorkAreaId,
                               WorkAreaName = Funs.DB.ProjectData_WorkArea.First(z => z.WorkAreaId == x.WorkAreaId).WorkAreaName,
-                              PostType = Funs.DB.Base_WorkPost.First(z => z.WorkPostId == x.WorkPostId).PostType,
+                              PostType = ReturnQuality(x.PersonId, x.WorkPostId),
                              // PostTypeName = Funs.DB.Sys_Const.First(p => p.GroupId == ConstValue.Group_PostType && p.ConstValue == z.PostType).ConstText,
                               IsForeign = x.IsForeign.HasValue ? x.IsForeign : false,
                               IsOutside = x.IsOutside.HasValue ? x.IsOutside : false,
                           };
             return persons.ToList();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns></returns>
+        private static string ReturnQuality(string personId, string workPostId)
+        {
+            string postType = "";
+            var workPost = Funs.DB.Base_WorkPost.FirstOrDefault(x => x.WorkPostId == workPostId);
+            if (workPost != null)
+            {
+                if (workPost.PostType == Const.PostType_2)
+                {
+                    var getPerQ = Funs.DB.QualityAudit_PersonQuality.FirstOrDefault(x => x.PersonId == personId && x.States == Const.State_2 && x.LimitDate >= DateTime.Now.AddMonths(1));
+                    if (getPerQ == null)
+                    {
+                        postType = "1";
+                    }
+                }
+                else if (workPost.PostType == Const.PostType_5)
+                {
+                    var getPerQ = Funs.DB.QualityAudit_EquipmentPersonQuality.FirstOrDefault(x => x.PersonId == personId && x.States == Const.State_2 && x.LimitDate >= DateTime.Now.AddMonths(1));
+                    if (getPerQ == null)
+                    {
+                        postType = "3";
+                    }
+                }
+                if (workPost.IsHsse == true)
+                {
+                    var getPerQ = Funs.DB.QualityAudit_SafePersonQuality.FirstOrDefault(x => x.PersonId == personId && x.States == Const.State_2 && x.LimitDate >= DateTime.Now.AddMonths(1));
+                    if (getPerQ == null)
+                    {
+                        postType = "2";
+                    }
+                }
+            }        
+            return postType;
+
         }
         #endregion
 
@@ -401,7 +441,7 @@ namespace BLL
                 if (getPerson == null)
                 {
                     newPerson.Isprint = "0";
-                    newPerson.PersonId = SQLHelper.GetNewID(typeof(Model.SitePerson_Person));
+                    newPerson.PersonId = SQLHelper.GetNewID();
                     db.SitePerson_Person.InsertOnSubmit(newPerson);
                     db.SubmitChanges();
                     CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.PersonListMenuId, person.ProjectId, person.UnitId, person.PersonId, newPerson.InTime);
@@ -477,7 +517,12 @@ namespace BLL
                         getUser.Telephone = newPerson.Telephone;
                         db.SubmitChanges();
                     }
-                }                
+                }
+
+                if (!newPerson.AuditorDate.HasValue && string.IsNullOrEmpty(newPerson.AuditorId))
+                {
+                    APICommonService.SendSubscribeMessage(newPerson.AuditorId, "人员信息" + newPerson.PersonName + "待您审核", person.ProjectCode, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
+                }
             }
         }
 

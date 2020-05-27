@@ -26,7 +26,7 @@
             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="答题记录" EnableCollapse="true"
                 runat="server" BoxFlex="1" DataKeyNames="TestRecordId" AllowCellEditing="true"
                 EnableColumnLines="true" ClicksToEdit="2" DataIDField="TestRecordId" AllowSorting="true"
-                SortField="TestScores" SortDirection="DESC" OnSort="Grid1_Sort" AllowPaging="true"
+                SortField="TestScores" SortDirection="DESC"  OnSort="Grid1_Sort" AllowPaging="true"
                 IsDatabasePaging="true" PageSize="15" OnPageIndexChange="Grid1_PageIndexChange"
                 EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True">
                 <Toolbars>
@@ -69,10 +69,10 @@
                             <asp:Label ID="labNumber" runat="server" Text=' <%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1%>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>                     
-                    <f:RenderField Width="230px" ColumnID="UnitName" DataField="UnitName" FieldType="String"
+                    <f:RenderField Width="235px" ColumnID="UnitName" DataField="UnitName" FieldType="String"
                         HeaderText="单位" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="85px" ColumnID="TestManName" DataField="TestManName" FieldType="String"
+                    <f:RenderField Width="95px" ColumnID="TestManName" DataField="TestManName" FieldType="String"
                         HeaderText="姓名" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="85px" ColumnID="ManTypeName" DataField="ManTypeName" FieldType="String"
@@ -88,13 +88,13 @@
                         HeaderText="成绩" HeaderTextAlign="Center" TextAlign="Right" SortField="TestScores">
                     </f:RenderField>
                       <f:RenderField Width="110px" ColumnID="UseTimes" DataField="UseTimes" FieldType="String"
-                        HeaderText="用时" HeaderTextAlign="Center" TextAlign="Right" SortField="UseTimes">
+                        HeaderText="用时" HeaderTextAlign="Center" TextAlign="Right" SortField="UserTimesD">
                     </f:RenderField>
-                    <f:RenderField Width="110px" ColumnID="DepartName" DataField="DepartName" FieldType="String"
+                    <%--<f:RenderField Width="110px" ColumnID="DepartName" DataField="DepartName" FieldType="String"
                         HeaderText="部门" HeaderTextAlign="Center" TextAlign="Left" >
-                    </f:RenderField>
-                      <f:RenderField Width="350px" ColumnID="ProjectName" DataField="ProjectName" FieldType="String"
-                        HeaderText="项目" HeaderTextAlign="Center" TextAlign="Left" >
+                    </f:RenderField>--%>
+                      <f:RenderField Width="350px" ColumnID="DProjectName" DataField="DProjectName" FieldType="String"
+                        HeaderText="部门/项目" HeaderTextAlign="Center" TextAlign="Left" >
                     </f:RenderField>
                      <f:RenderField Width="185px" ColumnID="IdentityCard" DataField="IdentityCard" FieldType="String"
                         HeaderText="身份证号码" HeaderTextAlign="Center" TextAlign="Left">

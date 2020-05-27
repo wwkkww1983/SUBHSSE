@@ -27,6 +27,7 @@ namespace FineUIPro.Web.Test
 
                 // 绑定表格
                 BindGrid();
+                GetDataService.UpdateServerTestPlanStates();
             }
             else
             {

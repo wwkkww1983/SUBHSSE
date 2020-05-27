@@ -161,7 +161,7 @@ namespace BLL
         {
             var getDataLists = (from x in Funs.DB.Check_RectifyNotices
                                 where x.ProjectId == projectId && x.States == states
-                                orderby x.CheckedDate descending
+                                orderby x.RectifyNoticesCode descending
                                 select new Model.RectifyNoticesItem
                                 {
                                     RectifyNoticesId = x.RectifyNoticesId,
@@ -276,6 +276,8 @@ namespace BLL
                 if (isUpdate == null)
                 {
                     newRectifyNotices.RectifyNoticesId = SQLHelper.GetNewID();
+                    newRectifyNotices.Isprint = "0";
+                    newRectifyNotices.Isprintf = "0";
                     newRectifyNotices.RectifyNoticesCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.ProjectId, newRectifyNotices.UnitId);
                     db.Check_RectifyNotices.InsertOnSubmit(newRectifyNotices);
                     db.SubmitChanges();
@@ -347,7 +349,7 @@ namespace BLL
                         }
                         else
                         {
-                            isUpdate.States = "0";
+                            newRectifyNotices.States= isUpdate.States = "0";
                         }
                         db.SubmitChanges();
                         //// 删除明细表
@@ -368,7 +370,7 @@ namespace BLL
                         /// 不同意 打回 同意抄送专业工程师、施工经理、项目经理 并下发分包接收人（也就是施工单位项目安全经理）
                         if (rectifyNotices.IsAgree == false)
                         {
-                            isUpdate.States = "0";
+                            newRectifyNotices.States = isUpdate.States = "0";
                         }
                         else
                         {
@@ -392,7 +394,7 @@ namespace BLL
                             }
                             else
                             {
-                                isUpdate.States = "1";
+                                newRectifyNotices.States = isUpdate.States = "1";
                             }
                         }
                         db.SubmitChanges();                       
@@ -428,7 +430,7 @@ namespace BLL
                         }
                         else
                         {
-                            isUpdate.States = "2";
+                            newRectifyNotices.States = isUpdate.States = "2";
                         }
                         db.SubmitChanges();
                     }
@@ -436,7 +438,7 @@ namespace BLL
                     { /// 施工单位项目负责人不同意 打回施工单位项目安全经理,同意提交安全经理/安全工程师复查
                         if (rectifyNotices.IsAgree == false)
                         {
-                            isUpdate.States = "2";
+                            newRectifyNotices.States = isUpdate.States = "2";
                             isUpdate.CompleteDate = null;
                         }
                         else
@@ -448,7 +450,7 @@ namespace BLL
                             }
                             else
                             {
-                                isUpdate.States = "3";
+                                newRectifyNotices.States = isUpdate.States = "3";
                             }
                         }
                         db.SubmitChanges();
@@ -458,7 +460,7 @@ namespace BLL
                         isUpdate.ReCheckOpinion = rectifyNotices.ReCheckOpinion;
                         if (rectifyNotices.IsAgree == false)
                         {
-                            isUpdate.States = "2";
+                            newRectifyNotices.States = isUpdate.States = "2";
                             isUpdate.UnitHeadManDate = null;
                             isUpdate.CompleteDate = null;
                             isUpdate.ProfessionalEngineerTime2 = null;
@@ -545,6 +547,23 @@ namespace BLL
                         db.Check_RectifyNoticesFlowOperate.InsertOnSubmit(newOItem);
                         db.SubmitChanges();
                     }
+                }
+
+                if (newRectifyNotices.States == Const.State_1)
+                {
+                    APICommonService.SendSubscribeMessage(newRectifyNotices.SignPerson, "隐患整改单" + newRectifyNotices.RectifyNoticesCode + "待您签发", rectifyNotices.CheckManNames, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
+                }
+                else if (newRectifyNotices.States == Const.State_2)
+                {
+                    APICommonService.SendSubscribeMessage(newRectifyNotices.DutyPersonId, "隐患整改单" + newRectifyNotices.RectifyNoticesCode + "待您整改", rectifyNotices.SignPersonName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
+                }
+                else if (newRectifyNotices.States == Const.State_3)
+                {
+                    APICommonService.SendSubscribeMessage(newRectifyNotices.UnitHeadManId, "隐患整改单" + newRectifyNotices.RectifyNoticesCode + "待您审核", rectifyNotices.DutyPersonName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
+                }
+                else if (newRectifyNotices.States == Const.State_4)
+                {
+                    APICommonService.SendSubscribeMessage(newRectifyNotices.CheckPerson, "隐患整改单" + newRectifyNotices.RectifyNoticesCode + "待您复查", rectifyNotices.UnitHeadManName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                 }
             }
         }

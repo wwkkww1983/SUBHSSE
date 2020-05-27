@@ -1104,7 +1104,7 @@ namespace BLL
                         newFireWork.ApplyDate = DateTime.Now;
                         strLicenseId = newFireWork.FireWorkId = SQLHelper.GetNewID();
                         newFireWork.OldLicenseId = newItem.OldLicenseId;
-                        newFireWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectFireWorkMenuId, newFireWork.ProjectId, newFireWork.ApplyUnitId);
+                        newItem.LicenseCode=newFireWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectFireWorkMenuId, newFireWork.ProjectId, newFireWork.ApplyUnitId);
                         db.License_FireWork.InsertOnSubmit(newFireWork);
                         ////增加一条编码记录
                         CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectFireWorkMenuId, newFireWork.ProjectId, newFireWork.ApplyUnitId, newFireWork.FireWorkId, newFireWork.ApplyDate);
@@ -1175,7 +1175,7 @@ namespace BLL
                         newHeightWork.ApplyDate = DateTime.Now;
                         strLicenseId = newHeightWork.HeightWorkId = SQLHelper.GetNewID();
                         newHeightWork.OldLicenseId = newItem.OldLicenseId;
-                        newHeightWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectHeightWorkMenuId, newHeightWork.ProjectId, newHeightWork.ApplyUnitId);
+                        newItem.LicenseCode= newHeightWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectHeightWorkMenuId, newHeightWork.ProjectId, newHeightWork.ApplyUnitId);
                         db.License_HeightWork.InsertOnSubmit(newHeightWork);
 
                         ////增加一条编码记录
@@ -1247,7 +1247,7 @@ namespace BLL
                         newLimitedSpace.ApplyDate = DateTime.Now;
                         strLicenseId = newLimitedSpace.LimitedSpaceId = SQLHelper.GetNewID();
                         newLimitedSpace.OldLicenseId = newItem.OldLicenseId;
-                        newLimitedSpace.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectLimitedSpaceMenuId, newLimitedSpace.ProjectId, newLimitedSpace.ApplyUnitId);
+                        newItem.LicenseCode = newLimitedSpace.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectLimitedSpaceMenuId, newLimitedSpace.ProjectId, newLimitedSpace.ApplyUnitId);
                         db.License_LimitedSpace.InsertOnSubmit(newLimitedSpace);
                         ////增加一条编码记录
                         CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectLimitedSpaceMenuId, newLimitedSpace.ProjectId, newLimitedSpace.ApplyUnitId, newLimitedSpace.LimitedSpaceId, newLimitedSpace.ApplyDate);
@@ -1321,7 +1321,7 @@ namespace BLL
                         newRadialWork.ApplyDate = DateTime.Now;
                         strLicenseId = newRadialWork.RadialWorkId = SQLHelper.GetNewID();
                         newRadialWork.OldLicenseId = newItem.OldLicenseId;
-                        newRadialWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectRadialWorkMenuId, newRadialWork.ProjectId, newRadialWork.ApplyUnitId);
+                        newItem.LicenseCode = newRadialWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectRadialWorkMenuId, newRadialWork.ProjectId, newRadialWork.ApplyUnitId);
                         db.License_RadialWork.InsertOnSubmit(newRadialWork);
                         ////增加一条编码记录
                         CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectRadialWorkMenuId, newRadialWork.ProjectId, newRadialWork.ApplyUnitId, newRadialWork.RadialWorkId, newRadialWork.ApplyDate);
@@ -1395,7 +1395,7 @@ namespace BLL
                         newOpenCircuit.ApplyDate = DateTime.Now;
                         strLicenseId = newOpenCircuit.OpenCircuitId = SQLHelper.GetNewID();
                         newOpenCircuit.OldLicenseId = newItem.OldLicenseId;
-                        newOpenCircuit.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectOpenCircuitMenuId, newOpenCircuit.ProjectId, newOpenCircuit.ApplyUnitId);
+                        newItem.LicenseCode = newOpenCircuit.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectOpenCircuitMenuId, newOpenCircuit.ProjectId, newOpenCircuit.ApplyUnitId);
                         db.License_OpenCircuit.InsertOnSubmit(newOpenCircuit);
                         ////增加一条编码记录
                         CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectOpenCircuitMenuId, newOpenCircuit.ProjectId, newOpenCircuit.ApplyUnitId, newOpenCircuit.OpenCircuitId, newOpenCircuit.ApplyDate);
@@ -1465,7 +1465,7 @@ namespace BLL
                         newBreakGround.ApplyDate = DateTime.Now;
                         strLicenseId = newBreakGround.BreakGroundId = SQLHelper.GetNewID();
                         newBreakGround.OldLicenseId = newItem.OldLicenseId;
-                        newBreakGround.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectBreakGroundMenuId, newBreakGround.ProjectId, newBreakGround.ApplyUnitId);
+                        newItem.LicenseCode = newBreakGround.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectBreakGroundMenuId, newBreakGround.ProjectId, newBreakGround.ApplyUnitId);
                         db.License_BreakGround.InsertOnSubmit(newBreakGround);
                         ////增加一条编码记录
                         CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectBreakGroundMenuId, newBreakGround.ProjectId, newBreakGround.ApplyUnitId, newBreakGround.BreakGroundId, newBreakGround.ApplyDate);
@@ -1537,7 +1537,7 @@ namespace BLL
                         newNightWork.ApplyDate = DateTime.Now;
                         strLicenseId = newNightWork.NightWorkId = SQLHelper.GetNewID();
                         newNightWork.OldLicenseId = newItem.OldLicenseId;
-                        newNightWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectNightWorkMenuId, newNightWork.ProjectId, newNightWork.ApplyUnitId);
+                        newItem.LicenseCode = newNightWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectNightWorkMenuId, newNightWork.ProjectId, newNightWork.ApplyUnitId);
                         db.License_NightWork.InsertOnSubmit(newNightWork);
                         ////增加一条编码记录
                         CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectNightWorkMenuId, newNightWork.ProjectId, newNightWork.ApplyUnitId, newNightWork.NightWorkId, newNightWork.ApplyDate);
@@ -1610,7 +1610,7 @@ namespace BLL
                         newLiftingWork.ApplyDate = DateTime.Now;
                         strLicenseId = newLiftingWork.LiftingWorkId = SQLHelper.GetNewID();
                         newLiftingWork.OldLicenseId = newItem.OldLicenseId;
-                        newLiftingWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectLiftingWorkMenuId, newLiftingWork.ProjectId, newLiftingWork.ApplyUnitId);
+                        newItem.LicenseCode = newLiftingWork.LicenseCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectLiftingWorkMenuId, newLiftingWork.ProjectId, newLiftingWork.ApplyUnitId);
                         db.License_LiftingWork.InsertOnSubmit(newLiftingWork);
                         ////增加一条编码记录
                         CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectLiftingWorkMenuId, newLiftingWork.ProjectId, newLiftingWork.ApplyUnitId, newLiftingWork.LiftingWorkId, newLiftingWork.ApplyDate);
@@ -1679,7 +1679,7 @@ namespace BLL
                     if (updateLicenseManager == null)
                     {
                         strLicenseId = newLicenseManager.LicenseManagerId = SQLHelper.GetNewID();
-                        newLicenseManager.LicenseManagerCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectLicenseManagerMenuId, newLicenseManager.ProjectId, newLicenseManager.UnitId);
+                        newItem.LicenseCode = newLicenseManager.LicenseManagerCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectLicenseManagerMenuId, newLicenseManager.ProjectId, newLicenseManager.UnitId);
                         db.License_LicenseManager.InsertOnSubmit(newLicenseManager);
                         ////增加一条编码记录
                         CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectLicenseManagerMenuId, newLicenseManager.ProjectId, newLicenseManager.UnitId, newLicenseManager.LicenseManagerId, newLicenseManager.CompileDate);
@@ -1738,6 +1738,14 @@ namespace BLL
 
                 //// 保存附件
                 APIUpLoadFileService.SaveAttachUrl(newItem.MenuId, strLicenseId, newItem.AttachUrl, "0");
+                if (!string.IsNullOrEmpty(newItem.NextManId) && (newItem.States == Const.State_1 || newItem.States == Const.State_0))
+                {
+                    List<string> getUserIds = Funs.GetStrListByStr(newItem.NextManId, ',');
+                    foreach (var item in getUserIds)
+                    {
+                        APICommonService.SendSubscribeMessage(item, "作业票"+newItem.LicenseCode + "待您审核", newItem.ApplyManName, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
+                    }
+                }
 
                 return strLicenseId;
             }
@@ -1780,7 +1788,7 @@ namespace BLL
                         Opinion = updateFlowOperate.Opinion,
                     };
                     db.License_FlowOperateItem.InsertOnSubmit(newFlowOperateItem);
-
+                
                     #region 新增下一步审核记录
                     if (newItem.IsAgree == true)
                     {
@@ -1798,7 +1806,7 @@ namespace BLL
                                 getNextFlowOperate.OperaterId = newItem.OperaterId;
                                 getNextFlowOperate.Opinion = "审核完成！";
                                 boolIsFlowEnd = true;
-                                db.SubmitChanges();
+                                db.SubmitChanges();                          
                             }
                         }
                         
@@ -2066,6 +2074,15 @@ namespace BLL
                             }
                         }
                         #endregion
+
+                        if (!boolIsFlowEnd && !string.IsNullOrEmpty(newItem.NextOperaterId))
+                        {
+                            List<string> getUserIds = Funs.GetStrListByStr(newItem.NextOperaterId, ',');
+                            foreach (var item in getUserIds)
+                            {
+                                APICommonService.SendSubscribeMessage(item, "作业票待您审核", UserService.GetUserNameByUserId(newItem.OperaterId), string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
+                            }
+                        }
                     }
                     #endregion
                 }

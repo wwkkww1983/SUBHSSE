@@ -58,51 +58,6 @@ namespace FineUIPro.Web.SysManage {
         protected global::FineUIPro.Tab Tab1;
         
         /// <summary>
-        /// rbMenuModel 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.RadioButtonList rbMenuModel;
-        
-        /// <summary>
-        /// ImageMenu 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Image ImageMenu;
-        
-        /// <summary>
-        /// Toolbar1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Toolbar Toolbar1;
-        
-        /// <summary>
-        /// btnTab1Save 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnTab1Save;
-        
-        /// <summary>
-        /// Tab2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Tab Tab2;
-        
-        /// <summary>
         /// ckMenuType 控件。
         /// </summary>
         /// <remarks>
@@ -130,6 +85,15 @@ namespace FineUIPro.Web.SysManage {
         protected global::FineUIPro.Toolbar Toolbar2;
         
         /// <summary>
+        /// btnTab1Save 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnTab1Save;
+        
+        /// <summary>
         /// btnTab2Save 控件。
         /// </summary>
         /// <remarks>
@@ -137,5 +101,41 @@ namespace FineUIPro.Web.SysManage {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Button btnTab2Save;
+        
+        /// <summary>
+        /// Tab2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Tab Tab2;
+        
+        /// <summary>
+        /// rbMenuModel 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.RadioButtonList rbMenuModel;
+        
+        /// <summary>
+        /// ImageMenu 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Image ImageMenu;
+        
+        /// <summary>
+        /// Toolbar1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Toolbar Toolbar1;
     }
 }

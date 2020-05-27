@@ -8,5 +8,4 @@
 <TreeNode id="2231022B-3519-42FC-A2E6-1DB9A98039DD" Text="角色授权" NavigateUrl="SysManage/RolePower.aspx" Icon="UserKey"></TreeNode>
 <TreeNode id="0C67F4A8-1BE7-40BE-9621-B02A28FD13ED" Text="报表设计" NavigateUrl="ReportPrint/PrintDesigner.aspx" Icon="PageWhiteExcel"></TreeNode>
 <TreeNode id="E4BFDCFD-2B1F-49C5-B02B-1C91BFFAAC6E" Text="环境设置" NavigateUrl="SysManage/SysConstSet.aspx" Icon="Cog"></TreeNode>
-<TreeNode id="6EDFBE24-9419-4E73-AC2E-CAD30A754A73" Text="数据同步" NavigateUrl="SysManage/Synchronization.aspx" Icon="DatabaseRefresh"></TreeNode>
 </Tree>

@@ -64,13 +64,13 @@
                             <asp:Label ID="labNumber" runat="server" Text=' <%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1%>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>   
-                    <f:RenderField Width="120px" ColumnID="PlanName" DataField="PlanName" FieldType="String"
+                    <f:RenderField Width="100px" ColumnID="PlanName" DataField="PlanName" FieldType="String"
                         HeaderText="考试名称" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="230px" ColumnID="UnitName" DataField="UnitName" FieldType="String"
                         HeaderText="单位" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
                     </f:RenderField>
-                    <f:RenderField Width="85px" ColumnID="TestManName" DataField="TestManName" FieldType="String"
+                    <f:RenderField Width="95px" ColumnID="TestManName" DataField="TestManName" FieldType="String"
                         HeaderText="考生" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="145px" ColumnID="TestStartTime" DataField="TestStartTime" FieldType="String"

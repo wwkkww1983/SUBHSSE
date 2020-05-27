@@ -85,10 +85,11 @@ namespace BLL
         /// </summary>
         /// <param name="newItem">处罚通知单</param>
         /// <returns></returns>
-        public static void SaveCheckSpecial(Model.CheckSpecialItem newItem)
+        public static string SaveCheckSpecial(Model.CheckSpecialItem newItem)
         {
             using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
+                string message = string.Empty;
                 Model.Check_CheckSpecial newCheckSpecial = new Model.Check_CheckSpecial
                 {
                     CheckSpecialId = newItem.CheckSpecialId,
@@ -113,7 +114,7 @@ namespace BLL
                 var updateCheckSpecial = db.Check_CheckSpecial.FirstOrDefault(x => x.CheckSpecialId == newItem.CheckSpecialId);
                 if (updateCheckSpecial == null)
                 {
-                    newCheckSpecial.CheckSpecialId = SQLHelper.GetNewID();
+                    newCheckSpecial.CheckSpecialId = SQLHelper.GetNewID();                    
                     newCheckSpecial.CheckSpecialCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectCheckSpecialMenuId, newCheckSpecial.ProjectId, string.Empty);
                     db.Check_CheckSpecial.InsertOnSubmit(newCheckSpecial);
                     db.SubmitChanges();
@@ -152,8 +153,10 @@ namespace BLL
                     if (newCheckSpecial.States == Const.State_2)
                     {
                         SaveNewRectifyNotices(newItem);
+                        message = "已生成整改单，请在隐患整改单待提交中签发！";
                     }
                 }
+                return message;
             }
         }
         #endregion
@@ -312,14 +315,17 @@ namespace BLL
                         ProjectId = newItem.ProjectId,
                         UnitId = uItem,
                         CheckManNames = newItem.PartInPersonNames,
-                        CheckManIds = newItem.PartInPersonIds,
+                        CheckManIds =newItem.CheckPersonId,
                         CheckedDate = newItem.CheckTime,
                         HiddenHazardType = "1",
-                        CompleteManId = newItem.CheckPersonId,
+                        CompleteManId = newItem.CompileManId,
                         States = Const.State_0,
                         AttachUrl = newItem.AttachUrl1,
                     };
-
+                    if (!string.IsNullOrEmpty(newItem.PartInPersonIds))
+                    {
+                        newRectifyNotices.CheckManIds += (',' + newItem.PartInPersonIds);
+                    }
                     var getDetails = newDetail.Where(x => x.UnitId == uItem);
                     if (getDetails.Count() > 0)
                     {

@@ -12,30 +12,9 @@
       <f:Panel ID="Panel2" runat="server" ShowHeader="false" ShowBorder="false" ColumnWidth="100%" MarginRight="5px">
             <Items>
                <f:TabStrip ID="TabStrip1" CssClass="f-tabstrip-theme-simple" Height="530px" ShowBorder="true"
-                TabPosition="Top" MarginBottom="5px" EnableTabCloseMenu="false" runat="server">              
+                        TabPosition="Top" MarginBottom="5px" EnableTabCloseMenu="false" runat="server"  >              
                    <Tabs>                   
-                        <f:Tab ID="Tab1" Title="菜单模式" BodyPadding="5px" Layout="VBox" IconFont="Bookmark" runat="server">
-                            <Items>
-                                 <f:RadioButtonList ID="rbMenuModel" Label="菜单模式" runat="server" AutoColumnWidth="true"
-                                    OnSelectedIndexChanged="rbMenuModel_CheckedChanged" AutoPostBack="true">  
-                                    <f:RadioItem Text="A模式" Value="A" Selected="true"/>
-                                    <f:RadioItem Text="B模式" Value="B" />
-                                </f:RadioButtonList>                                
-                            </Items>
-                            <Items>
-                                <f:Image ID="ImageMenu" ImageUrl="~/Images/MenuProjectA.png" runat="server" Height="350px" Width="900px"></f:Image>
-                            </Items>
-                            <Toolbars>
-                                <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
-                                   <Items>
-                                    <f:Button ID="btnTab1Save" Icon="TableRefresh" runat="server" ToolTip="更新菜单" ValidateForms="SimpleForm1"
-                                        OnClick="btnTab1Save_Click">
-                                    </f:Button>                                     
-                                </Items>
-                                </f:Toolbar>
-                            </Toolbars>
-                        </f:Tab>
-                        <f:Tab ID="Tab2" Title="单位菜单选择" BodyPadding="5px" Layout="VBox" IconFont="Bookmark" runat="server">
+                        <f:Tab ID="Tab1" Title="菜单选择" BodyPadding="5px" Layout="VBox" IconFont="Bookmark" runat="server" >
                             <Items>   
                                  <f:CheckBoxList ID="ckMenuType"  Label="菜单类型" runat="server" AutoColumnWidth="true"
                                    LabelAlign="Right" AutoPostBack="true" OnSelectedIndexChanged="ckMenuType_OnSelectedIndexChanged">
@@ -61,9 +40,31 @@
                              <Toolbars>
                                 <f:Toolbar ID="Toolbar2" Position="Bottom" ToolbarAlign="Right" runat="server">
                                    <Items>
+                                     <f:Button ID="btnTab1Save" Icon="TableRefresh" runat="server" ToolTip="更新菜单" ValidateForms="SimpleForm1"
+                                        OnClick="btnTab1Save_Click">
+                                    </f:Button>  
                                     <f:Button ID="btnTab2Save" Icon="SystemSave" runat="server"  ValidateForms="SimpleForm1"
                                         OnClick="btnTab2Save_Click">
                                     </f:Button>                                     
+                                </Items>
+                                </f:Toolbar>
+                            </Toolbars>
+                        </f:Tab>
+                        <f:Tab ID="Tab2" Title="菜单模式" BodyPadding="5px" Layout="VBox" IconFont="Bookmark" runat="server" Hidden="true">                            
+                            <Items>
+                                 <f:RadioButtonList ID="rbMenuModel" Label="菜单模式" runat="server" AutoColumnWidth="true"
+                                    OnSelectedIndexChanged="rbMenuModel_CheckedChanged" AutoPostBack="true">  
+                                    <f:RadioItem Text="A模式" Value="A" Selected="true"/>
+                                    <f:RadioItem Text="B模式" Value="B" />
+                                </f:RadioButtonList>                                
+                            </Items>
+                            <Items>
+                                <f:Image ID="ImageMenu" ImageUrl="~/Images/MenuProjectA.png" runat="server" Height="350px" Width="900px"></f:Image>
+                            </Items>
+                            <Toolbars>
+                                <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
+                                   <Items>
+                                                                   
                                 </Items>
                                 </f:Toolbar>
                             </Toolbars>
