@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace BLL
 {
@@ -310,7 +312,7 @@ namespace BLL
                 {
                     Model.AttachFile att = new Model.AttachFile
                     {
-                        AttachFileId = SQLHelper.GetNewID(typeof(Model.AttachFile)),
+                        AttachFileId = SQLHelper.GetNewID(),
                         ToKeyId = toKeyId,
                         AttachSource = source.ToString(),
                         AttachUrl = attachUrl,
@@ -332,6 +334,31 @@ namespace BLL
                         db.SubmitChanges();
                     }
                 }
+                //if (!string.IsNullOrEmpty(toKeyId))
+                //{
+                //    List<string> getattachUrlItems = Funs.GetStrListByStr(attachUrl, ',');
+                //    foreach (var item in getattachUrlItems)
+                //    {
+                //        Model.AttachFileItem newItem = new Model.AttachFileItem
+                //        {
+                //            AttachFileItemId = SQLHelper.GetNewID(),
+                //            ToKeyId = toKeyId,
+                //            AttachUrl = item,                           
+                //        };
+
+                //        db.AttachFileItem.InsertOnSubmit(newItem);
+                //        db.SubmitChanges();
+                //    }
+                //}
+                //else
+                //{
+                //    var getItems = from x in db.AttachFileItem where x.ToKeyId == toKeyId select x;
+                //    if (getItems.Count() > 0)
+                //    {
+                //        db.AttachFileItem.DeleteAllOnSubmit(getItems);
+                //        db.SubmitChanges();
+                //    }
+                //}
             }
         }
 
@@ -376,5 +403,20 @@ namespace BLL
             }
             return attachSource;
         }
+
+        ////将虚拟路径转化为文件的路径然后最后转化为文件流
+
+        //public static ActionResult SaveImage(string path)
+        //{
+        //    var url = System.Web.HttpContext.Current.Request.PhysicalApplicationPath + path;
+
+        //    FileStream fs = new FileStream(url, FileMode.Open, FileAccess.Read); //将图片以文件流的形式进行保存
+        //    BinaryReader br = new BinaryReader(fs);
+        //    byte[] imgBytesIn = br.ReadBytes((int)fs.Length); //将流读入到字节数组中
+        //    Encoding myEncoding = Encoding.GetEncoding("utf-8");
+        //    string stImageByte = Convert.ToBase64String(imgBytesIn);
+
+        //    return Json(stImageByte);
+        //}
     }
 }

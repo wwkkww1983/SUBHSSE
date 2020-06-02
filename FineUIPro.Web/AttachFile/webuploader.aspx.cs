@@ -153,11 +153,14 @@ namespace FineUIPro.Web.AttachFile
                         {
                             string savedName = item.Value<string>("savedName");
                             string folder = item.Value<string>("folder");
-                            string url = Funs.RootPath + AttachPath + "\\" + savedName;
+                            string  xnUrl= AttachPath + "\\" + savedName;
+                        
                             if (!string.IsNullOrEmpty(folder))
                             {
-                                url = Funs.RootPath + folder + savedName;
+                                xnUrl = folder + savedName;
                             }
+
+                            string url = Funs.RootPath + xnUrl;
                             if (savedName.Contains("FileUpLoad"))
                             {
                                 url = Funs.RootPath + savedName.Replace('/','\\');
@@ -168,18 +171,25 @@ namespace FineUIPro.Web.AttachFile
                                 url = Funs.RootPath + "Images//Null.jpg";
                                 info = new FileInfo(url);
                             }
-                            
-                            string fileName = Path.GetFileName(url);
-                            long fileSize = info.Length;
-                            System.Web.HttpContext.Current.Response.Clear();
-                            //System.Web.HttpContext.Current.Response.ContentType = "application/x-zip-compressed";
-                            System.Web.HttpContext.Current.Response.ContentType = "application/octet-stream";
-                            System.Web.HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8));
-                            System.Web.HttpContext.Current.Response.AddHeader("Content-Length", fileSize.ToString());
-                            System.Web.HttpContext.Current.Response.TransmitFile(url, 0, fileSize);
-                            System.Web.HttpContext.Current.Response.Flush();
-                            System.Web.HttpContext.Current.Response.End();
-                            break;
+
+                            if (Path.GetExtension(savedName) == ".mp4" || Path.GetExtension(savedName).ToLower() == ".mp4" || Path.GetExtension(savedName) == ".m4v")
+                            {
+                                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../AttachFile/player.aspx?url={0}", xnUrl.Replace('\\', '/'), "播放 - ")));
+                            }
+                            else
+                            {
+                                string fileName = Path.GetFileName(url);
+                                long fileSize = info.Length;
+                                System.Web.HttpContext.Current.Response.Clear();
+                                //System.Web.HttpContext.Current.Response.ContentType = "application/x-zip-compressed";
+                                System.Web.HttpContext.Current.Response.ContentType = "application/octet-stream";
+                                System.Web.HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8));
+                                System.Web.HttpContext.Current.Response.AddHeader("Content-Length", fileSize.ToString());
+                                System.Web.HttpContext.Current.Response.TransmitFile(url, 0, fileSize);
+                                System.Web.HttpContext.Current.Response.Flush();
+                                System.Web.HttpContext.Current.Response.End();
+                                break;
+                            }
                         }
                         catch (Exception)
                         {
@@ -423,5 +433,10 @@ namespace FineUIPro.Web.AttachFile
             }
         }
         #endregion
+
+        protected void btnPlay_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

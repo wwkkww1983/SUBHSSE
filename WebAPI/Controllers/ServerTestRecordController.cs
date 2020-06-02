@@ -186,23 +186,24 @@ namespace WebAPI.Controllers
             try
             {
                 int mTime = 0;
-                var getTestRecord = Funs.DB.Test_TestRecord.FirstOrDefault(x => x.TestRecordId == testRecordId);
-                if (getTestRecord != null)
+                using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
                 {
-                    DateTime startTime = DateTime.Now;
-                    if (getTestRecord.TestStartTime.HasValue)
+                    var getTestRecord = db.Test_TestRecord.FirstOrDefault(x => x.TestRecordId == testRecordId);
+                    if (getTestRecord != null)
                     {
-                        startTime = getTestRecord.TestStartTime.Value;
+                        DateTime startTime = DateTime.Now;
+                        if (getTestRecord.TestStartTime.HasValue)
+                        {
+                            startTime = getTestRecord.TestStartTime.Value;
+                        }
+                        else
+                        {
+                            getTestRecord.TestStartTime = startTime;
+                            db.SubmitChanges();
+                        }
                     }
-                    else
-                    {
-                        getTestRecord.TestStartTime = startTime;
-                        Funs.SubmitChanges();
-                    }
-
                     mTime = Convert.ToInt32((getTestRecord.TestStartTime.Value.AddMinutes(getTestRecord.Duration.Value) - DateTime.Now).TotalSeconds);
                 }
-
                 responeData.data = new { mTime };
             }
             catch (Exception ex)

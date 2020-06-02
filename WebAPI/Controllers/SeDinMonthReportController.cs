@@ -94,7 +94,7 @@ namespace WebAPI.Controllers
 
                     responeData.data = getInfo;
                 }
-                else if (pageNum == "4") ////2、项目安全工时统计
+                else if (pageNum == "4") ////4、人员
                 {
                     var getLists = APISeDinMonthReportService.getSeDinMonthReport4ById(projectId, month);
                     if (getLists.Count() == 0)

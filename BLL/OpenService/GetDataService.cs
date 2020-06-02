@@ -826,20 +826,22 @@ namespace BLL
                     {
                         #region 现场当前人员数
                         int SitePersonNum = 0;
-                        var getAllPersonInOuts = from x in getAllPersonInOutList
-                                                 join y in db.SitePerson_Person on x.PersonId equals y.PersonId
-                                                 where y.IsUsed == true && (!y.OutTime.HasValue || y.OutTime >= DateTime.Now)                                                   
-                                                 select x;
-                        var getInMaxs = from x in getAllPersonInOuts
-                                        where x.ChangeTime >=DateTime.Now.AddDays(-3)
-                                     group x by x.PersonId into g
-                                     select new {g.First().PersonId ,ChangeTime = g.Max(x => x.ChangeTime) };
-
-                        var getIn = from x in getInMaxs
-                                    join y in getAllPersonInOuts on new { x.PersonId, x.ChangeTime } equals new { y.PersonId, y.ChangeTime }
-                                    where y.ChangeTime >= DateTime.Now.AddDays(-3) && y.IsIn == true
-                                    select y;
-                        SitePersonNum = getIn.Count();                   
+                        var getDayAll = from x in getAllPersonInOutList
+                                        where x.ChangeTime.Value.Year == DateTime.Now.Year && x.ChangeTime.Value.Month == DateTime.Now.Month
+                                        && x.ChangeTime.Value.Day == DateTime.Now.Day
+                                        select x;
+                        if (getDayAll.Count() > 0)
+                        {
+                            var getInMaxs = from x in getDayAll
+                                            group x by x.PersonId into g
+                                            select new { g.First().PersonId, ChangeTime = g.Max(x => x.ChangeTime), g.First().IsIn };
+                            if (getInMaxs.Count() > 0)
+                            {
+                                SitePersonNum = (from x in getInMaxs
+                                                 where x.IsIn == true
+                                                 select x).Count();
+                            }
+                        }
                         #endregion
 
                         #region 获取工时                  

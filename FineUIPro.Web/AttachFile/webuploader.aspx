@@ -29,8 +29,9 @@
             <Toolbars>
                 <f:Toolbar runat="server"  ID="toolBar" Hidden="true" ToolbarAlign="Right">
                     <Items>
-                        <f:Button ID="btnImageMagnify" runat="server" IconFont="Inbox" ToolTip="扫描文件"  OnClick="btnImageMagnify_Click"></f:Button>                        
-                         <f:ToolbarFill runat="server"></f:ToolbarFill>
+                        <f:Button ID="btnImageMagnify" runat="server" IconFont="Inbox" ToolTip="扫描文件"  OnClick="btnImageMagnify_Click"></f:Button>                                                
+                        <f:ToolbarFill runat="server">
+                         </f:ToolbarFill>
                         <f:Button ID="btnSelectFiles" ToolTip="选择文件上传" IconFont="Upload" runat="server" EnablePostBack="false">
                         </f:Button>
                         <f:ToolbarSeparator runat="server"></f:ToolbarSeparator>
@@ -54,6 +55,10 @@
         </f:Grid>
         <br />
         注：本多附件上传支持的浏览器版本为：Chrome、Firefox、Safari、IE10+ 。
+      <f:Window ID="Window1" Title="播放" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        Target="Parent" EnableResize="true" runat="server"  IsModal="true"
+        Width="700px" Height="600px">
+    </f:Window>
     </form>
     <script src="res/webuploader/webuploader.nolog.js" type="text/javascript"></script>
     <script type="text/javascript">

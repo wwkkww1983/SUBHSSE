@@ -221,7 +221,7 @@
                 }
 
                 Funs.DB.Sys_MenuFlowOperate.DeleteOnSubmit(delteFlow);
-                Funs.SubmitChanges();
+                Funs.DB.SubmitChanges();
             }
         }
         #endregion

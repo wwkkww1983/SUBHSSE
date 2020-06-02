@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Web;
 using AspNet = System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.EduTrain
@@ -182,14 +184,13 @@ namespace FineUIPro.Web.EduTrain
         {
             if (this.trCompanyTraining.SelectedNode != null && !string.IsNullOrEmpty(this.trCompanyTraining.SelectedNode.NodeID))
             {
-                string strSql = @"SELECT item.CompanyTrainingItemId,
-                                         item.CompanyTrainingId,
-                                         item.CompanyTrainingItemCode,
-                                         item.CompanyTrainingItemName,
-                                         item.AttachUrl,
-                                         item.CompileMan,
-                                         item.CompileDate "
-                                + @" FROM dbo.Training_CompanyTrainingItem AS item "
+                string strSql = @"SELECT item.CompanyTrainingItemId,(item.CompanyTrainingItemId+'_'+CAST(row_number() over(order by  item.CompanyTrainingItemCode) AS nvarchar(10))) AS CompanyTrainingItemIdNum,"
+                                + @"  item.CompanyTrainingItemId,item.CompanyTrainingId,item.CompanyTrainingItemCode,item.CompanyTrainingItemName,A.AttachUrl,"
+                                + @" item.CompileMan, item.CompileDate,dbo.GetFileName(A.AttachUrl) AS AttachUrlName "
+                                + @" FROM dbo.Training_CompanyTrainingItem AS item"
+                                + @" LEFT JOIN (SELECT ToKeyId ,F1 as AttachUrl"
+                                + @" FROM AttachFile CROSS APPLY (SELECT * FROM dbo.f_splitstr(AttachUrl,',')) t"
+                                + @" WHERE LEN(F1) > 0) AS A ON A.ToKeyId=item.CompanyTrainingItemId "
                                 + @" WHERE item.CompanyTrainingId=@CompanyTrainingId";
 
                 List<SqlParameter> listStr = new List<SqlParameter>
@@ -324,7 +325,7 @@ namespace FineUIPro.Web.EduTrain
             }
 
             string companyTrainingItemId = Grid1.SelectedRowID;
-
+            companyTrainingItemId = companyTrainingItemId.Substring(0, companyTrainingItemId.IndexOf("_"));
             PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("CompanyTrainingItemSave.aspx?CompanyTrainingItemId={0}", companyTrainingItemId, "编辑 - ")));
         }
         #endregion
@@ -356,6 +357,8 @@ namespace FineUIPro.Web.EduTrain
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
+                    rowID = rowID.Substring(0, rowID.IndexOf("_"));
+
                     var getD = BLL.CompanyTrainingItemService.GetCompanyTrainingItemById(rowID);
                     if (getD != null)
                     {
@@ -482,5 +485,53 @@ namespace FineUIPro.Web.EduTrain
             return sb.ToString();
         }
         #endregion
+
+        /// <summary>
+        /// 行事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Grid1_RowCommand(object sender, GridCommandEventArgs e)
+        {          
+            if (e.CommandName == "Attach")
+            {
+                string attUrl = this.Grid1.Rows[e.RowIndex].Values[this.Grid1.Columns.Count - 1].ToString();
+                try
+                {
+                    
+                    string url = Funs.RootPath + attUrl;
+                    FileInfo info = new FileInfo(url);
+                    string savedName = Path.GetFileName(url);
+                    if (!info.Exists || string.IsNullOrEmpty(savedName))
+                    {
+                        url = Funs.RootPath + "Images//Null.jpg";
+                        info = new FileInfo(url);
+                    }
+
+                    if (Path.GetExtension(savedName) == ".mp4" || Path.GetExtension(savedName).ToLower() == ".mp4" || Path.GetExtension(savedName) == ".m4v")
+                    {
+                        string mpUrl = HttpUtility.UrlEncode(attUrl.Replace('\\', '/'));
+                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../AttachFile/player.aspx?url={0}", attUrl.Replace('\\', '/'), "播放 - "),"播放视频",700,560));
+                    }
+                    else
+                    {
+                        string fileName = Path.GetFileName(url);
+                        long fileSize = info.Length;
+                        System.Web.HttpContext.Current.Response.Clear();
+                        //System.Web.HttpContext.Current.Response.ContentType = "application/x-zip-compressed";
+                        System.Web.HttpContext.Current.Response.ContentType = "application/octet-stream";
+                        System.Web.HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8));
+                        System.Web.HttpContext.Current.Response.AddHeader("Content-Length", fileSize.ToString());
+                        System.Web.HttpContext.Current.Response.TransmitFile(url, 0, fileSize);
+                        System.Web.HttpContext.Current.Response.Flush();
+                        System.Web.HttpContext.Current.Response.End();                       
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+        }
     }
 }

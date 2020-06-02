@@ -79,36 +79,37 @@ namespace BLL
             string secret = getUnitSecret();
             //string appid = "wxb5f0e8051b7b9eee";
             //string secret = "626175f8860bf84beb4cf507b9445115";
-
-            var getToken = Funs.DB.Sys_AccessToken.FirstOrDefault();
-            if (getToken != null && getToken.Endtime > DateTime.Now)
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                access_token = getToken.Access_token;
-            }
-            else
-            {
-                if (getToken != null)
+                var getToken = db.Sys_AccessToken.FirstOrDefault();
+                if (getToken != null && getToken.Endtime > DateTime.Now)
                 {
-                    Funs.DB.Sys_AccessToken.DeleteOnSubmit(getToken);
+                    access_token = getToken.Access_token;
                 }
-                var strJosn = APIGetHttpService.Http("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + appid + "&secret=" + secret);
-                if (!string.IsNullOrEmpty(strJosn))
+                else
                 {
-                    JObject obj = JObject.Parse(strJosn);
-                    access_token = obj["access_token"].ToString();
-                    int expires_in = Funs.GetNewIntOrZero(obj["expires_in"].ToString());
-                    Model.Sys_AccessToken newToken = new Model.Sys_AccessToken
+                    if (getToken != null)
                     {
-                        Access_token = access_token,
-                        Expires_in = expires_in,
-                        Endtime = DateTime.Now.AddSeconds(expires_in),
-                    };
+                        db.Sys_AccessToken.DeleteOnSubmit(getToken);
+                    }
+                    var strJosn = APIGetHttpService.Http("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + appid + "&secret=" + secret);
+                    if (!string.IsNullOrEmpty(strJosn))
+                    {
+                        JObject obj = JObject.Parse(strJosn);
+                        access_token = obj["access_token"].ToString();
+                        int expires_in = Funs.GetNewIntOrZero(obj["expires_in"].ToString());
+                        Model.Sys_AccessToken newToken = new Model.Sys_AccessToken
+                        {
+                            Access_token = access_token,
+                            Expires_in = expires_in,
+                            Endtime = DateTime.Now.AddSeconds(expires_in),
+                        };
 
-                    Funs.DB.Sys_AccessToken.InsertOnSubmit(newToken);
-                    Funs.SubmitChanges();
+                        db.Sys_AccessToken.InsertOnSubmit(newToken);
+                        db.SubmitChanges();
+                    }
                 }
             }
-
             return access_token;
         }
         #endregion

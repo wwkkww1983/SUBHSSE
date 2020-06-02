@@ -149,7 +149,12 @@ namespace BLL
                         }
                     }
 
-                    var getUpdateTestRecord = db.Test_TestRecord.FirstOrDefault(x => x.TestRecordId == testRecord.TestRecordId);
+                    Model.Test_TestRecord getUpdateTestRecord = new Model.Test_TestRecord();
+;                   getUpdateTestRecord = db.Test_TestRecord.FirstOrDefault(x => x.TestRecordId == testRecord.TestRecordId);
+                    if (getUpdateTestRecord == null)
+                    {
+                        getUpdateTestRecord = db.Test_TestRecord.FirstOrDefault(x => x.TestPlanId == testRecord.TestPlanId && x.IdentityCard == testRecord.IdentityCard);
+                    }
                     if (getUpdateTestRecord != null)
                     {
                         testRecord.TestRecordId = getUpdateTestRecord.TestRecordId;

@@ -80,7 +80,7 @@ namespace BLL
                                 IsUsed = x.IsUsed,
                                 IsUsedName = x.IsUsed == false ? "不启用" : "启用",
                                 AuditorId = x.AuditorId,
-                                AuditorName = x.AuditorName,
+                                AuditorName = Funs.DB.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
                                 IsForeign = x.IsForeign.HasValue ? x.IsForeign : false,
                                 IsOutside = x.IsOutside.HasValue ? x.IsOutside : false,
                                 AuditorDate = string.Format("{0:yyyy-MM-dd}", x.AuditorDate),
@@ -784,6 +784,47 @@ namespace BLL
         }
         #endregion
 
+        #region 根据人员ID获取个人出入场记录
+        /// <summary>
+        /// 根据人员ID获取个人出入场记录
+        /// </summary>
+        /// <param name="personId"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <returns></returns>
+        public static List<Model.PersonInOutItem> getPersonInOutListByPersonId(string personId, string startTime, string endTime)
+        {
+            DateTime? startTimeD = Funs.GetNewDateTime(startTime);
+            DateTime? endTimeD = Funs.GetNewDateTime(endTime);
+            var personInOuts = from x in Funs.DB.SitePerson_PersonInOut
+                               join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
+                               where x.PersonId == personId
+                               select new Model.PersonInOutItem
+                               {
+                                   PersonId = x.PersonId,
+                                   PersonName = y.PersonName,
+                                   ProjectId = x.ProjectId,
+                                   UnitId = y.UnitId,
+                                   UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                                   WorkPostId = y.WorkPostId,
+                                   WorkPostName = Funs.DB.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
+                                   IsIn = x.IsIn,
+                                   IsInName = x.IsIn == true ? "进场" : "出场",
+                                   ChangeTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ChangeTime),
+                                   ChangeTimeD = x.ChangeTime,
+                               };
+            if (startTimeD.HasValue)
+            {
+                personInOuts = personInOuts.Where(x => x.ChangeTimeD >= startTimeD);
+            }
+            if (endTimeD.HasValue)
+            {
+                personInOuts = personInOuts.Where(x => x.ChangeTimeD <= endTimeD);
+            }
+            return personInOuts.OrderByDescending(x => x.ChangeTimeD).ToList();
+        }
+        #endregion
+
         #region 根据identityCard获取人员资质信息
         /// <summary>
         /// 根据identityCard获取人员资质信息
@@ -817,12 +858,13 @@ namespace BLL
                                SendDate = string.Format("{0:yyyy-MM-dd}", x.SendDate),
                                LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
                                LateCheckDate = string.Format("{0:yyyy-MM-dd}", x.LateCheckDate),
-                               ApprovalPerson = x.ApprovalPerson,
+                               ApprovalPerson = Funs.DB.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
                                Remark = x.Remark,
                                CompileMan = x.CompileMan,
                                CompileManName = Funs.DB.Sys_User.First(z => z.UserId == x.CompileMan).UserName,
                                CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
                                AuditDate = string.Format("{0:yyyy-MM-dd}", x.AuditDate),
+                               AuditorName = Funs.DB.Sys_User.First(z => z.UserId == x.AuditorId).UserName,                               
                                AttachUrl = APIUpLoadFileService.getFileUrl(x.PersonQualityId, null),
                            };
 
@@ -899,12 +941,13 @@ namespace BLL
                                 LimitDate = string.Format("{0:yyyy-MM-dd}", y.LimitDate),
                                 LimitDateD = y.LimitDate,
                                 LateCheckDate = string.Format("{0:yyyy-MM-dd}", y.LateCheckDate),
-                                ApprovalPerson = y.ApprovalPerson,
+                                ApprovalPerson = Funs.DB.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
                                 Remark = y.Remark,
                                 CompileMan = y.CompileMan,
                                 CompileManName = Funs.DB.Sys_User.First(z => z.UserId == y.CompileMan).UserName,
                                 CompileDate = string.Format("{0:yyyy-MM-dd}", y.CompileDate),
                                 AuditDate = string.Format("{0:yyyy-MM-dd}", y.AuditDate),
+                                AuditorName = Funs.DB.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
                                 AttachUrl = APIUpLoadFileService.getFileUrl(y.PersonQualityId, null),
                             }).ToList();
             if (ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(projectId, unitId))

@@ -51,9 +51,10 @@ namespace FineUIPro.Web.EduTrain
                 this.CompanyTrainingId = Request.QueryString["CompanyTrainingId"];
                 if (!string.IsNullOrEmpty(this.CompanyTrainingItemId))
                 {
-                    var q = BLL.CompanyTrainingItemService.GetCompanyTrainingItemById(this.CompanyTrainingItemId);
+                    var q = CompanyTrainingItemService.GetCompanyTrainingItemById(this.CompanyTrainingItemId);
                     if (q != null)
                     {
+                        this.CompanyTrainingId = q.CompanyTrainingId;
                         txtCompanyTrainingItemCode.Text = q.CompanyTrainingItemCode;
                         txtCompanyTrainingItemName.Text = q.CompanyTrainingItemName;
                         txtCompileMan.Text = q.CompileMan;
@@ -66,9 +67,15 @@ namespace FineUIPro.Web.EduTrain
                 }
                 else
                 {
-                    txtCompileMan.Text = this.CurrUser.UserName;
-                    hdCompileMan.Text = this.CurrUser.UserName;
-                    txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
+                    var cTraining = BLL.CompanyTrainingService.GetCompanyTrainingById(this.CompanyTrainingId);
+                    if (cTraining != null)
+                    {
+                        txtCompileMan.Text = this.CurrUser.UserName;
+                        hdCompileMan.Text = this.CurrUser.UserName;
+                        this.txtCompanyTrainingItemName.Text = cTraining.CompanyTrainingName;
+                        this.txtCompanyTrainingItemCode.Text = SQLHelper.RunProcNewId("SpGetNewCode3", "Training_CompanyTrainingItem", "CompanyTrainingItemCode", cTraining.CompanyTrainingCode + "-");
+                        txtCompileDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
+                    }
                 }
             }
         }
@@ -80,10 +87,12 @@ namespace FineUIPro.Web.EduTrain
         /// </summary>
         private void SaveData(bool isClose)
         {
-            Model.Training_CompanyTrainingItem newCompanyTrainItem = new Training_CompanyTrainingItem();
-            newCompanyTrainItem.CompanyTrainingItemCode = this.txtCompanyTrainingItemCode.Text.Trim();
-            newCompanyTrainItem.CompanyTrainingItemName = this.txtCompanyTrainingItemName.Text.Trim();
-            newCompanyTrainItem.CompileMan = hdCompileMan.Text.Trim();
+            Model.Training_CompanyTrainingItem newCompanyTrainItem = new Training_CompanyTrainingItem
+            {
+                CompanyTrainingItemCode = this.txtCompanyTrainingItemCode.Text.Trim(),
+                CompanyTrainingItemName = this.txtCompanyTrainingItemName.Text.Trim(),
+                CompileMan = hdCompileMan.Text.Trim()
+            };
             if (!string.IsNullOrEmpty(txtCompileDate.Text.Trim()))
             {
                 newCompanyTrainItem.CompileDate = Convert.ToDateTime(txtCompileDate.Text.Trim());

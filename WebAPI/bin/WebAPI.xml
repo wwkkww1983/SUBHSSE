@@ -834,6 +834,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getEmergencyType">
+            <summary>
+              获取应急预案类型
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.PersonQualityController">
             <summary>
             
@@ -1465,6 +1471,13 @@
              <param name="strParam">查询条件</param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.EmergencyController.SaveEmergency(Model.FileInfoItem)">
+            <summary>
+            保存应急信息
+            </summary>
+            <param name="emergencyInfo">应急信息(MenuType:1-预案,2-物资,3-队伍)</param>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.EquipmentQualityController">
             <summary>
              机具设备资质
@@ -1939,6 +1952,16 @@
              <param name="userUnitId">当前人单位ID</param>
             <param name="workPostId">岗位</param>
             <param name="strParam">查询条件</param>
+            <param name="startTime"></param>
+            <param name="endTime"></param>
+            <param name="pageIndex">页码</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PersonController.getPersonInOutListByPersonId(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            根据人员ID获取个人出入场记录
+            </summary> 
+            <param name="personId"></param>   
             <param name="startTime"></param>
             <param name="endTime"></param>
             <param name="pageIndex">页码</param>

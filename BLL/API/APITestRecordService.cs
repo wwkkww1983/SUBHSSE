@@ -75,10 +75,19 @@ namespace BLL
         /// </summary>
         /// <param name="testPlanId"></param>
         /// <returns></returns>
-        public static string CreateTestRecordItem(Model.Training_TestPlan getTestPlan, Model.Training_TestRecord getTestRecord, Model.SitePerson_Person person)
+        public static string CreateTestRecordItem(Model.Training_TestPlan getTestPlan, string testRecordId, Model.SitePerson_Person person)
         {
             using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
+                var getTestRecord = db.Training_TestRecord.FirstOrDefault(x => x.TestRecordId == testRecordId);
+                if (getTestRecord != null && !getTestRecord.TestStartTime.HasValue)
+                {
+                    ////考试时长
+                    getTestRecord.Duration = getTestPlan.Duration;
+                    getTestRecord.TestStartTime = DateTime.Now;
+                    db.SubmitChanges();
+                }
+
                 ////当前人考试记录  未加入考试计划的 当考试开始扫码时 不允许再参与考试          
                 var item = db.Training_TestRecordItem.FirstOrDefault(x => x.TestRecordId == getTestRecord.TestRecordId);
                 if (item == null)
@@ -189,7 +198,7 @@ namespace BLL
                     }
                 }
             }
-            return getTestRecord.TestRecordId;
+            return testRecordId;
         }
         #endregion
 
@@ -503,7 +512,7 @@ namespace BLL
             var person = PersonService.GetPersonByUserId(newTestRecord.TestManId, getTestPlan.ProjectId);
             if (getTestPlan != null && person != null)
             {
-                CreateTestRecordItem(getTestPlan, newTestRecord, person);
+                CreateTestRecordItem(getTestPlan, newTestRecord.TestRecordId, person);
             }
             return newTestRecord.TestRecordId;
         }

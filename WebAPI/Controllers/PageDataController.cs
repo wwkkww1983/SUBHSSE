@@ -104,6 +104,7 @@ namespace WebAPI.Controllers
                             EntryTrainingNum = getTrainRecords.Sum(x => x.TrainPersonNum ?? 0);
                         }
                     }
+
                     var getPersonInOutNumber = Funs.DB.SitePerson_PersonInOutNumber.FirstOrDefault(x => x.ProjectId == projectId && x.InOutDate.Year == DateTime.Now.Year
                       && x.InOutDate.Month == DateTime.Now.Month && x.InOutDate.Day == DateTime.Now.Day);
                     if (getPersonInOutNumber != null)
@@ -117,6 +118,7 @@ namespace WebAPI.Controllers
                     {
                          GetDataService.CorrectingPersonInOutNumber(projectId);
                     }
+
                     string hiddenStr = RectificationNum.ToString() + "/" + HiddenDangerNum.ToString();
                     responeData.data = new { ProjectData, SafeDayCount, SafeHours, SitePersonNum, SpecialEquipmentNum, EntryTrainingNum, hiddenStr, RiskI, RiskII, RiskIII, RiskIV, RiskV };
                 }
@@ -143,7 +145,9 @@ namespace WebAPI.Controllers
             try
             {
                 int personCout = Funs.DB.SitePerson_PersonInOut.Where(x => x.ProjectId == projectId && x.IsIn == true
-                                             && x.ChangeTime > DateTime.Now.AddDays(-1)).Select(x => x.PersonId).Distinct().Count();
+                                           && x.ChangeTime.Value.Year == DateTime.Now.Year
+                                                                            && x.ChangeTime.Value.Month == DateTime.Now.Month
+                                                                            && x.ChangeTime.Value.Day == DateTime.Now.Day).Select(x => x.PersonId).Distinct().Count();
                 responeData.data = new { personCout };
             }
             catch (Exception ex)

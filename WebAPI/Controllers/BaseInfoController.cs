@@ -1018,5 +1018,26 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region 获取应急预案类型
+        /// <summary>
+        ///   获取应急预案类型
+        /// </summary>
+        /// <returns></returns>
+        public Model.ResponeData getEmergencyType()
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getEmergencyType();
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
     }
 }

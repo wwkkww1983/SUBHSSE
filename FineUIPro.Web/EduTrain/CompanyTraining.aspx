@@ -28,8 +28,8 @@
                             </f:Button>
                         </Items>
                     </f:Toolbar>
-                    <f:Tree ID="trCompanyTraining" EnableCollapse="true" ShowHeader="true" Title="公司教材库"
-                        OnNodeCommand="trCompanyTraining_NodeCommand" AutoLeafIdentification="true" runat="server"
+                    <f:Tree ID="trCompanyTraining" EnableCollapse="true" ShowHeader="true" Title="公司教材库" MinHeight="400px"
+                        OnNodeCommand="trCompanyTraining_NodeCommand" AutoLeafIdentification="true" runat="server" 
                         EnableTextSelection="True">
                     </f:Tree>
                 </Items>
@@ -39,9 +39,9 @@
                 TitleToolTip="公司教材明细" AutoScroll="true">
                 <Items>
                     <f:Grid ID="Grid1" Width="870px" ShowBorder="true" ShowHeader="false" EnableCollapse="true"
-                        runat="server" BoxFlex="1" DataKeyNames="CompanyTrainingItemId" AllowCellEditing="true"
-                        ClicksToEdit="2" DataIDField="CompanyTrainingItemId" AllowSorting="true" SortField="CompanyTrainingItemCode"
-                        SortDirection="DESC" OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true"
+                        runat="server" BoxFlex="1" DataKeyNames="CompanyTrainingItemIdNum" AllowCellEditing="true"
+                        ClicksToEdit="2" DataIDField="CompanyTrainingItemIdNum" AllowSorting="true" SortField="CompanyTrainingItemCode"
+                        SortDirection="DESC" OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true" OnRowCommand="Grid1_RowCommand"
                         PageSize="10" OnPageIndexChange="Grid1_PageIndexChange" EnableRowDoubleClickEvent="true"
                         OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True" EnableColumnLines="true">
                         <Toolbars>
@@ -73,12 +73,12 @@
                             </f:Toolbar>
                         </Toolbars>
                         <Columns>
-                            <f:TemplateField ColumnID="tfNumber" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
+                      <%--      <f:TemplateField ColumnID="tfNumber" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
                                 TextAlign="Center">
                                 <ItemTemplate>
                                     <asp:Label ID="lbNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                                 </ItemTemplate>
-                            </f:TemplateField>
+                            </f:TemplateField>--%>
                             <f:TemplateField Width="120px" HeaderText="编号" HeaderTextAlign="Center" TextAlign="Left"
                                 SortField="CompanyTrainingItemCode" ColumnID="tfCompanyTrainingItemCode">
                                 <ItemTemplate>
@@ -87,19 +87,19 @@
                                 </ItemTemplate>
                             </f:TemplateField>
                             <f:TemplateField Width="300px" HeaderText="名称" HeaderTextAlign="Center" TextAlign="Left"
-                                SortField="CompanyTrainingItemName" ExpandUnusedSpace="true" ColumnID="tfCompanyTrainingItemName">
+                                SortField="CompanyTrainingItemName"  ColumnID="tfCompanyTrainingItemName">
                                 <ItemTemplate>
                                     <asp:Label ID="lbCompanyTrainingItemName" runat="server" Text='<%# Bind("CompanyTrainingItemName") %>'
                                         ToolTip='<%#Bind("CompanyTrainingItemName") %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-                            <f:TemplateField Width="120px" HeaderText="整理人" HeaderTextAlign="Center" TextAlign="Left" ColumnID="tfCompileMan"
+                         <%--   <f:TemplateField Width="120px" HeaderText="整理人" HeaderTextAlign="Center" TextAlign="Left" ColumnID="tfCompileMan"
                                 SortField="CompileMan">
                                 <ItemTemplate>
                                     <asp:Label ID="lbCompileMan" runat="server" Text='<%# Bind("CompileMan") %>' ToolTip='<%#Bind("CompileMan") %>'>
                                     </asp:Label>
                                 </ItemTemplate>
-                            </f:TemplateField>
+                            </f:TemplateField>--%>
                             <f:TemplateField Width="120px" HeaderText="整理时间" HeaderTextAlign="Center" TextAlign="Left" ColumnID="tfCompileDate"
                                 SortField="CompileDate">
                                 <ItemTemplate>
@@ -107,8 +107,9 @@
                                         ToolTip='<%#Bind("CompileDate") %>'></asp:Label>
                                 </ItemTemplate>
                             </f:TemplateField>
-                            <f:WindowField TextAlign="Left" Width="80px" WindowID="WindowAtt" HeaderText="附件"
-                                Text="查看" ToolTip="附件上传查看" DataIFrameUrlFields="CompanyTrainingItemId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/CompanyTraining&menuId=9D4F76A1-CD2E-4E66-B833-49425CD879EB" />
+                             <f:LinkButtonField ColumnID="AttachUrlName" DataTextField="AttachUrlName" DataToolTipField="AttachUrlName" HeaderText="附件" 
+                                        CommandName="Attach" EnableAjax="false"  HeaderTextAlign="Center" ExpandUnusedSpace="true"></f:LinkButtonField>
+                          <f:BoundField runat="server" Hidden="true" ColumnID="hdUrl" DataField="AttachUrl"></f:BoundField>
                         </Columns>
                         <Listeners>
                             <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
@@ -132,11 +133,11 @@
             </f:Panel>
         </Items>
     </f:Panel>
-    <f:Window ID="Window1" Title="公司教材库类别" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+    <f:Window ID="Window1" Title="类别" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
         Width="600px" Height="400px">
     </f:Window>
-    <f:Window ID="Window2" Title="公司教材库详情" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+    <f:Window ID="Window2" Title="详情" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" OnClose="Window2_Close" IsModal="true"
         Width="600px" Height="400px">
     </f:Window>

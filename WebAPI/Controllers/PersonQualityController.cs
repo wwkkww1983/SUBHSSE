@@ -57,7 +57,7 @@ namespace WebAPI.Controllers
                 {
                     var getPersons = from x in Funs.DB.SitePerson_Person
                                      join y in Funs.DB.Base_WorkPost on x.WorkPostId equals y.WorkPostId
-                                     where x.ProjectId == projectId  && y.PostType == Const.PostType_2
+                                     where x.ProjectId == projectId  && y.PostType == Const.PostType_2 && x.IsUsed == true && (!x.OutTime.HasValue || x.OutTime > DateTime.Now)
                                      select x;
                     if (isSub)
                     {
@@ -70,7 +70,7 @@ namespace WebAPI.Controllers
                     /////总数
                     tatalCount = getPersons.Count();
                     var getPersonQuality = from x in Funs.DB.QualityAudit_PersonQuality
-                                           join y in getPersons on x.PersonId equals y.PersonId
+                                           join y in getPersons on x.PersonId equals y.PersonId 
                                            select x;
                     ////无证
                     int noC = getPersons.Count() - getPersonQuality.Count();
@@ -87,7 +87,7 @@ namespace WebAPI.Controllers
                 {
                     var getPersons = from x in Funs.DB.SitePerson_Person
                                      join y in Funs.DB.Base_WorkPost on x.WorkPostId equals y.WorkPostId
-                                     where x.ProjectId == projectId && y.IsHsse ==true
+                                     where x.ProjectId == projectId && y.IsHsse ==true && x.IsUsed == true && (!x.OutTime.HasValue || x.OutTime > DateTime.Now)
                                      select x;
                     if (isSub)
                     {
@@ -117,7 +117,7 @@ namespace WebAPI.Controllers
                 {
                     var getPersons = from x in Funs.DB.SitePerson_Person
                                      join y in Funs.DB.Base_WorkPost on x.WorkPostId equals y.WorkPostId
-                                     where x.ProjectId == projectId  && y.PostType == Const.PostType_5
+                                     where x.ProjectId == projectId  && y.PostType == Const.PostType_5 && x.IsUsed == true && (!x.OutTime.HasValue || x.OutTime >DateTime.Now)
                                      select x;
                     if (isSub)
                     {

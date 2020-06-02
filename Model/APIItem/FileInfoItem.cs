@@ -51,6 +51,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 类型ID
+        /// </summary>
+        public string FileTypeId
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 单位ID
         /// </summary>
         public string UnitId
@@ -91,6 +99,38 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 审核人ID
+        /// </summary>
+        public string AuditManId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 审核人姓名
+        /// </summary>
+        public string AuditManName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 批准人ID
+        /// </summary>
+        public string ApproveManId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 批准人姓名
+        /// </summary>
+        public string ApproveManName
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 编制日期
         /// </summary>
         public string CompileDate
@@ -110,6 +150,14 @@ namespace Model
         /// 状态
         /// </summary>
         public string States
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        ///  菜单类型
+        /// </summary>
+        public string MenuType
         {
             get;
             set;

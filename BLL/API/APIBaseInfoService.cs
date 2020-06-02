@@ -522,5 +522,19 @@ namespace BLL
             return getDataLists;
         }
         #endregion
+
+        #region 获取应急预案类型
+        /// <summary>
+        /// 获取图片分类
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.BaseInfoItem> getEmergencyType()
+        {
+            var getDataLists = (from x in Funs.DB.Base_EmergencyType
+                                orderby x.EmergencyTypeCode
+                                select new Model.BaseInfoItem { BaseInfoId = x.EmergencyTypeId, BaseInfoCode = x.EmergencyTypeCode, BaseInfoName = x.EmergencyTypeName }).ToList();
+            return getDataLists;
+        }
+        #endregion
     }
 }

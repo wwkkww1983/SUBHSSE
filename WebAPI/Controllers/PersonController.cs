@@ -461,7 +461,7 @@ namespace WebAPI.Controllers
         }
         #endregion
 
-        #region 获取人员出入场记录
+        #region 插入人员出入场记录
         /// <summary>
         /// 获取人员出入场记录
         /// </summary>
@@ -637,6 +637,37 @@ namespace WebAPI.Controllers
             try
             {
                 var getDataList = APIPersonService.getPersonInOutList(projectId, userUnitId, unitId, workPostId, strParam, startTime, endTime);
+                int pageCount = getDataList.Count();
+                if (pageCount > 0 && pageIndex > 0)
+                {
+                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                }
+                responeData.data = new { pageCount, getDataList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 根据人员ID获取个人出入场记录
+        /// <summary>
+        /// 根据人员ID获取个人出入场记录
+        /// </summary> 
+        /// <param name="personId"></param>   
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="pageIndex">页码</param>
+        /// <returns></returns>
+        public Model.ResponeData getPersonInOutListByPersonId(string personId, string startTime, string endTime, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APIPersonService.getPersonInOutListByPersonId(personId, startTime, endTime);
                 int pageCount = getDataList.Count();
                 if (pageCount > 0 && pageIndex > 0)
                 {

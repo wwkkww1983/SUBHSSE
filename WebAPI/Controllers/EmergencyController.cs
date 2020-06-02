@@ -174,5 +174,30 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region 保存应急信息
+        /// <summary>
+        /// 保存应急信息
+        /// </summary>
+        /// <param name="emergencyInfo">应急信息(MenuType:1-预案,2-物资,3-队伍)</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData SaveEmergency([FromBody] Model.FileInfoItem emergencyInfo)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                APIEmergencyService.SaveEmergency(emergencyInfo);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
     }
 }

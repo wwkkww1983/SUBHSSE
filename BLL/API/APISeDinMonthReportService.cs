@@ -273,28 +273,28 @@ namespace BLL
             {
                 if (type == "1")
                 {
-                    num = (from x in getPersons
-                               join y in Funs.DB.Base_WorkPost on x.WorkPostId equals y.WorkPostId
+                    num = (from x in getUnitPersons
+                           join y in Funs.DB.Base_WorkPost on x.WorkPostId equals y.WorkPostId
                                where y.IsHsse == true
                                select x).Count();
                 }
                 else if (type == "2")
                 {
-                    num = (from x in getPersons
+                    num = (from x in getUnitPersons
                            join y in Funs.DB.Base_WorkPost on x.WorkPostId equals y.WorkPostId
                            where (y.IsHsse == false || !y.IsHsse.HasValue)  && (y.PostType=="1" || y.PostType == "4")
                            select x).Count();
                 }
               else  if (type == "3")
                 {
-                    num = (from x in getPersons
+                    num = (from x in getUnitPersons
                            join y in Funs.DB.Base_WorkPost on x.WorkPostId equals y.WorkPostId
                            where y.PostType == "2"
                            select x).Count();
                 }
                 else if (type == "4")
                 {
-                    num = (from x in getPersons
+                    num = (from x in getUnitPersons
                            join y in Funs.DB.Base_WorkPost on x.WorkPostId equals y.WorkPostId
                            where y.PostType == "3"
                            select x).Count();
@@ -393,22 +393,41 @@ namespace BLL
         {
             var startDateD = Funs.GetNewDateTime(startDate);
             var endDateD = Funs.GetNewDateTime(endDate);
-            var getTrainRecord = from x in Funs.DB.EduTrain_TrainRecord
-                                 where x.ProjectId == projectId && startDateD <= x.TrainStartDate && endDateD > x.TrainStartDate
+            var getTrainRecordAll = from x in Funs.DB.EduTrain_TrainRecord
+                                    where x.ProjectId == projectId
+                                    select x;
+            var getAll = getTrainRecordAll.Where(x => x.TrainTypeId == Const.EntryTrainTypeId);
+
+            var getTrainRecordYear = from x in getTrainRecordAll
+                                     where x.TrainStartDate.Value.Year == startDateD.Value.Year
+                                     select x;
+            var getYear = getTrainRecordYear.Where(x => x.TrainTypeId == Const.EntryTrainTypeId);
+
+            var getTrainRecordMon = from x in getTrainRecordYear
+                                    where startDateD <= x.TrainStartDate && endDateD > x.TrainStartDate
                                  select x;
-            Model.SeDinMonthReport7Item newItem = new Model.SeDinMonthReport7Item();
-            newItem.SpecialMontNum = 0;
-            newItem.SpecialYearNum = 0;
-                newItem.SpecialTotalNum = 0;
-                newItem.SpecialMontPerson = 0;
-                newItem.SpecialYearPerson = 0;
-                newItem.SpecialTotalPerson = 0;
-                newItem.EmployeeMontNum = 0;
-                newItem.EmployeeYearNum = 0;
-                newItem.EmployeeTotalNum = 0;
-                newItem.EmployeeMontPerson = 0;
-                newItem.EmployeeYearPerson = 0;
-                newItem.EmployeeTotalPerson = 0;
+            var getMon = getTrainRecordMon.Where(x => x.TrainTypeId == Const.EntryTrainTypeId);
+
+            Model.SeDinMonthReport7Item newItem = new Model.SeDinMonthReport7Item
+            {
+                EmployeeMontNum = getMon.Count(),
+                EmployeeYearNum = getYear.Count(),
+                EmployeeTotalNum = getAll.Count(),
+                EmployeeMontPerson = getMon.Sum(x => x.TrainPersonNum) ?? 0,
+                EmployeeYearPerson = getYear.Sum(x => x.TrainPersonNum) ?? 0,
+                EmployeeTotalPerson = getAll.Sum(x => x.TrainPersonNum) ?? 0
+            };
+
+            newItem.SpecialMontNum = getTrainRecordMon.Count() - newItem.EmployeeMontNum;
+            newItem.SpecialYearNum = getTrainRecordYear.Count() - newItem.EmployeeYearNum;
+            newItem.SpecialTotalNum = getTrainRecordAll.Count() - newItem.EmployeeTotalNum;
+            var getmp = getTrainRecordMon.Sum(x => x.TrainPersonNum) ?? 0;
+            newItem.SpecialMontPerson = getmp - newItem.EmployeeMontPerson;
+            var getyp = getTrainRecordYear.Sum(x => x.TrainPersonNum) ?? 0;
+            newItem.SpecialYearPerson = getyp - newItem.EmployeeYearPerson;
+            var getp = getTrainRecordAll.Sum(x => x.TrainPersonNum) ?? 0;
+            newItem.SpecialTotalPerson = getp - newItem.EmployeeTotalPerson;
+                   
             return newItem;
         }
         #endregion
@@ -504,21 +523,52 @@ namespace BLL
         /// <returns></returns>
         public static Model.SeDinMonthReport9Item getSeDinMonthReportNullPage9(string projectId, string month, string startDate, string endDate)
         {
-            var nowDate = System.DateTime.Now;
+            var startDateD = Funs.GetNewDateTime(startDate);
+            var endDateD = Funs.GetNewDateTime(endDate);
+            var getHazardRegistersAll = from x in Funs.DB.HSSE_Hazard_HazardRegister
+                                        where x.ProjectId == projectId
+                                        select x;
+            var getHazardRegistersYear = from x in getHazardRegistersAll
+                                         where x.CheckTime.Value.Year == endDateD.Value.Year
+                                         select x;
+            var getHazardRegistersMon = from x in getHazardRegistersYear
+                                        where startDateD <= x.CheckTime && endDateD > x.CheckTime
+                                        select x;
+
+            var getCheckSpecialAll = from x in Funs.DB.Check_CheckSpecial
+                                        where x.ProjectId == projectId
+                                        select x;
+            var getCheckSpecialYear = from x in getCheckSpecialAll
+                                      where x.CheckTime.Value.Year == endDateD.Value.Year
+                                         select x;
+            var getCheckSpecialMon = from x in getCheckSpecialYear
+                                     where startDateD <= x.CheckTime && endDateD > x.CheckTime
+                                        select x;
+
+            var getCheckColligationAll = from x in Funs.DB.Check_CheckColligation
+                                     where x.ProjectId == projectId
+                                     select x;
+            var getCheckColligationYear = from x in getCheckColligationAll
+                                      where x.CheckTime.Value.Year == endDateD.Value.Year
+                                      select x;
+            var getCheckColligationMon = from x in getCheckColligationYear
+                                     where startDateD <= x.CheckTime && endDateD > x.CheckTime
+                                     select x;
+
             Model.SeDinMonthReport9Item newItem = new Model.SeDinMonthReport9Item
             {
-                DailyMonth = 0,
-                DailyYear = 0,
-                DailyTotal = 0,
+                DailyMonth = getHazardRegistersMon.Count(),
+                DailyYear = getHazardRegistersYear.Count(),
+                DailyTotal = getHazardRegistersAll.Count(),
                 WeekMonth = 0,
                 WeekYear = 0,
                 WeekTotal = 0,
-                SpecialMonth = 0,
-                SpecialYear = 0,
-                SpecialTotal = 0,
-                MonthlyMonth = 0,
-                MonthlyYear = 0,
-                MonthlyTotal = 0,
+                SpecialMonth = getCheckSpecialMon.Count(),
+                SpecialYear = getCheckSpecialYear.Count(),
+                SpecialTotal = getCheckSpecialAll.Count(),
+                MonthlyMonth = getCheckColligationMon.Count(),
+                MonthlyYear = getCheckColligationYear.Count(),
+                MonthlyTotal = getCheckColligationAll.Count(),
                 SeDinMonthReport9ItemRectification = getSeDinMonthReport9ItemRectificationNull(projectId, month, startDate, endDate),
                 SeDinMonthReport9ItemSpecial= getSeDinMonthReport9ItemSpecialNull(projectId, month, startDate, endDate),
                 SeDinMonthReport9ItemStoppage = getSeDinMonthReport9ItemStoppageNull(projectId, month, startDate, endDate),
@@ -539,15 +589,19 @@ namespace BLL
                            join y in Funs.DB.Project_ProjectUnit on x.UnitId equals y.UnitId
                            where y.ProjectId == projectId
                            select x;
+            var getAll = from x in Funs.DB.Check_RectifyNotices where x.ProjectId == projectId select x;
+            var getMon = from x in getAll where x.CheckedDate >= startDateD && x.CheckedDate < endDateD select x;
             foreach (var item in getUnits)
             {
+                var getUAll = getAll.Where(x => x.UnitId == item.UnitId);
+                var getUMon= getMon.Where(x => x.UnitId == item.UnitId);
                 Model.SeDinMonthReport9ItemRectification newItem = new Model.SeDinMonthReport9ItemRectification
                 {
                     UnitName = item.UnitName,
-                    IssuedMonth = 0,
-                    RectificationMoth = 0,
-                    IssuedTotal = 0,
-                    RectificationTotal = 0,
+                    IssuedMonth = getUMon.Count(),
+                    RectificationMoth = getUMon.Where(x=>x.States== Const.State_5).Count(),
+                    IssuedTotal = getUAll.Count(),
+                    RectificationTotal = getUAll.Where(x=>x.States == Const.State_5).Count(),
                 };
                 getLists.Add(newItem);
             }
@@ -563,15 +617,30 @@ namespace BLL
             var startDateD = Funs.GetNewDateTime(startDate);
             var endDateD = Funs.GetNewDateTime(endDate);
             List<Model.SeDinMonthReport9ItemSpecial> getLists = new List<Model.SeDinMonthReport9ItemSpecial>();
-            var getUnits =  APIBaseInfoService.getProjectCheckItemSet(projectId, "2", "0");  
+            var getUnits =  APIBaseInfoService.getProjectCheckItemSet(projectId, "2", "0");
+            var getCheckSpecialAll = from x in Funs.DB.Check_CheckSpecialDetail
+                                     join y in Funs.DB.Check_CheckSpecial  on x.CheckSpecialId equals y.CheckSpecialId
+                                     where y.ProjectId == projectId
+                                     select x;
+            var getCheckSpecialYear = from x in getCheckSpecialAll
+                                      join y in Funs.DB.Check_CheckSpecial on x.CheckSpecialId equals y.CheckSpecialId
+                                      where y.CheckTime.Value.Year == endDateD.Value.Year
+                                      select x;
+            var getCheckSpecialMon = from x in getCheckSpecialYear
+                                     join y in Funs.DB.Check_CheckSpecial on x.CheckSpecialId equals y.CheckSpecialId
+                                     where startDateD <= y.CheckTime && endDateD > y.CheckTime
+                                     select x;
             foreach (var item in getUnits)
             {
+                var getUAll = getCheckSpecialAll.Where(x => x.CheckItemType == item.BaseInfoId);
+                var getUYear = getCheckSpecialYear.Where(x => x.CheckItemType == item.BaseInfoId);
+                var getUMon = getCheckSpecialMon.Where(x => x.CheckItemType == item.BaseInfoId);
                 Model.SeDinMonthReport9ItemSpecial newItem = new Model.SeDinMonthReport9ItemSpecial
                 {
                     TypeName = item.BaseInfoName,
-                    CheckMonth = 0,
-                    CheckYear = 0,
-                    CheckTotal = 0,
+                    CheckMonth = getUMon.Count(),
+                    CheckYear = getUYear.Count(),
+                    CheckTotal = getUAll.Count(),
                 };
                 getLists.Add(newItem);
             }
@@ -592,14 +661,18 @@ namespace BLL
                            join y in Funs.DB.Project_ProjectUnit on x.UnitId equals y.UnitId
                            where y.ProjectId == projectId
                            select x;
+            var getAll = from x in Funs.DB.Check_PauseNotice where x.ProjectId == projectId select x;
+            var getMon = getAll.Where(x => x.PauseTime >= startDateD && x.PauseTime < endDateD);
             foreach (var item in getUnits)
             {
+                var getUAll = getAll.Where(x => x.UnitId == item.UnitId);
+
                 Model.SeDinMonthReport9ItemStoppage newItem = new Model.SeDinMonthReport9ItemStoppage
                 {
                     UnitName = item.UnitName,
-                    IssuedMonth = 0,
+                    IssuedMonth = getMon.Count(),
                     StoppageMonth = 0,
-                    IssuedTotal = 0,
+                    IssuedTotal = getAll.Count(),
                     StoppageTotal = 0,
                 };
                 getLists.Add(newItem);
@@ -608,7 +681,7 @@ namespace BLL
             return getLists.OrderBy(x => x.UnitName).ToList();
         }
         #endregion
-        #region  获取赛鼎月报初始化页面 --10、项目HSE培训统计
+        #region  获取赛鼎月报初始化页面 --10、项目奖惩情况统计
         /// <summary>
         /// 获取赛鼎月报初始化页面 --10、项目奖惩情况统计
         /// </summary>
@@ -618,32 +691,52 @@ namespace BLL
         {
             var startDateD = Funs.GetNewDateTime(startDate);
             var endDateD = Funs.GetNewDateTime(endDate);
+
+            var getIncentiveNoticeAll = from x in Funs.DB.Check_IncentiveNotice where x.ProjectId == projectId select x;
+            var getIncentiveNoticeAll1 = getIncentiveNoticeAll.Where(x => x.RewardType == "1");
+            var getIncentiveNoticeAll2 = getIncentiveNoticeAll.Where(x => x.RewardType == "2");
+            var getIncentiveNoticeAll3 = getIncentiveNoticeAll.Where(x => x.RewardType == "3");
+            var getIncentiveNoticeMon = getIncentiveNoticeAll.Where(x => x.IncentiveDate >= startDateD && x.IncentiveDate < endDateD);
+            var getIncentiveNoticeMon1 = getIncentiveNoticeMon.Where(x => x.RewardType == "1");
+            var getIncentiveNoticeMon2 = getIncentiveNoticeMon.Where(x => x.RewardType == "2");
+            var getIncentiveNoticeMon3 = getIncentiveNoticeMon.Where(x => x.RewardType == "3");
+
+            var getPunishNoticeAll = from x in Funs.DB.Check_PunishNotice where x.ProjectId == projectId select x;
+            var getPunishNoticeAll1 = getPunishNoticeAll.Where(x => x.PunishName == "事故责任处罚");
+            var getPunishNoticeAll2 = getPunishNoticeAll.Where(x => x.PunishName == "违章处罚");
+            var getPunishNoticeAll3 = getPunishNoticeAll.Where(x => x.PunishName == "安全管理处罚");
+            var getPunishNoticeMon = getPunishNoticeAll.Where(x => x.PunishNoticeDate >= startDateD && x.PunishNoticeDate < endDateD);
+            var getPunishNoticeMon1 = getPunishNoticeMon.Where(x => x.PunishName == "事故责任处罚");
+            var getPunishNoticeMon2 = getPunishNoticeMon.Where(x => x.PunishName == "违章处罚");
+            var getPunishNoticeMon3 = getPunishNoticeMon.Where(x => x.PunishName == "安全管理处罚");
+
             var getLists = new Model.SeDinMonthReport10Item
             {
-                SafeMonthNum = 0,
-                SafeTotalNum = 0,
-                SafeMonthMoney = 0,
-                SafeTotalMoney = 0,
-                HseMonthNum = 0,
-                HseTotalNum = 0,
-                HseMonthMoney = 0,
-                HseTotalMoney = 0,
-                ProduceMonthNum = 0,
-                ProduceTotalNum = 0,
-                ProduceMonthMoney = 0,
-                ProduceTotalMoney = 0,
-                AccidentMonthNum = 0,
-                AccidentTotalNum = 0,
-                AccidentMonthMoney = 0,
-                AccidentTotalMoney = 0,
-                ViolationMonthNum = 0,
-                ViolationTotalNum = 0,
-                ViolationMonthMoney = 0,
-                ViolationTotalMoney = 0,
-                ManageMonthNum = 0,
-                ManageTotalNum = 0,
-                ManageMonthMoney = 0,
-                ManageTotalMoney = 0,
+                SafeMonthNum = getIncentiveNoticeMon1.Count(),
+                SafeTotalNum = getIncentiveNoticeAll1.Count(),
+                SafeMonthMoney = getIncentiveNoticeMon1.Sum(x=>x.IncentiveMoney),
+                SafeTotalMoney = getIncentiveNoticeAll1.Sum(x=>x.IncentiveMoney),
+                HseMonthNum = getIncentiveNoticeMon2.Count(),
+                HseTotalNum = getIncentiveNoticeAll2.Count(),
+                HseMonthMoney = getIncentiveNoticeMon2.Sum(x => x.IncentiveMoney),
+                HseTotalMoney = getIncentiveNoticeAll2.Sum(x => x.IncentiveMoney),
+                ProduceMonthNum = getIncentiveNoticeMon3.Count(),
+                ProduceTotalNum = getIncentiveNoticeAll3.Count(),
+                ProduceMonthMoney = getIncentiveNoticeMon3.Sum(x => x.IncentiveMoney),
+                ProduceTotalMoney = getIncentiveNoticeAll3.Sum(x => x.IncentiveMoney),
+
+                AccidentMonthNum = getPunishNoticeMon1.Count(),
+                AccidentTotalNum = getPunishNoticeAll1.Count(),
+                AccidentMonthMoney = getPunishNoticeMon1.Sum(x => x.PunishMoney),
+                AccidentTotalMoney = getPunishNoticeAll1.Sum(x => x.PunishMoney),
+                ViolationMonthNum = getPunishNoticeMon2.Count(),
+                ViolationTotalNum = getPunishNoticeAll2.Count(),
+                ViolationMonthMoney = getPunishNoticeMon2.Sum(x => x.PunishMoney),
+                ViolationTotalMoney = getPunishNoticeAll2.Sum(x => x.PunishMoney),
+                ManageMonthNum = getPunishNoticeMon3.Count(),
+                ManageTotalNum = getPunishNoticeAll3.Count(),
+                ManageMonthMoney = getPunishNoticeMon3.Sum(x => x.PunishMoney),
+                ManageTotalMoney = getPunishNoticeAll3.Sum(x => x.PunishMoney),
             };
             return getLists;
         }
@@ -658,13 +751,21 @@ namespace BLL
         {
             var startDateD = Funs.GetNewDateTime(startDate);
             var endDateD = Funs.GetNewDateTime(endDate);
+            var getLargerHazardAll = from x in Funs.DB.Solution_LargerHazard where x.ProjectId == projectId select x;
+            var getMont = getLargerHazardAll.Where(x => x.ExpectedTime >= startDateD && x.ExpectedTime < endDateD);
+
+            var getAll1 = getLargerHazardAll.Where(x => x.IsArgument == false);
+            var getMont1 = getMont.Where(x => x.IsArgument == false);
+
+            var getAll2 = getLargerHazardAll.Where(x => x.IsArgument == true);
+            var getMont2 = getMont.Where(x => x.IsArgument == true);
             var getLists = new Model.SeDinMonthReport11Item
             {
-                RiskWorkNum = 0,
-                RiskFinishedNum = 0,
+                RiskWorkNum = getMont1.Count(),
+                RiskFinishedNum = getAll1.Count() - getMont1.Count(),
                 RiskWorkNext = "",
-                LargeWorkNum = 0,
-                LargeFinishedNum = 0,
+                LargeWorkNum = getMont2.Count(),
+                LargeFinishedNum = getAll2.Count() - getMont2.Count(),
                 LargeWorkNext = "",
             };
             return getLists;

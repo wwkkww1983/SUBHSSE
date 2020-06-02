@@ -222,7 +222,6 @@ namespace FineUIPro.Web
                     treeMenu.MiniModePopWidth = Unit.Pixel(300);
 
                     leftPanelToolGear.Hidden = true;
-                    leftPanelBottomToolbar.Hidden = true;
                     leftPanelToolCollapse.IconFont = IconFont.ChevronCircleRight;
                     leftPanel.Width = Unit.Pixel(50);
                     leftPanel.CssClass = "minimodeinside";
@@ -439,31 +438,11 @@ namespace FineUIPro.Web
                 this.btnPoject.OnClientClick = "parent.removeActiveTab();";
                 this.btnResource.OnClientClick = "parent.removeActiveTab();";
                 this.btnBaseInfo.OnClientClick = "parent.removeActiveTab();";
-                this.btnSystemSet.OnClientClick = "parent.removeActiveTab();";
-                this.InitSearchBox();
+                this.btnSystemSet.OnClientClick = "parent.removeActiveTab();";               
                 this.InitMenuStyleButton();
                 this.InitMenuModeButton();
                 this.InitLangMenuButton();
                 this.ShowVeionInfo();
-
-                if (CommonService.GetIsThisUnit(Const.UnitId_14))
-                {
-                    this.trEHtml.Visible = true;
-                    this.trEHtml1.Visible = true;
-                    this.trEHtml2.Visible = true;
-                    this.trEHtml3.Visible = true;
-                }
-
-                if (CommonService.GetIsThisUnit(Const.UnitId_XJYJ))
-                {
-                    this.trEHtml.Visible = false;
-                    this.trEHtml1.Visible = false;
-                    this.trEHtml2.Visible = false;
-                    this.trEHtml3.Visible = false;
-                    this.trGJ.Visible = false;
-                    this.trcncec.Visible = false;
-                    this.trXJYJ.Visible = true;
-                }
                 if (!CommonService.GetIsThisUnit(Const.UnitId_SEDIN))
                 {
                     this.btnSever.Icon = Icon.House;
@@ -550,19 +529,7 @@ namespace FineUIPro.Web
             }
         }
         #endregion 
-
-        /// <summary>
-        /// 搜索菜单
-        /// </summary>
-        private void InitSearchBox()
-        {           
-            if (!String.IsNullOrEmpty(_searchText))
-            {
-                ttbxSearch.Text = _searchText;
-                ttbxSearch.ShowTrigger1 = true;
-            }
-        }
-
+    
         /// <summary>
         /// 菜单树样式
         /// </summary>

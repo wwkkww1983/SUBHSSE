@@ -110,6 +110,8 @@ namespace FineUIPro.Web.Check
                         {
                             this.txtCurrency.Text = punishNotice.Currency;
                         }
+
+                        this.drpPunishName.SelectedValue = punishNotice.PunishName;
                     }
                 }
                 else
@@ -250,6 +252,7 @@ namespace FineUIPro.Web.Check
             {
                 punishNotice.UnitId = this.drpUnitId.SelectedValue;
             }
+            punishNotice.PunishName = this.drpPunishName.SelectedValue;
             punishNotice.PunishNoticeDate = Funs.GetNewDateTime(this.txtPunishNoticeDate.Text.Trim());
             punishNotice.IncentiveReason = this.txtIncentiveReason.Text.Trim();
             punishNotice.BasicItem = this.txtBasicItem.Text.Trim();

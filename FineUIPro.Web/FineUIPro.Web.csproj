@@ -147,6 +147,58 @@
     <Content Include="Administrative\DriverManager.aspx" />
     <Content Include="Administrative\DriverManagerEdit.aspx" />
     <Content Include="Administrative\DriverManagerView.aspx" />
+    <Content Include="AttachFile\dist\add-on\jplayer.playlist.js" />
+    <Content Include="AttachFile\dist\add-on\jplayer.playlist.min.js" />
+    <Content Include="AttachFile\dist\add-on\jquery.jplayer.inspector.js" />
+    <Content Include="AttachFile\dist\add-on\jquery.jplayer.inspector.min.js" />
+    <Content Include="AttachFile\dist\jplayer\jquery.jplayer.js" />
+    <Content Include="AttachFile\dist\jplayer\jquery.jplayer.min.js" />
+    <Content Include="AttachFile\dist\jplayer\jquery.jplayer.swf" />
+    <Content Include="AttachFile\dist\popcorn\popcorn.jplayer.js" />
+    <Content Include="AttachFile\dist\popcorn\popcorn.jplayer.min.js" />
+    <Content Include="AttachFile\dist\skin\blue.monday\css\jplayer.blue.monday.css" />
+    <Content Include="AttachFile\dist\skin\blue.monday\css\jplayer.blue.monday.min.css" />
+    <Content Include="AttachFile\dist\skin\blue.monday\image\jplayer.blue.monday.jpg" />
+    <Content Include="AttachFile\dist\skin\blue.monday\image\jplayer.blue.monday.seeking.gif" />
+    <Content Include="AttachFile\dist\skin\blue.monday\image\jplayer.blue.monday.video.play.png" />
+    <Content Include="AttachFile\dist\skin\blue.monday\mustache\jplayer.blue.monday.audio.playlist.html" />
+    <Content Include="AttachFile\dist\skin\blue.monday\mustache\jplayer.blue.monday.audio.single.html" />
+    <Content Include="AttachFile\dist\skin\blue.monday\mustache\jplayer.blue.monday.audio.stream.html" />
+    <Content Include="AttachFile\dist\skin\blue.monday\mustache\jplayer.blue.monday.video.playlist.html" />
+    <Content Include="AttachFile\dist\skin\blue.monday\mustache\jplayer.blue.monday.video.single.html" />
+    <Content Include="AttachFile\dist\skin\pink.flag\css\jplayer.pink.flag.css" />
+    <Content Include="AttachFile\dist\skin\pink.flag\css\jplayer.pink.flag.min.css" />
+    <Content Include="AttachFile\dist\skin\pink.flag\image\jplayer.pink.flag.jpg" />
+    <Content Include="AttachFile\dist\skin\pink.flag\image\jplayer.pink.flag.seeking.gif" />
+    <Content Include="AttachFile\dist\skin\pink.flag\image\jplayer.pink.flag.video.play.png" />
+    <Content Include="AttachFile\dist\skin\pink.flag\mustache\jplayer.pink.flag.audio.playlist.html" />
+    <Content Include="AttachFile\dist\skin\pink.flag\mustache\jplayer.pink.flag.audio.single.html" />
+    <Content Include="AttachFile\dist\skin\pink.flag\mustache\jplayer.pink.flag.audio.stream.html" />
+    <Content Include="AttachFile\dist\skin\pink.flag\mustache\jplayer.pink.flag.video.playlist.html" />
+    <Content Include="AttachFile\dist\skin\pink.flag\mustache\jplayer.pink.flag.video.single.html" />
+    <Content Include="AttachFile\lib\aurora\aac.js" />
+    <Content Include="AttachFile\lib\aurora\aurora.js" />
+    <Content Include="AttachFile\lib\aurora\flac.js" />
+    <Content Include="AttachFile\lib\aurora\mp3.js" />
+    <Content Include="AttachFile\lib\aurora\ogg.js" />
+    <Content Include="AttachFile\lib\aurora\opus.js" />
+    <Content Include="AttachFile\lib\aurora\vorbis.js" />
+    <Content Include="AttachFile\lib\circle-player\js\circle.player.js" />
+    <Content Include="AttachFile\lib\circle-player\js\jquery.grab.js" />
+    <Content Include="AttachFile\lib\circle-player\js\jquery.transform2d.js" />
+    <Content Include="AttachFile\lib\circle-player\js\mod.csstransforms.min.js" />
+    <Content Include="AttachFile\lib\circle-player\skin\bgr.jpg" />
+    <Content Include="AttachFile\lib\circle-player\skin\buffer.png" />
+    <Content Include="AttachFile\lib\circle-player\skin\circle.player.css" />
+    <Content Include="AttachFile\lib\circle-player\skin\controls.jpg" />
+    <Content Include="AttachFile\lib\circle-player\skin\progress.png" />
+    <Content Include="AttachFile\lib\circle-player\skin\progress_sprite.jpg" />
+    <Content Include="AttachFile\lib\jquery.min.js" />
+    <Content Include="AttachFile\lib\popcorn.ie8.js" />
+    <Content Include="AttachFile\lib\popcorn.js" />
+    <Content Include="AttachFile\lib\popcorn.player.js" />
+    <Content Include="AttachFile\lib\popcorn.subtitle.js" />
+    <Content Include="AttachFile\player.aspx" />
     <Content Include="AttachFile\res\webuploader\Uploader.swf" />
     <Content Include="AttachFile\res\webuploader\webuploader.nolog.js" />
     <Content Include="AttachFile\res\webuploader\webuploader.nolog.min.js" />
@@ -594,6 +646,7 @@
     <Content Include="ServerCheck\CheckInfoTemplate.aspx" />
     <Content Include="ServerCheck\CheckNotice.aspx" />
     <Content Include="Doc\help.doc" />
+    <Content Include="AttachFile\lib\README.md" />
     <None Include="Doc\help1.doc" />
     <None Include="Doc\危险源因素辨识及评价方法说明.doc" />
     <None Include="Doc\危险源清单导入说明.doc" />
@@ -4375,6 +4428,13 @@
     </Compile>
     <Compile Include="AttachFile\fileupload.ashx.cs">
       <DependentUpon>fileupload.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="AttachFile\player.aspx.cs">
+      <DependentUpon>player.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AttachFile\player.aspx.designer.cs">
+      <DependentUpon>player.aspx</DependentUpon>
     </Compile>
     <Compile Include="AttachFile\webuploader.aspx.cs">
       <DependentUpon>webuploader.aspx</DependentUpon>

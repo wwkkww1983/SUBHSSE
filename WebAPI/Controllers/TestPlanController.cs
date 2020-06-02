@@ -208,15 +208,7 @@ namespace WebAPI.Controllers
                             var testRecord = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == getTestPlan.TestPlanId && x.TestManId == person.PersonId && !x.TestEndTime.HasValue);
                             if (testRecord != null)
                             {
-                                if (!testRecord.TestStartTime.HasValue)
-                                {
-                                    ////考试时长
-                                    testRecord.Duration = getTestPlan.Duration;
-                                    testRecord.TestStartTime = DateTime.Now;
-                                    Funs.SubmitChanges();
-                                }
-
-                                string testRecordId = APITestRecordService.CreateTestRecordItem(getTestPlan, testRecord, person);
+                                string testRecordId = APITestRecordService.CreateTestRecordItem(getTestPlan, testRecord.TestRecordId, person);
                                 responeData.code = 2;
                                 responeData.data = new { testRecordId };
                             }

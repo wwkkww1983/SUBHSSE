@@ -148,12 +148,6 @@
                                         <Items>
                                             <f:MenuCheckBox Text="简体中文" ID="MenuLangZHCN" AttributeDataTag="zh_CN" Checked="true" GroupName="MenuLang" runat="server">
                                             </f:MenuCheckBox>
-                                            <%--<f:MenuCheckBox Text="繁體中文" ID="MenuLangZHTW" AttributeDataTag="zh_TW" GroupName="MenuLang" runat="server">
-                                            </f:MenuCheckBox>
-                                            <f:MenuCheckBox Text="English" ID="MenuLangEN" AttributeDataTag="en" GroupName="MenuLang" runat="server">
-                                            </f:MenuCheckBox>
-                                            <f:MenuCheckBox Text="ئۇيغۇر تىلى" ID="MenuLangZHUEY" AttributeDataTag="zh_UEY" GroupName="MenuLang" runat="server">
-                                            </f:MenuCheckBox>--%>
                                         </Items>
                                         <Listeners>
                                             <f:Listener Event="checkchange" Handler="onMenuLangCheckChange" />
@@ -162,20 +156,7 @@
                                 </f:MenuButton>                              
                             </Menu>
                         </f:Tool>
-                    </Tools>
-                    <Toolbars>
-                        <f:Toolbar ID="leftPanelBottomToolbar" Position="Bottom" HeaderStyle="true" runat="server" Layout="Fit">
-                            <Items>
-                                <f:TwinTriggerBox ID="ttbxSearch" ShowLabel="false" Trigger1Icon="Clear" ShowTrigger1="False" EmptyText="搜索菜单" Trigger2Icon="Search"
-                                    EnableTrigger1PostBack="false" EnableTrigger2PostBack="false" runat="server" Width="235px">
-                                    <Listeners>
-                                        <f:Listener Event="trigger1click" Handler="onSearchTrigger1Click" />
-                                        <f:Listener Event="trigger2click" Handler="onSearchTrigger2Click" />
-                                    </Listeners>
-                                </f:TwinTriggerBox>
-                            </Items>
-                        </f:Toolbar>
-                    </Toolbars>
+                    </Tools>           
                 </f:Panel>
                 <f:TabStrip ID="mainTabStrip" CssClass="centerregion" RegionPosition="Center" ShowBorder="true" EnableTabCloseMenu="true" runat="server">
                     <Tabs>
@@ -232,25 +213,10 @@
                             <td style="text-align: left;">&nbsp;&nbsp;</td>                                                     
                             <td style="text-align: center;" id="trGJ" runat="server">
                               <a target="_blank" href="http://www.chinasafety.gov.cn">国家安全生产监督管理总局</a>
-                            </td>                                                    
-                            <td style="text-align: center;" runat="server" id="trEHtml" visible="false">
-                              <a target="_blank" href="http://www.njajzelaq.com/2015/application/ui/EnterpriseLogin.html">“e路安全”</a>
-                            </td>
-                            <td style="text-align: center;" runat="server" id="trEHtml1" visible="false">
-                              <a target="_blank" href="http://221.226.86.91:8000/zhaj/login_ent.jsp">南京智慧安监云平台</a>
-                            </td>
-                             <td style="text-align: center;" runat="server" id="trEHtml2" visible="false">
-                              <a target="_blank" href="http://218.94.101.3:8089/hbpj/toLogin.do">南京环保信用评价管理系统</a>
-                            </td>
-                             <td style="text-align: center;" runat="server" id="trEHtml3" visible="false">
-                              <a target="_blank" href="http://www.aqt365.com/jssajxt/application/ui/login.htm">傲途建筑安全智能监督软件</a>
                             </td>
                             <td style="text-align: center;"  id="trcncec" runat="server">
                               <a target="_blank" href="http://cncec.cn/" >Copyright © 2015 China National Chemical Engineering Group Corporation All rights reserved.p 中国化学工程集团公司 版权所有</a>
-                            </td>
-                             <td style="text-align: center;"  id="trXJYJ" runat="server" visible="false">
-                              <a target="_blank" href="http://www.xjyjgs.cn" >新ICP备16001300号</a>
-                            </td>
+                            </td>                          
                             <td style="text-align: right;">&nbsp;&nbsp;</td>
                         </tr>
                     </table>
@@ -304,7 +270,6 @@
         var topPanelClientID = '<%= topPanel.ClientID %>';
         var leftPanelClientID = '<%= leftPanel.ClientID %>';
         var leftPanelToolGearClientID = '<%= leftPanelToolGear.ClientID %>';
-        var leftPanelBottomToolbarClientID = '<%= leftPanelBottomToolbar.ClientID %>';
         var leftPanelToolCollapseClientID = '<%= leftPanelToolCollapse.ClientID %>';
         var tab1ClientID = '<%= Tab1.ClientID %>';
         // 点击官网首页
@@ -332,8 +297,7 @@
             leftMenuTree.miniMode = false;
             leftPanel.el.removeClass('minimodeinside');
             leftPanel.setWidth(220);
-            F(leftPanelToolGearClientID).show();
-            F(leftPanelBottomToolbarClientID).show();
+            F(leftPanelToolGearClientID).show();            
             F(leftPanelToolCollapseClientID).setIconFont('chevron-circle-left');
             // 重新加载树菜单
             leftMenuTree.loadData();
@@ -349,7 +313,6 @@
             leftPanel.el.addClass('minimodeinside');
             leftPanel.setWidth(50);
             F(leftPanelToolGearClientID).hide();
-            F(leftPanelBottomToolbarClientID).hide();
             F(leftPanelToolCollapseClientID).setIconFont('chevron-circle-right');
             // 重新加载树菜单
             leftMenuTree.loadData();

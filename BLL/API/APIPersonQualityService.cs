@@ -162,7 +162,7 @@ namespace BLL
                             join z in Funs.DB.Base_WorkPost on x.WorkPostId equals z.WorkPostId
                             join y in Funs.DB.QualityAudit_PersonQuality on x.PersonId equals  y.PersonId into jonPerson
                              from y in jonPerson.DefaultIfEmpty()
-                            where x.ProjectId == projectId && z.PostType == Const.PostType_2
+                            where x.ProjectId == projectId && z.PostType == Const.PostType_2 && x.IsUsed == true && (!x.OutTime.HasValue || x.OutTime > DateTime.Now)
                             orderby x.CardNo
                             select new Model.PersonQualityItem
                             {
@@ -204,7 +204,7 @@ namespace BLL
                             join z in Funs.DB.Base_WorkPost on x.WorkPostId equals z.WorkPostId
                             join y in Funs.DB.QualityAudit_SafePersonQuality on x.PersonId equals y.PersonId into jonPerson
                             from y in jonPerson.DefaultIfEmpty()
-                            where x.ProjectId == projectId && z.IsHsse == true
+                            where x.ProjectId == projectId && z.IsHsse == true && x.IsUsed == true && (!x.OutTime.HasValue || x.OutTime > DateTime.Now)
                             orderby y.LimitDate
                             select new Model.PersonQualityItem
                             {
@@ -246,7 +246,7 @@ namespace BLL
                             join z in Funs.DB.Base_WorkPost on x.WorkPostId equals z.WorkPostId
                             join y in Funs.DB.QualityAudit_EquipmentPersonQuality on x.PersonId equals y.PersonId into jonPerson
                             from y in jonPerson.DefaultIfEmpty()
-                            where x.ProjectId == projectId && z.PostType == Const.PostType_5
+                            where x.ProjectId == projectId && z.PostType == Const.PostType_5 && x.IsUsed == true && (!x.OutTime.HasValue || x.OutTime > DateTime.Now)
                             orderby y.LimitDate
                             select new Model.PersonQualityItem
                             {

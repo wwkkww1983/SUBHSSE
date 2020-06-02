@@ -29,14 +29,20 @@ namespace BLL
                               FileCode = x.EmergencyCode,
                               FileName = x.EmergencyName,
                               FileType = Funs.DB.Base_EmergencyType.First(y => y.EmergencyTypeId == x.EmergencyTypeId).EmergencyTypeName,
+                              FileTypeId = x.EmergencyTypeId,
                               UnitId = x.UnitId,
                               UnitName = Funs.DB.Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
                               FileContent = System.Web.HttpUtility.HtmlDecode(x.EmergencyContents),
                               CompileManId = x.CompileMan,
                               CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
                               CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                              AuditManId = x.AuditMan,
+                              AuditManName = Funs.DB.Sys_User.First(u => u.UserId == x.AuditMan).UserName,
+                              ApproveManId = x.ApproveMan,
+                              ApproveManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApproveMan).UserName,
                               States = x.States,
-                              AttachUrl = Funs.DB.AttachFile.FirstOrDefault(z => z.ToKeyId == x.EmergencyListId).AttachUrl.Replace('\\', '/'),
+                              MenuType = "1",
+                              AttachUrl = APIUpLoadFileService.getFileUrl(x.EmergencyListId, x.AttachUrl),
                           };
             return getInfo.FirstOrDefault();
         }
@@ -63,14 +69,20 @@ namespace BLL
                                           FileCode = x.EmergencyCode,
                                           FileName = x.EmergencyName,
                                           FileType = Funs.DB.Base_EmergencyType.First(y => y.EmergencyTypeId == x.EmergencyTypeId).EmergencyTypeName,
+                                          FileTypeId = x.EmergencyTypeId,
                                           UnitId = x.UnitId,
                                           UnitName = Funs.DB.Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
                                           FileContent = x.EmergencyContents,
                                           CompileManId = x.CompileMan,
                                           CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
                                           CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                          AuditManId = x.AuditMan,
+                                          AuditManName = Funs.DB.Sys_User.First(u => u.UserId == x.AuditMan).UserName,
+                                          ApproveManId = x.ApproveMan,
+                                          ApproveManName = Funs.DB.Sys_User.First(u => u.UserId == x.ApproveMan).UserName,
                                           States = x.States,
-                                          AttachUrl = Funs.DB.AttachFile.FirstOrDefault(z => z.ToKeyId == x.EmergencyListId).AttachUrl.Replace('\\', '/'),
+                                          MenuType = "1",
+                                          AttachUrl = APIUpLoadFileService.getFileUrl(x.EmergencyListId, x.AttachUrl),
                                       };
             return getDataList.ToList();
         }
@@ -99,7 +111,8 @@ namespace BLL
                               CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
                               CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
                               States = x.States,
-                              AttachUrl = Funs.DB.AttachFile.FirstOrDefault(z => z.ToKeyId == x.FileId).AttachUrl.Replace('\\', '/'),
+                              MenuType = "2",
+                              AttachUrl = APIUpLoadFileService.getFileUrl(x.FileId, x.AttachUrl),
                           };
             return getInfo.FirstOrDefault();
         }
@@ -132,7 +145,8 @@ namespace BLL
                                            CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
                                            CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
                                            States = x.States,
-                                           AttachUrl = Funs.DB.AttachFile.FirstOrDefault(z => z.ToKeyId == x.FileId).AttachUrl.Replace('\\', '/'),
+                                           MenuType = "2",
+                                           AttachUrl = APIUpLoadFileService.getFileUrl(x.FileId, x.AttachUrl),
                                        };
             return getDataList.ToList();
         }
@@ -161,7 +175,8 @@ namespace BLL
                               CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
                               CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
                               States = x.States,
-                              AttachUrl = Funs.DB.AttachFile.FirstOrDefault(z => z.ToKeyId == x.FileId).AttachUrl.Replace('\\', '/'),
+                              MenuType = "3",
+                              AttachUrl = APIUpLoadFileService.getFileUrl(x.FileId, x.AttachUrl),
                           };
             return getInfo.FirstOrDefault();
         }
@@ -194,10 +209,164 @@ namespace BLL
                                            CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
                                            CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
                                            States = x.States,
-                                           AttachUrl = Funs.DB.AttachFile.FirstOrDefault(z => z.ToKeyId == x.FileId).AttachUrl.Replace('\\', '/'),
+                                           MenuType = "3",
+                                           AttachUrl = APIUpLoadFileService.getFileUrl(x.FileId, x.AttachUrl),
                                        };
             return getDataList.ToList();
         }
         #endregion        
+
+        #region 保存emergencyInfo
+        /// <summary>
+        /// 保存emergencyInfo
+        /// </summary>
+        /// <param name="emergencyInfo">会议信息</param>
+        /// <returns></returns>
+        public static void SaveEmergency(Model.FileInfoItem emergencyInfo)
+        {
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                string menuId = string.Empty;
+                if (emergencyInfo.MenuType == "1")
+                {
+                    Model.Emergency_EmergencyList newEmergency = new Model.Emergency_EmergencyList
+                    {
+                        EmergencyListId = emergencyInfo.FileId,
+                        ProjectId = emergencyInfo.ProjectId,
+                        UnitId = emergencyInfo.UnitId == "" ? null : emergencyInfo.UnitId,
+                        EmergencyTypeId = emergencyInfo.FileType == "" ? null : emergencyInfo.FileType,
+                        EmergencyCode = emergencyInfo.FileCode,
+                        EmergencyName = emergencyInfo.FileName,
+                        EmergencyContents = emergencyInfo.FileContent,
+                        CompileMan = emergencyInfo.CompileManId,
+                        CompileDate = Funs.GetNewDateTime(emergencyInfo.CompileDate),
+                        States = Const.State_2,
+                    };
+                    if (emergencyInfo.States != Const.State_1)
+                    {
+                        newEmergency.States = Const.State_0;
+                    }
+                    var updateEmergency = db.Emergency_EmergencyList.FirstOrDefault(x => x.EmergencyListId == emergencyInfo.FileId);
+                    if (updateEmergency == null)
+                    {
+                        newEmergency.CompileDate = DateTime.Now;
+                        emergencyInfo.FileId = newEmergency.EmergencyListId = SQLHelper.GetNewID();
+                        newEmergency.EmergencyCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectClassMeetingMenuId, newEmergency.ProjectId, null);
+                        db.Emergency_EmergencyList.InsertOnSubmit(newEmergency);
+                        db.SubmitChanges();
+                        ////增加一条编码记录
+                        CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectEmergencyListMenuId, newEmergency.ProjectId, null, newEmergency.EmergencyListId, newEmergency.CompileDate);
+                    }
+                    else
+                    {
+                        updateEmergency.EmergencyName = newEmergency.EmergencyName;
+                        updateEmergency.UnitId = newEmergency.UnitId;
+                        updateEmergency.EmergencyTypeId = newEmergency.EmergencyTypeId;
+                        updateEmergency.EmergencyContents = newEmergency.EmergencyContents;
+                        updateEmergency.AuditMan = newEmergency.AuditMan;
+                        updateEmergency.ApproveMan = newEmergency.ApproveMan;
+                        db.SubmitChanges();
+                    }
+                    if (emergencyInfo.States == Const.State_1)
+                    {
+                        CommonService.btnSaveData(newEmergency.ProjectId, Const.ProjectEmergencyListMenuId, newEmergency.EmergencyListId, newEmergency.CompileMan, true, newEmergency.EmergencyName, "../Emergency/EmergencyListView.aspx?EmergencyListId={0}");
+                    }
+
+                    menuId = Const.ProjectEmergencyListMenuId;
+                }
+                else if (emergencyInfo.MenuType == "2")
+                {
+                    Model.Emergency_EmergencySupply newEmergency = new Model.Emergency_EmergencySupply
+                    {
+                        FileId = emergencyInfo.FileId,
+                        ProjectId = emergencyInfo.ProjectId,
+                        UnitId = emergencyInfo.UnitId == "" ? null : emergencyInfo.UnitId,
+                        FileCode = emergencyInfo.FileCode,
+                        FileName = emergencyInfo.FileName,
+                        FileContent = emergencyInfo.FileContent,
+                        CompileMan = emergencyInfo.CompileManId,
+                        CompileDate = Funs.GetNewDateTime(emergencyInfo.CompileDate),
+                        States = Const.State_2,
+                    };
+
+                    if (emergencyInfo.States != Const.State_1)
+                    {
+                        newEmergency.States = Const.State_0;
+                    }
+                    var updateEmergency = db.Emergency_EmergencySupply.FirstOrDefault(x => x.FileId == emergencyInfo.FileId);
+                    if (updateEmergency == null)
+                    {
+                        newEmergency.CompileDate = DateTime.Now;
+                        emergencyInfo.FileId = newEmergency.FileId = SQLHelper.GetNewID();
+                        newEmergency.FileCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectEmergencySupplyMenuId, newEmergency.ProjectId, null);
+                        db.Emergency_EmergencySupply.InsertOnSubmit(newEmergency);
+                    }
+                    else
+                    {
+                        updateEmergency.UnitId = newEmergency.UnitId;
+                        updateEmergency.FileCode = newEmergency.FileCode;
+                        updateEmergency.FileName = newEmergency.FileName;
+                        updateEmergency.FileContent = newEmergency.FileContent;
+                        db.SubmitChanges();
+                    }
+                    if (emergencyInfo.States == Const.State_1)
+                    {
+                        CommonService.btnSaveData(newEmergency.ProjectId, Const.ProjectEmergencySupplyMenuId, newEmergency.FileId, newEmergency.CompileMan, true, newEmergency.FileName, "../Emergency/EmergencySupplyView.aspx?FileId={0}");
+                    }
+                    menuId = Const.ProjectEmergencySupplyMenuId;
+                }
+                else if (emergencyInfo.MenuType == "3")
+                {
+                    Model.Emergency_EmergencyTeamAndTrain newEmergency = new Model.Emergency_EmergencyTeamAndTrain
+                    {
+                        FileId = emergencyInfo.FileId,
+                        ProjectId = emergencyInfo.ProjectId,
+                        UnitId = emergencyInfo.UnitId == "" ? null : emergencyInfo.UnitId,
+                        FileCode = emergencyInfo.FileCode,
+                        FileName = emergencyInfo.FileName,
+                        FileContent = emergencyInfo.FileContent,
+                        CompileMan = emergencyInfo.CompileManId,
+                        CompileDate = Funs.GetNewDateTime(emergencyInfo.CompileDate),
+                        States = Const.State_2,
+                    };
+
+                    if (emergencyInfo.States != Const.State_1)
+                    {
+                        newEmergency.States = Const.State_0;
+                    }
+
+                    var updateEmergency = db.Emergency_EmergencyTeamAndTrain.FirstOrDefault(x => x.FileId == emergencyInfo.FileId);
+                    if (updateEmergency == null)
+                    {
+                        newEmergency.CompileDate = DateTime.Now;
+                        emergencyInfo.FileId = newEmergency.FileId = SQLHelper.GetNewID();
+                        newEmergency.FileCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectEmergencyTeamAndTrainMenuId, newEmergency.ProjectId, null);
+                        db.Emergency_EmergencyTeamAndTrain.InsertOnSubmit(newEmergency);
+                    }
+                    else
+                    {
+                        updateEmergency.UnitId = newEmergency.UnitId;
+                        updateEmergency.FileCode = newEmergency.FileCode;
+                        updateEmergency.FileName = newEmergency.FileName;
+                        updateEmergency.FileContent = newEmergency.FileContent;
+                        db.SubmitChanges();
+                    }
+                    if (emergencyInfo.States == Const.State_1)
+                    {
+                        CommonService.btnSaveData(newEmergency.ProjectId, Const.ProjectEmergencyTeamAndTrainMenuId, newEmergency.FileId, newEmergency.CompileMan, true, newEmergency.FileName, "../Emergency/EmergencyTeamAndTrainView.aspx?FileId={0}");
+                    }
+                    menuId = Const.ProjectEmergencyTeamAndTrainMenuId;
+                }
+                else
+                {
+                }
+                ///// 附件保存
+                if (!string.IsNullOrEmpty(menuId) && !string.IsNullOrEmpty(emergencyInfo.FileId))
+                {
+                    APIUpLoadFileService.SaveAttachUrl(menuId, emergencyInfo.FileId, emergencyInfo.AttachUrl, "0");
+                }
+            }
+        }
+        #endregion
     }
 }

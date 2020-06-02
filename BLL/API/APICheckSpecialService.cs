@@ -59,7 +59,7 @@ namespace BLL
                                   {
                                       CheckSpecialId = x.CheckSpecialId,
                                       ProjectId = x.ProjectId,
-                                      CheckSpecialCode = x.CheckSpecialCode,
+                                      CheckSpecialCode = Funs.DB.Sys_CodeRecords.First(y=>y.DataId==x.CheckSpecialId).Code ?? x.CheckSpecialCode,
                                       CheckType = x.CheckType == "0" ? "周检" : (x.CheckType == "1" ? "月检" : "其他"),
                                       CheckPersonId = x.CheckPerson,
                                       CheckPersonName = Funs.DB.Sys_User.First(u => u.UserId == x.CheckPerson).UserName,

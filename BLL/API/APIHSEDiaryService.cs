@@ -103,21 +103,24 @@ namespace BLL
         public static void SaveHSEDiary(Model.HSEDiaryItem item)
         {
             DeleteHSEDiary(item.HSEDiaryId);
-            Model.Project_HSEDiary newHSEDiary = new Model.Project_HSEDiary
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                HSEDiaryId = item.HSEDiaryId,
-                ProjectId = item.ProjectId,
-                DiaryDate = Funs.GetNewDateTime(item.DiaryDate),
-                UserId = item.UserId,
-                DailySummary = item.DailySummary,
-                TomorrowPlan = item.TomorrowPlan,
-            };
-            if (string.IsNullOrEmpty(newHSEDiary.HSEDiaryId))
-            {
-                newHSEDiary.HSEDiaryId = SQLHelper.GetNewID();
+                Model.Project_HSEDiary newHSEDiary = new Model.Project_HSEDiary
+                {
+                    HSEDiaryId = item.HSEDiaryId,
+                    ProjectId = item.ProjectId,
+                    DiaryDate = Funs.GetNewDateTime(item.DiaryDate),
+                    UserId = item.UserId,
+                    DailySummary = item.DailySummary,
+                    TomorrowPlan = item.TomorrowPlan,
+                };
+                if (string.IsNullOrEmpty(newHSEDiary.HSEDiaryId))
+                {
+                    newHSEDiary.HSEDiaryId = SQLHelper.GetNewID();
+                }
+                db.Project_HSEDiary.InsertOnSubmit(newHSEDiary);
+                db.SubmitChanges();
             }
-            Funs.DB.Project_HSEDiary.InsertOnSubmit(newHSEDiary);
-            Funs.SubmitChanges();
         }
         #endregion
 
@@ -127,11 +130,14 @@ namespace BLL
         /// <param name="hseDiaryId"></param>
         public static void DeleteHSEDiary(string hseDiaryId)
         {
-            var getInfo = Funs.DB.Project_HSEDiary.FirstOrDefault(x => x.HSEDiaryId == hseDiaryId);
-            if (getInfo != null)
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                Funs.DB.Project_HSEDiary.DeleteOnSubmit(getInfo);
-                Funs.SubmitChanges();
+                var getInfo = db.Project_HSEDiary.FirstOrDefault(x => x.HSEDiaryId == hseDiaryId);
+                if (getInfo != null)
+                {
+                    db.Project_HSEDiary.DeleteOnSubmit(getInfo);
+                    db.SubmitChanges();
+                }
             }
         }
 

@@ -310,24 +310,6 @@ namespace FineUIPro.Web {
         protected global::FineUIPro.MenuCheckBox MenuLangZHCN;
         
         /// <summary>
-        /// leftPanelBottomToolbar 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Toolbar leftPanelBottomToolbar;
-        
-        /// <summary>
-        /// ttbxSearch 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TwinTriggerBox ttbxSearch;
-        
-        /// <summary>
         /// mainTabStrip 控件。
         /// </summary>
         /// <remarks>
@@ -445,42 +427,6 @@ namespace FineUIPro.Web {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell trGJ;
         
         /// <summary>
-        /// trEHtml 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell trEHtml;
-        
-        /// <summary>
-        /// trEHtml1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell trEHtml1;
-        
-        /// <summary>
-        /// trEHtml2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell trEHtml2;
-        
-        /// <summary>
-        /// trEHtml3 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell trEHtml3;
-        
-        /// <summary>
         /// trcncec 控件。
         /// </summary>
         /// <remarks>
@@ -488,15 +434,6 @@ namespace FineUIPro.Web {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell trcncec;
-        
-        /// <summary>
-        /// trXJYJ 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell trXJYJ;
         
         /// <summary>
         /// windowThemeRoller 控件。

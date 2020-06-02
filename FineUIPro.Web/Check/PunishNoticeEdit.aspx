@@ -47,7 +47,11 @@
                     <f:TextBox ID="txtBasicItem" runat="server" Label="处罚根据" LabelAlign="Right" MaxLength="300"
                         LabelWidth="120px">
                     </f:TextBox>
-                    
+                    <f:DropDownList runat="server" ID="drpPunishName" Label="处罚类型" LabelAlign="Right" MaxLength="50">
+                        <f:ListItem  Text="事故责任处罚" Value="事故责任处罚"/>
+                        <f:ListItem  Text="违章处罚" Value="违章处罚"/>
+                        <f:ListItem  Text="安全管理处罚" Value="安全管理处罚"/>
+                    </f:DropDownList>
                 </Items>
             </f:FormRow>
             <f:FormRow ColumnWidths="50% 20% 30%">

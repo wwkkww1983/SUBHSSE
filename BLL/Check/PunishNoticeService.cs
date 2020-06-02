@@ -128,7 +128,8 @@ namespace BLL
                 ApproveMan = punishNotice.ApproveMan,
                 ContractNum = punishNotice.ContractNum,
                 IncentiveReason = punishNotice.IncentiveReason,
-                Currency = punishNotice.Currency
+                Currency = punishNotice.Currency,
+                PunishName = punishNotice.PunishName,
             };
             db.Check_PunishNotice.InsertOnSubmit(newPunishNotice);
             db.SubmitChanges();
@@ -161,6 +162,7 @@ namespace BLL
                 newPunishNotice.ContractNum = punishNotice.ContractNum;
                 newPunishNotice.IncentiveReason = punishNotice.IncentiveReason;
                 newPunishNotice.Currency = punishNotice.Currency;
+                newPunishNotice.PunishName = punishNotice.PunishName;
                 db.SubmitChanges();
             }
         }
