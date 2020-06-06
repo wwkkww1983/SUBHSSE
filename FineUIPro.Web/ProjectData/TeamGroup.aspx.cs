@@ -23,6 +23,7 @@ namespace FineUIPro.Web.ProjectData
             {
                 ////权限按钮方法
                 this.GetButtonPower();
+                Funs.DropDownPageSize(this.ddlPageSize);
                 this.btnNew.OnClientClick = Window1.GetShowReference("TeamGroupEdit.aspx") + "return false;";
                 if (this.CurrUser != null && this.CurrUser.PageSize.HasValue)
                 {
@@ -39,7 +40,7 @@ namespace FineUIPro.Web.ProjectData
         /// </summary>
         private void BindGrid()
         {
-            string strSql = "SELECT TeamGroupId,ProjectId,UnitId,TeamGroupCode,TeamGroupName,Remark FROM ProjectData_TeamGroup WHERE 1=1 ";
+            string strSql = "SELECT TeamGroupId,ProjectId,UnitId,TeamGroupCode,TeamGroupName,Remark,GroupLeaderId FROM ProjectData_TeamGroup WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
             {
@@ -236,13 +237,37 @@ namespace FineUIPro.Web.ProjectData
             string unitName = string.Empty;
             if (unitId != null)
             {
-                var unit = BLL.UnitService.GetUnitByUnitId(unitId.ToString());
-                if (unit != null)
-                {
-                    unitName = unit.UnitName;
-                }
+                unitName = UnitService.GetUnitNameByUnitId(unitId.ToString());
             }
             return unitName;
+        }
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="groupLeaderId"></param>
+       /// <returns></returns>
+        protected string ConvertGroupLeader(object groupLeaderId)
+        {
+            string name = string.Empty;
+            if (groupLeaderId != null)
+            {
+                name = PersonService.GetPersonNameById(groupLeaderId.ToString());
+            }
+            return name;
+        }
+        /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="groupLeaderId"></param>
+       /// <returns></returns>
+        protected string ConvertPersonNum(object teamGroupId)
+        {
+            string name = string.Empty;
+            if (teamGroupId != null)
+            {
+                name = TeamGroupService.getTeamGroupPersonNum(teamGroupId.ToString()).ToString();
+            }
+            return name;
         }
         #endregion
 

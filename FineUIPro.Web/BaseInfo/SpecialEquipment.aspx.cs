@@ -38,16 +38,10 @@ namespace FineUIPro.Web.BaseInfo
                             x.Remark,
                             x.IsSpecial,
                         };
-            //Grid1.RecordCount = q.Count();
-            //// 2.获取当前分页数据
-            //var table = GetPagedDataTable(Grid1.PageIndex, Grid1.PageSize);
-            //Grid1.DataSource = table;
-            //Grid1.DataBind();
 
+            Grid1.RecordCount =q.Count();
             DataTable tb = this.GetPagedDataTable(Grid1, q);
-            Grid1.RecordCount = tb.Rows.Count;
-            var table = this.GetPagedDataTable(Grid1, tb);
-            Grid1.DataSource = table;
+            Grid1.DataSource = tb;
             Grid1.DataBind();
         }
 

@@ -1442,6 +1442,10 @@ namespace BLL
         /// 应急响应记录与评价
         /// </summary>
         public const string ProjectEmergencyResponseRecordMenuId = "A95A7C98-C186-4418-9C41-BD7775D85284";
+        /// <summary>
+        /// 应急流程
+        /// </summary>
+        public const string ProjectEmergencyProcessMenuId = "A5D0287B-2410-4DB1-8BD4-E0534EBAE308";
         #endregion
 
         #region 施工方案/方案审查

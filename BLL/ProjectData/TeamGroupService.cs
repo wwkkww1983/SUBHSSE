@@ -36,8 +36,9 @@ namespace BLL
                 UnitId = teamGroup.UnitId,
                 TeamGroupCode = teamGroup.TeamGroupCode,
                 TeamGroupName = teamGroup.TeamGroupName,
-                Remark = teamGroup.Remark
-            };
+                Remark = teamGroup.Remark,
+                GroupLeaderId = teamGroup.GroupLeaderId
+        };
             db.ProjectData_TeamGroup.InsertOnSubmit(newTeamGroup);
             db.SubmitChanges();
         }
@@ -56,6 +57,7 @@ namespace BLL
                 newTeamGroup.UnitId = teamGroup.UnitId;
                 newTeamGroup.TeamGroupCode = teamGroup.TeamGroupCode;
                 newTeamGroup.TeamGroupName = teamGroup.TeamGroupName;
+                newTeamGroup.GroupLeaderId = teamGroup.GroupLeaderId;
                 newTeamGroup.Remark = teamGroup.Remark;
                 db.SubmitChanges();
             }
@@ -74,6 +76,19 @@ namespace BLL
                 db.ProjectData_TeamGroup.DeleteOnSubmit(teamGroup);
                 db.SubmitChanges();
             }
+        }
+
+        /// <summary>
+        /// 获取班组人数
+        /// </summary>
+        /// <param name="teamGroupId"></param>
+        /// <returns></returns>
+        public static int getTeamGroupPersonNum(string teamGroupId)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            return (from x in Funs.DB.SitePerson_Person
+                    where x.TeamGroupId == teamGroupId && x.IsUsed == true && (!x.OutTime.HasValue || x.OutTime > DateTime.Now)
+                    select x).Count();
         }
 
         /// <summary>

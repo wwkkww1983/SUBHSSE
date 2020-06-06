@@ -80,7 +80,7 @@ namespace WebAPI.Controllers
                     var getInfo = APISeDinMonthReportService.getSeDinMonthReport2ById(projectId, month);
                     if (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId))
                     {
-                        responeData.data = APISeDinMonthReportService.getSeDinMonthReportNullPage2(projectId, month, startDate, endDate);
+                        getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage2(projectId, month, startDate, endDate);
                     }
                     responeData.data = getInfo;
                 }

@@ -83,6 +83,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 合同号
+        /// </summary>
+        public string ContractNo
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 合同额
         /// </summary>
         public string ContractAmount

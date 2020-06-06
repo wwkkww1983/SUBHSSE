@@ -771,6 +771,13 @@
             <param name="unitId"></param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getTeamGroupPersonNum(System.String)">
+            <summary>
+            获取项目班组人数
+            </summary>
+            <param name="teamGroupId"></param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.BaseInfoController.getWorkArea(System.String,System.String)">
             <summary>
             获取项目区域
@@ -2411,6 +2418,17 @@
             根据ProjectId获取所有考试记录列表
             </summary>
             <param name="projectId">项目ID</param>
+            <param name="pageIndex">页码</param>
+            <returns>考试记录列表</returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestRecordController.getTrainingTestRecordListQuery(System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            根据ProjectId获取所有考试记录列表
+            </summary>
+            <param name="projectId">项目ID</param>
+            <param name="unitId">单位ID</param>
+            <param name="workPostId">岗位ID</param> 
+            <param name="strPass">0-未通过；1通过；空所有</param>  
             <param name="pageIndex">页码</param>
             <returns>考试记录列表</returns>
         </member>

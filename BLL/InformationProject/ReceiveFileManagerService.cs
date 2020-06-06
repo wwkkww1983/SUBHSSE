@@ -100,5 +100,59 @@ namespace BLL
                 db.SubmitChanges();
             }
         }
+
+        /// <summary>
+        ///  根据通知生成一般来文
+        /// </summary>
+        public static void CreateReceiveFile(Model.InformationProject_Notice notice)
+        {
+            var getProjects = Funs.GetStrListByStr(notice.AccessProjectId, ',');
+            string unitId = CommonService.GetIsThisUnitId();
+            var getAtt = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == notice.NoticeId);
+            foreach (var item in getProjects)
+            {
+                Model.InformationProject_ReceiveFileManager newFile = new Model.InformationProject_ReceiveFileManager
+                {
+                    ReceiveFileManagerId = SQLHelper.GetNewID(),
+                    ProjectId = item,
+                    ReceiveFileCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ReceiveFileManagerMenuId, item, unitId),
+                    ReceiveFileName = notice.NoticeTitle,
+                    Version = "V1.0",
+                    FileUnitId = unitId,
+                    FileCode = notice.NoticeCode,
+                    FilePageNum = 1,
+                    GetFileDate = DateTime.Now,
+                    SendPersonId = notice.CompileMan,
+                    MainContent = notice.MainContent,
+                };
+                if (!string.IsNullOrEmpty(notice.ProjectId))
+                {
+                    newFile.FileType = "0";
+                }
+                else
+                {
+                    newFile.FileType = "1";
+                }
+                var getPUnits = Funs.DB.Project_ProjectUnit.Where(x => x.ProjectId == item);
+                foreach (var uItem in getPUnits)
+                {
+                    if (string.IsNullOrEmpty(newFile.UnitIds))
+                    {
+                        newFile.UnitIds = uItem.UnitId;
+                    }
+                    else
+                    {
+                        newFile.UnitIds += "," + uItem.UnitId;
+                    }
+                }
+                newFile.States = Const.State_2;
+                ReceiveFileManagerService.AddReceiveFileManager(newFile);
+                if (getAtt != null && !string.IsNullOrEmpty(getAtt.AttachUrl))
+                {
+                    APIUpLoadFileService.SaveAttachUrl(Const.ReceiveFileManagerMenuId, newFile.ReceiveFileManagerId, getAtt.AttachUrl, "0");
+                }
+                CommonService.btnSaveData(item, Const.ReceiveFileManagerMenuId, newFile.ReceiveFileManagerId, newFile.SendPersonId, true, newFile.ReceiveFileName, "../InformationProject/ReceiveFileManagerView.aspx?ReceiveFileManagerId={0}");
+            }
+        }
     }
 }

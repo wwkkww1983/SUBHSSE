@@ -110,6 +110,7 @@ namespace BLL
                               ProjectManager=UserService.GetUserNameAndTelByUserId(projectManagerId),
                               HsseManager = UserService.GetUserNameAndTelByUserId(hsseManagerId),
                               ProjectAddress = x.ProjectAddress,
+                              ContractNo=x.ContractNo,
                           };
             
             return newItem.FirstOrDefault();
@@ -125,42 +126,59 @@ namespace BLL
         {
             var newItem = new Model.SeDinMonthReport2Item();
             var monthD = Funs.GetNewDateTime(month);
+       
             var getProject = Funs.DB.Base_Project.FirstOrDefault(x => x.ProjectId == projectId);
-            if (getProject != null && monthD.HasValue)
+            if (getProject != null )
             {
-                //// 人工时月报
-                var getProjectMonthReport = from x in Funs.DB.SitePerson_MonthReport where x.ProjectId == projectId select x;
-                if (getProjectMonthReport.Count() > 0)
-                {
-                    ////人工时月报明细
-                    var getMonthReportDetail = from x in Funs.DB.SitePerson_MonthReportDetail
-                                               join y in getProjectMonthReport on x.MonthReportId equals y.MonthReportId
-                                               select x;
-                    ///// 项目累计安全人工时
-                    newItem.ProjectWorkTime = getMonthReportDetail.Sum(x => x.PersonWorkTime) ?? 0;
-                    var yearMonthReport = from x in getProjectMonthReport where x.CompileDate.Value.Year == monthD.Value.Year
-                                          && x.CompileDate.Value.Month <= monthD.Value.Month
-                                          select x;
-                    if (yearMonthReport.Count() > 0)
-                    {
-                        foreach (var item in yearMonthReport)
-                        {
-                            ////年度累计安全人工时
-                            newItem.YearWorkTime += getMonthReportDetail.Where(x => x.MonthReportId == item.MonthReportId).Sum(x => x.PersonWorkTime) ?? 0;
-                        }
-                        //// 安全生产人工时
-                        newItem.SafeWorkTime = newItem.YearWorkTime ?? 0;
-                        var monthMonthReport = yearMonthReport.FirstOrDefault(x => x.CompileDate.Value.Month == monthD.Value.Month);
-                        if (monthMonthReport != null)
-                        {
-                            ////当月安全人工时
-                            newItem.MonthWorkTime += getMonthReportDetail.Where(x => x.MonthReportId == monthMonthReport.MonthReportId).Sum(x => x.PersonWorkTime) ?? 0;
-                        }
-                    }
-                }
+                #region 从人工时月报 取值
+                ////// 人工时月报
+                //var getProjectMonthReport = from x in Funs.DB.SitePerson_MonthReport where x.ProjectId == projectId select x;
+                //if (getProjectMonthReport.Count() > 0 && monthD.HasValue)
+                //{
+                //    ////人工时月报明细
+                //    var getMonthReportDetail = from x in Funs.DB.SitePerson_MonthReportDetail
+                //                               join y in getProjectMonthReport on x.MonthReportId equals y.MonthReportId
+                //                               select x;
+                //    ///// 项目累计安全人工时
+                //    newItem.ProjectWorkTime = getMonthReportDetail.Sum(x => x.PersonWorkTime) ?? 0;
+                //    var yearMonthReport = from x in getProjectMonthReport
+                //                          where x.CompileDate.Value.Year == monthD.Value.Year && x.CompileDate.Value.Month <= monthD.Value.Month
+                //                          select x;
+                //    if (yearMonthReport.Count() > 0)
+                //    {
+                //        foreach (var item in yearMonthReport)
+                //        {
+                //            ////年度累计安全人工时
+                //            newItem.YearWorkTime += getMonthReportDetail.Where(x => x.MonthReportId == item.MonthReportId).Sum(x => x.PersonWorkTime) ?? 0;
+                //        }
+                //        //// 安全生产人工时
+                //        newItem.SafeWorkTime = newItem.YearWorkTime ?? 0;
+                //        var monthMonthReport = yearMonthReport.FirstOrDefault(x => x.CompileDate.Value.Month == monthD.Value.Month);
+                //        if (monthMonthReport != null)
+                //        {
+                //            ////当月安全人工时
+                //            newItem.MonthWorkTime += getMonthReportDetail.Where(x => x.MonthReportId == monthMonthReport.MonthReportId).Sum(x => x.PersonWorkTime) ?? 0;
+                //        }
+                //    }
+                //}
+                #endregion
 
                 newItem.StartDate = string.Format("{0:yyyy-MM-dd}", getProject.StartDate);
-                newItem.EndDate = endDate; 
+                newItem.EndDate = endDate;
+                var startDateD = Funs.GetNewDateTime(startDate);
+                var endDateD = Funs.GetNewDateTime(endDate);
+                var getAllNum = Funs.DB.SitePerson_PersonInOutNumber.Where(x => x.ProjectId == projectId);
+                var getMaxWorkHours = getAllNum.Where(x => x.InOutDate >= startDateD && x.InOutDate < endDateD).Max(x => x.WorkHours);
+                ///// 项目累计安全人工时
+                newItem.ProjectWorkTime = getMaxWorkHours ?? 0;
+                //// 安全生产人工时
+                newItem.SafeWorkTime = getMaxWorkHours ?? 0;
+                var getLastMonWorkHours = getAllNum.Where(x => x.InOutDate < startDateD).Max(x => x.WorkHours);
+                ////当月安全人工时
+                newItem.MonthWorkTime = newItem.ProjectWorkTime - (getLastMonWorkHours ?? 0);
+                var getLastYearWorkHours = getAllNum.Where(x => x.InOutDate.Year == (startDateD.Value.Year - 1)).Max(x => x.WorkHours);
+                ////年度累计安全人工时
+                newItem.YearWorkTime= newItem.ProjectWorkTime - (getLastYearWorkHours ?? 0);
             }
             return newItem;
         }
@@ -322,25 +340,29 @@ namespace BLL
                            join y in Funs.DB.Project_ProjectUnit on x.UnitId equals y.UnitId
                            where y.ProjectId == projectId
                            select x;
-            var getPerSons = from x in Funs.DB.SitePerson_Person
-                             where x.ProjectId == projectId && x.InTime <= startDateD && (!x.OutTime.HasValue)
-                             select x;
+            var getAll = from x in Funs.DB.QualityAudit_EquipmentQuality                       
+                         where x.ProjectId == projectId && x.InDate <= endDateD && (!x.OutDate.HasValue  ||  x.OutDate >startDateD )
+                             select x;            
             foreach (var item in getUnits)
             {
+                var getUAll = from x in getAll
+                              join y in Funs.DB.Base_SpecialEquipment on x.SpecialEquipmentId equals y.SpecialEquipmentId
+                              where x.UnitId == item.UnitId
+                              select new Model.BaseInfoItem { BaseInfoId = x.EquipmentQualityId, BaseInfoCode = y.SpecialEquipmentCode, BaseInfoName = y.SpecialEquipmentName };
                 Model.SeDinMonthReport5Item newItem = new Model.SeDinMonthReport5Item
                 {
                     UnitName = item.UnitName,
-                    T01 =0,
-                    T02 = 0,
-                    T03 = 0,
-                    T04 = 0,
-                    T05 = 0,
-                    T06 = 0,
-                    D01 = 0,
-                    D02 = 0,
-                    D03 = 0,
-                    D04 =0,
-                    S01 = 0,
+                    T01 = getUAll.Where(x=>x.BaseInfoName== "汽车吊").Count(),
+                    T02 = getUAll.Where(x => x.BaseInfoName == "履带吊").Count(),
+                    T03 = getUAll.Where(x => x.BaseInfoName == "塔吊").Count(),
+                    T04 = getUAll.Where(x => x.BaseInfoName == "门式起重机").Count(),
+                    T05 = getUAll.Where(x => x.BaseInfoName == "升降机").Count(),
+                    T06 = getUAll.Where(x=>x.BaseInfoName== "叉车").Count(),
+                    D01 = getUAll.Where(x=>x.BaseInfoName== "挖掘机").Count(),
+                    D02 = getUAll.Where(x=>x.BaseInfoName== "装载机").Count(),
+                    D03 = getUAll.Where(x=>x.BaseInfoName== "拖板车").Count(),
+                    D04 =getUAll.Where(x=>x.BaseInfoName== "桩机").Count(),
+                    S01 = getUAll.Where(x=>x.BaseInfoName== "吊篮").Count(),
                 };
                 getLists.Add(newItem);
             }
@@ -714,29 +736,29 @@ namespace BLL
             {
                 SafeMonthNum = getIncentiveNoticeMon1.Count(),
                 SafeTotalNum = getIncentiveNoticeAll1.Count(),
-                SafeMonthMoney = getIncentiveNoticeMon1.Sum(x=>x.IncentiveMoney),
-                SafeTotalMoney = getIncentiveNoticeAll1.Sum(x=>x.IncentiveMoney),
+                SafeMonthMoney = getIncentiveNoticeMon1.Sum(x=>x.IncentiveMoney) ?? 0, 
+                SafeTotalMoney = getIncentiveNoticeAll1.Sum(x=>x.IncentiveMoney) ?? 0,
                 HseMonthNum = getIncentiveNoticeMon2.Count(),
                 HseTotalNum = getIncentiveNoticeAll2.Count(),
-                HseMonthMoney = getIncentiveNoticeMon2.Sum(x => x.IncentiveMoney),
-                HseTotalMoney = getIncentiveNoticeAll2.Sum(x => x.IncentiveMoney),
+                HseMonthMoney = getIncentiveNoticeMon2.Sum(x => x.IncentiveMoney) ?? 0,
+                HseTotalMoney = getIncentiveNoticeAll2.Sum(x => x.IncentiveMoney) ?? 0,
                 ProduceMonthNum = getIncentiveNoticeMon3.Count(),
                 ProduceTotalNum = getIncentiveNoticeAll3.Count(),
-                ProduceMonthMoney = getIncentiveNoticeMon3.Sum(x => x.IncentiveMoney),
-                ProduceTotalMoney = getIncentiveNoticeAll3.Sum(x => x.IncentiveMoney),
+                ProduceMonthMoney = getIncentiveNoticeMon3.Sum(x => x.IncentiveMoney) ?? 0,
+                ProduceTotalMoney = getIncentiveNoticeAll3.Sum(x => x.IncentiveMoney) ?? 0,
 
                 AccidentMonthNum = getPunishNoticeMon1.Count(),
                 AccidentTotalNum = getPunishNoticeAll1.Count(),
-                AccidentMonthMoney = getPunishNoticeMon1.Sum(x => x.PunishMoney),
-                AccidentTotalMoney = getPunishNoticeAll1.Sum(x => x.PunishMoney),
+                AccidentMonthMoney = getPunishNoticeMon1.Sum(x => x.PunishMoney) ?? 0,
+                AccidentTotalMoney = getPunishNoticeAll1.Sum(x => x.PunishMoney) ?? 0,
                 ViolationMonthNum = getPunishNoticeMon2.Count(),
                 ViolationTotalNum = getPunishNoticeAll2.Count(),
-                ViolationMonthMoney = getPunishNoticeMon2.Sum(x => x.PunishMoney),
-                ViolationTotalMoney = getPunishNoticeAll2.Sum(x => x.PunishMoney),
+                ViolationMonthMoney = getPunishNoticeMon2.Sum(x => x.PunishMoney) ?? 0,
+                ViolationTotalMoney = getPunishNoticeAll2.Sum(x => x.PunishMoney) ?? 0,
                 ManageMonthNum = getPunishNoticeMon3.Count(),
                 ManageTotalNum = getPunishNoticeAll3.Count(),
-                ManageMonthMoney = getPunishNoticeMon3.Sum(x => x.PunishMoney),
-                ManageTotalMoney = getPunishNoticeAll3.Sum(x => x.PunishMoney),
+                ManageMonthMoney = getPunishNoticeMon3.Sum(x => x.PunishMoney) ?? 0,
+                ManageTotalMoney = getPunishNoticeAll3.Sum(x => x.PunishMoney) ?? 0,
             };
             return getLists;
         }
@@ -1295,30 +1317,30 @@ namespace BLL
                            {
                                MonthReport10Id = x.MonthReport10Id,
                                MonthReportId = x.MonthReportId,
-                               SafeMonthNum = x.SafeMonthNum,
-                               SafeTotalNum = x.SafeTotalNum,
-                               SafeMonthMoney = x.SafeMonthMoney,
-                               SafeTotalMoney = x.SafeTotalMoney,
-                               HseMonthNum = x.HseMonthNum,
-                               HseTotalNum = x.HseTotalNum,
-                               HseMonthMoney = x.HseMonthMoney,
-                               HseTotalMoney = x.HseTotalMoney,
-                               ProduceMonthNum = x.ProduceMonthNum,
-                               ProduceTotalNum = x.ProduceTotalNum,
-                               ProduceMonthMoney = x.ProduceMonthMoney,
-                               ProduceTotalMoney = x.ProduceTotalMoney,
-                               AccidentMonthNum = x.AccidentMonthNum,
-                               AccidentTotalNum = x.AccidentTotalNum,
-                               AccidentMonthMoney = x.AccidentMonthMoney,
-                               AccidentTotalMoney = x.AccidentTotalMoney,
-                               ViolationMonthNum = x.ViolationMonthNum,
-                               ViolationTotalNum = x.ViolationTotalNum,
-                               ViolationMonthMoney = x.ViolationMonthMoney,
-                               ViolationTotalMoney = x.ViolationTotalMoney,
-                               ManageMonthNum = x.ManageMonthNum,
-                               ManageTotalNum = x.ManageTotalNum,
-                               ManageMonthMoney = x.ManageMonthMoney,
-                               ManageTotalMoney = x.ManageTotalMoney,
+                               SafeMonthNum = x.SafeMonthNum ?? 0,
+                               SafeTotalNum = x.SafeTotalNum ?? 0,
+                               SafeMonthMoney = x.SafeMonthMoney ?? 0,
+                               SafeTotalMoney = x.SafeTotalMoney ?? 0,
+                               HseMonthNum = x.HseMonthNum ?? 0,
+                               HseTotalNum = x.HseTotalNum ?? 0,
+                               HseMonthMoney = x.HseMonthMoney ?? 0,
+                               HseTotalMoney = x.HseTotalMoney ?? 0,
+                               ProduceMonthNum = x.ProduceMonthNum ?? 0,
+                               ProduceTotalNum = x.ProduceTotalNum ?? 0,
+                               ProduceMonthMoney = x.ProduceMonthMoney ?? 0,
+                               ProduceTotalMoney = x.ProduceTotalMoney ?? 0,
+                               AccidentMonthNum = x.AccidentMonthNum ?? 0,
+                               AccidentTotalNum = x.AccidentTotalNum ?? 0,
+                               AccidentMonthMoney = x.AccidentMonthMoney ?? 0,
+                               AccidentTotalMoney = x.AccidentTotalMoney ?? 0,
+                               ViolationMonthNum = x.ViolationMonthNum ?? 0,
+                               ViolationTotalNum = x.ViolationTotalNum ?? 0,
+                               ViolationMonthMoney = x.ViolationMonthMoney ?? 0,
+                               ViolationTotalMoney = x.ViolationTotalMoney ?? 0,
+                               ManageMonthNum = x.ManageMonthNum ?? 0,
+                               ManageTotalNum = x.ManageTotalNum ?? 0,
+                               ManageMonthMoney = x.ManageMonthMoney ?? 0,
+                               ManageTotalMoney = x.ManageTotalMoney ?? 0,
                            }).FirstOrDefault();
             }
             return getInfo;
@@ -1344,11 +1366,11 @@ namespace BLL
                            {
                                MonthReport11Id = x.MonthReport11Id,
                                MonthReportId = x.MonthReportId,
-                               RiskWorkNum = x.RiskWorkNum,
-                               RiskFinishedNum = x.RiskFinishedNum,
+                               RiskWorkNum = x.RiskWorkNum ?? 0,
+                               RiskFinishedNum = x.RiskFinishedNum ?? 0,
                                RiskWorkNext = x.RiskWorkNext,
-                               LargeWorkNum = x.LargeWorkNum,
-                               LargeFinishedNum = x.LargeFinishedNum,
+                               LargeWorkNum = x.LargeWorkNum ?? 0,
+                               LargeFinishedNum = x.LargeFinishedNum ?? 0,
                                LargeWorkNext = x.LargeWorkNext,
                            }).FirstOrDefault();
             }

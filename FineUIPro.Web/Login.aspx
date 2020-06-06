@@ -32,7 +32,7 @@
     </style>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" style="background-image:url(Images/LoginPage/SeDin.jpg)">
         <f:PageManager ID="PageManager1"  runat="server" />
         <f:Panel ID="Panel1" runat="server"  AutoScroll="true" ShowBorder="false" EnableCollapse="false"
             BodyPadding="0px" Layout="Column" ShowHeader="false" ColumnWidth="100%"  

@@ -312,7 +312,7 @@ namespace FineUIPro.Web.InformationProject
                 }
             }
         }
-     
+
         /// <summary>
         /// 右键发布事件
         /// </summary>
@@ -326,19 +326,27 @@ namespace FineUIPro.Web.InformationProject
                 foreach (int rowIndex in SGrid.SelectedRowIndexArray)
                 {
                     string rowID = SGrid.DataKeys[rowIndex][0].ToString();
-                    var notice = BLL.NoticeService.GetNoticeById(rowID);
+                    var notice = NoticeService.GetNoticeById(rowID);
                     if (notice != null)
                     {
-                        if (notice.States == BLL.Const.State_2 && (notice.IsRelease == false || !notice.IsRelease.HasValue))
+                        if (notice.States == Const.State_2)
                         {
-                            notice.IsRelease = true;
-                            notice.ReleaseDate = System.DateTime.Now;
-                            BLL.NoticeService.UpdateNotice(notice);
-                            BLL.LogService.AddSys_Log(this.CurrUser, notice.NoticeCode, notice.NoticeId, BLL.Const.ServerNoticeMenuId, Const.BtnIssuance);
+                            if (notice.IsRelease == false || !notice.IsRelease.HasValue)
+                            {
+                                notice.IsRelease = true;
+                                notice.ReleaseDate = DateTime.Now;
+                                NoticeService.UpdateNotice(notice);
+                                ReceiveFileManagerService.CreateReceiveFile(notice);
+                                LogService.AddSys_Log(this.CurrUser, notice.NoticeCode, notice.NoticeId, BLL.Const.ServerNoticeMenuId, Const.BtnIssuance);
+                            }
+                            else
+                            {
+                                strShowNotify += "通知：" + notice.NoticeCode + "已发布！";
+                            }
                         }
                         else
                         {
-                            strShowNotify += "通知：" + notice.NoticeCode;
+                            strShowNotify += "通知：" + notice.NoticeCode + "审核未完成！";
                         }
                     }
                 }
@@ -347,7 +355,7 @@ namespace FineUIPro.Web.InformationProject
                 this.ABindGrid();
                 if (!string.IsNullOrEmpty(strShowNotify))
                 {
-                    ShowNotify(strShowNotify + "审核未完成不能发布！", MessageBoxIcon.Warning);
+                    ShowNotify(strShowNotify, MessageBoxIcon.Warning);
                 }
                 else
                 {

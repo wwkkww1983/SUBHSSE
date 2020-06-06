@@ -177,8 +177,29 @@ namespace BLL
                               States = x.States,
                               MenuType = "3",
                               AttachUrl = APIUpLoadFileService.getFileUrl(x.FileId, x.AttachUrl),
+                              EmergencyTeamItem= getEmergencyTeamItems(x.FileId),
                           };
             return getInfo.FirstOrDefault();
+        }
+
+        /// <summary>
+        /// 队伍明细
+        /// </summary>
+        /// <param name="fileId"></param>
+        /// <returns></returns>
+        public static List<Model.EmergencyTeamItem> getEmergencyTeamItems(string fileId)
+        {
+            return (from x in Funs.DB.Emergency_EmergencyTeamItem                   
+                   where x.FileId == fileId
+                   select new Model.EmergencyTeamItem
+                   {
+                       EmergencyTeamItemId=x.EmergencyTeamItemId,
+                       FileId =x.FileId,
+                       PersonId =x.PersonId,
+                       PersonName=Funs.DB.SitePerson_Person.First(z=>z.PersonId == x.PersonId).PersonName,
+                       Job =x.Job,
+                       Tel=x.Tel,
+                   }).ToList();
         }
         #endregion        
 
@@ -350,7 +371,31 @@ namespace BLL
                         updateEmergency.FileName = newEmergency.FileName;
                         updateEmergency.FileContent = newEmergency.FileContent;
                         db.SubmitChanges();
+                        var delItem = from x in db.Emergency_EmergencyTeamItem where x.FileId == updateEmergency.FileId select x;
+                        if (delItem.Count() > 0)
+                        {
+                            db.Emergency_EmergencyTeamItem.DeleteAllOnSubmit(delItem);
+                            db.SubmitChanges();
+                        }
                     }
+                    if (emergencyInfo.EmergencyTeamItem != null && emergencyInfo.EmergencyTeamItem.Count() > 0)
+                    {
+                        var getItems = from x in emergencyInfo.EmergencyTeamItem
+                                       select new Model.Emergency_EmergencyTeamItem
+                                       {
+                                           EmergencyTeamItemId = x.EmergencyTeamItemId,
+                                           FileId = x.FileId,
+                                           PersonId = x.PersonId,
+                                           Job = x.Job,
+                                           Tel = x.Tel,
+                                       };
+                        if (getItems.Count() > 0)
+                        {
+                            Funs.DB.Emergency_EmergencyTeamItem.InsertAllOnSubmit(getItems);
+                            Funs.DB.SubmitChanges();
+                        }
+                    }
+
                     if (emergencyInfo.States == Const.State_1)
                     {
                         CommonService.btnSaveData(newEmergency.ProjectId, Const.ProjectEmergencyTeamAndTrainMenuId, newEmergency.FileId, newEmergency.CompileMan, true, newEmergency.FileName, "../Emergency/EmergencyTeamAndTrainView.aspx?FileId={0}");
@@ -368,5 +413,31 @@ namespace BLL
             }
         }
         #endregion
+
+        #region 获取应急流程列表信息
+        /// <summary>
+        /// 获取应急队伍列表信息
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="strParam"></param>
+        /// <returns></returns>
+        public static List<Model.EmergencyProcessItem> getEmergencyProcessList(string projectId, string strParam)
+        {
+            var getDataList = from x in Funs.DB.Emergency_EmergencyProcess
+                              where x.ProjectId == projectId 
+                              && (strParam == null || x.ProcessName.Contains(strParam) || x.StepOperator.Contains(strParam))
+                              orderby x.ProcessSteps
+                              select new Model.EmergencyProcessItem
+                              {
+                                  EmergencyProcessId = x.EmergencyProcessId,
+                                  ProjectId = x.ProjectId,
+                                  ProcessSteps = x.ProcessSteps,
+                                  ProcessName = x.ProcessName,
+                                  StepOperator = x.StepOperator,
+                                  Remark = x.Remark,
+                              };
+            return getDataList.ToList();
+        }
+        #endregion        
     }
 }

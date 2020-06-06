@@ -45,6 +45,8 @@
                     </f:TextBox>
                     <f:TextBox ID="txtBasicItem" runat="server" Label="处罚根据" LabelAlign="Right" Readonly="true" LabelWidth="120px">
                     </f:TextBox>
+                     <f:TextBox ID="txtPunishName" runat="server" Label="处罚类型" LabelAlign="Right" Readonly="true" LabelWidth="120px">
+                    </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow ColumnWidths="50% 20% 30%">

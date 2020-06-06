@@ -199,5 +199,34 @@ namespace WebAPI.Controllers
         }
         #endregion
 
+        #region 获取应急流程列表-查询
+        /// <summary>
+        /// 获取应急队伍信息列表-查询
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="pageIndex"></param>
+        ///  <param name="strParam">查询条件</param>
+        /// <returns></returns>
+        public Model.ResponeData getEmergencyProcessList(string projectId,  string strParam, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APIEmergencyService.getEmergencyProcessList(projectId,  strParam);
+                int pageCount = getDataList.Count();
+                if (pageCount > 0 && pageIndex > 0)
+                {
+                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                }
+                responeData.data = new { pageCount, getDataList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
     }
 }

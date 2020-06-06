@@ -46,7 +46,7 @@ namespace BLL
             };
             db.InformationProject_Notice.InsertOnSubmit(newNotice);
             db.SubmitChanges();
-            
+
             if (!string.IsNullOrEmpty(Notice.ProjectId))
             {
                 if (Notice.NoticeCode == BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectNoticeMenuId, Notice.ProjectId, null))
@@ -128,6 +128,6 @@ namespace BLL
                 db.InformationProject_Notice.DeleteOnSubmit(Notice);
                 db.SubmitChanges();
             }
-        }
+        }        
     }
 }

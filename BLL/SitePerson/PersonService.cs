@@ -23,6 +23,22 @@ namespace BLL
         }
 
         /// <summary>
+        /// 根据主键获取人员信息
+        /// </summary>
+        /// <param name="personId"></param>
+        /// <returns></returns>
+        public static string GetPersonNameById(string personId)
+        {
+            string name = string.Empty;
+            var getp= Funs.DB.SitePerson_Person.FirstOrDefault(e => e.PersonId == personId);
+            if (getp != null)
+            {
+                name = getp.PersonName;
+            }
+            return name;
+        }
+
+        /// <summary>
         /// 根据UserId主键获取人员信息
         /// </summary>
         /// <param name="userId"></param>
@@ -74,7 +90,10 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.SitePerson_Person> GetPersonLitsByprojectIdUnitId(string projectId, string unitId)
         {
-            return (from x in Funs.DB.SitePerson_Person where x.ProjectId == projectId && x.UnitId == unitId select x).ToList();
+            return (from x in Funs.DB.SitePerson_Person
+                    where x.ProjectId == projectId && x.UnitId == unitId
+                    orderby x.PersonName
+                    select x).ToList();
         }
 
         /// <summary>

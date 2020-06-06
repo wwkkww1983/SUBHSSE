@@ -834,12 +834,13 @@ namespace BLL
                         {
                             var getInMaxs = from x in getDayAll
                                             group x by x.PersonId into g
-                                            select new { g.First().PersonId, ChangeTime = g.Max(x => x.ChangeTime), g.First().IsIn };
+                                            select new { g.First().PersonId, ChangeTime = g.Max(x => x.ChangeTime) };
                             if (getInMaxs.Count() > 0)
                             {
                                 SitePersonNum = (from x in getInMaxs
-                                                 where x.IsIn == true
-                                                 select x).Count();
+                                                            join y in getDayAll on new { x.PersonId, x.ChangeTime } equals new { y.PersonId, y.ChangeTime }
+                                                            where  y.IsIn == true
+                                                            select y).Count();
                             }
                         }
                         #endregion

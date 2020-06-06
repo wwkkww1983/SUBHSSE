@@ -18,17 +18,14 @@
                 <Items>
                     <f:TextBox ID="txtTeamGroupCode" runat="server" Label="班组编号" Readonly="true">
                     </f:TextBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:TextBox ID="txtTeamGroupName" runat="server" Label="班组名称" Readonly="true">
+                      <f:TextBox ID="txtTeamGroupName" runat="server" Label="班组名称" Readonly="true">
                     </f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:TextBox ID="drpUnitId" runat="server" Label="单位名称" Readonly="true"></f:TextBox>
+                    <f:TextBox ID="drpGroupLeader" runat="server" Label="班组长" Readonly="true"></f:TextBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>

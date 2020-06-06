@@ -90,5 +90,38 @@ namespace BLL
                 db.SubmitChanges();
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        public static void AddEmergencyTeamItem(Model.Emergency_EmergencyTeamItem item)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            Model.Emergency_EmergencyTeamItem newItem = new Model.Emergency_EmergencyTeamItem
+            {
+                EmergencyTeamItemId = item.EmergencyTeamItemId,
+                FileId = item.FileId,
+                PersonId = item.PersonId,
+                Job = item.Job,
+                Tel = item.Tel,
+            };
+            db.Emergency_EmergencyTeamItem.InsertOnSubmit(newItem);
+            db.SubmitChanges();
+        }
+        /// <summary>
+        ///  删除
+        /// </summary>
+        /// <param name="FileId"></param>
+        public static void DeleteEmergency_EmergencyTeamItem(string FileId)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            var delItem = from x in db.Emergency_EmergencyTeamItem where x.FileId == FileId select x;
+            if (delItem.Count() > 0)
+            {
+                db.Emergency_EmergencyTeamItem.DeleteAllOnSubmit(delItem);
+                db.SubmitChanges();
+            }
+        }
     }
 }

@@ -48,8 +48,7 @@
                         </Items>
                     </f:Toolbar>
                 </Toolbars>
-                <Columns>
-                                      
+                <Columns>                                      
                     <f:TemplateField ColumnID="tfNumber" Width="50px" HeaderText="序号" HeaderTextAlign="Center"
                         TextAlign="Center">
                         <ItemTemplate>
@@ -106,7 +105,7 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="应急队伍与培训" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1024px" Height="620px">
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="900px" Height="650px">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件页面" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px" Height="500px">

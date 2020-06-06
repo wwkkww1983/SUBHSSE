@@ -412,7 +412,9 @@
     <Content Include="Emergency\DrillRecordList.aspx" />
     <Content Include="Emergency\DrillRecordListEdit.aspx" />
     <Content Include="Emergency\DrillRecordListView.aspx" />
+    <Content Include="Emergency\EmergencyProcess.aspx" />
     <Content Include="Emergency\EmergencySupply.aspx" />
+    <Content Include="Emergency\EmergencyProcessEdit.aspx" />
     <Content Include="Emergency\EmergencySupplyEdit.aspx" />
     <Content Include="Emergency\EmergencySupplyView.aspx" />
     <Content Include="Emergency\EmergencyTeamAndTrain.aspx" />
@@ -5899,12 +5901,26 @@
     <Compile Include="Emergency\DrillRecordListView.aspx.designer.cs">
       <DependentUpon>DrillRecordListView.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Emergency\EmergencyProcess.aspx.cs">
+      <DependentUpon>EmergencyProcess.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Emergency\EmergencyProcess.aspx.designer.cs">
+      <DependentUpon>EmergencyProcess.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Emergency\EmergencySupply.aspx.cs">
       <DependentUpon>EmergencySupply.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Emergency\EmergencySupply.aspx.designer.cs">
       <DependentUpon>EmergencySupply.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Emergency\EmergencyProcessEdit.aspx.cs">
+      <DependentUpon>EmergencyProcessEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Emergency\EmergencyProcessEdit.aspx.designer.cs">
+      <DependentUpon>EmergencyProcessEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Emergency\EmergencySupplyEdit.aspx.cs">
       <DependentUpon>EmergencySupplyEdit.aspx</DependentUpon>

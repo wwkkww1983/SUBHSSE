@@ -49,8 +49,7 @@
                 </Items>
             </f:FormRow>
               <f:FormRow>
-                <Items>
-                  
+                <Items>                  
                     <f:TextBox ID="txtTrainStartDate" runat="server" Label="培训日期" Readonly="true">
                     </f:TextBox>
                     <f:TextBox ID="txtTrainPersonNum" runat="server" Label="培训人数" Readonly="true">
@@ -129,7 +128,9 @@
                                         DecimalPrecision="1" runat="server" Required="true">
                                     </f:NumberBox>
                                 </Editor>
-                            </f:RenderField>                           
+                            </f:RenderField> 
+                             <f:WindowField TextAlign="Center" Width="80px" WindowID="WindowAtt" 
+                                     Text="试卷" ToolTip="上传查看" DataIFrameUrlFields="TrainDetailId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/TrainRecord&menuId=1182E353-FAB9-4DB1-A1EC-F41A00892128"/>
                         </Columns>
                         <Listeners>
                            <%-- <f:Listener Event="dataload" Handler="onGridDataLoad" />--%>

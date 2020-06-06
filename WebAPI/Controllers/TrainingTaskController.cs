@@ -86,11 +86,11 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                personId = PersonService.GetPersonIdByUserId(personId);
-                responeData.message = APITrainingTaskService.getTrainingTaskByPlanIdPersonIdCondition(planId, personId);
+               string newPersonId = PersonService.GetPersonIdByUserId(personId);
+                responeData.message = APITrainingTaskService.getTrainingTaskByPlanIdPersonIdCondition(planId, newPersonId);
                 if (string.IsNullOrEmpty(responeData.message))
                 {
-                    APITrainingTaskService.getTrainingTaskByPlanIdPersonId(planId, personId);
+                    APITrainingTaskService.getTrainingTaskByPlanIdPersonId(planId, newPersonId);
                 }
                 else
                 {

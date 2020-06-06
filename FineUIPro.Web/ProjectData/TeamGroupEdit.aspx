@@ -19,18 +19,17 @@
                     <f:TextBox ID="txtTeamGroupCode" runat="server" Label="班组编号" Required="true" MaxLength="50"
                         ShowRedStar="true" FocusOnPageLoad="true" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:TextBox ID="txtTeamGroupName" runat="server" Label="班组名称" Required="true" MaxLength="50"
+                       <f:TextBox ID="txtTeamGroupName" runat="server" Label="班组名称" Required="true" MaxLength="50"
                         ShowRedStar="true" AutoPostBack="true" OnTextChanged="TextBox_TextChanged">
                     </f:TextBox>
                 </Items>
-            </f:FormRow>
+            </f:FormRow>           
             <f:FormRow>
                 <Items>
-                    <f:DropDownList ID="drpUnitId" runat="server" Label="单位名称">
+                    <f:DropDownList ID="drpUnitId" runat="server" Label="单位名称"  EnableEdit="true" ShowRedStar="true" Required="true"
+                        OnSelectedIndexChanged="drpUnitId_SelectedIndexChanged" AutoPostBack="true">
+                    </f:DropDownList>
+                     <f:DropDownList ID="drpGroupLeader" runat="server" Label="班组长" EnableEdit="true">
                     </f:DropDownList>
                 </Items>
             </f:FormRow>

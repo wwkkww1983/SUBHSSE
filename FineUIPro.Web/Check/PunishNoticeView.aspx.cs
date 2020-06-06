@@ -99,6 +99,7 @@ namespace FineUIPro.Web.Check
                         {
                             this.txtCurrency.Text = punishNotice.Currency;
                         }
+                        this.txtPunishName.Text = punishNotice.PunishName;
                     }
                 }
                 ///初始化审核菜单

@@ -21,8 +21,9 @@
             <f:Grid ID="Grid1" Title="机具设备" ShowHeader="false" EnableCollapse="true" PageSize="10"  EnableColumnLines="true"
                 ShowBorder="true" AllowPaging="true" IsDatabasePaging="true" runat="server" Width="760px"
                 DataKeyNames="SpecialEquipmentId" DataIDField="SpecialEquipmentId" OnPageIndexChange="Grid1_PageIndexChange"
-                AllowFilters="true" OnFilterChange="Grid1_FilterChange" EnableTextSelection="True" SortField="TypeName,SpecialEquipmentCode"
-               SortDirection="ASC" >
+                AllowFilters="true" OnFilterChange="Grid1_FilterChange" EnableTextSelection="True" 
+                SortField="TypeName,SpecialEquipmentCode"
+               SortDirection="DESC" >
                 <Columns>
                    <%--<f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center" TextAlign="Center"/>--%>
                     <f:RenderField Width="80px" ColumnID="SpecialEquipmentCode" DataField="SpecialEquipmentCode" FieldType="String"
@@ -53,7 +54,7 @@
                     </f:ToolbarSeparator>
                     <f:ToolbarText ID="ToolbarText1" runat="server" Text="每页记录数：">
                     </f:ToolbarText>
-                    <f:DropDownList runat="server" ID="ddlPageSize" Width="80px" AutoPostBack="true"
+                      <f:DropDownList runat="server" ID="ddlPageSize" Width="80px" AutoPostBack="true"
                         OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">
                         <f:ListItem Text="10" Value="10" />
                         <f:ListItem Text="15" Value="15" />

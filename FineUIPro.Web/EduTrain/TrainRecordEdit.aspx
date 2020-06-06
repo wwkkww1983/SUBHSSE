@@ -142,6 +142,8 @@
                                         </f:NumberBox>
                                     </Editor>
                                 </f:RenderField>
+                               <f:WindowField TextAlign="Center" Width="80px" WindowID="WindowAtt" 
+                                     Text="试卷" ToolTip="上传查看" DataIFrameUrlFields="TrainDetailId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/TrainRecord&menuId=1182E353-FAB9-4DB1-A1EC-F41A00892128"/>
                                 <f:RenderField Width="1px" ColumnID="TrainDetailId" DataField="TrainDetailId" 
                                     FieldType="String" HeaderText="主键"  Hidden="true" HeaderTextAlign="Center">                                        
                                 </f:RenderField>

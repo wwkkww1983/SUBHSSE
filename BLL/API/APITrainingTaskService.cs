@@ -82,70 +82,72 @@ namespace BLL
         public static string getTrainingTaskByPlanIdPersonIdCondition(string planId, string personId)
         {
             string alterString = string.Empty;
-            var task = Funs.DB.Training_Task.FirstOrDefault(x => x.PlanId == planId && x.UserId == personId);
-            if (task != null)
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                alterString = "人员已在培训任务中！";
-            }
-            else
-            {
-                var plan = TrainingPlanService.GetPlanById(planId);
-                if (plan != null)
+                var task = db.Training_Task.FirstOrDefault(x => x.PlanId == planId && x.UserId == personId);
+                if (task != null)
                 {
-                    if (plan.States != "0" && plan.States != "1")
+                    alterString = "人员已在培训任务中！";
+                }
+                else
+                {
+                    var plan = db.Training_Plan.FirstOrDefault(e => e.PlanId == planId);
+                    if (plan != null)
                     {
-                        alterString = "当前培训不能再加入人员!";
-                    }
-                    else
-                    {
-                        var person = PersonService.GetPersonById(personId);
-                        if (person != null && plan.ProjectId == person.ProjectId && plan.UnitIds.Contains(person.UnitId)
-                                && (string.IsNullOrEmpty(plan.WorkPostId) || plan.WorkPostId.Contains(person.WorkPostId)))
+                        if (plan.States != "0" && plan.States != "1")
                         {
-                            var trainType = TrainTypeService.GetTrainTypeById(plan.TrainTypeId);
-                            if (trainType != null)
+                            alterString = "当前培训不能再加入人员!";
+                        }
+                        else
+                        {
+                            var person = db.SitePerson_Person.FirstOrDefault(e => e.PersonId == personId);
+                            if (person != null && plan.ProjectId == person.ProjectId && plan.UnitIds.Contains(person.UnitId)
+                                    && (string.IsNullOrEmpty(plan.WorkPostId) || plan.WorkPostId.Contains(person.WorkPostId)))
                             {
-                                if (!trainType.IsRepeat.HasValue || trainType.IsRepeat == false)
+                                var trainType = db.Base_TrainType.FirstOrDefault(e => e.TrainTypeId == plan.TrainTypeId); 
+                                if (trainType != null)
                                 {
-                                    var trainRecord = (from x in Funs.DB.EduTrain_TrainRecord
-                                                       join y in Funs.DB.EduTrain_TrainRecordDetail on x.TrainingId equals y.TrainingId
-                                                       where x.TrainTypeId == plan.TrainTypeId  && x.ProjectId == person.ProjectId
-                                                       && y.PersonId == personId && y.CheckResult == true
-                                                       select x).FirstOrDefault();
-                                    if (trainRecord != null)
+                                    if (!trainType.IsRepeat.HasValue || trainType.IsRepeat == false)
                                     {
-                                        alterString = "人员已参加过当前类型的培训!";
-                                    }
-                                    else
-                                    {
-                                        var getTask = (from x in Funs.DB.Training_Plan
-                                                       join y in Funs.DB.Training_Task on x.PlanId equals y.PlanId
-                                                       where x.TrainTypeId == plan.TrainTypeId && y.UserId == personId && x.States != "3"
-                                                       select x).FirstOrDefault();
-                                        if (getTask != null)
+                                        var trainRecord = (from x in db.EduTrain_TrainRecord
+                                                           join y in db.EduTrain_TrainRecordDetail on x.TrainingId equals y.TrainingId
+                                                           where x.TrainTypeId == plan.TrainTypeId && x.ProjectId == person.ProjectId
+                                                           && y.PersonId == personId && y.CheckResult == true
+                                                           select x).FirstOrDefault();
+                                        if (trainRecord != null)
                                         {
-                                            alterString = "人员已再同培训类型的培训中!";
+                                            alterString = "人员已参加过当前类型的培训!";
+                                        }
+                                        else
+                                        {
+                                            var getTask = (from x in db.Training_Plan
+                                                           join y in db.Training_Task on x.PlanId equals y.PlanId
+                                                           where x.TrainTypeId == plan.TrainTypeId && y.UserId == personId && x.States != "3"
+                                                           select x).FirstOrDefault();
+                                            if (getTask != null)
+                                            {
+                                                alterString = "人员已再同培训类型的培训中!";
+                                            }
                                         }
                                     }
+                                }
+                                else
+                                {
+                                    alterString = "当前培训类型有问题!";
                                 }
                             }
                             else
                             {
-                                alterString = "当前培训类型有问题!";
+                                alterString = "人员与培训计划不匹配!";
                             }
                         }
-                        else
-                        {
-                            alterString = "人员与培训计划不匹配!";
-                        }
+                    }
+                    else
+                    {
+                        alterString = "当前培训计划不允许再增加人员!";
                     }
                 }
-                else
-                {
-                    alterString = "当前培训计划不允许再增加人员!";
-                }
             }
-
             return alterString;
         }
         #endregion

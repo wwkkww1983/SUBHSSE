@@ -16,6 +16,9 @@
         <Rows>
             <f:FormRow>
                 <Items>
+                     <f:DropDownList ID="drpUnit" runat="server" Label="单位"  EnableEdit="true" LabelAlign="Right"
+                         AutoPostBack="true" OnSelectedIndexChanged="drpUnit_SelectedIndexChanged">
+                    </f:DropDownList>      
                     <f:TextBox ID="txtFileCode" runat="server" Label="编号" LabelAlign="Right"
                         MaxLength="50" Readonly="true">
                     </f:TextBox>
@@ -23,21 +26,58 @@
                         LabelAlign="Right" MaxLength="200" FocusOnPageLoad="true">
                     </f:TextBox>
                 </Items>
-            </f:FormRow>                        
+            </f:FormRow>                  
             <f:FormRow>
                 <Items>
-                      <f:DropDownList ID="drpUnit" runat="server" Label="单位" EnableEdit="true" LabelAlign="Right">
-                    </f:DropDownList>                           
+                    <f:Form ID="Form2" ShowBorder="true" ShowHeader="true" Title="队伍" AutoScroll="true"
+                       runat="server" RedStarPosition="BeforeText" LabelAlign="Right" EnableTableStyle="true">
+                    <Rows>
+                        <f:FormRow ColumnWidths="30% 30% 30% 5%">
+                            <Items>
+                                <f:HiddenField runat="server" ID="hdEmergencyTeamItemId"></f:HiddenField>
+                                <f:DropDownList runat="server" ID="drpPserson" Label="人员"  EnableEdit="true" LabelAlign="Right"
+                                    AutoPostBack="true" OnSelectedIndexChanged="drpPserson_SelectedIndexChanged">
+                                </f:DropDownList>                 
+                                 <f:TextBox ID="txtJob" runat="server" Label="职务"  LabelAlign="Right" MaxLength="50" >
+                                 </f:TextBox>
+                                <f:TextBox ID="txtTel" runat="server" Label="电话"  LabelAlign="Right" MaxLength="50" >
+                                 </f:TextBox>
+                                 <f:Button ID="btnSure" Icon="Accept" runat="server"  ValidateForms="SimpleForm1" 
+                                    OnClick="btnSure_Click" ToolTip="确认" >
+                                </f:Button>       
+                            </Items>
+                        </f:FormRow>
+                        <f:FormRow>
+                            <Items>
+                                <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false"  EnableCollapse="true" EnableColumnLines="true" 
+                                    EnableColumnMove="true" runat="server" BoxFlex="1" DataKeyNames="EmergencyTeamItemId" 
+                                    DataIDField="EmergencyTeamItemId" AllowSorting="true" SortField="Job,PersonName" 
+                                    SortDirection="ASC" EnableTextSelection="True"  Height="250px" 
+                                    EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick">                                  
+                                    <Columns>                        
+                                        <f:RenderField MinWidth="250px" ColumnID="PersonName" DataField="PersonName" 
+                                            FieldType="String" HeaderText="姓名"  HeaderTextAlign="Center" TextAlign="Left">
+                                        </f:RenderField>
+                                        <f:RenderField MinWidth="250px" ColumnID="Job" DataField="Job" 
+                                            FieldType="String" HeaderText="职务"  HeaderTextAlign="Center" TextAlign="Left">
+                                        </f:RenderField>
+                                           <f:RenderField MinWidth="250px" ColumnID="Tel" DataField="Tel"  ExpandUnusedSpace="true"
+                                               FieldType="String" HeaderText="电话"  HeaderTextAlign="Center" TextAlign="Left">
+                                        </f:RenderField>
+                                        <f:RenderField  HeaderText="PersonId" ColumnID="PersonId" DataField="PersonId" 
+                                            FieldType="String" Hidden="true"></f:RenderField>
+                                    </Columns>
+                                        <Listeners>
+                                            <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
+                                        </Listeners>
+                                </f:Grid>
+                            </Items>
+                        </f:FormRow>
+                    </Rows>
+                </f:Form>
                 </Items>
             </f:FormRow>
             <f:FormRow>
-                <Items>
-                    <f:HtmlEditor runat="server" Label="内容" ID="txtFileContent" ShowLabel="false"
-                        Editor="UMEditor" BasePath="~/res/umeditor/" ToolbarSet="Full" Height="240px" LabelAlign="Right">
-                    </f:HtmlEditor>
-                </Items>
-            </f:FormRow>
-              <f:FormRow>
                 <Items>                   
                     <f:DropDownList ID="drpCompileMan" runat="server" Label="整理人" EnableEdit="true" LabelAlign="Right">
                     </f:DropDownList>
@@ -45,7 +85,7 @@
                         EnableEdit="true">
                     </f:DatePicker>  
                 </Items>
-            </f:FormRow>  
+            </f:FormRow>
             <f:FormRow>
                 <Items>
                     <f:ContentPanel ID="ContentPanel1" runat="server" ShowHeader="false" EnableCollapse="true"
@@ -78,6 +118,28 @@
         Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="700px"
         Height="500px">
     </f:Window>
+    <f:Menu ID="Menu1" runat="server">
+            <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" EnablePostBack="true"
+            runat="server" Text="修改" Icon="TableEdit">
+        </f:MenuButton>
+        <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
+             ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除"
+            Icon="Delete">
+        </f:MenuButton>
+    </f:Menu>
     </form>
+   
+    
+    <script type="text/javascript">      
+         var menuID = '<%= Menu1.ClientID %>';
+        // 返回false，来阻止浏览器右键菜单
+        function onRowContextMenu(event, rowId) {
+            F(menuID).show();  //showAt(event.pageX, event.pageY);
+            return false;
+        }
+        function reloadGrid() {
+            __doPostBack(null, 'reloadGrid');
+        }
+    </script>
 </body>
 </html>

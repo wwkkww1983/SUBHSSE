@@ -196,7 +196,7 @@ namespace FineUIPro.Web.InformationProject
             }
             ////单据状态
             ReceiveFileManager.States = BLL.Const.State_0;
-            if (type == BLL.Const.BtnSubmit)
+            if (type == Const.BtnSubmit)
             {
                 ReceiveFileManager.States = this.ctlAuditFlow.NextStep;
             }
@@ -204,15 +204,15 @@ namespace FineUIPro.Web.InformationProject
             if (!string.IsNullOrEmpty(this.ReceiveFileManagerId))
             {
                 ReceiveFileManager.ReceiveFileManagerId = this.ReceiveFileManagerId;
-                BLL.ReceiveFileManagerService.UpdateReceiveFileManager(ReceiveFileManager);
-                BLL.LogService.AddSys_Log(this.CurrUser, ReceiveFileManager.ReceiveFileCode, ReceiveFileManager.ReceiveFileManagerId, BLL.Const.ReceiveFileManagerMenuId, BLL.Const.BtnModify);
+                ReceiveFileManagerService.UpdateReceiveFileManager(ReceiveFileManager);
+                LogService.AddSys_Log(this.CurrUser, ReceiveFileManager.ReceiveFileCode, ReceiveFileManager.ReceiveFileManagerId, BLL.Const.ReceiveFileManagerMenuId, BLL.Const.BtnModify);
             }
             else
             {
                 this.ReceiveFileManagerId = SQLHelper.GetNewID(typeof(Model.InformationProject_ReceiveFileManager));
                 ReceiveFileManager.ReceiveFileManagerId = this.ReceiveFileManagerId;
-                BLL.ReceiveFileManagerService.AddReceiveFileManager(ReceiveFileManager);
-                BLL.LogService.AddSys_Log(this.CurrUser, ReceiveFileManager.ReceiveFileCode, ReceiveFileManager.ReceiveFileManagerId,BLL.Const.ReceiveFileManagerMenuId,BLL.Const.BtnAdd);
+                ReceiveFileManagerService.AddReceiveFileManager(ReceiveFileManager);
+                LogService.AddSys_Log(this.CurrUser, ReceiveFileManager.ReceiveFileCode, ReceiveFileManager.ReceiveFileManagerId,BLL.Const.ReceiveFileManagerMenuId,BLL.Const.BtnAdd);
             }
             ////保存流程审核数据         
             this.ctlAuditFlow.btnSaveData(this.ProjectId, BLL.Const.ReceiveFileManagerMenuId, this.ReceiveFileManagerId, (type == BLL.Const.BtnSubmit ? true : false), ReceiveFileManager.ReceiveFileName, "../InformationProject/ReceiveFileManagerView.aspx?ReceiveFileManagerId={0}");
@@ -229,9 +229,9 @@ namespace FineUIPro.Web.InformationProject
         {
             if (string.IsNullOrEmpty(this.ReceiveFileManagerId))
             {
-                SaveData(BLL.Const.BtnSave);
+                SaveData(Const.BtnSave);
             }
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ReceiveFileManagerAttachUrl&menuId={1}", ReceiveFileManagerId,BLL.Const.ReceiveFileManagerMenuId)));
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ReceiveFileManagerAttachUrl&menuId={1}", ReceiveFileManagerId,Const.ReceiveFileManagerMenuId)));
         }
         /// <summary>
         /// 上传附件

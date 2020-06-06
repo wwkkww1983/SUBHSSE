@@ -16,24 +16,35 @@
         <Rows>
             <f:FormRow>
                 <Items>
+                     <f:TextBox ID="txtUnit" runat="server" Label="单位" LabelAlign="Right" Readonly="true"></f:TextBox>
                     <f:TextBox ID="txtFileCode" runat="server" Label="编号" LabelAlign="Right" Readonly="true">
                     </f:TextBox>
                     <f:TextBox ID="txtFileName" runat="server" Label="名称" LabelAlign="Right" Readonly="true">
                     </f:TextBox>
                 </Items>
-            </f:FormRow>                          
-            <f:FormRow>
-                <Items>
-                    <f:TextBox ID="txtUnit" runat="server" Label="单位" LabelAlign="Right" Readonly="true"></f:TextBox>                   
-                </Items>
-            </f:FormRow>
-            <f:FormRow>
-                <Items>
-                    <f:HtmlEditor runat="server" Label="内容" ID="txtFileContent" ShowLabel="false"
-                        Editor="UMEditor" BasePath="~/res/umeditor/" ToolbarSet="Full" Height="240" LabelAlign="Right">
-                    </f:HtmlEditor>
-                </Items>
-            </f:FormRow>
+            </f:FormRow>  
+           <f:FormRow>
+                    <Items>
+                        <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false"  EnableCollapse="true" EnableColumnLines="true" 
+                            EnableColumnMove="true" runat="server" BoxFlex="1" DataKeyNames="EmergencyTeamItemId" 
+                            DataIDField="EmergencyTeamItemId" AllowSorting="true" SortField="Job,PersonName" 
+                            SortDirection="ASC" EnableTextSelection="True"  Height="250px">                                  
+                            <Columns>                        
+                                <f:RenderField MinWidth="250px" ColumnID="PersonName" DataField="PersonName" 
+                                    FieldType="String" HeaderText="姓名"  HeaderTextAlign="Center" TextAlign="Left">
+                                </f:RenderField>
+                                <f:RenderField MinWidth="250px" ColumnID="Job" DataField="Job" 
+                                    FieldType="String" HeaderText="职务"  HeaderTextAlign="Center" TextAlign="Left">
+                                </f:RenderField>
+                                    <f:RenderField MinWidth="250px" ColumnID="Tel" DataField="Tel"  ExpandUnusedSpace="true"
+                                        FieldType="String" HeaderText="电话"  HeaderTextAlign="Center" TextAlign="Left">
+                                </f:RenderField>
+                                <f:RenderField  HeaderText="PersonId" ColumnID="PersonId" DataField="PersonId" 
+                                    FieldType="String" Hidden="true"></f:RenderField>
+                            </Columns>
+                        </f:Grid>
+                    </Items>
+                </f:FormRow>
              <f:FormRow>
                 <Items>                   
                     <f:TextBox ID="drpCompileMan" runat="server" Label="整理人" LabelAlign="Right" Readonly="true"></f:TextBox>                    

@@ -214,11 +214,11 @@ namespace FineUIPro.Web.AttachFile
                 Model.AttachFile sour = new Model.AttachFile();
                 if (this.MenuId == Const.ProjectPunishNoticeMenuId || this.MenuId == Const.ProjectPunishNoticeStatisticsMenuId)
                 {
-                    sour = BLL.Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId && x.MenuId == this.MenuId);
+                    sour = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId && x.MenuId == this.MenuId);
                 }
                 else
                 {
-                    sour = BLL.Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId);
+                    sour = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == ToKeyId);
                 }
 
                 if (sour != null)
@@ -293,7 +293,11 @@ namespace FineUIPro.Web.AttachFile
                 for (int i = 0, count = source.Count; i < count; i++)
                 {
                     JObject item = source[i] as JObject;
-                    attachUrl += AttachPath + "\\" + item.Value<string>("savedName") + ",";
+                    attachUrl += AttachPath + "/" + item.Value<string>("savedName") + ",";
+                }
+                if (!string.IsNullOrEmpty(attachUrl))
+                {
+                    attachUrl = attachUrl.Substring(0, attachUrl.LastIndexOf(",")).Replace('\\','/');
                 }
                 ///保存方法
                 this.SaveData(source.ToString(), attachUrl);

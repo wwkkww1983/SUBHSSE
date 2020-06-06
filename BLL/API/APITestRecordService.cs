@@ -242,10 +242,11 @@ namespace BLL
         /// </summary>
         /// <param name="projectId">项目ID</param>
         /// <returns>考试记录列表</returns>
-        public static List<Model.TestRecordItem> getTrainingTestRecordListByProjectId(string projectId)
+        public static List<Model.TestRecordItem> getTrainingTestRecordListByProjectId(string projectId,  string unitId, string workPostId, string strPass)
         {
             var getDataLists = (from x in Funs.DB.Training_TestRecord
-                                join y in Funs.DB.Training_TestPlan on x.TestPlanId equals y.TestPlanId                                
+                                join y in Funs.DB.Training_TestPlan on x.TestPlanId equals y.TestPlanId 
+                                join z in Funs.DB.SitePerson_Person on x.TestManId equals z.PersonId
                                 where x.ProjectId == projectId && x.TestStartTime.HasValue && x.TestEndTime.HasValue
                                 orderby x.TestStartTime descending
                                 select new Model.TestRecordItem
@@ -254,7 +255,10 @@ namespace BLL
                                     ProjectId = x.ProjectId,
                                     TestPlanId = x.TestPlanId,
                                     TestPlanName = y.PlanName,
-                                    UnitName= getUnitName(x.TestManId),
+                                    UnitId=z.UnitId,
+                                    UnitName= getUnitName(z.UnitId),
+                                    WorkPostId=z.WorkPostId,
+                                    WorkPostName=Funs.DB.Base_WorkPost.First(p=>p.WorkPostId==z.WorkPostId).WorkPostName,
                                     TestManId = x.TestManId,
                                     TestManName = Funs.DB.SitePerson_Person.FirstOrDefault(p => p.PersonId == x.TestManId).PersonName,
                                     TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.TestStartTime),
@@ -265,8 +269,28 @@ namespace BLL
                                     TestScores = x.TestScores ?? 0,
                                     TestType = x.TestType,
                                     TemporaryUser = x.TemporaryUser,
-                                }).ToList();
-            return getDataLists;
+                                });
+            if (!string.IsNullOrEmpty(unitId))
+            {
+                getDataLists = getDataLists.Where(x => x.UnitId == unitId);
+            }
+            if (!string.IsNullOrEmpty(workPostId))
+            {
+                getDataLists = getDataLists.Where(x => x.WorkPostId == workPostId);
+            }
+            if (!string.IsNullOrEmpty(strPass))
+            {
+                int PassingScore =SysConstSetService.getPassScore();
+                if (strPass == "0")
+                {
+                    getDataLists = getDataLists.Where(x => x.TestScores < PassingScore);
+                }
+                else
+                {
+                    getDataLists = getDataLists.Where(x => x.TestScores >= PassingScore);
+                }
+            }
+            return getDataLists.ToList();
         }
 
         /// <summary>

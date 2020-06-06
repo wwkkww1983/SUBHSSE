@@ -41,17 +41,14 @@ namespace FineUIPro.Web.ProjectData
                 this.TeamGroupId = Request.Params["TeamGroupId"];
                 if (!string.IsNullOrEmpty(this.TeamGroupId))
                 {
-                    Model.ProjectData_TeamGroup teamGroup = BLL.TeamGroupService.GetTeamGroupById(this.TeamGroupId);
+                    var teamGroup = BLL.TeamGroupService.GetTeamGroupById(this.TeamGroupId);
                     if (teamGroup != null)
                     {
                         this.txtTeamGroupCode.Text = teamGroup.TeamGroupCode;
                         this.txtTeamGroupName.Text = teamGroup.TeamGroupName;
-                        var unit = BLL.UnitService.GetUnitByUnitId(teamGroup.UnitId);
-                        if (unit != null)
-                        {
-                            this.drpUnitId.Text = unit.UnitName;
-                        }
+                        this.drpUnitId.Text = UnitService.GetUnitNameByUnitId(teamGroup.UnitId);
                         this.txtRemark.Text = teamGroup.Remark;
+                        this.drpGroupLeader.Text = PersonService.GetPersonNameById(teamGroup.GroupLeaderId);
                     }
                 }
             }

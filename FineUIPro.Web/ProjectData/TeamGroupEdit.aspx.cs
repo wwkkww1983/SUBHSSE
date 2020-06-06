@@ -40,12 +40,13 @@ namespace FineUIPro.Web.ProjectData
                 this.txtTeamGroupCode.Focus();
                 btnClose.OnClientClick = ActiveWindow.GetHideReference();
 
-                BLL.UnitService.InitUnitDropDownList(this.drpUnitId, this.CurrUser.LoginProjectId, true);
-                if (BLL.ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.CurrUser.LoginProjectId, this.CurrUser.UnitId))
+                UnitService.InitUnitDropDownList(this.drpUnitId, this.CurrUser.LoginProjectId, true);
+                if (ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.CurrUser.LoginProjectId, this.CurrUser.UnitId))
                 {
                     this.drpUnitId.SelectedValue = this.CurrUser.UnitId;
                     this.drpUnitId.Enabled = false;
                 }
+                this.getDrpGroupLeader();
 
                 this.TeamGroupId = Request.Params["TeamGroupId"];
                 if (!string.IsNullOrEmpty(this.TeamGroupId))
@@ -58,6 +59,11 @@ namespace FineUIPro.Web.ProjectData
                         if (!string.IsNullOrEmpty(teamGroup.UnitId))
                         {
                             this.drpUnitId.SelectedValue = teamGroup.UnitId;
+                            this.getDrpGroupLeader();
+                            if (!string.IsNullOrEmpty(teamGroup.GroupLeaderId))
+                            {
+                                this.drpGroupLeader.SelectedValue = teamGroup.GroupLeaderId;
+                            }
                         }
                         this.txtRemark.Text = teamGroup.Remark;
                     }
@@ -83,6 +89,10 @@ namespace FineUIPro.Web.ProjectData
             if (this.drpUnitId.SelectedValue!=BLL.Const._Null)
             {
                 teamGroup.UnitId = this.drpUnitId.SelectedValue;
+            }
+            if (this.drpGroupLeader.SelectedValue != BLL.Const._Null)
+            {
+                teamGroup.GroupLeaderId = this.drpGroupLeader.SelectedValue;
             }
             teamGroup.Remark = this.txtRemark.Text.Trim();
             if (!string.IsNullOrEmpty(this.TeamGroupId))
@@ -123,6 +133,25 @@ namespace FineUIPro.Web.ProjectData
                 ShowNotify("输入的班组名称已存在！", MessageBoxIcon.Warning);
             }
         }
-        #endregion     
+        #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void drpUnitId_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.getDrpGroupLeader();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void getDrpGroupLeader()
+        {
+            this.drpGroupLeader.Items.Clear();
+            PersonService.InitPersonByProjectUnitDropDownList(this.drpGroupLeader, this.CurrUser.LoginProjectId, this.drpUnitId.SelectedValue, true);            
+        }
     }
 }

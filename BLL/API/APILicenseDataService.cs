@@ -1664,12 +1664,7 @@ namespace BLL
                         States = Const.State_0,
                     };
                     newLicenseManager.LicenseTypeId = string.IsNullOrEmpty(newItem.LicenseTypeId) ? null : newItem.LicenseTypeId;
-                    //var getLicenseType = Funs.DB.Base_LicenseType.FirstOrDefault(x => x.LicenseTypeId == newItem.LicenseTypeId);
-                    //if (getLicenseType != null)
-                    //{
-
-                    //}
-
+                  
                     if (newLicenseManager.WorkStates == Const.State_3 || newLicenseManager.WorkStates == Const.State_R)
                     {
                         newLicenseManager.States = Const.State_2;
@@ -1686,12 +1681,16 @@ namespace BLL
                     }
                     else
                     {
-                        updateLicenseManager.WorkAreaId = newLicenseManager.WorkAreaId;
-                        updateLicenseManager.LicenseTypeId = newLicenseManager.LicenseTypeId;
-                        updateLicenseManager.CompileMan = newLicenseManager.CompileMan;
-                        updateLicenseManager.CompileDate = newLicenseManager.CompileDate;
-                        updateLicenseManager.StartDate = newLicenseManager.StartDate;
-                        updateLicenseManager.EndDate = newLicenseManager.EndDate;
+                        if (newLicenseManager.WorkStates != Const.State_3 && newLicenseManager.WorkStates != Const.State_R)
+                        {
+                            updateLicenseManager.WorkAreaId = newLicenseManager.WorkAreaId;
+                            updateLicenseManager.LicenseTypeId = newLicenseManager.LicenseTypeId;
+                            updateLicenseManager.CompileMan = newLicenseManager.CompileMan;
+                            updateLicenseManager.CompileDate = newLicenseManager.CompileDate;
+                            updateLicenseManager.StartDate = newLicenseManager.StartDate;
+                            updateLicenseManager.EndDate = newLicenseManager.EndDate;
+                        }
+                       
                         updateLicenseManager.WorkStates = newLicenseManager.WorkStates;
                         updateLicenseManager.States = newLicenseManager.States;
                     }
@@ -1736,8 +1735,11 @@ namespace BLL
                 }
                 #endregion
 
-                //// 保存附件
-                APIUpLoadFileService.SaveAttachUrl(newItem.MenuId, strLicenseId, newItem.AttachUrl, "0");
+                if (newItem.States != Const.State_3 && newItem.States != Const.State_R)
+                {
+                    //// 保存附件
+                    APIUpLoadFileService.SaveAttachUrl(newItem.MenuId, strLicenseId, newItem.AttachUrl, "0");
+                }
                 if (!string.IsNullOrEmpty(newItem.NextManId) && (newItem.States == Const.State_1 || newItem.States == Const.State_0))
                 {
                     List<string> getUserIds = Funs.GetStrListByStr(newItem.NextManId, ',');

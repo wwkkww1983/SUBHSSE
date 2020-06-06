@@ -45,7 +45,7 @@
                     <f:RenderField Width="120px" ColumnID="TeamGroupCode" DataField="TeamGroupCode" SortField="TeamGroupCode"
                         FieldType="String" HeaderText="班组编号" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="250px" ColumnID="TeamGroupName" DataField="TeamGroupName" SortField="TeamGroupName"
+                    <f:RenderField Width="200px" ColumnID="TeamGroupName" DataField="TeamGroupName" SortField="TeamGroupName"
                         FieldType="String" HeaderText="班组名称" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:TemplateField ColumnID="tfUnitId" Width="300px" HeaderText="单位名称" HeaderTextAlign="Center" TextAlign="Left">
@@ -53,7 +53,17 @@
                             <asp:Label ID="lblUnitName" runat="server" Text='<%#ConvertUnitName(Eval("UnitId")) %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="250px" ColumnID="Remark" DataField="Remark" SortField="Remark"
+                    <f:TemplateField ColumnID="tfGroupLeader" Width="120px" HeaderText="班组长" HeaderTextAlign="Center" TextAlign="Left">
+                        <ItemTemplate>
+                            <asp:Label ID="lbGroupLeader" runat="server" Text='<%#ConvertGroupLeader(Eval("GroupLeaderId")) %>'></asp:Label>
+                        </ItemTemplate>
+                    </f:TemplateField>
+                         <f:TemplateField ColumnID="tfPersonNum" Width="100px" HeaderText="人数" HeaderTextAlign="Center" TextAlign="Right">
+                        <ItemTemplate>
+                            <asp:Label ID="lbPersonNum" runat="server" Text='<%#ConvertPersonNum(Eval("TeamGroupId")) %>'></asp:Label>
+                        </ItemTemplate>
+                    </f:TemplateField>
+                    <f:RenderField Width="150px" ColumnID="Remark" DataField="Remark" SortField="Remark"
                         FieldType="String" HeaderText="备注" ExpandUnusedSpace="true" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
@@ -67,12 +77,7 @@
                     <f:ToolbarText ID="ToolbarText1" runat="server" Text="每页记录数：">
                     </f:ToolbarText>
                     <f:DropDownList runat="server" ID="ddlPageSize" Width="80px" AutoPostBack="true"
-                        OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">
-                        <f:ListItem Text="10" Value="10" />
-                        <f:ListItem Text="15" Value="15" />
-                        <f:ListItem Text="20" Value="20" />
-                        <f:ListItem Text="25" Value="25" />
-                        <f:ListItem Text="所有行" Value="100000" />
+                        OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">                 
                     </f:DropDownList>
                 </PageItems>
             </f:Grid>
@@ -80,7 +85,7 @@
     </f:Panel>
     <f:Window ID="Window1" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Self" EnableResize="true" runat="server" OnClose="Window1_Close" IsModal="true"
-        Width="700px" Height="330px">
+        Width="800px" Height="330px">
     </f:Window>
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="BulletEdit" EnablePostBack="true"

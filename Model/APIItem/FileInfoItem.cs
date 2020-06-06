@@ -162,5 +162,14 @@ namespace Model
             get;
             set;
         }
+
+        /// <summary>
+        /// 应急队伍明细
+        /// </summary>
+        public List<EmergencyTeamItem> EmergencyTeamItem
+        {
+            get;
+            set;
+        }
     }
 }

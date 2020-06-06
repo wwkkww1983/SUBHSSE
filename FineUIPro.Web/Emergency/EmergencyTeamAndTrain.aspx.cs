@@ -197,7 +197,7 @@ namespace FineUIPro.Web.Emergency
             {
                 if (this.btnMenuEdit.Hidden || Emergency.States == BLL.Const.State_2)   ////双击事件 编辑权限有：编辑页面，无：查看页面 或者状态是完成时查看页面
                 {
-                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("EmergencyTeamAndTrainView.aspx?FileId={0}", id, "查看 - ")));                    
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("EmergencyTeamAndTrainView.aspx?FileId={0}", id, "查看 - ")));
                 }
                 else
                 {
