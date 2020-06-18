@@ -824,6 +824,25 @@ namespace WebAPI.Controllers
             }
             return responeData;
         }
+        /// <summary>
+        /// 获取项目班组人数
+        /// </summary>
+        /// <param name="teamGroupId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getTeamGroupLeader(string teamGroupId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIBaseInfoService.getTeamGroupLeader(teamGroupId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
         #endregion
 
         #region  获取项目区域

@@ -68,7 +68,7 @@
                         if (!string.IsNullOrEmpty(getOpenCircuit.CancelManId))
                         {
                             this.txtCance.Text = UserService.GetUserNameByUserId(getOpenCircuit.CancelManId) + "；取消时间："
-                                + string.Format("{0:yyyy-MM-dd HH:mm}", getOpenCircuit.CancelTime) + "；原因：" + getOpenCircuit.CloseReasons + "。";
+                                + string.Format("{0:yyyy-MM-dd HH:mm}", getOpenCircuit.CancelTime) + "；原因：" + getOpenCircuit.CancelReasons + "。";
                         }
                         if (!string.IsNullOrEmpty(getOpenCircuit.CloseManId))
                         {

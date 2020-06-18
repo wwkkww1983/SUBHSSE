@@ -242,7 +242,7 @@ namespace BLL
         /// </summary>
         /// <param name="projectId">项目ID</param>
         /// <returns>考试记录列表</returns>
-        public static List<Model.TestRecordItem> getTrainingTestRecordListByProjectId(string projectId,  string unitId, string workPostId, string strPass)
+        public static List<Model.TestRecordItem> getTrainingTestRecordListByProjectId(string projectId,  string unitId, string workPostId, string strPass, string strParam)
         {
             var getDataLists = (from x in Funs.DB.Training_TestRecord
                                 join y in Funs.DB.Training_TestPlan on x.TestPlanId equals y.TestPlanId 
@@ -277,6 +277,10 @@ namespace BLL
             if (!string.IsNullOrEmpty(workPostId))
             {
                 getDataLists = getDataLists.Where(x => x.WorkPostId == workPostId);
+            }
+            if (!string.IsNullOrEmpty(strParam))
+            {
+                getDataLists = getDataLists.Where(x => x.TestManName.Contains(strParam));
             }
             if (!string.IsNullOrEmpty(strPass))
             {

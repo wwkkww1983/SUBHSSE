@@ -174,5 +174,31 @@ namespace BLL
             }
             return fileUrl;
         }
+
+        /// <summary>
+        ///  获取附件路径
+        /// </summary>
+        /// <returns></returns>
+        public static string getFileUrl(string menuId, string tokeyId, string url)
+        {
+            string fileUrl = url;
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                if (!string.IsNullOrEmpty(tokeyId))
+                {
+                    var getAtt = db.AttachFile.FirstOrDefault(x =>x.MenuId== menuId &&  x.ToKeyId == tokeyId);
+                    if (getAtt != null && !string.IsNullOrEmpty(getAtt.AttachUrl))
+                    {
+                        fileUrl = getAtt.AttachUrl;
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(fileUrl))
+                {
+                    fileUrl = fileUrl.Replace('\\', '/');
+                }
+            }
+            return fileUrl;
+        }
     }
 }

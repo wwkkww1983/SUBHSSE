@@ -124,6 +124,7 @@ namespace BLL
                 CompileMan = punishNotice.CompileMan,
                 CompileDate = punishNotice.CompileDate,
                 States = punishNotice.States,
+                PunishStates = punishNotice.PunishStates,
                 SignMan = punishNotice.SignMan,
                 ApproveMan = punishNotice.ApproveMan,
                 ContractNum = punishNotice.ContractNum,
@@ -157,6 +158,7 @@ namespace BLL
                 newPunishNotice.CompileMan = punishNotice.CompileMan;
                 newPunishNotice.CompileDate = punishNotice.CompileDate;
                 newPunishNotice.States = punishNotice.States;
+                newPunishNotice.PunishStates = punishNotice.PunishStates;
                 newPunishNotice.SignMan = punishNotice.SignMan;
                 newPunishNotice.ApproveMan = punishNotice.ApproveMan;
                 newPunishNotice.ContractNum = punishNotice.ContractNum;

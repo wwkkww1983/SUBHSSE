@@ -231,7 +231,7 @@ namespace BLL
         {
             using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                //// 隐患整改单
+                #region 隐患整改单
                 if (flowReceiveItem.MenuId == Const.ProjectRectifyNoticeMenuId)
                 {
                     var getRectifyNotices = db.Check_RectifyNotices.FirstOrDefault(x => x.RectifyNoticesId == flowReceiveItem.DataId);
@@ -284,6 +284,62 @@ namespace BLL
                         db.SubmitChanges();
                     }
                 }
+                #endregion
+
+                #region 处罚通知单
+                if (flowReceiveItem.MenuId == Const.ProjectPunishNoticeMenuId)
+                {
+                    var getPunishNotice = db.Check_PunishNotice.FirstOrDefault(x => x.PunishNoticeId == flowReceiveItem.DataId);
+                    if (getPunishNotice != null)
+                    {
+                        if (getPunishNotice.ProfessionalEngineerId == flowReceiveItem.OperaterId) ////总包专业工程师
+                        {
+                            getPunishNotice.ProfessionalEngineerTime = DateTime.Now;
+                        }
+                        else if (getPunishNotice.ConstructionManagerId == flowReceiveItem.OperaterId) ////总包施工经理
+                        {
+                            getPunishNotice.ConstructionManagerTime = DateTime.Now;
+                        }
+                        else if (getPunishNotice.UnitHeadManId == flowReceiveItem.OperaterId) ////相关施工分包单位
+                        {
+                            getPunishNotice.UnitHeadManTime = DateTime.Now;
+                        }
+
+                        db.SubmitChanges();
+                    }
+                }
+                #endregion
+
+                #region 暂停令
+                if (flowReceiveItem.MenuId == Const.ProjectPauseNoticeMenuId)
+                {
+                    var getPunishNotice = db.Check_PauseNotice.FirstOrDefault(x => x.PauseNoticeId == flowReceiveItem.DataId);
+                    if (getPunishNotice != null)
+                    {
+                        if (getPunishNotice.ProfessionalEngineerId == flowReceiveItem.OperaterId) ////总包专业工程师
+                        {
+                            getPunishNotice.ProfessionalEngineerTime = DateTime.Now;
+                        }
+                        else if (getPunishNotice.ConstructionManagerId == flowReceiveItem.OperaterId) ////总包施工经理
+                        {
+                            getPunishNotice.ConstructionManagerTime = DateTime.Now;
+                        }
+                        else if (getPunishNotice.UnitHeadManId == flowReceiveItem.OperaterId) ////相关施工分包单位
+                        {
+                            getPunishNotice.UnitHeadManTime = DateTime.Now;
+                        }
+                        else if (getPunishNotice.SupervisorManId== flowReceiveItem.OperaterId) ////监理
+                        {
+                            getPunishNotice.UnitHeadManTime = DateTime.Now;
+                        }
+                        else if (getPunishNotice.OwnerId == flowReceiveItem.OperaterId) ////业主
+                        {
+                            getPunishNotice.UnitHeadManTime = DateTime.Now;
+                        }
+                        db.SubmitChanges();
+                    }
+                }
+                #endregion
             }
         }
         #endregion

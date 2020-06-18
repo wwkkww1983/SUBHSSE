@@ -39,7 +39,7 @@ namespace FineUIPro.Web.Controls
                     this.CreateCode_Simple(Request.Params["strValue"], urlName);
                 }
 
-                this.divBeImageUrl.InnerHtml = BLL.UploadAttachmentService.ShowImage("../", filePath, 280, 280);
+                this.divBeImageUrl.InnerHtml = UploadAttachmentService.ShowImage("../", filePath, 280, 280);
             }
         }
 

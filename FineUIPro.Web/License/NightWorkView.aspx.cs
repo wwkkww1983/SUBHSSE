@@ -67,7 +67,7 @@
                         if (!string.IsNullOrEmpty(getNightWork.CancelManId))
                         {
                             this.txtCance.Text = UserService.GetUserNameByUserId(getNightWork.CancelManId) + "；取消时间："
-                                + string.Format("{0:yyyy-MM-dd HH:mm}", getNightWork.CancelTime) + "；原因：" + getNightWork.CloseReasons + "。";
+                                + string.Format("{0:yyyy-MM-dd HH:mm}", getNightWork.CancelTime) + "；原因：" + getNightWork.CancelReasons + "。";
                         }
                         if (!string.IsNullOrEmpty(getNightWork.CloseManId))
                         {

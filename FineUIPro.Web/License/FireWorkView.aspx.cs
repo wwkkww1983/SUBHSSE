@@ -53,7 +53,7 @@
                         this.txtApplyUnit.Text = UnitService.GetUnitNameByUnitId(getFireWork.ApplyUnitId);
                         this.txtApplyManName.Text = UserService.GetUserNameByUserId(getFireWork.ApplyManId);
                         this.txtWorkPalce.Text = getFireWork.WorkPalce;
-                        string name = name = getFireWork.FireWatchManName;
+                        string name = getFireWork.FireWatchManName;
                         if(string.IsNullOrEmpty(getFireWork.FireWatchManName))
                         {
                             name = UserService.GetUserNameByUserId(getFireWork.FireWatchManId);
@@ -71,7 +71,7 @@
                         if (!string.IsNullOrEmpty(getFireWork.CancelManId))
                         {
                             this.txtCance.Text = UserService.GetUserNameByUserId(getFireWork.CancelManId) + "；取消时间："
-                                + string.Format("{0:yyyy-MM-dd HH:mm}", getFireWork.CancelTime) + "；原因：" + getFireWork.CloseReasons + "。";
+                                + string.Format("{0:yyyy-MM-dd HH:mm}", getFireWork.CancelTime) + "；原因：" + getFireWork.CancelReasons + "。";
                         }
                         if (!string.IsNullOrEmpty(getFireWork.CloseManId))
                         {

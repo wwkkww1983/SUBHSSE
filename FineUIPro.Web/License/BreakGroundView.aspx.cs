@@ -66,7 +66,7 @@
                         if (!string.IsNullOrEmpty(getBreakGround.CancelManId))
                         {
                             this.txtCance.Text = UserService.GetUserNameByUserId(getBreakGround.CancelManId) + "；取消时间："
-                                + string.Format("{0:yyyy-MM-dd HH:mm}", getBreakGround.CancelTime) + "；原因：" + getBreakGround.CloseReasons + "。";
+                                + string.Format("{0:yyyy-MM-dd HH:mm}", getBreakGround.CancelTime) + "；原因：" + getBreakGround.CancelReasons + "。";
                         }
                         if (!string.IsNullOrEmpty(getBreakGround.CloseManId))
                         {

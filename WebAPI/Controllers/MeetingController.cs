@@ -92,5 +92,37 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region 根据时间获取各单位班会情况
+        /// <summary>
+        /// 根据时间获取各单位班会情况
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId">单位ID</param>
+        /// <param name="meetingDate">日期</param>
+        /// <param name="pageIndex">页码</param>
+        /// <returns></returns>
+        public Model.ResponeData getClassMeetingInfo(string projectId, string unitId, string meetingDate, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataList = APIMeetingService.getClassMeetingInfo(projectId, unitId, meetingDate);
+                int pageCount = getDataList.Count();
+                if (pageCount > 0 && pageIndex > 0)
+                {
+                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                }
+                responeData.data = new { pageCount, getDataList };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
     }
 }

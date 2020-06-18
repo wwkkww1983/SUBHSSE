@@ -69,7 +69,7 @@
                         if (!string.IsNullOrEmpty(getRadialWork.CancelManId))
                         {
                             this.txtCance.Text = UserService.GetUserNameByUserId(getRadialWork.CancelManId) + "；取消时间："
-                                + string.Format("{0:yyyy-MM-dd HH:mm}", getRadialWork.CancelTime) + "；原因：" + getRadialWork.CloseReasons + "。";
+                                + string.Format("{0:yyyy-MM-dd HH:mm}", getRadialWork.CancelTime) + "；原因：" + getRadialWork.CancelReasons + "。";
                         }
                         if (!string.IsNullOrEmpty(getRadialWork.CloseManId))
                         {

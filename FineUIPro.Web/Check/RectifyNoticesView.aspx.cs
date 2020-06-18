@@ -1,134 +1,88 @@
-﻿using System;
-
+﻿using BLL;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 namespace FineUIPro.Web.Check
 {
-    public partial class RectifyNoticesView : PageBase
+    public partial class RectifyNoticesView1 : PageBase
     {
-        #region 定义变量
-        /// <summary>
-        /// 主键
-        /// </summary>
-        public string RectifyNoticeId
+        public string RectifyNoticesId
         {
             get
             {
-                return (string)ViewState["RectifyNoticeId"];
+                return (string)ViewState["RectifyNoticesId"];
             }
             set
             {
-                ViewState["RectifyNoticeId"] = value;
+                ViewState["RectifyNoticesId"] = value;
             }
         }
-        #endregion
-
-        #region 加载页面
-        /// <summary>
-        /// 加载页面
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
-                this.RectifyNoticeId = Request.Params["RectifyNoticeId"];
-                var rectifyNotice = BLL.RectifyNoticesService.GetRectifyNoticesById(this.RectifyNoticeId);
-                if (rectifyNotice != null)
-                {
-                    //隐患
-                    this.txtRectifyNoticesCode.Text = BLL.CodeRecordsService.ReturnCodeByDataId(this.RectifyNoticeId);
-                    if (!string.IsNullOrEmpty(rectifyNotice.UnitId))
+            if (!IsPostBack) {
+                txtProjectName.Text = BLL.ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId).ProjectName;
+                ////自动生成编码
+                this.txtRectifyNoticesCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectRectifyNoticesMenuId, this.CurrUser.LoginProjectId, this.CurrUser.UnitId);
+                //受检单位            
+                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpUnitId, this.CurrUser.LoginProjectId, Const.ProjectUnitType_2, false);
+                //区域
+                BLL.WorkAreaService.InitWorkAreaDropDownList(this.drpWorkAreaId, this.CurrUser.LoginProjectId, true);
+                ///检察人员
+                BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpCheckPerson, this.CurrUser.LoginProjectId, BLL.CommonService.GetIsThisUnitId(), true);
+                RectifyNoticesId = Request.Params["RectifyNoticesId"];
+                if (!string.IsNullOrEmpty(RectifyNoticesId))
+                {                  
+                    Model.Check_RectifyNotices RectifyNotices = RectifyNoticesService.GetRectifyNoticesById(RectifyNoticesId);
+                    if (!string.IsNullOrEmpty(RectifyNotices.UnitId))
                     {
-                        var unit = BLL.UnitService.GetUnitByUnitId(rectifyNotice.UnitId);
-                        if (unit !=null)
-                        {
-                            this.txtUnitName.Text = unit.UnitName;
-                        }
+                        this.drpUnitId.SelectedValue = RectifyNotices.UnitId;
                     }
-                    if (!string.IsNullOrEmpty(rectifyNotice.DutyPersonId))
+                    if (!string.IsNullOrEmpty(RectifyNotices.WorkAreaId))
                     {
-                        var duser = BLL.UserService.GetUserByUserId(rectifyNotice.DutyPersonId);
-                        if (duser != null)
-                        {
-                            this.drpDutyPerson.Text = duser.UserName;
-                        }
+                        this.drpWorkAreaId.SelectedValue = RectifyNotices.WorkAreaId;
                     }
-                    if (!string.IsNullOrEmpty(rectifyNotice.WorkAreaId))
+                    if (!string.IsNullOrEmpty(RectifyNotices.CheckManIds))
                     {
-                        var workArea = BLL.WorkAreaService.GetWorkAreaByWorkAreaId(rectifyNotice.WorkAreaId);
-                        if (workArea!=null)
-                        {
-                            this.txtWorkAreaName.Text = workArea.WorkAreaName;
-                        }
+                        this.drpCheckPerson.SelectedValueArray = RectifyNotices.CheckManIds.Split(',');
                     }
-                    if (rectifyNotice.CheckedDate != null)
+                    this.txtRectifyNoticesCode.Text = RectifyNotices.RectifyNoticesCode;
+                    this.txtCompleteDate.Text = RectifyNotices.CompleteDate.ToString();
+                    if (!string.IsNullOrEmpty(RectifyNotices.HiddenHazardType))
                     {
-                        this.txtCheckedDate.Text = string.Format("{0:yyyy-MM-dd}", rectifyNotice.CheckedDate);
+                        this.drpHiddenHazardType.SelectedValue = RectifyNotices.HiddenHazardType;
                     }
-                    if (!string.IsNullOrEmpty(rectifyNotice.WrongContent))
-                    {
-                        this.txtWrongContent.Text = rectifyNotice.WrongContent;
-                    }
-                    if (!string.IsNullOrEmpty(rectifyNotice.SignPerson))
-                    {
-                        var user = BLL.UserService.GetUserByUserId(rectifyNotice.SignPerson);
-                        if (user != null)
-                        {
-                            this.txtSignPerson.Text = user.UserName;
-                        }
-                    }
-                    if (rectifyNotice.SignDate != null)
-                    {
-                        this.txtSignDate.Text = string.Format("{0:yyyy-MM-dd}", rectifyNotice.SignDate);
-                    }
-                    if (!string.IsNullOrEmpty(rectifyNotice.CompleteStatus))
-                    {
-                        this.txtCompleteStatus.Text = rectifyNotice.CompleteStatus;
-                    }
-                    this.txtDutyPerson.Text = rectifyNotice.DutyPerson;
-                    if (rectifyNotice.CompleteDate != null)
-                    {
-                        this.txtCompleteDate.Text = string.Format("{0:yyyy-MM-dd}", rectifyNotice.CompleteDate);
-                    }
-                    if (rectifyNotice.ReCheckDate != null)
-                    {
-                        this.txtReCheckDate.Text = string.Format("{0:yyyy-MM-dd}", rectifyNotice.ReCheckDate);
-                    }
-                    if (rectifyNotice.IsRectify==true)
-                    {
-                        this.txtIsRectify.Text = "是";
-                    }
-                    else
-                    {
-                        this.txtIsRectify.Text = "否";
-                    }
-                    if (!string.IsNullOrEmpty(rectifyNotice.CheckPerson))
-                    {
-                        string userName = BLL.UserService.GetUserNameByUserId(rectifyNotice.CheckPerson);
-                        if (!string.IsNullOrEmpty(userName))
-                        {
-                            this.txtCheckPerson.Text = userName;
-                        }
-                    }
+                    this.txtReCheckOpinion.Text = RectifyNotices.ReCheckOpinion;
+                    BindGrid1();
+                    BindGrid();
                 }
             }
         }
-        #endregion
 
-        #region 附件上传
-        /// <summary>
-        /// 上传附件资源
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnUploadResources_Click(object sender, EventArgs e)
+        public void BindGrid1()
         {
-            if (!string.IsNullOrEmpty(this.RectifyNoticeId))
-            {
-                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/RectifyNotice&menuId=0038D764-D628-46F0-94FF-D0A22C3C45A3", this.RectifyNoticeId)));
-            }
+            string strSql = @"select RectifyNoticesItemId, RectifyNoticesId, WrongContent, Requirement, LimitTime, RectifyResults, (case IsRectify when 'True' then '合格' when 'False' then '不合格' else '' end) As IsRectify  from [dbo].[Check_RectifyNoticesItem] ";
+            List<SqlParameter> listStr = new List<SqlParameter>();
+            strSql += "where RectifyNoticesId = @RectifyNoticesId";
+            listStr.Add(new SqlParameter("@RectifyNoticesId", RectifyNoticesId));
+            SqlParameter[] parameter = listStr.ToArray();
+            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+            var table = this.GetPagedDataTable(Grid1, tb);
+            Grid1.DataSource = table;
+            Grid1.DataBind();
         }
-        #endregion
+
+        public void BindGrid()
+        {
+            string strSql = @"select FlowOperateId, RectifyNoticesId, OperateName, OperateManId, OperateTime, IsAgree, Opinion,S.UserName from Check_RectifyNoticesFlowOperate C left join Sys_User S on C.OperateManId=s.UserId ";
+            List<SqlParameter> listStr = new List<SqlParameter>();
+            strSql += "where RectifyNoticesId= @RectifyNoticesId";
+            listStr.Add(new SqlParameter("@RectifyNoticesId", RectifyNoticesId));
+            SqlParameter[] parameter = listStr.ToArray();
+            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+            var table = this.GetPagedDataTable(gvFlowOperate, tb);
+            gvFlowOperate.DataSource = table;
+            gvFlowOperate.DataBind();
+        }
     }
 }

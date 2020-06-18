@@ -145,7 +145,7 @@
                 foreach (string roleId in roles)
                 {
                     var q = GetRoleByRoleId(roleId);
-                    if (q != null)
+                    if (q != null && !roleName.Contains(q.RoleName))
                     {
                         roleName += q.RoleName + ",";
                     }

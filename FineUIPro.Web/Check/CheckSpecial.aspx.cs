@@ -44,7 +44,7 @@ namespace FineUIPro.Web.Check
                 }
                 ////权限按钮方法
                 this.GetButtonPower();
-                btnNew.OnClientClick = Window1.GetShowReference("CheckSpecialEdit.aspx") + "return false;"; 
+                btnNew.OnClientClick = Window1.GetShowReference("CheckSpecialEdit.aspx") + "return false;";
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
                 BindGrid();
@@ -56,59 +56,22 @@ namespace FineUIPro.Web.Check
         /// </summary>
         private void BindGrid()
         {
-            SqlParameter[] parameter = new SqlParameter[]       
+            SqlParameter[] parameter = new SqlParameter[]
                     {
                     new SqlParameter("@ProjectId",this.ProjectId),
                     new SqlParameter("@StartTime", !string.IsNullOrEmpty(this.txtStartTime.Text)?this.txtStartTime.Text:null),
                     new SqlParameter("@EndTime", !string.IsNullOrEmpty(this.txtEndTime.Text)?this.txtEndTime.Text:null),
-                    new SqlParameter("@States", !string.IsNullOrEmpty(Request.Params["projectId"])?BLL.Const.State_2:null),
+                    new SqlParameter("@States", this.rbStates.SelectedValue != "-1" ?this.rbStates.SelectedValue:null),
                     new SqlParameter("@UnitName", !string.IsNullOrEmpty(this.txtUnitName.Text)?this.txtUnitName.Text:null),
                     new SqlParameter("@WorkAreaName",  !string.IsNullOrEmpty(this.txtWorkAreaName.Text)?this.txtWorkAreaName.Text:null),
                     };
             DataTable tb = SQLHelper.GetDataTableRunProc("SpCheckSpecialStatistic", parameter);
-            // 2.获取当前分页数据
-            //var table = this.GetPagedDataTable(Grid1, tb1);
-
             Grid1.RecordCount = tb.Rows.Count;
-            tb = GetFilteredTable(Grid1.FilteredData, tb);
+            //tb = GetFilteredTable(Grid1.FilteredData, tb);
             var table = this.GetPagedDataTable(Grid1, tb);
 
             Grid1.DataSource = table;
             Grid1.DataBind();
-
-            for (int i = 0; i < Grid1.Rows.Count; i++)
-            {               
-                string[] rowID = Grid1.Rows[i].DataKeys[0].ToString().Split(',');
-                if (rowID.Count() > 0)
-                {
-                    var checkSpecial = BLL.Check_CheckSpecialService.GetCheckSpecialByCheckSpecialId(rowID[0]);
-                    if (checkSpecial != null)
-                    {
-                        if (checkSpecial.States == BLL.Const.State_2)
-                        {
-                            if (rowID.Count() > 1)
-                            {
-                                Model.Check_CheckSpecialDetail detail = BLL.Check_CheckSpecialDetailService.GetCheckSpecialDetailByCheckSpecialDetailId(rowID[1]);
-                                if (detail != null)
-                                {
-                                    if (!detail.CompletedDate.HasValue)
-                                    {
-                                        Grid1.Rows[i].RowCssClass = "Yellow";
-                                    }
-                                }
-                                //else
-                                //{
-                                //    Grid1.Rows[i].RowCssClass = "Red";
-                                //}
-                            }
-                        }
-                        else
-                        {
-                            Grid1.Rows[i].RowCssClass = "Green";
-                        }
-                    }
-                }
-            }
         }
         #endregion
 
@@ -209,7 +172,7 @@ namespace FineUIPro.Web.Check
             var checkSpecial = BLL.Check_CheckSpecialService.GetCheckSpecialByCheckSpecialId(CheckSpecialId);
             if (checkSpecial != null)
             {
-                if (this.btnMenuModify.Hidden || checkSpecial.States == BLL.Const.State_2)   ////双击事件 编辑权限有：编辑页面，无：查看页面 或者状态是完成时查看页面
+                if (this.btnMenuModify.Hidden || checkSpecial.States == BLL.Const.State_1)   ////双击事件 编辑权限有：编辑页面，无：查看页面 或者状态是完成时查看页面
                 {
                     PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckSpecialView.aspx?CheckSpecialId={0}", CheckSpecialId, "查看 - ")));
                 }
@@ -217,7 +180,7 @@ namespace FineUIPro.Web.Check
                 {
                     PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckSpecialEdit.aspx?CheckSpecialId={0}", CheckSpecialId, "编辑 - ")));
                 }
-            }            
+            }
         }
         #endregion
 
@@ -234,7 +197,7 @@ namespace FineUIPro.Web.Check
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString().Split(',')[0];
-                    var checkSpecial=BLL.Check_CheckSpecialService.GetCheckSpecialByCheckSpecialId(rowID);
+                    var checkSpecial = BLL.Check_CheckSpecialService.GetCheckSpecialByCheckSpecialId(rowID);
                     if (checkSpecial != null)
                     {
                         BLL.LogService.AddSys_Log(this.CurrUser, checkSpecial.CheckSpecialCode, checkSpecial.CheckSpecialId, BLL.Const.ProjectCheckSpecialMenuId, BLL.Const.BtnDelete);
@@ -267,8 +230,6 @@ namespace FineUIPro.Web.Check
                 if (buttonList.Contains(BLL.Const.BtnAdd))
                 {
                     this.btnNew.Hidden = false;
-                    this.btnCompletedDate.Hidden = false;
-                    this.btnMenuRectify.Hidden = false;
                     this.btnPrint.Hidden = false;
                 }
                 if (buttonList.Contains(BLL.Const.BtnModify))
@@ -298,11 +259,11 @@ namespace FineUIPro.Web.Check
             }
             string rectifyNoticeCode = string.Empty;
             string CheckSpecialId = Grid1.SelectedRowID.Split(',')[0];
-            var checkSpecial = BLL.Check_CheckSpecialService.GetCheckSpecialByCheckSpecialId(CheckSpecialId);
-            if (checkSpecial.States == BLL.Const.State_2)
+            var checkSpecial = Check_CheckSpecialService.GetCheckSpecialByCheckSpecialId(CheckSpecialId);
+            if (checkSpecial.States == Const.State_2)
             {
                 string CheckSpecialDetailId = Grid1.SelectedRowID.Split(',')[1];
-                Model.Check_CheckSpecialDetail detail = BLL.Check_CheckSpecialDetailService.GetCheckSpecialDetailByCheckSpecialDetailId(CheckSpecialDetailId);
+                Model.Check_CheckSpecialDetail detail = Check_CheckSpecialDetailService.GetCheckSpecialDetailByCheckSpecialDetailId(CheckSpecialDetailId);
                 if (string.IsNullOrEmpty(detail.RectifyNoticeId))
                 {
                     Model.Check_RectifyNotices rectifyNotice = new Model.Check_RectifyNotices
@@ -315,21 +276,19 @@ namespace FineUIPro.Web.Check
                         WrongContent = "开展了专项检查,发现问题及隐患:" + detail.Unqualified + "\n" + detail.Suggestions,
                         SignPerson = this.CurrUser.UserId,
                         SignDate = DateTime.Now,
+                        States = Const.State_0,
                     };
 
                     var workArea = Funs.DB.ProjectData_WorkArea.FirstOrDefault(x => x.ProjectId == checkSpecial.ProjectId && x.WorkAreaName == detail.WorkArea);
                     if (workArea != null)
                     {
                         rectifyNotice.WorkAreaId = workArea.WorkAreaId;
-                    }             
-                    
-                    BLL.RectifyNoticesService.AddRectifyNotices(rectifyNotice);
+                    }
+
+                    RectifyNoticesService.AddRectifyNotices(rectifyNotice);
                     rectifyNoticeCode = rectifyNotice.RectifyNoticesCode;
                     detail.RectifyNoticeId = rectifyNotice.RectifyNoticesId;
-                    BLL.Check_CheckSpecialDetailService.UpdateCheckSpecialDetail(detail);
-
-                    ///写入工程师日志
-                    BLL.HSSELogService.CollectHSSELog(rectifyNotice.ProjectId, rectifyNotice.SignPerson, rectifyNotice.SignDate, "22", rectifyNotice.WrongContent, Const.BtnAdd, 1);
+                    Check_CheckSpecialDetailService.UpdateCheckSpecialDetail(detail);
                 }
                 if (!string.IsNullOrEmpty(rectifyNoticeCode))
                 {
@@ -375,8 +334,8 @@ namespace FineUIPro.Web.Check
                 {
                     Alert.ShowInTop("该记录已闭环或不存在明细项！", MessageBoxIcon.Warning);
                     return;
-                }  
-                
+                }
+
             }
             else
             {
@@ -450,6 +409,38 @@ namespace FineUIPro.Web.Check
                 return;
             }
             PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("CheckSpecialPrint.aspx?CheckSpecialId={0}", Grid1.SelectedRowID.Split(',')[0], "打印 - ")));
+        }
+
+        protected void rbStates_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindGrid();
+        }
+
+        protected void Grid1_RowCommand(object sender, GridCommandEventArgs e)
+        {
+            if (e.CommandName == "click")
+            {
+                string[] checkSpecialDetail = (Grid1.DataKeys[e.RowIndex][0].ToString()).Split(',');
+                if (checkSpecialDetail.Count() > 1)
+                {
+                    var detail = Check_CheckSpecialDetailService.GetCheckSpecialDetailByCheckSpecialDetailId(checkSpecialDetail[1]);
+                    if (detail != null)
+                    {
+                        if (detail.DataType == "1")
+                        {
+                            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesView.aspx?RectifyNoticesId={0}", detail.DataId, "查看 - ")));
+                        }
+                        else if (detail.DataType == "2")
+                        {
+                            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PunishNoticeView.aspx?PunishNoticeId={0}", detail.DataId, "查看 - ")));
+                        }
+                        else if (detail.DataType == "3")
+                        {
+                            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PauseNoticeView.aspx?PauseNoticeId={0}", detail.DataId, "查看 - ")));
+                        }
+                    }
+                }
+            }
         }
     }
 }

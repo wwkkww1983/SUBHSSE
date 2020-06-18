@@ -1727,7 +1727,10 @@ namespace BLL
                                 IsUsed = item.IsUsed,
                                 ConfirmManId = item.ConfirmManId,
                             };
-
+                            if (string.IsNullOrEmpty(newLicenseItem.ConfirmManId))
+                            {
+                                newLicenseItem.ConfirmManId = newItem.ApplyManId;
+                            }
                             db.License_LicenseItem.InsertOnSubmit(newLicenseItem);
                             db.SubmitChanges();
                         }

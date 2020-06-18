@@ -24,6 +24,8 @@ namespace BLL
                               ProjectId = x.ProjectId,
                               CheckSpecialCode = x.CheckSpecialCode,
                               CheckType =x.CheckType=="0"? "周检":(x.CheckType == "1" ? "月检" :"其他"),
+                              CheckItemSetId = x.CheckItemSetId,
+                              CheckItemSetName = Funs.DB.Technique_CheckItemSet.First(y => y.CheckItemSetId == x.CheckItemSetId).CheckItemName,
                               CheckPersonId = x.CheckPerson,
                               CheckPersonName = Funs.DB.Sys_User.First(u => u.UserId == x.CheckPerson).UserName,
                               CheckTime = string.Format("{0:yyyy-MM-dd}", x.CheckTime),
@@ -61,6 +63,8 @@ namespace BLL
                                       ProjectId = x.ProjectId,
                                       CheckSpecialCode = Funs.DB.Sys_CodeRecords.First(y=>y.DataId==x.CheckSpecialId).Code ?? x.CheckSpecialCode,
                                       CheckType = x.CheckType == "0" ? "周检" : (x.CheckType == "1" ? "月检" : "其他"),
+                                      CheckItemSetId=x.CheckItemSetId,
+                                      CheckItemSetName=Funs.DB.Technique_CheckItemSet.First(y=>y.CheckItemSetId== x.CheckItemSetId).CheckItemName,
                                       CheckPersonId = x.CheckPerson,
                                       CheckPersonName = Funs.DB.Sys_User.First(u => u.UserId == x.CheckPerson).UserName,
                                       CheckTime = string.Format("{0:yyyy-MM-dd}", x.CheckTime),
@@ -94,6 +98,7 @@ namespace BLL
                 {
                     CheckSpecialId = newItem.CheckSpecialId,
                     CheckSpecialCode = newItem.CheckSpecialCode,
+                    CheckItemSetId=newItem.CheckItemSetId,
                     CheckType = newItem.CheckType,
                     ProjectId = newItem.ProjectId,
                     CheckPerson = newItem.CheckPersonId,
@@ -176,7 +181,7 @@ namespace BLL
                               CheckSpecialDetailId=x.CheckSpecialDetailId,
                               CheckSpecialId = x.CheckSpecialId,
                               CheckItemSetId = x.CheckItem,
-                              CheckItemSetName = Funs.DB.Check_ProjectCheckItemSet.First(y=>y.CheckItemSetId==x.CheckItem).CheckItemName,
+                              CheckItemSetName = Funs.DB.Technique_CheckItemSet.First(y=>y.CheckItemSetId==x.CheckItem).CheckItemName,
                               CheckContent =x.CheckContent,
                               Unqualified = x.Unqualified,
                               Suggestions = x.Suggestions,
@@ -210,7 +215,7 @@ namespace BLL
                               CheckSpecialDetailId = x.CheckSpecialDetailId,
                               CheckSpecialId = x.CheckSpecialId,
                               CheckItemSetId = x.CheckItem,
-                              CheckItemSetName = Funs.DB.Check_ProjectCheckItemSet.First(y => y.CheckItemSetId == x.CheckItem).CheckItemName,
+                              CheckItemSetName = Funs.DB.Technique_CheckItemSet.First(y => y.CheckItemSetId == x.CheckItem).CheckItemName,
                               CheckContent = x.CheckContent,
                               Unqualified = x.Unqualified,
                               Suggestions = x.Suggestions,
@@ -253,9 +258,10 @@ namespace BLL
                     Suggestions = newDetail.Suggestions,
                     WorkArea = newDetail.WorkArea,
                     CheckArea=newDetail.WorkAreaId,
-                    CheckContent = newDetail.CheckContent
+                    CheckContent = newDetail.CheckContent,
                 };
-                if (!string.IsNullOrEmpty(newDetail.UnitId))
+                var getUnit = UnitService.GetUnitByUnitId(newDetail.UnitId);
+                if (getUnit != null)
                 {
                     newCheckSpecialDetail.UnitId = newDetail.UnitId;
                 }

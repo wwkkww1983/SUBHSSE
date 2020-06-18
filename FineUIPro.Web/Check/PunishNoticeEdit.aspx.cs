@@ -261,7 +261,7 @@ namespace FineUIPro.Web.Check
             //punishNotice.AttachUrl = this.AttchUrl;
             punishNotice.CompileMan = this.CurrUser.UserId;
             punishNotice.CompileDate = DateTime.Now;
-            punishNotice.States = BLL.Const.State_0;
+            punishNotice.States = Const.State_0;            
             if (this.drpSignMan.SelectedValue != BLL.Const._Null)
             {
                 punishNotice.SignMan = this.drpSignMan.SelectedValue;
@@ -274,7 +274,12 @@ namespace FineUIPro.Web.Check
             punishNotice.Currency = this.txtCurrency.Text.Trim();
             if (type == BLL.Const.BtnSubmit)
             {
-                punishNotice.States = this.ctlAuditFlow.NextStep;
+                punishNotice.States = this.ctlAuditFlow.NextStep;             
+            }
+            punishNotice.PunishStates = punishNotice.States;
+            if (punishNotice.States == Const.State_2)
+            {
+                punishNotice.PunishStates = Const.State_4;
             }
             if (!string.IsNullOrEmpty(this.PunishNoticeId))
             {

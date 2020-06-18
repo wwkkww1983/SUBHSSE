@@ -82,7 +82,7 @@ namespace FineUIPro.Web.Check
                             this.drpUnit.SelectedValue = pauseNotice.UnitId;
                         }
                         this.txtProjectPlace.Text = pauseNotice.ProjectPlace;
-                        this.txtSignPerson.Text = pauseNotice.SignPerson;
+                        //this.txtSignPerson.Text = pauseNotice.SignPerson;
                         this.txtComplieDate.Text = string.Format("{0:yyyy-MM-dd}", pauseNotice.CompileDate);
                         this.txtWrongContent.Text = pauseNotice.WrongContent;
                         if (pauseNotice.PauseTime.HasValue)
@@ -101,11 +101,7 @@ namespace FineUIPro.Web.Check
                         this.txtOneContent.Text = pauseNotice.OneContent;
                         this.txtSecondContent.Text = pauseNotice.SecondContent;
                         this.txtThirdContent.Text = pauseNotice.ThirdContent;
-                        this.txtProjectHeadConfirm.Text = pauseNotice.ProjectHeadConfirm;
-                        if (pauseNotice.ConfirmDate != null)
-                        {
-                            this.txtConfirmDate.Text = string.Format("{0:yyyy-MM-dd}", pauseNotice.ConfirmDate);
-                        }
+                       
                         this.AttachUrl = pauseNotice.AttachUrl;
                         this.divFile1.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../", this.AttachUrl);
                         if (Request.Params["type"] == "confirm")   //签字确认
@@ -115,14 +111,19 @@ namespace FineUIPro.Web.Check
                             this.txtProjectHeadConfirm.Text = this.CurrUser.UserName;
                             this.txtConfirmDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                         }
-                        if (!string.IsNullOrEmpty(pauseNotice.SignMan))
-                        {
-                            this.drpSignMan.SelectedValue = pauseNotice.SignMan;
-                        }
-                        if (!string.IsNullOrEmpty(pauseNotice.ApproveMan))
-                        {
-                            this.drpApproveMan.SelectedValue = pauseNotice.ApproveMan;
-                        }
+                        //if (!string.IsNullOrEmpty(pauseNotice.SignMan))
+                        //{
+                        //    this.drpSignMan.SelectedValue = pauseNotice.SignMan;
+                        //}
+                        //if (!string.IsNullOrEmpty(pauseNotice.ApproveMan))
+                        //{
+                        //    this.drpApproveMan.SelectedValue = pauseNotice.ApproveMan;
+                        //}
+                        //this.txtProjectHeadConfirm.Text = pauseNotice.ProjectHeadConfirm;
+                        //if (pauseNotice.ConfirmDate != null)
+                        //{
+                        //    this.txtConfirmDate.Text = string.Format("{0:yyyy-MM-dd}", pauseNotice.ConfirmDate);
+                        //}
                     }
                 }
                 else
@@ -249,8 +250,8 @@ namespace FineUIPro.Web.Check
             if (Request.Params["type"] == "confirm")   //签字确认
             {
                 Model.Check_PauseNotice pauseNotice = BLL.Check_PauseNoticeService.GetPauseNoticeByPauseNoticeId(PauseNoticeId);
-                pauseNotice.ProjectHeadConfirm = this.txtProjectHeadConfirm.Text.Trim();
-                pauseNotice.ConfirmDate = Funs.GetNewDateTime(this.txtConfirmDate.Text.Trim());
+                //pauseNotice.ProjectHeadConfirm = this.txtProjectHeadConfirm.Text.Trim();
+                //pauseNotice.ConfirmDate = Funs.GetNewDateTime(this.txtConfirmDate.Text.Trim());
                 pauseNotice.IsConfirm = true;
                 ////单据状态
                 pauseNotice.States = BLL.Const.State_0;
@@ -268,11 +269,12 @@ namespace FineUIPro.Web.Check
                     PauseNoticeCode = this.txtPauseNoticeCode.Text.Trim(),
                     ProjectId = this.ProjectId,
                     UnitId = this.drpUnit.SelectedValue,
-                    SignPerson = this.txtSignPerson.Text.Trim(),
-                    CompileDate = Funs.GetNewDateTime(this.txtComplieDate.Text.Trim()),
+                    //SignPerson = this.txtSignPerson.Text.Trim(),
+                    //CompileDate = Funs.GetNewDateTime(this.txtComplieDate.Text.Trim()),
                     ProjectPlace = this.txtProjectPlace.Text.Trim(),
                     WrongContent = this.txtWrongContent.Text.Trim()
                 };
+             
                 if (!string.IsNullOrEmpty(this.txtYear.Text.Trim()))
                 {
                     string pauseTime = this.txtYear.Text.Trim() + "-" + this.txtMonth.Text.Trim() + "-" + this.txtDay.Text.Trim() + " " + this.txtHour.Text.Trim() + ":00:00";
@@ -295,23 +297,28 @@ namespace FineUIPro.Web.Check
                 pauseNotice.OneContent = this.txtOneContent.Text.Trim();
                 pauseNotice.SecondContent = this.txtSecondContent.Text.Trim();
                 pauseNotice.ThirdContent = this.txtThirdContent.Text.Trim();
-                pauseNotice.ProjectHeadConfirm = this.txtProjectHeadConfirm.Text.Trim();
-                pauseNotice.ConfirmDate = Funs.GetNewDateTime(this.txtConfirmDate.Text.Trim());
+                //pauseNotice.ProjectHeadConfirm = this.txtProjectHeadConfirm.Text.Trim();
+                //pauseNotice.ConfirmDate = Funs.GetNewDateTime(this.txtConfirmDate.Text.Trim());
                 pauseNotice.IsConfirm = false;
                 pauseNotice.AttachUrl = this.AttachUrl;
                 ////单据状态
                 pauseNotice.States = BLL.Const.State_0;
-                if (this.drpSignMan.SelectedValue!=BLL.Const._Null)
-                {
-                    pauseNotice.SignMan = this.drpSignMan.SelectedValue;
-                }
-                if (this.drpApproveMan.SelectedValue!=BLL.Const._Null)
-                {
-                    pauseNotice.ApproveMan = this.drpApproveMan.SelectedValue;
-                }
+                //if (this.drpSignMan.SelectedValue!=BLL.Const._Null)
+                //{
+                //    pauseNotice.SignMan = this.drpSignMan.SelectedValue;
+                //}
+                //if (this.drpApproveMan.SelectedValue!=BLL.Const._Null)
+                //{
+                //    pauseNotice.ApproveMan = this.drpApproveMan.SelectedValue;
+                //}
                 if (type == BLL.Const.BtnSubmit)
                 {
                     pauseNotice.States = this.ctlAuditFlow.NextStep;
+                }
+                pauseNotice.PauseStates = pauseNotice.States;
+                if (pauseNotice.States == Const.State_2)
+                {
+                    pauseNotice.PauseStates = Const.State_4;
                 }
                 if (!string.IsNullOrEmpty(this.PauseNoticeId))
                 {
@@ -322,7 +329,7 @@ namespace FineUIPro.Web.Check
                 else
                 {
                     pauseNotice.PauseNoticeId = SQLHelper.GetNewID(typeof(Model.Check_PauseNotice));
-                    pauseNotice.CompileMan = this.CurrUser.UserId;
+                    pauseNotice.CompileManId = this.CurrUser.UserId;
                     this.PauseNoticeId = pauseNotice.PauseNoticeId;
                     BLL.Check_PauseNoticeService.AddPauseNotice(pauseNotice);
                     BLL.LogService.AddSys_Log(this.CurrUser, pauseNotice.PauseNoticeCode, pauseNotice.PauseNoticeId, BLL.Const.ProjectPauseNoticeMenuId, BLL.Const.BtnAdd);

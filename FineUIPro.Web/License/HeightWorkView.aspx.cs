@@ -67,7 +67,7 @@
                         if (!string.IsNullOrEmpty(getHeightWork.CancelManId))
                         {
                             this.txtCance.Text = UserService.GetUserNameByUserId(getHeightWork.CancelManId) + "；取消时间："
-                                + string.Format("{0:yyyy-MM-dd HH:mm}", getHeightWork.CancelTime) + "；原因：" + getHeightWork.CloseReasons + "。";
+                                + string.Format("{0:yyyy-MM-dd HH:mm}", getHeightWork.CancelTime) + "；原因：" + getHeightWork.CancelReasons + "。";
                         }
                         if (!string.IsNullOrEmpty(getHeightWork.CloseManId))
                         {

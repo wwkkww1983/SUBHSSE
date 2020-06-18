@@ -104,7 +104,11 @@ namespace FineUIPro.Web.Check
             {
                 listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
             }
-
+            if (this.rbStates.SelectedValue != "-1")
+            {
+                strSql += " AND PunishNotice.PunishStates =@PunishStates";
+                listStr.Add(new SqlParameter("@PunishStates", this.rbStates.SelectedValue));
+            }
             /// 施工分包 只看到自己已完成的处罚单
             if (BLL.ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.ProjectId, this.CurrUser.UnitId))
             {
@@ -367,5 +371,10 @@ namespace FineUIPro.Web.Check
             BindGrid();
         }
         #endregion
+
+        protected void rbStates_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindGrid();
+        }
     }
 }

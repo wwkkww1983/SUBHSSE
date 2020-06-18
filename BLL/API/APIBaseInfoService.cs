@@ -435,6 +435,21 @@ namespace BLL
                                 select new Model.BaseInfoItem { BaseInfoId = x.TeamGroupId, BaseInfoCode = x.TeamGroupCode, BaseInfoName = x.TeamGroupName }).ToList();
             return getDataLists;
         }
+
+        /// <summary>
+        /// 获取项目班组组长
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
+        /// <returns></returns>
+        public static Model.BaseInfoItem getTeamGroupLeader(string teamGroupId)
+        {
+            var getDataLists = (from x in Funs.DB.ProjectData_TeamGroup
+                                join y in Funs.DB.SitePerson_Person on x.GroupLeaderId equals y.PersonId
+                                where x.TeamGroupId == teamGroupId && y.PersonId != null
+                                select new Model.BaseInfoItem { BaseInfoId = y.PersonId, BaseInfoCode = y.CardNo, BaseInfoName = y.PersonName }).FirstOrDefault();
+            return getDataLists;
+        }
         #endregion
 
         #region 获取项目区域

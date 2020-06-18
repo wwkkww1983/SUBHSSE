@@ -115,6 +115,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 审核时间
+        /// </summary>
+        public DateTime? OperaterTimeD
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 是否同意
         /// </summary>
         public bool? IsAgree

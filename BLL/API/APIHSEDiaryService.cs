@@ -113,6 +113,16 @@ namespace BLL
                     UserId = item.UserId,
                     DailySummary = item.DailySummary,
                     TomorrowPlan = item.TomorrowPlan,
+                    Value1 = item.Value1,
+                    Value2 = item.Value2,
+                    Value3 = item.Value3,
+                    Value4 = item.Value4,
+                    Value5 = item.Value5,
+                    Value6 = item.Value6,
+                    Value7 = item.Value7,
+                    Value8 = item.Value8,
+                    Value9 = item.Value9,
+                    Value10 = item.Value10,
                 };
                 if (string.IsNullOrEmpty(newHSEDiary.HSEDiaryId))
                 {

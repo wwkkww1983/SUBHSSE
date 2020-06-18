@@ -33,25 +33,36 @@ namespace BLL
                 PauseNoticeId = pauseNotice.PauseNoticeId,
                 PauseNoticeCode = pauseNotice.PauseNoticeCode,
                 ProjectId = pauseNotice.ProjectId,
-                UnitId = pauseNotice.UnitId,
-                CompileDate = pauseNotice.CompileDate,
-                SignPerson = pauseNotice.SignPerson,
+                UnitId = pauseNotice.UnitId,            
                 ProjectPlace = pauseNotice.ProjectPlace,
                 WrongContent = pauseNotice.WrongContent,
                 PauseTime = pauseNotice.PauseTime,
                 PauseContent = pauseNotice.PauseContent,
                 OneContent = pauseNotice.OneContent,
                 SecondContent = pauseNotice.SecondContent,
-                ThirdContent = pauseNotice.ThirdContent,
-                ProjectHeadConfirm = pauseNotice.ProjectHeadConfirm,
-                ProjectHeadConfirmId = pauseNotice.ProjectHeadConfirmId,
+                ThirdContent = pauseNotice.ThirdContent,             
                 IsConfirm = pauseNotice.IsConfirm,
-                ConfirmDate = pauseNotice.ConfirmDate,
                 AttachUrl = pauseNotice.AttachUrl,
                 States = pauseNotice.States,
-                CompileMan = pauseNotice.CompileMan,
-                SignMan = pauseNotice.SignMan,
-                ApproveMan = pauseNotice.ApproveMan
+                CompileManId=pauseNotice.CompileManId,
+                CompileDate = pauseNotice.CompileDate,
+                SignManId = pauseNotice.SignManId,
+                SignDate = pauseNotice.SignDate,
+                ApproveManId = pauseNotice.ApproveManId,
+                ApproveDate = pauseNotice.ApproveDate,
+                //DutyPersonId = pauseNotice.DutyPersonId,
+                //DutyPersonDate = pauseNotice.DutyPersonDate,
+                //ProfessionalEngineerId = pauseNotice.ProfessionalEngineerId,
+                //ProfessionalEngineerTime = pauseNotice.ProfessionalEngineerTime,
+                //ConstructionManagerId = pauseNotice.ConstructionManagerId,
+                //ConstructionManagerTime = pauseNotice.ConstructionManagerTime,
+                //UnitHeadManId = pauseNotice.UnitHeadManId,
+                //UnitHeadManTime = pauseNotice.UnitHeadManTime,
+                //SupervisorManId = pauseNotice.SupervisorManId,
+                //SupervisorManTime = pauseNotice.SupervisorManTime,
+                //OwnerId = pauseNotice.OwnerId,
+                //OwnerTime = pauseNotice.OwnerTime,
+                PauseStates = pauseNotice.PauseStates,
             };
 
             db.Check_PauseNotice.InsertOnSubmit(newPauseNotice);
@@ -72,7 +83,6 @@ namespace BLL
             {
                 newPauseNotice.CompileDate = pauseNotice.CompileDate;
                 newPauseNotice.UnitId = pauseNotice.UnitId;
-                newPauseNotice.SignPerson = pauseNotice.SignPerson;
                 newPauseNotice.ProjectPlace = pauseNotice.ProjectPlace;
                 newPauseNotice.WrongContent = pauseNotice.WrongContent;
                 newPauseNotice.PauseTime = pauseNotice.PauseTime;
@@ -80,14 +90,28 @@ namespace BLL
                 newPauseNotice.OneContent = pauseNotice.OneContent;
                 newPauseNotice.SecondContent = pauseNotice.SecondContent;
                 newPauseNotice.ThirdContent = pauseNotice.ThirdContent;
-                newPauseNotice.ProjectHeadConfirm = pauseNotice.ProjectHeadConfirm;
-                newPauseNotice.ProjectHeadConfirmId = pauseNotice.ProjectHeadConfirm;
                 newPauseNotice.IsConfirm = pauseNotice.IsConfirm;
-                newPauseNotice.ConfirmDate = pauseNotice.ConfirmDate;
                 newPauseNotice.AttachUrl = pauseNotice.AttachUrl;
                 newPauseNotice.States = pauseNotice.States;
-                newPauseNotice.SignMan = pauseNotice.SignMan;
-                newPauseNotice.ApproveMan = pauseNotice.ApproveMan;
+
+                newPauseNotice.SignManId = pauseNotice.SignManId;
+                newPauseNotice.SignDate = pauseNotice.SignDate;
+                newPauseNotice.ApproveManId = pauseNotice.ApproveManId;
+                newPauseNotice.ApproveDate = pauseNotice.ApproveDate;
+                //newPauseNotice.DutyPersonId = pauseNotice.DutyPersonId;
+                //newPauseNotice.DutyPersonDate = pauseNotice.DutyPersonDate;
+                //newPauseNotice.ProfessionalEngineerId = pauseNotice.ProfessionalEngineerId;
+                //newPauseNotice.ProfessionalEngineerTime = pauseNotice.ProfessionalEngineerTime;
+                //newPauseNotice.ConstructionManagerId = pauseNotice.ConstructionManagerId;
+                //newPauseNotice.ConstructionManagerTime = pauseNotice.ConstructionManagerTime;
+                //newPauseNotice.UnitHeadManId = pauseNotice.UnitHeadManId;
+                //newPauseNotice.UnitHeadManTime = pauseNotice.UnitHeadManTime;
+                //newPauseNotice.SupervisorManId = pauseNotice.SupervisorManId;
+                //newPauseNotice.SupervisorManTime = pauseNotice.SupervisorManTime;
+                //newPauseNotice.OwnerId = pauseNotice.OwnerId;
+                //newPauseNotice.OwnerTime = pauseNotice.OwnerTime;
+                newPauseNotice.PauseStates = pauseNotice.PauseStates;
+
                 db.SubmitChanges();
             }
         }

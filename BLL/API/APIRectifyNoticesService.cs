@@ -204,38 +204,7 @@ namespace BLL
             return getDataLists;
         }
         #endregion
-
-        #region 状态 -old
-        /// <summary>
-        /// 状态 -old
-        /// </summary>
-        /// <param name="SignDate"></param>
-        /// <param name="CompleteDate"></param>
-        /// <param name="ReCheckDate"></param>
-        /// <returns></returns>
-        public static string getStates(DateTime? SignDate, DateTime? CompleteDate, DateTime? ReCheckDate)
-        {
-            string states = string.Empty;
-            if (!SignDate.HasValue)  // 待签发 0
-            {
-                states = "0";
-            }
-            else if (SignDate.HasValue && !CompleteDate.HasValue)   // 待整改 1
-            {
-                states = "1";
-            }
-            else if (CompleteDate.HasValue && !ReCheckDate.HasValue) // 待复查 2
-            {
-                states = "2";
-            }
-            else if (ReCheckDate.HasValue)  // 已闭环 3
-            {
-                states = "3";
-            }
-            return states;
-        }
-        #endregion
-
+           
         #region 保存RectifyNotices
         /// <summary>
         /// 保存RectifyNotices
@@ -267,7 +236,7 @@ namespace BLL
                 {
                     newRectifyNotices.CompleteManId = rectifyNotices.CompleteManId;
                 }
-                if (newRectifyNotices.States == "1")
+                if (newRectifyNotices.States == Const.State_1)
                 {
                     newRectifyNotices.SignPerson = rectifyNotices.SignPersonId;
                 }
@@ -278,24 +247,24 @@ namespace BLL
                     newRectifyNotices.RectifyNoticesId = SQLHelper.GetNewID();
                     newRectifyNotices.Isprint = "0";
                     newRectifyNotices.Isprintf = "0";
-                    newRectifyNotices.RectifyNoticesCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.ProjectId, newRectifyNotices.UnitId);
+                    newRectifyNotices.RectifyNoticesCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectRectifyNoticesMenuId, newRectifyNotices.ProjectId, newRectifyNotices.UnitId);
                     db.Check_RectifyNotices.InsertOnSubmit(newRectifyNotices);
                     db.SubmitChanges();
-                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.ProjectId, newRectifyNotices.UnitId, newRectifyNotices.RectifyNoticesId, newRectifyNotices.CheckedDate);
+                    CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(Const.ProjectRectifyNoticesMenuId, newRectifyNotices.ProjectId, newRectifyNotices.UnitId, newRectifyNotices.RectifyNoticesId, newRectifyNotices.CheckedDate);
                     //// 整改单附件
                     if (!string.IsNullOrEmpty(rectifyNotices.BeAttachUrl))
                     {
-                        APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.RectifyNoticesId + "#0", rectifyNotices.BeAttachUrl, "0");
+                        APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticesMenuId, newRectifyNotices.RectifyNoticesId + "#0", rectifyNotices.BeAttachUrl, "0");
                     }
                     //// 反馈单附件
                     if (!string.IsNullOrEmpty(rectifyNotices.AfAttachUrl))
                     {
-                        APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.RectifyNoticesId + "#1", rectifyNotices.AfAttachUrl, "0");
+                        APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticesMenuId, newRectifyNotices.RectifyNoticesId + "#1", rectifyNotices.AfAttachUrl, "0");
                     }
                     //// 整个单据附件
                     if (!string.IsNullOrEmpty(rectifyNotices.AttachUrl))
                     {
-                        APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newRectifyNotices.RectifyNoticesId, rectifyNotices.AttachUrl, "0");
+                        APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticesMenuId, newRectifyNotices.RectifyNoticesId, rectifyNotices.AttachUrl, "0");
                     }
                     insertRectifyNoticesItemItem = true;
                    
@@ -325,7 +294,8 @@ namespace BLL
                             var getCheckSpecialDetail = db.Check_CheckSpecialDetail.FirstOrDefault(x => x.CheckSpecialDetailId == item);
                             if (getCheckSpecialDetail != null)
                             {
-                                getCheckSpecialDetail.CompleteStatus = true;                           
+                                getCheckSpecialDetail.DataType = "1";
+                                getCheckSpecialDetail.DataId = newRectifyNotices.RectifyNoticesId;
                                 db.SubmitChanges();
                             }
                         }
@@ -418,7 +388,7 @@ namespace BLL
                                 }
                                 if (!string.IsNullOrEmpty(rItem.PhotoAfterUrl))
                                 {
-                                    APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, rItem.RectifyNoticesItemId + "#2", rItem.PhotoAfterUrl, "0");
+                                    APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticesMenuId, rItem.RectifyNoticesItemId + "#2", rItem.PhotoAfterUrl, "0");
                                 }
                             }
                         }
@@ -456,7 +426,27 @@ namespace BLL
                         db.SubmitChanges();
                     }
                     else if (newRectifyNotices.States == "5")
-                    {  ////安全经理/安全工程师 同意关闭，不同意打回施工单位项目安全经理
+                    {
+                        //// 整改明细反馈 复查 是否合格
+                        if (rectifyNotices.RectifyNoticesItemItem != null && rectifyNotices.RectifyNoticesItemItem.Count() > 0)
+                        {
+                            foreach (var rItem in rectifyNotices.RectifyNoticesItemItem)
+                            {
+                                var getUpdateItem = db.Check_RectifyNoticesItem.FirstOrDefault(x => x.RectifyNoticesItemId == rItem.RectifyNoticesItemId);
+                                if (getUpdateItem != null)
+                                {
+                                    getUpdateItem.IsRectify = rItem.IsRectify;
+                                    db.SubmitChanges();
+                                    //// 存在不合格  意见自动不同意
+                                    if (!getUpdateItem.IsRectify.HasValue || getUpdateItem.IsRectify == false)
+                                    {
+                                        rectifyNotices.IsAgree = false;
+                                    }
+                                }
+                            }
+                        }
+
+                        ////安全经理/安全工程师 同意关闭，不同意打回施工单位项目安全经理
                         isUpdate.ReCheckOpinion = rectifyNotices.ReCheckOpinion;
                         if (rectifyNotices.IsAgree == false)
                         {
@@ -469,36 +459,20 @@ namespace BLL
                         }
                         else
                         {                         
-                            isUpdate.ReCheckDate = DateTime.Now;
-                                                        
-                            //// 回写专项检查明细表
-                            var getCheckSpecialDetails = from x in db.Check_CheckSpecialDetail
-                                                         where x.RectifyNoticeId == isUpdate.RectifyNoticesId
-                                                         select x;
-                            if (getCheckSpecialDetails.Count() > 0)
-                            {                                
-                                foreach (var item in getCheckSpecialDetails)
-                                {
-                                    item.CompletedDate = DateTime.Now;
-                                    item.CompleteStatus = true;
-                                    db.SubmitChanges();
-                                }
-                            }
-                        }
-                        db.SubmitChanges();
-                        //// 整改明细反馈 复查 是否合格
-                        if (rectifyNotices.RectifyNoticesItemItem != null && rectifyNotices.RectifyNoticesItemItem.Count() > 0)
-                        {
-                            foreach (var rItem in rectifyNotices.RectifyNoticesItemItem)
+                            isUpdate.ReCheckDate = DateTime.Now;                                                        
+                            //// 回写专项检查明细表                            
+                            var getcheck = from x in db.Check_CheckSpecialDetail where x.DataId == isUpdate.RectifyNoticesId select x;
+                            if (getcheck.Count() > 0)
                             {
-                                var getUpdateItem = db.Check_RectifyNoticesItem.FirstOrDefault(x => x.RectifyNoticesItemId == rItem.RectifyNoticesItemId);
-                                if (getUpdateItem != null)
+                                foreach (var item in getcheck)
                                 {
-                                    getUpdateItem.IsRectify = rItem.IsRectify;
+                                    item.CompleteStatus = true;
+                                    item.CompletedDate = DateTime.Now;
                                     db.SubmitChanges();
                                 }
                             }
                         }
+                        db.SubmitChanges();                        
                     }
                 }
                 if (insertRectifyNoticesItemItem)
@@ -523,7 +497,7 @@ namespace BLL
 
                             if (!string.IsNullOrEmpty(rItem.PhotoBeforeUrl))
                             {
-                                APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticeMenuId, newItem.RectifyNoticesItemId + "#1", rItem.PhotoBeforeUrl, "0");
+                                APIUpLoadFileService.SaveAttachUrl(Const.ProjectRectifyNoticesMenuId, newItem.RectifyNoticesItemId + "#1", rItem.PhotoBeforeUrl, "0");
                             }
                         }
                     }

@@ -81,7 +81,7 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                    <f:TextArea ID="txtTrainContent" runat="server" Label="培训内容" LabelAlign="right" Height="50px">
+                    <f:TextArea ID="txtTrainContent" runat="server" Label="培训内容" LabelAlign="right" Height="50px" MaxLength="500">
                     </f:TextArea>
                 </Items>
             </f:FormRow>

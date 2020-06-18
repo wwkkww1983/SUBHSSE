@@ -53,7 +53,7 @@
                         this.txtApplyUnit.Text = UnitService.GetUnitNameByUnitId(getLimitedSpace.ApplyUnitId);
                        this.txtApplyManName.Text = UserService.GetUserNameByUserId(getLimitedSpace.ApplyManId);
                         this.txtWorkPalce.Text = getLimitedSpace.WorkPalce;
-                        string name = name = getLimitedSpace.FireWatchManName;
+                        string name = getLimitedSpace.FireWatchManName;
                         if (string.IsNullOrEmpty(getLimitedSpace.FireWatchManName))
                         {
                             name = UserService.GetUserNameByUserId(getLimitedSpace.FireWatchManId);
@@ -71,7 +71,7 @@
                         if (!string.IsNullOrEmpty(getLimitedSpace.CancelManId))
                         {
                             this.txtCance.Text = UserService.GetUserNameByUserId(getLimitedSpace.CancelManId) + "；取消时间："
-                                + string.Format("{0:yyyy-MM-dd HH:mm}", getLimitedSpace.CancelTime) + "；原因：" + getLimitedSpace.CloseReasons + "。";
+                                + string.Format("{0:yyyy-MM-dd HH:mm}", getLimitedSpace.CancelTime) + "；原因：" + getLimitedSpace.CancelReasons + "。";
                         }
                         if (!string.IsNullOrEmpty(getLimitedSpace.CloseManId))
                         {

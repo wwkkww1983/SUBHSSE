@@ -10,7 +10,7 @@
 namespace FineUIPro.Web.Check {
     
     
-    public partial class RectifyNoticesView {
+    public partial class RectifyNoticesView1 {
         
         /// <summary>
         /// form1 控件。
@@ -31,6 +31,15 @@ namespace FineUIPro.Web.Check {
         protected global::FineUIPro.PageManager PageManager1;
         
         /// <summary>
+        /// Panel4 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Panel Panel4;
+        
+        /// <summary>
         /// SimpleForm1 控件。
         /// </summary>
         /// <remarks>
@@ -38,6 +47,15 @@ namespace FineUIPro.Web.Check {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Form SimpleForm1;
+        
+        /// <summary>
+        /// txtProjectName 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtProjectName;
         
         /// <summary>
         /// txtRectifyNoticesCode 控件。
@@ -49,94 +67,31 @@ namespace FineUIPro.Web.Check {
         protected global::FineUIPro.TextBox txtRectifyNoticesCode;
         
         /// <summary>
-        /// txtCheckedDate 控件。
+        /// drpUnitId 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtCheckedDate;
+        protected global::FineUIPro.DropDownList drpUnitId;
         
         /// <summary>
-        /// txtUnitName 控件。
+        /// drpWorkAreaId 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtUnitName;
+        protected global::FineUIPro.DropDownList drpWorkAreaId;
         
         /// <summary>
-        /// drpDutyPerson 控件。
+        /// drpCheckPerson 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox drpDutyPerson;
-        
-        /// <summary>
-        /// txtWorkAreaName 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtWorkAreaName;
-        
-        /// <summary>
-        /// txtWrongContent 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextArea txtWrongContent;
-        
-        /// <summary>
-        /// txtSignPerson 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtSignPerson;
-        
-        /// <summary>
-        /// txtSignDate 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtSignDate;
-        
-        /// <summary>
-        /// GroupPanel1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.GroupPanel GroupPanel1;
-        
-        /// <summary>
-        /// txtCompleteStatus 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextArea txtCompleteStatus;
-        
-        /// <summary>
-        /// txtDutyPerson 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtDutyPerson;
+        protected global::FineUIPro.DropDownList drpCheckPerson;
         
         /// <summary>
         /// txtCompleteDate 控件。
@@ -145,79 +100,88 @@ namespace FineUIPro.Web.Check {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtCompleteDate;
+        protected global::FineUIPro.DatePicker txtCompleteDate;
         
         /// <summary>
-        /// txtIsRectify 控件。
+        /// drpHiddenHazardType 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtIsRectify;
+        protected global::FineUIPro.DropDownList drpHiddenHazardType;
         
         /// <summary>
-        /// txtCheckPerson 控件。
+        /// Form2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtCheckPerson;
+        protected global::FineUIPro.Form Form2;
         
         /// <summary>
-        /// txtReCheckDate 控件。
+        /// Grid1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtReCheckDate;
+        protected global::FineUIPro.Grid Grid1;
         
         /// <summary>
-        /// Toolbar1 控件。
+        /// Form3 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Toolbar Toolbar1;
+        protected global::FineUIPro.Form Form3;
         
         /// <summary>
-        /// lbTemp 控件。
+        /// next4 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label lbTemp;
+        protected global::FineUIPro.FormRow next4;
         
         /// <summary>
-        /// btnAttachUrl 控件。
+        /// Form7 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Button btnAttachUrl;
+        protected global::FineUIPro.Form Form7;
         
         /// <summary>
-        /// ToolbarFill1 控件。
+        /// txtReCheckOpinion 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.ToolbarFill ToolbarFill1;
+        protected global::FineUIPro.Label txtReCheckOpinion;
         
         /// <summary>
-        /// btnClose 控件。
+        /// Form4 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Button btnClose;
+        protected global::FineUIPro.Form Form4;
+        
+        /// <summary>
+        /// gvFlowOperate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Grid gvFlowOperate;
         
         /// <summary>
         /// WindowAtt 控件。

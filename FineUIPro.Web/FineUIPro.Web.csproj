@@ -303,6 +303,7 @@
     <Content Include="Check\RectifyNotice.aspx" />
     <Content Include="Check\RectifyNoticeEdit.aspx" />
     <Content Include="Check\RectifyNoticePrint.aspx" />
+    <Content Include="Check\RectifyNoticesEdit.aspx" />
     <Content Include="Check\RectifyNoticesView.aspx" />
     <Content Include="Check\RectifyNoticeView.aspx" />
     <Content Include="Check\Registration.aspx" />
@@ -5144,6 +5145,13 @@
     </Compile>
     <Compile Include="Check\RectifyNoticePrint.aspx.designer.cs">
       <DependentUpon>RectifyNoticePrint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Check\RectifyNoticesEdit.aspx.cs">
+      <DependentUpon>RectifyNoticesEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Check\RectifyNoticesEdit.aspx.designer.cs">
+      <DependentUpon>RectifyNoticesEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Check\RectifyNoticesView.aspx.cs">
       <DependentUpon>RectifyNoticesView.aspx</DependentUpon>

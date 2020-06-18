@@ -42,6 +42,18 @@ namespace BLL
                 rblName.SelectedValue = selectValue;
             }
         }
+
+        public static void InitConstNameDropDownList(FineUIPro.DropDownList dropName, string groupId, bool isShowPlease)
+        {
+            dropName.DataValueField = "ConstText";
+            dropName.DataTextField = "ConstText";
+            dropName.DataSource = ConstValue.drpConstItemList(groupId);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
         #endregion
 
         /// <summary>

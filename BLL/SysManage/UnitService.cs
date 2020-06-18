@@ -360,6 +360,23 @@ namespace BLL
                 Funs.FineUIPleaseSelect(dropName);
             }
         }
+
+        /// <summary>
+        ///  根据单位类型获取单位表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitUnitNameByProjectIdUnitTypeDropDownList(FineUIPro.DropDownList dropName, string projectId, string unitType, bool isShowPlease)
+        {
+            dropName.DataValueField = "UnitName";
+            dropName.DataTextField = "UnitName";
+            dropName.DataSource = BLL.UnitService.GetUnitByProjectIdUnitTypeList(projectId, unitType);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
         #endregion
 
         /// <summary>
@@ -391,9 +408,11 @@ namespace BLL
             List<Model.Base_Unit> units = new List<Model.Base_Unit>();
             units.AddRange(BLL.UnitService.GetUnitListByProjectId(projectId));
 
-            Model.Base_Unit other = new Model.Base_Unit();
-            other.UnitName = "其他";
-            other.UnitId = "0";
+            Model.Base_Unit other = new Model.Base_Unit
+            {
+                UnitName = "其他",
+                UnitId = "0"
+            };
             units.Add(other);
 
             dropName.DataSource = units;

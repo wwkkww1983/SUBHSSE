@@ -263,6 +263,14 @@ namespace BLL
                         CompileDate = Funs.GetNewDateTime(emergencyInfo.CompileDate),
                         States = Const.State_2,
                     };
+                    if (!string.IsNullOrEmpty(emergencyInfo.AuditManId))
+                    {
+                        newEmergency.AuditMan = emergencyInfo.AuditManId;
+                    }
+                    if (!string.IsNullOrEmpty(emergencyInfo.ApproveManId))
+                    {
+                        newEmergency.ApproveMan = emergencyInfo.ApproveManId;
+                    }
                     if (emergencyInfo.States != Const.State_1)
                     {
                         newEmergency.States = Const.State_0;

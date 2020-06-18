@@ -65,6 +65,7 @@ namespace FineUIPro.Web.Check
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
                 // 绑定表格
                 BindGrid();
+                btnNew.OnClientClick = Window1.GetShowReference("RectifyNoticesEdit.aspx") + "return false;";
             }
         }
 
@@ -73,7 +74,7 @@ namespace FineUIPro.Web.Check
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT R.RectifyNoticesId,R.ProjectId,CodeRecords.Code AS RectifyNoticesCode,R.UnitId ,Unit.UnitName,R.WorkAreaId
+            string strSql = @"SELECT R.RectifyNoticesId,R.ProjectId,CodeRecords.Code AS RectifyNoticesCode,R.UnitId ,Unit.UnitName,R.WorkAreaId,R.CheckManNames
                                         ,WorkAreaName= STUFF(( SELECT ',' + WorkAreaName FROM dbo.ProjectData_WorkArea where PATINDEX('%,' + RTRIM(WorkAreaId) + ',%',',' +R.WorkAreaId + ',')>0 FOR XML PATH('')), 1, 1,'')
                                         ,CheckPersonName= (STUFF(( SELECT ',' + UserName FROM dbo.Sys_User where PATINDEX('%,' + RTRIM(UserId) + ',%',',' +R.CheckManIds+ ',')>0 FOR XML PATH('')), 1, 1,'')+ (CASE WHEN CheckManNames IS NOT NULL AND CheckManNames !='' THEN ','+ CheckManNames ELSE '' END))
                                         ,R.DutyPerson,R.CheckedDate,DutyPerson.UserName AS DutyPersonName,R.DutyPersonTime,R.CompleteDate
@@ -212,7 +213,7 @@ namespace FineUIPro.Web.Check
 
             EditData(Grid1.SelectedRowID);
         }
-       
+
         /// <summary>
         /// 编辑按钮
         /// </summary>
@@ -234,7 +235,52 @@ namespace FineUIPro.Web.Check
         /// </summary>
         private void EditData(string rectifyNoticeId)
         {
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesView.aspx?RectifyNoticeId={0}", rectifyNoticeId, "查看 - ")));
+            bool flag = false;
+            Model.Check_RectifyNotices RectifyNotices =  RectifyNoticesService.GetRectifyNoticesById(Grid1.SelectedRowID);
+            if (RectifyNotices.States == "0" || RectifyNotices.States == "1")
+            {
+                if (this.CurrUser.UserId == RectifyNotices.CompleteManId || this.CurrUser.UserId == RectifyNotices.SignPerson)
+                {
+                    flag = true;
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesEdit.aspx?RectifyNoticesId={0}", rectifyNoticeId, "编辑 - ")));
+
+                }
+            }
+            else if (RectifyNotices.States == "2")
+            {
+                if (this.CurrUser.UserId == RectifyNotices.DutyPersonId)
+                {
+                    flag = true;
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesEdit.aspx?RectifyNoticesId={0}", rectifyNoticeId, "编辑 - ")));
+
+                }
+            }
+            else if (RectifyNotices.States == "3")
+            {
+                if (this.CurrUser.UserId == RectifyNotices.UnitHeadManId)
+                {
+                    flag = true;
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesEdit.aspx?RectifyNoticesId={0}", rectifyNoticeId, "编辑 - ")));
+
+                }
+            }
+            else if (RectifyNotices.States == "4")
+            {
+                if (this.CurrUser.UserId == RectifyNotices.CheckPerson)
+                {
+                    flag = true;
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesEdit.aspx?RectifyNoticesId={0}", rectifyNoticeId, "编辑 - ")));
+
+                }
+            }
+            else
+            {
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesView.aspx?RectifyNoticesId={0}", rectifyNoticeId, "查看 - ")));
+            }
+            if (!flag)
+            {
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesView.aspx?RectifyNoticesId={0}", rectifyNoticeId, "查看 - ")));
+            }
         }
         #endregion
 
@@ -306,7 +352,7 @@ namespace FineUIPro.Web.Check
             {
                 if (buttonList.Contains(BLL.Const.BtnAdd))
                 {
-                    //this.btnNew.Hidden = false;
+                    this.btnNew.Hidden = false;
                     this.btnPrint.Hidden = false;
                 }
                 if (buttonList.Contains(BLL.Const.BtnModify))
@@ -316,7 +362,7 @@ namespace FineUIPro.Web.Check
                 if (buttonList.Contains(BLL.Const.BtnDelete))
                 {
                     this.btnMenuDel.Hidden = false;
-                }         
+                }
             }
         }
         #endregion
@@ -332,7 +378,7 @@ namespace FineUIPro.Web.Check
             string filename = Funs.GetNewFileName();
             Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("隐患整改通知单" + filename, System.Text.Encoding.UTF8) + ".xls");
             Response.ContentType = "application/excel";
-            Response.ContentEncoding =Encoding.UTF8;
+            Response.ContentEncoding = Encoding.UTF8;
             this.Grid1.PageSize = this.RowCount;
             this.BindGrid();
             Response.Write(GetGridTableHtml(Grid1));

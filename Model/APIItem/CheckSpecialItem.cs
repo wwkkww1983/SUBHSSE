@@ -44,6 +44,22 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 检查项目
+        /// </summary>
+        public string CheckItemSetId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 检查项目名称
+        /// </summary>
+        public string CheckItemSetName
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 检查组长Id
         /// </summary>
         public string CheckPersonId

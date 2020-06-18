@@ -21,7 +21,21 @@ namespace BLL
         {
             return Funs.DB.Technique_CheckItemSet.FirstOrDefault(e => e.CheckItemSetId == checkItemSetId);
         }
-
+        /// <summary>
+        /// 根据主键获取检查项名称
+        /// </summary>
+        /// <param name="checkItemSetId"></param>
+        /// <returns></returns>
+        public static string GetCheckItemSetNameById(string checkItemSetId)
+        {
+            string name = string.Empty;
+            var getItem= Funs.DB.Technique_CheckItemSet.FirstOrDefault(e => e.CheckItemSetId == checkItemSetId);
+            if (getItem != null)
+            {
+                name = getItem.CheckItemName;
+            }
+            return name;
+        }
         /// <summary>
         /// 根据上一节点id获取检查项
         /// </summary>
@@ -31,6 +45,21 @@ namespace BLL
         {
             return (from x in Funs.DB.Technique_CheckItemSet where x.SupCheckItem == supCheckItemSetId select x).ToList();
         }
+
+        /// <summary>
+        ///  根据类型上级节点获取检查列表
+        /// </summary>
+        /// <param name="checkType"></param>
+        /// <param name="supCheckItemSetId"></param>
+        /// <returns></returns>
+        public static List<Model.Technique_CheckItemSet> GetCheckItemSetListByCheckTypeSupCheckItem(string checkType, string supCheckItemSetId)
+        {
+            return (from x in Funs.DB.Technique_CheckItemSet
+                    where x.CheckType == checkType && x.SupCheckItem == supCheckItemSetId
+                    orderby x.MapCode
+                    select x).ToList();
+        }
+
 
         /// <summary>
         /// 添加检查项
@@ -159,5 +188,41 @@ namespace BLL
                 return false;
             }
         }
+
+        #region  检查项表下拉框
+        /// <summary>
+        ///  检查项表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitCheckItemSetDropDownList(FineUIPro.DropDownList dropName, string checkType, string supCheckItem, bool isShowPlease)
+        {
+            dropName.DataValueField = "CheckItemSetId";
+            dropName.DataTextField = "CheckItemName";
+            dropName.DataSource = GetCheckItemSetListByCheckTypeSupCheckItem(checkType, supCheckItem);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
+        /// <summary>
+        ///  检查项表下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitCheckItemSetNameDropDownList(FineUIPro.DropDownList dropName, string checkType, string supCheckItem, bool isShowPlease)
+        {
+            dropName.DataValueField = "CheckItemName";
+            dropName.DataTextField = "CheckItemName";
+            dropName.DataSource = GetCheckItemSetListByCheckTypeSupCheckItem(checkType, supCheckItem);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+        #endregion
     }
 }

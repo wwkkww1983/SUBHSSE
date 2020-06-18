@@ -51,22 +51,6 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 编制时间
-        /// </summary>
-        public string CompileDate
-        {
-            get;
-            set;
-        }
-        ///// <summary>
-        ///// 编制人
-        ///// </summary>
-        //public string SignPerson
-        //{
-        //    get;
-        //    set;
-        //}
-        /// <summary>
         /// 工程部位
         /// </summary>
         public string ProjectPlace
@@ -121,23 +105,7 @@ namespace Model
         {
             get;
             set;
-        }
-        /// <summary>
-        /// 项目经理确认人
-        /// </summary>
-        public string ProjectHeadConfirm
-        {
-            get;
-            set;
-        }
-        /// <summary>
-        /// 项目经理确认人Id
-        /// </summary>
-        public string ProjectHeadConfirmId
-        {
-            get;
-            set;
-        }
+        }       
         /// <summary>
         /// 是否确认
         /// </summary>
@@ -162,10 +130,11 @@ namespace Model
             get;
             set;
         }
+       
         /// <summary>
-        /// 附件
+        /// 是否同意
         /// </summary>
-        public string AttachUrl
+        public bool? IsAgree
         {
             get;
             set;
@@ -187,6 +156,14 @@ namespace Model
             set;
         }
         /// <summary>
+        /// 编制时间
+        /// </summary>
+        public string CompileDate
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 签发人ID
         /// </summary>
         public string SignManId
@@ -198,6 +175,14 @@ namespace Model
         /// 签发人姓名
         /// </summary>
         public string SignManName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 签发时间
+        /// </summary>
+        public string SignDate
         {
             get;
             set;
@@ -217,11 +202,171 @@ namespace Model
         {
             get;
             set;
-        }       
+        }
+        /// <summary>
+        /// 批准时间
+        /// </summary>
+        public string ApproveDate
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 接收人ID
+        /// </summary>
+        public string DutyPersonId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 接收人姓名
+        /// </summary>
+        public string DutyPersonName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 接收时间
+        /// </summary>
+        public string DutyPersonDate
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 专业工程师ID
+        /// </summary>
+        public string ProfessionalEngineerId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 专业工程师姓名
+        /// </summary>
+        public string ProfessionalEngineerName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 专业工程师抄送日期
+        /// </summary>
+        public string ProfessionalEngineerTime
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 施工经理ID
+        /// </summary>
+        public string ConstructionManagerId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 施工经理姓名
+        /// </summary>
+        public string ConstructionManagerName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 施工经理抄送日期
+        /// </summary>
+        public string ConstructionManagerTime
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 施工单位项目负责人ID
+        /// </summary>
+        public string UnitHeadManId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 施工单位项目负责人姓名
+        /// </summary>
+        public string UnitHeadManName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 施工单位项目负责人 接收日期
+        /// </summary>
+        public string UnitHeadManTime
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 监理ID
+        /// </summary>
+        public string SupervisorManId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 监理姓名
+        /// </summary>
+        public string SupervisorManName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 监理 接收日期
+        /// </summary>
+        public string SupervisorManTime
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 业主ID
+        /// </summary>
+        public string OwnerId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 业主姓名
+        /// </summary>
+        public string OwnerName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 业主 接收日期
+        /// </summary>
+        public string OwnerTime
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// 状态
         /// </summary>
         public string States
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 暂停令状态（0待提交；1待签发；2待批准；3待接收；4已闭环）
+        /// </summary>
+        public string PauseStates
         {
             get;
             set;
@@ -231,11 +376,23 @@ namespace Model
             get;
             set;
         }
-
+        public string CheckSpecialDetailId
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// 附件
         /// </summary>
         public string PauseNoticeAttachUrl
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        ///   审核记录
+        /// </summary>
+        public List<FlowOperateItem> FlowOperateItem
         {
             get;
             set;

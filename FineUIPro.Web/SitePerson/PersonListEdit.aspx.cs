@@ -163,10 +163,13 @@ namespace FineUIPro.Web.SitePerson
                             this.drpAuditor.Readonly = true;
                             this.txtAuditorDate.Readonly = true;
                         }
-                        imgPhoto.ImageUrl =  person.PhotoUrl;
+                        if (!string.IsNullOrEmpty(person.PhotoUrl))
+                        {
+                            imgPhoto.ImageUrl = ("~/"+person.PhotoUrl) ;
+                        }
                     }
 
-                    var personQuality = BLL.PersonQualityService.GetPersonQualityByPersonId(this.PersonId);
+                    var personQuality = PersonQualityService.GetPersonQualityByPersonId(this.PersonId);
                     if (personQuality != null)
                     {
                         this.drpCertificate.SelectedValue = personQuality.CertificateId;
@@ -236,7 +239,7 @@ namespace FineUIPro.Web.SitePerson
         protected void SaveData()
         {
             string pefx = string.Empty;
-            Model.Base_Project project = BLL.ProjectService.GetProjectByProjectId(this.ProjectId);
+            Model.Base_Project project = ProjectService.GetProjectByProjectId(this.ProjectId);
             string projectCode = string.Empty;
             if (project != null)
             {
@@ -318,7 +321,7 @@ namespace FineUIPro.Web.SitePerson
             }
             if (!string.IsNullOrEmpty(imgPhoto.ImageUrl) && imgPhoto.ImageUrl != "~/res/images/blank_150.png")
             {
-                person.PhotoUrl = imgPhoto.ImageUrl.Replace("../", "");
+                person.PhotoUrl = imgPhoto.ImageUrl.Replace("~/", "");
             }
             else
             {
@@ -436,7 +439,7 @@ namespace FineUIPro.Web.SitePerson
                 }
                 fileName = fileName.Replace(":", "_").Replace(" ", "_").Replace("\\", "_").Replace("/", "_");
                 fileName = DateTime.Now.Ticks.ToString() + "_" + fileName;
-                string url = "FileUpload/PersonBaseInfo/" + DateTime.Now.Year + "-" + DateTime.Now.Month + "/"
+                string url = "~/FileUpload/PersonBaseInfo/" + DateTime.Now.Year + "-" + DateTime.Now.Month + "/"
 ;                filePhoto.SaveAs(Server.MapPath(url + fileName));
                 imgPhoto.ImageUrl = url + fileName;
                 // 清空文件上传组件

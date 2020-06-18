@@ -93,7 +93,7 @@
                     <%--<f:RenderField Width="110px" ColumnID="DepartName" DataField="DepartName" FieldType="String"
                         HeaderText="部门" HeaderTextAlign="Center" TextAlign="Left" >
                     </f:RenderField>--%>
-                      <f:RenderField Width="350px" ColumnID="DProjectName" DataField="DProjectName" FieldType="String"
+                      <f:RenderField Width="300px" ColumnID="DProjectName" DataField="DProjectName" FieldType="String"
                         HeaderText="部门/项目" HeaderTextAlign="Center" TextAlign="Left" >
                     </f:RenderField>
                      <f:RenderField Width="185px" ColumnID="IdentityCard" DataField="IdentityCard" FieldType="String"

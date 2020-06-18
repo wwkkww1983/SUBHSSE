@@ -1,13 +1,9 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
-using BLL;
-using System.IO;
+using System.Linq;
 using System.Text;
 using AspNet = System.Web.UI.WebControls;
 
@@ -69,7 +65,6 @@ namespace FineUIPro.Web.Check
                           + @" FROM Check_PauseNotice AS PauseNotice "
                           + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON PauseNotice.PauseNoticeId=FlowOperate.DataId AND FlowOperate.IsClosed <> 1"
                           + @" LEFT JOIN Sys_User AS OperateUser ON FlowOperate.OperaterId=OperateUser.UserId "
-                          + @" LEFT JOIN Sys_User AS Users ON PauseNotice.CompileMan=Users.UserId "
                           + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON PauseNotice.PauseNoticeId=CodeRecords.DataId LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=PauseNotice.UnitId WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND PauseNotice.ProjectId = @ProjectId";
@@ -82,6 +77,11 @@ namespace FineUIPro.Web.Check
             else
             {
                 listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
+            }
+            if (this.rbStates.SelectedValue != "-1")
+            {
+                strSql += " AND PauseNotice.PauseStates =@PauseStates";
+                listStr.Add(new SqlParameter("@PauseStates", this.rbStates.SelectedValue));
             }
             if (BLL.ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(this.ProjectId, this.CurrUser.UnitId))
             {
@@ -102,7 +102,7 @@ namespace FineUIPro.Web.Check
             //var table = this.GetPagedDataTable(Grid1, tb1);
 
             Grid1.RecordCount = tb.Rows.Count;
-            tb = GetFilteredTable(Grid1.FilteredData, tb);
+            //tb = GetFilteredTable(Grid1.FilteredData, tb);
             var table = this.GetPagedDataTable(Grid1, tb);
 
             Grid1.DataSource = table;
@@ -356,5 +356,10 @@ namespace FineUIPro.Web.Check
             return sb.ToString();
         }
         #endregion
+
+        protected void rbStates_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindGrid();
+        }
     }
 }

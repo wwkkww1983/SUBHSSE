@@ -191,7 +191,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataLists = APITestRecordService.getTrainingTestRecordListByProjectId(projectId, null, null, null);
+                var getDataLists = APITestRecordService.getTrainingTestRecordListByProjectId(projectId, null, null, null, null);
                 int pageCount = getDataLists.Count;
                 if (pageCount > 0 && pageIndex > 0)
                 {
@@ -223,7 +223,40 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataLists = APITestRecordService.getTrainingTestRecordListByProjectId(projectId, unitId, workPostId, strPass);
+                var getDataLists = APITestRecordService.getTrainingTestRecordListByProjectId(projectId, unitId, workPostId, strPass, string.Empty);
+                int pageCount = getDataLists.Count;
+                if (pageCount > 0 && pageIndex > 0)
+                {
+                    getDataLists = getDataLists.OrderByDescending(x => x.TestStartTime).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                }
+                responeData.data = new { pageCount, getDataLists };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
+
+        #region 根据ProjectId获取所有考试记录列表
+        /// <summary>
+        /// 根据ProjectId获取所有考试记录列表
+        /// </summary>
+        /// <param name="projectId">项目ID</param>
+        /// <param name="unitId">单位ID</param>
+        /// <param name="workPostId">岗位ID</param> 
+        /// <param name="strPass">0-未通过；1通过；空所有</param>  
+        /// <param name="strParam">参数</param>  
+        /// <param name="pageIndex">页码</param>
+        /// <returns>考试记录列表</returns>
+        public Model.ResponeData getTrainingTestRecordListQuery(string projectId, string unitId, string workPostId, string strPass,string strParam, int pageIndex)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getDataLists = APITestRecordService.getTrainingTestRecordListByProjectId(projectId, unitId, workPostId, strPass, strParam);
                 int pageCount = getDataLists.Count;
                 if (pageCount > 0 && pageIndex > 0)
                 {

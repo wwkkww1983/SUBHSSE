@@ -119,7 +119,7 @@ namespace FineUIPro.Web.EduTrain
                         }
                     }
                     sql = @"SELECT TestRecordItemId,TestRecordId,replace(replace(replace(replace(Abstracts,' ',''),'(','（'),')','）'),'（）',('（'+ISNULL(Replace(Replace(Replace(Replace(Replace(SelectedItem,'1','A'),'2', 'B'),'3', 'C'),'4', 'D'),'5', 'E'),'')+'）')) AS Abstracts,AttachUrl
-                            ,('A. '+AItem) AS AItem,('B. '+BItem) AS BItem,(CASE WHEN CItem IS NOT NULL THEN ('C. '+CItem) ELSE NULL END) AS CItem
+                            ,('A. '+AItem) AS AItem,('B. '+BItem) AS BItem,(CASE WHEN CItem IS NULL OR CItem='' THEN '' ELSE  ('C. '+CItem)  END) AS CItem
                             ,(CASE WHEN DItem IS NULL OR DItem='' THEN NULL ELSE 'D. '+DItem END) AS DItem,(CASE WHEN EItem IS NULL  OR EItem='' THEN NULL ELSE 'E. '+EItem END) AS EItem  
                             ,('('+ISNULL(Replace(Replace(Replace(Replace(Replace(SelectedItem,'1','A'),'2', 'B'),'3', 'C'),'4', 'D'),'5', 'E'),'')+')') AS SelectedItem
                             ,TestType,TrainingItemCode
@@ -194,7 +194,7 @@ namespace FineUIPro.Web.EduTrain
                         }
                     }
                     sql = @"SELECT TestRecordItemId,TestRecordId,TrainingItemName,replace(replace(replace(replace(Abstracts,' ',''),'(','（'),')','）'),'（）',('（'+ISNULL(Replace(Replace(Replace(Replace(Replace(SelectedItem,'1','A'),'2', 'B'),'3', 'C'),'4', 'D'),'5', 'E'),'')+'）')) AS Abstracts,AttachUrl
-                            ,('A. '+AItem) AS AItem,('B. '+BItem) AS BItem,(CASE WHEN CItem IS NOT NULL THEN ('C. '+CItem) ELSE NULL END) AS CItem
+                            ,('A. '+AItem) AS AItem,('B. '+BItem) AS BItem,(CASE WHEN CItem IS NULL OR CItem='' THEN '' ELSE  ('C. '+CItem)  END) AS CItem
                             ,(CASE WHEN DItem IS NULL OR DItem='' THEN NULL ELSE 'D. '+DItem END) AS DItem,(CASE WHEN EItem IS NULL  OR EItem='' THEN NULL ELSE 'E. '+EItem END) AS EItem  
                             ,('('+ISNULL(Replace(Replace(Replace(Replace(Replace(SelectedItem,'1','A'),'2', 'B'),'3', 'C'),'4', 'D'),'5', 'E'),'')+')') AS SelectedItem
                             ,TestType,TrainingItemCode

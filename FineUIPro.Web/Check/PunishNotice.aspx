@@ -24,15 +24,28 @@
                 SortField="PunishNoticeCode" SortDirection="DESC" OnSort="Grid1_Sort" AllowPaging="true"
                 IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"
                 EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True">
-                <Toolbars>
-                    <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
+                <Toolbars>                    
+                    <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
+                              <f:RadioButtonList runat="server" ID="rbStates" Width="400px" LabelWidth="60px"
+                                 AutoPostBack="true" OnSelectedIndexChanged="rbStates_SelectedIndexChanged">
+                                <f:RadioItem Text="全部" Value="-1" Selected="true" />
+                                <f:RadioItem Text="待提交" Value="0" />
+                                <f:RadioItem Text="待签发" Value="1" />
+                                <f:RadioItem Text="待批准" Value="2" />
+                                <f:RadioItem Text="待回执" Value="3" />
+                                <f:RadioItem Text="已闭环" Value="4" />
+                            </f:RadioButtonList>                           
+                          </Items>
+                        </f:Toolbar>
+                    <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">                 
+                        <Items>            
+                            <f:DropDownList ID="drpUnitId" runat="server" Label="单位" AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged"  LabelWidth="70px" Width="350px">
+                            </f:DropDownList>
                             <f:TextBox runat="server" Label="编号" ID="txtPunishNoticeCode" EmptyText="输入查询条件"
                                 AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="210px" LabelWidth="60px"
                                 LabelAlign="right">
-                            </f:TextBox>
-                            <f:DropDownList ID="drpUnitId" runat="server" Label="单位" AutoPostBack="true" OnSelectedIndexChanged="TextBox_TextChanged"  LabelWidth="70px" Width="250px">
-                            </f:DropDownList>
+                            </f:TextBox>                        
                             <f:DatePicker ID="txtStartDate" runat="server" Label="处罚时间" AutoPostBack="true" OnTextChanged="TextBox_TextChanged"
                                 Width="220px" EmptyText="开始时间" LabelAlign="Right">
                             </f:DatePicker>
@@ -63,7 +76,7 @@
                         SortField="PunishNoticeCode" FieldType="String" HeaderText="编号" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                    <f:RenderField Width="220px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
+                    <f:RenderField Width="240px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
                         FieldType="String" HeaderText="处罚单位" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="100px" ColumnID="PunishNoticeDate" DataField="PunishNoticeDate"

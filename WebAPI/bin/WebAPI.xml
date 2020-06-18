@@ -778,6 +778,13 @@
             <param name="teamGroupId"></param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.BaseInfoController.getTeamGroupLeader(System.String)">
+            <summary>
+            获取项目班组人数
+            </summary>
+            <param name="teamGroupId"></param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.BaseInfoController.getWorkArea(System.String,System.String)">
             <summary>
             获取项目区域
@@ -1308,6 +1315,15 @@
             <param name="pageIndex"></param>  
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.PauseNoticeController.getPauseNoticeCount(System.String,System.String,System.String)">
+            <summary>
+            根据projectId获取各状态风险数
+            </summary>
+            <param name="projectId"></param>
+            <param name="unitId"></param>
+            <param name="strParam"></param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.PauseNoticeController.SavePauseNotice(Model.PauseNoticeItem)">
             <summary>
             保存工程暂停令 Check_PauseNotice
@@ -1342,8 +1358,17 @@
             <param name="projectId"></param>
             <param name="unitId"></param>
              <param name="strParam">查询条件</param>
-             <param name="states">查询条件</param>
+             <param name="states">处罚单状态（0待提交；1待签发；2待批准；3待回执；4已闭环）</param>
             <param name="pageIndex"></param>  
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PunishNoticeController.getPunishNoticeCount(System.String,System.String,System.String)">
+            <summary>
+            根据projectId获取各状态风险数
+            </summary>
+            <param name="projectId"></param>
+            <param name="unitId"></param>
+            <param name="strParam"></param>
             <returns></returns>
         </member>
         <member name="M:WebAPI.Controllers.PunishNoticeController.SavePunishNotice(Model.PunishNoticeItem)">
@@ -1761,6 +1786,16 @@
             保存Meeting
             </summary>
             <param name="meeting">会议信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.MeetingController.getClassMeetingInfo(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            根据时间获取各单位班会情况
+            </summary>
+            <param name="projectId"></param>
+            <param name="unitId">单位ID</param>
+            <param name="meetingDate">日期</param>
+            <param name="pageIndex">页码</param>
             <returns></returns>
         </member>
         <member name="T:WebAPI.Controllers.PageDataController">
@@ -2438,6 +2473,18 @@
             <param name="unitId">单位ID</param>
             <param name="workPostId">岗位ID</param> 
             <param name="strPass">0-未通过；1通过；空所有</param>  
+            <param name="pageIndex">页码</param>
+            <returns>考试记录列表</returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TestRecordController.getTrainingTestRecordListQuery(System.String,System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            根据ProjectId获取所有考试记录列表
+            </summary>
+            <param name="projectId">项目ID</param>
+            <param name="unitId">单位ID</param>
+            <param name="workPostId">岗位ID</param> 
+            <param name="strPass">0-未通过；1通过；空所有</param>  
+            <param name="strParam">参数</param>  
             <param name="pageIndex">页码</param>
             <returns>考试记录列表</returns>
         </member>

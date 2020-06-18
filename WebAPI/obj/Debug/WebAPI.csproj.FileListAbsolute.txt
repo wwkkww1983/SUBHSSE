@@ -101,8 +101,6 @@ D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\obj\Debug\WebAPI.csproj.CoreCompileInput
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\obj\Debug\WebAPI.csproj.CopyComplete
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\obj\Debug\WebAPI.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\WebAPI\obj\Debug\WebAPI.pdb
-D:\DepCode\SEDIN\HSSE\HSSE\WebAPI\obj\Debug\WebAPI.csprojAssemblyReference.cache
-D:\DepCode\SEDIN\HSSE\HSSE\WebAPI\obj\Debug\WebAPI.csproj.CoreCompileInputs.cache
 D:\DepCode\SEDIN\HSSE\HSSE\WebAPI\bin\WebAPI.dll.config
 D:\DepCode\SEDIN\HSSE\HSSE\WebAPI\bin\WebAPI.xml
 D:\DepCode\SEDIN\HSSE\HSSE\WebAPI\bin\WebAPI.dll
@@ -201,6 +199,8 @@ D:\DepCode\SEDIN\HSSE\HSSE\WebAPI\bin\zh-Hans\System.Web.Razor.resources.dll
 D:\DepCode\SEDIN\HSSE\HSSE\WebAPI\bin\zh-Hans\System.Web.WebPages.resources.dll
 D:\DepCode\SEDIN\HSSE\HSSE\WebAPI\bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll
 D:\DepCode\SEDIN\HSSE\HSSE\WebAPI\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
+D:\DepCode\SEDIN\HSSE\HSSE\WebAPI\obj\Debug\WebAPI.csprojAssemblyReference.cache
+D:\DepCode\SEDIN\HSSE\HSSE\WebAPI\obj\Debug\WebAPI.csproj.CoreCompileInputs.cache
 D:\DepCode\SEDIN\HSSE\HSSE\WebAPI\obj\Debug\WebAPI.csproj.CopyComplete
 D:\DepCode\SEDIN\HSSE\HSSE\WebAPI\obj\Debug\WebAPI.dll
 D:\DepCode\SEDIN\HSSE\HSSE\WebAPI\obj\Debug\WebAPI.pdb

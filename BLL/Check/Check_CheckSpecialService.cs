@@ -79,11 +79,12 @@ namespace BLL
                 PartInUnits = checkSpecial.PartInUnits,
                 PartInPersons = checkSpecial.PartInPersons,
                 PartInPersonIds = checkSpecial.PartInPersonIds,
-                PartInPersonNames=checkSpecial.PartInPersonNames,
+                PartInPersonNames = checkSpecial.PartInPersonNames,
                 CheckAreas = checkSpecial.CheckAreas,
                 States = checkSpecial.States,
                 CompileMan = checkSpecial.CompileMan,
-                CheckType = checkSpecial.CheckType
+                CheckType = checkSpecial.CheckType,
+                CheckItemSetId = checkSpecial.CheckItemSetId,
             };
             db.Check_CheckSpecial.InsertOnSubmit(newCheckSpecial);
             db.SubmitChanges();
@@ -118,6 +119,7 @@ namespace BLL
                 newCheckSpecial.CheckAreas = checkSpecial.CheckAreas;
                 newCheckSpecial.States = checkSpecial.States;
                 newCheckSpecial.CheckType = checkSpecial.CheckType;
+                newCheckSpecial.CheckItemSetId = checkSpecial.CheckItemSetId;
                 db.SubmitChanges();
             }
         }
@@ -151,6 +153,51 @@ namespace BLL
                 db.Check_CheckSpecial.DeleteOnSubmit(q);
                 db.SubmitChanges();
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="CheckSpecialDetailId"></param>
+        /// <returns></returns>
+        public static string ConvertHandleStep(object CheckSpecialDetailId)
+        {
+            string name = string.Empty;
+            if (CheckSpecialDetailId != null)
+            {
+                var getDetail = BLL.Check_CheckSpecialDetailService.GetCheckSpecialDetailByCheckSpecialDetailId(CheckSpecialDetailId.ToString());
+                if (getDetail != null)
+                {
+                    if (getDetail.DataType == "1")
+                    {
+                        name = "下发整改单：";
+                        var getRe = RectifyNoticesService.GetRectifyNoticesById(getDetail.DataId);
+                        if (getRe != null)
+                        {
+                            name += getRe.RectifyNoticesCode;
+                        }
+                    }
+                    else if (getDetail.DataType == "2")
+                    {
+                        name = "下发处罚单：";
+                        var getRe = PunishNoticeService.GetPunishNoticeById(getDetail.DataId);
+                        if (getRe != null)
+                        {
+                            name += getRe.PunishNoticeCode;
+                        }
+                    }
+                    else if (getDetail.DataType == "3")
+                    {
+                        name = "下发暂停令：";
+                        var getRe = Check_PauseNoticeService.GetPauseNoticeByPauseNoticeId(getDetail.DataId);
+                        if (getRe != null)
+                        {
+                            name += getRe.PauseNoticeCode;
+                        }
+                    }
+                }
+            }
+            return name;
         }
     }
 }

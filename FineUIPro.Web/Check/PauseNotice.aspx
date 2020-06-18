@@ -24,6 +24,15 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
+                              <f:RadioButtonList runat="server" ID="rbStates" Width="400px" LabelWidth="60px"
+                                 AutoPostBack="true" OnSelectedIndexChanged="rbStates_SelectedIndexChanged">
+                                <f:RadioItem Text="全部" Value="-1" Selected="true" />
+                                <f:RadioItem Text="待提交" Value="0" />
+                                <f:RadioItem Text="待签发" Value="1" />
+                                <f:RadioItem Text="待批准" Value="2" />
+                                <f:RadioItem Text="待接收" Value="3" />
+                                <f:RadioItem Text="已闭环" Value="4" />
+                            </f:RadioButtonList>  
                             <f:TextBox runat="server" Label="编号" ID="txtPauseNoticeCode" EmptyText="输入查询条件"
                                 AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelWidth="50px"
                                 LabelAlign="right">
@@ -60,7 +69,7 @@
                         HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="150px" ColumnID="IsConfirmStr" DataField="IsConfirmStr" FieldType="String"
-                        HeaderText="项目经理</br>是否签字确认" HeaderTextAlign="Center" TextAlign="Center">
+                        HeaderText="是否签字确认" HeaderTextAlign="Center" TextAlign="Center">
                     </f:RenderField>
                     <f:RenderField Width="150px" ColumnID="FlowOperateName" DataField="FlowOperateName"
                         SortField="FlowOperateName" FieldType="String" HeaderText="状态" HeaderTextAlign="Center"

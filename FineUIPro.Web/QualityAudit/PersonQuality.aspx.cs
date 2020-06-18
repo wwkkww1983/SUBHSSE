@@ -235,49 +235,6 @@ namespace FineUIPro.Web.QualityAudit
             Response.Write(GetGridTableHtml(Grid1));
             Response.End();
         }
-
-        /// <summary>
-        /// 导出方法
-        /// </summary>
-        /// <param name="grid"></param>
-        /// <returns></returns>
-        private string GetGridTableHtml(Grid grid)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
-            sb.Append("<table cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;\">");
-            sb.Append("<tr>");
-            foreach (GridColumn column in grid.Columns)
-            {
-                if (column.ColumnID != "attWindow")
-                {
-                    sb.AppendFormat("<td>{0}</td>", column.HeaderText);
-                }
-            }
-            sb.Append("</tr>");
-            foreach (GridRow row in grid.Rows)
-            {
-                sb.Append("<tr>");
-                foreach (GridColumn column in grid.Columns)
-                {
-                    string html = row.Values[column.ColumnIndex].ToString();
-                    if (column.ColumnID == "tfNumber")
-                    {
-                        html = (row.FindControl("lblNumber") as AspNet.Label).Text;
-                    }
-                    if (column.ColumnID != "attWindow")
-                    {
-                        sb.AppendFormat("<td>{0}</td>", html);
-                    }
-                }
-
-                sb.Append("</tr>");
-            }
-
-            sb.Append("</table>");
-
-            return sb.ToString();
-        }
         #endregion
     }
 }

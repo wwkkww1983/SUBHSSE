@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BLL;
+using System;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Data;
-using System.Data.SqlClient;
-using System.IO;
-using BLL;
 
 namespace FineUIPro.Web.Check
 {
@@ -71,24 +64,24 @@ namespace FineUIPro.Web.Check
                             this.txtUnit.Text = unit.UnitName;
                         }
                     }
-                    if (!string.IsNullOrEmpty(pauseNotice.SignMan))
-                    {
-                        var signName = BLL.UserService.GetUserNameByUserId(pauseNotice.SignMan);
-                        if (signName !=null)
-                        {
-                            this.txtSignMan.Text = signName;
-                        }
-                    }
-                    if (!string.IsNullOrEmpty(pauseNotice.ApproveMan))
-                    {
-                        var approve = BLL.UserService.GetUserNameByUserId(pauseNotice.ApproveMan);
-                        if (approve!=null)
-                        {
-                            this.txtApproveMan.Text = approve;
-                        }
-                    }
+                    //if (!string.IsNullOrEmpty(pauseNotice.SignMan))
+                    //{
+                    //    var signName = BLL.UserService.GetUserNameByUserId(pauseNotice.SignMan);
+                    //    if (signName !=null)
+                    //    {
+                    //        this.txtSignMan.Text = signName;
+                    //    }
+                    //}
+                    //if (!string.IsNullOrEmpty(pauseNotice.ApproveMan))
+                    //{
+                    //    var approve = BLL.UserService.GetUserNameByUserId(pauseNotice.ApproveMan);
+                    //    if (approve!=null)
+                    //    {
+                    //        this.txtApproveMan.Text = approve;
+                    //    }
+                    //}
                     this.txtProjectPlace.Text = pauseNotice.ProjectPlace;
-                    this.txtSignPerson.Text = pauseNotice.SignPerson;
+                   // this.txtSignPerson.Text = pauseNotice.SignPerson;
                     if (pauseNotice.CompileDate != null)
                     {
                         this.txtComplieDate.Text = string.Format("{0:yyyy-MM-dd}", pauseNotice.CompileDate);
@@ -110,11 +103,11 @@ namespace FineUIPro.Web.Check
                     this.txtOneContent.Text = pauseNotice.OneContent;
                     this.txtSecondContent.Text = pauseNotice.SecondContent;
                     this.txtThirdContent.Text = pauseNotice.ThirdContent;
-                    this.txtProjectHeadConfirm.Text = pauseNotice.ProjectHeadConfirm;
-                    if (pauseNotice.ConfirmDate != null)
-                    {
-                        this.txtConfirmDate.Text = string.Format("{0:yyyy-MM-dd}", pauseNotice.ConfirmDate);
-                    }
+                    //this.txtProjectHeadConfirm.Text = pauseNotice.ProjectHeadConfirm;
+                    //if (pauseNotice.ConfirmDate != null)
+                    //{
+                    //    this.txtConfirmDate.Text = string.Format("{0:yyyy-MM-dd}", pauseNotice.ConfirmDate);
+                    //}
                     this.AttachUrl = pauseNotice.AttachUrl;
                     this.divFile1.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../", this.AttachUrl);
                     if (Request.Params["type"] == "confirm")   //签字确认

@@ -42,6 +42,7 @@ namespace BLL
                                    MeetingType = meetingType,
                                    MeetingHours = x.MeetingHours ?? 0,
                                    MeetingHostMan = x.MeetingHostMan,
+                                   MeetingHostManName = Funs.DB.SitePerson_Person.First(y=>y.PersonId ==x.MeetingHostMan).PersonName,
                                    AttentPerson = x.AttentPerson,
                                    AttentPersonNum = x.AttentPersonNum ?? 0,
                                    CompileDate = string.Format("{0:yyyy-MM-dd HH:mm}", x.CompileDate),
@@ -621,6 +622,47 @@ namespace BLL
             toDoItem.DataId = meetingId + "#2";
             toDoItem.UrlStr = url2;
             APIUpLoadFileService.SaveAttachUrl(toDoItem);
+        }
+        #endregion
+
+        #region 根据时间获取各单位班会情况
+        /// <summary>
+        /// 根据时间获取各单位班会情况
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
+        /// <param name="meetingDate"></param>
+        /// <returns></returns>
+        public static List<Model.MeetingItem> getClassMeetingInfo(string projectId, string unitId, string meetingDate)
+        {
+            List<Model.MeetingItem> getMeetItems = new List<Model.MeetingItem>();
+            DateTime mdate = Funs.GetNewDateTimeOrNow(meetingDate);
+            //// 当日该单位班前会
+            var getClassMeets = from x in Funs.DB.Meeting_ClassMeeting
+                                where x.ProjectId == projectId && x.UnitId ==unitId 
+                                &&  x.ClassMeetingDate.Value.Year == mdate.Year && x.ClassMeetingDate.Value.Month == mdate.Month && x.ClassMeetingDate.Value.Day == mdate.Day
+                                select x;
+            var getTeamGroups = from x in Funs.DB.ProjectData_TeamGroup
+                                where x.ProjectId == projectId && x.UnitId == unitId
+                                orderby x.TeamGroupCode
+                                select x;
+            foreach (var item in getTeamGroups)
+            {
+                Model.MeetingItem newItem = new Model.MeetingItem
+                {
+                    ProjectId = projectId,
+                    UnitId = unitId,
+                    UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == unitId).UnitName,
+                    TeamGroupId = item.TeamGroupId,
+                    TeamGroupName = item.TeamGroupName,
+                    AttentPersonNum= getClassMeets.Where(x=>x.TeamGroupId== item.TeamGroupId).Sum(x=>x.AttentPersonNum) ?? 0,
+                    MeetingHours= getClassMeets.Where(x => x.TeamGroupId == item.TeamGroupId).Sum(x => x.MeetingHours) ?? 0,
+                };
+
+                getMeetItems.Add(newItem);
+            }
+
+            return getMeetItems;
         }
         #endregion
     }

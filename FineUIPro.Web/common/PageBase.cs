@@ -658,7 +658,7 @@ namespace FineUIPro.Web
             sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
             sb.Append("<table cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;\">");
             sb.Append("<tr>");
-           
+
             foreach (GridColumn column in grid.Columns)
             {
                 sb.AppendFormat("<td>{0}</td>", column.HeaderText);
@@ -670,9 +670,12 @@ namespace FineUIPro.Web
                 foreach (GridColumn column in grid.Columns)
                 {
                     string html = row.Values[column.ColumnIndex].ToString();
-                    if (column.ColumnID == "tfNumber" && (row.FindControl("labNumber") as AspNet.Label) != null)
+                    if (column.ColumnID == "tfNumber")
                     {
-                        html = (row.FindControl("labNumber") as AspNet.Label).Text;
+                        if ((row.FindControl("labNumber") as AspNet.Label) != null)
+                        { html = (row.FindControl("labNumber") as AspNet.Label).Text; }
+                        if ((row.FindControl("lblNumber") as AspNet.Label) != null)
+                        { html = (row.FindControl("lblNumber") as AspNet.Label).Text; }
                     }
                     if (column.ColumnID == "tfTeamType" && (row.FindControl("lbTeamType") as AspNet.Label) != null)
                     {
@@ -699,8 +702,9 @@ namespace FineUIPro.Web
                             html = "√";
                         }
                     }
-                    sb.AppendFormat("<td style='vnd.ms-excel.numberformat:@;width:140px;'>{0}</td>", html);
-                 //   sb.AppendFormat("<td>{0}</td>", html);
+                    if (column.ColumnID != "attWindow")
+                    { sb.AppendFormat("<td style='vnd.ms-excel.numberformat:@;width:140px;'>{0}</td>", html); }
+                    //   sb.AppendFormat("<td>{0}</td>", html);
                 }
 
                 sb.Append("</tr>");

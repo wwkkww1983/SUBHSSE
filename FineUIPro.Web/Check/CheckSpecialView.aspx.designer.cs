@@ -49,6 +49,15 @@ namespace FineUIPro.Web.Check {
         protected global::FineUIPro.TextBox txtCheckSpecialCode;
         
         /// <summary>
+        /// txtSupCheckItemSet 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtSupCheckItemSet;
+        
+        /// <summary>
         /// txtCheckDate 控件。
         /// </summary>
         /// <remarks>
@@ -56,24 +65,6 @@ namespace FineUIPro.Web.Check {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox txtCheckDate;
-        
-        /// <summary>
-        /// txtUnit 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtUnit;
-        
-        /// <summary>
-        /// txtCheckPerson 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtCheckPerson;
         
         /// <summary>
         /// txtPartInPersons 控件。
@@ -101,60 +92,6 @@ namespace FineUIPro.Web.Check {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Grid Grid1;
-        
-        /// <summary>
-        /// Toolbar2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Toolbar Toolbar2;
-        
-        /// <summary>
-        /// Label4 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
-        
-        /// <summary>
-        /// Label3 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
-        
-        /// <summary>
-        /// txtDaySummary 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.HtmlEditor txtDaySummary;
-        
-        /// <summary>
-        /// ContentPanel1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.ContentPanel ContentPanel1;
-        
-        /// <summary>
-        /// ctlAuditFlow 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Web.Controls.FlowOperateControl ctlAuditFlow;
         
         /// <summary>
         /// Toolbar1 控件。
@@ -227,5 +164,14 @@ namespace FineUIPro.Web.Check {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Window WindowAtt;
+        
+        /// <summary>
+        /// Window1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Window Window1;
     }
 }
