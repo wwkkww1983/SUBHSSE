@@ -74,15 +74,15 @@ namespace FineUIPro.Web.Check
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT R.RectifyNoticesId,R.ProjectId,CodeRecords.Code AS RectifyNoticesCode,R.UnitId ,Unit.UnitName,R.WorkAreaId,R.CheckManNames
-                                        ,WorkAreaName= STUFF(( SELECT ',' + WorkAreaName FROM dbo.ProjectData_WorkArea where PATINDEX('%,' + RTRIM(WorkAreaId) + ',%',',' +R.WorkAreaId + ',')>0 FOR XML PATH('')), 1, 1,'')
-                                        ,CheckPersonName= (STUFF(( SELECT ',' + UserName FROM dbo.Sys_User where PATINDEX('%,' + RTRIM(UserId) + ',%',',' +R.CheckManIds+ ',')>0 FOR XML PATH('')), 1, 1,'')+ (CASE WHEN CheckManNames IS NOT NULL AND CheckManNames !='' THEN ','+ CheckManNames ELSE '' END))
-                                        ,R.DutyPerson,R.CheckedDate,DutyPerson.UserName AS DutyPersonName,R.DutyPersonTime,R.CompleteDate
-                                        ,(CASE WHEN States = 1 THEN '待签发' WHEN States = 2 THEN '待整改' WHEN States = 3 THEN '待审核' WHEN States = 4 THEN '待复查' WHEN States = 5 THEN '已完成' ELSE '待提交' END) AS StatesName
+            string strSql = @"SELECT R.RectifyNoticesId,R.ProjectId,CodeRecords.Code AS RectifyNoticesCode,R.UnitId ,Unit.UnitName,R.WorkAreaId,R.CheckManNames,R.CheckManIds,WorkAreaName= STUFF(( SELECT ',' + WorkAreaName FROM dbo.ProjectData_WorkArea where PATINDEX('%,' + RTRIM(WorkAreaId) + ',%',',' +R.WorkAreaId + ',')>0 FOR XML PATH('')), 1, 1,''),CheckPersonName= (STUFF(( SELECT ',' + UserName FROM dbo.Sys_User where PATINDEX('%,' + RTRIM(UserId) + ',%',',' +R.CheckManIds+ ',')>0 FOR XML PATH('')), 1, 1,'')+ (CASE WHEN CheckManNames IS NOT NULL AND CheckManNames !='' THEN ','+ CheckManNames ELSE '' END)),R.DutyPerson,R.CheckedDate,DutyPerson.UserName AS DutyPersonName,R.DutyPersonTime,R.CompleteDate,(CASE WHEN States = 0 THEN '待['+CompileMan.UserName+']提交' WHEN States = 1 THEN '待['+SignMan.UserName+']签发' WHEN States = 2 THEN '待['+DutyPerson.UserName+']整改' WHEN States = 3 THEN '待['+UnitHeadMan.UserName+']审核' WHEN States = 4 THEN '待['+CheckPerson.UserName+']复查' WHEN States = 5 THEN '已完成' ELSE '' END) AS StatesName
                         FROM Check_RectifyNotices AS R
                         LEFT JOIN Base_Project AS Project ON Project.ProjectId = R.ProjectId 
                         LEFT JOIN Base_Unit AS Unit ON Unit.UnitId = R.UnitId 
+						LEFT JOIN Sys_User AS CompileMan ON CompileMan.UserId=R.CompleteManId 
+                        LEFT JOIN Sys_User AS SignMan ON SignMan.UserId=R.SignPerson  
                         LEFT JOIN Sys_User AS DutyPerson ON DutyPerson.UserId = R.DutyPerson
+						LEFT JOIN Sys_User AS UnitHeadMan ON UnitHeadMan.UserId = R.UnitHeadManId
+						LEFT JOIN Sys_User AS CheckPerson ON CheckPerson.UserId = R.CheckPerson
                         LEFT JOIN Sys_CodeRecords AS CodeRecords ON R.RectifyNoticesId = CodeRecords.DataId 
                         WHERE States IS NOT NULL  ";
             List<SqlParameter> listStr = new List<SqlParameter>();
@@ -237,49 +237,31 @@ namespace FineUIPro.Web.Check
         {
             bool flag = false;
             Model.Check_RectifyNotices RectifyNotices =  RectifyNoticesService.GetRectifyNoticesById(Grid1.SelectedRowID);
-            if (RectifyNotices.States == "0" || RectifyNotices.States == "1")
+            if (RectifyNotices.States == "0" && this.CurrUser.UserId == RectifyNotices.CompleteManId)
             {
-                if (this.CurrUser.UserId == RectifyNotices.CompleteManId || this.CurrUser.UserId == RectifyNotices.SignPerson)
-                {
                     flag = true;
-                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesEdit.aspx?RectifyNoticesId={0}", rectifyNoticeId, "编辑 - ")));
-
-                }
             }
-            else if (RectifyNotices.States == "2")
-            {
-                if (this.CurrUser.UserId == RectifyNotices.DutyPersonId)
-                {
-                    flag = true;
-                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesEdit.aspx?RectifyNoticesId={0}", rectifyNoticeId, "编辑 - ")));
-
-                }
+            if (RectifyNotices.States == "1" && this.CurrUser.UserId == RectifyNotices.SignPerson) {
+                flag = true;
             }
-            else if (RectifyNotices.States == "3")
+            else if (RectifyNotices.States == "2" && this.CurrUser.UserId == RectifyNotices.DutyPersonId)
             {
-                if (this.CurrUser.UserId == RectifyNotices.UnitHeadManId)
-                {
                     flag = true;
-                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesEdit.aspx?RectifyNoticesId={0}", rectifyNoticeId, "编辑 - ")));
-
-                }
             }
-            else if (RectifyNotices.States == "4")
+            else if (RectifyNotices.States == "3" && this.CurrUser.UserId == RectifyNotices.UnitHeadManId)
             {
-                if (this.CurrUser.UserId == RectifyNotices.CheckPerson)
-                {
                     flag = true;
-                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesEdit.aspx?RectifyNoticesId={0}", rectifyNoticeId, "编辑 - ")));
-
-                }
+            }
+            else if (RectifyNotices.States == "4" && this.CurrUser.UserId == RectifyNotices.CheckPerson)
+            {
+                    flag = true;
             }
             else
             {
                 PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesView.aspx?RectifyNoticesId={0}", rectifyNoticeId, "查看 - ")));
             }
-            if (!flag)
-            {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesView.aspx?RectifyNoticesId={0}", rectifyNoticeId, "查看 - ")));
+            if(flag) {
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("RectifyNoticesEdit.aspx?RectifyNoticesId={0}", rectifyNoticeId, "编辑 - ")));
             }
         }
         #endregion
@@ -440,6 +422,35 @@ namespace FineUIPro.Web.Check
         protected void rbStates_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.BindGrid();
+        }
+        /// <summary>
+        /// 获取检察人员
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        protected string ConvertCheckPerson(object CheckManIds)
+        {
+            string CheckManName = string.Empty;
+            if (CheckManIds != null)
+            {
+                string[] Ids = CheckManIds.ToString().Split(',');
+                foreach (string t in Ids)
+                {
+                    var Name = BLL.UserService.GetUserNameByUserId(t);
+                    if (Name != null)
+                    {
+                        CheckManName += Name + ",";
+                    }
+                }
+            }
+            if (CheckManName != string.Empty)
+            {
+                return CheckManName.Substring(0, CheckManName.Length - 1);
+            }
+            else
+            {
+                return "";
+            }
         }
     }
 }

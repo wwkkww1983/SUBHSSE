@@ -65,8 +65,11 @@
                             <f:RenderField Width="80px" ColumnID="CompleteStatusName" DataField="CompleteStatusName" SortField="CompleteStatusName"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="处理结果">
                             </f:RenderField>   
-                            <f:LinkButtonField Width="140px" HeaderText="处理措施" ConfirmTarget="Parent" CommandName="click"
-                                 TextAlign="Center"  DataTextField="HandleStepLink" ColumnID="HandleStepLink" />    
+                            <f:RenderField Width="140px" ColumnID="HandleStepLink" DataField="HandleStepLink" SortField="HandleStepLink"
+                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="处理措施">
+                            </f:RenderField>
+                            <%--<f:LinkButtonField Width="140px" HeaderText="处理措施" ConfirmTarget="Parent" CommandName="click"
+                                 TextAlign="Center"  DataTextField="HandleStepLink" ColumnID="HandleStepLink" />    --%>
                         </Columns>
                     </f:Grid>
                 </Items>

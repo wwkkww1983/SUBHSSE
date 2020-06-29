@@ -294,8 +294,20 @@ namespace BLL
                             var getCheckSpecialDetail = db.Check_CheckSpecialDetail.FirstOrDefault(x => x.CheckSpecialDetailId == item);
                             if (getCheckSpecialDetail != null)
                             {
-                                getCheckSpecialDetail.DataType = "1";
-                                getCheckSpecialDetail.DataId = newRectifyNotices.RectifyNoticesId;
+                                string dataType = string.Empty;
+                                string dataId = string.Empty;
+                                if (string.IsNullOrEmpty(getCheckSpecialDetail.DataType))
+                                {
+                                    dataType = "1";
+                                    dataId = "1," + newRectifyNotices.RectifyNoticesId;
+                                }
+                                else
+                                {
+                                    dataType += ",1";
+                                    dataId += "|1," + newRectifyNotices.RectifyNoticesId;
+                                }
+                                getCheckSpecialDetail.DataType = dataType;
+                                getCheckSpecialDetail.DataId = dataId;
                                 db.SubmitChanges();
                             }
                         }
@@ -461,7 +473,7 @@ namespace BLL
                         {                         
                             isUpdate.ReCheckDate = DateTime.Now;                                                        
                             //// 回写专项检查明细表                            
-                            var getcheck = from x in db.Check_CheckSpecialDetail where x.DataId == isUpdate.RectifyNoticesId select x;
+                            var getcheck = from x in db.Check_CheckSpecialDetail where x.DataId.Contains(isUpdate.RectifyNoticesId) select x;
                             if (getcheck.Count() > 0)
                             {
                                 foreach (var item in getcheck)

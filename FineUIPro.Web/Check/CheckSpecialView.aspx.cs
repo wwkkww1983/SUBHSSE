@@ -62,7 +62,7 @@ namespace FineUIPro.Web.Check
                     this.txtPartInPersons.Text = checkSpecial.PartInPersons;
                     checkSpecialDetails = (from x in Funs.DB.View_CheckSpecialDetail
                                            where x.CheckSpecialId == this.CheckSpecialId
-                                           orderby x.CheckItem select x).ToList();
+                                           orderby x.SortIndex select x).ToList();
                 }
                 Grid1.DataSource = checkSpecialDetails;
                 Grid1.DataBind();

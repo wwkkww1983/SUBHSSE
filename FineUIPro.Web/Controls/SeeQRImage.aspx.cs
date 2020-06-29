@@ -201,7 +201,9 @@ namespace FineUIPro.Web.Controls
                 image.Dispose();
                 this.QRCodeAttachUrl = UploadFileService.QRCodeImageFilePath + filename;
             }
+#pragma warning disable CS0168 // 声明了变量“ex”，但从未使用过
             catch (Exception ex)
+#pragma warning restore CS0168 // 声明了变量“ex”，但从未使用过
             {
                 Alert.ShowInTop("操作有误，重新生成！", MessageBoxIcon.Warning);
             }

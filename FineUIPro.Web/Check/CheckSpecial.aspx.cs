@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -42,6 +43,7 @@ namespace FineUIPro.Web.Check
                 {
                     this.ProjectId = Request.Params["projectId"];
                 }
+                Technique_CheckItemSetService.InitCheckItemSetDropDownList(this.drpSupCheckItemSet, "2", "0", true);
                 ////权限按钮方法
                 this.GetButtonPower();
                 btnNew.OnClientClick = Window1.GetShowReference("CheckSpecialEdit.aspx") + "return false;";
@@ -56,18 +58,41 @@ namespace FineUIPro.Web.Check
         /// </summary>
         private void BindGrid()
         {
-            SqlParameter[] parameter = new SqlParameter[]
-                    {
-                    new SqlParameter("@ProjectId",this.ProjectId),
-                    new SqlParameter("@StartTime", !string.IsNullOrEmpty(this.txtStartTime.Text)?this.txtStartTime.Text:null),
-                    new SqlParameter("@EndTime", !string.IsNullOrEmpty(this.txtEndTime.Text)?this.txtEndTime.Text:null),
-                    new SqlParameter("@States", this.rbStates.SelectedValue != "-1" ?this.rbStates.SelectedValue:null),
-                    new SqlParameter("@UnitName", !string.IsNullOrEmpty(this.txtUnitName.Text)?this.txtUnitName.Text:null),
-                    new SqlParameter("@WorkAreaName",  !string.IsNullOrEmpty(this.txtWorkAreaName.Text)?this.txtWorkAreaName.Text:null),
-                    };
-            DataTable tb = SQLHelper.GetDataTableRunProc("SpCheckSpecialStatistic", parameter);
+            string strSql = @"SELECT CheckSpecial.CheckSpecialId,CodeRecords.Code AS CheckSpecialCode,"
+                          + @" CheckItemSet.CheckItemName,CheckSpecial.CheckTime,(CASE WHEN CheckSpecial.States='0' OR CheckSpecial.States IS NULL THEN '待提交' ELSE '已提交' END) AS StatesName"
+                          + @" FROM Check_CheckSpecial AS CheckSpecial "
+                          + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON CheckSpecial.CheckSpecialId=CodeRecords.DataId "
+                          + @" LEFT JOIN Technique_CheckItemSet AS CheckItemSet ON CheckItemSet.CheckItemSetId = CheckSpecial.CheckItemSetId where 1=1";
+            List<SqlParameter> listStr = new List<SqlParameter>();
+            strSql += " AND CheckSpecial.ProjectId = @ProjectId";
+            listStr.Add(new SqlParameter("@ProjectId", this.ProjectId));
+
+            if (this.rbStates.SelectedValue!="-1")
+            {
+                strSql += " AND CheckSpecial.States = @States"; 
+                listStr.Add(new SqlParameter("@States", this.rbStates.SelectedValue));
+            }
+            if (this.drpSupCheckItemSet.SelectedValue!=BLL.Const._Null)
+            {
+                strSql += " AND CheckSpecial.CheckItemSetId = @CheckItemSetId";
+                listStr.Add(new SqlParameter("@CheckItemSetId", this.drpSupCheckItemSet.SelectedValue ));
+            }
+            if (!string.IsNullOrEmpty(this.txtStartTime.Text.Trim()))
+            {
+                strSql += " AND CheckSpecial.CheckTime >= @StartTime";
+                listStr.Add(new SqlParameter("@StartTime", this.txtStartTime.Text.Trim()));
+            }
+            if (!string.IsNullOrEmpty(this.txtEndTime.Text.Trim()))
+            {
+                strSql += " AND CheckSpecial.CheckTime <= @EndTime";
+                listStr.Add(new SqlParameter("@EndTime", this.txtEndTime.Text.Trim()));
+            }
+
+            SqlParameter[] parameter = listStr.ToArray();
+            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+
             Grid1.RecordCount = tb.Rows.Count;
-            //tb = GetFilteredTable(Grid1.FilteredData, tb);
+            tb = GetFilteredTable(Grid1.FilteredData, tb);
             var table = this.GetPagedDataTable(Grid1, tb);
 
             Grid1.DataSource = table;
@@ -196,7 +221,7 @@ namespace FineUIPro.Web.Check
             {
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
-                    string rowID = Grid1.DataKeys[rowIndex][0].ToString().Split(',')[0];
+                    string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     var checkSpecial = BLL.Check_CheckSpecialService.GetCheckSpecialByCheckSpecialId(rowID);
                     if (checkSpecial != null)
                     {
@@ -363,12 +388,14 @@ namespace FineUIPro.Web.Check
             Response.End();
         }
 
+#pragma warning disable CS0108 // “CheckSpecial.GetGridTableHtml(Grid)”隐藏继承的成员“PageBase.GetGridTableHtml(Grid)”。如果是有意隐藏，请使用关键字 new。
         /// <summary>
         /// 导出方法
         /// </summary>
         /// <param name="grid"></param>
         /// <returns></returns>
         private string GetGridTableHtml(Grid grid)
+#pragma warning restore CS0108 // “CheckSpecial.GetGridTableHtml(Grid)”隐藏继承的成员“PageBase.GetGridTableHtml(Grid)”。如果是有意隐藏，请使用关键字 new。
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
@@ -412,6 +439,11 @@ namespace FineUIPro.Web.Check
         }
 
         protected void rbStates_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindGrid();
+        }
+
+        protected void drpSupCheckItemSet_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.BindGrid();
         }

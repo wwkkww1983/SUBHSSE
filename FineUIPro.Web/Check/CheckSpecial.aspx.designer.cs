@@ -67,22 +67,13 @@ namespace FineUIPro.Web.Check {
         protected global::FineUIPro.RadioButtonList rbStates;
         
         /// <summary>
-        /// txtUnitName 控件。
+        /// drpSupCheckItemSet 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtUnitName;
-        
-        /// <summary>
-        /// txtWorkAreaName 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtWorkAreaName;
+        protected global::FineUIPro.DropDownList drpSupCheckItemSet;
         
         /// <summary>
         /// txtStartTime 控件。

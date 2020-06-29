@@ -29,6 +29,8 @@ namespace BLL
                               PunishNoticeCode = x.PunishNoticeCode,
                               UnitId = x.UnitId,
                               UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                              PunishPersonId=x.PunishPersonId,
+                              PunishPersonName = Funs.DB.Sys_User.First(u => u.UserId == x.PunishPersonId).UserName,
                               ContractNum = x.ContractNum,
                               PunishNoticeDate = string.Format("{0:yyyy-MM-dd}", x.PunishNoticeDate),
                               BasicItem = x.BasicItem,
@@ -58,12 +60,28 @@ namespace BLL
                               UnitHeadManName = Funs.DB.Sys_User.First(u => u.UserId == x.UnitHeadManId).UserName,
                               UnitHeadManTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.UnitHeadManTime),
                               States = x.States,
-                              PunishStates=x.PunishStates,
-                              PunishUrl = APIUpLoadFileService.getFileUrl(Const.ProjectPunishNoticeStatisticsMenuId,x.PunishNoticeId, null),
+                              PunishStates = x.PunishStates,
+                              PunishUrl = APIUpLoadFileService.getFileUrl(Const.ProjectPunishNoticeStatisticsMenuId, x.PunishNoticeId, null),
                               ReceiptUrl = APIUpLoadFileService.getFileUrl(Const.ProjectPunishNoticeMenuId, x.PunishNoticeId, null),
                               FlowOperateItem = getFlowOperateItem(x.PunishNoticeId),
+                              PunishNoticeItemItem = GetPunishNoticeItemList(x.PunishNoticeId),
                           };
             return getInfo.FirstOrDefault();
+        }
+
+        public static List<Model.PunishNoticeItemItem> GetPunishNoticeItemList(string punishNoticeId)
+        {
+            return (from x in Funs.DB.Check_PunishNoticeItem
+                    where x.PunishNoticeId == punishNoticeId
+                    orderby x.SortIndex
+                    select new Model.PunishNoticeItemItem
+                    {
+                        PunishNoticeItemId=x.PunishNoticeItemId,
+                        PunishNoticeId=x.PunishNoticeId,
+                        PunishContent=x.PunishContent,
+                        PunishMoney=x.PunishMoney ?? 0,
+                        SortIndex =x.SortIndex,
+                    }).ToList();
         }
         #endregion     
 
@@ -150,6 +168,7 @@ namespace BLL
         {
             using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
+                bool insertPunishNoticeItemItem = false;
                 Model.Check_PunishNotice newPunishNotice = new Model.Check_PunishNotice
                 {
                     PunishNoticeId = newItem.PunishNoticeId,
@@ -171,6 +190,10 @@ namespace BLL
                 {
                     newPunishNotice.CompileMan = newItem.CompileManId;
                 }
+                if (!string.IsNullOrEmpty(newItem.PunishPersonId))
+                {
+                    newPunishNotice.PunishPersonId = newItem.PunishPersonId;
+                }
                 if (newPunishNotice.PunishStates == Const.State_1)
                 {
                     newPunishNotice.SignMan = newItem.SignManId;
@@ -179,6 +202,7 @@ namespace BLL
                 var getUpdate = db.Check_PunishNotice.FirstOrDefault(x => x.PunishNoticeId == newItem.PunishNoticeId);
                 if (getUpdate == null)
                 {
+                    insertPunishNoticeItemItem = true;
                     newPunishNotice.CompileDate = DateTime.Now;
                     newPunishNotice.PunishNoticeId = SQLHelper.GetNewID();
                     newPunishNotice.PunishNoticeCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectPunishNoticeMenuId, newPunishNotice.ProjectId, newPunishNotice.UnitId);
@@ -213,8 +237,20 @@ namespace BLL
                             var getCheckSpecialDetail = db.Check_CheckSpecialDetail.FirstOrDefault(x => x.CheckSpecialDetailId == item);
                             if (getCheckSpecialDetail != null)
                             {
-                                getCheckSpecialDetail.DataType = "2";
-                                getCheckSpecialDetail.DataId = newPunishNotice.PunishNoticeId;
+                                string dataType = string.Empty;
+                                string dataId = string.Empty;
+                                if (string.IsNullOrEmpty(getCheckSpecialDetail.DataType))
+                                {
+                                    dataType = "2";
+                                    dataId = "2," + newPunishNotice.PunishNoticeId;
+                                }
+                                else
+                                {
+                                    dataType = getCheckSpecialDetail.DataType+",2";
+                                    dataId = getCheckSpecialDetail.DataId + "|2," + newPunishNotice.PunishNoticeId;
+                                }
+                                getCheckSpecialDetail.DataType = dataType;
+                                getCheckSpecialDetail.DataId = dataId;
                                 db.SubmitChanges();
                             }
                         }
@@ -222,6 +258,15 @@ namespace BLL
                 }
                 else
                 {
+                    var geDeleteItems = from x in db.Check_PunishNoticeItem
+                                                         where x.PunishNoticeId == getUpdate.PunishNoticeId
+                                                         select x;
+                    if (geDeleteItems.Count() > 0)
+                    {
+                        db.Check_PunishNoticeItem.DeleteAllOnSubmit(geDeleteItems);
+                        db.SubmitChanges();
+                    }
+
                     newPunishNotice.PunishNoticeId = getUpdate.PunishNoticeId;
                     getUpdate.PunishStates = newItem.PunishStates;
                     if (newPunishNotice.PunishStates == "0" || newPunishNotice.PunishStates == "1")  ////编制人 修改或提交
@@ -307,6 +352,25 @@ namespace BLL
                     }
                 }
 
+                if (insertPunishNoticeItemItem)
+                {
+                    //// 新增明细
+                    if (newItem.PunishNoticeItemItem != null && newItem.PunishNoticeItemItem.Count() > 0)
+                    {
+                        foreach (var rItem in newItem.PunishNoticeItemItem)
+                        {
+                            Model.Check_PunishNoticeItem newPItem = new Model.Check_PunishNoticeItem
+                            {
+                                PunishNoticeItemId = SQLHelper.GetNewID(),
+                                PunishNoticeId = newPunishNotice.PunishNoticeId,
+                                PunishContent = rItem.PunishContent,
+                                SortIndex = rItem.SortIndex,
+                            };
+                            db.Check_PunishNoticeItem.InsertOnSubmit(newPItem);
+                            db.SubmitChanges();
+                        }
+                    }
+                }
                 if (newItem.PunishStates == Const.State_0 || newItem.PunishStates == Const.State_1)
                 {     //// 通知单附件
                     APIUpLoadFileService.SaveAttachUrl(Const.ProjectPunishNoticeStatisticsMenuId, newPunishNotice.PunishNoticeId, newItem.PunishUrl, "0");
@@ -318,7 +382,7 @@ namespace BLL
                 if (getUpdate != null && getUpdate.States == Const.State_2)
                 {
                     CommonService.btnSaveData(newPunishNotice.ProjectId, Const.ProjectPunishNoticeMenuId, newPunishNotice.PunishNoticeId, newPunishNotice.CompileMan, true, newPunishNotice.PunishNoticeCode, "../Check/PunishNoticeView.aspx?PunishNoticeId={0}");
-                    var getcheck = from x in db.Check_CheckSpecialDetail where x.DataId == getUpdate.PunishNoticeId select x;
+                    var getcheck = from x in db.Check_CheckSpecialDetail where x.DataId.Contains(getUpdate.PunishNoticeId) select x;
                     if (getcheck.Count() > 0)
                     {
                         foreach (var item in getcheck)

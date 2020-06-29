@@ -42,32 +42,28 @@
         ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
         <Items>
             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="专项检查" EnableCollapse="true"
-                runat="server" BoxFlex="1" DataKeyNames="NewChcekId" DataIDField="NewChcekId" AllowSorting="true" SortField="CheckTime"
-                SortDirection="DESC" OnSort="Grid1_Sort" EnableColumnLines="true" AllowPaging="true"
+                runat="server" BoxFlex="1" DataKeyNames="CheckSpecialId" DataIDField="CheckSpecialId" AllowSorting="true" SortField="CheckTime"
+                SortDirection="DESC" OnSort="Grid1_Sort" EnableColumnLines="true" AllowPaging="true" ForceFit="true"
                 IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"
                 EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True"
                 OnRowCommand="Grid1_RowCommand">
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
-                             <f:RadioButtonList runat="server" ID="rbStates" Width="200px" AutoPostBack="true" OnSelectedIndexChanged="rbStates_SelectedIndexChanged">
+                             <f:RadioButtonList runat="server" ID="rbStates" Width="250px" AutoPostBack="true" OnSelectedIndexChanged="rbStates_SelectedIndexChanged">
                                 <f:RadioItem Text="全部" Value="-1" Selected="true" />
                                 <f:RadioItem Text="待提交" Value="0" />
-                                <f:RadioItem Text="已提交" Value="1" />
+                                <f:RadioItem Text="待处理" Value="1" />
+                                <f:RadioItem Text="已完成" Value="2" />
                             </f:RadioButtonList>
-                            <f:TextBox runat="server" Label="单位" ID="txtUnitName" EmptyText="输入查询条件"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="200px" LabelWidth="50px"
-                                LabelAlign="right">
-                            </f:TextBox>
-                            <f:TextBox runat="server" Label="区域" ID="txtWorkAreaName" EmptyText="输入查询条件"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" Width="160px" LabelWidth="50px"
-                                LabelAlign="right">
-                            </f:TextBox>
-                            <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="开始日期" ID="txtStartTime"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="180px" LabelWidth="80px">
+                            <f:DropDownList ID="drpSupCheckItemSet" runat="server" Label="检查类别"  AutoPostBack="true" OnSelectedIndexChanged="drpSupCheckItemSet_SelectedIndexChanged"
+                        EnableEdit="true" ShowLabel="true" LabelWidth="75px">
+                    </f:DropDownList>
+                            <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="检查日期" ID="txtStartTime"
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="200px" LabelWidth="80px">
                             </f:DatePicker>
-                            <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="结束日期" ID="txtEndTime"
-                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="180px" LabelWidth="80px">
+                            <f:DatePicker runat="server" DateFormatString="yyyy-MM-dd" Label="至" ID="txtEndTime"
+                                AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelAlign="right" Width="150px" LabelWidth="40px">
                             </f:DatePicker>
                               <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
@@ -90,34 +86,18 @@
                             <asp:Label ID="lblNumber" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>
-                    <f:RenderField Width="100px" ColumnID="CheckSpecialCode" DataField="CheckSpecialCode"
+                    <f:RenderField Width="200px" ColumnID="CheckSpecialCode" DataField="CheckSpecialCode"
                         SortField="CheckSpecialCode" FieldType="String" HeaderText="编号" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="150px" ColumnID="WorkArea" DataField="WorkArea" SortField="WorkArea"
-                        FieldType="String" HeaderText="检查区域" TextAlign="Left" HeaderTextAlign="Center">
-                    </f:RenderField>
-                    <f:RenderField Width="240px" ColumnID="UnitName" DataField="UnitName" 
-                        SortField="UnitName" FieldType="String" HeaderText="受检单位" TextAlign="Left" HeaderTextAlign="Center">
-                    </f:RenderField>
-                    <f:RenderField Width="100px" ColumnID="CheckTime" DataField="CheckTime" SortField="CheckTime"
-                        FieldType="String" HeaderText="检查日期" TextAlign="Center" HeaderTextAlign="Center">
-                    </f:RenderField>
-                     <f:RenderField Width="90px" ColumnID="CheckCount" DataField="CheckCount"
-                        SortField="CheckCount" FieldType="Int" HeaderText="问题数量" TextAlign="Left"
+                    <f:RenderField Width="200px" ColumnID="CheckItemName" DataField="CheckItemName"
+                        SortField="CheckItemName" FieldType="String" HeaderText="检查类别" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>
-                    <f:RenderField Width="120px" ColumnID="Unqualified" DataField="Unqualified" ExpandUnusedSpace="true"
-                        SortField="Unqualified" FieldType="String" HeaderText="问题描述" TextAlign="Left"
-                        HeaderTextAlign="Center">
+                    <f:RenderField Width="200px" ColumnID="CheckTime" DataField="CheckTime" SortField="CheckTime"
+                        FieldType="Date" Renderer="Date" HeaderText="检查日期" TextAlign="Center" HeaderTextAlign="Center">
                     </f:RenderField>
-                     <f:RenderField Width="80px" ColumnID="CompleteStatusName" DataField="CompleteStatusName"
-                        SortField="CompleteStatusName" FieldType="String" HeaderText="整改结果" TextAlign="Left"
-                        HeaderTextAlign="Center">
-                    </f:RenderField>
-                    <f:LinkButtonField Width="140px" HeaderText="处理措施" ConfirmTarget="Parent" CommandName="click"
-                                 TextAlign="Center"  DataTextField="HandleStepLink" ColumnID="HandleStepLink" />
-                    <f:RenderField Width="80px" ColumnID="StatesName" DataField="StatesName"
+                    <f:RenderField Width="200px" ColumnID="StatesName" DataField="StatesName"
                         SortField="StatesName" FieldType="String" HeaderText="状态" TextAlign="Left"
                         HeaderTextAlign="Center">
                     </f:RenderField>

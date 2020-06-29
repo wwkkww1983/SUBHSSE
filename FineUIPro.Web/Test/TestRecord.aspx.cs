@@ -54,7 +54,7 @@ namespace FineUIPro.Web.Test
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (!string.IsNullOrEmpty(this.txtName.Text.Trim()))
             {
-                strSql += " AND (Person.PersonName LIKE @name OR TestPlan.PlanName LIKE @name)";
+                strSql += " AND (TestRecord.TestManName LIKE @name OR TestPlan.PlanName LIKE @name)";
                 listStr.Add(new SqlParameter("@name", "%" + this.txtName.Text.Trim() + "%"));
             }
             if (!string.IsNullOrEmpty(this.txtMinScores.Text.Trim()))
@@ -251,11 +251,11 @@ namespace FineUIPro.Web.Test
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    var getV = BLL.TestRecordService.GetTestRecordById(rowID);
+                    var getV = BLL.ServerTestRecordService.GetTestRecordById(rowID);
                     if (getV != null)
                     {
                         BLL.LogService.AddSys_Log(this.CurrUser, "考试记录", rowID, BLL.Const.ProjectTestRecordMenuId, BLL.Const.BtnDelete);
-                        BLL.TestRecordService.DeleteTestRecordByTestRecordId(rowID);
+                        BLL.ServerTestRecordService.DeleteTestRecordByTestRecordId(rowID);
                     }
                 }
                 BindGrid();

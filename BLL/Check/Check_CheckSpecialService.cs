@@ -199,5 +199,159 @@ namespace BLL
             }
             return name;
         }
+
+        public static string IssueRectification(List<Model.Check_CheckSpecialDetail> detailLists, Model.Check_CheckSpecial checkSpecial)
+        {
+            string info = string.Empty;
+
+            if (detailLists.Count() > 0 && checkSpecial != null)
+            {
+                ////隐患整改单
+                var getDetail1 = detailLists.Where(x => x.HandleStep.Contains("1"));
+                if (getDetail1.Count() > 0)
+                {
+                    var getUnitList = getDetail1.Select(x => x.UnitId).Distinct();
+                    foreach (var unitItem in getUnitList)
+                    {
+                        Model.RectifyNoticesItem rectifyNotices = new Model.RectifyNoticesItem
+                        {
+                            ProjectId = checkSpecial.ProjectId,
+                            UnitId = unitItem,
+                            CompleteManId = checkSpecial.CompileMan,
+                            CheckManNames = checkSpecial.PartInPersons,
+                            CheckManIds = checkSpecial.PartInPersonIds,
+                            CheckedDate = string.Format("{0:yyyy-MM-dd HH:mm:ss}", checkSpecial.CheckTime),
+                            States = Const.State_0,
+                        };
+                        rectifyNotices.RectifyNoticesItemItem = new List<Model.RectifyNoticesItemItem>();
+                        var getUnitDItem = getDetail1.Where(x => x.UnitId == unitItem);
+                        foreach (var item in getUnitDItem)
+                        {
+                            Model.RectifyNoticesItemItem newRItem = new Model.RectifyNoticesItemItem();
+                            if (!string.IsNullOrEmpty(item.WorkArea))
+                            {
+                                newRItem.WrongContent = item.WorkArea + item.Unqualified;
+                            }
+                            else
+                            {
+                                newRItem.WrongContent = item.Unqualified;
+                            }
+                            if (string.IsNullOrEmpty(rectifyNotices.CheckSpecialDetailId))
+                            {
+                                rectifyNotices.CheckSpecialDetailId = item.CheckSpecialDetailId;
+                            }
+                            else
+                            {
+                                rectifyNotices.CheckSpecialDetailId += "," + item.CheckSpecialDetailId;
+                            }
+                            var getAtt = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == item.CheckSpecialDetailId);
+                            if (getAtt != null && !string.IsNullOrEmpty(getAtt.AttachUrl))
+                            {
+                                newRItem.PhotoBeforeUrl = getAtt.AttachUrl;
+                            }
+                          
+                            rectifyNotices.RectifyNoticesItemItem.Add(newRItem);
+                        }
+
+                        APIRectifyNoticesService.SaveRectifyNotices(rectifyNotices);
+                    }
+                    info += "整改单已下发。";
+                }
+                ///处罚单
+                var getDetail2 = detailLists.Where(x => x.HandleStep.Contains("2"));
+                if (getDetail2.Count() > 0)
+                {
+                    var getUnitList = getDetail2.Select(x => x.UnitId).Distinct();
+                    foreach (var unitItem in getUnitList)
+                    {
+                        Model.PunishNoticeItem punishNotice = new Model.PunishNoticeItem
+                        {
+                            ProjectId = checkSpecial.ProjectId,
+                            PunishNoticeDate = string.Format("{0:yyyy-MM-dd HH:mm:ss}", checkSpecial.CheckTime),
+                            UnitId = unitItem,
+                            CompileManId = checkSpecial.CompileMan,
+                            PunishStates = Const.State_0,
+                        };
+                        punishNotice.PunishNoticeItemItem = new List<Model.PunishNoticeItemItem>();
+                        var getUnitDItem = getDetail2.Where(x => x.UnitId == unitItem);
+                        foreach (var item in getUnitDItem)
+                        {
+                            Model.PunishNoticeItemItem newPItem = new Model.PunishNoticeItemItem();
+                            newPItem.PunishContent = item.Unqualified;
+                            newPItem.SortIndex = item.SortIndex;
+                            punishNotice.PunishNoticeItemItem.Add(newPItem);
+                            if (string.IsNullOrEmpty(punishNotice.CheckSpecialDetailId))
+                            {
+                                punishNotice.CheckSpecialDetailId = item.CheckSpecialDetailId;
+                            }
+                            else
+                            {
+                                punishNotice.CheckSpecialDetailId += "," + item.CheckSpecialDetailId;
+                            }
+                        }
+
+                        APIPunishNoticeService.SavePunishNotice(punishNotice);
+                    }
+                    info += "处罚单已下发。";
+                }
+                ///暂停令
+                var getDetail3 = detailLists.Where(x => x.HandleStep.Contains("3"));
+                if (getDetail3.Count() > 0)
+                {
+                    var getUnitList = getDetail3.Select(x => x.UnitId).Distinct();
+                    foreach (var unitItem in getUnitList)
+                    {
+                        Model.PauseNoticeItem pauseNotice = new Model.PauseNoticeItem
+                        {
+                            ProjectId = checkSpecial.ProjectId,
+                            UnitId = unitItem,
+                            CompileManId= checkSpecial.CompileMan,
+                            PauseTime = string.Format("{0:yyyy-MM-dd HH:mm:ss}", checkSpecial.CheckTime),
+                            PauseStates = Const.State_0,
+                        };
+
+                        var getUnitDItem = getDetail3.Where(x => x.UnitId == unitItem);
+                        foreach (var item in getUnitDItem)
+                        {
+                            Model.RectifyNoticesItemItem newRItem = new Model.RectifyNoticesItemItem();
+                            pauseNotice.ThirdContent += item.Unqualified;
+                            if (string.IsNullOrEmpty(pauseNotice.ProjectPlace))
+                            {
+                                pauseNotice.ProjectPlace = item.WorkArea;
+                            }
+                            else
+                            {
+                                if (!pauseNotice.ProjectPlace.Contains(item.WorkArea))
+                                {
+                                    pauseNotice.ProjectPlace += "," + item.WorkArea;
+                                }
+                            }
+                            if (string.IsNullOrEmpty(pauseNotice.CheckSpecialDetailId))
+                            {
+                                pauseNotice.CheckSpecialDetailId = item.CheckSpecialDetailId;
+                            }
+                            else
+                            {
+                                pauseNotice.CheckSpecialDetailId += "," + item.CheckSpecialDetailId;
+                            }
+                            var getAtt = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == item.CheckSpecialDetailId);
+                            if (getAtt != null && !string.IsNullOrEmpty(getAtt.AttachUrl))
+                            {
+                                pauseNotice.PauseNoticeAttachUrl = getAtt.AttachUrl;
+                            }
+                        }
+
+                        APIPauseNoticeService.SavePauseNotice(pauseNotice);
+                    }
+                    info += "整改单已下发。";
+                }
+            }
+
+            if (!string.IsNullOrEmpty(info))
+            {
+                info += "请在相应办理页面提交！";
+            }
+            return info;
+        }
     }
 }

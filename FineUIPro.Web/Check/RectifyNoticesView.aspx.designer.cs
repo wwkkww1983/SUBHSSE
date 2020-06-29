@@ -67,40 +67,49 @@ namespace FineUIPro.Web.Check {
         protected global::FineUIPro.TextBox txtRectifyNoticesCode;
         
         /// <summary>
-        /// drpUnitId 控件。
+        /// txtUnitId 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList drpUnitId;
+        protected global::FineUIPro.TextBox txtUnitId;
         
         /// <summary>
-        /// drpWorkAreaId 控件。
+        /// txtWorkAreaId 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList drpWorkAreaId;
+        protected global::FineUIPro.TextBox txtWorkAreaId;
         
         /// <summary>
-        /// drpCheckPerson 控件。
+        /// txtCheckPersonId 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList drpCheckPerson;
+        protected global::FineUIPro.TextBox txtCheckPersonId;
         
         /// <summary>
-        /// txtCompleteDate 控件。
+        /// txtCheckPerson 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DatePicker txtCompleteDate;
+        protected global::FineUIPro.TextBox txtCheckPerson;
+        
+        /// <summary>
+        /// txtCheckedDate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DatePicker txtCheckedDate;
         
         /// <summary>
         /// drpHiddenHazardType 控件。
@@ -130,40 +139,22 @@ namespace FineUIPro.Web.Check {
         protected global::FineUIPro.Grid Grid1;
         
         /// <summary>
-        /// Form3 控件。
+        /// lbImageUrl 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Form Form3;
+        protected global::System.Web.UI.WebControls.Label lbImageUrl;
         
         /// <summary>
-        /// next4 控件。
+        /// Label2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.FormRow next4;
-        
-        /// <summary>
-        /// Form7 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Form Form7;
-        
-        /// <summary>
-        /// txtReCheckOpinion 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label txtReCheckOpinion;
+        protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
         /// Form4 控件。

@@ -7,11 +7,13 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace FineUIPro.Web.Manager {
-    
-    
-    public partial class MonthReportEdit {
-        
+namespace FineUIPro.Web.Manager
+{
+
+
+    public partial class MonthReportEdit
+    {
+
         /// <summary>
         /// form1 控件。
         /// </summary>
@@ -20,7 +22,7 @@ namespace FineUIPro.Web.Manager {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
+
         /// <summary>
         /// PageManager1 控件。
         /// </summary>
@@ -29,7 +31,7 @@ namespace FineUIPro.Web.Manager {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.PageManager PageManager1;
-        
+
         /// <summary>
         /// SimpleForm1 控件。
         /// </summary>
@@ -38,97 +40,16 @@ namespace FineUIPro.Web.Manager {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Form SimpleForm1;
-        
+
         /// <summary>
-        /// txtMonthReportCode 控件。
+        /// ContentPanel7 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtMonthReportCode;
-        
-        /// <summary>
-        /// txtReportMonths 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DatePicker txtReportMonths;
-        
-        /// <summary>
-        /// txtMonthReportStartDate 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DatePicker txtMonthReportStartDate;
-        
-        /// <summary>
-        /// txtMonthReportDate 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DatePicker txtMonthReportDate;
-        
-        /// <summary>
-        /// txtReportMan 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtReportMan;
-        
-        /// <summary>
-        /// btnArrowRefresh 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnArrowRefresh;
-        
-        /// <summary>
-        /// GroupPanel2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.GroupPanel GroupPanel2;
-        
-        /// <summary>
-        /// txtAllProjectData 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextArea txtAllProjectData;
-        
-        /// <summary>
-        /// txtAllManhoursData 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextArea txtAllManhoursData;
-        
-        /// <summary>
-        /// Grid1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Grid Grid1;
-        
+        protected global::FineUIPro.ContentPanel ContentPanel7;
+
         /// <summary>
         /// Panel1 控件。
         /// </summary>
@@ -137,151 +58,34 @@ namespace FineUIPro.Web.Manager {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Panel Panel1;
-        
+
         /// <summary>
-        /// Form2 控件。
+        /// ReporMonth 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Form Form2;
-        
+        protected global::FineUIPro.DatePicker ReporMonth;
+
         /// <summary>
-        /// lb1 控件。
+        /// StartDate 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label lb1;
-        
+        protected global::FineUIPro.DatePicker StartDate;
+
         /// <summary>
-        /// Label1 控件。
+        /// EndDate 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label1;
-        
-        /// <summary>
-        /// Label2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label2;
-        
-        /// <summary>
-        /// Label3 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label3;
-        
-        /// <summary>
-        /// txtMeetingNumber01 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtMeetingNumber01;
-        
-        /// <summary>
-        /// txtMeetingNumber11 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtMeetingNumber11;
-        
-        /// <summary>
-        /// Label5 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label5;
-        
-        /// <summary>
-        /// txtMeetingNumber02 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtMeetingNumber02;
-        
-        /// <summary>
-        /// txtMeetingNumber12 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtMeetingNumber12;
-        
-        /// <summary>
-        /// Label6 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label6;
-        
-        /// <summary>
-        /// txtMeetingNumber03 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtMeetingNumber03;
-        
-        /// <summary>
-        /// txtMeetingNumber13 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtMeetingNumber13;
-        
-        /// <summary>
-        /// Label7 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label7;
-        
-        /// <summary>
-        /// txtMeetingNumber04 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.NumberBox txtMeetingNumber04;
-        
-        /// <summary>
-        /// txtMeetingNumber14 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.NumberBox txtMeetingNumber14;
-        
+        protected global::FineUIPro.DatePicker EndDate;
+
         /// <summary>
         /// Panel2 控件。
         /// </summary>
@@ -290,934 +94,2275 @@ namespace FineUIPro.Web.Manager {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Panel Panel2;
-        
+
         /// <summary>
-        /// Form3 控件。
+        /// CompileManId 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Form Form3;
-        
+        protected global::FineUIPro.DropDownList CompileManId;
+
         /// <summary>
-        /// Label8 控件。
+        /// AuditManId 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label8;
-        
+        protected global::FineUIPro.DropDownList AuditManId;
+
         /// <summary>
-        /// Label9 控件。
+        /// ApprovalManId 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label9;
-        
+        protected global::FineUIPro.DropDownList ApprovalManId;
+
         /// <summary>
-        /// Label10 控件。
+        /// DueDate 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label10;
-        
+        protected global::FineUIPro.DatePicker DueDate;
+
         /// <summary>
-        /// Label15 控件。
+        /// pan 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label15;
-        
+        protected global::FineUIPro.Panel pan;
+
         /// <summary>
-        /// Label16 控件。
+        /// projectCode 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label16;
-        
+        protected global::FineUIPro.TextBox projectCode;
+
         /// <summary>
-        /// Label11 控件。
+        /// projectName 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label11;
-        
+        protected global::FineUIPro.Label projectName;
+
         /// <summary>
-        /// txtCheckNumber01 控件。
+        /// projectType 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtCheckNumber01;
-        
+        protected global::FineUIPro.TextBox projectType;
+
         /// <summary>
-        /// txtCheckNumber02 控件。
+        /// ContractAmount 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtCheckNumber02;
-        
+        protected global::FineUIPro.TextBox ContractAmount;
+
         /// <summary>
-        /// txtCheckNumber03 控件。
+        /// ConstructionStage 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtCheckNumber03;
-        
+        protected global::FineUIPro.TextBox ConstructionStage;
+
         /// <summary>
-        /// txtCheckNumber04 控件。
+        /// ProjectAddress 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtCheckNumber04;
-        
+        protected global::FineUIPro.TextBox ProjectAddress;
+
         /// <summary>
-        /// Label12 控件。
+        /// ProjectManager 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label12;
-        
+        protected global::FineUIPro.TextBox ProjectManager;
+
         /// <summary>
-        /// txtCheckNumber11 控件。
+        /// HsseManager 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtCheckNumber11;
-        
+        protected global::FineUIPro.TextBox HsseManager;
+
         /// <summary>
-        /// txtCheckNumber12 控件。
+        /// pStartDate 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtCheckNumber12;
-        
+        protected global::FineUIPro.DatePicker pStartDate;
+
         /// <summary>
-        /// txtCheckNumber13 控件。
+        /// pEndDate 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtCheckNumber13;
-        
+        protected global::FineUIPro.DatePicker pEndDate;
+
         /// <summary>
-        /// txtCheckNumber14 控件。
+        /// ContentPanel1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtCheckNumber14;
-        
+        protected global::FineUIPro.ContentPanel ContentPanel1;
+
         /// <summary>
-        /// Label13 控件。
+        /// SeDinMonthReport3Item 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label13;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTable SeDinMonthReport3Item;
+
         /// <summary>
-        /// txtCheckNumber21 控件。
+        /// MonthWorkTime 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtCheckNumber21;
-        
+        protected global::FineUIPro.TextBox MonthWorkTime;
+
         /// <summary>
-        /// txtCheckNumber22 控件。
+        /// YearWorkTime 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtCheckNumber22;
-        
+        protected global::FineUIPro.TextBox YearWorkTime;
+
         /// <summary>
-        /// txtCheckNumber23 控件。
+        /// ProjectWorkTime 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtCheckNumber23;
-        
+        protected global::FineUIPro.TextBox ProjectWorkTime;
+
         /// <summary>
-        /// txtCheckNumber24 控件。
+        /// TotalLostTime 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtCheckNumber24;
-        
+        protected global::FineUIPro.TextBox TotalLostTime;
+
         /// <summary>
-        /// Label14 控件。
+        /// MillionLossRate 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label14;
-        
+        protected global::FineUIPro.TextBox MillionLossRate;
+
         /// <summary>
-        /// txtCheckNumber31 控件。
+        /// TimeAccuracyRate 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtCheckNumber31;
-        
+        protected global::FineUIPro.TextBox TimeAccuracyRate;
+
         /// <summary>
-        /// txtCheckNumber32 控件。
+        /// PsafeStartDate 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtCheckNumber32;
-        
+        protected global::FineUIPro.DatePicker PsafeStartDate;
+
         /// <summary>
-        /// txtCheckNumber33 控件。
+        /// PsafeEndDate 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtCheckNumber33;
-        
+        protected global::FineUIPro.DatePicker PsafeEndDate;
+
         /// <summary>
-        /// txtCheckNumber34 控件。
+        /// SafeWorkTime 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtCheckNumber34;
-        
+        protected global::FineUIPro.TextBox SafeWorkTime;
+
         /// <summary>
-        /// Grid2 控件。
+        /// ContentPanel2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Grid Grid2;
-        
+        protected global::FineUIPro.ContentPanel ContentPanel2;
+
         /// <summary>
-        /// Label17 控件。
+        /// BigType 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label17;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl BigType;
+
         /// <summary>
-        /// txtAccidentNumber01 控件。
+        /// AccidentType1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtAccidentNumber01;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AccidentType1;
+
         /// <summary>
-        /// txtAccidentNumber02 控件。
+        /// MonthTimes1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtAccidentNumber02;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthTimes1;
+
         /// <summary>
-        /// Panel3 控件。
+        /// TotalTimes1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Panel Panel3;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalTimes1;
+
         /// <summary>
-        /// GroupPanel1 控件。
+        /// MonthLossTime1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.GroupPanel GroupPanel1;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthLossTime1;
+
         /// <summary>
-        /// Form4 控件。
+        /// TotalLossTime1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Form Form4;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalLossTime1;
+
         /// <summary>
-        /// Label18 控件。
+        /// MonthMoney1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label18;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthMoney1;
+
         /// <summary>
-        /// Label19 控件。
+        /// TotalMoney1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label19;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalMoney1;
+
         /// <summary>
-        /// Label20 控件。
+        /// MonthPersons1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label20;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthPersons1;
+
         /// <summary>
-        /// Label23 控件。
+        /// TotalPersons1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label23;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalPersons1;
+
         /// <summary>
-        /// txtIncentiveNumber01 控件。
+        /// AccidentType2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtIncentiveNumber01;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AccidentType2;
+
         /// <summary>
-        /// txtIncentiveNumber11 控件。
+        /// MonthTimes2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtIncentiveNumber11;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthTimes2;
+
         /// <summary>
-        /// Label24 控件。
+        /// TotalTimes2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label24;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalTimes2;
+
         /// <summary>
-        /// txtIncentiveNumber02 控件。
+        /// MonthLossTime2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtIncentiveNumber02;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthLossTime2;
+
         /// <summary>
-        /// txtIncentiveNumber12 控件。
+        /// TotalLossTime2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtIncentiveNumber12;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalLossTime2;
+
         /// <summary>
-        /// Label25 控件。
+        /// MonthMoney2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label25;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthMoney2;
+
         /// <summary>
-        /// txtIncentiveNumber03 控件。
+        /// TotalMoney2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtIncentiveNumber03;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalMoney2;
+
         /// <summary>
-        /// txtIncentiveNumber13 控件。
+        /// MonthPersons2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtIncentiveNumber13;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthPersons2;
+
         /// <summary>
-        /// GroupPanel3 控件。
+        /// TotalPersons2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.GroupPanel GroupPanel3;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalPersons2;
+
         /// <summary>
-        /// Form5 控件。
+        /// AccidentType3 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Form Form5;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AccidentType3;
+
         /// <summary>
-        /// Label21 控件。
+        /// MonthTimes3 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label21;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthTimes3;
+
         /// <summary>
-        /// Label22 控件。
+        /// TotalTimes3 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label22;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalTimes3;
+
         /// <summary>
-        /// Label26 控件。
+        /// MonthLossTime3 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label26;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthLossTime3;
+
         /// <summary>
-        /// Label27 控件。
+        /// TotalLossTime3 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label27;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalLossTime3;
+
         /// <summary>
-        /// txtIncentiveNumber04 控件。
+        /// MonthMoney3 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtIncentiveNumber04;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthMoney3;
+
         /// <summary>
-        /// txtIncentiveNumber14 控件。
+        /// TotalMoney3 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtIncentiveNumber14;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalMoney3;
+
         /// <summary>
-        /// Label28 控件。
+        /// MonthPersons3 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label28;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthPersons3;
+
         /// <summary>
-        /// txtIncentiveNumber05 控件。
+        /// TotalPersons3 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtIncentiveNumber05;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalPersons3;
+
         /// <summary>
-        /// txtIncentiveNumber15 控件。
+        /// AccidentType4 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtIncentiveNumber15;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AccidentType4;
+
         /// <summary>
-        /// Label29 控件。
+        /// MonthTimes4 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label29;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthTimes4;
+
         /// <summary>
-        /// txtIncentiveNumber06 控件。
+        /// TotalTimes4 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtIncentiveNumber06;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalTimes4;
+
         /// <summary>
-        /// txtIncentiveNumber16 控件。
+        /// MonthLossTime4 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtIncentiveNumber16;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthLossTime4;
+
         /// <summary>
-        /// Label30 控件。
+        /// TotalLossTime4 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label30;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalLossTime4;
+
         /// <summary>
-        /// txtIncentiveNumber07 控件。
+        /// MonthMoney4 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtIncentiveNumber07;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthMoney4;
+
         /// <summary>
-        /// txtIncentiveNumber17 控件。
+        /// TotalMoney4 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtIncentiveNumber17;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalMoney4;
+
         /// <summary>
-        /// Panel4 控件。
+        /// MonthPersons4 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Panel Panel4;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthPersons4;
+
         /// <summary>
-        /// Form6 控件。
+        /// TotalPersons4 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Form Form6;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalPersons4;
+
         /// <summary>
-        /// txtHseNumber01 控件。
+        /// AccidentType5 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtHseNumber01;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AccidentType5;
+
         /// <summary>
-        /// Label31 控件。
+        /// MonthTimes5 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label31;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthTimes5;
+
         /// <summary>
-        /// Label41 控件。
+        /// TotalTimes5 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label41;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalTimes5;
+
         /// <summary>
-        /// txtHseNumber02 控件。
+        /// MonthLossTime5 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtHseNumber02;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthLossTime5;
+
         /// <summary>
-        /// txtHseNumber03 控件。
+        /// TotalLossTime5 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtHseNumber03;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalLossTime5;
+
         /// <summary>
-        /// Label32 控件。
+        /// MonthMoney5 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label32;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthMoney5;
+
         /// <summary>
-        /// Label42 控件。
+        /// TotalMoney5 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label42;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalMoney5;
+
         /// <summary>
-        /// txtHseNumber04 控件。
+        /// MonthPersons5 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtHseNumber04;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthPersons5;
+
         /// <summary>
-        /// txtHseNumber05 控件。
+        /// TotalPersons5 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtHseNumber05;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalPersons5;
+
         /// <summary>
-        /// Label33 控件。
+        /// AccidentType6 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label33;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AccidentType6;
+
         /// <summary>
-        /// Label43 控件。
+        /// MonthTimes6 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label43;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthTimes6;
+
         /// <summary>
-        /// txtHseNumber06 控件。
+        /// TotalTimes6 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtHseNumber06;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalTimes6;
+
         /// <summary>
-        /// txtSpecialNumber 控件。
+        /// MonthLossTime6 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtSpecialNumber;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthLossTime6;
+
         /// <summary>
-        /// Label34 控件。
+        /// TotalLossTime6 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label34;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalLossTime6;
+
         /// <summary>
-        /// Label44 控件。
+        /// MonthMoney6 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label44;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthMoney6;
+
         /// <summary>
-        /// txtHseNumber07 控件。
+        /// TotalMoney6 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtHseNumber07;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalMoney6;
+
         /// <summary>
-        /// Label35 控件。
+        /// MonthPersons6 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label35;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthPersons6;
+
         /// <summary>
-        /// txtHseNumber08 控件。
+        /// TotalPersons6 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtHseNumber08;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalPersons6;
+
         /// <summary>
-        /// Label36 控件。
+        /// AccidentType7 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label36;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AccidentType7;
+
         /// <summary>
-        /// txtHseNumber09 控件。
+        /// MonthTimes7 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtHseNumber09;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthTimes7;
+
         /// <summary>
-        /// Label37 控件。
+        /// TotalTimes7 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label37;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalTimes7;
+
         /// <summary>
-        /// txtHseNumber00 控件。
+        /// MonthLossTime7 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtHseNumber00;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthLossTime7;
+
         /// <summary>
-        /// Label38 控件。
+        /// TotalLossTime7 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label38;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalLossTime7;
+
         /// <summary>
-        /// txtHseNumber10 控件。
+        /// MonthMoney7 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtHseNumber10;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthMoney7;
+
         /// <summary>
-        /// Label39 控件。
+        /// TotalMoney7 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label39;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalMoney7;
+
         /// <summary>
-        /// txtHseNumber11 控件。
+        /// MonthPersons7 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtHseNumber11;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthPersons7;
+
         /// <summary>
-        /// Label40 控件。
+        /// TotalPersons7 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label40;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalPersons7;
+
         /// <summary>
-        /// GroupPanel4 控件。
+        /// AccidentType8 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.GroupPanel GroupPanel4;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AccidentType8;
+
         /// <summary>
-        /// txtEquipmentQualityData 控件。
+        /// MonthTimes8 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextArea txtEquipmentQualityData;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthTimes8;
+
         /// <summary>
-        /// GroupPanel5 控件。
+        /// TotalTimes8 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.GroupPanel GroupPanel5;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalTimes8;
+
         /// <summary>
-        /// Form7 控件。
+        /// MonthLossTime8 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Form Form7;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthLossTime8;
+
         /// <summary>
-        /// txtThisMonthSafetyCost 控件。
+        /// TotalLossTime8 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtThisMonthSafetyCost;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalLossTime8;
+
         /// <summary>
-        /// txtTotalSafetyCost 控件。
+        /// MonthMoney8 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtTotalSafetyCost;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthMoney8;
+
         /// <summary>
-        /// GroupPanel6 控件。
+        /// TotalMoney8 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.GroupPanel GroupPanel6;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalMoney8;
+
         /// <summary>
-        /// txtThisMonthKeyPoints 控件。
+        /// MonthPersons8 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextArea txtThisMonthKeyPoints;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthPersons8;
+
         /// <summary>
-        /// GroupPanel7 控件。
+        /// TotalPersons8 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.GroupPanel GroupPanel7;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalPersons8;
+
         /// <summary>
-        /// txtThisMonthSafetyActivity 控件。
+        /// AccidentType9 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextArea txtThisMonthSafetyActivity;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AccidentType9;
+
         /// <summary>
-        /// GroupPanel8 控件。
+        /// MonthTimes9 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.GroupPanel GroupPanel8;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthTimes9;
+
         /// <summary>
-        /// txtNextMonthWorkFocus 控件。
+        /// TotalTimes9 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextArea txtNextMonthWorkFocus;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalTimes9;
+
+        /// <summary>
+        /// MonthLossTime9 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthLossTime9;
+
+        /// <summary>
+        /// TotalLossTime9 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalLossTime9;
+
+        /// <summary>
+        /// MonthMoney9 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthMoney9;
+
+        /// <summary>
+        /// TotalMoney9 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalMoney9;
+
+        /// <summary>
+        /// MonthPersons9 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthPersons9;
+
+        /// <summary>
+        /// TotalPersons9 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalPersons9;
+
+        /// <summary>
+        /// AccidentType10 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AccidentType10;
+
+        /// <summary>
+        /// MonthTimes10 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthTimes10;
+
+        /// <summary>
+        /// TotalTimes10 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalTimes10;
+
+        /// <summary>
+        /// MonthLossTime10 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthLossTime10;
+
+        /// <summary>
+        /// TotalLossTime10 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalLossTime10;
+
+        /// <summary>
+        /// MonthMoney10 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthMoney10;
+
+        /// <summary>
+        /// TotalMoney10 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalMoney10;
+
+        /// <summary>
+        /// MonthPersons10 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthPersons10;
+
+        /// <summary>
+        /// TotalPersons10 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalPersons10;
+
+        /// <summary>
+        /// AccidentType11 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AccidentType11;
+
+        /// <summary>
+        /// MonthTimes11 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthTimes11;
+
+        /// <summary>
+        /// TotalTimes11 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalTimes11;
+
+        /// <summary>
+        /// MonthLossTime11 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthLossTime11;
+
+        /// <summary>
+        /// TotalLossTime11 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalLossTime11;
+
+        /// <summary>
+        /// MonthMoney11 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthMoney11;
+
+        /// <summary>
+        /// TotalMoney11 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalMoney11;
+
+        /// <summary>
+        /// MonthPersons11 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthPersons11;
+
+        /// <summary>
+        /// TotalPersons11 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TotalPersons11;
+
+        /// <summary>
+        /// AccidentsSummary 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea AccidentsSummary;
+
+        /// <summary>
+        /// ContentPanel3 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.ContentPanel ContentPanel3;
+
+        /// <summary>
+        /// GvSeDinMonthReport4Item 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Grid GvSeDinMonthReport4Item;
+
+        /// <summary>
+        /// SafeMananger 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox SafeMananger;
+
+        /// <summary>
+        /// OtherMananger 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox OtherMananger;
+
+        /// <summary>
+        /// nbSpecialWorkerNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox nbSpecialWorkerNum;
+
+        /// <summary>
+        /// nbGeneralWorkerNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox nbGeneralWorkerNum;
+
+        /// <summary>
+        /// ContentPanel4 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.ContentPanel ContentPanel4;
+
+        /// <summary>
+        /// GvSeDinMonthReport5Item 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Grid GvSeDinMonthReport5Item;
+
+        /// <summary>
+        /// ContentPanel5 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.ContentPanel ContentPanel5;
+
+        /// <summary>
+        /// SafetyMonth 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SafetyMonth;
+
+        /// <summary>
+        /// SafetyYear 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SafetyYear;
+
+        /// <summary>
+        /// SafetyTotal 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SafetyTotal;
+
+        /// <summary>
+        /// LaborMonth 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText LaborMonth;
+
+        /// <summary>
+        /// LaborYear 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText LaborYear;
+
+        /// <summary>
+        /// LaborTotal 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText LaborTotal;
+
+        /// <summary>
+        /// ProgressMonth 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ProgressMonth;
+
+        /// <summary>
+        /// ProgressYear 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ProgressYear;
+
+        /// <summary>
+        /// ProgressTotal 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ProgressTotal;
+
+        /// <summary>
+        /// EducationMonth 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText EducationMonth;
+
+        /// <summary>
+        /// EducationYear 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText EducationYear;
+
+        /// <summary>
+        /// EducationTotal 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText EducationTotal;
+
+        /// <summary>
+        /// SumMonth 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SumMonth;
+
+        /// <summary>
+        /// SumYear 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SumYear;
+
+        /// <summary>
+        /// SumTotal 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SumTotal;
+
+        /// <summary>
+        /// ContractMonth 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ContractMonth;
+
+        /// <summary>
+        /// ContractYear 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ContractYear;
+
+        /// <summary>
+        /// ContractTotal 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ContractTotal;
+
+        /// <summary>
+        /// ConstructionCost 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ConstructionCost;
+
+        /// <summary>
+        /// ContentPanel6 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.ContentPanel ContentPanel6;
+
+        /// <summary>
+        /// SpecialMontNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SpecialMontNum;
+
+        /// <summary>
+        /// SpecialYearNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SpecialYearNum;
+
+        /// <summary>
+        /// SpecialTotalNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SpecialTotalNum;
+
+        /// <summary>
+        /// SpecialMontPerson 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SpecialMontPerson;
+
+        /// <summary>
+        /// SpecialYearPerson 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SpecialYearPerson;
+
+        /// <summary>
+        /// SpecialTotalPerson 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SpecialTotalPerson;
+
+        /// <summary>
+        /// EmployeeMontNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText EmployeeMontNum;
+
+        /// <summary>
+        /// EmployeeYearNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText EmployeeYearNum;
+
+        /// <summary>
+        /// EmployeeTotalNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText EmployeeTotalNum;
+
+        /// <summary>
+        /// EmployeeMontPerson 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText EmployeeMontPerson;
+
+        /// <summary>
+        /// EmployeeYearPerson 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText EmployeeYearPerson;
+
+        /// <summary>
+        /// EmployeeTotalPerson 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText EmployeeTotalPerson;
+
+        /// <summary>
+        /// CpReport8 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.ContentPanel CpReport8;
+
+        /// <summary>
+        /// Report8WeekMontNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Report8WeekMontNum;
+
+        /// <summary>
+        /// Report8WeekTotalNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Report8WeekTotalNum;
+
+        /// <summary>
+        /// Report8WeekMontPerson 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Report8WeekMontPerson;
+
+        /// <summary>
+        /// Report8MonthMontNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Report8MonthMontNum;
+
+        /// <summary>
+        /// Report8MonthTotalNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Report8MonthTotalNum;
+
+        /// <summary>
+        /// Report8MonthMontPerson 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Report8MonthMontPerson;
+
+        /// <summary>
+        /// Report8SpecialMontNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Report8SpecialMontNum;
+
+        /// <summary>
+        /// Report8SpecialTotalNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Report8SpecialTotalNum;
+
+        /// <summary>
+        /// Report8SpecialMontPerson 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText Report8SpecialMontPerson;
+
+        /// <summary>
+        /// GvSeDinMonthReport8Item 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Grid GvSeDinMonthReport8Item;
+
+        /// <summary>
+        /// CpSeDinMonthReport9Item 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.ContentPanel CpSeDinMonthReport9Item;
+
+        /// <summary>
+        /// DailyMonth 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText DailyMonth;
+
+        /// <summary>
+        /// DailyYear 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText DailyYear;
+
+        /// <summary>
+        /// DailyTotal 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText DailyTotal;
+
+        /// <summary>
+        /// WeekMonth 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText WeekMonth;
+
+        /// <summary>
+        /// WeekYear 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText WeekYear;
+
+        /// <summary>
+        /// WeekTotal 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText WeekTotal;
+
+        /// <summary>
+        /// SpecialMonth 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SpecialMonth;
+
+        /// <summary>
+        /// SpecialYear 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SpecialYear;
+
+        /// <summary>
+        /// SpecialTotal 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SpecialTotal;
+
+        /// <summary>
+        /// MonthlyMonth 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthlyMonth;
+
+        /// <summary>
+        /// MonthlyYear 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthlyYear;
+
+        /// <summary>
+        /// MonthlyTotal 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MonthlyTotal;
+
+        /// <summary>
+        /// GvSeDinMonthReport9ItemSpecial 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Grid GvSeDinMonthReport9ItemSpecial;
+
+        /// <summary>
+        /// GvSeDinMonthReport9ItemRect 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Grid GvSeDinMonthReport9ItemRect;
+
+        /// <summary>
+        /// GvSeDinMonthReport9ItemStoppage 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Grid GvSeDinMonthReport9ItemStoppage;
+
+        /// <summary>
+        /// ContentPanel9 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.ContentPanel ContentPanel9;
+
+        /// <summary>
+        /// SafeMonthNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SafeMonthNum;
+
+        /// <summary>
+        /// SafeTotalNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SafeTotalNum;
+
+        /// <summary>
+        /// SafeMonthMoney 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SafeMonthMoney;
+
+        /// <summary>
+        /// SafeTotalMoney 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SafeTotalMoney;
+
+        /// <summary>
+        /// HseMonthNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText HseMonthNum;
+
+        /// <summary>
+        /// HseTotalNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText HseTotalNum;
+
+        /// <summary>
+        /// HseMonthMoney 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText HseMonthMoney;
+
+        /// <summary>
+        /// HseTotalMoney 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText HseTotalMoney;
+
+        /// <summary>
+        /// ProduceMonthNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ProduceMonthNum;
+
+        /// <summary>
+        /// ProduceTotalNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ProduceTotalNum;
+
+        /// <summary>
+        /// ProduceMonthMoney 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ProduceMonthMoney;
+
+        /// <summary>
+        /// ProduceTotalMoney 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ProduceTotalMoney;
+
+        /// <summary>
+        /// AccidentMonthNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText AccidentMonthNum;
+
+        /// <summary>
+        /// AccidentTotalNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText AccidentTotalNum;
+
+        /// <summary>
+        /// AccidentMonthMoney 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText AccidentMonthMoney;
+
+        /// <summary>
+        /// AccidentTotalMoney 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText AccidentTotalMoney;
+
+        /// <summary>
+        /// ViolationMonthNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ViolationMonthNum;
+
+        /// <summary>
+        /// ViolationTotalNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ViolationTotalNum;
+
+        /// <summary>
+        /// ViolationMonthMoney 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ViolationMonthMoney;
+
+        /// <summary>
+        /// ViolationTotalMoney 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ViolationTotalMoney;
+
+        /// <summary>
+        /// ManageMonthNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ManageMonthNum;
+
+        /// <summary>
+        /// ManageTotalNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ManageTotalNum;
+
+        /// <summary>
+        /// ManageMonthMoney 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ManageMonthMoney;
+
+        /// <summary>
+        /// ManageTotalMoney 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText ManageTotalMoney;
+
+        /// <summary>
+        /// ContentPanel10 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.ContentPanel ContentPanel10;
+
+        /// <summary>
+        /// RiskWorkNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText RiskWorkNum;
+
+        /// <summary>
+        /// RiskFinishedNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText RiskFinishedNum;
+
+        /// <summary>
+        /// RiskWorkNext 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText RiskWorkNext;
+
+        /// <summary>
+        /// LargeWorkNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText LargeWorkNum;
+
+        /// <summary>
+        /// LargeFinishedNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText LargeFinishedNum;
+
+        /// <summary>
+        /// LargeWorkNext 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText LargeWorkNext;
+
+        /// <summary>
+        /// ContentPanel11 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.ContentPanel ContentPanel11;
+
+        /// <summary>
+        /// MultipleSiteInput 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MultipleSiteInput;
+
+        /// <summary>
+        /// MultipleSitePerson 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MultipleSitePerson;
+
+        /// <summary>
+        /// MultipleSiteNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MultipleSiteNum;
+
+        /// <summary>
+        /// MultipleSiteTotalNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MultipleSiteTotalNum;
+
+        /// <summary>
+        /// MultipleSiteNext 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea MultipleSiteNext;
+
+        /// <summary>
+        /// MultipleDesktopInput 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MultipleDesktopInput;
+
+        /// <summary>
+        /// MultipleDesktopPerson 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MultipleDesktopPerson;
+
+        /// <summary>
+        /// MultipleDesktopNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MultipleDesktopNum;
+
+        /// <summary>
+        /// MultipleDesktopTotalNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText MultipleDesktopTotalNum;
+
+        /// <summary>
+        /// MultipleDesktopNext 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea MultipleDesktopNext;
+
+        /// <summary>
+        /// SingleSiteInput 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SingleSiteInput;
+
+        /// <summary>
+        /// SingleSitePerson 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SingleSitePerson;
+
+        /// <summary>
+        /// SingleSiteNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SingleSiteNum;
+
+        /// <summary>
+        /// SingleSiteTotalNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SingleSiteTotalNum;
+
+        /// <summary>
+        /// SingleSiteNext 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea SingleSiteNext;
+
+        /// <summary>
+        /// SingleDesktopInput 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SingleDesktopInput;
+
+        /// <summary>
+        /// SingleDesktopPerson 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SingleDesktopPerson;
+
+        /// <summary>
+        /// SingleDesktopNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SingleDesktopNum;
+
+        /// <summary>
+        /// SingleDesktopTotalNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText SingleDesktopTotalNum;
+
+        /// <summary>
+        /// SingleDesktopNext 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea SingleDesktopNext;
+
+        /// <summary>
+        /// ContentPanel12 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.ContentPanel ContentPanel12;
+
+        /// <summary>
+        /// ThisSummary 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextArea ThisSummary;
+
+        /// <summary>
+        /// NextPlan 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextArea NextPlan;
+
         /// <summary>
         /// Toolbar1 控件。
         /// </summary>
@@ -1226,25 +2371,7 @@ namespace FineUIPro.Web.Manager {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Toolbar Toolbar1;
-        
-        /// <summary>
-        /// lbTemp 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label lbTemp;
-        
-        /// <summary>
-        /// btnAttachUrl 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnAttachUrl;
-        
+
         /// <summary>
         /// ToolbarFill1 控件。
         /// </summary>
@@ -1253,7 +2380,7 @@ namespace FineUIPro.Web.Manager {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.ToolbarFill ToolbarFill1;
-        
+
         /// <summary>
         /// btnSave 控件。
         /// </summary>
@@ -1262,7 +2389,16 @@ namespace FineUIPro.Web.Manager {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Button btnSave;
-        
+
+        /// <summary>
+        /// btnSysSubmit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnSysSubmit;
+
         /// <summary>
         /// btnClose 控件。
         /// </summary>
@@ -1271,32 +2407,77 @@ namespace FineUIPro.Web.Manager {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Button btnClose;
-        
+
         /// <summary>
-        /// hdId 控件。
+        /// wdSeDinMonthReport4Item 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.HiddenField hdId;
-        
+        protected global::FineUIPro.Window wdSeDinMonthReport4Item;
+
         /// <summary>
-        /// hdAttachUrl 控件。
+        /// Form4 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.HiddenField hdAttachUrl;
-        
+        protected global::FineUIPro.Form Form4;
+
         /// <summary>
-        /// WindowAtt 控件。
+        /// drpUnit 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Window WindowAtt;
+        protected global::FineUIPro.DropDownList drpUnit;
+
+        /// <summary>
+        /// SafeManangerNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox SafeManangerNum;
+
+        /// <summary>
+        /// OtherManangerNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox OtherManangerNum;
+
+        /// <summary>
+        /// SpecialWorkerNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox SpecialWorkerNum;
+
+        /// <summary>
+        /// GeneralWorkerNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox GeneralWorkerNum;
+
+        /// <summary>
+        /// btnMonthReport4Item 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnMonthReport4Item;
     }
 }

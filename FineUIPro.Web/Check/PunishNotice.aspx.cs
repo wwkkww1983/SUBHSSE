@@ -66,32 +66,41 @@ namespace FineUIPro.Web.Check
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT PunishNotice.PunishNoticeId,"
-                          + @"PunishNotice.ProjectId,"
-                          + @"CodeRecords.Code AS PunishNoticeCode,"
-                          + @"PunishNotice.UnitId,"
-                          + @"PunishNotice.PunishNoticeDate,"
-                          + @"PunishNotice.BasicItem,"
-                          + @"PunishNotice.PunishMoney,ISNULL(PunishNotice.Currency,'人民币') AS Currency,"
-                          + @"PunishNotice.FileContents,"
-                          + @"PunishNotice.AttachUrl,"
-                          + @"PunishNotice.CompileMan,"
-                          + @"PunishNotice.CompileDate,"
-                          + @"Sign.UserName AS SignManName,"
-                          + @"Approve.UserName AS ApproveManName,"
-                          + @"PunishNotice.ContractNum,"
-                          + @"PunishNotice.States,"
-                          + @"Unit.UnitName,"
-                          + @"(CASE WHEN PunishNotice.States = " + BLL.Const.State_0 + " OR PunishNotice.States IS NULL THEN '待['+OperateUser.UserName+']提交' WHEN PunishNotice.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
-                          + @" ,(CASE WHEN PunishNotice.States != 2 THEN '未审核完成' WHEN (SELECT COUNT(*) FROM AttachFile WHERE ToKeyId =PunishNotice.PunishNoticeId AND MenuId='" + BLL.Const.ProjectPunishNoticeMenuId + "') > 0 THEN '已闭环' ELSE '未回执' END) AS  RetrunSateName"
-                          + @" FROM Check_PunishNotice AS PunishNotice "
-                          + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON PunishNotice.PunishNoticeId = CodeRecords.DataId "
-                          + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON PunishNotice.PunishNoticeId = FlowOperate.DataId AND FlowOperate.IsClosed <> 1"
-                          + @" LEFT JOIN Sys_User AS OperateUser ON FlowOperate.OperaterId = OperateUser.UserId"
-                          + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId = PunishNotice.UnitId "
-                          + @" LEFT JOIN Sys_User AS Sign ON Sign.UserId = PunishNotice.SignMan "
-                          + @" LEFT JOIN Sys_User AS Approve ON Approve.UserId = PunishNotice.ApproveMan "
-                          + @" LEFT JOIN Sys_User AS Users ON PunishNotice.CompileMan = Users.UserId WHERE 1=1 ";
+            //string strSql = @"SELECT PunishNotice.PunishNoticeId,"
+            //              + @"PunishNotice.ProjectId,"
+            //              + @"CodeRecords.Code AS PunishNoticeCode,"
+            //              + @"PunishNotice.UnitId,"
+            //              + @"PunishNotice.PunishNoticeDate,"
+            //              + @"PunishNotice.BasicItem,"
+            //              + @"PunishNotice.PunishMoney,ISNULL(PunishNotice.Currency,'人民币') AS Currency,"
+            //              + @"PunishNotice.FileContents,"
+            //              + @"PunishNotice.AttachUrl,"
+            //              + @"PunishNotice.CompileMan,"
+            //              + @"PunishNotice.CompileDate,"
+            //              + @"Sign.UserName AS SignManName,"
+            //              + @"Approve.UserName AS ApproveManName,"
+            //              + @"PunishNotice.ContractNum,"
+            //              + @"PunishNotice.States,"
+            //              + @"Unit.UnitName,"
+            //              + @"(CASE WHEN PunishNotice.States = " + BLL.Const.State_0 + " OR PunishNotice.States IS NULL THEN '待['+OperateUser.UserName+']提交' WHEN PunishNotice.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
+            //              + @" ,(CASE WHEN PunishNotice.States != 2 THEN '未审核完成' WHEN (SELECT COUNT(*) FROM AttachFile WHERE ToKeyId =PunishNotice.PunishNoticeId AND MenuId='" + BLL.Const.ProjectPunishNoticeMenuId + "') > 0 THEN '已闭环' ELSE '未回执' END) AS  RetrunSateName"
+            //              + @" FROM Check_PunishNotice AS PunishNotice "
+            //              + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON PunishNotice.PunishNoticeId = CodeRecords.DataId "
+            //              + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON PunishNotice.PunishNoticeId = FlowOperate.DataId AND FlowOperate.IsClosed <> 1"
+            //              + @" LEFT JOIN Sys_User AS OperateUser ON FlowOperate.OperaterId = OperateUser.UserId"
+            //              + @" LEFT JOIN Base_Unit AS Unit ON Unit.UnitId = PunishNotice.UnitId "
+            //              + @" LEFT JOIN Sys_User AS Sign ON Sign.UserId = PunishNotice.SignMan "
+            //              + @" LEFT JOIN Sys_User AS Approve ON Approve.UserId = PunishNotice.ApproveMan "
+            //              + @" LEFT JOIN Sys_User AS Users ON PunishNotice.CompileMan = Users.UserId WHERE 1=1 ";
+            string strSql = "SELECT PunishNotice.PunishNoticeId,PunishNotice.ProjectId,CodeRecords.Code AS PunishNoticeCode,PunishNotice.UnitId,PunishNotice.PunishNoticeDate,PunishNotice.BasicItem,PunishNotice.PunishMoney,PunishStates,ISNULL(PunishNotice.Currency, '人民币') AS Currency, PunishNotice.FileContents,PunishNotice.AttachUrl,PunishNotice.CompileMan,PunishNotice.CompileDate,Sign.UserName AS SignManName,Approve.UserName AS ApproveManName,PunishNotice.ContractNum,PunishNotice.States,Unit.UnitName,(CASE WHEN PunishNotice.PunishStates = '0' THEN '待[' + Users.UserName + ']提交' WHEN PunishNotice.PunishStates = '1' THEN '待[' + Sign.UserName + ']签发'  WHEN PunishNotice.PunishStates = '2' THEN '待[' + Approve.UserName + ']批准' WHEN PunishNotice.PunishStates = '3' THEN '待[' + Duty.UserName + ']回执'  WHEN(SELECT COUNT(*) FROM AttachFile WHERE ToKeyId = PunishNotice.PunishNoticeId AND MenuId = '" + BLL.Const.ProjectPunishNoticeMenuId + "') > 0 THEN '已闭环' ELSE '未回执' END) AS RetrunSateName FROM Check_PunishNotice AS PunishNotice" +
+                " LEFT JOIN Sys_CodeRecords AS CodeRecords ON PunishNotice.PunishNoticeId = CodeRecords.DataId " +
+                " LEFT JOIN Sys_FlowOperate AS FlowOperate ON PunishNotice.PunishNoticeId = FlowOperate.DataId AND FlowOperate.IsClosed <> 1" +
+                " LEFT JOIN Sys_User AS OperateUser ON FlowOperate.OperaterId = OperateUser.UserId" +
+                " LEFT JOIN Base_Unit AS Unit ON Unit.UnitId = PunishNotice.UnitId" +
+                " LEFT JOIN Sys_User AS Sign ON Sign.UserId = PunishNotice.SignMan" +
+                " LEFT JOIN Sys_User AS Approve ON Approve.UserId = PunishNotice.ApproveMan" +
+                " LEFT JOIN Sys_User AS Duty ON Duty.UserId = PunishNotice.DutyPersonId" +
+                " LEFT JOIN Sys_User AS Users ON PunishNotice.CompileMan = Users.UserId WHERE 1 = 1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND PunishNotice.ProjectId = @ProjectId";
             if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
@@ -238,13 +247,38 @@ namespace FineUIPro.Web.Check
             var punishNotice = BLL.PunishNoticeService.GetPunishNoticeById(id);
             if (punishNotice != null)
             {
+                bool flag = false;
                 if (this.btnMenuEdit.Hidden || punishNotice.States == BLL.Const.State_2)   ////双击事件 编辑权限有：编辑页面，无：查看页面 或者状态是完成时查看页面
                 {
                     PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PunishNoticeView.aspx?PunishNoticeId={0}", id, "查看 - ")));
                 }
                 else
                 {
-                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PunishNoticeEdit.aspx?PunishNoticeId={0}", id, "编辑 - ")));
+                    if (punishNotice.PunishStates == BLL.Const.State_0 && punishNotice.CompileMan == this.CurrUser.UserId)
+                    {
+                        flag = true;
+                    }
+                    else if (punishNotice.PunishStates == BLL.Const.State_1 && punishNotice.SignMan == this.CurrUser.UserId)
+                    {
+                        flag = true;
+                    }
+                    else if (punishNotice.PunishStates == BLL.Const.State_2 && punishNotice.ApproveMan == this.CurrUser.UserId)
+                    {
+                        flag = true;
+                    }
+                    else if (punishNotice.PunishStates == BLL.Const.State_3 && punishNotice.DutyPersonId == this.CurrUser.UserId)
+                    {
+                        flag = true;
+                    }
+                    else
+                    {
+                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PunishNoticeView.aspx?PunishNoticeId={0}", id, "查看 - ")));
+                    }
+                    if (flag)
+                    {
+                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PunishNoticeEdit.aspx?PunishNoticeId={0}", id, "编辑 - ")));
+                    }
+
                 }
             }
         }
@@ -375,6 +409,11 @@ namespace FineUIPro.Web.Check
         protected void rbStates_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.BindGrid();
+        }
+
+        protected void Window1_Close(object sender, WindowCloseEventArgs e)
+        {
+            BindGrid();
         }
     }
 }

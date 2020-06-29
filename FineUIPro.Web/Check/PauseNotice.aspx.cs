@@ -40,6 +40,7 @@ namespace FineUIPro.Web.Check
             //FilterDataRowItem = FilterDataRowItemImplement;
             if (!IsPostBack)
             {
+                Funs.DropDownPageSize(this.ddlPageSize);
                 this.ProjectId = this.CurrUser.LoginProjectId;
                 if (!string.IsNullOrEmpty(Request.Params["projectId"]) && Request.Params["projectId"] != this.CurrUser.LoginProjectId)
                 {
@@ -60,12 +61,14 @@ namespace FineUIPro.Web.Check
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT PauseNotice.PauseNoticeId,PauseNotice.ProjectId,CodeRecords.Code AS PauseNoticeCode,Unit.UnitName,PauseNotice.ProjectPlace,PauseNotice.UnitId,PauseNotice.PauseTime,case PauseNotice.IsConfirm when 1 then '已确认' else '未确认' end as IsConfirmStr"
-                          + @" ,(CASE WHEN PauseNotice.States = " + BLL.Const.State_0 + " OR PauseNotice.States IS NULL THEN '待['+OperateUser.UserName+']提交' WHEN PauseNotice.States =  " + BLL.Const.State_2 + " THEN '审核/审批完成' ELSE '待['+OperateUser.UserName+']办理' END) AS  FlowOperateName"
-                          + @" FROM Check_PauseNotice AS PauseNotice "
-                          + @" LEFT JOIN Sys_FlowOperate AS FlowOperate ON PauseNotice.PauseNoticeId=FlowOperate.DataId AND FlowOperate.IsClosed <> 1"
-                          + @" LEFT JOIN Sys_User AS OperateUser ON FlowOperate.OperaterId=OperateUser.UserId "
-                          + @" LEFT JOIN Sys_CodeRecords AS CodeRecords ON PauseNotice.PauseNoticeId=CodeRecords.DataId LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=PauseNotice.UnitId WHERE 1=1 ";
+            string strSql = @"SELECT PauseNotice.PauseNoticeId,PauseNotice.ProjectId,CodeRecords.Code AS PauseNoticeCode,Unit.UnitName,PauseNotice.ProjectPlace,PauseNotice.UnitId,PauseNotice.PauseTime,case PauseNotice.IsConfirm when 1 then '已确认' else '未确认' end as IsConfirmStr ,
+             (CASE WHEN PauseNotice.PauseStates = '0' OR PauseNotice.PauseStates IS NULL THEN '待['+CompileMan.UserName+']提交' WHEN PauseNotice.PauseStates = '1' THEN '待['+SignMan.UserName+']签发'  WHEN PauseNotice.PauseStates = '2' THEN '待['+ApproveMan.UserName+']批准' WHEN PauseNotice.PauseStates = '3' THEN '待['+DutyPerson.UserName+']接收' WHEN PauseNotice.PauseStates = '4' THEN '审批完成' END) AS  FlowOperateName 
+            FROM Check_PauseNotice AS PauseNotice 
+             LEFT JOIN Sys_User AS CompileMan ON CompileMan.UserId=PauseNotice.CompileManId 
+             LEFT JOIN Sys_User AS SignMan ON SignMan.UserId=PauseNotice.SignManId 
+             LEFT JOIN Sys_User AS ApproveMan ON ApproveMan.UserId=PauseNotice.ApproveManId 
+             LEFT JOIN Sys_User AS DutyPerson ON DutyPerson.UserId=PauseNotice.DutyPersonId
+             LEFT JOIN Sys_CodeRecords AS CodeRecords ON PauseNotice.PauseNoticeId=CodeRecords.DataId LEFT JOIN Base_Unit AS Unit ON Unit.UnitId=PauseNotice.UnitId WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             strSql += " AND PauseNotice.ProjectId = @ProjectId";
             if (!string.IsNullOrEmpty(Request.Params["projectId"]))  ///是否文件柜查看页面传项目值
@@ -88,8 +91,8 @@ namespace FineUIPro.Web.Check
                 strSql += " AND PauseNotice.UnitId = @UnitId";  ///状态为已完成
                 listStr.Add(new SqlParameter("@UnitId", this.CurrUser.UnitId));
 
-                strSql += " AND PauseNotice.States = @States";  ///状态为已完成
-                listStr.Add(new SqlParameter("@States", BLL.Const.State_2));
+                //strSql += " AND PauseNotice.States = @States";  ///状态为已完成
+                //listStr.Add(new SqlParameter("@States", BLL.Const.State_2));
             }
             if (!string.IsNullOrEmpty(this.txtPauseNoticeCode.Text.Trim()))
             {
@@ -102,7 +105,7 @@ namespace FineUIPro.Web.Check
             //var table = this.GetPagedDataTable(Grid1, tb1);
 
             Grid1.RecordCount = tb.Rows.Count;
-            //tb = GetFilteredTable(Grid1.FilteredData, tb);
+            tb = GetFilteredTable(Grid1.FilteredData, tb);
             var table = this.GetPagedDataTable(Grid1, tb);
 
             Grid1.DataSource = table;
@@ -208,13 +211,36 @@ namespace FineUIPro.Web.Check
             var pauseNotice = BLL.Check_PauseNoticeService.GetPauseNoticeByPauseNoticeId(PauseNoticeId);
             if (pauseNotice != null)
             {
+                bool flag = false;
                 if (this.btnMenuModify.Hidden || pauseNotice.States == BLL.Const.State_2)   ////双击事件 编辑权限有：编辑页面，无：查看页面 或者状态是完成时查看页面
                 {
                     PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PauseNoticeView.aspx?PauseNoticeId={0}", PauseNoticeId, "查看 - ")));
                 }
                 else
                 {
-                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PauseNoticeEdit.aspx?PauseNoticeId={0}", PauseNoticeId, "编辑 - ")));
+                    if (pauseNotice.PauseStates == BLL.Const.State_0 && pauseNotice.CompileManId == this.CurrUser.UserId)
+                    {
+                        flag = true;
+                    }
+                    else if (pauseNotice.PauseStates == BLL.Const.State_1 && pauseNotice.SignManId == this.CurrUser.UserId)
+                    {
+                        flag = true;
+                    }
+                    else if (pauseNotice.PauseStates == BLL.Const.State_2 && pauseNotice.ApproveManId == this.CurrUser.UserId)
+                    {
+                        flag = true;
+                    }
+                    else if (pauseNotice.PauseStates == BLL.Const.State_3 && pauseNotice.DutyPersonId == this.CurrUser.UserId)
+                    {
+                        flag = true;
+                    }
+                    else {
+                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PauseNoticeView.aspx?PauseNoticeId={0}", PauseNoticeId, "查看 - ")));
+                    }
+                    if (flag) {
+                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PauseNoticeEdit.aspx?PauseNoticeId={0}", PauseNoticeId, "编辑 - ")));
+                    }
+                    
                 }
             }
         }
@@ -226,17 +252,17 @@ namespace FineUIPro.Web.Check
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btnMenuConfirm_Click(object sender, EventArgs e)
-        {
-            if (Grid1.SelectedRowIndexArray.Length == 0)
-            {
-                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
-                return;
-            }
-            string PauseNoticeId = Grid1.SelectedRowID;
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PauseNoticeEdit.aspx?type=confirm&PauseNoticeId={0}", PauseNoticeId, "编辑 - ")));
+        //protected void btnMenuConfirm_Click(object sender, EventArgs e)
+        //{
+        //    if (Grid1.SelectedRowIndexArray.Length == 0)
+        //    {
+        //        Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+        //        return;
+        //    }
+        //    string PauseNoticeId = Grid1.SelectedRowID;
+        //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PauseNoticeEdit.aspx?type=confirm&PauseNoticeId={0}", PauseNoticeId, "编辑 - ")));
 
-        }
+        //}
         #endregion
 
         #region 删除
@@ -252,6 +278,9 @@ namespace FineUIPro.Web.Check
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
+                    Model.Check_PunishNoticeFlowOperate Operate = (from x in Funs.DB.Check_PunishNoticeFlowOperate
+                                                                   where x.PunishNoticeId == rowID
+                                                            select x).FirstOrDefault();
                     var getV = BLL.Check_PauseNoticeService.GetPauseNoticeByPauseNoticeId(rowID);
                     if (getV != null)
                     {
@@ -289,10 +318,10 @@ namespace FineUIPro.Web.Check
                 {
                     this.btnMenuModify.Hidden = false;
                 }
-                if (buttonList.Contains(BLL.Const.BtnConfirm))
-                {
-                    this.btnMenuConfirm.Hidden = false;
-                }
+                //if (buttonList.Contains(BLL.Const.BtnConfirm))
+                //{
+                //    this.btnMenuConfirm.Hidden = false;
+                //}
                 if (buttonList.Contains(BLL.Const.BtnDelete))
                 {
                     this.btnMenuDel.Hidden = false;

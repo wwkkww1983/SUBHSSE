@@ -293,7 +293,14 @@ namespace FineUIPro.Web.AttachFile
                 for (int i = 0, count = source.Count; i < count; i++)
                 {
                     JObject item = source[i] as JObject;
-                    attachUrl += AttachPath + "/" + item.Value<string>("savedName") + ",";
+                    if (!string.IsNullOrEmpty(item.Value<string>("folder")))
+                    {
+                        attachUrl += item.Value<string>("folder") + "/" + item.Value<string>("savedName") + ",";                        
+                    }
+                    else
+                    {
+                        attachUrl += AttachPath + "/" + DateTime.Now.ToString("yyyy-MM") + "/" + item.Value<string>("savedName") + ",";
+                    }                
                 }
                 if (!string.IsNullOrEmpty(attachUrl))
                 {

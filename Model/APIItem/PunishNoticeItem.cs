@@ -35,7 +35,7 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 处罚单位ID
+        /// 受罚单位ID
         /// </summary>
         public string UnitId
         {
@@ -43,9 +43,25 @@ namespace Model
             set;
         }
         /// <summary>
-        /// 处罚单位名称
+        /// 受罚单位名称
         /// </summary>
         public string UnitName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 受罚人ID
+        /// </summary>
+        public string PunishPersonId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 受罚人名称
+        /// </summary>
+        public string PunishPersonName
         {
             get;
             set;
@@ -333,6 +349,14 @@ namespace Model
         ///   审核记录
         /// </summary>
         public List<FlowOperateItem> FlowOperateItem
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        ///  处罚明细表
+        /// </summary>
+        public List<PunishNoticeItemItem> PunishNoticeItemItem
         {
             get;
             set;

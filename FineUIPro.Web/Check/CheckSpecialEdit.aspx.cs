@@ -71,7 +71,7 @@ namespace FineUIPro.Web.Check
                     if (checkSpecial.CheckTime != null)
                     {
                         this.txtCheckDate.Text = string.Format("{0:yyyy-MM-dd}", checkSpecial.CheckTime);
-                    }                    
+                    }
                     this.txtPartInPersonNames.Text = checkSpecial.PartInPersonNames;
                     if (!string.IsNullOrEmpty(checkSpecial.CheckItemSetId))
                     {
@@ -84,7 +84,7 @@ namespace FineUIPro.Web.Check
                     }
                     checkSpecialDetails = (from x in Funs.DB.View_CheckSpecialDetail
                                            where x.CheckSpecialId == this.CheckSpecialId
-                                           orderby x.CheckItem
+                                           orderby x.SortIndex
                                            select x).ToList();
                     if (checkSpecialDetails.Count() > 0)
                     {
@@ -95,7 +95,7 @@ namespace FineUIPro.Web.Check
                 {
                     ////自动生成编码
                     this.txtCheckSpecialCode.Text = CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectCheckSpecialMenuId, this.ProjectId, this.CurrUser.UnitId);
-                    this.txtCheckDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);              
+                    this.txtCheckDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
                     this.drpSupCheckItemSet.SelectedIndex = 0;
                     this.drpSupCheckItemSet.SelectedIndex = 0;
                 }
@@ -116,15 +116,38 @@ namespace FineUIPro.Web.Check
                     { "Delete", String.Format("<a href=\"javascript:;\" onclick=\"{0}\"><img src=\"{1}\"/></a>", deleteScript, IconHelper.GetResolvedIconUrl(Icon.Delete)) }
                 };
                 // 在第一行新增一条数据
-                btnNew.OnClientClick = Grid1.GetAddNewRecordReference(defaultObj, false);
+                btnNew.OnClientClick = Grid1.GetAddNewRecordReference(defaultObj, true);
                 // 删除选中行按钮
                 //btnDelete.OnClientClick = Grid1.GetNoSelectionAlertReference("请至少选择一项！") + deleteScript;
-
+                //CheckBoxField cbf1 = Grid1.FindColumn("IsChecked") as CheckBoxField;
+                //cbf1.HeaderText = "<i class=\"f-icon f-grid-checkbox f-iconfont f-checkbox myheadercheckbox\"></i>&nbsp;全选";
                 Grid1.DataSource = checkSpecialDetails;
                 Grid1.DataBind();
+                ShowChecked(checkSpecialDetails);
+
             }
         }
         #endregion
+
+        private void ShowChecked(List<Model.View_CheckSpecialDetail> checkSpecialDetails)
+        {
+            for (int i = 0; i < this.Grid1.Rows.Count; i++)
+            {
+                string id = this.Grid1.Rows[i].RowID;
+                var detail = checkSpecialDetails.FirstOrDefault(x => x.CheckSpecialDetailId == id);
+                if (detail != null)
+                {
+                    if (detail.CompleteStatus == true || (detail.CompleteStatus == false && !string.IsNullOrEmpty(detail.DataId)))
+                    {
+                        this.Grid1.Rows[i].Values[0] = "True";
+                        foreach (GridColumn column in Grid1.AllColumns)
+                        {
+                            Grid1.Rows[i].CellCssClasses[column.ColumnIndex] = "f-grid-cell-uneditable";
+                        }
+                    }
+                }
+            }
+        }
 
         /// <summary>
         ///  初始化下拉框
@@ -199,9 +222,33 @@ namespace FineUIPro.Web.Check
                 ShowNotify("请选择检查类别！", MessageBoxIcon.Warning);
                 return;
             }
-           
-            this.SaveData(BLL.Const.BtnSubmit);
-            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
+
+            this.SaveData(Const.BtnSubmit);
+            bool isAllCheck = true;
+            JArray teamGroupData = Grid1.GetMergedData();
+            foreach (JObject teamGroupRow in teamGroupData)
+            {
+                JObject values = teamGroupRow.Value<JObject>("values");
+                if (values.Value<string>("CompleteStatusName") != "已整改" && values.Value<string>("IsChecked") != "True")
+                {
+                    isAllCheck = false;
+                    break;
+                }
+            }
+            if (isAllCheck)
+            {
+                PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
+            }
+            else
+            {
+                checkSpecialDetails = (from x in Funs.DB.View_CheckSpecialDetail
+                                       where x.CheckSpecialId == this.CheckSpecialId
+                                       orderby x.SortIndex
+                                       select x).ToList();
+                Grid1.DataSource = checkSpecialDetails;
+                Grid1.DataBind();
+                ShowChecked(checkSpecialDetails);
+            }
         }
         #endregion
 
@@ -213,16 +260,16 @@ namespace FineUIPro.Web.Check
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrEmpty(this.drpSupCheckItemSet.SelectedValue) || this.drpSupCheckItemSet.SelectedValue == Const._Null)
+            if (string.IsNullOrEmpty(this.drpSupCheckItemSet.SelectedValue) || this.drpSupCheckItemSet.SelectedValue == Const._Null)
             {
                 ShowNotify("请选择检查类别！", MessageBoxIcon.Warning);
                 return;
             }
             this.SaveData(Const.BtnSave);
-            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
+            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }
         #endregion
-        
+
         /// <summary>
         /// 保存数据
         /// </summary>
@@ -234,7 +281,7 @@ namespace FineUIPro.Web.Check
                 CheckSpecialCode = this.txtCheckSpecialCode.Text.Trim(),
                 ProjectId = this.ProjectId
             };
-            
+
             ///组成员
             string partInPersonIds = string.Empty;
             string partInPersons = string.Empty;
@@ -253,14 +300,29 @@ namespace FineUIPro.Web.Check
                 checkSpecial.PartInPersons = partInPersons.Substring(0, partInPersons.LastIndexOf(","));
             }
 
-            checkSpecial.PartInPersonNames= this.txtPartInPersonNames.Text.Trim();
+            checkSpecial.PartInPersonNames = this.txtPartInPersonNames.Text.Trim();
             checkSpecial.CheckTime = Funs.GetNewDateTime(this.txtCheckDate.Text.Trim());
             ////单据状态
             checkSpecial.States = Const.State_0;
-            if (type == Const.BtnSubmit)
+            bool complete = true;
+            JArray teamGroupData = Grid1.GetMergedData();
+            foreach (JObject teamGroupRow in teamGroupData)
+            {
+                JObject values = teamGroupRow.Value<JObject>("values");
+                if (values.Value<string>("CompleteStatusName") != "已整改" && values.Value<string>("IsChecked") != "True")
+                {
+                    complete = false;
+                    break;
+                }
+            }
+            if (complete)
             {
                 checkSpecial.States = Const.State_1;
             }
+            //if (type == Const.BtnSubmit)
+            //{
+            //    checkSpecial.States = Const.State_1;
+            //}
             if (!string.IsNullOrEmpty(this.drpSupCheckItemSet.SelectedValue) && this.drpSupCheckItemSet.SelectedValue != Const._Null)
             {
                 checkSpecial.CheckItemSetId = this.drpSupCheckItemSet.SelectedValue;
@@ -269,7 +331,7 @@ namespace FineUIPro.Web.Check
             {
                 checkSpecial.CheckSpecialId = this.CheckSpecialId;
                 Check_CheckSpecialService.UpdateCheckSpecial(checkSpecial);
-                LogService.AddSys_Log(this.CurrUser, checkSpecial.CheckSpecialCode, checkSpecial.CheckSpecialId,BLL.Const.ProjectCheckSpecialMenuId,BLL.Const.BtnModify);
+                LogService.AddSys_Log(this.CurrUser, checkSpecial.CheckSpecialCode, checkSpecial.CheckSpecialId, BLL.Const.ProjectCheckSpecialMenuId, BLL.Const.BtnModify);
                 Check_CheckSpecialDetailService.DeleteCheckSpecialDetails(this.CheckSpecialId);
             }
             else
@@ -293,6 +355,7 @@ namespace FineUIPro.Web.Check
             foreach (JObject teamGroupRow in teamGroupData)
             {
                 JObject values = teamGroupRow.Value<JObject>("values");
+                int rowIndex = teamGroupRow.Value<int>("index");
                 Model.Check_CheckSpecialDetail newDetail = new Model.Check_CheckSpecialDetail
                 {
                     CheckSpecialDetailId = SQLHelper.GetNewID(),
@@ -306,11 +369,21 @@ namespace FineUIPro.Web.Check
                 {
                     newDetail.UnitId = getUnit.UnitId;
                 }
-                var getHandleStep = Funs.DB.Sys_Const.FirstOrDefault(x => x.GroupId == ConstValue.Group_HandleStep && x.ConstText == values.Value<string>("HandleStepStr"));
-                if (getHandleStep != null)
+                string[] strs = values.Value<string>("HandleStepStr").Split(',');
+                string handleStep = string.Empty;
+                foreach (var item in strs)
                 {
-                    newDetail.HandleStep = getHandleStep.ConstValue;
+                    var getHandleStep = Funs.DB.Sys_Const.FirstOrDefault(x => x.GroupId == ConstValue.Group_HandleStep && x.ConstText == item);
+                    if (getHandleStep != null)
+                    {
+                        handleStep += getHandleStep.ConstValue + ",";
+                    }
                 }
+                if (!string.IsNullOrEmpty(handleStep))
+                {
+                    handleStep = handleStep.Substring(0, handleStep.LastIndexOf(","));
+                }
+                newDetail.HandleStep = handleStep;
                 if (values.Value<string>("CompleteStatusName") == "已整改")
                 {
                     newDetail.CompleteStatus = true;
@@ -325,156 +398,21 @@ namespace FineUIPro.Web.Check
                 {
                     newDetail.CheckItem = getCheckItem.CheckItemSetId;
                 }
+                newDetail.SortIndex = rowIndex;
                 Check_CheckSpecialDetailService.AddCheckSpecialDetail(newDetail);
                 if (type == Const.BtnSubmit)
                 {
                     if (newDetail.CompleteStatus == false)
                     {
-                        detailLists.Add(newDetail);
+                        if (values.Value<string>("IsChecked") == "True")
+                        {
+                            detailLists.Add(newDetail);
+                        }
                     }
                 }
             }
 
-            if (detailLists.Count() > 0)
-            {
-                ////隐患整改单
-                var getDetail1 = detailLists.Where(x => x.HandleStep == "1");
-                if (getDetail1.Count() > 0)
-                {
-                    var getUnitList = getDetail1.Select(x => x.UnitId).Distinct();
-                    foreach (var unitItem in getUnitList)
-                    {
-                        Model.RectifyNoticesItem rectifyNotices = new Model.RectifyNoticesItem
-                        {
-                            ProjectId = checkSpecial.ProjectId,
-                            UnitId = unitItem,
-                            CompleteManId = this.CurrUser.UserId,
-                            CheckManNames = checkSpecial.PartInPersons,
-                            CheckManIds = checkSpecial.PartInPersonIds,
-                            CheckedDate = string.Format("{0:yyyy-MM-dd HH:mm:ss}", checkSpecial.CheckTime),
-                            States = Const.State_0,
-                        };
-                        rectifyNotices.RectifyNoticesItemItem = new List<Model.RectifyNoticesItemItem>();
-                        var getUnitDItem = getDetail1.Where(x => x.UnitId == unitItem);
-                        foreach (var item in getUnitDItem)
-                        {
-                            Model.RectifyNoticesItemItem newRItem = new Model.RectifyNoticesItemItem();
-                            if (!string.IsNullOrEmpty(item.WorkArea))
-                            {
-                                newRItem.WrongContent = item.WorkArea + item.Unqualified;
-                            }else
-                            {
-                                newRItem.WrongContent = item.Unqualified;
-                            }
-                            if (string.IsNullOrEmpty(rectifyNotices.CheckSpecialDetailId))
-                            {
-                                rectifyNotices.CheckSpecialDetailId = item.CheckSpecialDetailId;
-                            }
-                            else
-                            {
-                                rectifyNotices.CheckSpecialDetailId += "," + item.CheckSpecialDetailId;
-                            }
-                            var getAtt = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == item.CheckSpecialDetailId);
-                            if (getAtt != null && !string.IsNullOrEmpty(getAtt.AttachUrl))
-                            {
-                                newRItem.PhotoBeforeUrl = getAtt.AttachUrl;
-                            }
-
-                            rectifyNotices.RectifyNoticesItemItem.Add(newRItem);
-                        }
-
-                        APIRectifyNoticesService.SaveRectifyNotices(rectifyNotices);
-                    }
-                }
-                ///处罚单
-                var getDetail2 = detailLists.Where(x => x.HandleStep == "2");
-                if (getDetail2.Count() > 0)
-                {
-                    var getUnitList = getDetail2.Select(x => x.UnitId).Distinct();
-                    foreach (var unitItem in getUnitList)
-                    {
-                        Model.PunishNoticeItem punishNotice = new Model.PunishNoticeItem
-                        {
-                            ProjectId = checkSpecial.ProjectId,
-                            PunishNoticeDate = string.Format("{0:yyyy-MM-dd HH:mm:ss}", checkSpecial.CheckTime),
-                            UnitId = unitItem,
-                            CompileManId = this.CurrUser.UserId,
-                            PunishStates = Const.State_0,
-                        };
-                                           
-                        var getUnitDItem = getDetail2.Where(x => x.UnitId == unitItem);
-                        foreach (var item in getUnitDItem)
-                        {
-                            Model.RectifyNoticesItemItem newRItem = new Model.RectifyNoticesItemItem();                        
-                            punishNotice.IncentiveReason += item.Unqualified;
-                            if (string.IsNullOrEmpty(punishNotice.CheckSpecialDetailId))
-                            {
-                                punishNotice.CheckSpecialDetailId = item.CheckSpecialDetailId;
-                            }
-                            else
-                            {
-                                punishNotice.CheckSpecialDetailId += "," + item.CheckSpecialDetailId;
-                            }
-                            var getAtt = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == item.CheckSpecialDetailId);
-                            if (getAtt != null && !string.IsNullOrEmpty(getAtt.AttachUrl))
-                            {
-                                punishNotice.PunishUrl = getAtt.AttachUrl;
-                            }
-                        }
-
-                        APIPunishNoticeService.SavePunishNotice(punishNotice);
-                    }
-                }
-                ///暂停令
-                var getDetail3 = detailLists.Where(x => x.HandleStep == "3");
-                if (getDetail3.Count() > 0)
-                {
-                    var getUnitList = getDetail3.Select(x => x.UnitId).Distinct();
-                    foreach (var unitItem in getUnitList)
-                    {
-                        Model.PauseNoticeItem pauseNotice = new Model.PauseNoticeItem
-                        {
-                            ProjectId = checkSpecial.ProjectId,
-                            UnitId = unitItem,                          
-                            PauseTime = string.Format("{0:yyyy-MM-dd HH:mm:ss}", checkSpecial.CheckTime),                           
-                            PauseStates = Const.State_0,
-                        };
-
-                        var getUnitDItem = getDetail3.Where(x => x.UnitId == unitItem);
-                        foreach (var item in getUnitDItem)
-                        {
-                            Model.RectifyNoticesItemItem newRItem = new Model.RectifyNoticesItemItem();
-                            pauseNotice.ThirdContent += item.Unqualified;
-                            if (string.IsNullOrEmpty(pauseNotice.ProjectPlace))
-                            {
-                                pauseNotice.ProjectPlace = item.WorkArea;
-                            }
-                            else
-                            {
-                                if (!pauseNotice.ProjectPlace.Contains(item.WorkArea))
-                                {
-                                    pauseNotice.ProjectPlace += "," + item.WorkArea;
-                                }
-                            }
-                            if (string.IsNullOrEmpty(pauseNotice.CheckSpecialDetailId))
-                            {
-                                pauseNotice.CheckSpecialDetailId = item.CheckSpecialDetailId;
-                            }
-                            else
-                            {
-                                pauseNotice.CheckSpecialDetailId += "," + item.CheckSpecialDetailId;
-                            }
-                            var getAtt = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == item.CheckSpecialDetailId);
-                            if (getAtt != null && !string.IsNullOrEmpty(getAtt.AttachUrl))
-                            {
-                                pauseNotice.PauseNoticeAttachUrl = getAtt.AttachUrl;
-                            }
-                        }
-
-                        APIPauseNoticeService.SavePauseNotice(pauseNotice);
-                    }
-                }
-            }
+            Check_CheckSpecialService.IssueRectification(detailLists, checkSpecial);
         }
 
         #region 获取检查类型

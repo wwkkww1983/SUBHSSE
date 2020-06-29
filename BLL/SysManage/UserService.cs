@@ -389,6 +389,27 @@ namespace BLL
             return list;
         }
 
+
+        /// <summary>
+        /// 根据项目号单位类型获取用户下拉选项
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.Sys_User> GetUserListByProjectIdUnitType(string projectId, string unitType)
+        {
+
+            List<Model.Sys_User> list = new List<Model.Sys_User>();
+            if (!string.IsNullOrEmpty(projectId))
+            {
+                list = (from x in Funs.DB.Sys_User
+                        join y in Funs.DB.Project_ProjectUnit on x.UnitId equals y.UnitId
+                        where y.ProjectId == projectId && y.UnitType == unitType
+                        orderby x.UserName
+                        select x).ToList();
+            }
+
+            return list;
+        }
+
         #region 用户下拉框
         /// <summary>
         /// 用户下拉框
@@ -456,6 +477,24 @@ namespace BLL
             dropName.DataValueField = "UserId";
             dropName.DataTextField = "UserName";
             dropName.DataSource = BLL.UserService.GetUserListByProjectIdAndRoleId(projectId, roleIds);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+        /// <summary>
+        /// 用户下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="projectId">项目id</param>
+        /// <param name="roleIds">角色id</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitUserProjectUnitTypeDropDownList(FineUIPro.DropDownList dropName, string projectId, string unitType, bool isShowPlease)
+        {
+            dropName.DataValueField = "UserId";
+            dropName.DataTextField = "UserName";
+            dropName.DataSource = BLL.UserService.GetUserListByProjectIdUnitType(projectId, unitType);
             dropName.DataBind();
             if (isShowPlease)
             {

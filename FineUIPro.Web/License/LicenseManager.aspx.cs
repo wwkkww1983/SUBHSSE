@@ -309,12 +309,14 @@ namespace FineUIPro.Web.License
             Response.End();
         }
 
+#pragma warning disable CS0108 // “LicenseManager.GetGridTableHtml(Grid)”隐藏继承的成员“PageBase.GetGridTableHtml(Grid)”。如果是有意隐藏，请使用关键字 new。
         /// <summary>
         /// 导出方法
         /// </summary>
         /// <param name="grid"></param>
         /// <returns></returns>
         private string GetGridTableHtml(Grid grid)
+#pragma warning restore CS0108 // “LicenseManager.GetGridTableHtml(Grid)”隐藏继承的成员“PageBase.GetGridTableHtml(Grid)”。如果是有意隐藏，请使用关键字 new。
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");

@@ -109,9 +109,9 @@ namespace BLL
                     PartInPersons = UserService.getUserNamesUserIds(newItem.PartInPersonIds),
                     PartInPersonNames = newItem.PartInPersonNames2,
                     CompileMan = newItem.CompileManId,
-                    States = Const.State_2,
+                    States = newItem.States,
                 };
-                if (newItem.States != "1")
+                if (newItem.States != Const.State_1)
                 {
                     newCheckSpecial.States = Const.State_0;
                 }
@@ -149,16 +149,20 @@ namespace BLL
                 ///// 新增检查项
                 if (newItem.CheckSpecialDetailItems != null && newItem.CheckSpecialDetailItems.Count() > 0)
                 {
+                      
                     foreach (var item in newItem.CheckSpecialDetailItems)
                     {
                         item.CheckSpecialId = newCheckSpecial.CheckSpecialId;
-                        SaveCheckSpecialDetail(item);
+                        SaveCheckSpecialDetail(item);                      
                     }
                     //// 单据完成后 系统自动按照单位 整改要求生成隐患整改单
-                    if (newCheckSpecial.States == Const.State_2)
+                    if (newCheckSpecial.States == Const.State_1)
                     {
-                        SaveNewRectifyNotices(newItem);
-                        message = "已生成整改单，请在隐患整改单待提交中签发！";
+                        var detailLists = db.Check_CheckSpecialDetail.Where(x => x.CheckSpecialId == newCheckSpecial.CheckSpecialId && x.CompleteStatus == false);
+                        if (detailLists.Count() > 0)
+                        {
+                            message= Check_CheckSpecialService.IssueRectification(detailLists.ToList(), newCheckSpecial);
+                        }
                     }
                 }
                 return message;
@@ -183,6 +187,7 @@ namespace BLL
                               CheckItemSetId = x.CheckItem,
                               CheckItemSetName = Funs.DB.Technique_CheckItemSet.First(y=>y.CheckItemSetId==x.CheckItem).CheckItemName,
                               CheckContent =x.CheckContent,
+                              SortIndex=x.SortIndex,
                               Unqualified = x.Unqualified,
                               Suggestions = x.Suggestions,
                               WorkArea=x.WorkArea,
@@ -244,20 +249,21 @@ namespace BLL
             if (!string.IsNullOrEmpty(newDetail.CheckSpecialId))
             {
                 Model.Check_CheckSpecialDetail newCheckSpecialDetail = new Model.Check_CheckSpecialDetail
-                {                   
+                {
                     CheckSpecialId = newDetail.CheckSpecialId,
                     CheckItem = newDetail.CheckItemSetId,
+                    SortIndex = newDetail.SortIndex,
                     CheckItemType = newDetail.CheckItemSetName,
                     Unqualified = newDetail.Unqualified,
                     UnitId = newDetail.UnitId,
                     HandleStep = newDetail.HandleStep,
-                    CompleteStatus = newDetail.CompleteStatus,
+                    CompleteStatus = newDetail.CompleteStatus ?? false,
                     RectifyNoticeId = newDetail.RectifyNoticeId,
                     LimitedDate = Funs.GetNewDateTime(newDetail.LimitedDate),
                     CompletedDate = Funs.GetNewDateTime(newDetail.CompletedDate),
                     Suggestions = newDetail.Suggestions,
                     WorkArea = newDetail.WorkArea,
-                    CheckArea=newDetail.WorkAreaId,
+                    CheckArea = newDetail.WorkAreaId,
                     CheckContent = newDetail.CheckContent,
                 };
                 var getUnit = UnitService.GetUnitByUnitId(newDetail.UnitId);
@@ -278,6 +284,7 @@ namespace BLL
                     newCheckSpecialDetail.CheckSpecialDetailId = updateDetail.CheckSpecialDetailId;
                     updateDetail.CheckItem = newCheckSpecialDetail.CheckItem;
                     updateDetail.CheckItemType = newCheckSpecialDetail.CheckItemType;
+                    updateDetail.SortIndex = newCheckSpecialDetail.SortIndex;
                     updateDetail.Unqualified = newCheckSpecialDetail.Unqualified;
                     updateDetail.UnitId = newCheckSpecialDetail.UnitId;
                     updateDetail.HandleStep = newCheckSpecialDetail.HandleStep;
@@ -301,76 +308,6 @@ namespace BLL
                 }
             }
         }
-        #endregion
-
-        #region  生成隐患整改单
-        /// <summary>
-        ///  生成隐患整改单
-        /// </summary>
-        /// <param name="newItem"></param>
-        public static void SaveNewRectifyNotices(Model.CheckSpecialItem newItem)
-        {
-            var newDetail = newItem.CheckSpecialDetailItems.Where(x => x.HandleStep == "3" && (!x.CompleteStatus.HasValue || x.CompleteStatus == false));
-            if (newDetail.Count() > 0)
-            {
-                var getUnitIdList = newDetail.Select(x => x.UnitId).Distinct();
-                foreach (var uItem in getUnitIdList)
-                {
-                    Model.RectifyNoticesItem newRectifyNotices = new Model.RectifyNoticesItem
-                    {
-                        ProjectId = newItem.ProjectId,
-                        UnitId = uItem,
-                        CheckManNames = newItem.PartInPersonNames,
-                        CheckManIds =newItem.CheckPersonId,
-                        CheckedDate = newItem.CheckTime,
-                        HiddenHazardType = "1",
-                        CompleteManId = newItem.CompileManId,
-                        States = Const.State_0,
-                        AttachUrl = newItem.AttachUrl1,
-                    };
-                    if (!string.IsNullOrEmpty(newItem.PartInPersonIds))
-                    {
-                        newRectifyNotices.CheckManIds += (',' + newItem.PartInPersonIds);
-                    }
-                    var getDetails = newDetail.Where(x => x.UnitId == uItem);
-                    if (getDetails.Count() > 0)
-                    {
-                        string workAreaIds = null;
-                        newRectifyNotices.RectifyNoticesItemItem = new List<Model.RectifyNoticesItemItem>();
-                        foreach (var dItem in getDetails)
-                        {
-                            Model.RectifyNoticesItemItem newRectifyNoticesItem = new Model.RectifyNoticesItemItem
-                            {
-                                WrongContent = dItem.CheckItemSetName + dItem.CheckContent + dItem.Unqualified,
-                                Requirement = dItem.Suggestions,
-                                LimitTime = dItem.LimitedDate,
-                                PhotoBeforeUrl=dItem.AttachUrl1,                                
-                            };
-                            if (string.IsNullOrEmpty(workAreaIds))
-                            {
-                                workAreaIds = dItem.WorkAreaId;
-                            }
-                            else
-                            {
-                                workAreaIds += "," + dItem.WorkAreaId;
-                            }
-                            if (string.IsNullOrEmpty(dItem.CheckSpecialDetailId))
-                            {
-                                newRectifyNotices.CheckSpecialDetailId = dItem.CheckSpecialDetailId;
-                            }
-                            else
-                            {
-                                newRectifyNotices.CheckSpecialDetailId += "," + dItem.CheckSpecialDetailId;
-                            }
-                            newRectifyNotices.RectifyNoticesItemItem.Add(newRectifyNoticesItem);                           
-                        }
-                      
-                        newRectifyNotices.WorkAreaId = workAreaIds;
-                        APIRectifyNoticesService.SaveRectifyNotices(newRectifyNotices);
-                    }
-                }
-            }
-        }
-        #endregion
+        #endregion        
     }
 }

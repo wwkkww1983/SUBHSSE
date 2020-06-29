@@ -125,6 +125,11 @@ namespace FineUIPro.Web.InformationProject
         protected void TextBox_TextChanged(object sender, EventArgs e)
         {
             this.BindGrid();
+            this.btnIssue.Hidden = true;
+            if (this.rbFileType.SelectedValue == "1" && !this.btnNew.Hidden)
+            {
+                this.btnIssue.Hidden = false;
+            }
         }
         #endregion
 
@@ -220,6 +225,10 @@ namespace FineUIPro.Web.InformationProject
                 if (buttonList.Contains(BLL.Const.BtnAdd))
                 {
                     this.btnNew.Hidden = false;
+                    if (this.rbFileType.SelectedValue == "1")
+                    {
+                        this.btnIssue.Hidden = false;
+                    }
                 }
                 if (buttonList.Contains(BLL.Const.BtnModify))
                 {
@@ -296,5 +305,24 @@ namespace FineUIPro.Web.InformationProject
         }
         #endregion
 
+        protected void btnIssue_Click(object sender, EventArgs e)
+        {
+            var InformationProject = BLL.ReceiveFileManagerService.GetReceiveFileManagerById(Grid1.SelectedRowID);
+            if (InformationProject != null && InformationProject.FileType == "1")
+            {
+                var getF = Funs.DB.InformationProject_ReceiveFileManager.FirstOrDefault(x => x.FromId == InformationProject.ReceiveFileManagerId);
+                if (getF == null)
+                {
+                    ReceiveFileManagerService.IssueReceiveFile(InformationProject.ReceiveFileManagerId);
+                }
+                else
+                {
+                    ShowNotify("已下发！", MessageBoxIcon.Warning);
+                }
+            }
+            else {
+                ShowNotify("非公司文件不能下发！", MessageBoxIcon.Warning);
+            }
+        }
     }
 }

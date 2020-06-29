@@ -56,11 +56,12 @@ namespace BLL
         /// <param name="unitId"></param>
         /// <param name="strParam"></param>
         /// <returns></returns>
-        public static List<Model.FileInfoItem> getEmergencyList(string projectId, string unitId, string strParam)
+        public static List<Model.FileInfoItem> getEmergencyList(string projectId, string unitId, string states, string strParam)
         {
             var getDataList = from x in Funs.DB.Emergency_EmergencyList
                                        where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
                                       && (strParam == null || x.EmergencyName.Contains(strParam) || x.EmergencyCode.Contains(strParam))
+                                      &&((states ==x.States) || (x.States =="2" && states=="1"))
                                       orderby x.EmergencyCode descending 
                                       select new Model.FileInfoItem
                                       {
@@ -124,30 +125,32 @@ namespace BLL
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="unitId"></param>
+        /// <param name="states"></param>
         /// <param name="strParam"></param>
         /// <returns></returns>
-        public static List<Model.FileInfoItem> getEmergencySupplyList(string projectId, string unitId, string strParam)
+        public static List<Model.FileInfoItem> getEmergencySupplyList(string projectId, string unitId, string states, string strParam)
         {
             var getDataList = from x in Funs.DB.Emergency_EmergencySupply
-                                       where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
-                                      && (strParam == null || x.FileName.Contains(strParam) || x.FileCode.Contains(strParam))
-                                       orderby x.FileCode descending
-                                       select new Model.FileInfoItem
-                                       {
-                                           FileId = x.FileId,
-                                           ProjectId = x.ProjectId,
-                                           FileCode = x.FileCode,
-                                           FileName = x.FileName,
-                                           UnitId = x.UnitId,
-                                           UnitName = Funs.DB.Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
-                                           FileContent = x.FileContent,
-                                           CompileManId = x.CompileMan,
-                                           CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
-                                           CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                                           States = x.States,
-                                           MenuType = "2",
-                                           AttachUrl = APIUpLoadFileService.getFileUrl(x.FileId, x.AttachUrl),
-                                       };
+                              where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
+                             && (strParam == null || x.FileName.Contains(strParam) || x.FileCode.Contains(strParam))
+                              && ((states == x.States) || (x.States == "2" && states == "1"))
+                              orderby x.FileCode descending
+                              select new Model.FileInfoItem
+                              {
+                                  FileId = x.FileId,
+                                  ProjectId = x.ProjectId,
+                                  FileCode = x.FileCode,
+                                  FileName = x.FileName,
+                                  UnitId = x.UnitId,
+                                  UnitName = Funs.DB.Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
+                                  FileContent = x.FileContent,
+                                  CompileManId = x.CompileMan,
+                                  CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
+                                  CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                  States = x.States,
+                                  MenuType = "2",
+                                  AttachUrl = APIUpLoadFileService.getFileUrl(x.FileId, x.AttachUrl),
+                              };
             return getDataList.ToList();
         }
         #endregion        
@@ -209,30 +212,32 @@ namespace BLL
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="unitId"></param>
+        /// <param name="states"></param>
         /// <param name="strParam"></param>
         /// <returns></returns>
-        public static List<Model.FileInfoItem> getEmergencyTeamAndTrainList(string projectId, string unitId, string strParam)
+        public static List<Model.FileInfoItem> getEmergencyTeamAndTrainList(string projectId, string unitId,string states, string strParam)
         {
             var getDataList = from x in Funs.DB.Emergency_EmergencyTeamAndTrain
-                                       where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
-                                      && (strParam == null || x.FileName.Contains(strParam) || x.FileCode.Contains(strParam))
-                                       orderby x.FileCode descending
-                                       select new Model.FileInfoItem
-                                       {
-                                           FileId = x.FileId,
-                                           ProjectId = x.ProjectId,
-                                           FileCode = x.FileCode,
-                                           FileName = x.FileName,
-                                           UnitId = x.UnitId,
-                                           UnitName = Funs.DB.Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
-                                           FileContent = x.FileContent,
-                                           CompileManId = x.CompileMan,
-                                           CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
-                                           CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                                           States = x.States,
-                                           MenuType = "3",
-                                           AttachUrl = APIUpLoadFileService.getFileUrl(x.FileId, x.AttachUrl),
-                                       };
+                              where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
+                             && (strParam == null || x.FileName.Contains(strParam) || x.FileCode.Contains(strParam))
+                             && ((states == x.States) || (x.States == "2" && states == "1"))
+                              orderby x.FileCode descending
+                              select new Model.FileInfoItem
+                              {
+                                  FileId = x.FileId,
+                                  ProjectId = x.ProjectId,
+                                  FileCode = x.FileCode,
+                                  FileName = x.FileName,
+                                  UnitId = x.UnitId,
+                                  UnitName = Funs.DB.Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
+                                  FileContent = x.FileContent,
+                                  CompileManId = x.CompileMan,
+                                  CompileManName = Funs.DB.Sys_User.First(u => u.UserId == x.CompileMan).UserName,
+                                  CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                  States = x.States,
+                                  MenuType = "3",
+                                  AttachUrl = APIUpLoadFileService.getFileUrl(x.FileId, x.AttachUrl),
+                              };
             return getDataList.ToList();
         }
         #endregion        
@@ -288,6 +293,7 @@ namespace BLL
                     }
                     else
                     {
+                        updateEmergency.States = newEmergency.States;
                         updateEmergency.EmergencyName = newEmergency.EmergencyName;
                         updateEmergency.UnitId = newEmergency.UnitId;
                         updateEmergency.EmergencyTypeId = newEmergency.EmergencyTypeId;
@@ -329,9 +335,11 @@ namespace BLL
                         emergencyInfo.FileId = newEmergency.FileId = SQLHelper.GetNewID();
                         newEmergency.FileCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectEmergencySupplyMenuId, newEmergency.ProjectId, null);
                         db.Emergency_EmergencySupply.InsertOnSubmit(newEmergency);
+                        db.SubmitChanges();
                     }
                     else
                     {
+                        updateEmergency.States = newEmergency.States;
                         updateEmergency.UnitId = newEmergency.UnitId;
                         updateEmergency.FileCode = newEmergency.FileCode;
                         updateEmergency.FileName = newEmergency.FileName;
@@ -371,9 +379,12 @@ namespace BLL
                         emergencyInfo.FileId = newEmergency.FileId = SQLHelper.GetNewID();
                         newEmergency.FileCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectEmergencyTeamAndTrainMenuId, newEmergency.ProjectId, null);
                         db.Emergency_EmergencyTeamAndTrain.InsertOnSubmit(newEmergency);
+                        db.SubmitChanges();
                     }
                     else
                     {
+                        emergencyInfo.FileId = updateEmergency.FileId;
+                        updateEmergency.States = newEmergency.States;
                         updateEmergency.UnitId = newEmergency.UnitId;
                         updateEmergency.FileCode = newEmergency.FileCode;
                         updateEmergency.FileName = newEmergency.FileName;
@@ -391,16 +402,16 @@ namespace BLL
                         var getItems = from x in emergencyInfo.EmergencyTeamItem
                                        select new Model.Emergency_EmergencyTeamItem
                                        {
-                                           EmergencyTeamItemId = x.EmergencyTeamItemId,
-                                           FileId = x.FileId,
+                                           EmergencyTeamItemId =SQLHelper.GetNewID(),
+                                           FileId = emergencyInfo.FileId,
                                            PersonId = x.PersonId,
                                            Job = x.Job,
                                            Tel = x.Tel,
                                        };
                         if (getItems.Count() > 0)
                         {
-                            Funs.DB.Emergency_EmergencyTeamItem.InsertAllOnSubmit(getItems);
-                            Funs.DB.SubmitChanges();
+                            db.Emergency_EmergencyTeamItem.InsertAllOnSubmit(getItems);
+                            db.SubmitChanges();
                         }
                     }
 
@@ -421,6 +432,44 @@ namespace BLL
             }
         }
         #endregion
+
+        #region 获取应急流程列表信息
+        /// <summary>
+        /// 获取应急队伍列表信息
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="processSteps"></param>
+        /// <returns></returns>
+        public static Model.EmergencyProcessItem getEmergencyProcessItem(string projectId, string processSteps)
+        {
+            var getDataList = (from x in Funs.DB.Emergency_EmergencyProcess
+                               where x.ProjectId == projectId && x.ProcessSteps == processSteps
+                               select new Model.EmergencyProcessItem
+                               {
+                                   EmergencyProcessId = x.EmergencyProcessId,
+                                   ProjectId = x.ProjectId,
+                                   ProcessSteps = x.ProcessSteps,
+                                   ProcessName = x.ProcessName,
+                                   StepOperator = x.StepOperator,
+                                   Remark = x.Remark,
+                               }).FirstOrDefault();
+            if (getDataList == null)
+            {
+                getDataList = (from x in Funs.DB.Emergency_EmergencyProcess
+                               where x.ProjectId == null && x.ProcessSteps == processSteps
+                               select new Model.EmergencyProcessItem
+                               {
+                                   EmergencyProcessId = x.EmergencyProcessId,
+                                   ProjectId = x.ProjectId,
+                                   ProcessSteps = x.ProcessSteps,
+                                   ProcessName = x.ProcessName,
+                                   StepOperator = x.StepOperator,
+                                   Remark = x.Remark,
+                               }).FirstOrDefault();
+            }
+            return getDataList;
+        }
+        #endregion        
 
         #region 获取应急流程列表信息
         /// <summary>

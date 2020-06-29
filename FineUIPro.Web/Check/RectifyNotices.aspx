@@ -42,7 +42,7 @@
                                 <f:TextBox runat="server" Label="编号" ID="txtRectifyNoticesCode" EmptyText="输入查询条件" Width="200px"
                                     AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelWidth="50px" LabelAlign="right">
                                 </f:TextBox>
-                               
+
                             </Items>
                         </f:Toolbar>
                         <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Left">
@@ -59,7 +59,7 @@
                                 </f:RadioButtonList>
                                 <f:ToolbarSeparator ID="ToolbarFill2" runat="server">
                                 </f:ToolbarSeparator>
-                                 <f:RadioButtonList runat="server" ID="rbrbHiddenHazardType" Width="280px" Label="隐患类别" LabelWidth="80px"
+                                <f:RadioButtonList runat="server" ID="rbrbHiddenHazardType" Width="280px" Label="隐患类别" LabelWidth="80px"
                                     AutoPostBack="true" OnSelectedIndexChanged="rbStates_SelectedIndexChanged">
                                     <f:RadioItem Text="全部" Value="-1" Selected="true" />
                                     <f:RadioItem Text="一般" Value="1" />
@@ -70,7 +70,7 @@
                                 </f:ToolbarFill>
                                 <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" runat="server"
                                     Hidden="true">
-                                </f:Button>                           
+                                </f:Button>
                                 <f:Button ID="btnPrint" ToolTip="打印" Icon="Printer" Hidden="true" runat="server"
                                     OnClick="btnPrint_Click">
                                 </f:Button>
@@ -81,7 +81,7 @@
                         </f:Toolbar>
                     </Toolbars>
                     <Columns>
-                        <f:RenderField Width="120px" ColumnID="RectifyNoticesCode" DataField="RectifyNoticesCode"
+                        <f:RenderField Width="100px" ColumnID="RectifyNoticesCode" DataField="RectifyNoticesCode"
                             SortField="RectifyNoticesCode" FieldType="String" HeaderText="整改单号" TextAlign="Left"
                             HeaderTextAlign="Center">
                         </f:RenderField>
@@ -92,10 +92,12 @@
                         <f:RenderField Width="240px" ColumnID="UnitName" DataField="UnitName" ExpandUnusedSpace="true"
                             SortField="UnitName" FieldType="String" HeaderText="受检单位名称" TextAlign="Left" HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField Width="150px" ColumnID="CheckManNames" DataField="CheckManNames"
-                            SortField="CheckManNames" FieldType="String" HeaderText="检查人"
-                            TextAlign="Left" HeaderTextAlign="Center">
-                        </f:RenderField>
+                        <f:TemplateField ColumnID="CheckManNames" Width="200px" HeaderText="检查人" HeaderTextAlign="Center" TextAlign="Left"
+                            EnableLock="true" Locked="False">
+                            <ItemTemplate>
+                                <asp:Label ID="Label2" runat="server" Text='<%# ConvertCheckPerson(Eval("CheckManIds")) %>'></asp:Label>
+                            </ItemTemplate>
+                        </f:TemplateField>
                         <f:RenderField Width="100px" ColumnID="CheckedDate" DataField="CheckedDate" SortField="CheckedDate"
                             FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="检查日期"
                             HeaderTextAlign="Center" TextAlign="Center">
@@ -108,7 +110,7 @@
                             FieldType="Date" Renderer="Date" HeaderText="接收日期"
                             HeaderTextAlign="Center" TextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField Width="90px" ColumnID="StatesName" DataField="StatesName"
+                        <f:RenderField Width="130px" ColumnID="StatesName" DataField="StatesName"
                             SortField="StatesName" FieldType="String" HeaderText="状态"
                             TextAlign="Left" HeaderTextAlign="Center">
                         </f:RenderField>

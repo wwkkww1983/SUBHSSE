@@ -49,15 +49,6 @@ namespace FineUIPro.Web.Check {
         protected global::FineUIPro.TextBox txtPunishNoticeCode;
         
         /// <summary>
-        /// txtPunishNoticeDate 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtPunishNoticeDate;
-        
-        /// <summary>
         /// txtUnitName 控件。
         /// </summary>
         /// <remarks>
@@ -67,31 +58,22 @@ namespace FineUIPro.Web.Check {
         protected global::FineUIPro.TextBox txtUnitName;
         
         /// <summary>
-        /// txtSignMan 控件。
+        /// txtPunishPersonId 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtSignMan;
+        protected global::FineUIPro.TextBox txtPunishPersonId;
         
         /// <summary>
-        /// txtApproveMan 控件。
+        /// txtPunishNoticeDate 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtApproveMan;
-        
-        /// <summary>
-        /// txtContractNum 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtContractNum;
+        protected global::FineUIPro.TextBox txtPunishNoticeDate;
         
         /// <summary>
         /// txtIncentiveReason 控件。
@@ -110,15 +92,6 @@ namespace FineUIPro.Web.Check {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox txtBasicItem;
-        
-        /// <summary>
-        /// txtPunishName 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtPunishName;
         
         /// <summary>
         /// txtPunishMoney 控件。
@@ -148,6 +121,42 @@ namespace FineUIPro.Web.Check {
         protected global::FineUIPro.TextBox txtBig;
         
         /// <summary>
+        /// Grid1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Grid Grid1;
+        
+        /// <summary>
+        /// lblNumber 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNumber;
+        
+        /// <summary>
+        /// txtSignMan 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtSignMan;
+        
+        /// <summary>
+        /// txtApproveMan 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtApproveMan;
+        
+        /// <summary>
         /// txtFileContents 控件。
         /// </summary>
         /// <remarks>
@@ -157,22 +166,13 @@ namespace FineUIPro.Web.Check {
         protected global::FineUIPro.HtmlEditor txtFileContents;
         
         /// <summary>
-        /// ContentPanel1 控件。
+        /// gvFlowOperate 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.ContentPanel ContentPanel1;
-        
-        /// <summary>
-        /// ctlAuditFlow 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Web.Controls.FlowOperateControl ctlAuditFlow;
+        protected global::FineUIPro.Grid gvFlowOperate;
         
         /// <summary>
         /// Toolbar1 控件。

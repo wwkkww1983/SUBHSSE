@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using BLL;
+using HtmlAgilityPackInternal;
+using Model;
 using Newtonsoft.Json.Linq;
 
 namespace FineUIPro.Web.Manager
@@ -40,9 +44,6 @@ namespace FineUIPro.Web.Manager
         }
         #endregion
 
-        private static DateTime startTime;
-
-        private static DateTime endTime;
 
         /// <summary>
         /// 页面加载时
@@ -54,1076 +55,1190 @@ namespace FineUIPro.Web.Manager
             if (!IsPostBack)
             {
                 btnClose.OnClientClick = ActiveWindow.GetHideReference();
-                this.MonthReportId = Request.Params["monthReportId"];
+
                 this.ProjectId = this.CurrUser.LoginProjectId;
-                if (!string.IsNullOrEmpty(this.MonthReportId))
+                if (!string.IsNullOrEmpty(Request.Params["projectId"]) && Request.Params["projectId"] != this.ProjectId)
                 {
-                    Model.Manager_MonthReport monthReport = BLL.MonthReportService.GetMonthReportByMonthReportId(this.MonthReportId);
-                    if (monthReport != null)
+                    this.ProjectId = Request.Params["projectId"];
+                }
+
+                this.MonthReportId = Request.Params["MonthReportId"];
+                string month = Request.Params["Month"];
+                if (!string.IsNullOrWhiteSpace(Request.Params["MonthReportId"]))
+                {
+
+                    var report = APISeDinMonthReportService.report(MonthReportId);
+                    if (report != null)
                     {
-                        this.txtMonthReportCode.Text = BLL.CodeRecordsService.ReturnCodeByDataId(this.MonthReportId);
-                        this.ProjectId = monthReport.ProjectId;
-                        //if (monthReport.Months.HasValue)
-                        //{
-                        //    this.txtYear.Text = monthReport.Months.Value.Year.ToString();
-                        //    this.txtMonth.Text = monthReport.Months.Value.Month.ToString();
-                        //}
-                        if (monthReport.ReportMonths.HasValue)
+                        for (int i = 0; i < 14; i++)
                         {
-                            this.txtReportMonths.Text = string.Format("{0:yyyy-MM}", monthReport.ReportMonths);
+                            getInfo(report.ProjectId, Convert.ToString(report.ReporMonth), report.StartDate.ToString(), report.EndDate.ToString(), i.ToString());
                         }
-                        if (monthReport.MonthReportDate.HasValue)
-                        {
-                            this.txtMonthReportDate.Text = string.Format("{0:yyyy-MM-dd}", monthReport.MonthReportDate);
-                        }
-
-                        if (monthReport.MonthReportStartDate.HasValue)
-                        {
-                            this.txtMonthReportStartDate.Text = string.Format("{0:yyyy-MM-dd}", monthReport.MonthReportStartDate);
-                        }
-                        this.txtReportMan.Text = BLL.UserService.GetUserNameByUserId(monthReport.ReportMan);
-
-                        this.txtAllProjectData.Text = monthReport.AllProjectData;
-                        this.txtAllManhoursData.Text = monthReport.AllManhoursData;
-
-                        this.txtThisMonthKeyPoints.Text = monthReport.ThisMonthKeyPoints;
-                        if (monthReport.ThisMonthSafetyCost != null)
-                        {
-                            this.txtThisMonthSafetyCost.Text = monthReport.ThisMonthSafetyCost.ToString();
-                        }
-                        if (monthReport.TotalSafetyCost != null)
-                        {
-                            this.txtTotalSafetyCost.Text = monthReport.TotalSafetyCost.ToString();
-                        }
-                        this.txtThisMonthSafetyActivity.Text = monthReport.ThisMonthSafetyActivity;
-                        this.txtNextMonthWorkFocus.Text = monthReport.NextMonthWorkFocus;
-                        this.txtEquipmentQualityData.Text = monthReport.EquipmentQualityData;
-
-                        ///当前时间
-                        endTime = (Funs.GetNewDateTime(this.txtMonthReportDate.Text).HasValue ? Funs.GetNewDateTime(this.txtMonthReportDate.Text).Value : System.DateTime.Now);
-                        ///当月第一天
-                        startTime = (Funs.GetNewDateTime(this.txtMonthReportStartDate.Text).HasValue ? Funs.GetNewDateTime(this.txtMonthReportStartDate.Text).Value : new DateTime(endTime.Year, endTime.Month, 1));
-
-                        this.GetInitData();
-                        OutputSummaryData();
                     }
+
                 }
                 else
                 {
-                    ///当前时间
-                    endTime = System.DateTime.Now.AddDays(1 - System.DateTime.Now.Day).AddDays(-1); 
-                    ///当月第一天
-                    startTime = System.DateTime.Now.AddMonths(-1).AddDays(1 - System.DateTime.Now.AddMonths(-1).Day);
 
-                    this.txtMonthReportCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectManagerMonthMenuId, this.ProjectId, this.CurrUser.UnitId);
-                    this.txtMonthReportStartDate.Text = string.Format("{0:yyyy-MM-dd}", startTime);
-                    this.txtMonthReportDate.Text = string.Format("{0:yyyy-MM-dd}", endTime);
-                    this.txtReportMonths.Text = string.Format("{0:yyyy-MM}", startTime);
-                    //this.txtYear.Text = System.DateTime.Now.Year.ToString();
-                    //this.txtMonth.Text = System.DateTime.Now.Month.ToString();
-                    this.txtReportMan.Text = this.CurrUser.UserName;
-                    ///  得到项目总体数据统计
-                    this.GetAllProjectData();
-                    ///  得到项目安全人工时
-                    this.GetAllManhoursData();
-                    ///  得到本月机具设备投入情况
-                    this.GetEquipmentQualityData();
-                    ////安全费用
-                    this.GetMonthSafetyCostData();
-                    ///  得到教育与培训情况统计
-                    this.GetTrainSort();
-                    ///  得到会议情况统计
-                    this.GetMeetingSort();
-                    ///  得到HSE检查情况统计
-                    this.GetCheckSort();
-                    ///  得到事故分类统计
-                    this.GetAccidentSort();
-                }
-            }
-            else
-            {
-                if (GetRequestEventArgument() == "UPDATE_SUMMARY")
-                {
-                    // 页面要求重新计算合计行的值
-                    OutputSummaryData();
-                }
-            }
-        }
-
-        #region 合计事故数
-        /// <summary>
-        /// 合计事故数
-        /// </summary>
-        private void OutputSummaryData()
-        {
-           // Grid2.CommitChanges();
-            int monthNum = 0;
-            int totalNum = 0;
-            foreach (JObject mergedRow in Grid2.GetMergedData())
-            {
-                JObject values = mergedRow.Value<JObject>("values");
-                if (values["AccidentNumber01"] != null)
-                {
-                    monthNum += values.Value<int>("AccidentNumber01");
-                }
-                if (values["AccidentNumber02"] != null)
-                {
-                    totalNum += values.Value<int>("AccidentNumber02");
-                }
-            }
-            if (this.Grid2.Rows.Count > 1)
-            {
-                JObject summary = new JObject();
-                summary.Add("TrainTypeId", "合计：");
-                summary.Add("AccidentNumber01", monthNum);
-                summary.Add("AccidentNumber02", totalNum);
-
-                Grid2.SummaryData = summary;
-            }
-            else
-            {
-                Grid2.SummaryData = null;
-            }
-        }
-        #endregion
-
-        /// <summary>
-        /// 验证月份
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void txtReportMonths_TextChanged(object sender, EventArgs e)
-        {
-            DateTime? reportMonths = Funs.GetNewDateTime(this.txtReportMonths.Text + "-01");
-            if (!reportMonths.HasValue)
-            {
-                ShowNotify("月报月份不能为空！", MessageBoxIcon.Warning);
-                return;
-            }
-            if (BLL.MonthReportService.GetMonthReportsByReportMonthsIDProejctID(Funs.GetNewDateTimeOrNow(this.txtReportMonths.Text + "-01"), this.MonthReportId, this.ProjectId) != null)
-            {
-                ShowNotify("当前月份已存在月报！", MessageBoxIcon.Warning);
-                return;
-            }
-
-            startTime = reportMonths.Value;
-            endTime = reportMonths.Value.AddDays(1 - reportMonths.Value.Day).AddMonths(1).AddDays(-1);
-            this.txtMonthReportStartDate.Text = string.Format("{0:yyyy-MM-dd}", startTime);
-            this.txtMonthReportDate.Text = string.Format("{0:yyyy-MM-dd}", endTime);
-            this.TextBox_TextChanged(null, null);
-        }
-
-        #region 页面时间刷新事件
-        /// <summary>
-        /// 页面时间刷新事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void TextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(this.txtMonthReportDate.Text) && !string.IsNullOrEmpty(this.txtMonthReportStartDate.Text))
-            {
-                ///当前时间
-                endTime = Funs.GetNewDateTime(this.txtMonthReportDate.Text).Value;
-                ///当月
-                startTime = Funs.GetNewDateTime(this.txtMonthReportStartDate.Text).Value;
-
-                //this.txtYear.Text = Funs.GetNewDateTime(this.txtMonthReportDate.Text).Value.Year.ToString();
-                //this.txtMonth.Text = Funs.GetNewDateTime(this.txtMonthReportDate.Text).Value.Month.ToString();
-                this.txtReportMan.Text = this.CurrUser.UserName;
-                ///  得到项目总体数据统计
-                this.GetAllProjectData();
-                ///  得到项目安全人工时
-                this.GetAllManhoursData();
-                ///  得到本月机具设备投入情况
-                this.GetEquipmentQualityData();
-                ////安全费用
-                this.GetMonthSafetyCostData();
-                ///  得到教育与培训情况统计
-                this.GetTrainSort();
-                ///  得到会议情况统计
-                this.GetMeetingSort();
-                ///  得到HSE检查情况统计
-                this.GetCheckSort();
-                ///  得到事故分类统计
-                this.GetAccidentSort();
-
-                Alert.ShowInTop("数据刷新成功！", MessageBoxIcon.Success);
-
-            }
-            else
-            {
-                Alert.ShowInTop("日期不能为空！", MessageBoxIcon.Warning);
-            }
-        }
-
-        #endregion
-
-        #region 得到已存数据
-        private void GetInitData()
-        {
-            var trainSorts = from x in Funs.DB.Manager_TrainSort where x.MonthReportId == this.MonthReportId select x;
-            this.Grid1.DataSource = trainSorts;
-            this.Grid1.DataBind();
-
-            var meetingSort = Funs.DB.Manager_MeetingSort.FirstOrDefault(x => x.MonthReportId == this.MonthReportId);
-            if (meetingSort != null)
-            {
-                this.txtMeetingNumber01.Text = meetingSort.MeetingNumber01.ToString();
-                this.txtMeetingNumber02.Text = meetingSort.MeetingNumber02.ToString();
-                this.txtMeetingNumber03.Text = meetingSort.MeetingNumber03.ToString();
-                this.txtMeetingNumber04.Text = meetingSort.MeetingNumber04.ToString();
-                this.txtMeetingNumber11.Text = meetingSort.MeetingNumber11.ToString();
-                this.txtMeetingNumber12.Text = meetingSort.MeetingNumber12.ToString();
-                this.txtMeetingNumber13.Text = meetingSort.MeetingNumber13.ToString();
-                this.txtMeetingNumber14.Text = meetingSort.MeetingNumber14.ToString();
-            }
-
-            var checkSort = Funs.DB.Manager_CheckSort.FirstOrDefault(x => x.MonthReportId == this.MonthReportId);
-            if (checkSort != null)
-            {
-                this.txtCheckNumber01.Text = checkSort.CheckNumber01.ToString();
-                this.txtCheckNumber02.Text = checkSort.CheckNumber02.ToString();
-                this.txtCheckNumber03.Text = checkSort.CheckNumber03.ToString();
-                this.txtCheckNumber04.Text = checkSort.CheckNumber04.ToString();
-
-                this.txtCheckNumber11.Text = checkSort.CheckNumber11.ToString();
-                this.txtCheckNumber12.Text = checkSort.CheckNumber12.ToString();
-                this.txtCheckNumber13.Text = checkSort.CheckNumber13.ToString();
-                this.txtCheckNumber14.Text = checkSort.CheckNumber14.ToString();
-
-                this.txtCheckNumber21.Text = checkSort.CheckNumber21.ToString();
-                this.txtCheckNumber22.Text = checkSort.CheckNumber22.ToString();
-                this.txtCheckNumber23.Text = checkSort.CheckNumber23.ToString();
-                this.txtCheckNumber24.Text = checkSort.CheckNumber24.ToString();
-
-                this.txtCheckNumber31.Text = checkSort.CheckNumber31.ToString();
-                this.txtCheckNumber32.Text = checkSort.CheckNumber32.ToString();
-                this.txtCheckNumber33.Text = checkSort.CheckNumber33.ToString();
-                this.txtCheckNumber34.Text = checkSort.CheckNumber34.ToString();
-            }
-
-            var accidentSorts = from x in Funs.DB.Manager_AccidentSort where x.MonthReportId == this.MonthReportId select x;
-            this.Grid2.DataSource = accidentSorts;
-            this.Grid2.DataBind();
-
-            var IncentiveSort = Funs.DB.Manager_IncentiveSort.FirstOrDefault(x => x.MonthReportId == this.MonthReportId);
-            if (IncentiveSort != null)
-            {
-                this.txtIncentiveNumber01.Text = IncentiveSort.IncentiveNumber01.ToString();
-                this.txtIncentiveNumber02.Text = IncentiveSort.IncentiveNumber02.ToString();
-                this.txtIncentiveNumber03.Text = IncentiveSort.IncentiveNumber03.ToString();
-                this.txtIncentiveNumber04.Text = IncentiveSort.IncentiveNumber04.ToString();
-                this.txtIncentiveNumber05.Text = IncentiveSort.IncentiveNumber05.ToString();
-                this.txtIncentiveNumber06.Text = IncentiveSort.IncentiveNumber06.ToString();
-                this.txtIncentiveNumber07.Text = IncentiveSort.IncentiveNumber07.ToString();
-                this.txtIncentiveNumber11.Text = IncentiveSort.IncentiveNumber11.ToString();
-                this.txtIncentiveNumber12.Text = IncentiveSort.IncentiveNumber12.ToString();
-                this.txtIncentiveNumber13.Text = IncentiveSort.IncentiveNumber13.ToString();
-                this.txtIncentiveNumber14.Text = IncentiveSort.IncentiveNumber14.ToString();
-                this.txtIncentiveNumber15.Text = IncentiveSort.IncentiveNumber15.ToString();
-                this.txtIncentiveNumber16.Text = IncentiveSort.IncentiveNumber16.ToString();
-                this.txtIncentiveNumber17.Text = IncentiveSort.IncentiveNumber17.ToString();
-            }
-
-            var HseSort = Funs.DB.Manager_HseCost.FirstOrDefault(x => x.MonthReportId == this.MonthReportId);
-            if (HseSort != null)
-            {
-                this.txtHseNumber01.Text = HseSort.HseNumber01.ToString();
-                this.txtHseNumber02.Text = HseSort.HseNumber02.ToString();
-                this.txtHseNumber03.Text = HseSort.HseNumber03.ToString();
-                this.txtHseNumber04.Text = HseSort.HseNumber04.ToString();
-                this.txtHseNumber05.Text = HseSort.HseNumber05.ToString();
-                this.txtHseNumber06.Text = HseSort.HseNumber06.ToString();
-                this.txtHseNumber07.Text = HseSort.HseNumber07.ToString();
-                this.txtHseNumber08.Text = HseSort.HseNumber08.ToString();
-                this.txtHseNumber09.Text = HseSort.HseNumber09.ToString();
-                this.txtHseNumber00.Text = HseSort.HseNumber00.ToString();
-                this.txtHseNumber10.Text = HseSort.HseNumber10.ToString();
-                this.txtHseNumber11.Text = HseSort.HseNumber11.ToString();
-                this.txtSpecialNumber.Text = HseSort.SpecialNumber.ToString();
-            }
-        }
-        #endregion
-
-        #region 明细显示统计
-        #region 项目总体数据统计
-        /// <summary>
-        ///  得到项目总体数据统计
-        /// </summary>
-        private void GetAllProjectData()
-        {
-            ///总人数集合
-            var allPerson = from x in Funs.DB.SitePerson_Person where x.ProjectId == this.ProjectId && x.IsUsed == true && (x.InTime < endTime || !x.InTime.HasValue) select x;
-            int allPersonCount = allPerson.Count(); ///总人数
-
-            ///管理人员集合
-            var glAllPerson = from x in Funs.DB.SitePerson_Person
-                              join y in Funs.DB.Base_WorkPost on x.WorkPostId equals y.WorkPostId
-                              where x.ProjectId == this.ProjectId && x.IsUsed == true && (y.PostType == BLL.Const.PostType_1 || y.PostType == BLL.Const.PostType_4) && (x.InTime < endTime || !x.InTime.HasValue)
-                              select x;
-            int glAllPersonCount = glAllPerson.Count(); ///管理人员人数
-
-            ///安全专职人员集合
-            var hsseAllPerson = from x in Funs.DB.SitePerson_Person
-                                join y in Funs.DB.Base_WorkPost on x.WorkPostId equals y.WorkPostId
-                                where x.ProjectId == this.ProjectId && x.IsUsed == true && y.IsHsse == true && (x.InTime < endTime || !x.InTime.HasValue)
-                                select x;
-            int hsseAllPersonCout = hsseAllPerson.Count();///安全专职人员人数
-
-            ///单位作业人员集合
-            var zyAllPerson = from x in Funs.DB.SitePerson_Person
-                              join y in Funs.DB.Base_WorkPost on x.WorkPostId equals y.WorkPostId
-                              where x.ProjectId == this.ProjectId && x.IsUsed == true && (y.PostType == BLL.Const.PostType_2 || y.PostType == BLL.Const.PostType_3) && (x.InTime < endTime || !x.InTime.HasValue)
-                              select x;
-            int zyAllPersonCount = zyAllPerson.Count(); ///单位作业人员人数
-
-            string allProjectData = "截至到" + this.txtMonthReportDate.Text + "，本装置项目员工总人数" + allPersonCount.ToString() + "人，其中管理人员总数" + glAllPersonCount.ToString() + "人。\r\n";
-
-            ////总包单位人员总数
-            var mainUnit = from x in Funs.DB.Base_Unit
-                           join y in Funs.DB.Project_ProjectUnit
-                           on x.UnitId equals y.UnitId
-                           where y.ProjectId == this.ProjectId && y.UnitType == BLL.Const.ProjectUnitType_1
-                           select x;     //1为总包
-            if (mainUnit.Count() > 0)
-            {
-                foreach (var item in mainUnit)
-                {
-                    int mainUnitglCount = glAllPerson.Where(x => x.UnitId == item.UnitId).Count();
-                    int mainUnithsseCount = hsseAllPerson.Where(x => x.UnitId == item.UnitId).Count();
-                    allProjectData += item.UnitName + "管理人员总数" + mainUnitglCount.ToString() + "人，专职安全人员共" + mainUnithsseCount.ToString() + " 人。\r\n";
-                }
-            }
-
-            ////分包单位人员总数
-            var subUnit = from x in Funs.DB.Base_Unit
-                          join y in Funs.DB.Project_ProjectUnit
-                          on x.UnitId equals y.UnitId
-                          where y.ProjectId == this.ProjectId && y.UnitType == BLL.Const.ProjectUnitType_2
-                          select x;     //2为施工分包
-            if (subUnit.Count() > 0)
-            {
-                foreach (var item in subUnit)
-                {
-                    int subUnitglCount = glAllPerson.Where(x => x.UnitId == item.UnitId).Count();
-                    int subUnithsseCount = hsseAllPerson.Where(x => x.UnitId == item.UnitId).Count();
-                    int subUnitzyCount = zyAllPerson.Where(x => x.UnitId == item.UnitId).Count();
-                    allProjectData += item.UnitName + "管理人员总数" + subUnitglCount.ToString() + "人，专职安全人员共" + subUnithsseCount.ToString() + " 人，施工单位作业人员总数" + subUnitzyCount.ToString() + "人。\r\n";
-                }
-            }
-
-            this.txtAllProjectData.Text = allProjectData;
-        }
-        #endregion
-
-        #region 得到项目安全人工时
-        /// <summary>
-        ///  得到项目安全人工时
-        /// </summary>
-        private void GetAllManhoursData()
-        {
-            var pro = BLL.ProjectService.GetProjectByProjectId(this.ProjectId);
-            DateTime proStarTime = System.DateTime.Now; ///项目开始时间
-            if (pro != null && pro.StartDate.HasValue)
-            {
-                proStarTime = pro.StartDate.Value;
-            }
-
-            ////人工时主表
-            decimal totalWorkTime = 0;
-
-            //按月报取数
-            var monthReport = from x in Funs.DB.SitePerson_MonthReport
-                              where x.ProjectId == this.ProjectId && x.CompileDate >= proStarTime && x.CompileDate < endTime
-                              select x;
-            foreach (var monthReportItem in monthReport)
-            {
-                var dayReportDetail = from x in Funs.DB.SitePerson_MonthReportDetail where x.MonthReportId == monthReportItem.MonthReportId select x;
-                if (dayReportDetail.Count() > 0)
-                {
-                    foreach (var dayReportDetailItem in dayReportDetail)
+                    for (int i = 0; i < 14; i++)
                     {
-                        decimal itemTime = dayReportDetailItem.PersonWorkTime.HasValue ? dayReportDetailItem.PersonWorkTime.Value : 0;
-                        totalWorkTime += itemTime;
-                    }
-                }
-            }
-            //当月
-            decimal monthWorkTime = 0;
-            DateTime reportMonth = Funs.GetNewDateTime(txtReportMonths.Text + "-01").Value;
-            var monthDayReport = from x in monthReport where x.CompileDate.Value.Month == reportMonth.Month && x.CompileDate.Value.Year == reportMonth.Year select x;
-            foreach (var monthItem in monthDayReport)
-            {
-                var monthItemDetail = from x in Funs.DB.SitePerson_MonthReportDetail where x.MonthReportId == monthItem.MonthReportId select x;
-                if (monthItemDetail.Count() > 0)
-                {
-                    foreach (var monthReportDetailItem in monthItemDetail)
-                    {
-                        decimal itemTime = monthReportDetailItem.PersonWorkTime.HasValue ? monthReportDetailItem.PersonWorkTime.Value : 0;
-                        monthWorkTime += itemTime;
-                    }
-                }
-            }
-
-            //按日报取数
-            //var dayReport = from x in Funs.DB.SitePerson_DayReport
-            //                where x.ProjectId == this.ProjectId && x.CompileDate >= proStarTime && x.CompileDate < endTime
-            //                select x;
-            //foreach (var dayReportItem in dayReport)
-            //{
-            //    var dayReportDetail = from x in Funs.DB.SitePerson_DayReportDetail where x.DayReportId == dayReportItem.DayReportId select x;
-            //    if (dayReportDetail.Count() > 0)
-            //    {
-            //        foreach (var dayReportDetailItem in dayReportDetail)
-            //        {
-            //            decimal itemTime = dayReportDetailItem.PersonWorkTime.HasValue ? dayReportDetailItem.PersonWorkTime.Value : 0;
-            //            totalWorkTime += itemTime;
-            //        }
-            //    }
-            //}
-            ////当月
-            //decimal monthWorkTime = 0;
-            //var monthDayReport = from x in dayReport where x.CompileDate >= startTime && x.CompileDate <= endTime select x;
-            //foreach (var dayItem in monthDayReport)
-            //{
-            //    var dayItemDetail = from x in Funs.DB.SitePerson_DayReportDetail where x.DayReportId == dayItem.DayReportId select x;
-            //    if (dayItemDetail.Count() > 0)
-            //    {
-            //        foreach (var dayReportDetailItem in dayItemDetail)
-            //        {
-            //            decimal itemTime = dayReportDetailItem.PersonWorkTime.HasValue ? dayReportDetailItem.PersonWorkTime.Value : 0;
-            //            monthWorkTime += itemTime;
-            //        }
-            //    }
-            //}
-
-            string allManhoursData = "项目自" + proStarTime.ToLongDateString().ToString() + "至" + endTime.ToLongDateString().ToString() + "，累计完成" + totalWorkTime.ToString() + "安全人工时无可记录事故，其中本月完成" + monthWorkTime.ToString() + "安全人工时。";
-            this.txtAllManhoursData.Text = allManhoursData;
-        }
-        #endregion
-
-        #region 得到教育与培训情况统计
-        /// <summary>
-        ///  得到教育与培训情况统计
-        /// </summary>
-        private void GetTrainSort()
-        {
-            var trainTypes = BLL.TrainTypeService.GetTrainTypeList();
-            ////总培训
-            var totelTraining = from x in Funs.DB.EduTrain_TrainRecord where x.ProjectId == this.ProjectId && (x.TrainStartDate < endTime) select x;
-            List<Model.Manager_TrainSort> trainSorts = new List<Model.Manager_TrainSort>();
-            foreach (var item in trainTypes)
-            {
-                var type = BLL.TrainTypeService.GetTrainTypeById(item.TrainTypeId);
-                 if (type != null)
-                 {
-                    Model.Manager_TrainSort trainSort = new Model.Manager_TrainSort
-                    {
-                        TrainSortId = SQLHelper.GetNewID(typeof(Model.Manager_TrainSort)),
-                        TrainTypeName = type.TrainTypeName
-                    };
-                    //对应培训类型的培训记录集合
-                    var training = from x in totelTraining where x.TrainTypeId == item.TrainTypeId select x;
-                     //对应培训类型的当月记录集合
-                     var monthTraining = from x in training where x.TrainStartDate >= startTime && x.TrainStartDate <= endTime select x;
-                     trainSort.TrainNumber11 = monthTraining.Count();
-                     trainSort.TrainNumber12 = training.Count();
-                     trainSort.TrainNumber13 = (from x in Funs.DB.EduTrain_TrainRecord
-                                                join y in Funs.DB.EduTrain_TrainRecordDetail
-                                                on x.TrainingId equals y.TrainingId
-                                                where x.ProjectId == this.ProjectId && x.TrainTypeId == item.TrainTypeId && x.TrainStartDate >= startTime && x.TrainStartDate <= endTime
-                                                select y).Count();
-                     trainSort.TrainNumber14 = (from x in Funs.DB.EduTrain_TrainRecord
-                                                join y in Funs.DB.EduTrain_TrainRecordDetail
-                                           on x.TrainingId equals y.TrainingId
-                                                where x.ProjectId == this.ProjectId && x.TrainTypeId == item.TrainTypeId
-                                                  && x.TrainStartDate <= endTime
-                                                select y).Count();
-                     trainSorts.Add(trainSort);
-                 }
-            }
-            this.Grid1.DataSource = trainSorts;
-            this.Grid1.DataBind();
-        }
-        #endregion
-
-        #region 得到会议情况统计
-        /// <summary>
-        ///  得到会议情况统计
-        /// </summary>
-        private void GetMeetingSort()
-        {
-            ////总会议
-            var totelWeekMeets = from x in Funs.DB.Meeting_WeekMeeting where x.ProjectId == this.ProjectId && x.WeekMeetingDate < endTime select x;
-            var totelMonthMeets = from x in Funs.DB.Meeting_MonthMeeting where x.ProjectId == this.ProjectId && x.MonthMeetingDate < endTime select x;
-            var totelSpecialMeets = from x in Funs.DB.Meeting_SpecialMeeting where x.ProjectId == this.ProjectId && x.SpecialMeetingDate < endTime select x;
-            ////当前时间会议
-            var nowWeekMeets = from x in totelWeekMeets where x.WeekMeetingDate >= startTime && x.WeekMeetingDate < endTime select x;
-            var nowMonthMeets = from x in totelMonthMeets where x.MonthMeetingDate >= startTime && x.MonthMeetingDate < endTime select x;
-            var nowSpecialMeets = from x in totelSpecialMeets where x.SpecialMeetingDate >= startTime && x.SpecialMeetingDate < endTime select x;
-
-            this.txtMeetingNumber01.Text = nowWeekMeets.Count().ToString();
-            this.txtMeetingNumber11.Text = totelWeekMeets.Count().ToString();
-
-            this.txtMeetingNumber02.Text = nowMonthMeets.Count().ToString();
-            this.txtMeetingNumber12.Text = totelMonthMeets.Count().ToString();
-
-            this.txtMeetingNumber03.Text = nowSpecialMeets.Count().ToString();
-            this.txtMeetingNumber13.Text = totelSpecialMeets.Count().ToString();
-        }
-        #endregion
-
-        #region 得到HSE检查情况统计
-        /// <summary>
-        ///  得到HSE检查情况统计
-        /// </summary>
-        private void GetCheckSort()
-        {
-            ///日检查累计次数
-            var checkDayTolet = from x in Funs.DB.Check_CheckDay where x.ProjectId == this.ProjectId && x.CheckTime < endTime select x;
-            ///本月日检查次数
-            var checkDayMonth = from x in checkDayTolet where x.CheckTime >= startTime && x.CheckTime < endTime select x;
-            ///本月日检查违章数量
-            var checkDayMonthCount = from x in Funs.DB.Check_CheckDayDetail
-                                     join y in checkDayMonth on x.CheckDayId equals y.CheckDayId
-                                     select x;
-            ///日检查累计数量
-            var checkDayToletCount = from x in Funs.DB.Check_CheckDayDetail
-                                     join y in checkDayTolet on x.CheckDayId equals y.CheckDayId
-                                     select x;
-            this.txtCheckNumber01.Text = checkDayMonth.Count().ToString();
-            this.txtCheckNumber02.Text = checkDayTolet.Count().ToString();
-            this.txtCheckNumber03.Text = checkDayMonthCount.Count().ToString();
-            this.txtCheckNumber04.Text = checkDayToletCount.Count().ToString();
-
-            ///专项查累计次数
-            var checkSpecialTolet = from x in Funs.DB.Check_CheckSpecial where x.ProjectId == this.ProjectId && x.CheckTime < endTime select x;
-            ///本月专项检查次数
-            var checkSpecialMonth = from x in checkSpecialTolet where x.CheckTime >= startTime && x.CheckTime < endTime select x;
-            ///本月专项违章数量
-            var checkSpecialMonthCount = from x in Funs.DB.Check_CheckSpecialDetail
-                                         join y in checkSpecialMonth on x.CheckSpecialId equals y.CheckSpecialId
-                                         select x;
-            ///专项累计数量
-            var checkSpecialToletCount = from x in Funs.DB.Check_CheckSpecialDetail
-                                         join y in checkSpecialTolet on x.CheckSpecialId equals y.CheckSpecialId
-                                         select x;
-            this.txtCheckNumber11.Text = checkSpecialMonth.Count().ToString();
-            this.txtCheckNumber12.Text = checkSpecialTolet.Count().ToString();
-            this.txtCheckNumber13.Text = checkSpecialMonthCount.Count().ToString();
-            this.txtCheckNumber14.Text = checkSpecialToletCount.Count().ToString();
-
-            ///综合大检查累计次数
-            var checkColligationTolet = from x in Funs.DB.Check_CheckColligation where x.ProjectId == this.ProjectId && x.CheckTime < endTime select x;
-            ///本月综合大检查次数
-            var checkColligationMonth = from x in checkColligationTolet where x.CheckTime >= startTime && x.CheckTime < endTime select x;
-            ///本月综合大检查违章数量
-            var checkColligationMonthCount = from x in Funs.DB.Check_CheckColligationDetail
-                                             join y in checkColligationMonth on x.CheckColligationId equals y.CheckColligationId
-                                             select x;
-            ///综合大检查累计数量
-            var checkColligationToletCount = from x in Funs.DB.Check_CheckColligationDetail
-                                             join y in checkColligationTolet on x.CheckColligationId equals y.CheckColligationId
-                                             select x;
-            this.txtCheckNumber21.Text = checkColligationMonth.Count().ToString();
-            this.txtCheckNumber22.Text = checkColligationTolet.Count().ToString();
-            this.txtCheckNumber23.Text = checkColligationMonthCount.Count().ToString();
-            this.txtCheckNumber24.Text = checkColligationToletCount.Count().ToString();
-        }
-        #endregion
-
-        #region 得到事故分类统计
-        /// <summary>
-        ///  得到事故分类统计
-        /// </summary>
-        private void GetAccidentSort()
-        {
-            var accidentTypes = BLL.AccidentTypeService.GetAccidentTypeList();
-            ////总培训
-            var totelAccidents = from x in Funs.DB.Accident_AccidentPersonRecord where x.ProjectId == this.ProjectId && x.AccidentDate < endTime select x;
-            List<Model.Manager_AccidentSort> accidentSorts = new List<Model.Manager_AccidentSort>();
-            foreach (var item in accidentTypes)
-            {
-                Model.Manager_AccidentSort accidentSort = new Model.Manager_AccidentSort
-                {
-                    AccidentSortId = SQLHelper.GetNewID(typeof(Model.Manager_AccidentSort)),
-                    AccidentTypeId = item.AccidentTypeId
-                };
-                //对应培训类型的培训记录集合
-                var accidents = from x in totelAccidents where x.AccidentTypeId == item.AccidentTypeId select x;
-                //对应培训类型的当月记录集合
-                var monthAccidents = from x in accidents where x.AccidentDate >= startTime && x.AccidentDate < endTime select x;
-                accidentSort.AccidentNumber01 = monthAccidents.Count();
-                accidentSort.AccidentNumber02 = accidents.Count();
-                accidentSorts.Add(accidentSort);
-            }
-            this.Grid2.DataSource = accidentSorts;
-            this.Grid2.DataBind();
-        }
-        #endregion
-
-        #region 本月机具设备投入情况
-        /// <summary>
-        ///  得到本月机具设备投入情况
-        /// </summary>
-        private void GetEquipmentQualityData()
-        {
-            ///特种机具设备集合
-            var allSpecialEquipment = from x in Funs.DB.QualityAudit_EquipmentQuality
-                                      where x.ProjectId == this.ProjectId && ((x.OutDate.HasValue && x.OutDate > endTime) || !x.OutDate.HasValue)
-                                      && (!x.InDate.HasValue || (x.InDate < endTime))
-                                      select x;
-            ///一般机具设备集合
-            var allGeneralEquipment = from x in Funs.DB.QualityAudit_GeneralEquipmentQuality
-                                      where x.ProjectId == this.ProjectId && x.IsQualified == true && x.CompileDate < endTime
-                                      select x;
-            if (allSpecialEquipment.Count() > 0)
-            {
-                int? allCount = allGeneralEquipment.Sum(x => x.EquipmentCount);
-                int allEquipmentCount = (allCount.HasValue ? allCount.Value : 0) + allSpecialEquipment.Count(); ///总设备
-                var tzSpecialEquipment = allSpecialEquipment.Count();
-                int ybAllEquipment = (allCount.HasValue ? allCount.Value : 0);
-                string allProjectData = "截至到" + this.txtMonthReportDate.Text + "，本装置项目总机具设备数：" + allEquipmentCount.ToString() + "台，其中特种机具设备：" + tzSpecialEquipment.ToString() + "台，一般机具设备：" + ybAllEquipment.ToString() + "台。\r\n";
-
-                ////总包单位
-                var mainUnit = from x in Funs.DB.Base_Unit
-                               join y in Funs.DB.Project_ProjectUnit
-                               on x.UnitId equals y.UnitId
-                               where y.ProjectId == this.ProjectId && y.UnitType == BLL.Const.ProjectUnitType_1
-                               select x;     //1为总包
-                if (mainUnit.Count() > 0)
-                {
-                    foreach (var item in mainUnit)
-                    {
-                        var mainUnitAllSpecialEquipment = allSpecialEquipment.Where(x => x.UnitId == item.UnitId);
-                        var mainUnitAllGeneralEquipment = allGeneralEquipment.Where(x => x.UnitId == item.UnitId);
-                        if (mainUnitAllSpecialEquipment.Count() > 0)
-                        {
-                            allProjectData += item.UnitName + ":";
-                            allProjectData += "特种设备：" + mainUnitAllSpecialEquipment.Count().ToString() + "台，";
-                            allProjectData += "。\r\n";
-                        }
-                        if (mainUnitAllGeneralEquipment.Count() > 0)
-                        {
-                            allProjectData += item.UnitName + ":";
-                            allProjectData += "一般设备：" + mainUnitAllGeneralEquipment.Sum(x => x.EquipmentCount).ToString() + "台，";
-                            allProjectData += "。\r\n";
-                        }
+                        getInfo(ProjectId, month, StartDate.Text, EndDate.Text, i.ToString());
                     }
                 }
 
-                //////分包单位机具            
-                var subUnit = from x in Funs.DB.Base_Unit
-                              join y in Funs.DB.Project_ProjectUnit
-                              on x.UnitId equals y.UnitId
-                              where y.ProjectId == this.ProjectId && y.UnitType == BLL.Const.ProjectUnitType_2
-                              select x;     //2为施工分包
-                if (subUnit.Count() > 0)
-                {
-                    foreach (var item in subUnit)
-                    {
-                        var subUnitAllSpecialEquipment = allSpecialEquipment.Where(x => x.UnitId == item.UnitId);
-                        var subUnitAllGeneralEquipment = allGeneralEquipment.Where(x => x.UnitId == item.UnitId);
-                        if (subUnitAllSpecialEquipment.Count() > 0)
-                        {
-                            allProjectData += item.UnitName + ":";
-                            allProjectData += "特种设备：" + subUnitAllSpecialEquipment.Count().ToString() + "台，";
-                            allProjectData += "。\r\n";
-                        }
-                        if (subUnitAllGeneralEquipment.Count() > 0)
-                        {
-                            allProjectData += item.UnitName + ":";
-                            allProjectData += "一般设备：" + subUnitAllGeneralEquipment.Sum(x => x.EquipmentCount).ToString() + "台，";
-                            allProjectData += "。\r\n";
-                        }
-                    }
-                }    
+                BLL.UserService.InitFlowOperateControlUserDropDownList(this.CompileManId, this.CurrUser.LoginProjectId, BLL.CommonService.GetIsThisUnitId(), true);
+                BLL.UserService.InitFlowOperateControlUserDropDownList(this.AuditManId, this.CurrUser.LoginProjectId, BLL.CommonService.GetIsThisUnitId(), true);
+                BLL.UserService.InitFlowOperateControlUserDropDownList(this.ApprovalManId, this.CurrUser.LoginProjectId, BLL.CommonService.GetIsThisUnitId(), true);
 
-                this.txtEquipmentQualityData.Text = allProjectData;
+
+                BLL.UnitService.InitUnitDropDownList(this.drpUnit, ProjectId, false);
+
+                //BLL.UnitService.InitUnitDropDownList(this.ddlUnitName, ProjectId, false);
+
+                CompileManId.SelectedValue = CurrUser.UserId;
             }
         }
-        #endregion
 
-        #region 本月安全费用情况
-        /// <summary>
-        ///  本月安全费用情况
-        /// </summary>
-        private void GetMonthSafetyCostData()
+
+
+
+        private void display(int j, List<Model.SeDinMonthReport3Item> bigType, int i)
         {
-            ///累计集合
-            var allCosts = from x in Funs.DB.CostGoods_CostSmallDetail
-                           join y in Funs.DB.CostGoods_CostSmallDetailItem
-                           on x.CostSmallDetailId equals y.CostSmallDetailId
-                           where x.ProjectId == this.ProjectId && x.Months <= endTime
-                           select y;
-            ///当月集合
-            var monthCosts = from x in Funs.DB.CostGoods_CostSmallDetail
-                             join y in Funs.DB.CostGoods_CostSmallDetailItem
-                             on x.CostSmallDetailId equals y.CostSmallDetailId
-                             where x.ProjectId == this.ProjectId && x.Months <= endTime && x.Months >= startTime
-                             select y;
+            HtmlGenericControl myLabel = (HtmlGenericControl)ContentPanel2.FindControl("AccidentType" + (j + 1));
+            HtmlInputText monthTimes = (HtmlInputText)ContentPanel2.FindControl("MonthTimes" + (j + 1));
+            HtmlInputText totalTimes = (HtmlInputText)ContentPanel2.FindControl("TotalTimes" + (j + 1));
+            HtmlInputText monthLossTime = (HtmlInputText)ContentPanel2.FindControl("MonthLossTime" + (j + 1));
+            HtmlInputText totalLossTime = (HtmlInputText)ContentPanel2.FindControl("TotalLossTime" + (j + 1));
+            HtmlInputText MonthMoney = (HtmlInputText)ContentPanel2.FindControl("MonthMoney" + (j + 1));
+            HtmlInputText totalMoney = (HtmlInputText)ContentPanel2.FindControl("TotalMoney" + (j + 1));
+            HtmlInputText monthPersons = (HtmlInputText)ContentPanel2.FindControl("MonthPersons" + (j + 1));
+            HtmlInputText totalPersons = (HtmlInputText)ContentPanel2.FindControl("TotalPersons" + (j + 1));
+            if (myLabel != null)
+            {
+                myLabel.InnerText = bigType[i].AccidentType;
+            }
 
-            this.txtThisMonthSafetyCost.Text = monthCosts.Sum(x => x.CostMoney).ToString();
-            this.txtTotalSafetyCost.Text = allCosts.Sum(x => x.CostMoney).ToString();
+            if (monthTimes != null)
+            {
+                monthTimes.Value = bigType[i].MonthTimes.ToString();
+            }
+            if (totalTimes != null)
+            {
+                totalTimes.Value = bigType[i].TotalTimes.ToString();
+            }
+            if (monthLossTime != null)
+            {
+                monthLossTime.Value = bigType[i].MonthLossTime.ToString();
+            }
+
+            if (totalLossTime != null)
+            {
+                totalLossTime.Value = bigType[i].TotalLossTime.ToString();
+            }
+            if (MonthMoney != null)
+            {
+                MonthMoney.Value = bigType[i].MonthMoney.ToString();
+            }
+            if (totalMoney != null)
+            {
+                totalMoney.Value = bigType[i].TotalMoney.ToString();
+            }
+            if (monthPersons != null)
+            {
+                monthPersons.Value = bigType[i].MonthPersons.ToString();
+            }
+            if (totalPersons != null)
+            {
+                totalPersons.Value = bigType[i].TotalPersons.ToString();
+            }
         }
-        #endregion
-        #endregion
 
-        #region 保存按钮
-        /// <summary>
-        /// 保存
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        protected void getInfo(string projectId, string month, string startDate, string endDate, string pageNum)
+        {
+            if (pageNum == "0") ////封面
+            {
+                var getInfo = APISeDinMonthReportService.getSeDinMonthReport0ById(projectId, month);
+
+                if (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId))
+                {
+                    getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage0(projectId, Funs.GetNewDateTime(month));
+                }
+                ReporMonth.Text = getInfo.ReporMonth;
+                DueDate.Text = getInfo.DueDate;
+                StartDate.Text = getInfo.StartDate;
+                EndDate.Text = getInfo.EndDate;
+                CompileManId.SelectedValue = getInfo.CompileManId;
+                AuditManId.SelectedValue = getInfo.AuditManId;
+                ApprovalManId.SelectedValue = getInfo.ApprovalManId;
+
+            }
+            else if (pageNum == "1") ////1、项目信息
+            {
+                var getInfo = APISeDinMonthReportService.getSeDinMonthReport1ById(projectId, month);
+
+                if (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId))
+                {
+                    getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage1(projectId);
+                }
+                projectName.Text = getInfo.ProjectName;
+                projectCode.Text = getInfo.ProjectCode;
+                projectType.Text = getInfo.ProjectType;
+                ProjectManager.Text = getInfo.ProjectManager;
+                HsseManager.Text = getInfo.HsseManager;
+                ConstructionStage.Text = getInfo.ConstructionStage;
+                ContractAmount.Text = getInfo.ContractAmount;
+                ProjectAddress.Text = getInfo.ProjectAddress;
+                pStartDate.Text = getInfo.StartDate;
+                pEndDate.Text = getInfo.EndDate;
+                ProjectAddress.Text = getInfo.ProjectAddress;
+
+            }
+            else if (pageNum == "2") ////2、项目安全工时统计
+            {
+                var getInfo = APISeDinMonthReportService.getSeDinMonthReport2ById(projectId, month);
+
+                if (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId))
+                {
+                    getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage2(projectId, month, startDate, endDate);
+                }
+                MillionLossRate.Text = getInfo.MillionLossRate;
+                if (getInfo.MonthWorkTime != null)
+                {
+                    MonthWorkTime.Text = getInfo.MonthWorkTime.ToString();
+                }
+                if (getInfo.ProjectWorkTime != null)
+                {
+                    ProjectWorkTime.Text = getInfo.ProjectWorkTime.ToString();
+                }
+                if (getInfo.SafeWorkTime != null)
+                {
+                    SafeWorkTime.Text = getInfo.SafeWorkTime.ToString();
+                }
+                PsafeStartDate.Text = getInfo.StartDate;
+                PsafeEndDate.Text = getInfo.EndDate;
+                TimeAccuracyRate.Text = getInfo.TimeAccuracyRate;
+                if (getInfo.TotalLostTime != null)
+                {
+                    TotalLostTime.Text = getInfo.TotalLostTime.ToString();
+                }
+                if (getInfo.YearWorkTime != null)
+                {
+                    YearWorkTime.Text = getInfo.YearWorkTime.ToString();
+                }
+            }
+            else if (pageNum == "3") ////3、项目HSE事故、事件统计
+            {
+                var getInfo = APISeDinMonthReportService.getSeDinMonthReport3ById(projectId, month);
+
+                if (getInfo == null || getInfo.SeDinMonthReport3Item == null || getInfo.SeDinMonthReport3Item.Count() == 0)
+                {
+                    getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage3(projectId, month, startDate, endDate);
+                }
+
+                if (getInfo.SeDinMonthReport3Item.Count > 0)
+                {
+                    var count = getInfo.SeDinMonthReport3Item.Count;
+                    var bigType = getInfo.SeDinMonthReport3Item.Where(p => p.BigType != null).ToList();
+                    var bType = getInfo.SeDinMonthReport3Item.Where(p => p.BigType == null).ToList();
+                    BigType.InnerText = bigType[0].BigType;
+
+                    for (int i = 0; i < bigType.Count; i++)
+                    {
+                        int j = i;
+                        display(j, bigType, i);
+                    }
+                    int jc = 3;
+                    for (int i = 0; i < bType.Count; i++)
+                    {
+                        jc++;
+                        display(jc, bType, i);
+                    }
+
+                }
+            }
+            else if (pageNum == "4") ////4、人员
+            {
+                var getLists = APISeDinMonthReportService.getSeDinMonthReport4ById(projectId, month);
+                if (getLists.Count() == 0)
+                {
+                    getLists = APISeDinMonthReportService.getSeDinMonthReportNullPage4(projectId, month, startDate, endDate);
+                }
+                GvSeDinMonthReport4Item.DataSource = getLists;
+                GvSeDinMonthReport4Item.DataBind();
+                if (GvSeDinMonthReport4Item.Rows.Count > 0)
+                {
+                    foreach (var item in GvSeDinMonthReport4Item.Rows)
+                    {
+                        int i = GvSeDinMonthReport4Item.Rows.IndexOf(item);
+                        var num = 0;
+                        num += Convert.ToInt32(GvSeDinMonthReport4Item.Rows[i].Values[2]) +
+                                    Convert.ToInt32(GvSeDinMonthReport4Item.Rows[i].Values[3]) + Convert.ToInt32(GvSeDinMonthReport4Item.Rows[i].Values[5]) + Convert.ToInt32(GvSeDinMonthReport4Item.Rows[i].Values[6]);
+
+                        GvSeDinMonthReport4Item.Rows[i].Values[7] = num.ToString();
+                    }
+                }
+
+            }
+            else if (pageNum == "5") ////5、本月大型、特种设备投入情况
+            {
+                var getLists = APISeDinMonthReportService.getSeDinMonthReport5ById(projectId, month);
+                if (getLists.Count == 0)
+                {
+                    getLists = APISeDinMonthReportService.getSeDinMonthReportNullPage5(projectId, month, startDate, endDate);
+                }
+                GvSeDinMonthReport5Item.DataSource = getLists;
+                GvSeDinMonthReport5Item.DataBind();
+
+            }
+            else if (pageNum == "6") ////6、安全生产费用投入情况
+            {
+                var getInfo = APISeDinMonthReportService.getSeDinMonthReport6ById(projectId, month);
+                if (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId))
+                {
+                    getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage6(projectId, month, startDate, endDate);
+                }
+                SafetyMonth.Value = getInfo.SafetyMonth.ToString();
+                SafetyYear.Value = getInfo.SafetyYear.ToString();
+                SafetyTotal.Value = getInfo.SafetyTotal.ToString();
+                LaborMonth.Value = getInfo.LaborMonth.ToString();
+                LaborYear.Value = getInfo.LaborYear.ToString();
+                LaborTotal.Value = getInfo.LaborTotal.ToString();
+                ProgressMonth.Value = getInfo.ProgressMonth.ToString();
+                ProgressYear.Value = getInfo.ProgressYear.ToString();
+                ProgressTotal.Value = getInfo.ProgressTotal.ToString();
+                EducationMonth.Value = getInfo.EducationMonth.ToString();
+                EducationYear.Value = getInfo.EducationYear.ToString();
+                EducationTotal.Value = getInfo.EducationTotal.ToString();
+                SumMonth.Value = getInfo.SumMonth.ToString();
+                SumYear.Value = getInfo.SumYear.ToString();
+                SumTotal.Value = getInfo.SumTotal.ToString();
+                ContractMonth.Value = getInfo.ContractMonth.ToString();
+                ContractYear.Value = getInfo.ContractYear.ToString();
+                ContractTotal.Value = getInfo.ContractTotal.ToString();
+                ConstructionCost.Value = getInfo.ConstructionCost.ToString();
+
+            }
+            else if (pageNum == "7") ////7、项目HSE培训统计
+            {
+                var getInfo = APISeDinMonthReportService.getSeDinMonthReport7ById(projectId, month);
+                if (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId))
+                {
+                    getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage7(projectId, month, startDate, endDate);
+                }
+
+                EmployeeMontNum.Value = getInfo.EmployeeMontNum.ToString();
+                EmployeeYearNum.Value = getInfo.EmployeeYearNum.ToString();
+                EmployeeTotalNum.Value = getInfo.EmployeeTotalNum.ToString();
+                EmployeeMontPerson.Value = getInfo.EmployeeMontPerson.ToString();
+                EmployeeYearPerson.Value = getInfo.EmployeeYearPerson.ToString();
+                EmployeeTotalPerson.Value = getInfo.EmployeeTotalPerson.ToString();
+                SpecialMontNum.Value = getInfo.SpecialMontNum.ToString();
+                SpecialYearNum.Value = getInfo.SpecialYearNum.ToString();
+                SpecialTotalNum.Value = getInfo.SpecialTotalNum.ToString();
+                SpecialMontPerson.Value = getInfo.SpecialMontPerson.ToString();
+                SpecialYearPerson.Value = getInfo.SpecialYearPerson.ToString();
+                SpecialTotalPerson.Value = getInfo.SpecialTotalPerson.ToString();
+
+
+            }
+            else if (pageNum == "8") ////8、项目HSE会议统计
+            {
+                var getInfo = APISeDinMonthReportService.getSeDinMonthReport8ById(projectId, month);
+                if (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId))
+                {
+                    getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage8(projectId, month, startDate, endDate);
+                }
+                Report8WeekMontNum.Value = getInfo.WeekMontNum.ToString();
+                Report8WeekTotalNum.Value = getInfo.WeekTotalNum.ToString();
+                Report8WeekMontPerson.Value = getInfo.WeekMontPerson.ToString();
+                Report8MonthMontNum.Value = getInfo.MonthMontNum.ToString();
+                Report8MonthTotalNum.Value = getInfo.MonthTotalNum.ToString();
+                Report8MonthMontPerson.Value = getInfo.MonthMontPerson.ToString();
+                Report8SpecialMontNum.Value = getInfo.SpecialMontNum.ToString();
+                Report8SpecialTotalNum.Value = getInfo.SpecialTotalNum.ToString();
+                Report8SpecialMontPerson.Value = getInfo.SpecialMontPerson.ToString();
+                GvSeDinMonthReport8Item.DataSource = getInfo.SeDinMonthReport8ItemItem;
+                GvSeDinMonthReport8Item.DataBind();
+            }
+            else if (pageNum == "9") ////9、项目HSE检查统计
+            {
+                var getInfo = APISeDinMonthReportService.getSeDinMonthReport9ById(projectId, month);
+                if (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId))
+                {
+                    getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage9(projectId, month, startDate, endDate);
+                }
+                DailyMonth.Value = getInfo.DailyMonth.ToString();
+                DailyYear.Value = getInfo.DailyYear.ToString();
+                DailyTotal.Value = getInfo.DailyTotal.ToString();
+                WeekMonth.Value = getInfo.WeekMonth.ToString();
+                WeekYear.Value = getInfo.WeekYear.ToString();
+                WeekTotal.Value = getInfo.WeekTotal.ToString();
+                SpecialMonth.Value = getInfo.SpecialMonth.ToString();
+                SpecialYear.Value = getInfo.SpecialYear.ToString();
+                SpecialTotal.Value = getInfo.SpecialTotal.ToString();
+                MonthlyMonth.Value = getInfo.MonthlyMonth.ToString();
+                MonthlyYear.Value = getInfo.MonthlyYear.ToString();
+                MonthlyTotal.Value = getInfo.MonthlyTotal.ToString();
+                //SeDinMonthReport9ItemRectification = getSeDinMonthReport9ItemRectificationNull(projectId, month, startDate, endDate),
+                //SeDinMonthReport9ItemSpecial = getSeDinMonthReport9ItemSpecialNull(projectId, month, startDate, endDate),
+                //SeDinMonthReport9ItemStoppage = getSeDinMonthReport9ItemStoppageNull(projectId, month, startDate, endDate),
+                GvSeDinMonthReport9ItemRect.DataSource = getInfo.SeDinMonthReport9ItemRectification;
+                GvSeDinMonthReport9ItemRect.DataBind();
+                GvSeDinMonthReport9ItemSpecial.DataSource = getInfo.SeDinMonthReport9ItemSpecial;
+                GvSeDinMonthReport9ItemSpecial.DataBind();
+                GvSeDinMonthReport9ItemStoppage.DataSource = getInfo.SeDinMonthReport9ItemStoppage;
+                GvSeDinMonthReport9ItemStoppage.DataBind();
+
+            }
+            else if (pageNum == "10") ////10、项目奖惩情况统计
+            {
+                var getInfo = APISeDinMonthReportService.getSeDinMonthReport10ById(projectId, month);
+                if (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId))
+                {
+                    getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage10(projectId, month, startDate, endDate);
+                }
+                SafeMonthNum.Value = getInfo.SafeMonthNum.ToString();
+                SafeTotalNum.Value = getInfo.SafeTotalNum.ToString();
+                SafeMonthMoney.Value = getInfo.SafeMonthMoney.ToString();
+                SafeTotalMoney.Value = getInfo.SafeTotalMoney.ToString();
+                HseMonthNum.Value = getInfo.HseMonthNum.ToString();
+                HseTotalNum.Value = getInfo.HseTotalNum.ToString();
+                HseMonthMoney.Value = getInfo.HseMonthMoney.ToString();
+                HseTotalMoney.Value = getInfo.HseTotalMoney.ToString();
+                ProduceMonthNum.Value = getInfo.ProduceMonthNum.ToString();
+                ProduceTotalNum.Value = getInfo.ProduceTotalNum.ToString();
+                ProduceMonthMoney.Value = getInfo.ProduceMonthMoney.ToString();
+                ProduceTotalMoney.Value = getInfo.ProduceTotalMoney.ToString();
+
+                AccidentMonthNum.Value = getInfo.AccidentMonthNum.ToString();
+                AccidentTotalNum.Value = getInfo.AccidentTotalNum.ToString();
+                AccidentMonthMoney.Value = getInfo.AccidentMonthMoney.ToString();
+                AccidentTotalMoney.Value = getInfo.AccidentTotalMoney.ToString();
+                ViolationMonthNum.Value = getInfo.ViolationMonthNum.ToString();
+                ViolationTotalNum.Value = getInfo.ViolationTotalNum.ToString();
+                ViolationMonthMoney.Value = getInfo.ViolationMonthMoney.ToString();
+                ViolationTotalMoney.Value = getInfo.ViolationTotalMoney.ToString();
+                ManageMonthNum.Value = getInfo.ManageMonthNum.ToString();
+                ManageTotalNum.Value = getInfo.ManageTotalNum.ToString();
+                ManageMonthMoney.Value = getInfo.ManageMonthMoney.ToString();
+                ManageTotalMoney.Value = getInfo.ManageTotalMoney.ToString();
+
+            }
+            else if (pageNum == "11") ////11、项目危大工程施工情况
+            {
+                var getInfo = APISeDinMonthReportService.getSeDinMonthReport11ById(projectId, month);
+                if (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId))
+                {
+                    getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage11(projectId, month, startDate, endDate);
+                }
+                RiskWorkNum.Value = getInfo.RiskWorkNum.ToString();
+                RiskFinishedNum.Value = getInfo.RiskFinishedNum.ToString();
+                RiskWorkNext.Value = getInfo.RiskWorkNext.ToString();
+                LargeWorkNum.Value = getInfo.LargeWorkNum.ToString();
+                LargeFinishedNum.Value = getInfo.LargeFinishedNum.ToString();
+                LargeWorkNext.Value = getInfo.LargeWorkNext.ToString();
+
+            }
+            else if (pageNum == "12") ////12、项目应急演练情况
+            {
+                var getInfo = APISeDinMonthReportService.getSeDinMonthReport12ById(projectId, month);
+                if (getInfo == null || string.IsNullOrEmpty(getInfo.MonthReportId))
+                {
+                    getInfo = APISeDinMonthReportService.getSeDinMonthReportNullPage12(projectId, month, startDate, endDate);
+                }
+
+                MultipleSiteInput.Value = getInfo.MultipleSiteInput.ToString();
+                MultipleSitePerson.Value = getInfo.MultipleSitePerson.ToString();
+                MultipleSiteNum.Value = getInfo.MultipleSiteNum.ToString();
+                MultipleSiteTotalNum.Value = getInfo.MultipleSiteTotalNum.ToString();
+                if (!string.IsNullOrWhiteSpace(getInfo.MultipleSiteNext))
+                {
+                    MultipleSiteNext.Value = getInfo.MultipleSiteNext.ToString();
+                }
+                MultipleDesktopInput.Value = getInfo.MultipleDesktopInput.ToString();
+                MultipleDesktopPerson.Value = getInfo.MultipleDesktopPerson.ToString();
+                MultipleDesktopNum.Value = getInfo.MultipleDesktopNum.ToString();
+                MultipleDesktopTotalNum.Value = getInfo.MultipleDesktopTotalNum.ToString();
+                if (!string.IsNullOrWhiteSpace(getInfo.MultipleDesktopNext))
+                {
+                    MultipleDesktopNext.Value = getInfo.MultipleDesktopNext.ToString();
+                }
+                SingleSiteInput.Value = getInfo.SingleSiteInput.ToString();
+                SingleSitePerson.Value = getInfo.SingleSitePerson.ToString();
+                SingleSiteNum.Value = getInfo.SingleSiteNum.ToString();
+                SingleSiteTotalNum.Value = getInfo.SingleSiteTotalNum.ToString();
+                if (!string.IsNullOrWhiteSpace(getInfo.SingleSiteNext))
+                {
+                    SingleSiteNext.Value = getInfo.SingleSiteNext.ToString();
+                }
+                SingleDesktopInput.Value = getInfo.SingleDesktopInput.ToString();
+                SingleDesktopPerson.Value = getInfo.SingleDesktopPerson.ToString();
+                SingleDesktopNum.Value = getInfo.SingleDesktopNum.ToString();
+                SingleDesktopTotalNum.Value = getInfo.SingleDesktopTotalNum.ToString();
+                if (!string.IsNullOrWhiteSpace(getInfo.SingleDesktopNext))
+                {
+                    SingleDesktopNext.Value = getInfo.SingleDesktopNext.ToString();
+                }
+
+            }
+            else ////13、14、本月HSE活动综述、下月HSE工作计划
+            {
+                var data = APISeDinMonthReportService.getSeDinMonthReport13ById(projectId, month);
+                if (data != null)
+                {
+                    ThisSummary.Text = data.ThisSummary;
+                    NextPlan.Text = data.NextPlan;
+                    AccidentsSummary.Value = data.AccidentsSummary;
+                }
+
+            }
+        }
+
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (!Funs.GetNewDateTime(this.txtReportMonths.Text + "-01").HasValue)
+            if (!string.IsNullOrWhiteSpace(SaveSeDinMonthReport0(0)))
             {
-                ShowNotify("月报月份不能为空！", MessageBoxIcon.Warning);
-                return;
+                SaveSeDinMonthReport1();
+                SaveSeDinMonthReport2();
+                SaveSeDinMonthReport3();
+                SaveSeDinMonthReport4();
+                SaveSeDinMonthReport5();
+                SaveSeDinMonthReport6();
+                SaveSeDinMonthReport7();
+                SaveSeDinMonthReport8();
+                SaveSeDinMonthReport9();
+                SaveSeDinMonthReport10();
+                SaveSeDinMonthReport11();
+                SaveSeDinMonthReport12();
+                SaveSeDinMonthReport13();
+
             }
-            if (BLL.MonthReportService.GetMonthReportsByReportMonthsIDProejctID(Funs.GetNewDateTimeOrNow(this.txtReportMonths.Text + "-01"), this.MonthReportId, this.ProjectId) != null)
+            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
+        }
+
+
+
+        #region 保存 MonthReport0 封面
+        /// <summary>
+        /// 保存赛鼎月报
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+
+        public string SaveSeDinMonthReport0(int type)
+        {
+            SeDinMonthReportItem newItem = new SeDinMonthReportItem();
+            newItem.ProjectId = ProjectId;
+            if (!string.IsNullOrWhiteSpace(MonthReportId))
             {
-                ShowNotify("当前月份已存在月报！", MessageBoxIcon.Warning);
-                return;
+                newItem.MonthReportId = MonthReportId;
             }
+            newItem.DueDate = DueDate.Text;
+            newItem.StartDate = StartDate.Text;
+            newItem.EndDate = EndDate.Text;
+            newItem.ReporMonth = ReporMonth.Text;
+            newItem.CompileManId = CompileManId.SelectedValue;
+            newItem.AuditManId = AuditManId.SelectedValue;
+            newItem.ApprovalManId = ApprovalManId.SelectedValue;
 
-            Model.Manager_MonthReport monthReport = new Model.Manager_MonthReport
-            {
-                MonthReportCode = this.txtMonthReportCode.Text,
-                ProjectId = this.ProjectId,
-                Months = Funs.GetNewDateTime(this.txtMonthReportDate.Text),
-                MonthReportStartDate = Funs.GetNewDateTime(this.txtMonthReportStartDate.Text),
-                MonthReportDate = Funs.GetNewDateTime(this.txtMonthReportDate.Text),
-                ReportMonths = Funs.GetNewDateTime(this.txtReportMonths.Text + "-01"),
-                ReportMan = this.CurrUser.UserId,
-                AllProjectData = this.txtAllProjectData.Text,
-                AllManhoursData = this.txtAllManhoursData.Text,
-
-                ThisMonthKeyPoints = this.txtThisMonthKeyPoints.Text.Trim(),
-                ThisMonthSafetyCost = Funs.GetNewDecimalOrZero(this.txtThisMonthSafetyCost.Text.Trim()),
-                TotalSafetyCost = Funs.GetNewDecimalOrZero(this.txtTotalSafetyCost.Text.Trim()),
-                ThisMonthSafetyActivity = this.txtThisMonthSafetyActivity.Text.Trim(),
-                NextMonthWorkFocus = this.txtNextMonthWorkFocus.Text.Trim(),
-                EquipmentQualityData = this.txtEquipmentQualityData.Text
-            };
-
-            if (!string.IsNullOrEmpty(this.MonthReportId))
-            {
-                monthReport.MonthReportId = this.MonthReportId;
-                BLL.MonthReportService.UpdateMonthReport(monthReport);
-                BLL.LogService.AddSys_Log(this.CurrUser, monthReport.MonthReportCode, monthReport.MonthReportId, BLL.Const.ProjectManagerMonthMenuId, BLL.Const.BtnModify);
+            if (type == 1)
+            { //保存
+                newItem.States = "0";
             }
             else
             {
-                monthReport.MonthReportId = SQLHelper.GetNewID(typeof(Model.Manager_MonthReport));
-                this.MonthReportId = monthReport.MonthReportId;
-                BLL.MonthReportService.AddMonthReport(monthReport);
-                BLL.LogService.AddSys_Log(this.CurrUser, monthReport.MonthReportCode, monthReport.MonthReportId, BLL.Const.ProjectManagerMonthMenuId, BLL.Const.BtnAdd);
+                newItem.States = "1";
             }
-
-            ///保存教育与培训情况统计
-            this.SaveTrainSort();
-            /// 保存会议情况统计
-            this.SaveMeetingSort();
-            /// 保存HSE检查情况统计
-            this.SaveCheckSort();
-            /// 保存事故分类统计
-            this.SaveAccidentSort();
-            /// 保存安全奖惩情况统计
-            this.SaveIncentiveSort();
-            /// 保存其它情况统计
-            this.SaveHseCost();
-            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
+            MonthReportId = APISeDinMonthReportService.SaveSeDinMonthReport0(newItem);
+            return MonthReportId;
         }
         #endregion
-
-        #region 格式化字符串
+        #region 保存 MonthReport1、项目信息
         /// <summary>
-        /// 获取培训类型
+        /// 保存赛鼎月报
         /// </summary>
-        /// <param name="WorkStage"></param>
+        /// <param name="newItem">赛鼎月报</param>
         /// <returns></returns>
-        protected string ConvertTrainType(object TrainTypeId)
+        public void SaveSeDinMonthReport1()
         {
-            string name = string.Empty;
-            if (TrainTypeId != null)
-            {
-                string trainTypeId = TrainTypeId.ToString().Trim();
-                Model.Base_TrainType trainType = BLL.TrainTypeService.GetTrainTypeById(trainTypeId);
-                if (trainType != null)
-                {
-                    name = trainType.TrainTypeName;
-                }
-            }
-            return name;
-        }
 
+            if (APISeDinMonthReportService.count(MonthReportId) == 1)
+            {
+                SeDinMonthReport1Item newItem = new SeDinMonthReport1Item();
+                newItem.MonthReportId = MonthReportId;
+                newItem.ProjectCode = projectCode.Text;
+                newItem.ProjectName = projectName.Text;
+                newItem.ProjectType = projectType.Text;
+                newItem.StartDate = pStartDate.Text;
+                newItem.EndDate = pEndDate.Text;
+                newItem.ProjectManager = ProjectManager.Text;
+                newItem.HsseManager = HsseManager.Text;
+                newItem.ContractAmount = ContractAmount.Text;
+                newItem.ConstructionStage = ConstructionStage.Text;
+                newItem.ProjectAddress = ProjectAddress.Text;
+                APISeDinMonthReportService.SaveSeDinMonthReport1(newItem);
+            }
+            else
+            {
+                Alert.ShowInTop("请先保存月报主表信息！", MessageBoxIcon.Warning);
+            }
+
+        }
+        #endregion
+        #region 保存 MonthReport2、项目安全工时统计
         /// <summary>
-        /// 获取事故类型
+        /// 保存赛鼎月报
         /// </summary>
-        /// <param name="WorkStage"></param>
+        /// <param name="newItem">赛鼎月报</param>
         /// <returns></returns>
-        protected string ConvertAccidentType(object AccidentTypeId)
+
+        public void SaveSeDinMonthReport2()
         {
-            string name = string.Empty;
-            if (AccidentTypeId != null)
+
+            if (APISeDinMonthReportService.count(MonthReportId) == 1)
             {
-                string accidentTypeId = AccidentTypeId.ToString().Trim();
-                Model.Base_AccidentType accidentType = BLL.AccidentTypeService.GetAccidentTypeById(accidentTypeId);
-                if (accidentType != null)
-                {
-                    name = accidentType.AccidentTypeName;
-                }
+                SeDinMonthReport2Item newItem = new SeDinMonthReport2Item();
+                newItem.MonthReportId = MonthReportId;
+                newItem.MonthWorkTime = Funs.GetNewDecimalOrZero(MonthWorkTime.Text);
+                newItem.YearWorkTime = Funs.GetNewDecimalOrZero(YearWorkTime.Text);
+                newItem.YearWorkTime = Funs.GetNewDecimalOrZero(YearWorkTime.Text);
+                newItem.TotalLostTime = Funs.GetNewDecimalOrZero(TotalLostTime.Text);
+                newItem.MillionLossRate = MillionLossRate.Text;
+                newItem.ProjectWorkTime = Funs.GetNewDecimalOrZero(ProjectWorkTime.Text);
+                newItem.TimeAccuracyRate = TimeAccuracyRate.Text;
+                newItem.StartDate = StartDate.Text;
+                newItem.EndDate = EndDate.Text;
+                newItem.SafeWorkTime = Funs.GetNewDecimalOrZero(SafeWorkTime.Text);
+                APISeDinMonthReportService.SaveSeDinMonthReport2(newItem);
             }
-            return name;
+            else
+            {
+                Alert.ShowInTop("请先保存月报主表信息！", MessageBoxIcon.Warning);
+            }
+
+
         }
         #endregion
-
-        #region 保存列表明细
-        #region 保存教育与培训情况统计
+        #region 保存 MonthReport3、项目HSE事故、事件统计
         /// <summary>
-        /// 保存教育与培训情况统计
+        /// 保存赛鼎月报
         /// </summary>
-        private void SaveTrainSort()
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+
+        public void SaveSeDinMonthReport3()
         {
-            BLL.TrainSortService.DeleteTrainSortsByMonthReportId(this.MonthReportId);
-            for (int i = 0; i < this.Grid1.Rows.Count; i++)
+            if (APISeDinMonthReportService.count(MonthReportId) == 1)
             {
-                Model.Manager_TrainSort trainSort = new Model.Manager_TrainSort
+                List<SeDinMonthReport3Item> listMonthReport3 = new List<SeDinMonthReport3Item>();
+
+                for (int i = 0; i < 12; i++)
                 {
-                    TrainSortId = this.Grid1.Rows[i].DataKeys[0].ToString(),
-                    MonthReportId = this.MonthReportId,
-                    TrainTypeName = this.Grid1.Rows[i].DataKeys[1].ToString(),
-                    TrainNumber11 = Funs.GetNewInt(this.Grid1.Rows[i].Values[1].ToString()),
-                    TrainNumber12 = Funs.GetNewInt(this.Grid1.Rows[i].Values[2].ToString()),
-                    TrainNumber13 = Funs.GetNewInt(this.Grid1.Rows[i].Values[3].ToString()),
-                    TrainNumber14 = Funs.GetNewInt(this.Grid1.Rows[i].Values[4].ToString())
-                };
-                BLL.TrainSortService.AddTrainSort(trainSort);
+                    if (i == 0)
+                    {
+                        i = 1;
+                    }
+                    HtmlGenericControl myLabel = (HtmlGenericControl)ContentPanel2.FindControl("AccidentType" + (i));
+                    HtmlInputText monthTimes = (HtmlInputText)ContentPanel2.FindControl("MonthTimes" + (i));
+                    HtmlInputText totalTimes = (HtmlInputText)ContentPanel2.FindControl("TotalTimes" + (i));
+                    HtmlInputText monthLossTime = (HtmlInputText)ContentPanel2.FindControl("MonthLossTime" + (i));
+                    HtmlInputText totalLossTime = (HtmlInputText)ContentPanel2.FindControl("TotalLossTime" + (i));
+                    HtmlInputText MonthMoney = (HtmlInputText)ContentPanel2.FindControl("MonthMoney" + (i));
+                    HtmlInputText totalMoney = (HtmlInputText)ContentPanel2.FindControl("TotalMoney" + (i));
+                    HtmlInputText monthPersons = (HtmlInputText)ContentPanel2.FindControl("MonthPersons" + (i));
+                    HtmlInputText totalPersons = (HtmlInputText)ContentPanel2.FindControl("TotalPersons" + (i));
+                    SeDinMonthReport3Item mo = new SeDinMonthReport3Item();
+                    mo.MonthReportId = MonthReportId;
+                    if (i < 5)
+                    {
+                        mo.BigType = BigType.InnerText;
+                    }
+                    mo.AccidentType = myLabel.InnerText;
+                    mo.SortIndex = i;
+                    if (!string.IsNullOrWhiteSpace(monthTimes.Value))
+                    {
+                        mo.MonthTimes = Funs.GetNewInt(monthTimes.Value);
+                    }
+                    if (!string.IsNullOrWhiteSpace(totalTimes.Value))
+                    {
+                        mo.TotalTimes = Funs.GetNewInt(totalTimes.Value);
+                    }
+                    if (!string.IsNullOrWhiteSpace(monthLossTime.Value))
+                    {
+                        mo.MonthLossTime = Funs.GetNewDecimalOrZero(monthLossTime.Value);
+                    }
+                    if (!string.IsNullOrWhiteSpace(totalLossTime.Value))
+                    {
+                        mo.TotalLossTime = Funs.GetNewDecimalOrZero(totalLossTime.Value);
+                    }
+                    if (!string.IsNullOrWhiteSpace(MonthMoney.Value))
+                    {
+                        mo.MonthMoney = Funs.GetNewDecimalOrZero(MonthMoney.Value);
+                    }
+                    if (!string.IsNullOrWhiteSpace(totalMoney.Value))
+                    {
+                        mo.TotalMoney = Funs.GetNewDecimalOrZero(totalMoney.Value);
+                    }
+                    if (!string.IsNullOrWhiteSpace(monthPersons.Value))
+                    {
+                        mo.MonthPersons = Funs.GetNewInt(monthPersons.Value);
+                    }
+                    if (!string.IsNullOrWhiteSpace(totalPersons.Value))
+                    {
+                        mo.TotalPersons = Funs.GetNewInt(totalPersons.Value);
+                    }
+                    listMonthReport3.Add(mo);
+
+                }
+                var newItem = new SeDinMonthReportItem();
+                newItem.SeDinMonthReport3Item = listMonthReport3;
+                newItem.MonthReportId = MonthReportId;
+                newItem.AccidentsSummary = AccidentsSummary.Value;
+                APISeDinMonthReportService.SaveSeDinMonthReport3(newItem);
+            }
+            else
+            {
+                Alert.ShowInTop("请先保存月报主表信息！", MessageBoxIcon.Warning);
+            }
+
+        }
+        #endregion
+        #region 保存 MonthReport4、本月人员投入情况
+        /// <summary>
+        /// 保存赛鼎月报
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+
+        public void SaveSeDinMonthReport4()
+        {
+            if (APISeDinMonthReportService.count(MonthReportId) == 1)
+            {
+                Model.SeDinMonthReportItem newItem = new SeDinMonthReportItem();
+                newItem.MonthReportId = MonthReportId;
+                List<SeDinMonthReport4Item> listSeDinMonthReport4Item = new List<SeDinMonthReport4Item>();
+                foreach (JObject mergedRow in GvSeDinMonthReport4Item.GetMergedData())
+                {
+                    int i = mergedRow.Value<int>("index");
+                    //GridRow row = GvSeDinMonthReport4Item.Rows[i];
+                    JObject values = mergedRow.Value<JObject>("values");
+                    var safeManangerNum = values.Value<string>("SafeManangerNum");
+                    var unitName = GvSeDinMonthReport4Item.Rows[i].Values[0].ToString();
+                    var OoherManangerNum = values.Value<string>("OtherManangerNum");
+                    var specialWorkerNum = values.Value<string>("SpecialWorkerNum");
+                    var generalWorkerNum = values.Value<string>("GeneralWorkerNum");
+                    var totalNum = values.Value<string>("TotalNum");
+                    //System.Web.UI.WebControls.DropDownList ddlUnit = (System.Web.UI.WebControls.DropDownList)(row.FindControl("ddlUnitName"));
+                    Model.SeDinMonthReport4Item newReport4Item = new Model.SeDinMonthReport4Item();
+                    newReport4Item.MonthReportId = MonthReportId;
+                    newReport4Item.UnitName = unitName;
+                    newReport4Item.SafeManangerNum = Funs.GetNewInt(safeManangerNum);
+                    newReport4Item.OtherManangerNum = Funs.GetNewInt(OoherManangerNum);
+                    newReport4Item.SpecialWorkerNum = Funs.GetNewInt(specialWorkerNum);
+                    newReport4Item.GeneralWorkerNum = Funs.GetNewInt(generalWorkerNum);
+                    newReport4Item.TotalNum = Funs.GetNewInt(totalNum);
+                    listSeDinMonthReport4Item.Add(newReport4Item);
+                }
+                newItem.SeDinMonthReport4Item = listSeDinMonthReport4Item;
+                APISeDinMonthReportService.SaveSeDinMonthReport4(newItem);
+            }
+            else
+            {
+                Alert.ShowInTop("请先保存月报主表信息！", MessageBoxIcon.Warning);
+            }
+
+
+        }
+        #endregion
+        #region 保存 MonthReport5、本月大型、特种设备投入情况
+        /// <summary>
+        /// 保存赛鼎月报
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+
+        public void SaveSeDinMonthReport5()
+        {
+            if (APISeDinMonthReportService.count(MonthReportId) == 1)
+            {
+                Model.SeDinMonthReportItem newItem = new SeDinMonthReportItem();
+                newItem.MonthReportId = MonthReportId;
+                List<SeDinMonthReport5Item> listSeDinMonthReport5Item = new List<SeDinMonthReport5Item>();
+                foreach (JObject mergedRow in GvSeDinMonthReport5Item.GetMergedData())
+                {
+                    int i = mergedRow.Value<int>("index");
+                    JObject values = mergedRow.Value<JObject>("values");
+                    var unitName = GvSeDinMonthReport5Item.Rows[i].Values[0].ToString();
+                    var t01 = values.Value<string>("T01");
+                    var t02 = values.Value<string>("T02");
+                    var t03 = values.Value<string>("T03");
+                    var t04 = values.Value<string>("T04");
+                    var t05 = values.Value<string>("T05");
+                    var t06 = values.Value<string>("T06");
+                    var d01 = values.Value<string>("D01");
+                    var d02 = values.Value<string>("D02");
+                    var d03 = values.Value<string>("D03");
+                    var d04 = values.Value<string>("D04");
+                    var s01 = values.Value<string>("S01");
+                    Model.SeDinMonthReport5Item newReport5Item = new Model.SeDinMonthReport5Item();
+                    newReport5Item.UnitName = unitName;
+                    newReport5Item.T01 = Funs.GetNewInt(t01);
+                    newReport5Item.T02 = Funs.GetNewInt(t02);
+                    newReport5Item.T03 = Funs.GetNewInt(t03);
+                    newReport5Item.T04 = Funs.GetNewInt(t04);
+                    newReport5Item.T05 = Funs.GetNewInt(t05);
+                    newReport5Item.T06 = Funs.GetNewInt(t06);
+                    newReport5Item.D01 = Funs.GetNewInt(d01);
+                    newReport5Item.D02 = Funs.GetNewInt(d02);
+                    newReport5Item.D03 = Funs.GetNewInt(d03);
+                    newReport5Item.D04 = Funs.GetNewInt(d04);
+                    newReport5Item.S01 = Funs.GetNewInt(s01);
+                    listSeDinMonthReport5Item.Add(newReport5Item);
+                }
+                newItem.SeDinMonthReport5Item = listSeDinMonthReport5Item;
+                APISeDinMonthReportService.SaveSeDinMonthReport5(newItem);
+            }
+            else
+            {
+                Alert.ShowInTop("请先保存月报主表信息！", MessageBoxIcon.Warning);
+            }
+        }
+        #endregion
+        #region 保存 MonthReport6、安全生产费用投入情况
+        /// <summary>
+        /// 保存赛鼎月报
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+
+        public void SaveSeDinMonthReport6()
+        {
+            if (APISeDinMonthReportService.count(MonthReportId) == 1)
+            {
+                SeDinMonthReport6Item monthReport6Item = new SeDinMonthReport6Item();
+                monthReport6Item.MonthReportId = MonthReportId;
+                monthReport6Item.SafetyMonth = Funs.GetNewDecimalOrZero(SafetyMonth.Value);
+                monthReport6Item.SafetyYear = Funs.GetNewDecimalOrZero(SafetyYear.Value);
+                monthReport6Item.SafetyTotal = Funs.GetNewDecimalOrZero(SafetyTotal.Value);
+                monthReport6Item.LaborMonth = Funs.GetNewDecimalOrZero(LaborMonth.Value);
+                monthReport6Item.LaborYear = Funs.GetNewDecimalOrZero(LaborYear.Value);
+                monthReport6Item.LaborTotal = Funs.GetNewDecimalOrZero(LaborTotal.Value);
+                monthReport6Item.ProgressMonth = Funs.GetNewDecimalOrZero(ProgressMonth.Value);
+                monthReport6Item.ProgressYear = Funs.GetNewDecimalOrZero(ProgressYear.Value);
+                monthReport6Item.ProgressTotal = Funs.GetNewDecimalOrZero(ProgressTotal.Value);
+                monthReport6Item.EducationMonth = Funs.GetNewDecimalOrZero(EducationMonth.Value);
+                monthReport6Item.EducationYear = Funs.GetNewDecimalOrZero(EducationYear.Value);
+                monthReport6Item.EducationTotal = Funs.GetNewDecimalOrZero(SafetyMonth.Value);
+                monthReport6Item.SumMonth = Funs.GetNewDecimalOrZero(SumMonth.Value);
+                monthReport6Item.SumYear = Funs.GetNewDecimalOrZero(SumYear.Value);
+                monthReport6Item.SumTotal = Funs.GetNewDecimalOrZero(SumTotal.Value);
+                monthReport6Item.ContractMonth = Funs.GetNewDecimalOrZero(ContractMonth.Value);
+                monthReport6Item.ContractYear = Funs.GetNewDecimalOrZero(ContractYear.Value);
+                monthReport6Item.ContractTotal = Funs.GetNewDecimalOrZero(ContractTotal.Value);
+                monthReport6Item.ConstructionCost = Funs.GetNewDecimalOrZero(ConstructionCost.Value);
+                APISeDinMonthReportService.SaveSeDinMonthReport6(monthReport6Item);
+            }
+            else
+            {
+                Alert.ShowInTop("请先保存月报主表信息！", MessageBoxIcon.Warning);
+            }
+
+
+        }
+        #endregion
+        #region 保存 MonthReport7、项目HSE培训统计
+        /// <summary>
+        /// 保存赛鼎月报
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+
+        public void SaveSeDinMonthReport7()
+        {
+            if (APISeDinMonthReportService.count(MonthReportId) == 1)
+            {
+                var newItem = new SeDinMonthReport7Item();
+                newItem.MonthReportId = MonthReportId;
+                newItem.SpecialMontNum = Funs.GetNewInt(SpecialMontNum.Value);
+                newItem.SpecialYearNum = Funs.GetNewInt(SpecialYearNum.Value);
+                newItem.SpecialTotalNum = Funs.GetNewInt(SpecialTotalNum.Value);
+                newItem.SpecialMontPerson = Funs.GetNewInt(SpecialMontPerson.Value);
+                newItem.SpecialYearPerson = Funs.GetNewInt(SpecialYearPerson.Value);
+                newItem.SpecialTotalPerson = Funs.GetNewInt(SpecialTotalPerson.Value);
+                newItem.EmployeeMontNum = Funs.GetNewInt(EmployeeMontNum.Value);
+                newItem.EmployeeYearNum = Funs.GetNewInt(EmployeeYearNum.Value);
+                newItem.EmployeeTotalNum = Funs.GetNewInt(EmployeeTotalNum.Value);
+                newItem.EmployeeMontPerson = Funs.GetNewInt(EmployeeMontPerson.Value);
+                newItem.EmployeeYearPerson = Funs.GetNewInt(EmployeeYearPerson.Value);
+                newItem.EmployeeTotalPerson = Funs.GetNewInt(EmployeeTotalPerson.Value);
+                APISeDinMonthReportService.SaveSeDinMonthReport7(newItem);
+            }
+            else
+            {
+                Alert.ShowInTop("请先保存月报主表信息！", MessageBoxIcon.Warning);
+            }
+
+        }
+        #endregion
+        #region 保存 MonthReport8、项目HSE会议统计
+        /// <summary>
+        /// 保存赛鼎月报
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+
+        public void SaveSeDinMonthReport8()
+        {
+            if (APISeDinMonthReportService.count(MonthReportId) == 1)
+            {
+                Model.SeDinMonthReport8Item newItem = new SeDinMonthReport8Item();
+                newItem.MonthReportId = MonthReportId;
+                newItem.WeekMontNum = Funs.GetNewInt(Report8WeekMontNum.Value);
+                newItem.WeekTotalNum = Funs.GetNewInt(Report8WeekTotalNum.Value);
+                newItem.WeekMontPerson = Funs.GetNewInt(Report8WeekMontPerson.Value);
+                newItem.MonthMontNum = Funs.GetNewInt(Report8MonthMontNum.Value);
+                newItem.MonthTotalNum = Funs.GetNewInt(Report8MonthTotalNum.Value);
+                newItem.MonthMontPerson = Funs.GetNewInt(Report8MonthMontPerson.Value);
+                newItem.SpecialMontNum = Funs.GetNewInt(Report8SpecialMontNum.Value);
+                newItem.SpecialTotalNum = Funs.GetNewInt(Report8SpecialTotalNum.Value);
+                newItem.SpecialMontPerson = Funs.GetNewInt(Report8SpecialMontPerson.Value);
+                List<SeDinMonthReport8ItemItem> listSeDin_MonthReport8Item = new List<SeDinMonthReport8ItemItem>();
+                foreach (JObject mergedRow in GvSeDinMonthReport8Item.GetMergedData())
+                {
+                    int i = mergedRow.Value<int>("index");
+                    JObject values = mergedRow.Value<JObject>("values");
+                    var unitName = GvSeDinMonthReport8Item.Rows[i].Values[0].ToString();
+                    var teamName = GvSeDinMonthReport8Item.Rows[i].Values[1].ToString();
+                    var classNum = GvSeDinMonthReport8Item.Rows[i].Values[2].ToString();
+                    //var unitName = values.Value<string>("UnitName");
+                    //var teamName = values.Value<string>("TeamName");
+                    //var classNum = values.Value<string>("ClassNum");
+                    var classPersonNum = values.Value<string>("ClassPersonNum");
+                    Model.SeDinMonthReport8ItemItem report8Item = new Model.SeDinMonthReport8ItemItem();
+                    report8Item.MonthReportId = MonthReportId;
+                    report8Item.UnitName = unitName;
+                    report8Item.TeamName = teamName;
+                    report8Item.ClassNum = Funs.GetNewInt(classNum);
+                    report8Item.ClassPersonNum = Funs.GetNewInt(classPersonNum);
+                    listSeDin_MonthReport8Item.Add(report8Item);
+                }
+                newItem.SeDinMonthReport8ItemItem = listSeDin_MonthReport8Item;
+                APISeDinMonthReportService.SaveSeDinMonthReport8(newItem);
+            }
+            else
+            {
+                Alert.ShowInTop("请先保存月报主表信息！", MessageBoxIcon.Warning);
+            }
+
+        }
+        #endregion
+        #region 保存 MonthReport9、项目HSE检查统计
+        /// <summary>
+        /// 保存赛鼎月报
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+
+        public void SaveSeDinMonthReport9()
+        {
+            if (APISeDinMonthReportService.count(MonthReportId) == 1)
+            {
+                SeDinMonthReport9Item newItem = new SeDinMonthReport9Item();
+                newItem.MonthReportId = MonthReportId;
+                newItem.DailyMonth = Funs.GetNewInt(DailyMonth.Value);
+                newItem.DailyYear = Funs.GetNewInt(DailyYear.Value);
+                newItem.DailyTotal = Funs.GetNewInt(DailyTotal.Value);
+                newItem.WeekMonth = Funs.GetNewInt(WeekMonth.Value);
+                newItem.WeekYear = Funs.GetNewInt(WeekYear.Value);
+                newItem.WeekTotal = Funs.GetNewInt(WeekTotal.Value);
+                newItem.SpecialMonth = Funs.GetNewInt(SpecialMonth.Value);
+                newItem.SpecialYear = Funs.GetNewInt(SpecialYear.Value);
+                newItem.SpecialTotal = Funs.GetNewInt(SpecialTotal.Value);
+                newItem.MonthlyMonth = Funs.GetNewInt(MonthlyMonth.Value);
+                newItem.MonthlyYear = Funs.GetNewInt(MonthlyYear.Value);
+                newItem.MonthlyTotal = Funs.GetNewInt(MonthlyTotal.Value);
+
+
+                List<SeDinMonthReport9ItemRectification> listReport9ItemRectification = new List<SeDinMonthReport9ItemRectification>();
+                var Report9ItemRects = GvSeDinMonthReport9ItemRect.GetMergedData();
+                if (Report9ItemRects != null)
+                {
+                    foreach (JObject mergedRow in GvSeDinMonthReport9ItemRect.GetMergedData())
+                    {
+                        int i = mergedRow.Value<int>("index");
+                        JObject values = mergedRow.Value<JObject>("values");
+                        //var unitName = values.Value<string>("UnitName");
+                        var unitName = GvSeDinMonthReport9ItemRect.Rows[i].Values[0].ToString();
+                        var issuedMonth = values.Value<string>("IssuedMonth");
+                        var rectificationMoth = values.Value<string>("RectificationMoth");
+                        var issuedTotal = values.Value<string>("IssuedTotal");
+                        var rectificationTotal = values.Value<string>("RectificationTotal");
+                        SeDinMonthReport9ItemRectification report9ItemRectification = new SeDinMonthReport9ItemRectification();
+                        report9ItemRectification.MonthReportId = MonthReportId;
+                        report9ItemRectification.UnitName = unitName;
+                        report9ItemRectification.IssuedMonth = Funs.GetNewInt(issuedMonth);
+                        report9ItemRectification.RectificationMoth = Funs.GetNewInt(rectificationMoth);
+                        report9ItemRectification.IssuedTotal = Funs.GetNewInt(issuedTotal);
+                        report9ItemRectification.RectificationTotal = Funs.GetNewInt(rectificationTotal);
+                        listReport9ItemRectification.Add(report9ItemRectification);
+                    }
+                }
+
+                newItem.SeDinMonthReport9ItemRectification = listReport9ItemRectification;
+
+                List<SeDinMonthReport9ItemSpecial> listReport9ItemSpecial = new List<SeDinMonthReport9ItemSpecial>();
+                var special = GvSeDinMonthReport9ItemSpecial.GetMergedData();
+                if (special != null)
+                {
+                    foreach (JObject mergedRow in GvSeDinMonthReport9ItemSpecial.GetMergedData())
+                    {
+                        int i = mergedRow.Value<int>("index");
+                        JObject values = mergedRow.Value<JObject>("values");
+                        //var typeName = values.Value<string>("TypeName");
+                        var typeName = GvSeDinMonthReport9ItemSpecial.Rows[i].Values[0].ToString();
+                        var checkMonth = values.Value<string>("CheckMonth");
+                        var checkYear = values.Value<string>("CheckYear");
+                        var checkTotal = values.Value<string>("CheckTotal");
+                        SeDinMonthReport9ItemSpecial report9ItemSpecial = new SeDinMonthReport9ItemSpecial();
+                        report9ItemSpecial.MonthReportId = MonthReportId;
+                        report9ItemSpecial.TypeName = typeName;
+                        report9ItemSpecial.CheckMonth = Funs.GetNewInt(checkMonth);
+                        report9ItemSpecial.CheckYear = Funs.GetNewInt(checkYear);
+                        report9ItemSpecial.CheckTotal = Funs.GetNewInt(checkTotal);
+                        listReport9ItemSpecial.Add(report9ItemSpecial);
+                    }
+                }
+                newItem.SeDinMonthReport9ItemSpecial = listReport9ItemSpecial;
+
+                List<SeDinMonthReport9ItemStoppage> listReport9ItemStoppage = new List<SeDinMonthReport9ItemStoppage>();
+                var GetMergedData = GvSeDinMonthReport9ItemStoppage.GetMergedData();
+                if (GetMergedData != null)
+                {
+                    foreach (JObject mergedRow in GvSeDinMonthReport9ItemStoppage.GetMergedData())
+                    {
+                        int i = mergedRow.Value<int>("index");
+                        JObject values = mergedRow.Value<JObject>("values");
+                        //var unitName = values.Value<string>("UnitName");
+                        var unitName = GvSeDinMonthReport9ItemStoppage.Rows[i].Values[0].ToString();
+                        var issuedMonth = values.Value<string>("IssuedMonth");
+                        var stoppageMonth = values.Value<string>("StoppageMonth");
+                        var issuedTotal = values.Value<string>("IssuedTotal");
+                        var stoppageTotal = values.Value<string>("StoppageTotal");
+                        SeDinMonthReport9ItemStoppage report9ItemStoppage = new SeDinMonthReport9ItemStoppage();
+                        report9ItemStoppage.MonthReportId = MonthReportId;
+                        report9ItemStoppage.UnitName = unitName;
+                        report9ItemStoppage.IssuedMonth = Funs.GetNewInt(issuedMonth);
+                        report9ItemStoppage.StoppageMonth = Funs.GetNewInt(stoppageMonth);
+                        report9ItemStoppage.IssuedTotal = Funs.GetNewInt(issuedTotal);
+                        report9ItemStoppage.StoppageTotal = Funs.GetNewInt(stoppageTotal);
+                        listReport9ItemStoppage.Add(report9ItemStoppage);
+                    }
+                }
+
+                newItem.SeDinMonthReport9ItemStoppage = listReport9ItemStoppage;
+                APISeDinMonthReportService.SaveSeDinMonthReport9(newItem);
+            }
+            else
+            {
+                Alert.ShowInTop("请先保存月报主表信息！", MessageBoxIcon.Warning);
+            }
+
+
+        }
+        #endregion
+        #region 保存 MonthReport10、项目奖惩情况统计
+        /// <summary>
+        /// 保存赛鼎月报
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+
+        public void SaveSeDinMonthReport10()
+        {
+            if (APISeDinMonthReportService.count(MonthReportId) == 1)
+            {
+                SeDinMonthReport10Item newItem = new SeDinMonthReport10Item();
+                newItem.MonthReportId = MonthReportId;
+                newItem.SafeMonthNum = Funs.GetNewInt(SafeMonthNum.Value);
+                newItem.SafeTotalNum = Funs.GetNewInt(SafeTotalNum.Value);
+                newItem.SafeMonthMoney = Funs.GetNewDecimalOrZero(SafeMonthMoney.Value);
+                newItem.SafeTotalMoney = Funs.GetNewDecimalOrZero(SafeTotalMoney.Value);
+                newItem.HseMonthNum = Funs.GetNewInt(HseMonthNum.Value);
+                newItem.HseTotalNum = Funs.GetNewInt(HseTotalNum.Value);
+                newItem.HseMonthMoney = Funs.GetNewDecimalOrZero(HseMonthMoney.Value);
+                newItem.HseTotalMoney = Funs.GetNewDecimalOrZero(HseTotalMoney.Value);
+                newItem.ProduceMonthNum = Funs.GetNewInt(ProduceMonthNum.Value);
+                newItem.ProduceTotalNum = Funs.GetNewInt(ProduceTotalNum.Value);
+                newItem.ProduceMonthMoney = Funs.GetNewDecimalOrZero(ProduceMonthMoney.Value);
+                newItem.ProduceTotalMoney = Funs.GetNewDecimalOrZero(ProduceTotalMoney.Value);
+                newItem.AccidentMonthNum = Funs.GetNewInt(AccidentMonthNum.Value);
+                newItem.AccidentTotalNum = Funs.GetNewInt(AccidentTotalNum.Value);
+                newItem.AccidentMonthMoney = Funs.GetNewDecimalOrZero(AccidentMonthMoney.Value);
+                newItem.AccidentTotalMoney = Funs.GetNewDecimalOrZero(AccidentTotalMoney.Value);
+                newItem.ViolationMonthNum = Funs.GetNewInt(ViolationMonthNum.Value);
+                newItem.ViolationTotalNum = Funs.GetNewInt(ViolationTotalNum.Value);
+                newItem.ViolationMonthMoney = Funs.GetNewDecimalOrZero(ViolationMonthMoney.Value);
+                newItem.ViolationTotalMoney = Funs.GetNewDecimalOrZero(ViolationTotalMoney.Value);
+                newItem.ManageMonthNum = Funs.GetNewInt(ManageMonthNum.Value);
+                newItem.ManageTotalNum = Funs.GetNewInt(ManageTotalNum.Value);
+                newItem.ManageMonthMoney = Funs.GetNewDecimalOrZero(ManageMonthMoney.Value);
+                newItem.ManageTotalMoney = Funs.GetNewDecimalOrZero(ManageTotalMoney.Value);
+                APISeDinMonthReportService.SaveSeDinMonthReport10(newItem);
+            }
+            else
+            {
+                Alert.ShowInTop("请先保存月报主表信息！", MessageBoxIcon.Warning);
+            }
+
+        }
+        #endregion
+        #region 保存 MonthReport11、项目危大工程施工情况
+        /// <summary>
+        /// 保存赛鼎月报
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+
+        public void SaveSeDinMonthReport11()
+        {
+            if (APISeDinMonthReportService.count(MonthReportId) == 1)
+            {
+                SeDinMonthReport11Item newItem = new SeDinMonthReport11Item();
+                newItem.MonthReportId = MonthReportId;
+                newItem.RiskWorkNum = Funs.GetNewInt(RiskWorkNum.Value);
+                newItem.RiskFinishedNum = Funs.GetNewInt(RiskFinishedNum.Value);
+                newItem.RiskWorkNext = RiskWorkNext.Value;
+                newItem.LargeWorkNum = Funs.GetNewInt(LargeWorkNum.Value);
+                newItem.LargeFinishedNum = Funs.GetNewInt(LargeFinishedNum.Value);
+                newItem.LargeWorkNext = LargeWorkNext.Value;
+                APISeDinMonthReportService.SaveSeDinMonthReport11(newItem);
+            }
+            else
+            {
+                Alert.ShowInTop("请先保存月报主表信息！", MessageBoxIcon.Warning);
+            }
+
+        }
+        #endregion
+        #region 保存 MonthReport12、项目应急演练情况
+        /// <summary>
+        /// 保存赛鼎月报
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+
+        public void SaveSeDinMonthReport12()
+        {
+            if (APISeDinMonthReportService.count(MonthReportId) == 1)
+            {
+                SeDinMonthReport12Item newItem = new SeDinMonthReport12Item();
+                newItem.MonthReportId = MonthReportId;
+                newItem.MultipleSiteInput = Funs.GetNewDecimalOrZero(MultipleSiteInput.Value);
+                newItem.MultipleSitePerson = Funs.GetNewInt(MultipleSitePerson.Value);
+                newItem.MultipleSiteNum = Funs.GetNewInt(MultipleSiteNum.Value);
+                newItem.MultipleSiteTotalNum = Funs.GetNewInt(MultipleSiteTotalNum.Value);
+                if (!string.IsNullOrWhiteSpace(MultipleSiteNext.Value))
+                {
+                    newItem.MultipleSiteNext = MultipleSiteNext.Value;
+                }
+                newItem.MultipleDesktopInput = Funs.GetNewDecimalOrZero(MultipleDesktopInput.Value);
+                newItem.MultipleDesktopPerson = Funs.GetNewInt(MultipleDesktopPerson.Value);
+                newItem.MultipleDesktopNum = Funs.GetNewInt(MultipleDesktopNum.Value);
+                newItem.MultipleDesktopTotalNum = Funs.GetNewInt(MultipleDesktopTotalNum.Value);
+
+                if (!string.IsNullOrWhiteSpace(MultipleDesktopNext.Value))
+                {
+                    newItem.MultipleDesktopNext = MultipleDesktopNext.Value;
+                }
+                newItem.SingleSiteInput = Funs.GetNewDecimalOrZero(SingleSiteInput.Value);
+                newItem.SingleSitePerson = Funs.GetNewInt(SingleSitePerson.Value);
+                newItem.SingleSiteNum = Funs.GetNewInt(SingleSiteNum.Value);
+                newItem.SingleSiteTotalNum = Funs.GetNewInt(SingleSiteTotalNum.Value);
+                newItem.SingleSiteNext = SingleSiteNext.Value;
+                newItem.SingleDesktopInput = Funs.GetNewDecimalOrZero(SingleDesktopInput.Value);
+                newItem.SingleDesktopPerson = Funs.GetNewInt(SingleDesktopPerson.Value);
+                newItem.SingleDesktopNum = Funs.GetNewInt(SingleDesktopNum.Value);
+                newItem.SingleDesktopTotalNum = Funs.GetNewInt(SingleDesktopTotalNum.Value);
+                if (!string.IsNullOrWhiteSpace(SingleDesktopNext.Value))
+                {
+                    newItem.SingleDesktopNext = SingleDesktopNext.Value;
+                }
+
+                APISeDinMonthReportService.SaveSeDinMonthReport12(newItem);
+            }
+            else
+            {
+                Alert.ShowInTop("请先保存月报主表信息！", MessageBoxIcon.Warning);
+            }
+
+        }
+        #endregion
+        #region 保存 MonthReport13、14、本月HSE活动综述、下月HSE工作计划
+        /// <summary>
+        /// 保存赛鼎月报
+        /// </summary>
+        /// <param name="newItem">赛鼎月报</param>
+        /// <returns></returns>
+
+        public void SaveSeDinMonthReport13()
+        {
+            if (APISeDinMonthReportService.count(MonthReportId) == 1)
+            {
+                SeDinMonthReportItem newItem = new SeDinMonthReportItem();
+                newItem.MonthReportId = MonthReportId;
+                newItem.ThisSummary = ThisSummary.Text.Trim();
+                newItem.NextPlan = NextPlan.Text.Trim();
+                newItem.AccidentsSummary = AccidentsSummary.Value;
+                APISeDinMonthReportService.SaveSeDinMonthReport13(newItem);
+            }
+            else
+            {
+                Alert.ShowInTop("请先保存月报主表信息！", MessageBoxIcon.Warning);
             }
         }
         #endregion
 
-        #region 保存会议情况统计
         /// <summary>
-        /// 保存会议情况统计
-        /// </summary>
-        private void SaveMeetingSort()
-        {
-            BLL.MeetingSortService.DeleteMeetingSortsByMonthReportId(this.MonthReportId);
-            Model.Manager_MeetingSort newMeetingSort = new Model.Manager_MeetingSort
-            {
-                MonthReportId = this.MonthReportId,
-                MeetingNumber01 = Funs.GetNewInt(this.txtMeetingNumber01.Text),
-                MeetingNumber02 = Funs.GetNewInt(this.txtMeetingNumber02.Text),
-                MeetingNumber03 = Funs.GetNewInt(this.txtMeetingNumber03.Text),
-                MeetingNumber04 = Funs.GetNewInt(this.txtMeetingNumber04.Text),
-
-                MeetingNumber11 = Funs.GetNewInt(this.txtMeetingNumber11.Text),
-                MeetingNumber12 = Funs.GetNewInt(this.txtMeetingNumber12.Text),
-                MeetingNumber13 = Funs.GetNewInt(this.txtMeetingNumber13.Text),
-                MeetingNumber14 = Funs.GetNewInt(this.txtMeetingNumber14.Text)
-            };
-            BLL.MeetingSortService.AddMeetingSort(newMeetingSort);
-        }
-        #endregion
-
-        #region 保存HSE检查情况统计
-        /// <summary>
-        /// 保存HSE检查情况统计
-        /// </summary>
-        private void SaveCheckSort()
-        {
-            BLL.CheckSortService.DeleteCheckSortsByMonthReportId(this.MonthReportId);
-            Model.Manager_CheckSort newCheckSort = new Model.Manager_CheckSort
-            {
-                MonthReportId = this.MonthReportId,
-                CheckNumber01 = Funs.GetNewInt(this.txtCheckNumber01.Text),
-                CheckNumber02 = Funs.GetNewInt(this.txtCheckNumber02.Text),
-                CheckNumber03 = Funs.GetNewInt(this.txtCheckNumber03.Text),
-                CheckNumber04 = Funs.GetNewInt(this.txtCheckNumber04.Text),
-                CheckNumber11 = Funs.GetNewInt(this.txtCheckNumber11.Text),
-                CheckNumber12 = Funs.GetNewInt(this.txtCheckNumber12.Text),
-                CheckNumber13 = Funs.GetNewInt(this.txtCheckNumber13.Text),
-                CheckNumber14 = Funs.GetNewInt(this.txtCheckNumber14.Text),
-                CheckNumber21 = Funs.GetNewInt(this.txtCheckNumber21.Text),
-                CheckNumber22 = Funs.GetNewInt(this.txtCheckNumber22.Text),
-                CheckNumber23 = Funs.GetNewInt(this.txtCheckNumber23.Text),
-                CheckNumber24 = Funs.GetNewInt(this.txtCheckNumber24.Text),
-                CheckNumber31 = Funs.GetNewInt(this.txtCheckNumber31.Text),
-                CheckNumber32 = Funs.GetNewInt(this.txtCheckNumber32.Text),
-                CheckNumber33 = Funs.GetNewInt(this.txtCheckNumber33.Text),
-                CheckNumber34 = Funs.GetNewInt(this.txtCheckNumber34.Text)
-            };
-            BLL.CheckSortService.AddCheckSort(newCheckSort);
-        }
-        #endregion
-
-        #region 保存事故分类统计
-        /// <summary>
-        /// 保存事故分类统计
-        /// </summary>
-        private void SaveAccidentSort()
-        {
-            BLL.AccidentSortService.DeleteAccidentSortsByMonthReportId(this.MonthReportId);
-            //for (int i = 0; i < this.Grid2.Rows.Count; i++)
-            //{
-            //    Model.Manager_AccidentSort accidentSort = new Model.Manager_AccidentSort();
-            //    accidentSort.AccidentSortId = this.Grid2.Rows[i].DataKeys[0].ToString();
-            //    accidentSort.MonthReportId = this.MonthReportId;
-            //    accidentSort.AccidentTypeId = this.Grid2.Rows[i].DataKeys[1].ToString();
-            //    accidentSort.AccidentNumber01 = Funs.GetNewInt(this.Grid2.Rows[i].Values[1].ToString());
-            //    accidentSort.AccidentNumber02 = Funs.GetNewInt(this.Grid2.Rows[i].Values[2].ToString());
-            //    BLL.AccidentSortService.AddAccidentSort(accidentSort);
-            //}
-
-            foreach (JObject mergedRow in Grid2.GetMergedData())
-            {
-                JObject values = mergedRow.Value<JObject>("values");
-                Model.Manager_AccidentSort accidentSort = new Model.Manager_AccidentSort
-                {
-                    MonthReportId = this.MonthReportId
-                };
-                if (values["AccidentSortId"] != null)
-                {
-                    accidentSort.AccidentSortId  += values.Value<string>("AccidentSortId");
-                }
-                if (values["AccidentTypeId"] != null)
-                {
-                    accidentSort.AccidentTypeId += values.Value<string>("AccidentTypeId");
-                }                
-                if (values["AccidentNumber01"] != null)
-                {
-                    accidentSort.AccidentNumber01= values.Value<int>("AccidentNumber01");
-                }
-                if (values["AccidentNumber02"] != null)
-                {
-                    accidentSort.AccidentNumber02 = values.Value<int>("AccidentNumber02");
-                }
-
-                if (!string.IsNullOrEmpty(accidentSort.AccidentSortId))
-                {
-                    BLL.AccidentSortService.AddAccidentSort(accidentSort);
-                }
-            }
-        }
-        #endregion
-
-        #region 保存安全奖惩情况统计
-        /// <summary>
-        /// 保存安全奖惩情况统计
-        /// </summary>
-        private void SaveIncentiveSort()
-        {
-            BLL.IncentiveSortService.DeleteIncentiveSortsByMonthReportId(this.MonthReportId);
-            Model.Manager_IncentiveSort newIncentiveSort = new Model.Manager_IncentiveSort
-            {
-                MonthReportId = this.MonthReportId,
-                IncentiveNumber01 = Funs.GetNewDecimalOrZero(this.txtIncentiveNumber01.Text),
-                IncentiveNumber02 = Funs.GetNewDecimalOrZero(this.txtIncentiveNumber02.Text),
-                IncentiveNumber03 = Funs.GetNewDecimalOrZero(this.txtIncentiveNumber03.Text),
-                IncentiveNumber04 = Funs.GetNewInt(this.txtIncentiveNumber04.Text),
-                IncentiveNumber05 = Funs.GetNewInt(this.txtIncentiveNumber05.Text),
-                IncentiveNumber06 = Funs.GetNewDecimalOrZero(this.txtIncentiveNumber06.Text),
-                IncentiveNumber07 = Funs.GetNewDecimalOrZero(this.txtIncentiveNumber07.Text),
-
-                IncentiveNumber11 = Funs.GetNewDecimalOrZero(this.txtIncentiveNumber11.Text),
-                IncentiveNumber12 = Funs.GetNewDecimalOrZero(this.txtIncentiveNumber12.Text),
-                IncentiveNumber13 = Funs.GetNewDecimalOrZero(this.txtIncentiveNumber13.Text),
-                IncentiveNumber14 = Funs.GetNewInt(this.txtIncentiveNumber14.Text),
-                IncentiveNumber15 = Funs.GetNewInt(this.txtIncentiveNumber15.Text),
-                IncentiveNumber16 = Funs.GetNewDecimalOrZero(this.txtIncentiveNumber16.Text),
-                IncentiveNumber17 = Funs.GetNewDecimalOrZero(this.txtIncentiveNumber17.Text)
-            };
-
-            BLL.IncentiveSortService.AddIncentiveSort(newIncentiveSort);
-        }
-        #endregion
-
-        #region 保存其它情况统计
-        /// <summary>
-        /// 保存其它情况统计
-        /// </summary>
-        private void SaveHseCost()
-        {
-            BLL.HseCostService.DeleteHseSortsByMonthReportId(this.MonthReportId);
-            Model.Manager_HseCost newHseCost = new Model.Manager_HseCost
-            {
-                MonthReportId = this.MonthReportId,
-                HseNumber01 = Funs.GetNewInt(this.txtHseNumber01.Text),
-                HseNumber02 = Funs.GetNewInt(this.txtHseNumber02.Text),
-                HseNumber03 = Funs.GetNewInt(this.txtHseNumber03.Text),
-                HseNumber04 = Funs.GetNewInt(this.txtHseNumber04.Text),
-                HseNumber05 = Funs.GetNewInt(this.txtHseNumber05.Text),
-                HseNumber06 = Funs.GetNewInt(this.txtHseNumber06.Text),
-                HseNumber07 = Funs.GetNewInt(this.txtHseNumber07.Text),
-                HseNumber08 = Funs.GetNewInt(this.txtHseNumber08.Text),
-                HseNumber09 = Funs.GetNewInt(this.txtHseNumber09.Text),
-                HseNumber00 = Funs.GetNewInt(this.txtHseNumber00.Text),
-                HseNumber10 = Funs.GetNewDecimalOrZero(this.txtHseNumber10.Text),
-                HseNumber11 = Funs.GetNewDecimalOrZero(this.txtHseNumber11.Text),
-                SpecialNumber = Funs.GetNewInt(this.txtSpecialNumber.Text)
-            };
-            //newHseCost.HseNumber12 = Funs.GetNewDecimal(this.txtHseNumber12.Text);
-            //newHseCost.HseNumber13 = Funs.GetNewDecimal(this.txtHseNumber13.Text);
-            //newHseCost.HseNumber14 = Funs.GetNewDecimal(this.txtHseNumber14.Text);
-
-            BLL.HseCostService.AddHseSort(newHseCost);
-        }
-        #endregion
-        #endregion
-
-        #region 附件上传
-        /// <summary>
-        /// 上传附件
+        /// 提交本月人员投入情况
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btnAttachUrl_Click(object sender, EventArgs e)
+        protected void btnMonthReport4Item_Click(object sender, EventArgs e)
         {
-            if (!Funs.GetNewDateTime(this.txtReportMonths.Text + "-01").HasValue)
-            {
-                ShowNotify("月报月份不能为空！", MessageBoxIcon.Warning);
-                return;
-            }
-            if (BLL.MonthReportService.GetMonthReportsByReportMonthsIDProejctID(Funs.GetNewDateTimeOrNow(this.txtReportMonths.Text + "-01"), this.MonthReportId, this.ProjectId) != null)
-            {
-                ShowNotify("当前月份已存在月报！", MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (string.IsNullOrEmpty(this.MonthReportId))
-            {
-                Model.Manager_MonthReport monthReport = new Model.Manager_MonthReport
-                {
-                    MonthReportCode = this.txtMonthReportCode.Text,
-                    ProjectId = this.ProjectId,
-                    Months = Funs.GetNewDateTime(this.txtMonthReportDate.Text),
-                    MonthReportStartDate = Funs.GetNewDateTime(this.txtMonthReportStartDate.Text),
-                    MonthReportDate = Funs.GetNewDateTime(this.txtMonthReportDate.Text),
-                    ReportMonths = Funs.GetNewDateTime(this.txtReportMonths.Text + "-01"),
-                    ReportMan = this.CurrUser.UserId,
-                    AllProjectData = this.txtAllProjectData.Text,
-                    AllManhoursData = this.txtAllManhoursData.Text,
-
-                    ThisMonthKeyPoints = this.txtThisMonthKeyPoints.Text.Trim(),
-                    ThisMonthSafetyCost = Funs.GetNewDecimalOrZero(this.txtThisMonthSafetyCost.Text.Trim()),
-                    TotalSafetyCost = Funs.GetNewDecimalOrZero(this.txtTotalSafetyCost.Text.Trim()),
-                    ThisMonthSafetyActivity = this.txtThisMonthSafetyActivity.Text.Trim(),
-                    NextMonthWorkFocus = this.txtNextMonthWorkFocus.Text.Trim(),
-                    EquipmentQualityData = this.txtEquipmentQualityData.Text,
-
-                    MonthReportId = SQLHelper.GetNewID(typeof(Model.Manager_MonthReport))
-                };
-                this.MonthReportId = monthReport.MonthReportId;
-                BLL.MonthReportService.AddMonthReport(monthReport);
-                BLL.LogService.AddSys_Log(this.CurrUser, monthReport.MonthReportCode, monthReport.MonthReportId,BLL.Const.ProjectManagerMonthMenuId,BLL.Const.BtnAdd);
-            }
-
-            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ManagerMonthReport&menuId={1}", this.MonthReportId, BLL.Const.ProjectManagerMonthMenuId)));
+            wdSeDinMonthReport4Item.Hidden = true;
+            drpUnit.SelectedIndex = 0;
+            SafeManangerNum.Text = string.Empty;
+            OtherManangerNum.Text = string.Empty;
+            SpecialWorkerNum.Text = string.Empty;
+            GeneralWorkerNum.Text = string.Empty;
+            getInfo(ProjectId, DueDate.Text, StartDate.Text, EndDate.Text, "4");
         }
-        #endregion
+        protected void btnSysSubmit_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(SaveSeDinMonthReport0(1)))
+            {
+                SaveSeDinMonthReport1();
+                SaveSeDinMonthReport2();
+                SaveSeDinMonthReport3();
+                SaveSeDinMonthReport4();
+                SaveSeDinMonthReport5();
+                SaveSeDinMonthReport6();
+                SaveSeDinMonthReport7();
+                SaveSeDinMonthReport8();
+                SaveSeDinMonthReport9();
+                SaveSeDinMonthReport10();
+                SaveSeDinMonthReport11();
+                SaveSeDinMonthReport12();
+                SaveSeDinMonthReport13();
+            }
+            PageContext.RegisterStartupScript(ActiveWindow.GetHidePostBackReference());
+        }
+
+        //protected void GvSeDinMonthReport4Item_RowDataBound(object sender, GridRowEventArgs e)
+        //{
+        //    System.Web.UI.WebControls.DropDownList dropname = (System.Web.UI.WebControls.DropDownList)e.Row.FindControl("ddlUnitName");
+        //    UnitService.InitUnitDrop(dropname, ProjectId);
+
+        //}
     }
 }

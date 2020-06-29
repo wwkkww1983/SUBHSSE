@@ -27,6 +27,7 @@ namespace FineUIPro.Web.Test
                 ProjectService.InitProjectDropDownList(this.drpProject, true);
                 // 绑定表格
                 BindGrid();
+                GetDataService.UpdateServerTestPlanStates();
             }
             else
             {

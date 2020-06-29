@@ -33,34 +33,34 @@ namespace BLL
                 PauseNoticeId = pauseNotice.PauseNoticeId,
                 PauseNoticeCode = pauseNotice.PauseNoticeCode,
                 ProjectId = pauseNotice.ProjectId,
-                UnitId = pauseNotice.UnitId,            
+                UnitId = pauseNotice.UnitId,
                 ProjectPlace = pauseNotice.ProjectPlace,
                 WrongContent = pauseNotice.WrongContent,
                 PauseTime = pauseNotice.PauseTime,
                 PauseContent = pauseNotice.PauseContent,
                 OneContent = pauseNotice.OneContent,
                 SecondContent = pauseNotice.SecondContent,
-                ThirdContent = pauseNotice.ThirdContent,             
+                ThirdContent = pauseNotice.ThirdContent,
                 IsConfirm = pauseNotice.IsConfirm,
                 AttachUrl = pauseNotice.AttachUrl,
                 States = pauseNotice.States,
-                CompileManId=pauseNotice.CompileManId,
+                CompileManId = pauseNotice.CompileManId,
                 CompileDate = pauseNotice.CompileDate,
                 SignManId = pauseNotice.SignManId,
                 SignDate = pauseNotice.SignDate,
                 ApproveManId = pauseNotice.ApproveManId,
                 ApproveDate = pauseNotice.ApproveDate,
-                //DutyPersonId = pauseNotice.DutyPersonId,
+                DutyPersonId = pauseNotice.DutyPersonId,
                 //DutyPersonDate = pauseNotice.DutyPersonDate,
-                //ProfessionalEngineerId = pauseNotice.ProfessionalEngineerId,
+                ProfessionalEngineerId = pauseNotice.ProfessionalEngineerId,
                 //ProfessionalEngineerTime = pauseNotice.ProfessionalEngineerTime,
-                //ConstructionManagerId = pauseNotice.ConstructionManagerId,
+                ConstructionManagerId = pauseNotice.ConstructionManagerId,
                 //ConstructionManagerTime = pauseNotice.ConstructionManagerTime,
-                //UnitHeadManId = pauseNotice.UnitHeadManId,
+                UnitHeadManId = pauseNotice.UnitHeadManId,
                 //UnitHeadManTime = pauseNotice.UnitHeadManTime,
-                //SupervisorManId = pauseNotice.SupervisorManId,
+                SupervisorManId = pauseNotice.SupervisorManId,
                 //SupervisorManTime = pauseNotice.SupervisorManTime,
-                //OwnerId = pauseNotice.OwnerId,
+                OwnerId = pauseNotice.OwnerId,
                 //OwnerTime = pauseNotice.OwnerTime,
                 PauseStates = pauseNotice.PauseStates,
             };
@@ -70,6 +70,7 @@ namespace BLL
             ////增加一条编码记录
             BLL.CodeRecordsService.InsertCodeRecordsByMenuIdProjectIdUnitId(BLL.Const.ProjectPauseNoticeMenuId, pauseNotice.ProjectId, null, pauseNotice.PauseNoticeId, pauseNotice.PauseTime);
         }
+
 
         /// <summary>
         /// 修改安全工程暂停令
@@ -93,22 +94,21 @@ namespace BLL
                 newPauseNotice.IsConfirm = pauseNotice.IsConfirm;
                 newPauseNotice.AttachUrl = pauseNotice.AttachUrl;
                 newPauseNotice.States = pauseNotice.States;
-
                 newPauseNotice.SignManId = pauseNotice.SignManId;
                 newPauseNotice.SignDate = pauseNotice.SignDate;
                 newPauseNotice.ApproveManId = pauseNotice.ApproveManId;
                 newPauseNotice.ApproveDate = pauseNotice.ApproveDate;
-                //newPauseNotice.DutyPersonId = pauseNotice.DutyPersonId;
+                newPauseNotice.DutyPersonId = pauseNotice.DutyPersonId;
                 //newPauseNotice.DutyPersonDate = pauseNotice.DutyPersonDate;
-                //newPauseNotice.ProfessionalEngineerId = pauseNotice.ProfessionalEngineerId;
+                newPauseNotice.ProfessionalEngineerId = pauseNotice.ProfessionalEngineerId;
                 //newPauseNotice.ProfessionalEngineerTime = pauseNotice.ProfessionalEngineerTime;
-                //newPauseNotice.ConstructionManagerId = pauseNotice.ConstructionManagerId;
+                newPauseNotice.ConstructionManagerId = pauseNotice.ConstructionManagerId;
                 //newPauseNotice.ConstructionManagerTime = pauseNotice.ConstructionManagerTime;
-                //newPauseNotice.UnitHeadManId = pauseNotice.UnitHeadManId;
+                newPauseNotice.UnitHeadManId = pauseNotice.UnitHeadManId;
                 //newPauseNotice.UnitHeadManTime = pauseNotice.UnitHeadManTime;
-                //newPauseNotice.SupervisorManId = pauseNotice.SupervisorManId;
+                newPauseNotice.SupervisorManId = pauseNotice.SupervisorManId;
                 //newPauseNotice.SupervisorManTime = pauseNotice.SupervisorManTime;
-                //newPauseNotice.OwnerId = pauseNotice.OwnerId;
+                newPauseNotice.OwnerId = pauseNotice.OwnerId;
                 //newPauseNotice.OwnerTime = pauseNotice.OwnerTime;
                 newPauseNotice.PauseStates = pauseNotice.PauseStates;
 
@@ -131,7 +131,11 @@ namespace BLL
                 ////删除附件表
                 BLL.CommonService.DeleteAttachFileById(q.PauseNoticeId);
                 ////删除审核流程表
-                BLL.CommonService.DeleteFlowOperateByID(q.PauseNoticeId);
+                var getFlow = db.Check_PauseNoticeFlowOperate.Where(x => x.PauseNoticeId == q.PauseNoticeId);
+                if (getFlow.Count() > 0)
+                {
+                    db.Check_PauseNoticeFlowOperate.DeleteAllOnSubmit(getFlow);
+                }
                 db.Check_PauseNotice.DeleteOnSubmit(q);
                 db.SubmitChanges();
             }

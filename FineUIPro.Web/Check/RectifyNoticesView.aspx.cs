@@ -20,41 +20,53 @@ namespace FineUIPro.Web.Check
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack) {
+            if (!IsPostBack)
+            {
                 txtProjectName.Text = BLL.ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId).ProjectName;
-                ////自动生成编码
-                this.txtRectifyNoticesCode.Text = BLL.CodeRecordsService.ReturnCodeByMenuIdProjectId(BLL.Const.ProjectRectifyNoticesMenuId, this.CurrUser.LoginProjectId, this.CurrUser.UnitId);
-                //受检单位            
-                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpUnitId, this.CurrUser.LoginProjectId, Const.ProjectUnitType_2, false);
-                //区域
-                BLL.WorkAreaService.InitWorkAreaDropDownList(this.drpWorkAreaId, this.CurrUser.LoginProjectId, true);
-                ///检察人员
-                BLL.UserService.InitFlowOperateControlUserDropDownList(this.drpCheckPerson, this.CurrUser.LoginProjectId, BLL.CommonService.GetIsThisUnitId(), true);
                 RectifyNoticesId = Request.Params["RectifyNoticesId"];
                 if (!string.IsNullOrEmpty(RectifyNoticesId))
-                {                  
+                {
                     Model.Check_RectifyNotices RectifyNotices = RectifyNoticesService.GetRectifyNoticesById(RectifyNoticesId);
-                    if (!string.IsNullOrEmpty(RectifyNotices.UnitId))
-                    {
-                        this.drpUnitId.SelectedValue = RectifyNotices.UnitId;
+                    if (RectifyNotices != null) {
+                        if (!string.IsNullOrEmpty(RectifyNotices.UnitId)) {
+                            txtUnitId.Text = BLL.UnitService.GetUnitNameByUnitId(RectifyNotices.UnitId);
+                        }
+                        if (!string.IsNullOrEmpty(RectifyNotices.CheckManIds))
+                        {
+                            string CheckManId = string.Empty;
+                            if (RectifyNotices.CheckManIds != null)
+                            {
+                                string[] Ids = RectifyNotices.CheckManIds.ToString().Split(',');
+                                foreach (string t in Ids)
+                                {
+                                    var Name = BLL.UserService.GetUserNameByUserId(t);
+                                    if (Name != null)
+                                    {
+                                        CheckManId += Name + ",";
+                                    }
+                                }
+                            }
+                            if (CheckManId != string.Empty)
+                            {
+                                
+                                txtCheckPersonId.Text= CheckManId.Substring(0, CheckManId.Length - 1);
+                            }
+                        }
+                        if (!string.IsNullOrEmpty(RectifyNotices.WorkAreaId) && RectifyNotices.WorkAreaId != "null")
+                        {
+                            txtWorkAreaId.Text = BLL.WorkAreaService.GetWorkAreaByWorkAreaId(RectifyNotices.WorkAreaId).WorkAreaName;
+                        }
+                        this.txtCheckPerson.Text = RectifyNotices.CheckManNames;
+                        this.txtRectifyNoticesCode.Text = RectifyNotices.RectifyNoticesCode;
+                        this.txtCheckedDate.Text = RectifyNotices.CheckedDate.ToString();
+                        if (!string.IsNullOrEmpty(RectifyNotices.HiddenHazardType))
+                        {
+                            this.drpHiddenHazardType.SelectedValue = RectifyNotices.HiddenHazardType;
+                        }
+                        BindGrid1();
+                        BindGrid();
                     }
-                    if (!string.IsNullOrEmpty(RectifyNotices.WorkAreaId))
-                    {
-                        this.drpWorkAreaId.SelectedValue = RectifyNotices.WorkAreaId;
-                    }
-                    if (!string.IsNullOrEmpty(RectifyNotices.CheckManIds))
-                    {
-                        this.drpCheckPerson.SelectedValueArray = RectifyNotices.CheckManIds.Split(',');
-                    }
-                    this.txtRectifyNoticesCode.Text = RectifyNotices.RectifyNoticesCode;
-                    this.txtCompleteDate.Text = RectifyNotices.CompleteDate.ToString();
-                    if (!string.IsNullOrEmpty(RectifyNotices.HiddenHazardType))
-                    {
-                        this.drpHiddenHazardType.SelectedValue = RectifyNotices.HiddenHazardType;
-                    }
-                    this.txtReCheckOpinion.Text = RectifyNotices.ReCheckOpinion;
-                    BindGrid1();
-                    BindGrid();
+                    
                 }
             }
         }
@@ -83,6 +95,44 @@ namespace FineUIPro.Web.Check
             var table = this.GetPagedDataTable(gvFlowOperate, tb);
             gvFlowOperate.DataSource = table;
             gvFlowOperate.DataBind();
+        }
+
+        /// <summary>
+        /// 获取整改前图片(放于Img中)
+        /// </summary>
+        /// <param name="registrationId"></param>
+        /// <returns></returns>
+        protected string ConvertImageUrlByImage(object RectifyNoticesItemId)
+        {
+            string url = string.Empty;
+            if (RectifyNoticesItemId != null)
+            {
+                var RectifyNoticesItem = BLL.AttachFileService.GetAttachFile(RectifyNoticesItemId.ToString() + "#1", BLL.Const.ProjectRectifyNoticesMenuId);
+                if (RectifyNoticesItem != null)
+                {
+                    url = BLL.UploadAttachmentService.ShowImage("../", RectifyNoticesItem.AttachUrl);
+                }
+            }
+            return url;
+        }
+
+        /// <summary>
+        /// 获取整改后图片
+        /// </summary>
+        /// <param name="registrationId"></param>
+        /// <returns></returns>
+        protected string ConvertImgUrlByImage(object RectifyNoticesItemId)
+        {
+            string url = string.Empty;
+            if (RectifyNoticesItemId != null)
+            {
+                var RectifyNoticesItem = BLL.AttachFileService.GetAttachFile(RectifyNoticesItemId.ToString() + "#2", BLL.Const.ProjectRectifyNoticesMenuId);
+                if (RectifyNoticesItem != null)
+                {
+                    url = BLL.UploadAttachmentService.ShowImage("../", RectifyNoticesItem.AttachUrl);
+                }
+            }
+            return url;
         }
     }
 }

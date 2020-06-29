@@ -1292,6 +1292,13 @@
             <param name="attachUrl">回复单路径</param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.ReceiveFileManagerController.getIssueReceiveFileManagerById(System.String)">
+            <summary>
+             根据主键ID获取来文信息管理
+            </summary>
+            <param name="receiveFileManagerId">来文ID</param>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.PauseNoticeController">
             <summary>
             工程暂停令
@@ -1459,12 +1466,13 @@
             <param name="emergencyListId"></param>
             <returns></returns>
         </member>
-        <member name="M:WebAPI.Controllers.EmergencyController.getEmergencyList(System.String,System.String,System.String,System.Int32)">
+        <member name="M:WebAPI.Controllers.EmergencyController.getEmergencyList(System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             获取应急预案信息列表-查询
             </summary>
             <param name="projectId"></param>
             <param name="unitId"></param>
+            <param name="states"></param>
             <param name="pageIndex"></param>
              <param name="strParam">查询条件</param>
             <returns></returns>
@@ -1476,12 +1484,13 @@
             <param name="emergencySupplyId"></param>
             <returns></returns>
         </member>
-        <member name="M:WebAPI.Controllers.EmergencyController.getEmergencySupplyList(System.String,System.String,System.String,System.Int32)">
+        <member name="M:WebAPI.Controllers.EmergencyController.getEmergencySupplyList(System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             获取应急物资信息列表-查询
             </summary>
             <param name="projectId"></param>
             <param name="unitId"></param>
+            <param name="states"></param>
             <param name="pageIndex"></param>
              <param name="strParam">查询条件</param>
             <returns></returns>
@@ -1493,12 +1502,13 @@
             <param name="emergencyTeamAndTrainId"></param>
             <returns></returns>
         </member>
-        <member name="M:WebAPI.Controllers.EmergencyController.getEmergencyTeamAndTrainList(System.String,System.String,System.String,System.Int32)">
+        <member name="M:WebAPI.Controllers.EmergencyController.getEmergencyTeamAndTrainList(System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             获取应急队伍信息列表-查询
             </summary>
             <param name="projectId"></param>
             <param name="unitId"></param>
+            <param name="states"></param>
             <param name="pageIndex"></param>
              <param name="strParam">查询条件</param>
             <returns></returns>
@@ -1508,6 +1518,14 @@
             保存应急信息
             </summary>
             <param name="emergencyInfo">应急信息(MenuType:1-预案,2-物资,3-队伍)</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.EmergencyController.getEmergencyProcessItem(System.String,System.String)">
+            <summary>
+            获取应急队伍信息列表-查询
+            </summary>
+            <param name="projectId"></param>
+            <param name="processSteps">步骤</param>        
             <returns></returns>
         </member>
         <member name="M:WebAPI.Controllers.EmergencyController.getEmergencyProcessList(System.String,System.String,System.Int32)">
@@ -1811,6 +1829,13 @@
             <returns></returns>
         </member>
         <member name="M:WebAPI.Controllers.PageDataController.getPageDataInPersonCoutt(System.String)">
+            <summary>
+            根据projectId获取首页数据-当日入场人数
+            </summary>
+            <param name="projectId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PageDataController.getPersonNum(System.String)">
             <summary>
             根据projectId获取首页数据-当日入场人数
             </summary>

@@ -530,12 +530,14 @@ namespace FineUIPro.Web.Information
 
         }
 
+#pragma warning disable CS0108 // “MillionsMonthlyReport.GetGridTableHtml(Grid)”隐藏继承的成员“PageBase.GetGridTableHtml(Grid)”。如果是有意隐藏，请使用关键字 new。
         /// <summary>
         /// 导出方法
         /// </summary>
         /// <param name="grid"></param>
         /// <returns></returns>
         private string GetGridTableHtml(Grid grid)
+#pragma warning restore CS0108 // “MillionsMonthlyReport.GetGridTableHtml(Grid)”隐藏继承的成员“PageBase.GetGridTableHtml(Grid)”。如果是有意隐藏，请使用关键字 new。
         {
             StringBuilder sb = new StringBuilder();
             MultiHeaderTable mht = new MultiHeaderTable();

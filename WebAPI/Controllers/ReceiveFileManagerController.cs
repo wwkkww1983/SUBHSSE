@@ -113,5 +113,48 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region 公司来文下发
+        /// <summary>
+        ///  根据主键ID获取来文信息管理
+        /// </summary>
+        /// <param name="receiveFileManagerId">来文ID</param>
+        /// <returns></returns>
+        public Model.ResponeData getIssueReceiveFileManagerById(string receiveFileManagerId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var getInfo = ReceiveFileManagerService.GetReceiveFileManagerById(receiveFileManagerId);
+                if (getInfo != null && getInfo.FileType == "1")
+                {
+                    var getF = Funs.DB.InformationProject_ReceiveFileManager.FirstOrDefault(x => x.FromId == getInfo.ReceiveFileManagerId);
+                    if (getF == null)
+                    {
+                        ReceiveFileManagerService.IssueReceiveFile(getInfo.ReceiveFileManagerId);
+                    }
+                    else
+                    {
+                        responeData.code = 2;
+                        responeData.message = "公司来文已下发到项目来文！";
+                    }
+                }
+                else
+                {
+                    responeData.code = 2;
+                    responeData.message = "非公司文件不能下发！";
+                }
+
+                responeData.data = new { receiveFileManagerId };
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
     }
 }

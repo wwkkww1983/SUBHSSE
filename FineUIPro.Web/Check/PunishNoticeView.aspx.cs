@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -58,6 +60,8 @@ namespace FineUIPro.Web.Check
                 this.txtCurrency.Text = "人民币";
                 if (!string.IsNullOrEmpty(this.PunishNoticeId))
                 {
+                    BindGrid();
+                    BindGrid1();
                     Model.Check_PunishNotice punishNotice = BLL.PunishNoticeService.GetPunishNoticeById(this.PunishNoticeId);
                     if (punishNotice != null)
                     {
@@ -74,6 +78,14 @@ namespace FineUIPro.Web.Check
                                 this.txtUnitName.Text = unit.UnitName;
                             }
                         }
+                        if (!string.IsNullOrEmpty(punishNotice.PunishPersonId))
+                        {
+                            var user = BLL.UserService.GetUserNameByUserId(punishNotice.PunishPersonId);
+                            if (!string.IsNullOrEmpty(user))
+                            {
+                                this.txtPunishPersonId.Text = user;
+                            }
+                        }
                         Model.Sys_User user1 = BLL.UserService.GetUserByUserId(punishNotice.SignMan);
                         if (user1 != null)
                         {
@@ -84,7 +96,6 @@ namespace FineUIPro.Web.Check
                         {
                             this.txtApproveMan.Text = user2.UserName;
                         }
-                        this.txtContractNum.Text = punishNotice.ContractNum;
                         this.txtIncentiveReason.Text = punishNotice.IncentiveReason;
                         this.txtBasicItem.Text = punishNotice.BasicItem;
                         if (punishNotice.PunishMoney != null)
@@ -99,13 +110,36 @@ namespace FineUIPro.Web.Check
                         {
                             this.txtCurrency.Text = punishNotice.Currency;
                         }
-                        this.txtPunishName.Text = punishNotice.PunishName;
                     }
-                }
-                ///初始化审核菜单
-                this.ctlAuditFlow.MenuId = BLL.Const.ProjectPunishNoticeMenuId;
-                this.ctlAuditFlow.DataId = this.PunishNoticeId;
+                };
             }
+        }
+        //处罚明细
+        public void BindGrid1()
+        {
+            string strSql = @"select PunishNoticeItemId, PunishNoticeId, PunishContent, PunishMoney, SortIndex from Check_PunishNoticeItem ";
+            List<SqlParameter> listStr = new List<SqlParameter>();
+            strSql += "where PunishNoticeId= @PunishNoticeId";
+            listStr.Add(new SqlParameter("@PunishNoticeId", PunishNoticeId));
+            SqlParameter[] parameter = listStr.ToArray();
+            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+            var table = this.GetPagedDataTable(Grid1, tb);
+            Grid1.DataSource = table;
+            Grid1.DataBind();
+
+        }
+        //办理记录
+        public void BindGrid()
+        {
+            string strSql = @"select FlowOperateId, PunishNoticeId, OperateName, OperateManId, OperateTime, IsAgree, Opinion,S.UserName from Check_PunishNoticeFlowOperate C left join Sys_User S on C.OperateManId=s.UserId ";
+            List<SqlParameter> listStr = new List<SqlParameter>();
+            strSql += "where PunishNoticeId= @PunishNoticeId";
+            listStr.Add(new SqlParameter("@PunishNoticeId", PunishNoticeId));
+            SqlParameter[] parameter = listStr.ToArray();
+            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+            var table = this.GetPagedDataTable(gvFlowOperate, tb);
+            gvFlowOperate.DataSource = table;
+            gvFlowOperate.DataBind();
         }
         #endregion
 

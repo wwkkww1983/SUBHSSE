@@ -9,6 +9,23 @@ namespace BLL
     /// </summary>
     public static class APISeDinMonthReportService
     {
+
+        public static int count(string monthReportId)
+        {
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                //Model.SeDin_MonthReport
+                var count =  Funs.DB.SeDin_MonthReport.Where(p=>p.MonthReportId== monthReportId).Count();
+                return count;
+             }
+        }
+        public static Model.SeDin_MonthReport report(string monthReportId) 
+        {
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString)) { 
+               return Funs.DB.SeDin_MonthReport.FirstOrDefault(p => p.MonthReportId == monthReportId);
+            }
+        }
+
         #region 获取赛鼎月报列表信息
         /// <summary>
         /// 获取赛鼎月报列表信息
@@ -53,8 +70,8 @@ namespace BLL
 
             return getReport.ToList();
         }
-        #endregion        
-        
+        #endregion
+
         #region 获取赛鼎月报初始化页面
         #region  获取赛鼎月报初始化页面 --0、封面
         /// <summary>
@@ -62,9 +79,13 @@ namespace BLL
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        public static Model.SeDinMonthReportItem getSeDinMonthReportNullPage0(string projectId)
+        public static Model.SeDinMonthReportItem getSeDinMonthReportNullPage0(string projectId, DateTime? date = null)
         {
             var nowDate = System.DateTime.Now;
+            if (date.HasValue)
+            {
+                nowDate = date.Value.AddMonths(1);
+            }
             Model.SeDinMonthReportItem newItem = new Model.SeDinMonthReportItem
             {
                 ProjectId = projectId,
@@ -176,9 +197,17 @@ namespace BLL
                 var getLastMonWorkHours = getAllNum.Where(x => x.InOutDate < startDateD).Max(x => x.WorkHours);
                 ////当月安全人工时
                 newItem.MonthWorkTime = newItem.ProjectWorkTime - (getLastMonWorkHours ?? 0);
+                if (newItem.MonthWorkTime < 0)
+                {
+                    newItem.MonthWorkTime = 0;
+                }
                 var getLastYearWorkHours = getAllNum.Where(x => x.InOutDate.Year == (startDateD.Value.Year - 1)).Max(x => x.WorkHours);
                 ////年度累计安全人工时
                 newItem.YearWorkTime= newItem.ProjectWorkTime - (getLastYearWorkHours ?? 0);
+                if (newItem.YearWorkTime < 0)
+                {
+                    newItem.YearWorkTime = 0;
+                }
             }
             return newItem;
         }
@@ -609,7 +638,7 @@ namespace BLL
             List<Model.SeDinMonthReport9ItemRectification> getLists = new List<Model.SeDinMonthReport9ItemRectification>();
             var getUnits = from x in Funs.DB.Base_Unit
                            join y in Funs.DB.Project_ProjectUnit on x.UnitId equals y.UnitId
-                           where y.ProjectId == projectId
+                           where y.ProjectId == projectId && y.UnitType == Const.ProjectUnitType_2
                            select x;
             var getAll = from x in Funs.DB.Check_RectifyNotices where x.ProjectId == projectId select x;
             var getMon = from x in getAll where x.CheckedDate >= startDateD && x.CheckedDate < endDateD select x;
@@ -681,7 +710,7 @@ namespace BLL
             List<Model.SeDinMonthReport9ItemStoppage> getLists = new List<Model.SeDinMonthReport9ItemStoppage>();
             var getUnits = from x in Funs.DB.Base_Unit
                            join y in Funs.DB.Project_ProjectUnit on x.UnitId equals y.UnitId
-                           where y.ProjectId == projectId
+                           where y.ProjectId == projectId && y.UnitType == Const.ProjectUnitType_2
                            select x;
             var getAll = from x in Funs.DB.Check_PauseNotice where x.ProjectId == projectId select x;
             var getMon = getAll.Where(x => x.PauseTime >= startDateD && x.PauseTime < endDateD);
@@ -1012,11 +1041,11 @@ namespace BLL
                                MonthReport4Id = x.MonthReport4Id,
                                MonthReportId = x.MonthReportId,
                                UnitName = x.UnitName,
-                               SafeManangerNum = x.SafeManangerNum,
-                               OtherManangerNum = x.OtherManangerNum,
-                               SpecialWorkerNum = x.SpecialWorkerNum,
-                               GeneralWorkerNum = x.GeneralWorkerNum,
-                               TotalNum = x.TotalNum,
+                               SafeManangerNum = x.SafeManangerNum ?? 0,
+                               OtherManangerNum = x.OtherManangerNum ?? 0,
+                               SpecialWorkerNum = x.SpecialWorkerNum ?? 0,
+                               GeneralWorkerNum = x.GeneralWorkerNum ?? 0,
+                               TotalNum = x.TotalNum ?? 0,
                            }).ToList();
             }
             return getInfo;
@@ -1043,17 +1072,17 @@ namespace BLL
                                MonthReport5Id = x.MonthReport5Id,
                                MonthReportId = x.MonthReportId,
                                UnitName = x.UnitName,
-                               T01 = x.T01,
-                               T02 = x.T02,
-                               T03 = x.T03,
-                               T04 = x.T04,
-                               T05 = x.T05,
-                               T06 = x.T06,
-                               D01 = x.D01,
-                               D02 = x.D02,
-                               D03 = x.D03,
-                               D04 = x.D04,
-                               S01 = x.S01,
+                               T01 = x.T01 ?? 0,
+                               T02 = x.T02 ?? 0,
+                               T03 = x.T03 ?? 0,
+                               T04 = x.T04 ?? 0,
+                               T05 = x.T05 ?? 0,
+                               T06 = x.T06 ?? 0,
+                               D01 = x.D01 ?? 0,
+                               D02 = x.D02 ?? 0,
+                               D03 = x.D03 ?? 0,
+                               D04 = x.D04 ?? 0,
+                               S01 = x.S01 ?? 0,
                            }).ToList();
             }
             return getInfo;
@@ -1443,6 +1472,7 @@ namespace BLL
                                ProjectId = x.ProjectId,
                                ThisSummary = x.ThisSummary,
                                NextPlan = x.NextPlan,
+                               AccidentsSummary=x.AccidentsSummary,
                            }).FirstOrDefault();
             }
             return getInfo;
@@ -1474,15 +1504,15 @@ namespace BLL
                     //ThisSummary = System.Web.HttpUtility.HtmlEncode(newItem.ThisSummary),
                     //NextPlan = System.Web.HttpUtility.HtmlEncode(newItem.NextPlan),
                 };
-                if (!string.IsNullOrEmpty(newItem.CompileManId))
+                if (!string.IsNullOrEmpty(newItem.CompileManId) && newItem.AuditManId != Const._Null)
                 {
                     newReport.CompileManId = newItem.CompileManId;
                 }
-                if (!string.IsNullOrEmpty(newItem.AuditManId))
+                if (!string.IsNullOrEmpty(newItem.AuditManId) && newItem.AuditManId != Const._Null)
                 {
                     newReport.AuditManId = newItem.AuditManId;
                 }
-                if (!string.IsNullOrEmpty(newItem.ApprovalManId))
+                if (!string.IsNullOrEmpty(newItem.ApprovalManId) && newItem.AuditManId != Const._Null)
                 {
                     newReport.ApprovalManId = newItem.ApprovalManId;
                 }
@@ -2197,7 +2227,7 @@ namespace BLL
                     LargeFinishedNum = newItem.LargeFinishedNum,
                     LargeWorkNext = newItem.LargeWorkNext,
                 };
-                var updateReport = db.SeDin_MonthReport11.FirstOrDefault(x => x.MonthReport11Id == newItem.MonthReport11Id);
+                var updateReport = db.SeDin_MonthReport11.FirstOrDefault(x => x.MonthReportId == newItem.MonthReportId);
                 if (updateReport == null)
                 {
                     newReport.MonthReport11Id = SQLHelper.GetNewID();
@@ -2253,7 +2283,7 @@ namespace BLL
                     SingleDesktopTotalNum = newItem.SingleDesktopTotalNum,
                     SingleDesktopNext = newItem.SingleDesktopNext,
                 };
-                var updateReport = db.SeDin_MonthReport12.FirstOrDefault(x => x.MonthReport12Id == newItem.MonthReport12Id);
+                var updateReport = db.SeDin_MonthReport12.FirstOrDefault(x => x.MonthReportId == newItem.MonthReportId);
                 if (updateReport == null)
                 {
                     newReport.MonthReport12Id = SQLHelper.GetNewID();

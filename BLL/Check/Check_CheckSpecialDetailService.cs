@@ -43,6 +43,7 @@ namespace BLL
             {
                 CheckSpecialDetailId = CheckSpecialDetail.CheckSpecialDetailId,
                 CheckSpecialId = CheckSpecialDetail.CheckSpecialId,
+                SortIndex = CheckSpecialDetail.SortIndex,
                 CheckItem = CheckSpecialDetail.CheckItem,
                 CheckItemType = CheckSpecialDetail.CheckItemType,
                 Unqualified = CheckSpecialDetail.Unqualified,

@@ -183,7 +183,8 @@ namespace FineUIPro.Web.Manager
                 Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
                 return;
             }
-            string MonthReportId = Grid1.SelectedRowID;            
+            string MonthReportId = Grid1.SelectedRowID;
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ManagerMonth_SeDinEdit.aspx?MonthReportId={0}", MonthReportId, "编辑 - ")));
             //if (this.btnMenuModify.Hidden == false && BLL.MonthReportService.GetMonthReportIsCloseDByMonthReportId(MonthReportId))   ////双击事件 编辑权限有：编辑页面，无：查看页面                 
             //{
             //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("MonthReportEdit.aspx?MonthReportId={0}", MonthReportId, "编辑 - ")));
@@ -191,7 +192,7 @@ namespace FineUIPro.Web.Manager
             //}
             //else
             //{
-            //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("MonthReportView.aspx?MonthReportId={0}", MonthReportId, "查看 - ")));
+            //    //PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("MonthReportView.aspx?MonthReportId={0}", MonthReportId, "查看 - ")));
             //}
         }
         #endregion
@@ -230,7 +231,11 @@ namespace FineUIPro.Web.Manager
         /// <param name="e"></param>
         protected void btnNew_Click(object sender, EventArgs e)
         {
-            if (ManagerMonth_SeDinService.GetMonthReportByDate(DateTime.Now, this.ProjectId))
+            if (string.IsNullOrWhiteSpace(txtMonth.Text.Trim())) {
+                Alert.ShowInTop("请输入您要添加的月份！", MessageBoxIcon.Warning);
+                return;
+            }
+            if (ManagerMonth_SeDinService.GetMonthReportByDate(Convert.ToDateTime(txtMonth.Text.Trim()), this.ProjectId))
             {
                 Alert.ShowInTop("当前月份的月报已存在！", MessageBoxIcon.Warning);
                 return;
@@ -243,7 +248,7 @@ namespace FineUIPro.Web.Manager
             //}
             //else
             //{
-            //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("MonthReportEdit.aspx", "编辑 - ")));
+              PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("MonthReportEdit.aspx?Month={0}", txtMonth.Text.Trim()),"添加月报表"));
             //}
         }
         #endregion

@@ -70,6 +70,7 @@ namespace BLL
             return getInfo.FirstOrDefault();
         }
         #endregion        
+
         #region 根据ID 获取审核信息
         /// <summary>
         ///  根据ID 获取审核信息
@@ -198,9 +199,21 @@ namespace BLL
                         {
                             var getCheckSpecialDetail = db.Check_CheckSpecialDetail.FirstOrDefault(x => x.CheckSpecialDetailId == item);
                             if (getCheckSpecialDetail != null)
-                            {                               
-                                getCheckSpecialDetail.DataType = "3";
-                                getCheckSpecialDetail.DataId = newPauseNotice.PauseNoticeId;
+                            {
+                                string dataType = string.Empty;
+                                string dataId = string.Empty;
+                                if (string.IsNullOrEmpty(getCheckSpecialDetail.DataType))
+                                {
+                                    dataType = "3";
+                                    dataId = "3," + newPauseNotice.PauseNoticeId;
+                                }
+                                else
+                                {
+                                    dataType = getCheckSpecialDetail.DataType + ",3";
+                                    dataId = getCheckSpecialDetail.DataId + "|3," + newPauseNotice.PauseNoticeId;
+                                }
+                                getCheckSpecialDetail.DataType = dataType;
+                                getCheckSpecialDetail.DataId = dataId;
                                 db.SubmitChanges();
                             }
                         }
@@ -300,7 +313,7 @@ namespace BLL
                 {
                     CommonService.btnSaveData(newPauseNotice.ProjectId, Const.ProjectPauseNoticeMenuId, newPauseNotice.PauseNoticeId, newPauseNotice.CompileManId, true, newPauseNotice.PauseContent, "../Check/PauseNoticeView.aspx?PauseNoticeId={0}");
 
-                    var getcheck = from x in db.Check_CheckSpecialDetail where x.DataId == getUpdate.PauseNoticeId select x;
+                    var getcheck = from x in db.Check_CheckSpecialDetail where x.DataId.Contains(getUpdate.PauseNoticeId) select x;
                     if (getcheck.Count() > 0)
                     {
                         foreach (var item in getcheck)

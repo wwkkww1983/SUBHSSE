@@ -42,15 +42,16 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="unitId"></param>
+        /// <param name="states"></param>
         /// <param name="pageIndex"></param>
         ///  <param name="strParam">查询条件</param>
         /// <returns></returns>
-        public Model.ResponeData getEmergencyList(string projectId, string unitId, string strParam, int pageIndex)
+        public Model.ResponeData getEmergencyList(string projectId, string unitId, string states, string strParam, int pageIndex)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = APIEmergencyService.getEmergencyList(projectId, unitId, strParam);
+                var getDataList = APIEmergencyService.getEmergencyList(projectId, unitId, states, strParam);
                 int pageCount = getDataList.Count();
                 if (pageCount > 0 && pageIndex > 0)
                 {
@@ -96,15 +97,16 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="unitId"></param>
+        /// <param name="states"></param>
         /// <param name="pageIndex"></param>
         ///  <param name="strParam">查询条件</param>
         /// <returns></returns>
-        public Model.ResponeData getEmergencySupplyList(string projectId, string unitId, string strParam, int pageIndex)
+        public Model.ResponeData getEmergencySupplyList(string projectId, string unitId, string states, string strParam, int pageIndex)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = APIEmergencyService.getEmergencySupplyList(projectId, unitId, strParam);
+                var getDataList = APIEmergencyService.getEmergencySupplyList(projectId, unitId, states, strParam);
                 int pageCount = getDataList.Count();
                 if (pageCount > 0 && pageIndex > 0)
                 {
@@ -150,15 +152,16 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="unitId"></param>
+        /// <param name="states"></param>
         /// <param name="pageIndex"></param>
         ///  <param name="strParam">查询条件</param>
         /// <returns></returns>
-        public Model.ResponeData getEmergencyTeamAndTrainList(string projectId, string unitId, string strParam, int pageIndex)
+        public Model.ResponeData getEmergencyTeamAndTrainList(string projectId, string unitId, string states, string strParam, int pageIndex)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = APIEmergencyService.getEmergencyTeamAndTrainList(projectId, unitId, strParam);
+                var getDataList = APIEmergencyService.getEmergencyTeamAndTrainList(projectId, unitId, states, strParam);
                 int pageCount = getDataList.Count();
                 if (pageCount > 0 && pageIndex > 0)
                 {
@@ -195,6 +198,29 @@ namespace WebAPI.Controllers
                 responeData.message = ex.Message;
             }
 
+            return responeData;
+        }
+        #endregion
+
+        #region 获取应急流程列表-查询
+        /// <summary>
+        /// 获取应急队伍信息列表-查询
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="processSteps">步骤</param>        
+        /// <returns></returns>
+        public Model.ResponeData getEmergencyProcessItem(string projectId, string processSteps)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIEmergencyService.getEmergencyProcessItem(projectId, processSteps);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
             return responeData;
         }
         #endregion

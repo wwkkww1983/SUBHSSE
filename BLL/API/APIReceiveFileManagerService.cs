@@ -42,6 +42,7 @@ namespace BLL
                                                  UnitNames = UnitService.getUnitNamesUnitIds(x.UnitIds),
                                                  FileAttachUrl = APIUpLoadFileService.getFileUrl(x.ReceiveFileManagerId, null),
                                                  ReplyFileAttachUrl = APIUpLoadFileService.getFileUrl(x.ReceiveFileManagerId + "#1", null),
+                                                 Issue = (Funs.DB.InformationProject_ReceiveFileManager.FirstOrDefault(y => y.FromId == x.ReceiveFileManagerId) == null) ? false : true,
                                              }).FirstOrDefault();
             return getReceiveFileManagerItem;
         }
@@ -81,6 +82,7 @@ namespace BLL
                                                  FileAttachUrl = APIUpLoadFileService.getFileUrl(x.ReceiveFileManagerId, null),
                                                  ReplyFileAttachUrl = APIUpLoadFileService.getFileUrl(x.ReceiveFileManagerId + "#1", null),
                                                  States = x.States,
+                                                 Issue= (Funs.DB.InformationProject_ReceiveFileManager.FirstOrDefault(y => y.FromId == x.ReceiveFileManagerId) == null) ? false: true,
                                              }).AsEnumerable();
             if (getReceiveFileManagerItem.Count() > 0)
             {

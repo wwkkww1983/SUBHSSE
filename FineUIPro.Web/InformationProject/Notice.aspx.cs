@@ -1,10 +1,10 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
-using BLL;
 using AspNet = System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.InformationProject
@@ -336,6 +336,7 @@ namespace FineUIPro.Web.InformationProject
                                 notice.IsRelease = true;
                                 notice.ReleaseDate = DateTime.Now;
                                 NoticeService.UpdateNotice(notice);
+
                                 ReceiveFileManagerService.CreateReceiveFile(notice);
                                 LogService.AddSys_Log(this.CurrUser, notice.NoticeCode, notice.NoticeId, BLL.Const.ServerNoticeMenuId, Const.BtnIssuance);
                             }
@@ -454,12 +455,14 @@ namespace FineUIPro.Web.InformationProject
             BLL.LogService.AddSys_Log(this.CurrUser, string.Empty, string.Empty, BLL.Const.ServerNoticeMenuId, Const.BtnQuery);
         }
 
+#pragma warning disable CS0108 // “Notice.GetGridTableHtml(Grid)”隐藏继承的成员“PageBase.GetGridTableHtml(Grid)”。如果是有意隐藏，请使用关键字 new。
         /// <summary>
         /// 导出方法
         /// </summary>
         /// <param name="grid"></param>
         /// <returns></returns>
         private string GetGridTableHtml(Grid grid)
+#pragma warning restore CS0108 // “Notice.GetGridTableHtml(Grid)”隐藏继承的成员“PageBase.GetGridTableHtml(Grid)”。如果是有意隐藏，请使用关键字 new。
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");

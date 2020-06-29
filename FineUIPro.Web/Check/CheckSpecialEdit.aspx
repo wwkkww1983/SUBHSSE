@@ -63,9 +63,14 @@
             <f:FormRow>
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" ClicksToEdit="1" DataIDField="CheckSpecialDetailId"
-                        DataKeyNames="CheckSpecialDetailId" EnableMultiSelect="false" ShowGridHeader="true" Height="350px" AllowCellEditing="true"
-                        EnableColumnLines="true"  OnPreDataBound="Grid1_PreDataBound" EnableTextSelection="True">                           
-                        <Columns>    
+                        DataKeyNames="CheckSpecialDetailId" EnableMultiSelect="false" ShowGridHeader="true" 
+                        Height="350px" AllowCellEditing="true" AllowSorting="true" 
+                        EnableColumnLines="true"  OnPreDataBound="Grid1_PreDataBound" EnableTextSelection="True" >   
+                        <Columns>   
+                            <%--<f:CheckBoxField ColumnID="IsChecked" Width="80px" RenderAsStaticField="false" DataField="OK1"
+                               HeaderText="全选"  />--%>
+                            <f:RenderCheckField Width="80px" ColumnID="IsChecked" DataField="OK1"
+                        HeaderText="选择" TextAlign="Center" HeaderTextAlign="Center" Hidden="true"/>
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
                         TextAlign="Center" />
                              <f:RenderField Width="120px" ColumnID="WorkArea" DataField="WorkArea" SortField="WorkArea"
@@ -97,7 +102,7 @@
                                 </Editor>
                             </f:RenderField>
                             <f:RenderField Width="80px" ColumnID="CompleteStatusName" DataField="CompleteStatusName" SortField="CompleteStatusName"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="处理结果">
+                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="处理结果" Hidden="true">
                                 <Editor>
                                   <f:DropDownList ID="drpCompleteStatus" Required="true" runat="server" EnableEdit="true" ShowRedStar="true">
                                       <f:ListItem Text="待整改" Value="待整改" Selected="true"/>
@@ -106,9 +111,9 @@
                                     </Editor>
                             </f:RenderField> 
                             <f:RenderField Width="110px" ColumnID="HandleStepStr" DataField="HandleStepStr" SortField="HandleStepStr"
-                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="处理措施">
+                                FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="处理措施" Hidden="true">
                                  <Editor>
-                                        <f:DropDownList ID="drpHandleStep" Required="true" runat="server" EnableEdit="true">
+                                        <f:DropDownList ID="drpHandleStep" Required="true" EnableCheckBoxSelect="true" runat="server" EnableEdit="true" EnableMultiSelect="true">
                                         </f:DropDownList>
                                     </Editor>
                             </f:RenderField>                                                          
@@ -153,6 +158,22 @@
             //F(menuID).show();  //showAt(event.pageX, event.pageY);
             return false;
         }
+
+         var grid1ClientID = '<%= Grid1.ClientID %>';
+
+        F.ready(function () {
+
+            var grid1 = F(grid1ClientID);
+
+            grid1.el.on('click', '.myheadercheckbox', function () {
+                var checked = $(this).hasClass('f-checked'), thIndex = $(this).parents('th').index();
+
+                // nth-child选择器是从 1 开始的
+                var checkboxEls = grid1.el.find('.f-grid-row td:nth-child(' + (thIndex + 1) + ') .f-grid-checkbox');
+                checkboxEls.toggleClass('f-checked', checked);
+            });
+
+        });
     </script>
 </body>
 </html>

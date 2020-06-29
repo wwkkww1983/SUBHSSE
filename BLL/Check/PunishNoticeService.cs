@@ -181,17 +181,12 @@ namespace BLL
             {
                 CodeRecordsService.DeleteCodeRecordsByDataId(punishNoticeId);               
                 UploadFileService.DeleteFile(Funs.RootPath, punishNotice.AttachUrl);
-                ///删除工程师日志收集记录
-                var flowOperate = from x in db.Sys_FlowOperate where x.DataId == punishNotice.PunishNoticeId select x;
-                if (flowOperate.Count() > 0)
+                ////删除审核流程表
+                var getFlow = db.Check_PunishNoticeFlowOperate.Where(x => x.PunishNoticeId == punishNoticeId);
+                if (getFlow.Count() > 0)
                 {
-                    foreach (var item in flowOperate)
-                    {
-                        BLL.HSSELogService.CollectHSSELog(punishNotice.ProjectId, item.OperaterId, item.OperaterTime, "211", "处罚通知单", Const.BtnDelete, 1);
-                    }
-                    ////删除流程表
-                    BLL.CommonService.DeleteFlowOperateByID(punishNotice.PunishNoticeId);
-                } 
+                    db.Check_PunishNoticeFlowOperate.DeleteAllOnSubmit(getFlow);
+                }
                 db.Check_PunishNotice.DeleteOnSubmit(punishNotice);
                 db.SubmitChanges();
             }

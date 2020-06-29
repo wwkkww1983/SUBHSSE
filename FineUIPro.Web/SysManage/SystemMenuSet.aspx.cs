@@ -94,7 +94,7 @@ namespace FineUIPro.Web.SysManage
         /// 生成菜单及XML的方法
         /// </summary>
         /// <param name="unitId"></param>
-        /// <param name="menuModel"></param>
+        /// <param name="menuModel"></param>z
         private void SaveMenuAndGetXML()
         {
             var unit = BLL.CommonService.GetIsThisUnit(); ///得到当前单位

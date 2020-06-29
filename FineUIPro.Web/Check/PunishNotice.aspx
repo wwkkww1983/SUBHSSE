@@ -123,8 +123,8 @@
         </Items>
     </f:Panel>
     <f:Window ID="Window1" Title="处罚通知单" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1024px"
-        Height="630px">
+        Target="Parent" EnableResize="true" runat="server" IsModal="true" Width="1200px"
+        Height="630px" OnClose="Window1_Close">
     </f:Window>
     <f:Window ID="WindowAtt" Title="附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
         Target="Self" EnableResize="true" runat="server" IsModal="true" Width="670px" OnClose="WindowAtt_Close"

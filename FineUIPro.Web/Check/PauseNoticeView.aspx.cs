@@ -1,5 +1,8 @@
 ﻿using BLL;
 using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace FineUIPro.Web.Check
@@ -64,93 +67,70 @@ namespace FineUIPro.Web.Check
                             this.txtUnit.Text = unit.UnitName;
                         }
                     }
-                    //if (!string.IsNullOrEmpty(pauseNotice.SignMan))
-                    //{
-                    //    var signName = BLL.UserService.GetUserNameByUserId(pauseNotice.SignMan);
-                    //    if (signName !=null)
-                    //    {
-                    //        this.txtSignMan.Text = signName;
-                    //    }
-                    //}
-                    //if (!string.IsNullOrEmpty(pauseNotice.ApproveMan))
-                    //{
-                    //    var approve = BLL.UserService.GetUserNameByUserId(pauseNotice.ApproveMan);
-                    //    if (approve!=null)
-                    //    {
-                    //        this.txtApproveMan.Text = approve;
-                    //    }
-                    //}
+                    if (!string.IsNullOrEmpty(pauseNotice.SignManId))
+                    {
+                        txtSignMan.Text = BLL.UserService.getUserNamesUserIds(pauseNotice.SignManId);
+                    }
+                    if (!string.IsNullOrEmpty(pauseNotice.ApproveManId))
+                    {
+                        txtApproveMan.Text = BLL.UserService.getUserNamesUserIds(pauseNotice.ApproveManId);
+                    }
+                    if (!string.IsNullOrEmpty(pauseNotice.CompileManId))
+                    {
+                        txtSignPerson.Text = BLL.UserService.getUserNamesUserIds(pauseNotice.CompileManId);
+                    }
                     this.txtProjectPlace.Text = pauseNotice.ProjectPlace;
-                   // this.txtSignPerson.Text = pauseNotice.SignPerson;
                     if (pauseNotice.CompileDate != null)
                     {
                         this.txtComplieDate.Text = string.Format("{0:yyyy-MM-dd}", pauseNotice.CompileDate);
                     }
                     this.txtWrongContent.Text = pauseNotice.WrongContent;
-                    if (pauseNotice.PauseTime != null)
+                    if (pauseNotice.PauseTime.HasValue)
                     {
-                        string strPauseTime = string.Format("{0:yyyy-MM-dd HH:mm:ss}", pauseNotice.PauseTime);
-                        int index1 = strPauseTime.IndexOf("-");
-                        int index2 = strPauseTime.Substring(index1 + 1).IndexOf("-");
-                        int index3 = strPauseTime.Substring(index1 + 1 + index2 + 1).IndexOf(" ");
-                        int index4 = strPauseTime.Substring(index1 + 1 + index2 + 1 + index3 + 1).IndexOf(":");
-                        this.txtYear.Text = strPauseTime.Substring(0, index1);
-                        this.txtMonth.Text = strPauseTime.Substring(index1 + 1, index2);
-                        this.txtDay.Text = strPauseTime.Substring(index1 + 1 + index2 + 1, index3);
-                        this.txtHour.Text = strPauseTime.Substring(index1 + 1 + index2 + 1 + index3 + 1, index4);
-                    }
-                    this.txtPauseContent.Text = pauseNotice.PauseContent;
-                    this.txtOneContent.Text = pauseNotice.OneContent;
-                    this.txtSecondContent.Text = pauseNotice.SecondContent;
-                    this.txtThirdContent.Text = pauseNotice.ThirdContent;
-                    //this.txtProjectHeadConfirm.Text = pauseNotice.ProjectHeadConfirm;
-                    //if (pauseNotice.ConfirmDate != null)
-                    //{
-                    //    this.txtConfirmDate.Text = string.Format("{0:yyyy-MM-dd}", pauseNotice.ConfirmDate);
-                    //}
-                    this.AttachUrl = pauseNotice.AttachUrl;
-                    this.divFile1.InnerHtml = BLL.UploadAttachmentService.ShowAttachment("../", this.AttachUrl);
-                    if (Request.Params["type"] == "confirm")   //签字确认
-                    {
-                        this.txtProjectHeadConfirm.Enabled = true;
-                        this.txtConfirmDate.Enabled = true;
-                        this.txtProjectHeadConfirm.Text = this.CurrUser.UserName;
-                        this.txtConfirmDate.Text = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
+                        this.txtPauseTime.Text = string.Format("{0:yyyy-MM-dd HH:mm}", pauseNotice.PauseTime);
                     }
                 }
-
-                ///初始化审核菜单
-                this.ctlAuditFlow.MenuId = BLL.Const.ProjectPauseNoticeMenuId;
-                this.ctlAuditFlow.DataId = this.PauseNoticeId;
+                    BindGrid();
+                }
             }
-        }
-
-        private void LoadData()
-        {
-            btnClose.OnClientClick = ActiveWindow.GetHideReference();
-        }
-        #endregion
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnNoticeUrl_Click(object sender, EventArgs e)
-        {
-
-            if (!string.IsNullOrEmpty(this.PauseNoticeId))
+            public void BindGrid()
             {
-                var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.ProjectPauseNoticeMenuId);
-                if (buttonList.Count() > 0)
+                string strSql = @"select FlowOperateId, PauseNoticeId, OperateName, OperateManId, OperateTime, IsAgree, Opinion,S.UserName from Check_PauseNoticeFlowOperate C left join Sys_User S on C.OperateManId=s.UserId ";
+                List<SqlParameter> listStr = new List<SqlParameter>();
+                strSql += "where PauseNoticeId= @PauseNoticeId";
+                listStr.Add(new SqlParameter("@PauseNoticeId", PauseNoticeId));
+                SqlParameter[] parameter = listStr.ToArray();
+                DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+                var table = this.GetPagedDataTable(gvFlowOperate, tb);
+                gvFlowOperate.DataSource = table;
+                gvFlowOperate.DataBind();
+            }
+            private void LoadData()
+            {
+                btnClose.OnClientClick = ActiveWindow.GetHideReference();
+            }
+            #endregion
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
+            protected void btnNoticeUrl_Click(object sender, EventArgs e)
+            {
+
+                if (!string.IsNullOrEmpty(this.PauseNoticeId))
                 {
-                    PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&type=0&path=FileUpload/PauseNotice&menuId=" + BLL.Const.ProjectPauseNoticeMenuId, this.PauseNoticeId)));
-                }
-                else
-                {
-                    PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PauseNotice&menuId=" + BLL.Const.ProjectPauseNoticeMenuId, this.PauseNoticeId)));
+                    var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.ProjectPauseNoticeMenuId);
+                    if (buttonList.Count() > 0)
+                    {
+                        PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&type=0&path=FileUpload/PauseNotice&menuId=" + BLL.Const.ProjectPauseNoticeMenuId, this.PauseNoticeId)));
+                    }
+                    else
+                    {
+                        PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/PauseNotice&menuId=" + BLL.Const.ProjectPauseNoticeMenuId, this.PauseNoticeId)));
+                    }
                 }
             }
         }
     }
-}

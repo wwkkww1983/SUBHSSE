@@ -64,6 +64,7 @@
     <Compile Include="APIItem\FlowReceiveItem.cs" />
     <Compile Include="APIItem\PersonInOutItem.cs" />
     <Compile Include="APIItem\PersonQualityItem.cs" />
+    <Compile Include="APIItem\PunishNoticeItemItem.cs" />
     <Compile Include="APIItem\RectifyNoticesFlowOperateItem.cs" />
     <Compile Include="APIItem\RectifyNoticesItemItem.cs" />
     <Compile Include="APIItem\SeDinMonthReport10Item.cs" />

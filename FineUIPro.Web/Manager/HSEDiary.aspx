@@ -22,7 +22,7 @@
         <Items>
             <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="HSE日志" EnableCollapse="true"
                 runat="server" BoxFlex="1"  DataKeyNames="HSEDiaryId" AllowCellEditing="true"  ClicksToEdit="2" 
-                DataIDField="HSEDiaryId" AllowSorting="true"
+                DataIDField="HSEDiaryId" AllowSorting="true" ForceFit="true"
                 SortField="DiaryDate,UserName" SortDirection="DESC" EnableColumnLines="true" OnSort="Grid1_Sort" AllowPaging="true"
                 IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"
                 EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True">
@@ -58,7 +58,7 @@
                         TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="220px" ColumnID="UnitName" DataField="UnitName" SortField="UnitName"
-                        FieldType="String" HeaderText="申请单位" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
+                        FieldType="String" HeaderText="申请单位" HeaderTextAlign="Center" TextAlign="Left" >
                     </f:RenderField>
                     <f:RenderField Width="300px" ColumnID="DailySummary" DataField="DailySummary" SortField="DailySummary"
                         FieldType="String" HeaderText="当日小结" HeaderTextAlign="Center" TextAlign="Left">

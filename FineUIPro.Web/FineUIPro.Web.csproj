@@ -571,6 +571,7 @@
     <Content Include="Manager\MonthReportDView.aspx" />
     <Content Include="Manager\ManagerTotalMonthServerView2.aspx" />
     <Content Include="Manager\ManagerTotalMonthServerView3.aspx" />
+    <Content Include="Manager\ManagerMonth_SeDinEdit.aspx" />
     <Content Include="Manager\MonthReportEEdit.aspx" />
     <Content Include="Manager\MonthReportEView.aspx" />
     <Content Include="Manager\PerformanceManagementReport.aspx" />
@@ -6993,6 +6994,13 @@
     </Compile>
     <Compile Include="Manager\ManagerTotalMonthServerView3.aspx.designer.cs">
       <DependentUpon>ManagerTotalMonthServerView3.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\ManagerMonth_SeDinEdit.aspx.cs">
+      <DependentUpon>ManagerMonth_SeDinEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manager\ManagerMonth_SeDinEdit.aspx.designer.cs">
+      <DependentUpon>ManagerMonth_SeDinEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Manager\MonthReportEEdit.aspx.cs">
       <DependentUpon>MonthReportEEdit.aspx</DependentUpon>

@@ -76,14 +76,14 @@
                         DataIFrameUrlFields="ReceiveFileManagerId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ReceiveFileManagerAttachUrl&menuId=4F5C00F3-DA7D-4B2D-B1EF-310DFFCA77DD&type=-1"
                         HeaderTextAlign="Center" >
                      </f:WindowField>
-                    <f:WindowField TextAlign="Center" Width="70px" WindowID="WindowAtt" HeaderText="回复" Text="附件" ToolTip="附件上传查看" 
+                  <%--  <f:WindowField TextAlign="Center" Width="70px" WindowID="WindowAtt" HeaderText="回复" Text="附件" ToolTip="附件上传查看" 
                         DataIFrameUrlFields="ReReceiveFileManagerId" DataIFrameUrlFormatString="../AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ReceiveFileManagerAttachUrl&menuId=4F5C00F3-DA7D-4B2D-B1EF-310DFFCA77DD"
                         HeaderTextAlign="Center" >
                      </f:WindowField>
                      <f:RenderField Width="80px" ColumnID="RetrunSateName" DataField="RetrunSateName"
                         SortField="RetrunSateName" FieldType="String" HeaderText="回复状态" HeaderTextAlign="Center"
                         TextAlign="Left">
-                    </f:RenderField>
+                    </f:RenderField>--%>
                 </Columns>
                 <Listeners>
                     <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
@@ -114,6 +114,9 @@
     <f:Menu ID="Menu1" runat="server">
         <f:MenuButton ID="btnMenuEdit" OnClick="btnMenuEdit_Click" Icon="TableEdit" EnablePostBack="true"
             Hidden="true" runat="server" Text="编辑">
+        </f:MenuButton>
+        <f:MenuButton ID="btnIssue" OnClick="btnIssue_Click" Icon="NoteGo" EnablePostBack="true"
+            Hidden="true" runat="server" Text="下发">
         </f:MenuButton>
         <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
             Hidden="true" Icon="Delete" ConfirmText="删除选中行？" ConfirmTarget="Parent" runat="server" Text="删除">

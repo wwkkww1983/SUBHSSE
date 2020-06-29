@@ -142,7 +142,9 @@ namespace FineUIPro.Web.Manager
         {
             Model.Manager_MonthReportC mr = BLL.MonthReportCService.GetLastMonthReportByDate(endTime, this.ProjectId);
             decimal? sMonthType1 = 0, sMonthType2 = 0, sMonthType3 = 0, sMonthType4 = 0, sMonthType5 = 0, sMonthType6 = 0;
+#pragma warning disable CS0219 // 变量“tMonthType2”已被赋值，但从未使用过它的值
             decimal? tMonthType1 = 0, tMonthType2 = 0;
+#pragma warning restore CS0219 // 变量“tMonthType2”已被赋值，但从未使用过它的值
             List<Model.CostGoods_PayRegistration> payRegistrations = BLL.PayRegistrationService.GetPayRegistrationByPayDate(startTime, endTime, this.ProjectId);
             if (payRegistrations != null)
             {

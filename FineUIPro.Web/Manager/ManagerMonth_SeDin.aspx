@@ -32,9 +32,8 @@
                 runat="server" BoxFlex="1" DataKeyNames="MonthReportId" AllowCellEditing="true"
                 ClicksToEdit="2" DataIDField="MonthReportId" AllowSorting="true" SortField="ReporMonth"
                 SortDirection="DESC" OnSort="Grid1_Sort" EnableColumnLines="true" AllowPaging="true"
-                IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"
-                EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" AllowFilters="true"
-                OnFilterChange="Grid1_FilterChange" EnableTextSelection="True">
+                IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"  ForceFit="true"
+                EnableRowDoubleClickEvent="true" OnRowDoubleClick="Grid1_RowDoubleClick" EnableTextSelection="True" >
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
@@ -42,7 +41,10 @@
                                 AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelWidth="50px"
                                 LabelAlign="right">
                             </f:TextBox>
-                            <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>
+                            <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill> 
+                              <f:DatePicker runat="server"  DateFormatString="yyyy-MM" Label="月报月份" EmptyText="请选择年月" 
+                                            ID="txtMonth" LabelAlign="right" DisplayType="Month" ShowTodayButton="false">
+                                        </f:DatePicker>
                             <f:Button ID="btnNew" ToolTip="新增" Icon="Add" runat="server"
                                 OnClick="btnNew_Click" Hidden="true">
                             </f:Button>                
@@ -84,12 +86,12 @@
                     <f:RenderField Width="90px" ColumnID="ApprovalManName" DataField="ApprovalManName" 
                         SortField="ReportManName" FieldType="String" HeaderText="批准人" TextAlign="Left" HeaderTextAlign="Center">
                     </f:RenderField>
-                     <f:RenderField Width="250px" ColumnID="ThisSummary" DataField="ThisSummary" 
+                 <%--    <f:RenderField Width="250px" ColumnID="ThisSummary" DataField="ThisSummary" 
                          FieldType="String" HeaderText="本月HSE活动综述" TextAlign="Left" HeaderTextAlign="Center">
-                    </f:RenderField>
-                      <f:RenderField Width="250px" ColumnID="ThisSummary" DataField="ThisSummary" ExpandUnusedSpace="true"
+                    </f:RenderField>--%>
+             <%--         <f:RenderField Width="250px" ColumnID="NextPlan" DataField="NextPlan" ExpandUnusedSpace="true"
                          FieldType="String" HeaderText="下月HSE工作计划" TextAlign="Left" HeaderTextAlign="Center">
-                    </f:RenderField>
+                    </f:RenderField>--%>
                 </Columns>
                 <Listeners>
                     <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
