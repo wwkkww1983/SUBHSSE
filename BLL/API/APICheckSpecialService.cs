@@ -80,7 +80,7 @@ namespace BLL
                                       AttachUrl1 = APIUpLoadFileService.getFileUrl(x.CheckSpecialId, null),
                                   };
             return getCheckSpecial.ToList();
-        }
+        }       
         #endregion        
 
         #region 保存Check_CheckSpecial
@@ -182,26 +182,34 @@ namespace BLL
                           where x.CheckSpecialId == checkSpecialId
                           select new Model.CheckSpecialDetailItem
                           {
-                              CheckSpecialDetailId=x.CheckSpecialDetailId,
+                              CheckSpecialDetailId = x.CheckSpecialDetailId,
                               CheckSpecialId = x.CheckSpecialId,
                               CheckItemSetId = x.CheckItem,
-                              CheckItemSetName = Funs.DB.Technique_CheckItemSet.First(y=>y.CheckItemSetId==x.CheckItem).CheckItemName,
-                              CheckContent =x.CheckContent,
-                              SortIndex=x.SortIndex,
+                              CheckItemSetName = Funs.DB.Technique_CheckItemSet.First(y => y.CheckItemSetId == x.CheckItem).CheckItemName,
+                              CheckContent = x.CheckContent,
+                              SortIndex = x.SortIndex,
                               Unqualified = x.Unqualified,
                               Suggestions = x.Suggestions,
-                              WorkArea=x.WorkArea,
-                              UnitId=x.UnitId,
-                              UnitName=Funs.DB.Base_Unit.First(y=>y.UnitId == x.UnitId).UnitName,
+                              WorkArea = x.WorkArea,
+                              UnitId = x.UnitId,
+                              UnitName = Funs.DB.Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
                               HandleStep = x.HandleStep,
-                              HandleStepName=Funs.DB.Sys_Const.First(y=>y.GroupId== ConstValue.Group_HandleStep && y.ConstValue==x.HandleStep).ConstText,
+                              HandleStepName = getNames(x.HandleStep),
                               LimitedDate = string.Format("{0:yyyy-MM-dd}", x.LimitedDate),
                               CompleteStatus = x.CompleteStatus,
-                              CompleteStatusName = x.CompleteStatus==true?"已完成":"待完成",    
-                              CompletedDate= string.Format("{0:yyyy-MM-dd}", x.CompletedDate),
+                              CompleteStatusName = x.CompleteStatus == true ? "已整改" : "待整改",
+                              CompletedDate = string.Format("{0:yyyy-MM-dd}", x.CompletedDate),
                               AttachUrl1 = APIUpLoadFileService.getFileUrl(x.CheckSpecialDetailId, null),
                           };
             return getInfo.ToList();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private static string getNames(string constValue)
+        {
+            return ConstValue.getConstTextsConstValues(constValue, ConstValue.Group_HandleStep);
         }
         #endregion      
 
@@ -232,7 +240,7 @@ namespace BLL
                               HandleStepName = Funs.DB.Sys_Const.First(y => y.GroupId == ConstValue.Group_HandleStep && y.ConstValue == x.HandleStep).ConstText,
                               LimitedDate = string.Format("{0:yyyy-MM-dd}", x.LimitedDate),
                               CompleteStatus = x.CompleteStatus,
-                              CompleteStatusName = x.CompleteStatus == true ? "已完成" : "待完成",
+                              CompleteStatusName = x.CompleteStatus == true ? "已整改" : "待整改",
                               AttachUrl1 = APIUpLoadFileService.getFileUrl(x.CheckSpecialDetailId, null),
                           };
             return getInfo.First();

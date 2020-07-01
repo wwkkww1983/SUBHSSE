@@ -304,7 +304,29 @@ namespace BLL
 
                     db.SubmitChanges();
                 }
-           
+
+
+                //// 增加审核记录
+                if (newItem.FlowOperateItem != null && newItem.FlowOperateItem.Count() > 0)
+                {
+                    var getOperate = newItem.FlowOperateItem.FirstOrDefault();
+                    if (getOperate != null && !string.IsNullOrEmpty(getOperate.OperaterId))
+                    {
+                        Model.Check_PauseNoticeFlowOperate newOItem = new Model.Check_PauseNoticeFlowOperate
+                        {
+                            FlowOperateId = SQLHelper.GetNewID(),
+                            PauseNoticeId = newPauseNotice.PauseNoticeId,
+                            OperateName = getOperate.AuditFlowName,
+                            OperateManId = getOperate.OperaterId,
+                            OperateTime = DateTime.Now,
+                            IsAgree = getOperate.IsAgree,
+                            Opinion = getOperate.Opinion,
+                        };
+                        db.Check_PauseNoticeFlowOperate.InsertOnSubmit(newOItem);
+                        db.SubmitChanges();
+                    }
+                }
+
                 if (newItem.PauseStates == Const.State_0 || newItem.PauseStates == Const.State_1)
                 {     //// 通知单附件
                     UploadFileService.SaveAttachUrl(UploadFileService.GetSourceByAttachUrl(newItem.PauseNoticeAttachUrl, 10, null), newItem.PauseNoticeAttachUrl, Const.ProjectPauseNoticeMenuId, newPauseNotice.PauseNoticeId);

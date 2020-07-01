@@ -51,7 +51,7 @@ namespace BLL
             Model.AttachFile att = db.AttachFile.FirstOrDefault(e => e.ToKeyId == toKeyId && e.MenuId == menuId);
             if (att != null)
             {
-                BLL.UploadFileService.DeleteFile(rootPath, att.AttachUrl);
+                UploadFileService.DeleteFile(rootPath, att.AttachUrl);
                 db.AttachFile.DeleteOnSubmit(att);
                 db.SubmitChanges();
             }

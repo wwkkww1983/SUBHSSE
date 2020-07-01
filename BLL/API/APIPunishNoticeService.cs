@@ -258,19 +258,19 @@ namespace BLL
                 }
                 else
                 {
-                    var geDeleteItems = from x in db.Check_PunishNoticeItem
-                                                         where x.PunishNoticeId == getUpdate.PunishNoticeId
-                                                         select x;
-                    if (geDeleteItems.Count() > 0)
-                    {
-                        db.Check_PunishNoticeItem.DeleteAllOnSubmit(geDeleteItems);
-                        db.SubmitChanges();
-                    }
-
                     newPunishNotice.PunishNoticeId = getUpdate.PunishNoticeId;
                     getUpdate.PunishStates = newItem.PunishStates;
                     if (newPunishNotice.PunishStates == "0" || newPunishNotice.PunishStates == "1")  ////编制人 修改或提交
                     {
+                        var geDeleteItems = from x in db.Check_PunishNoticeItem
+                                            where x.PunishNoticeId == getUpdate.PunishNoticeId
+                                            select x;
+                        if (geDeleteItems.Count() > 0)
+                        {
+                            db.Check_PunishNoticeItem.DeleteAllOnSubmit(geDeleteItems);
+                            db.SubmitChanges();
+                        }
+                        insertPunishNoticeItemItem = true;
                         getUpdate.PunishNoticeDate = newPunishNotice.PunishNoticeDate;
                         getUpdate.UnitId = newPunishNotice.UnitId;
                         getUpdate.ContractNum = newPunishNotice.ContractNum;
@@ -365,12 +365,35 @@ namespace BLL
                                 PunishNoticeId = newPunishNotice.PunishNoticeId,
                                 PunishContent = rItem.PunishContent,
                                 SortIndex = rItem.SortIndex,
+                                PunishMoney=rItem.PunishMoney,
                             };
                             db.Check_PunishNoticeItem.InsertOnSubmit(newPItem);
                             db.SubmitChanges();
                         }
                     }
                 }
+
+                //// 增加审核记录
+                if (newItem.FlowOperateItem != null && newItem.FlowOperateItem.Count() > 0)
+                {
+                    var getOperate = newItem.FlowOperateItem.FirstOrDefault();
+                    if (getOperate != null && !string.IsNullOrEmpty(getOperate.OperaterId))
+                    {
+                        Model.Check_PunishNoticeFlowOperate newOItem = new Model.Check_PunishNoticeFlowOperate
+                        {
+                            FlowOperateId = SQLHelper.GetNewID(),
+                            PunishNoticeId = newPunishNotice.PunishNoticeId,
+                            OperateName = getOperate.AuditFlowName,
+                            OperateManId = getOperate.OperaterId,
+                            OperateTime = DateTime.Now,
+                            IsAgree = getOperate.IsAgree,
+                            Opinion = getOperate.Opinion,
+                        };
+                        db.Check_PunishNoticeFlowOperate.InsertOnSubmit(newOItem);
+                        db.SubmitChanges();
+                    }
+                }
+
                 if (newItem.PunishStates == Const.State_0 || newItem.PunishStates == Const.State_1)
                 {     //// 通知单附件
                     APIUpLoadFileService.SaveAttachUrl(Const.ProjectPunishNoticeStatisticsMenuId, newPunishNotice.PunishNoticeId, newItem.PunishUrl, "0");

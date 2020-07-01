@@ -81,6 +81,36 @@ namespace BLL
             return Funs.DB.Sys_Const.FirstOrDefault(e => e.ConstValue == constValue && e.GroupId == groupId);
         }
 
+        #region 根据多ID得到名称字符串
+        /// <summary>
+        /// 根据多ID得到名称字符串
+        /// </summary>
+        /// <param name="bigType"></param>
+        /// <returns></returns>
+        public static string getConstTextsConstValues(object constValues, string groupId)
+        {
+            string name = string.Empty;
+            if (constValues != null)
+            {
+                string[] ids = constValues.ToString().Split(',');
+                foreach (string id in ids)
+                {
+                    var q = GetConstByConstValueAndGroupId(id, groupId);
+                    if (q != null)
+                    {
+                        name += q.ConstText + ",";
+                    }
+                }
+                if (name != string.Empty)
+                {
+                    name = name.Substring(0, name.Length - 1); ;
+                }
+            }
+
+            return name;
+        }
+        #endregion
+
         #region 常量组
         /// <summary>
         /// 系统环境设置 组id
