@@ -108,7 +108,7 @@ namespace BLL
         public static List<Model.PauseNoticeItem> getPauseNoticeList(string projectId, string unitId, string strParam, string states)
         {
             var getPauseNotice = from x in Funs.DB.Check_PauseNotice
-                                  where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null) && x.States ==states
+                                  where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null) && x.PauseStates == states
                                   select new Model.PauseNoticeItem
                                   {
                                       PauseNoticeId = x.PauseNoticeId,
@@ -163,7 +163,14 @@ namespace BLL
                     States = Const.State_0,
                     PauseStates = newItem.PauseStates,
                 };
-
+                if (!string.IsNullOrEmpty(newItem.CompileManId))
+                {
+                    newPauseNotice.CompileManId = newItem.CompileManId;
+                }
+                if (newPauseNotice.PauseStates == Const.State_1)
+                {
+                    newPauseNotice.SignManId = newItem.SignManId;
+                }
                 var getUpdate = db.Check_PauseNotice.FirstOrDefault(x => x.PauseNoticeId == newItem.PauseNoticeId);
                 if (getUpdate == null)
                 {
