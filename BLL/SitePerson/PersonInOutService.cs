@@ -41,6 +41,19 @@ namespace BLL
         public static void AddPersonInOut(Model.SitePerson_PersonInOut PersonInOut)
         {
             Model.SUBHSSEDB db = Funs.DB;
+            string postType = null;
+            string workpostId = null;
+            var getPerson = db.SitePerson_Person.FirstOrDefault(x => x.PersonId == PersonInOut.PersonId);
+            if (getPerson != null)
+            {
+                workpostId = getPerson.WorkPostId;
+                var getWokPost = db.Base_WorkPost.FirstOrDefault(x => x.PostType == getPerson.WorkPostId);
+                if (getWokPost != null)
+                {
+                    postType = getWokPost.PostType;
+                }
+            }
+
             Model.SitePerson_PersonInOut newPersonInOut = new Model.SitePerson_PersonInOut
             {
                 PersonInOutId = SQLHelper.GetNewID(typeof(Model.SitePerson_PersonInOut)),
@@ -48,10 +61,50 @@ namespace BLL
                 UnitId = PersonInOut.UnitId,
                 PersonId = PersonInOut.PersonId,
                 IsIn = PersonInOut.IsIn,
-                ChangeTime = PersonInOut.ChangeTime
+                ChangeTime = PersonInOut.ChangeTime,
+                WorkPostId = workpostId,
+                PostType = postType,
             };
+
             db.SitePerson_PersonInOut.InsertOnSubmit(newPersonInOut);
             db.SubmitChanges();
+            //// 插入当日记录表
+            InsertPersonInOutNowNow(newPersonInOut);
+        }
+
+        /// <summary>
+        ///  插入当日出入记录表
+        /// </summary>
+        /// <param name="PersonInOut"></param>
+        public static void InsertPersonInOutNowNow(Model.SitePerson_PersonInOut PersonInOut)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            var getNow = db.SitePerson_PersonInOutNow.FirstOrDefault(x => x.PersonInOutId == PersonInOut.PersonInOutId);
+            if (getNow == null)
+            {
+                Model.SitePerson_PersonInOutNow newPersonInOut = new Model.SitePerson_PersonInOutNow
+                {
+                    PersonInOutId = PersonInOut.PersonInOutId,
+                    ProjectId = PersonInOut.ProjectId,
+                    UnitId = PersonInOut.UnitId,
+                    PersonId = PersonInOut.PersonId,
+                    IsIn = PersonInOut.IsIn,
+                    ChangeTime = PersonInOut.ChangeTime,
+                    WorkPostId = PersonInOut.WorkPostId,
+                    PostType = PersonInOut.PostType,
+                };
+                db.SitePerson_PersonInOutNow.InsertOnSubmit(newPersonInOut);
+                db.SubmitChanges();
+            }
+
+            var getLastList = from x in db.SitePerson_PersonInOutNow
+                              where x.ChangeTime <= PersonInOut.ChangeTime.Value.AddDays(-1)
+                              select x;
+            if (getLastList.Count() > 0)
+            {
+                db.SitePerson_PersonInOutNow.DeleteAllOnSubmit(getLastList);
+                db.SubmitChanges();
+            }
         }
 
         /// <summary>
@@ -61,12 +114,46 @@ namespace BLL
         public static void DeletePersonInOutByPersonId(string personId)
         {
             Model.SUBHSSEDB db = Funs.DB;
-            var personInOut =from x in db.SitePerson_PersonInOut where x.PersonId == personId select x;
-            if (personInOut.Count()> 0)
+            var personInOut = from x in db.SitePerson_PersonInOut where x.PersonId == personId select x;
+            if (personInOut.Count() > 0)
             {
                 db.SitePerson_PersonInOut.DeleteAllOnSubmit(personInOut);
                 db.SubmitChanges();
             }
+        }
+
+        /// <summary>
+        ///  获取出入记录人工时
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.WorkPostStatisticItem> getWorkPostStatistic(List<Model.SitePerson_PersonInOut> getAllPersonInOutList)
+        {
+            Model.SUBHSSEDB db = Funs.DB;
+            List<Model.WorkPostStatisticItem> reports = new List<Model.WorkPostStatisticItem>();
+
+            var getUnitIdList = getAllPersonInOutList.Select(x => x.UnitId).Distinct();
+            foreach (var uitem in getUnitIdList)
+            {
+                var getU = getAllPersonInOutList.Where(x => x.UnitId == uitem);
+                var getWorkPostIdList = getU.Select(x => x.WorkPostId).Distinct();
+                foreach (var witem in getWorkPostIdList)
+                {
+                    var getW = getU.Where(x => x.WorkPostId == witem);
+                    Model.WorkPostStatisticItem newWItem = new Model.WorkPostStatisticItem
+                    {
+                        ID = SQLHelper.GetNewID(),
+                        UnitId = uitem,
+                        UnitName = UnitService.GetUnitNameByUnitId(uitem),
+                        WorkPostId = witem,
+                        WorkPostName = WorkPostService.getWorkPostNameById(witem),
+                        PersonCount = getW.Select(x => x.PersonId).Distinct().Count(),
+                        UnitWorkPostID = uitem + "|" + witem,
+                    };
+
+                    reports.Add(newWItem);
+                }
+            }
+            return reports;
         }
     }
 }

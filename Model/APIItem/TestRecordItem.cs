@@ -99,7 +99,7 @@ namespace Model
             get;
             set;
         }
-        
+
         /// <summary>
         /// 考试结束时间
         /// </summary>
@@ -156,7 +156,6 @@ namespace Model
             get;
             set;
         }
-        
         /// <summary>
         /// 是否合格
         /// </summary>

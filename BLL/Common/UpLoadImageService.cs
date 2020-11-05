@@ -76,11 +76,9 @@ namespace BLL
                     {
                         Directory.CreateDirectory(localRoots);
                     }
-                    //判断缩略图在当前文件夹下是否同名称文件存在                
-                    sThumbFile = localRoots + SQLHelper.GetNewID() + extendName;
+                    sThumbFile = localRoots + SQLHelper.GetNewID() + extendName;                   
                     //缩略图保存的绝对路径 
                     string smallImagePath = sThumbFile;
-
                     //新建一个图板,以最小等比例压缩大小绘制原图 
                     using (Image bitmap = new Bitmap(smallWidth, smallHeight))
                     {

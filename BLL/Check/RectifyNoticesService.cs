@@ -60,8 +60,6 @@ namespace BLL
                 UnitHeadManDate = rectifyNotice.UnitHeadManDate,
                 ReCheckOpinion = rectifyNotice.ReCheckOpinion,
                 CheckManIds = rectifyNotice.CheckManIds,
-                Isprint = rectifyNotice.Isprint,
-                Isprintf = rectifyNotice.Isprintf,
                 States = rectifyNotice.States,
             };
             db.Check_RectifyNotices.InsertOnSubmit(newRectifyNotices);
@@ -111,8 +109,6 @@ namespace BLL
                 newRectifyNotices.UnitHeadManDate = rectifyNotices.UnitHeadManDate;
                 newRectifyNotices.ReCheckOpinion = rectifyNotices.ReCheckOpinion;
                 newRectifyNotices.CheckManIds = rectifyNotices.CheckManIds;
-                newRectifyNotices.Isprint = rectifyNotices.Isprint;
-                newRectifyNotices.Isprintf = rectifyNotices.Isprintf;
                 newRectifyNotices.States = rectifyNotices.States;
                 db.SubmitChanges();
             }

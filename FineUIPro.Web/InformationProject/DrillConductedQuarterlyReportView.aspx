@@ -14,7 +14,7 @@
 <body>
     <form id="form1" runat="server">
     <f:PageManager ID="PageManager1" AutoSizePanelID="SimpleForm1" runat="server" />
-    <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="false"
+    <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="true"
         BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
         <Rows>
             <f:FormRow>
@@ -32,7 +32,7 @@
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" EnableCollapse="true" runat="server"
                         BoxFlex="1" DataKeyNames="DrillConductedQuarterlyReportItemId" AllowCellEditing="true"
                         ClicksToEdit="1" DataIDField="DrillConductedQuarterlyReportItemId" EnableColumnLines="true"
-                        EnableHeaderMenu="false" Width="1300px" Height="380px">
+                        EnableHeaderMenu="false" Width="1300px" Height="280px">
                         <Columns>
                             <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="50px" HeaderTextAlign="Center"
                                 TextAlign="Center" />

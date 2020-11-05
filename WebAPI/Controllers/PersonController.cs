@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BLL;
+using System;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using BLL;
 
 namespace WebAPI.Controllers
 {
@@ -59,6 +56,30 @@ namespace WebAPI.Controllers
         }
         #endregion
 
+        #region 根据projectId、identityCard获取人员信息
+        /// <summary>
+        /// 根据projectId、identityCard获取人员信息
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="identityCard"></param>
+        /// <returns></returns>
+        public Model.ResponeData getPersonByProjectIdIdentityCard(string projectId, string identityCard)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIPersonService.getPersonByProjectIdIdentityCard(projectId, identityCard);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
         #region 根据projectId、unitid获取人员信息
         /// <summary>
         /// 根据projectId、unitid获取人员信息
@@ -88,7 +109,7 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
-        
+
         #region 获取在岗、离岗、待审人员数量
         /// <summary>
         /// 获取在岗、离岗、待审人员列表
@@ -105,28 +126,31 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getViews = from x in Funs.DB.SitePerson_Person
-                               where x.ProjectId == projectId && (strUnitId == null || x.UnitId == strUnitId)
-                               && (strWorkPostId == null || x.WorkPostId == strWorkPostId)
-                               select x;
-                if (!CommonService.GetIsThisUnit(unitId) || string.IsNullOrEmpty(unitId))
+                using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
                 {
-                    getViews = getViews.Where(x => x.UnitId == unitId);
+                    var getViews = from x in db.SitePerson_Person
+                                   where x.ProjectId == projectId && (strUnitId == null || x.UnitId == strUnitId)
+                                   && (strWorkPostId == null || x.WorkPostId == strWorkPostId)
+                                   select x;
+                    if (unitId != Const.UnitId_SEDIN && !string.IsNullOrEmpty(unitId))
+                    {
+                        getViews = getViews.Where(x => x.UnitId == unitId);
+                    }
+                    if (!string.IsNullOrEmpty(strParam))
+                    {
+                        getViews = getViews.Where(x => x.PersonName.Contains(strParam) || x.IdentityCard.Contains(strParam));
+                    }
+                    int tatalCount = getViews.Count();
+                    //在审
+                    int count0 = getViews.Where(x => x.IsUsed == false && !x.AuditorDate.HasValue).Count();
+                    //在岗
+                    int count1 = getViews.Where(x => x.IsUsed == true && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)).Count();
+                    //离岗
+                    int count2 = getViews.Where(x => x.IsUsed == true && x.OutTime <= DateTime.Now).Count();
+                    //打回
+                    int count3 = getViews.Where(x => x.IsUsed == false && x.AuditorDate.HasValue).Count();
+                    responeData.data = new { tatalCount, count0, count1, count2, count3 };
                 }
-                if (!string.IsNullOrEmpty(strParam))
-                {
-                    getViews = getViews.Where(x => x.PersonName.Contains(strParam) || x.IdentityCard.Contains(strParam));
-                }
-                int tatalCount = getViews.Count();
-                //在审
-                int count0 = getViews.Where(x => x.IsUsed == false && !x.AuditorDate.HasValue).Count();
-                //在岗
-                int count1 = getViews.Where(x => x.IsUsed == true && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)).Count();
-                //离岗
-                int count2 = getViews.Where(x => x.IsUsed == true && x.OutTime <= DateTime.Now).Count();
-                //打回
-                int count3 = getViews.Where(x => x.IsUsed == false && x.AuditorDate.HasValue).Count();
-                responeData.data = new { tatalCount, count0, count1, count2, count3 };
             }
             catch (Exception ex)
             {
@@ -230,20 +254,23 @@ namespace WebAPI.Controllers
         {
             var responeData = new Model.ResponeData();
             try
-            {                
-                var getDataList = Funs.DB.View_QualityAudit_PersonQuality.Where(x => x.ProjectId == projectId && x.CertificateId != null);
-                if (ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(projectId, unitId))
+            {
+                using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
                 {
-                    getDataList = getDataList.Where(x => x.UnitId == unitId);
-                }
-                //总数
-                int tatalCount = getDataList.Count();
-                //过期
-                int count1 = getDataList.Where(x => x.LimitDate < DateTime.Now).Count();
-                //即将过期
-                int count2 = getDataList.Where(x => x.LimitDate >= DateTime.Now && x.LimitDate < DateTime.Now.AddMonths(1)).Count();
+                    var getDataList = db.View_QualityAudit_PersonQuality.Where(x => x.ProjectId == projectId && x.CertificateId != null);
+                    if (ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(projectId, unitId))
+                    {
+                        getDataList = getDataList.Where(x => x.UnitId == unitId);
+                    }
+                    //总数
+                    int tatalCount = getDataList.Count();
+                    //过期
+                    int count1 = getDataList.Where(x => x.LimitDate < DateTime.Now).Count();
+                    //即将过期
+                    int count2 = getDataList.Where(x => x.LimitDate >= DateTime.Now && x.LimitDate < DateTime.Now.AddMonths(1)).Count();
 
-                responeData.data = new { tatalCount, count1, count2 };
+                    responeData.data = new { tatalCount, count1, count2 };
+                }
             }
             catch (Exception ex)
             {
@@ -354,23 +381,26 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                if (person != null && !string.IsNullOrEmpty(person.IdentityCard))
+                using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
                 {
-                    var getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.IdentityCard == person.IdentityCard && x.ProjectId == person.ProjectId);
-                    if (getPerson != null && getPerson.PersonId != person.PersonId)
+                    if (person != null && !string.IsNullOrEmpty(person.IdentityCard))
                     {
-                        responeData.code = 2;
-                        responeData.message = "人员身份证号码已存在！";
+                        var getPerson = db.SitePerson_Person.FirstOrDefault(x => x.IdentityCard == person.IdentityCard.Trim() && x.ProjectId == person.ProjectId);
+                        if (getPerson != null && getPerson.PersonId != person.PersonId)
+                        {
+                            responeData.code = 2;
+                            responeData.message = "人员身份证号码已存在！";
+                        }
+                        else
+                        {
+                            APIPersonService.SaveSitePerson(person);
+                        }
                     }
                     else
                     {
-                        APIPersonService.SaveSitePerson(person);
+                        responeData.code = 2;
+                        responeData.message = "人员信息有误！";
                     }
-                }
-                else
-                {
-                    responeData.code = 2;
-                    responeData.message = "人员信息有误！";
                 }
             }
             catch (Exception ex)
@@ -406,7 +436,7 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
-
+        
         #region 更新人员更新附件
         /// <summary>
         /// 更新人员更新附件
@@ -470,7 +500,7 @@ namespace WebAPI.Controllers
         /// <param name="isIn"></param>
         /// <param name="changeTime"></param>
         /// <returns></returns>
-        public Model.ResponeData getPersonInOut(string projectId, string idCard, int isIn,DateTime changeTime)
+        public Model.ResponeData getPersonInOut(string projectId, string idCard, int isIn, DateTime changeTime)
         {
             var responeData = new Model.ResponeData();
             try
@@ -518,7 +548,7 @@ namespace WebAPI.Controllers
                                        x.Address,
                                        x.ExchangeTime,
                                        x.ExchangeTime2,
-                                       PhotoUrl = (x.PhotoUrl == null || x.PhotoUrl =="") ? x.IDCardUrl : x.PhotoUrl,
+                                       PhotoUrl = (x.PhotoUrl == null || x.PhotoUrl == "") ? x.IDCardUrl : x.PhotoUrl,
                                    };
 
             }
@@ -542,17 +572,20 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = from x in Funs.DB.SitePerson_Person
-                                   where x.ProjectId == projectId && x.InTime.HasValue && ((x.IsUsed == true && !x.OutTime.HasValue) || x.OutTime.HasValue)
-                                    && x.InTime < DateTime.Now && x.CardNo != null && !x.ExchangeTime2.HasValue && x.ExchangeTime.HasValue
-                                   select new
-                                   {
-                                       x.PersonId,
-                                       x.PersonName,
-                                       x.CardNo,
-                                       x.IdentityCard,
-                                       OutTime = x.OutTime == null ? DateTime.Now.AddYears(10) : x.OutTime,
-                                   };
+                using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+                {
+                    responeData.data = from x in db.SitePerson_Person
+                                       where x.ProjectId == projectId && x.InTime.HasValue && ((x.IsUsed == true && !x.OutTime.HasValue) || x.OutTime.HasValue)
+                                        && x.InTime < DateTime.Now && x.CardNo != null && !x.ExchangeTime2.HasValue && x.ExchangeTime.HasValue
+                                       select new
+                                       {
+                                           x.PersonId,
+                                           x.PersonName,
+                                           x.CardNo,
+                                           x.IdentityCard,
+                                           OutTime = x.OutTime == null ? DateTime.Now.AddYears(10) : x.OutTime,
+                                       };
+                }
             }
             catch (Exception ex)
             {

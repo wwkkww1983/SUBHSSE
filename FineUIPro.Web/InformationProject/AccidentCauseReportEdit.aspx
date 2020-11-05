@@ -16,25 +16,27 @@
     <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="true"
         BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
         <Rows>
-            <f:FormRow ColumnWidths="31% 11% 10% 10% 10% 28%">
+            <f:FormRow ColumnWidths="30% 12% 10% 10% 5% 5% 28%">
                 <Items>
                     <f:Label ID="Label1" runat="server">
                     </f:Label>
                     <f:Label ID="Label2" runat="server" Text="职工伤亡事故原因分析">
                     </f:Label>
+                      <f:DropDownList ID="drpYear" AutoPostBack="true" EnableSimulateTree="true" Required="true"
+                        ShowRedStar="true" runat="server" OnSelectedIndexChanged="drpYear_SelectedIndexChanged">
+                    </f:DropDownList>         
                     <f:DropDownList ID="drpMonth" AutoPostBack="true" EnableSimulateTree="true" Required="true"
                         ShowRedStar="true" runat="server" OnSelectedIndexChanged="drpMonth_SelectedIndexChanged">
                     </f:DropDownList>
-                    <f:DropDownList ID="drpYear" AutoPostBack="true" EnableSimulateTree="true" Required="true"
-                        ShowRedStar="true" runat="server" OnSelectedIndexChanged="drpYear_SelectedIndexChanged">
-                    </f:DropDownList>
                     <f:Label ID="Label3" runat="server" Text="报表">
                     </f:Label>
+                    <f:Button runat ="server" ID="btnRefresh" Icon="ArrowRefresh" IconAlign="Left"
+                        OnClick="btnRefresh_Click"></f:Button>
                     <f:Label ID="Label4" runat="server">
                     </f:Label>
                 </Items>
             </f:FormRow>
-          <f:FormRow ColumnWidths="8% 25% 37% 30%">
+          <f:FormRow ColumnWidths="10% 25% 35% 30%">
                 <Items>
                     <f:Label ID="Label5" runat="server" Text="一、填报单位：">
                     </f:Label>
@@ -46,7 +48,7 @@
                     </f:TextBox>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="5% 5% 8% 6% 5% 6% 7% 6% 5% 6% 7% 6% 5% 6% 5%">
+            <f:FormRow ColumnWidths="6% 5% 9% 5% 6% 5% 8% 5% 6% 5% 8% 5% 6% 6% 3%">
                 <Items>
                     <f:Label ID="Label7" runat="server" Text="二、本月">
                     </f:Label>
@@ -80,7 +82,7 @@
                     </f:Label>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="5% 5% 8% 10% 4% 10% 6%">
+            <f:FormRow ColumnWidths="6% 5% 9% 8% 5% 10% 5%">
                 <Items>
                     <f:Label ID="Label15" runat="server" Text="三、本月">
                     </f:Label>
@@ -98,7 +100,7 @@
                     </f:Label>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="14% 10% 6% 5% 9% 10% 6%">
+            <f:FormRow ColumnWidths="14% 9% 7% 5% 10% 9% 6%">
                 <Items>
                     <f:Label ID="Label21" runat="server" Text="四、本月事故损失工时总数">
                     </f:Label>
@@ -116,7 +118,7 @@
                     </f:Label>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="8% 5% 9% 10% 6%">
+           <f:FormRow ColumnWidths="10% 5% 11% 7% 6%">
                 <Items>
                     <f:Label ID="Label19" runat="server" Text="五、伤者在本月">
                     </f:Label>
@@ -130,7 +132,7 @@
                     </f:Label>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="9% 10% 6% 10% 5% 10% 6%">
+            <f:FormRow ColumnWidths="10% 9% 7% 9% 6% 9% 6%">
                 <Items>
                     <f:Label ID="Label22" runat="server" Text="六、事故直接损失">
                     </f:Label>
@@ -148,7 +150,7 @@
                     </f:Label>
                 </Items>
             </f:FormRow>
-            <f:FormRow ColumnWidths="10% 10% 6%">
+            <f:FormRow ColumnWidths="11% 10% 6%">
                 <Items>
                     <f:Label ID="Label27" runat="server" Text="七、无损失工时总数">
                     </f:Label>

@@ -32,7 +32,7 @@
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" EnableCollapse="true" runat="server"
                         BoxFlex="1" DataKeyNames="DrillConductedQuarterlyReportItemId" AllowCellEditing="true"
                         ClicksToEdit="1" DataIDField="DrillConductedQuarterlyReportItemId" EnableColumnLines="true"
-                        OnRowCommand="Grid1_RowCommand" EnableHeaderMenu="false" Width="1200px" Height="380px">
+                        OnRowCommand="Grid1_RowCommand" EnableHeaderMenu="false" Width="1200px" Height="360px">
                         <Columns>
                             <f:LinkButtonField Width="40px" ConfirmTarget="Parent" CommandName="Add" Icon="Add"
                                 TextAlign="Center" />
@@ -221,7 +221,7 @@
     </f:Form>
     <f:Window ID="Window1" IconUrl="~/res/images/16/11.png" runat="server" Hidden="true"
         IsModal="false" Target="Parent" EnableMaximize="true" EnableResize="true" OnClose="Window1_Close"
-        Title="办理流程" CloseAction="HidePostBack" EnableIFrame="true" Height="250px" Width="500px">
+        Title="办理流程" CloseAction="HidePostBack" EnableIFrame="true" Height="350px" Width="600px">
     </f:Window>
     </form>
 </body>

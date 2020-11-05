@@ -1147,8 +1147,6 @@ namespace FineUIPro.Web.Check
                 }
                 Notices.CompleteManId = this.CurrUser.UserId;
                 Notices.CompleteDate = DateTime.Now;
-                Notices.Isprint = "0";
-                Notices.Isprintf = "0";
                 if (this.drpSignPerson.SelectedValue != BLL.Const._Null)
                 {
                     Notices.SignPerson = this.drpSignPerson.SelectedValue;

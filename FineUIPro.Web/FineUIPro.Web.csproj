@@ -238,6 +238,26 @@
     <Content Include="BaseInfo\TrainType.aspx" />
     <Content Include="BaseInfo\WorkStage.aspx" />
     <Content Include="BaseInfo\GoodsCategory.aspx" />
+    <Content Include="bin\Apache.NMS.ActiveMQ.dll" />
+    <Content Include="bin\Apache.NMS.ActiveMQ.pdb" />
+    <Content Include="bin\Apache.NMS.ActiveMQ.xml" />
+    <Content Include="bin\Apache.NMS.dll" />
+    <Content Include="bin\AxInterop.SYNCARDOCXLib.dll" />
+    <Content Include="bin\BLL.dll" />
+    <Content Include="bin\BLL.pdb" />
+    <Content Include="bin\EmitMapper.dll" />
+    <Content Include="bin\FineUIPro.dll" />
+    <Content Include="bin\FineUIPro.Web.dll" />
+    <Content Include="bin\FineUIPro.Web.pdb" />
+    <Content Include="bin\FineUIPro.xml" />
+    <Content Include="bin\Interop.WIA.dll" />
+    <Content Include="bin\Model.dll" />
+    <Content Include="bin\Model.pdb" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Newtonsoft.Json.pdb" />
+    <Content Include="bin\Newtonsoft.Json.xml" />
+    <Content Include="bin\ThoughtWorks.QRCode.dll" />
+    <Content Include="bin\Web_ct.dll" />
     <Content Include="Check\CheckColligation.aspx" />
     <Content Include="Check\CheckColligationDetailEdit.aspx" />
     <Content Include="Check\CheckColligationDetailWHEdit.aspx" />
@@ -448,6 +468,7 @@
     <Content Include="FinalFileManage\HSEFinalFileList.aspx" />
     <Content Include="FinalFileManage\HSEFinalFileListEdit.aspx" />
     <Content Include="FinalFileManage\HSEFinalFileListView.aspx" />
+    <Content Include="FineUIPro.Web.csproj.user" />
     <Content Include="Hazard\EnvironmentalRiskItemEdit.aspx" />
     <Content Include="Hazard\EnvironmentalRiskList.aspx" />
     <Content Include="Hazard\EnvironmentalRiskListEdit.aspx" />
@@ -511,6 +532,7 @@
     <Content Include="License\HeightWork.aspx" />
     <Content Include="License\FireWork.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="LoginS.aspx" />
     <Content Include="ManagementReport\HeadMonthReportBEdit.aspx" />
     <Content Include="ManagementReport\HeadMonthReportBView.aspx" />
     <Content Include="ManagementReport\HeadMonthReportDView.aspx" />
@@ -579,6 +601,19 @@
     <Content Include="Manager\ProjectSafeReport.aspx" />
     <Content Include="Manager\SubUploadWeek.aspx" />
     <Content Include="Manager\SubUploadWeekEdit.aspx" />
+    <Content Include="obj\Debug\FineUIPro.Web.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\FineUIPro.Web.dll" />
+    <Content Include="obj\Debug\FineUIPro.Web.pdb" />
+    <Content Include="obj\Debug\Interop.WIA.dll" />
+    <Content Include="obj\Debug\TempPE\Service References.HSSEService.Reference.cs.dll" />
+    <Content Include="obj\Debug\Web.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\Web.dll" />
+    <Content Include="obj\Debug\Web.pdb" />
+    <Content Include="obj\Release\FineUIPro.Web.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Release\FineUIPro.Web.dll" />
+    <Content Include="obj\Release\FineUIPro.Web.pdb" />
+    <Content Include="obj\Release\TempPE\Service References.HSSEService.Reference.cs.dll" />
+    <Content Include="obj\Release\Web.csproj.FileListAbsolute.txt" />
     <Content Include="Personal\APPFile.aspx" />
     <Content Include="Personal\FileSearch.aspx" />
     <Content Include="ProjectAccident\AccidentData.aspx" />
@@ -651,6 +686,8 @@
     <Content Include="ServerCheck\CheckNotice.aspx" />
     <Content Include="Doc\help.doc" />
     <Content Include="AttachFile\lib\README.md" />
+    <Content Include="bin\BLL.dll.config" />
+    <Content Include="bin\FineUIPro.lic.dev.config" />
     <None Include="Doc\help1.doc" />
     <None Include="Doc\危险源因素辨识及评价方法说明.doc" />
     <None Include="Doc\危险源清单导入说明.doc" />
@@ -658,6 +695,27 @@
     <None Include="Doc\安全生产月报.doc" />
     <None Include="Doc\检查项目设置.doc" />
     <Content Include="libman.json" />
+    <Content Include="FileUpload\HAZOP\637399405903563228_20170426赛鼎安全软件继续修改问题.docx" />
+    <Content Include="FileUpload\HAZOP\637399405904481626_20190417施工管理信息化建设策划会议纪要.docx" />
+    <Content Include="FileUpload\HAZOP\637399405909896105_20190803赛鼎安全管理软件优化建议-安述彪%281%29.docx" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Debug\FineUIPro.Web.csproj.CopyComplete" />
+    <Content Include="obj\Debug\FineUIPro.Web.csproj.CoreCompileInputs.cache" />
+    <Content Include="obj\Debug\FineUIPro.Web.csprojAssemblyReference.cache" />
+    <Content Include="obj\Debug\ResolveAssemblyReference.cache" />
+    <Content Include="obj\Debug\TempPE\vssver.scc" />
+    <Content Include="obj\Debug\Web.csprojResolveAssemblyReference.cache" />
+    <Content Include="obj\Release\build.force" />
+    <Content Include="obj\Release\DesignTimeResolveAssemblyReferences.cache" />
+    <Content Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Release\FineUIPro.Web.csproj.CopyComplete" />
+    <Content Include="obj\Release\FineUIPro.Web.csproj.CoreCompileInputs.cache" />
+    <Content Include="obj\Release\FineUIPro.Web.csprojAssemblyReference.cache" />
+    <Content Include="obj\Release\FineUIPro.Web.csprojResolveAssemblyReference.cache" />
+    <Content Include="obj\Release\ResolveAssemblyReference.cache" />
+    <Content Include="obj\Release\TempPE\vssver.scc" />
+    <Content Include="obj\Release\Web.csprojResolveAssemblyReference.cache" />
     <None Include="packages.config" />
     <Content Include="ReportPrint\ReportTabFile\分包商上传周报.tab" />
     <Content Include="ReportPrint\ReportTabFile\HSSE日志暨管理数据收集.tab" />
@@ -774,6 +832,7 @@
     <Content Include="SitePerson\BlackList.aspx" />
     <Content Include="SitePerson\DayReportImport.aspx" />
     <Content Include="SitePerson\DayReportIn.aspx" />
+    <Content Include="SitePerson\FileUpload\PersonBaseInfo\2020-4\637236564405546121_timg_%281%29.jpg" />
     <Content Include="SitePerson\PersonPunishRecordSearch.aspx" />
     <Content Include="SitePerson\SendPerson.aspx" />
     <Content Include="SitePerson\MonthReportIn.aspx" />
@@ -6575,6 +6634,13 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="LoginS.aspx.cs">
+      <DependentUpon>LoginS.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LoginS.aspx.designer.cs">
+      <DependentUpon>LoginS.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ManagementReport\HeadMonthReportBEdit.aspx.cs">
       <DependentUpon>HeadMonthReportBEdit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7051,6 +7117,12 @@
     <Compile Include="Manager\SubUploadWeekEdit.aspx.designer.cs">
       <DependentUpon>SubUploadWeekEdit.aspx</DependentUpon>
     </Compile>
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Personal\APPFile.aspx.cs">
       <DependentUpon>APPFile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -11011,9 +11083,13 @@
     <Content Include="App_Themes\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="App_Themes\Default\Images\" />
-    <Folder Include="FileUpload\" />
     <Folder Include="File\Word\" />
+    <Folder Include="Images\charts_0\" />
+    <Folder Include="Images\charts_1\" />
+    <Folder Include="Images\charts_2\" />
+    <Folder Include="Images\charts_3\" />
     <Folder Include="res\js\" />
   </ItemGroup>
   <ItemGroup>

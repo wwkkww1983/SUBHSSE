@@ -15,30 +15,33 @@ namespace BLL
         /// <returns></returns>
         public static Model.UserItem PersonLogOn(Model.UserItem userInfo)
         {
-            var getUser = from x in Funs.DB.SitePerson_Person              
-                          where (x.Telephone == userInfo.Account || x.PersonName == userInfo.Account) 
-                          && (x.Password == Funs.EncryptionPassword(userInfo.Password) 
-                             || (x.IdentityCard != null && x.IdentityCard.Substring(x.IdentityCard.Length - 4) == userInfo.Password))
-                          && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now) && x.IsUsed == true
-                          select new Model.UserItem
-                          {
-                              UserId = x.PersonId,
-                              UserCode = x.CardNo,
-                              Password = x.Password,
-                              UserName = x.PersonName,
-                              UnitId = x.UnitId,
-                              LoginProjectId = x.ProjectId,
-                              IdentityCard = x.IdentityCard,
-                              Account = x.Telephone,
-                              UnitName = Funs.DB.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
-                              LoginProjectName = Funs.DB.Base_Project.First(u => u.ProjectId == x.ProjectId).ProjectName,
-                              Telephone = x.Telephone,
-                              WorkPostId = x.WorkPostId,
-                              WorkPostName = Funs.DB.Base_WorkPost.First(w=>w.WorkPostId==x.WorkPostId).WorkPostName,
-                              UserType="3",
-                          };
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                var getUser = from x in db.SitePerson_Person
+                              where (x.Telephone == userInfo.Account || x.PersonName == userInfo.Account)
+                              && (x.Password == Funs.EncryptionPassword(userInfo.Password)
+                                 || (x.IdentityCard != null && x.IdentityCard.Substring(x.IdentityCard.Length - 4) == userInfo.Password))
+                              && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now) && x.IsUsed == true
+                              select new Model.UserItem
+                              {
+                                  UserId = x.PersonId,
+                                  UserCode = x.CardNo,
+                                  Password = x.Password,
+                                  UserName = x.PersonName,
+                                  UnitId = x.UnitId,
+                                  LoginProjectId = x.ProjectId,
+                                  IdentityCard = x.IdentityCard,
+                                  Account = x.Telephone,
+                                  UnitName = db.Base_Unit.First(u => u.UnitId == x.UnitId).UnitName,
+                                  LoginProjectName = db.Base_Project.First(u => u.ProjectId == x.ProjectId).ProjectName,
+                                  Telephone = x.Telephone,
+                                  WorkPostId = x.WorkPostId,
+                                  WorkPostName = db.Base_WorkPost.First(w => w.WorkPostId == x.WorkPostId).WorkPostName,
+                                  UserType = "3",
+                              };
 
-            return getUser.FirstOrDefault();
+                return getUser.FirstOrDefault();
+            }
         }
         #endregion
 
@@ -50,46 +53,52 @@ namespace BLL
         /// <returns></returns>
         public static Model.PersonItem getPersonByPersonId(string personId)
         {
-            var getPerson = from x in Funs.DB.View_SitePerson_Person
-                            where x.PersonId == personId || x.IdentityCard == personId
-                            select new Model.PersonItem
-                            {
-                                PersonId = x.PersonId,
-                                CardNo = x.CardNo,
-                                PersonName = x.PersonName,
-                                Sex = x.Sex,
-                                SexName = x.SexName,
-                                IdentityCard = x.IdentityCard,
-                                Address = x.Address,
-                                ProjectId = x.ProjectId,
-                                ProjectCode = x.ProjectCode,
-                                ProjectName = x.ProjectName,
-                                UnitId = x.UnitId,
-                                UnitCode = x.UnitCode,
-                                UnitName = x.UnitName,
-                                TeamGroupId = x.TeamGroupId,
-                                TeamGroupName = x.TeamGroupName,
-                                WorkPostId = x.WorkPostId,
-                                WorkPostName = x.WorkPostName,
-                                InTime = string.Format("{0:yyyy-MM-dd}", x.InTime),
-                                OutTime = string.Format("{0:yyyy-MM-dd}", x.OutTime),
-                                OutResult = x.OutResult,
-                                Telephone = x.Telephone,
-                                PhotoUrl = x.PhotoUrl,
-                                DepartName = x.DepartName,
-                                IsUsed = x.IsUsed,
-                                IsUsedName = x.IsUsed == false ? "不启用" : "启用",
-                                AuditorId = x.AuditorId,
-                                AuditorName = Funs.DB.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
-                                IsForeign = x.IsForeign.HasValue ? x.IsForeign : false,
-                                IsOutside = x.IsOutside.HasValue ? x.IsOutside : false,
-                                AuditorDate = string.Format("{0:yyyy-MM-dd}", x.AuditorDate),
-                                AttachUrl1 = x.IDCardUrl == null ? APIUpLoadFileService.getFileUrl(personId + "#1", null) : x.IDCardUrl.Replace('\\', '/'),
-                                AttachUrl2 = APIUpLoadFileService.getFileUrl(personId + "#2", null),
-                                AttachUrl3 = APIUpLoadFileService.getFileUrl(personId + "#3", null),
-                                AttachUrl4 = getAttachUrl4(x.PersonId),
-                            };
-            return getPerson.FirstOrDefault();
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                var getPerson = from x in db.View_SitePerson_Person
+                                where x.PersonId == personId || x.IdentityCard == personId
+                                select new Model.PersonItem
+                                {
+                                    PersonId = x.PersonId,
+                                    CardNo = x.CardNo,
+                                    PersonName = x.PersonName,
+                                    Sex = x.Sex,
+                                    SexName = x.SexName,
+                                    IdentityCard = x.IdentityCard,
+                                    Address = x.Address,
+                                    ProjectId = x.ProjectId,
+                                    ProjectCode = x.ProjectCode,
+                                    ProjectName = x.ProjectName,
+                                    UnitId = x.UnitId,
+                                    UnitCode = x.UnitCode,
+                                    UnitName = x.UnitName,
+                                    WorkAreaId = x.WorkAreaId,
+                                    WorkAreaName = x.WorkAreaName,
+                                    PostType = x.PostType,
+                                    TeamGroupId = x.TeamGroupId,
+                                    TeamGroupName = x.TeamGroupName,
+                                    WorkPostId = x.WorkPostId,
+                                    WorkPostName = x.WorkPostName,
+                                    InTime = string.Format("{0:yyyy-MM-dd}", x.InTime),
+                                    OutTime = string.Format("{0:yyyy-MM-dd}", x.OutTime),
+                                    OutResult = x.OutResult,
+                                    Telephone = x.Telephone,
+                                    PhotoUrl = x.PhotoUrl,
+                                    DepartName = x.DepartName,
+                                    IsUsed = x.IsUsed,
+                                    IsUsedName = x.IsUsed == false ? "不启用" : "启用",
+                                    AuditorId = x.AuditorId,
+                                    AuditorName = db.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
+                                    IsForeign = x.IsForeign.HasValue ? x.IsForeign : false,
+                                    IsOutside = x.IsOutside.HasValue ? x.IsOutside : false,
+                                    AuditorDate = string.Format("{0:yyyy-MM-dd}", x.AuditorDate),
+                                    AttachUrl1 = x.IDCardUrl == null ? APIUpLoadFileService.getFileUrl(personId + "#1", null) : x.IDCardUrl.Replace('\\', '/'),
+                                    AttachUrl2 = APIUpLoadFileService.getFileUrl(personId + "#2", null),
+                                    AttachUrl3 = APIUpLoadFileService.getFileUrl(personId + "#3", null),
+                                    AttachUrl4 = getAttachUrl4(x.PersonId),
+                                };
+                return getPerson.FirstOrDefault();
+            }
         }
 
         /// <summary>
@@ -98,24 +107,81 @@ namespace BLL
         /// <returns></returns>
         public static string getAttachUrl4(string personId)
         {
-            string returnUrl = APIUpLoadFileService.getFileUrl(personId + "#4", null);             
-            var getPersonQuality = Funs.DB.QualityAudit_PersonQuality.FirstOrDefault(x => x.PersonId == personId);
-            if (getPersonQuality != null)
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                string url1 = APIUpLoadFileService.getFileUrl(getPersonQuality.PersonQualityId, null);
-                if (!string.IsNullOrEmpty(url1))
+                string returnUrl = APIUpLoadFileService.getFileUrl(personId + "#4", null);
+                var getPersonQuality = db.QualityAudit_PersonQuality.FirstOrDefault(x => x.PersonId == personId);
+                if (getPersonQuality != null)
                 {
-                    if (!string.IsNullOrEmpty(returnUrl))
+                    string url1 = APIUpLoadFileService.getFileUrl(getPersonQuality.PersonQualityId, null);
+                    if (!string.IsNullOrEmpty(url1))
                     {
-                        returnUrl += "," + url1;
-                    }
-                    else
-                    {
-                        returnUrl = url1;
+                        if (!string.IsNullOrEmpty(returnUrl))
+                        {
+                            returnUrl += "," + url1;
+                        }
+                        else
+                        {
+                            returnUrl = url1;
+                        }
                     }
                 }
+                return returnUrl;
             }
-            return returnUrl;
+        }
+        #endregion
+
+        #region 根据personId获取人员信息
+        /// <summary>
+        /// 根据personId获取人员信息
+        /// </summary>
+        /// <param name="personId"></param>
+        /// <returns></returns>
+        public static Model.PersonItem getPersonByProjectIdIdentityCard(string projectId, string identityCard)
+        {
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                var getPerson = from x in db.View_SitePerson_Person
+                                where x.ProjectId == projectId && (x.PersonId == identityCard || x.IdentityCard == identityCard)
+                                select new Model.PersonItem
+                                {
+                                    PersonId = x.PersonId,
+                                    CardNo = x.CardNo,
+                                    PersonName = x.PersonName,
+                                    Sex = x.Sex,
+                                    SexName = x.SexName,
+                                    IdentityCard = x.IdentityCard,
+                                    Address = x.Address,
+                                    ProjectId = x.ProjectId,
+                                    ProjectCode = x.ProjectCode,
+                                    ProjectName = x.ProjectName,
+                                    UnitId = x.UnitId,
+                                    UnitCode = x.UnitCode,
+                                    UnitName = x.UnitName,
+                                    TeamGroupId = x.TeamGroupId,
+                                    TeamGroupName = x.TeamGroupName,
+                                    WorkPostId = x.WorkPostId,
+                                    WorkPostName = x.WorkPostName,
+                                    InTime = string.Format("{0:yyyy-MM-dd}", x.InTime),
+                                    OutTime = string.Format("{0:yyyy-MM-dd}", x.OutTime),
+                                    OutResult = x.OutResult,
+                                    Telephone = x.Telephone,
+                                    PhotoUrl = x.PhotoUrl,
+                                    DepartName = x.DepartName,
+                                    IsUsed = x.IsUsed,
+                                    IsUsedName = x.IsUsed == false ? "不启用" : "启用",
+                                    AuditorId = x.AuditorId,
+                                    AuditorName = db.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
+                                    IsForeign = x.IsForeign.HasValue ? x.IsForeign : false,
+                                    IsOutside = x.IsOutside.HasValue ? x.IsOutside : false,
+                                    AuditorDate = string.Format("{0:yyyy-MM-dd}", x.AuditorDate),
+                                    AttachUrl1 = x.IDCardUrl == null ? APIUpLoadFileService.getFileUrl(x.PersonId + "#1", null) : x.IDCardUrl.Replace('\\', '/'),
+                                    AttachUrl2 = APIUpLoadFileService.getFileUrl(x.PersonId + "#2", null),
+                                    AttachUrl3 = APIUpLoadFileService.getFileUrl(x.PersonId + "#3", null),
+                                    AttachUrl4 = getAttachUrl4(x.PersonId),
+                                };
+                return getPerson.FirstOrDefault();
+            }
         }
         #endregion
 
@@ -150,42 +216,45 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.PersonItem> getPersonByProjectIdUnitId(string projectId, string unitId)
         {
-            var persons = from x in Funs.DB.View_SitePerson_Person
-                          where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null) && x.IsUsed == true
-                          && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)
-                          orderby x.CardNo descending
-                          select new Model.PersonItem
-                          {
-                              PersonId = x.PersonId,
-                              CardNo = x.CardNo,
-                              PersonName = x.PersonName,
-                              SexName = x.SexName,
-                              IdentityCard = x.IdentityCard,
-                              Address = x.Address,
-                              ProjectId = x.ProjectId,
-                              ProjectCode = x.ProjectCode,
-                              ProjectName = x.ProjectName,
-                              UnitId = x.UnitId,
-                              UnitCode = x.UnitCode,
-                              UnitName = x.UnitName,
-                              TeamGroupId = x.TeamGroupId,
-                              TeamGroupName = x.TeamGroupName,
-                              WorkPostId = x.WorkPostId,
-                              WorkPostName = x.WorkPostName,
-                              InTime = string.Format("{0:yyyy-MM-dd}", x.InTime),
-                              OutTime = string.Format("{0:yyyy-MM-dd}", x.OutTime),
-                              OutResult = x.OutResult,
-                              Telephone = x.Telephone,
-                              PhotoUrl = x.PhotoUrl,
-                              DepartName = x.DepartName,
-                              WorkAreaId = x.WorkAreaId,
-                              WorkAreaName = x.WorkAreaName,
-                              PostType=x.PostType,
-                              IsForeign = x.IsForeign.HasValue ? x.IsForeign : false,
-                              IsOutside = x.IsOutside.HasValue ? x.IsOutside : false,
-                              PostTypeName =Funs.DB.Sys_Const.First(z=>z.GroupId== ConstValue.Group_PostType && z.ConstValue==x.PostType).ConstText,
-                          };
-            return persons.ToList();
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                var persons = from x in db.View_SitePerson_Person
+                              where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null) && x.IsUsed == true
+                              && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)
+                              orderby x.CardNo descending
+                              select new Model.PersonItem
+                              {
+                                  PersonId = x.PersonId,
+                                  CardNo = x.CardNo,
+                                  PersonName = x.PersonName,
+                                  SexName = x.SexName,
+                                  IdentityCard = x.IdentityCard,
+                                  Address = x.Address,
+                                  ProjectId = x.ProjectId,
+                                  ProjectCode = x.ProjectCode,
+                                  ProjectName = x.ProjectName,
+                                  UnitId = x.UnitId,
+                                  UnitCode = x.UnitCode,
+                                  UnitName = x.UnitName,
+                                  TeamGroupId = x.TeamGroupId,
+                                  TeamGroupName = x.TeamGroupName,
+                                  WorkPostId = x.WorkPostId,
+                                  WorkPostName = x.WorkPostName,
+                                  InTime = string.Format("{0:yyyy-MM-dd}", x.InTime),
+                                  OutTime = string.Format("{0:yyyy-MM-dd}", x.OutTime),
+                                  OutResult = x.OutResult,
+                                  Telephone = x.Telephone,
+                                  PhotoUrl = x.PhotoUrl,
+                                  DepartName = x.DepartName,
+                                  WorkAreaId = x.WorkAreaId,
+                                  WorkAreaName = x.WorkAreaName,
+                                  PostType = x.PostType,
+                                  IsForeign = x.IsForeign.HasValue ? x.IsForeign : false,
+                                  IsOutside = x.IsOutside.HasValue ? x.IsOutside : false,
+                                  PostTypeName = db.Sys_Const.First(z => z.GroupId == ConstValue.Group_PostType && z.ConstValue == x.PostType).ConstText,
+                              };
+                return persons.ToList();
+            }
         }
         #endregion
 
@@ -202,70 +271,73 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.PersonItem> getPersonListByProjectIdStates(string projectId, string unitId, string states, string strUnitId, string strWorkPostId, string strParam)
         {
-            var getViews = from x in Funs.DB.SitePerson_Person
-                           where x.ProjectId == projectId && (strUnitId == null || x.UnitId == strUnitId)
-                           && (strWorkPostId == null || x.WorkPostId == strWorkPostId)
-                           select x;
-            if (!CommonService.GetIsThisUnit(unitId) || string.IsNullOrEmpty(unitId))
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                getViews = getViews.Where(x => x.UnitId == unitId);
-            }
-            if (!string.IsNullOrEmpty(strParam))
-            {
-                getViews = getViews.Where(x => x.PersonName.Contains(strParam) || x.IdentityCard.Contains(strParam));
-            }
-            if (states == "0")
-            {
-                getViews = getViews.Where(x => x.IsUsed == false && !x.AuditorDate.HasValue);
-            }
-            else if (states == "1")
-            {
-                getViews = getViews.Where(x => x.IsUsed == true && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now));
-            }
-            else if (states == "2")
-            {
-                getViews = getViews.Where(x => x.IsUsed == true && x.OutTime <= DateTime.Now);
-            }
-            else if (states == "-1")
-            {
-                getViews = getViews.Where(x => x.IsUsed == false && x.AuditorDate.HasValue);
-            }
+                var getViews = from x in db.SitePerson_Person
+                               where x.ProjectId == projectId && (strUnitId == null || x.UnitId == strUnitId)
+                               && (strWorkPostId == null || x.WorkPostId == strWorkPostId)
+                               select x;
+                if ((unitId != Const.UnitId_7 || unitId != Const.UnitId_SEDIN) && !string.IsNullOrEmpty(unitId))
+                {
+                    getViews = getViews.Where(x => x.UnitId == unitId);
+                }
+                if (!string.IsNullOrEmpty(strParam))
+                {
+                    getViews = getViews.Where(x => x.PersonName.Contains(strParam) || x.IdentityCard.Contains(strParam));
+                }
+                if (states == "0")
+                {
+                    getViews = getViews.Where(x => x.IsUsed == false && !x.AuditorDate.HasValue);
+                }
+                else if (states == "1")
+                {
+                    getViews = getViews.Where(x => x.IsUsed == true && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now));
+                }
+                else if (states == "2")
+                {
+                    getViews = getViews.Where(x => x.IsUsed == true && x.OutTime <= DateTime.Now);
+                }
+                else if (states == "-1")
+                {
+                    getViews = getViews.Where(x => x.IsUsed == false && x.AuditorDate.HasValue);
+                }
 
-           
-            var persons = from x in getViews
-                          join y in Funs.DB.Base_Unit on x.UnitId equals y.UnitId
-                          orderby x.CardNo descending
-                          select new Model.PersonItem
-                          {
-                              PersonId = x.PersonId,
-                              CardNo = x.CardNo,
-                              PersonName = x.PersonName,
-                              SexName = (x.Sex == "2" ? "女" : "男"),
-                              IdentityCard = x.IdentityCard,
-                              Address = x.Address,
-                              ProjectId = x.ProjectId,
-                              UnitId = x.UnitId,
-                              UnitCode = y.UnitCode,
-                              UnitName = y.UnitName,
-                              TeamGroupId = x.TeamGroupId,
-                              TeamGroupName = Funs.DB.ProjectData_TeamGroup.First(z => z.TeamGroupId == x.TeamGroupId).TeamGroupName,
-                              WorkPostId = x.WorkPostId,
-                              WorkPostName = Funs.DB.Base_WorkPost.First(z => z.WorkPostId == x.WorkPostId).WorkPostName,
-                              InTime = string.Format("{0:yyyy-MM-dd}", x.InTime),
-                              OutTime = string.Format("{0:yyyy-MM-dd}", x.OutTime),
-                              OutResult = x.OutResult,
-                              Telephone = x.Telephone,
-                              PhotoUrl = x.PhotoUrl,
-                              IsUsed = x.IsUsed,
-                              IsUsedName = (x.IsUsed == true ? "启用" : "未启用"),
-                              WorkAreaId = x.WorkAreaId,
-                              WorkAreaName = Funs.DB.ProjectData_WorkArea.First(z => z.WorkAreaId == x.WorkAreaId).WorkAreaName,
-                              PostType = ReturnQuality(x.PersonId, x.WorkPostId),
-                             // PostTypeName = Funs.DB.Sys_Const.First(p => p.GroupId == ConstValue.Group_PostType && p.ConstValue == z.PostType).ConstText,
-                              IsForeign = x.IsForeign.HasValue ? x.IsForeign : false,
-                              IsOutside = x.IsOutside.HasValue ? x.IsOutside : false,
-                          };
-            return persons.ToList();
+
+                var persons = from x in getViews
+                              join y in db.Base_Unit on x.UnitId equals y.UnitId
+                              orderby x.InTime descending
+                              select new Model.PersonItem
+                              {
+                                  PersonId = x.PersonId,
+                                  CardNo = x.CardNo,
+                                  PersonName = x.PersonName,
+                                  SexName = (x.Sex == "2" ? "女" : "男"),
+                                  IdentityCard = x.IdentityCard,
+                                  Address = x.Address,
+                                  ProjectId = x.ProjectId,
+                                  UnitId = x.UnitId,
+                                  UnitCode = y.UnitCode,
+                                  UnitName = y.UnitName,
+                                  TeamGroupId = x.TeamGroupId,
+                                  TeamGroupName = db.ProjectData_TeamGroup.First(z => z.TeamGroupId == x.TeamGroupId).TeamGroupName,
+                                  WorkPostId = x.WorkPostId,
+                                  WorkPostName = db.Base_WorkPost.First(z => z.WorkPostId == x.WorkPostId).WorkPostName,
+                                  InTime = string.Format("{0:yyyy-MM-dd}", x.InTime),
+                                  OutTime = string.Format("{0:yyyy-MM-dd}", x.OutTime),
+                                  OutResult = x.OutResult,
+                                  Telephone = x.Telephone,
+                                  PhotoUrl = x.PhotoUrl,
+                                  IsUsed = x.IsUsed,
+                                  IsUsedName = (x.IsUsed == true ? "启用" : "未启用"),
+                                  WorkAreaId = x.WorkAreaId,
+                                  WorkAreaName = db.ProjectData_WorkArea.First(z => z.WorkAreaId == x.WorkAreaId).WorkAreaName,
+                                  PostType = ReturnQuality(x.PersonId, x.WorkPostId),
+                                  //PostTypeName = db.Sys_Const.First(p => p.GroupId == ConstValue.Group_PostType && p.ConstValue == p.PostType).ConstText,
+                                  IsForeign = x.IsForeign.HasValue ? x.IsForeign : false,
+                                  IsOutside = x.IsOutside.HasValue ? x.IsOutside : false,
+                              };
+                return persons.ToList();
+            }
         }
 
         /// <summary>
@@ -275,37 +347,43 @@ namespace BLL
         /// <returns></returns>
         private static string ReturnQuality(string personId, string workPostId)
         {
-            string postType = "";
-            var workPost = Funs.DB.Base_WorkPost.FirstOrDefault(x => x.WorkPostId == workPostId);
-            if (workPost != null)
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                if (workPost.PostType == Const.PostType_2)
+                string postType = "";
+                var workPost = db.Base_WorkPost.FirstOrDefault(x => x.WorkPostId == workPostId);
+                if (workPost != null)
                 {
-                    var getPerQ = Funs.DB.QualityAudit_PersonQuality.FirstOrDefault(x => x.PersonId == personId && x.States == Const.State_2 && x.LimitDate >= DateTime.Now.AddMonths(1));
-                    if (getPerQ == null)
+                    if (workPost.PostType == Const.PostType_2)
                     {
-                        postType = "1";
+                        var getPerQ = db.QualityAudit_PersonQuality.FirstOrDefault(x => x.PersonId == personId 
+                        // && x.States == Const.State_2 
+                        && x.LimitDate >= DateTime.Now.AddMonths(1));
+                        if (getPerQ == null)
+                        {
+                            postType = "1";
+                        }
+                    }
+                    //else if (workPost.PostType == Const.PostType_5)
+                    //{
+                    //    var getPerQ = db.QualityAudit_EquipmentPersonQuality.FirstOrDefault(x => x.PersonId == personId && x.States == Const.State_2 && x.LimitDate >= DateTime.Now.AddMonths(1));
+                    //    if (getPerQ == null)
+                    //    {
+                    //        postType = "3";
+                    //    }
+                    //}
+                    if (workPost.IsHsse == true)
+                    {
+                        var getPerQ = db.QualityAudit_SafePersonQuality.FirstOrDefault(x => x.PersonId == personId 
+                        //&& x.States == Const.State_2 
+                        && x.LimitDate >= DateTime.Now.AddMonths(1));
+                        if (getPerQ == null)
+                        {
+                            postType = "2";
+                        }
                     }
                 }
-                else if (workPost.PostType == Const.PostType_5)
-                {
-                    var getPerQ = Funs.DB.QualityAudit_EquipmentPersonQuality.FirstOrDefault(x => x.PersonId == personId && x.States == Const.State_2 && x.LimitDate >= DateTime.Now.AddMonths(1));
-                    if (getPerQ == null)
-                    {
-                        postType = "3";
-                    }
-                }
-                if (workPost.IsHsse == true)
-                {
-                    var getPerQ = Funs.DB.QualityAudit_SafePersonQuality.FirstOrDefault(x => x.PersonId == personId && x.States == Const.State_2 && x.LimitDate >= DateTime.Now.AddMonths(1));
-                    if (getPerQ == null)
-                    {
-                        postType = "2";
-                    }
-                }
-            }        
-            return postType;
-
+                return postType;
+            }
         }
         #endregion
 
@@ -320,68 +398,71 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.PersonItem> getTrainingPersonListByTrainTypeId(string projectId, string unitIds, string workPostIds, string trainTypeId)
         {
-            List<string> unitIdList = Funs.GetStrListByStr(unitIds, ',');
-            var getPersons = from x in Funs.DB.View_SitePerson_Person
-                             where x.ProjectId == projectId && unitIdList.Contains(x.UnitId) && x.IsUsed == true
-                             && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)
-                             select new Model.PersonItem
-                             {
-                                 PersonId = x.PersonId,
-                                 CardNo = x.CardNo,
-                                 PersonName = x.PersonName,
-                                 SexName = x.SexName,
-                                 IdentityCard = x.IdentityCard,
-                                 Address = x.Address,
-                                 ProjectId = x.ProjectId,
-                                 ProjectCode = x.ProjectCode,
-                                 ProjectName = x.ProjectName,
-                                 UnitId = x.UnitId,
-                                 UnitCode = x.UnitCode,
-                                 UnitName = x.UnitName,
-                                 TeamGroupId = x.TeamGroupId,
-                                 TeamGroupName = x.TeamGroupName,
-                                 WorkPostId = x.WorkPostId,
-                                 WorkPostName = x.WorkPostName,
-                                 InTime = string.Format("{0:yyyy-MM-dd}", x.InTime),
-                                 OutTime = string.Format("{0:yyyy-MM-dd}", x.OutTime),
-                                 OutResult = x.OutResult,
-                                 Telephone = x.Telephone,
-                                 PhotoUrl = x.PhotoUrl,
-                                 DepartName = x.DepartName,
-                             };
-            if (!string.IsNullOrEmpty(workPostIds))
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                List<string> workPostIdList = Funs.GetStrListByStr(workPostIds, ',');
-                getPersons = getPersons.Where(x => workPostIdList.Contains(x.WorkPostId));
-            }
-
-            List<Model.PersonItem> getTrainPersonList = new List<Model.PersonItem>();
-            var getTrainType = TrainTypeService.GetTrainTypeById(trainTypeId);
-            if (getTrainType != null && (!getTrainType.IsRepeat.HasValue || getTrainType.IsRepeat == false))
-            {
-                foreach (var item in getPersons)
+                List<string> unitIdList = Funs.GetStrListByStr(unitIds, ',');
+                var getPersons = from x in db.View_SitePerson_Person
+                                 where x.ProjectId == projectId && unitIdList.Contains(x.UnitId) && x.IsUsed == true
+                                 && x.InTime <= DateTime.Now && (!x.OutTime.HasValue || x.OutTime >= DateTime.Now)
+                                 select new Model.PersonItem
+                                 {
+                                     PersonId = x.PersonId,
+                                     CardNo = x.CardNo,
+                                     PersonName = x.PersonName,
+                                     SexName = x.SexName,
+                                     IdentityCard = x.IdentityCard,
+                                     Address = x.Address,
+                                     ProjectId = x.ProjectId,
+                                     ProjectCode = x.ProjectCode,
+                                     ProjectName = x.ProjectName,
+                                     UnitId = x.UnitId,
+                                     UnitCode = x.UnitCode,
+                                     UnitName = x.UnitName,
+                                     TeamGroupId = x.TeamGroupId,
+                                     TeamGroupName = x.TeamGroupName,
+                                     WorkPostId = x.WorkPostId,
+                                     WorkPostName = x.WorkPostName,
+                                     InTime = string.Format("{0:yyyy-MM-dd}", x.InTime),
+                                     OutTime = string.Format("{0:yyyy-MM-dd}", x.OutTime),
+                                     OutResult = x.OutResult,
+                                     Telephone = x.Telephone,
+                                     PhotoUrl = x.PhotoUrl,
+                                     DepartName = x.DepartName,
+                                 };
+                if (!string.IsNullOrEmpty(workPostIds))
                 {
-                    var getTrainPersonIdList1 = (from x in Funs.DB.EduTrain_TrainRecordDetail
-                                                 join y in Funs.DB.EduTrain_TrainRecord on x.TrainingId equals y.TrainingId
-                                                 where y.ProjectId == projectId && y.TrainTypeId == trainTypeId && x.CheckResult == true && x.PersonId == item.PersonId
-                                                 select x).FirstOrDefault();
-                    if (getTrainPersonIdList1 == null)
+                    List<string> workPostIdList = Funs.GetStrListByStr(workPostIds, ',');
+                    getPersons = getPersons.Where(x => workPostIdList.Contains(x.WorkPostId));
+                }
+
+                List<Model.PersonItem> getTrainPersonList = new List<Model.PersonItem>();
+                var getTrainType = TrainTypeService.GetTrainTypeById(trainTypeId);
+                if (getTrainType != null && (!getTrainType.IsRepeat.HasValue || getTrainType.IsRepeat == false))
+                {
+                    foreach (var item in getPersons)
                     {
-                        var getTrainPersonIdList2 = (from x in Funs.DB.Training_Task
-                                                     join y in Funs.DB.Training_Plan on x.PlanId equals y.PlanId
-                                                     where y.ProjectId == projectId && y.TrainTypeId == trainTypeId && y.States != "3" && x.UserId == item.PersonId
+                        var getTrainPersonIdList1 = (from x in db.EduTrain_TrainRecordDetail
+                                                     join y in db.EduTrain_TrainRecord on x.TrainingId equals y.TrainingId
+                                                     where y.ProjectId == projectId && y.TrainTypeId == trainTypeId && x.CheckResult == true && x.PersonId == item.PersonId
                                                      select x).FirstOrDefault();
-                        if (getTrainPersonIdList2 == null)
+                        if (getTrainPersonIdList1 == null)
                         {
-                            getTrainPersonList.Add(item);
+                            var getTrainPersonIdList2 = (from x in db.Training_Task
+                                                         join y in db.Training_Plan on x.PlanId equals y.PlanId
+                                                         where y.ProjectId == projectId && y.TrainTypeId == trainTypeId && y.States != "3" && x.UserId == item.PersonId
+                                                         select x).FirstOrDefault();
+                            if (getTrainPersonIdList2 == null)
+                            {
+                                getTrainPersonList.Add(item);
+                            }
                         }
                     }
+                    return getTrainPersonList;
                 }
-                return getTrainPersonList;
-            }
-            else
-            {
-                return getPersons.ToList();
+                else
+                {
+                    return getPersons.ToList();
+                }
             }
         }
         #endregion
@@ -401,7 +482,7 @@ namespace BLL
                     ProjectId = person.ProjectId,
                     CardNo = person.CardNo,
                     PersonName = person.PersonName,
-                    IdentityCard = person.IdentityCard,
+                    IdentityCard = person.IdentityCard.Trim(),
                     Address = person.Address,
                     UnitId = person.UnitId,
                     OutResult = person.OutResult,
@@ -413,7 +494,7 @@ namespace BLL
                     AuditorId = person.AuditorId,
                     IsForeign = person.IsForeign,
                     IsOutside = person.IsOutside,
-                    // AuditorDate = Funs.GetNewDateTime(person.AuditorDate),
+                    //AuditorDate = Funs.GetNewDateTime(person.AuditorDate),
                     Sex = person.Sex,
                 };
                 if (!string.IsNullOrEmpty(person.TeamGroupId))
@@ -437,7 +518,7 @@ namespace BLL
                     newPerson.IsUsed = false;
                 }
                 newPerson.Password = PersonService.GetPersonPassWord(person.IdentityCard);
-                var getPerson = db.SitePerson_Person.FirstOrDefault(x => (x.IdentityCard == newPerson.IdentityCard && x.ProjectId==newPerson.ProjectId) || x.PersonId == newPerson.PersonId);
+                var getPerson = db.SitePerson_Person.FirstOrDefault(x => (x.IdentityCard == newPerson.IdentityCard && x.ProjectId == newPerson.ProjectId) || x.PersonId == newPerson.PersonId);
                 if (getPerson == null)
                 {
                     newPerson.Isprint = "0";
@@ -470,7 +551,7 @@ namespace BLL
                     getPerson.OutTime = Funs.GetNewDateTime(person.OutTime);
                     getPerson.Sex = person.Sex;
 
-                    //getPerson.AuditorDate = Funs.GetNewDateTime(person.AuditorDate);
+                    // getPerson.AuditorDate = Funs.GetNewDateTime(person.AuditorDate);
                     if (!string.IsNullOrEmpty(person.TeamGroupId))
                     {
                         getPerson.TeamGroupId = person.TeamGroupId;
@@ -508,8 +589,8 @@ namespace BLL
                 {
                     SaveMeetUrl(newPerson.PersonId, Const.ProjectPersonChangeMenuId, person.AttachUrl1, person.AttachUrl2, person.AttachUrl3, person.AttachUrl4);
                 }
-                //// 更新同身份证号码用户的电话
-                if(!string.IsNullOrEmpty(newPerson.Telephone))
+                // 更新同身份证号码用户的电话
+                if (!string.IsNullOrEmpty(newPerson.Telephone))
                 {
                     var getUser = db.Sys_User.FirstOrDefault(x => x.IdentityCard == newPerson.IdentityCard);
                     if (getUser != null)
@@ -521,7 +602,7 @@ namespace BLL
 
                 if (!newPerson.AuditorDate.HasValue && string.IsNullOrEmpty(newPerson.AuditorId))
                 {
-                    APICommonService.SendSubscribeMessage(newPerson.AuditorId, "人员信息" + newPerson.PersonName + "待您审核", person.ProjectCode, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
+                    APICommonService.SendSubscribeMessage(newPerson.AuditorId, "人员信息待您审核", person.ProjectCode, string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now));
                 }
             }
         }
@@ -572,19 +653,22 @@ namespace BLL
         /// <param name="person"></param>
         public static void SaveSitePersonAttachment(Model.PersonItem person)
         {
-            var getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.IdentityCard == person.IdentityCard || x.PersonId == person.PersonId);
-            if (getPerson != null)
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                if (!string.IsNullOrEmpty(person.PhotoUrl))
+                var getPerson = db.SitePerson_Person.FirstOrDefault(x => x.IdentityCard == person.IdentityCard || x.PersonId == person.PersonId);
+                if (getPerson != null)
                 {
-                    getPerson.PhotoUrl = person.PhotoUrl;
+                    if (!string.IsNullOrEmpty(person.PhotoUrl))
+                    {
+                        getPerson.PhotoUrl = person.PhotoUrl;
+                    }
+                    if (!string.IsNullOrEmpty(person.AttachUrl1))
+                    {
+                        getPerson.IDCardUrl = person.AttachUrl1;
+                    }
+                    db.SubmitChanges();
+                    SaveMeetUrl(getPerson.PersonId, Const.ProjectPersonChangeMenuId, person.AttachUrl1, person.AttachUrl2, person.AttachUrl3, person.AttachUrl4);
                 }
-                if (!string.IsNullOrEmpty(person.AttachUrl1))
-                {
-                    getPerson.IDCardUrl = person.AttachUrl1;
-                }
-                Funs.SubmitChanges();
-                SaveMeetUrl(getPerson.PersonId, Const.ProjectPersonChangeMenuId, person.AttachUrl1, person.AttachUrl2, person.AttachUrl3, person.AttachUrl4);
             }
         }
         #endregion
@@ -598,14 +682,17 @@ namespace BLL
         {
             if (!string.IsNullOrEmpty(personId))
             {
-                List<string> getLists = Funs.GetStrListByStr(personId, ',');
-                foreach (var item in getLists)
+                using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
                 {
-                    var getPerson = Funs.DB.SitePerson_Person.FirstOrDefault(x => x.PersonId == item);
-                    if (getPerson != null)
+                    List<string> getLists = Funs.GetStrListByStr(personId, ',');
+                    foreach (var item in getLists)
                     {
-                        getPerson.OutTime = DateTime.Now;
-                        PersonService.UpdatePerson(getPerson);
+                        var getPerson = db.SitePerson_Person.FirstOrDefault(x => x.PersonId == item);
+                        if (getPerson != null)
+                        {
+                            getPerson.OutTime = DateTime.Now;
+                            PersonService.UpdatePerson(getPerson);
+                        }
                     }
                 }
             }
@@ -629,6 +716,12 @@ namespace BLL
                     var getPerson = db.SitePerson_Person.FirstOrDefault(x => x.ProjectId == projectId && x.IdentityCard == idCard);
                     if (getPerson != null)
                     {
+                        string postType = null;
+                        var getWokPost = db.Base_WorkPost.FirstOrDefault(x => x.WorkPostId == getPerson.WorkPostId);
+                        if (getWokPost != null)
+                        {
+                            postType = getWokPost.PostType;
+                        }
                         var getPersonInOut = db.SitePerson_PersonInOut.FirstOrDefault(x => x.PersonId == getPerson.PersonId && x.ProjectId == projectId && x.ChangeTime == changeTime);
                         if (getPersonInOut == null)
                         {
@@ -640,12 +733,15 @@ namespace BLL
                                 PersonId = getPerson.PersonId,
                                 IsIn = isIn == 1 ? true : false,
                                 ChangeTime = changeTime,
+                                WorkPostId = getPerson.WorkPostId,
+                                PostType = postType,
                             };
 
                             db.SitePerson_PersonInOut.InsertOnSubmit(newInOut);
                             db.SubmitChanges();
-
-                            //GetDataService.CorrectingPersonInOutNumber(projectId);
+                            //// 插入当日记录表
+                            PersonInOutService.InsertPersonInOutNowNow(newInOut);
+                            // GetDataService.CorrectingPersonInOutNumber(projectId);
                         }
                     }
                 }
@@ -660,18 +756,21 @@ namespace BLL
         /// <param name="personId">人员ID</param>
         public static void getUpdatePersonExchangeTime(string personId, string type)
         {
-            var getPerson = PersonService.GetPersonById(personId);
-            if (getPerson != null && !string.IsNullOrEmpty(type))
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                if (type == "1")
+                var getPerson = db.SitePerson_Person.FirstOrDefault(e => e.PersonId == personId);
+                if (getPerson != null && !string.IsNullOrEmpty(type))
                 {
-                    getPerson.ExchangeTime2 = DateTime.Now;
+                    if (type == "1")
+                    {
+                        getPerson.ExchangeTime2 = DateTime.Now;
+                    }
+                    else
+                    {
+                        getPerson.ExchangeTime = DateTime.Now;
+                    }
+                    db.SubmitChanges();
                 }
-                else
-                {
-                    getPerson.ExchangeTime = DateTime.Now;
-                }
-                Funs.SubmitChanges();
             }
         }
         #endregion
@@ -686,42 +785,45 @@ namespace BLL
         /// <param name="startTime"></param>
         /// <param name="endTime"></param>
         /// <returns></returns>
-        public static List<Model.PersonInOutItem> getPersonInOutList(string projectId,  string unitId,  string startTime, string endTime)
+        public static List<Model.PersonInOutItem> getPersonInOutList(string projectId, string unitId, string startTime, string endTime)
         {
-            DateTime? startTimeD = Funs.GetNewDateTime(startTime);
-            DateTime? endTimeD = Funs.GetNewDateTime(endTime);
-            var personInOuts = from x in Funs.DB.SitePerson_PersonInOut
-                               join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
-                               where x.ProjectId == projectId
-                               select new Model.PersonInOutItem
-                               {
-                                   PersonId = x.PersonId,
-                                   PersonName = y.PersonName,
-                                   ProjectId = x.ProjectId,
-                                   UnitId = y.UnitId,
-                                   UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
-                                   WorkPostId = y.WorkPostId,
-                                   WorkPostName = Funs.DB.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
-                                   IsIn = x.IsIn,
-                                   IsInName = x.IsIn == true ? "进场" : "出场",
-                                   ChangeTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ChangeTime),
-                                   ChangeTimeD = x.ChangeTime,
-                               };
-            if (!string.IsNullOrEmpty(unitId) && !CommonService.GetIsThisUnit(unitId))
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                personInOuts = personInOuts.Where(x => x.UnitId == unitId);
+                DateTime? startTimeD = Funs.GetNewDateTime(startTime);
+                DateTime? endTimeD = Funs.GetNewDateTime(endTime);
+                var personInOuts = from x in db.SitePerson_PersonInOut
+                                   join y in db.SitePerson_Person on x.PersonId equals y.PersonId
+                                   where x.ProjectId == projectId
+                                   select new Model.PersonInOutItem
+                                   {
+                                       PersonId = x.PersonId,
+                                       PersonName = y.PersonName,
+                                       ProjectId = x.ProjectId,
+                                       UnitId = y.UnitId,
+                                       UnitName = db.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                                       WorkPostId = y.WorkPostId,
+                                       WorkPostName = db.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
+                                       IsIn = x.IsIn,
+                                       IsInName = x.IsIn == true ? "进场" : "出场",
+                                       ChangeTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ChangeTime),
+                                       ChangeTimeD = x.ChangeTime,
+                                   };
+                if (!string.IsNullOrEmpty(unitId) && (unitId != Const.UnitId_7 || unitId != Const.UnitId_SEDIN))
+                {
+                    personInOuts = personInOuts.Where(x => x.UnitId == unitId);
+                }
+
+                if (startTimeD.HasValue)
+                {
+                    personInOuts = personInOuts.Where(x => x.ChangeTimeD >= startTimeD);
+                }
+                if (endTimeD.HasValue)
+                {
+                    personInOuts = personInOuts.Where(x => x.ChangeTimeD <= endTimeD);
+                }
+
+                return personInOuts.OrderByDescending(x => x.ChangeTimeD).ToList();
             }
-            
-            if (startTimeD.HasValue)
-            {
-                personInOuts = personInOuts.Where(x => x.ChangeTimeD >= startTimeD);
-            }
-            if (endTimeD.HasValue)
-            {
-                personInOuts = personInOuts.Where(x => x.ChangeTimeD <= endTimeD);
-            }
-            
-            return personInOuts.OrderByDescending(x => x.ChangeTimeD).ToList();
         }
         #endregion
 
@@ -737,50 +839,53 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.PersonInOutItem> getPersonInOutList(string projectId, string userUnitId, string unitId, string workPostId, string strParam, string startTime, string endTime)
         {
-            DateTime? startTimeD = Funs.GetNewDateTime(startTime);
-            DateTime? endTimeD = Funs.GetNewDateTime(endTime);
-            var personInOuts = from x in Funs.DB.SitePerson_PersonInOut
-                               join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
-                               where x.ProjectId == projectId
-                               select new Model.PersonInOutItem
-                               {
-                                   PersonId = x.PersonId,
-                                   PersonName = y.PersonName,
-                                   ProjectId = x.ProjectId,
-                                   UnitId = y.UnitId,
-                                   UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
-                                   WorkPostId = y.WorkPostId,
-                                   WorkPostName = Funs.DB.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
-                                   IsIn = x.IsIn,
-                                   IsInName = x.IsIn == true ? "进场" : "出场",
-                                   ChangeTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ChangeTime),
-                                   ChangeTimeD = x.ChangeTime,
-                               };
-            if (!string.IsNullOrEmpty(userUnitId) && !CommonService.GetIsThisUnit(userUnitId))
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                personInOuts = personInOuts.Where(x => x.UnitId == userUnitId);
+                DateTime? startTimeD = Funs.GetNewDateTime(startTime);
+                DateTime? endTimeD = Funs.GetNewDateTime(endTime);
+                var personInOuts = from x in db.SitePerson_PersonInOut
+                                   join y in db.SitePerson_Person on x.PersonId equals y.PersonId
+                                   where x.ProjectId == projectId
+                                   select new Model.PersonInOutItem
+                                   {
+                                       PersonId = x.PersonId,
+                                       PersonName = y.PersonName,
+                                       ProjectId = x.ProjectId,
+                                       UnitId = y.UnitId,
+                                       UnitName = db.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                                       WorkPostId = y.WorkPostId,
+                                       WorkPostName = db.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
+                                       IsIn = x.IsIn,
+                                       IsInName = x.IsIn == true ? "进场" : "出场",
+                                       ChangeTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ChangeTime),
+                                       ChangeTimeD = x.ChangeTime,
+                                   };
+                if (!string.IsNullOrEmpty(userUnitId) && (unitId != Const.UnitId_7 || unitId != Const.UnitId_SEDIN))
+                {
+                    personInOuts = personInOuts.Where(x => x.UnitId == userUnitId);
+                }
+                if (!string.IsNullOrEmpty(unitId))
+                {
+                    personInOuts = personInOuts.Where(x => x.UnitId == unitId);
+                }
+                if (!string.IsNullOrEmpty(workPostId))
+                {
+                    personInOuts = personInOuts.Where(x => x.WorkPostId == workPostId);
+                }
+                if (startTimeD.HasValue)
+                {
+                    personInOuts = personInOuts.Where(x => x.ChangeTimeD >= startTimeD);
+                }
+                if (endTimeD.HasValue)
+                {
+                    personInOuts = personInOuts.Where(x => x.ChangeTimeD <= endTimeD);
+                }
+                if (!string.IsNullOrEmpty(strParam))
+                {
+                    personInOuts = personInOuts.Where(x => x.PersonName.Contains(strParam));
+                }
+                return personInOuts.OrderByDescending(x => x.ChangeTimeD).ToList();
             }
-            if (!string.IsNullOrEmpty(unitId))
-            {
-                personInOuts = personInOuts.Where(x => x.UnitId == unitId);
-            }
-            if (!string.IsNullOrEmpty(workPostId))
-            {
-                personInOuts = personInOuts.Where(x => x.WorkPostId == workPostId);
-            }
-            if (startTimeD.HasValue)
-            {
-                personInOuts = personInOuts.Where(x => x.ChangeTimeD >= startTimeD);
-            }
-            if (endTimeD.HasValue)
-            {
-                personInOuts = personInOuts.Where(x => x.ChangeTimeD <= endTimeD);
-            }
-            if (!string.IsNullOrEmpty(strParam))
-            {
-                personInOuts = personInOuts.Where(x => x.PersonName.Contains(strParam));
-            }
-            return personInOuts.OrderByDescending(x => x.ChangeTimeD).ToList();
         }
         #endregion
 
@@ -794,34 +899,37 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.PersonInOutItem> getPersonInOutListByPersonId(string personId, string startTime, string endTime)
         {
-            DateTime? startTimeD = Funs.GetNewDateTime(startTime);
-            DateTime? endTimeD = Funs.GetNewDateTime(endTime);
-            var personInOuts = from x in Funs.DB.SitePerson_PersonInOut
-                               join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
-                               where x.PersonId == personId
-                               select new Model.PersonInOutItem
-                               {
-                                   PersonId = x.PersonId,
-                                   PersonName = y.PersonName,
-                                   ProjectId = x.ProjectId,
-                                   UnitId = y.UnitId,
-                                   UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
-                                   WorkPostId = y.WorkPostId,
-                                   WorkPostName = Funs.DB.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
-                                   IsIn = x.IsIn,
-                                   IsInName = x.IsIn == true ? "进场" : "出场",
-                                   ChangeTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ChangeTime),
-                                   ChangeTimeD = x.ChangeTime,
-                               };
-            if (startTimeD.HasValue)
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                personInOuts = personInOuts.Where(x => x.ChangeTimeD >= startTimeD);
+                DateTime? startTimeD = Funs.GetNewDateTime(startTime);
+                DateTime? endTimeD = Funs.GetNewDateTime(endTime);
+                var personInOuts = from x in db.SitePerson_PersonInOut
+                                   join y in db.SitePerson_Person on x.PersonId equals y.PersonId
+                                   where x.PersonId == personId
+                                   select new Model.PersonInOutItem
+                                   {
+                                       PersonId = x.PersonId,
+                                       PersonName = y.PersonName,
+                                       ProjectId = x.ProjectId,
+                                       UnitId = y.UnitId,
+                                       UnitName = db.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                                       WorkPostId = y.WorkPostId,
+                                       WorkPostName = db.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
+                                       IsIn = x.IsIn,
+                                       IsInName = x.IsIn == true ? "进场" : "出场",
+                                       ChangeTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ChangeTime),
+                                       ChangeTimeD = x.ChangeTime,
+                                   };
+                if (startTimeD.HasValue)
+                {
+                    personInOuts = personInOuts.Where(x => x.ChangeTimeD >= startTimeD);
+                }
+                if (endTimeD.HasValue)
+                {
+                    personInOuts = personInOuts.Where(x => x.ChangeTimeD <= endTimeD);
+                }
+                return personInOuts.OrderByDescending(x => x.ChangeTimeD).ToList();
             }
-            if (endTimeD.HasValue)
-            {
-                personInOuts = personInOuts.Where(x => x.ChangeTimeD <= endTimeD);
-            }
-            return personInOuts.OrderByDescending(x => x.ChangeTimeD).ToList();
         }
         #endregion
 
@@ -831,44 +939,47 @@ namespace BLL
         /// </summary>
         /// <param name="identityCard"></param>
         /// <returns></returns>
-        public static Model.PersonQualityItem getPersonQualityByIdentityCard(string identityCard,string projectId)
+        public static Model.PersonQualityItem getPersonQualityByIdentityCard(string identityCard, string projectId)
         {
-            var getLists = from y in Funs.DB.SitePerson_Person
-                           join x in Funs.DB.QualityAudit_PersonQuality on y.PersonId equals x.PersonId
-                           where (y.IdentityCard == identityCard || x.PersonId == identityCard) && (projectId == null || y.ProjectId == projectId)
-                           orderby y.CardNo
-                           select new Model.PersonQualityItem
-                           {
-                               PersonQualityId = x.PersonQualityId,
-                               PersonId = x.PersonId,
-                               PersonName = y.PersonName,
-                               CardNo = y.CardNo,
-                               IdentityCard = y.IdentityCard,
-                               ProjectId = y.ProjectId,
-                               UnitId = y.UnitId,
-                               UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
-                               UnitCode = Funs.DB.Base_Unit.First(z => z.UnitId == y.UnitId).UnitCode,
-                               WorkPostId = y.WorkPostId,
-                               WorkPostName = Funs.DB.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
-                               CertificateId = x.CertificateId,
-                               CertificateName = Funs.DB.Base_Certificate.First(z => z.CertificateId == x.CertificateId).CertificateName,
-                               CertificateNo = x.CertificateNo,
-                               Grade = x.Grade,
-                               SendUnit = x.SendUnit,
-                               SendDate = string.Format("{0:yyyy-MM-dd}", x.SendDate),
-                               LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
-                               LateCheckDate = string.Format("{0:yyyy-MM-dd}", x.LateCheckDate),
-                               ApprovalPerson = Funs.DB.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
-                               Remark = x.Remark,
-                               CompileMan = x.CompileMan,
-                               CompileManName = Funs.DB.Sys_User.First(z => z.UserId == x.CompileMan).UserName,
-                               CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
-                               AuditDate = string.Format("{0:yyyy-MM-dd}", x.AuditDate),
-                               AuditorName = Funs.DB.Sys_User.First(z => z.UserId == x.AuditorId).UserName,                               
-                               AttachUrl = APIUpLoadFileService.getFileUrl(x.PersonQualityId, null),
-                           };
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                var getLists = from y in db.SitePerson_Person
+                               join x in db.QualityAudit_PersonQuality on y.PersonId equals x.PersonId
+                               where (y.IdentityCard == identityCard || x.PersonId == identityCard) && (projectId == null || y.ProjectId == projectId)
+                               orderby y.CardNo
+                               select new Model.PersonQualityItem
+                               {
+                                   PersonQualityId = x.PersonQualityId,
+                                   PersonId = x.PersonId,
+                                   PersonName = y.PersonName,
+                                   CardNo = y.CardNo,
+                                   IdentityCard = y.IdentityCard,
+                                   ProjectId = y.ProjectId,
+                                   UnitId = y.UnitId,
+                                   UnitName = db.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                                   UnitCode = db.Base_Unit.First(z => z.UnitId == y.UnitId).UnitCode,
+                                   WorkPostId = y.WorkPostId,
+                                   WorkPostName = db.Base_WorkPost.First(z => z.WorkPostId == y.WorkPostId).WorkPostName,
+                                   CertificateId = x.CertificateId,
+                                   CertificateName = db.Base_Certificate.First(z => z.CertificateId == x.CertificateId).CertificateName,
+                                   CertificateNo = x.CertificateNo,
+                                   Grade = x.Grade,
+                                   SendUnit = x.SendUnit,
+                                   SendDate = string.Format("{0:yyyy-MM-dd}", x.SendDate),
+                                   LimitDate = string.Format("{0:yyyy-MM-dd}", x.LimitDate),
+                                   LateCheckDate = string.Format("{0:yyyy-MM-dd}", x.LateCheckDate),
+                                   ApprovalPerson = db.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
+                                   Remark = x.Remark,
+                                   CompileMan = x.CompileMan,
+                                   CompileManName = db.Sys_User.First(z => z.UserId == x.CompileMan).UserName,
+                                   CompileDate = string.Format("{0:yyyy-MM-dd}", x.CompileDate),
+                                   AuditDate = string.Format("{0:yyyy-MM-dd}", x.AuditDate),
+                                   AuditorName = db.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
+                                   AttachUrl = APIUpLoadFileService.getFileUrl(x.PersonQualityId, null),
+                               };
 
-            return getLists.FirstOrDefault();
+                return getLists.FirstOrDefault();
+            }
         }
         #endregion
 
@@ -880,27 +991,30 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.TestRecordItem> getPersonTestRecoedByIdentityCard(string identityCard, string projectId)
         {
-            var getLists = from x in Funs.DB.EduTrain_TrainRecordDetail
-                           join y in Funs.DB.SitePerson_Person on x.PersonId equals y.PersonId
-                           join z in Funs.DB.EduTrain_TrainRecord on x.TrainingId equals z.TrainingId
-                           where y.IdentityCard == identityCard && (projectId == null || z.ProjectId == projectId)
-                           orderby z.TrainStartDate descending
-                           select new Model.TestRecordItem
-                           {
-                               TestRecordId = x.TrainDetailId,
-                               ProjectId = z.ProjectId,
-                               ProjectName = Funs.DB.Base_Project.First(u => u.ProjectId == z.ProjectId).ProjectName,
-                               TestPlanName = z.TrainTitle,
-                               TestManId = x.PersonId,
-                               TestManName = y.PersonName,
-                               TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", z.TrainStartDate),
-                               TestEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", z.TrainEndDate),
-                               TestScores = x.CheckScore ?? 0,
-                               CheckResult = x.CheckResult,
-                               TestType = Funs.DB.Base_TrainType.First(u => u.TrainTypeId == z.TrainTypeId).TrainTypeName,
-                           };
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                var getLists = from x in db.EduTrain_TrainRecordDetail
+                               join y in db.SitePerson_Person on x.PersonId equals y.PersonId
+                               join z in db.EduTrain_TrainRecord on x.TrainingId equals z.TrainingId
+                               where y.IdentityCard == identityCard && (projectId == null || z.ProjectId == projectId)
+                               orderby z.TrainStartDate descending
+                               select new Model.TestRecordItem
+                               {
+                                   TestRecordId = x.TrainDetailId,
+                                   ProjectId = z.ProjectId,
+                                   ProjectName = db.Base_Project.First(u => u.ProjectId == z.ProjectId).ProjectName,
+                                   TestPlanName = z.TrainTitle,
+                                   TestManId = x.PersonId,
+                                   TestManName = y.PersonName,
+                                   TestStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", z.TrainStartDate),
+                                   TestEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", z.TrainEndDate),
+                                   TestScores = x.CheckScore ?? 0,
+                                   CheckResult = x.CheckResult,
+                                   TestType = db.Base_TrainType.First(u => u.TrainTypeId == z.TrainTypeId).TrainTypeName,
+                               };
 
-            return getLists.ToList();
+                return getLists.ToList();
+            }
         }
         #endregion
 
@@ -915,58 +1029,61 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.PersonQualityItem> getPersonQualityByProjectIdUnitId(string projectId, string unitId, string type)
         {
-            var getLists = (from x in Funs.DB.SitePerson_Person 
-                            join y in Funs.DB.QualityAudit_PersonQuality on x.PersonId equals y.PersonId
-                            join z in Funs.DB.Base_WorkPost on x.WorkPostId equals z.WorkPostId
-                            where x.ProjectId == projectId && z.PostType == "2"
-                            orderby y.LimitDate
-                            select new Model.PersonQualityItem
-                            {
-                                PersonQualityId = y.PersonQualityId,
-                                PersonId = y.PersonId,
-                                PersonName=x.PersonName,
-                                CardNo = x.CardNo,                                
-                                IdentityCard = x.IdentityCard,
-                                ProjectId = x.ProjectId,
-                                UnitId = x.UnitId,
-                                UnitName = Funs.DB.Base_Unit.First(z => z.UnitId == x.UnitId).UnitName,
-                                CertificateId = y.CertificateId,
-                                CertificateName = Funs.DB.Base_Certificate.First(z => z.CertificateId == y.CertificateId).CertificateName,
-                                WorkPostId = x.WorkPostId,
-                                WorkPostName = Funs.DB.Base_WorkPost.First(z => z.WorkPostId == x.WorkPostId).WorkPostName,
-                                CertificateNo = y.CertificateNo,
-                                Grade = y.Grade,
-                                SendUnit = y.SendUnit,
-                                SendDate = string.Format("{0:yyyy-MM-dd}", y.SendDate),
-                                LimitDate = string.Format("{0:yyyy-MM-dd}", y.LimitDate),
-                                LimitDateD = y.LimitDate,
-                                LateCheckDate = string.Format("{0:yyyy-MM-dd}", y.LateCheckDate),
-                                ApprovalPerson = Funs.DB.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
-                                Remark = y.Remark,
-                                CompileMan = y.CompileMan,
-                                CompileManName = Funs.DB.Sys_User.First(z => z.UserId == y.CompileMan).UserName,
-                                CompileDate = string.Format("{0:yyyy-MM-dd}", y.CompileDate),
-                                AuditDate = string.Format("{0:yyyy-MM-dd}", y.AuditDate),
-                                AuditorName = Funs.DB.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
-                                AttachUrl = APIUpLoadFileService.getFileUrl(y.PersonQualityId, null),
-                            }).ToList();
-            if (ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(projectId, unitId))
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                getLists = getLists.Where(x => x.UnitId == unitId).ToList();
+                var getLists = (from x in db.SitePerson_Person
+                                join y in db.QualityAudit_PersonQuality on x.PersonId equals y.PersonId
+                                join z in db.Base_WorkPost on x.WorkPostId equals z.WorkPostId
+                                where x.ProjectId == projectId && z.PostType == "2"
+                                orderby y.LimitDate
+                                select new Model.PersonQualityItem
+                                {
+                                    PersonQualityId = y.PersonQualityId,
+                                    PersonId = y.PersonId,
+                                    PersonName = x.PersonName,
+                                    CardNo = x.CardNo,
+                                    IdentityCard = x.IdentityCard,
+                                    ProjectId = x.ProjectId,
+                                    UnitId = x.UnitId,
+                                    UnitName = db.Base_Unit.First(z => z.UnitId == x.UnitId).UnitName,
+                                    CertificateId = y.CertificateId,
+                                    CertificateName = db.Base_Certificate.First(z => z.CertificateId == y.CertificateId).CertificateName,
+                                    WorkPostId = x.WorkPostId,
+                                    WorkPostName = db.Base_WorkPost.First(z => z.WorkPostId == x.WorkPostId).WorkPostName,
+                                    CertificateNo = y.CertificateNo,
+                                    Grade = y.Grade,
+                                    SendUnit = y.SendUnit,
+                                    SendDate = string.Format("{0:yyyy-MM-dd}", y.SendDate),
+                                    LimitDate = string.Format("{0:yyyy-MM-dd}", y.LimitDate),
+                                    LimitDateD = y.LimitDate,
+                                    LateCheckDate = string.Format("{0:yyyy-MM-dd}", y.LateCheckDate),
+                                    ApprovalPerson = db.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
+                                    Remark = y.Remark,
+                                    CompileMan = y.CompileMan,
+                                    CompileManName = db.Sys_User.First(z => z.UserId == y.CompileMan).UserName,
+                                    CompileDate = string.Format("{0:yyyy-MM-dd}", y.CompileDate),
+                                    AuditDate = string.Format("{0:yyyy-MM-dd}", y.AuditDate),
+                                    AuditorName = db.Sys_User.First(z => z.UserId == x.AuditorId).UserName,
+                                    AttachUrl = APIUpLoadFileService.getFileUrl(y.PersonQualityId, null),
+                                }).ToList();
+                if (ProjectUnitService.GetProjectUnitTypeByProjectIdUnitId(projectId, unitId))
+                {
+                    getLists = getLists.Where(x => x.UnitId == unitId).ToList();
+                }
+                if (type == "0")
+                {
+                    getLists = getLists.Where(x => x.CertificateId != null && x.LimitDateD < DateTime.Now).ToList();
+                }
+                else if (type == "1")
+                {
+                    getLists = getLists.Where(x => x.CertificateId != null && x.LimitDateD >= DateTime.Now && x.LimitDateD < DateTime.Now.AddMonths(1)).ToList();
+                }
+                else if (type == "2")
+                {
+                    getLists = getLists.Where(x => x.CertificateId == null).ToList();
+                }
+                return getLists;
             }
-            if (type == "0")
-            {
-                getLists = getLists.Where(x => x.CertificateId != null &&  x.LimitDateD < DateTime.Now).ToList();
-            }
-            else if (type == "1")
-            {
-                getLists = getLists.Where(x => x.CertificateId != null && x.LimitDateD >= DateTime.Now && x.LimitDateD < DateTime.Now.AddMonths(1)).ToList();
-            }
-            else if (type == "2")
-            {
-                getLists = getLists.Where(x => x.CertificateId == null).ToList();
-            }
-            return getLists;
         }
         #endregion
 
@@ -981,9 +1098,9 @@ namespace BLL
             {
                 Model.QualityAudit_PersonQuality newPersonQuality = new Model.QualityAudit_PersonQuality
                 {
-                    PersonQualityId=personQuality.PersonQualityId,
-                    PersonId = personQuality.PersonId,                    
-                    CertificateNo = personQuality.CertificateNo,                
+                    PersonQualityId = personQuality.PersonQualityId,
+                    PersonId = personQuality.PersonId,
+                    CertificateNo = personQuality.CertificateNo,
                     CertificateName = personQuality.CertificateName,
                     Grade = personQuality.Grade,
                     SendUnit = personQuality.SendUnit,
@@ -991,7 +1108,7 @@ namespace BLL
                     LimitDate = Funs.GetNewDateTime(personQuality.LimitDate),
                     LateCheckDate = Funs.GetNewDateTime(personQuality.LateCheckDate),
                     ApprovalPerson = personQuality.ApprovalPerson,
-                    Remark = personQuality.Remark,                 
+                    Remark = personQuality.Remark,
                     CompileDate = Funs.GetNewDateTime(personQuality.CompileDate),
                     AuditDate = Funs.GetNewDateTime(personQuality.AuditDate),
                 };
@@ -1036,7 +1153,7 @@ namespace BLL
                 }
                 if (!string.IsNullOrEmpty(newPersonQuality.PersonQualityId))
                 {
-                    APIUpLoadFileService.SaveAttachUrl(Const.PersonQualityMenuId, newPersonQuality.PersonQualityId, personQuality.AttachUrl, "0");                    
+                    APIUpLoadFileService.SaveAttachUrl(Const.PersonQualityMenuId, newPersonQuality.PersonQualityId, personQuality.AttachUrl, "0");
                 }
             }
         }

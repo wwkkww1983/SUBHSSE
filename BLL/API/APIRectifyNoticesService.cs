@@ -244,9 +244,7 @@ namespace BLL
                 var isUpdate = db.Check_RectifyNotices.FirstOrDefault(x => x.RectifyNoticesId == newRectifyNotices.RectifyNoticesId);
                 if (isUpdate == null)
                 {
-                    newRectifyNotices.RectifyNoticesId = SQLHelper.GetNewID();
-                    newRectifyNotices.Isprint = "0";
-                    newRectifyNotices.Isprintf = "0";
+                    newRectifyNotices.RectifyNoticesId = SQLHelper.GetNewID();               
                     newRectifyNotices.RectifyNoticesCode = CodeRecordsService.ReturnCodeByMenuIdProjectId(Const.ProjectRectifyNoticesMenuId, newRectifyNotices.ProjectId, newRectifyNotices.UnitId);
                     db.Check_RectifyNotices.InsertOnSubmit(newRectifyNotices);
                     db.SubmitChanges();

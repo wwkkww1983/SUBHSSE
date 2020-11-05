@@ -277,12 +277,7 @@ namespace FineUIPro.Web.InformationProject
                 string lastMonth = (from x in Funs.DB.Sys_Const where x.GroupId == BLL.ConstValue.Group_0009 && Convert.ToInt32(x.ConstValue) == (month - 1) select x.ConstText).FirstOrDefault();
                 lbLastMonth.Text = "(" + lastMonth + ")";
             }
-            if (this.drpYear.SelectedValue != BLL.Const._Null && this.drpMonth.SelectedValue != BLL.Const._Null)
-            {
-                DateTime startTime = Convert.ToDateTime(this.drpYear.SelectedValue + "-" + this.drpMonth.SelectedValue + "-01");
-                DateTime endTime = startTime.AddMonths(1);
-                GetData(startTime, endTime);
-            }
+         
         }
         #endregion
 
@@ -729,18 +724,18 @@ namespace FineUIPro.Web.InformationProject
             //获取当期人工时日报
             List<Model.SitePerson_DayReport> dayReports = BLL.SitePerson_DayReportService.GetDayReportsByCompileDate(startTime, endTime, this.ProjectId);
             //获取单位集合
-            var unitIds = (from x in Funs.DB.Project_ProjectUnit
+            var unitIds = from x in Funs.DB.Project_ProjectUnit
                            where x.ProjectId == this.ProjectId
-                           select x.UnitId).ToList();
+                           select x.UnitId;
+            var getDetail = from x in dayReports
+                             join y in Funs.DB.SitePerson_DayReportDetail  on x.DayReportId equals y.DayReportId
+                             select y;
             foreach (var unitId in unitIds)
             {
+                var getUnitDetail = getDetail.Where(x => x.UnitId == unitId);
                 //员工总数
-                decimal personNum = (from x in dayReports
-                                     join y in Funs.DB.SitePerson_DayReportDetail
-                                  on x.DayReportId equals y.DayReportId
-                                     where y.UnitId == unitId
-                                     select y.RealPersonNum ?? 0).Sum();
-                int count = BLL.SitePerson_DayReportService.GetDayReportsByCompileDateAndUnitId(startTime, endTime, this.CurrUser.LoginProjectId, unitId).Count();
+                decimal personNum = getUnitDetail.Sum(x=>x.RealPersonNum ?? 0);
+                int count = getUnitDetail.Select(x=>x.DayReportId).Distinct().Count();
                 if (count > 0)
                 {
                     decimal persontotal = Convert.ToDecimal(Math.Round(personNum / count, 2));
@@ -755,11 +750,7 @@ namespace FineUIPro.Web.InformationProject
                     }
                 }
                 //完成人工时（当月）
-                decimal personWorkTimeTotal = (from x in dayReports
-                                               join y in Funs.DB.SitePerson_DayReportDetail
-                                            on x.DayReportId equals y.DayReportId
-                                               where y.UnitId == unitId
-                                               select y.PersonWorkTime ?? 0).Sum();
+                decimal personWorkTimeTotal = getUnitDetail.Sum(x => x.PersonWorkTime ?? 0);
                 sumPersonWorkTimeTotal += Convert.ToInt32(personWorkTimeTotal);
             }
             //平均工时总数
@@ -776,10 +767,10 @@ namespace FineUIPro.Web.InformationProject
             decimal totalLoseHours = accidentReports6.Sum(x => x.WorkingHoursLoss ?? 0);
             this.txtKnockOffTotal.Text = decimal.Round(totalLoseHours / 8, 2).ToString().Split('.')[0];
             //经济损失
-            List<Model.Accident_AccidentReport> accidentReports = BLL.AccidentReport2Service.GetAccidentReportsByAccidentTime(startTime, endTime, this.ProjectId);
+//            List<Model.Accident_AccidentReport> accidentReports = BLL.AccidentReport2Service.GetAccidentReportsByAccidentTime(startTime, endTime, this.ProjectId);
             List<Model.Accident_AccidentReportOther> accidentReportOthers = BLL.AccidentReportOtherService.GetAccidentReportOthersByAccidentTime(startTime, endTime, this.ProjectId);
-            this.txtDirectLoss.Text = (accidentReports.Sum(x => x.EconomicLoss ?? 0) + accidentReportOthers.Sum(x => x.EconomicLoss ?? 0)).ToString();
-            this.txtIndirectLosses.Text = (accidentReports.Sum(x => x.EconomicOtherLoss ?? 0) + accidentReportOthers.Sum(x => x.EconomicOtherLoss ?? 0)).ToString();
+            this.txtDirectLoss.Text = (accidentReports4.Sum(x => x.EconomicLoss ?? 0) + accidentReportOthers.Sum(x => x.EconomicLoss ?? 0)).ToString();
+            this.txtIndirectLosses.Text = (accidentReports4.Sum(x => x.EconomicOtherLoss ?? 0) + accidentReportOthers.Sum(x => x.EconomicOtherLoss ?? 0)).ToString();
             this.txtTotalLoss.Text = (Funs.GetNewDecimalOrZero(this.txtDirectLoss.Text.Trim()) + Funs.GetNewDecimalOrZero(this.txtIndirectLosses.Text.Trim())).ToString();
             //无损失工时总数
             int totalSafeHours = 0;
@@ -846,5 +837,15 @@ namespace FineUIPro.Web.InformationProject
             this.txtTotalLossTime.Text = totalSafeHours.ToString();
         }
         #endregion
+
+        protected void btnRefresh_Click(object sender, EventArgs e)
+        {
+            if (this.drpYear.SelectedValue != BLL.Const._Null && this.drpMonth.SelectedValue != BLL.Const._Null)
+            {
+                DateTime startTime = Convert.ToDateTime(this.drpYear.SelectedValue + "-" + this.drpMonth.SelectedValue + "-01");
+                DateTime endTime = startTime.AddMonths(1);
+                GetData(startTime, endTime);
+            }
+        }
     }
 }

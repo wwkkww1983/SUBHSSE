@@ -444,11 +444,14 @@ namespace BLL
         /// <returns></returns>
         public static Model.BaseInfoItem getTeamGroupLeader(string teamGroupId)
         {
-            var getDataLists = (from x in Funs.DB.ProjectData_TeamGroup
-                                join y in Funs.DB.SitePerson_Person on x.GroupLeaderId equals y.PersonId
-                                where x.TeamGroupId == teamGroupId && y.PersonId != null
-                                select new Model.BaseInfoItem { BaseInfoId = y.PersonId, BaseInfoCode = y.CardNo, BaseInfoName = y.PersonName }).FirstOrDefault();
-            return getDataLists;
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.ProjectData_TeamGroup
+                                    join y in db.SitePerson_Person on x.GroupLeaderId equals y.PersonId
+                                    where x.TeamGroupId == teamGroupId && y.PersonId != null
+                                    select new Model.BaseInfoItem { BaseInfoId = y.PersonId, BaseInfoCode = y.CardNo, BaseInfoName = y.PersonName }).FirstOrDefault();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -523,7 +526,7 @@ namespace BLL
             return getDataLists;
         }
         #endregion
-        
+
         #region 获取部门
         /// <summary>
         /// 获取图片分类
@@ -531,10 +534,13 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getDepart()
         {
-            var getDataLists = (from x in Funs.DB.Base_Depart
-                                orderby x.DepartCode
-                                select new Model.BaseInfoItem { BaseInfoId = x.DepartId, BaseInfoCode = x.DepartCode, BaseInfoName = x.DepartName }).ToList();
-            return getDataLists;
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Base_Depart
+                                    orderby x.DepartCode
+                                    select new Model.BaseInfoItem { BaseInfoId = x.DepartId, BaseInfoCode = x.DepartCode, BaseInfoName = x.DepartName }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
 
@@ -545,10 +551,13 @@ namespace BLL
         /// <returns></returns>
         public static List<Model.BaseInfoItem> getEmergencyType()
         {
-            var getDataLists = (from x in Funs.DB.Base_EmergencyType
-                                orderby x.EmergencyTypeCode
-                                select new Model.BaseInfoItem { BaseInfoId = x.EmergencyTypeId, BaseInfoCode = x.EmergencyTypeCode, BaseInfoName = x.EmergencyTypeName }).ToList();
-            return getDataLists;
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
+            {
+                var getDataLists = (from x in db.Base_EmergencyType
+                                    orderby x.EmergencyTypeCode
+                                    select new Model.BaseInfoItem { BaseInfoId = x.EmergencyTypeId, BaseInfoCode = x.EmergencyTypeCode, BaseInfoName = x.EmergencyTypeName }).ToList();
+                return getDataLists;
+            }
         }
         #endregion
     }

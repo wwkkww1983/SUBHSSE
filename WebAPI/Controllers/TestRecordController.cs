@@ -251,7 +251,7 @@ namespace WebAPI.Controllers
         /// <param name="strParam">参数</param>  
         /// <param name="pageIndex">页码</param>
         /// <returns>考试记录列表</returns>
-        public Model.ResponeData getTrainingTestRecordListQuery(string projectId, string unitId, string workPostId, string strPass,string strParam, int pageIndex)
+        public Model.ResponeData getTrainingTestRecordListQuery(string projectId, string unitId, string workPostId, string strPass, string strParam, int pageIndex)
         {
             var responeData = new Model.ResponeData();
             try
@@ -351,9 +351,9 @@ namespace WebAPI.Controllers
                     else
                     {
                         APITestRecordService.updateAll(getTestRecord.TestPlanId);
-                        responeData.message = "恭喜考试通过！您的成绩为：【" + getTestScores.ToString()+"】。";
+                        responeData.message = "恭喜考试通过！您的成绩为：【" + getTestScores.ToString() + "】。";
                     }
-                    
+
                     responeData.data = new { getTestScores, getPassScores, returnTestRecordId };
                 }
             }

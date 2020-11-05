@@ -76,64 +76,66 @@
 
         protected void Application_Error(object sender, EventArgs e)
         {
-            StringBuilder errLog = null;
-            Exception ex = null;
-            Model.Sys_ErrLogInfo newErr = new Model.Sys_ErrLogInfo
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                ErrLogId = SQLHelper.GetNewID(typeof(Model.Sys_ErrLogInfo))
-            };
-            try
-            {
-                // 获取错误类
-                ex = Server.GetLastError().InnerException;
-                if (ex == null)
+                StringBuilder errLog = null;
+                Exception ex = null;
+                Model.Sys_ErrLogInfo newErr = new Model.Sys_ErrLogInfo
                 {
-                    ex = Server.GetLastError().GetBaseException();
-                }
-                errLog = new StringBuilder();
-                errLog.Append(String.Format(CultureInfo.InvariantCulture, "出错文件:{0}\r\n", Request.Url.AbsoluteUri));
-                newErr.ErrUrl = Request.Url.AbsoluteUri;
-
-                if (Request.UserHostAddress != null)
-                {
-                    errLog.Append(String.Format(CultureInfo.InvariantCulture, "IP地址:{0}\r\n", Request.UserHostAddress));
-                    newErr.ErrIP = Request.UserHostAddress;
-                }
-
-                if (Session != null && Session["CurrUser"] != null)
-                {
-                    errLog.Append(String.Format(CultureInfo.InvariantCulture, "操作人员:{0}\r\n", ((Model.Sys_User)Session["CurrUser"]).UserName));
-                    newErr.UserName = ((Model.Sys_User)Session["CurrUser"]).UserId;
-                }
-                else
-                {
-                    PageBase.ZXRefresh(Request.ApplicationPath + "/LogOff.aspx");
-                }
-            }
-            catch
-            {
+                    ErrLogId = SQLHelper.GetNewID(typeof(Model.Sys_ErrLogInfo))
+                };
                 try
                 {
-                    PageBase.ZXRefresh(Request.ApplicationPath + "/OperationError.aspx");
+                    // 获取错误类
+                    ex = Server.GetLastError().InnerException;
+                    if (ex == null)
+                    {
+                        ex = Server.GetLastError().GetBaseException();
+                    }
+                    errLog = new StringBuilder();
+                    errLog.Append(String.Format(CultureInfo.InvariantCulture, "出错文件:{0}\r\n", Request.Url.AbsoluteUri));
+                    newErr.ErrUrl = Request.Url.AbsoluteUri;
+
+                    if (Request.UserHostAddress != null)
+                    {
+                        errLog.Append(String.Format(CultureInfo.InvariantCulture, "IP地址:{0}\r\n", Request.UserHostAddress));
+                        newErr.ErrIP = Request.UserHostAddress;
+                    }
+
+                    if (Session != null && Session["CurrUser"] != null)
+                    {
+                        errLog.Append(String.Format(CultureInfo.InvariantCulture, "操作人员:{0}\r\n", ((Model.Sys_User)Session["CurrUser"]).UserName));
+                        newErr.UserName = ((Model.Sys_User)Session["CurrUser"]).UserId;
+                    }
+                    else
+                    {
+                        PageBase.ZXRefresh(Request.ApplicationPath + "/LogOff.aspx");
+                    }
                 }
                 catch
                 {
+                    try
+                    {
+                        PageBase.ZXRefresh(Request.ApplicationPath + "/OperationError.aspx");
+                    }
+                    catch
+                    {
+                    }
                 }
-            }
-            finally
-            {
-                if (errLog != null)
+                finally
                 {
-                    Funs.DB.Sys_ErrLogInfo.InsertOnSubmit(newErr);
-                    Funs.DB.SubmitChanges();
+                    if (errLog != null)
+                    {
+                        db.Sys_ErrLogInfo.InsertOnSubmit(newErr);
+                        db.SubmitChanges();
+                    }
+
+                    ErrLogInfo.WriteLog(newErr.ErrLogId, ex, errLog == null ? null : errLog.ToString());
+                    Server.ClearError();
+
+                    PageBase.ZXRefresh(Request.ApplicationPath + "/OperationError.aspx");
                 }
-
-                ErrLogInfo.WriteLog(newErr.ErrLogId, ex, errLog == null ? null : errLog.ToString());
-                Server.ClearError();
-
-                PageBase.ZXRefresh(Request.ApplicationPath + "/OperationError.aspx");
             }
-
         }
 
         /// <summary>

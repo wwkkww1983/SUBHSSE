@@ -94,19 +94,19 @@
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="整改期限"
                         HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                   <f:RenderField Width="120px" ColumnID="HandleStepStr" DataField="HandleStepStr" SortField="HandleStepStr"
-                        FieldType="String" HeaderText="处置措施" EnableFilter="true" HeaderTextAlign="Center"
+                   <f:RenderField Width="200px" ColumnID="Suggestions" DataField="Suggestions"
+                        FieldType="String" HeaderText="整改措施与要求" EnableFilter="true" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
                      <f:RenderField Width="80px" ColumnID="IsRectifyName" DataField="IsRectifyName" SortField="IsRectifyName"
                         FieldType="String" HeaderText="复查结果" EnableFilter="true" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>
-                     <f:RenderField Width="100px" ColumnID="ReCheckDate" DataField="ReCheckDate" SortField="ReCheckDate"
+                     <f:RenderField Width="100px" ColumnID="CompletedDate" DataField="CompletedDate" SortField="CompletedDate"
                         FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="复查日期"
                         HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
-                     <f:RenderField Width="80px" ColumnID="ReCheckPersonName" DataField="ReCheckPersonName" SortField="ReCheckPersonName"
+                     <f:RenderField Width="80px" ColumnID="CheckPersonName" DataField="CheckPersonName" SortField="CheckPersonName"
                         FieldType="String" HeaderText="复查人" EnableFilter="true" HeaderTextAlign="Center"
                         TextAlign="Left">
                     </f:RenderField>

@@ -262,9 +262,10 @@ namespace FineUIPro.Web.BaseInfo
                 {
                     this.btnSave.Hidden = false;
                 }
-                ////赛鼎单位 显示题型设置按钮
+                //赛鼎\七单位 显示题型设置按钮
                 var getThisUnit = CommonService.GetIsThisUnit();
-                if (getThisUnit != null && getThisUnit.UnitId == Const.UnitId_SEDIN)
+                if (getThisUnit != null && (getThisUnit.UnitId == Const.UnitId_SEDIN 
+                    || getThisUnit.UnitId == Const.UnitId_7 || getThisUnit.UnitId == Const.UnitId_CWCEC))
                 {
                     this.btnMenuSet.Hidden = false;
                 }

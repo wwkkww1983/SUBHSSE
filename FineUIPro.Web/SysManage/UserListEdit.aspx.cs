@@ -64,7 +64,7 @@ namespace FineUIPro.Web.SysManage
         {
             if (!IsPostBack)
             {
-                if (CommonService.GetIsThisUnit(Const.UnitId_SEDIN))
+                if (CommonService.GetIsThisUnit(Const.UnitId_SEDIN) || CommonService.GetIsThisUnit(Const.UnitId_7))
                 {
                     this.Image2.Hidden = false;
                     this.fileSignature.Hidden = false;

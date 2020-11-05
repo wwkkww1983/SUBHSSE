@@ -1,1 +1,33 @@
 ﻿
+错误信息开始=====>
+错误类型:XmlException
+错误信息:名称不能以“<”字符(十六进制值 0x3C)开头。 第 6 行，位置 2。
+错误堆栈:
+   在 System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   在 System.Xml.XmlTextReaderImpl.Throw(String res, String[] args)
+   在 System.Xml.XmlTextReaderImpl.ParseQName(Boolean isQName, Int32 startOffset, Int32& colonPos)
+   在 System.Xml.XmlTextReaderImpl.ParseElement()
+   在 System.Xml.XmlTextReaderImpl.ParseElementContent()
+   在 System.Xml.XmlTextReaderImpl.Read()
+   在 System.Xml.XmlLoader.LoadNode(Boolean skipOverWhitespace)
+   在 System.Xml.XmlLoader.LoadDocSequence(XmlDocument parentDoc)
+   在 System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace)
+   在 System.Xml.XmlDocument.Load(XmlReader reader)
+   在 System.Web.UI.WebControls.XmlDataSource.PopulateXmlDocument(XmlDocument document, CacheDependency& dataCacheDependency, CacheDependency& transformCacheDependency)
+   在 System.Web.UI.WebControls.XmlDataSource.GetXmlDocument()
+   在 FineUIPro.Web._default.InitTreeMenu() 位置 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\default.aspx.cs:行号 232
+   在 FineUIPro.Web._default.MenuSwitchMethod(String type) 位置 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\default.aspx.cs:行号 797
+   在 FineUIPro.Web._default.Page_Init(Object sender, EventArgs e) 位置 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\default.aspx.cs:行号 81
+   在 System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   在 System.Web.UI.Control.OnInit(EventArgs e)
+   在 System.Web.UI.Page.OnInit(EventArgs e)
+   在 FineUIPro.Web.PageBase.OnInit(EventArgs e) 位置 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\FineUIPro.Web\common\PageBase.cs:行号 98
+   在 System.Web.UI.Control.InitRecursive(Control namingContainer)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+出错时间:11/04/2020 08:49:26
+出错文件:http://localhost:8118/default.aspx
+IP地址:::1
+操作人员:系统管理员
+
+出错时间:11/04/2020 08:49:26
+

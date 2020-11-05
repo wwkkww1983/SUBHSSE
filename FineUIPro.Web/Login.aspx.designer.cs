@@ -31,22 +31,13 @@ namespace FineUIPro.Web {
         protected global::FineUIPro.PageManager PageManager1;
         
         /// <summary>
-        /// Panel1 控件。
+        /// Window1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Panel Panel1;
-        
-        /// <summary>
-        /// Panel28 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Panel Panel28;
+        protected global::FineUIPro.Window Window1;
         
         /// <summary>
         /// SimpleForm1 控件。
@@ -76,13 +67,13 @@ namespace FineUIPro.Web {
         protected global::FineUIPro.TextBox tbxPassword;
         
         /// <summary>
-        /// Panel2 控件。
+        /// Panel1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Panel Panel2;
+        protected global::FineUIPro.Panel Panel1;
         
         /// <summary>
         /// tbxCaptcha 控件。
@@ -103,13 +94,13 @@ namespace FineUIPro.Web {
         protected global::FineUIPro.LinkButton imgCaptcha;
         
         /// <summary>
-        /// Panel3 控件。
+        /// Panel2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Panel Panel3;
+        protected global::FineUIPro.Panel Panel2;
         
         /// <summary>
         /// btnLogin 控件。
@@ -119,5 +110,59 @@ namespace FineUIPro.Web {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Button btnLogin;
+        
+        /// <summary>
+        /// btnReset 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnReset;
+        
+        /// <summary>
+        /// ckRememberMe 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.CheckBox ckRememberMe;
+        
+        /// <summary>
+        /// Panel4 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Panel Panel4;
+        
+        /// <summary>
+        /// lbSubName 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label lbSubName;
+        
+        /// <summary>
+        /// Panel3 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Panel Panel3;
+        
+        /// <summary>
+        /// lbVevion 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label lbVevion;
     }
 }

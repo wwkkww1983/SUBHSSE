@@ -1112,6 +1112,13 @@
             <param name="flowReceiveItem"></param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.CommonController.getTakePicDate(System.String)">
+            <summary>
+            GetTakePicDate
+            </summary>
+            <param name="fileUrl"></param>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.IDCardController">
             <summary>
              读取身份证信息
@@ -1861,6 +1868,15 @@
             <param name="identityCard"></param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.PersonController.getPersonByProjectIdIdentityCard(System.String,System.String)">
+            <summary>
+            根据projectId、identityCard获取人员信息
+            </summary>
+            <param name="projectId"></param>
+            <param name="identityCard"></param>
+            <returns></returns>
+        </member>
+<<<<<<< HEAD
         <member name="M:WebAPI.Controllers.PersonController.getPersonByProjectIdUnitId(System.String,System.String,System.Int32)">
             <summary>
             根据projectId、unitid获取人员信息
@@ -1870,6 +1886,8 @@
             <param name="pageIndex"></param>
             <returns></returns>
         </member>
+=======
+>>>>>>> 71c0658ffa6b64308ee7579024b2e137dd973193
         <member name="M:WebAPI.Controllers.PersonController.getPersonStatesCount(System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             获取在岗、离岗、待审人员列表
@@ -2787,6 +2805,16 @@
             <param name="projectId">项目ID</param>
             <returns></returns>
         </member>
+<<<<<<< HEAD
+        <member name="M:WebAPI.Controllers.UserController.getSystemPowerList(System.String)">
+            <summary>
+            获取当前用户是否有菜单权限
+            </summary>
+            <param name="userId">当前人ID</param>
+            <returns></returns>
+        </member>
+=======
+>>>>>>> 71c0658ffa6b64308ee7579024b2e137dd973193
         <member name="M:WebAPI.Controllers.UserController.getMenuPowerList(System.String,System.String)">
             <summary>
             获取当前用户是否有菜单权限
@@ -2839,6 +2867,12 @@
             <summary>
             
             </summary>
+        </member>
+        <member name="M:WebAPI.Filter.TestPermissionAttribute.OnActionExecuted(System.Web.Http.Filters.HttpActionExecutedContext)">
+            <summary>
+            
+            </summary>
+            <param name="actionExecutedContext"></param>
         </member>
         <member name="T:WebAPI.WebApiApplication">
             <summary>

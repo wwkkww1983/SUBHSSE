@@ -428,11 +428,7 @@ namespace FineUIPro.Web.SitePerson
         {
             if (dayReportId != null)
             {
-                var q = from y in Funs.DB.SitePerson_DayReportDetail where y.DayReportId == dayReportId.ToString() select y;
-                if (q.Count() > 0)
-                {
-                     return q.Sum(x => x.PersonWorkTime ?? 0).ToString();
-                }
+               return Funs.DB.SitePerson_DayReportDetail.Where(x => x.DayReportId == dayReportId.ToString()).Sum(x => x.PersonWorkTime ?? 0).ToString();
             }
             return "";
         }

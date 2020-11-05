@@ -172,6 +172,14 @@ namespace BLL
                     {
                         unitId = getUnit.UnitId;
                     }
+                    else
+                    {
+                         var getUnitN = db.Base_Unit.FirstOrDefault(x => x.UnitName == item["DepartName"].ToString());
+                        if (getUnitN != null)
+                        {
+                            unitId = getUnitN.UnitId;
+                        }
+                    }
 
                     ///区域
                     string workAreaId = null;
@@ -374,7 +382,7 @@ namespace BLL
                         {
                             foreach (var itemList in lists)
                             {
-                                var getUnit = db.Base_Unit.FirstOrDefault(x => x.UnitName == itemList);
+                                var getUnit = db.Base_Unit.FirstOrDefault(x => x.UnitName == itemList || ("中国五环工程有限公司/" +x.UnitName) == itemList);
                                 if (getUnit != null)
                                 {
                                     if (string.IsNullOrEmpty(unitId))
@@ -384,6 +392,34 @@ namespace BLL
                                     else
                                     {
                                         unitId += ("," + getUnit.UnitId);
+                                    }
+                                }
+                                else
+                                {
+                                    Model.Base_Unit newUnit = new Model.Base_Unit
+                                    {
+                                        UnitId = SQLHelper.GetNewID(),
+                                        UnitName = itemList,
+                                    };
+                                    db.Base_Unit.InsertOnSubmit(newUnit);
+                                    db.SubmitChanges();
+
+                                    Model.Project_ProjectUnit newpu = new Model.Project_ProjectUnit
+                                    {
+                                        ProjectUnitId=SQLHelper.GetNewID(),
+                                        ProjectId=projectId,
+                                        UnitId= newUnit.UnitId,
+                                    };
+                                    db.Project_ProjectUnit.InsertOnSubmit(newpu);
+                                    db.SubmitChanges();
+
+                                    if (string.IsNullOrEmpty(unitId))
+                                    {
+                                        unitId = newUnit.UnitId;
+                                    }
+                                    else
+                                    {
+                                        unitId += ("," + newUnit.UnitId);
                                     }
                                 }
                             }
@@ -485,6 +521,26 @@ namespace BLL
                     {
                         personId = getPerson.PersonId;
                     }
+                    else
+                    {
+                        Model.SitePerson_Person newPerson = new Model.SitePerson_Person
+                        {
+                            PersonId = SQLHelper.GetNewID(),
+                            ProjectId = projectId,
+                            PersonName = item["EmpName"].ToString(),
+                            IdentityCard = item["IdentifyId"].ToString(),
+                        };
+
+                        var getUnit = db.Base_Unit.FirstOrDefault(x => x.UnitName == item["DepartName"].ToString());
+                        if (getUnit != null)
+                        {
+                            newPerson.UnitId = getUnit.UnitId;
+                        }
+                        db.SitePerson_Person.InsertOnSubmit(newPerson);
+                        db.SubmitChanges();
+                        personId = newPerson.PersonId;
+                    }
+
                     bool checkResult = false;
                     if (item["IsPass"].ToString() == "1")
                     {
@@ -826,7 +882,7 @@ namespace BLL
                     {
                         #region 现场当前人员数
                         int SitePersonNum = 0;
-                        var getDayAll = from x in getAllPersonInOutList
+                        var getDayAll = from x in db.SitePerson_PersonInOutNow
                                         where x.ChangeTime.Value.Year == DateTime.Now.Year && x.ChangeTime.Value.Month == DateTime.Now.Month
                                         && x.ChangeTime.Value.Day == DateTime.Now.Day
                                         select x;
@@ -838,17 +894,17 @@ namespace BLL
                             if (getInMaxs.Count() > 0)
                             {
                                 SitePersonNum = (from x in getInMaxs
-                                                            join y in getDayAll on new { x.PersonId, x.ChangeTime } equals new { y.PersonId, y.ChangeTime }
-                                                            where  y.IsIn == true
-                                                            select y).Count();
+                                                 join y in getDayAll on new { x.PersonId, x.ChangeTime } equals new { y.PersonId, y.ChangeTime }
+                                                 where y.IsIn == true
+                                                 select y).Count();
                             }
                         }
                         #endregion
 
                         #region 获取工时                  
-                        int SafeHours = 0;                        
+                        int SafeHours = 0;
                         var getPersonOutTimes = from x in getAllPersonInOutList
-                                                where x.IsIn == false 
+                                                where x.IsIn == false
                                                 select x;
                         var getInLists = getAllPersonInOutList.Where(x => x.IsIn == true);
                         //// 查找当前项目 最新的人工时数量记录

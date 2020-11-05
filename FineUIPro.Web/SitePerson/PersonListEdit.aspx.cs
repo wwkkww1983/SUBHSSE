@@ -439,8 +439,8 @@ namespace FineUIPro.Web.SitePerson
                 }
                 fileName = fileName.Replace(":", "_").Replace(" ", "_").Replace("\\", "_").Replace("/", "_");
                 fileName = DateTime.Now.Ticks.ToString() + "_" + fileName;
-                string url = "~/FileUpload/PersonBaseInfo/" + DateTime.Now.Year + "-" + DateTime.Now.Month + "/"
-;                filePhoto.SaveAs(Server.MapPath(url + fileName));
+                string url = "~/FileUpload/PersonBaseInfo/" + DateTime.Now.Year + "-" + DateTime.Now.Month + "/";
+                filePhoto.SaveAs(Server.MapPath(url + fileName));
                 imgPhoto.ImageUrl = url + fileName;
                 // 清空文件上传组件
                 filePhoto.Reset();

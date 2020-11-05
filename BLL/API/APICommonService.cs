@@ -2,7 +2,11 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Configuration;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace BLL
 {
@@ -11,61 +15,6 @@ namespace BLL
     /// </summary>
     public static class APICommonService
     {
-        #region  获取appid、secret
-        /// <summary>
-        ///  获取appid
-        /// </summary>
-        /// <returns></returns>
-        public static string getUnitAppId()
-        {
-            string appid = string.Empty;
-            string secret = string.Empty;
-            switch (CommonService.GetIsThisUnitId())
-            {
-                case Const.UnitId_TCC_:
-                    appid = Const.AppID_TCC_;
-                    secret = Const.AppSecret_TCC_;
-                    break;
-
-                case Const.UnitId_SEDIN:
-                    appid = Const.AppID_SEDIN;
-                    secret = Const.AppSecret_SEDIN;
-                    break;
-            }
-
-            return appid;
-        }
-
-        /// <summary>
-        /// 获取secret
-        /// </summary>
-        /// <returns></returns>
-        public static string getUnitSecret()
-        {
-            string appid = string.Empty;
-            string secret = string.Empty;
-            switch (CommonService.GetIsThisUnitId())
-            {
-                case Const.UnitId_TCC_:
-                    appid = Const.AppID_TCC_;
-                    secret = Const.AppSecret_TCC_;
-                    break;
-
-                case Const.UnitId_SEDIN:
-                    appid = Const.AppID_SEDIN;
-                    secret = Const.AppSecret_SEDIN;
-                    break;
-
-                case Const.UnitId_XJYJ:
-                    appid = Const.AppID_XJYJ;
-                    secret = Const.AppSecret_XJYJ;
-                    break;
-            }
-
-            return secret;
-        }
-        #endregion
-
         #region 获取access_token信息
         /// <summary>
         ///  获取access_token信息
@@ -75,8 +24,8 @@ namespace BLL
         public static string getaccess_token()
         {
             string access_token = string.Empty;
-            string appid = getUnitAppId();
-            string secret = getUnitSecret();
+            string appid = Const.AppID_SEDIN;
+            string secret = Const.AppSecret_SEDIN;
             //string appid = "wxb5f0e8051b7b9eee";
             //string secret = "626175f8860bf84beb4cf507b9445115";
             using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
@@ -140,7 +89,7 @@ namespace BLL
                     access_token,
                     touser = getUser.OpenId,
                     template_id = Const.WX_TemplateID,
-                    page = "pages/home/main",
+                    page = "pages/index/main",
                     data = new
                     {
                         thing2 = new { value = thing2 },
@@ -150,7 +99,7 @@ namespace BLL
                     miniprogram_state,
                     lang = "zh_CN",
                 };
-                string messages= APIGetHttpService.Http(url, "POST", contenttype, null, JsonConvert.SerializeObject(tempData));
+                string messages = APIGetHttpService.Http(url, "POST", contenttype, null, JsonConvert.SerializeObject(tempData));
                 //// 记录
                 SaveSysHttpLog(getUser.UserName, url, messages);
                 return messages;
@@ -169,11 +118,11 @@ namespace BLL
         /// <param name="userId"></param>
         /// <param name="jsCode"></param>
         /// <returns></returns>
-        public static string getUserOpenId(string userId, string jsCode,bool isRefresh = false)
+        public static string getUserOpenId(string userId, string jsCode, bool isRefresh = false)
         {
             string openId = string.Empty;
-            string appid = getUnitAppId();
-            string secret = getUnitSecret();
+            string appid = Const.AppID_SEDIN;
+            string secret = Const.AppSecret_SEDIN;
             //string appid = "wxb5f0e8051b7b9eee";
             //string secret = "626175f8860bf84beb4cf507b9445115";      
             using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
@@ -237,7 +186,7 @@ namespace BLL
                     var getRectifyNotices = db.Check_RectifyNotices.FirstOrDefault(x => x.RectifyNoticesId == flowReceiveItem.DataId);
                     if (getRectifyNotices != null)
                     {
-                        if (getRectifyNotices.ProfessionalEngineerId == flowReceiveItem.OperaterId) ////专业工程师
+                        if (!string.IsNullOrEmpty(getRectifyNotices.ProfessionalEngineerId) && getRectifyNotices.ProfessionalEngineerId.Contains(flowReceiveItem.OperaterId)) ////专业工程师
                         {
                             if (!getRectifyNotices.ProfessionalEngineerTime1.HasValue)
                             {
@@ -277,7 +226,7 @@ namespace BLL
                         {
                             if (!getRectifyNotices.DutyPersonTime.HasValue)
                             {
-                                getRectifyNotices.DutyPersonTime = DateTime.Now;                               
+                                getRectifyNotices.DutyPersonTime = DateTime.Now;
                             }
                         }
 
@@ -292,7 +241,7 @@ namespace BLL
                     var getPunishNotice = db.Check_PunishNotice.FirstOrDefault(x => x.PunishNoticeId == flowReceiveItem.DataId);
                     if (getPunishNotice != null)
                     {
-                        if (getPunishNotice.ProfessionalEngineerId == flowReceiveItem.OperaterId) ////总包专业工程师
+                        if (!string.IsNullOrEmpty(getPunishNotice.ProfessionalEngineerId) && getPunishNotice.ProfessionalEngineerId.Contains(flowReceiveItem.OperaterId)) ////总包专业工程师
                         {
                             getPunishNotice.ProfessionalEngineerTime = DateTime.Now;
                         }
@@ -316,7 +265,7 @@ namespace BLL
                     var getPunishNotice = db.Check_PauseNotice.FirstOrDefault(x => x.PauseNoticeId == flowReceiveItem.DataId);
                     if (getPunishNotice != null)
                     {
-                        if (getPunishNotice.ProfessionalEngineerId == flowReceiveItem.OperaterId) ////总包专业工程师
+                        if (!string.IsNullOrEmpty(getPunishNotice.ProfessionalEngineerId) && getPunishNotice.ProfessionalEngineerId.Contains(flowReceiveItem.OperaterId)) ////总包专业工程师
                         {
                             getPunishNotice.ProfessionalEngineerTime = DateTime.Now;
                         }
@@ -328,7 +277,7 @@ namespace BLL
                         {
                             getPunishNotice.UnitHeadManTime = DateTime.Now;
                         }
-                        else if (getPunishNotice.SupervisorManId== flowReceiveItem.OperaterId) ////监理
+                        else if (getPunishNotice.SupervisorManId == flowReceiveItem.OperaterId) ////监理
                         {
                             getPunishNotice.UnitHeadManTime = DateTime.Now;
                         }
@@ -365,6 +314,36 @@ namespace BLL
                 db.Sys_HttpLog.InsertOnSubmit(newLog);
                 db.SubmitChanges();
             }
+        }
+
+        /// 获中的照片拍摄日期
+        /// </summary>
+        /// <param name="fileName">文件名</param>
+        /// <returns>拍摄日期</returns>
+        public static string GetTakePicDate(string fileName)
+        {
+            Encoding ascii = Encoding.ASCII;
+            string picDate;
+            FileStream stream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            Image image = Image.FromStream(stream, true, false);
+            foreach (PropertyItem p in image.PropertyItems)
+            {
+                //获取拍摄日期时间
+                if (p.Id == 0x9003) // 0x0132 最后更新时间
+                {
+                    stream.Close();
+                    picDate = ascii.GetString(p.Value);
+                    if ((!"".Equals(picDate)) && picDate.Length >= 10)
+                    {
+                        // 拍摄日期
+                        picDate = picDate.Substring(0, 10);
+                        picDate = picDate.Replace(":", "-");
+                        return picDate;
+                    }
+                }
+            }
+            stream.Close();
+            return "";
         }
     }
 }

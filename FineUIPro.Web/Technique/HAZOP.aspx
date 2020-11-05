@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="HAZOP.aspx.cs" Inherits="FineUIPro.Web.Technique.HAZOP" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="HAZOP.aspx.cs"
+    Inherits="FineUIPro.Web.Technique.HAZOP" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -61,7 +62,7 @@
                             <f:RenderField Width="250px" ColumnID="Abstract" DataField="Abstract" SortField="Abstract" ExpandUnusedSpace="true"
                                 FieldType="String" HeaderTextAlign="Center" TextAlign="Left" HeaderText="摘要">
                             </f:RenderField>
-                            <f:RenderField Width="90px" ColumnID="HAZOPDate" DataField="HAZOPDate" SortField="HAZOPDate"
+                            <f:RenderField Width="100px" ColumnID="HAZOPDate" DataField="HAZOPDate" SortField="HAZOPDate"
                                 FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="时间"
                                 HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
@@ -70,7 +71,7 @@
                             <f:RenderField Width="90px" ColumnID="CompileMan" DataField="CompileMan" SortField="CompileMan"
                                 FieldType="String" HeaderText="整理人" HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>
-                            <f:RenderField Width="90px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
+                            <f:RenderField Width="100px" ColumnID="CompileDate" DataField="CompileDate" SortField="CompileDate"
                                 FieldType="Date" Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="整理日期"
                                 HeaderTextAlign="Center" TextAlign="Center">
                             </f:RenderField>

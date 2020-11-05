@@ -29,86 +29,89 @@ namespace BLL
         /// <returns>最终写入的错误信息</returns>
         public static string WriteLog(string ErrId, Exception ex, params string[] appendErrLog)
         {
-            StringBuilder errLog = new StringBuilder();
-            if (ex != null)
+            using (Model.SUBHSSEDB db = new Model.SUBHSSEDB(Funs.ConnString))
             {
-                Exception innerEx = ex.InnerException;
-                errLog.Append("\r\n");
-                errLog.Append("错误信息开始=====>\r\n");
-                errLog.Append(String.Format(CultureInfo.InvariantCulture, "错误类型:{0}\r\n", ex.GetType().Name));                
-                errLog.Append(String.Format(CultureInfo.InvariantCulture, "错误信息:{0}\r\n", ex.Message));
-                errLog.Append("错误堆栈:\r\n");
-                errLog.Append(String.Format(CultureInfo.InvariantCulture, "{0}\r\n", ex.StackTrace));
-                Model.Sys_ErrLogInfo newErr = new Model.Sys_ErrLogInfo
+                StringBuilder errLog = new StringBuilder();
+                if (ex != null)
                 {
-                    ErrType = ex.GetType().Name,
-                    ErrMessage = ex.Message,
-                    ErrStackTrace = ex.StackTrace
-                };
-
-                int level = 1;
-                while (innerEx != null)
-                {
-                    string preString = new string('-', level * 4);
-                    errLog.Append(preString);
-                    if (innerEx.GetType() != null)
-                    {
-                        errLog.Append(String.Format(CultureInfo.InvariantCulture, "错误类型:{0}\r\n", innerEx.GetType().Name));
-                    }
-                    errLog.Append(preString);
-                    errLog.Append("错误信息:\r\n");
-                    errLog.Append(preString);
-                    errLog.Append(innerEx.Message + "\r\n");
-                    errLog.Append(preString);
+                    Exception innerEx = ex.InnerException;
+                    errLog.Append("\r\n");
+                    errLog.Append("错误信息开始=====>\r\n");
+                    errLog.Append(String.Format(CultureInfo.InvariantCulture, "错误类型:{0}\r\n", ex.GetType().Name));
+                    errLog.Append(String.Format(CultureInfo.InvariantCulture, "错误信息:{0}\r\n", ex.Message));
                     errLog.Append("错误堆栈:\r\n");
-                    errLog.Append(new string(' ', level * 4));
-                    if (innerEx.StackTrace != null)
+                    errLog.Append(String.Format(CultureInfo.InvariantCulture, "{0}\r\n", ex.StackTrace));
+                    Model.Sys_ErrLogInfo newErr = new Model.Sys_ErrLogInfo
                     {
-                        errLog.Append(String.Format(CultureInfo.InvariantCulture, "{0}\r\n", innerEx.StackTrace.Replace("\r\n", "\r\n" + new string(' ', level * 4))));
-                    }
-                    newErr.ErrType += innerEx.GetType().Name;
-                    newErr.ErrMessage += innerEx.Message;
-                    newErr.ErrStackTrace += innerEx.StackTrace;
+                        ErrType = ex.GetType().Name,
+                        ErrMessage = ex.Message,
+                        ErrStackTrace = ex.StackTrace
+                    };
 
-                    innerEx = innerEx.InnerException;
-                    level++;
-                }
-
-                errLog.Append(String.Format(CultureInfo.InvariantCulture, "出错时间:{0}\r\n", DateTime.Now));
-                newErr.ErrTime = DateTime.Now;
-
-                var errlogInfo = Funs.DB.Sys_ErrLogInfo.FirstOrDefault(x => x.ErrLogId == ErrId);
-                if (errlogInfo != null)
-                {
-                    errlogInfo.ErrType = newErr.ErrType;
-                    errlogInfo.ErrMessage = newErr.ErrMessage;
-                    errlogInfo.ErrStackTrace = newErr.ErrStackTrace;
-                    errlogInfo.ErrTime = newErr.ErrTime;
-                    Funs.DB.SubmitChanges();
-                }
-                else
-                {
-                    newErr.ErrLogId = SQLHelper.GetNewID(typeof(Model.Sys_ErrLogInfo));
-                    Funs.DB.Sys_ErrLogInfo.InsertOnSubmit(newErr);
-                    Funs.DB.SubmitChanges();                   
-                }
-            }
-
-            if (appendErrLog != null)
-            {
-                foreach (string log in appendErrLog)
-                {
-                    if (log != null)
+                    int level = 1;
+                    while (innerEx != null)
                     {
-                        errLog.Append(log);
-                        errLog.Append("\r\n");
+                        string preString = new string('-', level * 4);
+                        errLog.Append(preString);
+                        if (innerEx.GetType() != null)
+                        {
+                            errLog.Append(String.Format(CultureInfo.InvariantCulture, "错误类型:{0}\r\n", innerEx.GetType().Name));
+                        }
+                        errLog.Append(preString);
+                        errLog.Append("错误信息:\r\n");
+                        errLog.Append(preString);
+                        errLog.Append(innerEx.Message + "\r\n");
+                        errLog.Append(preString);
+                        errLog.Append("错误堆栈:\r\n");
+                        errLog.Append(new string(' ', level * 4));
+                        if (innerEx.StackTrace != null)
+                        {
+                            errLog.Append(String.Format(CultureInfo.InvariantCulture, "{0}\r\n", innerEx.StackTrace.Replace("\r\n", "\r\n" + new string(' ', level * 4))));
+                        }
+                        newErr.ErrType += innerEx.GetType().Name;
+                        newErr.ErrMessage += innerEx.Message;
+                        newErr.ErrStackTrace += innerEx.StackTrace;
+
+                        innerEx = innerEx.InnerException;
+                        level++;
+                    }
+
+                    errLog.Append(String.Format(CultureInfo.InvariantCulture, "出错时间:{0}\r\n", DateTime.Now));
+                    newErr.ErrTime = DateTime.Now;
+
+                    var errlogInfo =db.Sys_ErrLogInfo.FirstOrDefault(x => x.ErrLogId == ErrId);
+                    if (errlogInfo != null)
+                    {
+                        errlogInfo.ErrType = newErr.ErrType;
+                        errlogInfo.ErrMessage = newErr.ErrMessage;
+                        errlogInfo.ErrStackTrace = newErr.ErrStackTrace;
+                        errlogInfo.ErrTime = newErr.ErrTime;
+                        Funs.DB.SubmitChanges();
+                    }
+                    else
+                    {
+                        newErr.ErrLogId = SQLHelper.GetNewID(typeof(Model.Sys_ErrLogInfo));
+                        db.Sys_ErrLogInfo.InsertOnSubmit(newErr);
+                        db.SubmitChanges();
                     }
                 }
 
-                errLog.Append(String.Format(CultureInfo.InvariantCulture, "出错时间:{0}\r\n", DateTime.Now));
+                if (appendErrLog != null)
+                {
+                    foreach (string log in appendErrLog)
+                    {
+                        if (log != null)
+                        {
+                            errLog.Append(log);
+                            errLog.Append("\r\n");
+                        }
+                    }
+
+                    errLog.Append(String.Format(CultureInfo.InvariantCulture, "出错时间:{0}\r\n", DateTime.Now));
+                }
+
+                return WriteLog(errLog.ToString());
             }
-            
-            return WriteLog(errLog.ToString());
         }
 
         /// <summary>

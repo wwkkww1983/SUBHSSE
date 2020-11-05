@@ -33,7 +33,7 @@
             <f:FormRow>
                 <Items>
                     <f:DropDownList ID="drpUnitId" runat="server" Label="单位" LabelAlign="Right" ForceSelection="false"
-                        AutoPostBack="True" OnSelectedIndexChanged="drpUnitId_SelectedIndexChanged">
+                        AutoPostBack="True" OnSelectedIndexChanged="drpUnitId_SelectedIndexChanged" ShowRedStar="true" Required="true">
                     </f:DropDownList>
                 </Items>
             </f:FormRow>

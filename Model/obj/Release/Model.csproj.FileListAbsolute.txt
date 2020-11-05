@@ -117,10 +117,13 @@ D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\bin\Release\EmitMapper.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\bin\Release\Newtonsoft.Json.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\bin\Release\Newtonsoft.Json.pdb
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\bin\Release\Newtonsoft.Json.xml
+D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Release\Model.csprojAssemblyReference.cache
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Release\Model.csproj.CoreCompileInputs.cache
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Release\Model.csproj.CopyComplete
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Release\Model.dll
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Release\Model.pdb
+<<<<<<< HEAD
+=======
 D:\DepCode\CNCEC\SUBHSSE\SUBHSSE\Model\obj\Release\Model.csprojAssemblyReference.cache
 D:\DepCode\SEDIN\SUBHSSE\SUBHSSE\Model\bin\Release\Model.dll
 D:\DepCode\SEDIN\SUBHSSE\SUBHSSE\Model\bin\Release\Model.pdb
@@ -144,3 +147,4 @@ D:\DepCode\SEDIN\HSSE\HSSE\Model\obj\Release\Model.csproj.CopyComplete
 D:\DepCode\SEDIN\HSSE\HSSE\Model\obj\Release\Model.dll
 D:\DepCode\SEDIN\HSSE\HSSE\Model\obj\Release\Model.pdb
 D:\DepCode\SEDIN\HSSE\HSSE\Model\obj\Release\Model.csprojAssemblyReference.cache
+>>>>>>> 71c0658ffa6b64308ee7579024b2e137dd973193

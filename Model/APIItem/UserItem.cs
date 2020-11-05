@@ -7,14 +7,14 @@ namespace Model
 {
     public class UserItem
     {
-       /// <summary>
-       /// 用户ID
-       /// </summary>
-       public string UserId
+        /// <summary>
+        /// 用户ID
+        /// </summary>
+        public string UserId
         {
-           get;
-           set;
-       }
+            get;
+            set;
+        }
         /// <summary>
         /// 账号
         /// </summary>
@@ -44,9 +44,9 @@ namespace Model
         /// </summary>
         public string UserName
         {
-           get;
-           set;
-       }
+            get;
+            set;
+        }
         /// <summary>
         /// 角色ID
         /// </summary>

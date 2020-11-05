@@ -21,7 +21,7 @@ namespace WebAPI.Controllers
         /// <param name="states">状态（0-待提交；1-已发布；2-考试中；3考试结束）</param>
         /// <param name="pageIndex">分页</param>
         /// <returns></returns>
-        public Model.ResponeData getTestPlanListByProjectIdStates(string projectId, string states,int pageIndex)
+        public Model.ResponeData getTestPlanListByProjectIdStates(string projectId, string states, int pageIndex)
         {
             var responeData = new Model.ResponeData();
             try
@@ -74,12 +74,12 @@ namespace WebAPI.Controllers
         /// <param name="trainingPlanId">培训计划ID</param>
         /// <param name="userId">用户ID</param>
         /// <returns></returns>
-        public Model.ResponeData getSaveTestPlanByTrainingPlanId(string trainingPlanId,string userId)
+        public Model.ResponeData getSaveTestPlanByTrainingPlanId(string trainingPlanId, string userId)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                var getTasks = Funs.DB.Training_Task.FirstOrDefault(x => x.PlanId == trainingPlanId);
+                var getTasks = new Model.SUBHSSEDB(Funs.ConnString).Training_Task.FirstOrDefault(x => x.PlanId == trainingPlanId);
                 if (getTasks != null)
                 {
                     if (CommonService.IsMainUnitOrAdmin(userId))
@@ -144,7 +144,7 @@ namespace WebAPI.Controllers
         {
             var responeData = new Model.ResponeData();
             try
-            {                
+            {
                 responeData.data = APITestPlanService.getTestPlanTrainingListByTestPlanId(testPlanId);
             }
             catch (Exception ex)
@@ -168,11 +168,7 @@ namespace WebAPI.Controllers
             try
             {
                 var getDataList = APITestPlanService.getTestPlanTrainingListByTestPlanId(testPlanId);
-                int pageCount = 0;
-                if (CommonService.GetIsThisUnit(Const.UnitId_SEDIN))
-                {
-                    pageCount = getDataList.Count();
-                }
+                int pageCount = getDataList.Count();
                 responeData.data = new { pageCount, getDataList };
             }
             catch (Exception ex)
@@ -196,16 +192,16 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getTestPlan = Funs.DB.Training_TestPlan.FirstOrDefault(e => e.TestPlanId == testPlanId && e.States != "3" && e.TestStartTime <= DateTime.Now && e.TestEndTime >= DateTime.Now); 
+                var getTestPlan = new Model.SUBHSSEDB(Funs.ConnString).Training_TestPlan.FirstOrDefault(e => e.TestPlanId == testPlanId && e.States != "3" && e.TestStartTime <= DateTime.Now && e.TestEndTime >= DateTime.Now);
                 if (getTestPlan != null)
                 {
                     var person = PersonService.GetPersonByUserId(personId, getTestPlan.ProjectId);
                     if (person != null )
                     {
                         //2-考试中；生成考试试卷     
-                        if (getTestPlan.States == "2" )
+                        if (getTestPlan.States == "2")
                         {
-                            var testRecord = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == getTestPlan.TestPlanId && x.TestManId == person.PersonId && !x.TestEndTime.HasValue);
+                            var testRecord = new Model.SUBHSSEDB(Funs.ConnString).Training_TestRecord.FirstOrDefault(x => x.TestPlanId == getTestPlan.TestPlanId && x.TestManId == person.PersonId && !x.TestEndTime.HasValue);
                             if (testRecord != null)
                             {
                                 string testRecordId = APITestRecordService.CreateTestRecordItem(getTestPlan, testRecord.TestRecordId, person);
@@ -218,7 +214,7 @@ namespace WebAPI.Controllers
                             if (string.IsNullOrEmpty(getTestPlan.PlanId) && getTestPlan.UnitIds.Contains(person.UnitId) && (getTestPlan.WorkPostIds == null || getTestPlan.WorkPostIds.Contains(person.WorkPostId)))
                             {
                                 //0-待提交；1-已发布未考试 将人员添加进考试记录                        
-                                var testTRecord = Funs.DB.Training_TestRecord.FirstOrDefault(x => x.TestPlanId == testPlanId && x.TestManId == personId);
+                                var testTRecord = new Model.SUBHSSEDB(Funs.ConnString).Training_TestRecord.FirstOrDefault(x => x.TestPlanId == testPlanId && x.TestManId == personId);
                                 if ((getTestPlan.States == "0" || getTestPlan.States == "1") && testTRecord == null && !string.IsNullOrEmpty(personId))
                                 {
                                     Model.Training_TestRecord newTestRecord = new Model.Training_TestRecord
@@ -234,7 +230,7 @@ namespace WebAPI.Controllers
                                 }
                             }
                         }
-                    }                    
+                    }
                 }
 
                 if (responeData.code == 1)

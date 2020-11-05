@@ -127,7 +127,7 @@ namespace FineUIPro.Web.EduTrain
                         this.btnTrainTest.Hidden = false;
                         this.btnMenuView.Hidden = false;
                     }
-                    if (thisUnit.UnitId == Const.UnitId_SEDIN || thisUnit.UnitId == Const.UnitId_XJYJ)
+                    if (thisUnit.UnitId == Const.UnitId_SEDIN || thisUnit.UnitId == Const.UnitId_7 || thisUnit.UnitId == Const.UnitId_XJYJ)
                     {
                         this.btnTrainingType.Hidden = false;
                         this.trWorkPost.Hidden = false;
@@ -193,8 +193,8 @@ namespace FineUIPro.Web.EduTrain
         protected string GetCheckScore(object TrainDetailId)
         {
             string values = string.Empty;
-            if (CommonService.GetIsThisUnit(Const.UnitId_SEDIN))
-            {
+            //if (CommonService.GetIsThisUnit(Const.UnitId_7))
+            //{
                 var getTrainRecordDetail = Funs.DB.EduTrain_TrainRecordDetail.FirstOrDefault(x => x.TrainDetailId == TrainDetailId.ToString());
                 if (getTrainRecordDetail != null)
                 {
@@ -225,7 +225,7 @@ namespace FineUIPro.Web.EduTrain
                         }
                     }
                 }
-            }
+            //}
             return values;
         }
         #endregion

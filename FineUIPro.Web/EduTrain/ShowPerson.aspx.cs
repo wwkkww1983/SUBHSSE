@@ -106,7 +106,7 @@ namespace FineUIPro.Web.EduTrain
                         var thisUnit = BLL.CommonService.GetIsThisUnit();
                         if (thisUnit != null)
                         {
-                            if (thisUnit.UnitId == Const.UnitId_SEDIN || thisUnit.UnitId == Const.UnitId_XJYJ)
+                            if (thisUnit.UnitId == Const.UnitId_SEDIN || CommonService.GetIsThisUnit(Const.UnitId_7) || thisUnit.UnitId == Const.UnitId_XJYJ)
                             {
                                 detail.CheckScore = null;
                             }

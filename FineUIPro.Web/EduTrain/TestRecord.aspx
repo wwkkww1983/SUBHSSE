@@ -64,11 +64,21 @@
                             <asp:Label ID="labNumber" runat="server" Text=' <%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1%>'></asp:Label>
                         </ItemTemplate>
                     </f:TemplateField>   
+<<<<<<< HEAD
+                    <f:RenderField Width="130px" ColumnID="PlanName" DataField="PlanName" FieldType="String"
+=======
                     <f:RenderField Width="100px" ColumnID="PlanName" DataField="PlanName" FieldType="String"
+>>>>>>> 71c0658ffa6b64308ee7579024b2e137dd973193
                         HeaderText="考试名称" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>
                     <f:RenderField Width="230px" ColumnID="UnitName" DataField="UnitName" FieldType="String"
                         HeaderText="单位" HeaderTextAlign="Center" TextAlign="Left" ExpandUnusedSpace="true">
+<<<<<<< HEAD
+                    </f:RenderField>
+                    <f:RenderField Width="85px" ColumnID="TestManName" DataField="TestManName" FieldType="String"
+                        HeaderText="考生" HeaderTextAlign="Center" TextAlign="Left">
+=======
+>>>>>>> 71c0658ffa6b64308ee7579024b2e137dd973193
                     </f:RenderField>
                     <f:RenderField Width="95px" ColumnID="TestManName" DataField="TestManName" FieldType="String"
                         HeaderText="考生" HeaderTextAlign="Center" TextAlign="Left">
@@ -79,8 +89,13 @@
                     <f:RenderField Width="145px" ColumnID="TestEndTime" DataField="TestEndTime" FieldType="String"
                         HeaderText="考试结束时间" HeaderTextAlign="Center" TextAlign="Left">
                     </f:RenderField>                   
+<<<<<<< HEAD
+                     <f:RenderField Width="80px" ColumnID="TestScores" DataField="TestScores" FieldType="String"
+                        HeaderText="成绩" HeaderTextAlign="Center" TextAlign="Left">
+=======
                      <f:RenderField Width="75px" ColumnID="TestScores" DataField="TestScores" FieldType="String"
                         HeaderText="成绩" HeaderTextAlign="Center" TextAlign="Right">
+>>>>>>> 71c0658ffa6b64308ee7579024b2e137dd973193
                     </f:RenderField>
                      <f:RenderField Width="75px" ColumnID="TotalScore" DataField="TotalScore" FieldType="String"
                         HeaderText="总分" HeaderTextAlign="Center" TextAlign="Right">

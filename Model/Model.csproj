@@ -128,6 +128,7 @@
     <Compile Include="APIItem\SubscribeMessageItem.cs" />
     <Compile Include="APIItem\UserReadItem.cs" />
     <Compile Include="APIItem\UserItem.cs" />
+    <Compile Include="APIItem\WorkPostStatisticItem.cs" />
     <Compile Include="Chart\DataSourceChart.cs" />
     <Compile Include="Chart\DataSourcePoint.cs" />
     <Compile Include="Chart\DataSourceTeam.cs" />
@@ -138,6 +139,12 @@
     <Compile Include="Model.cs" />
     <Compile Include="ModelProc.cs" />
     <Compile Include="MonthReportCHSEDay.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpResourceCollection.cs" />
     <Compile Include="SpSysMenuItem.cs" />
@@ -148,7 +155,40 @@
     <Compile Include="SpManagerTotalMonthSafetyDataDItem.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Debug\Model.csproj.CopyComplete" />
+    <None Include="obj\Debug\Model.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug\Model.csprojAssemblyReference.cache" />
+    <None Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Release\Model.csproj.CopyComplete" />
+    <None Include="obj\Release\Model.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Release\Model.csprojAssemblyReference.cache" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\EmitMapper.dll" />
+    <Content Include="bin\Debug\Model.dll" />
+    <Content Include="bin\Debug\Model.pdb" />
+    <Content Include="bin\Debug\Newtonsoft.Json.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.pdb" />
+    <Content Include="bin\Debug\Newtonsoft.Json.xml" />
+    <Content Include="bin\Release\EmitMapper.dll" />
+    <Content Include="bin\Release\Model.dll" />
+    <Content Include="bin\Release\Model.pdb" />
+    <Content Include="bin\Release\Newtonsoft.Json.dll" />
+    <Content Include="bin\Release\Newtonsoft.Json.pdb" />
+    <Content Include="bin\Release\Newtonsoft.Json.xml" />
+    <Content Include="Model.csproj.user" />
+    <Content Include="obj\Debug\Model.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\Model.dll" />
+    <Content Include="obj\Debug\Model.pdb" />
+    <Content Include="obj\Release\Model.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Release\Model.dll" />
+    <Content Include="obj\Release\Model.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="obj\Release\TempPE\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

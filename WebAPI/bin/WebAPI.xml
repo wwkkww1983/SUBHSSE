@@ -1112,6 +1112,13 @@
             <param name="flowReceiveItem"></param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.CommonController.getTakePicDate(System.String)">
+            <summary>
+            GetTakePicDate
+            </summary>
+            <param name="fileUrl"></param>
+            <returns></returns>
+        </member>
         <member name="T:WebAPI.Controllers.IDCardController">
             <summary>
              读取身份证信息
@@ -1858,6 +1865,14 @@
             <summary>
             根据identityCard获取人员信息
             </summary>
+            <param name="identityCard"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PersonController.getPersonByProjectIdIdentityCard(System.String,System.String)">
+            <summary>
+            根据projectId、identityCard获取人员信息
+            </summary>
+            <param name="projectId"></param>
             <param name="identityCard"></param>
             <returns></returns>
         </member>
@@ -2787,6 +2802,13 @@
             <param name="projectId">项目ID</param>
             <returns></returns>
         </member>
+        <member name="M:WebAPI.Controllers.UserController.getSystemPowerList(System.String)">
+            <summary>
+            获取当前用户是否有菜单权限
+            </summary>
+            <param name="userId">当前人ID</param>
+            <returns></returns>
+        </member>
         <member name="M:WebAPI.Controllers.UserController.getMenuPowerList(System.String,System.String)">
             <summary>
             获取当前用户是否有菜单权限
@@ -2836,6 +2858,17 @@
             <param name="actionContext"></param>
         </member>
         <member name="F:WebAPI.Filter.TestPermissionAttribute.lists">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebAPI.Filter.TestPermissionAttribute.OnActionExecuted(System.Web.Http.Filters.HttpActionExecutedContext)">
+            <summary>
+            
+            </summary>
+            <param name="actionExecutedContext"></param>
+        </member>
+        <member name="F:WebAPI.Filter.TestPermissionAttribute.listeds">
             <summary>
             
             </summary>

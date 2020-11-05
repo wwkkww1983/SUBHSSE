@@ -14,9 +14,15 @@ namespace BLL
         public const string sysglyId = "AF17168B-87BD-4GLY-1111-F0A0A1158F9B";
 
         /// <summary>
+        /// 系统管理员登录名
+        /// </summary>
+        public const string adminAccount = "sysgly";
+
+        /// <summary>
         /// 系统管理员ID
         /// </summary>
         public const string hfnbdId = "C4A62EC0-E5D3-4EBF-A5FA-E56AA89633C0";
+        
 
         /// <summary>
         /// 公共临时账户ID
@@ -37,12 +43,10 @@ namespace BLL
         /// 默认用户密码
         /// </summary>
         public const string Password = "123";
-
         /// <summary>
         /// 入场培训类型ID
         /// </summary>
         public const string EntryTrainTypeId = "8920c9cc-fa92-49b2-9493-775a55da27bb";
-        
         /// <summary>
         /// 微信订阅模板ID
         /// </summary>
